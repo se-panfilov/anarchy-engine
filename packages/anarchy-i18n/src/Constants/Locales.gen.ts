@@ -2,6 +2,24 @@
 /* eslint-disable spellcheck/spell-checker */
 import type { TLocale } from '@Anarchy/i18n/Models';
 
+export const afZa: TLocale = {
+  id: 'af-ZA',
+  languageCode: 'af',
+  regionCode: 'ZA',
+  englishName: 'Afrikaans',
+  nativeName: 'Afrikaans',
+  dir: 'ltr'
+};
+
+export const amEt: TLocale = {
+  id: 'am-ET',
+  languageCode: 'am',
+  regionCode: 'ET',
+  englishName: 'Amharic',
+  nativeName: 'አማርኛ',
+  dir: 'ltr'
+};
+
 export const arSa: TLocale = {
   id: 'ar-SA',
   languageCode: 'ar',
@@ -31,6 +49,24 @@ export const azLatnAz: TLocale = {
   dir: 'ltr'
 };
 
+export const beBy: TLocale = {
+  id: 'be-BY',
+  languageCode: 'be',
+  regionCode: 'BY',
+  englishName: 'Belarusian',
+  nativeName: 'беларуская',
+  dir: 'ltr'
+};
+
+export const bgBg: TLocale = {
+  id: 'bg-BG',
+  languageCode: 'bg',
+  regionCode: 'BG',
+  englishName: 'Bulgarian',
+  nativeName: 'български',
+  dir: 'ltr'
+};
+
 export const bnBd: TLocale = {
   id: 'bn-BD',
   languageCode: 'bn',
@@ -49,12 +85,39 @@ export const bnIn: TLocale = {
   dir: 'ltr'
 };
 
+export const bsBa: TLocale = {
+  id: 'bs-BA',
+  languageCode: 'bs',
+  regionCode: 'BA',
+  englishName: 'Bosnian',
+  nativeName: 'bosanski',
+  dir: 'ltr'
+};
+
+export const caEs: TLocale = {
+  id: 'ca-ES',
+  languageCode: 'ca',
+  regionCode: 'ES',
+  englishName: 'Catalan',
+  nativeName: 'català',
+  dir: 'ltr'
+};
+
 export const csCz: TLocale = {
   id: 'cs-CZ',
   languageCode: 'cs',
   regionCode: 'CZ',
   englishName: 'Czech',
   nativeName: 'čeština',
+  dir: 'ltr'
+};
+
+export const cyGb: TLocale = {
+  id: 'cy-GB',
+  languageCode: 'cy',
+  regionCode: 'GB',
+  englishName: 'Welsh',
+  nativeName: 'Cymraeg',
   dir: 'ltr'
 };
 
@@ -220,6 +283,15 @@ export const esMx: TLocale = {
   dir: 'ltr'
 };
 
+export const esPe: TLocale = {
+  id: 'es-PE',
+  languageCode: 'es',
+  regionCode: 'PE',
+  englishName: 'Spanish',
+  nativeName: 'español',
+  dir: 'ltr'
+};
+
 export const esUs: TLocale = {
   id: 'es-US',
   languageCode: 'es',
@@ -229,12 +301,39 @@ export const esUs: TLocale = {
   dir: 'ltr'
 };
 
+export const etEe: TLocale = {
+  id: 'et-EE',
+  languageCode: 'et',
+  regionCode: 'EE',
+  englishName: 'Estonian',
+  nativeName: 'eesti',
+  dir: 'ltr'
+};
+
+export const faIr: TLocale = {
+  id: 'fa-IR',
+  languageCode: 'fa',
+  regionCode: 'IR',
+  englishName: 'Persian',
+  nativeName: 'فارسی',
+  dir: 'rtl'
+};
+
 export const fiFi: TLocale = {
   id: 'fi-FI',
   languageCode: 'fi',
   regionCode: 'FI',
   englishName: 'Finnish',
   nativeName: 'suomi',
+  dir: 'ltr'
+};
+
+export const filPh: TLocale = {
+  id: 'fil-PH',
+  languageCode: 'fil',
+  regionCode: 'PH',
+  englishName: 'Filipino',
+  nativeName: 'Filipino',
   dir: 'ltr'
 };
 
@@ -274,6 +373,33 @@ export const frFr: TLocale = {
   dir: 'ltr'
 };
 
+export const gaIe: TLocale = {
+  id: 'ga-IE',
+  languageCode: 'ga',
+  regionCode: 'IE',
+  englishName: 'Irish',
+  nativeName: 'Gaeilge',
+  dir: 'ltr'
+};
+
+export const glEs: TLocale = {
+  id: 'gl-ES',
+  languageCode: 'gl',
+  regionCode: 'ES',
+  englishName: 'Galician',
+  nativeName: 'galego',
+  dir: 'ltr'
+};
+
+export const guIn: TLocale = {
+  id: 'gu-IN',
+  languageCode: 'gu',
+  regionCode: 'IN',
+  englishName: 'Gujarati',
+  nativeName: 'ગુજરાતી',
+  dir: 'ltr'
+};
+
 export const heIl: TLocale = {
   id: 'he-IL',
   languageCode: 'he',
@@ -292,6 +418,15 @@ export const hiIn: TLocale = {
   dir: 'ltr'
 };
 
+export const hrHr: TLocale = {
+  id: 'hr-HR',
+  languageCode: 'hr',
+  regionCode: 'HR',
+  englishName: 'Croatian',
+  nativeName: 'hrvatski',
+  dir: 'ltr'
+};
+
 export const huHu: TLocale = {
   id: 'hu-HU',
   languageCode: 'hu',
@@ -307,6 +442,15 @@ export const idId: TLocale = {
   regionCode: 'ID',
   englishName: 'Indonesian',
   nativeName: 'Indonesia',
+  dir: 'ltr'
+};
+
+export const isIs: TLocale = {
+  id: 'is-IS',
+  languageCode: 'is',
+  regionCode: 'IS',
+  englishName: 'Icelandic',
+  nativeName: 'íslenska',
   dir: 'ltr'
 };
 
@@ -337,6 +481,33 @@ export const jaJp: TLocale = {
   dir: 'ltr'
 };
 
+export const jvId: TLocale = {
+  id: 'jv-ID',
+  languageCode: 'jv',
+  regionCode: 'ID',
+  englishName: 'Javanese',
+  nativeName: 'Jawa',
+  dir: 'ltr'
+};
+
+export const kmKh: TLocale = {
+  id: 'km-KH',
+  languageCode: 'km',
+  regionCode: 'KH',
+  englishName: 'Khmer',
+  nativeName: 'ខ្មែរ',
+  dir: 'ltr'
+};
+
+export const knIn: TLocale = {
+  id: 'kn-IN',
+  languageCode: 'kn',
+  regionCode: 'IN',
+  englishName: 'Kannada',
+  nativeName: 'ಕನ್ನಡ',
+  dir: 'ltr'
+};
+
 export const koKr: TLocale = {
   id: 'ko-KR',
   languageCode: 'ko',
@@ -346,12 +517,84 @@ export const koKr: TLocale = {
   dir: 'ltr'
 };
 
+export const loLa: TLocale = {
+  id: 'lo-LA',
+  languageCode: 'lo',
+  regionCode: 'LA',
+  englishName: 'Lao',
+  nativeName: 'ລາວ',
+  dir: 'ltr'
+};
+
+export const ltLt: TLocale = {
+  id: 'lt-LT',
+  languageCode: 'lt',
+  regionCode: 'LT',
+  englishName: 'Lithuanian',
+  nativeName: 'lietuvių',
+  dir: 'ltr'
+};
+
+export const lvLv: TLocale = {
+  id: 'lv-LV',
+  languageCode: 'lv',
+  regionCode: 'LV',
+  englishName: 'Latvian',
+  nativeName: 'latviešu',
+  dir: 'ltr'
+};
+
+export const mlIn: TLocale = {
+  id: 'ml-IN',
+  languageCode: 'ml',
+  regionCode: 'IN',
+  englishName: 'Malayalam',
+  nativeName: 'മലയാളം',
+  dir: 'ltr'
+};
+
+export const mrIn: TLocale = {
+  id: 'mr-IN',
+  languageCode: 'mr',
+  regionCode: 'IN',
+  englishName: 'Marathi',
+  nativeName: 'मराठी',
+  dir: 'ltr'
+};
+
+export const msMy: TLocale = {
+  id: 'ms-MY',
+  languageCode: 'ms',
+  regionCode: 'MY',
+  englishName: 'Malay',
+  nativeName: 'Melayu',
+  dir: 'ltr'
+};
+
 export const nbNo: TLocale = {
   id: 'nb-NO',
   languageCode: 'nb',
   regionCode: 'NO',
   englishName: 'Norwegian Bokmål',
   nativeName: 'norsk bokmål',
+  dir: 'ltr'
+};
+
+export const nnNo: TLocale = {
+  id: 'nn-NO',
+  languageCode: 'nn',
+  regionCode: 'NO',
+  englishName: 'Norwegian Nynorsk',
+  nativeName: 'norsk nynorsk',
+  dir: 'ltr'
+};
+
+export const neNp: TLocale = {
+  id: 'ne-NP',
+  languageCode: 'ne',
+  regionCode: 'NP',
+  englishName: 'Nepali',
+  nativeName: 'नेपाली',
   dir: 'ltr'
 };
 
@@ -373,21 +616,12 @@ export const nlNl: TLocale = {
   dir: 'ltr'
 };
 
-export const nnNo: TLocale = {
-  id: 'nn-NO',
-  languageCode: 'nn',
-  regionCode: 'NO',
-  englishName: 'Norwegian Nynorsk',
-  nativeName: 'norsk nynorsk',
-  dir: 'ltr'
-};
-
-export const noNo: TLocale = {
-  id: 'no-NO',
-  languageCode: 'no',
-  regionCode: 'NO',
-  englishName: 'Norwegian',
-  nativeName: 'norsk',
+export const paIn: TLocale = {
+  id: 'pa-IN',
+  languageCode: 'pa',
+  regionCode: 'IN',
+  englishName: 'Punjabi',
+  nativeName: 'ਪੰਜਾਬੀ',
   dir: 'ltr'
 };
 
@@ -436,12 +670,39 @@ export const ruRu: TLocale = {
   dir: 'ltr'
 };
 
+export const siLk: TLocale = {
+  id: 'si-LK',
+  languageCode: 'si',
+  regionCode: 'LK',
+  englishName: 'Sinhala',
+  nativeName: 'සිංහල',
+  dir: 'ltr'
+};
+
 export const skSk: TLocale = {
   id: 'sk-SK',
   languageCode: 'sk',
   regionCode: 'SK',
   englishName: 'Slovak',
   nativeName: 'slovenčina',
+  dir: 'ltr'
+};
+
+export const slSi: TLocale = {
+  id: 'sl-SI',
+  languageCode: 'sl',
+  regionCode: 'SI',
+  englishName: 'Slovenian',
+  nativeName: 'slovenščina',
+  dir: 'ltr'
+};
+
+export const sqAl: TLocale = {
+  id: 'sq-AL',
+  languageCode: 'sq',
+  regionCode: 'AL',
+  englishName: 'Albanian',
+  nativeName: 'shqip',
   dir: 'ltr'
 };
 
@@ -465,12 +726,30 @@ export const srLatnRs: TLocale = {
   dir: 'ltr'
 };
 
+export const svFi: TLocale = {
+  id: 'sv-FI',
+  languageCode: 'sv',
+  regionCode: 'FI',
+  englishName: 'Swedish',
+  nativeName: 'svenska',
+  dir: 'ltr'
+};
+
 export const svSe: TLocale = {
   id: 'sv-SE',
   languageCode: 'sv',
   regionCode: 'SE',
   englishName: 'Swedish',
   nativeName: 'svenska',
+  dir: 'ltr'
+};
+
+export const swKe: TLocale = {
+  id: 'sw-KE',
+  languageCode: 'sw',
+  regionCode: 'KE',
+  englishName: 'Swahili',
+  nativeName: 'Kiswahili',
   dir: 'ltr'
 };
 
@@ -519,12 +798,21 @@ export const ukUa: TLocale = {
   dir: 'ltr'
 };
 
-export const zhHk: TLocale = {
-  id: 'zh-HK',
-  languageCode: 'zh',
-  regionCode: 'HK',
-  englishName: 'Chinese',
-  nativeName: '中文',
+export const urPk: TLocale = {
+  id: 'ur-PK',
+  languageCode: 'ur',
+  regionCode: 'PK',
+  englishName: 'Urdu',
+  nativeName: 'اردو',
+  dir: 'rtl'
+};
+
+export const viVn: TLocale = {
+  id: 'vi-VN',
+  languageCode: 'vi',
+  regionCode: 'VN',
+  englishName: 'Vietnamese',
+  nativeName: 'Tiếng Việt',
   dir: 'ltr'
 };
 
@@ -532,6 +820,16 @@ export const zhHansCn: TLocale = {
   id: 'zh-Hans-CN',
   languageCode: 'zh',
   regionCode: 'CN',
+  scriptCode: 'Hans',
+  englishName: 'Chinese (Simplified)',
+  nativeName: '中文 (简体)',
+  dir: 'ltr'
+};
+
+export const zhHansSg: TLocale = {
+  id: 'zh-Hans-SG',
+  languageCode: 'zh',
+  regionCode: 'SG',
   scriptCode: 'Hans',
   englishName: 'Chinese (Simplified)',
   nativeName: '中文 (简体)',
@@ -558,11 +856,11 @@ export const zhHantTw: TLocale = {
   dir: 'ltr'
 };
 
-export const zhTw: TLocale = {
-  id: 'zh-TW',
-  languageCode: 'zh',
-  regionCode: 'TW',
-  englishName: 'Chinese',
-  nativeName: '中文',
+export const zuZa: TLocale = {
+  id: 'zu-ZA',
+  languageCode: 'zu',
+  regionCode: 'ZA',
+  englishName: 'Zulu',
+  nativeName: 'isiZulu',
   dir: 'ltr'
 };

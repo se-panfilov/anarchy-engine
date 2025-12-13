@@ -1,15 +1,30 @@
 [
+  "af-ZA", //Afrikaans (South Africa)
+  "am-ET", //Amharic (Ethiopia)
   "ar-SA", //Arabic (Saudi Arabia)
-  "az-Arab-IR", //Azerbaijani (Arabic script, Iran)
-  "az-Latn-AZ", //Azerbaijani (Latin script, Azerbaijan)
+
+  // Azerbaijani
+  "az-Arab-IR", // Azerbaijani (Arabic script, Iran) — RTL
+  "az-Latn-AZ", // Azerbaijani (Latin, Azerbaijan)
+
+  "be-BY", //Belarusian (Belarus)
+  "bg-BG", //Bulgarian (Bulgaria)
   "bn-BD", //Bangla (Bangladesh)
   "bn-IN", //Bangla (India)
+  "bs-BA", //Bosnian (Bosnia and Herzegovina)
+  "ca-ES", //Catalan (Spain)
   "cs-CZ", //Czech (Czech Republic)
+  "cy-GB", //Welsh (United Kingdom)
   "da-DK", //Danish (Denmark)
+
+  // German
   "de-AT", //Austrian German
   "de-CH", //"Swiss" German
-  "de-DE", //Standard German (as spoken in Germany)
+  "de-DE", // Standard German (Germany)
+
   "el-GR", //Modern Greek
+
+  // English
   "en-AU", //Australian English
   "en-CA", //Canadian English
   "en-GB", //British English
@@ -18,47 +33,92 @@
   "en-NZ", //New Zealand English
   "en-US", //US English
   "en-ZA", //English (South Africa)
+
+  // Spanish
   "es-AR", //Argentine Spanish
   "es-CL", //Chilean Spanish
   "es-CO", //Colombian Spanish
-  "es-ES", //Castilian Spanish (as spoken in Central-Northern Spain)
+  "es-ES", // Castilian Spanish
   "es-MX", //Mexican Spanish
+  "es-PE", //Peruvian Spanish
   "es-US", //American Spanish
+
+  "et-EE", //Estonian (Estonia)
+  "fa-IR", // Persian (Iran) — RTL
   "fi-FI", //Finnish (Finland)
+  "fil-PH", //Filipino (Philippines)
   "fr-BE", //Belgian French
   "fr-CA", //Canadian French
   "fr-CH", //"Swiss" French
-  "fr-FR", //Standard French (especially in France)
-  "he-IL", //Hebrew (Israel)
+  "fr-FR", // Standard French (France)
+  "ga-IE", //Irish (Ireland)
+  "gl-ES", //Galician (Spain)
+  "gu-IN", //Gujarati (India)
+  "he-IL", // Hebrew (Israel) — RTL
   "hi-IN", //Hindi (India)
+  "hr-HR", //Croatian (Croatia)
   "hu-HU", //Hungarian (Hungary)
   "id-ID", //Indonesian (Indonesia)
+  "is-IS", //Icelandic (Iceland)
+
+  // Italian
   "it-CH", //"Swiss" Italian
-  "it-IT", //Standard Italian (as spoken in Italy)
+  "it-IT", // Standard Italian (Italy)
+
   "ja-JP", //Japanese (Japan)
+  "jv-ID", //Javanese (Indonesia)
+  "km-KH", //Khmer (Cambodia)
+  "kn-IN", //Kannada (India)
   "ko-KR", //Korean (Republic of Korea)
+  "lo-LA", //Lao (Laos)
+  "lt-LT", //Lithuanian (Lithuania)
+  "lv-LV", //Latvian (Latvia)
+  "ml-IN", //Malayalam (India)
+  "mr-IN", //Marathi (India)
+  "ms-MY", //Malay (Malaysia)
+
+  // Norwegian
   "nb-NO", //Norwegian Bokmål (Norway)
+  "nn-NO", // Norwegian Nynorsk (Norway)
+
+  "ne-NP", //Nepali (Nepal)
   "nl-BE", //Belgian Dutch
-  "nl-NL", //Standard Dutch (as spoken in The Netherlands)
-  "nn-NO", //Norwegian Nynorsk (Norway)
-  "no-NO", //Norwegian (Norway)
+  "nl-NL", // Dutch (Netherlands)
+  "pa-IN", //Punjabi (India)
   "pl-PL", //Polish (Poland)
+
+  // Portuguese
   "pt-BR", //Brazilian Portuguese
-  "pt-PT", //European Portuguese (as written and spoken in Portugal)
+  "pt-PT", // European Portuguese
+
   "ro-RO", //Romanian (Romania)
   "ru-RU", //Russian (Russian Federation)
+  "si-LK", //Sinhala (Sri Lanka)
   "sk-SK", //Slovak (Slovakia)
-  "sr-Cyrl-RS", //Serbian (Cyrillic script, Serbia)
-  "sr-Latn-RS", //Serbian (Latin script, Serbia)
+  "sl-SI", //Slovenian (Slovenia)
+  "sq-AL", //Albanian (Albania)
+
+  // Serbian — keep explicit scripts
+  "sr-Cyrl-RS", // Cyrillic
+  "sr-Latn-RS", // Latin
+
+  // Swedish
+  "sv-FI", //Swedish (Finland)
   "sv-SE", //Swedish (Sweden)
-  "ta-IN", //Indian Tamil
-  "ta-LK", //Sri Lankan Tamil
+  "sw-KE", //Swahili (Kenya)
+  "ta-IN", // Tamil (India)
+  "ta-LK", // Tamil (Sri Lanka)
   "th-TH", //Thai (Thailand)
   "tr-TR", //Turkish (Turkey)
   "uk-UA", //Ukrainian (Ukraine)
-  "zh-HK", //Hong Kong, traditional characters
-  "zh-Hans-CN", //Mainland China, simplified characters
-  "zh-Hant-HK", //Hong Kong, traditional characters
-  "zh-Hant-TW", //Taiwan, traditional characters
-  "zh-TW" //Taiwan, traditional characters
+  "ur-PK", // Urdu (Pakistan) — RTL
+  "vi-VN", //Vietnamese (Vietnam)
+
+  // Chinese — always with script
+  "zh-Hans-CN", // Mainland China (Simplified)
+  "zh-Hans-SG", // Singapore (Simplified)
+  "zh-Hant-HK", // Hong Kong (Traditional)
+  "zh-Hant-TW", // Taiwan (Traditional)
+
+  "zu-ZA" //Zulu (South Africa)
 ]
