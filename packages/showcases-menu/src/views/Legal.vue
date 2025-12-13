@@ -28,9 +28,24 @@ const mainSettingsGroupTitleText: ShallowRef<string> = $t('main-menu.settings.le
   <View class="legal" :title="viewTitleText">
     <ViewForm name="legal" class="legal__view-form">
       <SettingsGroup :title="mainSettingsGroupTitleText">
-        <MdRenderer :content="useLegalDocsStore().state.EULA" />
+        <MdRenderer class="legal__renderer" :content="useLegalDocsStore().state.EULA" />
       </SettingsGroup>
       <Navigation class="settings__navigation" :back-btn="true" />
     </ViewForm>
   </View>
 </template>
+
+<style lang="scss">
+.legal {
+  max-width: min(900px, 90vw);
+
+  &__renderer {
+    max-height: 80vh;
+    overflow-y: auto;
+    background: white;
+    padding: 20px 40px;
+    border-radius: 3px;
+    border: 1px solid rgb(0 0 0 / 30%);
+  }
+}
+</style>
