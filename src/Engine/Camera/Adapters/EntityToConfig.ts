@@ -1,15 +1,7 @@
 import type { AudioListener, OrthographicCameraJSONObject, PerspectiveCameraJSONObject, Vector3Like } from 'three';
 
 import type { TAudioService } from '@/Engine/Audio';
-import type {
-  TAnyCameraConfig,
-  TAnyCameraWrapper,
-  TCameraWrapperDependencies,
-  TCommonCameraConfig,
-  TOrthographicCameraWrapper,
-  TPerspectiveCameraOnlyConfig,
-  TPerspectiveCameraWrapper
-} from '@/Engine/Camera/Models';
+import type { TAnyCameraConfig, TAnyCameraWrapper, TCameraWrapperDependencies, TCommonCameraConfig, TPerspectiveCameraOnlyConfig } from '@/Engine/Camera/Models';
 import type { TOrthographicCameraOnlyConfig } from '@/Engine/Camera/Models/TOrthographicCameraConfig';
 import { isOrthographicCameraWrapper, isPerspectiveCameraWrapper } from '@/Engine/Camera/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
@@ -19,20 +11,30 @@ import { filterOutEmptyFields, isDefined } from '@/Engine/Utils';
 export function cameraToConfig(entity: TAnyCameraWrapper, { audioService }: Pick<TCameraWrapperDependencies, 'audioService'>): TAnyCameraConfig {
   const { drive } = entity;
 
-  let additionalConfig: TPerspectiveCameraOnlyConfig | TOrthographicCameraOnlyConfig = {};
-  if (isPerspectiveCameraWrapper(entity)) additionalConfig = getPerspectiveCameraOnlyConfig(entity);
-  if (isOrthographicCameraWrapper(entity)) additionalConfig = getOrthographicCameraOnlyConfig(entity);
+  const json: PerspectiveCameraJSONObject | OrthographicCameraJSONObject = entity.entity.toJSON().object;
 
   return filterOutEmptyFields({
-    ...getCommonCameraConfig(entity, audioService),
-    ...additionalConfig,
+    audioListener: getAudioListenerName(json, audioService),
+    ...getCameraOnlyConfig(entity),
     ...extractSerializableRegistrableFields(entity),
     ...drive.serialize()
   });
 }
 
-function getCommonCameraConfig(entity: TAnyCameraWrapper, audioService: TAudioService): Omit<TCommonCameraConfig, 'position' | 'rotation'> {
+export function getCameraOnlyConfig(entity: TAnyCameraWrapper): Omit<TCommonCameraConfig, 'position' | 'rotation' | 'audioListener'> & (TPerspectiveCameraOnlyConfig | TOrthographicCameraOnlyConfig) {
   const json: PerspectiveCameraJSONObject | OrthographicCameraJSONObject = entity.entity.toJSON().object;
+
+  let additionalConfig: TPerspectiveCameraOnlyConfig | TOrthographicCameraOnlyConfig = {};
+  if (isPerspectiveCameraWrapper(entity)) additionalConfig = getPerspectiveCameraOnlyConfig(json as PerspectiveCameraJSONObject);
+  if (isOrthographicCameraWrapper(entity)) additionalConfig = getOrthographicCameraOnlyConfig(json as OrthographicCameraJSONObject);
+
+  return filterOutEmptyFields({
+    ...getCommonCameraConfig(entity, json),
+    ...additionalConfig
+  });
+}
+
+function getCommonCameraConfig(entity: TAnyCameraWrapper, json: PerspectiveCameraJSONObject | OrthographicCameraJSONObject): Omit<TCommonCameraConfig, 'position' | 'rotation' | 'audioListener'> {
   const up: Vector3Like | undefined = isDefined(json.up) ? { x: (json.up as any)[0], y: (json.up as any)[1], z: (json.up as any)[2] } : undefined;
 
   return {
@@ -43,13 +45,11 @@ function getCommonCameraConfig(entity: TAnyCameraWrapper, audioService: TAudioSe
     up,
     layers: json.layers,
     zoom: json.zoom,
-    isActive: entity.isActive(),
-    audioListener: getAudioListenerName(json, audioService)
+    isActive: entity.isActive()
   };
 }
 
-function getPerspectiveCameraOnlyConfig(entity: TPerspectiveCameraWrapper): TPerspectiveCameraOnlyConfig {
-  const json: PerspectiveCameraJSONObject = entity.entity.toJSON().object;
+function getPerspectiveCameraOnlyConfig(json: PerspectiveCameraJSONObject): TPerspectiveCameraOnlyConfig {
   return {
     fov: json.fov,
     filmGauge: json.filmGauge,
@@ -58,9 +58,7 @@ function getPerspectiveCameraOnlyConfig(entity: TPerspectiveCameraWrapper): TPer
   };
 }
 
-function getOrthographicCameraOnlyConfig(entity: TOrthographicCameraWrapper): TOrthographicCameraOnlyConfig {
-  const json: OrthographicCameraJSONObject = entity.entity.toJSON().object;
-
+function getOrthographicCameraOnlyConfig(json: OrthographicCameraJSONObject): TOrthographicCameraOnlyConfig {
   return {
     left: json.left,
     right: json.right,
