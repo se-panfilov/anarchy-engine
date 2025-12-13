@@ -1,5 +1,6 @@
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
-import type { TSpace, TSpaceConfig, TSpaceConfigEntities, TSpaceServices } from '@/Engine/Space/Models';
+import type { SpaceSchemaVersion } from '@/Engine/Space/Constants';
+import type { TSpace, TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources, TSpaceServices } from '@/Engine/Space/Models';
 import { filterOutEmptyFields } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
@@ -8,65 +9,66 @@ export function spaceToConfig(
   entity: TSpace,
   {
     actorService,
-    spatialGridService,
+    animationsService,
     audioService,
     cameraService,
+    controlsService,
     envMapService,
-    intersectionsWatcherService,
-    lightService,
-    models3dService,
-    rendererService,
-    particlesService,
-    physicsPresetService,
     fogService,
     fsmService,
+    intersectionsWatcherService,
+    lightService,
+    materialService,
+    models3dService,
+    particlesService,
+    physicsPresetService,
+    rendererService,
+    spatialGridService,
     textService,
-    controlsService
+    textureService
   }: TSpaceServices
 ): TSpaceConfig {
-  console.log('XXX entity', entity);
+  console.log('XXX entity space', entity);
 
   const entities: TSpaceConfigEntities = {
-    spatialGrids: spatialGridService.serializeAllEntities(),
     actors: actorService.serializeAllEntities(),
     audio: audioService.serializeAllEntities(),
     cameras: cameraService.serializeAllEntities(),
+    controls: controlsService.serializeAllEntities(),
     envMaps: envMapService.serializeAllEntities(),
+    fogs: fogService.serializeAllEntities(),
+    fsm: fsmService.serializeAllEntities(),
     intersections: intersectionsWatcherService.serializeAllEntities(),
     lights: lightService.serializeAllEntities(),
     models3d: models3dService.serializeAllEntities(),
-    renderers: rendererService.serializeAllEntities(),
     particles: particlesService.serializeAllEntities(),
     physics: {
       // global: physicsWorldService.serializeAllEntities(),
       presets: physicsPresetService.serializeAllEntities()
     },
-    fogs: fogService.serializeAllEntities(),
-    fsm: fsmService.serializeAllEntities(),
-    texts: textService.serializeAllEntities(),
-    controls: controlsService.serializeAllEntities()
+    renderers: rendererService.serializeAllEntities(),
+    spatialGrids: spatialGridService.serializeAllEntities(),
+    texts: textService.serializeAllEntities()
+  };
 
-    // TODO 15-0-0: fix any
-    // ...entity.entities.reduce((acc: TSpaceConfigEntities, entity): TSpaceConfigEntities => {
-    //   const { id, type } = entity;
-    //   acc[id] = {
-    //     id,
-    //     type,
-    //     // TODO 15-0-0: fix any
-    //     ...entity.serialize()
-    //   };
-    //   return acc;
-    // }, {})
+  const resources: TSpaceConfigResources = {
+    animations: animationsService.serializeAllResources(),
+    audio: audioService.serializeAllResources(),
+    envMaps: envMapService.serializeAllResources(),
+    // TODO 15-0-0: serializeAllEntities() or serializeAllResources() here?
+    materials: materialService.serializeAllEntities(),
+    models3d: models3dService.serializeAllResources(),
+    textures: textureService.serializeAllResources()
   };
 
   // TODO 15-0-0: fix any
   return filterOutEmptyFields({
     canvasSelector: entity.getCanvasSelector(),
-    version: entity.version,
+    version: entity.version as SpaceSchemaVersion,
     entities,
+    resources,
     // TODO 15-0-0: implement
-    //     resources: TSpaceConfigResources;
     // scenes: entity.scenes,
     ...extractSerializableRegistrableFields(entity)
-  }) as any;
+  });
 }
