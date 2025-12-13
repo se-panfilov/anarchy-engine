@@ -13,7 +13,7 @@ import type {
   PointsMaterial
 } from 'three';
 
-import type { IMaterialParams, IMaterialProps, ITypeOfMaterials, MaterialType } from '@/Engine/Material';
+import type { IMaterialPackProps, IMaterialParams, ITypeOfMaterials, MaterialType } from '@/Engine/Material';
 import { BlendingMap, MaterialMap } from '@/Engine/Material/Constants';
 import type { IMaterialTexturePack } from '@/Engine/Texture';
 import { textureService } from '@/Engine/Texture';
@@ -49,11 +49,10 @@ export function buildMaterial(type: MaterialType, params?: IMaterialParams, text
 
   const MaterialConstructor: ITypeOfMaterials = MaterialMap[type];
   if (isNotDefined(MaterialConstructor)) throw new Error(`Unsupported material type: ${type}`);
-  // TODO (S.Panfilov) CWP blending type doesn't match. We should either leave it a number, split IMaterialParams and create IMaterialConfig
   return new MaterialConstructor({ ...textures, ...params });
 }
 
-export async function buildMaterialWithTextures(material: IMaterialParams<IMaterialTexturePack>): Promise<Material> {
+export async function buildMaterialWithTextures(material: IMaterialPackProps<IMaterialTexturePack>): Promise<Material> {
   let textures;
   if (isDefined(material.textures)) textures = await textureService.load(material).all();
   return buildMaterial(material.type, material.params, textures);

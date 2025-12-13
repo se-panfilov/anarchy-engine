@@ -1,9 +1,16 @@
+import { BlendingMap } from '@/Engine/Material/Constants';
 import type { IMaterialConfig, IMaterialParams } from '@/Engine/Material/Models';
+import { isDefined } from '@/Engine/Utils';
 
 export function configToParams(config: IMaterialConfig): IMaterialParams {
-  const { position, rotation, layers, animations, scale, ...rest } = config;
+  const { blending, ...rest } = config;
+
+  let params: Partial<IMaterialParams> = {};
+
+  if (isDefined(blending)) params = { ...params, blending: BlendingMap[blending] };
 
   return {
+    ...params,
     ...rest
   };
 }

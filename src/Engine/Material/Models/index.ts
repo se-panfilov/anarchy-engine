@@ -3,6 +3,7 @@ export * from './IMaterialConfig';
 export * from './IMaterialFactory';
 export * from './IMaterialPackKeys';
 export * from './IMaterialPackKeys';
+export * from './IMaterialPackProps';
 export * from './IMaterialParams';
 export * from './IMaterialProps';
 export * from './IMaterials';
