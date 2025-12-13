@@ -1,11 +1,11 @@
+import GUI from 'lil-gui';
 import { withLatestFrom } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ILevel, ILevelConfig, IMouseWatcherEvent } from '@/Engine';
-import { buildLevelFromConfig, Easing, intersectionsService, isNotDefined, keyboardService, KeyCode, mouseService, standardMoverService } from '@/Engine';
+import { buildLevelFromConfig, Easing, intersectionsService, isNotDefined, keyboardService, KeyCode, mouseService, standardMoverService, LookUpStrategy } from '@/Engine';
 
 import levelConfig from './showcase-11-keyboard-and-mouse.json';
-import GUI from 'lil-gui';
 
 //Showcase 11: Keyboard and Mouse
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
@@ -16,11 +16,26 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   async function init(): Promise<void> {
     const actorKeyboard: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync('keyboard');
     const actorMouse: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync('mouse');
+    const actorKeyW: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['key', 'W'], LookUpStrategy.Every);
+    const actorKeyA: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['key', 'A'], LookUpStrategy.Every);
+    const actorKeyS: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['key', 'S'], LookUpStrategy.Every);
+    const actorKeyD: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['key', 'D'], LookUpStrategy.Every);
 
     keyboardService.onKey(KeyCode.W).pressing$.subscribe((): void => void actorKeyboard.addZ(-0.3));
-    keyboardService.onKey(KeyCode.S).pressing$.subscribe((): void => void actorKeyboard.addZ(0.3));
+    keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => void actorKeyW.addY(-0.2));
+    keyboardService.onKey(KeyCode.W).released$.subscribe((): void => void actorKeyW.addY(0.2));
+
     keyboardService.onKey(KeyCode.A).pressing$.subscribe((): void => void actorKeyboard.addX(-0.3));
+    keyboardService.onKey(KeyCode.A).pressed$.subscribe((): void => void actorKeyA.addY(-0.2));
+    keyboardService.onKey(KeyCode.A).released$.subscribe((): void => void actorKeyA.addY(0.2));
+
+    keyboardService.onKey(KeyCode.S).pressing$.subscribe((): void => void actorKeyboard.addZ(0.3));
+    keyboardService.onKey(KeyCode.S).pressed$.subscribe((): void => void actorKeyS.addY(-0.2));
+    keyboardService.onKey(KeyCode.S).released$.subscribe((): void => void actorKeyS.addY(0.2));
+
     keyboardService.onKey(KeyCode.D).pressing$.subscribe((): void => void actorKeyboard.addX(0.3));
+    keyboardService.onKey(KeyCode.D).pressed$.subscribe((): void => void actorKeyD.addY(-0.2));
+    keyboardService.onKey(KeyCode.D).released$.subscribe((): void => void actorKeyD.addY(0.2));
 
     const intersectionsWatcher: IIntersectionsWatcher = await startIntersections();
 
