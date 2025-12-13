@@ -45,11 +45,11 @@ export function withKinematicDrive(params: TActorParams, kinematicLoopService: T
         linearSpeed: params.kinematic?.linearSpeed ?? 0,
         linearDirection: params.kinematic?.linearDirection ?? new Vector3(),
         angularSpeed: params.kinematic?.angularSpeed ?? 0,
-        angularDirection: params.kinematic?.angularDirection ?? new Vector3(),
-        position$: position$.asObservable(),
-        rotationQuaternion$: rotation$.asObservable(),
-        rotationEuler$: rotation$.pipe(map((q: Quaternion): Euler => new Euler().setFromQuaternion(q)))
+        angularDirection: params.kinematic?.angularDirection ?? new Vector3()
       },
+      position$: position$.asObservable(),
+      rotationQuaternion$: rotation$.asObservable(),
+      rotationEuler$: rotation$.pipe(map((q: Quaternion): Euler => new Euler().setFromQuaternion(q))),
       setData({ linearSpeed, linearDirection, angularSpeed, angularDirection }: TKinematicData): void {
         // eslint-disable-next-line functional/immutable-data
         (this.data as TWriteable<TKinematicData>).linearSpeed = linearSpeed;

@@ -19,14 +19,14 @@ export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: 
   const destroyable: TDestroyable = destroyableMixin();
 
   const kinematicDrive: TWithKinematic = withKinematicDrive(params, kinematicLoopService, drive$);
-  const kinematicDrivePositionSub$: Subscription = kinematicDrive.kinematic.data.position$.subscribe(position$);
-  const kinematicDriveRotationSub$: Subscription = kinematicDrive.kinematic.data.rotationEuler$.subscribe(rotation$);
+  const kinematicDrivePositionSub$: Subscription = kinematicDrive.kinematic.position$.subscribe(position$);
+  const kinematicDriveRotationSub$: Subscription = kinematicDrive.kinematic.rotationEuler$.subscribe(rotation$);
 
   // TODO 8.0.0. MODELS: implement physics drive mixin
   // const physicsDrive: TWithPhysics = withPhysicsDrive(params, physicsLoopService, drive$);
-  // const physicsDrivePositionSub$: Subscription = physicsDrive.physicsBody.data.position$.subscribe(position$);
-  // const physicsDriveRotationSub$: Subscription = physicsDrive.physicsBody.data.rotation.subscribe(rotation$);
-  // const physicsDriveScaleSub$: Subscription = physicsDrive.physicsBody.data.scale$.subscribe(scale$);
+  // const physicsDrivePositionSub$: Subscription = physicsDrive.physicsBody.position$.subscribe(position$);
+  // const physicsDriveRotationSub$: Subscription = physicsDrive.physicsBody.rotation.subscribe(rotation$);
+  // const physicsDriveScaleSub$: Subscription = physicsDrive.physicsBody.scale$.subscribe(scale$);
 
   const entities = {
     drive$,
