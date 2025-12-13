@@ -15,9 +15,8 @@ export function Loop(trigger: TTriggerFn | number): TLoop {
   const enabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   const tick$: Subject<TDelta> = new Subject<TDelta>();
 
-  // TODO 10.0.0. Does Clock is protected against the slowdown in background tabs? Replace if not.
-  const deltaCalc: TDeltaCalculator = DeltaCalculator(new Clock());
   const isTriggerFn: boolean = typeof trigger === 'function';
+  const deltaCalc: TDeltaCalculator = DeltaCalculator(isTriggerFn);
 
   // TODO 10.0.0. LOOPS: Add stats (for FPS)
   const tickSub$: Subscription = enabled$
