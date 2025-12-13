@@ -45,7 +45,7 @@ test.describe('SpaceBasic', () => {
 
     expect(bufferB).toMatchSnapshot(snapshotName, {
       threshold: 0.01,
-      maxDiffPixelRatio: 0.005
+      maxDiffPixelRatio: 0.001
     });
   });
 });
