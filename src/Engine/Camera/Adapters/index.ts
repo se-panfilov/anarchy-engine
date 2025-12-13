@@ -1,1 +1,2 @@
-export * from './CameraConfigAdapter';
+export * from './ConfigToParams';
+export * from './EntityToConfig';
