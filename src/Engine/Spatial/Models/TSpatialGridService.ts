@@ -7,8 +7,9 @@ import type { TSpatialGridParams } from './TSpatialGridParams';
 import type { TSpatialGridRegistry } from './TSpatialGridRegistry';
 import type { TSpatialGridWrapper } from './TSpatialGridWrapper';
 
-export type TSpatialGridService = TAbstractService &
-  TWithCreateService<TSpatialGridWrapper, TSpatialGridParams> &
-  TWithCreateFromConfigService<TSpatialGridConfig, TSpatialGridWrapper> &
-  TWithFactoryService<TSpatialGridWrapper, TSpatialGridParams, undefined, TSpatialGridFactory, undefined> &
-  TWithRegistryService<TSpatialGridRegistry>;
+export type TSpatialGridServiceWithCreate = TWithCreateService<TSpatialGridWrapper, TSpatialGridParams>;
+export type TSpatialGridServiceWithCreateFromConfig = TWithCreateFromConfigService<TSpatialGridConfig, TSpatialGridWrapper>;
+export type TSpatialGridServiceWithFactory = TWithFactoryService<TSpatialGridWrapper, TSpatialGridParams, undefined, TSpatialGridFactory, undefined>;
+export type TSpatialGridServiceWithRegistry = TWithRegistryService<TSpatialGridRegistry>;
+
+export type TSpatialGridService = TAbstractService & TSpatialGridServiceWithCreate & TSpatialGridServiceWithCreateFromConfig & TSpatialGridServiceWithFactory & TSpatialGridServiceWithRegistry;
