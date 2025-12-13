@@ -1,9 +1,9 @@
-import type { TFsmConfig, TFsmParams } from '@/Engine/Fsm/Models';
+import type { TFsmConfig, TFsmEvents, TFsmParams, TFsmSource } from '@/Engine/Fsm/Models';
 
 export function configToParamsFsm(config: TFsmConfig): TFsmParams | never {
   if (hasFunctions(config)) throw new Error('Config must not contains functions');
 
-  if (config.transitions.every((t): boolean => t.length !== 3)) throw new Error('Transitions must be an array of 3 elements');
+  if (config.transitions.every((t: ReadonlyArray<TFsmSource | TFsmEvents>): boolean => t.length !== 3)) throw new Error('Transitions must be an array of 3 elements');
 
   return {
     ...config,
