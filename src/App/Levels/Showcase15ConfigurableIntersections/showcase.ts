@@ -16,16 +16,13 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { clickLeftRelease$ } = mouseService;
 
   function init(): void {
-    intersectionsWatcherService.getRegistry().findByName$('watcher_red').subscribe(onRedWatcher);
-    intersectionsWatcherService.getRegistry().findByName$('watcher_blue').subscribe(onBlueWatcher);
+    const watcherRed: TIntersectionsWatcher | undefined = intersectionsWatcherService.getRegistry().findByName('watcher_red');
+    if (isNotDefined(watcherRed)) throw new Error('Watcher not found');
+    const watcherBlue: TIntersectionsWatcher | undefined = intersectionsWatcherService.getRegistry().findByName('watcher_blue');
+    if (isNotDefined(watcherBlue)) throw new Error('Watcher not found');
 
-    function onRedWatcher(redWatcher: TIntersectionsWatcher): void {
-      redWatcher.value$.subscribe((value: TIntersectionEvent) => console.log('redWatcher', value));
-    }
-
-    function onBlueWatcher(blueWatcher: TIntersectionsWatcher): void {
-      blueWatcher.value$.subscribe((value: TIntersectionEvent) => console.log('blueWatcher', value));
-    }
+    watcherRed.value$.subscribe((value: TIntersectionEvent) => console.log('redWatcher', value));
+    watcherBlue.value$.subscribe((value: TIntersectionEvent) => console.log('blueWatcher', value));
 
     let cameraFolder: GUI | undefined;
     let cameraName: string = 'camera_red';
