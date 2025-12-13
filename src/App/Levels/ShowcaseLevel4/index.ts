@@ -1,5 +1,7 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import { ambientContext, buildLevelFromConfig, IActorWrapper, IAppCanvas, ILevel, ILevelConfig, isNotDefined } from '@/Engine';
+import type { IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
+import { ambientContext, buildLevelFromConfig, isNotDefined } from '@/Engine';
+import type { IAnimationParams } from '@/Engine/Utils/MoveUtils';
 import { goToPosition } from '@/Engine/Utils/MoveUtils';
 
 import levelConfig from './showcase-level-4.config.json';
@@ -10,21 +12,38 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
   function start(): void {
     level.start();
-    const { actorRegistry, cameraRegistry } = level.entities;
+    const { actorRegistry, cameraRegistry, controlsRegistry } = level.entities;
+
+    // TODO (S.Panfilov) we need setTarget for controls
+    controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
+    cameraRegistry.getAll()[0]?.setPosition(6, 30, 0);
 
     const topActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('top_actor');
     const centralActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('central_actor');
     const bottomActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('bottom_actor');
     if (isNotDefined(topActor) || isNotDefined(centralActor) || isNotDefined(bottomActor)) throw new Error('Actors are not defined');
 
-    ambientContext.mouseClickWatcher.value$.subscribe(() => {
-      console.log(cameraRegistry.getAll()[0].getRotation());
+    let isClickBlocked: boolean = false;
 
-      goToPosition(topActor.entity, { x: 13, y: topActor.getY(), z: topActor.getZ() }, 1500, 'easeInCirc').then(() => {
-        topActor.entity.material.color.setHex('0xFF0000');
+    const animationParams: IAnimationParams = {
+      duration: 2000,
+      direction: 'alternate'
+    };
+
+    ambientContext.mouseClickWatcher.value$.subscribe(() => {
+      if (isClickBlocked) {
+        console.log('click is blocked');
+        isClickBlocked = false;
+        return;
+      }
+      console.log('click is ready', !isClickBlocked);
+      isClickBlocked = true;
+
+      goToPosition(topActor.entity, { x: 20, y: topActor.getY(), z: topActor.getZ() }, { ...animationParams, easing: 'easeInCirc' }).then(() => {
+        isClickBlocked = false;
       });
-      goToPosition(centralActor.entity, { x: 13, y: centralActor.getY(), z: centralActor.getZ() }, 1500, 'linear');
-      goToPosition(bottomActor.entity, { x: 13, y: bottomActor.getY(), z: bottomActor.getZ() }, 1500, 'easeInOutQuad');
+      goToPosition(centralActor.entity, { x: 20, y: centralActor.getY(), z: centralActor.getZ() }, { ...animationParams, easing: 'linear' });
+      goToPosition(bottomActor.entity, { x: 20, y: bottomActor.getY(), z: bottomActor.getZ() }, { ...animationParams, easing: 'easeInOutQuad' });
     });
   }
 

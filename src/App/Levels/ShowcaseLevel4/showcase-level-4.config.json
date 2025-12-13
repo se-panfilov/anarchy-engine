@@ -23,7 +23,7 @@
       "type": "cube",
       "width": 1,
       "height": 1,
-      "position": { "x": 0, "y": 2, "z": -2 },
+      "position": { "x": -20, "y": 2, "z": -2 },
       "castShadow": true,
       "materialParams": { "color": "#5177ff" },
       "tags": ["top_actor"]
@@ -32,7 +32,7 @@
       "type": "cube",
       "width": 1,
       "height": 1,
-      "position": { "x": 0, "y": 2, "z": 0 },
+      "position": { "x": -20, "y": 2, "z": 0 },
       "castShadow": true,
       "materialParams": { "color": "#5177ff" },
       "tags": ["central_actor"]
@@ -41,7 +41,7 @@
       "type": "cube",
       "width": 1,
       "height": 1,
-      "position": { "x": 0, "y": 2, "z": 2 },
+      "position": { "x": -20, "y": 2, "z": 2 },
       "castShadow": true,
       "materialParams": { "color": "#5177ff" },
       "tags": ["bottom_actor"]
