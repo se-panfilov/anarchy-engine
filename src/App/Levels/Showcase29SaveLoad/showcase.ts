@@ -10,7 +10,7 @@ const spaceBasicConfig: TSpaceConfig = space as TSpaceConfig;
 const spaceCustomModelsConfig: TSpaceConfig = spaceCustomModels as TSpaceConfig;
 const spaceTextsConfig: TSpaceConfig = spaceTexts as TSpaceConfig;
 
-let currentSpaceName: string = '';
+let currentSpaceName: string | undefined;
 
 export function start(): void {
   const list: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceBasicConfig, spaceCustomModelsConfig, spaceTextsConfig]);
@@ -20,14 +20,26 @@ export function start(): void {
 
   createForm(undefined, space, true, true, list);
 
-  space.built$.subscribe((space: TSpace): void => {
-    currentSpaceName = spaceBasicConfig.name;
-    runSpace(space);
-  });
+  space.built$.subscribe(runSpace);
 }
 
-export function runSpace(space: TSpace): void {
+function runSpace(space: TSpace): void {
+  currentSpaceName = space.name;
   space.start$.next(true);
+}
+
+function runSpaceByName(name: string, spaceRegistry: TSpaceRegistry): void {
+  const nextSpace: TSpace | undefined = spaceRegistry.findByName(name);
+  if (isNotDefined(nextSpace)) throw new Error(`[Showcase]: Cannot launch the next space "${name}"`);
+  runSpace(nextSpace);
+}
+
+function destroySpaceByName(name: string | undefined, spaceRegistry: TSpaceRegistry): void {
+  if (isNotDefined(name)) return;
+
+  const space: TSpace | undefined = spaceRegistry.findByName(name);
+  if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot destroy the space "${name}"`);
+  space.drop();
 }
 
 function download(space: TSpace): void {
@@ -56,18 +68,12 @@ export function createForm(containerId: string | undefined, space: TSpace, isTop
     'Spaces',
     containerId,
     (name: string): void => {
-      const currentSpace: TSpace | undefined = spaceRegistry.findByName(currentSpaceName);
-      if (isNotDefined(currentSpace)) throw new Error(`[Showcase]: Cannot destroy the current space "${name}"`);
-      currentSpace.drop();
-
-      const nextSpace: TSpace | undefined = spaceRegistry.findByName(name);
-      if (isNotDefined(nextSpace)) throw new Error(`[Showcase]: Cannot launch the next space "${name}"`);
-      runSpace(nextSpace);
-      currentSpaceName = name;
+      destroySpaceByName(currentSpaceName, spaceRegistry);
+      runSpaceByName(name, spaceRegistry);
     },
     options.map((space: TSpace): string => space.name),
     { right, top }
   );
   addBtn(`Download`, containerId, (): void => download(space), { right, top });
-  addBtn(`Load`, containerId, (): void => space.start$.next(false));
+  // addBtn(`Load`, containerId, (): void => space.start$.next(false));
 }
