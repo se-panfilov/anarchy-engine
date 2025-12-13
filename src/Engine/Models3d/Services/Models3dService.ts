@@ -1,6 +1,6 @@
 import type { Subscription } from 'rxjs';
 
-import type { TAnimationsService } from '@/Engine/Animations';
+import type { TAnimationsResourceAsyncRegistry, TAnimationsService } from '@/Engine/Animations';
 import type { TMaterialRegistry, TMaterialService } from '@/Engine/Material';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -27,7 +27,7 @@ export function Models3dService(
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TModel3d): void => registry.add(wrapper));
   const model3dLoader: TModels3dLoader = Models3dLoader(resourcesRegistry);
   const materialRegistry: TMaterialRegistry = materialService.getRegistry();
-  const animationsResourceAsyncRegistry: TModel3dResourceAsyncRegistry = animationsService.getResourceRegistry();
+  const animationsResourceAsyncRegistry: TAnimationsResourceAsyncRegistry = animationsService.getResourceRegistry();
 
   const create = (params: TModel3dParams): TModel3d => factory.create(params, { animationsService, model3dRawToModel3dConnectionRegistry });
   const createFromConfig = (models3d: ReadonlyArray<TModel3dConfig>): ReadonlyArray<TModel3d> =>

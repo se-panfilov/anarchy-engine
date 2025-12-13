@@ -1,2 +1,3 @@
-// TODO 9.4.0. Animations: fix any
-export type TAnimations = any;
+import type { AnimationClip } from 'three';
+
+export type TAnimations = ReadonlyArray<AnimationClip>;
