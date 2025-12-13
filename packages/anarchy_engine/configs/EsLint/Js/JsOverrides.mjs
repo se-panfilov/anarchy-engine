@@ -1,6 +1,6 @@
 export const JsOverrides = [
   {
-    // files: ['packages/engine/src/**/*'],
+    // files: ['packages/anarchy_engine/src/**/*'],
     rules: {
       'no-restricted-imports': [
         'error',

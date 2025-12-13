@@ -1,6 +1,6 @@
 # Anarchy engine showcases_shared package
 
-Shared utilities and types for the Anarchy engine' showcases app.
+Shared utilities and types for the Anarchy engine showcases app.
 
 ## License
 

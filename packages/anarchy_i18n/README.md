@@ -1,6 +1,6 @@
 # Anarchy engine anarchy_i18n package
 
-Shared utilities and types for the Anarchy engine' showcases app.
+Shared utilities and types for the Anarchy engine showcases app.
 
 ## License
 
