@@ -1,1 +1,1 @@
-export * from './LightConfigAdapter';
+export * from './ConfigToParams';
