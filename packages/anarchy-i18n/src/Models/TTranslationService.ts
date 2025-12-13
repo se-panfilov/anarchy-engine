@@ -8,13 +8,15 @@ import type { TReactiveTranslationMixin } from './TReactiveTranslationMixin';
 export type TTranslationService = Readonly<{
   destroy$: Subject<void>;
   formatDate: (value: Date | number, options?: FormatDateOptions) => string;
+  formatDateSafe: (value: Date | number, options?: FormatDateOptions) => Promise<string>;
   formatNumber: (value: number, options?: FormatNumberOptions) => string;
+  formatNumberSafe: (value: number, options?: FormatNumberOptions) => Promise<string>;
   getCurrentLocale: () => TLocale;
   intl$: Observable<IntlShape<string> | undefined>;
   locale$: Observable<TLocale>;
   ready$: BehaviorSubject<boolean>;
   setLocale: (locale: TLocale) => Promise<void>;
-  translateSafe: (id: string, params?: Record<string, string>) => Promise<string>;
   translate: (id: string, params?: Record<string, string>) => string | never;
+  translateSafe: (id: string, params?: Record<string, string>) => Promise<string>;
 }> &
   TReactiveTranslationMixin;

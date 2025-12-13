@@ -113,6 +113,18 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
     return result;
   }
 
+  function formatDate(value: Date | number, options?: FormatDateOptions): string | never {
+    const intl: IntlShape<string> | undefined = intl$.value;
+    if (isDefined(intl)) return intl.formatDate(value, options);
+    throw new Error(`[TranslateService]: The service is not ready. Tried to formatDate: "${value}"`);
+  }
+
+  function formatNumber(value: number, options?: FormatNumberOptions): string | never {
+    const intl: IntlShape<string> | undefined = intl$.value;
+    if (isDefined(intl)) return intl.formatNumber(value, options);
+    throw new Error(`[TranslateService]: The service is not ready. Tried to formatNumber: "${value}"`);
+  }
+
   const result: Omit<TTranslationService, keyof TReactiveTranslationMixin> = {
     setLocale,
     translateSafe: async (id: string, params?: Record<string, string>): Promise<string> => {
@@ -120,15 +132,15 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
       return translate(id, params);
     },
     translate,
-    formatDate: (value: Date | number, options?: FormatDateOptions): string | never => {
-      const intl: IntlShape<string> | undefined = intl$.value;
-      if (isDefined(intl)) return intl.formatDate(value, options);
-      throw new Error(`[TranslateService]: The service is not ready. Tried to formatDate: "${value}"`);
+    formatDate,
+    formatDateSafe: async (value: Date | number, options?: FormatDateOptions): Promise<string> => {
+      await waitForTrue(ready$);
+      return formatDate(value, options);
     },
-    formatNumber: (value: number, options?: FormatNumberOptions): string | never => {
-      const intl: IntlShape<string> | undefined = intl$.value;
-      if (isDefined(intl)) return intl.formatNumber(value, options);
-      throw new Error(`[TranslateService]: The service is not ready. Tried to formatNumber: "${value}"`);
+    formatNumber,
+    formatNumberSafe: async (value: number, options?: FormatNumberOptions): Promise<string> => {
+      await waitForTrue(ready$);
+      return formatNumber(value, options);
     },
     ready$,
     locale$: locale$.asObservable(),
