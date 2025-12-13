@@ -1,1 +1,1 @@
-export * from './WithTexturesActor';
+export * from './WithTextures';

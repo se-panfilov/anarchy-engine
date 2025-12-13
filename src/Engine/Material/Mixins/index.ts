@@ -1,1 +1,1 @@
-export * from './WithMaterialActor';
+export * from './WithMaterial';

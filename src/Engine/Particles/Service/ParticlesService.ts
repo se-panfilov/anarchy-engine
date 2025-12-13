@@ -4,7 +4,7 @@ import type { IParticlesAsyncRegistry, IParticlesConfig, IParticlesFactory, IPar
 import type { ISceneWrapper } from '@/Engine/Scene';
 
 export function ParticlesService(factory: IParticlesFactory, registry: IParticlesAsyncRegistry, scene: ISceneWrapper): IParticlesService {
-  registry.added$.subscribe((wrapper: IParticlesWrapperAsync): void => scene.addActor(wrapper));
+  registry.added$.subscribe((wrapper: IParticlesWrapperAsync): void => scene.addParticles(wrapper));
   factory.entityCreated$.subscribe((wrapper: IParticlesWrapperAsync): void => registry.add(wrapper));
 
   const createAsync = (params: IParticlesParams): Promise<IParticlesWrapperAsync> => factory.createAsync(params);

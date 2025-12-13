@@ -1,16 +1,19 @@
 import type { Material } from 'three';
+import { BufferGeometry } from 'three';
 
 import { materialService } from '@/Engine/Material';
 import type { IMesh, IParticlesParams } from '@/Engine/Particles/Models';
 import { textureService } from '@/Engine/Texture';
 import { isDefined } from '@/Engine/Utils';
 
-export async function createActor(params: IParticlesParams): Promise<IMesh> | never {
+export async function createParticles(params: IParticlesParams): Promise<IMesh> | never {
   const material: Material = await getMaterial(params);
 
-  // if (params.type === ActorType.plane) return createPlane(params, material);
-  // if (params.type === ActorType.sphere) return createSphere(params, material);
-  // if (params.type === ActorType.cube) return createCube(params, material);
+  const particlesGeometry = new BufferGeometry();
+  const count: number = 50000;
+  const positions = new Float32Array(count * 3);
+  const colors = new Float32Array(count * 3);
+
   throw new Error('Cannot create Particles: unknown particles type');
 }
 

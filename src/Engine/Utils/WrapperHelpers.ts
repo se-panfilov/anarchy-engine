@@ -16,7 +16,7 @@ import type {
   IPhysicalMaterialTexturePack,
   IStandardMaterialTexturePack,
   IToonMaterialTexturePack,
-  IWithTexturesActor
+  IWithTextures
 } from '@/Engine/Texture';
 import type { IObject3DParams } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils/index';
@@ -38,17 +38,17 @@ export function applyCenter(obj: CSS2DObject, center?: IVector2Wrapper): void {
   if (isDefined(center)) obj.center.set(center.getX(), center.getY());
 }
 
-export function applyTexturePack(obj: IWithTexturesActor, pack: IMaterialProps<IBasicMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTexturesActor, pack: IMaterialProps<IDepthMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTexturesActor, pack: IMaterialProps<IDistanceMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTexturesActor, pack: IMaterialProps<INormalMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTexturesActor, pack: IMaterialProps<IMatcapMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTexturesActor, pack: IMaterialProps<ILambertMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTexturesActor, pack: IMaterialProps<IPhongMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTexturesActor, pack: IMaterialProps<IPhysicalMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTexturesActor, pack: IMaterialProps<IToonMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTexturesActor, pack: IMaterialProps<IStandardMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTexturesActor, pack: IMaterialProps<IMaterialTexturePack>): Promise<Material> {
+export function applyTexturePack(obj: IWithTextures, pack: IMaterialProps<IBasicMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: IWithTextures, pack: IMaterialProps<IDepthMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: IWithTextures, pack: IMaterialProps<IDistanceMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: IWithTextures, pack: IMaterialProps<INormalMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: IWithTextures, pack: IMaterialProps<IMatcapMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: IWithTextures, pack: IMaterialProps<ILambertMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: IWithTextures, pack: IMaterialProps<IPhongMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: IWithTextures, pack: IMaterialProps<IPhysicalMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: IWithTextures, pack: IMaterialProps<IToonMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: IWithTextures, pack: IMaterialProps<IStandardMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: IWithTextures, pack: IMaterialProps<IMaterialTexturePack>): Promise<Material> {
   return obj.loadAndApplyMaterialTexturePack(pack);
 }
 
