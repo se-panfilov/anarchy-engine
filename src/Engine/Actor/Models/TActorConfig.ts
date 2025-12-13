@@ -5,10 +5,10 @@ import type { TSpatialDataConfig } from '@/Engine/Spatial';
 import type { TObject3DPropConfig } from '@/Engine/ThreeLib';
 
 import type { TActorModel3dSettingsConfig } from './TActorModel3dSettingsConfig';
-import type { TActorProps } from './TActorProps';
+import type { TActorParams } from './TActorParams';
 import type { TActorStatesConfig } from './TActorStatesConfig';
 
-export type TActorConfig = Omit<TActorProps, 'model3dSettings'> &
+export type TActorConfig = Omit<TActorParams, 'model3dSettings' | 'model3dSource' | 'physics' | 'kinematic' | 'spatial' | 'collisions' | 'states' | 'position' | 'rotation' | 'scale'> &
   Readonly<{
     model3dSource: string;
     physics?: TWithPresetNamePhysicsBodyConfig;

@@ -8,7 +8,6 @@ export type * from './TActorFactory';
 export type * from './TActorModel3dSettings';
 export type * from './TActorModel3dSettingsConfig';
 export type * from './TActorParams';
-export type * from './TActorProps';
 export type * from './TActorRegistry';
 export type * from './TActorService';
 export type * from './TActorStates';
