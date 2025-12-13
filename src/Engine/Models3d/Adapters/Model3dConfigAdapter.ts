@@ -1,7 +1,7 @@
 import { configToParams as materialConfigToParams } from '@/Engine/Material/Adapters';
 import type { TMaterialPackParams, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
 import type { TModel3dComplexConfig, TModel3dComplexParams, TModel3dPrimitiveConfig, TModel3dPrimitiveParams } from '@/Engine/Models3d/Models';
-import { isPrimitive } from '@/Engine/Models3d/Services/Models3dServiceHelper';
+import { isPrimitive } from '@/Engine/Models3d/Utils';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 

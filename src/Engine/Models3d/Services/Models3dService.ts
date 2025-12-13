@@ -100,7 +100,10 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     const model3d: TModel3dFacade | undefined = registry.findByName(name);
     if (isNotDefined(model3d)) return undefined;
 
-    return clone(model3d, overrides);
+    // TODO MODELS: Overrides doesn't work, fix: TModel3dConfig vs TModel3dPack issue
+    // return clone(model3d, overrides);
+
+    return clone(model3d);
   }
 
   const destroyable: TDestroyable = destroyableMixin();
