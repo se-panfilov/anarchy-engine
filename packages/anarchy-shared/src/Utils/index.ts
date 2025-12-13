@@ -11,6 +11,7 @@ export * from './ObjectUtils';
 export * from './RxJsUtils';
 export * from './SanitizeUtils';
 export * from './StringUtils';
+export * from './TrackingUtils';
 export * from './TypesUtils';
 export * from './UrlUtils';
 export * from './WebGlUtils';
