@@ -32,15 +32,6 @@ export function KeyboardService(container: TContainerDecorator, keyWatcherFactor
   //  - remove listeners on destroy
   //  - remove extra models
 
-  function isTextInputTarget(target: EventTarget | null | undefined): boolean {
-    if (!(target instanceof HTMLElement)) return false;
-    const tag: string = target.tagName.toLowerCase();
-    if (tag === 'input' || tag === 'textarea' || tag === 'select') return true;
-    if (target.isContentEditable) return true;
-
-    return false;
-  }
-
   const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 

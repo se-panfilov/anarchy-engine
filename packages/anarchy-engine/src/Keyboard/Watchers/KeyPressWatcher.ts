@@ -9,7 +9,10 @@ export function KeyPressWatcher({ container, tags }: TKeyWatcherParams): TKeyWat
   const containerIdTag: string = `container_id_${container.id}`;
   const abstractWatcher: TAbstractWatcher<KeyboardEvent> = AbstractWatcher(WatcherType.KeyPressWatcher, 'key_press_watcher', tags);
 
-  const onChange = (event: KeyboardEvent): void => abstractWatcher.value$.next(event);
+  function onChange(event: KeyboardEvent): void {
+    if (isTextInputTarget(event.target)) return;
+    abstractWatcher.value$.next(event);
+  }
 
   abstractWatcher.enabled$.pipe(distinctUntilChanged(), takeUntil(abstractWatcher.destroy$)).subscribe((value: boolean): void => {
     if (value) {
@@ -18,6 +21,15 @@ export function KeyPressWatcher({ container, tags }: TKeyWatcherParams): TKeyWat
       container.stopWatch(KeyboardEventType.KeyDown, onChange);
     }
   });
+
+  function isTextInputTarget(target: EventTarget | null | undefined): boolean {
+    if (!(target instanceof HTMLElement)) return false;
+    const tag: string = target.tagName.toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select') return true;
+    if (target.isContentEditable) return true;
+
+    return false;
+  }
 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractWatcher, {
