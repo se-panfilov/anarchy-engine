@@ -9,6 +9,7 @@
 - 2.6.0 UI menu (vue) extracted to a separate package
 - 2.8.0 App close/restart
 - 2.9.0 App close/restart
+- 2.10.0 Manage "First Run" state
 
 Roadmap:
 

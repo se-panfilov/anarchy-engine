@@ -1,2 +1,3 @@
 - 1.0.0 Initial
 - 1.1.0 Added more shared utils
+- 1.2.0 More Object utils
