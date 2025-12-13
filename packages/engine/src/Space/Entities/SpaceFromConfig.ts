@@ -1,5 +1,5 @@
 import { CreateEntitiesStrategy, SpaceEvents } from '@Engine/Space/Constants';
-import type { TSpace, TSpaceConfig, TSpaceParams, TSpaceRegistry } from '@Engine/Space/Models';
+import type { TSpace, TSpaceConfig, TSpaceFlags, TSpaceParams, TSpaceRegistry } from '@Engine/Space/Models';
 import { createEntities, loadResourcesFromConfig } from '@Engine/Space/Utils';
 import type { TWriteable } from '@Engine/Utils';
 import { isDefined } from '@Engine/Utils';
@@ -8,10 +8,10 @@ import { BehaviorSubject, exhaustMap, filter, takeUntil } from 'rxjs';
 
 import { Space } from './Space';
 
-export function SpaceFromConfig(params: TSpaceParams, config: TSpaceConfig, registry: TSpaceRegistry): TSpace {
+export function SpaceFromConfig(params: TSpaceParams, config: TSpaceConfig, registry: TSpaceRegistry, flags?: TSpaceFlags): TSpace {
   const builtFromConfig$: BehaviorSubject<TSpace | undefined> = new BehaviorSubject<TSpace | undefined>(undefined);
 
-  const space: TSpace = Space(params, registry);
+  const space: TSpace = Space(params, registry, flags);
   let oldBuilt$: Observable<TSpace> = space.built$;
   // eslint-disable-next-line functional/immutable-data
   (space as TWriteable<TSpace>).built$ = builtFromConfig$.pipe(filter(isDefined));

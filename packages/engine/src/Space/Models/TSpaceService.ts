@@ -5,11 +5,12 @@ import type { TSpace } from './TSpace';
 import type { TSpaceConfig } from './TSpaceConfig';
 import type { TSpaceFactory } from './TSpaceFactory';
 import type { TSpaceFactoryDependencies } from './TSpaceFactoryDependencies';
+import type { TSpaceFlags } from './TSpaceFlags';
 import type { TSpaceParams } from './TSpaceParams';
 import type { TSpaceRegistry } from './TSpaceRegistry';
 
-export type TSpaceServiceWithCreate = TWithCreateService<TSpace, TSpaceParams>;
-export type TSpaceServiceWithCreateFromConfig = TWithCreateFromConfigService<TSpaceConfig, TSpace>;
+export type TSpaceServiceWithCreate = TWithCreateService<TSpace, TSpaceParams, TSpaceFlags>;
+export type TSpaceServiceWithCreateFromConfig = TWithCreateFromConfigService<TSpaceConfig, TSpace, TSpaceFlags>;
 export type TSpaceServiceWithFactory = TWithFactoryService<TSpace, TSpaceParams, TSpaceFactoryDependencies, TSpaceFactory>;
 export type TSpaceServiceWithRegistry = TWithRegistryService<TSpaceRegistry>;
 
