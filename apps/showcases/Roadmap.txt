@@ -6,6 +6,7 @@ Done:
 - 2.2.1 Added routing for showcases
 - 2.3.0 Added UI menu
 - 2.4.0 Added support of scss
+- 2.5.0 Added Eslint & TS check for vue files
 
 Roadmap:
 - 3.0.x Mobile Build
