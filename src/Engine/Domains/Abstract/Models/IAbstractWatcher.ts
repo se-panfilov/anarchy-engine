@@ -1,8 +1,10 @@
 import type { IRegistrable } from '@Engine/Domains/Mixins';
 import type { Subject } from 'rxjs';
 
+import type { WatcherType } from '@/Engine/Domains/Abstract';
+
 export type IAbstractWatcher<T> = Readonly<{
-  type: string;
+  type: WatcherType | string;
   value$: Subject<T>;
   destroy$: Subject<void>;
 }> &

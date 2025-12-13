@@ -1,9 +1,11 @@
 import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
 
+import type { WatcherType } from '@/Engine/Domains/Abstract/Constants';
+
 import type { IAbstractWatcher } from '../Models';
 
-export function AbstractWatcher<T>(type: string, tags: ReadonlyArray<string> = []): IAbstractWatcher<T> {
+export function AbstractWatcher<T>(type: WatcherType | string, tags: ReadonlyArray<string> = []): IAbstractWatcher<T> {
   const id: string = type + '_watcher_' + nanoid();
   const value$: Subject<T> = new Subject<T>();
   const destroy$: Subject<void> = new Subject<void>();

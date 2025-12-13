@@ -1,9 +1,9 @@
 import { nanoid } from 'nanoid';
 
+import type { WrapperType } from '@/Engine/Domains/Abstract';
 import { destroyableMixin } from '@/Engine/Domains/Mixins';
 
 import type { IWrapper } from '../Models';
-import type { WrapperType } from '@/Engine/Domains/Abstract';
 
 export function AbstractWrapper<T>(entity: T, type: string, params?: Readonly<{ tags: ReadonlyArray<string> }>): IWrapper<T> {
   const id: string = type + '_' + nanoid();

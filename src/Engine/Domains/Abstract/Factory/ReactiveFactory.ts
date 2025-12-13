@@ -1,10 +1,12 @@
+import type { FactoryType } from '@Engine/Domains/Abstract/Constants';
 import { Subject } from 'rxjs';
 
-import type { IReactiveFactory } from '@/Engine/Domains/Abstract';
-import { AbstractFactory } from '@/Engine/Domains/Abstract';
+import type { IReactiveFactory } from '@/Engine/Domains/Abstract/Models';
 import { cleanObject } from '@/Engine/Utils';
 
-export function ReactiveFactory<T, P>(type: string, createEntityFn: (params: P) => T): IReactiveFactory<T, P> {
+import { AbstractFactory } from './AbstractFactory';
+
+export function ReactiveFactory<T, P>(type: FactoryType | string, createEntityFn: (params: P) => T): IReactiveFactory<T, P> {
   const entityCreated$: Subject<T> = new Subject<T>();
   const destroyed$: Subject<void> = new Subject<void>();
   let isDestroyed: boolean = false;
