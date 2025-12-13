@@ -18,7 +18,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
 
-  const { actorService, controlsService, envMapService } = space.services;
+  const { actorService, controlsService } = space.services;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
   const controlsRegistry: TControlsRegistry = controlsService.getRegistry();
 
@@ -93,8 +93,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     orbitControls.setDamping(true);
     orbitControls.moveToTargetSmoothly(position);
   }
-
-  void envMapService.loadAsync('/Showcase/hdr/urban_alley_01_4k.hdr');
 
   actorRegistry.added$.subscribe(addTextToActor);
 

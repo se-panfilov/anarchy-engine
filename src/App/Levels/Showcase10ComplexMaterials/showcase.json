@@ -29,7 +29,7 @@
       { "name": "carpet_displacement_map", "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png", "tags": ["carpet", "displacementMap"] },
       { "name": "carpet_roughness_map", "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg", "tags": ["carpet", "roughnessMap"] }
     ],
-    "envMaps": [],
+    "envMaps": [{ "name": "urban_alley_hdr", "url": "/Showcase/hdr/urban_alley_01_4k.hdr" }],
     "materials": [
       {
         "name": "standard_metal",
@@ -974,7 +974,7 @@
         "isActive": true
       }
     ],
-    "envMaps": [],
+    "envMaps": [{ "name": "urban_alley_env_map", "texture": "urban_alley_hdr", "isActive": true }],
     "particles": [],
     "fogs": []
   },
