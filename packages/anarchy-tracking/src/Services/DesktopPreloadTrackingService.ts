@@ -1,18 +1,16 @@
-import { isDefined } from '@Anarchy/Shared/Utils';
 import { HiddenField } from '@Anarchy/Tracking/Constants';
 import type { TTrackingService } from '@Anarchy/Tracking/Models';
-import { scrubUserPathsDesktop } from '@Anarchy/Tracking/Utils';
-import type { ElectronMainOptions } from '@sentry/electron/esm/main';
-import type { ErrorEvent, EventHint } from '@sentry/electron/main';
-import { captureException, init } from '@sentry/electron/main';
+import { scrubUserPathsBrowser } from '@Anarchy/Tracking/Utils';
+import type { ErrorEvent, EventHint } from '@sentry/electron/renderer';
+import { captureException, init } from '@sentry/electron/renderer';
 
-export function DesktopTrackingService(options?: ElectronMainOptions, metaData?: Readonly<Record<string, unknown>>): TTrackingService {
+export function DesktopPreloadTrackingService(options?: Record<string, any>, metaData?: Readonly<Record<string, unknown>>): TTrackingService {
   let isStarted: boolean = false;
 
-  const defaultOptions: ElectronMainOptions = {
+  const defaultOptions = {
     beforeSend(event: ErrorEvent, _hint: EventHint): PromiseLike<ErrorEvent | null> | ErrorEvent | null {
       // eslint-disable-next-line functional/immutable-data
-      if (isDefined(event.user)) event.user = null as any;
+      if (!event.user) event.user = null as any;
 
       if (event.request) {
         // eslint-disable-next-line functional/immutable-data
@@ -39,12 +37,20 @@ export function DesktopTrackingService(options?: ElectronMainOptions, metaData?:
       if ((event as any).contexts?.geography) delete (event as any).contexts.geography;
 
       // eslint-disable-next-line functional/immutable-data
-      if (isDefined(event.breadcrumbs)) event.breadcrumbs = undefined;
+      if (!event.breadcrumbs) event.breadcrumbs = undefined;
 
       // eslint-disable-next-line functional/immutable-data
-      (event as any).tags = { ...event.tags, ...metaData, layer: 'electron-main', errorTracker: 'DesktopTrackingService' };
+      (event as any).tags = {
+        ...event.tags,
+        ...metaData,
+        //layer and errorTracker could be overwritten by BrowserTrackingService so we use initLayer and errorTrackerInitializer
+        layer: 'electron-preload',
+        initLayer: 'electron-preload',
+        errorTracker: 'DesktopPreloadTrackingService',
+        errorTrackerInitializer: 'DesktopPreloadTrackingService'
+      };
 
-      return scrubUserPathsDesktop(event);
+      return scrubUserPathsBrowser(event as any) as ErrorEvent;
     },
     tracesSampleRate: 0,
     //Important: make sure this is false if you want Anonymous reports (no IPs, etc.).
@@ -62,14 +68,22 @@ export function DesktopTrackingService(options?: ElectronMainOptions, metaData?:
   function start(onErrorHandler: (ev: any) => void = onError, onRejectionHandler: (ev: PromiseRejectionEvent) => void = onRejection): void {
     if (isStarted) return;
     isStarted = true;
-    process.on('uncaughtException', onErrorHandler);
-    process.on('unhandledRejection', onRejectionHandler);
+
+    console.log('XXX window', globalThis.window?.addEventListener);
+    console.log('XXX process', globalThis.process?.on);
+
+    globalThis.window?.addEventListener?.('error', onErrorHandler);
+    globalThis.window?.addEventListener?.('unhandledrejection', onRejectionHandler);
+    globalThis.process?.on?.('uncaughtException', onErrorHandler);
+    globalThis.process?.on?.('unhandledRejection', onRejectionHandler);
   }
 
   function stop(onErrorHandler: (ev: any) => void = onError, onRejectionHandler: (ev: PromiseRejectionEvent) => void = onRejection): void {
     isStarted = false;
-    process.off('uncaughtException', onErrorHandler);
-    process.off('unhandledRejection', onRejectionHandler);
+    globalThis.window?.removeEventListener?.('error', onErrorHandler);
+    globalThis.window?.removeEventListener?.('unhandledrejection', onRejectionHandler);
+    globalThis.process?.off?.('uncaughtException', onErrorHandler);
+    globalThis.process?.off?.('unhandledRejection', onRejectionHandler);
   }
 
   start();

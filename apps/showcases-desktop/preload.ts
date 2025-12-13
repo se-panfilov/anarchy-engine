@@ -5,10 +5,9 @@ import { PlatformActions } from './src/Constants';
 import type { TLegalDoc } from 'showcases-shared';
 import { TLocaleId } from 'anarchy-i18n';
 import type { TBrowserInfo } from 'anarchy-shared/src/Models';
+import { DesktopPreloadTrackingService } from 'anarchy-tracking/src/Services/DesktopPreloadTrackingService';
 
 const { AppExit, AppRestart, GetAppSettings, GetBrowserInfo, GetLegalDocs, GetPackagesVersions, GetPreferredLocales, SetAppSettings, UpdateAppSettings } = PlatformActions;
-
-// TODO DESKTOP: Should we also add Sentry here?
 
 const mapping: TShowcasesDesktopApi = {
   closeApp: (): Promise<void> => ipcRenderer.invoke(platformApiChannel, AppExit),
@@ -27,3 +26,21 @@ const mapping: TShowcasesDesktopApi = {
 
 //platformApiName will be available in the main app as `window[platformApiName]`
 contextBridge.exposeInMainWorld(platformApiName, mapping);
+
+if (import.meta.env.VITE_SENTRY_DSN) {
+  console.log('XXX tracking started');
+  DesktopPreloadTrackingService(
+    {
+      dsn: import.meta.env.VITE_SENTRY_DSN,
+      environment: __PLATFORM_MODE__,
+      release: __DESKTOP_APP_VERSION__
+    },
+    {
+      //Other meta info (versions) will be added by DesktopTrackingService ("main" layer)
+      desktop: __DESKTOP_APP_VERSION__,
+      platformVersion: process.versions.electron,
+      node: process.versions.node,
+      wrappedAppVersion: __DESKTOP_APP_VERSION__
+    }
+  ).start();
+}
