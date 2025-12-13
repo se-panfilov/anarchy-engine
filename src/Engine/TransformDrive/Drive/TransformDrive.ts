@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, pairwise, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, ReplaySubject } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
 import type { TDestroyable } from '@/Engine/Mixins';
@@ -42,17 +42,15 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(activeAgent$.value.rotation$.value);
   const scale$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(activeAgent$.value.scale$.value);
 
+  let prevAgent: TAbstractTransformAgent | undefined;
   const activeAgentSub$: Subscription = activeAgent$
-    .pipe(
-      distinctUntilChanged((prev: TAbstractTransformAgent, curr: TAbstractTransformAgent): boolean => prev.type === curr.type),
-      pairwise()
-    )
-    .subscribe(([prevAgent, newAgent]: [TAbstractTransformAgent, TAbstractTransformAgent]): void => {
+    .pipe(distinctUntilChanged((prev: TAbstractTransformAgent, curr: TAbstractTransformAgent): boolean => prev.type === curr.type))
+    .subscribe((newAgent: TAbstractTransformAgent): void => {
       const position: Vector3 = position$.value;
       const rotation: Euler = rotation$.value;
       const scale: Vector3 = scale$.value;
 
-      prevAgent.onDeactivated$.next({ position, rotation, scale });
+      prevAgent?.onDeactivated$.next({ position, rotation, scale });
       Object.values(agents).forEach((agent: TAbstractTransformAgent): void => {
         const isActiveAgent: boolean = agent.type === newAgent.type;
         agent.enabled$.next(isActiveAgent);
@@ -63,6 +61,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
         agent.scale$.next(scale);
       });
       newAgent.onActivated$.next({ position, rotation, scale });
+      prevAgent = newAgent;
     });
 
   //We don't expose these BehaviorSubjects, because they're vulnerable to external changes without .next() (e.g. "position.value = ...")
