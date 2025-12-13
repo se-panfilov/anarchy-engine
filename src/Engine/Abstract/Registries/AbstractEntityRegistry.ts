@@ -7,7 +7,7 @@ import { withBaseAccessorsRegistry } from '@/Engine/Abstract/Registries/Mixin';
 import { withReactiveRegistry } from '@/Engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
 import type { TDestroyable, TMultitonRegistrable, TRegistrable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { findInMap, getAllEntitiesWithNames, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, isNotDefined } from '@/Engine/Utils';
+import { findInMap, getAllEntitiesWithNames, getAllEntitiesWithTag, getAllEntitiesWithTags, getKeyByValue, getUniqEntityWithTag, getUniqEntityWithTags, isNotDefined } from '@/Engine/Utils';
 
 export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistrable>(type: RegistryType): TAbstractEntityRegistry<T> {
   const id: string = type + '_registry_' + nanoid();
@@ -52,11 +52,7 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
   const findByTags = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): T | undefined | never => getUniqEntityWithTags(tags, registry, strategy);
   const findByTag = (tag: string): T | undefined | never => getUniqEntityWithTag(tag, registry);
 
-  function findKeyByValue(value: T): string | undefined {
-    // eslint-disable-next-line functional/no-loop-statements
-    for (const [key, val] of registry.entries()) if (val === value) return key;
-    return undefined;
-  }
+  const findKeyByValue = (value: T): string | undefined => getKeyByValue(registry, value);
 
   const asObject = (): Record<string, T> => Object.fromEntries(registry.entries());
 

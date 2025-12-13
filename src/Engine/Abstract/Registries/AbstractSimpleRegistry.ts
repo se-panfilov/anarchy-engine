@@ -6,7 +6,7 @@ import { withBaseAccessorsRegistry } from '@/Engine/Abstract/Registries/Mixin';
 import { withReactiveRegistry } from '@/Engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { isNotDefined } from '@/Engine/Utils';
+import { getKeyByValue, isNotDefined } from '@/Engine/Utils';
 
 export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRegistry<T> {
   const id: string = type + '_registry_' + nanoid();
@@ -30,11 +30,7 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRe
 
   const findByKey = (key: string): T | undefined => registry.get(key);
 
-  function findKeyByValue(value: T): string | undefined {
-    // eslint-disable-next-line functional/no-loop-statements
-    for (const [key, val] of registry.entries()) if (val === value) return key;
-    return undefined;
-  }
+  const findKeyByValue = (value: T): string | undefined => getKeyByValue(registry, value);
 
   function remove(key: string): void | never {
     const value: T | undefined = registry.get(key);
