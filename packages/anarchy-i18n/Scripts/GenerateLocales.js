@@ -75,9 +75,61 @@ const canonicalize = (tag) => {
 };
 
 // A minimal set of RTL scripts (extend if needed)
-const RTL_SCRIPTS = new Set(['Arab', 'Hebr', 'Syrc', 'Thaa', 'Nkoo', 'Adlm', 'Rohg']);
+const RTL_SCRIPTS = new Set([
+  // Modern/Living scripts in digital use
+  'Adlm', // Adlam
+  'Arab', // Arabic
+  'Aran', // Arabic (Nastaliq) — distinct code ISO-15924
+  'Hebr', // Hebrew
+  'Nkoo', // N’Ko
+  'Syrc', // Syriac
+  'Thaa', // Thaana
+  'Rohg', // Hanifi Rohingya
+  'Mand', // Mandaic
+  'Samr', // Samaritan
+  'Yezi', // Yezidi
+  'Mend', // Mende Kikakui
+
+  // Historical or rare scripts (for completeness and correct rendering)
+  'Armi', // Imperial Aramaic
+  'Avst', // Avestan
+  'Chrs', // Chorasmian
+  'Elym', // Elymaic
+  'Hatr', // Hatran
+  'Khar', // Kharoshthi
+  'Lydi', // Lydian
+  'Mani', // Manichaean
+  'Merc', // Meroitic Cursive
+  'Mero', // Meroitic Hieroglyphs
+  'Narb', // Old North Arabian
+  'Nbat', // Nabataean
+  'Orkh', // Old Turkic (Orkhon)
+  'Palm', // Palmyrene
+  'Phli', // Inscriptional Pahlavi
+  'Phlp', // Psalter Pahlavi
+  'Phnx', // Phoenician
+  'Prti', // Inscriptional Parthian
+  'Sarb', // Old South Arabian
+  'Sogd', // Sogdian
+  'Sogo', // Old Sogdian
+  'Cprt' // Cypriot syllabary
+]);
+
 // Some languages are RTL regardless of missing script in tag
-const RTL_LANGS = new Set(['ar', 'fa', 'he', 'ur', 'ps', 'dv', 'ku']);
+const RTL_LANGS = new Set([
+  'ar', // Arabic
+  'he', // Hebrew
+  'fa', // Persian (Farsi)
+  'ur', // Urdu
+  'ps', // Pashto
+  'dv', // Dhivehi (Thaana)
+  'ckb', // Central Kurdish (Sorani)
+  'ug', // Uyghur (default Arab)
+  'sd', // Sindhi
+  'ks', // Kashmiri (часто Arab по умолчанию)
+  'prs', // Dari (Afghan Persian)
+  'yi' // Yiddish (Hebrew script)
+]);
 
 const inferDirection = (language, script) => ((script && RTL_SCRIPTS.has(script)) || RTL_LANGS.has(language) ? 'rtl' : 'ltr');
 
