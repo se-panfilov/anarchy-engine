@@ -97,7 +97,7 @@ export function showcase(space: TSpace): void {
     isAutoStart: true,
     camera: cameraW,
     actors: [...blocks, ...blocks2, ...blocks3, surface, sphereActor],
-    position$: mouseService.position$,
+    position$: mouseService.normalizedPosition$,
     intersectionsLoop
   });
 

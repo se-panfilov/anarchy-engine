@@ -134,7 +134,7 @@ export function startIntersections({ actorService, cameraService, intersectionsW
     actors: [surfaceActor, boxActor1, boxActor2],
     camera,
     isAutoStart: true,
-    position$: mouseService.position$,
+    position$: mouseService.normalizedPosition$,
     intersectionsLoop: loopService.getIntersectionsLoop()
   });
 }

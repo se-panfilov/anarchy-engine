@@ -54,7 +54,7 @@ function startIntersections(space: TSpace, camera: TCameraWrapper): TIntersectio
     actors: [surfaceActor],
     camera,
     isAutoStart: true,
-    position$: mouseService.position$,
+    position$: mouseService.normalizedPosition$,
     intersectionsLoop
   });
 }
