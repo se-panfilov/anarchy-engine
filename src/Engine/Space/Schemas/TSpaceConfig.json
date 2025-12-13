@@ -3,17 +3,8 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "tags": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "name": {
+    "canvasSource": {
       "type": "string"
-    },
-    "version": {
-      "$ref": "#/definitions/SpaceSchemaVersion"
     },
     "scenes": {
       "type": "array",
@@ -26,14 +17,22 @@
     },
     "resources": {
       "$ref": "#/definitions/TSpaceConfigResources"
+    },
+    "version": {
+      "$ref": "#/definitions/SpaceSchemaVersion"
+    },
+    "name": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     }
   },
-  "required": ["entities", "resources", "scenes", "version"],
+  "required": ["canvasSource", "entities", "resources", "scenes", "version"],
   "definitions": {
-    "SpaceSchemaVersion": {
-      "type": "string",
-      "enum": ["1.0.0", "2.0.0"]
-    },
     "TSceneConfig": {
       "type": "object",
       "additionalProperties": false,
@@ -7308,6 +7307,10 @@
     "ColorSpace": {
       "type": "string",
       "enum": ["", "srgb", "srgb-linear"]
+    },
+    "SpaceSchemaVersion": {
+      "type": "string",
+      "enum": ["1.0.0", "2.0.0"]
     }
   }
 }
