@@ -4,11 +4,12 @@ import type { IDestroyableFactories, ILocalFactoryPool, IRegistryPool } from '@E
 import { RegistryPool } from '@Engine/Pool';
 import { LocalFactoriesPool } from '@Engine/Pool/LocalFactoriesPool';
 import type { IFactories, IRegistries } from '@Engine/Pool/Models';
-import { addToRegistry, isNotDefined } from '@Engine/Utils';
+import { addToRegistry, isNotDefined, isValidSceneConfig } from '@Engine/Utils';
 import type { ICameraWrapper, ILoopWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
 import { BehaviorSubject } from 'rxjs';
 
-export function SceneLauncher(sceneConfig: ISceneConfig, canvas: IAppCanvas, factories: IFactories): ISceneLauncher {
+export function SceneLauncher(sceneConfig: ISceneConfig | unknown, canvas: IAppCanvas, factories: IFactories): ISceneLauncher {
+  if (!isValidSceneConfig(sceneConfig)) throw new Error('Failed to load a scene: invalid data format');
   const { name: sceneName, actors, cameras, lights, controls, tags: sceneTags } = sceneConfig;
 
   const prepared$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -46,7 +47,6 @@ export function SceneLauncher(sceneConfig: ISceneConfig, canvas: IAppCanvas, fac
     addToRegistry(lights, lightFactory, lightRegistry);
     addToRegistry(controls, controlsFactory, controlsRegistry);
 
-    // TODO (S.Panfilov) everything below should be extracted from the launchScene()
     const renderer: IRendererWrapper = rendererFactory.create({ canvas, tags: [RendererTag.Main] });
 
     const loop: ILoopWrapper = loopFactory.create({ tags: [LoopTag.Main] });

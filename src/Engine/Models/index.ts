@@ -16,6 +16,7 @@ export * from './IDestroyableFactory';
 export * from './IDirectionalLight';
 export * from './IFactory';
 export * from './IInputParams';
+export * from './ILaunchedEngine';
 export * from './ILaunchedScene';
 export * from './ILightConfig';
 export * from './ILightParams';
