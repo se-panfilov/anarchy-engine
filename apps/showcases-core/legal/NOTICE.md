@@ -653,7 +653,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-menu@1.5.8
+## showcases-menu@1.6.0
 
 **License(s):** MIT
 

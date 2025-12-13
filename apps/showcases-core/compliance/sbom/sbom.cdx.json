@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:b1e501cc-ea9d-4bf8-98d6-0906dfc4944b",
+  "serialNumber": "urn:uuid:1100a274-b025-4c6d-a253-8368d67f513b",
   "version": 1,
   "metadata": {
-    "timestamp": "2025-08-24T15:14:09.076Z",
+    "timestamp": "2025-08-25T23:12:25.029Z",
     "lifecycles": [
       {
         "phase": "pre-build"
@@ -1186,14 +1186,14 @@
       ]
     },
     {
-      "bom-ref": "showcases-menu@1.5.8",
+      "bom-ref": "showcases-menu@1.6.0",
       "type": "library",
       "name": "showcases-menu",
-      "version": "1.5.8",
+      "version": "1.6.0",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Showcases-Menu – a menu for Anarchy Engine Showcases.",
-      "purl": "pkg:npm/showcases-menu@1.5.8",
+      "purl": "pkg:npm/showcases-menu@1.6.0",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -1237,11 +1237,11 @@
   "dependencies": [
     {
       "ref": "anarchy-monorepo@2.1.5",
-      "dependsOn": ["showcases-core@2.7.6", "showcases-desktop@2.3.4", "showcases-e2e@1.0.4", "anarchy-engine@20.3.4", "anarchy-i18n@1.1.3", "anarchy-legal@1.10.3", "showcases-menu@1.5.8"]
+      "dependsOn": ["showcases-core@2.7.6", "showcases-desktop@2.3.4", "showcases-e2e@1.0.4", "anarchy-engine@20.3.4", "anarchy-i18n@1.1.3", "anarchy-legal@1.10.3", "showcases-menu@1.6.0"]
     },
     {
       "ref": "showcases-core@2.7.6",
-      "dependsOn": ["anarchy-engine@20.3.4", "anarchy-i18n@1.1.3", "lil-gui@0.20.0", "sanitize.css@13.0.0", "showcases-menu@1.5.8", "stats.js@0.17.0", "three-viewport-gizmo@2.2.0"]
+      "dependsOn": ["anarchy-engine@20.3.4", "anarchy-i18n@1.1.3", "lil-gui@0.20.0", "sanitize.css@13.0.0", "showcases-menu@1.6.0", "stats.js@0.17.0", "three-viewport-gizmo@2.2.0"]
     },
     {
       "ref": "showcases-desktop@2.3.4",
@@ -1419,7 +1419,7 @@
       "dependsOn": []
     },
     {
-      "ref": "showcases-menu@1.5.8",
+      "ref": "showcases-menu@1.6.0",
       "dependsOn": ["anarchy-engine@20.3.4", "anarchy-i18n@1.1.3", "pinia@3.0.3", "sanitize.css@13.0.0"]
     },
     {

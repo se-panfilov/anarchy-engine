@@ -2271,7 +2271,7 @@ http://creativecommons.org/publicdomain/zero/1.0/.
 
 ---
 
-## showcases-menu@1.5.8
+## showcases-menu@1.6.0
 
 **License:** MIT
 
