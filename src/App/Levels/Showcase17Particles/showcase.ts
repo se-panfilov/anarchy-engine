@@ -21,8 +21,6 @@ export function showcase(space: TSpace): void {
   const positions: Float32Array = new Float32Array(count * 3);
   const colors: Float32Array = new Float32Array(count * 3);
 
-  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
-
   // eslint-disable-next-line functional/no-loop-statements
   for (let i: number = 0; i < count * 3; i++) {
     // eslint-disable-next-line functional/immutable-data
@@ -35,6 +33,8 @@ export function showcase(space: TSpace): void {
   const particles: TParticlesWrapper | undefined = particlesService.getRegistry().findByName(particlesName);
   if (isNotDefined(particles)) throw new Error(`Particles "${particlesName}" not found`);
   particles.setIndividualPositions(positions);
+
+  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
 
   space.start$.next(true);
 }
