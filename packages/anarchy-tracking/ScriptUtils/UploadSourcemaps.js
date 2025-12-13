@@ -2,7 +2,8 @@
 import { join, resolve } from 'path';
 import { spawnSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
-import * as dotenv from 'dotenv';
+import { loadModeEnv } from 'anarchy-shared/ScriptUtils/EnvUtils.js';
+import { parseModeArg } from 'anarchy-shared/ScriptUtils/ModeUtils.js';
 
 /* Minimal Sentry sourcemaps uploader for Vite/Electron builds.
  * Features:
@@ -19,16 +20,6 @@ import * as dotenv from 'dotenv';
  *  - SENTRY_AUTH_TOKEN must be provided via env (e.g., .env.local), NOT committed
  */
 
-// Load .env* files (from the folder where this script is run)
-function loadEnvFromCwd(mode) {
-  const cwd = process.cwd();
-  const list = [join(cwd, '.env'), join(cwd, '.env.local'), join(cwd, `.env.${mode}`), join(cwd, `.env.${mode}.local`)];
-  console.log('Reading env files:', list.join(', \n'));
-  for (const p of list) {
-    if (existsSync(p)) dotenv.config({ path: p });
-  }
-}
-
 function printHelp() {
   console.log(`
 Usage:
@@ -44,7 +35,7 @@ Args:
   --url-prefix <prefix>   upload-sourcemaps urlPrefix (e.g., "~/" or "app:///dist").
   --dist-name <name>      Sentry "dist" value (e.g., "darwin-arm64", "win32-x64", "web"). Also read from <VITE_DIST_NAME>.
   --sentry-dist <name>    Alias of --dist-name.
-  --mode <name>           Build mode (e.g., production). If omitted, checks $MODE or $NODE_ENV.
+  --mode <name>           Build mode (e.g., production).
   --no-dev-guard          Disable protection that blocks upload when mode != "production".
   --no-detect-base        Do not read Vite "base"; always use "~/" when --url-prefix is not provided.
   --dry-run               Print planned commands instead of executing.
@@ -146,8 +137,10 @@ function runSentryCli(args, env, dryRun) {
     process.exit(0);
   }
 
-  const mode = (argv.mode || process.env.MODE || process.env.NODE_ENV || '').toLowerCase();
-  loadEnvFromCwd(mode);
+  console.log('XXX argv', argv);
+
+  const mode = parseModeArg(process.argv);
+  loadModeEnv(mode, process.cwd());
 
   // Resolve build dir (kept as --dist for backward compat)
   const distDir = argv.dist || 'dist';

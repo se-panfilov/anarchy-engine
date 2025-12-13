@@ -1,7 +1,7 @@
+import { normalizeMode, resolveDryRun, resolveMode } from 'anarchy-shared/ScriptUtils/ModeUtils.js';
 import { execSync } from 'node:child_process';
 import path from 'node:path';
-import { normalizeMode, resolveDryRun, resolveMode } from './utils/mode.js';
-import { loadModeEnv } from './utils/env.js';
+import { loadModeEnv } from 'anarchy-shared/ScriptUtils/EnvUtils.js';
 
 const argv = process.argv.slice(2);
 const mode = resolveMode(argv);
