@@ -1,5 +1,4 @@
 import sceneConfig from '@Engine/Launcher/debug-scene.config.json';
-import { ambientContext, startAmbientContext } from '@Engine/Context';
 import { isNotDefined, isValidSceneConfig } from '@Engine/Utils';
 import './style.css';
 import { launch } from '@Engine/Launcher';
@@ -17,6 +16,3 @@ const registryPool: IRegistriesPool = getRegistryPool();
 const factoriesPool: IFactoriesPool = getFactoriesPool({ canvas, cameraRegistry: registryPool.cameraRegistry });
 const isLaunched: boolean = await launch(sceneConfig, canvas, factoriesPool, registryPool);
 console.log('Launched', isLaunched);
-
-//Ambient Context
-startAmbientContext(ambientContext);

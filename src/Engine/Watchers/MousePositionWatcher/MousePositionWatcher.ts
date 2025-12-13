@@ -9,10 +9,22 @@ export function MousePositionWatcher(container: IGlobalContainerDecorator): IMou
 
   const onMouseMoveListener = ({ clientX: x, clientY: y }: IMouseEvent): void => value$.next({ x, y });
 
-  return {
+  function start(): IMousePositionWatcher {
+    container.startWatch('mousemove', onMouseMoveListener);
+    return result;
+  }
+
+  function stop(): IMousePositionWatcher {
+    container.stopWatch('mousemove', onMouseMoveListener);
+    return result;
+  }
+
+  const result: IMousePositionWatcher = {
     ...AbstractWatcher('mouse_position'),
-    start: (): void => container.startWatch('mousemove', onMouseMoveListener),
-    stop: (): void => container.stopWatch('mousemove', onMouseMoveListener),
+    start,
+    stop,
     value$
   };
+
+  return result;
 }

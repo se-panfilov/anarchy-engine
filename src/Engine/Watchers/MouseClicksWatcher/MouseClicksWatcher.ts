@@ -7,10 +7,22 @@ export function MouseClicksWatcher(container: IGlobalContainerDecorator): IMouse
   const value$: Subject<void> = new Subject<void>();
   const onMouseUpListener = (): void => value$.next();
 
-  return {
+  function start(): IMouseClicksWatcher {
+    container.startWatch('mousemove', onMouseUpListener);
+    return result;
+  }
+
+  function stop(): IMouseClicksWatcher {
+    container.stopWatch('mousemove', onMouseUpListener);
+    return result;
+  }
+
+  const result: IMouseClicksWatcher = {
     ...AbstractWatcher('mouse_clicks'),
-    start: (): void => container.startWatch('mousemove', onMouseUpListener),
-    stop: (): void => container.stopWatch('mousemove', onMouseUpListener),
+    start,
+    stop,
     value$
   };
+
+  return result;
 }

@@ -2,10 +2,13 @@ import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatche
 import type { IGlobalContainerDecorator } from '@Engine/Global';
 import type { IScreenSizeWatcher } from '@Engine/Watchers/ScreenSizeWatcher/Models/IScreenSizeWatcher';
 import type { IScreenParams } from '@Engine/Models';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 export function ScreenSizeWatcher(container: IGlobalContainerDecorator): IScreenSizeWatcher {
   const value$: Subject<IScreenParams> = new Subject<IScreenParams>();
+  const latest$: BehaviorSubject<IScreenParams> = new BehaviorSubject<IScreenParams>({ width: 0, height: 0, ratio: 0 });
+
+  value$.subscribe((val: IScreenParams) => latest$.next(val));
 
   const onResize = (): void =>
     value$.next({
@@ -14,13 +17,24 @@ export function ScreenSizeWatcher(container: IGlobalContainerDecorator): IScreen
       ratio: container.ratio
     });
 
-  return {
+  function start(): IScreenSizeWatcher {
+    onResize();
+    container.startWatch('resize', onResize);
+    return result;
+  }
+
+  function stop(): IScreenSizeWatcher {
+    container.stopWatch('resize', onResize);
+    return result;
+  }
+
+  const result: IScreenSizeWatcher = {
     ...AbstractWatcher('screen-size'),
-    start: (): void => {
-      onResize();
-      container.startWatch('resize', onResize);
-    },
-    stop: (): void => container.stopWatch('resize', onResize),
-    value$
+    start,
+    stop,
+    value$,
+    latest$
   };
+
+  return result;
 }

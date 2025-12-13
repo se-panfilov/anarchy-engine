@@ -14,12 +14,18 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: IScreenS
   entity.lookAt(lookAt.x, lookAt.y, lookAt.z);
   entity.position.set(position.x, position.y, position.z);
 
-  screenSizeWatcher.value$.subscribe(({ width, height }: IScreenParams): void => {
+  // eslint-disable-next-line functional/prefer-immutable-types
+  function setValues(entity: Writeable<IPerspectiveCamera>, { width, height }: IScreenParams): void {
     if (isNotDefined(entity)) return;
     // eslint-disable-next-line functional/immutable-data
     entity.aspect = width / height;
     entity.updateProjectionMatrix();
-  });
+  }
+
+  //init with the values which came before the start of the subscription
+  setValues(entity, screenSizeWatcher.latest$.value);
+
+  screenSizeWatcher.value$.subscribe((params: IScreenParams): void => setValues(entity, params));
 
   screenSizeWatcher.destroy$.subscribe(() => {
     screenSizeWatcher.value$.unsubscribe();

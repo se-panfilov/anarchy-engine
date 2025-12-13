@@ -1,4 +1,4 @@
-import type { IWatcher } from '@Engine/Watchers';
+import type { IWatcherWithState } from '@Engine/Watchers';
 import type { IScreenParams } from '@Engine/Models';
 
-export type IScreenSizeWatcher = IWatcher<IScreenParams>;
+export type IScreenSizeWatcher = IWatcherWithState<IScreenParams>;
