@@ -32,6 +32,7 @@ export function Actor(params: TActorParams, { spatialGridService, physicsBodySer
     // TODO ACTOR: state encapsulate AI (connection)
     // TODO ACTOR: state encapsulate sounds
     drive,
+    driveToTargetConnector,
     model3d,
     ...withActorStates(params),
     ...withSpatial(params),
@@ -65,10 +66,6 @@ export function Actor(params: TActorParams, { spatialGridService, physicsBodySer
 
     //Destroy collisions
     actor.collisions.destroy$.next();
-
-    //Destroy transform drive
-    actor.drive.destroy$.next();
-    driveToTargetConnector.destroy$.next();
 
     //Destroy Fsm's
     Object.values(entities.states).forEach((value: TFsmWrapper): void => value.destroy$.next());

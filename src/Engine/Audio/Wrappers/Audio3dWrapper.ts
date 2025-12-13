@@ -41,10 +41,6 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
 
     listener$.complete();
     listener$.unsubscribe();
-
-    //Destroy transform drive
-    drive.destroy$.next();
-    driveToTargetConnector.destroy$.next();
   });
 
   // eslint-disable-next-line functional/immutable-data

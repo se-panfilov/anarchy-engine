@@ -3,7 +3,7 @@ import { distinctUntilChanged, EMPTY, switchMap, tap } from 'rxjs';
 
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
-import type { TAbstractTransformAgent } from '@/Engine/TransformDrive/Models';
+import type { TAbstractTransformAgent, TTransformDriveCompatibleEntity, TWithTransformDrive } from '@/Engine/TransformDrive/Models';
 import { isDefined, isEqualOrSimilarByXyzCoords } from '@/Engine/Utils';
 
 export function getDynamicAgents<T extends Partial<Record<TransformAgent, TAbstractTransformAgent>>>(agents: T): T {
@@ -31,4 +31,8 @@ export function updateFromActiveAgent<T extends TReadonlyVector3 | TReadonlyQuat
       prevValue[2] = value.z;
     })
   );
+}
+
+export function hasTransformDrive<T extends TTransformDriveCompatibleEntity>(entity: unknown): entity is TWithTransformDrive<T> {
+  return isDefined((entity as TWithTransformDrive<T>).drive) && isDefined((entity as TWithTransformDrive<T>).driveToTargetConnector);
 }

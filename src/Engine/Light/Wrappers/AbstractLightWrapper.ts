@@ -27,10 +27,6 @@ export function AbstractLightWrapper<T extends TLight>(entity: T, params: TLight
   const destroySub$: Subscription = result.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
-    //Destroy transform drive
-    drive.destroy$.next();
-    driveToTargetConnector.destroy$.next();
-
     (entity as any).shadow?.map?.dispose();
     entity.dispose();
   });

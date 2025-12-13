@@ -40,10 +40,6 @@ export function CameraWrapper(params: TCameraParams): TCameraWrapper {
 
   const destroySub$: Subscription = result.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
-
-    //Destroy transform drive
-    drive.destroy$.next();
-    driveToTargetConnector.destroy$.next();
   });
 
   if (isDefined(lookAt)) accessors.lookAt(new Vector3(lookAt.x, lookAt.y, lookAt.z));

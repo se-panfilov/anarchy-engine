@@ -6,7 +6,8 @@ import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 
 import type { TAbstractTransformAgent } from './TAbstractTransformAgent';
 
-export type TTransformDrive<T extends Partial<Record<TransformAgent, TAbstractTransformAgent>>> = TTransformDriveMandatoryFields & T & TNoSpread & TDestroyable;
+export type TTransformDriveCompatibleEntity = Partial<Record<TransformAgent, TAbstractTransformAgent>>;
+export type TTransformDrive<T extends TTransformDriveCompatibleEntity> = TTransformDriveMandatoryFields & T & TNoSpread & TDestroyable;
 
 export type TTransformDriveMandatoryFields = Readonly<{
   agent$: BehaviorSubject<TransformAgent>;
