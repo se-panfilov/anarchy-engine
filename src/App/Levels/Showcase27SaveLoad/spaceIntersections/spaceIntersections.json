@@ -1,0 +1,135 @@
+{
+  "canvasSelector": "#intersections_container #app",
+  "entities": {
+    "actors": [
+      {
+        "agent": "default",
+        "model3dSource": "surface_model",
+        "name": "surface_actor",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        }
+      }
+    ],
+    "audio": [],
+    "cameras": [
+      {
+        "far": 10000,
+        "fov": 45,
+        "isActive": true,
+        "name": "main",
+        "near": 1,
+        "position": {
+          "x": 3,
+          "y": 20,
+          "z": 35
+        },
+        "rotation": {
+          "x": -0.519146114246523,
+          "y": 0.07428390319893977,
+          "z": 0.04238351982512054
+        },
+        "type": "PerspectiveCamera"
+      }
+    ],
+    "controls": [],
+    "envMaps": [],
+    "fogs": [],
+    "fsm": [],
+    "intersections": [],
+    "lights": [
+      {
+        "color": "#FFFFFF",
+        "intensity": 1.5,
+        "name": "ambient_light",
+        "position": {
+          "x": 0.25,
+          "y": 2,
+          "z": 2.25
+        },
+        "type": "AmbientLight"
+      }
+    ],
+    "materials": [
+      {
+        "name": "surface_material",
+        "options": {
+          "color": "#FFFFFF"
+        },
+        "type": "MeshStandardMaterial"
+      }
+    ],
+    "models3d": [
+      {
+        "castShadow": false,
+        "material": "surface_material",
+        "model3dSource": "plane",
+        "name": "surface_model",
+        "options": {
+          "height": 100,
+          "heightSegments": 1,
+          "width": 100,
+          "widthSegments": 1
+        },
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "receiveShadow": true,
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        }
+      }
+    ],
+    "particles": [],
+    "physics": {},
+    "renderers": [
+      {
+        "alpha": true,
+        "isActive": true,
+        "mode": "webgl2",
+        "name": "main"
+      }
+    ],
+    "spatialGrids": [
+      {
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "mapHeight": 100,
+        "mapWidth": 100,
+        "name": "main_grid"
+      }
+    ],
+    "texts": []
+  },
+  "name": "SpaceIntersections",
+  "resources": {
+    "animations": [],
+    "audio": [],
+    "envMaps": [],
+    "models3d": [],
+    "textures": []
+  },
+  "scenes": [
+    {
+      "isActive": true,
+      "name": "showcase"
+    }
+  ],
+  "version": "1.0.0"
+}

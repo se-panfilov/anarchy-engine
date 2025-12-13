@@ -11,6 +11,7 @@ import { spaceCameraData } from '@/App/Levels/Showcase27SaveLoad/spaceCamera';
 import { spaceCustomModelsData } from '@/App/Levels/Showcase27SaveLoad/spaceCustomModels';
 import { spaceFogData } from '@/App/Levels/Showcase27SaveLoad/spaceFog';
 import { spaceFpsControlsData } from '@/App/Levels/Showcase27SaveLoad/spaceFpsControls';
+import { spaceIntersectionsData } from '@/App/Levels/Showcase27SaveLoad/spaceIntersections';
 import { spaceLightData } from '@/App/Levels/Showcase27SaveLoad/spaceLight/spaceLight';
 import { spaceMaterialsData } from '@/App/Levels/Showcase27SaveLoad/spaceMaterials';
 import { spaceOrbitControlsData } from '@/App/Levels/Showcase27SaveLoad/spaceOrbitControls';
@@ -28,7 +29,6 @@ import { createContainersDivs, setContainerVisibility } from './utils';
 
 let subscriptions: Record<string, Subscription> = {};
 
-// TODO 15-0-0: E2E: Intersections
 // TODO 15-0-0: E2E: Complex scene (similar to Showcase22PhysicsShooter)
 // TODO 15-0-0: Physics sync test has an issue: camera doesn't follow an actor (perhaps related to TransformDrive)
 
@@ -42,6 +42,7 @@ const spacesData: ReadonlyArray<TSpacesData> = [
   spaceCustomModelsData,
   spaceFogData,
   spaceFpsControlsData,
+  spaceIntersectionsData,
   spaceLightData,
   spaceMaterialsData,
   spaceOrbitControlsData,
@@ -53,7 +54,7 @@ const spacesData: ReadonlyArray<TSpacesData> = [
 ];
 
 // const initialSpaceDataName: string = spaceBasicData.name;
-const initialSpaceDataName: string = spaceSpatialData.name;
+const initialSpaceDataName: string = spaceIntersectionsData.name;
 
 const spacesInMemoryData: Array<TSpacesData> = [];
 
