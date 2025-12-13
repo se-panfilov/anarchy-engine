@@ -84,7 +84,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     loopService.tick$.subscribe(() => {
       if (isDefined(mouseLineIntersectionsCoords)) {
         const ballCoords: TWithCoordsXYZ = ballActorW.getPosition().getCoords();
-        coords = get3DAzimuth({ x: ballCoords.x, z: ballCoords.z, y: ballCoords.y }, mouseLineIntersectionsCoords);
+        coords = get3DAzimuth(ballCoords, mouseLineIntersectionsCoords);
         line.geometry.setPositions([ballCoords.x, ballCoords.y, ballCoords.z, mouseLineIntersectionsCoords.x, mouseLineIntersectionsCoords.y, mouseLineIntersectionsCoords.z]);
         line.computeLineDistances();
       }

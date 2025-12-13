@@ -67,9 +67,9 @@
         "name": "ball_physics",
         "type": "dynamic",
         "collisionShape": "ball",
-        "mass": 1,
+        "mass": 2.5,
         "friction": 0.5,
-        "restitution": 0.5
+        "restitution": 0.9
       }
     ],
     "isAutoUpdate": true
