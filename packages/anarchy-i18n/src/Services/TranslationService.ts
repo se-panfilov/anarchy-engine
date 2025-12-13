@@ -68,6 +68,11 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
     .subscribe(([locale, intl]: [TLocale, IntlShape<string>]): void => {
       document?.documentElement?.setAttribute?.('lang', intl.locale);
       document?.documentElement?.setAttribute?.('dir', locale.direction);
+
+      const body: HTMLBodyElement | null = document?.querySelector('body');
+      // eslint-disable-next-line functional/immutable-data
+      if (isDefined(locale.font) && isDefined(body)) body.style.fontFamily = locale.font;
+
       return void intl$.next(intl);
     });
 
