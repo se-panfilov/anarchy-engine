@@ -7,15 +7,16 @@ import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 // TODO 15-0-0: validate result
 export function controlsToConfig(entity: TControlsWrapper, { cameraService }: TControlsServiceDependencies): TControlsConfig {
   const camera: TCamera | undefined = entity.entity.object as TCamera;
+
   if (isNotDefined(camera)) throw new Error(`[Serialization] Controls: camera not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
-  const cameraName: string | undefined = cameraService.getRegistry().findKey((cameraWrapper: TCameraWrapper): boolean => cameraWrapper.entity === camera);
-  if (isNotDefined(cameraName)) throw new Error(`[Serialization] Controls: camera with name "${cameraName}" not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
+  const cameraW: TCameraWrapper | undefined = cameraService.getRegistry().find((cameraWrapper: TCameraWrapper): boolean => cameraWrapper.entity === camera);
+  if (isNotDefined(cameraW)) throw new Error(`[Serialization] Controls: camera not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
 
   const result = filterOutEmptyFields({
     enabled: entity.isEnable(),
     type: entity.getType(),
     isActive: entity.isActive(),
-    cameraName,
+    cameraName: cameraW.name,
     ...extractSerializableRegistrableFields(entity)
   });
 
