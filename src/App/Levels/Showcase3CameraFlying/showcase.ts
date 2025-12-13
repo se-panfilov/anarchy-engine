@@ -25,10 +25,10 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
       const xRotation: number = getRotationBySin(xRatio, 1, 2);
       const yRotation: number = getRotationByCos(xRatio, 1, 2);
-      // camera.setX(xRatio * 10);
-      camera.setX(xRotation);
-      camera.setY(yRatio * 10);
-      camera.setZ(yRotation);
+      // camera.drive.default.setX(xRatio * 10);
+      camera.drive.default.setX(xRotation);
+      camera.drive.default.setY(yRatio * 10);
+      camera.drive.default.setZ(yRotation);
 
       const actor: TActor | undefined = actorRegistry.findByName('central_actor');
       if (isNotDefined(actor)) throw new Error('Actor not found');

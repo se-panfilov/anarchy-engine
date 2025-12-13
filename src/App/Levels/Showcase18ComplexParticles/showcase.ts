@@ -113,7 +113,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   loopService.tick$.subscribe(({ delta }) => {
     if (isDefined(particles)) {
-      particles.adjustRotationByY(delta * 0.018);
+      particles.drive.default.adjustRotationByY(delta * 0.018);
     }
   });
 

@@ -54,10 +54,10 @@ function initCameraRotation(space: TSpace, model3d: TModel3d | undefined, mouseS
 
       const xRotation: number = getRotationBySin(xRatio, 1, 2);
       const yRotation: number = getRotationByCos(xRatio, 1, 2);
-      // camera.setX(xRatio * 10);
-      camera.setX(xRotation);
-      camera.setY(yRatio * 10);
-      camera.setZ(yRotation);
+      // camera.drive.default.setX(xRatio * 10);
+      camera.drive.default.setX(xRotation);
+      camera.drive.default.setY(yRatio * 10);
+      camera.drive.default.setZ(yRotation);
 
       const vector: Vector3 | undefined = model3d?.getRawModel3d().position;
       if (isNotDefined(vector)) throw new Error('Model3d has no position');

@@ -46,8 +46,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       if (isNotDefined(camera)) return;
       const xRatio: number = coords.x / width - 0.5;
       const yRatio: number = -(coords.y / height - 0.5);
-      camera.setX(xRatio * 5);
-      camera.setY(yRatio * 5);
+      camera.drive.default.setX(xRatio * 5);
+      camera.drive.default.setY(yRatio * 5);
     });
   }
 
