@@ -12,7 +12,7 @@ _This EULA applies to copies acquired on or after the Effective date. For earlie
 
 This EULA applies to **{{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}** (the “{{PRODUCT_TERM}}”).
 {{#SHOW_TECH_IDENTIFIERS}}
-Also distributed under the following technical identifiers: {{PACKAGE_NAME}}.
+Also distributed under the following technical identifiers: `{{PACKAGE_NAME}}`.
 {{/SHOW_TECH_IDENTIFIERS}}
 
 {{#HAS_OSS_SIBLING}}

@@ -977,7 +977,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-engine@20.3.1
+## anarchy-engine@20.3.2
 
 **License:** MIT
 
@@ -1007,7 +1007,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-i18n@1.1.0
+## anarchy-i18n@1.1.1
 
 **License:** MIT
 
@@ -1037,7 +1037,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-shared@1.1.0
+## anarchy-shared@1.1.1
 
 **License:** MIT
 
@@ -2239,7 +2239,7 @@ http://creativecommons.org/publicdomain/zero/1.0/.
 
 ---
 
-## showcases-shared@1.0.6
+## showcases-shared@1.0.7
 
 **License:** MIT
 

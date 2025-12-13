@@ -12,7 +12,7 @@ _This EULA applies to copies acquired on or after the Effective date. For earlie
 
 This EULA applies to \*\*\*\* (the “Software”).
 
-Also distributed under the following technical identifiers: showcases-desktop.
+Also distributed under the following technical identifiers: `showcases-desktop`.
 
 **Open-source repository.** The open-source codebase related to this Software (if any) is governed by its open-source license (see `LICENSE` in that repository) and is **not** governed by this EULA.
 

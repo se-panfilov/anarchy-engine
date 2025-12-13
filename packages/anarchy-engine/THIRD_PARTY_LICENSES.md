@@ -284,7 +284,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-shared@1.1.0
+## anarchy-shared@1.1.1
 
 **License:** MIT
 

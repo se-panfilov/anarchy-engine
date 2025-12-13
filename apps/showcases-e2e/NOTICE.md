@@ -45,7 +45,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-engine@20.3.1
+## anarchy-engine@20.3.2
 
 **License(s):** MIT
 
@@ -53,7 +53,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-shared@1.1.0
+## anarchy-shared@1.1.1
 
 **License(s):** MIT
 

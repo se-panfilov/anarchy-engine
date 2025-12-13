@@ -6,7 +6,7 @@
 ## Scope
 
 This policy applies to the open-source project **{{PACKAGE_NAME}}** (the “{{PRODUCT_TERM}}”). It is provided for community coordination only and **does not create service levels (SLAs), warranties, or contractual obligations**.
-It covers the Project’s **source code** and our **officially published release artifacts** (e.g., package registries, release archives, documentation sites, **container images**, or **CDN bundles**) that **we** publish. It does **not** cover third-party repackaging, unofficial builds, downstream products, hosting-platform infrastructure, or **commercial editions**.
+It covers the {{PRODUCT_TERM}}’s **source code** and our **officially published release artifacts** (e.g., package registries, release archives, documentation sites, **container images**, or **CDN bundles**) that **we** publish. It does **not** cover third-party repackaging, unofficial builds, downstream products, hosting-platform infrastructure, or **commercial editions**.
 
 {{#HAS_OFFICIAL_CHANNELS_LIST}}
 **Official channels (non-exhaustive):** {{OFFICIAL_CHANNELS_LIST}}.
@@ -29,7 +29,7 @@ This is a volunteer-maintained {{PRODUCT_TERM}}. We’ll make a **good-faith eff
 
 - Avoid accessing, modifying, or exfiltrating data you do not own; minimize impact and stop testing if you encounter personal data.
 - Do not perform tests that degrade availability for others (e.g., volumetric DoS).
-- Test only assets we publish through our **official channels** and that are reasonably within this Project’s scope.
+- Test only assets we publish through our **official channels** and that are reasonably within this {{PRODUCT_TERM}}’s scope.
 - Vulnerabilities in **third-party platform infrastructure** (e.g., registry/hosting/CDN systems) are **out of scope** unless they result **directly** from our published code or configuration.
 - Comply with applicable law and third-party terms.
 
@@ -45,7 +45,7 @@ Copies of public content may also appear in mirrors, forks, caches, or package r
 ## In / Out of Scope
 
 - **In scope:** issues that materially impact the confidentiality, integrity, or availability of the {{PRODUCT_TERM}}’s code or its documented build/update mechanisms, as **we** publish them.
-- **Out of scope:** social engineering, physical attacks, denial-of-service on third-party platforms, vulnerabilities in hosting/store/kernel infrastructure not packaged with the Project, issues in **unofficial forks**, repackaged distributions, or downstream products.
+- **Out of scope:** social engineering, physical attacks, denial-of-service on third-party platforms, vulnerabilities in hosting/store/kernel infrastructure not packaged with the {{PRODUCT_TERM}}, issues in **unofficial forks**, repackaged distributions, or downstream products.
 
 ## Safe Harbor
 
