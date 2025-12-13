@@ -63,10 +63,11 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
   const localeSub$: Subscription = locale$
     .pipe(
       distinctUntilChanged(),
-      concatMap((locale: TLocale) => from(loadLocale(locale)).pipe(map((): IntlShape<string> => getIntl(locale))))
+      concatMap((locale: TLocale) => from(loadLocale(locale)).pipe(map((): [TLocale, IntlShape<string>] => [locale, getIntl(locale)])))
     )
-    .subscribe((intl: IntlShape<string>): void => {
+    .subscribe(([locale, intl]: [TLocale, IntlShape<string>]): void => {
       document?.documentElement?.setAttribute?.('lang', intl.locale);
+      document?.documentElement?.setAttribute?.('dir', locale.direction);
       return void intl$.next(intl);
     });
 
