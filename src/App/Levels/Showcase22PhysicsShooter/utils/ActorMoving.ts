@@ -78,7 +78,7 @@ function getActorMoveState(keyStates: TMoveKeysState, { speed, azimuthAngleDevia
     azimuthDeviationBackwardRad = 0;
   }
 
-  console.log(`Forward: ${keyStates.Forward}, Left: ${keyStates.Left}, Right: ${keyStates.Right}, Backward: ${keyStates.Backward}`);
+  console.log(`${keyStates.Forward ? 'Forward' : ''} ${keyStates.Left ? 'Left' : ''} ${keyStates.Right ? 'Right' : ''} ${keyStates.Backward ? 'Backward' : ''}`);
 
   return { currentSpeed, azimuthDeviationLeftRad, azimuthDeviationRightRad, azimuthDeviationBackwardRad };
 }
