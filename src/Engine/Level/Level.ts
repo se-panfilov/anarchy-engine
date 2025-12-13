@@ -29,10 +29,14 @@ import { SceneFactory, SceneRegistry, SceneTag } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
 import type { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer, ITextAnyWrapper, ITextConfig, ITextFactory } from '@/Engine/Text';
 import { initText2dRenderer, initText3dRenderer, isText2dWrapper, isText3dWrapper, Text2dRegistry, Text3dRegistry, TextFactory } from '@/Engine/Text';
-import { isDefined, isNotDefined, isValidLevelConfig } from '@/Engine/Utils';
+import { isDefined, isNotDefined, validLevelConfig } from '@/Engine/Utils';
 
 export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
-  if (!isValidLevelConfig(config)) throw new Error('Failed to launch a level: invalid data format');
+  const { isValid, errors } = validLevelConfig(config);
+  if (!isValid) {
+    console.error(errors);
+    throw new Error('Failed to launch a level: invalid data format');
+  }
   const { name, actors, cameras, lights, texts, controls, scenes, tags } = config;
 
   screenService.setCanvas(canvas);

@@ -7,6 +7,8 @@ export enum WrapperType {
   AmbientLight = 'ambient_light_wrapper',
   DirectionalLight = 'directional_light_wrapper',
   PointLight = 'point_light_wrapper',
+  HemisphereLight = 'hemisphere_light_wrapper',
+  RectAreaLight = 'rect_area_light_wrapper',
   Renderer = 'renderer_wrapper',
   Scene = 'scene_wrapper',
   Text2d = 'text2d_wrapper',

@@ -19,6 +19,8 @@ export function getWrapperType(light: ILight): WrapperType | never {
   if (isAmbientLight(light)) return WrapperType.AmbientLight;
   else if (isDirectionalLight(light)) return WrapperType.DirectionalLight;
   else if (isPointLight(light)) return WrapperType.PointLight;
+  else if (isHemisphereLight(light)) return WrapperType.HemisphereLight;
+  else if (isRectAreaLight(light)) return WrapperType.RectAreaLight;
   else throw new Error('Unknown light type');
 }
 
@@ -55,7 +57,7 @@ export function isPointLightParams(params: ILightParams): params is IPointLightP
 }
 
 export function isHemisphereLightParams(params: ILightParams): params is IHemisphereLightParams {
-  return isDefined((params as IHemisphereLightParams).skyColor) && isDefined((params as IHemisphereLightParams).groundColor) && isDefined((params as IHemisphereLightParams).intensity);
+  return isDefined((params as IHemisphereLightParams).color) && isDefined((params as IHemisphereLightParams).groundColor) && isDefined((params as IHemisphereLightParams).intensity);
 }
 
 export function isRectAreaLightParams(params: ILightParams): params is IRectAreaLightParams {

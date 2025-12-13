@@ -4,7 +4,7 @@ import type { IAbstractLightProps } from './IAbstractLightProps';
 
 export type IHemisphereLightProps = Omit<IAbstractLightProps, 'color'> &
   Readonly<{
-    skyColor: Color;
+    color: Color;
     groundColor: Color;
     intensity?: number;
   }>;

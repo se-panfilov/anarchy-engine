@@ -5,6 +5,6 @@ import type { IAbstractLightWrapper, IHemisphereLight, IHemisphereLightParams } 
 import { AbstractLightWrapper } from './AbstractLightWrapper';
 
 export function HemisphereLightWrapper(params: IHemisphereLightParams): IAbstractLightWrapper<IHemisphereLight> {
-  const entity: IHemisphereLight = new HemisphereLight(params.skyColor, params.groundColor, params.intensity);
+  const entity: IHemisphereLight = new HemisphereLight(params.color, params.groundColor, params.intensity);
   return AbstractLightWrapper(entity, params);
 }

@@ -5,7 +5,8 @@ import ILevelConfigSchema from '@/Engine/Level/Schemas/ILevelConfig.json';
 
 const ajv: Ajv = new Ajv();
 
-export function isValidLevelConfig(config: ILevelConfig): config is ILevelConfig {
+export function validLevelConfig(config: ILevelConfig): { isValid: boolean; errors?: ReadonlyArray<any> | null | undefined } {
   const validate = ajv.compile(ILevelConfigSchema);
-  return validate(config);
+  const isValid: boolean = validate(config);
+  return { isValid, errors: validate.errors };
 }
