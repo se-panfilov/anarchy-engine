@@ -2,10 +2,11 @@ import type { Material } from 'three';
 import { BoxGeometry, Mesh, PlaneGeometry, SphereGeometry } from 'three';
 
 import { ActorType } from '@/Engine/Actor/Constants';
-import type { IActorParams, IMesh } from '@/Engine/Actor/Models';
+import type { IActorParams } from '@/Engine/Actor/Models';
 import { materialService } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
 import { textureService } from '@/Engine/Texture';
+import type { IMesh } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
 
 export async function createActor(params: IActorParams): Promise<IMesh> | never {

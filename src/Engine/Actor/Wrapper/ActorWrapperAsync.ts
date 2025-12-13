@@ -1,9 +1,10 @@
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { IActorParams, IActorWrapperAsync, IMesh } from '@/Engine/Actor/Models';
+import type { IActorParams, IActorWrapperAsync } from '@/Engine/Actor/Models';
 import type { IWithMaterial } from '@/Engine/Material';
 import { withMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import { withTextures } from '@/Engine/Texture';
+import type { IMesh } from '@/Engine/ThreeLib';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 import { createActor } from './ActorUtils';
