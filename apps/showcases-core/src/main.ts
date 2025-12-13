@@ -25,7 +25,6 @@ const settings: TAppSettings = {
 // TODO DESKTOP: Menu and UI should also have Sentry setup
 
 //Runs only for envs with defined VITE_SENTRY_DSN (productions for web, desktop, mobile)
-// TODO DESKTOP: Add condition to check if end platform is allow tracking (desktop app always has showcases-core in "production" mode, even if electron is in dev)
 await WebErrorTrackingService().start();
 
 setBrowserSafeguards(window);
