@@ -1,55 +1,120 @@
-# Instructions for Use & Support — {{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}
+# Instructions & Support — {{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}
 
-**Version:** {{INSTRUCTIONS_VERSION}} · **Applies to:** {{PRODUCT_VERSION}} and later (same major)
-**Support/Legal Contacts:** {{SUPPORT_EMAIL}} / {{LEGAL_EMAIL}} · **Security (CVD):** {{SECURITY_EMAIL}}
+**Effective date:** {{EFFECTIVE_DATE}}
+**Publisher/Developer:** {{LEGAL_ENTITY_NAME}}
+**Support contact:** {{SUPPORT_EMAIL}}
 
-## 1. What this {{PRODUCT_TERM}} is
+> This document provides basic use, safety, and compliance information for **{{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}** (the “{{PRODUCT_TERM}}”). It does **not** create service levels, warranties, or contractual obligations. For license terms, see **EULA** shipped in `./legal/EULA.*`. For privacy, see **Privacy Policy** in `./legal/PRIVACY.*`. For security and updates, see **Security Policy** in `./legal/SECURITY.*`.
 
-- Standalone software intended to run **offline**. No telemetry/analytics by default.
-- Any optional online features are **opt-in** and described in the **Privacy Policy** and in-product notices.
+---
 
-## 2. System Requirements
+## 1) What this {{PRODUCT_TERM}} is
 
-- **OS / Runtime:** {{REQUIREMENTS_OS}}
-- **CPU / GPU / RAM / Storage:** {{REQUIREMENTS_HW}}
-- **Additional components (if any):** {{REQUIREMENTS_ADDITIONAL}}
-- **Network:** not required for core offline use.
+- {{PRODUCT_TERM}}: {{PRODUCT_SHORT_PURPOSE}} (high-level, non-marketing description).
+- Works **offline** by design. Any optional online features (if present) are **opt-in** and described in the **Privacy Policy**.
 
-## 3. Installation & Removal
+{{#SUPPORTED_PLATFORMS}}
+**Supported platforms (indicative):** {{SUPPORTED_PLATFORMS}}.
+{{/SUPPORTED_PLATFORMS}}
 
-- **Install:** {{INSTALL_STEPS}}
-- **Uninstall:** {{UNINSTALL_STEPS}}
-- **Updates:** May be delivered through your chosen distribution channels or by replacing the installed files. Some updates may be required to continue use.
+---
 
-## 4. Safe Use
+## 2) Install / Uninstall
 
-- Do not run untrusted mods/plugins. Avoid granting elevated OS privileges.
-- Keep your OS and drivers reasonably up to date.
-- Back up your saves/configurations before major updates.
+- **Install:** obtain {{PRODUCT_TERM}} via your chosen distribution channel or by running the provided installer / extracting the distribution package.
+- **Permissions:** administrative rights may be required to install to protected locations.
+- **Uninstall:** use the OS standard uninstall mechanism or remove the installed folder; user-created content/mods remain in your user data directories unless you remove them.
 
-## 5. Accessibility (EAA)
+> No specific connectivity or account is required for basic offline use.
 
-- Accessibility info / contact: {{ACCESSIBILITY_CONTACT}}.
-  Feedback channel for accessibility requests is monitored on a reasonable-effort basis.
+---
 
-## 6. Privacy
+## 3) Updates
 
-- By default, the {{PRODUCT_TERM}} **does not collect personal data**.
-  {{#CRASH_OPT_IN}}If you **opt in**, crash reports may be sent as **anonymous diagnostics**; you can opt out at any time.{{/CRASH_OPT_IN}}
-  See **Privacy Policy** in the `legal/` folder.
+- We may provide **updates** (patches, bug fixes, content changes). Updates can be delivered through the same channels you used to obtain the {{PRODUCT_TERM}} or as replacement files in the package.
+- Some updates may be required to continue using certain features.
+- Release notes / advisories may be included within the product, inside the update package, or provided via the distribution channel (no fixed location/cadence guaranteed).
+- Security maintenance periods are described in the **Security Policy** (in `./legal/`).
 
-## 7. Security & Vulnerability Reporting
+---
 
-- Report potential security issues to **{{SECURITY_EMAIL}}** (see `SECURITY` and **Incident Response / Vulnerability Handling Plan**).
-- We provide security support for the shorter of **{{SECURITY_SUPPORT_PERIOD_MONTH}} months** (lifetime of the major version) or **five (5) years** from initial commercial release.
+## 4) Safety & Acceptable Use (summary)
 
-## 8. Export Control & Sanctions
+- Do **not** use the {{PRODUCT_TERM}} for unlawful purposes or to distribute malware, cheats, or tools that degrade others’ experience or security.
+- Avoid use in **safety-critical** contexts where failure could cause injury, environmental, or property damage. See the **Disclaimer** in `./legal/DISCLAIMER.*`.
 
-- Use is subject to applicable export/sanctions laws. Do not use or transfer to restricted persons/entities/locations.
+---
 
-## 9. Legal
+## 5) CE Marking (EU)
 
-- **EULA**, **Privacy**, **Security**, **Disclaimer**, **Third-party licenses** are included in the distribution package (`legal/`).
-- **CE Marking:** affixed {{CE_MARK_PLACEMENT}}.
+Below is the CE mark included with this package for electronic placement in accompanying materials:
 
-> For developers: technical identifiers `{{PACKAGE_NAME}}`; source may be published separately under OSS terms where applicable.
+![CE Mark](./legal/ce-mark.png 'CE')
+
+- The CE mark indicates conformity of the {{PRODUCT_TERM}} with applicable EU legislation (including cybersecurity/product-safety rules where relevant).
+- The CE mark may also **appear inside the product** (for example, in an “About / Legal” view, installer screen, splash, or other compliance section) **depending on build and language**.
+- The **EU Declaration of Conformity** is provided in this package at: `./legal/EU_DECLARATION_OF_CONFORMITY.pdf`.
+
+> Placement of the mark within UI may vary across versions and locales; electronic display in these instructions satisfies the electronic marking modality.
+
+---
+
+## 6) Privacy (summary)
+
+- The {{PRODUCT_TERM}} does **not** collect personal data during offline use.
+- Optional online features (if any) are **opt-in**.
+- Details, including any optional crash reporting, are described in `./legal/PRIVACY.*`.
+
+---
+
+## 7) Mods / Extensions (if supported)
+
+- You may create and use mods at your **own risk**, provided they comply with law and do not harm security/performance or infringe rights.
+- Updates may break mods; compatibility is **not** guaranteed. See **EULA** for the governing terms.
+
+---
+
+## 8) Troubleshooting
+
+- Try restarting the {{PRODUCT_TERM}} and your device; verify file integrity where applicable.
+- Check system permissions (read/write where the {{PRODUCT_TERM}} stores user data) and antivirus exclusions if needed.
+- For reproducible issues, include OS/version, steps to reproduce, logs (if available), and hardware info when contacting support.
+
+---
+
+## 9) Support
+
+- **Email:** {{SUPPORT_EMAIL}}
+- We will make a **good-faith effort** to review support messages; **no SLAs** are provided unless agreed separately.
+  {{#HAS_ACCESSIBILITY_CONTACT}}
+- **Accessibility:** for reasonable accommodation requests, contact {{ACCESSIBILITY_CONTACT}}.
+  {{/HAS_ACCESSIBILITY_CONTACT}}
+
+---
+
+## 10) Legal & Compliance (where to find)
+
+All legal documents are provided **offline** with this package in `./legal/`:
+
+- **EULA** — license terms for end users
+- **Privacy Policy** — data protection information
+- **Security Policy** — coordinated vulnerability disclosure & updates
+- **Disclaimer**, **NOTICE**, **THIRD_PARTY_LICENSES**, **LICENSE**
+- **EU_DECLARATION_OF_CONFORMITY.pdf** — signed EU Declaration
+- **ce-mark.png** — CE mark image
+- **sbom/** (if provided) — software bill of materials
+
+> External links are avoided where possible so that required information remains available offline within the distribution.
+
+---
+
+## 11) Export Controls (summary)
+
+Use, export, and re-export must comply with applicable **export-control** and **sanctions** laws. See the **Disclaimer** / **EULA** in `./legal/` for details.
+
+---
+
+### Notes
+
+- File extensions `.*` indicate that both `.md` and/or `.pdf` forms may be included.
+- Localized versions of these instructions may be provided; where local-language versions are required by law, those control to the extent required.
