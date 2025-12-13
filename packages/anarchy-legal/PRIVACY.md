@@ -3,14 +3,14 @@
 **Effective date:** TBD until market release
 **Controller:** Sergei Aleksandrovich Panfilov — Contact: TBD until market release
 
-**Scope / Identification.** This notice applies to the **open-source repository** for **anarchy-legal** (hosted on or mirrored to \***\*). We do **not\*\* operate a consumer service through this repository.
+**Scope / Identification.** This notice applies to the **open-source repository** for **anarchy-legal** (hosted on or mirrored to **public code hosting platform(s)**). We do **not** operate a consumer service through this repository.
 
 **CPRA (California):** we **do not sell or share** personal information for cross-context behavioral advertising.
 
 ## 1. Repository Interactions
 
-If you open issues, pull requests, or discussions, the content you submit (including your profile/handle and any attachments) becomes **public** on the code hosting platform(s) where the repository is published and is processed under that platform’s privacy policy. We may process this **public** information to operate, maintain, and improve the project.
-Copies of public content may also appear in mirrors, forks, caches, archival copies, package registries, or on physical media distributed by others.
+If you open issues, pull requests, or discussions, the content you submit (including your profile/handle and any attachments) becomes **public** on the code hosting platform(s) where the repository is published and is processed under the applicable platform’s privacy policy. We may process this **public** information to operate, maintain, and improve the project.
+Copies of public content may also appear in mirrors, forks, caches, archival copies, package registries, or on physical media distributed by others; we do not control those third-party copies, and requests regarding them should be directed to the respective distributor or platform.
 
 **Legal basis:** our **legitimate interests** in running the OSS project.
 
