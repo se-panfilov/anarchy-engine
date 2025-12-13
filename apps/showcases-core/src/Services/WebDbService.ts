@@ -1,32 +1,38 @@
 import Dexie from 'dexie';
 
-import type { TWebDbService } from '@/Models';
+import type { TWebDbService, TWebDbStorageInfo } from '@/Models';
 
 export function WebDbService(): TWebDbService {
   function createDb<T>(name: string): Dexie & T {
-    const db: Dexie = new Dexie(name);
-
-    db.version(1).stores({
-      kv: 'key',
-      saves: 'slot, updatedAt'
-    });
+    tryIncreaseStorageSpace();
+    return new Dexie(name) as Dexie & T;
   }
 
-  async function persist(): Promise<boolean> {
+  function deleteDb(name: string): Promise<void> {
+    return Dexie.delete(name);
+  }
+
+  async function tryIncreaseStorageSpace(): Promise<boolean> {
     // Persistent Storage API — increases the chance that the browser will not clear the storage
     try {
-      return (await navigator.storage?.persist?.()) ?? false;
-    } catch {
+      const granted: boolean = await navigator.storage.persist();
+      console.log('[APP][WebDbService] persistent storage granted');
+      return granted;
+    } catch (e) {
+      console.warn('[APP][WebDbService] persistent storage is NOT granted', e);
       return false;
     }
   }
 
-  async function info(): Promise<TStorageInfo> {
-    const est = await navigator.storage?.estimate?.();
-    return { quota: est?.quota, usage: est?.usage, backend: 'dexie-idb' as const };
+  async function getInfo(): Promise<TWebDbStorageInfo> {
+    const estimate: StorageEstimate = await navigator.storage?.estimate?.();
+    return { quota: estimate?.quota, usage: estimate?.usage, type: 'indexDB' };
   }
 
   return {
-    createDb
+    createDb,
+    deleteDb,
+    tryIncreaseStorageSpace,
+    getInfo
   };
 }
