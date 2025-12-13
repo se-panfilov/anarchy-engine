@@ -1,2 +1,2 @@
-export * from './ISceneLauncher';
+export * from './Models';
 export * from './SceneLauncher';
