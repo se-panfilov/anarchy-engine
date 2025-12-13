@@ -21,9 +21,9 @@ function writeSchema(outputPath, schemaString) {
 }
 
 function generateLevelConfigSchema() {
-  const config = { ...baseConfig, path: './src/Engine/Domains/Level/Models/ILevelConfig.ts' };
+  const config = { ...baseConfig, path: './src/Engine/Level/Models/ILevelConfig.ts' };
   const schemaString = generate(config);
-  const outputPath = './src/Engine/Domains/Level/Schemas/ILevelConfig.json';
+  const outputPath = './src/Engine/Level/Schemas/ILevelConfig.json';
   writeSchema(outputPath, schemaString);
 }
 
