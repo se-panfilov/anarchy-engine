@@ -1,4 +1,5 @@
-import { HomeView, SomeView } from '@/Levels/Showcase28Menu/Views';
+import HomeView from '@/Levels/Showcase28Menu/Views/HomeView.vue';
+import SomeView from '@/Levels/Showcase28Menu/Views/SomeView.vue';
 
 export enum MenuRoutes {
   Home = '/',

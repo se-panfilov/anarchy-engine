@@ -16,9 +16,7 @@ export const useMenuRouterStore = defineStore('menuRouter', () => {
     state.history = [...state.history, to];
   }
 
-  const prevRoute = computed(() => {
-    return state.history.length > 1 ? state.history[state.history.length - 2] : MenuRoutes.Home;
-  });
+  const prevRoute: ComputedRef<MenuRoutes> = computed((): MenuRoutes => (state.history.length > 1 ? state.history[state.history.length - 2] : MenuRoutes.Home));
 
   function goBack(): void {
     // eslint-disable-next-line functional/immutable-data

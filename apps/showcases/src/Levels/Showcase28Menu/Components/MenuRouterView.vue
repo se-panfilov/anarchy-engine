@@ -5,7 +5,7 @@ import { useMenuRouterStore } from '@/Levels/Showcase28Menu/Stores/MenuRouterSto
 
 const router = useMenuRouterStore();
 
-const currentComponent = computed(() => menuRouteMap[router.route]);
+const currentComponent = computed(() => menuRouteMap[router.currRoute]);
 </script>
 
 <template>
