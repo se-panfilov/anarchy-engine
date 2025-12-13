@@ -910,7 +910,7 @@
     "models3d": [
       {
         "castShadow": false,
-        "materialSource": "surface_material",
+        "material": "surface_material",
         "model3dSource": "plane",
         "name": "surface_model",
         "options": {
@@ -933,7 +933,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "standard_metal",
+        "material": "standard_metal",
         "model3dSource": "sphere",
         "name": "sphere_standard_metal",
         "options": {
@@ -947,7 +947,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "physical_metal",
+        "material": "physical_metal",
         "model3dSource": "sphere",
         "name": "sphere_physical_metal",
         "options": {
@@ -961,7 +961,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "basic_metal",
+        "material": "basic_metal",
         "model3dSource": "sphere",
         "name": "sphere_basic_metal",
         "options": {
@@ -975,7 +975,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "phong_metal",
+        "material": "phong_metal",
         "model3dSource": "sphere",
         "name": "sphere_phong_metal",
         "options": {
@@ -989,7 +989,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "lambert_metal",
+        "material": "lambert_metal",
         "model3dSource": "sphere",
         "name": "sphere_lambert_metal",
         "options": {
@@ -1003,7 +1003,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "toon_metal",
+        "material": "toon_metal",
         "model3dSource": "sphere",
         "name": "sphere_toon_metal",
         "options": {
@@ -1017,7 +1017,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "matcap_metal",
+        "material": "matcap_metal",
         "model3dSource": "sphere",
         "name": "sphere_matcap_metal",
         "options": {
@@ -1031,7 +1031,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "standard_wood",
+        "material": "standard_wood",
         "model3dSource": "cube",
         "name": "cube_standard_wood",
         "options": {
@@ -1044,7 +1044,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "physical_wood",
+        "material": "physical_wood",
         "model3dSource": "cube",
         "name": "cube_physical_wood",
         "options": {
@@ -1057,7 +1057,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "basic_wood",
+        "material": "basic_wood",
         "model3dSource": "cube",
         "name": "cube_basic_wood",
         "options": {
@@ -1070,7 +1070,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "phong_wood",
+        "material": "phong_wood",
         "model3dSource": "cube",
         "name": "cube_phong_wood",
         "options": {
@@ -1083,7 +1083,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "lambert_wood",
+        "material": "lambert_wood",
         "model3dSource": "cube",
         "name": "cube_lambert_wood",
         "options": {
@@ -1096,7 +1096,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "toon_wood",
+        "material": "toon_wood",
         "model3dSource": "cube",
         "name": "cube_toon_wood",
         "options": {
@@ -1109,7 +1109,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "matcap_wood",
+        "material": "matcap_wood",
         "model3dSource": "cube",
         "name": "cube_matcap_wood",
         "options": {
@@ -1122,7 +1122,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "standard_glass",
+        "material": "standard_glass",
         "model3dSource": "sphere",
         "name": "sphere_standard_glass",
         "options": {
@@ -1136,7 +1136,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "physical_glass",
+        "material": "physical_glass",
         "model3dSource": "sphere",
         "name": "sphere_physical_glass",
         "options": {
@@ -1150,7 +1150,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "basic_glass",
+        "material": "basic_glass",
         "model3dSource": "sphere",
         "name": "sphere_basic_glass",
         "options": {
@@ -1164,7 +1164,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "phong_glass",
+        "material": "phong_glass",
         "model3dSource": "sphere",
         "name": "sphere_phong_glass",
         "options": {
@@ -1178,7 +1178,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "lambert_glass",
+        "material": "lambert_glass",
         "model3dSource": "sphere",
         "name": "sphere_lambert_glass",
         "options": {
@@ -1192,7 +1192,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "toon_glass",
+        "material": "toon_glass",
         "model3dSource": "sphere",
         "name": "sphere_toon_glass",
         "options": {
@@ -1206,7 +1206,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "matcap_glass",
+        "material": "matcap_glass",
         "model3dSource": "sphere",
         "name": "sphere_matcap_glass",
         "options": {
@@ -1220,7 +1220,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "standard_textile",
+        "material": "standard_textile",
         "model3dSource": "sphere",
         "name": "sphere_standard_textile",
         "options": {
@@ -1234,7 +1234,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "physical_textile",
+        "material": "physical_textile",
         "model3dSource": "sphere",
         "name": "sphere_physical_textile",
         "options": {
@@ -1248,7 +1248,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "basic_textile",
+        "material": "basic_textile",
         "model3dSource": "sphere",
         "name": "sphere_basic_textile",
         "options": {
@@ -1262,7 +1262,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "phong_textile",
+        "material": "phong_textile",
         "model3dSource": "sphere",
         "name": "sphere_phong_textile",
         "options": {
@@ -1276,7 +1276,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "lambert_textile",
+        "material": "lambert_textile",
         "model3dSource": "sphere",
         "name": "sphere_lambert_textile",
         "options": {
@@ -1290,7 +1290,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "toon_textile",
+        "material": "toon_textile",
         "model3dSource": "sphere",
         "name": "sphere_toon_textile",
         "options": {
@@ -1304,7 +1304,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "matcap_textile",
+        "material": "matcap_textile",
         "model3dSource": "sphere",
         "name": "sphere_matcap_textile",
         "options": {

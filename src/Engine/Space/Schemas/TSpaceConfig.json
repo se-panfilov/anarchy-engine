@@ -4950,7 +4950,7 @@
             "type": "string"
           }
         },
-        "materialSource": {
+        "material": {
           "type": "string"
         },
         "forceClone": {
@@ -5150,7 +5150,7 @@
         "renderOrder": {
           "type": "number"
         },
-        "materialSource": {
+        "material": {
           "type": "string"
         },
         "agent": {
@@ -5166,7 +5166,7 @@
           }
         }
       },
-      "required": ["materialSource", "name", "position"]
+      "required": ["material", "name", "position"]
     },
     "TPhysicsConfig": {
       "type": "object",

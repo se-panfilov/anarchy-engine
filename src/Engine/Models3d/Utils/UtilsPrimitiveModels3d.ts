@@ -12,14 +12,14 @@ import { isDefined, isNotDefined } from '@/Engine/Utils';
 export function createPrimitiveModel3d(params: TModel3dParams): Mesh | never {
   if (!isPrimitiveModel3dSource(params.model3dSource)) throw new Error(`Model3d source is not a primitive model: "${String(params.model3dSource)}"`);
   const model3dSource: PrimitiveModel3dType = params.model3dSource;
-  const materialSource: TMaterialWrapper | undefined = params.materialSource;
-  if (isNotDefined(materialSource)) throw new Error(`Primitive model "${model3dSource}" has no material, but primitive models must have one`);
+  const material: TMaterialWrapper | undefined = params.material;
+  if (isNotDefined(material)) throw new Error(`Primitive model "${model3dSource}" has no material, but primitive models must have one`);
 
   if (isNotDefined(params.options)) throw new Error(`Primitive model "${model3dSource}" has no options`);
 
-  if (model3dSource === PrimitiveModel3dType.Plane) return createPlane(params.options, materialSource.entity);
-  else if (model3dSource === PrimitiveModel3dType.Sphere) return createSphere(params.options, materialSource.entity);
-  else if (model3dSource === PrimitiveModel3dType.Cube) return createCube(params.options, materialSource.entity);
+  if (model3dSource === PrimitiveModel3dType.Plane) return createPlane(params.options, material.entity);
+  else if (model3dSource === PrimitiveModel3dType.Sphere) return createSphere(params.options, material.entity);
+  else if (model3dSource === PrimitiveModel3dType.Cube) return createCube(params.options, material.entity);
   throw new Error(`Unknown primitive model type: "${model3dSource}"`);
 }
 

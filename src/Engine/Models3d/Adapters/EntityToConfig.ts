@@ -20,11 +20,11 @@ export function model3dToConfig(
 
   const model3dSource: string | undefined = isPrimitive ? (params.model3dSource as PrimitiveModel3dType) : getComplexModel3dSource(entity, model3dResourceAsyncRegistry);
   if (isNotDefined(model3dSource)) throw new Error(`[Serialization] Model3d: model3dSource not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
-  const materialSource: string | undefined = isDefined(params.materialSource) ? params.materialSource.name : undefined;
+  const material: string | undefined = isDefined(params.material) ? params.material.name : undefined;
 
   return filterOutEmptyFields({
     model3dSource,
-    materialSource,
+    material,
     animationsSource: getAllAnimationsSource(entity, animationsResourceAsyncRegistry),
     options: params.options,
     forceClone: entity.forceClone,

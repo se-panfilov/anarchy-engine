@@ -80,7 +80,7 @@
     "models3d": [],
     "particles": [
       {
-        "materialSource": "particles_material",
+        "material": "particles_material",
         "name": "stars",
         "position": {
           "x": 0,

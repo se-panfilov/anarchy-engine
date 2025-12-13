@@ -388,7 +388,7 @@
     "models3d": [
       {
         "castShadow": false,
-        "materialSource": "metal_material",
+        "material": "metal_material",
         "model3dSource": "plane",
         "name": "surface_model",
         "options": {
@@ -401,7 +401,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "metal_material",
+        "material": "metal_material",
         "model3dSource": "cube",
         "name": "wall_left_model",
         "options": {
@@ -414,7 +414,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "metal_material",
+        "material": "metal_material",
         "model3dSource": "cube",
         "name": "wall_right_model",
         "options": {
@@ -427,7 +427,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "metal_material",
+        "material": "metal_material",
         "model3dSource": "cube",
         "name": "wall_front_model",
         "options": {
@@ -440,7 +440,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "metal_material",
+        "material": "metal_material",
         "model3dSource": "cube",
         "name": "wall_back_model",
         "options": {
@@ -453,7 +453,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "metal_material",
+        "material": "metal_material",
         "model3dSource": "sphere",
         "name": "sphere_model",
         "options": {
@@ -462,7 +462,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "metal_material",
+        "material": "metal_material",
         "model3dSource": "cube",
         "name": "obstacle_1_model",
         "options": {
@@ -475,7 +475,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "glass_1_material",
+        "material": "glass_1_material",
         "model3dSource": "cube",
         "name": "obstacle_2_model",
         "options": {
@@ -488,7 +488,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "glass_2_material",
+        "material": "glass_2_material",
         "model3dSource": "sphere",
         "name": "obstacle_3_model",
         "options": {
@@ -497,7 +497,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "wood_material",
+        "material": "wood_material",
         "model3dSource": "sphere",
         "name": "obstacle_4_model",
         "options": {

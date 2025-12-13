@@ -298,7 +298,7 @@
     "models3d": [
       {
         "castShadow": false,
-        "materialSource": "surface_material",
+        "material": "surface_material",
         "model3dSource": "plane",
         "name": "surface_model",
         "options": {
@@ -316,7 +316,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "sphere_keyboard_material",
+        "material": "sphere_keyboard_material",
         "model3dSource": "sphere",
         "name": "sphere_keyboard_model",
         "options": {
@@ -325,7 +325,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "sphere_mouse_material",
+        "material": "sphere_mouse_material",
         "model3dSource": "sphere",
         "name": "sphere_mouse_model",
         "options": {
@@ -334,7 +334,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "keys_material",
+        "material": "keys_material",
         "model3dSource": "cube",
         "name": "key_model",
         "options": {

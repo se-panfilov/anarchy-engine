@@ -168,7 +168,7 @@
     "models3d": [
       {
         "castShadow": false,
-        "materialSource": "plane_material",
+        "material": "plane_material",
         "model3dSource": "plane",
         "name": "plane_model",
         "options": {
@@ -181,7 +181,7 @@
       },
       {
         "castShadow": false,
-        "materialSource": "red_material",
+        "material": "red_material",
         "model3dSource": "cube",
         "name": "cube_red_model",
         "options": {
@@ -194,7 +194,7 @@
       },
       {
         "castShadow": false,
-        "materialSource": "green_material",
+        "material": "green_material",
         "model3dSource": "cube",
         "name": "cube_green_model",
         "options": {
@@ -207,7 +207,7 @@
       },
       {
         "castShadow": false,
-        "materialSource": "blue_material",
+        "material": "blue_material",
         "model3dSource": "cube",
         "name": "cube_blue_model",
         "options": {

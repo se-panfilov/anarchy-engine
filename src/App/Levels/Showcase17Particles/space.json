@@ -170,7 +170,7 @@
     "models3d": [
       {
         "castShadow": false,
-        "materialSource": "surface_material",
+        "material": "surface_material",
         "model3dSource": "plane",
         "name": "surface_model",
         "options": {
@@ -183,7 +183,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "textile_material",
+        "material": "textile_material",
         "model3dSource": "sphere",
         "name": "sphere_textile_model",
         "options": {
@@ -192,7 +192,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "glass_material",
+        "material": "glass_material",
         "model3dSource": "sphere",
         "name": "sphere_glass_model",
         "options": {
@@ -202,7 +202,7 @@
     ],
     "particles": [
       {
-        "materialSource": "particles_material",
+        "material": "particles_material",
         "name": "bubbles",
         "position": {
           "x": 0,

@@ -20,14 +20,14 @@ export function buildTower(
   const blocks: ReadonlyArray<TBuidingBlock> = getBlocks(startCoords, rows, cols, levels);
 
   console.log('number of blocks:', blocks.length);
-  const materialW: TMaterialWrapper = materialService.create({ name: 'building_block_material', type: MaterialType.Standard, options: { color: '#8FAA8F' } });
+  const material: TMaterialWrapper = materialService.create({ name: 'building_block_material', type: MaterialType.Standard, options: { color: '#8FAA8F' } });
 
   return blocks.map((block: TBuidingBlock): TActor => {
     const model3d: TModel3d = models3dService.create({
       name: `block_${block.position.x}_${block.position.y}_${block.position.z}_model3d`,
       model3dSource: PrimitiveModel3dType.Cube,
       animationsSource: [],
-      materialSource: materialW,
+      material,
       options: {
         width: block.width,
         height: block.height,

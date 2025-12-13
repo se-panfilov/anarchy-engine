@@ -424,7 +424,7 @@
     "models3d": [
       {
         "castShadow": false,
-        "materialSource": "surface_material",
+        "material": "surface_material",
         "model3dSource": "plane",
         "name": "surface_model",
         "options": {
@@ -437,7 +437,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "hero_material",
+        "material": "hero_material",
         "model3dSource": "cube",
         "name": "hero_model",
         "options": {
@@ -451,7 +451,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "sphere_material",
+        "material": "sphere_material",
         "model3dSource": "sphere",
         "name": "sphere_1_model",
         "options": {
@@ -461,7 +461,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "box_1_material",
+        "material": "box_1_material",
         "model3dSource": "cube",
         "name": "box_1_model",
         "options": {
@@ -475,7 +475,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "box_2_material",
+        "material": "box_2_material",
         "model3dSource": "cube",
         "name": "box_2_model",
         "options": {
@@ -489,7 +489,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "box_3_material",
+        "material": "box_3_material",
         "model3dSource": "cube",
         "name": "box_3_model",
         "options": {
@@ -503,7 +503,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "box_4_material",
+        "material": "box_4_material",
         "model3dSource": "cube",
         "name": "box_4_model",
         "options": {
@@ -517,7 +517,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "box_5_material",
+        "material": "box_5_material",
         "model3dSource": "cube",
         "name": "box_5_model",
         "options": {
@@ -531,7 +531,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "box_6_material",
+        "material": "box_6_material",
         "model3dSource": "cube",
         "name": "box_6_model",
         "options": {
@@ -545,7 +545,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "box_7_material",
+        "material": "box_7_material",
         "model3dSource": "cube",
         "name": "box_7_model",
         "options": {
@@ -559,7 +559,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "target_1_material",
+        "material": "target_1_material",
         "model3dSource": "cube",
         "name": "target_1_model",
         "options": {
@@ -573,7 +573,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "target_2_material",
+        "material": "target_2_material",
         "model3dSource": "cube",
         "name": "target_2_model",
         "options": {
@@ -587,7 +587,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "target_3_material",
+        "material": "target_3_material",
         "model3dSource": "cube",
         "name": "target_3_model",
         "options": {

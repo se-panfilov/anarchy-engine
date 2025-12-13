@@ -4,7 +4,7 @@ import type { TObject3DParams } from '@/Engine/ThreeLib';
 import type { TWithTransformAgentParam } from '@/Engine/TransformDrive';
 
 export type TParticlesParams = Readonly<{
-  materialSource: TMaterialWrapper;
+  material: TMaterialWrapper;
 }> &
   TWithTransformAgentParam &
   TWithName &

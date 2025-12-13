@@ -7,12 +7,12 @@ import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 export function particlesToConfig(entity: TParticlesWrapper, { materialRegistry }: TParticlesConfigToParamsDependencies): TParticlesConfig {
   const { drive } = entity;
 
-  const material: TMaterialWrapper | undefined = materialRegistry.find((materialW: TMaterialWrapper): boolean => materialW.entity === entity.entity.material);
-  if (isNotDefined(material)) throw new Error(`[Serialization] Particles: materialSource not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
-  const materialSource: string | undefined = material.name;
+  const materialW: TMaterialWrapper | undefined = materialRegistry.find((materialW: TMaterialWrapper): boolean => materialW.entity === entity.entity.material);
+  if (isNotDefined(materialW)) throw new Error(`[Serialization] Particles: material not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
+  const material: string | undefined = materialW.name;
 
   return filterOutEmptyFields({
-    materialSource,
+    material,
     ...extractSerializableRegistrableFields(entity),
     ...drive.serialize()
   });

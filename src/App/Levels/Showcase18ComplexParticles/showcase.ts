@@ -61,8 +61,8 @@ export function showcase(space: TSpace): void {
 
     const particlesConfig: TParticlesConfig | undefined = (spaceConfig.entities as TSpaceConfigEntities).particles.find((p: TParticlesConfig): boolean => p.name === particlesName);
     if (isNotDefined(particlesConfig)) throw new Error(`Particles "${particlesName}" not found`);
-    const materialConfig: TMaterialConfig | undefined = (spaceConfig.entities as TSpaceConfigEntities).materials.find((m: TMaterialConfig): boolean => m.name === particlesConfig?.materialSource);
-    if (isNotDefined(materialConfig)) throw new Error(`Material "${particlesConfig?.materialSource}" not found`);
+    const materialConfig: TMaterialConfig | undefined = (spaceConfig.entities as TSpaceConfigEntities).materials.find((m: TMaterialConfig): boolean => m.name === particlesConfig?.material);
+    if (isNotDefined(materialConfig)) throw new Error(`Material "${particlesConfig?.material}" not found`);
     const materialsDefaultParams: TMaterialParams = materialConfigToParams(materialConfig, { textureService });
 
     material = new PointsMaterial({

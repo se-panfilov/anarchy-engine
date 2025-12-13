@@ -89,12 +89,12 @@ export function showcase(space: TSpace): void {
   space.start$.next(true);
 }
 
-function createCube(models3dService: TModels3dService, name: string, materialW: TMaterialWrapper): TModel3d {
+function createCube(models3dService: TModels3dService, name: string, material: TMaterialWrapper): TModel3d {
   return models3dService.create({
     name,
     model3dSource: PrimitiveModel3dType.Cube,
     animationsSource: [],
-    materialSource: materialW,
+    material,
     options: { width: meters(1), height: meters(1), depth: meters(1) },
     position: new Vector3(),
     rotation: new Euler()

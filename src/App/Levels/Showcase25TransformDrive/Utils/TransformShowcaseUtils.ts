@@ -51,7 +51,7 @@ export function createActor(
     model = models3dService.create({
       name: `${name}_model`,
       model3dSource: model3d as GLTF,
-      materialSource: material,
+      material,
       options: { radius: meters(0.7) },
       castShadow: true,
       receiveShadow: true,

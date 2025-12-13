@@ -9,7 +9,7 @@ export const mockModel3dName = 'mock_model_3d';
 export const mockModel3dConfig: TModel3dConfig = {
   name: mockModel3dName,
   model3dSource: PrimitiveModel3dType.Sphere,
-  materialSource: mockMaterialName,
+  material: mockMaterialName,
   castShadow: false,
   options: { radius: 1 as TMeters }
 };

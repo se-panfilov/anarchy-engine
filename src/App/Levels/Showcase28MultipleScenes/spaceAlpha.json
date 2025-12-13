@@ -134,7 +134,7 @@
     "models3d": [
       {
         "castShadow": false,
-        "materialSource": "sphere_material",
+        "material": "sphere_material",
         "model3dSource": "sphere",
         "name": "sphere_model",
         "options": {
@@ -143,7 +143,7 @@
       },
       {
         "castShadow": false,
-        "materialSource": "move_material",
+        "material": "move_material",
         "model3dSource": "sphere",
         "name": "move_model_left",
         "options": {
@@ -152,7 +152,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "box_material",
+        "material": "box_material",
         "model3dSource": "cube",
         "name": "cube_1_model",
         "options": {
@@ -166,7 +166,7 @@
     ],
     "particles": [
       {
-        "materialSource": "particles_material",
+        "material": "particles_material",
         "name": "bubbles",
         "position": {
           "x": 0,

@@ -89,7 +89,7 @@
     "models3d": [
       {
         "castShadow": true,
-        "materialSource": "cube_material",
+        "material": "cube_material",
         "model3dSource": "cube",
         "name": "central_actor_model",
         "options": {

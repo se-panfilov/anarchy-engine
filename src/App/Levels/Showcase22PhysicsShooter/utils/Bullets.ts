@@ -56,7 +56,7 @@ export function getBulletsPool(
   const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
   if (isNotDefined(grid)) throw new Error(`Failed to create bullet: Cannot find "main_grid" spatial grid`);
 
-  const materialW: TMaterialWrapper = materialService.create({ name: 'bullet_material', type: MaterialType.Standard, options: { color: '#FF0000' } });
+  const material: TMaterialWrapper = materialService.create({ name: 'bullet_material', type: MaterialType.Standard, options: { color: '#FF0000' } });
 
   // eslint-disable-next-line functional/no-loop-statements
   for (let i: number = 0; i < count; i++) {
@@ -66,7 +66,7 @@ export function getBulletsPool(
       name: `bullet_${i}_${id}_model3d`,
       model3dSource: PrimitiveModel3dType.Cube,
       animationsSource: [],
-      materialSource: materialW,
+      material,
       options: {
         width: meters(0.3),
         height: meters(0.3),

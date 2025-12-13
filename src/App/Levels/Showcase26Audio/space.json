@@ -243,7 +243,7 @@
     "models3d": [
       {
         "castShadow": false,
-        "materialSource": "surface_material",
+        "material": "surface_material",
         "model3dSource": "plane",
         "name": "surface_model",
         "options": {
@@ -266,7 +266,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "cube_material",
+        "material": "cube_material",
         "model3dSource": "cube",
         "name": "box_model_entity",
         "options": {

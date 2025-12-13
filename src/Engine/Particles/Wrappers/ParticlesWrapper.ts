@@ -18,7 +18,7 @@ import { applyObject3dParams } from '@/Engine/Utils';
 
 export function ParticlesWrapper(params: TParticlesParams, dependencies: TParticlesServiceDependencies): TParticlesWrapper {
   let geometry: TBufferGeometry = new BufferGeometry();
-  let entity: TPoints = new Points(geometry, params.materialSource.entity);
+  let entity: TPoints = new Points(geometry, params.material.entity);
 
   const { material } = entity;
   if (!isPointsMaterial(material)) throw new Error('Material is not PointsMaterial or not defined');

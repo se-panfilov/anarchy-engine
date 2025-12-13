@@ -99,7 +99,7 @@
     "models3d": [
       {
         "castShadow": true,
-        "materialSource": "plane_material",
+        "material": "plane_material",
         "model3dSource": "plane",
         "name": "plane_model",
         "options": {

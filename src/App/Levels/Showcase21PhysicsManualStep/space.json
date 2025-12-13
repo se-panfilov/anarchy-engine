@@ -271,7 +271,7 @@
     "models3d": [
       {
         "castShadow": false,
-        "materialSource": "box_material",
+        "material": "box_material",
         "model3dSource": "plane",
         "name": "surface_model",
         "options": {
@@ -284,7 +284,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "box_4_material",
+        "material": "box_4_material",
         "model3dSource": "sphere",
         "name": "sphere_1_model",
         "options": {
@@ -293,7 +293,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "box_5_material",
+        "material": "box_5_material",
         "model3dSource": "cube",
         "name": "cube_1_model",
         "options": {
@@ -306,7 +306,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "box_2_material",
+        "material": "box_2_material",
         "model3dSource": "cube",
         "name": "cube_2_model",
         "options": {
@@ -319,7 +319,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "box_3_material",
+        "material": "box_3_material",
         "model3dSource": "sphere",
         "name": "sphere_2_model",
         "options": {
@@ -328,7 +328,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "box_7_material",
+        "material": "box_7_material",
         "model3dSource": "sphere",
         "name": "sphere_3_model",
         "options": {
@@ -337,7 +337,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "box_6_material",
+        "material": "box_6_material",
         "model3dSource": "sphere",
         "name": "sphere_4_model",
         "options": {

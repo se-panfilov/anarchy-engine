@@ -77,7 +77,7 @@
     "models3d": [
       {
         "castShadow": true,
-        "materialSource": "door_material",
+        "material": "door_material",
         "model3dSource": "cube",
         "name": "wood_cube_model",
         "options": {

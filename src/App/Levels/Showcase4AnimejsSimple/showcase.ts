@@ -33,13 +33,13 @@ export function showcase(space: TSpace): void {
   const boxActorTag: string = 'box';
   const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
 
-  const materialW: TMaterialWrapper = materialService.create({ name: 'cube_material', type: MaterialType.Toon, options: { color: '#5177ff' } });
+  const material: TMaterialWrapper = materialService.create({ name: 'cube_material', type: MaterialType.Toon, options: { color: '#5177ff' } });
 
   const cubeModel3d: TModel3d = models3dService.create({
     name: 'cube_model',
     model3dSource: PrimitiveModel3dType.Cube,
     animationsSource: [],
-    materialSource: materialW,
+    material,
     options: { width: meters(1), height: meters(1), depth: meters(1) },
     position: new Vector3(0, 0, 0),
     rotation: new Euler(0, 0, 0)

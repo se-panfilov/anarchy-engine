@@ -11,7 +11,7 @@ import type { TModel3dOptions } from './TModel3dOptions';
 export type TModel3dParams = Readonly<{
   model3dSource: GLTF | PrimitiveModel3dType;
   animationsSource?: ReadonlyArray<AnimationClip>;
-  materialSource?: TMaterialWrapper;
+  material?: TMaterialWrapper;
   forceClone?: boolean;
   options?: TModel3dOptions;
 }> &

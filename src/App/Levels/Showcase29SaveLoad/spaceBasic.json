@@ -108,7 +108,7 @@
     "models3d": [
       {
         "castShadow": false,
-        "materialSource": "surface_material",
+        "material": "surface_material",
         "model3dSource": "plane",
         "name": "surface_model",
         "options": {
@@ -131,7 +131,7 @@
       },
       {
         "castShadow": true,
-        "materialSource": "sphere_material",
+        "material": "sphere_material",
         "model3dSource": "sphere",
         "name": "sphere_model",
         "options": {
