@@ -1,8 +1,8 @@
 import type GUI from 'lil-gui';
 import type { Observable, Subject, Subscription } from 'rxjs';
 import { combineLatest, distinctUntilChanged, map } from 'rxjs';
-import type { ColorRepresentation, Quaternion } from 'three';
-import { Euler, Vector3 } from 'three';
+import type { ColorRepresentation } from 'three';
+import { Euler, Quaternion, Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
@@ -27,7 +27,7 @@ import type {
   TWithPresetNamePhysicsBodyParams,
   TWithTransformDrive
 } from '@/Engine';
-import { isNotDefined, MaterialType, TransformAgent } from '@/Engine';
+import { isNotDefined, MaterialType, metersPerSecond, TransformAgent } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 export function createActor(
@@ -223,6 +223,31 @@ export function addActorFolderGui(gui: GUI, actor: TActor): void {
   folder.add(position, 'x').listen();
   folder.add(position, 'y').listen();
   folder.add(position, 'z').listen();
+}
+
+export function addKinematicActorFolderGui(gui: GUI, actor: TActor): void {
+  const folder: GUI = gui.addFolder('Kinematic actions');
+  folder.add(actor.drive.agent$, 'value').name('agent').listen();
+
+  actor.drive.kinematic.setRadius(meters(1));
+  const kinematicActions = {
+    rotateLeftY: (): void => actor.drive.kinematic.rotateTo(new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), 1), metersPerSecond(5), true), // Y "left"
+    rotateRightY: (): void => actor.drive.kinematic.rotateTo(new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), -1), metersPerSecond(5), true), // Y "right"
+    rotateUpX: (): void => actor.drive.kinematic.rotateTo(new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), 1), metersPerSecond(5), true), // X "up"
+    rotateDownX: (): void => actor.drive.kinematic.rotateTo(new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), -1), metersPerSecond(5), true), // X "down"
+    rotateForwardZ: (): void => actor.drive.kinematic.rotateTo(new Quaternion().setFromAxisAngle(new Vector3(0, 0, 1), 1), metersPerSecond(5), true), // Z "forward"
+    rotateBackwardZ: (): void => actor.drive.kinematic.rotateTo(new Quaternion().setFromAxisAngle(new Vector3(0, 0, 1), -1), metersPerSecond(5), true), // Z "backward"
+    rotateXyLeft: (): void => actor.drive.kinematic.rotateTo(new Quaternion().setFromEuler(new Euler(Math.PI / 4, 1, 0, 'YXZ')), metersPerSecond(5), true), // X 45° + Y "left"
+    rotateXyRight: (): void => actor.drive.kinematic.rotateTo(new Quaternion().setFromEuler(new Euler(-Math.PI / 4, -1, 0, 'YXZ')), metersPerSecond(5), true) // X -45° + Y "right"
+  };
+  gui.add(kinematicActions, 'rotateLeftY');
+  gui.add(kinematicActions, 'rotateRightY');
+  gui.add(kinematicActions, 'rotateUpX');
+  gui.add(kinematicActions, 'rotateDownX');
+  gui.add(kinematicActions, 'rotateForwardZ');
+  gui.add(kinematicActions, 'rotateBackwardZ');
+  gui.add(kinematicActions, 'rotateXyLeft');
+  gui.add(kinematicActions, 'rotateXyRight');
 }
 
 export function addSpatialGuiFolder(gui: GUI, grid: TSpatialGridWrapper, mouseLineIntersectionsWatcher: TIntersectionsWatcher): void {

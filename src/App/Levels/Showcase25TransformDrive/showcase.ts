@@ -52,6 +52,7 @@ import {
 import spaceConfig from './showcase.json';
 import {
   addActorFolderGui,
+  addKinematicActorFolderGui,
   addSpatialGuiFolder,
   attachConnectorPositionToSubj,
   changeActorActiveAgent,
@@ -157,6 +158,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const sphereActor: TActor = createActor('sphere', foxModel3dSource, TransformAgent.Default, grid, actorCoords, '#E91E63', sphereActorPhysics, space.services);
     gui.add(mode, 'isTeleportationMode').name('Teleportation mode');
     addActorFolderGui(gui, sphereActor);
+    addKinematicActorFolderGui(gui, sphereActor);
 
     combineLatest([sphereActor.drive.position$, sphereActor.drive.rotation$]).subscribe(([p, r]: [Vector3, Quaternion]): void => {
       sphereText.setText(`x: ${p.x.toFixed(2)} y: ${p.y.toFixed(2)} z: ${p.z.toFixed(2)}, Rotation: ${radToDeg(r.y).toFixed(2)}`);
@@ -198,7 +200,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     intersectionsWatcher.value$.pipe(withLatestFrom(sphereActor.drive.position$)).subscribe(([v, actorPosition]: [TIntersectionEvent, Vector3]): void => {
       const elevation: TRadians = getElevation(actorPosition.x, actorPosition.y, actorPosition.z, v.point);
-      const azimuth: TRadians = getHorizontalAzimuth(actorPosition.x, actorPosition.z, v.point);
+      const azimuth: TRadians = getHorizontalAzimuth(actorPosition.x, actorPosition.z, v.point, 'Z');
       azimuth$.next({ azimuth: degrees(radToDeg(azimuth)), elevation: degrees(radToDeg(elevation)) });
     });
 
@@ -237,6 +239,11 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
     case TransformAgent.Kinematic:
       // return actor.drive.kinematic.setLinearSpeed(metersPerSecond(5));
       // return actor.drive.kinematic.moveTo(position, KinematicSpeed.Instant);
+      // actor.drive.kinematic.setLinearAzimuth(getHorizontalAzimuth(actor.drive.getPosition().x, actor.drive.getPosition().z, position));
+
+      // actor.drive.kinematic.setLinearAzimuth(getAzimuthElevationFromVector(position, 'Z').azimuth);
+      // actor.drive.kinematic.setLinearElevation(degToRad(45));
+      // actor.drive.kinematic.setLinearSpeed(metersPerSecond(5));
       return actor.drive.kinematic.moveTo(position, metersPerSecond(5));
     case TransformAgent.Connected:
       // no need to do anything here, cause already connected
@@ -259,6 +266,7 @@ function rotateActorTo(actor: TActor, lookToTarget: Vector3, rotation: Quaternio
       return actor.drive.kinematic.lookAt(lookToTarget, metersPerSecond(5));
     // return actor.drive.kinematic.lookAt(lookToTarget, KinematicSpeed.Instant);
     // return actor.drive.kinematic.rotateTo(rotation, metersPerSecond(5));
+    // return actor.drive.kinematic.rotateTo(rotation, metersPerSecond(5), true);
     case TransformAgent.Connected:
       // no need to do anything here, cause already connected
       return undefined;
