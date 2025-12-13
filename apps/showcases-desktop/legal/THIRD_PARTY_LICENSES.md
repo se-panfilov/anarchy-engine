@@ -1069,7 +1069,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-shared@1.1.7
+## anarchy-shared@1.2.0
 
 **License:** MIT
 
@@ -2940,7 +2940,7 @@ http://creativecommons.org/publicdomain/zero/1.0/.
 
 ---
 
-## showcases-core@2.9.3
+## showcases-core@2.10.0
 
 **License:** MIT
 
@@ -3030,7 +3030,7 @@ SOFTWARE.
 
 ---
 
-## showcases-shared@1.3.1
+## showcases-shared@1.3.2
 
 **License:** MIT
 
