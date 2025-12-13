@@ -13,6 +13,7 @@ export type * from './TAbstractWatcherWithState';
 export type * from './TAsyncReactiveFactory';
 export type * from './TCreateEntityFactoryFn';
 export type * from './TEntity';
+export type * from './TEntityParams';
 export type * from './TFactory';
 export type * from './THtmlElementStyleDeclaration';
 export type * from './TMultitonWatcher';

@@ -45,7 +45,9 @@ export function Actor(params: TActorParams, { spatialGridService, physicsBodySer
     .pipe(filter((): boolean => spatialLoop.shouldUpdateWithPriority(entities.spatial.getSpatialUpdatePriority())))
     .subscribe((position: TReadonlyVector3): void => actor.updateSpatialCells(position));
 
-  actor.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = actor.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
     //Remove model3d registration
     model3dToActorConnectionRegistry.removeByModel3d(model3d);
 

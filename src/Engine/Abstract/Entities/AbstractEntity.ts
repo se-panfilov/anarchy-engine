@@ -1,13 +1,11 @@
 import { nanoid } from 'nanoid';
+import type { Subscription } from 'rxjs';
 
-import type { EntityType } from '@/Engine/Abstract';
-import type { TEntity } from '@/Engine/Abstract/Models';
-import type { TDestroyable, TRegistrable, TWithId, TWithNameAndNameAccessorsMixin, TWithNameOptional, TWithTags } from '@/Engine/Mixins';
+import type { EntityType } from '@/Engine/Abstract/Constants';
+import type { TEntity, TEntityParams } from '@/Engine/Abstract/Models';
+import type { TDestroyable, TNoSpread, TRegistrable, TWithNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
-import type { TOptional } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
-
-type TEntityParams = TWithTags & TWithNameOptional & TOptional<TWithId>;
 
 export function AbstractEntity<T extends Record<string, any>>(entities: T, type: EntityType | string, params?: TEntityParams): TEntity<T> {
   const id: string = isDefined(params?.id) ? params.id : type + '_' + nanoid();
@@ -15,7 +13,13 @@ export function AbstractEntity<T extends Record<string, any>>(entities: T, type:
   const withNameAndNameAccessors: TWithNameAndNameAccessorsMixin = withNameAndNameAccessorsMixin();
   const destroyable: TDestroyable = destroyableMixin();
 
-  const partialResult: T & TRegistrable & TDestroyable = {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+    destroyable.destroy$.complete();
+    destroyable.destroy$.unsubscribe();
+  });
+
+  const partialResult: T & TRegistrable & TNoSpread & TDestroyable = {
     ...params,
     id,
     ...entities,
@@ -23,7 +27,8 @@ export function AbstractEntity<T extends Record<string, any>>(entities: T, type:
     ...destroyable
   };
 
-  const result: TEntity<T> = { ...partialResult, ...withNameAndNameAccessors };
+  // eslint-disable-next-line functional/immutable-data
+  const result: TEntity<T> = Object.assign(partialResult, withNameAndNameAccessors);
 
   if (isDefined(params?.name)) result.setName(params.name);
 
