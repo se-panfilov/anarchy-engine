@@ -4,7 +4,15 @@ import type { RegistryType } from '@/Engine/Abstract/Constants';
 import type { TAbstractAsyncEntityRegistry, TAbstractEntityRegistry } from '@/Engine/Abstract/Models';
 import type { LookUpStrategy } from '@/Engine/Abstract/Registries/Constants';
 import type { TMultitonRegistrable, TRegistrable } from '@/Engine/Mixins';
-import { getAsyncUniqEntityByNameAsync, getAsyncUniqEntityWithTag, getUniqEntityByName$, getUniqEntityWithTag$, getUniqEntityWithTags$, getUniqEntityWithTagsAsync } from '@/Engine/Utils';
+import {
+  getAsyncUniqEntityByNameAsync,
+  getAsyncUniqEntityWithTag,
+  getUniqEntityByName$,
+  getUniqEntityWithTag$,
+  getUniqEntityWithTags$,
+  getUniqEntityWithTagsAsync,
+  isNotDefined
+} from '@/Engine/Utils';
 
 import { AbstractEntityRegistry } from './AbstractEntityRegistry';
 
@@ -26,6 +34,16 @@ export function AbstractEntityAsyncRegistry<T extends TRegistrable | TMultitonRe
     findByTag$,
     findByTagAsync,
     findByTags$,
-    findByTagsAsync
+    findByTagsAsync,
+    getByNameAsync: async (name: string): Promise<T | never> => {
+      const result: T | undefined = await findByNameAsync(name);
+      if (isNotDefined(result)) throw new Error(`[REGISTRY]: Entity with name "${name}" not found in registry "${abstractRegistry.id}".`);
+      return result;
+    },
+    getByTagAsync: async (tag: string): Promise<T | never> => {
+      const result: T | undefined = await findByTagAsync(tag);
+      if (isNotDefined(result)) throw new Error(`[REGISTRY]: Entity with tag "${tag}" not found in registry "${abstractRegistry.id}".`);
+      return result;
+    }
   });
 }
