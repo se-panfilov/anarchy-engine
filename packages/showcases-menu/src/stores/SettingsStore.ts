@@ -2,33 +2,14 @@ import type { TLocale, TLocaleId } from '@Anarchy/i18n';
 import type { TDeepWriteable } from '@Anarchy/Shared/Utils';
 import { vueTranslationService } from '@Showcases/Menu/services';
 import type { TAudioSettings, TDebugSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TResolution, TShowcaseGameSettings, TShowcaseLocaleIds } from '@Showcases/Shared';
-import { ShowcasesLocales } from '@Showcases/Shared';
+import { DefaultShowcaseGameSettings, ShowcasesLocales } from '@Showcases/Shared';
 import { defineStore } from 'pinia';
 import type { ComputedRef } from 'vue';
 import { computed, reactive, watch } from 'vue';
 
 export const useSettingsStore = defineStore('settingsStore', () => {
   const state: TDeepWriteable<TShowcaseGameSettings> = reactive({
-    graphics: {
-      isFullScreen: false,
-      // TODO DESKTOP: resolution should come from .env or should be set by platform (detect default resolution)
-      resolution: { width: 1920, height: 1080 }
-    },
-    audio: {
-      masterVolume: 80
-    },
-    localization: {
-      // TODO DESKTOP: should be set by platform or from .env
-      locale: ShowcasesLocales['en-US']
-    },
-    debug: {
-      // TODO DESKTOP: should be set by platform or from .env
-      isDebugMode: false
-    },
-    internal: {
-      // TODO DESKTOP: should be set by platform (settings file)
-      isFirstRun: true
-    }
+    ...DefaultShowcaseGameSettings
   });
 
   const onLocaleChanged = (nextLocale: TLocale): void => vueTranslationService.locale$.next(nextLocale);
@@ -53,11 +34,11 @@ export const useSettingsStore = defineStore('settingsStore', () => {
     ];
   }
 
-  const graphics = computed(() => state.graphics);
-  const audio = computed(() => state.audio);
-  const localization = computed(() => state.localization);
-  const debug = computed(() => state.debug);
-  const internal = computed(() => state.internal);
+  const graphics: ComputedRef<TGraphicsSettings> = computed((): TGraphicsSettings => state.graphics);
+  const audio: ComputedRef<TAudioSettings> = computed((): TAudioSettings => state.audio);
+  const localization: ComputedRef<TLocalizationSettings> = computed((): TLocalizationSettings => state.localization);
+  const debug: ComputedRef<TDebugSettings> = computed((): TDebugSettings => state.debug);
+  const internal: ComputedRef<TInternalSettings> = computed((): TInternalSettings => state.internal);
 
   const setGraphics = (newGraphics: Partial<TGraphicsSettings>): void => void Object.assign(state.graphics, { ...newGraphics });
   const setAudio = (newAudio: Partial<TAudioSettings>): void => void Object.assign(state.audio, { ...newAudio });

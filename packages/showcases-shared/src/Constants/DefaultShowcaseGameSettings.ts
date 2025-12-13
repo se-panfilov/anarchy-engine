@@ -1,0 +1,22 @@
+import type { TShowcaseGameSettings } from '@Showcases/Shared/Models';
+
+import { ShowcasesLocales } from './ShowcasesLocales';
+
+export const DefaultShowcaseGameSettings: TShowcaseGameSettings = {
+  graphics: {
+    isFullScreen: false,
+    resolution: { width: 800, height: 600 }
+  },
+  audio: {
+    masterVolume: 80
+  },
+  localization: {
+    locale: ShowcasesLocales['en-US']
+  },
+  debug: {
+    isDebugMode: false
+  },
+  internal: {
+    isFirstRun: true
+  }
+};

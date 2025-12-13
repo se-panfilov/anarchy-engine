@@ -10,7 +10,7 @@ import type { IpcMainInvokeEvent } from 'electron';
 //  - [DONE] Implement restart app
 //  - Split platform and app settings
 //  - Implement apply of desktop settings (e.g. resolution)
-//  - Implement apply of App settings (e.g. language
+//  - Implement apply of App settings (e.g. language)
 //  - Detect if restart is needed after settings change (and do it)
 
 // TODO DESKTOP: Next task – fix no settings file case:
