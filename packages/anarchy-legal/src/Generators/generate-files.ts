@@ -1,6 +1,7 @@
-import path from 'node:path';
 import fs from 'node:fs/promises';
+import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+
 // eslint-disable-next-line spellcheck/spell-checker
 import { globby } from 'globby';
 // eslint-disable-next-line spellcheck/spell-checker
@@ -372,7 +373,7 @@ const main = async (): Promise<void> => {
   dlog('target workspace:', ws.name, ws.dir);
 
   // Resolve templates dir
-  const templatesDir = argv.templates ? (path.isAbsolute(argv.templates) ? argv.templates : path.resolve(process.cwd(), argv.templates)) : path.resolve(scriptDir, '../../templates');
+  const templatesDir = argv.templates ? (path.isAbsolute(argv.templates) ? argv.templates : path.resolve(process.cwd(), argv.templates)) : path.resolve(scriptDir, '../../src/templates');
   dlog('templates dir:', templatesDir);
 
   // Resolve out dir
