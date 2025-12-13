@@ -2,6 +2,7 @@ export * from './ArrayUtils';
 export * from './AsyncUtils';
 export * from './CheckUtils';
 export * from './CoordsUtils';
+export * from './DestroyUtils';
 export * from './EntityUtils';
 export * from './FileUtils';
 export * from './MapUtils';
