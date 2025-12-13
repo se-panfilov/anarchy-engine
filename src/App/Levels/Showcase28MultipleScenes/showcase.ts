@@ -2,8 +2,8 @@ import { combineLatest, Observable, Subscription } from 'rxjs';
 import { Clock } from 'three';
 
 import { moveByCircle } from '@/App/Levels/Utils/MoveUtils';
-import type { TSpace, TSpaceConfig } from '@/Engine';
-import { asRecord, createDomElement, isDefined, isNotDefined, spaceService } from '@/Engine';
+import type { TActor, TActorRegistry, TKeyboardPressingEvent, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
+import { asRecord, createDomElement, isDefined, isNotDefined, KeyCode, metersPerSecond, mpsSpeed, spaceService } from '@/Engine';
 
 import spaceAlphaConfigJson from './spaceAlpha.json';
 import spaceBetaConfigJson from './spaceBeta.json';
@@ -98,6 +98,7 @@ export function start(): void {
 
 export function runAlpha(space: TSpace): void {
   moveByCircle('sphere_actor', space.services.actorService, space.loops.transformLoop, new Clock());
+  driveByKeyboard('move_actor_left', space.services);
   space.start$.next(true);
 }
 
@@ -180,6 +181,19 @@ function hackRxJsSubscriptions(subscriptionStacks: Map<Subscription, string>): v
 
     return originalUnsubscribe.apply(this, args as any);
   };
+}
+
+function driveByKeyboard(actorName: string, { actorService, keyboardService }: TSpaceServices): void {
+  const actorRegistry: TActorRegistry = actorService.getRegistry();
+  const actor: TActor | undefined = actorRegistry.findByName(actorName);
+  if (isNotDefined(actor)) throw new Error(`Actor "${actorName}" is not defined`);
+
+  const { onKey } = keyboardService;
+
+  onKey(KeyCode.W).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actor.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta)));
+  onKey(KeyCode.A).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actor.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta)));
+  onKey(KeyCode.S).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actor.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta)));
+  onKey(KeyCode.D).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actor.drive.default.addX(mpsSpeed(metersPerSecond(10), delta)));
 }
 
 function destroySpace(cb: () => void, shouldLogStack: boolean = false): void {

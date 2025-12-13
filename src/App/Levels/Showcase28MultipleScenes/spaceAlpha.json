@@ -15,6 +15,19 @@
           "grid": "main_grid",
           "isAutoUpdate": true
         }
+      },
+      {
+        "model3dSource": "move_model_left",
+        "name": "move_actor_left",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        }
       }
     ],
     "audio": [],
@@ -52,6 +65,15 @@
         "options": {
           "radius": 1
         }
+      },
+      {
+        "castShadow": false,
+        "materialSource": "move_material",
+        "model3dSource": "sphere",
+        "name": "move_model_left",
+        "options": {
+          "radius": 1
+        }
       }
     ],
     "particles": [],
@@ -78,6 +100,13 @@
         "name": "sphere_material",
         "options": {
           "color": "#E91E63"
+        },
+        "type": "basic"
+      },
+      {
+        "name": "move_material",
+        "options": {
+          "color": "#e66a36"
         },
         "type": "basic"
       }
