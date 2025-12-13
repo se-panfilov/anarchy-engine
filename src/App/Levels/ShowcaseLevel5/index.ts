@@ -1,8 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, isNotDefined } from '@/Engine';
-import type { IAnimationParams } from '@/Engine/Services';
-import { standardMoverService } from '@/Engine/Services';
+import type { IActorWrapper, IAnimationParams, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
+import { ambientContext, buildLevelFromConfig, Easing, isNotDefined, standardMoverService } from '@/Engine';
 
 import levelConfig from './showcase-level-5.config.json';
 
@@ -110,7 +108,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       // }, 600);
 
       // const path = [{ x: 12 }, { z: -12 }, { x: -20 }, { z: 2 }];
-      void standardMoverService.goByPath(bottomActor, path, { ...animationParams, easing: 'linear' });
+      void standardMoverService.goByPath(bottomActor, path, { ...animationParams, easing: Easing.Linear });
     });
   }
 
