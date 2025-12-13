@@ -3,6 +3,7 @@ import type { IAppCanvas, IControlsParams } from '@Engine/Models';
 import { ControlsType } from '@Engine/Models';
 import type { ICameraRegistry } from '@Engine/Registries';
 import { isNotDefined } from '@Engine/Utils';
+import type { ICameraWrapper } from '@Engine/Wrappers';
 
 export function controlsAdapter(
   config: IControlsConfig,
@@ -15,8 +16,12 @@ export function controlsAdapter(
     throw new Error(`Cannot create controls of unknown type "${type as string}"`);
   if (isNotDefined(cameraTag)) throw new Error(`Cannot attach controls ("${type}") to undefined camera tag`);
 
+  const camera: ICameraWrapper | undefined = cameraRegistry.getUniqWithTag([cameraTag]);
+  if (isNotDefined(camera))
+    throw new Error(`Cannot execute ControlsConfigAdapter: a camera with tag "${cameraTag}" is not defined`);
+
   return {
-    camera: cameraRegistry.getByTag(cameraTag),
+    camera,
     canvas,
     tags
   };

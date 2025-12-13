@@ -2,12 +2,12 @@ import { ActorTag, CameraTag, LoopTag, RendererTag } from '@Engine/Constants';
 import { ambientContext } from '@Engine/Context';
 import { addToRegistry } from '@Engine/Launcher/AddToRegistry';
 import type { ISceneConfig } from '@Engine/Launcher/Models';
-import type { IAppCanvas } from '@Engine/Models';
+import type { IAppCanvas, IVector3 } from '@Engine/Models';
 import { initRegistriesAddSubscription } from '@Engine/Pool/GetRegistiryPool';
 import type { IFactoriesPool, IRegistriesPool } from '@Engine/Pool/Models';
 import { IntersectionsService } from '@Engine/Services';
+import { isNotDefined } from '@Engine/Utils';
 import type { ICameraWrapper, ILoopWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
-import type { IVector3 } from '@Engine/Models';
 
 export function launchScene(
   sceneConfig: ISceneConfig,
@@ -36,7 +36,7 @@ export function launchScene(
   // const intersectionsService = IntersectionsService();
   //
   // ambientContext.mousePositionWatcher.value$.subscribe((position) => {
-  //   const intersectObj: IVector3 | undefined  = intersectionsService.getIntersection(position, cameraRegistry.getByTag(CameraTag.Initial), actorRegistry.getAllWithTag(ActorTag.Intersectable));
+  //   const intersectObj: IVector3 | undefined  = intersectionsService.getIntersection(position, cameraRegistry.getUniqWithTag([CameraTag.Initial]), actorRegistry.getAllWithTag(ActorTag.Intersectable));
   //   if (intersectObj) {
   //     console.log((intersectObj as any).point);
   //   }
@@ -48,6 +48,8 @@ export function launchScene(
   ////////////////////////////////////
 
   const loop: ILoopWrapper = loopFactory.create({ tags: [LoopTag.Main, sceneName] });
-  const initialCamera: ICameraWrapper = cameraRegistry.getByTag(CameraTag.Initial);
+  const initialCamera: ICameraWrapper | undefined = cameraRegistry.getUniqWithTag([CameraTag.Initial]);
+  if (isNotDefined(initialCamera))
+    throw new Error(`Cannot start the main loop for the scene ${sceneName}: initial camera is not defined`);
   loop.start(renderer, scene, initialCamera);
 }

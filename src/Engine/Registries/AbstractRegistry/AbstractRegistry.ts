@@ -1,6 +1,6 @@
 import type { IAbstractRegistry, IWrapper } from '@Engine/Models';
 import { RegistryName } from '@Engine/Registries';
-import { findKeyByTag, isNotDefined } from '@Engine/Utils';
+import { getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag, isNotDefined } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
 
@@ -43,22 +43,14 @@ export function AbstractRegistry<T extends IWrapper<unknown>>(name: RegistryName
     registry.clear();
   }
 
-  // TODO (S.Panfilov) CWP fix these methods
-  // TODO (S.Panfilov) this method should return all entities with the tag, not only the very first one
-  function getAllWithTag(tag: string): ReadonlyArray<T> | never {
-    const id: string | undefined = findKeyByTag(tag, registry);
-    if (isNotDefined(id)) throw new Error(`Cannot find an entity in "${name}" registry with a tag "${tag}"`);
-    const entity: T | undefined = registry.get(id);
-    if (isNotDefined(entity)) throw new Error(`Cannot find an entity in "${name}" registry with an id "${id}"`);
-    return [entity];
+  function getUniqWithTag(tags: ReadonlyArray<string>): T | undefined | never {
+    const result: ReadonlyArray<T> = getAllEntitiesWithSomeTag(tags, registry);
+    if (result.length > 1) throw new Error(`Entity with tags "${tags.toString()}" is not uniq in "${name}"`);
+    return result[0];
   }
 
-  function getByTag(tag: string): T | never {
-    const id: string | undefined = findKeyByTag(tag, registry);
-    if (isNotDefined(id)) throw new Error(`Cannot find an entity in "${name}" registry with a tag "${tag}"`);
-    const entity: T | undefined = registry.get(id);
-    if (isNotDefined(entity)) throw new Error(`Cannot find an entity in "${name}" registry with an id "${id}"`);
-    return entity;
+  function getAllWithTag(tags: ReadonlyArray<string>, shouldMuchEveryTag: boolean = false): ReadonlyArray<T> {
+    return shouldMuchEveryTag ? getAllEntitiesWithEveryTag(tags, registry) : getAllEntitiesWithSomeTag(tags, registry);
   }
 
   return {
@@ -78,7 +70,7 @@ export function AbstractRegistry<T extends IWrapper<unknown>>(name: RegistryName
     replace,
     getById,
     getAllWithTag,
-    getByTag,
+    getUniqWithTag,
     registry,
     remove,
     destroy
