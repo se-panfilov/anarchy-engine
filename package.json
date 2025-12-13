@@ -2,11 +2,16 @@
   "name": "anarchy_monorepo",
   "author": "S. Panfilov",
   "private": true,
-  "version": "2.1.1",
+  "version": "2.1.2",
   "type": "module",
   "workspaces": [
     "apps/*",
     "packages/*"
+  ],
+  "description": "Anarchy Monorepo - an infrastructure around Anarchy-Engine.",
+  "keywords": [
+    "anarchy",
+    "monorepo"
   ],
   "license": "MIT",
   "scripts": {

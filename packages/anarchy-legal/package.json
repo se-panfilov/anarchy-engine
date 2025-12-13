@@ -2,10 +2,20 @@
   "name": "anarchy-legal",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.6.0",
+  "version": "1.6.1",
   "type": "module",
   "sideEffects": false,
   "license": "MIT",
+  "description": "Anarchy-legal – a library for generating legal files for Anarchy Engine.",
+  "keywords": [
+    "anarchy",
+    "anarchy-engine",
+    "anarchy-legal",
+    "legal",
+    "license",
+    "eula",
+    "privacy"
+  ],
   "scripts": {
     "before:release": "npm run before:release:check",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",

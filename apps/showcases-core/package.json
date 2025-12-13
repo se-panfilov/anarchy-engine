@@ -5,6 +5,12 @@
   "version": "2.7.3",
   "type": "module",
   "license": "MIT",
+  "description": "Anarchy Showcases Core – an application with demos for Anarchy-Engine.",
+  "keywords": [
+    "anarchy",
+    "showcases",
+    "anarchy-showcases"
+  ],
   "scripts": {
     "before:release": "npm run before:release:check && npm run sanitize-assets",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",

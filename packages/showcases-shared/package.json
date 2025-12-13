@@ -2,10 +2,17 @@
   "name": "showcases-shared",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.0.6",
+  "version": "1.0.7",
   "type": "module",
   "sideEffects": false,
   "license": "MIT",
+  "description": "Anarchy Showcases Shared – a shared library for Anarchy Engine Showcases.",
+  "keywords": [
+    "anarchy",
+    "showcases",
+    "anarchy-showcases",
+    "showcases-shared"
+  ],
   "scripts": {
     "before:release": "npm run before:release:check",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",

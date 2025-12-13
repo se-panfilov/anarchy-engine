@@ -5,6 +5,13 @@
   "version": "1.0.2",
   "type": "module",
   "license": "MIT",
+  "description": "Anarchy Showcase-E2E  – end-to-end tests for Anarchy Showcases.",
+  "keywords": [
+    "anarchy",
+    "showcases",
+    "anarchy-showcases",
+    "e2e"
+  ],
   "scripts": {
     "before:release": "npm run before:release:check",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint && npm run e2e:with-clean",

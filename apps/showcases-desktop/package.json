@@ -3,7 +3,13 @@
   "author": "S. Panfilov",
   "private": true,
   "version": "2.3.1",
-  "description": "Desktop application for Anarchy Engine showcases",
+  "description": "Anarchy Desktop Showcases  – a desktop wrapper-application for showcases-core.",
+  "keywords": [
+    "anarchy",
+    "showcases",
+    "anarchy-showcases",
+    "desktop"
+  ],
   "main": "dist/desktop-main.js",
   "type": "module",
   "license": "MIT",

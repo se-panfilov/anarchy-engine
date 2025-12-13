@@ -2,10 +2,16 @@
   "name": "anarchy-shared",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.1.1",
   "type": "module",
   "sideEffects": false,
   "license": "MIT",
+  "description": "Anarchy-shared – a library with shared utilities and scripts for Anarchy Engine.",
+  "keywords": [
+    "anarchy",
+    "anarchy-engine",
+    "anarchy-shared"
+  ],
   "scripts": {
     "before:release": "npm run before:release:check",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",

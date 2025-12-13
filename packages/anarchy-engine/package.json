@@ -2,16 +2,31 @@
   "name": "anarchy-engine",
   "author": "S. Panfilov",
   "private": true,
-  "version": "20.3.1",
+  "version": "20.3.2",
   "type": "module",
   "sideEffects": false,
   "license": "MIT",
+  "description": "Anarchy Engine – a 3D game engine for web, desktop and mobile platforms. Built around three.js",
+  "keywords": [
+    "anarchy",
+    "anarchy-engine",
+    "tree",
+    "threejs",
+    "three.js",
+    "game engine",
+    "javascript game engine",
+    "3d engine",
+    "framework"
+  ],
   "files": [
     "DISCLAIMER.md",
+    "EULA.md",
     "LICENSE",
+    "NOTICE.md",
+    "PRIVACY.md",
     "README.md",
-    "THIRD_PARTY_LICENSES.md",
     "SECURITY.md",
+    "THIRD_PARTY_LICENSES.md",
     "dist/"
   ],
   "scripts": {

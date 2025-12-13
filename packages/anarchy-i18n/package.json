@@ -2,10 +2,20 @@
   "name": "anarchy-i18n",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.1.1",
   "type": "module",
   "sideEffects": false,
   "license": "MIT",
+  "description": "Anarchy-I18n – a library for internationalization in Anarchy Engine.",
+  "keywords": [
+    "anarchy",
+    "anarchy-engine",
+    "i18n",
+    "anarchy-i18n",
+    "internationalization",
+    "localization",
+    "language"
+  ],
   "scripts": {
     "before:release": "npm run before:release:check",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",
