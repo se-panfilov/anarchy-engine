@@ -133,11 +133,12 @@ function loadSpaceConfigFromMemory(name: string | undefined, spaceRegistry: TSpa
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
 
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceData.config]);
-  const newSpace: TSpace = spaces.find((s: TSpace): boolean => s.name === name) as TSpace;
-  if (isNotDefined(newSpace)) throw new Error(`[Showcase]: Cannot create the space "${name}"`);
+  const space: TSpace = spaces.find((s: TSpace): boolean => s.name === name) as TSpace;
+  if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot create the space "${name}"`);
 
-  currentSpaceName = newSpace.name;
-  newSpace.start$.next(true);
+  currentSpaceName = space.name;
+  spaceData.onCreate?.(space);
+  space.start$.next(true);
   setContainerVisibility(name, true, spacesData);
 }
 
@@ -168,10 +169,10 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
 
     spaceData.onChange?.(space);
   });
-  addBtn(`Drop`, containerId, (): void => unloadSpace(currentSpaceName, spaceRegistry));
   addBtn(`Save`, containerId, (): void => {
     saveSpaceConfigInMemory(currentSpaceName, spaceRegistry);
   });
+  addBtn(`Drop`, containerId, (): void => unloadSpace(currentSpaceName, spaceRegistry));
   addBtn(`Load`, containerId, (): void => {
     loadSpaceConfigFromMemory(currentSpaceName, spaceRegistry);
   });
