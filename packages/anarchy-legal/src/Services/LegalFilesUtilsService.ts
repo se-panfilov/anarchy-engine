@@ -12,6 +12,7 @@ import type {
   TTemplateMessages,
   TWorkspaceInfo
 } from '@Anarchy/Legal/Models';
+import { UTCDate } from '@date-fns/utc';
 import { isValid, parseISO } from 'date-fns';
 import { format as dfFormat } from 'date-fns/format';
 // eslint-disable-next-line spellcheck/spell-checker
@@ -78,10 +79,13 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
   const PLACEHOLDER_RE = /{{\s*([A-Z0-9_]+)\s*}}/g;
 
   /** Parse date string with date-fns (supports "now", ISO, and Date constructor fallback) */
+  /** Parse/format via date-fns.
+   *  Special case: when dateStr === "now", output uses UTC date/time (not local).
+   */
   const formatWithDateFns = (dateStr: string, format: string): string => {
     const d: Date =
       dateStr.toLowerCase() === 'now'
-        ? new Date()
+        ? new UTCDate()
         : ((): Date => {
             const iso: Date = parseISO(dateStr);
             return isValid(iso) ? iso : new Date(dateStr);

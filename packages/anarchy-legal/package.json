@@ -20,6 +20,7 @@
     "ts:check:watch": "tsc --watch --noEmit"
   },
   "devDependencies": {
+    "@date-fns/utc": "2.1.1",
     "@types/yargs": "17.0.33",
     "date-fns": "4.1.0",
     "globby": "14.1.0",
