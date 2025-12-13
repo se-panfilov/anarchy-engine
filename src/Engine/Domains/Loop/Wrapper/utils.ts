@@ -1,9 +1,9 @@
 import type { ICameraWrapper } from '@Engine/Domains/Camera';
 import type { IRendererWrapper } from '@Engine/Domains/Renderer';
 import type { ISceneWrapper } from '@Engine/Domains/Scene';
+import { Clock } from 'three';
 
 import type { ILoopUtils, LoopFn } from '../Models';
-import { Clock } from 'three';
 
 export function getUtils(entity: LoopFn): ILoopUtils {
   function start(renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, camera: Readonly<ICameraWrapper>): void {

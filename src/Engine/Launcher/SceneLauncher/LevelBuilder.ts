@@ -13,7 +13,7 @@ import { Subject } from 'rxjs';
 
 import type { IActorConfig, IActorFactory, IActorRegistry, IActorWrapper } from '@/Engine/Domains/Actor';
 import { ActorFactory, ActorRegistry } from '@/Engine/Domains/Actor';
-import type { IControlsConfig, IControlsFactory, IControlsRegistry, IControlsWrapper } from '@/Engine/Domains/Controls';
+import type { IControlsConfig, IControlsFactory, IControlsRegistry, IOrbitControlsWrapper } from '@/Engine/Domains/Controls';
 import { ControlsFactory, ControlsRegistry } from '@/Engine/Domains/Controls';
 import type { ILightConfig, ILightFactory, ILightRegistry, ILightWrapper } from '@/Engine/Domains/Light';
 import { LightFactory, LightRegistry } from '@/Engine/Domains/Light';
@@ -46,8 +46,8 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
 
   const controlsFactory: IControlsFactory = ControlsFactory();
   const controlsRegistry: IControlsRegistry = ControlsRegistry();
-  controlsFactory.entityCreated$.subscribe((instance: IControlsWrapper): void => controlsRegistry.add(instance));
-  controls.forEach((control: IControlsConfig): IControlsWrapper => controlsFactory.create(controlsFactory.getParams(control, { cameraRegistry, canvas })));
+  controlsFactory.entityCreated$.subscribe((instance: IOrbitControlsWrapper): void => controlsRegistry.add(instance));
+  controls.forEach((control: IControlsConfig): IOrbitControlsWrapper => controlsFactory.create(controlsFactory.getParams(control, { cameraRegistry, canvas })));
 
   const lightFactory: ILightFactory = LightFactory();
   const lightRegistry: ILightRegistry = LightRegistry();

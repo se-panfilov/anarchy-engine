@@ -1,6 +1,6 @@
 import type { IAbstractRegistry } from '@Engine/Domains/Abstract';
 import type { IProtectedRegistry } from '@Engine/Domains/Mixins';
 
-import type { IControlsWrapper } from './IControlsWrapper';
+import type { IOrbitControlsWrapper } from './IOrbitControlsWrapper';
 
-export type IControlsRegistry = IProtectedRegistry<IControlsWrapper, IAbstractRegistry<IControlsWrapper>>;
+export type IControlsRegistry = IProtectedRegistry<IOrbitControlsWrapper, IAbstractRegistry<IOrbitControlsWrapper>>;

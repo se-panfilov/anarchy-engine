@@ -1,5 +1,6 @@
 import type { IWriteable } from '@Engine/Utils';
-import type { IVector3 } from '@Engine/Wrappers/Vector3Wrapper';
+
+import type { IVector3 } from '@/Engine/Wrappers';
 
 import type { ICameraAccessors, IPerspectiveCamera } from '../Models';
 

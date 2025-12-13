@@ -1,1 +1,1 @@
-export * from './ControlsWrapper';
+export * from './OrbitControlsWrapper';

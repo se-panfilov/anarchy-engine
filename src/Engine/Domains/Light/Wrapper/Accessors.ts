@@ -1,7 +1,6 @@
 import type { IOrthographicCamera } from '@Engine/Domains/Camera';
 import type { IWriteable } from '@Engine/Utils';
-import type { IVector2 } from '@Engine/Wrappers/Vector2Wrapper';
-import type { IVector3 } from '@Engine/Wrappers/Vector3Wrapper';
+import type { IVector2, IVector3 } from '@Engine/Wrappers';
 
 import type { IAmbientLight, IDirectionalLight, ILightAccessors } from '../Models';
 
