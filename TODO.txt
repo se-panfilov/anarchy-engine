@@ -16,22 +16,21 @@ Done:
 - 9.2.x Transform drive
 - 10.0.x Refactor loops (physical, collision and etc) loops should be based on milliseconds, not frames. Only rendering loop should be based on frames
 - 11.0.x Sounds/Music
+- 12.0.x Fix Registries (should always return the same object)
 
 Roadmap:
-- 12.0.x Fix Registries (should always return the same object) and add possibility to create an entity without adding to the registry
-- 13.0.x Lines domain
-- 14.0.x Deletion and resource dispose (memory management)
-- 15.x.x Save/Load
-- 16.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
-- 17.0.0 Multiple scenes full support (unload/load scenes one after another)
-- 18.0.x Split apps and engine (and add config for an app to set up engine)
-- 10.0.x Building app (desktop/mobile) (might be not a part of an engine)
-- 20.0.x Shaders
-- 21.x.x Postprocessing
-- 22.0.x Refactor withActive entities (use active$) (camera, renderer, etc)
-- 23.0.x Logging
-- 24.0.x Performance improvements (make sure materials and env maps are async)
-- 25.0.x npm package and a repo
+- 13.0.x Deletion and resource dispose (memory management)
+- 14.x.x Save/Load configs (serialization)
+- 15.0.0 Multiple scenes full support (unload/load scenes one after another)
+- 16.0.x Split apps and engine (and add config for an app to set up engine)
+- 17.0.x npm package and a repo for the engine
+- 18.0.x Building app (desktop/mobile) (might be not a part of an engine)
+- 19.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
+- 20.0.x Lines domain
+- 21.0.x Performance improvements (make sure materials and env maps are async)
+- 22.x.x Postprocessing
+- 23.0.x Shaders
+
 
 Won't be implemented soon:
 - GUI/UI/HUD/Menus: Leave it to the app (don't want to build a generic solution)
@@ -46,6 +45,7 @@ Bugs and issues:
 - Timers are an issue (the game is paused when you are not in the tab, but timers such as "setTimeout" are still running)
 - Production build is not working due to WASM integration
 - #191823 Text3dTextures doesn't update text values on textures on change
+- Maybe: Refactor withActive entities (use active$) (camera, renderer, etc)
 
 Also:
 - Make stats enable/disable configurable via url params (?debug=true)
