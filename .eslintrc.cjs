@@ -68,6 +68,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'error',
     '@typescript-eslint/no-explicit-any': 'off', // TODO (S.Panfilov) better to turn it on probably, but not right now
     '@typescript-eslint/no-inferrable-types': 'off',
+    '@typescript-eslint/restrict-template-expressions': 'off',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
     '@typescript-eslint/consistent-type-exports': 'error',
