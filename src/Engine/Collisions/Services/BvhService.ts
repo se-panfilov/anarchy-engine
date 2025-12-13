@@ -17,9 +17,20 @@ export function BvhService(): TBvhService {
   }
 
   // this highlight is for debugging purposes only
-  function _debugVisualizeBvhForActor(actorW: TActorWrapperAsync, sceneW: TSceneWrapper): void {
-    const bvhHelper: MeshBVHHelper = new MeshBVHHelper(actorW.entity, 10);
+  function _debugVisualizeBvhForActor(actorW: TActorWrapperAsync, sceneW: TSceneWrapper, depth: number = 10): void {
+    const bvhHelper: MeshBVHHelper = new MeshBVHHelper(actorW.entity, depth);
     sceneW.entity.add(bvhHelper);
+  }
+
+  // this highlight is for debugging purposes only
+  function _debugVisualizeBvhForScene(sceneW: TSceneWrapper, depth: number = 10): void {
+    sceneW.entity.traverse((object) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      if ((object as any).isMesh) {
+        const bvhHelper: MeshBVHHelper = new MeshBVHHelper(object, depth);
+        sceneW.entity.add(bvhHelper);
+      }
+    });
   }
 
   return {
@@ -27,6 +38,7 @@ export function BvhService(): TBvhService {
     disposeBVHBoundsTree,
     raycastWithBvh,
     createBvhForActor,
-    _debugVisualizeBvhForActor
+    _debugVisualizeBvhForActor,
+    _debugVisualizeBvhForScene
   };
 }
