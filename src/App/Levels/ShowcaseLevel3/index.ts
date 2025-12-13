@@ -12,21 +12,17 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
   function start(): void {
     level.start();
-    const { cameraFactory, actorRegistry } = level.entities;
+    const { actorRegistry, cameraRegistry } = level.entities;
 
-    const camera: ICameraWrapper = cameraFactory.create({
-      position: Vector3Wrapper({ x: 0, y: 0, z: 3 }),
-      rotation: EulerWrapper({ x: 0, y: 0, z: 0 }),
-      tags: [CameraTag.Active]
-    });
+    const camera = cameraRegistry.getUniqByTag(CameraTag.Active);
 
     const { mousePositionWatcher, screenSizeWatcher } = ambientContext;
     combineLatest([mousePositionWatcher.value$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {
       if (isNotDefined(camera)) return;
       const xRatio: number = x / width - 0.5;
       const yRatio: number = -(y / height - 0.5);
-      camera.setX(xRatio * 5);
-      camera.setY(yRatio * 5);
+      camera.setX(xRatio * 3);
+      camera.setY(yRatio * 3);
 
       const actor = actorRegistry.getUniqByTag('central_actor');
       if (isDefined(actor)) camera.lookAt(actor.getPosition());
