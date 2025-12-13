@@ -43,15 +43,14 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     gui.add(sphereCoords, 'y').listen();
     gui.add(sphereCoords, 'z').listen();
 
-    onKey(KeysExtra.Space).released$.subscribe((): void => {
+    onKey(KeysExtra.Enter).released$.subscribe((): void => {
       if (!mode.isKinematic) {
         if (sphere.drive.getActiveAgent().type !== TransformAgent.Default) sphere.drive.agent$.next(TransformAgent.Default);
         if (!isMove) isMove = true;
       } else {
         if (sphere.drive.getActiveAgent().type !== TransformAgent.Kinematic) sphere.drive.agent$.next(TransformAgent.Kinematic);
-        const position: Vector3 = sphere.drive.position$.value.add(new Vector3(0, 0, meters(-100)));
+        const position: Vector3 = sphere.drive.position$.value.clone().add(new Vector3(0, 0, meters(-100)));
         sphere.drive.kinematic.moveTo(position, speed);
-        console.time('move');
       }
     });
 
