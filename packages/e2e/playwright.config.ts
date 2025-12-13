@@ -67,13 +67,13 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   // webServer: {
-  //   command: 'npm run start:e2e',
+  //   command: 'npm run start:e2e-server',
   //   url: `http://localhost:${nodeEnv.PORT}`,
   //   reuseExistingServer: !nodeEnv.CI
   // }
 
   webServer: {
-    command: 'npm run start:e2e',
+    command: 'npm run start:e2e-server',
     // command: `node_modules/.bin/vite --mode e2e --port ${nodeEnv.PORT}`,
     port: nodeEnv.PORT,
     timeout: 5 * 1000,

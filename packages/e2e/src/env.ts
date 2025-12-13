@@ -14,6 +14,6 @@ function loadEnvFile(file: string): void {
 }
 
 loadEnvFile('.env'); // base
-// loadEnvFile('.env.ci');
+loadEnvFile('.env.ci');
 
 export const nodeEnv = parse(nodeSchema, process.env);

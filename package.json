@@ -5,8 +5,8 @@
   "version": "1.0.0",
   "type": "module",
   "workspaces": [
-    "packages/*",
-    "apps/*"
+    "apps/*",
+    "packages/*"
   ],
   "license": "MIT",
   "scripts": {
