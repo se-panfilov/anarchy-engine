@@ -11,5 +11,6 @@ export type TShowcasesDesktopApi = Readonly<{
   loadLegalDocs: (options: TLoadDocPayload) => Promise<TLegalDoc>;
   node: () => string;
   restartApp: () => void;
+  setFirstRun: (isFirstRun: boolean) => Promise<void>;
   writeAppSettings: (settings: TShowcaseGameSettings) => Promise<void>;
 }>;
