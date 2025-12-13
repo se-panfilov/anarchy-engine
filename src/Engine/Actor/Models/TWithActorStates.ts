@@ -1,8 +1,8 @@
-import type { TAnimationsFsmWrapper } from '@/Engine/Animations';
+import type { TFsmWrapper } from '@/Engine/Fsm';
 
 import type { TActorStates } from './TActorStates';
 
 export type TWithActorStates = Readonly<{
   states: TActorStates;
-  setAnimationsFsm: (animationsFsm: TAnimationsFsmWrapper) => void;
+  setAnimationsFsm: (fsm: TFsmWrapper) => void;
 }>;

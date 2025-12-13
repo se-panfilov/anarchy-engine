@@ -1,8 +1,0 @@
-import type { TParamsFromConfig, TReactiveFactory } from '@/Engine/Abstract';
-import type { TDestroyable } from '@/Engine/Mixins';
-
-import type { TAnimationsFsmConfig } from './TAnimationsFsmConfig';
-import type { TAnimationsFsmParams } from './TAnimationsFsmParams';
-import type { TAnimationsFsmWrapper } from './TAnimationsFsmWrapper';
-
-export type TAnimationsFsmFactory = TReactiveFactory<TAnimationsFsmWrapper, TAnimationsFsmParams> & TParamsFromConfig<TAnimationsFsmConfig, TAnimationsFsmParams> & TDestroyable;

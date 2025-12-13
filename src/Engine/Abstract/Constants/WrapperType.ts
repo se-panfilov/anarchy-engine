@@ -1,12 +1,12 @@
 export enum WrapperType {
   AmbientLight = 'ambient_light_wrapper',
-  AnimationsFsm = 'animations_fsm_wrapper',
   Camera = 'camera_wrapper',
   Color = 'color_wrapper',
   Controls = 'controls_wrapper',
   DirectionalLight = 'directional_light_wrapper',
   EnvMap = 'env_map_wrapper',
   Euler = 'euler_wrapper',
+  Fsm = 'fsm_wrapper',
   Fog = 'fog_wrapper',
   HemisphereLight = 'hemisphere_light_wrapper',
   Material = 'material_wrapper',

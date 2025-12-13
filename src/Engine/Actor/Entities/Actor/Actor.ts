@@ -9,6 +9,7 @@ import type { TActor, TActorDependencies, TActorEntities, TActorParams, TActorTr
 import { ActorTransformDrive } from '@/Engine/Actor/TransformDrive';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
 import { withCollisions } from '@/Engine/Collisions';
+import type { TFsmWrapper } from '@/Engine/Fsm';
 import type { TModel3d } from '@/Engine/Models3d';
 import { withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
@@ -62,8 +63,8 @@ export function Actor(
     entities.spatial.destroy$.next();
     entities.collisions?.destroy$.next();
 
-    //stop fsm
-    entities.states.animationsFsm?.destroy$.next();
+    //stop Fsm's
+    Object.values(entities.states).forEach((value: TFsmWrapper): void => value.destroy$.next());
   });
 
   const spatialNoiseThreshold: number = params.spatial.performance?.noiseThreshold ?? 0.0000001;

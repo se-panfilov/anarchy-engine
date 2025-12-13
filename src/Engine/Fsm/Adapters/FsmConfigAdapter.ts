@@ -1,6 +1,6 @@
-import type { TAnimationsFsmConfig, TAnimationsFsmParams } from '@/Engine/Animations/Models';
+import type { TFsmConfig, TFsmParams } from '@/Engine/Fsm/Models';
 
-export function configToParamsAnimationsFsm(config: TAnimationsFsmConfig): TAnimationsFsmParams | never {
+export function configToParamsFsm(config: TFsmConfig): TFsmParams | never {
   if (hasFunctions(config)) throw new Error('Config must not contains functions');
 
   return config;

@@ -1,10 +1,11 @@
 import type { TActorService } from '@/Engine/Actor';
-import type { TAnimationsFsmService, TAnimationsService } from '@/Engine/Animations';
+import type { TAnimationsService } from '@/Engine/Animations';
 import type { TCameraService } from '@/Engine/Camera';
 import type { TCollisionsLoopService, TCollisionsService } from '@/Engine/Collisions';
 import type { TControlsService } from '@/Engine/Controls';
 import type { TEnvMapService } from '@/Engine/EnvMap';
 import type { TFogService } from '@/Engine/Fog';
+import type { TFsmService } from '@/Engine/Fsm';
 import type { TIntersectionsWatcherService } from '@/Engine/Intersections';
 import type { TKinematicLoopService } from '@/Engine/Kinematic';
 import type { TLightService } from '@/Engine/Light';
@@ -22,13 +23,13 @@ import type { TTextureService } from '@/Engine/Texture';
 
 export type TSpaceServices = Readonly<{
   actorService: TActorService;
-  animationsFsmService: TAnimationsFsmService;
   cameraService: TCameraService;
   controlsService: TControlsService;
   collisionsService: TCollisionsService;
   collisionsLoopService: TCollisionsLoopService;
   envMapService: TEnvMapService;
   fogService: TFogService;
+  fsmService: TFsmService;
   intersectionsWatcherService: TIntersectionsWatcherService;
   kinematicLoopService: TKinematicLoopService;
   lightService: TLightService;

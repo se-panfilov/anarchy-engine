@@ -1,5 +1,5 @@
-import type { TAnimationsFsmWrapper } from '@/Engine/Animations/Models';
+import type { TFsmWrapper } from '@/Engine/Fsm/Models';
 
 export type TActorStates = Readonly<{
-  animationsFsm?: TAnimationsFsmWrapper;
+  animationsFsm?: TFsmWrapper;
 }>;

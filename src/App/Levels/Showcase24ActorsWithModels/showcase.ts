@@ -4,20 +4,7 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type {
-  TActor,
-  TAnimationsFsmWrapper,
-  TAppCanvas,
-  TEngine,
-  TModel3d,
-  TModel3dResourceAsyncRegistry,
-  TRegistryPack,
-  TSceneWrapper,
-  TSpace,
-  TSpaceConfig,
-  TSpaceServices,
-  TStatesFsm
-} from '@/Engine';
+import type { TActor, TAppCanvas, TEngine, TFsmStates, TFsmWrapper, TModel3d, TModel3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
 import { ambientContext, Engine, isNotDefined, KeyCode, KeysExtra, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -36,7 +23,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
 
   const { keyboardService } = engine.services;
-  const { actorService, animationsService, animationsFsmService, models3dService } = space.services;
+  const { actorService, animationsService, fsmService, models3dService } = space.services;
   const { onKey, isKeyPressed } = keyboardService;
 
   function init(): void {
@@ -63,7 +50,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const idleAction: AnimationAction = actions[Idle];
     // const tPoseAction: AnimationAction = actions['TPose'];
 
-    const solderAnimFsm: TAnimationsFsmWrapper = animationsFsmService.create({
+    const solderAnimFsm: TFsmWrapper = fsmService.create({
       name: 'solder_anim_fsm',
       initial: Idle,
       transitions: [
@@ -84,7 +71,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const { animationsFsm } = solderActor.states;
     if (isNotDefined(animationsFsm)) throw new Error('Animations FSM is not defined');
 
-    solderAnimFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: TStatesFsm): void => {
+    solderAnimFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: TFsmStates): void => {
       switch (state) {
         case Idle:
           walkAction.fadeOut(fadeDuration);

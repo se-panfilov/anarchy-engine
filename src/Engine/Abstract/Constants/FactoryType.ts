@@ -1,10 +1,10 @@
 export enum FactoryType {
   Actor = 'actor_factory',
-  AnimationsFsm = 'animations_fsm_factory',
   Camera = 'camera_factory',
   Controls = 'controls_factory',
   EnvMap = 'env_map_factory',
   Fog = 'fog_factory',
+  Fsm = 'fsm_factory',
   IntersectionsWatcher = 'intersections_watcher_factory',
   Light = 'light_factory',
   Material = 'material_factory',

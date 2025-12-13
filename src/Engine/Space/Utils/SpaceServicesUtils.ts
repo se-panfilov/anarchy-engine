@@ -1,7 +1,7 @@
 import type { TModel3dToActorConnectionRegistry } from '@/Engine/Actor';
 import { ActorFactory, ActorRegistry, ActorService, Model3dToActorConnectionRegistry } from '@/Engine/Actor';
 import type { TAnimationsService } from '@/Engine/Animations';
-import { AnimationsFsmFactory, AnimationsFsmRegistry, AnimationsFsmService, AnimationsService } from '@/Engine/Animations';
+import { AnimationsService } from '@/Engine/Animations';
 import type { TAppCanvas } from '@/Engine/App';
 import { CameraFactory, CameraRegistry, CameraService } from '@/Engine/Camera';
 import type { TCollisionsLoopService, TCollisionsService } from '@/Engine/Collisions';
@@ -10,6 +10,7 @@ import { ambientContext } from '@/Engine/Context';
 import { ControlService, ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
 import { EnvMapFactory, EnvMapRegistry, EnvMapService, EnvMapTextureAsyncRegistry } from '@/Engine/EnvMap';
 import { FogFactory, FogRegistry, FogService } from '@/Engine/Fog';
+import { FsmFactory, FsmRegistry, FsmService } from '@/Engine/Fsm';
 import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry, IntersectionsWatcherService } from '@/Engine/Intersections';
 import type { TKinematicLoopService } from '@/Engine/Kinematic';
 import { KinematicLoopService } from '@/Engine/Kinematic';
@@ -108,6 +109,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
     collisionsLoopService,
     envMapService: EnvMapService(EnvMapFactory(), EnvMapRegistry(), EnvMapTextureAsyncRegistry(), sceneW),
     fogService: FogService(FogFactory(), FogRegistry(), sceneW),
+    fsmService: FsmService(FsmFactory(), FsmRegistry()),
     intersectionsWatcherService: IntersectionsWatcherService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),
     kinematicLoopService,
     lightService: LightService(LightFactory(), LightRegistry(), sceneW),
@@ -115,7 +117,6 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
     materialService,
     models3dService,
     animationsService,
-    animationsFsmService: AnimationsFsmService(AnimationsFsmFactory(), AnimationsFsmRegistry()),
     mouseService: MouseService(ambientContext.container, { loopService }),
     particlesService: ParticlesService(ParticlesFactory(), ParticlesRegistry(), materialService, sceneW),
     physicsBodyService,

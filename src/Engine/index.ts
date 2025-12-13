@@ -12,6 +12,7 @@ export * from './Engine';
 export * from './EnvMap';
 export * from './Files';
 export * from './Fog';
+export * from './Fsm';
 export * from './Global';
 export * from './Intersections';
 export * from './Keyboard';

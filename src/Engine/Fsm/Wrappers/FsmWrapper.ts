@@ -4,30 +4,30 @@ import { StateMachine, t } from 'typescript-fsm';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TAnimationsFsmMachine, TAnimationsFsmParams, TAnimationsFsmWrapper, TEventsFsm, TStatesFsm } from '@/Engine/Animations/Models';
+import type { TFsmEvents, TFsmMachine, TFsmParams, TFsmStates, TFsmWrapper } from '@/Engine/Fsm/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 
-export function AnimationsFsmWrapper(params: TAnimationsFsmParams): TAnimationsFsmWrapper {
-  const changed$: BehaviorSubject<TStatesFsm> = new BehaviorSubject<TStatesFsm>(params.initial);
+export function FsmWrapper(params: TFsmParams): TFsmWrapper {
+  const changed$: BehaviorSubject<TFsmStates> = new BehaviorSubject<TFsmStates>(params.initial);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { name, ...machineParams } = params;
 
-  const onChange = (val: TStatesFsm): void => changed$.next(val);
+  const onChange = (val: TFsmStates): void => changed$.next(val);
 
-  const entity: TAnimationsFsmMachine = new StateMachine<TStatesFsm, TEventsFsm>(
+  const entity: TFsmMachine = new StateMachine<TFsmStates, TFsmEvents>(
     machineParams.initial,
     machineParams.transitions.map(([from, to, event]) => {
       return t(from, to, event, (): void => onChange(to));
     })
   );
 
-  const wrapper: TWrapper<TAnimationsFsmMachine> = AbstractWrapper(entity, WrapperType.AnimationsFsm, params);
+  const wrapper: TWrapper<TFsmMachine> = AbstractWrapper(entity, WrapperType.Fsm, params);
 
-  const getState = (): TStatesFsm => entity.getState();
+  const getState = (): TFsmStates => entity.getState();
 
-  let prev: TStatesFsm = entity.getState();
-  const send = (event: TStatesFsm): void => {
+  let prev: TFsmStates = entity.getState();
+  const send = (event: TFsmStates): void => {
     if (entity.getState() === event) return;
 
     //this is a hack to prevent double dispatching of the same event. getState() is not updated immediately after dispatch

@@ -1,13 +1,13 @@
 import type { TActorParams, TActorStates, TWithActorStates } from '@/Engine/Actor/Models';
-import type { TAnimationsFsmWrapper } from '@/Engine/Animations';
+import type { TFsmWrapper } from '@/Engine/Fsm';
 import type { TWriteable } from '@/Engine/Utils';
 
 export function withActorStates(params: TActorParams): TWithActorStates {
   const states: TWriteable<TActorStates> = {};
 
-  function setAnimationsFsm(animationsFsmW: TAnimationsFsmWrapper): void {
+  function setAnimationsFsm(fsm: TFsmWrapper): void {
     // eslint-disable-next-line functional/immutable-data
-    states.animationsFsm = animationsFsmW;
+    states.animationsFsm = fsm;
   }
 
   if (params.states?.animationsFsm) {
