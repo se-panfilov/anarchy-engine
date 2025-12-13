@@ -1,11 +1,25 @@
 import './fonts.css';
 
 import { Euler, Vector3 } from 'three';
+import { degToRad } from 'three/src/math/MathUtils';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TAnimationParams, TAppCanvas, TEngine, TModel3d, TModel3dRegistry, TMoverService, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper } from '@/Engine';
-import { ambientContext, createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, generateAnglesForCircle, isNotDefined, spaceService, TextType, TransformAgent } from '@/Engine';
+import type { TAnimationParams, TAppCanvas, TEngine, TMeters, TModel3d, TModel3dRegistry, TMoverService, TRadians, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper } from '@/Engine';
+import {
+  ambientContext,
+  createCirclePathXZ,
+  defaultMoverServiceConfig,
+  Easing,
+  Engine,
+  generateAnglesForCircle,
+  isNotDefined,
+  meters,
+  radians,
+  spaceService,
+  TextType,
+  TransformAgent
+} from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
@@ -79,10 +93,10 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   const numberOfPoints: number = 160;
   const numberOfCircles: number = 1;
-  const startAngle: number = 100;
-  const radius: number = 15;
+  const startAngle: TRadians = radians(degToRad(100));
+  const radius: TMeters = meters(15);
   const circlePathXZ: ReadonlyArray<Vector3> = createCirclePathXZ(generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle), radius, new Vector3(0, 0, 0));
-  const circlePathXZ2: ReadonlyArray<Vector3> = createCirclePathXZ(generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle - 20), radius + 3, new Vector3(-4, 0, 0));
+  const circlePathXZ2: ReadonlyArray<Vector3> = createCirclePathXZ(generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle - 20), (radius + meters(3)) as TMeters, new Vector3(-4, 0, 0));
 
   const animationParams: TAnimationParams = {
     duration: 2000,

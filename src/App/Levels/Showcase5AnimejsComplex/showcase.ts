@@ -2,11 +2,28 @@ import { Euler, Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TActorRegistry, TAnimationParams, TAppCanvas, TCameraRegistry, TControlsRegistry, TEngine, TMoverService, TSpace, TSpaceConfig, TText2dWrapper, TTextAnyWrapper } from '@/Engine';
+import type {
+  TActor,
+  TActorRegistry,
+  TAnimationParams,
+  TAppCanvas,
+  TCameraRegistry,
+  TControlsRegistry,
+  TEngine,
+  TMeters,
+  TMoverService,
+  TRadians,
+  TSpace,
+  TSpaceConfig,
+  TText2dWrapper,
+  TTextAnyWrapper
+} from '@/Engine';
 import { ambientContext, createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, generateAnglesForCircle, isNotDefined, spaceService, TextType } from '@/Engine';
+import { meters, radians } from '@/Engine/Measurements/Utils';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
+import { degToRad } from 'three/src/math/MathUtils';
 
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
@@ -43,13 +60,13 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const numberOfPoints: number = 160;
     const numberOfCircles: number = 1;
-    const startAngle: number = 100;
-    const radius: number = 15;
-    const angleArray: ReadonlyArray<number> = generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle);
+    const startAngle: TRadians = radians(degToRad(100));
+    const radius: TMeters = meters(15);
+    const angleArray: ReadonlyArray<TRadians> = generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle);
 
     const redPath: ReadonlyArray<Vector3> = createCirclePathXZ(angleArray, radius, new Vector3(0, 0, 0));
-    const greenPath: ReadonlyArray<Vector3> = createCirclePathXZ(angleArray, radius - 2, new Vector3(0, 0, 0));
-    const bluePath: ReadonlyArray<Vector3> = createCirclePathXZ(angleArray, radius - 4, new Vector3(0, 0, 0));
+    const greenPath: ReadonlyArray<Vector3> = createCirclePathXZ(angleArray, (radius - meters(2)) as TMeters, new Vector3(0, 0, 0));
+    const bluePath: ReadonlyArray<Vector3> = createCirclePathXZ(angleArray, (radius - meters(4)) as TMeters, new Vector3(0, 0, 0));
 
     let followersCb: Record<string, (() => void) | undefined> = {
       red: undefined,

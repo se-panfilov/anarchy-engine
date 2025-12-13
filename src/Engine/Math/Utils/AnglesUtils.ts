@@ -49,14 +49,14 @@ export const getDirectionFromLinearVelocity = (linearVelocity: Vector3): Vector3
 // TODO add unit tests
 export const getSpeedFromLinearVelocity = (linearVelocity: Vector3): TMetersPerSecond => metersPerSecond(linearVelocity.length());
 // TODO add unit tests
-export const getLinearVelocityByDeg = (speed: number, azimuth: TDegrees, elevation: TDegrees): Vector3 => {
+export const getLinearVelocityByDeg = (speed: TMetersPerSecond, azimuth: TDegrees, elevation: TDegrees): Vector3 => {
   const azimuthRad: TRadians = degToRad(azimuth) as TRadians;
   const elevationRad: TRadians = degToRad(elevation) as TRadians;
   return new Vector3(speed * Math.cos(elevationRad) * Math.cos(azimuthRad), speed * Math.sin(elevationRad), speed * Math.cos(elevationRad) * Math.sin(azimuthRad));
 };
 
 // TODO add unit tests
-export const getLinearVelocityByRad = (speed: number, azimuth: TRadians, elevation: TRadians): Vector3 =>
+export const getLinearVelocityByRad = (speed: TMetersPerSecond, azimuth: TRadians, elevation: TRadians): Vector3 =>
   new Vector3(speed * Math.cos(elevation) * Math.cos(azimuth), speed * Math.sin(elevation), speed * Math.cos(elevation) * Math.sin(azimuth));
 
 // TODO add unit tests

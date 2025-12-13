@@ -1,7 +1,9 @@
+import type { TMeters } from '@/Engine/Math/Types';
+
 export type TBoxGeometryProps = Readonly<{
-  width?: number;
-  height?: number;
-  depth?: number;
+  width?: TMeters;
+  height?: TMeters;
+  depth?: TMeters;
   widthSegments?: number;
   heightSegments?: number;
   depthSegments?: number;

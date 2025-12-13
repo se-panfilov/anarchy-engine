@@ -66,7 +66,7 @@ export function LoopService(): TLoopService {
 
 function getLoopFn(beforeTick$: Subject<TLoopTimes>, state: TLoopServiceState): (time: number) => void {
   const clock: Clock = new Clock();
-  let lastElapsedTime: number = 0;
+  let lastElapsedTime: TMilliseconds = 0 as TMilliseconds;
 
   // TODO DEBUG: make stats enable/disable configurable via url params (?debug=true)
   const stats: any = new Stats();
