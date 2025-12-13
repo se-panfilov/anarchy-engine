@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
 
-import type { TEnvMap, TEnvMapAsyncRegistry, TEnvMapConfigPack, TEnvMapLoader, TEnvMapWrapperAsync } from '@/Engine/EnvMap/Models';
+import type { TEnvMap, TEnvMapAsyncRegistry, TEnvMapLoader, TEnvMapWrapperAsync } from '@/Engine/EnvMap/Models';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
@@ -10,12 +10,11 @@ export function EnvMapLoader(registry: TEnvMapAsyncRegistry): TEnvMapLoader {
   const envMapLoader: RGBELoader = new RGBELoader();
   const loaded$: Subject<TEnvMap> = new Subject<TEnvMap>();
 
-  function loadFromConfigAsync(envMaps: ReadonlyArray<TEnvMapConfigPack>): Promise<ReadonlyArray<TEnvMap>> {
-    return Promise.all(envMaps.map((pack: TEnvMapConfigPack): Promise<TEnvMap> => loadAsync(pack)));
+  function loadFromConfigAsync(urls: ReadonlyArray<string>): Promise<ReadonlyArray<TEnvMap>> {
+    return Promise.all(urls.map((url: string): Promise<TEnvMap> => loadAsync(url)));
   }
 
-  function loadAsync(pack: TEnvMapConfigPack, isForce: boolean = false): Promise<TEnvMap> {
-    const { url } = pack;
+  function loadAsync(url: string, isForce: boolean = false): Promise<TEnvMap> {
     if (!isForce) {
       const wrapper: TEnvMapWrapperAsync | undefined = registry.findByKey(url);
       if (isDefined(wrapper)) return Promise.resolve(wrapper.entity);

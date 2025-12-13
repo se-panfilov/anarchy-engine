@@ -1,3 +1,8 @@
+import type { EnvMapMappingTypesName } from '@/Engine/EnvMap/Constants';
+
 import type { TEnvMapProps } from './TEnvMapProps';
 
-export type TEnvMapConfig = TEnvMapProps;
+export type TEnvMapConfig = Omit<TEnvMapProps, 'mapping'> &
+  Readonly<{
+    mapping?: EnvMapMappingTypesName;
+  }>;
