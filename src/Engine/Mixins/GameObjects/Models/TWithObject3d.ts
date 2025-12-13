@@ -1,3 +1,5 @@
+import type { Layers } from 'three';
+
 export type TWithObject3d = Readonly<{
   setVisible: (visible: boolean) => void;
   getVisible: () => boolean;
@@ -9,4 +11,5 @@ export type TWithObject3d = Readonly<{
   getFrustumCulled: () => boolean;
   setRenderOrder: (renderOrder: number) => void;
   getRenderOrder: () => number;
+  layers: Layers;
 }>;

@@ -23,9 +23,6 @@ export function withObject3d<T extends TObject3D>(entity: T): TWithObject3d {
   const setRenderOrder = (renderOrder: number): void => void ((entity as TWriteable<T>).renderOrder = renderOrder);
   const getRenderOrder = (): number => entity.renderOrder;
 
-  // const setAnimations = (animations: ReadonlyArray<AnimationClip>): void => void ((entity as TWriteable<T>).animations = animations as Array<AnimationClip>);
-  // const getAnimations = (): ReadonlyArray<AnimationClip> => entity.animations;
-
   return {
     setVisible,
     getVisible,
@@ -36,8 +33,7 @@ export function withObject3d<T extends TObject3D>(entity: T): TWithObject3d {
     setFrustumCulled,
     getFrustumCulled,
     setRenderOrder,
-    getRenderOrder
-    // setAnimations,
-    // getAnimations
+    getRenderOrder,
+    layers: entity.layers
   };
 }
