@@ -10,6 +10,7 @@ export function AbstractWrapper<T>(entity: T): IWrapper<T> {
     },
     get entity(): T {
       return entity;
-    }
+    },
+    tags: []
   };
 }

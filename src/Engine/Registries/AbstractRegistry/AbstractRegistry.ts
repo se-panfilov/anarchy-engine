@@ -1,9 +1,10 @@
 import type { IAbstractRegistry, IWrapper } from '@Engine/Models';
-import { isNotDefined } from '@Engine/Utils';
+import { RegistryName } from '@Engine/Registries';
+import { findKeyByTag, isNotDefined } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
 
-export function AbstractRegistry<T extends IWrapper<unknown>>(): IAbstractRegistry<T> {
+export function AbstractRegistry<T extends IWrapper<unknown>>(name: RegistryName): IAbstractRegistry<T> {
   const id: string = nanoid();
   const registry: Map<string, T> = new Map();
   const added$: Subject<T> = new Subject<T>();
@@ -42,6 +43,24 @@ export function AbstractRegistry<T extends IWrapper<unknown>>(): IAbstractRegist
     registry.clear();
   }
 
+  // TODO (S.Panfilov) CWP fix these methods
+  // TODO (S.Panfilov) this method should return all entities with the tag, not only the very first one
+  function getAllWithTag(tag: string): ReadonlyArray<T> | never {
+    const id: string | undefined = findKeyByTag(tag, registry);
+    if (isNotDefined(id)) throw new Error(`Cannot find an entity in "${name}" registry with a tag "${tag}"`);
+    const entity: T | undefined = registry.get(id);
+    if (isNotDefined(entity)) throw new Error(`Cannot find an entity in "${name}" registry with an id "${id}"`);
+    return [entity];
+  }
+
+  function getByTag(tag: string): T | never {
+    const id: string | undefined = findKeyByTag(tag, registry);
+    if (isNotDefined(id)) throw new Error(`Cannot find an entity in "${name}" registry with a tag "${tag}"`);
+    const entity: T | undefined = registry.get(id);
+    if (isNotDefined(entity)) throw new Error(`Cannot find an entity in "${name}" registry with an id "${id}"`);
+    return entity;
+  }
+
   return {
     get id(): string {
       return id;
@@ -58,6 +77,8 @@ export function AbstractRegistry<T extends IWrapper<unknown>>(): IAbstractRegist
     add,
     replace,
     getById,
+    getAllWithTag,
+    getByTag,
     registry,
     remove,
     destroy
