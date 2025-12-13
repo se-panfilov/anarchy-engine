@@ -8,25 +8,25 @@ Done:
 - 7.x.x Animations
 - 8.x.x Actors with models & animations
 - 9.x.x Split resources and entities load from config (among others: extracted materials, models, etc from actors)
+- 9.1.x Refactor Vector/TVectorWrapper, Euler/TEulerWrapper (should be Vector/Euler everywhere)
 
 Roadmap:
-- 9.1.x Refactor Vector/TVectorWrapper, Euler/TEulerWrapper (should be Vector/Euler everywhere)
-- 9.2.x Refactor withActive entities (use active$) (camera, renderer, etc)
-- 9.3.x Lines domain
-- 10.0.x Sounds/Music
-- 10.1.x GUI
-- 10.2.x Pausing (timers)
-- 10.3.x Registries refactoring (explicitly register/not register entities)
-- 10.4.x Logging
-- 11.0.x Deletion (memory management)
-- 12.0.0 Multiple scenes full support (unload/load scenes)
-- 13.0.x Split apps and engine
-- 13.1.x Building app (desktop/mobile) (might be not a part of an engine)
-- 13.2.x Performance improvements (make sure actors, materials and env maps are async)
-- 13.4.x npm package and a repo
-- 14.0.x Presets in configs (actors, materials, texts, models, physics, intersections, cameras, lights, controls, etc)
-- 15.0.x Shaders
-- 16.x.x Save/Load
+- 10.0.x Refactor loops (physical, collision and etc) loops should be based on milliseconds, not frames. Only rendering loop should be based on frames
+- 11.0.x Pausing (timers)
+- 11.2.x Refactor withActive entities (use active$) (camera, renderer, etc)
+- 12.3.x Lines domain
+- 13.0.x Sounds/Music
+- 14.1.x GUI
+- 15.3.x Registries refactoring (explicitly register/not register entities)
+- 16.4.x Logging
+- 17.0.x Deletion (memory management)
+- 18.0.0 Multiple scenes full support (unload/load scenes)
+- 19.0.x Split apps and engine (and add config for an app to setup engine)
+- 20.0.x Building app (desktop/mobile) (might be not a part of an engine)
+- 20.1.x Performance improvements (make sure actors, materials and env maps are async)
+- 21.4.x npm package and a repo
+- 22.0.x Shaders
+- 23.x.x Save/Load
 
 Global Refactoring:
 - feels like env map is not async at all (check for extra "await", and compare with vanilla env map loading)
