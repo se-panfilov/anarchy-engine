@@ -11,7 +11,7 @@ export function withSpatial(params: TActorParams): TWithSpatial {
       data: {
         updatePriority: params.spatial?.updatePriority ?? SpatialUpdatePriority.LOW,
         cell: params.spatial?.cell || undefined,
-        tree: params.spatial?.tree || undefined
+        grid: params.spatial?.grid || undefined
       },
       setData({ updatePriority, cell }: TSpatialData): void {
         // eslint-disable-next-line functional/immutable-data

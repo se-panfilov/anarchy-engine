@@ -1,1 +1,1 @@
-export * from './SpatialConfigToParamsAdapter';
+export * from './SpatialConfigAdapter';

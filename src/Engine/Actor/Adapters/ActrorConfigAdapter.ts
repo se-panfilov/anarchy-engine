@@ -1,16 +1,16 @@
-import type { TActorConfig, TActorParams } from '@/Engine/Actor/Models';
+import type { TActorConfig, TActorConfigToParamsDependencies, TActorParams } from '@/Engine/Actor/Models';
 import { configToParams as materialConfigToParams } from '@/Engine/Material/Adapters';
 import type { TMaterialPackParams, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
 import { configToOptionalParamsBody } from '@/Engine/Physics';
-import { spatialConfigToParams } from '@/Engine/Spatial';
+import { configToParams as configToParamsSpatial } from '@/Engine/Spatial';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
 
-export function configToParams(config: TActorConfig): TActorParams {
+export function configToParams(config: TActorConfig, dependencies: TActorConfigToParamsDependencies): TActorParams {
   const { position, rotation, layers, animations, scale, material, physics, spatial, ...rest } = config;
   const { type: materialType, ...restMaterialParams } = materialConfigToParams({ ...material.params, type: material.type });
 
-  const spatialParams = isDefined(spatial) ? spatialConfigToParams(spatial) : undefined;
+  const spatialParams = isDefined(spatial) ? configToParamsSpatial(spatial, dependencies) : undefined;
 
   return {
     ...rest,

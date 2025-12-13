@@ -1,5 +1,6 @@
 export * from './TActorAsyncRegistry';
 export * from './TActorConfig';
+export * from './TActorConfigToParamsDependencies';
 export * from './TActorDependencies';
 export * from './TActorFactory';
 export * from './TActorParams';
@@ -8,3 +9,4 @@ export * from './TActorService';
 export * from './TActorWithPhysicsWrapperAsync';
 export * from './TActorWrapperAsync';
 export * from './TActorWrapperWithPhysicsAsync';
+export * from './TParamsFromConfigActor';

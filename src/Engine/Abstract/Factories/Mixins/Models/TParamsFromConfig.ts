@@ -1,7 +1,7 @@
 export type TParamsFromConfig<C, P> = Readonly<{
-  configToParams: (config: C) => P;
+  configToParams: (config: C, dependencies?: Record<string, any>) => P;
 }>;
 
 export type TParamsFromConfigAsync<C, P> = Readonly<{
-  configToParamsAsync: (config: C) => Promise<P>;
+  configToParamsAsync: (config: C, dependencies?: Record<string, any>) => Promise<P>;
 }>;

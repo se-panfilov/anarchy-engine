@@ -1,11 +1,10 @@
-import type RBush from 'rbush';
-
 import type { SpatialUpdatePriority } from '@/Engine/Spatial/Constants';
 
 import type { TSpatialCell } from './TSpatialCell';
+import type { TSpatialGrid } from './TSpatialGrid';
 
 export type TSpatialData = Readonly<{
   updatePriority: SpatialUpdatePriority;
-  grid: RBush<TSpatialCell> | undefined;
+  grid: TSpatialGrid | undefined;
   cell: TSpatialCell | undefined;
 }>;
