@@ -1,6 +1,7 @@
 import './fonts.css';
 
 import { Euler, Vector3 } from 'three';
+import { degToRad } from 'three/src/math/MathUtils';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
@@ -24,7 +25,6 @@ import { meters, radians } from '@/Engine/Measurements/Utils';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
-import { degToRad } from 'three/src/math/MathUtils';
 
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);

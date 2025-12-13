@@ -3,7 +3,7 @@ import { Euler, Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorParams, TAppCanvas, TCameraWrapper, TEngine, TMaterialWrapper, TModel3d, TModels3dService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
-import { ambientContext, Engine, isNotDefined, MaterialType, PrimitiveModel3dType, spaceService } from '@/Engine';
+import { ambientContext, Engine, isNotDefined, MaterialType, meters, PrimitiveModel3dType, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -59,7 +59,7 @@ function createCube(models3dService: TModels3dService, name: string, materialW: 
     model3dSource: PrimitiveModel3dType.Cube,
     animationsSource: [],
     materialSource: materialW,
-    options: { width: 1, height: 1, depth: 1 },
+    options: { width: meters(1), height: meters(1), depth: meters(1) },
     position: new Vector3(),
     rotation: new Euler()
   });

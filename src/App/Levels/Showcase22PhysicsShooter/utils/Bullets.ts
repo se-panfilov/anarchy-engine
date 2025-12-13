@@ -62,9 +62,9 @@ export function getBulletsPool(
       animationsSource: [],
       materialSource: materialW,
       options: {
-        width: 0.3,
-        height: 0.3,
-        depth: 0.5
+        width: meters(0.3),
+        height: meters(0.3),
+        depth: meters(0.5)
       },
       position: new Vector3(),
       rotation: new Euler(0, 0, 0),

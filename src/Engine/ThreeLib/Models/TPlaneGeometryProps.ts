@@ -1,6 +1,8 @@
+import type { TMeters } from '@/Engine/Math';
+
 export type TPlaneGeometryProps = Readonly<{
-  width?: number;
-  height?: number;
+  width?: TMeters;
+  height?: TMeters;
   widthSegments?: number;
   heightSegments?: number;
 }>;

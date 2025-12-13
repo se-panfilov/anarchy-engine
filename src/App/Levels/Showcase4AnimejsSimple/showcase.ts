@@ -2,7 +2,7 @@ import { Euler, Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActor, TActorParams, TActorRegistry, TAppCanvas, TEngine, TMaterialWrapper, TModel3d, TMoverService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
-import { defaultMoverServiceConfig, Engine, forEachEnum, LookUpStrategy, MaterialType, PrimitiveModel3dType, spaceService, TextType, TransformAgent } from '@/Engine';
+import { defaultMoverServiceConfig, Engine, forEachEnum, LookUpStrategy, MaterialType, meters, PrimitiveModel3dType, spaceService, TextType, TransformAgent } from '@/Engine';
 import type { TAnimationParams } from '@/Engine/Services';
 import { Easing } from '@/Engine/Services';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
@@ -35,7 +35,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       model3dSource: PrimitiveModel3dType.Cube,
       animationsSource: [],
       materialSource: materialW,
-      options: { width: 1, height: 1, depth: 1 },
+      options: { width: meters(1), height: meters(1), depth: meters(1) },
       position: new Vector3(0, 0, 0),
       rotation: new Euler(0, 0, 0)
     });
