@@ -24,6 +24,13 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
 
   const agentSub$: Subscription = agent$.subscribe((agent: TransformAgent): void => activeAgent$.next(agents[agent]));
 
+  // TODO 8.0.0. MODELS: Make sure agents updates position values after "teleportation" (drive.position$.next())
+  // TODO 8.0.0. MODELS: Check also rotation and scale
+
+  const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(activeAgent$.value.position$.value);
+  const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(activeAgent$.value.rotation$.value);
+  const scale$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(activeAgent$.value.scale$.value);
+
   const activeAgentSub$: Subscription = activeAgent$.subscribe((activeAgent: TAbstractTransformAgent): void => {
     Object.values(agents).forEach((agent: TAbstractTransformAgent): void => {
       agent.enabled$.next(agent.type === activeAgent.type);
@@ -33,13 +40,6 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
       agent.scale$.next(scale$.value);
     });
   });
-
-  // TODO 8.0.0. MODELS: Make sure agents updates position values after "teleportation" (drive.position$.next())
-  // TODO 8.0.0. MODELS: Check also rotation and scale
-
-  const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(activeAgent$.value.position$.value);
-  const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(activeAgent$.value.rotation$.value);
-  const scale$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(activeAgent$.value.scale$.value);
 
   //We don't expose these BehaviorSubjects, because they're vulnerable to external changes without .next() (e.g. "position.value = ...")
   const positionRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
