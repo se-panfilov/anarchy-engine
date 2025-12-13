@@ -26,8 +26,7 @@ export type TDirectionalLightConfig = Omit<TDirectionalLightParams, keyof TObjec
     color: string;
     shadow?: TDirectionalLightShadowConfig;
   }> &
-  TObject3DPropConfig &
-  TWithReadonlyTags;
+  TObject3DPropConfig;
 
 export type TAmbientLightConfig = TAbstractLightConfig<TAmbientLightParams>;
 export type THemisphereLightConfig = Omit<TAbstractLightConfig<THemisphereLightParams>, 'groundColor'> & Readonly<{ groundColor: string }>;
