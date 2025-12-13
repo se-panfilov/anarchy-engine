@@ -14,7 +14,8 @@ export function TranslateService<TLocale extends string>(initialLocale: TLocale,
   const intl$: BehaviorSubject<IntlShape<string> | undefined> = new BehaviorSubject<IntlShape<string> | undefined>(undefined);
 
   function getIntl(locale: TLocale): IntlShape<string> {
-    if (intlMap.has(locale)) return intlMap.get(locale)!;
+    const existed: IntlShape<string> | undefined = intlMap.get(locale);
+    if (isDefined(existed)) return existed;
 
     const current: TMessages = loaded.get(locale) ?? {};
     const fallback: TMessages = loaded.get(defaultLocale) ?? {};
@@ -30,6 +31,8 @@ export function TranslateService<TLocale extends string>(initialLocale: TLocale,
   async function loadLocale(locale: TLocale): Promise<void> {
     loadingLocale$.next([...loadingLocale$.value, locale]);
     if (!loaded.has(locale)) loaded.set(locale, await locales[locale]());
+    //I'm not 100% sure, that intlMap.clear() is really needed here
+    intlMap.clear();
     intl$.next(getIntl(locale));
     loadingLocale$.next(omitInArray(loadingLocale$.value, locale));
   }
@@ -39,26 +42,35 @@ export function TranslateService<TLocale extends string>(initialLocale: TLocale,
       map((list: ReadonlyArray<TLocale>): boolean => list.length === 0),
       distinctUntilChanged()
     )
-    .subscribe((v: boolean) => ready$.next(v));
+    .subscribe((v: boolean): void => void ready$.next(v));
+
+  //Preload the default locale
+  void loadLocale(defaultLocale);
 
   locale$
     .pipe(
       distinctUntilChanged(),
       concatMap((locale: TLocale) => from(loadLocale(locale)).pipe(map((): IntlShape<string> => getIntl(locale))))
     )
-    .subscribe((intl: IntlShape<string>) => void intl$.next(intl));
+    .subscribe((intl: IntlShape<string>): void => void intl$.next(intl));
 
   return {
     translate: (id: string, params?: Record<string, string>): string | never => {
-      if (isDefined(intl$.value)) return intl$.value.formatMessage({ id }, params);
+      const intl = intl$.value;
+      if (isDefined(intl)) {
+        const defaultMessage = (loaded.get(defaultLocale) ?? {})[id] ?? id;
+        return intl.formatMessage({ id, defaultMessage }, params);
+      }
       throw new Error(`[TranslateService]: The service is not ready. At id "${id}"`);
     },
     formatDate: (value: Date | number, options?: FormatDateOptions): string | never => {
-      if (isDefined(intl$.value)) return intl$.value.formatDate(value, options);
+      const intl = intl$.value;
+      if (isDefined(intl)) return intl.formatDate(value, options);
       throw new Error(`[TranslateService]: The service is not ready. At the value "${value}"`);
     },
     formatNumber: (value: number, options?: FormatNumberOptions): string | never => {
-      if (isDefined(intl$.value)) return intl$.value.formatNumber(value, options);
+      const intl = intl$.value;
+      if (isDefined(intl)) return intl.formatNumber(value, options);
       throw new Error(`[TranslateService]: The service is not ready. At the value "${value}"`);
     },
     ready$,
