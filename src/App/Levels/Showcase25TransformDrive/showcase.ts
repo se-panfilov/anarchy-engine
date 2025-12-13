@@ -1,31 +1,26 @@
 import GUI from 'lil-gui';
-import type { Subscription } from 'rxjs';
 import { withLatestFrom } from 'rxjs';
-import { Euler, Vector3 } from 'three';
+import { Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
-  KeyCode,
   TActor,
   TAppCanvas,
-  TCameraWrapper,
   TEngine,
   TIntersectionEvent,
   TIntersectionsWatcher,
-  TKeyboardService,
-  TMaterialWrapper,
   TModel3d,
   TModel3dRegistry,
   TMouseWatcherEvent,
   TSceneWrapper,
   TSpace,
   TSpaceConfig,
-  TSpaceServices,
   TSpatialGridWrapper
 } from '@/Engine';
-import { Engine, isNotDefined, KeysExtra, MaterialType, PrimitiveModel3dType, spaceService, TransformAgent } from '@/Engine';
+import { Engine, isNotDefined, KeysExtra, spaceService, TransformAgent } from '@/Engine';
 
 import spaceConfig from './showcase.json';
+import { addActorFolderGui, changeActorActiveAgent, createActor, startIntersections } from './Utils';
 
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const gui: GUI = new GUI();
@@ -85,46 +80,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   return { start, space };
 }
 
-function createActor(name: string, grid: TSpatialGridWrapper, position: Vector3, color: string, { actorService, materialService, models3dService }: TSpaceServices): TActor {
-  const material: TMaterialWrapper = materialService.create({ name: `${name}_material`, type: MaterialType.Standard, options: { color } });
-
-  const model: TModel3d = models3dService.create({
-    name: `${name}_model`,
-    model3dSource: PrimitiveModel3dType.Sphere,
-    materialSource: material,
-    options: { radius: 0.7 },
-    castShadow: true,
-    receiveShadow: true,
-    position: position.clone(),
-    rotation: new Euler(0, 0, 0)
-  });
-
-  return actorService.create({
-    name: `${name}_actor`,
-    model3dSource: model,
-    position: position.clone(),
-    rotation: new Euler(0, 0, 0),
-    spatial: { grid, isAutoUpdate: true }
-  });
-}
-
-function startIntersections({ actorService, cameraService, intersectionsWatcherService, mouseService }: TSpaceServices): TIntersectionsWatcher {
-  const camera: TCameraWrapper | undefined = cameraService.findActive();
-  if (isNotDefined(camera)) throw new Error('Camera is not defined');
-  const actor: TActor | undefined = actorService.getRegistry().findByName('surface_actor');
-  if (isNotDefined(actor)) throw new Error('Actor is not defined');
-
-  return intersectionsWatcherService.create({ actors: [actor], camera, isAutoStart: true, position$: mouseService.position$, tags: [] });
-}
-
-function changeActorActiveAgent(actor: TActor, key: KeyCode | KeysExtra, keyboardService: TKeyboardService): Subscription {
-  return keyboardService.onKey(key).pressed$.subscribe((): void => {
-    const agents: ReadonlyArray<TransformAgent> = Object.values(TransformAgent);
-    const index: number = agents.findIndex((agent: TransformAgent): boolean => agent === actor.drive.agent$.value);
-    actor.drive.agent$.next(agents[(index + 1) % agents.length]);
-  });
-}
-
 function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent): void {
   switch (agent) {
     case TransformAgent.Kinematic:
@@ -143,16 +98,4 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent): v
   }
   // actor.drive.position$.next(position);
   // void moverService.goToPosition(actorMouse.drive.instant.positionConnector, { x: intersection.point.x, z: intersection.point.z }, { duration: 1000, easing: Easing.EaseInCubic });
-}
-
-function addActorFolderGui(gui: GUI, actor: TActor): void {
-  const folder: GUI = gui.addFolder(actor.name ?? 'nameless actor');
-  folder.add(actor.drive.agent$, 'value').listen();
-
-  const position: Vector3 = new Vector3();
-  actor.drive.position$.subscribe((p: Vector3): Vector3 => position.copy(p));
-
-  folder.add(position, 'x').listen();
-  folder.add(position, 'y').listen();
-  folder.add(position, 'z').listen();
 }
