@@ -1,8 +1,7 @@
-import { Model3d } from 'src/Engine/Models3d/Entities';
-
 import type { TReactiveFactoryWithDependencies } from '@/Engine/Abstract';
 import { FactoryType, ReactiveFactoryWithDependencies } from '@/Engine/Abstract';
 import { configToParams } from '@/Engine/Models3d/Adapters';
+import { Model3d } from '@/Engine/Models3d/Entities';
 import type { TModel3d, TModel3dParams, TModels3dFactory, TModels3dServiceDependencies } from '@/Engine/Models3d/Models';
 
 const factory: TReactiveFactoryWithDependencies<
