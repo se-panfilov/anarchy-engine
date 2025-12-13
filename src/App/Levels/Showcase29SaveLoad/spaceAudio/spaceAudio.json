@@ -86,7 +86,7 @@
       {
         "name": "surface_material",
         "options": {
-          "color": "#E77BAD"
+          "color": "#7B98DF"
         },
         "type": "MeshStandardMaterial"
       }
