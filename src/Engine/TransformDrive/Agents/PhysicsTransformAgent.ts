@@ -23,9 +23,9 @@ import { isDefined, isEqualOrSimilarVector3Like, isEqualOrSimilarVector4Like, is
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
 
-// Be careful, in current implementation, the physics body might not react or react wierdly to the changes
-// of the transform from any external source (e.g. position$.next()).
-// So, once physics object is set, better not to touch it from the outside.
+// Physical bodies doesn't play well with manual set of position/rotation (e.g. position$.next(), rotation$.next() from any external sources).
+// In principle, it's better to avoid manual setting of position/rotation for physics objects.
+// But if you have to, first change active agent to "Default", then set position/rotation, and then switch back to "Physical" agent.
 export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { physicsBodyService, physicsLoopService }: TPhysicsAgentDependencies): TPhysicsTransformAgent {
   const noiseThreshold: number = params.performance?.noiseThreshold ?? 0.0000001;
 
