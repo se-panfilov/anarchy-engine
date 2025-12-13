@@ -59,6 +59,8 @@ let currentSpaceName: string | undefined;
 //Flags for E2E tests
 // eslint-disable-next-line functional/immutable-data
 (window as any)._isReady = false;
+// eslint-disable-next-line functional/immutable-data
+(window as any)._isRendererReady = false;
 
 export function start(settings: TAppSettings): void {
   createContainersDivs(spacesData);
@@ -76,6 +78,8 @@ export function start(settings: TAppSettings): void {
 
 function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>, settings: TAppSettings): void {
   setSpaceReady(false);
+  // eslint-disable-next-line functional/immutable-data
+  (window as any)._isRendererReady = false;
   if (isNotDefined(name)) throw new Error('[Showcase]: Space name is not defined');
   const spaceData: TSpacesData | undefined = source.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
@@ -90,6 +94,13 @@ function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>,
   subscriptions[`built$_${space.name}`] = space.built$.subscribe((): void => {
     spaceData.onSpaceReady?.(space, subscriptions);
     spaceData.onCreate?.(space, subscriptions);
+
+    // eslint-disable-next-line functional/immutable-data
+    subscriptions[`isRendererReady$${space.name}`] = space.services.rendererService.getActive().isRendererReady$.subscribe((value: boolean): void => {
+      if (value) subscriptions[`isRendererReady$${space.name}`].unsubscribe();
+      // eslint-disable-next-line functional/immutable-data
+      (window as any)._isRendererReady = value;
+    });
   });
 
   // eslint-disable-next-line functional/immutable-data
@@ -121,6 +132,8 @@ function unloadSpace(name: string | undefined, spaceRegistry: TSpaceRegistry): v
   spaceData.onUnload?.(space, subscriptions);
 
   setSpaceReady(false);
+  // eslint-disable-next-line functional/immutable-data
+  (window as any)._isRendererReady = false;
   subscriptions = {};
   space.drop();
 }
