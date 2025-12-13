@@ -18,7 +18,7 @@ type IMeshNormalMaterialPick = Pick<MeshNormalMaterialParameters, 'bumpMap' | 'n
 type IMeshMatcapMaterialPick = Pick<MeshMatcapMaterialParameters, 'map' | 'matcap' | 'bumpMap' | 'normalMap' | 'displacementMap' | 'alphaMap'>;
 type IMeshLambertMaterialPick = Pick<MeshLambertMaterialParameters, 'map' | 'bumpMap' | 'displacementMap' | 'emissiveMap' | 'lightMap' | 'normalMap' | 'aoMap' | 'specularMap' | 'alphaMap' | 'envMap'>;
 type IMeshPhongMaterialPick = Pick<MeshPhongMaterialParameters, 'map' | 'lightMap' | 'aoMap' | 'emissiveMap' | 'bumpMap' | 'normalMap' | 'displacementMap' | 'specularMap' | 'alphaMap' | 'envMap'>;
-type IMeshPhysicalMaterialPick = Pick<MeshPhysicalMaterialParameters, 'clearcoatMap' | 'clearcoatRoughnessMap' | 'clearcoatNormalMap'>;
+type IMeshPhysicalMaterialPick = IMeshStandardMaterialPick & Pick<MeshPhysicalMaterialParameters, 'clearcoatMap' | 'clearcoatRoughnessMap' | 'clearcoatNormalMap'>;
 type IMeshToonMaterialPick = Pick<MeshToonMaterialParameters, 'map' | 'gradientMap' | 'lightMap' | 'aoMap' | 'emissiveMap' | 'bumpMap' | 'normalMap' | 'displacementMap' | 'alphaMap'>;
 type IMeshStandardMaterialPick = Pick<
   MeshStandardMaterialParameters,
