@@ -40,11 +40,7 @@ export function performMoveUntil<F extends (params: P) => TMoveableByTick, P>(mo
 
 // Do not use this function for complex paths (with more than 1 point), it might not work as expected when partial coords are provided.
 export function addMissingCoords<T extends TKeyframeDestination | TMoveDestination>(destination: T, obj: TMovable3dXYZ): TKeyframeDestination | Required<TMoveDestination> {
-  const x: number = destination.x ?? obj.getX();
-  const y: number = destination.y ?? obj.getY();
-  const z: number = destination.z ?? obj.getZ();
-
-  return { ...destination, x, y, z };
+  return { ...destination, x: destination.x ?? obj.getX(), y: destination.y ?? obj.getY(), z: destination.z ?? obj.getZ() };
 }
 
 export function getAccumulatedKeyframes(path: ReadonlyArray<TKeyframeDestination>, obj: TMovable3dXYZ): ReadonlyArray<TFullKeyframeDestination> {

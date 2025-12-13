@@ -41,8 +41,8 @@ export function Model3dFacade(params: TModel3dParams, { animationsService, model
   model3dToModel3dFacadeConnectionRegistry.addModel3d(entities.model3dSource, facade as TModel3dFacade);
 
   return {
-    ...facade,
     ...withObject3d(entities.model3dSource),
+    ...facade,
     getParams,
     _clone
   };

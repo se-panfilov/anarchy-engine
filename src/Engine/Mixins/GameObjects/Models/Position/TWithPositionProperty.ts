@@ -6,7 +6,7 @@ export type TWithPosition2dProperty = Readonly<{
     x: number;
     y: number;
     set: (x: number, y: number) => Vector2;
-    // add: (x: number, y: number) => TVector2;
+    // add: (x: number, y: number) =>TVector2;
   };
 }>;
 
