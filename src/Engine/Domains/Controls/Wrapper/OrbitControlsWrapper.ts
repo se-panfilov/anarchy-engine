@@ -27,7 +27,18 @@ export function OrbitControlsWrapper(params: IOrbitControlsParams): IOrbitContro
     return entity.enableDamping;
   }
 
+  function enable(): void {
+    // eslint-disable-next-line functional/immutable-data
+    entity.enabled = true;
+    entity.update();
+  }
+
+  function disable(): void {
+    // eslint-disable-next-line functional/immutable-data
+    entity.enabled = false;
+  }
+
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(params.damping)) entity.enableDamping = params.damping;
-  return { ...AbstractWrapper(entity, params), update, setDamping, getDampingState, entity };
+  return { ...AbstractWrapper(entity, params), update, setDamping, getDampingState, enable, disable, entity };
 }

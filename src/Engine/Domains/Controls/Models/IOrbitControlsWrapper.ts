@@ -6,4 +6,6 @@ export type IOrbitControlsWrapper = IWrapper<OrbitControls> &
     update: () => void;
     setDamping: (isEnabled: boolean) => void;
     getDampingState: () => boolean;
+    enable: () => void;
+    disable: () => void;
   }>;
