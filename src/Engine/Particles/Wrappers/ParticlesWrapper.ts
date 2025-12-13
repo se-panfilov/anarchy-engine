@@ -1,3 +1,4 @@
+import type { Subscription } from 'rxjs';
 import { BufferAttribute, BufferGeometry, Points } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
@@ -36,6 +37,7 @@ export function ParticlesWrapper(params: TParticlesParams): TParticlesWrapper {
   // eslint-disable-next-line functional/immutable-data
   const result = Object.assign(wrapper, {
     drive,
+    driveToTargetConnector,
     ...withObject3d(entity),
     ...withMaterialEntity,
     setMaterialColor,
@@ -49,7 +51,10 @@ export function ParticlesWrapper(params: TParticlesParams): TParticlesWrapper {
 
   applyObject3dParams(result, params);
 
-  result.destroy$.subscribe((): void => driveToTargetConnector.destroy$.next());
+  const destroySub$: Subscription = result.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+    //Material and geometry disposes in AbstractWrapper
+  });
 
   return result;
 }

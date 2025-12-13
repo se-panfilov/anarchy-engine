@@ -19,6 +19,7 @@ export function AbstractLightWrapper<T extends TLight>(entity: T, params: TLight
   // eslint-disable-next-line functional/immutable-data
   const result: TAbstractLightWrapper<T> = Object.assign(wrapper, {
     drive,
+    driveToTargetConnector,
     ...withObject3d(entity),
     entity
   });

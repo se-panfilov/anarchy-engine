@@ -11,8 +11,8 @@ import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import { applyObject3dParams, isNotDefined } from '@/Engine/Utils';
 
 export function createTextTextureWrapper(params: TTextParams, type: TextType, dependencies: TTextDependencies): TTextTextureWrapper<Mesh> {
-  const canvas: HTMLCanvasElement = document.createElement('canvas');
-  const context: CanvasRenderingContext2D = canvas.getContext('2d')!;
+  let canvas: HTMLCanvasElement = document.createElement('canvas');
+  let context: CanvasRenderingContext2D = canvas.getContext('2d')!;
 
   const texture = new Texture(canvas);
   // eslint-disable-next-line functional/immutable-data
@@ -76,6 +76,7 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
   const result: TTextTextureWrapper<Mesh> = Object.assign(wrapper, {
     type,
     drive,
+    driveToTargetConnector,
     ...withObject3d(entity),
     getElement: () => canvas,
     setText
@@ -84,7 +85,13 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
   setText(params.text);
   applyObject3dParams(result, params);
 
-  result.destroy$.subscribe((): void => driveToTargetConnector.destroy$.next());
+  result.destroy$.subscribe((): void => {
+    texture.dispose();
+    context?.clearRect(0, 0, canvas.width, canvas.height);
+    if (canvas?.parentNode) canvas.parentNode?.removeChild(canvas);
+    canvas = null as any;
+    context = null as any;
+  });
 
   return result;
 }

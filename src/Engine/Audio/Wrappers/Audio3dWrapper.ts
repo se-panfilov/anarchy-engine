@@ -50,6 +50,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(wrapper, {
     drive,
+    driveToTargetConnector,
     listener$
   });
 }

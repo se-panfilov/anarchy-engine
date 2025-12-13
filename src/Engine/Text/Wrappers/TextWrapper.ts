@@ -16,7 +16,7 @@ import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import { applyCenter, applyObject3dParams, isDefined } from '@/Engine/Utils';
 
 export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: TTextParams, type: TextType, dependencies: TTextDependencies): TTextWrapper<T> {
-  const element: HTMLElement = document.createElement(params.elementType || 'div');
+  let element: HTMLElement = document.createElement(params.elementType || 'div');
   // eslint-disable-next-line functional/immutable-data
   element.textContent = params.text;
   const entity: T = createText(type, element) as T;
@@ -29,15 +29,27 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: T
   const result: TTextWrapper<T> = Object.assign(wrapper, {
     type,
     drive,
+    driveToTargetConnector,
     ...getCssAccessors(element),
     ...withObject3d(entity),
-    getElement: () => element
+    getElement: (): HTMLElement => element
   });
 
   element.setAttribute(RelatedEntityAttribute, result.id.toString());
 
-  // TODO we are removing element, but do not dispose entity (but we should)
-  result.destroy$.subscribe(() => document.body.removeChild(element));
+  result.destroy$.subscribe(() => {
+    // eslint-disable-next-line functional/immutable-data
+    element.className = '';
+    element.removeAttribute('style');
+    document.body.removeChild(element);
+    if (element?.parentNode) element?.parentNode.removeChild(element);
+    element?.remove();
+    element = null as any;
+
+    if (entity.element?.parentNode) entity.element.remove();
+    // eslint-disable-next-line functional/immutable-data
+    entity.element = null as any;
+  });
 
   document.body.appendChild(element);
 
@@ -45,8 +57,6 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: T
   if (isDefined(params.cssProps)) applyHtmlElementParams(result, params.cssProps, type === TextType.Text2d ? TextCssClass.Text2d : TextCssClass.Text3d);
   applyObject3dParams(result, params);
   if (type === TextType.Text2d) applyCenter(entity as CSS2DObject, params.center);
-
-  result.destroy$.subscribe((): void => driveToTargetConnector.destroy$.next());
 
   return result;
 }

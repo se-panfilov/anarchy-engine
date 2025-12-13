@@ -28,6 +28,7 @@ export function CameraWrapper(params: TCameraParams): TCameraWrapper {
   // eslint-disable-next-line functional/immutable-data
   const result = Object.assign(wrapper, {
     drive,
+    driveToTargetConnector,
     ...accessors,
     entity,
     ...withObject3d(entity),
