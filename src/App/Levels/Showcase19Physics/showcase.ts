@@ -69,8 +69,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       isAutoStart: true,
       camera: cameraW,
       actors: [surfaceActor],
-      position$: mouseService.position$,
-      tags: []
+      position$: mouseService.position$
     });
 
     const azimuthText = textService.create({
@@ -78,8 +77,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       type: TextType.Text3d,
       cssProps: { fontSize: '0.05rem' },
       position: new Vector3(3, 0.3, 6),
-      rotation: new Euler(-1.57, 0, 0),
-      tags: []
+      rotation: new Euler(-1.57, 0, 0)
     });
 
     const forcePowerText = textService.create({
@@ -87,8 +85,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       type: TextType.Text3d,
       cssProps: { fontSize: '0.05rem' },
       position: new Vector3(3, 0.3, 7),
-      rotation: new Euler(-1.57, 0, 0),
-      tags: []
+      rotation: new Euler(-1.57, 0, 0)
     });
 
     let mouseLineIntersectionsCoords: Vector3 | undefined = undefined;

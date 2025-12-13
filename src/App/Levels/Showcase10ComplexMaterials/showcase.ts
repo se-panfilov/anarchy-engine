@@ -85,7 +85,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       type: TextType.Text3d,
       text: actor.getTags()[0],
       cssProps: { fontSize: '0.3px', color: 'red' },
-      tags: [],
       position: new Vector3(x, y - 0.5, z + 1.2),
       rotation: new Euler(-1.57, 0, 0)
     });

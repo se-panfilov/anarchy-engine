@@ -128,7 +128,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const actor: TActor | undefined = findByName('surface_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not defined');
 
-    return intersectionsWatcherService.create({ actors: [actor], camera, isAutoStart: true, position$: mouseService.position$, tags: [] });
+    return intersectionsWatcherService.create({ actors: [actor], camera, isAutoStart: true, position$: mouseService.position$ });
   }
 
   function start(): void {

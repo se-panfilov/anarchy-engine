@@ -81,8 +81,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       },
       position: new Vector3(0, 0, 1),
       rotation: new Euler(-1.57, 0, 0),
-      visible: false,
-      tags: []
+      visible: false
     });
 
     mouseService.clickLeftRelease$.subscribe(() => {

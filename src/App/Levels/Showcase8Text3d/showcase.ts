@@ -39,8 +39,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       fontSize: '0.2rem',
       backgroundColor: '#ff0000',
       fontFamily: '"RubikDoodleTriangles", sans-serif'
-    },
-    tags: []
+    }
   });
 
   textService.create({
@@ -53,8 +52,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       fontSize: '16rem',
       backgroundColor: '#FFFFFF',
       fontFamily: '"RubikDoodleTriangles", sans-serif'
-    },
-    tags: []
+    }
   });
 
   textService.create({
@@ -66,8 +64,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       color: '#ff0000',
       fontSize: '0.2rem',
       fontFamily: '"RubikScribble", sans-serif'
-    },
-    tags: []
+    }
   });
 
   const floatingText: TText3dWrapper | TText3dTextureWrapper = textService.create({
@@ -80,8 +77,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       color: '#ff0000',
       fontSize: '0.2rem',
       fontFamily: '"LongCang", sans-serif'
-    },
-    tags: []
+    }
   });
 
   const floatingText2: TText3dWrapper | TText3dTextureWrapper = textService.create({
@@ -94,8 +90,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       color: '#ff0000',
       fontSize: '0.2rem',
       fontFamily: '"VarelaRound", sans-serif'
-    },
-    tags: []
+    }
   });
 
   const numberOfPoints: number = 160;

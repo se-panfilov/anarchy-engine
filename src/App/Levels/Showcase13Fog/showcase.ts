@@ -24,7 +24,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     rendererService.findActive()?.entity.setClearColor(scene.entity.fog.color);
 
     // Create fog via service
-    // FogService().create({ color: ColorWrapper('#00ff00').entity, near: 1, far: 100, tags: [] });
+    // FogService().create({ color: ColorWrapper('#00ff00').entity, near: 1, far: 100 });
 
     gui.addColor(scene.entity.fog, 'color');
     gui

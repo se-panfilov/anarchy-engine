@@ -37,8 +37,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const camera: TCameraWrapper = cameraService.create({
       position: new Vector3(0, 0, 3),
       rotation: new Euler(),
-      isActive: true,
-      tags: []
+      isActive: true
     });
 
     const { screenSizeWatcher } = ambientContext;

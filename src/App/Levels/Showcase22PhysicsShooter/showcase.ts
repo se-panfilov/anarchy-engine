@@ -111,8 +111,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         surface,
         sphereActor
       ],
-      position$: mouseService.position$,
-      tags: []
+      position$: mouseService.position$
     });
 
     startMoveActorWithKeyboard(hero, keyboardService, mouseLineIntersectionsWatcher);
