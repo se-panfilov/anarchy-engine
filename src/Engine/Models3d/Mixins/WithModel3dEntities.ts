@@ -3,6 +3,7 @@ import type { AnimationAction, AnimationClip, AnimationMixer } from 'three';
 import type { TAnimationActions } from '@/Engine/Animations/Models';
 import type { TModel3dEntities, TRawModel3d, TWithModel3dEntities } from '@/Engine/Models3d/Models';
 import type { TWriteable } from '@/Engine/Utils';
+import { isNotDefined } from '@/Engine/Utils';
 
 export function withModel3dEntities(entities: TModel3dEntities): TWithModel3dEntities {
   // eslint-disable-next-line functional/immutable-data
@@ -14,8 +15,13 @@ export function withModel3dEntities(entities: TModel3dEntities): TWithModel3dEnt
       (entities as TWriteable<TModel3dEntities>).animationsSource = [...animations];
     },
     addAnimations: (animations: ReadonlyArray<AnimationClip>): void => {
+      if (isNotDefined((entities as TWriteable<TModel3dEntities>).animationsSource)) {
+        // eslint-disable-next-line functional/immutable-data
+        return void ((entities as TWriteable<TModel3dEntities>).animationsSource = [...animations]);
+      }
+
       // eslint-disable-next-line functional/immutable-data
-      (entities as TWriteable<TModel3dEntities>).animationsSource = [...(entities.animationsSource ?? []), ...animations];
+      return void ((entities as TWriteable<TModel3dEntities>).animationsSource as Array<AnimationClip>).push(...animations);
     },
     getMixer: (): AnimationMixer => entities.mixer,
     setActions: (actions: TAnimationActions): void => {
