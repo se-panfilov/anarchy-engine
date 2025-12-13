@@ -14,22 +14,25 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const gui: GUI = new GUI();
   const audio: GUI = gui.addFolder('Moving mode');
 
-  const bgMusic: TAudioWrapper | undefined = audioService.getRegistry().findByName('bg_music');
-  if (isNotDefined(bgMusic)) throw new Error('Background music is not found');
-
-  const state = { playBgMusic: false };
-
-  audio
-    .add(state, 'playBgMusic')
-    .name('Play background music')
-    .onChange((playBgMusic: boolean): void => {
-      bgMusic.play$.next(playBgMusic);
-    });
-
   function init(): void {
     const fadeDuration = 0.3;
 
     initMutant1('mutant_actor_1', fadeDuration, space.services);
+
+    const bgMusic: TAudioWrapper | undefined = audioService.getRegistry().findByName('bg_music');
+    if (isNotDefined(bgMusic)) throw new Error('Background music is not found');
+
+    const state = {
+      playBgMusic: (): void => bgMusic.play$.next(true),
+      pauseBgMusic: (): void => bgMusic.pause$.next(true),
+      resumeBgMusic: (): void => bgMusic.pause$.next(false),
+      stopBgMusic: (): void => bgMusic.play$.next(false)
+    };
+
+    audio.add(state, 'playBgMusic').name('Play background music');
+    audio.add(state, 'pauseBgMusic').name('Pause background music');
+    audio.add(state, 'resumeBgMusic').name('resume background music');
+    audio.add(state, 'stopBgMusic').name('Stop background music');
   }
 
   function start(): void {
