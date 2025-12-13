@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { combineLatest, distinctUntilChanged } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
 import type { TEntity } from '@/Engine/Abstract';
@@ -23,9 +23,11 @@ export function Actor(
 
   const drive: TActorDriveMixin = ActorDriveMixin(params, { kinematicLoopService });
 
-  const positionSub$: Subscription = drive.position$
-    .pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr)))
-    .subscribe((position: Vector3): Vector3 => model3d.getRawModel3d().position.copy(position));
+  const positionSub$: Subscription = drive.position$.pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr))).subscribe((position: Vector3): void => {
+    model3d.getRawModel3d().position.copy(position);
+    // TODO 8.0.0. MODELS: not sure if "updateSpatialCells()" should happen on rotation$ and scale$ changes
+    entities.updateSpatialCells(position);
+  });
   const rotationSub$: Subscription = drive.rotation$
     .pipe(distinctUntilChanged((prev: Euler, curr: Euler): boolean => prev.equals(curr)))
     .subscribe((rotation: Euler): Euler => model3d.getRawModel3d().rotation.copy(rotation));
@@ -91,12 +93,6 @@ export function Actor(
     model3d.destroy$.next();
     entities.spatial.destroy$.next();
     entities.collisions?.destroy$.next();
-  });
-
-  // TODO 8.0.0. MODELS: perhaps do this only once (without "if"'s), then just read this value from kinematic/physics and throw error if the drive is not None
-  combineLatest([position$, rotation$, scale$]).subscribe(([position, rotation, scale]: [Vector3, Euler, Vector3]): void => {
-    // TODO 8.0.0. MODELS: should it take in account scale and rotation? Otherwise trigger it only for position
-    entities.updateSpatialCells(position);
   });
 
   applySpatialGrid(params, entities, spatialGridService);
