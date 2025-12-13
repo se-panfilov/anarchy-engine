@@ -15,6 +15,7 @@ export type TLoop = TAbstractLoop<TDelta> &
     start: () => void;
     stop: () => void;
     enabled$: BehaviorSubject<boolean>;
+    priority$: BehaviorSubject<number>;
   }> &
   Omit<TRegistrable, 'name'> &
   TWithName &

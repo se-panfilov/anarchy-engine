@@ -6,7 +6,7 @@ import type { TIntersectionsLoop } from '@/Engine/Intersections';
 import type { TKeyboardLoop } from '@/Engine/Keyboard';
 import type { TKinematicLoop } from '@/Engine/Kinematic';
 import { LoopType } from '@/Engine/Loop/Constants';
-import type { TLoop, TLoopFactory, TLoopParams, TLoopRegistry, TLoopService, TLoopWithPriority } from '@/Engine/Loop/Models';
+import type { TLoop, TLoopFactory, TLoopParams, TLoopRegistry, TLoopService } from '@/Engine/Loop/Models';
 import { getMainLoopNameByType } from '@/Engine/Loop/Utils';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -21,8 +21,8 @@ import { isNotDefined } from '@/Engine/Utils';
 
 export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLoopService {
   let debugInfoSub$: Subscription | undefined;
-  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TLoop | TLoopWithPriority): void => registry.add(wrapper));
-  const create = (params: TLoopParams): TLoop | TLoopWithPriority => factory.create(params);
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TLoop): void => registry.add(wrapper));
+  const create = (params: TLoopParams): TLoop => factory.create(params);
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
@@ -32,9 +32,9 @@ export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLo
     factorySub$.unsubscribe();
   });
 
-  function getLoop(name: string | SpaceLoopNames | undefined, type: LoopType): TLoop | TLoopWithPriority | never {
+  function getLoop(name: string | SpaceLoopNames | undefined, type: LoopType): TLoop | never {
     const searchName: string = name ?? getMainLoopNameByType(type);
-    const loop: TLoop | TLoopWithPriority | undefined = registry.find((loop: TLoop): boolean => loop.name === searchName);
+    const loop: TLoop | undefined = registry.find((loop: TLoop): boolean => loop.name === searchName);
     // If no name is provided, return the main loop
     // otherwise, return the loop with the specified name or throw an error
     if (isNotDefined(loop)) throw new Error(`LoopService: No loop with name "${name}" found`);

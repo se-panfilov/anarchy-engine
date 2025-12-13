@@ -1,3 +1,3 @@
-import type { TLoopWithPriority } from '@/Engine/Loop/Models';
+import type { TLoop } from '@/Engine/Loop/Models';
 
-export type TCollisionsLoop = TLoopWithPriority & { __brand: 'collisions_loop' };
+export type TCollisionsLoop = TLoop & { __brand: 'collisions_loop' };

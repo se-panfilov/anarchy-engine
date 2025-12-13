@@ -16,7 +16,6 @@ import type { TLoop } from './TLoop';
 import type { TLoopFactory } from './TLoopFactory';
 import type { TLoopParams } from './TLoopParams';
 import type { TLoopRegistry } from './TLoopRegistry';
-import type { TLoopWithPriority } from './TLoopWithPriority';
 
 export type TLoopService = Readonly<{
   getRenderLoop: (name?: string) => TRenderLoop | never;
@@ -30,7 +29,7 @@ export type TLoopService = Readonly<{
   getMouseLoop: (name?: string) => TMouseLoop | never;
   getIntersectionsLoop: (name?: string) => TIntersectionsLoop | never;
   getControlsLoop: (name?: string) => TControlsLoop | never;
-  getLoop: (name: string | undefined, type: LoopType) => TLoop | TLoopWithPriority | never;
+  getLoop: (name: string | undefined, type: LoopType) => TLoop | never;
 }> &
   TWithCreateService<TLoop, TLoopParams> &
   TWithFactoryService<TLoopFactory> &
