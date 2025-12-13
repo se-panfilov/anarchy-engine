@@ -1,28 +1,36 @@
 import type { TGameSettings } from '@ShowcasesShared';
+import { Driver } from 'platform:api';
 
-import type { TPlatformApiService } from '@/Models';
+import type { TPlatformApiService, TPlatformDriver } from '@/Models';
 
 export function PlatformApiService(): TPlatformApiService {
+  const driver: TPlatformDriver = Driver();
+
   function saveAppSettings(settings: TGameSettings): Promise<void> {
-    return Promise.resolve();
+    return driver.saveAppSettings(settings);
   }
 
   function loadAppSettings(): Promise<TGameSettings> {
-    return Promise.resolve({});
+    return driver.loadAppSettings();
   }
+
   function getNodeVersion(): string {
-    return process.versions.node;
+    return driver.getNodeVersion();
   }
 
   function getChromeVersion(): string {
-    return process.versions.chrome;
+    return driver.getChromeVersion();
   }
+
   function getPlatformVersion(): string {
-    return process.versions.electron;
+    return driver.getPlatformVersion();
   }
+
   function getWrappedAppVersion(): Promise<string> {
-    return Promise.resolve(__DESKTOP_APP_VERSION__);
+    return driver.getWrappedAppVersion();
   }
+
+  const getDriver = (): TPlatformDriver => driver;
 
   return {
     saveAppSettings,
@@ -30,6 +38,7 @@ export function PlatformApiService(): TPlatformApiService {
     getNodeVersion,
     getChromeVersion,
     getPlatformVersion,
-    getWrappedAppVersion
+    getWrappedAppVersion,
+    getDriver
   };
 }

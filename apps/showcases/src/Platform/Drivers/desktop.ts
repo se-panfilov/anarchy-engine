@@ -1,8 +1,8 @@
 import type { TGameSettings } from '@ShowcasesShared';
 
-import type { TPlatformApiService } from '@/Models';
+import type { TPlatformDriver } from '@/Models';
 
-export function DesktopDriver(): TPlatformApiService {
+export function Driver(): TPlatformDriver {
   function saveAppSettings(settings: TGameSettings): Promise<void> {
     console.log('XXX [DESKTOP]', 'saveAppSettings', settings);
     return Promise.resolve();
