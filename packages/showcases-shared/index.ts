@@ -1,1 +1,1 @@
-export type * from './src';
+export * from './src';
