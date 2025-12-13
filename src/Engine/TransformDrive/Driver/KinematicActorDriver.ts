@@ -3,15 +3,16 @@ import { BehaviorSubject, map, takeWhile } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad } from 'three/src/math/MathUtils';
 
-import type { TKinematicActorDriver, TKinematicData, TKinematicLoopService } from '@/Engine/Kinematic/Models';
+import type { TKinematicData, TKinematicLoopService } from '@/Engine/Kinematic/Models';
 import type { TDegrees, TRadians } from '@/Engine/Math';
 import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
+import type { TKinematicTransformDriver, TTransformDriveParams } from '@/Engine/TransformDrive/Models';
 import type { TWriteable } from '@/Engine/Utils';
 
-export function KinematicActorDriver(params: TActorParams, kinematicLoopService: TKinematicLoopService): TKinematicActorDriver {
+export function KinematicActorDriver(params: TTransformDriveParams, kinematicLoopService: TKinematicLoopService): TKinematicTransformDriver {
   let _isAutoUpdate: boolean = params.kinematic?.isAutoUpdate ?? false;
   let _isEnabled: boolean = _isAutoUpdate;
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.position);

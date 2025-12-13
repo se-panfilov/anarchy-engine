@@ -7,9 +7,9 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { TransformDriver } from '@/Engine/TransformDrive/Constants';
 import { ProtectedDriverFacade } from '@/Engine/TransformDrive/Facades';
-import type { TAbstractTransformDriver, TProtectedTransformDriverFacade, TProtectedTransformDrivers, TTransformDrive, TTransformDrivers } from '@/Engine/TransformDrive/Models';
+import type { TAbstractTransformDriver, TProtectedTransformDriverFacade, TProtectedTransformDrivers, TTransformDrive, TTransformDriveParams, TTransformDrivers } from '@/Engine/TransformDrive/Models';
 
-export function TransformDrive(params: TActorParams, drivers: TTransformDrivers): TTransformDrive {
+export function TransformDrive(params: TTransformDriveParams, drivers: TTransformDrivers): TTransformDrive {
   //We don't want to expose these BehaviorSubjects, because they're vulnerable to external changes without .next()
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
   const positionRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
@@ -26,8 +26,8 @@ export function TransformDrive(params: TActorParams, drivers: TTransformDrivers)
 
   const destroyable: TDestroyable = destroyableMixin();
 
-  const delay: number = params.driveUpdateDelay ?? 16; // 60 FPS
-  const threshold: number = params.driveCoordsThreshold ?? 0.001;
+  const delay: number = params.updateDelay ?? 16; // 60 FPS
+  const threshold: number = params.noiseThreshold ?? 0.001;
 
   const positionSub$: Subscription = driver$
     .pipe(

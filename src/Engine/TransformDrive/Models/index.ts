@@ -6,6 +6,7 @@ export * from './TKinematicTransformDriver';
 export * from './TPhysicsTransformDriver';
 export * from './TProtectedTransformDriverFacade';
 export * from './TTransformDrive';
+export * from './TTransformDriveParams';
 export * from './TTransformDrivers';
 export * from './TWithInstantProtectedDriver';
 export * from './TWithKinematicProtectedDriver';
