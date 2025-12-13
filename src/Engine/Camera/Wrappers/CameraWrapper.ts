@@ -1,3 +1,4 @@
+import type { Subscription } from 'rxjs';
 import { PerspectiveCamera, Vector3 } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
@@ -36,7 +37,15 @@ export function CameraWrapper(params: TCameraParams): TCameraWrapper {
   applyObject3dParams(result, params);
   result._setActive(params.isActive, true);
 
-  result.destroy$.subscribe((): void => driveToTargetConnector.destroy$.next());
+  const destroySub$: Subscription = result.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
+    //Destroy transform drive
+    drive.destroy$.next();
+    driveToTargetConnector.destroy$.next();
+
+    wrapper.destroy$.next();
+  });
 
   if (isDefined(lookAt)) accessors.lookAt(new Vector3(lookAt.x, lookAt.y, lookAt.z));
   if (isDefined(audioListener)) accessors.addListener(audioListener);
