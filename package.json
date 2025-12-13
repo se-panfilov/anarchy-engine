@@ -11,7 +11,7 @@
   "license": "MIT",
   "scripts": {
     "clean:all": "rimraf packages/**/package-lock.json -g packages/**/node_modules -g packages/**/dist -g apps/**/package-lock.json -g apps/**/node_modules -g  ./node_modules  ./package-lock.json ",
-    "clean:all-metadate": "npm run e2e:clean-metadate --workspace=packages/e2e && npm run sanitize-assets --workspace=apps/showcases",
+    "clean:all-metadate": "npm run e2e:clean-metadate --workspace=apps/e2e && npm run sanitize-assets --workspace=apps/showcases",
     "clean:all:restore": "git add ./package-lock.json && find packages -type d -name node_modules -prune -false -o -type f -name package-lock.json -exec git add {} +\n",
     "clean:reinstall": "npm run clean:all && npm install && npm run clean:all:restore",
     "gitleaks:ci": "gitleaks detect --config=.gitleaks.toml --source=. --no-git --redact --report-format=json --report-path=reports/gitleaks-ci.json --verbose",
