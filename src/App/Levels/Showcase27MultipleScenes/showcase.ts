@@ -20,7 +20,13 @@ export function start(): void {
 
   combineLatest([spaceAlpha.built$, spaceBeta.built$]).subscribe((): void => showcase(spaceAlpha));
 
-  addSpaceSwitcher((): void => nextSpace([spaceAlpha, spaceBeta]));
+  addBtn('Next space', (): void => nextSpace([spaceAlpha, spaceBeta]));
+
+  addBtn('Start Alpha', (): void => spaceAlpha.start$.next(true));
+  addBtn('Stop Alpha', (): void => spaceAlpha.start$.next(false));
+
+  addBtn('Start Beta', (): void => spaceBeta.start$.next(true));
+  addBtn('Stop Beta', (): void => spaceBeta.start$.next(false));
 }
 
 let currentSpaceId: string | undefined = undefined;
@@ -61,18 +67,33 @@ function moveCircle(actorName: string, actorService: TActorService, transformLoo
   });
 }
 
-function addSpaceSwitcher(cb: (...rest: ReadonlyArray<any>) => void): void {
+function addBtn(text: string, cb: (...rest: ReadonlyArray<any>) => void): void {
+  const containerId = 'btn-container';
+
+  let container: HTMLDivElement | null = document.querySelector('#' + containerId);
+  if (isNotDefined(container)) {
+    container = document.createElement('div');
+    // eslint-disable-next-line functional/immutable-data
+    container.id = containerId;
+    // eslint-disable-next-line functional/immutable-data
+    container.style.position = 'absolute';
+    // eslint-disable-next-line functional/immutable-data
+    container.style.top = '10px';
+    // eslint-disable-next-line functional/immutable-data
+    container.style.right = '10px';
+    // eslint-disable-next-line functional/immutable-data
+    container.style.display = 'flex';
+    // eslint-disable-next-line functional/immutable-data
+    container.style.gap = '8px';
+    document.body.appendChild(container);
+  }
+
   const button: HTMLButtonElement = document.createElement('button');
   // eslint-disable-next-line functional/immutable-data
-  button.textContent = 'Switch Space';
-  // eslint-disable-next-line functional/immutable-data
-  button.style.position = 'absolute';
-  // eslint-disable-next-line functional/immutable-data
-  button.style.top = '10px';
-  // eslint-disable-next-line functional/immutable-data
-  button.style.right = '10px';
+  button.textContent = text;
+
   button.addEventListener('click', cb);
-  document.body.appendChild(button);
+  container.appendChild(button);
 }
 
 function nextSpace(spaces: ReadonlyArray<TSpace>): void {
