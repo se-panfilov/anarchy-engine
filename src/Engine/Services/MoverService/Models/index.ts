@@ -2,7 +2,6 @@ export * from './TAnimationParams';
 export * from './TFollowTargetParams';
 export * from './TFullKeyframeDestination';
 export * from './TKeyframeDestination';
-export * from './TMovableWrapper';
 export * from './TMoveByPathFnParams';
 export * from './TMoveDestination';
 export * from './TMoveFn';

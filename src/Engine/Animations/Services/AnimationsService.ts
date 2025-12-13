@@ -23,16 +23,16 @@ export function AnimationsService(loopService: TLoopService): TAnimationsService
     return { model, mixer, actions };
   }
 
-  function startAutoUpdateMixer(modelF: TModel3d, updateTick$: Observable<TLoopTimes> = loopService.tick$): TAnimationActionsPack | never {
-    const mixer = modelF.getMixer();
-    if (isNotDefined(mixer)) throw new Error(`Mixer is not defined for model facade (name: ${modelF.getName()}, id: ${modelF.id}})`);
+  function startAutoUpdateMixer(model3d: TModel3d, updateTick$: Observable<TLoopTimes> = loopService.tick$): TAnimationActionsPack | never {
+    const mixer = model3d.getMixer();
+    if (isNotDefined(mixer)) throw new Error(`Mixer is not defined for model3d (name: ${model3d.getName()}, id: ${model3d.id}})`);
 
     const subs$: Subscription = updateTick$.subscribe(({ delta }) => mixer.update(delta));
     if (isDefined(subscriptions.get(mixer)))
-      throw new Error(`AnimationsService: Cannot auto-update mixer twice: subscribe is already exist. Mixer relates to the model facade (name: ${modelF.getName()}, id: ${modelF.id}})`);
+      throw new Error(`AnimationsService: Cannot auto-update mixer twice: subscribe is already exist. Mixer relates to the mode3d (name: ${model3d.getName()}, id: ${model3d.id}})`);
 
     subscriptions.set(mixer, subs$);
-    return { model: modelF.getRawModel3d(), mixer, actions: modelF.getActions() };
+    return { model: model3d.getRawModel3d(), mixer, actions: model3d.getActions() };
   }
 
   function stopAutoUpdateMixer(mixer: AnimationMixer): void | never {

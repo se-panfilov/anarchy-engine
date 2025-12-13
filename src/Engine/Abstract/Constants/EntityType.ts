@@ -1,5 +1,5 @@
 export enum EntityType {
-  Actor = 'actor_facade',
-  Model3d = 'models_3d_facade',
-  PhysicsBody = 'physics_body_facade'
+  Actor = 'actor',
+  Model3d = 'models_3d',
+  PhysicsBody = 'physics_body'
 }
