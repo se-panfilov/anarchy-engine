@@ -9,7 +9,6 @@
     "build": "rimraf ./dist tsc && vite build",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run check:ts-morph && npm run lint && npm run unit:coverage && npm run e2e:with-clean",
     "before:release": "npm run clean:reinstall && npm run before:release:check && npm run generate:license-report && npm run generate:all-licenses-list",
-    "preview": "vite preview",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "prettier --write .",
@@ -28,7 +27,7 @@
     "unit:coverage:ui": "vitest --ui",
     "clean:all": "rimraf ./dist ./node_modules ./package-lock.json",
     "clean:reinstall": "npm run clean:all && npm install && git add ./package-lock.json",
-    "check:no-spread-brand": "node configs/TsMorph/check-no-spread-brand.js ",
+    "check:no-spread-brand": "node ../../configs/TsMorph/check-no-spread-brand.js ",
     "check:ts-morph": "npm run check:no-spread-brand",
     "check:ts-morph:fix": "npm run check:no-spread-brand -- --fix"
   },
