@@ -17,15 +17,11 @@
     "privacy"
   ],
   "files": [
-    "CHANGELOG.txt",
-    "DISCLAIMER.md",
-    "EULA.md",
-    "LICENSE",
+    "./legal/**",
+    "CHANGELOG.md",
     "NOTICE.md",
-    "PRIVACY.md",
+    "LICENSE",
     "README.md",
-    "SECURITY.md",
-    "THIRD_PARTY_LICENSES.md",
     "dist/"
   ],
   "scripts": {
