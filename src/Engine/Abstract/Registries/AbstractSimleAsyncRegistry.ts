@@ -1,31 +1,18 @@
 import type { Observable } from 'rxjs';
 
 import type { RegistryType } from '@/Engine/Abstract/Constants';
-import type { TAbstractAsyncRegistry, TAbstractEntityRegistry } from '@/Engine/Abstract/Models';
-import type { LookUpStrategy } from '@/Engine/Abstract/Registries/Constants';
-import type { TMultitonRegistrable, TRegistrable } from '@/Engine/Mixins';
-import { getAsyncUniqEntityByNameAsync, getAsyncUniqEntityWithTag, getUniqEntityByName$, getUniqEntityWithTag$, getUniqEntityWithTags$, getUniqEntityWithTagsAsync } from '@/Engine/Utils';
-
-import { AbstractEntityRegistry } from './AbstractEntityRegistry';
+import type { TAbstractSimpleAsyncRegistry } from '@/Engine/Abstract/Models';
+import { getAsyncUniqEntityByNameAsync, getUniqEntityByName$ } from '@/Engine/Utils';
 
 export function AbstractSimpleAsyncRegistry<T>(type: RegistryType): TAbstractSimpleAsyncRegistry<T> {
-  const abstractRegistry: TAbstractEntityRegistry<T> = AbstractEntityRegistry<T>(type);
+  const abstractSimpleAsyncRegistry: TAbstractSimpleAsyncRegistry<T> = AbstractSimpleAsyncRegistry<T>(type);
 
-  const findByTagsAsync = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): Promise<T | undefined> => getUniqEntityWithTagsAsync<T>(tags, abstractRegistry, strategy);
-  const findByTagAsync = (tag: string): Promise<T | undefined> => getAsyncUniqEntityWithTag(tag, abstractRegistry);
-  const findByNameAsync = (name: string): Promise<T | undefined> => getAsyncUniqEntityByNameAsync(name, abstractRegistry);
-
-  const findByTags$ = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): Observable<T> => getUniqEntityWithTags$<T>(tags, abstractRegistry, strategy);
-  const findByTag$ = (tag: string): Observable<T> => getUniqEntityWithTag$(tag, abstractRegistry);
-  const findByName$ = (name: string): Observable<T> => getUniqEntityByName$(name, abstractRegistry);
+  const findByKeyAsync = (key: string): Promise<T | undefined> => getAsyncUniqEntityByNameAsync(key, abstractSimpleAsyncRegistry);
+  const findByKey$ = (key: string): Observable<T> => getUniqEntityByName$(key, abstractSimpleAsyncRegistry);
 
   return {
-    ...abstractRegistry,
-    findByTagsAsync,
-    findByTags$,
-    findByTagAsync,
-    findByTag$,
-    findByNameAsync,
-    findByName$
+    ...abstractSimpleAsyncRegistry,
+    findByKeyAsync,
+    findByKey$
   };
 }
