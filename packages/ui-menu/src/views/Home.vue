@@ -44,3 +44,22 @@ const navOptions: ReadonlyArray<TNavOption> = [
     <Navigation class="home__navigation" :options="navOptions" />
   </div>
 </template>
+
+<style scoped lang="scss">
+.home {
+  display: flex;
+  min-width: 100%;
+  min-height: 100%;
+  align-items: center;
+  flex-direction: column;
+  gap: 14px;
+
+  &__title {
+    // TODO DESKTOP: add px-to-rem function (to shared?)
+    letter-spacing: 2.1px;
+    font-size: 42px;
+    line-height: 42px;
+    text-transform: uppercase;
+  }
+}
+</style>

@@ -9,3 +9,13 @@ import RouterView from '@Menu/components/RouterView.vue';
     <RouterView class="main-menu__item -view" />
   </div>
 </template>
+
+<style scoped lang="scss">
+.main-menu {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  flex-direction: column;
+}
+</style>
