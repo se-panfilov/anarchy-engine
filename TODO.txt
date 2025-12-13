@@ -46,10 +46,12 @@ Thoughts:
 - Maybe: Refactor withActive entities (use active$) (camera, renderer, etc);
 - Maybe: a single generic factory and registries for all entities (actor, model, etc), instead of files create them with params;
 - Maybe: if it makes sense to replace Rapier with Havok;
+- Maybe: remove animejs from the engine (use it only in the app);
 - BUG: #191823 Text3dTextures doesn't update text values on textures on change;
 - TASK: Check every function in the engine that it's not calling every second (with adding console.log everywhere);
 - TASK: Check performance (make sure materials and env maps are async)
 - TASK: Take a look on entities in runtime (console.log) to see what fields are there, what are values, etc.;
+- TASK: Clean up dependencies (some should be used by the app, not the engine);
 
 Won't be implemented soon:
 - GUI/UI/HUD/Menus: Leave it to the app (don't want to build a generic solution);
