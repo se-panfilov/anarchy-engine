@@ -1,10 +1,10 @@
-import type { TMovable3dXYZ, TWithPosition3dProperty } from '@/Engine/Mixins/GameObjects/Models';
+import type { TMovableXYZ, TWithPosition3dProperty } from '@/Engine/Mixins/GameObjects/Models';
 
 import { withMoveByXMixin } from './WithMoveByXMixin';
 import { withMoveByYMixin } from './WithMoveByYMixin';
 import { withMoveByZMixin } from './WithMoveByZMixin';
 
-export function withMoveBy3dMixin(entity: TWithPosition3dProperty): TMovable3dXYZ {
+export function withMoveBy3dMixin(entity: TWithPosition3dProperty): TMovableXYZ {
   return {
     ...withMoveByXMixin(entity),
     ...withMoveByYMixin(entity),

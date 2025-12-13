@@ -19,7 +19,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   function init(): void {
     const actor: TActor | undefined = actorRegistry.findByName('sphere_actor');
     if (isNotDefined(actor)) throw new Error('Cannot find actor');
-    actor.setY(2);
+    actor.drive.default.setY(2);
 
     let cameraFolder: GUI | undefined;
     let counter: number = 1;
@@ -35,8 +35,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     });
 
     loopService.tick$.subscribe(({ elapsedTime }) => {
-      actor.setX(Math.sin(elapsedTime) * 8);
-      actor.setZ(Math.cos(elapsedTime) * 8);
+      actor.drive.default.setX(Math.sin(elapsedTime) * 8);
+      actor.drive.default.setZ(Math.cos(elapsedTime) * 8);
     });
   }
 

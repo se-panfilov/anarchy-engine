@@ -1,4 +1,3 @@
-import { withPositionMixin } from '@/Engine/Mixins/GameObjects/Mixins/Position/WithPositionMixin';
 import type { TMovableX, TWithPositionProperty } from '@/Engine/Mixins/GameObjects/Models';
 
 export function withMoveByXMixin(entity: TWithPositionProperty): TMovableX {
@@ -8,5 +7,5 @@ export function withMoveByXMixin(entity: TWithPositionProperty): TMovableX {
   // eslint-disable-next-line functional/immutable-data
   const addX = (x: number): number => (entity.position.x += x);
 
-  return { ...withPositionMixin(entity), addX, setX, getX };
+  return { addX, setX, getX };
 }

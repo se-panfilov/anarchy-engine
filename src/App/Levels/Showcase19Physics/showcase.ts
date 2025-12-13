@@ -81,11 +81,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     loopService.tick$.subscribe(() => {
       if (isDefined(mouseLineIntersectionsCoords)) {
-        const ballCoords: Vector3 = ballActorW.getPosition();
+        const ballCoords: Vector3 = ballActorW.drive.getPosition();
         azimuth = getHorizontalAzimuthDeg(ballCoords.x, ballCoords.z, mouseLineIntersectionsCoords);
         azimuthText.setText(`Azimuth: ${azimuth.toFixed(2)}`);
         forcePowerText.setText(`Force: ${forcePower.toFixed(2)}`);
-        forcePower = getDistancePrecisely(ballActorW.getPosition(), mouseLineIntersectionsCoords).toNumber();
+        forcePower = getDistancePrecisely(ballActorW.drive.getPosition(), mouseLineIntersectionsCoords).toNumber();
         line.geometry.setPositions([ballCoords.x, ballCoords.y, ballCoords.z, mouseLineIntersectionsCoords.x, mouseLineIntersectionsCoords.y, mouseLineIntersectionsCoords.z]);
         line.computeLineDistances();
       }

@@ -45,7 +45,7 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
   const result: TMousePositionWatcher = {
     ...abstractWatcher,
     value$: abstractWatcher.value$.asObservable(),
-    valueNormalized$: abstractWatcher.value$.pipe(map((v: Vector2Like): Vector2Like => getNormalizedMousePosition(v))),
+    valueNormalized$: abstractWatcher.value$.pipe(map(getNormalizedMousePosition)),
     key: containerIdTag,
     start,
     stop

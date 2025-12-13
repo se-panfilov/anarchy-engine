@@ -83,7 +83,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     changeActorActiveAgent(sphereActor, KeysExtra.Space, keyboardService);
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-argument
     console.log('Memory usage:', getHumanReadableMemorySize((window as any).performance.memory.usedJSHeapSize));
   }
 

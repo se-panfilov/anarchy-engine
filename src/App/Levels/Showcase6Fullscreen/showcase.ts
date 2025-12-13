@@ -1,5 +1,3 @@
-import { Vector3 } from 'three';
-
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActor, TActorRegistry, TAppCanvas, TEngine, TModel3d, TModel3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import { Engine, isNotDefined, screenService, spaceService } from '@/Engine';

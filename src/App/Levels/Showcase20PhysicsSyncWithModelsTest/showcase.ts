@@ -30,7 +30,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     actor2W.physicsBody?.getRigidBody()?.addTorque({ x: -0.5, y: -0.01, z: 0.05 }, true);
     actor3W.physicsBody?.getRigidBody()?.addTorque({ x: 0.01, y: 5, z: -0.05 }, true);
 
-    const actor1Position: Vector3 = actor1W.getPosition();
+    const actor1Position: Vector3 = actor1W.drive.getPosition();
     cameraW.lookAt(actor1Position);
     cameraW.setY(actor1Position.y);
 
@@ -38,7 +38,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     loopService.tick$.subscribe(() => {
       actor3W.physicsBody?.getRigidBody()?.setAngvel({ x: 0, y: 3, z: 1 }, true);
-      cameraW.setY(actor1W.getPosition().y);
+      cameraW.setY(actor1W.drive.getPosition().y);
     });
   }
 

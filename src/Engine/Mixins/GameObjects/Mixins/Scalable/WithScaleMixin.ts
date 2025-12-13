@@ -1,11 +1,6 @@
-import type { Vector3 } from 'three';
-
 import type { TScaleMixin, TWithScaleProperty } from '@/Engine/Mixins/GameObjects/Models';
 
 export function withScaleMixin(entity: TWithScaleProperty): TScaleMixin {
-  const setScale = (x: number, y: number, z: number): Vector3 => entity.scale.set(x, y, z);
-  const getScale = (): Vector3 => entity.scale;
-
   const setScaleX = (x: number): void => void entity.scale.set(x, entity.scale.y, entity.scale.z);
   const getScaleX = (): number => entity.scale.x;
 
@@ -20,8 +15,6 @@ export function withScaleMixin(entity: TWithScaleProperty): TScaleMixin {
   const adjustScaleByZ = (z: number): void => void entity.scale.set(entity.scale.x, entity.scale.y, entity.scale.z + z);
 
   return {
-    setScale,
-    getScale,
     setScaleX,
     getScaleX,
     setScaleY,

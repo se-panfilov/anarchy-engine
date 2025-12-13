@@ -22,8 +22,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     //always running non-physical actor
     loopService.tick$.subscribe(({ elapsedTime }): void => {
-      actor.setX(Math.sin(elapsedTime) * 4);
-      actor.setZ(Math.cos(elapsedTime) * 4);
+      actor.drive.default.setX(Math.sin(elapsedTime) * 4);
+      actor.drive.default.setZ(Math.cos(elapsedTime) * 4);
     });
   }
 

@@ -2,7 +2,7 @@ import type { Euler, Vector2 } from 'three';
 import type { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import type { Vector3 } from 'three/src/math/Vector3';
 
-import type { TMovable3dXYZ, TRotatable, TScaleMixin, TWithObject3d } from '@/Engine/Mixins';
+import type { TMovableXYZ, TRotatable, TScaleMixin, TWithObject3d } from '@/Engine/Mixins';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils/index';
 
@@ -14,7 +14,7 @@ export function applyObject3dParams(obj: TWithObject3d, { visible, castShadow, r
   if (isDefined(renderOrder)) obj.setRenderOrder(renderOrder);
 }
 
-export function applyPosition(obj: TMovable3dXYZ, position?: Vector3): void {
+export function applyPosition(obj: TMovableXYZ, position?: Vector3): void {
   if (isDefined(position)) obj.setPosition(position.clone());
 }
 

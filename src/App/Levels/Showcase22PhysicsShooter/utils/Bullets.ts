@@ -116,7 +116,7 @@ export function BulletAsync(params: TActorParams, actorService: TActorService): 
   actor.collisions.autoUpdate$.next(false);
 
   function reset(): void {
-    actor.setPosition(new Vector3(0, 0, 0));
+    actor.drive.position$.next(new Vector3(0, 0, 0));
     actor.drive.kinematic.setLinearAzimuthRad(0);
     actor.drive.kinematic.setLinearElevationRad(0);
     actor.drive.kinematic.setLinearSpeed(0);
@@ -177,7 +177,7 @@ export function shootRapidFire(
 export function shoot(actorPosition: Vector3, toAngle: TRadians, elevation: TRadians, speedMeters: number, bullets: ReadonlyArray<TBullet>): void {
   const bullet: TBullet | undefined = bullets.find((b: TBullet) => !b.isActive());
   if (isDefined(bullet)) {
-    bullet.setPosition(actorPosition);
+    bullet.drive.position$.next(actorPosition);
     bullet.drive.kinematic.setLinearAzimuthRad(toAngle);
     bullet.drive.kinematic.setLinearElevationRad(elevation);
     bullet.setDistanceTraveled(0);
