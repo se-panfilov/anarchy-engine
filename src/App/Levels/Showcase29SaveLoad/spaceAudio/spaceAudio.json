@@ -1,0 +1,173 @@
+{
+  "canvasSelector": "#audio_container #app",
+  "entities": {
+    "actors": [
+      {
+        "model3dSource": "sphere_model",
+        "name": "sphere_actor",
+        "position": {
+          "x": 0,
+          "y": 2,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        }
+      }
+    ],
+    "audio": [],
+    "cameras": [
+      {
+        "far": 10000,
+        "fov": 45,
+        "isActive": true,
+        "name": "main",
+        "near": 1,
+        "position": {
+          "x": 3,
+          "y": 20,
+          "z": 35
+        },
+        "rotation": {
+          "x": -0.519146114246523,
+          "y": 0.07428390319893977,
+          "z": 0.04238351982512054
+        },
+        "type": "PerspectiveCamera"
+      }
+    ],
+    "controls": [],
+    "envMaps": [],
+    "fogs": [],
+    "fsm": [],
+    "intersections": [],
+    "lights": [
+      {
+        "color": "#FFFFFF",
+        "intensity": 0.5,
+        "name": "ambient_light",
+        "position": {
+          "x": 0.25,
+          "y": 2,
+          "z": 2.25
+        },
+        "type": "AmbientLight"
+      },
+      {
+        "castShadow": true,
+        "color": "#FFFFFF",
+        "intensity": 1.5,
+        "name": "directional_light",
+        "position": {
+          "x": 0.25,
+          "y": 15,
+          "z": 2.25
+        },
+        "shadow": {
+          "camera": {
+            "bottom": -50,
+            "far": 40,
+            "left": -50,
+            "near": 0.1,
+            "right": 50,
+            "top": 50,
+            "type": "OrthographicCamera"
+          },
+          "mapSize": {
+            "x": 4096,
+            "y": 4096
+          },
+          "normalBias": 0.05
+        },
+        "type": "DirectionalLight"
+      }
+    ],
+    "materials": [
+      {
+        "name": "surface_material",
+        "options": {
+          "color": "#5EDCAE"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "sphere_material",
+        "options": {
+          "color": "#E91E63"
+        },
+        "type": "MeshStandardMaterial"
+      }
+    ],
+    "models3d": [
+      {
+        "castShadow": false,
+        "material": "surface_material",
+        "model3dSource": "plane",
+        "name": "surface_model",
+        "options": {
+          "height": 100,
+          "heightSegments": 1,
+          "width": 100,
+          "widthSegments": 1
+        },
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "receiveShadow": true,
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        }
+      },
+      {
+        "castShadow": true,
+        "material": "sphere_material",
+        "model3dSource": "sphere",
+        "name": "sphere_model",
+        "options": {
+          "radius": 0.7
+        }
+      }
+    ],
+    "particles": [],
+    "physics": {},
+    "renderers": [
+      {
+        "alpha": true,
+        "isActive": true,
+        "mode": "webgl2",
+        "name": "main"
+      }
+    ],
+    "spatialGrids": [
+      {
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "mapHeight": 100,
+        "mapWidth": 100,
+        "name": "main_grid"
+      }
+    ],
+    "texts": []
+  },
+  "name": "SpaceAudio",
+  "resources": {
+    "animations": [],
+    "audio": [],
+    "envMaps": [],
+    "models3d": [],
+    "textures": []
+  },
+  "scenes": [
+    {
+      "isActive": true,
+      "name": "showcase"
+    }
+  ],
+  "version": "1.0.0"
+}

@@ -5,6 +5,7 @@ import type { Subscription } from 'rxjs';
 
 import { spaceActorData } from '@/App/Levels/Showcase29SaveLoad/spaceActor';
 import { spaceAnimationsData } from '@/App/Levels/Showcase29SaveLoad/spaceAnimations';
+import { spaceAudioData } from '@/App/Levels/Showcase29SaveLoad/spaceAudio';
 import { spaceBasicData } from '@/App/Levels/Showcase29SaveLoad/spaceBasic';
 import { spaceCameraData } from '@/App/Levels/Showcase29SaveLoad/spaceCamera';
 import { spaceCustomModelsData } from '@/App/Levels/Showcase29SaveLoad/spaceCustomModels';
@@ -36,6 +37,7 @@ let subscriptions: Record<string, Subscription> = {};
 const spacesData: ReadonlyArray<TSpacesData> = [
   spaceActorData,
   spaceAnimationsData,
+  spaceAudioData,
   spaceBasicData,
   spaceCameraData,
   spaceCustomModelsData,

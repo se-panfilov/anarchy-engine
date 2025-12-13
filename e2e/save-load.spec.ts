@@ -17,6 +17,7 @@ test.beforeEach(async ({ page }) => {
 const scenes: ReadonlyArray<string> = [
   'SpaceActor',
   'SpaceAnimations',
+  'SpaceAudio',
   'SpaceBasic',
   'SpaceCustomModels',
   'SpaceFog',
