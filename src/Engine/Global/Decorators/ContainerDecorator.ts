@@ -12,8 +12,8 @@ export function ContainerDecorator(container: TAppGlobalContainer | HTMLElement)
 
   return {
     id: nanoid(),
-    getWidth: (): number => (container as TAppGlobalContainer).innerWidth ?? (container as HTMLElement).clientWidth,
-    getHeight: (): number => (container as TAppGlobalContainer).innerHeight ?? (container as HTMLElement).clientHeight,
+    getWidth: (): number => ((container as TAppGlobalContainer).innerWidth ? (container as TAppGlobalContainer).innerWidth : (container as HTMLElement).clientWidth),
+    getHeight: (): number => ((container as TAppGlobalContainer).innerHeight ? (container as TAppGlobalContainer).innerHeight : (container as HTMLElement).clientHeight),
     getRatio: (): number => getAppContainer().devicePixelRatio || 1,
     startWatch: (type: string, cb: () => void): void => container.addEventListener(type, cb),
     stopWatch: (type: string, cb: () => void): void => container.removeEventListener(type, cb),

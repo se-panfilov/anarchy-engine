@@ -57,9 +57,7 @@ export function RendererWrapper(params: TRendererParams, { screenService }: TRen
       distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height)
     )
     .subscribe((params: TScreenSizeValues): void => {
-      const width: number = (options.canvas as HTMLCanvasElement).parentElement?.clientWidth ?? params.width;
-      const height: number = (options.canvas as HTMLCanvasElement).parentElement?.clientHeight ?? params.width;
-      setValues(entity, { ...params, width, height });
+      setValues(entity, { ...params, ...getWidthAndHeight(options.canvas as HTMLCanvasElement, params) });
     });
 
   const screenSizeWatcherSubscription: Subscription = screenService.watchers.default$
@@ -87,4 +85,11 @@ export function RendererWrapper(params: TRendererParams, { screenService }: TRen
   result._setActive(params.isActive, true);
 
   return result;
+}
+
+function getWidthAndHeight(canvas: HTMLCanvasElement, params: TScreenSizeValues): Pick<TScreenSizeValues, 'width' | 'height'> {
+  const width: number = canvas.parentElement?.clientWidth ? canvas.parentElement?.clientWidth : params.width;
+  const height: number = canvas.parentElement?.clientHeight ? canvas.parentElement?.clientHeight : params.height;
+
+  return { width, height };
 }
