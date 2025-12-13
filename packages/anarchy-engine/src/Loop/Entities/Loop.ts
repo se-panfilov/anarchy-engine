@@ -102,6 +102,7 @@ export function Loop({ name, type, trigger, maxPriority, isParallelMode }: TLoop
 
     tickCounter = 0;
 
+    enabled$.next(false);
     enabled$.complete();
 
     worker?.postMessage({ loopId: id, action: LoopWorkerActions.Destroy } satisfies TLoopWorkerDestroyRequestData);

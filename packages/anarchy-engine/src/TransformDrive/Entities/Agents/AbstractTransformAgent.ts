@@ -35,12 +35,14 @@ export function AbstractTransformAgent(params: TTransformAgentParams, type: Tran
     onActivated$Sub?.unsubscribe();
 
     //Complete subjects
+    onDeactivated$.next({ position: position$.value, rotation: rotation$.value, scale: scale$.value });
+    onDeactivated$.complete();
     position$.complete();
     rotation$.complete();
     scale$.complete();
+    enabled$.next(false);
     enabled$.complete();
     onActivated$.complete();
-    onDeactivated$.complete();
     relatedDriveId$.complete();
   });
 

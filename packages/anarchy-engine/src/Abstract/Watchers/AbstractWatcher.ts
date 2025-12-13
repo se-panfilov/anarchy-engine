@@ -16,6 +16,7 @@ export function AbstractWatcher<T>(type: WatcherType | string, name: string, tag
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
+    enabled$.next(false);
     enabled$.complete();
     value$.complete();
   });

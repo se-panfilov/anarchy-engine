@@ -110,7 +110,6 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
               ]
             : []),
           // TODO DESKTOP: Perhaps visualizer cannot correctly visualize the lib build (due to custom minify). Check it.
-          // TODO DESKTOP: Mouse watcher is keep working after save/drop/load scene.
           visualizer({ open: false })
         ]
       },
