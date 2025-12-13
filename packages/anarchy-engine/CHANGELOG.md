@@ -41,6 +41,7 @@
 - 20.3.0 Extracted some code to shared package (utils, types, etc.)
 - 21.0.0 Texts now support translations (i18n)
 - 21.1.0 Security: better CSP: no need for "unsafe-eval" (get rid of AJV)
+- 21.2.0 Reworked keyboard service (no external dependencies)
 
 Roadmap:
 
