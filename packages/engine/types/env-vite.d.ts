@@ -7,7 +7,6 @@ interface ViteTypeOptions {
 }
 
 interface ImportMetaEnv {
-  VITE_SHOW_DEBUG_INFO: string;
   VITE_AUDIO_LOOP_STEP: string;
   VITE_AUDIO_LOOP_IS_PARALLEL: string;
   VITE_PHYSICS_LOOP_STEP: string;
