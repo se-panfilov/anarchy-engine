@@ -1,5 +1,5 @@
-const fs = require('fs');
-const tsj = require('ts-json-schema-generator');
+import fs from 'fs';
+import tsj from 'ts-json-schema-generator';
 
 /** @type {import('ts-json-schema-generator/dist/src/Config').Config} */
 const baseConfig = {

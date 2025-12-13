@@ -1,6 +1,6 @@
 *.log
 node_modules
 dist
-.eslintrc.js
+.eslintrc.cjs
 pnpm-lock.yaml
 package-lock.json
