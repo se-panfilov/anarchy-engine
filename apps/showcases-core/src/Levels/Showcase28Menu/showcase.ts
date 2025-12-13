@@ -3,11 +3,11 @@ import { spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import { showcasesTranslationService } from '@Showcases/i18n';
 import { filter, Subject } from 'rxjs';
-import { initMenuApp } from 'showcases-menu/src/main';
 import { initGuiApp } from 'showcases-gui/src/main';
+import { initMenuApp } from 'showcases-menu/src/main';
 
 import { runtimeEnv } from '@/env';
-import { fromMenuEventsBus$, toMenuEventsBus$ } from '@/Levels/Showcase28Menu/EventsBus';
+import { fromGuiEventsBus$, fromMenuEventsBus$, toGuiEventsBus$, toMenuEventsBus$ } from '@/Levels/Showcase28Menu/EventsBus';
 import type { TAppService, TEventsService, TMainMenuService, TSettingsService } from '@/Levels/Showcase28Menu/Models';
 import { AppService, EventsService, MainMenuService, SettingsService } from '@/Levels/Showcase28Menu/Services';
 import type { TAppSettings } from '@/Models';
