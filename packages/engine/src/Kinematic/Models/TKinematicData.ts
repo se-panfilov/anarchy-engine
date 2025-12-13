@@ -1,4 +1,4 @@
-import type { TOptional, TWriteable } from '@Engine/Utils';
+import type { TOptional, TWriteable } from '@Shared/Utils';
 
 import type { TKinematicState } from './TKinematicState';
 import type { TKinematicTarget } from './TKinematicTarget';

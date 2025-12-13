@@ -11,7 +11,7 @@ import type {
   TIntersectionsLoop
 } from '@Engine/Intersections/Models';
 import type { TRawModel3d } from '@Engine/Models3d';
-import type { TWriteable } from '@Engine/Utils';
+import type { TWriteable } from '@Shared/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { Raycaster } from 'three';

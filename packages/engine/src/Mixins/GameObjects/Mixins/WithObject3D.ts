@@ -1,6 +1,6 @@
 import type { TWithObject3d } from '@Engine/Mixins/GameObjects/Models';
 import type { TObject3D } from '@Engine/ThreeLib';
-import type { TWriteable } from '@Engine/Utils';
+import type { TWriteable } from '@Shared/Utils';
 
 export function withObject3d<T extends TObject3D>(entity: T): TWithObject3d {
   // eslint-disable-next-line functional/immutable-data

@@ -1,7 +1,7 @@
 import type { TAnimationActions } from '@Engine/Animations/Models';
 import type { TModel3dEntities, TRawModel3d, TWithModel3dEntities } from '@Engine/Models3d/Models';
-import type { TWriteable } from '@Engine/Utils';
 import { isNotDefined } from '@Engine/Utils';
+import type { TWriteable } from '@Shared/Utils';
 import type { AnimationAction, AnimationClip, AnimationMixer } from 'three';
 
 export function withModel3dEntities(entities: TModel3dEntities): TWithModel3dEntities {

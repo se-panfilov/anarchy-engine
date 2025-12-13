@@ -1,6 +1,6 @@
 import type { TRegistrable } from '@Engine/Mixins/Generics/Models';
-import type { TWriteable } from '@Engine/Utils';
 import { isDefined } from '@Engine/Utils';
+import type { TWriteable } from '@Shared/Utils';
 import { isEmpty } from 'lodash-es';
 
 export const extractSerializableRegistrableFields = <T extends TRegistrable>({ name, tags }: T): Omit<TRegistrable, 'id'> => {

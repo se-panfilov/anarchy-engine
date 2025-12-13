@@ -5,7 +5,7 @@ import type { CollisionShape, RigidBodyTypesNames } from '@Engine/Physics/Consta
 import { RigidBodyTypesMap } from '@Engine/Physics/Constants';
 import { withPhysicsBodyEntities } from '@Engine/Physics/Mixins';
 import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsBodyEntities, TPhysicsBodyParams, TPhysicsDependencies, TPhysicsShapeParams } from '@Engine/Physics/Models';
-import type { TWriteable } from '@Engine/Utils';
+import type { TWriteable } from '@Shared/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 

@@ -4,7 +4,7 @@ import type { TDestroyable } from '@Engine/Mixins';
 import { destroyableMixin } from '@Engine/Mixins';
 import type { TSpatialCellWrapper, TSpatialGridWrapper } from '@Engine/Spatial';
 import type { TSpatialData, TWithSpatial } from '@Engine/Spatial/Models';
-import type { TWriteable } from '@Engine/Utils';
+import type { TWriteable } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, Subject } from 'rxjs';
 

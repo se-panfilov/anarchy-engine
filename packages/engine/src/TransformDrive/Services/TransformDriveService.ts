@@ -25,8 +25,8 @@ import type {
   TTransformDriveServiceWithRegistry
 } from '@Engine/TransformDrive/Models';
 import { getKinematicTransformAgent } from '@Engine/TransformDrive/Utils';
-import type { TOptional, TWriteable } from '@Engine/Utils';
 import { isDefined, mergeAll } from '@Engine/Utils';
+import type { TOptional, TWriteable } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { Quaternion, Vector3 } from 'three';
 

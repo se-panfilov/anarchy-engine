@@ -1,5 +1,5 @@
 import type { TTexture, TTextureOptions } from '@Engine/Texture/Models';
-import type { TWriteable } from '@Engine/Utils';
+import type { TWriteable } from '@Shared/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { MagnificationTextureFilter, MinificationTextureFilter } from 'three';
 import { LinearFilter, NearestFilter } from 'three';

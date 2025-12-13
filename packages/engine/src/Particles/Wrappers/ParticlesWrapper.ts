@@ -10,8 +10,8 @@ import { ParticlesTransformDrive } from '@Engine/Particles/TransformDrive';
 import type { TBufferGeometry, TPoints } from '@Engine/ThreeLib';
 import type { TDriveToTargetConnector } from '@Engine/TransformDrive';
 import { DriveToTargetConnector } from '@Engine/TransformDrive';
-import type { TWriteable } from '@Engine/Utils';
 import { applyObject3dParams } from '@Engine/Utils';
+import type { TWriteable } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { BufferAttribute, BufferGeometry, Points } from 'three';
 

@@ -3,8 +3,8 @@ import type { TAnyControlsWrapper, TControlsConfig, TControlsServiceDependencies
 import type { TFpsControlsConfigOptions } from '@Engine/Controls/Models/TFpsControlsConfigOptions';
 import { isFpsControls, isOrbitControls } from '@Engine/Controls/Utils';
 import { extractSerializableRegistrableFields } from '@Engine/Mixins';
-import type { TWriteable } from '@Engine/Utils';
 import { vector3ToXyz } from '@Engine/Utils';
+import type { TWriteable } from '@Shared/Utils';
 import { filterOutEmptyFields, isNotDefined } from '@Shared/Utils';
 
 export function controlsToConfig(entity: TAnyControlsWrapper, { cameraService }: TControlsServiceDependencies): TControlsConfig {

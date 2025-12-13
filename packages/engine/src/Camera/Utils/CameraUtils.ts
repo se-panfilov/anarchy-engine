@@ -1,8 +1,8 @@
 import { CameraType } from '@Engine/Camera/Constants';
 import type { TOrthographicCamera, TOrthographicCameraParams, TOrthographicCameraWrapper, TPerspectiveCamera, TPerspectiveCameraParams, TPerspectiveCameraWrapper } from '@Engine/Camera/Models';
 import type { TShadowCameraParams } from '@Engine/Light';
-import type { TWriteable } from '@Engine/Utils';
 import { isDefined } from '@Engine/Utils';
+import type { TWriteable } from '@Shared/Utils';
 
 export const isPerspectiveCamera = (camera: TOrthographicCamera | TPerspectiveCamera): camera is TPerspectiveCamera => camera.type === CameraType.Perspective;
 export const isPerspectiveCameraWrapper = (camera: TOrthographicCameraWrapper | TPerspectiveCameraWrapper): camera is TPerspectiveCameraWrapper => isPerspectiveCamera(camera.entity);

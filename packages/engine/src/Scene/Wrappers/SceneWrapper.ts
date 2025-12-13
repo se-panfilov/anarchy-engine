@@ -15,7 +15,7 @@ import { sceneToConfig } from '@Engine/Scene/Adapters';
 import type { TSceneConfig, TSceneObject, TSceneParams, TSceneWrapper } from '@Engine/Scene/Models';
 import type { TTextAnyWrapper } from '@Engine/Text';
 import type { TTexture } from '@Engine/Texture';
-import type { TWriteable } from '@Engine/Utils';
+import type { TWriteable } from '@Shared/Utils';
 import { isDefined, isNotDefined, isString } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 import type { CubeTexture } from 'three';

@@ -2,7 +2,7 @@ import type { LoaderType } from '@Engine/Abstract/Constants';
 import type { TAbstractLoadedResourcePack, TAbstractLoader, TAbstractOnLoadFunction, TAbstractResourceAsyncRegistry, TAbstractResourceConfig, TAbstractSimpleRegistry } from '@Engine/Abstract/Models';
 import type { TDestroyable } from '@Engine/Mixins';
 import { destroyableMixin } from '@Engine/Mixins';
-import type { TWriteable } from '@Engine/Utils';
+import type { TWriteable } from '@Shared/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';

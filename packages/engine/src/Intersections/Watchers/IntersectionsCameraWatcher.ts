@@ -11,7 +11,7 @@ import { AbstractIntersectionsWatcher } from '@Engine/Intersections/Watchers/Abs
 import type { TMilliseconds } from '@Engine/Math';
 import type { TSceneObject } from '@Engine/Scene';
 import type { TReadonlyVector2 } from '@Engine/ThreeLib';
-import type { TWriteable } from '@Engine/Utils';
+import type { TWriteable } from '@Shared/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, EMPTY, filter, map, switchMap } from 'rxjs';

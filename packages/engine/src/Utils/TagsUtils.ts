@@ -1,5 +1,5 @@
 import type { TWithTags } from '@Engine/Mixins';
-import type { TWriteable } from '@Engine/Utils';
+import type { TWriteable } from '@Shared/Utils';
 import { omitInArray } from '@Shared/Utils';
 
 export function setTags<T extends TWithTags>(entity: T, tagsList: ReadonlyArray<string>): void {

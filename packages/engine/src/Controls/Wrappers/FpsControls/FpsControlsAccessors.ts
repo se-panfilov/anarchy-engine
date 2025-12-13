@@ -1,5 +1,5 @@
 import type { TFpsControlsAccessors } from '@Engine/Controls/Models';
-import type { TWriteable } from '@Engine/Utils';
+import type { TWriteable } from '@Shared/Utils';
 import type { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 
 export function getFpsControlsAccessors(entity: TWriteable<FirstPersonControls>): TFpsControlsAccessors {

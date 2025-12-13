@@ -18,8 +18,9 @@ import { applyOrthographicCameraParams } from '@Engine/Camera/Utils';
 import { withActiveMixin, withObject3d } from '@Engine/Mixins';
 import type { TDriveToTargetConnector } from '@Engine/TransformDrive';
 import { DriveToTargetConnector } from '@Engine/TransformDrive';
-import type { TOptional, TWriteable } from '@Engine/Utils';
-import { applyObject3dParams, isDefined, mergeAll } from '@Engine/Utils';
+import { applyObject3dParams, mergeAll } from '@Engine/Utils';
+import type { TOptional, TWriteable } from '@Shared/Utils';
+import { isDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { OrthographicCamera, Vector3 } from 'three';
 

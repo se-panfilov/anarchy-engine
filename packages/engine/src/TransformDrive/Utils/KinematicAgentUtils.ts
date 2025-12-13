@@ -3,7 +3,7 @@ import { KinematicSpeed } from '@Engine/Kinematic';
 import type { TMeters, TRadians } from '@Engine/Math';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Engine/ThreeLib';
 import type { TKinematicSpeed, TKinematicTransformAgent } from '@Engine/TransformDrive/Models';
-import type { TWriteable } from '@Engine/Utils';
+import type { TWriteable } from '@Shared/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import { Quaternion, Vector3 } from 'three';
 
