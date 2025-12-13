@@ -43,7 +43,12 @@ export function OrbitControlsWrapper(params: IOrbitControlsParams): IOrbitContro
     entity.update();
   }
 
+  function setAutoRotate(isEnabled: boolean): void {
+    // eslint-disable-next-line functional/immutable-data
+    entity.autoRotate = isEnabled;
+  }
+
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(params.damping)) entity.enableDamping = params.damping;
-  return { ...AbstractWrapper(entity, WrapperType.Controls, params), update, setDamping, getDampingState, enable, disable, setTarget, entity };
+  return { ...AbstractWrapper(entity, WrapperType.Controls, params), update, setDamping, getDampingState, enable, disable, setTarget, setAutoRotate, entity };
 }

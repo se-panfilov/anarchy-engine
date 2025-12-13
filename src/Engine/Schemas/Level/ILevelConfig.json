@@ -60,9 +60,15 @@
       "items": {
         "$ref": "#/definitions/IControlsConfig"
       }
+    },
+    "envMaps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     }
   },
-  "required": ["actors", "cameras", "controls", "lights", "name", "scenes", "tags", "texts", "version"],
+  "required": ["actors", "cameras", "controls", "envMaps", "lights", "name", "scenes", "tags", "texts", "version"],
   "definitions": {
     "LevelTag": {
       "type": "string",
@@ -2478,8 +2484,77 @@
         "cameraTag": {
           "$ref": "#/definitions/CameraTag"
         },
+        "enabled": {
+          "type": "boolean"
+        },
+        "minDistance": {
+          "type": "number"
+        },
+        "maxDistance": {
+          "type": "number"
+        },
+        "minZoom": {
+          "type": "number"
+        },
+        "maxZoom": {
+          "type": "number"
+        },
+        "minTargetRadius": {
+          "type": "number"
+        },
+        "maxTargetRadius": {
+          "type": "number"
+        },
+        "minPolarAngle": {
+          "type": "number"
+        },
+        "maxPolarAngle": {
+          "type": "number"
+        },
+        "minAzimuthAngle": {
+          "type": "number"
+        },
+        "maxAzimuthAngle": {
+          "type": "number"
+        },
         "enableDamping": {
           "type": "boolean"
+        },
+        "dampingFactor": {
+          "type": "number"
+        },
+        "enableZoom": {
+          "type": "boolean"
+        },
+        "zoomSpeed": {
+          "type": "number"
+        },
+        "zoomToCursor": {
+          "type": "boolean"
+        },
+        "enableRotate": {
+          "type": "boolean"
+        },
+        "rotateSpeed": {
+          "type": "number"
+        },
+        "enablePan": {
+          "type": "boolean"
+        },
+        "panSpeed": {
+          "type": "number"
+        },
+        "screenSpacePanning": {
+          "type": "boolean"
+        },
+        "keyPanSpeed": {
+          "type": "number"
+        },
+        "autoRotate": {
+          "type": "boolean"
+        },
+        "autoRotateSpeed": {
+          "type": "number"
         }
       },
       "required": ["cameraTag", "tags", "type"]

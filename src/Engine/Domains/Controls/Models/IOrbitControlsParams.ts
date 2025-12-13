@@ -6,4 +6,5 @@ export type IOrbitControlsParams = IControlsParams &
   Readonly<{
     target?: IVector3;
     damping?: boolean;
+    autoRotate?: boolean;
   }>;

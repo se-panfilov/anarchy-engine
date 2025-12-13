@@ -55,6 +55,10 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const position: IVector3Wrapper = actor.getPosition();
     const orbitControls: IOrbitControlsWrapper | undefined = controlsRegistry.getUniqByTag('orbit');
     if (isNotDefined(orbitControls)) throw new Error('Orbit controls are not found');
+    orbitControls.setDamping(true);
+    // const getPolarAngle: number = orbitControls.entity.getPolarAngle();
+    // const getAzimuthalAngle: number = orbitControls.entity.getAzimuthalAngle();
+    // const getDistance: number = orbitControls.entity.getDistance();
     orbitControls.setTarget(position);
   }
 

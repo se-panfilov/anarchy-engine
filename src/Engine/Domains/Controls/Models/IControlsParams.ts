@@ -3,9 +3,11 @@ import type { ICameraWrapper } from '@/Engine/Domains/Camera';
 import type { ControlsTag } from '@/Engine/Domains/Controls/Constants';
 import type { IWithReadonlyTags } from '@/Engine/Mixins';
 
-export type IControlsParams = Readonly<{
-  camera: ICameraWrapper;
-  canvas: IAppCanvas;
-  enableDamping?: boolean;
-}> &
+import type { IControlsProps } from './IControlsProps';
+
+export type IControlsParams = IControlsProps &
+  Readonly<{
+    camera: ICameraWrapper;
+    canvas: IAppCanvas;
+  }> &
   IWithReadonlyTags<ControlsTag>;
