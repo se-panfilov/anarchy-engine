@@ -9,66 +9,14 @@
       "isActive": true
     }
   ],
-  "spatialGrids": [
-    {
-      "name": "main_grid",
-      "mapWidth": 10,
-      "mapHeight": 10,
-      "cellSize": 10,
-      "centerX": 0,
-      "centerZ": 0,
-      "tags": []
-    }
-  ],
-  "actors": [],
-  "models3d": [],
-  "intersections": [],
-  "physics": {},
-  "texts": [],
-  "cameras": [
-    {
-      "fov": 45,
-      "name": "main",
-      "near": 1,
-      "far": 10000,
-      "position": { "x": 3, "y": 10, "z": 15 },
-      "rotation": { "x": 0, "y": 0, "z": 0 },
-      "tags": [],
-      "isActive": true
-    }
-  ],
-  "lights": [
-    {
-      "type": "Directional",
-      "color": "#ffffff",
-      "intensity": 1,
-      "castShadow": true,
-      "shadow": {
-        "mapSize": { "x": 1024, "y": 1024 },
-        "camera": { "far": 15 },
-        "normalBias": 0.05
-      },
-      "position": { "x": 0.25, "y": 2, "z": 2.25 },
-      "tags": []
-    }
-  ],
-  "controls": [
-    {
-      "type": "OrbitControls",
-      "cameraName": "main",
-      "enableDamping": true,
-      "tags": [],
-      "isActive": true
-    }
-  ],
-  "envMaps": [],
-  "particles": [
-    {
-      "name": "stars",
-      "position": { "x": 0, "y": 0, "z": 0 },
-      "material": {
+  "resources": {
+    "textures": [{ "name": "particles_ao_map_texture", "url": "/Showcase/particles/4.png" }],
+    "envMaps": [],
+    "materials": [
+      {
+        "name": "particles_material",
         "type": "points",
-        "params": {
+        "options": {
           "color": "#E91E63",
           "size": 0.3,
           "sizeAttenuation": true,
@@ -77,12 +25,75 @@
           "vertexColors": true
         },
         "textures": {
-          "alphaMap": { "url": "/Showcase/particles/4.png" }
+          "alphaMap": "particles_ao_map_texture"
         }
-      },
-      "tags": []
-    }
-  ],
-  "fogs": [],
+      }
+    ],
+    "models3d": []
+  },
+  "entities": {
+    "spatialGrids": [
+      {
+        "name": "main_grid",
+        "mapWidth": 10,
+        "mapHeight": 10,
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "tags": []
+      }
+    ],
+    "models3d": [],
+    "actors": [],
+    "intersections": [],
+    "physics": {},
+    "texts": [],
+    "cameras": [
+      {
+        "fov": 45,
+        "name": "main",
+        "near": 1,
+        "far": 10000,
+        "position": { "x": 3, "y": 10, "z": 15 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "tags": [],
+        "isActive": true
+      }
+    ],
+    "lights": [
+      {
+        "type": "Directional",
+        "color": "#ffffff",
+        "intensity": 1,
+        "castShadow": true,
+        "shadow": {
+          "mapSize": { "x": 1024, "y": 1024 },
+          "camera": { "far": 15 },
+          "normalBias": 0.05
+        },
+        "position": { "x": 0.25, "y": 2, "z": 2.25 },
+        "tags": []
+      }
+    ],
+    "controls": [
+      {
+        "type": "OrbitControls",
+        "cameraName": "main",
+        "enableDamping": true,
+        "tags": [],
+        "isActive": true
+      }
+    ],
+    "envMaps": [],
+    "particles": [
+      {
+        "name": "stars",
+        "position": { "x": 0, "y": 0, "z": 0 },
+        "materialSource": "particles_material",
+        "tags": []
+      }
+    ],
+    "fogs": []
+  },
   "tags": []
 }

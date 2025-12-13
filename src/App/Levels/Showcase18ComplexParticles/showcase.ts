@@ -2,9 +2,9 @@ import GUI from 'lil-gui';
 import { BufferGeometry, Color, PointsMaterial } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAppCanvas, TEngine, TParticlesConfig, TParticlesParams, TParticlesWrapper, TPointsMaterialPropsOptions, TSpace, TSpaceConfig } from '@/Engine';
+import type { TAppCanvas, TEngine, TMaterialConfig, TMaterialParams, TParticlesConfig, TParticlesWrapper, TSpace, TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources } from '@/Engine';
 import { Engine, isDefined, isNotDefined, spaceService } from '@/Engine';
-import { configToParams as particlesConfigToParams } from '@/Engine/Particles/Adapters';
+import { configToParams as materialConfigToParams } from '@/Engine/Material/Adapters';
 
 import spaceConfig from './showcase.json';
 
@@ -12,13 +12,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const gui: GUI = new GUI();
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
-  const { particlesService, loopService } = space.services;
+  const { particlesService, loopService, textureService } = space.services;
 
   const particlesName: string = 'stars';
-
-  const particlesConfig: TParticlesConfig | undefined = (spaceConfig.particles as ReadonlyArray<TParticlesConfig>).find((p: TParticlesConfig): boolean => p.name === particlesName);
-  if (isNotDefined(particlesConfig)) throw new Error(`Particles "${particlesName}" not found`);
-  const particlesDefaultParams: TParticlesParams = particlesConfigToParams(particlesConfig);
 
   let particles: TParticlesWrapper | undefined;
 
@@ -26,7 +22,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   const parameters: TGalaxyParams = {
     count: 42000,
-    size: (particlesDefaultParams.material.params as TPointsMaterialPropsOptions).size ?? 0.01,
+    size: 0.01,
     radius: 7.2,
     branches: 3,
     spin: 1,
@@ -39,7 +35,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   let geometry: BufferGeometry | undefined;
   let material: PointsMaterial | undefined;
 
-  async function createGalaxy(): Promise<void> {
+  function createGalaxy(): void {
     // Destroy old galaxy
     if (isDefined(geometry)) geometry.dispose();
     if (isDefined(material)) material.dispose();
@@ -54,8 +50,14 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     geometry = new BufferGeometry();
     const { positions, colors } = generateParams(parameters);
 
+    const particlesConfig: TParticlesConfig | undefined = (spaceConfig.entities as TSpaceConfigEntities).particles.find((p: TParticlesConfig): boolean => p.name === particlesName);
+    if (isNotDefined(particlesConfig)) throw new Error(`Particles "${particlesName}" not found`);
+    const materialConfig: TMaterialConfig | undefined = (spaceConfig.resources as TSpaceConfigResources).materials.find((m: TMaterialConfig): boolean => m.name === particlesConfig?.materialSource);
+    if (isNotDefined(materialConfig)) throw new Error(`Material "${particlesConfig?.materialSource}" not found`);
+    const materialsDefaultParams: TMaterialParams = materialConfigToParams(materialConfig, { textureService });
+
     material = new PointsMaterial({
-      ...particlesDefaultParams.material.params,
+      ...materialsDefaultParams.options,
       size: parameters.size
     });
 
@@ -115,7 +117,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     }
   });
 
-  async function init(): Promise<void> {
+  function init(): void {
     gui.add(parameters, 'count').min(1000).max(1000000).step(1000).onFinishChange(createGalaxy);
     gui.add(parameters, 'size').min(0.001).max(1).step(0.001).onFinishChange(createGalaxy);
     gui.add(parameters, 'radius').min(0.01).max(20).step(0.01).onFinishChange(createGalaxy);
@@ -126,7 +128,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     gui.addColor(parameters, 'insideColor').onChange(createGalaxy);
     gui.addColor(parameters, 'outsideColor').onChange(createGalaxy);
 
-    await createGalaxy();
+    createGalaxy();
   }
 
   function start(): void {
