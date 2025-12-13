@@ -33,6 +33,7 @@
     "lint:fix": "npm run lint -- --fix",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
+    "sanitize-assets": "node ../../packages/anarchy-shared/ScriptUtils/SanitizeAssets.js ./src/assets",
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit"
   },
