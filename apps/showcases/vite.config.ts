@@ -32,11 +32,11 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       }
     },
     plugins: [
-      //FOR GUI only
+      //FOR GUI only///////
       vue(),
       vueJsx(),
       // vueDevTools(),
-      //
+      //END: FOR GUI only///////
 
       wasm(),
       dts({
