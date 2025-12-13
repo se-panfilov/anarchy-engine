@@ -1,4 +1,4 @@
-import type { TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TSceneWrapper, TSpaceServices } from '@/Engine';
+import type { TActorWrapperAsync, TIntersectionsWatcher, TSceneWrapper, TSpaceServices } from '@/Engine';
 import type { TSpatialGridWrapper } from '@/Engine/Spatial';
 import { isNotDefined } from '@/Engine/Utils';
 
@@ -64,9 +64,9 @@ export async function enableCollisions(mouseLineIntersectionsWatcher: TIntersect
   mouseLineIntersectionsWatcher.addActor(targetActor2W);
   mouseLineIntersectionsWatcher.addActor(targetActor3W);
 
-  mouseLineIntersectionsWatcher.value$.subscribe((value: TIntersectionEvent): void => {
-    grid._debugHighlightObjects(sceneW, value.point.x, value.point.z);
-  });
+  // mouseLineIntersectionsWatcher.value$.pipe(distinctUntilChanged()).subscribe((value: TIntersectionEvent): void => {
+  //   grid._debugHighlightObjects(sceneW, value.point.x, value.point.z);
+  // });
 
   grid._debugVisualizeCells(sceneW);
   collisionsService.bvh._debugVisualizeBvhForScene(sceneW);

@@ -137,7 +137,6 @@ export function createHitEffect(position: Vector3, sceneW: TSceneWrapper): void 
   const particleCount = 100;
   const particles = new BufferGeometry();
   const positions = new Float32Array(particleCount * 3);
-  console.log(position);
 
   // eslint-disable-next-line functional/no-loop-statements
   for (let i = 0; i < particleCount; i++) {
