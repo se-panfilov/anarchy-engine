@@ -68,7 +68,7 @@
       "tags": []
     },
     {
-      "name": "box_static1",
+      "name": "box_static_1",
       "type": "cube",
       "width": 1,
       "height": 1,
@@ -81,7 +81,7 @@
       "tags": []
     },
     {
-      "name": "box_static2",
+      "name": "box_static_2",
       "type": "cube",
       "width": 1,
       "height": 1,
@@ -94,7 +94,7 @@
       "tags": []
     },
     {
-      "name": "box_static3",
+      "name": "box_static_3",
       "type": "cube",
       "width": 1,
       "height": 1,
@@ -107,7 +107,7 @@
       "tags": []
     },
     {
-      "name": "box_static4",
+      "name": "box_static_4",
       "type": "cube",
       "width": 0.3,
       "height": 1,
@@ -120,7 +120,7 @@
       "tags": []
     },
     {
-      "name": "box_static5",
+      "name": "box_static_5",
       "type": "cube",
       "width": 0.3,
       "height": 1,
@@ -133,7 +133,7 @@
       "tags": []
     },
     {
-      "name": "box_static6",
+      "name": "box_static_6",
       "type": "cube",
       "width": 3,
       "height": 1,
@@ -146,7 +146,7 @@
       "tags": []
     },
     {
-      "name": "box_static7",
+      "name": "box_static_7",
       "type": "cube",
       "width": 5,
       "height": 2,
@@ -156,6 +156,48 @@
       "material": { "type": "standard", "params": { "color": "#0FF0F0" } },
       "position": { "x": 1, "y": 0, "z": 30 },
       "rotation": { "x": 0, "y": 0.9, "z": 0 },
+      "castShadow": true,
+      "tags": []
+    },
+    {
+      "name": "target_1",
+      "type": "cube",
+      "width": 0.5,
+      "height": 4,
+      "depth": 2,
+      "widthSegments": 1,
+      "heightSegments": 1,
+      "material": { "type": "standard", "params": { "color": "#000FFF" } },
+      "position": { "x": -6, "y": 0, "z": 10 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "castShadow": true,
+      "tags": []
+    },
+    {
+      "name": "target_2",
+      "type": "cube",
+      "width": 0.5,
+      "height": 4,
+      "depth": 2,
+      "widthSegments": 1,
+      "heightSegments": 1,
+      "material": { "type": "standard", "params": { "color": "#FF00FF" } },
+      "position": { "x": -15, "y": 0, "z": 12 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "castShadow": true,
+      "tags": []
+    },
+    {
+      "name": "target_3",
+      "type": "cube",
+      "width": 0.5,
+      "height": 4,
+      "depth": 2,
+      "widthSegments": 1,
+      "heightSegments": 1,
+      "material": { "type": "standard", "params": { "color": "#FFF000" } },
+      "position": { "x": -22, "y": 0, "z": 15 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
       "castShadow": true,
       "tags": []
     },

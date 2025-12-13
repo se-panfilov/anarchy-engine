@@ -36,7 +36,6 @@ export function CollisionsService(): TCollisionsService {
         const raycaster: Raycaster = new Raycaster();
         // eslint-disable-next-line functional/immutable-data
         raycaster.firstHitOnly = true;
-
         raycaster.set(actorW.entity.position, actorW.kinematic.getLinearDirection());
 
         const intersects: Array<Intersection> = [];

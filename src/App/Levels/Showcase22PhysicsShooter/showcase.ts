@@ -29,7 +29,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { physicsLoopService, cameraService, collisionsService, actorService, loopService, mouseService, intersectionsWatcherService, spatialGridService } = space.services;
+  const { physicsLoopService, cameraService, actorService, loopService, mouseService, intersectionsWatcherService, spatialGridService } = space.services;
 
   async function init(): Promise<void> {
     // physicsWorldService.getDebugRenderer(loopService).start();
@@ -85,6 +85,13 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     //move bouncing sphere to target practice
     moveActorBounce(sphereActorW);
 
+    const targetActor1W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('target_1');
+    if (isNotDefined(targetActor1W)) throw new Error(`Cannot find "target_1" actor`);
+    // const targetActor2W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('target_2');
+    // const targetActor3W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('target_3');
+    // TODO (S.Panfilov) CWP an issue with updating spatial grid for more than 1 moving object
+    moveActorBounce(targetActor1W);
+
     const spatialGrid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
     if (isNotDefined(spatialGrid)) throw new Error(`Cannot find "main_grid" spatial grid`);
     initGui(mouseLineIntersectionsWatcher, spatialGridService, actorService);
@@ -105,7 +112,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     mouseService.clickLeftRelease$.subscribe((): void => {
       if (isNotDefined(heroW)) throw new Error(`Cannot find "hero" actor`);
-      shoot(heroW.getPosition().getCoords(), fromHeroAngles.azimuth, fromHeroAngles.elevation, meters(5), bullets);
+      shoot(heroW.getPosition().getCoords(), fromHeroAngles.azimuth, fromHeroAngles.elevation, meters(30), bullets);
     });
 
     physicsLoopService.shouldAutoUpdate(true);
