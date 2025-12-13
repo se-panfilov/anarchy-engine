@@ -29,6 +29,7 @@ Done:
 - 16.0.0 Dotenv config
 - 17.0.0 E2E tests
 - 17.0.1 clean up metadata in assets
+- 17.2.0 Get rid of animejs in the engine
 
 Roadmap:
 - 18.0.x Split apps and engine (and add config for an app to set up engine)
