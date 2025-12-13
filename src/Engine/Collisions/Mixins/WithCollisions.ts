@@ -1,5 +1,5 @@
-import type { Subscription } from 'rxjs';
-import { BehaviorSubject, Subject, switchMap } from 'rxjs';
+import type { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, EMPTY, Subject, switchMap } from 'rxjs';
 
 import type { TActor, TActorParams } from '@/Engine/Actor';
 import { CollisionsUpdatePriority } from '@/Engine/Collisions/Constants';
@@ -33,7 +33,7 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
       return isDefined(filterFn) ? objects.filter(filterFn) : objects;
     }
     return [];
-    // TODO this code is probably an extra overcomplicated corner case)
+    // TODO this code is probably an extra overcomplicated corner case
     // const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName(gridName);
     // if (isNotDefined(grid)) throw new Error(`Cannot check collisions for actor (id: "${actor.id}", name: "${actor.name}"): actor doesn't belong to spatial grid, and no grid name with name "${gridName}" exists`);
     // return grid.findCellsByActorBox(actor).flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActorWrapperAsync> => cell.getObjects());
@@ -46,14 +46,15 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
       },
       start(actor: TActor): void {
         const collisionsInterpolationLengthMultiplier: number = 4;
+        collisionsLoopServiceSub$ = autoUpdate$
+          .pipe(switchMap((isAutoUpdate: boolean): Subject<TCollisionsLoopServiceValue> | Observable<never> => (isAutoUpdate ? collisionsLoopService.tick$ : EMPTY)))
+          .subscribe(({ delta, priority }): void => {
+            if (priority < this.getCollisionsUpdatePriority()) return;
 
-        collisionsLoopServiceSub$ = autoUpdate$.pipe(switchMap((): Subject<TCollisionsLoopServiceValue> => collisionsLoopService.tick$)).subscribe(({ delta, priority }): void => {
-          if (priority < this.getCollisionsUpdatePriority()) return;
-
-          // TODO should be possible to check collisions against another grid
-          const collision: TCollisionCheckResult | undefined = collisionsService.checkCollisions(actor, getActorsToCheck(actor), collisionsInterpolationLengthMultiplier, delta);
-          if (isDefined(collision)) value$.next(collision);
-        });
+            // TODO should be possible to check collisions against another grid
+            const collision: TCollisionCheckResult | undefined = collisionsService.checkCollisions(actor, getActorsToCheck(actor), collisionsInterpolationLengthMultiplier, delta);
+            if (isDefined(collision)) value$.next(collision);
+          });
       },
       setData({ updatePriority }: TCollisionsData): void {
         this.setCollisionsUpdatePriority(updatePriority);

@@ -59,6 +59,7 @@ export function createActor(
     position: position.clone(),
     rotation: new Euler(0, 0, 0),
     spatial: { grid, isAutoUpdate: true }
+    // collisions: { isAutoUpdate: name === 'sphere' }
   });
 }
 

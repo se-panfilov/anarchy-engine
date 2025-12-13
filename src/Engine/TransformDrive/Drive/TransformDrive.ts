@@ -1,5 +1,5 @@
-import type { Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, pairwise, ReplaySubject, sampleTime, switchMap } from 'rxjs';
+import type { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, EMPTY, pairwise, ReplaySubject, sampleTime, switchMap } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
 import type { TDestroyable } from '@/Engine/Mixins';
@@ -15,7 +15,7 @@ import type {
   TTransformDriveParams,
   TWithProtectedTransformAgents
 } from '@/Engine/TransformDrive/Models';
-import { isEqualOrSimilarVector3Like, isNotDefined } from '@/Engine/Utils';
+import { isDefined, isEqualOrSimilarVector3Like, isNotDefined } from '@/Engine/Utils';
 
 // TransformDrive is an entity to move/rotate/scale other entities
 // TransformDrive could use different "agents" (modes) which can be switched in runtime:
@@ -90,8 +90,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   let prevPosition: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
   const positionSub$: Subscription = activeAgent$
     .pipe(
-      switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyVector3> => agent.position$),
-      //can't use distinctUntilChanged's prev value, because it's a reference to the same object
+      switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyVector3> | Observable<never> => (isDefined(agent) ? agent.position$ : EMPTY)),
       distinctUntilChanged((_prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prevPosition, curr, positionThreshold)),
       sampleTime(positionDelay)
     )
@@ -104,8 +103,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   let prevRotation: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
   const rotationSub$: Subscription = activeAgent$
     .pipe(
-      switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyEuler> => agent.rotation$),
-      //can't use distinctUntilChanged's prev value, because it's a reference to the same object
+      switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyEuler> | Observable<never> => (isDefined(agent) ? agent.rotation$ : EMPTY)),
       distinctUntilChanged((_prev: Euler, curr: Euler): boolean => isEqualOrSimilarVector3Like(prevRotation, curr, rotationThreshold)),
       sampleTime(rotationDelay)
     )
@@ -118,8 +116,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   let prevScale: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
   const scaleSub$: Subscription = activeAgent$
     .pipe(
-      switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyVector3> => agent.scale$),
-      //can't use distinctUntilChanged's prev value, because it's a reference to the same object
+      switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyVector3> | Observable<never> => (isDefined(agent) ? agent.scale$ : EMPTY)),
       distinctUntilChanged((_prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prevScale, curr, scaleThreshold)),
       sampleTime(scaleDelay)
     )
