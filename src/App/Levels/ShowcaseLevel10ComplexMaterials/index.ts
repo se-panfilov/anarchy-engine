@@ -24,7 +24,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
   currentMaterialIndex$.subscribe((index: number): void => currentMaterial$.next(materials[index]));
 
-  const materialType: ReadonlyArray<string> = ['metal', 'wood', 'glass', 'textile'];
+  const materialType: ReadonlyArray<string> = ['textile', 'glass', 'wood', 'metal'];
   const currentMaterialTypeIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
   const currentMaterialType$: Subject<string> = new Subject();
   currentMaterialTypeIndex$.subscribe((index: number): void => currentMaterialType$.next(materialType[index]));
@@ -32,7 +32,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   combineLatest([currentMaterial$, currentMaterialType$]).subscribe(async ([material, type]: ReadonlyArray<string>): Promise<void> => {
     const actor: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync([material, type], LookUpStrategy.Every);
-    console.log('material', material, 'type', type, actor.getTags());
+    // console.log('material', material, 'type', type, actor.getTags());
     if (isNotDefined(actor)) throw new Error(`Actor with tag "${material}" is not found`);
     currentActor$.next(actor);
   });
@@ -47,7 +47,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
     textFactory.create({
       type: TextType.Text3d,
-      text: actor.getTags()[0] + ' material',
+      text: actor.getTags()[0],
       cssProps: { fontSize: '0.3px', color: 'red' },
       tags: [],
       position: Vector3Wrapper({ x: x, y: y - 0.5, z: z + 1.2 }),
@@ -64,11 +64,11 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   });
 
   keyboardService.onKey(KeyCode.W).pressing$.subscribe((): void => {
-    currentMaterialTypeIndex$.next((currentMaterialTypeIndex$.value - 1 + materialType.length) % materialType.length);
+    currentMaterialTypeIndex$.next((currentMaterialTypeIndex$.value + 1) % materialType.length);
   });
 
   keyboardService.onKey(KeyCode.S).pressing$.subscribe((): void => {
-    currentMaterialTypeIndex$.next((currentMaterialTypeIndex$.value + 1) % materialType.length);
+    currentMaterialTypeIndex$.next((currentMaterialTypeIndex$.value - 1 + materialType.length) % materialType.length);
   });
 
   const state = {
