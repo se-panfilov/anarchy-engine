@@ -5,4 +5,5 @@ export * from './TActorFactory';
 export * from './TActorParams';
 export * from './TActorProps';
 export * from './TActorService';
+export * from './TActorWithPhysicsWrapperAsync';
 export * from './TActorWrapperAsync';
