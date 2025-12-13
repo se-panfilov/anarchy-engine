@@ -5,7 +5,6 @@ import type { TCameraConfig, TCameraWrapper, TCameraWrapperDependencies } from '
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields, isDefined } from '@/Engine/Utils';
 
-// TODO 15-0-0: validate result
 export function cameraToConfig(entity: TCameraWrapper, { audioService }: Pick<TCameraWrapperDependencies, 'audioService'>): TCameraConfig {
   const { drive } = entity;
 

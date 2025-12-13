@@ -27,7 +27,6 @@ import type {
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields, isDefined, isNotDefined } from '@/Engine/Utils';
 
-// TODO 15-0-0: validate result
 export function lightToConfig<T extends TLight>(entity: TAbstractLightWrapper<T>): TDirectionalLightConfig | THemisphereLightConfig | TRectAreaLightConfig | TAmbientLightConfig | TSpotLightConfig {
   const { drive } = entity;
 

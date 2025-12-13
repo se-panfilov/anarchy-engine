@@ -4,7 +4,6 @@ import { isFpsControls, isOrbitControls } from '@/Engine/Controls/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 
-// TODO 15-0-0: validate result
 export function controlsToConfig(entity: TControlsWrapper, { cameraService }: TControlsServiceDependencies): TControlsConfig {
   const camera: TCamera | undefined = entity.entity.object as TCamera;
 

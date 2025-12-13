@@ -3,7 +3,6 @@ import { isAudio3dWrapper } from '@/Engine/Audio/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 
-// TODO 15-0-0: validate result
 export function audioToConfig<T extends TAnyAudio>(entity: TAbstractAudioWrapper<T>, { audioResourceAsyncRegistry, audioListenersRegistry }: TAudioConfigToParamsDependencies): TAnyAudioConfig {
   const { volume$, loop$, speed$, pause$, seek$ } = entity;
 
