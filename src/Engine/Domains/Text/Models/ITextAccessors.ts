@@ -1,10 +1,11 @@
 import type { Color, MeshBasicMaterial, MeshStandardMaterial } from 'three';
 
 import type { TextAlign, TextAnchorX, TextAnchorY, TextDirection, TextFontStyle, TextFontWeight, TextOverflowWrap, TextWhiteSpace } from '@/Engine/Domains/Text';
-import type { IMovable, IRotatable } from '@/Engine/Mixins';
+import type { IMovable, IRotatable, IScalable } from '@/Engine/Mixins';
 
 export type ITextAccessors = IMovable &
   IRotatable &
+  IScalable &
   Readonly<{
     setText: (text: string) => void;
     getText: () => string;

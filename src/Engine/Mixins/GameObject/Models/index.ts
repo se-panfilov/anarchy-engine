@@ -1,5 +1,6 @@
 export * from './IMovable';
 export * from './IRotatable';
+export * from './IScalable';
 export * from './IWithCoordsXY';
 export * from './IWithCoordsXYZ';
 export * from './IWithCoordsXZ';
@@ -7,6 +8,7 @@ export * from './IWithCoordsYZ';
 export * from './IWithCoordX';
 export * from './IWithCoordY';
 export * from './IWithCoordZ';
+export * from './IWithObject3d';
 export * from './IWithPosition';
 export * from './IWithRotation';
-export * from './IWithObject3d';
+export * from './IWithScale';

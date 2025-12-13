@@ -6,35 +6,18 @@ export function rotatableMixin(entity: IWithRotation): IRotatable {
   const setRotation = (x: number, y: number, z: number): IEulerWrapper => EulerWrapper(entity.rotation.set(x, y, z));
   const getRotation = (): IEulerWrapper => EulerWrapper(entity.rotation);
 
-  function setRotationX(x: number): void {
-    entity.rotation.set(x, entity.rotation.y, entity.rotation.z);
-  }
-
+  const setRotationX = (x: number): void => void entity.rotation.set(x, entity.rotation.y, entity.rotation.z);
   const getRotationX = (): number => entity.rotation.x;
 
-  function setRotationY(y: number): void {
-    entity.rotation.set(entity.rotation.x, y, entity.rotation.z);
-  }
-
+  const setRotationY = (y: number): void => void entity.rotation.set(entity.rotation.x, y, entity.rotation.z);
   const getRotationY = (): number => entity.rotation.y;
 
-  function setRotationZ(z: number): void {
-    entity.rotation.set(entity.rotation.x, entity.rotation.y, z);
-  }
-
+  const setRotationZ = (z: number): void => void entity.rotation.set(entity.rotation.x, entity.rotation.y, z);
   const getRotationZ = (): number => entity.rotation.z;
 
-  function adjustRotationByX(x: number): void {
-    entity.rotation.set(entity.rotation.x + x, entity.rotation.y, entity.rotation.z);
-  }
-
-  function adjustRotationByY(y: number): void {
-    entity.rotation.set(entity.rotation.x, entity.rotation.y + y, entity.rotation.z);
-  }
-
-  function adjustRotationByZ(z: number): void {
-    entity.rotation.set(entity.rotation.x, entity.rotation.y, entity.rotation.z + z);
-  }
+  const adjustRotationByX = (x: number): void => void entity.rotation.set(entity.rotation.x + x, entity.rotation.y, entity.rotation.z);
+  const adjustRotationByY = (y: number): void => void entity.rotation.set(entity.rotation.x, entity.rotation.y + y, entity.rotation.z);
+  const adjustRotationByZ = (z: number): void => void entity.rotation.set(entity.rotation.x, entity.rotation.y, entity.rotation.z + z);
 
   return {
     setRotation,
