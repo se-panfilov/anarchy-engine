@@ -8,5 +8,5 @@
     }
   },
   "include": ["preload.ts"],
-  "exclude": ["dist", "dist-app", "node_modules"]
+  "exclude": ["dist", "node_modules"]
 }

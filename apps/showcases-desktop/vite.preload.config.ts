@@ -15,13 +15,13 @@ export default defineConfig({
     }
   },
   build: {
-    outDir: 'dist',
     emptyOutDir: false, // Do not empty outDir, we build electron-main.ts first there
     lib: {
       entry: './preload.ts',
       formats: ['cjs'], //prebuild.ts must be CommonJs module in the current electron version (otherwise we can get rid of Vite here)
       fileName: (): string => 'preload.js'
     },
+    outDir: 'dist',
     rollupOptions: {
       external: ['electron'], // Prevent bundling electron module
       output: {

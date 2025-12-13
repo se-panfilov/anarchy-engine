@@ -22,21 +22,19 @@
     "build:win:app": "npm run build -- --win --dir && npm run clean:postbuild",
     "build:win:nsis": "npm run build -- --win nsis && npm run clean:postbuild",
     "generate:versions-file": "node ../../packages/shared/ScriptUtils/GenerateVersionsFile.js  --out=src/Generated/versions.ts",
-    "clean": "rimraf dist && rimraf dist-app",
-    "clean:postbuild": "rimraf dist/electron-main.js dist/electron-main.js.map dist/preload.js dist/preload.js.map",
-    "copy:dist-app": "node ../../packages/shared/ScriptUtils/CopyDir.js -- from=../showcases/dist-desktop to=dist-app",
-    "copy:draco": "node ../../packages/shared/ScriptUtils/CopyFiles.js ../../node_modules/three/examples/jsm/libs/draco/draco_decoder.js ../../node_modules/three/examples/jsm/libs/draco/draco_wasm_wrapper.js ../../node_modules/three/examples/jsm/libs/draco/draco_decoder.wasm to=dist-app/three/examples/jsm/libs/draco/",
+    "clean": "rimraf dist",
+    "clean:postbuild": "rimraf dist/electron-main.js dist/electron-main.js.map dist/preload.js dist/preload.js.map dist/dist-desktop",
     "prebuild": "npm run prebuild:ts && npm run prebuild:preload",
     "prebuild:preload": "vite build --config vite.preload.config.ts",
     "prebuild:ts": "npm run generate:versions-file && vite build",
-    "reload-and-prebuild": "npm run reload:dist-app && npm run prebuild",
-    "reload:dist-app": "npm run clean && npm run copy:dist-app && npm run copy:draco",
+    "reload-and-prebuild": "npm run clean && npm run prebuild",
     "start": "npm run reload-and-prebuild && electron ."
   },
   "devDependencies": {
     "electron": "37.2.1",
     "electron-builder": "26.0.12",
     "electron-reloader": "1.2.3",
+    "rollup-plugin-copy": "3.5.0",
     "typescript": "5.8.3",
     "vite-tsconfig-paths": "5.1.4"
   },
@@ -57,7 +55,7 @@
       "buildResources": "assets"
     },
     "files": [
-      "dist-app/**",
+      "dist/dist-desktop/**",
       "dist/electron-main.js",
       "dist/preload.js"
     ],

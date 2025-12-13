@@ -8,5 +8,5 @@
     "noEmit": false
   },
   "include": ["electron-main.ts"],
-  "exclude": ["dist", "dist-app", "node_modules"]
+  "exclude": ["dist", "node_modules"]
 }
