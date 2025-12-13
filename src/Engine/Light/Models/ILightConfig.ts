@@ -14,7 +14,7 @@ import type { ISpotLightProps } from './ISpotLightProps';
 export type IAbstractLightConfig<T extends Readonly<{ color: Color; shadow?: ILightShadowParams }>> = Omit<T, 'color' | 'shadow'> &
   Readonly<{
     color: string;
-    shadow?: LightShadowConfig;
+    shadow?: ILightShadowConfig;
   }> &
   IObject3DPropConfig &
   IWithReadonlyTags;
@@ -28,7 +28,7 @@ export type ISpotLightConfig = IAbstractLightConfig<ISpotLightProps>;
 
 export type IAnyLightConfig = IAmbientLightConfig | IHemisphereLightConfig | IDirectionalLightConfig | IPointLightConfig | IRectAreaLightConfig | ISpotLightConfig;
 
-export type LightShadowConfig = Omit<ILightShadowParams, 'mapSize'> &
+export type ILightShadowConfig = Omit<ILightShadowParams, 'mapSize'> &
   Readonly<{
     mapSize: IWithCoordsXY;
     camera: { far: number };

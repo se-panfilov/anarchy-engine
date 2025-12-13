@@ -9,4 +9,4 @@ export type IMoveableByTick = Readonly<{
 }>;
 export type IMoveFn = (params: IMoveFnParams) => IMoveableByTick & anime.AnimeInstance;
 export type IMoveByPathFn = (params: IMoveByPathFnParams) => IMoveableByTick & anime.AnimeInstance;
-export type followTargetFn = (params: IFollowTargetParams) => IMoveableByTick;
+export type IFollowTargetFn = (params: IFollowTargetParams) => IMoveableByTick;

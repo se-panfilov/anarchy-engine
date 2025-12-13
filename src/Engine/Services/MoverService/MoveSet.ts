@@ -1,7 +1,7 @@
 import anime from 'animejs';
 
 import { defaultAnimationParams, Easing } from '@/Engine/Services/MoverService/Constants';
-import type { followTargetFn, IFollowTargetParams, IMoveableByTick, IMoveByPathFn, IMoveByPathFnParams, IMoveFn, IMoveFnParams } from '@/Engine/Services/MoverService/Models';
+import type { IFollowTargetFn, IFollowTargetParams, IMoveableByTick, IMoveByPathFn, IMoveByPathFnParams, IMoveFn, IMoveFnParams } from '@/Engine/Services/MoverService/Models';
 import { getAnimationWrapperForComplexPathAnimation } from '@/Engine/Services/MoverService/MoverServiceUtils';
 import { isVector3Wrapper } from '@/Engine/Utils';
 import type { IVector2Wrapper, IVector3Wrapper } from '@/Engine/Vector';
@@ -35,7 +35,7 @@ export const byPathMove: IMoveByPathFn = ({ obj, path, animationParams, complete
 };
 
 // This function doesn't care about framerate (and delta time) because the position depends on the target
-export const followTarget: followTargetFn = ({ obj, target, offset }: IFollowTargetParams): IMoveableByTick => {
+export const followTarget: IFollowTargetFn = ({ obj, target, offset }: IFollowTargetParams): IMoveableByTick => {
   return {
     tick: (): void => {
       const position: IVector3Wrapper | IVector2Wrapper = target.getPosition();
