@@ -2399,7 +2399,7 @@ SOFTWARE.
 
 -----
 
-The following software may be included in this product: anarchy_engine, anarchy_engine_shared, anarchy_engine_showcases, workspace-aggregator-31797ae0-e3be-4a97-80bc-5a3736dc5998. This software contains the following license and notice below:
+The following software may be included in this product: anarchy_engine, anarchy_engine_shared, anarchy_engine_showcases, workspace-aggregator-be6c1947-50f6-484a-b7b3-99e01a91c916. This software contains the following license and notice below:
 
 MIT License
 
@@ -5250,7 +5250,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -----
 
-The following software may be included in this product: eslint-visitor-keys. A copy of the source code may be downloaded from https://github.com/eslint/js.git. This software contains the following license and notice below:
+The following software may be included in this product: eslint-visitor-keys. A copy of the source code may be downloaded from https://github.com/eslint/eslint-visitor-keys.git. This software contains the following license and notice below:
 
 Apache License
                            Version 2.0, January 2004
@@ -8213,7 +8213,7 @@ The following software may be included in this product: meshoptimizer. A copy of
 
 MIT License
 
-Copyright (c) 2016-2022 Arseny Kapoulkine
+Copyright (c) 2016-2024 Arseny Kapoulkine
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -8239,7 +8239,7 @@ The following software may be included in this product: meshoptimizer. A copy of
 
 MIT License
 
-Copyright (c) 2016-2024 Arseny Kapoulkine
+Copyright (c) 2016-2022 Arseny Kapoulkine
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
