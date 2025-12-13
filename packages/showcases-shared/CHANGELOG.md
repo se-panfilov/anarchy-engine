@@ -5,3 +5,4 @@
 - 1.4.0 Sanitize utils
 - 1.5.0 Error tracking and anonymization utils
 - 1.6.0 Added EventsShieldService
+- 1.7.0 Removed EventsShieldService
