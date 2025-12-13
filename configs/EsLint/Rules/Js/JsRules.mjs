@@ -141,6 +141,7 @@ export const JsRules = {
         'toon',
         'trimesh',
         'tsx',
+        'typeof',
         'un',
         'uncache',
         'unextetended',

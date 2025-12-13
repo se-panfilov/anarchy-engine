@@ -36,26 +36,16 @@ export function start(): void {
 
   const leftContainerId = 'btn-container-left';
   const rightContainerId = 'btn-container-right';
+
   addBtn('Start Alpha', leftContainerId, (): void => spaceAlpha.start$.next(true), 'calc(50% + 4px)');
   addBtn('Stop Alpha', leftContainerId, (): void => spaceAlpha.start$.next(false));
-  addBtn('Destroy Alpha', leftContainerId, (): void => {
-    console.log('Subscriptions before destroy:', totalSubscriptions);
-    console.log('Cleaning up...');
-    spaceAlpha.destroy$.next();
-
-    setTimeout(() => console.log(`Completed: ${completedSubscriptions}`), 1000);
-    setTimeout(() => console.log(`Active: ${totalSubscriptions - completedSubscriptions}`), 1100);
-    // setTimeout(() => console.log(subscriptionStacks), 1200);
-  });
+  addBtn('Destroy Alpha', leftContainerId, (): void => destroySpace((): void => spaceAlpha.destroy$.next()));
+  addBtn('Drop Alpha', leftContainerId, (): void => destroySpace((): void => spaceAlpha.drop()));
 
   addBtn('Start Beta', rightContainerId, (): void => spaceBeta.start$.next(true), '4px');
   addBtn('Stop Beta', rightContainerId, (): void => spaceBeta.start$.next(false));
-  addBtn('Destroy Beta', rightContainerId, (): void => {
-    console.log('Subscriptions before destroy:', tracked.size);
-    console.log('Cleaning up...');
-    spaceBeta.destroy$.next();
-    setTimeout(() => console.log('Subscriptions after destroy:', tracked.size), 1000);
-  });
+  addBtn('Destroy Beta', rightContainerId, (): void => destroySpace((): void => spaceBeta.destroy$.next()));
+  addBtn('Drop Beta', rightContainerId, (): void => destroySpace((): void => spaceBeta.drop()));
 }
 
 export function runAlpha(space: TSpace): void {
@@ -101,22 +91,46 @@ function addBtn(text: string, containerId: string, cb: (...rest: ReadonlyArray<a
 function hackRxJsSubscriptions(subscriptionStacks: Map<Subscription, string>): void {
   const originalSubscribe = Observable.prototype.subscribe;
   // eslint-disable-next-line functional/immutable-data
-  Observable.prototype.subscribe = function (...args: any[]): Subscription {
-    const result: Subscription = originalSubscribe.apply(this, args as any);
+  Observable.prototype.subscribe = function (...args: any[]): any {
+    const sub: Subscription & { __aliveInterval?: number } = originalSubscribe.apply(this, args as any);
+
     totalSubscriptions++;
     const stackTrace: string = new Error('Subscription created').stack || '';
-    subscriptionStacks.set(result, stackTrace);
-    return result;
+    subscriptionStacks.set(sub, stackTrace);
+
+    // (sub as any).__aliveInterval = window.setInterval((): void => {
+    //   console.log('alive' + Math.random());
+    // }, 5000);
+
+    return sub;
   };
 
   const originalUnsubscribe = Subscription.prototype.unsubscribe;
-
   // eslint-disable-next-line functional/immutable-data
   Subscription.prototype.unsubscribe = function (...args: any[]): void {
     if (!this.closed) {
       completedSubscriptions++;
+
+      const subscription = this as Subscription & { __aliveInterval?: number };
+      if (typeof subscription.__aliveInterval === 'number') {
+        clearInterval(subscription.__aliveInterval);
+        // eslint-disable-next-line functional/immutable-data
+        delete (subscription as any).__aliveInterval;
+      }
+
       subscriptionStacks.delete(this);
     }
+
     return originalUnsubscribe.apply(this, args as any);
   };
+}
+
+function destroySpace(cb: () => void, shouldLogStack: boolean = false): void {
+  console.log('Subscriptions before destroy:', totalSubscriptions);
+  console.log('Cleaning up...');
+  cb();
+
+  setTimeout(() => console.log(`Completed: ${completedSubscriptions}`), 1000);
+  setTimeout(() => console.log(`Active: ${totalSubscriptions - completedSubscriptions}`), 1100);
+  if (shouldLogStack) setTimeout(() => console.log(subscriptionStacks), 1200);
 }
