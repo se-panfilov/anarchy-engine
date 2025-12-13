@@ -1,4 +1,4 @@
-import type { IVector2dConfig, IVector3dConfig } from '@/Engine/Domains/ThreeLib';
+import type { IWithCoordsXY, IWithCoordsXYZ } from '@/Engine/Mixins';
 
 import type { ILightParams } from './ILightParams';
 import type { ILightShadowParams } from './ILightShadowParams';
@@ -11,12 +11,12 @@ export type ILightConfig = Omit<ILightParams, 'color' | 'position' | 'shadow'> &
     intensity: number;
     castShadow: boolean;
     shadow?: LightShadowConfig;
-    position: IVector3dConfig;
+    position: IWithCoordsXYZ;
   }>;
 
 export type LightShadowConfig = Omit<ILightShadowParams, 'mapSize'> &
   Readonly<{
-    mapSize: IVector2dConfig;
+    mapSize: IWithCoordsXY;
     camera: { far: number };
     normalBias: number;
   }>;

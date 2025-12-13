@@ -1,10 +1,10 @@
-import type { IVector3dConfig } from '@/Engine/Domains/ThreeLib';
+import type { IWithCoordsXYZ } from '@/Engine/Mixins';
 
 import type { ICameraParams } from './ICameraParams';
 
 export type ICameraConfig = Omit<ICameraParams, 'rotation' | 'position' | 'lookAt'> &
   Readonly<{
-    rotation: IVector3dConfig;
-    position: IVector3dConfig;
-    lookAt?: IVector3dConfig;
+    rotation: IWithCoordsXYZ;
+    position: IWithCoordsXYZ;
+    lookAt?: IWithCoordsXYZ;
   }>;

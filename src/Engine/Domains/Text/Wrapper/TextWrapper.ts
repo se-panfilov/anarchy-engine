@@ -5,6 +5,7 @@ import type { ITextAccessors, ITextParams, ITextWrapper } from '@/Engine/Domains
 import { getAccessors } from '@/Engine/Domains/Text/Wrapper/Accessors';
 import { isDefined } from '@/Engine/Utils';
 
+// TODO (S.Panfilov) CWP add text config to json config
 export function TextWrapper(params: ITextParams): ITextWrapper {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-assignment
   const entity: Text = new Text();

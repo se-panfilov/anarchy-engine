@@ -1,8 +1,8 @@
 import type { EulerOrder } from 'three';
 
-export type IEuler3dConfig = Readonly<{
-  x?: number;
-  y?: number;
-  z?: number;
-  order?: EulerOrder;
-}>;
+import type { IWithCoordsXYZ } from '@/Engine/Mixins';
+
+export type IEuler3dConfig = Partial<IWithCoordsXYZ> &
+  Readonly<{
+    order?: EulerOrder;
+  }>;

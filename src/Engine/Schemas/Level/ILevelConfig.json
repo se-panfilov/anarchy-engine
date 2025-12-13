@@ -120,7 +120,7 @@
           "$ref": "#/definitions/IActorMaterialConfig"
         },
         "position": {
-          "$ref": "#/definitions/IVector3dConfig"
+          "$ref": "#/definitions/IWithCoordsXYZ"
         },
         "rotation": {
           "$ref": "#/definitions/IEuler3dConfig"
@@ -176,17 +176,17 @@
       "required": ["color"],
       "additionalProperties": false
     },
-    "IVector3dConfig": {
+    "IWithCoordsXYZ": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "z": {
           "type": "number"
         },
-        "x": {
+        "y": {
           "type": "number"
         },
-        "y": {
+        "x": {
           "type": "number"
         }
       },
@@ -194,7 +194,11 @@
     },
     "IEuler3dConfig": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
+        "order": {
+          "$ref": "#/definitions/EulerOrder"
+        },
         "x": {
           "type": "number"
         },
@@ -203,12 +207,8 @@
         },
         "z": {
           "type": "number"
-        },
-        "order": {
-          "$ref": "#/definitions/EulerOrder"
         }
-      },
-      "additionalProperties": false
+      }
     },
     "EulerOrder": {
       "type": "string",
@@ -223,13 +223,13 @@
       "additionalProperties": false,
       "properties": {
         "rotation": {
-          "$ref": "#/definitions/IVector3dConfig"
+          "$ref": "#/definitions/IWithCoordsXYZ"
         },
         "position": {
-          "$ref": "#/definitions/IVector3dConfig"
+          "$ref": "#/definitions/IWithCoordsXYZ"
         },
         "lookAt": {
-          "$ref": "#/definitions/IVector3dConfig"
+          "$ref": "#/definitions/IWithCoordsXYZ"
         },
         "fov": {
           "type": "number"
@@ -283,7 +283,7 @@
           "$ref": "#/definitions/LightShadowConfig"
         },
         "position": {
-          "$ref": "#/definitions/IVector3dConfig"
+          "$ref": "#/definitions/IWithCoordsXYZ"
         },
         "tags": {
           "type": "array",
@@ -313,7 +313,7 @@
       "additionalProperties": false,
       "properties": {
         "mapSize": {
-          "$ref": "#/definitions/IVector2dConfig"
+          "$ref": "#/definitions/IWithCoordsXY"
         },
         "camera": {
           "type": "object",
@@ -331,18 +331,18 @@
       },
       "required": ["camera", "mapSize", "normalBias"]
     },
-    "IVector2dConfig": {
+    "IWithCoordsXY": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
-        "x": {
+        "y": {
           "type": "number"
         },
-        "y": {
+        "x": {
           "type": "number"
         }
       },
-      "required": ["x", "y"],
-      "additionalProperties": false
+      "required": ["x", "y"]
     },
     "LightTag": {
       "type": "string",
