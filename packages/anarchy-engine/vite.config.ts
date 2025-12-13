@@ -123,7 +123,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       environment: 'jsdom', // TODO try "node", could be faster.
       alias: {
         //Since we cannot use wasm version of @dimforge/rapier3d in vitest
-        '@dimforge/rapier3d': path.resolve(__dirname, 'node_modules/@dimforge/rapier3d-compat')
+        '@dimforge/rapier3d': path.resolve(__dirname, '../../node_modules/@dimforge/rapier3d-compat/rapier.es.js')
       },
       setupFiles: './vitest.setup.js',
       reporters: ['default', 'html'],
