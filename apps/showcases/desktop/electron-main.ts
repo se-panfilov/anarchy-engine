@@ -18,6 +18,15 @@ function createWindow(): void {
   });
 
   win.loadFile(join(__dirname, '../dist/index.html'));
+
+  // TODO DESKTOP: Should come from .env file, to enable/disable dev tools.
+  win.webContents.openDevTools();
+
+  // TODO DESKTOP: Should come from .env file, to enable/disable dev tools.
+  // TODO DESKTOP: Enable hot reloading in development mode.
+  // try {
+  //   require('electron-reloader')(module);
+  // } catch (_) {}
 }
 
 // TODO DESKTOP: could it be a better place for this?

@@ -1,4 +1,6 @@
-import { contextBridge, ipcRenderer } from 'electron';
+// import { contextBridge, ipcRenderer } from 'electron';
+
+const { contextBridge, ipcRenderer } = require('electron');
 
 // TODO DESKTOP: add "sanitize assets" script for desktop/assets and mobile/assets
 contextBridge.exposeInMainWorld('electronAPI', {

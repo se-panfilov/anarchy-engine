@@ -11,10 +11,10 @@
     "build": "tsc",
     "build:desktop": "rimraf dist && npm run build && electron-builder"
   },
-  "dependencies": {},
   "devDependencies": {
     "electron": "37.2.1",
     "electron-builder": "26.0.12",
+    "electron-reloader": "1.2.3",
     "typescript": "5.8.3"
   },
   "build": {
