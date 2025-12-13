@@ -1,11 +1,13 @@
 import { isNotDefined } from '@Anarchy/Shared/Utils';
+import { FromGuiActionEvent } from '@Showcases/GUI/events';
 import type { TEventsService, TToGuiActionEvent } from '@Showcases/GUI/models';
+import type { TFromGuiActionPayload } from '@Showcases/GUI/models/TFromGuiActionEvent';
 import { keyActionsService } from '@Showcases/GUI/services/KeyActionsService';
 import type { TFromGuiEvent, TToGuiEvent } from '@Showcases/Shared';
 import { FromGuiEvents, ToGuiEvents } from '@Showcases/Shared';
 import type { Observable, Subject, Subscription } from 'rxjs';
 
-const { Action, CloseGui } = FromGuiEvents;
+const { CloseGui } = FromGuiEvents;
 
 function EventsService(): TEventsService {
   let fromGuiBus$: Subject<TFromGuiEvent> | undefined;
@@ -21,7 +23,7 @@ function EventsService(): TEventsService {
     return fromGuiBus$.next(event);
   }
 
-  const emitActionEvent = (payload?: Record<string, any>): void => emitEvent({ type: Action, payload });
+  const emitActionEvent = (payload?: TFromGuiActionPayload): void => emitEvent(FromGuiActionEvent(payload));
   const emitCloseGui = (): void => emitEvent({ type: CloseGui });
 
   function startListeningAppEvents(): Subscription {
