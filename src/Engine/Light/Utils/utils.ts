@@ -2,11 +2,11 @@ import { WrapperType } from '@/Engine/Abstract';
 import type {
   TAmbientLight,
   TAmbientLightParams,
+  TAnyLight,
   TDirectionalLight,
   TDirectionalLightParams,
   THemisphereLight,
   THemisphereLightParams,
-  TLight,
   TLightParams,
   TPointLight,
   TPointLightParams,
@@ -17,7 +17,7 @@ import type {
 } from '@/Engine/Light/Models';
 import { isDefined } from '@/Engine/Utils';
 
-export function getWrapperType(light: TLight): WrapperType | never {
+export function getWrapperType(light: TAnyLight): WrapperType | never {
   if (isAmbientLight(light)) return WrapperType.AmbientLight;
   else if (isDirectionalLight(light)) return WrapperType.DirectionalLight;
   else if (isPointLight(light)) return WrapperType.PointLight;
@@ -27,27 +27,27 @@ export function getWrapperType(light: TLight): WrapperType | never {
   else throw new Error('Unknown light type');
 }
 
-export function isAmbientLight(light: TLight): light is TAmbientLight {
+export function isAmbientLight(light: TAnyLight): light is TAmbientLight {
   return Boolean((light as TAmbientLight).isAmbientLight);
 }
 
-export function isDirectionalLight(light: TLight): light is TDirectionalLight {
+export function isDirectionalLight(light: TAnyLight): light is TDirectionalLight {
   return Boolean((light as TDirectionalLight).isDirectionalLight);
 }
 
-export function isPointLight(light: TLight): light is TPointLight {
+export function isPointLight(light: TAnyLight): light is TPointLight {
   return Boolean((light as TPointLight).isPointLight);
 }
 
-export function isHemisphereLight(light: TLight): light is THemisphereLight {
+export function isHemisphereLight(light: TAnyLight): light is THemisphereLight {
   return Boolean((light as THemisphereLight).isHemisphereLight);
 }
 
-export function isRectAreaLight(light: TLight): light is TRectAreaLight {
+export function isRectAreaLight(light: TAnyLight): light is TRectAreaLight {
   return Boolean((light as TRectAreaLight).isRectAreaLight);
 }
 
-export function isSpotLight(light: TLight): light is TSpotLight {
+export function isSpotLight(light: TAnyLight): light is TSpotLight {
   return Boolean((light as TSpotLight).isSpotLight);
 }
 

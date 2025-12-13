@@ -5,7 +5,7 @@ import type { TAnyCameraWrapper } from '@/Engine/Camera';
 import type { TColor } from '@/Engine/Color';
 import type { TEnvMapTexture } from '@/Engine/EnvMap';
 import type { TFogWrapper } from '@/Engine/Fog';
-import type { TAbstractLightWrapper, TLight } from '@/Engine/Light';
+import type { TAbstractLightWrapper, TAnyLight } from '@/Engine/Light';
 import type { TModel3d } from '@/Engine/Models3d';
 import type { TParticlesWrapper } from '@/Engine/Particles';
 import type { TTextAnyWrapper } from '@/Engine/Text';
@@ -13,7 +13,7 @@ import type { TTexture } from '@/Engine/Texture';
 
 export type TSceneAccessors = Readonly<{
   addCamera: (camera: Readonly<TAnyCameraWrapper>) => void;
-  addLight: <T extends TLight>(light: Readonly<TAbstractLightWrapper<T>>) => void;
+  addLight: <T extends TAnyLight>(light: Readonly<TAbstractLightWrapper<T>>) => void;
   setFog: (fog: Readonly<TFogWrapper>) => void;
   addText: (text: Readonly<TTextAnyWrapper>) => void;
   addModel3d: (model: TModel3d) => void;

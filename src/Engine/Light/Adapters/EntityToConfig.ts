@@ -9,11 +9,11 @@ import type {
   TAbstractLightParams,
   TAbstractLightWrapper,
   TAmbientLightConfig,
+  TAnyLight,
   TDirectionalLightConfig,
   TDirectionalLightParams,
   THemisphereLightConfig,
   THemisphereLightWrapper,
-  TLight,
   TLightShadowConfig,
   TLightShadowParams,
   TPointLightConfig,
@@ -26,7 +26,7 @@ import type {
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields, isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function lightToConfig<T extends TLight>(entity: TAbstractLightWrapper<T>): TDirectionalLightConfig | THemisphereLightConfig | TRectAreaLightConfig | TAmbientLightConfig | TSpotLightConfig {
+export function lightToConfig<T extends TAnyLight>(entity: TAbstractLightWrapper<T>): TDirectionalLightConfig | THemisphereLightConfig | TRectAreaLightConfig | TAmbientLightConfig | TSpotLightConfig {
   const { drive } = entity;
 
   const json: Object3DJSONObject = entity.entity.toJSON().object;
@@ -96,7 +96,7 @@ export function onlySpotLightToConfig(entity: TSpotLightWrapper): Partial<TSpotL
   });
 }
 
-export function onlyLightShadowToConfig<T extends TLight>(
+export function onlyLightShadowToConfig<T extends TAnyLight>(
   entity: TAbstractLightWrapper<T>
 ): Readonly<{
   shadow?: TLightShadowConfig;

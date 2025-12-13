@@ -5,4 +5,4 @@ import type { TPointLight } from './TPointLight';
 import type { TRectAreaLight } from './TRectAreaLight';
 import type { TSpotLight } from './TSpotLight';
 
-export type TLight = TAmbientLight | TDirectionalLight | TPointLight | THemisphereLight | TRectAreaLight | TSpotLight;
+export type TAnyLight = TAmbientLight | TDirectionalLight | TPointLight | THemisphereLight | TRectAreaLight | TSpotLight;
