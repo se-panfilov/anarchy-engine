@@ -8,6 +8,7 @@ import { AudioLoader } from '@/Engine/Audio/Loader';
 import type {
   TAnyAudioConfig,
   TAnyAudioWrapper,
+  TAudioConfigToParamsDependencies,
   TAudioFactory,
   TAudioListenersRegistry,
   TAudioLoader,
@@ -62,7 +63,7 @@ export function AudioService(
     withFactory,
     withRegistry,
     withSerializeAllResources<TAudioResourceConfig, TAudioSerializeResourcesDependencies>(audioResourceAsyncRegistry, { audioResourceAsyncRegistry, audioListenersRegistry, metaInfoRegistry }),
-    withSerializeAllEntities<TAnyAudioConfig, undefined>(registry),
+    withSerializeAllEntities<TAnyAudioConfig, TAudioConfigToParamsDependencies>(registry, { audioResourceAsyncRegistry, audioListenersRegistry }),
     {
       getResourceRegistry: (): TAudioResourceAsyncRegistry => audioResourceAsyncRegistry,
       getMetaInfoRegistry: (): TAudioMetaInfoRegistry => metaInfoRegistry,
