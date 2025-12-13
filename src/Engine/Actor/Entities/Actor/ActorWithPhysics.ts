@@ -4,22 +4,23 @@ import type { TActorWithPhysics } from '@/Engine/Actor/Models';
 
 // TODO 8.0.0. MODELS: remove (use PhysicsTransformAgent instead)
 export function ActorWithPhysics(): TActorWithPhysics | void {
-  // params: TActorParams,
-  // deps: TActorWithPhysicsDependencies,
-  // customCreatePhysicsBodyFn?: (physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService, additionalParams?: Record<string, any>) => TPhysicsBody,
-  // additionalParams?: Record<string, any>
-  // if (isNotDefined(params.physics)) throw new Error('Cannot create Actor with Physics: physics params are missing');
-  // const actor: TActor = Actor(params, deps);
-  // const actorPhysicalW: TActorWithPhysics = makeWrapperWithPhysicsBody(actor, params.physics, deps.physicsBodyService, customCreatePhysicsBodyFn, additionalParams);
+  //   params: TActorParams,
+  //   deps: TActorWithPhysicsDependencies,
+  //   customCreatePhysicsBodyFn?: (physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService, additionalParams?: Record<string, any>) => TPhysicsBody,
+  //   additionalParams?: Record<string, any>
+  // ): TActorWithPhysics | never {
+  //   if (isNotDefined(params.physics)) throw new Error('Cannot create Actor with Physics: physics params are missing');
+  //   const actor: TActor = Actor(params, deps);
+  //   const actorPhysicalW: TActorWithPhysics = makeWrapperWithPhysicsBody(actor, params.physics, deps.physicsBodyService, customCreatePhysicsBodyFn, additionalParams);
   //
-  // const sub$: Subscription = deps.physicsLoopService.tick$.subscribe((): void => {
-  //   updateActorByPhysicalBody(actorPhysicalW);
-  //   updateMovementInfo(actorPhysicalW, deps.physicsBodyService);
-  // });
+  //   const sub$: Subscription = deps.physicsLoopService.tick$.subscribe((): void => {
+  //     updateActorByPhysicalBody(actorPhysicalW);
+  //     updateMovementInfo(actorPhysicalW, deps.physicsBodyService);
+  //   });
   //
-  // actorPhysicalW.destroy$.subscribe(() => sub$.unsubscribe());
+  //   actorPhysicalW.destroy$.subscribe(() => sub$.unsubscribe());
   //
-  // return actorPhysicalW;
+  //   return actorPhysicalW;
 }
 
 // function updateActorByPhysicalBody(actorPhysicalW: TActorWithPhysics): void | never {
