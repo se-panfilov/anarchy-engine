@@ -127,6 +127,15 @@
       "position": { "x": 1, "y": 12, "z": 3 },
       "castShadow": true,
       "tags": []
+    },
+    {
+      "name": "actor_6",
+      "type": "sphere",
+      "radius": 0.25,
+      "material": { "type": "standard", "params": { "color": "#E91E63" } },
+      "position": { "x": 0, "y": 0, "z": 0 },
+      "castShadow": true,
+      "tags": []
     }
   ],
   "intersections": [],
@@ -160,7 +169,7 @@
       "name": "main",
       "near": 1,
       "far": 10000,
-      "position": { "x": 14, "y": 5, "z": 6 },
+      "position": { "x": 3, "y": 10, "z": 15 },
       "rotation": { "x": 0, "y": 0, "z": 0 },
       "tags": [],
       "isActive": true

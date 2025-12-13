@@ -45,10 +45,6 @@ function validateData({ name, actors, cameras, scenes, controls, intersections, 
   const isEveryControlsHasCamera: boolean = controls.every((control: TControlsConfig) => cameras.some((camera: TCameraConfig): boolean => camera.name === control.cameraName));
 
   //check actors' physics presets
-  // const actorsPresetNamesList: ReadonlyArray<string> = actors.map(({ physics }) => (physics?.presetName ? physics.presetName : undefined)).filter(isDefined);
-  // console.log('actorsPresetNamesList', actorsPresetNamesList);
-  // const presetNamesList: ReadonlyArray<string> = isDefined(physics.presets) ? physics.presets.map(({ name }) => name) : [];
-  // console.log('presetNamesList', presetNamesList);
   const isAllActorsHasPhysicsPreset = validateAllActorsHasPhysicsPreset(actors, physics.presets);
 
   //Regexp checks (ts-json schema does not support regexp patterns atm)
@@ -146,5 +142,9 @@ const validateArrayField = <T extends Record<string, any>>(obj: T, field: keyof 
 const validate = (str: string | undefined): boolean => (isDefined(str) ? str.length > 0 && /^[A-z0-9_]+$/gm.test(str) : true);
 
 function validateAllActorsHasPhysicsPreset(actors: ReadonlyArray<TActorConfig>, presets: ReadonlyArray<TPhysicsPresetConfig> | undefined): boolean {
-  return actors.every((actor: TActorConfig) => (presets || []).some((preset: TPhysicsPresetConfig): boolean => preset.name === actor.physics?.presetName));
+  return actors.every((actor: TActorConfig) => {
+    return (presets || []).some((preset: TPhysicsPresetConfig): boolean => {
+      return isNotDefined(actor.physics) || isNotDefined(actor.physics?.presetName) || preset.name === actor.physics.presetName;
+    });
+  });
 }
