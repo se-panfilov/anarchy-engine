@@ -7,8 +7,8 @@ const getArg = (flag, def) => {
   return i >= 0 ? argv[i + 1] : def;
 };
 
-const CONFIG_PATH = getArg('--config', 'i18n/locales.config.jsonc');
-const OUT_PATH = getArg('--out', 'i18n/locales.gen.ts');
+const CONFIG_PATH = getArg('--config', 'src/Config/locales.config.jsonc');
+const OUT_PATH = getArg('--out', 'src/Constants/Locales.gen.ts');
 
 const fileExists = async (p) => {
   try {
@@ -136,8 +136,6 @@ const buildNativeName = (id, parts) => {
   // }
   return (bits.length ? `${langName} (${bits.join(', ')})` : langName).trim();
 };
-
-const toTsLiteral = (obj) => JSON.stringify(obj, null, 2);
 
 async function generate(localeIds) {
   if (!Array.isArray(localeIds) || localeIds.length === 0) {
