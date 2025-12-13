@@ -16,7 +16,7 @@ import { applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Ut
 
 export function Actor(
   params: TActorParams,
-  { kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService, models3dService, model3dFacadeToActorConnectionRegistry }: TActorDependencies
+  { kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService, models3dService, model3dToActorConnectionRegistry }: TActorDependencies
 ): TActor {
   // TODO 8.0.0. MODELS: Allow to switch "drive" it in runtime
   let drive: ActorDrive = params.drive;
@@ -30,7 +30,7 @@ export function Actor(
 
   // TODO 8.0.0. MODELS: position$, rotation$, scale$ should update related model3d values
 
-  const isModelAlreadyInUse: boolean = isDefined(model3dFacadeToActorConnectionRegistry.findByModel3dFacade(params.model3dSource));
+  const isModelAlreadyInUse: boolean = isDefined(model3dToActorConnectionRegistry.findByModel3d(params.model3dSource));
   const model3d: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
 
   // const { value$: position$, update: updatePosition } = withReactivePosition(model3d);
@@ -46,7 +46,7 @@ export function Actor(
     ...withUpdateSpatialCell()
   };
 
-  const facade = AbstractEntity(entities, EntityType.Actor, params);
+  const abstract = AbstractEntity(entities, EntityType.Actor, params);
 
   const kinematicSub$: Subscription = kinematicLoopService.tick$.subscribe((delta: number): void => {
     if (!entities.kinematic.isAutoUpdate()) return;
@@ -62,7 +62,7 @@ export function Actor(
     }
   });
 
-  facade.destroyed$.subscribe(() => {
+  abstract.destroyed$.subscribe(() => {
     kinematicSub$.unsubscribe();
     spatialSub$.unsubscribe();
     position$.unsubscribe();
@@ -71,7 +71,7 @@ export function Actor(
     rotation$.complete();
     entities.spatial.destroy();
     entities.collisions?.destroy();
-    model3dFacadeToActorConnectionRegistry.removeByModel3dFacade(model3d);
+    model3dToActorConnectionRegistry.removeByModel3d(model3d);
     model3d.destroy();
   });
 
@@ -111,10 +111,10 @@ export function Actor(
   // TODO 8.0.0. MODELS: check how collisions works with the model3d?
   startCollisions(entities);
 
-  model3dFacadeToActorConnectionRegistry.addModel3dFacade(model3d, entities);
+  model3dToActorConnectionRegistry.addModel3d(model3d, entities);
 
   return {
-    ...facade,
+    ...abstract,
     setDrive,
     getDrive,
     position$,

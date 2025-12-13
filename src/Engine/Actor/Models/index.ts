@@ -10,5 +10,5 @@ export * from './TActorProps';
 export * from './TActorRegistry';
 export * from './TActorService';
 export * from './TActorWithPhysics';
-export * from './TModel3dFacadeToActorConnectionRegistry';
+export * from './TModel3dToActorConnectionRegistry';
 export * from './TParamsFromConfigActor';

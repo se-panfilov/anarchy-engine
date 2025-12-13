@@ -1,4 +1,4 @@
-import type { TModel3dFacadeToActorConnectionRegistry } from '@/Engine/Actor';
+import type { TModel3dToActorConnectionRegistry } from '@/Engine/Actor';
 import { ActorFactory, ActorRegistry, ActorService, Model3dFacadeToActorConnectionRegistry } from '@/Engine/Actor';
 import type { TAnimationsService } from '@/Engine/Animations';
 import { AnimationsService } from '@/Engine/Animations';
@@ -78,7 +78,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
   const collisionsService: TCollisionsService = CollisionsService();
   const loopService: TLoopService = LoopService();
   const animationsService: TAnimationsService = AnimationsService(loopService);
-  const model3dFacadeToActorConnectionRegistry: TModel3dFacadeToActorConnectionRegistry = Model3dFacadeToActorConnectionRegistry();
+  const model3dFacadeToActorConnectionRegistry: TModel3dToActorConnectionRegistry = Model3dFacadeToActorConnectionRegistry();
   const model3dRawToModel3dConnectionRegistry: TModel3dRawToModel3dConnectionRegistry = Model3dRawToModel3dConnectionRegistry();
   const models3dService: TModels3dService = Models3dService(Models3dFactory(), Models3dRegistry(), Models3dResourceAsyncRegistry(), {
     materialService,
@@ -99,7 +99,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
         spatialGridService,
         collisionsLoopService,
         collisionsService,
-        model3dFacadeToActorConnectionRegistry
+        model3dToActorConnectionRegistry: model3dFacadeToActorConnectionRegistry
       },
       sceneW
     ),
