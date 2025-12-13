@@ -13,6 +13,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
   const { actorRegistry, cameraRegistry } = space.entities;
   const { findByTagAsync, findByTagsAsync } = actorRegistry;
+  const { onKey } = keyboardService;
 
   async function init(): Promise<void> {
     const actorKeyboard: IActorWrapperAsync = await findByTagAsync('keyboard');
@@ -28,21 +29,21 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     const actorMkeyForward: IActorWrapperAsync = await findByTagsAsync(['mkey', 'Forward'], LookUpStrategy.Every);
     const actorMkeyExtra: IActorWrapperAsync = await findByTagsAsync(['mkey', 'Extra'], LookUpStrategy.Every);
 
-    keyboardService.onKey(KeyCode.W).pressing$.subscribe((): void => void actorKeyboard.addZ(-0.3));
-    keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => void actorKeyW.addY(-0.2));
-    keyboardService.onKey(KeyCode.W).released$.subscribe((): void => void actorKeyW.addY(0.2));
+    onKey(KeyCode.W).pressing$.subscribe((): void => void actorKeyboard.addZ(-0.3));
+    onKey(KeyCode.W).pressed$.subscribe((): void => void actorKeyW.addY(-0.2));
+    onKey(KeyCode.W).released$.subscribe((): void => void actorKeyW.addY(0.2));
 
-    keyboardService.onKey(KeyCode.A).pressing$.subscribe((): void => void actorKeyboard.addX(-0.3));
-    keyboardService.onKey(KeyCode.A).pressed$.subscribe((): void => void actorKeyA.addY(-0.2));
-    keyboardService.onKey(KeyCode.A).released$.subscribe((): void => void actorKeyA.addY(0.2));
+    onKey(KeyCode.A).pressing$.subscribe((): void => void actorKeyboard.addX(-0.3));
+    onKey(KeyCode.A).pressed$.subscribe((): void => void actorKeyA.addY(-0.2));
+    onKey(KeyCode.A).released$.subscribe((): void => void actorKeyA.addY(0.2));
 
-    keyboardService.onKey(KeyCode.S).pressing$.subscribe((): void => void actorKeyboard.addZ(0.3));
-    keyboardService.onKey(KeyCode.S).pressed$.subscribe((): void => void actorKeyS.addY(-0.2));
-    keyboardService.onKey(KeyCode.S).released$.subscribe((): void => void actorKeyS.addY(0.2));
+    onKey(KeyCode.S).pressing$.subscribe((): void => void actorKeyboard.addZ(0.3));
+    onKey(KeyCode.S).pressed$.subscribe((): void => void actorKeyS.addY(-0.2));
+    onKey(KeyCode.S).released$.subscribe((): void => void actorKeyS.addY(0.2));
 
-    keyboardService.onKey(KeyCode.D).pressing$.subscribe((): void => void actorKeyboard.addX(0.3));
-    keyboardService.onKey(KeyCode.D).pressed$.subscribe((): void => void actorKeyD.addY(-0.2));
-    keyboardService.onKey(KeyCode.D).released$.subscribe((): void => void actorKeyD.addY(0.2));
+    onKey(KeyCode.D).pressing$.subscribe((): void => void actorKeyboard.addX(0.3));
+    onKey(KeyCode.D).pressed$.subscribe((): void => void actorKeyD.addY(-0.2));
+    onKey(KeyCode.D).released$.subscribe((): void => void actorKeyD.addY(0.2));
 
     const intersectionsWatcher: IIntersectionsWatcher = await startIntersections();
 
