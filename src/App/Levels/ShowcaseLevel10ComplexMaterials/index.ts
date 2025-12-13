@@ -68,7 +68,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     level.start();
 
     const actor = actorRegistry.getUniqByTagAsync('standard');
-    console.log('111', actor);
+    // console.log('111', actor);
     // console.log('standard', actor);
     // console.log('standard entity', actor?.entity);
     console.log('standard entity', actor?.entity.material);

@@ -1,5 +1,5 @@
-import type { Subscription } from 'rxjs';
-import { filter } from 'rxjs';
+import type { Observable, Subscription } from 'rxjs';
+import { filter, take } from 'rxjs';
 
 import type { IAbstractRegistry } from '@/Engine/Abstract';
 import type { IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
@@ -29,4 +29,8 @@ export function subscribeToValue<T extends IRegistrable | IMultitonRegistrable>(
   if (isDefined(stopCb)) stopCb(stop);
 
   return promise;
+}
+
+export function subscribeToValue$<T extends IRegistrable | IMultitonRegistrable>(reg: IAbstractRegistry<T>, filterFn: (entity: T) => boolean): Observable<T> {
+  return reg.added$.pipe(filter(filterFn), take(1));
 }
