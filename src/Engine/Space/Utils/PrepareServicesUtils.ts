@@ -38,25 +38,16 @@ import { TextureService } from '@/Engine/Texture';
 import { TextureAsyncRegistry } from '@/Engine/Texture/Registries/TextureAsyncRegistry';
 import { isNotDefined } from '@/Engine/Utils';
 
-export async function prepareServices(spaceName: string, canvas: TAppCanvas, scenes: ReadonlyArray<TSceneConfig>): Promise<Readonly<{ services: TSpaceServices; activeSceneW: TSceneWrapper }>> {
-  let activeSceneW: TSceneWrapper;
-  const p = new Promise<{ services: TSpaceServices; activeSceneW: TSceneWrapper }>((resolve) => {
-    const services: TSpaceServices = buildEntitiesServices(canvas, (scenesService: TScenesService): TSceneWrapper | never => {
-      scenesService.createFromConfig(scenes);
-      const sceneW: TSceneWrapper | undefined = scenesService.findActive();
-      if (isNotDefined(sceneW)) throw new Error(`Cannot find an active scene for space "${spaceName}" during space's services initialization.`);
-      activeSceneW = sceneW;
+export function getActiveScene(spaceName: string, scenes: ReadonlyArray<TSceneConfig>, scenesService: TScenesService): TSceneWrapper {
+  scenesService.createFromConfig(scenes);
+  const sceneW: TSceneWrapper | undefined = scenesService.findActive();
+  if (isNotDefined(sceneW)) throw new Error(`Cannot find an active scene for space "${spaceName}" during space's services initialization.`);
+  const activeSceneW: TSceneWrapper = sceneW;
 
-      // TODO debug (window as any).sceneW
-      // (window as any).sceneW = sceneW;
+  // TODO debug (window as any).sceneW
+  // (window as any).sceneW = sceneW;
 
-      return activeSceneW;
-    });
-
-    resolve({ services, activeSceneW });
-  });
-
-  return p;
+  return activeSceneW;
 }
 
 export function buildBaseServices(): TSpaceBaseServices {

@@ -4,10 +4,11 @@ import type { TAppCanvas } from '@/Engine/App';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { RendererModes } from '@/Engine/Renderer';
+import type { TSceneWrapper } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixins';
 import type { TSpace, TSpaceBaseServices, TSpaceConfig, TSpaceHooks, TSpaceLoops, TSpaceService, TWithBuilt } from '@/Engine/Space/Models';
-import { buildBaseServices, createEntities, loadResources, prepareServices } from '@/Engine/Space/Utils';
+import { buildBaseServices, buildEntitiesServices, createEntities, getActiveScene, loadResources } from '@/Engine/Space/Utils';
 import { createLoops } from '@/Engine/Space/Utils/CreateLoopsUtils';
 import { validateConfig } from '@/Engine/Space/Validators';
 import { isDestroyable } from '@/Engine/Utils';
@@ -19,11 +20,13 @@ export function SpaceService(): TSpaceService {
     hooks?.beforeConfigValidation?.(config);
     validateConfig(config);
     screenService.setCanvas(canvas);
-    hooks?.beforeServicesPrepared?.(canvas, config);
+    hooks?.beforeBaseServicesBuilt?.(canvas, config);
     const baseServices: TSpaceBaseServices = buildBaseServices();
+    const sceneW: TSceneWrapper = getActiveScene(config.name, config.scenes, baseServices.scenesService);
     hooks?.beforeLoopsCreated?.(config);
     const loops: TSpaceLoops = createLoops(baseServices.loopService);
-    const { services } = await prepareServices(config.name, canvas, config.scenes, loops, baseServices);
+    hooks?.beforeEntitiesServicesBuilt?.(canvas, config);
+    const services = buildEntitiesServices(sceneW, canvas, loops, baseServices);
 
     hooks?.beforeResourcesLoaded?.(config, services, loops);
     await loadResources(config.resources, services);
