@@ -1,12 +1,12 @@
 import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@Anarchy/Engine';
 import { spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
-import { initGuiApp } from '@Showcases/GUI/main';
+import type { TFromGuiActionEvent } from '@Showcases/GUI/models';
 import { showcasesTranslationService } from '@Showcases/i18n';
-import { initMenuApp } from '@Showcases/Menu/main';
 import type { TFromGuiEvent } from '@Showcases/Shared';
 import { filter, Subject } from 'rxjs';
-import type { TFromGuiActionEvent } from 'showcases-gui/src/models/TFromGuiActionEvent';
+import { initGuiApp } from 'showcases-gui/src/main';
+import { initMenuApp } from 'showcases-menu/src/main';
 
 import { runtimeEnv } from '@/env';
 import { fromGuiEventsBus$, fromMenuEventsBus$, toGuiEventsBus$, toMenuEventsBus$ } from '@/Levels/Showcase28Menu/EventsBus';
