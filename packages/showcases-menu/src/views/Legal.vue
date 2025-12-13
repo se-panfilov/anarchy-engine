@@ -2,7 +2,6 @@
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import MdRenderer from '@Showcases/Menu/components/MdRenderer.vue';
 import Navigation from '@Showcases/Menu/components/Navigation/Navigation.vue';
-import SettingsGroup from '@Showcases/Menu/components/SettingsGroup.vue';
 import View from '@Showcases/Menu/components/View.vue';
 import ViewForm from '@Showcases/Menu/components/ViewForm.vue';
 import { eventsService, vueTranslationService } from '@Showcases/Menu/services';
@@ -13,32 +12,41 @@ import { AllowedLegalDocNames } from '@Showcases/Shared';
 import type { ShallowRef } from 'vue';
 import { onMounted } from 'vue';
 
-const { EULA, NOTICE } = AllowedLegalDocNames;
+const { DISCLAIMER, EULA, NOTICE, SUPPORT, PRIVACY, SECURITY, INSTRUCTIONS, THIRD_PARTY_LICENSES } = AllowedLegalDocNames;
 const legalDocsStore = useLegalDocsStore();
 const settingsStore = useSettingsStore();
 
 // TODO DESKTOP: LEGAL: change legal folders to /legal/{locale} (also public/legal/{locale}, assets/legal/{locale})
+// TODO DESKTOP: LEGAL: legalDocsStore.state.XXXX should also be distinct by locales
 onMounted(() => {
-  if (isNotDefined(legalDocsStore.state.EULA)) eventsService.emitLoadLegalDocs({ name: EULA, locale: settingsStore.localization.locale.id as TShowcaseLocaleIds });
-  if (isNotDefined(legalDocsStore.state.NOTICE)) eventsService.emitLoadLegalDocs({ name: NOTICE, locale: settingsStore.localization.locale.id as TShowcaseLocaleIds });
+  const locale = settingsStore.localization.locale.id as TShowcaseLocaleIds;
+
+  if (isNotDefined(legalDocsStore.state.EULA)) eventsService.emitLoadLegalDocs({ name: EULA, locale });
+  if (isNotDefined(legalDocsStore.state.NOTICE)) eventsService.emitLoadLegalDocs({ name: NOTICE, locale });
+  if (isNotDefined(legalDocsStore.state.DISCLAIMER)) eventsService.emitLoadLegalDocs({ name: DISCLAIMER, locale });
+  if (isNotDefined(legalDocsStore.state.PRIVACY)) eventsService.emitLoadLegalDocs({ name: PRIVACY, locale });
+  if (isNotDefined(legalDocsStore.state.SUPPORT)) eventsService.emitLoadLegalDocs({ name: SUPPORT, locale });
+  if (isNotDefined(legalDocsStore.state.SECURITY)) eventsService.emitLoadLegalDocs({ name: SECURITY, locale });
+  if (isNotDefined(legalDocsStore.state.INSTRUCTIONS)) eventsService.emitLoadLegalDocs({ name: INSTRUCTIONS, locale });
+  if (isNotDefined(legalDocsStore.state.THIRD_PARTY_LICENSES)) eventsService.emitLoadLegalDocs({ name: THIRD_PARTY_LICENSES, locale });
 });
 
 const { $t } = vueTranslationService;
 
 const viewTitleText: ShallowRef<string> = $t('main-menu.settings.legal.view.title');
-const eulaGroupTitleText: ShallowRef<string> = $t('main-menu.settings.legal.group.eula.title');
-const noticeGroupTitleText: ShallowRef<string> = $t('main-menu.settings.legal.group.notice.title');
 </script>
 
 <template>
   <View class="legal" :title="viewTitleText">
     <ViewForm name="legal" class="legal__view-form">
-      <SettingsGroup :title="eulaGroupTitleText">
-        <MdRenderer class="legal__renderer" :content="legalDocsStore.state.EULA" />
-      </SettingsGroup>
-      <SettingsGroup :title="noticeGroupTitleText">
-        <MdRenderer class="legal__renderer" :content="legalDocsStore.state.NOTICE" />
-      </SettingsGroup>
+      <MdRenderer class="legal__renderer -EULA" :content="legalDocsStore.state.EULA" />
+      <MdRenderer class="legal__renderer -NOTICE" :content="legalDocsStore.state.NOTICE" />
+      <MdRenderer class="legal__renderer -DISCLAIMER" :content="legalDocsStore.state.DISCLAIMER" />
+      <MdRenderer class="legal__renderer -PRIVACY" :content="legalDocsStore.state.PRIVACY" />
+      <MdRenderer class="legal__renderer -SUPPORT" :content="legalDocsStore.state.SUPPORT" />
+      <MdRenderer class="legal__renderer -SECURITY" :content="legalDocsStore.state.SECURITY" />
+      <MdRenderer class="legal__renderer -INSTRUCTIONS" :content="legalDocsStore.state.INSTRUCTIONS" />
+      <MdRenderer class="legal__renderer -THIRD_PARTY_LICENSES" :content="legalDocsStore.state.THIRD_PARTY_LICENSES" />
       <Navigation class="settings__navigation" :back-btn="true" />
     </ViewForm>
   </View>
