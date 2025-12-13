@@ -71,9 +71,24 @@ export function configToParams(config: TMaterialConfig, { textureService }: TMat
     });
   }
 
-  return {
+  const result: any = {
     ...config,
     textures,
     options
   };
+
+  if (config.name === 'physical_metal') {
+    console.log('XXX3 clearcoat', result.options?.clearcoat, result.options?.clearcoat === 1.1, result.options?.clearcoat === 1);
+    console.log('XXX3 clearcoatRoughness', result.options?.clearcoatRoughness, result.options?.clearcoatRoughness === 0.13, result.options?.clearcoatRoughness === 0.12);
+    console.log('XXX3 displacementScale', result.options?.displacementScale, result.options?.displacementScale === 0.2, result.options?.displacementScale === 0);
+    console.log('XXX3 ior', result.options?.ior, result.options?.ior === 2.2, result.options?.ior === 2.5);
+    console.log('XXX3 iridescence', result.options?.iridescence, result.options?.iridescence === 0.7, result.options?.iridescence === 0.655);
+    console.log('XXX3 iridescenceIOR', result.options?.iridescenceIOR, result.options?.iridescenceIOR === 1.7, result.options?.iridescenceIOR === 1.86);
+    console.log('XXX3 metalness', result.options?.metalness, result.options?.metalness === 1, result.options?.metalness === 0.97);
+    console.log('XXX3 roughness', result.options?.roughness, result.options?.roughness === 0.9, result.options?.roughness === 0.8);
+    console.log('XXX3 thickness', result.options?.thickness, result.options?.thickness === 0.1, result.options?.thickness === 0);
+    console.log('XXX3 transmission', result.options?.transmission, result.options?.transmission === 0.1, result.options?.transmission === 0);
+  }
+
+  return result;
 }
