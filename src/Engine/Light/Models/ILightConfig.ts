@@ -1,10 +1,10 @@
 import type { IWithCoordsXY, IWithReadonlyTags } from '@/Engine/Mixins';
 import type { IObject3DPropConfig } from '@/Engine/ThreeLib';
 
-import type { IAmbientLightProps } from './IAmbientLightProps';
+import type { IAbstractLightProps } from './IAbstractLightProps';
 import type { ILightShadowParams } from './ILightShadowParams';
 
-export type ILightConfig = Omit<IAmbientLightProps, 'color' | 'shadow'> &
+export type ILightConfig = Omit<IAbstractLightProps, 'color' | 'shadow'> &
   Readonly<{
     color: string;
     shadow?: LightShadowConfig;
