@@ -46,7 +46,7 @@ export function getCameraOnlyConfig(entity: TAnyCameraWrapper): Omit<TCommonCame
   });
 }
 
-function getCommonCameraConfig(
+export function getCommonCameraConfig(
   json: PerspectiveCameraJSONObject | OrthographicCameraJSONObject | TCommonCameraParams
 ): Omit<TCommonCameraConfig, 'position' | 'rotation' | 'audioListener' | 'name' | 'type' | 'isActive'> {
   let up: Vector3Like | undefined = undefined;
@@ -65,11 +65,11 @@ function getCommonCameraConfig(
   };
 }
 
-function getPerspectiveCameraOnlyConfig({ fov, filmGauge, filmOffset, focus }: PerspectiveCameraJSONObject | TPerspectiveCameraParams): TPerspectiveCameraOnlyConfig {
+export function getPerspectiveCameraOnlyConfig({ fov, filmGauge, filmOffset, focus }: PerspectiveCameraJSONObject | TPerspectiveCameraParams): TPerspectiveCameraOnlyConfig {
   return { fov, filmGauge, filmOffset, focus };
 }
 
-function getOrthographicCameraOnlyConfig({ left, right, top, bottom }: OrthographicCameraJSONObject | TOrthographicCameraParams): TOrthographicCameraOnlyConfig {
+export function getOrthographicCameraOnlyConfig({ left, right, top, bottom }: OrthographicCameraJSONObject | TOrthographicCameraParams): TOrthographicCameraOnlyConfig {
   return { left, right, top, bottom };
 }
 
