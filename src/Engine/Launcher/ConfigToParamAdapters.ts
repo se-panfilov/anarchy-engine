@@ -8,7 +8,7 @@ import type {
 import type { ActorParams, CameraParams, LightParams, LightShadowParams } from '@Engine/Models';
 import type { MeshToonMaterialParameters } from 'three';
 import { Color, Vector2, Vector3 } from 'three';
-import { isDefined } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Engine/Utils';
 
 export function actorAdapter(config: ActorConfig): ActorParams {
   const { materialParams, position, ...rest } = config;
@@ -28,9 +28,10 @@ function getAdaptedMaterialParams(materialParams: ActorMaterialConfig): {
 }
 
 export function cameraAdapter(config: CameraConfig): CameraParams {
-  const { position, ...rest } = config;
+  const { position, lookAt, ...rest } = config;
   return {
     ...rest,
+    lookAt: new Vector3(lookAt.x, lookAt.y, lookAt.z),
     position: new Vector3(position.x, position.y, position.z)
   };
 }
@@ -49,6 +50,7 @@ function getLightColorParams(colorStr: string): { color: Color } {
   return { color: new Color(colorStr) };
 }
 
-function getLightShadowParams(shadow: LightShadowConfig): { shadow: LightShadowParams } {
+function getLightShadowParams(shadow: LightShadowConfig | undefined): { shadow: LightShadowParams } | undefined {
+  if (isNotDefined(shadow)) return undefined;
   return { shadow: { ...shadow, mapSize: new Vector2(shadow.mapSize.x, shadow.mapSize.y) } };
 }
