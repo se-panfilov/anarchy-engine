@@ -1,13 +1,11 @@
 import type { TMaterialWrapper } from '@/Engine/Material';
 import type { TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams } from '@/Engine/Models3d/Models';
-import { isPrimitive } from '@/Engine/Models3d/Utils';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { isDefined } from '@/Engine/Utils';
 
 export function configToParams(config: TModel3dConfig, { materialService }: TModel3dConfigToParamsDependencies): TModel3dParams {
   const { position, rotation, material: materialName, scale, ...rest } = config;
 
-  if (isPrimitive(config) && isNotDefined(materialName)) throw new Error(`Model3dConfigAdapter: Material is not defined, but it must be defined for primitive models.`);
   const material: TMaterialWrapper | undefined = isDefined(materialName) ? materialService.getRegistry().findByName(materialName) : undefined;
 
   return {
