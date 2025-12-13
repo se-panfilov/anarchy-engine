@@ -50,13 +50,14 @@ export const BASE_CSP: TCspRulles = {
 
   'child-src': ["'none'"],
   'object-src': ["'none'"],
-  'base-uri': ["'self'"],
-  'form-action': ["'self'"]
+  'base-uri': ["'none'"],
+  'form-action': ["'none'"] //When billing is added, change it to 'self' and the billing provider URL
 
   // Must be set via server headers
   // 'frame-ancestors': ["'none'"]
 
-  // "upgrade-insecure-requests": [] //If needed in the web version
+  // TODO Enable When we have HTTPS
+  // 'upgrade-insecure-requests': []
 };
 
 // export const DEV_CSP: TCspRulles = {
