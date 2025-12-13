@@ -30,10 +30,7 @@ export const useSettingsStore = defineStore('settingsStore', () => {
     }
   });
 
-  const onLocaleChanged = (nextLocale: TLocale): void => {
-    console.log('XXX111', nextLocale.id);
-    vueTranslationService.locale$.next(nextLocale);
-  };
+  const onLocaleChanged = (nextLocale: TLocale): void => vueTranslationService.locale$.next(nextLocale);
 
   watch(
     () => state.localization.locale.id,
