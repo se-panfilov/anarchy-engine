@@ -14,7 +14,7 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRe
 
   const destroyable: TDestroyable = destroyableMixin();
   const reactiveRegistry: TWithReactiveRegistry<T> = withReactiveRegistry<T>(registry, destroyable);
-  const { isEmpty, getLength, forEach, asArray, find, getRegistryCopy, clear }: TWithBaseAccessorsRegistry<T> = withBaseAccessorsRegistry<T>(registry);
+  const baseAccessors: TWithBaseAccessorsRegistry<T> = withBaseAccessorsRegistry<T>(registry);
 
   function add(key: string, value: T): void | never {
     if (registry.has(key)) throw new Error(`Cannot add to a registry("${id}") a value with key "${key}": The key is already exist in the registry`);
@@ -46,15 +46,8 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRe
       id,
       add,
       added$: reactiveRegistry.added$.asObservable(),
-      find,
       findByKey,
       findKeyByValue,
-      forEach,
-      asArray,
-      getRegistryCopy,
-      getLength,
-      isEmpty,
-      clear,
       remove,
       asObject,
       removed$: reactiveRegistry.removed$.asObservable(),
@@ -62,6 +55,7 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRe
       replaced$: reactiveRegistry.replaced$.asObservable(),
       type
     },
+    baseAccessors,
     reactiveRegistry,
     destroyable
   );

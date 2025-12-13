@@ -1,21 +1,15 @@
-import type { OrthographicCameraJSONObject, PerspectiveCameraJSONObject } from 'three';
-import { AudioListener } from 'three';
+import type { AudioListener, OrthographicCameraJSONObject, PerspectiveCameraJSONObject } from 'three';
 
-import type { TCameraConfig, TCameraWrapper } from '@/Engine/Camera/Models';
+import type { TAudioService } from '@/Engine/Audio';
+import type { TCameraConfig, TCameraWrapper, TCameraWrapperDependencies } from '@/Engine/Camera/Models';
 import { extractRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields, isDefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
-export function cameraToConfig(entity: TCameraWrapper): TCameraConfig {
+export function cameraToConfig(entity: TCameraWrapper, { audioService }: Pick<TCameraWrapperDependencies, 'audioService'>): TCameraConfig {
   const { drive } = entity;
 
   const json: PerspectiveCameraJSONObject | OrthographicCameraJSONObject = entity.entity.toJSON().object;
-
-  let audioListener: string | undefined = undefined;
-  const listener: AudioListener | undefined = entity.entity.children.find((child) => child instanceof AudioListener);
-  if (isDefined(listener)) {
-    audioListener = {} as any;
-  }
 
   return filterOutEmptyFields({
     near: json.near,
@@ -30,9 +24,20 @@ export function cameraToConfig(entity: TCameraWrapper): TCameraConfig {
     up: json.up,
     zoom: json.zoom,
     isActive: entity.isActive(),
-    audioListener,
+    audioListener: getAudioListenerName(json, audioService),
     ...extractRegistrableFields(entity),
     ...drive.serialize()
     // TODO 15-0-0: fix any
   });
+}
+
+function getAudioListenerName(json: PerspectiveCameraJSONObject | OrthographicCameraJSONObject, audioService: TAudioService): string | undefined {
+  let result: string | undefined = undefined;
+  const listener: AudioListener | undefined = json.children?.find((child: any): boolean => child.type === 'AudioListener') as AudioListener | undefined;
+  if (isDefined(listener)) {
+    result = {} as any;
+    const { uuid } = listener;
+    result = audioService.getListenersRegistry().findKey((l: AudioListener): boolean => l.uuid === uuid);
+  }
+  return result;
 }

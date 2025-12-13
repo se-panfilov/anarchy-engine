@@ -15,7 +15,7 @@ import { applyObject3dParams, isDefined } from '@/Engine/Utils';
 
 import { getAccessors } from './Accessors';
 
-export function CameraWrapper(params: TCameraParams, { container, transformDriveService }: TCameraWrapperDependencies): TCameraWrapper {
+export function CameraWrapper(params: TCameraParams, { container, transformDriveService, audioService }: TCameraWrapperDependencies): TCameraWrapper {
   const { fov = 45, near = 1, far = 10000, lookAt, audioListener }: TCameraParams = params;
   const { width, height }: TOptional<DOMRect> = container.viewportRect$.value ?? { width: 0, height: 0 };
   const entity: TWriteable<TPerspectiveCamera> = new PerspectiveCamera(fov, container.getRatio(), near, far);
@@ -36,7 +36,7 @@ export function CameraWrapper(params: TCameraParams, { container, transformDrive
     entity,
     ...withObject3d(entity),
     ...withActiveMixin(),
-    serialize: (): TCameraConfig => cameraToConfig(result)
+    serialize: (): TCameraConfig => cameraToConfig(result, { audioService })
   });
 
   applyObject3dParams(result, params);
