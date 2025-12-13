@@ -171,6 +171,7 @@ export const JsRules = {
         '[C-c]ollider[s]?',
         '[C-c]olor[s]?',
         '[C-c]oord[s]?[0-9]?',
+        '[C-c]ors',
         '[D-d]estroyable',
         '[D-d]iv[s]?',
         '[D-d]om',
