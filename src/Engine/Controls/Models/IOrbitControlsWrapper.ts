@@ -1,7 +1,6 @@
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import type { IWrapper } from '@/Engine/Abstract';
-import type { CameraTag } from '@/Engine/Camera/Constants';
 import type { IWithActive, IWithTags } from '@/Engine/Mixins';
 import type { IVector3Wrapper } from '@/Engine/Vector';
 
@@ -17,4 +16,4 @@ export type IOrbitControlsWrapper = IWrapper<OrbitControls> &
     moveToTargetSmoothly: (position: IVector3Wrapper) => void;
   }> &
   IWithActive<OrbitControls> &
-  IWithTags<CameraTag>;
+  IWithTags<string>;

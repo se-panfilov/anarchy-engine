@@ -1,8 +1,7 @@
 import type { IWrapper } from '@/Engine/Abstract';
-import type { CameraTag } from '@/Engine/Camera/Constants';
 import type { IMovable3dXYZ, IRotatable, IWithActive, IWithObject3d, IWithTags } from '@/Engine/Mixins';
 
 import type { ICamera } from './ICamera';
 import type { ICameraAccessors } from './ICameraAccessors';
 
-export type ICameraWrapper = IWrapper<ICamera> & IWithObject3d & IWithActive<ICamera> & ICameraAccessors & IMovable3dXYZ & IRotatable & IWithTags<CameraTag>;
+export type ICameraWrapper = IWrapper<ICamera> & IWithObject3d & IWithActive<ICamera> & ICameraAccessors & IMovable3dXYZ & IRotatable & IWithTags<string>;

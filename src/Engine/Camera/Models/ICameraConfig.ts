@@ -1,4 +1,3 @@
-import type { CameraTag } from '@/Engine/Camera/Constants';
 import type { IWithCoordsXYZ, IWithReadonlyTags } from '@/Engine/Mixins';
 import type { IObject3DPropConfig } from '@/Engine/ThreeLib';
 
@@ -9,4 +8,4 @@ export type ICameraConfig = Omit<ICameraProps, 'lookAt'> &
     lookAt?: IWithCoordsXYZ;
   }> &
   IObject3DPropConfig &
-  IWithReadonlyTags<CameraTag>;
+  IWithReadonlyTags<string>;
