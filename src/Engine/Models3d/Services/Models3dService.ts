@@ -19,6 +19,7 @@ import type {
   TModel3dServiceWithRegistry,
   TModels3dFactory,
   TModels3dLoader,
+  TModels3dMetaInfoRegistry,
   TModels3dRegistry,
   TModels3dResourceAsyncRegistry,
   TModels3dService,
@@ -30,10 +31,11 @@ export function Models3dService(
   factory: TModels3dFactory,
   registry: TModels3dRegistry,
   resourcesRegistry: TModels3dResourceAsyncRegistry,
+  metaInfoRegistry: TModels3dMetaInfoRegistry,
   { materialService, animationsService, model3dRawToModel3dConnectionRegistry }: TModels3dServiceDependencies
 ): TModels3dService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((model3d: TModel3d): void => registry.add(model3d));
-  const model3dLoader: TModels3dLoader = Models3dLoader(resourcesRegistry);
+  const model3dLoader: TModels3dLoader = Models3dLoader(resourcesRegistry, metaInfoRegistry);
   const materialRegistry: TMaterialRegistry = materialService.getRegistry();
   const animationsResourceAsyncRegistry: TAnimationsResourceAsyncRegistry = animationsService.getResourceRegistry();
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, resourcesRegistry, model3dRawToModel3dConnectionRegistry, factorySub$, model3dLoader];
@@ -75,6 +77,7 @@ export function Models3dService(
       loadAsync: model3dLoader.loadAsync,
       loadFromConfigAsync: model3dLoader.loadFromConfigAsync,
       getResourceRegistry: (): TModels3dResourceAsyncRegistry => resourcesRegistry,
+      getMetaInfoRegistry: (): TModels3dMetaInfoRegistry => metaInfoRegistry,
       getAnimationsService: (): TAnimationsService => animationsService,
       getMaterialService: (): TMaterialService => materialService,
       clone

@@ -9,6 +9,7 @@ export type * from './TModel3dRawToModel3dConnectionRegistry';
 export type * from './TModel3dResourceConfig';
 export type * from './TModels3dFactory';
 export type * from './TModels3dLoader';
+export type * from './TModels3dMetaInfoRegistry';
 export type * from './TModels3dRegistry';
 export type * from './TModels3dResourceAsyncRegistry';
 export type * from './TModels3dService';

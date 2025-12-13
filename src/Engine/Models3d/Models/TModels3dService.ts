@@ -3,7 +3,15 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import type { TSerializableEntitiesService, TSerializableResourceService } from '@/Engine/Abstract';
 import type { TAnimationsService } from '@/Engine/Animations';
 import type { TMaterialService } from '@/Engine/Material';
-import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithLoadResourcesAsyncService, TWithRegistryService, TWithResourcesRegistryService } from '@/Engine/Mixins';
+import type {
+  TWithCreateFromConfigService,
+  TWithCreateService,
+  TWithFactoryService,
+  TWithLoadResourcesAsyncService,
+  TWithRegistryService,
+  TWithResourcesMetaInfoRegistryService,
+  TWithResourcesRegistryService
+} from '@/Engine/Mixins';
 import type {
   TModel3d,
   TModel3dConfig,
@@ -33,6 +41,7 @@ export type TModels3dService = TSerializableEntitiesService<TModel3dConfig> &
   TModel3dServiceWithFactory &
   TModel3dServiceWithRegistry &
   TWithResourcesRegistryService<TModels3dResourceAsyncRegistry> &
+  TWithResourcesMetaInfoRegistryService<TModel3dResourceConfig> &
   TWithLoadResourcesAsyncService<TModel3dResourceConfig, GLTF> &
   Readonly<{
     getAnimationsService: () => TAnimationsService;
