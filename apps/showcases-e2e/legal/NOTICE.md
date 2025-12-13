@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 19
+Components listed: 20
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -53,7 +53,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-shared@1.3.1
+## anarchy-shared@1.4.0
 
 **License(s):** MIT
 
@@ -80,6 +80,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** https://github.com/date-fns/date-fns
 
 **Attribution:** Copyright (c) 2021 Sasha Koss and Lesha Koss https://kossnocorp.mit-license.org
+
+---
+
+## fsevents@2.3.3
+
+**License(s):** MIT
+
+**Repository:** https://github.com/fsevents/fsevents.git
+
+**URL:** https://github.com/fsevents/fsevents
+
+**Attribution:** Copyright (C) 2010-2020 by Philipp Dunkel, Ben Noordhuis, Elan Shankar, Paul Miller
 
 ---
 

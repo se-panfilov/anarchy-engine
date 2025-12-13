@@ -8,6 +8,7 @@
 - 2.6.0 Patch settings
 - 2.7.0 Build meta info (versions)
 - 2.8.0 Added CSP
+- 2.8.1 Fixes for Windows build
 
 Roadmap:
 
