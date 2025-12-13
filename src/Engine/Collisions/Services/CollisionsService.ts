@@ -1,6 +1,7 @@
 import type { Intersection, Mesh } from 'three';
 import { Box3, Raycaster } from 'three';
 
+import type { TActorWrapperAsync } from '@/Engine/Actor/Models';
 import type { TBvhService, TCollisionCheckResult, TCollisionsService, TSpatialGridService } from '@/Engine/Collisions/Models';
 
 import { BvhService } from './BvhService';
@@ -11,25 +12,26 @@ export function CollisionsService(): TCollisionsService {
   const spatialGridService: TSpatialGridService = SpatialGridService();
   const spatialGrid = spatialGridService.getSpatialGrid();
 
-  function checkCollision(bullet: Mesh, radius: number): TCollisionCheckResult | null {
-    const bulletBox: Box3 = new Box3().setFromObject(bullet);
+  function checkCollision(actorW: TActorWrapperAsync, radius: number): TCollisionCheckResult | null {
+    const actorBox: Box3 = new Box3().setFromObject(actorW.entity);
     const queryBox = {
-      minX: bulletBox.min.x - radius,
-      minY: bulletBox.min.y - radius,
-      minZ: bulletBox.min.z - radius,
-      maxX: bulletBox.max.x + radius,
-      maxY: bulletBox.max.y + radius,
-      maxZ: bulletBox.max.z + radius
+      minX: actorBox.min.x - radius,
+      minY: actorBox.min.y - radius,
+      minZ: actorBox.min.z - radius,
+      maxX: actorBox.max.x + radius,
+      maxY: actorBox.max.y + radius,
+      maxZ: actorBox.max.z + radius
     };
 
     const candidates = spatialGrid.search(queryBox);
     // eslint-disable-next-line functional/no-loop-statements
     for (const candidate of candidates) {
-      if (candidate.object !== bullet) {
-        const raycaster = new Raycaster();
-        raycaster.set(bullet.position, bullet.direction);
+      if (candidate.object !== actorW.entity) {
+        const raycaster: Raycaster = new Raycaster();
+        // TODO (S.Panfilov) should be not any actor, but actor with direction
+        raycaster.set(actorW.entity.position, actorW.direction);
 
-        const intersects: Intersection[] = [];
+        const intersects: Array<Intersection> = [];
         bvhService.raycastWithBVH(candidate.object as Mesh, raycaster, intersects);
 
         if (intersects.length > 0) {
@@ -38,7 +40,7 @@ export function CollisionsService(): TCollisionsService {
             object: candidate.object,
             distance: intersect.distance,
             collisionPoint: intersect.point,
-            bulletPosition: bullet.position.clone()
+            bulletPosition: actorW.entity.position.clone()
           };
         }
       }
