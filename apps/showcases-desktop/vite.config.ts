@@ -1,10 +1,16 @@
-import copy from 'rollup-plugin-copy';
-import { ConfigEnv, defineConfig, UserConfig } from 'vite';
+import type { ConfigEnv, UserConfig } from 'vite';
+import { defineConfig } from 'vite';
 import path from 'path';
 import { sharedAliases } from '../../vite.alias';
 import { version } from './package.json';
 import csp from 'vite-plugin-csp-guard';
 import { PROD_CSP } from '../../configs/Security/Csp/CspConfig';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
+
+const toPosix = (p: string) => p.split(path.sep).join('/');
+
+const CORE_DIST_DIR: string = path.resolve(__dirname, '../showcases-core/dist-desktop');
+const DRACO_DIR: string = path.resolve(__dirname, '../../node_modules/three/examples/jsm/libs/draco');
 
 // Frankly, we can build desktop-main.ts without Vite (just with tsc).
 // But imports are such a pain, so it's easier to use a bundler.
@@ -20,6 +26,29 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         '@Showcases/Shared': path.resolve(__dirname, '../../packages/showcases-shared/src')
       }
     },
+    plugins: [
+      viteStaticCopy({
+        targets: [
+          {
+            src: toPosix(path.resolve(CORE_DIST_DIR, '**/*')),
+            dest: 'dist-desktop'
+          },
+          //Electron cannot recognize three/examples/jsm/libs/draco import, so we copy files manually
+          {
+            src: toPosix(path.resolve(DRACO_DIR, 'draco_decoder.js')),
+            dest: 'dist-desktop/three/examples/jsm/libs/draco'
+          },
+          {
+            src: toPosix(path.resolve(DRACO_DIR, 'draco_wasm_wrapper.js')),
+            dest: 'dist-desktop/three/examples/jsm/libs/draco'
+          },
+          {
+            src: toPosix(path.resolve(DRACO_DIR, 'draco_decoder.wasm')),
+            dest: 'dist-desktop/three/examples/jsm/libs/draco'
+          }
+        ]
+      })
+    ],
     build: {
       emptyOutDir: false, // Do not empty outDir, we build app there first
       lib: {
@@ -32,29 +61,6 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       rollupOptions: {
         external: ['electron', 'path', 'fs'], // Prevent bundling electron and node modules
         plugins: [
-          // TODO DESKTOP: "copy" plugin doesn't really work on Windows
-          copy({
-            targets: [
-              {
-                src: path.resolve(__dirname, '../showcases-core/dist-desktop'),
-                dest: path.resolve(__dirname, 'dist')
-              },
-              //Electron cannot recognize three/examples/jsm/libs/draco import, so we copy files manually
-              {
-                src: path.resolve(__dirname, '../../node_modules/three/examples/jsm/libs/draco/draco_decoder.js'),
-                dest: path.resolve(__dirname, 'dist/dist-desktop/three/examples/jsm/libs/draco/')
-              },
-              {
-                src: path.resolve(__dirname, '../../node_modules/three/examples/jsm/libs/draco/draco_wasm_wrapper.js'),
-                dest: path.resolve(__dirname, 'dist/dist-desktop/three/examples/jsm/libs/draco/')
-              },
-              {
-                src: path.resolve(__dirname, '../../node_modules/three/examples/jsm/libs/draco/draco_decoder.wasm'),
-                dest: path.resolve(__dirname, 'dist/dist-desktop/three/examples/jsm/libs/draco/')
-              }
-            ],
-            hook: 'writeBundle'
-          }),
           //Issue: CSP plugin doesn't add <Meta> tag in dev mode
           csp({
             dev: { run: true, outlierSupport: ['sass'] },
