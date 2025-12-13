@@ -11,7 +11,8 @@ export default [
     messages: {
       ...baseGenerics.messages,
 
-      PRODUCT_TERM: 'Project'
+      PRODUCT_TERM: 'Project',
+      STORE_DISCLOSURES: false
     }
   },
   {

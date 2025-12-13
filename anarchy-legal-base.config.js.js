@@ -17,7 +17,7 @@ export default [
       SHOW_TECH_IDENTIFIERS: true,
       TRADEMARK_SYMBOL: '', //Empty by default. Possible '™' (no obligations, just an indication it's a trademark) or '®' (registered trademark, which requires registration in the country of use).
       PRODUCT_TERM: 'Software', //E.g. 'Software', 'Product', 'Game', etc.
-      STORE_DISCLOSURES: false,
+      STORE_DISCLOSURES: true,
 
       //DATA COLLECTION
       CRASH_OPT_IN: false,
