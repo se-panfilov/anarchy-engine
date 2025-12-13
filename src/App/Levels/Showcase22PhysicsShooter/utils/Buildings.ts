@@ -1,4 +1,4 @@
-import { Vector3 } from 'three';
+import { Euler, Vector3 } from 'three';
 
 import type { TActorService, TActorWrapperWithPhysics, TBoxGeometryProps, TMaterialService, TModel3dFacade, TModels3dService, TObject3DParams, TSpatialGridWrapper, TWithCoordsXZ } from '@/Engine';
 import { CollisionShape, MaterialType, PrimitiveModel3dType, RigidBodyTypesNames } from '@/Engine';
@@ -34,7 +34,9 @@ export async function buildTower(
         heightSegments: 1
       },
       castShadow: true,
-      receiveShadow: false
+      receiveShadow: false,
+      position: block.position,
+      rotation: new Euler(0, 0, 0)
     });
 
     return actorService.create({
@@ -55,6 +57,7 @@ export async function buildTower(
         position: block.position
       },
       position: block.position,
+      rotation: new Euler(0, 0, 0),
       spatial: { isAutoUpdate: true, grid },
       tags: ['physics_block']
     }) as TActorWrapperWithPhysics;
