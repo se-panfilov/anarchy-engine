@@ -35,7 +35,7 @@ export function AbstractLoader<L extends Loader<any>, R extends TProtectedRegist
     });
   }
 
-  const loadListAsync = (packs: ReadonlyArray<C>): ReadonlyArray<Promise<T>> => packs.map((pack: C): Promise<T> => loadAsync(pack));
+  const loadListAsync = (packs: ReadonlyArray<C>): Promise<ReadonlyArray<T>> => Promise.all(packs.map((pack: C): Promise<T> => loadAsync(pack)));
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {

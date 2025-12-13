@@ -3,14 +3,14 @@ import { LinearFilter, NearestFilter, SRGBColorSpace } from 'three';
 
 import { MaterialType } from '@/Engine/Material';
 import type { TMaterialPackKeys, TMaterialPackParams, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
-import type { TTexture, TTexturePackParams, TTextureParams } from '@/Engine/Texture/Models';
+import type { TTexture, TTextureOptions, TTexturePackParams } from '@/Engine/Texture/Models';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export const getMagFilter = (magFilter?: MagnificationTextureFilter): MagnificationTextureFilter => (isDefined(magFilter) ? magFilter : LinearFilter);
 export const getMinFilter = (minFilter?: MinificationTextureFilter): MinificationTextureFilter => (isDefined(minFilter) ? minFilter : NearestFilter);
 
-export const applyColorSpace = (name: TMaterialPackKeys, texture: TWriteable<TTexture>, params?: TTextureParams): void => {
+export const applyColorSpace = (name: TMaterialPackKeys, texture: TWriteable<TTexture>, options?: TTextureOptions): void => {
   let defaultColorSpace: ColorSpace;
 
   if (name === 'map' || name === 'matcap') {
@@ -20,36 +20,36 @@ export const applyColorSpace = (name: TMaterialPackKeys, texture: TWriteable<TTe
   }
 
   // eslint-disable-next-line functional/immutable-data
-  texture.colorSpace = isDefined(params?.colorSpace) ? params.colorSpace : defaultColorSpace;
+  texture.colorSpace = isDefined(options?.colorSpace) ? options.colorSpace : defaultColorSpace;
 };
 
-export function applyFilters(texture: TWriteable<TTexture>, params?: TTextureParams): void {
-  if (isNotDefined(params)) return;
+export function applyFilters(texture: TWriteable<TTexture>, options?: TTextureOptions): void {
+  if (isNotDefined(options)) return;
 
   // eslint-disable-next-line functional/immutable-data
-  texture.magFilter = getMagFilter(params.magFilter);
+  texture.magFilter = getMagFilter(options.magFilter);
   // eslint-disable-next-line functional/immutable-data
-  texture.minFilter = getMinFilter(params.minFilter);
+  texture.minFilter = getMinFilter(options.minFilter);
 
   // eslint-disable-next-line functional/immutable-data
   if (texture.minFilter === NearestFilter) texture.generateMipmaps = false;
 }
 
-export function applyTextureParams(texture: TWriteable<TTexture>, params?: TTextureParams): void {
-  if (isNotDefined(params)) return;
+export function applyTextureParams(texture: TWriteable<TTexture>, options?: TTextureOptions): void {
+  if (isNotDefined(options)) return;
 
   // eslint-disable-next-line functional/immutable-data
-  if (isDefined(params.mapping)) texture.mapping = params.mapping;
+  if (isDefined(options.mapping)) texture.mapping = options.mapping;
   // eslint-disable-next-line functional/immutable-data
-  if (isDefined(params.wrapS)) texture.wrapS = params.wrapS;
+  if (isDefined(options.wrapS)) texture.wrapS = options.wrapS;
   // eslint-disable-next-line functional/immutable-data
-  if (isDefined(params.wrapT)) texture.wrapT = params.wrapT;
+  if (isDefined(options.wrapT)) texture.wrapT = options.wrapT;
   // eslint-disable-next-line functional/immutable-data
-  if (isDefined(params.anisotropy)) texture.anisotropy = params.anisotropy;
+  if (isDefined(options.anisotropy)) texture.anisotropy = options.anisotropy;
   // eslint-disable-next-line functional/immutable-data
-  if (isDefined(params.format)) texture.format = params.format;
+  if (isDefined(options.format)) texture.format = options.format;
   // eslint-disable-next-line functional/immutable-data
-  if (isDefined(params.type)) texture.type = params.type;
+  if (isDefined(options.type)) texture.type = options.type;
 }
 
 export const isMaterialType = (value: TTexturePackParams | MaterialType): value is MaterialType => Object.values(MaterialType).includes(value as MaterialType);

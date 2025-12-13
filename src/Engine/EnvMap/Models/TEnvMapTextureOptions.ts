@@ -1,5 +1,5 @@
 import type { EnvMapMappingTypesName } from '@/Engine/EnvMap/Constants';
 
-export type TEnvMapTextureParams = Readonly<{
+export type TEnvMapTextureOptions = Readonly<{
   mapping?: EnvMapMappingTypesName;
 }>;

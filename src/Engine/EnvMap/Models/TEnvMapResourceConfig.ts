@@ -1,8 +1,8 @@
 import type { TAbstractResourceConfig } from '@/Engine/Abstract';
 
-import type { TEnvMapTextureParams } from './TEnvMapTextureParams';
+import type { TEnvMapTextureOptions } from './TEnvMapTextureOptions';
 
-export type TEnvMapResourceConfig = Omit<TAbstractResourceConfig, 'params'> &
+export type TEnvMapResourceConfig = Omit<TAbstractResourceConfig, 'options'> &
   Readonly<{
-    params?: TEnvMapTextureParams;
+    options?: TEnvMapTextureOptions;
   }>;

@@ -1,3 +1,6 @@
-import type { TTextureParams } from './TTextureParams';
+import type { TTextureProps } from './TTextureProps';
 
-export type TTextureConfig = TTextureParams;
+export type TTextureConfig = TTextureProps &
+  Readonly<{
+    texture: string;
+  }>;

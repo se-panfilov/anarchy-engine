@@ -1,7 +1,8 @@
 import type { TAbstractResourceConfig } from '@/Engine/Abstract';
-import type { TTextureConfig } from '@/Engine/Texture';
 
-export type TTextureResourceConfig = Omit<TAbstractResourceConfig, 'params'> &
+import type { TTextureOptions } from './TTextureOptions';
+
+export type TTextureResourceConfig = Omit<TAbstractResourceConfig, 'options'> &
   Readonly<{
-    params?: TTextureConfig;
+    options?: TTextureOptions;
   }>;
