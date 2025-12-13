@@ -19,7 +19,14 @@ export default [
 
       // PERSONAL
       LEGAL_ENTITY_NAME: 'Sergei Aleksandrovich Panfilov',
-      SECURITY_SUPPORT_PERIOD: 'TBD until market release'
+
+      //CONTACTS
+      SUPPORT_EMAIL: 'TBD until market release',
+      LEGAL_EMAIL: 'TBD until market release',
+
+      // TBD
+      SECURITY_SUPPORT_PERIOD: 'TBD until market release',
+      EFFECTIVE_DATE: 'TBD until market release'
     }
   }
 ];
