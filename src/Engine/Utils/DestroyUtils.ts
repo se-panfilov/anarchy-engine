@@ -82,9 +82,13 @@ export function removeFromParent(entity: any): void {
 export function stopParenting(entity: any): void {
   if (typeof entity.traverse === 'function') {
     entity.children?.forEach((child: any | undefined): void => {
-      child?.traverse((descendant: any): void => {
-        if (descendant.parent?.remove) descendant.parent.remove(descendant);
-      });
+      try {
+        child?.traverse((descendant: any): void => {
+          if (descendant.parent?.remove) descendant.parent.remove(descendant);
+        });
+      } catch (e: unknown) {
+        console.log('Destroy: [stopParenting] Failed to traverse child:', e);
+      }
     });
   }
 }
@@ -137,11 +141,11 @@ export function destroyAudio(entity: TAnyAudio): void {
 export function genericEntityCleanUp(entity: any): void {
   if (isNotDefined(entity)) return;
 
-  //Remove from parent (scene)
-  removeFromParent(entity);
-
   //Tell the children that they have no parent anymore
   stopParenting(entity);
+
+  //Remove from parent (scene)
+  removeFromParent(entity);
 
   //Clean up transform drive
   destroyTransformDriveInEntity(entity);
