@@ -1,7 +1,7 @@
 import { PlatformActions } from '@Showcases/Desktop/Constants';
 import type { THandleRequestDependencies } from '@Showcases/Desktop/Models';
 import { isPlatformAction } from '@Showcases/Desktop/Utils';
-import { isLoadDocPayload, isSettings } from '@Showcases/Shared';
+import { isLoadDocPayload, isPartialSettings, isSettings } from '@Showcases/Shared';
 import type { IpcMainInvokeEvent } from 'electron';
 
 // TODO DESKTOP: any
@@ -16,16 +16,19 @@ export async function handleAppRequest(
   let isRestartNeeded: boolean = false;
 
   switch (type) {
-    case PlatformActions.SaveAppSettings:
+    case PlatformActions.WriteAppSettings:
       // TODO DESKTOP: Should we let menu (and the app) know that the save is done?
       if (!isSettings(payload)) throw new Error(`[DESKTOP] Failed to save settings: Invalid payload`);
       await settingsService.writeAppSettings(payload);
       isRestartNeeded = settingsService.applyPlatformSettings(payload);
       if (isRestartNeeded) desktopAppService.restartApp();
       return null;
-    case PlatformActions.LoadAppSettings:
+    case PlatformActions.ReadAppSettings:
       return settingsService.readAppSettings();
-    case PlatformActions.LoadLegalDocs:
+    case PlatformActions.UpdateAppSettings:
+      if (!isPartialSettings(payload)) throw new Error(`[DESKTOP] Failed to update settings: Invalid payload`);
+      return settingsService.updateAppSettings(payload);
+    case PlatformActions.ReadLegalDocs:
       if (!isLoadDocPayload(payload)) throw new Error(`[DESKTOP] Failed to load legal docs: Invalid payload`);
       return docsService.load(payload);
     case PlatformActions.AppExit:

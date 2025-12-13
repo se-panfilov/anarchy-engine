@@ -1,7 +1,8 @@
 export enum PlatformActions {
-  SaveAppSettings = 'app:settings:save',
-  LoadAppSettings = 'app:settings:load',
-  LoadLegalDocs = 'app:docs:legal:load',
+  AppExit = 'app:exit',
   AppRestart = 'app:restart',
-  AppExit = 'app:exit'
+  ReadAppSettings = 'app:settings:read',
+  ReadLegalDocs = 'app:docs:legal:read',
+  UpdateAppSettings = 'app:settings:update',
+  WriteAppSettings = 'app:settings:write'
 }

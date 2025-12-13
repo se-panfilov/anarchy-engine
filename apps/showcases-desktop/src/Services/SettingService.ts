@@ -1,5 +1,6 @@
 import type { TLocale, TLocaleId } from '@Anarchy/i18n';
 import { getLocaleByLocaleId, getPreferLocaleId } from '@Anarchy/i18n';
+import { patchObject } from '@Anarchy/Shared/Utils';
 import { AllowedSystemFolders } from '@Showcases/Desktop/Constants';
 import type { TSettingsService, TSettingsServiceDependencies } from '@Showcases/Desktop/Models';
 import { detectResolution } from '@Showcases/Desktop/Utils';
@@ -49,6 +50,14 @@ export function SettingsService(app: App, { filesService, windowService }: TSett
 
   const getPreferredLocales = (): ReadonlyArray<TLocaleId> => Array.from(new Set([...app.getPreferredSystemLanguages(), app.getLocale()] as ReadonlyArray<TLocaleId>));
 
+  async function updateAppSettings(partialSettings: Partial<TShowcaseGameSettings>): Promise<TShowcaseGameSettings> {
+    const currentSettings: TShowcaseGameSettings = await readAppSettings();
+    const newSettings: TShowcaseGameSettings = patchObject(currentSettings, partialSettings);
+    await writeAppSettings(newSettings);
+    console.log('[DESKTOP] Updated app settings');
+    return newSettings;
+  }
+
   async function writeAppSettings(settings: TShowcaseGameSettings): Promise<void> {
     if (!isSettings(settings)) throw new Error('[DESKTOP] Attempted to save invalid app settings');
     await filesService.writeFile(appSettingsFileName, userDataFolder, JSON.stringify(settings, null, 2));
@@ -72,6 +81,7 @@ export function SettingsService(app: App, { filesService, windowService }: TSett
     detectResolution,
     getPreferredLocales,
     readAppSettings,
+    updateAppSettings,
     writeAppSettings
   };
 }

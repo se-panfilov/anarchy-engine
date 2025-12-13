@@ -7,4 +7,5 @@ export type TSettingsService = Readonly<{
   getPreferredLocales: () => ReadonlyArray<TLocaleId>;
   readAppSettings: () => Promise<TShowcaseGameSettings>;
   writeAppSettings: (settings: TShowcaseGameSettings) => Promise<void>;
+  updateAppSettings: (settings: Partial<TShowcaseGameSettings>) => Promise<TShowcaseGameSettings>;
 }>;
