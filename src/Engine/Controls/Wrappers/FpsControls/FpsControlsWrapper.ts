@@ -14,6 +14,11 @@ export function FpsControlsWrapper(params: TFpsControlsParams): TFpsControlsWrap
   const update = (delta: TMilliseconds): void => entity.update(delta);
   const getType = (): ControlsType => params.type;
 
+  // TODO - add pointer lock
+  // params.canvas.addEventListener('click', () => {
+  //   params.canvas.requestPointerLock();
+  // });
+
   function enable(): void {
     // eslint-disable-next-line functional/immutable-data
     entity.enabled = true;
