@@ -13,6 +13,7 @@ export * from './ILoopParams';
 export * from './IMesh';
 export * from './IMouseEvent';
 export * from './IMousePosition';
+export * from './IOrthographicCamera';
 export * from './IPerspectiveCamera';
 export * from './IProtectedRegistry';
 export * from './IRendererParams';
