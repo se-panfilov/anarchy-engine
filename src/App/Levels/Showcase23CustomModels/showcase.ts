@@ -75,14 +75,14 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     //could be cloned from original model
     models3dService.clone(foxGltfOriginal, {
       name: nameGltfClone,
-      position: Vector3Wrapper({ x: 5, y: 0, z: 0 })
+      position: Vector3Wrapper({ x: 0, y: 0, z: 0 })
     });
 
     //or could be created from pack
     models3dService.createFromPack({
       ...foxGltfOriginal.getPack(),
       name: nameGltfClonePack,
-      position: Vector3Wrapper({ x: 10, y: 0, z: 0 })
+      position: Vector3Wrapper({ x: 5, y: 0, z: 0 })
     });
 
     // TODO (S.Panfilov) CWP make animation play via service, so we don't need loop and tick everywhere
