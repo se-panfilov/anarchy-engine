@@ -14,8 +14,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const scale: TVector3Wrapper = Vector3Wrapper({ x: 0.025, y: 0.025, z: 0.025 });
     const options: TModel3dLoadOptions = { shouldAddToRegistry: true, shouldAddToScene: true, isForce: false };
     const nameGltfOriginal: string = 'fox_gltf_original';
-    const nameGltfClone1: string = 'fox_gltf_original';
-    const nameGltfClone2: string = 'fox_gltf_original';
+    const nameGltfClone1: string = 'fox_gltf_clone_1';
+    const nameGltfClone2: string = 'fox_gltf_clone_from_pack_2';
     const nameGlb: string = 'fox_glb_config_original';
 
     await Promise.all(
