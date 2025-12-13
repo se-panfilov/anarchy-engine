@@ -5,9 +5,8 @@ import type { IAnimationParams } from '@/Engine/Services';
 import { Easing } from '@/Engine/Services';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
-import spaceConfig from './showcase-4.json';
+import spaceConfig from './showcase.json';
 
-//Showcase 4: Anime.js simple animations (easing, etc.)
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
   const engine: IEngine = Engine(space);

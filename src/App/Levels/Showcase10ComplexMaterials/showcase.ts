@@ -7,9 +7,8 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, IControlsRegistry, IEngine, IOrbitControlsWrapper, ISpace, ISpaceConfig, IVector3Wrapper } from '@/Engine';
 import { buildSpaceFromConfig, Engine, EulerWrapper, isDefined, isNotDefined, KeyCode, LookUpStrategy, TextType, Vector3Wrapper } from '@/Engine';
 
-import spaceConfig from './showcase-10.json';
+import spaceConfig from './showcase.json';
 
-//Showcase 10: Complex Materials
 export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
 

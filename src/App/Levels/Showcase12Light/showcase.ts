@@ -18,9 +18,8 @@ import type {
 } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined } from '@/Engine';
 
-import spaceConfig from './showcase-12.json';
+import spaceConfig from './showcase.json';
 
-//Showcase 12: Light
 export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);

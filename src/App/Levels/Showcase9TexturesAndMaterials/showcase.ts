@@ -4,9 +4,8 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ICameraWrapper, IEngine, ISpace, ISpaceConfig } from '@/Engine';
 import { ambientContext, buildSpaceFromConfig, Engine, getRotationByCos, getRotationBySin, isDefined, isNotDefined, mouseService } from '@/Engine';
 
-import spaceConfig from './showcase-9.json';
+import spaceConfig from './showcase.json';
 
-//Showcase 9: Textures & Materials
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
   const engine: IEngine = Engine(space);

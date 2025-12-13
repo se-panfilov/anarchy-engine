@@ -1,13 +1,12 @@
 import './fonts.css';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAnimationParams, IAppCanvas, IEngine, IMoverService, ISpace, ISpaceConfig, ITextAnyWrapper, IWithCoordsXZ } from '@/Engine';
+import type { IAnimationParams, IAppCanvas, IEngine, IMoverService, ISpace, ISpaceConfig, IText3dWrapper, IWithCoordsXZ } from '@/Engine';
 import { buildSpaceFromConfig, createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, EulerWrapper, generateAnglesForCircle, mouseService, TextType, Vector3Wrapper } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
-import spaceConfig from './showcase-7.json';
+import spaceConfig from './showcase.json';
 
-//Showcase 7: Text 2d
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
   const engine: IEngine = Engine(space);
@@ -15,52 +14,53 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   const { textService } = space.services;
 
   textService.create({
-    type: TextType.Text2d,
-    text: '2D text (RubikDoodleTriangles)',
-    position: Vector3Wrapper({ x: -4, y: 8, z: 0 }),
+    type: TextType.Text3d,
+    text: '3D text (RubikDoodleTriangles)',
+    position: Vector3Wrapper({ x: -4, y: 2, z: 0 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
     cssProps: {
       color: '#000000',
-      fontSize: '4rem',
+      fontSize: '0.2rem',
+      backgroundColor: '#ff0000',
       fontFamily: '"RubikDoodleTriangles", sans-serif'
     },
     tags: []
   });
 
   textService.create({
-    type: TextType.Text2d,
+    type: TextType.Text3d,
     text: 'RubikScribble',
     position: Vector3Wrapper({ x: -5, y: 12, z: 6 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
     cssProps: {
       color: '#ff0000',
-      fontSize: '4rem',
+      fontSize: '0.2rem',
       fontFamily: '"RubikScribble", sans-serif'
     },
     tags: []
   });
 
-  const floatingText: ITextAnyWrapper = textService.create({
-    type: TextType.Text2d,
+  const floatingText: IText3dWrapper = textService.create({
+    type: TextType.Text3d,
     text: 'LongCang',
     position: Vector3Wrapper({ x: -10, y: 8, z: -8 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
     cssProps: {
       color: '#ff0000',
-      fontSize: '4rem',
+      fontSize: '0.2rem',
       fontFamily: '"LongCang", sans-serif'
     },
     tags: []
   });
 
-  const floatingText2: ITextAnyWrapper = textService.create({
-    type: TextType.Text2d,
+  const floatingText2: IText3dWrapper = textService.create({
+    type: TextType.Text3d,
     text: 'VarelaRound',
     position: Vector3Wrapper({ x: -15, y: 6, z: -14 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
     cssProps: {
       color: '#ff0000',
-      fontSize: '4rem',
+      fontSize: '0.2rem',
       fontFamily: '"VarelaRound", sans-serif'
     },
     tags: []

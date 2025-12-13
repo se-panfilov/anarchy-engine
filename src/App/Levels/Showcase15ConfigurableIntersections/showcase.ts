@@ -4,9 +4,8 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type { IAppCanvas, ICameraRegistry, ICameraWrapper, IEngine, IIntersectionEvent, IIntersectionsWatcher, ISpace, ISpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined, mouseService } from '@/Engine';
 
-import spaceConfig from './showcase-15.json';
+import spaceConfig from './showcase.json';
 
-//Showcase 15: configurable intersections
 export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);

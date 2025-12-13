@@ -2,9 +2,8 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, IEngine, ISpace, ISpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined, mouseService, screenService } from '@/Engine';
 
-import spaceConfig from './showcase-6.json';
+import spaceConfig from './showcase.json';
 
-//Showcase 6: Go fullscreen
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
   const engine: IEngine = Engine(space);

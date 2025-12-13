@@ -29,9 +29,8 @@ import {
 } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
-import spaceConfig from './showcase-5.json';
+import spaceConfig from './showcase.json';
 
-//Showcase 5: Anime.js animation with complex path and easing
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
   const engine: IEngine = Engine(space);
