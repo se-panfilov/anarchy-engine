@@ -7,6 +7,7 @@
 - 2.5.0 App close/restart
 - 2.6.0 Patch settings
 - 2.7.0 Build meta info (versions)
+- 2.8.0 Added CSP
 
 Roadmap:
 

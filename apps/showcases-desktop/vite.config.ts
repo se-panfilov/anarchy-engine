@@ -4,6 +4,7 @@ import path from 'path';
 import { sharedAliases } from '../../vite.alias';
 import { version } from './package.json';
 import csp from 'vite-plugin-csp-guard';
+import { PROD_CSP } from '../../configs/Security/Csp/CspConfig';
 
 // Frankly, we can build desktop-main.ts without Vite (just with tsc).
 // But imports are such a pain, so it's easier to use a bundler.
@@ -53,17 +54,11 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
             ],
             hook: 'writeBundle'
           }),
+          //Issue: CSP plugin doesn't add <Meta> tag in dev mode
           csp({
-            dev: {
-              run: mode === 'dev' // Run the plugin in dev mode
-            },
-            policy: {
-              // 'script-src': ["'self'", 'https://www.google-analytics.com'], //Allow google analytics to run
-              // 'font-src': ["'self'", 'https://fonts.gstatic.com'] //Allows fonts from Google to load
-            },
-            build: {
-              sri: true
-            }
+            dev: { run: true, outlierSupport: ['sass'] },
+            policy: PROD_CSP,
+            build: { sri: true }
           })
         ]
       },
