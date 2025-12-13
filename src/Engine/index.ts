@@ -10,6 +10,7 @@ export * from './Euler';
 export * from './Global';
 export * from './Input';
 export * from './Intersections';
+export * from './Keyboard';
 export * from './Level';
 export * from './Light';
 export * from './Loop';

@@ -4,15 +4,13 @@ import type { MeshStandardMaterial } from 'three';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ILevel, ILevelConfig, IOrbitControlsWrapper, IVector3Wrapper } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, envMapService, EulerWrapper, isDefined, isNotDefined, TextType, Vector3Wrapper } from '@/Engine';
+import { buildLevelFromConfig, envMapService, EulerWrapper, isDefined, isNotDefined, keyboardService, TextType, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-10-complex-materials.config.json';
 
-const { mouseClickWatcher } = ambientContext;
-
 //Showcase 10: Complex Materials
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
-  const gui = new GUI();
+  const gui: GUI = new GUI();
 
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
   const { textFactory, actorRegistry, controlsRegistry } = level.entities;
@@ -24,7 +22,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   currentMaterialIndex$.subscribe((index: number): void => currentMaterial$.next(materials[index]));
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   currentMaterial$.subscribe(async (material: string): Promise<void> => {
-    const actor = await actorRegistry.getUniqByTagAsync(material);
+    const actor: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync(material);
     if (isNotDefined(actor)) throw new Error(`Actor with tag "${material}" is not found`);
     currentActor$.next(actor);
   });
@@ -48,7 +46,8 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     });
   }
 
-  mouseClickWatcher.value$.subscribe((): void => {
+  keyboardService.onKey('a').pressing$.subscribe((v) => {
+    console.log('pressing a');
     currentMaterialIndex$.next((currentMaterialIndex$.value + 1) % materials.length);
   });
 
