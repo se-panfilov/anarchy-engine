@@ -57,7 +57,6 @@ function getMaterialOptions({ entity }: TAnyMaterialWrapper): TOptional<TMateria
   return filterOutEmptyFields(
     nullsToUndefined({
       alphaHash: entity.alphaHash,
-      alphaTest: entity.alphaTest,
       alphaToCoverage: entity.alphaToCoverage,
       anisotropy: (entity as MeshPhysicalMaterial).anisotropy,
       anisotropyRotation: (entity as MeshPhysicalMaterial).anisotropyRotation,
