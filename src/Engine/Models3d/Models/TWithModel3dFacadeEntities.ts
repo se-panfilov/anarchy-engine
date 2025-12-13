@@ -4,7 +4,7 @@ import type { TAnimationActions } from '@/Engine/Animations/Models';
 
 import type { TModel3dLoadOptions } from './TModel3dLoadOptions';
 
-export type TWithModel3dComplexFacadeEntities = Readonly<{
+export type TWithModel3dFacadeEntities = Readonly<{
   getUrl: () => string;
   getModel: () => Group | Mesh | Object3D;
   getAnimations: () => ReadonlyArray<AnimationClip>;

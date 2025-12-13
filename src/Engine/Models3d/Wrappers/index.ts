@@ -1,2 +1,1 @@
-export * from './Model3dComplexFacade';
-export * from './Model3dPrimitiveFacade';
+export * from './Model3dFacade';

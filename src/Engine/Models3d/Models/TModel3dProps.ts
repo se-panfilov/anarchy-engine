@@ -1,9 +1,7 @@
 import type { TMaterialWrapper } from '@/Engine/Material';
 import type { TObject3DParams, TObject3DProps } from '@/Engine/ThreeLib';
 
-import type { TModel3dLoadOptions } from './TModel3dLoadOptions';
-
-export type TModel3dComplexProps = Readonly<{
+export type TModel3dProps = Readonly<{
   url: string;
   options: TModel3dLoadOptions;
   // TODO 8.0.0. MODELS: override model's material is this field is set
