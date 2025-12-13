@@ -6,12 +6,13 @@ import type { IMouseClicksWatcher } from '@/Engine/Watchers';
 import { MouseClicksWatcher } from '@/Engine/Watchers';
 
 import type { IMouseClicksWatcherFactory } from './Models';
+import type { IMouseClickWatcherParams } from '@/Engine';
 
 export function MouseClicksWatcherFactory(): IMouseClicksWatcherFactory {
   const registry: IMouseClicksWatcherRegistry = MouseClicksWatcherRegistry();
 
   return {
-    create(container: IGlobalContainerDecorator, tags?: ReadonlyArray<string>): IMouseClicksWatcher {
+    create({ container, tags }: IMouseClickWatcherParams): IMouseClicksWatcher {
       const watcher: IMouseClicksWatcher = MouseClicksWatcher(container, tags);
       registry.add(watcher);
       return watcher;

@@ -1,3 +1,4 @@
+export * from './AbstractFactory';
 export * from './AbstractDestroyableFactory';
 export * from './AbstractDestroyableFromConfigFactory';
 export * from './AbstractWrapperFactory';

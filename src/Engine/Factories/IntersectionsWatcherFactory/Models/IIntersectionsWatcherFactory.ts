@@ -1,5 +1,4 @@
-import type { IActorWrapper, ICameraWrapper, IIntersectionsWatcher, IMousePositionWatcher } from '@/Engine';
+import type { IAbstractFactory, IIntersectionsWatcher } from '@/Engine';
+import type { IIntersectionsParams } from '@/Engine/Models';
 
-export type IIntersectionsWatcherFactory = {
-  create: (actors: ReadonlyArray<IActorWrapper>, camera: Readonly<ICameraWrapper>, positionWatcher: Readonly<IMousePositionWatcher>, tags?: ReadonlyArray<string>) => IIntersectionsWatcher;
-};
+export type IIntersectionsWatcherFactory = IAbstractFactory<IIntersectionsWatcher, IIntersectionsParams>;
