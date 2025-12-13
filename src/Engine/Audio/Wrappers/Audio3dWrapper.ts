@@ -1,18 +1,22 @@
+import type { Howl } from 'howler';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, distinctUntilChanged, filter, sample, tap } from 'rxjs';
 import { Vector3 } from 'three';
 
+import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TAudio3dParams, TAudio3dWrapper, TAudio3dWrapperDependencies, TAudioLoop } from '@/Engine/Audio/Models';
+import { DriveToAudio3dConnector } from '@/Engine/Audio/Connectors';
+import type { TAudio3dParams, TAudio3dTransformDrive, TAudio3dWrapper, TAudio3dWrapperDependencies, TAudioLoop } from '@/Engine/Audio/Models';
+import { Audio3dTransformDrive } from '@/Engine/Audio/TransformDrive';
 import { LoopUpdatePriority } from '@/Engine/Loop';
 import type { TMeters } from '@/Engine/Math';
 import { meters } from '@/Engine/Measurements';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
+import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { isEqualOrSimilarByXyzCoords } from '@/Engine/Utils';
 
-// TODO 11.0.0: transform drive position? (connected?)
 export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3dWrapperDependencies): TAudio3dWrapper {
   const { sound, volume, position, performance } = params;
   const entity: Howl = sound;
@@ -50,10 +54,15 @@ export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3d
     const refDistance = 1;
     return Math.max(0, 1 / (1 + Math.pow(distance / refDistance, 2)));
   }
+  entity.pos();
+  const wrapper: TWrapper<Howl> = AbstractWrapper(entity, WrapperType.Audio3d, params);
+  const drive: TAudio3dTransformDrive = Audio3dTransformDrive(params, wrapper.id);
+  const driveToTargetConnector: TDriveToTargetConnector = DriveToAudio3dConnector(drive, entity);
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
+    driveToTargetConnector.destroy$.next();
 
     volumeSub.unsubscribe();
     updateVolumeSub$.unsubscribe();
@@ -66,10 +75,10 @@ export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3d
   });
 
   return {
-    ...AbstractWrapper(entity, WrapperType.Audio3d, params),
+    ...wrapper,
+    drive,
     play: (): number => entity.play(),
     volume$,
-    // TODO 11.0.0: shall I use transform drive instead?
     position$,
     listenerPosition$,
     ...destroyable
