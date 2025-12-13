@@ -1,1 +1,1 @@
-export type * from './LicensesBuilder';
+export * from './LicensesBuilder';

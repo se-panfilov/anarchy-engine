@@ -4,69 +4,14 @@ import { createRequire } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import type { TCollected, TDependencyNode, TLicenseEntry, TRootInfo, TWorkspaceInfo } from '@Anarchy/Legal/Models';
 // eslint-disable-next-line spellcheck/spell-checker
 import { globby } from 'globby';
 // eslint-disable-next-line spellcheck/spell-checker
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
-type TJson = Readonly<Record<string, unknown>>;
-type TStringMap = Readonly<Record<string, string>>;
-type TReadonlyArray<T> = ReadonlyArray<T>;
-
-type TWorkspaceInfo = Readonly<{
-  name: string;
-  dir: string; // absolute path
-  pkgPath: string; // absolute path to package.json
-  pkg: Readonly<{
-    name: string;
-    version?: string;
-    dependencies?: TStringMap;
-    devDependencies?: TStringMap;
-    optionalDependencies?: TStringMap;
-  }>;
-}>;
-
-type TRootInfo = Readonly<{
-  rootDir: string;
-  rootPkgPath: string;
-  rootPkg: Readonly<{
-    name?: string;
-    workspaces?: Readonly<{ packages?: TReadonlyArray<string> } | TReadonlyArray<string>>;
-  }>;
-  workspaces: ReadonlyMap<string, TWorkspaceInfo>;
-}>;
-
-type TDependencyNode = Readonly<{
-  name: string;
-  version: string;
-  path?: string;
-  license?: unknown;
-  repository?: unknown;
-  dependencies?: Readonly<Record<string, TDependencyNode>>;
-}>;
-
-type TCollected = Readonly<{
-  id: string; // name@version
-  name: string;
-  version: string;
-  installPath?: string; // absolute path in node_modules
-}>;
-
-type TLicenseEntry = Readonly<{
-  id: string;
-  name: string;
-  version: string;
-  licenses: string | TReadonlyArray<string>;
-  licenseText?: string;
-  repository?: string;
-  publisher?: string;
-  email?: string;
-  url?: string;
-  path?: string;
-}>;
-
-const readJson = async <T extends TJson>(p: string): Promise<T> => JSON.parse(await fs.readFile(p, 'utf8')) as T;
+const readJson = async <T extends Record<string, unknown>>(p: string): Promise<T> => JSON.parse(await fs.readFile(p, 'utf8')) as T;
 
 const exists = async (p: string): Promise<boolean> => {
   try {
@@ -131,7 +76,7 @@ const loadRoot = async (rootDir: string): Promise<TRootInfo> => {
   if (!wsField) {
     throw new Error(`"workspaces" not found in root package.json at ${rootPkgPath}`);
   }
-  const patterns: TReadonlyArray<string> = Array.isArray(wsField) ? wsField : (wsField.packages ?? []);
+  const patterns: ReadonlyArray<string> = Array.isArray(wsField) ? wsField : (wsField.packages ?? []);
   if (patterns.length === 0) {
     throw new Error(`"workspaces" has no packages in ${rootPkgPath}`);
   }
@@ -535,7 +480,7 @@ const resolveWorkspaceFromArg = (arg: string, workspaces: ReadonlyMap<string, TW
 
 // ---------- Main ----------
 
-const main = async (): Promise<void> => {
+export const main = async (): Promise<void> => {
   const argv = await yargs(hideBin(process.argv))
     // .scriptName('anarchy-legal')
     .usage('$0 --workspace <name|path> --out <file> [--root <dir>] [--debug] [--no-include-workspaces]')
