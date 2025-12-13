@@ -30,14 +30,14 @@
         },
         "spatial": {
           "grid": "main_grid",
-          "isAutoUpdate": true
+          "isAutoUpdate": false
         }
       }
     ],
     "audio": [],
     "cameras": [
       {
-        "far": 10000,
+        "far": 100,
         "fov": 45,
         "isActive": true,
         "name": "main",

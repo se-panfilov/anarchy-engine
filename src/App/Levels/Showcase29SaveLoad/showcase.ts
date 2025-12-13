@@ -8,17 +8,19 @@ import { addBtn, addDropdown } from '@/App/Levels/Utils';
 import type { TCameraWrapper, TModel3d, TRegistryPack, TSpace, TSpaceConfig, TSpaceRegistry } from '@/Engine';
 import { isNotDefined, spaceService } from '@/Engine';
 
-import space from './spaceBasic.json';
-import spaceCamera from './spaceCamera.json';
-import spaceCustomModels from './spaceCustomModels.json';
-import spaceTexts from './spaceTexts.json';
+import spaceBasicConfig from './spaceBasic.json';
+import spaceCameraConfig from './spaceCamera.json';
+import spaceCustomModelsConfig from './spaceCustomModels.json';
+import spaceLightConfig from './spaceLight.json';
+import spaceTextsConfig from './spaceTexts.json';
 import type { TSpacesData } from './utils';
 import { changeText, createContainersDivs, setContainerVisibility } from './utils';
 
-const spaceBasicConfig: TSpaceConfig = space as TSpaceConfig;
-const spaceCustomModelsConfig: TSpaceConfig = spaceCustomModels as TSpaceConfig;
-const spaceTextsConfig: TSpaceConfig = spaceTexts as TSpaceConfig;
-const spaceCameraConfig: TSpaceConfig = spaceCamera as TSpaceConfig;
+const basicCase: TSpaceConfig = spaceBasicConfig as TSpaceConfig;
+const customModelsCase: TSpaceConfig = spaceCustomModelsConfig as TSpaceConfig;
+const textsCase: TSpaceConfig = spaceTextsConfig as TSpaceConfig;
+const cameraCase: TSpaceConfig = spaceCameraConfig as TSpaceConfig;
+const lightCase: TSpaceConfig = spaceLightConfig as TSpaceConfig;
 
 const getContainer = (canvasSelector: string): string => canvasSelector.split('#')[1].trim();
 
@@ -40,33 +42,33 @@ const subscriptions: Record<string, Subscription> = {};
 // TODO 15-0-0: E2E: Complex scene (similar to Showcase22PhysicsShooter)
 const spacesData: ReadonlyArray<TSpacesData> = [
   {
-    name: spaceBasicConfig.name,
-    config: spaceBasicConfig,
-    container: getContainer(spaceBasicConfig.canvasSelector),
+    name: basicCase.name,
+    config: basicCase,
+    container: getContainer(basicCase.canvasSelector),
     onCreate: (space: TSpace): void => {
       const sub$: Subscription = space.services.models3dService.getRegistry().added$.subscribe(({ value: model3dSource }: TRegistryPack<TModel3d>): void => {
         if (model3dSource.name === 'surface_model') space.services.scenesService.findActive()?.addModel3d(model3dSource);
       });
       // eslint-disable-next-line functional/immutable-data
-      subscriptions[spaceCustomModelsConfig.name] = sub$;
+      subscriptions[customModelsCase.name] = sub$;
     },
     onChange: (space: TSpace): void => {
       space.services.actorService.getRegistry().findByName('sphere_actor')?.drive.default.setX(10);
     },
     onUnload: (): void => {
-      subscriptions[spaceCustomModelsConfig.name].unsubscribe();
+      subscriptions[customModelsCase.name].unsubscribe();
     }
   },
   {
-    name: spaceCustomModelsConfig.name,
-    config: spaceCustomModelsConfig,
-    container: getContainer(spaceCustomModelsConfig.canvasSelector),
+    name: customModelsCase.name,
+    config: customModelsCase,
+    container: getContainer(customModelsCase.canvasSelector),
     onCreate: (space: TSpace): void => {
       const sub$: Subscription = space.services.models3dService.getRegistry().added$.subscribe(({ value: model3dSource }: TRegistryPack<TModel3d>): void => {
         space.services.scenesService.findActive()?.addModel3d(model3dSource);
       });
       // eslint-disable-next-line functional/immutable-data
-      subscriptions[spaceCustomModelsConfig.name] = sub$;
+      subscriptions[customModelsCase.name] = sub$;
     },
     onChange: (space: TSpace): void => {
       const model3d: TModel3d | undefined = space.services.models3dService.getRegistry().findByName('fox_glb_config_original');
@@ -77,13 +79,13 @@ const spacesData: ReadonlyArray<TSpacesData> = [
       model3d.getRawModel3d().rotation.y = 1.57;
     },
     onUnload: (): void => {
-      subscriptions[spaceCustomModelsConfig.name].unsubscribe();
+      subscriptions[customModelsCase.name].unsubscribe();
     }
   },
   {
-    name: spaceTextsConfig.name,
-    config: spaceTextsConfig,
-    container: getContainer(spaceTextsConfig.canvasSelector),
+    name: textsCase.name,
+    config: textsCase,
+    container: getContainer(textsCase.canvasSelector),
     onChange: (space: TSpace): void => {
       const { text2dRegistry, text3dRegistry, text3dTextureRegistry } = space.services.textService.getRegistries();
       changeText('text_2d', text2dRegistry);
@@ -92,9 +94,9 @@ const spacesData: ReadonlyArray<TSpacesData> = [
     }
   },
   {
-    name: spaceCameraConfig.name,
-    config: spaceCameraConfig,
-    container: getContainer(spaceCameraConfig.canvasSelector),
+    name: cameraCase.name,
+    config: cameraCase,
+    container: getContainer(cameraCase.canvasSelector),
     onChange: (space: TSpace): void => {
       const camera: TCameraWrapper | undefined = space.services.cameraService.findActive();
       if (isNotDefined(camera)) throw new Error(`[Showcase]: Camera is not found`);
@@ -104,6 +106,27 @@ const spacesData: ReadonlyArray<TSpacesData> = [
       const rotation: Euler = new Euler(-2.879975303042544, 0.8041367970357067, 2.951086186540901);
       camera.drive.rotation$.next(new Quaternion().setFromEuler(rotation));
       camera.drive.position$.next(new Vector3(28.672614163776107, 6.92408866503931, -27.63943185331239));
+    }
+  },
+  {
+    name: lightCase.name,
+    config: lightCase,
+    container: getContainer(lightCase.canvasSelector),
+    onChange: (space: TSpace): void => {
+      const camera: TCameraWrapper | undefined = space.services.cameraService.findActive();
+      if (isNotDefined(camera)) throw new Error(`[Showcase]: Camera is not found`);
+
+      // rotation _Euler {isEuler: true, _x: -1.319401116931643, _y: 0.008777554355123871, _z: 0.034162961826149384, _order: 'XYZ', …}
+      // showcase.ts:120 XXX position _Vector3 {x: 2.472034509556609, y: 9.873502311093498, z: 2.2628437885852426}
+
+      console.log('XXX rotation', { x: camera.entity.rotation.x, y: camera.entity.rotation.y, z: camera.entity.rotation.z });
+      console.log('XXX position', { x: camera.entity.position.x, y: camera.entity.position.y, z: camera.entity.position.z });
+
+      // camera.setFov(100);
+      //
+      // const rotation: Euler = new Euler(-2.879975303042544, 0.8041367970357067, 2.951086186540901);
+      // camera.drive.rotation$.next(new Quaternion().setFromEuler(rotation));
+      // camera.drive.position$.next(new Vector3(28.672614163776107, 6.92408866503931, -27.63943185331239));
     }
   }
 ];
@@ -123,8 +146,8 @@ export function start(): void {
   );
 
   //Initial space
-  // loadSpace(spaceBasicConfig.name);
-  loadSpace(spaceCameraConfig.name);
+  // loadSpace(basicCase.name);
+  loadSpace(lightCase.name);
 }
 
 function loadSpace(name: string): void {

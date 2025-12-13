@@ -1,0 +1,713 @@
+{
+  "canvasSelector": "#light_container #app",
+  "entities": {
+    "actors": [
+      {
+        "model3dSource": "surface_model",
+        "name": "surface_actor",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        }
+      },
+      {
+        "model3dSource": "sphere_standard_metal",
+        "name": "sphere_standard_metal_actor",
+        "position": {
+          "x": 0,
+          "y": 2,
+          "z": 2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
+        "tags": ["standard", "metal"]
+      },
+      {
+        "model3dSource": "sphere_physical_metal",
+        "name": "sphere_physical_metal_actor",
+        "position": {
+          "x": 2,
+          "y": 2,
+          "z": 2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
+        "tags": ["physical", "metal"]
+      },
+      {
+        "model3dSource": "sphere_matcap_metal",
+        "name": "sphere_matcap_metal_actor",
+        "position": {
+          "x": 4,
+          "y": 2,
+          "z": 2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
+        "tags": ["matcap", "metal"]
+      },
+      {
+        "model3dSource": "cube_standard_wood",
+        "name": "cube_standard_wood_actor",
+        "position": {
+          "x": 0,
+          "y": 2,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
+        "tags": ["standard", "wood"]
+      },
+      {
+        "model3dSource": "cube_physical_wood",
+        "name": "cube_physical_wood_actor",
+        "position": {
+          "x": 2,
+          "y": 2,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
+        "tags": ["physical", "wood"]
+      },
+      {
+        "model3dSource": "cube_matcap_wood",
+        "name": "cube_matcap_wood_actor",
+        "position": {
+          "x": 4,
+          "y": 2,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
+        "tags": ["matcap", "wood"]
+      },
+      {
+        "model3dSource": "sphere_standard_glass",
+        "name": "sphere_standard_glass_actor",
+        "position": {
+          "x": 0,
+          "y": 2,
+          "z": -2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
+        "tags": ["standard", "glass"]
+      },
+      {
+        "model3dSource": "sphere_physical_glass",
+        "name": "sphere_physical_glass_actor",
+        "position": {
+          "x": 2,
+          "y": 2,
+          "z": -2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
+        "tags": ["physical", "glass"]
+      },
+      {
+        "model3dSource": "sphere_matcap_glass",
+        "name": "sphere_matcap_glass_actor",
+        "position": {
+          "x": 4,
+          "y": 2,
+          "z": -2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
+        "tags": ["matcap", "glass"]
+      }
+    ],
+    "audio": [],
+    "cameras": [
+      {
+        "far": 10000,
+        "fov": 45,
+        "isActive": true,
+        "name": "main",
+        "near": 1,
+        "position": { "x": 0.22334566709269263, "y": 10.223558680257483, "z": -2.0631028392433683 },
+        "rotation": { "x": -1.762810647386911, "y": -0.009506999202667897, "z": -3.0927303803188493 }
+      }
+    ],
+    "controls": [],
+    "envMaps": [],
+    "fogs": [],
+    "fsm": [],
+    "intersections": [],
+    "lights": [
+      {
+        "castShadow": true,
+        "color": "#ffffff",
+        "intensity": 0,
+        "name": "directional_light",
+        "position": {
+          "x": -10,
+          "y": 10,
+          "z": 2.25
+        },
+        "shadow": {
+          "camera": {
+            "far": 15
+          },
+          "mapSize": {
+            "x": 1024,
+            "y": 1024
+          },
+          "normalBias": 0.05
+        },
+        "tags": ["directional"],
+        "type": "DirectionalLight"
+      },
+      {
+        "color": "#9999ff",
+        "groundColor": "#ff007b",
+        "intensity": 1,
+        "name": "hemisphere_light",
+        "position": {
+          "x": 0.25,
+          "y": 2,
+          "z": 6
+        },
+        "tags": ["hemisphere"],
+        "type": "HemisphereLight"
+      },
+      {
+        "color": "#0000ff",
+        "height": 3,
+        "intensity": 0,
+        "name": "rect_area_light",
+        "position": {
+          "x": 6.5,
+          "y": 2,
+          "z": 2.25
+        },
+        "tags": ["rect_area"],
+        "type": "RectAreaLight",
+        "width": 3
+      },
+      {
+        "castShadow": true,
+        "color": "#00ff00",
+        "decay": 4.5,
+        "distance": 23,
+        "intensity": 27,
+        "name": "point_light",
+        "position": {
+          "x": 4,
+          "y": 12,
+          "z": 2.25
+        },
+        "shadow": {
+          "camera": {
+            "far": 15
+          },
+          "mapSize": {
+            "x": 1024,
+            "y": 1024
+          },
+          "normalBias": 0.05
+        },
+        "tags": ["point"],
+        "type": "PointLight"
+      },
+      {
+        "angle": 45,
+        "castShadow": true,
+        "color": "#01dede",
+        "decay": 2,
+        "distance": 57,
+        "intensity": 41,
+        "name": "spot_light",
+        "penumbra": 40,
+        "position": {
+          "x": 4,
+          "y": 4,
+          "z": 2.25
+        },
+        "shadow": {
+          "camera": {
+            "far": 15
+          },
+          "mapSize": {
+            "x": 1024,
+            "y": 1024
+          },
+          "normalBias": 0.05
+        },
+        "tags": ["spot"],
+        "type": "SpotLight"
+      }
+    ],
+    "materials": [
+      {
+        "name": "surface_material",
+        "options": {
+          "clearcoat": 1,
+          "clearcoatRoughness": 0.12,
+          "displacementScale": 0,
+          "ior": 2.5,
+          "iridescence": 0.655,
+          "iridescenceIOR": 1.86,
+          "metalness": 0.97,
+          "roughness": 0.8,
+          "thickness": 0,
+          "transmission": 0
+        },
+        "tags": ["physical", "metal"],
+        "textures": {
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "displacementMap": "metal_steel_brushed_displacement_map",
+          "map": "metal_steel_brushed_map",
+          "metalnessMap": "metal_steel_brushed_metalness_map",
+          "normalMap": "metal_steel_brushed_normal_map",
+          "roughnessMap": "metal_steel_brushed_roughness_map"
+        },
+        "type": "MeshPhysicalMaterial"
+      },
+      {
+        "name": "standard_metal",
+        "options": {
+          "displacementScale": 0
+        },
+        "tags": ["standard", "metal"],
+        "textures": {
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "displacementMap": "metal_steel_brushed_displacement_map",
+          "map": "metal_steel_brushed_map",
+          "metalnessMap": "metal_steel_brushed_metalness_map",
+          "normalMap": "metal_steel_brushed_normal_map",
+          "roughnessMap": "metal_steel_brushed_roughness_map"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "physical_metal",
+        "options": {
+          "clearcoat": 1,
+          "clearcoatRoughness": 0.12,
+          "displacementScale": 0,
+          "ior": 2.5,
+          "iridescence": 0.655,
+          "iridescenceIOR": 1.86,
+          "metalness": 0.97,
+          "roughness": 0.8,
+          "thickness": 0,
+          "transmission": 0
+        },
+        "tags": ["physical", "metal"],
+        "textures": {
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "displacementMap": "metal_steel_brushed_displacement_map",
+          "map": "metal_steel_brushed_map",
+          "metalnessMap": "metal_steel_brushed_metalness_map",
+          "normalMap": "metal_steel_brushed_normal_map",
+          "roughnessMap": "metal_steel_brushed_roughness_map"
+        },
+        "type": "MeshPhysicalMaterial"
+      },
+      {
+        "name": "matcap_metal",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["matcap", "metal"],
+        "textures": {
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "displacementMap": "metal_steel_brushed_displacement_map",
+          "map": "metal_steel_brushed_map",
+          "normalMap": "metal_steel_brushed_normal_map"
+        },
+        "type": "MeshMatcapMaterial"
+      },
+      {
+        "name": "standard_wood",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["standard", "wood"],
+        "textures": {
+          "alphaMap": "wood_alpha_map",
+          "aoMap": "wood_ao_map",
+          "displacementMap": "wood_displacement_map",
+          "map": "wood_map",
+          "metalnessMap": "wood_metalness_map",
+          "normalMap": "wood_normal_map",
+          "roughnessMap": "wood_roughness_map"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "physical_wood",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["physical", "wood"],
+        "textures": {
+          "alphaMap": "wood_alpha_map",
+          "aoMap": "wood_ao_map",
+          "displacementMap": "wood_displacement_map",
+          "map": "wood_map",
+          "metalnessMap": "wood_metalness_map",
+          "normalMap": "wood_normal_map",
+          "roughnessMap": "wood_roughness_map"
+        },
+        "type": "MeshPhysicalMaterial"
+      },
+      {
+        "name": "matcap_wood",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["matcap", "wood"],
+        "textures": {
+          "alphaMap": "wood_alpha_map",
+          "displacementMap": "wood_displacement_map",
+          "map": "wood_map",
+          "normalMap": "wood_normal_map"
+        },
+        "type": "MeshMatcapMaterial"
+      },
+      {
+        "name": "standard_glass",
+        "options": {
+          "metalness": 0,
+          "roughness": 0
+        },
+        "tags": ["standard", "glass"],
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "physical_glass",
+        "options": {
+          "clearcoat": 0.8,
+          "clearcoatRoughness": 0.09,
+          "displacementScale": 0.1,
+          "ior": 1.26,
+          "iridescence": 0,
+          "iridescenceIOR": 1.38,
+          "metalness": 0,
+          "roughness": 0,
+          "thickness": 0.5,
+          "transmission": 0.77
+        },
+        "tags": ["physical", "glass"],
+        "type": "MeshPhysicalMaterial"
+      },
+      {
+        "name": "matcap_glass",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["matcap", "glass"],
+        "type": "MeshMatcapMaterial"
+      }
+    ],
+    "models3d": [
+      {
+        "castShadow": false,
+        "material": "surface_material",
+        "model3dSource": "plane",
+        "name": "surface_model",
+        "options": {
+          "height": 40,
+          "heightSegments": 1,
+          "width": 60,
+          "widthSegments": 1
+        },
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "receiveShadow": true,
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        }
+      },
+      {
+        "castShadow": true,
+        "material": "standard_metal",
+        "model3dSource": "sphere",
+        "name": "sphere_standard_metal",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "standard", "metal"]
+      },
+      {
+        "castShadow": true,
+        "material": "physical_metal",
+        "model3dSource": "sphere",
+        "name": "sphere_physical_metal",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "physical", "metal"]
+      },
+      {
+        "castShadow": true,
+        "material": "matcap_metal",
+        "model3dSource": "sphere",
+        "name": "sphere_matcap_metal",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "matcap", "metal"]
+      },
+      {
+        "castShadow": true,
+        "material": "standard_wood",
+        "model3dSource": "cube",
+        "name": "cube_standard_wood",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["cube", "standard", "wood"]
+      },
+      {
+        "castShadow": true,
+        "material": "physical_wood",
+        "model3dSource": "cube",
+        "name": "cube_physical_wood",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["cube", "physical", "wood"]
+      },
+      {
+        "castShadow": true,
+        "material": "matcap_wood",
+        "model3dSource": "cube",
+        "name": "cube_matcap_wood",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["cube", "matcap", "wood"]
+      },
+      {
+        "castShadow": true,
+        "material": "standard_glass",
+        "model3dSource": "sphere",
+        "name": "sphere_standard_glass",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "standard", "glass"]
+      },
+      {
+        "castShadow": true,
+        "material": "physical_glass",
+        "model3dSource": "sphere",
+        "name": "sphere_physical_glass",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "physical", "glass"]
+      },
+      {
+        "castShadow": true,
+        "material": "matcap_glass",
+        "model3dSource": "sphere",
+        "name": "sphere_matcap_glass",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "matcap", "glass"]
+      }
+    ],
+    "particles": [],
+    "physics": {},
+    "renderers": [
+      {
+        "alpha": true,
+        "isActive": true,
+        "mode": "webgl2",
+        "name": "main"
+      }
+    ],
+    "spatialGrids": [
+      {
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "mapHeight": 10,
+        "mapWidth": 10,
+        "name": "main_grid"
+      }
+    ],
+    "texts": []
+  },
+  "name": "SpaceLight",
+  "resources": {
+    "animations": [],
+    "audio": [],
+    "envMaps": [],
+    "models3d": [],
+    "textures": [
+      {
+        "name": "metal_steel_brushed_bump_map",
+        "tags": ["bumpMap", "metal"],
+        "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png"
+      },
+      {
+        "name": "metal_steel_brushed_map",
+        "tags": ["map", "metal"],
+        "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png"
+      },
+      {
+        "name": "metal_steel_brushed_normal_map",
+        "tags": ["normalMap", "metal"],
+        "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png"
+      },
+      {
+        "name": "metal_steel_brushed_displacement_map",
+        "tags": ["displacementMap", "metal"],
+        "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png"
+      },
+      {
+        "name": "metal_steel_brushed_metalness_map",
+        "tags": ["metalnessMap", "metal"],
+        "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP16_1K_METALNESS.png"
+      },
+      {
+        "name": "metal_steel_brushed_roughness_map",
+        "tags": ["roughnessMap", "metal"],
+        "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png"
+      },
+      {
+        "name": "wood_ao_map",
+        "tags": ["aoMap", "wood"],
+        "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg"
+      },
+      {
+        "name": "wood_map",
+        "tags": ["map", "wood"],
+        "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg"
+      },
+      {
+        "name": "wood_normal_map",
+        "tags": ["normalMap", "wood"],
+        "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg"
+      },
+      {
+        "name": "wood_displacement_map",
+        "tags": ["displacementMap", "wood"],
+        "url": "/Showcase/Door_Wood/Door_Wood_001_height.png"
+      },
+      {
+        "name": "wood_alpha_map",
+        "tags": ["alphaMap", "wood"],
+        "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg"
+      },
+      {
+        "name": "wood_metalness_map",
+        "tags": ["metalnessMap", "wood"],
+        "url": "/Showcase/Door_Wood/Door_Wood_001_metallic.jpg"
+      },
+      {
+        "name": "wood_roughness_map",
+        "tags": ["roughnessMap", "wood"],
+        "url": "/Showcase/Door_Wood/Door_Wood_001_roughness.jpg"
+      },
+      {
+        "name": "carpet_ao_map",
+        "tags": ["carpet", "aoMap"],
+        "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg"
+      },
+      {
+        "name": "carpet_map",
+        "tags": ["carpet", "map"],
+        "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg"
+      },
+      {
+        "name": "carpet_normal_map",
+        "tags": ["carpet", "normalMap"],
+        "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg"
+      },
+      {
+        "name": "carpet_displacement_map",
+        "tags": ["carpet", "displacementMap"],
+        "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png"
+      },
+      {
+        "name": "carpet_roughness_map",
+        "tags": ["carpet", "roughnessMap"],
+        "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg"
+      }
+    ]
+  },
+  "scenes": [
+    {
+      "isActive": true,
+      "name": "showcase",
+      "tags": []
+    }
+  ],
+  "tags": [],
+  "version": "1.0.0"
+}

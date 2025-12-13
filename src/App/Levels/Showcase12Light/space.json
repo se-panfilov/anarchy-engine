@@ -537,9 +537,27 @@
       {
         "name": "surface_material",
         "options": {
-          "color": "#5EDCAE"
+          "clearcoat": 1,
+          "clearcoatRoughness": 0.12,
+          "displacementScale": 0,
+          "ior": 2.5,
+          "iridescence": 0.655,
+          "iridescenceIOR": 1.86,
+          "metalness": 0.97,
+          "roughness": 0.8,
+          "thickness": 0,
+          "transmission": 0
         },
-        "type": "MeshToonMaterial"
+        "tags": ["physical", "metal"],
+        "textures": {
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "displacementMap": "metal_steel_brushed_displacement_map",
+          "map": "metal_steel_brushed_map",
+          "metalnessMap": "metal_steel_brushed_metalness_map",
+          "normalMap": "metal_steel_brushed_normal_map",
+          "roughnessMap": "metal_steel_brushed_roughness_map"
+        },
+        "type": "MeshPhysicalMaterial"
       },
       {
         "name": "standard_metal",
