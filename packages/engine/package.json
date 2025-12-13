@@ -10,7 +10,9 @@
     "src",
     "LICENSE",
     "README.md",
-    "DISCLAIMER.md"
+    "DISCLAIMER.md",
+    "THIRD_PARTY_LICENSES.md",
+    "THIRD_PARTY_LICENSES_FULL.txt"
   ],
   "scripts": {
     "start:dev": "vite --mode dev",
