@@ -1,4 +1,4 @@
-import { toBool } from '@Shared/src/Utils';
+import { toBool } from '@Shared/Utils';
 import { object } from 'valibot';
 
 export const runtimeSchema = object({

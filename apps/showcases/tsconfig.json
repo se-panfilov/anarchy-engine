@@ -6,7 +6,10 @@
       "@Public/*": ["apps/showcases/public/*"],
       "@Engine/*": ["packages/engine/src/*"],
       "@Engine": ["packages/engine/src/index.ts"],
-      "@Shared/*": ["packages/shared/*"]
+      "@Shared/*": ["packages/shared/src/*"],
+      "@Shared": ["packages/shared/src/index.ts"],
+      "@E2E/*": ["packages/e2e/src/*"],
+      "@E2E": ["packages/e2e/src/index.ts"]
     }
   },
   "include": ["src", "vite.config.ts", "types"]
