@@ -2,15 +2,18 @@ import type { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs';
 import type { Vector3 } from 'three';
 
-import type { TKinematicActorDriver, TPhysicsActorDriver } from '@/Engine';
-import { ActorDriver, KinematicActorDriver, PhysicsActorDriver } from '@/Engine';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
+import { ActorDriver } from '@/Engine/Actor/Constants';
 import { ActorDrive, DriveToModel3dConnector } from '@/Engine/Actor/Drive';
 import type { TActor, TActorDependencies, TActorDrive, TActorDrivers, TActorEntities, TActorParams, TDriveToModel3dConnector } from '@/Engine/Actor/Models';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
 import { withCollisions } from '@/Engine/Collisions';
+import type { TKinematicActorDriver } from '@/Engine/Kinematic';
+import { KinematicActorDriver } from '@/Engine/Kinematic';
 import type { TModel3d } from '@/Engine/Models3d';
 import { withModel3d } from '@/Engine/Models3d';
+import type { TPhysicsActorDriver } from '@/Engine/Physics';
+import { PhysicsActorDriver } from '@/Engine/Physics';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
 import { withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import { isDefined } from '@/Engine/Utils';
@@ -22,10 +25,10 @@ export function Actor(
   const isModelAlreadyInUse: boolean = isDefined(model3dToActorConnectionRegistry.findByModel3d(params.model3dSource));
   const model3d: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
 
-  const kinematicDriver: TKinematicActorDriver = KinematicActorDriver(params, kinematicLoopService, driver$);
-  const physicsDriver: TPhysicsActorDriver = PhysicsActorDriver(params, driver$);
+  const kinematicDriver: TKinematicActorDriver = KinematicActorDriver(params, kinematicLoopService);
+  const physicsDriver: TPhysicsActorDriver = PhysicsActorDriver(params);
   const drivers: TActorDrivers = { [ActorDriver.Kinematic]: kinematicDriver, [ActorDriver.Physical]: physicsDriver };
-  const drive: TActorDrive = ActorDrive(params, drivers, { kinematicLoopService });
+  const drive: TActorDrive = ActorDrive(params, drivers);
   const driveToModel3dConnector: TDriveToModel3dConnector = DriveToModel3dConnector(drive, model3d);
 
   const positionSub$: Subscription = drive.position$.pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr))).subscribe((position: Vector3): void => {

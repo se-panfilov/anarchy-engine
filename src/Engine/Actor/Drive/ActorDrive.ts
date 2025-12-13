@@ -64,8 +64,7 @@ export function ActorDrive(params: TActorParams, drivers: TActorDrivers): TActor
     getRotation: (): Euler => rotation$.value.clone(),
     scale$: scaleRep$,
     getScale: (): Vector3 | undefined => scale$.value?.clone(),
-    [ActorDriver.Kinematic]: ProtectedDriverFacade(kinematicDriver),
-    [ActorDriver.Physical]: ProtectedDriverFacade(physicsDriver)
+    ...Object.fromEntries(Object.entries(drivers).map((v) => [v[0], ProtectedDriverFacade(v[1])]))
   };
 
   destroyable.destroy$.subscribe(() => {
@@ -82,9 +81,7 @@ export function ActorDrive(params: TActorParams, drivers: TActorDrivers): TActor
     scale$.complete();
     scale$.unsubscribe();
 
-    result.kinematic.destroy$.next();
-    // TODO 8.0.0. MODELS: implement destroy of physics mixin (or remove it if it isn't needed)
-    // result.physicsBody.destroy$.next();
+    Object.values(drivers).forEach((driver: TProtectedDriverFacade<TAbstractDriver>): void => driver.destroy$.next());
   });
 
   return result;

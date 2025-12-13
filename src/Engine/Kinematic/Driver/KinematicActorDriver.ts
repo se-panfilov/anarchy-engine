@@ -1,10 +1,9 @@
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, map, takeWhile } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad } from 'three/src/math/MathUtils';
 
 import type { TActorParams } from '@/Engine/Actor';
-import { ActorDriver } from '@/Engine/Actor';
 import type { TKinematicActorDriver, TKinematicData, TKinematicLoopService } from '@/Engine/Kinematic/Models';
 import type { TDegrees, TRadians } from '@/Engine/Math';
 import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
@@ -12,14 +11,13 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TWriteable } from '@/Engine/Utils';
 
-export function KinematicActorDriver(params: TActorParams, kinematicLoopService: TKinematicLoopService, drive$: BehaviorSubject<ActorDriver>): TKinematicActorDriver {
-  let _isAutoUpdate: boolean = (params.kinematic?.isAutoUpdate && drive$.value === ActorDriver.Kinematic) ?? false;
+export function KinematicActorDriver(params: TActorParams, kinematicLoopService: TKinematicLoopService): TKinematicActorDriver {
+  let _isAutoUpdate: boolean = params.kinematic?.isAutoUpdate ?? false;
+  let _isEnabled: boolean = _isAutoUpdate;
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
   const rotationQuaternion$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(new Quaternion().setFromEuler(params.rotation));
   const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(params.rotation);
   const scale$: BehaviorSubject<Vector3 | undefined> = new BehaviorSubject<Vector3 | undefined>(params.scale);
-
-  const driveSubscription$: Subscription = drive$.subscribe((drive: ActorDriver): void => void (_isAutoUpdate = !!(drive === ActorDriver.Kinematic && params.kinematic?.isAutoUpdate)));
 
   const rotationQuaternionSub$: Subscription = rotationQuaternion$.pipe(map((q: Quaternion): Euler => new Euler().setFromQuaternion(q))).subscribe(rotation$);
 
@@ -32,7 +30,6 @@ export function KinematicActorDriver(params: TActorParams, kinematicLoopService:
     //Stop subscriptions
     kinematicSub$?.unsubscribe();
     rotationQuaternionSub$?.unsubscribe();
-    driveSubscription$.unsubscribe();
 
     //Complete subjects
     position$.complete();
@@ -43,6 +40,7 @@ export function KinematicActorDriver(params: TActorParams, kinematicLoopService:
     destroyable.destroy$.unsubscribe();
   });
 
+  // TODO 8.0.0. MODELS: Could we replace "this" with "driver"?
   const driver = {
     ...destroyable,
     data: {
@@ -55,6 +53,9 @@ export function KinematicActorDriver(params: TActorParams, kinematicLoopService:
     rotation$,
     scale$: scale$,
     rotationQuaternion$,
+    runDriver: (): boolean => (_isEnabled = true),
+    stopDriver: (): boolean => (_isEnabled = false),
+    isEnabled: (): boolean => _isEnabled,
     setData({ linearSpeed, linearDirection, angularSpeed, angularDirection }: TKinematicData): void {
       // eslint-disable-next-line functional/immutable-data
       (this.data as TWriteable<TKinematicData>).linearSpeed = linearSpeed;
@@ -204,6 +205,7 @@ export function KinematicActorDriver(params: TActorParams, kinematicLoopService:
   };
 
   function doKinematicMove(delta: number): void {
+    if (!driver.isEnabled()) return;
     if (driver.data.linearSpeed <= 0) return;
     const normalizedDirection: Vector3 = driver.data.linearDirection.clone().normalize();
     const displacement: Vector3 = normalizedDirection.multiplyScalar(driver.data.linearSpeed * delta);
@@ -211,6 +213,7 @@ export function KinematicActorDriver(params: TActorParams, kinematicLoopService:
   }
 
   function doKinematicRotation(delta: number): void {
+    if (!driver.isEnabled()) return;
     if (driver.data.angularSpeed <= 0) return;
     const normalizedAngularDirection: Vector3 = driver.data.angularDirection.clone().normalize();
     const angle: TRadians = driver.data.angularSpeed * delta;
@@ -218,8 +221,7 @@ export function KinematicActorDriver(params: TActorParams, kinematicLoopService:
     rotationQuaternion$.next(rotationQuaternion$.value.clone().multiply(quaternion));
   }
 
-  kinematicSub$ = kinematicLoopService.tick$.subscribe((delta: number): void => {
-    if (!driver.isAutoUpdate()) return;
+  kinematicSub$ = kinematicLoopService.tick$.pipe(takeWhile((): boolean => driver.isEnabled() && driver.isAutoUpdate())).subscribe((delta: number): void => {
     doKinematicMove(delta);
     doKinematicRotation(delta);
   });
