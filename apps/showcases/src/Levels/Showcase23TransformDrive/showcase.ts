@@ -27,7 +27,7 @@ import type {
   TSpatialGridWrapper,
   TText3dWrapper,
   TTextAnyWrapper
-} from '@engine';
+} from '@Engine';
 import {
   asRecord,
   CollisionShape,
@@ -49,7 +49,7 @@ import {
   spaceService,
   TextType,
   TransformAgent
-} from '@engine';
+} from '@Engine';
 
 import spaceConfigJson from './space.json';
 import {

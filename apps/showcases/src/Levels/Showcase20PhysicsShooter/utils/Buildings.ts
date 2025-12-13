@@ -15,8 +15,8 @@ import type {
   TPhysicsBody,
   TPhysicsBodyService,
   TSpatialGridWrapper
-} from '@engine';
-import { CollisionShape, MaterialType, meters, PrimitiveModel3dType, RigidBodyTypesNames, TransformAgent } from '@engine';
+} from '@Engine';
+import { CollisionShape, MaterialType, meters, PrimitiveModel3dType, RigidBodyTypesNames, TransformAgent } from '@Engine';
 
 export type TBuidingBlock = Required<Pick<TBoxGeometryParams, 'height' | 'width' | 'depth'>> & Required<Pick<TObject3DParams, 'position'>>;
 

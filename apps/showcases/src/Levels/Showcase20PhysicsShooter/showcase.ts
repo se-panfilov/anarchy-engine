@@ -19,9 +19,9 @@ import type {
   TSpace,
   TSpaceConfig,
   TSpatialGridWrapper
-} from '@engine';
-import { asRecord, isDefined, isNotDefined, KeysExtra, metersPerSecond, milliseconds, spaceService } from '@engine';
-import { radians } from '@engine/Measurements/Utils';
+} from '@Engine';
+import { asRecord, isDefined, isNotDefined, KeysExtra, metersPerSecond, milliseconds, spaceService } from '@Engine';
+import { radians } from '@Engine/Measurements/Utils';
 
 import spaceConfigJson from './space.json';
 import type { TBullet } from './utils';

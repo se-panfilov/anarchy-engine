@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 
-import type { TSpace, TSpaceConfig, TSpatialGridWrapper } from '@engine';
+import type { TSpace, TSpaceConfig, TSpatialGridWrapper } from '@Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { getContainer } from '../utils';

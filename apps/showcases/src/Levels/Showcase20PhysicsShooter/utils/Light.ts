@@ -1,8 +1,8 @@
 import { CameraHelper, DirectionalLightHelper, Euler, Vector2, Vector3 } from 'three';
 import type { Color } from 'three/src/math/Color';
 
-import type { TDirectionalLightWrapper, TLightService, TPointLightWrapper } from '@engine';
-import { LightType } from '@engine';
+import type { TDirectionalLightWrapper, TLightService, TPointLightWrapper } from '@Engine';
+import { LightType } from '@Engine';
 
 export function initLight(lightService: TLightService): void {
   const directionalLight: TDirectionalLightWrapper = lightService.getRegistry().getByName('directional_light') as TDirectionalLightWrapper;

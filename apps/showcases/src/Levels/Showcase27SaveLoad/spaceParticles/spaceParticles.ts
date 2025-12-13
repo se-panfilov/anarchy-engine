@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 
-import type { TParticlesWrapper, TSpace, TSpaceConfig } from '@engine';
+import type { TParticlesWrapper, TSpace, TSpaceConfig } from '@Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { addModel3dToScene, getContainer, getParticlesDeterministicPositions } from '../utils';

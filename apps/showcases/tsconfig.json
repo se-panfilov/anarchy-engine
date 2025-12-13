@@ -15,7 +15,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@public/*": ["./public/*"],
-      "@engine/*": ["../../packages/engine/src/*"]
+      "@Engine/*": ["../../packages/engine/src/*"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,

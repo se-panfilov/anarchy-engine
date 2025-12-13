@@ -28,8 +28,8 @@ import type {
   TWithSheenRoughness,
   TWithThickness,
   TWithTransmission
-} from '@engine';
-import { asRecord, ControlsType, getTags, isDefined, isNotDefined, isOrbitControls, KeyCode, LookUpStrategy, spaceService, TextType } from '@engine';
+} from '@Engine';
+import { asRecord, ControlsType, getTags, isDefined, isNotDefined, isOrbitControls, KeyCode, LookUpStrategy, spaceService, TextType } from '@Engine';
 
 import spaceConfigJson from './space.json';
 

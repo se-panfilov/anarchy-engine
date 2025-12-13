@@ -1,6 +1,6 @@
 import { addGizmo } from '@/Levels/Utils';
-import type { TParticlesWrapper, TSpace, TSpaceConfig } from '@engine';
-import { asRecord, isNotDefined, spaceService } from '@engine';
+import type { TParticlesWrapper, TSpace, TSpaceConfig } from '@Engine';
+import { asRecord, isNotDefined, spaceService } from '@Engine';
 
 import spaceConfigJson from './space.json';
 

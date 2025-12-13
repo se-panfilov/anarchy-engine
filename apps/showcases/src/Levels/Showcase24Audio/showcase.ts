@@ -19,8 +19,8 @@ import type {
   TSpaceConfig,
   TSpaceLoops,
   TSpaceServices
-} from '@engine';
-import { asRecord, DebugAudioRenderer, isAudio3dWrapper, isDefined, isNotDefined, spaceService } from '@engine';
+} from '@Engine';
+import { asRecord, DebugAudioRenderer, isAudio3dWrapper, isDefined, isNotDefined, spaceService } from '@Engine';
 
 import spaceConfigJson from './space.json';
 

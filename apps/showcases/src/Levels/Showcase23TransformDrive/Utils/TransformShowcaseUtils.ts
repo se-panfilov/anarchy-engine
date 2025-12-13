@@ -28,9 +28,9 @@ import type {
   TSpatialGridWrapper,
   TWithConnectedTransformAgent,
   TWithTransformDrive
-} from '@engine';
-import { ForwardAxis, isDefined, MaterialType, metersPerSecond, TransformAgent } from '@engine';
-import { meters } from '@engine/Measurements/Utils';
+} from '@Engine';
+import { ForwardAxis, isDefined, MaterialType, metersPerSecond, TransformAgent } from '@Engine';
+import { meters } from '@Engine/Measurements/Utils';
 
 export function createActor(
   name: string,

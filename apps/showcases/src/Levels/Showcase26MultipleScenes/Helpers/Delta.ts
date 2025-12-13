@@ -3,8 +3,8 @@ import { Clock, Vector3 } from 'three';
 
 import { createReactiveLineFromActor } from '@/Levels/Showcase23TransformDrive/Utils';
 import { moveByCircle } from '@/Levels/Utils/MoveUtils';
-import type { TActor, TActorRegistry, TAnyCameraWrapper, TAudio3dWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TMouseWatcherEvent, TSceneWrapper, TSpace } from '@engine';
-import { DebugAudioRenderer, metersPerSecond } from '@engine';
+import type { TActor, TActorRegistry, TAnyCameraWrapper, TAudio3dWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TMouseWatcherEvent, TSceneWrapper, TSpace } from '@Engine';
+import { DebugAudioRenderer, metersPerSecond } from '@Engine';
 
 import { addParticles } from './Utils';
 

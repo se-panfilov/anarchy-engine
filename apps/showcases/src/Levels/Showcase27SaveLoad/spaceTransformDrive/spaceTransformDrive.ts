@@ -3,8 +3,8 @@ import { degToRad } from 'three/src/math/MathUtils';
 import { Vector3 } from 'three/src/math/Vector3';
 
 import { attachConnectorPositionToSubj, attachConnectorRotationToSubj } from '@/Levels/Utils';
-import type { TActor, TCameraWrapper, TLightWrapper, TLoop, TSpace, TSpaceConfig, TText3dTextureWrapper, TText3dWrapper } from '@engine';
-import { degrees, ForwardAxis, getPushCoordsFrom3dAzimuth, getQueryParams, isDefined, metersPerSecond, radians } from '@engine';
+import type { TActor, TCameraWrapper, TLightWrapper, TLoop, TSpace, TSpaceConfig, TText3dTextureWrapper, TText3dWrapper } from '@Engine';
+import { degrees, ForwardAxis, getPushCoordsFrom3dAzimuth, getQueryParams, isDefined, metersPerSecond, radians } from '@Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { addAwait, getContainer, removeAwait } from '../utils';

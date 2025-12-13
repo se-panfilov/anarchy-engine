@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 
-import type { TAudio3dWrapper, TDebugAudioRenderer, TSpace, TSpaceConfig } from '@engine';
-import { DebugAudioRenderer } from '@engine';
+import type { TAudio3dWrapper, TDebugAudioRenderer, TSpace, TSpaceConfig } from '@Engine';
+import { DebugAudioRenderer } from '@Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { addModel3dToScene, getContainer } from '../utils';

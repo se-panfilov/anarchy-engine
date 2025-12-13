@@ -2,7 +2,7 @@ import { BehaviorSubject } from 'rxjs';
 import type { HemisphereLight, PointLight, SpotLight } from 'three';
 import { Color, Vector3 } from 'three';
 
-import type { THemisphereLightWrapper, TPointLightWrapper, TSpace, TSpaceConfig, TSpotLightWrapper, TWriteable } from '@engine';
+import type { THemisphereLightWrapper, TPointLightWrapper, TSpace, TSpaceConfig, TSpotLightWrapper, TWriteable } from '@Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { getContainer } from '../utils';

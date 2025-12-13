@@ -1,9 +1,9 @@
 import { BehaviorSubject, combineLatest, map, Subject } from 'rxjs';
 import { degToRad } from 'three/src/math/MathUtils';
 
-import type { TActor, TIntersectionEvent, TIntersectionsCameraWatcher, TKeyboardService, TMetersPerSecond, TMilliseconds, TRadians } from '@engine';
-import { getMouseAzimuthAndElevation, KeyCode, metersPerSecond } from '@engine';
-import { radians } from '@engine/Measurements/Utils';
+import type { TActor, TIntersectionEvent, TIntersectionsCameraWatcher, TKeyboardService, TMetersPerSecond, TMilliseconds, TRadians } from '@Engine';
+import { getMouseAzimuthAndElevation, KeyCode, metersPerSecond } from '@Engine';
+import { radians } from '@Engine/Measurements/Utils';
 
 type TMoveKeysState = { Forward: boolean; Left: boolean; Right: boolean; Backward: boolean };
 type TIntersectionDirection = Readonly<{ azimuth: TRadians; elevation: TRadians }>;

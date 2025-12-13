@@ -27,9 +27,9 @@ import type {
   TSceneWrapper,
   TSpatialGridService,
   TSpatialGridWrapper
-} from '@engine';
-import { getTags, isDefined, isNotDefined, LoopUpdatePriority, MaterialType, metersPerSecond, mpsSpeed, PrimitiveModel3dType, TransformAgent } from '@engine';
-import { meters } from '@engine/Measurements/Utils';
+} from '@Engine';
+import { getTags, isDefined, isNotDefined, LoopUpdatePriority, MaterialType, metersPerSecond, mpsSpeed, PrimitiveModel3dType, TransformAgent } from '@Engine';
+import { meters } from '@Engine/Measurements/Utils';
 
 export const BULLET_TAG = 'bullet';
 export const BULLET_TARGET_TAG = 'target';

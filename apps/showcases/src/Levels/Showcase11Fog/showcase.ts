@@ -2,8 +2,8 @@ import GUI from 'lil-gui';
 import type { Fog } from 'three';
 
 import { addGizmo } from '@/Levels/Utils';
-import type { TSceneWrapper, TSpace, TSpaceConfig } from '@engine';
-import { asRecord, isNotDefined, spaceService } from '@engine';
+import type { TSceneWrapper, TSpace, TSpaceConfig } from '@Engine';
+import { asRecord, isNotDefined, spaceService } from '@Engine';
 
 import spaceConfigJson from './space.json';
 

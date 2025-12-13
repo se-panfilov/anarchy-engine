@@ -1,7 +1,7 @@
 import type { Observable, Subject, Subscription } from 'rxjs';
 import type { Vector3Like } from 'three';
 
-import type { TReadonlyQuaternion, TReadonlyVector3, TWithTransformDrive } from '@engine';
+import type { TReadonlyQuaternion, TReadonlyVector3, TWithTransformDrive } from '@Engine';
 
 export function attachConnectorPositionToSubj(
   connected: TWithTransformDrive<any>,

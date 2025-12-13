@@ -1,6 +1,6 @@
 import { Vector3 } from 'three';
 
-import type { TActor, TAnyCameraWrapper, TReadonlyVector3 } from '@engine';
+import type { TActor, TAnyCameraWrapper, TReadonlyVector3 } from '@Engine';
 
 export function cameraFollowingActor(cameraW: TAnyCameraWrapper, actor: TActor): void {
   actor.drive.position$.subscribe((position: TReadonlyVector3): void => {

@@ -4,8 +4,8 @@ import { Vector3 } from 'three';
 
 import { createReactiveLineFromActor } from '@/Levels/Showcase23TransformDrive/Utils';
 import { addGizmo } from '@/Levels/Utils';
-import type { TActor, TActorRegistry, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TKeyboardPressingEvent, TMouseWatcherEvent, TSpace, TSpaceConfig } from '@engine';
-import { asRecord, isNotDefined, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService } from '@engine';
+import type { TActor, TActorRegistry, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TKeyboardPressingEvent, TMouseWatcherEvent, TSpace, TSpaceConfig } from '@Engine';
+import { asRecord, isNotDefined, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService } from '@Engine';
 
 import spaceConfigJson from './space.json';
 
