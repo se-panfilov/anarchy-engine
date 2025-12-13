@@ -29,7 +29,8 @@ export function AbstractWatcher<T>(type: WatcherType | string, name: string, tag
     value$.unsubscribe();
   });
 
-  const result = {
+  // eslint-disable-next-line functional/immutable-data
+  const result = Object.assign(destroyable, {
     id,
     name,
     type,
@@ -37,9 +38,8 @@ export function AbstractWatcher<T>(type: WatcherType | string, name: string, tag
     value$,
     start$,
     stop$,
-    ...withNameAndNameAccessorsMixin(),
-    ...destroyable
-  };
+    ...withNameAndNameAccessorsMixin()
+  });
 
   if (isDefined(name)) result.setName(name);
 

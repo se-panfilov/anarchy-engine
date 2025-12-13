@@ -13,7 +13,6 @@ export function AbstractWatcherWithState<T>(type: WatcherType | string, name: st
 
   // AbstractWatcherWithState uses BehaviorSubject instead of Subject (in AbstractWatcher), so we replace it here
   abstractWatcher.value$.complete();
-  abstractWatcher.value$.unsubscribe();
   // eslint-disable-next-line functional/immutable-data
   abstractWatcher.value$ = new BehaviorSubject<T>(initialValue);
 
