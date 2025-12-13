@@ -1,10 +1,11 @@
 import { PlatformActions } from '@Desktop/Constants';
+import type { THandleRequestDependencies } from '@Desktop/Models';
 import { isPlatformAction } from '@Desktop/Utils';
-import type { App, IpcMainInvokeEvent } from 'electron';
+import type { IpcMainInvokeEvent } from 'electron';
 
 // TODO DESKTOP: fix handling of the events
 // TODO DESKTOP: any
-export function handleAppRequest(app: App, _event: IpcMainInvokeEvent, ...args: [PlatformActions | string, unknown]): Promise<any> | any {
+export function handleAppRequest({ settingsService }: THandleRequestDependencies, _event: IpcMainInvokeEvent, ...args: [PlatformActions | string, unknown]): Promise<any> | any {
   const type: PlatformActions | string = args[0];
   if (!isPlatformAction(type)) throw new Error(`[DESKTOP]: Unknown platform action: ${type}`);
   const payload: unknown = args[1];
@@ -12,6 +13,8 @@ export function handleAppRequest(app: App, _event: IpcMainInvokeEvent, ...args: 
   switch (type) {
     case PlatformActions.SaveAppSettings:
       // TODO DESKTOP: implement saving app settings
+      if (!settingsService.isSettings(payload)) throw new Error(`[DESKTOP]: Failed to save settings: Invalid payload`);
+      settingsService.saveAppSettings(payload);
       return Promise.resolve();
     case PlatformActions.LoadAppSettings:
       // TODO DESKTOP: implement loading app settings
