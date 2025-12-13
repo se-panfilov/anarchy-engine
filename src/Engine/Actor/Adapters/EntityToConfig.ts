@@ -22,7 +22,6 @@ export function actorToConfig(entity: TActor, { models3dService }: TActorEntityT
   return filterOutEmptyFields({
     model3dSource,
     // TODO 15-0-0: should we look for presetName here? (use "physicsPresetService.getPresetByName(presetName)")
-    // TODO 15-0-0: should we save physic's state to config (impulse, velocity, etc.)?
     physics: drive.physical?.serialize(),
     kinematic: drive.kinematic?.serialize(),
     spatial: getSpatial(entity),
