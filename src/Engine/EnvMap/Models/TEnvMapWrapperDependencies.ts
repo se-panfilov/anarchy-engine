@@ -1,5 +1,5 @@
 import type { TEnvMapLoader } from './TEnvMapLoader';
 
-export type TEnvMapConfigToParamsDependencies = Readonly<{
+export type TEnvMapWrapperDependencies = Readonly<{
   envMapLoader: TEnvMapLoader;
 }>;

@@ -1,8 +1,9 @@
 import { EnvMapLoader } from '@/Engine/EnvMap/Loader';
-import type { TEnvMapAsyncRegistry, TEnvMapConfigPack, TEnvMapFactory, TEnvMapLoader, TEnvMapParamsPack, TEnvMapPropsPack, TEnvMapService, TEnvMapWrapperAsync } from '@/Engine/EnvMap/Models';
+import type { TEnvMapAsyncRegistry, TEnvMapConfigPack, TEnvMapFactory, TEnvMapLoader, TEnvMapParamsPack, TEnvMapService, TEnvMapWrapperAsync } from '@/Engine/EnvMap/Models';
 import type { TDestroyable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
+import { isDefined } from '@/Engine/Utils';
 
 export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapAsyncRegistry, sceneW: TSceneWrapper): TEnvMapService {
   registry.added$.subscribe((wrapper: TEnvMapWrapperAsync): void => {
@@ -17,12 +18,14 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapAsyncReg
   const createAsync = (params: TEnvMapParamsPack): Promise<TEnvMapWrapperAsync> => factory.createAsync(params, { envMapLoader });
   const createFromConfigAsync = (envMaps: ReadonlyArray<TEnvMapConfigPack>): Promise<ReadonlyArray<TEnvMapWrapperAsync>> => {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    return Promise.all(envMaps.map((config: TEnvMapConfigPack): Promise<TEnvMapWrapperAsync> => factory.createAsync(factory.configToParamsAsync(config, { envMapLoader }))));
+    return Promise.all(envMaps.map((config: TEnvMapConfigPack): Promise<TEnvMapWrapperAsync> => factory.createAsync(factory.configToParams(config, { envMapLoader }))));
   };
 
-  withActive.active$.subscribe(({ texture }: TEnvMapPropsPack): void => {
-    sceneW.setBackground(texture);
-    sceneW.setEnvironmentMap(texture);
+  withActive.active$.subscribe((wrapper: TEnvMapWrapperAsync | undefined): void => {
+    if (isDefined(wrapper)) {
+      sceneW.setBackground(wrapper.entity);
+      sceneW.setEnvironmentMap(wrapper.entity);
+    }
   });
 
   const findActive = withActive.findActive;
