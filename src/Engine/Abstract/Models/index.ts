@@ -10,7 +10,6 @@ export type * from './TAbstractResourceConfig';
 export type * from './TAbstractSimpleRegistry';
 export type * from './TAbstractWatcher';
 export type * from './TAbstractWatcherWithState';
-export type * from './TAsyncReactiveFactory';
 export type * from './TCreateEntityFactoryFn';
 export type * from './TEntity';
 export type * from './TEntityParams';
