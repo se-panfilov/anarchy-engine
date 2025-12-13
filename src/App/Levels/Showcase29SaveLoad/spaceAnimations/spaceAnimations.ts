@@ -1,7 +1,7 @@
 import type { AnimationAction, AnimationClip, AnimationMixer } from 'three';
 import { LoopOnce } from 'three';
 
-import type { TActor, TModel3d, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TSpace, TSpaceConfig } from '@/Engine';
 import { createDeferredPromise, isNotDefined } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
