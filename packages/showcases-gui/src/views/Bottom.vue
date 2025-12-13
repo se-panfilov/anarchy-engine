@@ -3,7 +3,7 @@
 <template>
   <div class="bottom">
     <div class="panel -bottom">
-      <h1>Welcome to Showcases GUI!</h1>
+      <h1>Showcases GUI</h1>
       <p>This is a graphical user interface for managing and showcasing various projects and applications.</p>
       <p>Use the navigation menu to explore different features and functionalities.</p>
     </div>
