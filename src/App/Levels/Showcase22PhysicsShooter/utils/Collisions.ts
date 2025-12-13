@@ -1,9 +1,9 @@
-import type { TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TSpaceServices } from '@/Engine';
+import type { TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TSceneWrapper, TSpaceServices } from '@/Engine';
 import type { TSpatialGridWrapper } from '@/Engine/Spatial';
 import { isNotDefined } from '@/Engine/Utils';
 
 export async function enableCollisions(mouseLineIntersectionsWatcher: TIntersectionsWatcher, { actorService, spatialGridService, collisionsService }: TSpaceServices): Promise<void> {
-  const sceneW = actorService.getScene();
+  const sceneW: TSceneWrapper = actorService.getScene();
   const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
   if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" spatial grid`);
 
