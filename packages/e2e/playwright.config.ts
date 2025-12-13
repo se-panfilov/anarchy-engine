@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
-import { nodeEnv } from './e2e/env.e2e';
+import { nodeEnv } from './src/env';
 
 /**
  * See https://playwright.dev/docs/test-configuration.
