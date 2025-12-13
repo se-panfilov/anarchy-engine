@@ -3,20 +3,20 @@
 **Effective date:** {{EFFECTIVE_DATE}}
 **Controller:** {{LEGAL_ENTITY_NAME}} — Contact: {{PRIVACY_EMAIL}}
 
-**Scope / Identification.** This policy applies to **{{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}** (the “{{PRODUCT_TERM}}”){{#SHOW_TECH_IDENTIFIERS}} and related distributions under the following technical identifiers: {{PACKAGE_NAME}}{{/SHOW_TECH_IDENTIFIERS}}.
+**Scope / Identification.** This policy applies to **{{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}** (the “{{PRODUCT_TERM}}”){{#SHOW_TECH_IDENTIFIERS}} and related distributions under the following technical identifiers: `{{PACKAGE_NAME}}`{{/SHOW_TECH_IDENTIFIERS}}.
 
 ## 1. Summary
 
 We do **not** collect personal data through the {{PRODUCT_TERM}}. Purchasing, downloading, installation, account, or entitlement functions (if any) are handled by the distribution channels you use and are subject to their own terms and privacy policies, which we do not control.
 
-**CPRA:** we **do not sell or share** personal information for cross-context behavioral advertising.
+**CPRA (California):** we **do not sell or share** personal information for cross-context behavioral advertising and we do **not** process **sensitive personal information**.
 
 ## 2. The {{PRODUCT_TERM}}
 
 - **No telemetry or analytics** are collected by the {{PRODUCT_TERM}}.
 - **No crash reports** are sent by default.
   {{#CRASH_OPT_IN}}
-  If you **opt in**, the {{PRODUCT_TERM}} may send crash reports consisting of **anonymous technical diagnostics** (no direct identifiers, no content). Reports are used solely to investigate and fix issues and are retained only for the period necessary for that purpose, after which they are deleted or **irreversibly anonymized**. You can withdraw consent at any time via an in-product option (where available) or by contacting us. **Legal basis:** your **consent**.
+- **Optional crash reports (opt-in).** If you **opt in**, the {{PRODUCT_TERM}} may send crash reports consisting of **anonymous technical diagnostics** (no direct identifiers, no content). Reports are used solely to investigate and fix issues and are retained only for the period necessary for that purpose, after which they are deleted or **irreversibly anonymized**. You can **withdraw consent** at any time via an in-product option (where available) or by contacting us. **Legal basis:** your **consent**.
   {{/CRASH_OPT_IN}}
 - The {{PRODUCT_TERM}} operates locally (offline). Any optional online features will be **opt-in** and documented here.
 
@@ -30,11 +30,11 @@ If you contact us at **{{SUPPORT_EMAIL}}**, we process your **email address**, *
 
 **Legal basis:** our **legitimate interests** in responding to inquiries (or your consent where applicable).
 
-**Retention:** **{{SUPPORT_EMAILS_RETAIN_PERIOD_MONTH}} months** from the date of our last interaction in the support thread (or ticket closure), then deletion or irreversible anonymization, unless longer retention is required by law or to establish, exercise or defend legal claims.
+**Retention:** **{{SUPPORT_EMAILS_RETAIN_PERIOD_MONTH}} months** from the date of our last interaction in the support thread (or ticket closure), then deletion or **irreversible anonymization**, unless longer retention is required by law or to establish, exercise or defend legal claims.
 
 ## 5. Processors
 
-We may use service providers (e.g., email hosting) as **processors** bound by data processing terms. A list of key processors is available upon request.
+We may use service providers (e.g., email hosting) as **processors** bound by data-processing terms. A list of key processors is available upon request.
 
 ## 6. International Transfers
 
@@ -42,7 +42,7 @@ Where data is transferred outside your jurisdiction, we rely on applicable trans
 
 ## 7. Your Rights
 
-Subject to law, you may request **access**, **rectification**, **erasure**, **restriction**, **objection**, or **portability** at **{{PRIVACY_EMAIL}}**. You may also lodge a complaint with your local supervisory authority (e.g., the Dutch **Autoriteit Persoonsgegevens**). We may request reasonable information to **verify your identity** before acting on a request. We will respond **within timelines required by applicable law**.
+Subject to law, you may request **access**, **rectification**, **erasure**, **restriction**, **objection**, **portability**, and **withdrawal of consent** (for processing based on consent) at **{{PRIVACY_EMAIL}}**. You may also lodge a complaint with your local supervisory authority (e.g., the Dutch **Autoriteit Persoonsgegevens**, Brazil’s **ANPD**, Canada’s **OPC**, Australia’s **OAIC**). We may request reasonable information to **verify your identity** before acting on a request. We will respond **within timelines required by applicable law**.
 
 ## 8. Children
 
@@ -57,9 +57,16 @@ This {{PRODUCT_TERM}} is **not directed** to children below the age requiring pa
 
 We apply appropriate technical and organizational measures proportionate to the limited personal data we handle (e.g., encrypted transport, access controls, limited retention). We do **not** use automated decision-making that produces legal or similarly significant effects.
 
-## 10. Changes
+{{#STORE_DISCLOSURES}}
 
-We may update this policy. Material changes may be communicated **within the product or the update package** (for example, via an in-product notice or release notes included with the distribution), or via the applicable distribution channel.
+## 10. App-Store Disclosures (platform listings)
+
+Where required by app-store programs (e.g., **privacy nutrition labels** / **data safety**), our listing reflects this policy. **Current expected status:** _“No data collected.”_ If optional crash reports are enabled by you, they may be disclosed under **Diagnostics** as **not linked to you** and **not used for tracking/advertising**. Store-specific summaries are provided in the store listing and may vary by version.
+{{/STORE_DISCLOSURES}}
+
+## {{#STORE_DISCLOSURES}}11{{/STORE_DISCLOSURES}}{{^STORE_DISCLOSURES}}10{{/STORE_DISCLOSURES}}. Changes
+
+We may update this policy. Material changes may be communicated **within the product or the update package** (e.g., in-product notice or release notes), or via the applicable distribution channel.
 
 ## Governing Language
 
