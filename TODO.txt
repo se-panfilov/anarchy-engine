@@ -33,21 +33,20 @@ Done:
 Roadmap:
 - 18.0.x Split apps and engine (and add config for an app to set up engine)
 - 19.0.x npm package and a repo for the engine
-- 20.0.x Building app (desktop/mobile) (might be not a part of an engine)
+- 20.0.x Building app (desktop/mobile) (might be not a part of an engine, but at least POC level)
 - 21.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
 - 22.x.x Postprocessing
 - 23.0.x Shaders
 
 Thoughts:
-- Maybe: Split data entities from functional entities (check ECS approach);
 - Maybe: Try to replace spread operator with Object.assign everywhere (for performance and make sure that we are not creating new objects)? Check with AbstractEntity first;
 - Maybe: Add domain for timers (based on web workers);
 - Maybe: Add domain for lines;
 - Maybe: Refactor withActive entities (use active$) (camera, renderer, etc);
-- Maybe: a single generic factory and registries for all entities (actor, model, etc), instead of files create them with params;
-- Maybe: if it makes sense to replace Rapier with Havok;
-- Maybe: remove animejs from the engine (use it only in the app);
-- Maybe: serialization should return promise (cause it looks async);
+- Maybe: A single generic factory and registries for all entities (actor, model, etc), instead of files create them with params;
+- Maybe: If it makes sense to replace Rapier with Havok;
+- Maybe: Remove animejs from the engine (use it only in the app);
+- Maybe: Serialization should return promise (cause it looks async);
 - BUG: #191823 Text3dTextures doesn't update text values on textures on change;
 - TASK: Check every function in the engine that it's not calling every second (with adding console.log everywhere);
 - TASK: Check performance (make sure materials and env maps are async)
@@ -55,4 +54,5 @@ Thoughts:
 - TASK: Clean up dependencies (some should be used by the app, not the engine);
 
 Won't be implemented soon:
+- Maybe: Split data entities from functional entities – ECS approach (too hard to migrate now);
 - GUI/UI/HUD/Menus: Leave it to the app (don't want to build a generic solution);
