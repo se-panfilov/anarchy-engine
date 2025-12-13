@@ -175,6 +175,7 @@ export const JsRules = {
         '[A-a]zimuthal',
         '[B-b]ool',
         '[C-c]alc',
+        '[C-c]cd',
         '[C-c]enter',
         '[C-c]oef',
         '[C-c]ollider[s]?',
