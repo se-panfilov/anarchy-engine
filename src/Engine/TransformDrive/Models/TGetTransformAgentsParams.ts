@@ -7,7 +7,7 @@ export type TGetTransformAgentsParams = Readonly<{
   position: TReadonlyVector3;
   rotation?: TReadonlyEuler | TReadonlyQuaternion;
   scale?: TReadonlyVector3;
-  physics?: TPhysicsBodyParams;
+  physicBody?: TPhysicsBodyParams;
   kinematic?: TOptional<TKinematicParams>;
 }>;
 

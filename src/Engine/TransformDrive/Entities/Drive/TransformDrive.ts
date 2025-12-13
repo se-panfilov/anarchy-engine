@@ -41,7 +41,9 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   const agent$: BehaviorSubject<TransformAgent> = new BehaviorSubject<TransformAgent>(params.activeAgent ?? TransformAgent.Default);
 
   let activeAgent: TAbstractTransformAgent | undefined = agents[agent$.value];
-  if (isNotDefined(activeAgent)) throw new Error(`TransformDrive: Can't set an active agent. Agent "${agent$.value}" is not defined`);
+  if (isNotDefined(activeAgent)) {
+    throw new Error(`TransformDrive: Can't set an active agent. Agent "${agent$.value}" is not defined`);
+  }
   const activeAgent$: BehaviorSubject<TAbstractTransformAgent> = new BehaviorSubject(activeAgent);
 
   if (isNotDefined(activeAgent$.value)) throw new Error(`TransformDrive: Active agent ("${activeAgent$.value}") is not defined`);
