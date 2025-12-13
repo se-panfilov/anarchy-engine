@@ -1,7 +1,7 @@
 import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, ISpace, ISpaceConfig } from '@/Engine';
+import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ICameraWrapper, ISpace, ISpaceConfig } from '@/Engine';
 import { ambientContext, buildSpaceFromConfig, getRotationByCos, getRotationBySin, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase-3-camera-flying.config.json';
@@ -12,8 +12,8 @@ export function showcase(canvas: IAppCanvas): IShowcase {
 
   function start(): void {
     space.start();
-    const { actorRegistry, cameraRegistry } = space.registries;
-    const { cameraService } = space.services;
+    const { actorService, cameraService } = space.services;
+    const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
 
     const camera: ICameraWrapper | undefined = cameraService.findActive();
 
