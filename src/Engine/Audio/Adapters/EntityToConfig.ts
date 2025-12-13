@@ -1,7 +1,7 @@
 import type { TAbstractAudioWrapper, TAnyAudio, TAnyAudioConfig, TAudio3dConfig, TAudioConfigToParamsDependencies } from '@/Engine/Audio/Models';
 import { isAudio3dWrapper } from '@/Engine/Audio/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
-import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
+import { filterOutEmptyFields, isNotDefined, omitInObjectWithoutMutation } from '@/Engine/Utils';
 
 export function audioToConfig<T extends TAnyAudio>(entity: TAbstractAudioWrapper<T>, { audioResourceAsyncRegistry, audioListenersRegistry }: TAudioConfigToParamsDependencies): TAnyAudioConfig {
   const { volume$, loop$, speed$, pause$, seek$ } = entity;
@@ -15,7 +15,7 @@ export function audioToConfig<T extends TAnyAudio>(entity: TAbstractAudioWrapper
         distanceModel: entity.entity.getDistanceModel(),
         performance: entity.getPerformance(),
         listener: audioListenersRegistry.findKeyByValue(entity.entity.listener),
-        ...entity.drive.serialize()
+        ...omitInObjectWithoutMutation(entity.drive.serialize(), ['rotation', 'scale'])
       }
     : ({} as any);
 

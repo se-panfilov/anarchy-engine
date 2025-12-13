@@ -9,6 +9,7 @@ import spaceConfig from './spaceAudio.json';
 
 const config: TSpaceConfig = spaceConfig as TSpaceConfig;
 
+// TODO 15-0-0: make sure that Camera saves audioListener and load it again
 export const spaceAudioData: TSpacesData = {
   name: config.name,
   config: config,
