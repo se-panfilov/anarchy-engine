@@ -2308,6 +2308,9 @@
         "initial": {
           "$ref": "#/definitions/TFsmStates"
         },
+        "strategy": {
+          "$ref": "#/definitions/FsmEventsStrategy"
+        },
         "name": {
           "type": "string"
         },
@@ -2329,6 +2332,10 @@
     "FsmType": {
       "type": "string",
       "const": "Animation"
+    },
+    "FsmEventsStrategy": {
+      "type": "string",
+      "enum": ["strict_queue", "skip_pending", "replace_pending", "run_parallel"]
     },
     "TTextConfig": {
       "type": "object",

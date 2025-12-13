@@ -5,7 +5,7 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TAppCanvas, TEngine, TFsmStates, TFsmWrapper, TModel3d, TModel3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
-import { ambientContext, Engine, isNotDefined, KeyCode, KeysExtra, spaceService } from '@/Engine';
+import { ambientContext, Engine, FsmEventsStrategy, isNotDefined, KeyCode, KeysExtra, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
