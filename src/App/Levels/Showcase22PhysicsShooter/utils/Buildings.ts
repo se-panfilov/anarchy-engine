@@ -1,5 +1,7 @@
-import type { TActorService, TActorWrapperWithPhysics, TBoxGeometryProps, TMaterialService, TModel3dFacade, TModels3dService, TObject3DParams, TSpatialGridWrapper, TWithCoordsXZ } from '@/Engine';
-import { CollisionShape, MaterialType, PrimitiveModel3dType, RigidBodyTypesNames, Vector3Wrapper } from '@/Engine';
+import { Vector3 } from 'three';
+
+import type { TActorService, TActorWrapperWithPhysics, TBoxGeometryProps, TMaterialService, TModel3dFacade, TModels3dService, TObject3DParams, TSpatialGridWrapper } from '@/Engine';
+import { CollisionShape, MaterialType, PrimitiveModel3dType, RigidBodyTypesNames } from '@/Engine';
 
 export type TBuidingBlock = Required<Pick<TBoxGeometryProps, 'height' | 'width' | 'depth'>> & Required<Pick<TObject3DParams, 'position'>>;
 
@@ -7,7 +9,7 @@ export async function buildTower(
   actorService: TActorService,
   models3dService: TModels3dService,
   materialService: TMaterialService,
-  startCoords: TWithCoordsXZ,
+  startCoords: Vector3,
   rows: number,
   cols: number,
   levels: number,
@@ -61,7 +63,7 @@ export async function buildTower(
   return await Promise.all(result);
 }
 
-function getBlocks(startCoords: TWithCoordsXZ, rows: number, cols: number, levels: number): ReadonlyArray<TBuidingBlock> {
+function getBlocks(startCoords: Vector3, rows: number, cols: number, levels: number): ReadonlyArray<TBuidingBlock> {
   let blocks: ReadonlyArray<TBuidingBlock> = [];
   // const gap: number = 0.1;
   const width: number = 1;
@@ -80,14 +82,14 @@ function getBlocks(startCoords: TWithCoordsXZ, rows: number, cols: number, level
             width,
             height,
             depth,
-            position: Vector3Wrapper({
-              // x: startCoords.x + i * (width + gap),
-              // y: k * (height + gap / 4),
-              // z: startCoords.z + j * (depth + gap)
-              x: startCoords.x + i * width,
-              y: k * height,
-              z: startCoords.z + j * depth
-            })
+            position: new Vector3(
+              // startCoords.x + i * (width + gap),
+              // k * (height + gap / 4),
+              // startCoords.z + j * (depth + gap)
+              startCoords.x + i * width,
+              k * height,
+              startCoords.z + j * depth
+            )
           }
         ];
       }

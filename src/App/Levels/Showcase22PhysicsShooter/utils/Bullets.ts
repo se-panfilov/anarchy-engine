@@ -1,7 +1,7 @@
 import type { RigidBody } from '@dimforge/rapier3d';
 import { nanoid } from 'nanoid';
 import type { Observable } from 'rxjs';
-import { BufferAttribute, BufferGeometry, Color, PointsMaterial, Vector3 } from 'three';
+import { BufferAttribute, BufferGeometry, Color, Euler, PointsMaterial, Vector3 } from 'three';
 import { Points } from 'three/src/objects/Points';
 
 import { createFlashLight } from '@/App/Levels/Showcase22PhysicsShooter/utils/Light';
@@ -19,10 +19,9 @@ import type {
   TRadians,
   TSceneWrapper,
   TSpatialGridService,
-  TSpatialGridWrapper,
-  TWithCoordsXYZ
+  TSpatialGridWrapper
 } from '@/Engine';
-import { EulerWrapper, isDefined, isNotDefined, MaterialType, mpsSpeed, PrimitiveModel3dType, SpatialUpdatePriority, Vector3Wrapper } from '@/Engine';
+import { isDefined, isNotDefined, MaterialType, mpsSpeed, PrimitiveModel3dType, SpatialUpdatePriority } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 export const BULLET_TAG = 'bullet';
@@ -76,8 +75,8 @@ export function getBulletsPool(
         {
           name: `bullet_${i}_${id}_actor`,
           model3dSource: model3dF,
-          position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
-          rotation: EulerWrapper({ x: 0, y: 1.57, z: 0 }),
+          position: new Vector3(0, 0, 0),
+          rotation: new Euler(0, 1.57, 0),
           spatial: { grid, isAutoUpdate: true, updatePriority: SpatialUpdatePriority.ASAP },
           collisions: { isAutoUpdate: true },
           kinematic: {
@@ -115,7 +114,7 @@ export function BulletAsync(params: TActorParams, actorService: TActorService): 
   actorW.collisions.setAutoUpdate(false);
 
   function reset(): void {
-    actorW.setPosition(Vector3Wrapper({ x: 0, y: 0, z: 0 }));
+    actorW.setPosition(new Vector3(0, 0, 0));
     actorW.kinematic.setLinearAzimuthRad(0);
     actorW.kinematic.setLinearElevationRad(0);
     actorW.kinematic.setLinearSpeed(0);
@@ -162,10 +161,10 @@ export function shootRapidFire(
 ): void {
   let idx: ReturnType<typeof setTimeout> | number = 0;
   mouseService.clickLeftPress$.subscribe((): void => {
-    shoot(actorW.getPosition().getCoords(), from.azimuth, from.elevation, meters(shootingParams.speed), bullets);
+    shoot(actorW.getPosition(), from.azimuth, from.elevation, meters(shootingParams.speed), bullets);
     // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
     idx = setInterval(() => {
-      shoot(actorW.getPosition().getCoords(), from.azimuth, from.elevation, meters(shootingParams.speed), bullets);
+      shoot(actorW.getPosition(), from.azimuth, from.elevation, meters(shootingParams.speed), bullets);
     }, shootingParams.cooldownMs);
   });
   mouseService.clickLeftRelease$.subscribe((): void => {
@@ -173,10 +172,10 @@ export function shootRapidFire(
   });
 }
 
-export function shoot(actorPosition: TWithCoordsXYZ, toAngle: TRadians, elevation: TRadians, speedMeters: number, bullets: ReadonlyArray<TBullet>): void {
+export function shoot(actorPosition: Vector3, toAngle: TRadians, elevation: TRadians, speedMeters: number, bullets: ReadonlyArray<TBullet>): void {
   const bullet: TBullet | undefined = bullets.find((b: TBullet) => !b.isActive());
   if (isDefined(bullet)) {
-    bullet.setPosition(Vector3Wrapper(actorPosition));
+    bullet.setPosition(actorPosition);
     bullet.kinematic.setLinearAzimuthRad(toAngle);
     bullet.kinematic.setLinearElevationRad(elevation);
     bullet.setDistanceTraveled(0);

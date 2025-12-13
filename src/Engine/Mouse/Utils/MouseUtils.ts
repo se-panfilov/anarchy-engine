@@ -1,12 +1,12 @@
+import type { Vector4 } from 'three';
 import { Vector2 } from 'three';
 import type { Vector3 } from 'three/src/math/Vector3';
 
-import type { TWithCoordsXY } from '@/Engine/Mixins';
 import type { TMouseWatcherEvent } from '@/Engine/Mouse';
 import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@/Engine/Mouse';
 import { isNotDefined } from '@/Engine/Utils';
 
-export const getNormalizedMousePosition = ({ x, y }: TWithCoordsXY | Vector3 | Vector2): TVector2 => new Vector2((x / window.innerWidth) * 2 - 1, -(y / window.innerHeight) * 2 + 1);
+export const getNormalizedMousePosition = ({ x, y }: Vector2 | Vector3 | Vector4): Vector2 => new Vector2((x / window.innerWidth) * 2 - 1, -(y / window.innerHeight) * 2 + 1);
 
 export function getMouseButtonValue({ button }: MouseEvent | WheelEvent): MouseButtonValue {
   switch (button) {

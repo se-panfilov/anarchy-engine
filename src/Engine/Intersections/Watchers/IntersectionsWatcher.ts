@@ -1,4 +1,5 @@
 import type { Subscription } from 'rxjs';
+import type { Vector2, Vector3 } from 'three';
 import { Raycaster } from 'three';
 
 import type { TAbstractWatcher } from '@/Engine/Abstract';
@@ -6,7 +7,6 @@ import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
 import type { TActorWrapper } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TIntersectionEvent, TIntersectionsWatcher, TIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
-import type { TWithCoordsXY } from '@/Engine/Mixins';
 import type { TMousePosition } from '@/Engine/Mouse';
 import { getNormalizedMousePosition } from '@/Engine/Mouse';
 import type { TSceneObject } from '@/Engine/Scene';
@@ -49,7 +49,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
     return result;
   }
 
-  function getIntersection(coords: TWithCoordsXY, cameraWrapper: Readonly<TCameraWrapper>, list: Array<TSceneObject>): TIntersectionEvent | undefined | never {
+  function getIntersection(coords: Vector2 | Vector3, cameraWrapper: Readonly<TCameraWrapper>, list: Array<TSceneObject>): TIntersectionEvent | undefined | never {
     if (isNotDefined(raycaster)) throw new Error('Intersections service: cannot get intersection: a raycaster is not defined');
     raycaster.setFromCamera(getNormalizedMousePosition(coords), cameraWrapper.entity);
     return raycaster.intersectObjects(list)[0];

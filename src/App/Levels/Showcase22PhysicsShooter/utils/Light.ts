@@ -3,7 +3,7 @@ import type { Color } from 'three/src/math/Color';
 import type { Vector3 } from 'three/src/math/Vector3';
 
 import type { TDirectionalLightWrapper, TLightService, TPointLightWrapper } from '@/Engine';
-import { isNotDefined, LightType, Vector3Wrapper } from '@/Engine';
+import { isNotDefined, LightType } from '@/Engine';
 
 export function initLight(lightService: TLightService): void {
   const directionalLight: TDirectionalLightWrapper | undefined = lightService.getRegistry().findByTag('directional') as TDirectionalLightWrapper | undefined;
@@ -31,7 +31,7 @@ export function createFlashLight(lightService: TLightService, position: Vector3,
     tags: ['flashlight']
   }) as TPointLightWrapper;
 
-  light.setPosition(Vector3Wrapper(position));
+  light.setPosition(position);
 
   return light;
 }

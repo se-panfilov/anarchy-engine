@@ -1,3 +1,3 @@
-import type { TWithCoordsXYZ } from '@/Engine/Mixins';
+import type { Vector3 } from 'three';
 
-export type TMoveDestination = Partial<TWithCoordsXYZ>;
+export type TMoveDestination = Partial<Vector3>;

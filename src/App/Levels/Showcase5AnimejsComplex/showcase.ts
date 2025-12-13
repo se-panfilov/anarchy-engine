@@ -1,3 +1,5 @@
+import { Euler, Vector3 } from 'three';
+
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
   TActorRegistry,
@@ -11,10 +13,9 @@ import type {
   TSpace,
   TSpaceConfig,
   TText2dWrapper,
-  TTextAnyWrapper,
-  TWithCoordsXZ
+  TTextAnyWrapper
 } from '@/Engine';
-import { createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, EulerWrapper, generateAnglesForCircle, isNotDefined, spaceService, TextType, Vector3Wrapper } from '@/Engine';
+import { createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, generateAnglesForCircle, isNotDefined, spaceService, TextType } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
@@ -31,7 +32,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const { text2dRegistry } = textService.getRegistries();
 
     controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
-    cameraRegistry.getAll()[0]?.setPosition(Vector3Wrapper({ x: 6, y: 30, z: 0 }));
+    cameraRegistry.getAll()[0]?.setPosition(new Vector3(6, 30, 0));
 
     const redActor: TActorWrapper | undefined = actorRegistry.findByTag('red');
     const blueActor: TActorWrapper | undefined = actorRegistry.findByTag('blue');
@@ -56,9 +57,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const radius: number = 15;
     const angleArray: ReadonlyArray<number> = generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle);
 
-    const redPath: ReadonlyArray<TWithCoordsXZ> = createCirclePathXZ(angleArray, radius, { x: 0, z: 0 });
-    const greenPath: ReadonlyArray<TWithCoordsXZ> = createCirclePathXZ(angleArray, radius - 2, { x: 0, z: 0 });
-    const bluePath: ReadonlyArray<TWithCoordsXZ> = createCirclePathXZ(angleArray, radius - 4, { x: 0, z: 0 });
+    const redPath: ReadonlyArray<Vector3> = createCirclePathXZ(angleArray, radius, new Vector3(0, 0, 0));
+    const greenPath: ReadonlyArray<Vector3> = createCirclePathXZ(angleArray, radius - 2, new Vector3(0, 0, 0));
+    const bluePath: ReadonlyArray<Vector3> = createCirclePathXZ(angleArray, radius - 4, new Vector3(0, 0, 0));
 
     let followersCb: Record<string, (() => void) | undefined> = {
       red: undefined,
@@ -88,8 +89,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       cssProps: {
         fontSize: '12px'
       },
-      position: Vector3Wrapper({ x: 0, y: 0, z: 1 }),
-      rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
+      position: new Vector3(0, 0, 1),
+      rotation: new Euler(-1.57, 0, 0),
       visible: false,
       tags: []
     });

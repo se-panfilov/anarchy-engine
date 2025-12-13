@@ -1,6 +1,8 @@
+import { Euler, Vector3 } from 'three';
+
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorParams, TActorRegistry, TActorWrapper, TAppCanvas, TEngine, TMaterialWrapper, TModel3dFacade, TMoverService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
-import { defaultMoverServiceConfig, Engine, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, PrimitiveModel3dType, spaceService, TextType, Vector3Wrapper } from '@/Engine';
+import { defaultMoverServiceConfig, Engine, forEachEnum, LookUpStrategy, MaterialType, PrimitiveModel3dType, spaceService, TextType } from '@/Engine';
 import type { TAnimationParams } from '@/Engine/Services';
 import { Easing } from '@/Engine/Services';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
@@ -38,7 +40,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const actorTemplate: TActorParams = {
       model3dSource: cubeModel3dF,
-      position: Vector3Wrapper({ x: -20, y: 2, z: -2 }),
+      position: new Vector3(-20, 2, -2),
       spatial: { isAutoUpdate: true, grid },
       tags: [boxActorTag]
     };
@@ -48,7 +50,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     forEachEnum(Easing, (easing: string | number, _key: string | number, i: number): void => {
       actorService.create({
         ...actorTemplate,
-        position: Vector3Wrapper({ x: -20, y: 2, z: positionZ + gap * i }),
+        position: new Vector3(-20, 2, positionZ + gap * i),
         tags: [...(actorTemplate.tags ?? []), String(easing)]
       });
 
@@ -58,8 +60,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         cssProps: {
           fontSize: '12px'
         },
-        position: Vector3Wrapper({ x: -32, y: 2, z: positionZ - 1 + gap * i }),
-        rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
+        position: new Vector3(-32, 2, positionZ - 1 + gap * i),
+        rotation: new Euler(-1.57, 0, 0),
         tags: [...(actorTemplate.tags ?? []), String(easing)]
       });
     });

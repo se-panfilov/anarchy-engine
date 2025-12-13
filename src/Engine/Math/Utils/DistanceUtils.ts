@@ -1,8 +1,7 @@
 import Decimal from 'decimal.js';
+import type { Vector3 } from 'three';
 
-import type { TWithCoordsXYZ } from '@/Engine/Mixins';
-
-export function getDistancePrecisely(pointA: TWithCoordsXYZ, pointB: TWithCoordsXYZ): Decimal {
+export function getDistancePrecisely(pointA: Vector3, pointB: Vector3): Decimal {
   const dx: Decimal = new Decimal(pointB.x).minus(pointA.x);
   const dy: Decimal = new Decimal(pointB.y).minus(pointA.y);
   const dz: Decimal = new Decimal(pointB.z).minus(pointA.z);

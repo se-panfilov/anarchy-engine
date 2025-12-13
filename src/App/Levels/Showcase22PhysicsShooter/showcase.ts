@@ -17,8 +17,7 @@ import type {
   TRadians,
   TSpace,
   TSpaceConfig,
-  TSpatialGridWrapper,
-  TWithCoordsXYZ
+  TSpatialGridWrapper
 } from '@/Engine';
 import { Engine, get3DAzimuthRad, isDefined, isNotDefined, KeysExtra, spaceService } from '@/Engine';
 
@@ -136,7 +135,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
       // TODO this should be updated only if coords or angle are changed
       if (isDefined(mouseLineIntersections.point)) {
-        const heroCoords: TWithCoordsXYZ = heroW.getPosition().getCoords();
+        const heroCoords: Vector3 = heroW.getPosition();
         const azimuth3d = get3DAzimuthRad(heroCoords, mouseLineIntersections.point);
         // eslint-disable-next-line functional/immutable-data
         fromHeroAngles.azimuth = azimuth3d.azimuth;

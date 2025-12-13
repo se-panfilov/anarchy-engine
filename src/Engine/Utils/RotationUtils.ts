@@ -1,4 +1,4 @@
-import type { TWithCoordsXYZ } from '@/Engine/Mixins';
+import { Vector3 } from 'three';
 
 export function getRotationBySin(coord: number, fullRotation: number = 1, distance: number = 2): number {
   const rotateTimes: number = 2 * Math.PI * fullRotation;
@@ -16,27 +16,15 @@ export enum RotationDirections {
   XZ = 'XZ'
 }
 
-export function getCircleRotation(rotateBy: RotationDirections, x: number, y: number, z: number, fullRotation: number = 1, distance: number): TWithCoordsXYZ | never {
+export function getCircleRotation(rotateBy: RotationDirections, x: number, y: number, z: number, fullRotation: number = 1, distance: number): Vector3 | never {
   const rotateTimes: number = 2 * Math.PI * fullRotation;
   switch (rotateBy) {
     case RotationDirections.XY:
-      return {
-        x: Math.sin(x * rotateTimes) * distance,
-        y: Math.cos(y * rotateTimes) * distance,
-        z: z
-      };
+      return new Vector3(Math.sin(x * rotateTimes) * distance, Math.cos(y * rotateTimes) * distance, z);
     case RotationDirections.YZ:
-      return {
-        x: x,
-        y: Math.sin(y * rotateTimes) * distance,
-        z: Math.cos(z * rotateTimes) * distance
-      };
+      return new Vector3(x, Math.sin(y * rotateTimes) * distance, Math.cos(z * rotateTimes) * distance);
     case RotationDirections.XZ:
-      return {
-        x: Math.sin(x * rotateTimes) * distance,
-        y: y,
-        z: Math.cos(z * rotateTimes) * distance
-      };
+      return new Vector3(Math.sin(x * rotateTimes) * distance, y, Math.cos(z * rotateTimes) * distance);
   }
   throw new Error(`Unknown rotation direction "${rotateBy}"`);
 }

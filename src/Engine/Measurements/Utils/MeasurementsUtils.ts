@@ -1,5 +1,7 @@
+import type { Vector } from '@dimforge/rapier3d/math';
+import { Vector3 } from 'three';
+
 import { HOUR, METER, MINUTE, SECOND } from '@/Engine/Measurements/Constants';
-import type { TWithCoordsXYZ } from '@/Engine/Mixins';
 
 // TODO MATH: need precision calculations??? (or not? how performant they are?)
 export const meters = (meters: number): number => meters * METER;
@@ -10,4 +12,4 @@ export const secondsToMS = (seconds: number): number => seconds * SECOND;
 export const minutesToMS = (minutes: number): number => minutes * MINUTE;
 export const hoursToMS = (hours: number): number => hours * HOUR;
 
-export const coordsXYZToMeters = ({ x, y, z }: TWithCoordsXYZ): TWithCoordsXYZ => ({ x: meters(x), y: meters(y), z: meters(z) });
+export const coordsXYZToMeters = ({ x, y, z }: Vector3 | Vector): Vector3 => new Vector3(meters(x), meters(y), meters(z));

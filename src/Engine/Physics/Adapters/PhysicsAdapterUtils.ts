@@ -1,8 +1,9 @@
-import type { Vector3 } from 'three/src/math/Vector3';
+import { Vector4 } from 'three';
+import { Vector3 } from 'three/src/math/Vector3';
 
-export function withCoordsToVector(position?: Vector3, rotation?: TWithCoordsXYZW): Readonly<{ position: Vector3; rotation: TVector4Wrapper }> {
+export function withCoordsToVector(position?: Vector3, rotation?: Vector4): Readonly<{ position: Vector3; rotation: Vector4 }> {
   return {
-    position: Vector3Wrapper(position || { x: 0, y: 0, z: 0 }),
-    rotation: Vector4Wrapper(rotation || { x: 0, y: 0, z: 0, w: 1 })
+    position: new Vector3(position?.x || 0, position?.y || 0, position?.z || 0),
+    rotation: new Vector4(rotation?.x || 0, rotation?.y || 0, rotation?.z || 0, rotation?.w || 1)
   };
 }

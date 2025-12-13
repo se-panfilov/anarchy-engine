@@ -1,8 +1,10 @@
 import './fonts.css';
 
+import { Euler, Vector3 } from 'three';
+
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAnimationParams, TAppCanvas, TEngine, TModel3dFacade, TModel3dRegistry, TMoverService, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper, TWithCoordsXZ } from '@/Engine';
-import { createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, EulerWrapper, generateAnglesForCircle, isNotDefined, spaceService, TextType, Vector3Wrapper } from '@/Engine';
+import type { TAnimationParams, TAppCanvas, TEngine, TModel3dFacade, TModel3dRegistry, TMoverService, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper } from '@/Engine';
+import { createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, generateAnglesForCircle, isNotDefined, spaceService, TextType } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
@@ -25,8 +27,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   textService.create({
     type: TextType.Text2d,
     text: '2D text (RubikDoodleTriangles)',
-    position: Vector3Wrapper({ x: -4, y: 8, z: 0 }),
-    rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
+    position: new Vector3(-4, 8, 0),
+    rotation: new Euler(-1.57, 0, 0),
     cssProps: {
       color: '#000000',
       fontSize: '4rem',
@@ -38,8 +40,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   textService.create({
     type: TextType.Text2d,
     text: 'RubikScribble',
-    position: Vector3Wrapper({ x: -5, y: 12, z: 6 }),
-    rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
+    position: new Vector3(-5, 12, 6),
+    rotation: new Euler(-1.57, 0, 0),
     cssProps: {
       color: '#ff0000',
       fontSize: '4rem',
@@ -51,8 +53,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const floatingText: TTextAnyWrapper = textService.create({
     type: TextType.Text2d,
     text: 'LongCang',
-    position: Vector3Wrapper({ x: -10, y: 8, z: -8 }),
-    rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
+    position: new Vector3(-10, 8, -8),
+    rotation: new Euler(-1.57, 0, 0),
     cssProps: {
       color: '#ff0000',
       fontSize: '4rem',
@@ -64,8 +66,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const floatingText2: TTextAnyWrapper = textService.create({
     type: TextType.Text2d,
     text: 'VarelaRound',
-    position: Vector3Wrapper({ x: -15, y: 6, z: -14 }),
-    rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
+    position: new Vector3(-15, 6, -14),
+    rotation: new Euler(-1.57, 0, 0),
     cssProps: {
       color: '#ff0000',
       fontSize: '4rem',
@@ -78,8 +80,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const numberOfCircles: number = 1;
   const startAngle: number = 100;
   const radius: number = 15;
-  const circlePathXZ: ReadonlyArray<TWithCoordsXZ> = createCirclePathXZ(generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle), radius, { x: 0, z: 0 });
-  const circlePathXZ2: ReadonlyArray<TWithCoordsXZ> = createCirclePathXZ(generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle - 20), radius + 3, { x: -4, z: 0 });
+  const circlePathXZ: ReadonlyArray<Vector3> = createCirclePathXZ(generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle), radius, new Vector3(0, 0, 0));
+  const circlePathXZ2: ReadonlyArray<Vector3> = createCirclePathXZ(generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle - 20), radius + 3, new Vector3(-4, 0, 0));
 
   const animationParams: TAnimationParams = {
     duration: 2000,

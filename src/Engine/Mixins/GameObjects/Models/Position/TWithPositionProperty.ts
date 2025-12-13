@@ -16,7 +16,7 @@ export type TWithPosition3dProperty = Readonly<{
     y: number;
     z: number;
     set: (x: number, y: number, z: number) => Vector3;
-    // add: (x: number, y: number, z: number) => TVector3;
+    // add: (x: number, y: number, z: number) => Vector3;
   };
 }>;
 
@@ -27,7 +27,7 @@ export type TWithPosition4dProperty = Readonly<{
     z: number;
     w: number;
     set: (x: number, y: number, z: number, w: number) => Vector4;
-    // add: (x: number, y: number, z: number, w: number) => TVector4;
+    // add: (x: number, y: number, z: number, w: number) => Vector4;
   };
 }>;
 

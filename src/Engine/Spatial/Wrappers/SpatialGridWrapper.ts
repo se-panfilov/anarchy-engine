@@ -1,14 +1,13 @@
 import RBush from 'rbush';
 import { Subject } from 'rxjs';
-import type { Group, Mesh, Object3D, Vector3 } from 'three';
-import { Box3 } from 'three';
+import type { Group, Mesh, Object3D } from 'three';
+import { Box3, Vector3 } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
 import type { ColorRepresentation } from 'three/src/math/Color';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActorWrapper } from '@/Engine/Actor';
-import type { TWithCoordsXZ } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpatialCellId, TSpatialCellParams, TSpatialCellWrapper, TSpatialGrid, TSpatialGridParams, TSpatialGridWrapper } from '@/Engine/Spatial/Models';
 import { createBoundingBox, createOutline } from '@/Engine/Spatial/Services/SpatialHelper';
@@ -79,9 +78,9 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     return [];
   }
 
-  const getCoordsFromGridId = (cellId: TSpatialCellId): TWithCoordsXZ => {
+  const getCoordsFromGridId = (cellId: TSpatialCellId): Vector3 => {
     const [x, z] = cellId.split('_').slice(-2).map(Number);
-    return { x, z };
+    return new Vector3(x, 0, z);
   };
 
   function getAllInCellByCellId(cellId: TSpatialCellId): ReadonlyArray<TActorWrapper> {

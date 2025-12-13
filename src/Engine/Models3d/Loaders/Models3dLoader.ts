@@ -1,3 +1,4 @@
+import { Vector3 } from 'three';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -25,15 +26,15 @@ export function Models3dLoader(registry: TModel3dResourceAsyncRegistry): TModels
 
     // TODO 9.0.0. RESOURCES: Make this applications more generic (with "applyObject3dParamsToModel3d") when get rid of custom coords wrappers
     if (isDefined(options.scale?.x) && isDefined(options.scale?.y) && isDefined(options.scale?.z)) {
-      applyScaleToModel3d(loaded.scene, Vector3Wrapper({ x: options.scale.x, y: options.scale.y, z: options.scale.z }));
+      applyScaleToModel3d(loaded.scene, new Vector3(options.scale.x, options.scale.y, options.scale.z));
     }
 
     if (isDefined(options.position?.x) && isDefined(options.position?.y) && isDefined(options.position?.z)) {
-      applyPositionToModel3d(loaded.scene, Vector3Wrapper({ x: options.position.x, y: options.position.y, z: options.position.z }));
+      applyPositionToModel3d(loaded.scene, new Vector3(options.position.x, options.position.y, options.position.z));
     }
 
     if (isDefined(options.rotation?.x) && isDefined(options.rotation?.y) && isDefined(options.rotation?.z)) {
-      applyScaleToModel3d(loaded.scene, Vector3Wrapper({ x: options.rotation.x, y: options.rotation.y, z: options.rotation.z }));
+      applyScaleToModel3d(loaded.scene, new Vector3(options.rotation.x, options.rotation.y, options.rotation.z));
     }
     return loaded;
   }

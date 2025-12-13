@@ -1,8 +1,8 @@
 import type { Collider, RigidBody, TriMeshFlags, World } from '@dimforge/rapier3d';
 import { ColliderDesc, RigidBodyDesc } from '@dimforge/rapier3d';
+import type { Vector3 } from 'three';
 
 import { coordsXYZToMeters, meters } from '@/Engine/Measurements/Utils';
-import type { TWithCoordsXYZ } from '@/Engine/Mixins';
 import { CollisionShape, RigidBodyTypesNames } from '@/Engine/Physics/Constants';
 import type {
   TAllPhysicsShapeParams,
@@ -27,14 +27,14 @@ export function createPhysicsBody(params: TPhysicsBodyParams, world: World): TPh
   //Fixed objects (e.g. "ground" or "walls") usually don't need a rigid body (they might, but might bugs might appear)
   if (params.type === RigidBodyTypesNames.Fixed) {
     const colliderDesc: ColliderDesc = getColliderDesc(params);
-    if (isDefined(params.position)) colliderDesc.setTranslation(params.position.x, params.position.y, params.position.getZ());
-    if (isDefined(params.rotation)) colliderDesc.setRotation(params.rotation.getCoords());
+    if (isDefined(params.position)) colliderDesc.setTranslation(params.position.x, params.position.y, params.position.z);
+    if (isDefined(params.rotation)) colliderDesc.setRotation(params.rotation);
     const collider: Collider = world.createCollider(colliderDesc);
     return { rigidBody: undefined, rigidBodyDesc: undefined, colliderDesc, collider };
   } else {
     const rigidBodyDesc: RigidBodyDesc = RigidBodyDesc[params.type]();
-    if (isDefined(params.position)) rigidBodyDesc.setTranslation(params.position.x, params.position.y, params.position.getZ());
-    if (isDefined(params.rotation)) rigidBodyDesc.setRotation(params.rotation.getCoords());
+    if (isDefined(params.position)) rigidBodyDesc.setTranslation(params.position.x, params.position.y, params.position.z);
+    if (isDefined(params.rotation)) rigidBodyDesc.setRotation(params.rotation);
     const rigidBody: RigidBody = world.createRigidBody(rigidBodyDesc);
     const colliderDesc: ColliderDesc = getColliderDesc(params);
 
@@ -129,17 +129,17 @@ export function paramsToMeters(params: TPhysicsShapeParams): TOptional<TAllPhysi
   const nrows: number | undefined = (params as TPhysicsShapeHeightfieldParams).nrows;
   const ncols: number | undefined = (params as TPhysicsShapeHeightfieldParams).ncols;
 
-  const a: TWithCoordsXYZ | undefined = isDefined((params as TPhysicsShapeTriangleParams).a) ? coordsXYZToMeters((params as TPhysicsShapeTriangleParams).a) : undefined;
-  const b: TWithCoordsXYZ | undefined = isDefined((params as TPhysicsShapeTriangleParams).b) ? coordsXYZToMeters((params as TPhysicsShapeTriangleParams).b) : undefined;
-  const c: TWithCoordsXYZ | undefined = isDefined((params as TPhysicsShapeTriangleParams).c) ? coordsXYZToMeters((params as TPhysicsShapeTriangleParams).c) : undefined;
+  const a: Vector3 | undefined = isDefined((params as TPhysicsShapeTriangleParams).a) ? coordsXYZToMeters((params as TPhysicsShapeTriangleParams).a) : undefined;
+  const b: Vector3 | undefined = isDefined((params as TPhysicsShapeTriangleParams).b) ? coordsXYZToMeters((params as TPhysicsShapeTriangleParams).b) : undefined;
+  const c: Vector3 | undefined = isDefined((params as TPhysicsShapeTriangleParams).c) ? coordsXYZToMeters((params as TPhysicsShapeTriangleParams).c) : undefined;
   const borderRadius: number | undefined = (params as TPhysicsShapeRoundTriangleParams).borderRadius ? meters((params as TPhysicsShapeRoundTriangleParams).borderRadius) : undefined;
   const halfHeight: number | undefined = (params as TPhysicsShapeCapsuleParams).halfHeight ? meters((params as TPhysicsShapeCapsuleParams).halfHeight) : undefined;
   const radius: number | undefined = (params as TPhysicsShapeBallParams).radius ? meters((params as TPhysicsShapeConeParams).radius) : undefined;
   const hx: number | undefined = (params as TPhysicsShapeCuboidParams).hx ? meters((params as TPhysicsShapeCuboidParams).hx) : undefined;
   const hy: number | undefined = (params as TPhysicsShapeCuboidParams).hy ? meters((params as TPhysicsShapeCuboidParams).hy) : undefined;
   const hz: number | undefined = (params as TPhysicsShapeCuboidParams).hz ? meters((params as TPhysicsShapeCuboidParams).hz) : undefined;
-  const scale: TWithCoordsXYZ | undefined = (params as TPhysicsShapeHeightfieldParams).scale ? coordsXYZToMeters((params as TPhysicsShapeHeightfieldParams).scale) : undefined;
-  const normal: TWithCoordsXYZ | undefined = (params as TPhysicsShapeHalfSpaceParams).normal ? coordsXYZToMeters((params as TPhysicsShapeHalfSpaceParams).normal) : undefined;
+  const scale: Vector3 | undefined = (params as TPhysicsShapeHeightfieldParams).scale ? coordsXYZToMeters((params as TPhysicsShapeHeightfieldParams).scale) : undefined;
+  const normal: Vector3 | undefined = (params as TPhysicsShapeHalfSpaceParams).normal ? coordsXYZToMeters((params as TPhysicsShapeHalfSpaceParams).normal) : undefined;
 
   return { a, b, c, borderRadius, nrows, ncols, normal, heights, scale, halfHeight, flags, radius, hx, hy, hz, vertices, indices };
 }

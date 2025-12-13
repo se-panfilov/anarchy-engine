@@ -1,10 +1,11 @@
-import type { TActorWrapper, TCameraWrapper, TWithCoordsXYZ } from '@/Engine';
-import { Vector3Wrapper } from '@/Engine';
+import { Vector3 } from 'three';
+
+import type { TActorWrapper, TCameraWrapper } from '@/Engine';
 
 export function cameraFollowingActor(cameraW: TCameraWrapper, actorW: TActorWrapper): void {
-  const actorCoords: TWithCoordsXYZ = actorW.getPosition().getCoords();
-  cameraW.setPosition(Vector3Wrapper({ x: actorCoords.x, y: actorCoords.y + 15, z: actorCoords.z + 20 }));
-  // cameraW.setPosition(Vector3Wrapper({ x: actorCoords.x, y: actorCoords.y + 25, z: actorCoords.z }));
+  const actorCoords: Vector3 = actorW.getPosition();
+  cameraW.setPosition(new Vector3(actorCoords.x, actorCoords.y + 15, actorCoords.z + 20));
+  // cameraW.setPosition(new Vector3(actorCoords.x, actorCoords.y + 25, actorCoords.z));
   // cameraW.entity.up = new Vector3(1, 0, 0);
-  cameraW.lookAt(Vector3Wrapper(actorCoords));
+  cameraW.lookAt(actorCoords);
 }

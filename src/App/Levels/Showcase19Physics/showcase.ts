@@ -1,24 +1,11 @@
-import type { Vector3 } from 'three';
+import { Euler, Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorWrapper, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSceneWrapper, TSpace, TSpaceConfig, TWithCoordsXYZ } from '@/Engine';
-import {
-  Engine,
-  EulerWrapper,
-  getDistancePrecisely,
-  getHorizontalAzimuthDeg,
-  getPushCoordsFrom3dAzimuth,
-  isActorHasPhysicsBody,
-  isDefined,
-  isNotDefined,
-  KeysExtra,
-  spaceService,
-  TextType,
-  Vector3Wrapper
-} from '@/Engine';
+import type { TActorWrapper, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import { Engine, getDistancePrecisely, getHorizontalAzimuthDeg, getPushCoordsFrom3dAzimuth, isActorHasPhysicsBody, isDefined, isNotDefined, KeysExtra, spaceService, TextType } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
@@ -73,8 +60,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       text: 'Azimuth...',
       type: TextType.Text3d,
       cssProps: { fontSize: '0.05rem' },
-      position: Vector3Wrapper({ x: 3, y: 0.3, z: 6 }),
-      rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
+      position: new Vector3(3, 0.3, 6),
+      rotation: new Euler(-1.57, 0, 0),
       tags: []
     });
 
@@ -82,8 +69,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       text: 'Force...',
       type: TextType.Text3d,
       cssProps: { fontSize: '0.05rem' },
-      position: Vector3Wrapper({ x: 3, y: 0.3, z: 7 }),
-      rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
+      position: new Vector3(3, 0.3, 7),
+      rotation: new Euler(-1.57, 0, 0),
       tags: []
     });
 
@@ -94,11 +81,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     loopService.tick$.subscribe(() => {
       if (isDefined(mouseLineIntersectionsCoords)) {
-        const ballCoords: TWithCoordsXYZ = ballActorW.getPosition().getCoords();
-        azimuth = getHorizontalAzimuthDeg({ x: ballCoords.x, z: ballCoords.z }, mouseLineIntersectionsCoords);
+        const ballCoords: Vector3 = ballActorW.getPosition();
+        azimuth = getHorizontalAzimuthDeg(ballCoords.x, ballCoords.z, mouseLineIntersectionsCoords);
         azimuthText.setText(`Azimuth: ${azimuth.toFixed(2)}`);
         forcePowerText.setText(`Force: ${forcePower.toFixed(2)}`);
-        forcePower = getDistancePrecisely(ballActorW.getPosition().getCoords(), mouseLineIntersectionsCoords).toNumber();
+        forcePower = getDistancePrecisely(ballActorW.getPosition(), mouseLineIntersectionsCoords).toNumber();
         line.geometry.setPositions([ballCoords.x, ballCoords.y, ballCoords.z, mouseLineIntersectionsCoords.x, mouseLineIntersectionsCoords.y, mouseLineIntersectionsCoords.z]);
         line.computeLineDistances();
       }

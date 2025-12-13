@@ -169,7 +169,7 @@ export function withKinematic(params: TActorParams): TWithKinematic {
       if (this.kinematic.data.linearSpeed <= 0) return;
       const normalizedDirection: Vector3 = this.kinematic.data.linearDirection.clone().normalize();
       const displacement: Vector3 = normalizedDirection.multiplyScalar(this.kinematic.data.linearSpeed * delta);
-      (this as TActorWrapper).addPosition(Vector3Wrapper(displacement));
+      (this as TActorWrapper).addPosition(displacement);
     },
     doKinematicRotation(delta: number): void {
       if (this.kinematic.data.angularSpeed <= 0) return;

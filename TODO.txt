@@ -31,7 +31,6 @@ Global Refactoring:
 - feels like env map is not async at all (check for extra "await", and compare with vanilla env map loading)
 - "tags" should be optional everywhere
 - Simplify positions and rotations (and scale), should be Vector3 when possible, not a wrapper probably
-- remove Vector3Wrapper, use Vector3 everywhere (same for Euler, Quaternion wrappers)
 
 Bugs and issues:
 - Registries might be a mistake: if I create "bullet" which extends "actor", the actor will be registered, not the bullet (which is unexpected)

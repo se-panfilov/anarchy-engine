@@ -1,5 +1,7 @@
 import type { RigidBody, Rotation } from '@dimforge/rapier3d';
+import type { Vector } from '@dimforge/rapier3d/math';
 import type { Subscription } from 'rxjs';
+import { Vector3 } from 'three';
 
 import type { TActorParams, TActorWithPhysicsDependencies, TActorWrapper, TActorWrapperWithPhysics } from '@/Engine/Actor/Models';
 import type { TPhysicsBodyFacade, TPhysicsBodyService, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
@@ -33,7 +35,8 @@ function updateActorByPhysicalBody(actorPhysicalW: TActorWrapperWithPhysics): vo
   const rigidBody: RigidBody | undefined = actorPhysicalW.physicsBody.getRigidBody();
   if (isNotDefined(rigidBody)) throw new Error('Cannot update Actor with Physics: rigidBody is missing');
 
-  actorPhysicalW.setPosition(Vector3Wrapper(rigidBody.translation()));
+  const vector: Vector = rigidBody.translation();
+  actorPhysicalW.setPosition(new Vector3(vector.x, vector.y, vector.z));
   const { x, y, z, w }: Rotation = rigidBody.rotation();
   actorPhysicalW.entity.quaternion.set(x, y, z, w);
 }

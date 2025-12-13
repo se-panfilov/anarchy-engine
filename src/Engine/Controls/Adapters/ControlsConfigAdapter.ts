@@ -17,8 +17,8 @@ export const configToParams: TGetParamsFn<TControlsParams, TControlsConfig> = (c
     enableDamping: config.enableDamping
   };
 
-  if (isDefined(config.target)) result = { ...result, target: Vector3Wrapper(config.target) };
-  if (isDefined(config.cursor)) result = { ...result, cursor: Vector3Wrapper(config.cursor) };
+  if (isDefined(config.target)) result = { ...result, target: config.target };
+  if (isDefined(config.cursor)) result = { ...result, cursor: config.cursor };
 
   return result;
 };

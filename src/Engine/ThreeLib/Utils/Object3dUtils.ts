@@ -10,9 +10,9 @@ export function configToParamsObject3d(config: Partial<TObject3DPropConfig>): TO
   // TODO ANIMATIONS: animations are not supported at the moment
   // if (isDefined(config.animations)) result = { ...result, animations: config.animations };
 
-  if (isDefined(position)) result = { ...result, position: Vector3Wrapper(position) };
-  if (isDefined(rotation)) result = { ...result, rotation: EulerWrapper(rotation) };
-  if (isDefined(scale)) result = { ...result, scale: Vector3Wrapper(scale) };
+  if (isDefined(position)) result = { ...result, position };
+  if (isDefined(rotation)) result = { ...result, rotation };
+  if (isDefined(scale)) result = { ...result, scale };
 
   return result;
 }

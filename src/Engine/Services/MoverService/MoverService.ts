@@ -1,7 +1,8 @@
 import anime from 'animejs';
+import type { Vector3 } from 'three';
 
 import type { TLoopService } from '@/Engine/Loop';
-import type { TWithCoordsXYZ, TWithPosition3d } from '@/Engine/Mixins';
+import type { TWithPosition3d } from '@/Engine/Mixins';
 import { defaultMoverServiceConfig } from '@/Engine/Services/MoverService/Constants';
 import type { TAnimationParams, TFollowTargetParams, TKeyframeDestination, TMovableEntityWrapper, TMoverServiceConfig, TStopMoveCb } from '@/Engine/Services/MoverService/Models';
 import type { TMoveDestination } from '@/Engine/Services/MoverService/Models/TMoveDestination';
@@ -20,7 +21,7 @@ export function MoverService(loopService: TLoopService, { suspendWhenDocumentHid
     goByPath: (obj: TMovableEntityWrapper, path: ReadonlyArray<TKeyframeDestination>, animationParams: TAnimationParams): Promise<void> => {
       return performMove(byPathMove, loopService, { obj, path: getAccumulatedKeyframes(path, obj), animationParams });
     },
-    followTarget: (obj: TMovableEntityWrapper, target: TWithPosition3d, offset?: Partial<TWithCoordsXYZ>): TStopMoveCb => {
+    followTarget: (obj: TMovableEntityWrapper, target: TWithPosition3d, offset?: Partial<Vector3>): TStopMoveCb => {
       return performMoveUntil(followTarget, loopService, { obj, target, offset } satisfies TFollowTargetParams);
     }
   };

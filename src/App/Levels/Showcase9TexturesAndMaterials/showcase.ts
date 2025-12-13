@@ -1,8 +1,9 @@
 import { combineLatest, distinctUntilChanged } from 'rxjs';
+import type { Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAppCanvas, TCameraWrapper, TEngine, TModel3dFacade, TModel3dRegistry, TMouseService, TSceneWrapper, TSpace, TSpaceConfig, TVector3 } from '@/Engine';
-import { ambientContext, Engine, getRotationByCos, getRotationBySin, isDefined, isNotDefined, spaceService, Vector3Wrapper } from '@/Engine';
+import type { TAppCanvas, TCameraWrapper, TEngine, TModel3dFacade, TModel3dRegistry, TMouseService, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import { ambientContext, Engine, getRotationByCos, getRotationBySin, isDefined, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -42,7 +43,7 @@ function initCameraRotation(space: TSpace, modelF: TModel3dFacade | undefined, m
   const { screenSizeWatcher } = ambientContext;
   combineLatest([mouseService.position$, screenSizeWatcher.latest$])
     .pipe(
-      distinctUntilChanged((previous, current) => {
+      distinctUntilChanged((previous, current): boolean => {
         return previous[0].coords.x === current[0].coords.x && previous[0].coords.y === current[0].coords.y && previous[1].width === current[1].width && previous[1].height === current[1].height;
       })
     )
@@ -58,8 +59,8 @@ function initCameraRotation(space: TSpace, modelF: TModel3dFacade | undefined, m
       camera.setY(yRatio * 10);
       camera.setZ(yRotation);
 
-      const vector: TVector3 | undefined = modelF?.getModel().position;
+      const vector: Vector3 | undefined = modelF?.getModel().position;
       if (isNotDefined(vector)) throw new Error('Model3d has no position');
-      if (isDefined(modelF)) camera.lookAt(Vector3Wrapper(vector));
+      if (isDefined(modelF)) camera.lookAt(vector);
     });
 }

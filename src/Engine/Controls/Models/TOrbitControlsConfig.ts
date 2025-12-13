@@ -1,3 +1,5 @@
+import type { Vector3 } from 'three';
+
 import type { ControlsType } from '@/Engine/Controls/Constants';
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
 
@@ -7,7 +9,7 @@ export type TOrbitControlsConfig = Omit<TOrbitControlsProps, 'target' | 'cursor'
   Readonly<{
     type: ControlsType;
     cameraName: string;
-    target?: { x: number; y: number; z: number };
-    cursor?: { x: number; y: number; z: number };
+    target?: Vector3;
+    cursor?: Vector3;
   }> &
   TWithReadonlyTags;

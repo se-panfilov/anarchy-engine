@@ -1,3 +1,3 @@
-import type { TWithCoordsXYZ } from '@/Engine/Mixins';
+import { Vector3 } from 'three';
 
-export const STANDARD_GRAVITY: TWithCoordsXYZ = { x: 0.0, y: -9.81, z: 0.0 };
+export const STANDARD_GRAVITY: Vector3 = new Vector3(0, -9.81, 0);

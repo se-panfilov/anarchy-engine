@@ -1,21 +1,10 @@
 import type { AnimationAction } from 'three';
+import { Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type {
-  TAppCanvas,
-  TEngine,
-  TModel3dFacade,
-  TModel3dRegistry,
-  TModel3dResourceAsyncRegistry,
-  TRegistryPack,
-  TSceneWrapper,
-  TSpace,
-  TSpaceConfig,
-  TSpaceServices,
-  TWithCoordsXYZ
-} from '@/Engine';
-import { Engine, isNotDefined, KeyCode, spaceService, Vector3Wrapper } from '@/Engine';
+import type { TAppCanvas, TEngine, TModel3dFacade, TModel3dRegistry, TModel3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
+import { Engine, isNotDefined, KeyCode, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -54,7 +43,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
 
   async function init(): Promise<void> {
-    const scale: TWithCoordsXYZ = { x: 0.025, y: 0.025, z: 0.025 };
+    const scale: Vector3 = new Vector3(0.025, 0.025, 0.025);
     const { keyboardService } = engine.services;
     const { animationsService, models3dService, scenesService } = space.services;
     const sceneW: TSceneWrapper | undefined = scenesService.findActive();
@@ -66,7 +55,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     //Let's clone the original model (which was loaded from the code)
     const modelOriginal: TModel3dFacade | undefined = models3dService.getRegistry().findByName(originalName);
     if (isNotDefined(modelOriginal)) throw new Error(`Model "${originalName}" doesn't exist in the registry`);
-    models3dService.clone(modelOriginal, { name: cloneName, position: Vector3Wrapper({ x: -5, y: 0, z: 0 }) });
+    models3dService.clone(modelOriginal, { name: cloneName, position: new Vector3(-5, 0, 0) });
 
     const modelClone: TModel3dFacade | undefined = models3dService.getRegistry().findByName(cloneName);
     if (isNotDefined(modelClone)) throw new Error(`Model "${modelClone}" model is not defined`);
