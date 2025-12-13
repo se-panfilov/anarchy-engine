@@ -27,10 +27,13 @@ export function WebErrorTrackingService(): TWebErrorTrackingService {
       wrappedAppVersion: await platformApiService.getWrappedAppVersion()
     };
 
-    // TODO DESKTOP: Anonymize this data
     // TODO DESKTOP: Do the same at the Desktop app level
-    // TODO DESKTOP: And some "state of the game" (current level, quest, etc)
-    const dynamicDataGetters = (): Record<string, any> => ({ settings: platformApiService.getCachedAppSettings() });
+    const dynamicDataGetters = (): Record<string, any> => ({
+      // TODO DESKTOP: Anonymize this data
+      settings: platformApiService.getCachedAppSettings()
+      // TODO DESKTOP: And some "state of the game" (current level, quest, etc)
+      // game: ...
+    });
 
     return BrowserTrackingService(options, metaData, dynamicDataGetters);
   }
