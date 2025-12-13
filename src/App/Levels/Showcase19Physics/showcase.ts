@@ -6,6 +6,20 @@ import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import type { TShowcase } from '@/App/Levels/Models';
+import type {
+  TActorWrapperAsync,
+  TAppCanvas,
+  TCameraWrapper,
+  TEngine,
+  TIntersectionEvent,
+  TIntersectionsWatcher,
+  TIntersectionsWatcherParams,
+  TPhysicsDebugRenderer,
+  TSceneWrapper,
+  TSpace,
+  TSpaceConfig,
+  TWithCoordsXYZ
+} from '@/Engine';
 import {
   buildSpaceFromConfig,
   degreesToQuaternion,
@@ -19,19 +33,7 @@ import {
   mouseService,
   PhysicsDebugRenderer,
   STANDARD_GRAVITY,
-  TActorWrapperAsync,
-  TAppCanvas,
-  TCameraWrapper,
-  TEngine,
   TextType,
-  TIntersectionEvent,
-  TIntersectionsWatcher,
-  TIntersectionsWatcherParams,
-  TPhysicsDebugRenderer,
-  TSceneWrapper,
-  TSpace,
-  TSpaceConfig,
-  TWithCoordsXYZ,
   Vector3Wrapper
 } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
@@ -49,10 +51,6 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   const ballActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('ball');
   const surfaceActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('surface');
-  // const wallLeftActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('wall_left');
-  // const wallRightActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('wall_right');
-  // const wallFrontActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('wall_front');
-  // const wallBackActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('wall_back');
 
   const world: World = new World(STANDARD_GRAVITY);
   const physicsDebugRenderer: TPhysicsDebugRenderer = PhysicsDebugRenderer(sceneWrapper.entity, world);
