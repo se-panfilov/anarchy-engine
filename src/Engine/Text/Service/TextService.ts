@@ -67,6 +67,7 @@ export function TextService(
     createText2dRenderer,
     createText3dRenderer,
     getRegistries: () => ({ text2dRegistry, text3dRegistry }),
+    getRendererRegistries: () => ({ text2dRendererRegistry, text3dRendererRegistry }),
     ...destroyable
   };
 }

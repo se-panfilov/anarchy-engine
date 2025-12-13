@@ -1,5 +1,4 @@
 import type { IAppCanvas } from '@/Engine/App';
-import { ambientContext } from '@/Engine/Context';
 import type { IDataTexture } from '@/Engine/EnvMap';
 import type { IIntersectionsWatcher } from '@/Engine/Intersections';
 import type { IDestroyable } from '@/Engine/Mixins';
@@ -12,8 +11,6 @@ import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixin';
 import type { ISpace, ISpaceConfig, ISpaceServices, IWithBuilt } from '@/Engine/Space/Models';
 import { initServices } from '@/Engine/Space/SpaceHelpers';
-import type { IText2dRenderer, IText3dRenderer } from '@/Engine/Text';
-import { initText2dRenderer, initText3dRenderer } from '@/Engine/Text';
 import { isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
 
 // TODO (S.Panfilov) LOGGER: add a logger globally (not only for errors, but I'd like to know, which service with which id did what).

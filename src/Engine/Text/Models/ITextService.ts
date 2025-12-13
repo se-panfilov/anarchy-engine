@@ -5,8 +5,10 @@ import type { IWithCreateFromConfigService, IWithCreateService, IWithFactoryServ
 
 import type { IText2dRegistry } from './IText2dRegistry';
 import type { IText2dRenderer } from './IText2dRenderer';
+import type { IText2dRendererRegistry } from './IText2dRendererRegistry';
 import type { IText3dRegistry } from './IText3dRegistry';
 import type { IText3dRenderer } from './IText3dRenderer';
+import type { IText3dRendererRegistry } from './IText3dRendererRegistry';
 import type { ITextAnyWrapper } from './ITextAnyWrapper';
 import type { ITextConfig } from './ITextConfig';
 import type { ITextFactory } from './ITextFactory';
@@ -19,6 +21,7 @@ export type ITextService = IWithCreateService<ITextAnyWrapper, ITextParams> &
     getRegistries: () => { text2dRegistry: IText2dRegistry; text3dRegistry: IText3dRegistry };
     createText2dRenderer: (container: IAppGlobalContainer, screenSizeWatcher: Readonly<IScreenSizeWatcher>) => IText2dRenderer;
     createText3dRenderer: (container: IAppGlobalContainer, screenSizeWatcher: Readonly<IScreenSizeWatcher>) => IText3dRenderer;
+    getRendererRegistries: () => { text2dRendererRegistry: IText2dRendererRegistry; text3dRendererRegistry: IText3dRendererRegistry };
   }> &
   IWithSceneGetterService &
   IDestroyable;
