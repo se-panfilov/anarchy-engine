@@ -12,7 +12,7 @@ export async function enableCollisions(sceneW: TSceneWrapper, actorService: TAct
   // collisionsService.tree.addToGridBulk(tree, actorService.getRegistry().getAll());
   const sphereActorW: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('sphere');
   if (isNotDefined(sphereActorW)) throw new Error(`Cannot find "sphere" actor`);
-  // collisionsService.tree.addActorToGrid(tree, sphereActorW);
+  collisionsService.grid.addActorToGrid(tree, sphereActorW);
 
   const boxActor1W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static1');
   const boxActor2W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static2');
