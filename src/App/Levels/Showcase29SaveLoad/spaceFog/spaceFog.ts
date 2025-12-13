@@ -1,6 +1,8 @@
 import { BehaviorSubject } from 'rxjs';
+import type { Fog } from 'three';
+import { Color } from 'three';
 
-import type { TSpace, TSpaceConfig } from '@/Engine';
+import type { TFogWrapper, TSpace, TSpaceConfig, TWriteable } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { addModel3dToScene, getContainer } from '../utils';
@@ -16,5 +18,11 @@ export const spaceFogData: TSpacesData = {
   onCreate: (space: TSpace): void | never => {
     addModel3dToScene(space, 'surface_model');
   },
-  onChange: (space: TSpace): void => {}
+  onChange: (space: TSpace): void => {
+    const fog: TFogWrapper = space.services.fogService.getRegistry().getByName('main_fog');
+    // eslint-disable-next-line functional/immutable-data
+    (fog.entity as TWriteable<Fog>).color = new Color('#FFFF00');
+    // eslint-disable-next-line functional/immutable-data
+    (fog.entity as TWriteable<Fog>).far = 150;
+  }
 };
