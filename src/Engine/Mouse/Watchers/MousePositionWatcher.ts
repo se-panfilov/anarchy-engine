@@ -6,14 +6,20 @@ import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
 import type { TLoopService } from '@/Engine/Loop';
 import type { TMouseEvent, TMousePositionWatcher, TMousePositionWatcherParams } from '@/Engine/Mouse/Models';
 import { getNormalizedMousePosition } from '@/Engine/Mouse/Utils';
-import { isEqualOrSimilarVector2Like } from '@/Engine/Utils';
+import { isEqualOrSimilarByXyCoords } from '@/Engine/Utils';
 
 export function MousePositionWatcher({ container, tags, performance }: TMousePositionWatcherParams, loopService: TLoopService): TMousePositionWatcher {
   const containerIdTag: string = `container_id_${container.id}`;
   const abstractWatcher: TAbstractWatcher<Vector2Like> = AbstractWatcher(WatcherType.MousePositionWatcher, 'global_mouse_position_watcher', tags);
-  let prevPosition: Vector2Like = { x: 0, y: 0 };
-  let position: Vector2Like = { x: 0, y: 0 };
-  const onMouseMoveListener = ({ clientX: x, clientY: y }: TMouseEvent): void => void (position = { x, y });
+  const prevPosition: Float32Array = new Float32Array(2); // [x, y] = [0, 0]
+  const position: Float32Array = new Float32Array(2); // [x, y] = [0, 0]
+
+  const onMouseMoveListener = ({ clientX: x, clientY: y }: TMouseEvent): void => {
+    // eslint-disable-next-line functional/immutable-data
+    position[0] = x;
+    // eslint-disable-next-line functional/immutable-data
+    position[1] = y;
+  };
 
   // TODO ENV: limited fps, perhaps should be configurable
   const updateDelay: number = performance?.updateDelay ?? 2; // 480 FPS (when 16 is 60 FPS)
@@ -22,14 +28,19 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
   // TODO LOOP: Instead of loopService.tick$, mouse should have own loop (with configurable tick speed)
   loopService.tick$
     .pipe(
-      distinctUntilChanged((): boolean => isEqualOrSimilarVector2Like(prevPosition, position, threshold)),
-      tap((): void => void (prevPosition = position)),
+      distinctUntilChanged((): boolean => isEqualOrSimilarByXyCoords(prevPosition[0], prevPosition[1], position[0], position[1], threshold)),
+      tap((): void => {
+        // eslint-disable-next-line functional/immutable-data
+        prevPosition[0] = position[0]; //x
+        // eslint-disable-next-line functional/immutable-data
+        prevPosition[1] = position[1]; //y
+      }),
       sampleTime(updateDelay)
     )
     .subscribe((): void => {
       // TODO 8.0.0. MODELS: check if this works while mouse not moving, but the scene is moving
       // console.log('XXX 111', position);
-      abstractWatcher.value$.next(position);
+      abstractWatcher.value$.next({ x: position[0], y: position[1] });
     });
 
   function start(): TMousePositionWatcher {
