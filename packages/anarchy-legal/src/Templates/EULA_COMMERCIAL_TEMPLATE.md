@@ -127,6 +127,7 @@ The {{PRODUCT_TERM}} is provided **“AS IS”**, **to the maximum extent permit
 ## 11. Limitation of Liability
 
 To the fullest extent permitted by law, Licensor shall **not** be liable for any indirect, incidental, special, exemplary, or consequential damages.
+
 **Nothing in this EULA excludes or limits liability where such exclusion or limitation is unlawful, including for death or personal injury caused by negligence, fraud, or wilful misconduct.**
 
 ## 11A. Liability Cap (Business Users Only)
@@ -146,6 +147,7 @@ The {{PRODUCT_TERM}} includes **open-source software**. **To the extent of any c
 ## 14. Governing Law & Consumer Rights
 
 This EULA is governed by the laws of **{{GOVERNING_LAW_COUNTRY}}** with venue in **{{GOVERNING_VENUE}}**.
+
 If you are a consumer, **mandatory consumer protection laws of your country of residence remain applicable**.
 
 ## 15. Changes
@@ -159,4 +161,5 @@ This agreement is drafted in English. Translations may be provided for convenien
 **Contact:** {{LEGAL_EMAIL}}
 
 Trademarks. {{PRODUCT_DISPLAY_NAME}} is a trademark of {{LEGAL_ENTITY_NAME}}.
+
 All other trademarks are the property of their respective owners.

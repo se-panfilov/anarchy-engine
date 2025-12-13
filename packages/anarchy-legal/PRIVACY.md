@@ -9,14 +9,19 @@
 
 ## 1. Repository Interactions
 
-If you open issues, pull requests, or discussions, the content you submit (including your profile/handle and any attachments) becomes **public** on \***\* and is processed under that platform’s privacy policy. We may process this **public** information to operate, maintain, and improve the project.
+If you open issues, pull requests, or discussions, the content you submit (including your profile/handle and any attachments) becomes **public** on the code hosting platform(s) where the repository is published and is processed under that platform’s privacy policy. We may process this **public** information to operate, maintain, and improve the project.
+Copies of public content may also appear in mirrors, forks, caches, archival copies, package registries, or on physical media distributed by others.
+
 **Legal basis:** our **legitimate interests** in running the OSS project.
-**Retention:** issue/PR/discussion history is retained as part of the **public project record\*\*. Edits/deletions are handled through the platform’s features; historical records (e.g., git history) may persist.
+
+**Retention:** issue/PR/discussion history is retained as part of the **public project record**. Edits/deletions are handled through the platform’s features; historical records (e.g., git history) may persist.
 
 ## 2. Communications
 
 If you email **TBD until market release**, we process your **email address**, **message content**, and any information you provide to respond.
+
 **Legal basis:** our **legitimate interests** in responding to inquiries (or your **consent**, where applicable).
+
 **Retention:** **24 months** from the date of our **last interaction in the support thread** (or ticket closure), then deletion or **irreversible anonymization**, unless longer retention is required by law or to establish, exercise, or defend **legal claims**.
 
 ## 3. Processors & Transfers

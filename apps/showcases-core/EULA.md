@@ -100,6 +100,7 @@ The Software is provided **“AS IS”**, **to the maximum extent permitted by a
 ## 11. Limitation of Liability
 
 To the fullest extent permitted by law, Licensor shall **not** be liable for any indirect, incidental, special, exemplary, or consequential damages.
+
 **Nothing in this EULA excludes or limits liability where such exclusion or limitation is unlawful, including for death or personal injury caused by negligence, fraud, or wilful misconduct.**
 
 ## 11A. Liability Cap (Business Users Only)
@@ -119,6 +120,7 @@ The Software includes **open-source software**. **To the extent of any conflict 
 ## 14. Governing Law & Consumer Rights
 
 This EULA is governed by the laws of **The Netherlands** with venue in **Amsterdam**.
+
 If you are a consumer, **mandatory consumer protection laws of your country of residence remain applicable**.
 
 ## 15. Changes
@@ -132,4 +134,5 @@ This agreement is drafted in English. Translations may be provided for convenien
 **Contact:** TBD until market release
 
 Trademarks. TBD until market release is a trademark of Sergei Aleksandrovich Panfilov.
+
 All other trademarks are the property of their respective owners.

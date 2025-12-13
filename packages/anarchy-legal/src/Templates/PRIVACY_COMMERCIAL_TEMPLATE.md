@@ -27,7 +27,9 @@ Your chosen distribution channels may process personal data necessary to provide
 ## 4. Customer Support
 
 If you contact us at **{{SUPPORT_EMAIL}}**, we process your **email address**, **message content**, and any information you provide to respond.
+
 **Legal basis:** our **legitimate interests** in responding to inquiries (or your consent where applicable).
+
 **Retention:** **{{SUPPORT_EMAILS_RETAIN_PERIOD_MONTH}} months** from the date of our last interaction in the support thread (or ticket closure), then deletion or irreversible anonymization, unless longer retention is required by law or to establish, exercise or defend legal claims.
 
 ## 5. Processors
@@ -67,9 +69,11 @@ This policy is drafted in English. Translations may be provided for convenience.
 
 {{#HAS_DPO}}
 **Data Protection Officer:** {{DPO_EMAIL}}
+
 {{/HAS_DPO}}
 {{#HAS_EU_REP}}
 **EU Representative:** {{EU_REPRESENTATIVE_CONTACT}}
+
 {{/HAS_EU_REP}}
 {{#HAS_CHINA_REP}}
 **China Representative:** {{CHINA_REPRESENTATIVE_CONTACT}}
