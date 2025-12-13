@@ -1,6 +1,5 @@
 import type { TSerializableEntitiesService } from '@Anarchy/Engine/Abstract';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@Anarchy/Engine/Mixins';
-import type { TSpaceSettings } from '@Anarchy/Engine/Space';
 
 import type { TSpace } from './TSpace';
 import type { TSpaceConfig } from './TSpaceConfig';
@@ -8,6 +7,7 @@ import type { TSpaceFactory } from './TSpaceFactory';
 import type { TSpaceFactoryDependencies } from './TSpaceFactoryDependencies';
 import type { TSpaceParams } from './TSpaceParams';
 import type { TSpaceRegistry } from './TSpaceRegistry';
+import type { TSpaceSettings } from './TSpaceSettings';
 
 export type TSpaceServiceWithCreate = TWithCreateService<TSpace, TSpaceParams, TSpaceSettings>;
 export type TSpaceServiceWithCreateFromConfig = TWithCreateFromConfigService<TSpaceConfig, TSpace, TSpaceSettings>;

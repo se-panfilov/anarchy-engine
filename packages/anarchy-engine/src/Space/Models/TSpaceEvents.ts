@@ -1,9 +1,10 @@
-import type { TSpaceLoops, TSpaceServices } from '@Anarchy/Engine/Space';
 import type { SpaceEvents } from '@Anarchy/Engine/Space/Constants';
 
 import type { TSpaceCanvas } from './TSpaceCanvas';
 import type { TSpaceConfig } from './TSpaceConfig';
+import type { TSpaceLoops } from './TSpaceLoops';
 import type { TSpaceParams } from './TSpaceParams';
+import type { TSpaceServices } from './TSpaceServices';
 
 export type TAfterAllServicesInitializedSpaceEvent = Readonly<{
   name: SpaceEvents.AfterAllServicesInitialized;

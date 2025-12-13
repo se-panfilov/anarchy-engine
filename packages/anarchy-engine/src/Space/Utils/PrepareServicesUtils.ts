@@ -34,8 +34,7 @@ import { PhysicsBodyFactory, PhysicsBodyRegistry, PhysicsBodyService, PhysicsWor
 import { RendererFactory, RendererRegistry, RendererService } from '@Anarchy/Engine/Renderer';
 import type { TScenesService, TSceneWrapper } from '@Anarchy/Engine/Scene';
 import { SceneFactory, SceneRegistry, ScenesService } from '@Anarchy/Engine/Scene';
-import type { TSpaceCanvas, TSpaceSettings } from '@Anarchy/Engine/Space';
-import type { TSpaceBaseServices, TSpaceLoops, TSpaceServices } from '@Anarchy/Engine/Space/Models';
+import type { TSpaceBaseServices, TSpaceCanvas, TSpaceLoops, TSpaceServices, TSpaceSettings } from '@Anarchy/Engine/Space/Models';
 import type { TSpatialGridService } from '@Anarchy/Engine/Spatial';
 import { SpatialGridFactory, SpatialGridRegistry, SpatialGridService } from '@Anarchy/Engine/Spatial';
 import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererRegistry, Text3dTextureRegistry, TextFactory, TextService } from '@Anarchy/Engine/Text';
