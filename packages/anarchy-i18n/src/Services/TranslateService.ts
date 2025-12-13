@@ -1,3 +1,4 @@
+import { ReactiveTranslationMixin } from '@Anarchy/i18n/Mixins';
 import type { TLocalesMapping, TMessages, TTranslateService } from '@Anarchy/i18n/Models';
 import { isDefined } from '@Anarchy/Shared/Utils';
 import type { FormatNumberOptions, IntlCache, IntlShape } from '@formatjs/intl';
@@ -6,6 +7,7 @@ import type { FormatDateOptions } from '@formatjs/intl/src/types';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, concatMap, distinctUntilChanged, from, map, Subject } from 'rxjs';
 
+// TODO DESKTOP: fix names TTranslateService vs TTranslationService (too confusing)
 export function TranslateService<TLocale extends string>(initialLocale: TLocale, defaultLocale: TLocale, locales: TLocalesMapping<TLocale>): TTranslateService<TLocale> {
   const loaded: Map<TLocale, TMessages> = new Map<TLocale, TMessages>();
   const loadingLocale$: BehaviorSubject<Set<TLocale>> = new BehaviorSubject<Set<TLocale>>(new Set());
@@ -74,7 +76,7 @@ export function TranslateService<TLocale extends string>(initialLocale: TLocale,
     intl$.complete();
   });
 
-  return {
+  const result = {
     translate: (id: string, params?: Record<string, string>): string | never => {
       const intl: IntlShape<string> | undefined = intl$.value;
       if (isDefined(intl)) {
@@ -95,6 +97,12 @@ export function TranslateService<TLocale extends string>(initialLocale: TLocale,
     },
     ready$,
     locale$,
-    destroy$
+    destroy$,
+    intl$: intl$.asObservable()
   };
+
+  const reactiveMixin = ReactiveTranslationMixin(result);
+
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(result, reactiveMixin);
 }
