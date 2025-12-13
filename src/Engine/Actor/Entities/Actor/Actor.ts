@@ -35,6 +35,7 @@ export function Actor(
   // TODO 8.0.0. MODELS: close all issues (todoes) with tag 8.0.0
 
   // TODO 8.0.0. MODELS: In showcase "keyboard" I can see visually that "mouse" actor a bit "jump" before start moving. Is it because of performance's noiseThreshold/throttleTime? Fix.
+  // TODO 8.0.0. MODELS: In showcase "keyboard" with a lot of clicks "sphere" is "jumping" (check performance and fix)
 
   const entities: TActorEntities = {
     drive,
