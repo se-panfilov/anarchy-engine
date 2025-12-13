@@ -1,4 +1,3 @@
-import type { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import type { Vector3Like } from 'three';
 import { Vector3 } from 'three/src/math/Vector3';
@@ -20,13 +19,8 @@ export const spaceTransformDriveData: TSpacesData = {
   config: config,
   container: getContainer(config.canvasSelector),
   awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
-  onCreate: async (space: TSpace, subscriptions?: Record<string, Subscription>): Promise<void | never> => {
+  onCreate: async (space: TSpace): Promise<void | never> => {
     addAwait('onCreate', spaceTransformDriveData.awaits$);
-    space.loops.kinematicLoop.stop();
-
-    // setInterval(() => {
-    //   space.loops.kinematicLoop.tick$.next(0);
-    // }, 10);
 
     const defaultActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_default_actor');
     if (isNotDefined(defaultActor)) throw new Error('[Showcase]: Actor "cube_default_actor" not found');
