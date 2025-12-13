@@ -1,12 +1,12 @@
 import { PCFShadowMap, WebGL1Renderer } from 'three';
 import { isNotDefined, isWebGLAvailable } from '@Engine/Utils';
-import { AbstractWrapper } from '@Engine/Wrappers';
 import type { RendererParams, ScreenParams } from '@Engine/Models';
-import { DeviceWatcher } from '@Engine/Watchers';
+import { AbstractWrapper } from '@Engine/Wrappers';
+import type { IDeviceWatcher } from '@Engine/Watchers';
 import type { IRendererWrapper } from './Models';
 
 // TODO (S.Panfilov) Should we provide delta here?
-export function RendererWrapper({ canvas }: RendererParams): IRendererWrapper {
+export function RendererWrapper({ canvas }: RendererParams, deviceWatcher: IDeviceWatcher): IRendererWrapper {
   if (isNotDefined(canvas)) throw new Error(`Canvas is not defined`);
   if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');
 
@@ -17,9 +17,6 @@ export function RendererWrapper({ canvas }: RendererParams): IRendererWrapper {
   entity.shadowMap.type = PCFShadowMap;
   // eslint-disable-next-line functional/immutable-data
   entity.physicallyCorrectLights = true;
-
-  // TODO (S.Panfilov) DI deviceWatcher instead of a creation of a new entity
-  const deviceWatcher: ReturnType<typeof DeviceWatcher> = DeviceWatcher();
 
   deviceWatcher.value$.subscribe(({ width, height, ratio }: ScreenParams): void => {
     console.log(222, { width, height, ratio });
