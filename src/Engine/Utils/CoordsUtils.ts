@@ -30,13 +30,13 @@ function createCirclePath(angleArray: ReadonlyArray<number>, radius: number, cir
 }
 
 export function createCirclePathXY(angleArray: ReadonlyArray<number>, radius: number, circleCenter: Vector3): ReadonlyArray<Vector3> {
-  return createCirclePath(angleArray, radius, { coord1: circleCenter.x, coord2: circleCenter.y }).map((coords: TTempCoords): Vector3 => new Vector3(coords.coord1, coords.coord2));
+  return createCirclePath(angleArray, radius, { coord1: circleCenter.x, coord2: circleCenter.y }).map((coords: TTempCoords): Vector3 => new Vector3(coords.coord1, coords.coord2, circleCenter.z));
 }
 
 export function createCirclePathXZ(angleArray: ReadonlyArray<number>, radius: number, circleCenter: Vector3): ReadonlyArray<Vector3> {
-  return createCirclePath(angleArray, radius, { coord1: circleCenter.x, coord2: circleCenter.z }).map((coords: TTempCoords): Vector3 => new Vector3(coords.coord1, coords.coord2));
+  return createCirclePath(angleArray, radius, { coord1: circleCenter.x, coord2: circleCenter.z }).map((coords: TTempCoords): Vector3 => new Vector3(coords.coord1, circleCenter.y, coords.coord2));
 }
 
 export function createCirclePathYZ(angleArray: ReadonlyArray<number>, radius: number, circleCenter: Vector3): ReadonlyArray<Vector3> {
-  return createCirclePath(angleArray, radius, { coord1: circleCenter.y, coord2: circleCenter.z }).map((coords: TTempCoords): Vector3 => new Vector3(coords.coord1, coords.coord2));
+  return createCirclePath(angleArray, radius, { coord1: circleCenter.y, coord2: circleCenter.z }).map((coords: TTempCoords): Vector3 => new Vector3(circleCenter.x, coords.coord1, coords.coord2));
 }
