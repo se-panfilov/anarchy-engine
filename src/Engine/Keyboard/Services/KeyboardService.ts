@@ -102,7 +102,21 @@ export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
   const removeKeyBinding = (key: TGameKey): void => removeBinding(key, false);
   const removeKeyComboBinding = (key: TKeyCombo): void => removeBinding(key, true);
 
-  // TODO 14-0-0:  we need to destroy all bindings on destroy$
+  // TODO 14-0-0: Validate that we unbind all keys on destroy (and combos) and finish pressed$, pressing$ and released$
+  abstractService.destroy$.subscribe((): void => {
+    Object.keys(keyboardRegistry.asObject()).forEach((val: string): void => {
+      removeBinding(val, false);
+      removeBinding(val, true);
+    });
+  });
+
+  // keyboardRegistry.destroy$.subscribe((): void => {
+  //   keyboardRegistry.forEach((val: TKeyboardRegistryValues): void => {
+  //     val.pressed$.complete();
+  //     val.pressing$.complete();
+  //     val.released$.complete();
+  //   });
+  // });
 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, {
