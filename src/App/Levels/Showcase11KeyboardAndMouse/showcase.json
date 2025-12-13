@@ -31,6 +31,7 @@
       "position": { "x": 0, "y": 2, "z": 0 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "castShadow": false,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": []
     },
     {
@@ -39,6 +40,7 @@
       "material": { "type": "toon", "params": { "color": "#E91E63" } },
       "position": { "x": -2, "y": 2, "z": 0 },
       "castShadow": true,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["keyboard"]
     },
     {
@@ -47,6 +49,7 @@
       "material": { "type": "toon", "params": { "color": "#E91ED8" } },
       "position": { "x": 4, "y": 2, "z": 0 },
       "castShadow": true,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["mouse"]
     },
     {
@@ -57,6 +60,7 @@
       "material": { "type": "toon", "params": { "color": "#373739" } },
       "position": { "x": -19, "y": 2, "z": 9 },
       "castShadow": true,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["key", "W"]
     },
     {
@@ -67,6 +71,7 @@
       "material": { "type": "toon", "params": { "color": "#373739" } },
       "position": { "x": -22, "y": 2, "z": 12 },
       "castShadow": true,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["key", "A"]
     },
     {
@@ -77,6 +82,7 @@
       "material": { "type": "toon", "params": { "color": "#373739" } },
       "position": { "x": -19, "y": 2, "z": 12 },
       "castShadow": true,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["key", "S"]
     },
     {
@@ -87,6 +93,7 @@
       "material": { "type": "toon", "params": { "color": "#373739" } },
       "position": { "x": -16, "y": 2, "z": 12 },
       "castShadow": true,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["key", "D"]
     },
     {
@@ -97,6 +104,7 @@
       "material": { "type": "toon", "params": { "color": "#373739" } },
       "position": { "x": -12, "y": 2, "z": 9 },
       "castShadow": true,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["mkey", "Left"]
     },
     {
@@ -107,6 +115,7 @@
       "material": { "type": "toon", "params": { "color": "#373739" } },
       "position": { "x": -10, "y": 2, "z": 10 },
       "castShadow": true,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["mkey", "Middle"]
     },
     {
@@ -117,6 +126,7 @@
       "material": { "type": "toon", "params": { "color": "#373739" } },
       "position": { "x": -8, "y": 2, "z": 9 },
       "castShadow": true,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["mkey", "Right"]
     },
     {
@@ -127,6 +137,7 @@
       "material": { "type": "toon", "params": { "color": "#373739" } },
       "position": { "x": -12, "y": 2, "z": 12 },
       "castShadow": true,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["mkey", "Forward"]
     },
     {
@@ -137,6 +148,7 @@
       "material": { "type": "toon", "params": { "color": "#373739" } },
       "position": { "x": -12, "y": 2, "z": 14 },
       "castShadow": true,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["mkey", "Back"]
     },
     {
@@ -147,6 +159,7 @@
       "material": { "type": "toon", "params": { "color": "#373739" } },
       "position": { "x": -12, "y": 2, "z": 16 },
       "castShadow": true,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["mkey", "Extra"]
     }
   ],

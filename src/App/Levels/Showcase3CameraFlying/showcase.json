@@ -27,6 +27,7 @@
       "position": { "x": 0, "y": 0, "z": 0 },
       "castShadow": true,
       "material": { "type": "standard", "params": { "color": "#5177ff" } },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["central_actor"]
     }
   ],

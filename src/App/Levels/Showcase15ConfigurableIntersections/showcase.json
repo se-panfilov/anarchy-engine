@@ -30,6 +30,7 @@
       "position": { "x": 0, "y": 2, "z": 0 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "castShadow": false,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": []
     },
     {
@@ -39,6 +40,7 @@
       "material": { "type": "standard", "params": { "color": "#E91E63" } },
       "position": { "x": -2, "y": 2, "z": -10 },
       "castShadow": true,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": []
     },
     {
@@ -48,6 +50,7 @@
       "material": { "type": "standard", "params": { "color": "#9f0441" } },
       "position": { "x": 4, "y": 2, "z": -10 },
       "castShadow": true,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": []
     },
     {
@@ -61,6 +64,7 @@
       "material": { "type": "standard", "params": { "color": "#6a35de" } },
       "position": { "x": -2, "y": 2, "z": 10 },
       "castShadow": true,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": []
     },
     {
@@ -74,6 +78,7 @@
       "material": { "type": "standard", "params": { "color": "#4013a4" } },
       "position": { "x": 4, "y": 2, "z": 10 },
       "castShadow": true,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": []
     }
   ],
@@ -83,6 +88,7 @@
       "cameraName": "camera_red",
       "actorNames": ["actor_red_1", "actor_red_2"],
       "isAutoStart": true,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": []
     },
     {

@@ -31,6 +31,7 @@
       "position": { "x": 0, "y": 2, "z": 0 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "castShadow": false,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": []
     },
     {
@@ -43,6 +44,7 @@
       "material": { "type": "toon", "params": { "color": "#E91E63", "wireframe": true } },
       "position": { "x": -2, "y": 2, "z": 50 },
       "castShadow": true,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": []
     }
   ],

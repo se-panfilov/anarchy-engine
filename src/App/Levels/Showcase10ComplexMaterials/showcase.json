@@ -43,6 +43,7 @@
           "roughnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["standard", "metal"]
     },
     {
@@ -77,6 +78,7 @@
           "roughnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["physical", "metal"]
     },
     {
@@ -94,6 +96,7 @@
           "map": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["basic", "metal"]
     },
     {
@@ -117,6 +120,7 @@
           "displacementMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["phong", "metal"]
     },
     {
@@ -140,6 +144,7 @@
           "displacementMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["lambert", "metal"]
     },
     {
@@ -163,6 +168,7 @@
           "displacementMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["toon", "metal"]
     },
     {
@@ -186,6 +192,7 @@
           "displacementMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["matcap", "metal"]
     },
     {
@@ -211,6 +218,7 @@
           "roughnessMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_roughness.jpg" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["standard", "wood"]
     },
     {
@@ -236,6 +244,7 @@
           "roughnessMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_roughness.jpg" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["physical", "wood"]
     },
     {
@@ -254,6 +263,7 @@
           "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["basic", "wood"]
     },
     {
@@ -277,6 +287,7 @@
           "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["phong", "wood"]
     },
     {
@@ -300,6 +311,7 @@
           "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["lambert", "wood"]
     },
     {
@@ -323,6 +335,7 @@
           "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["toon", "wood"]
     },
     {
@@ -345,6 +358,7 @@
           "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["matcap", "wood"]
     },
     {
@@ -363,6 +377,7 @@
           "roughness": 0
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["standard", "glass"]
     },
     {
@@ -389,6 +404,7 @@
           "thickness": 0.5
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["physical", "glass"]
     },
     {
@@ -403,6 +419,7 @@
       "material": {
         "type": "basic"
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["basic", "glass"]
     },
     {
@@ -420,6 +437,7 @@
           "displacementScale": 0.1
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["phong", "glass"]
     },
     {
@@ -437,6 +455,7 @@
           "displacementScale": 0.1
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["lambert", "glass"]
     },
     {
@@ -454,6 +473,7 @@
           "displacementScale": 0.1
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["toon", "glass"]
     },
     {
@@ -471,6 +491,7 @@
           "displacementScale": 0.1
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["matcap", "glass"]
     },
     {
@@ -495,6 +516,7 @@
           "roughnessMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["standard", "textile"]
     },
     {
@@ -519,6 +541,7 @@
           "roughnessMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["physical", "textile"]
     },
     {
@@ -537,6 +560,7 @@
           "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["basic", "textile"]
     },
     {
@@ -560,6 +584,7 @@
           "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["phong", "textile"]
     },
     {
@@ -583,6 +608,7 @@
           "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["lambert", "textile"]
     },
     {
@@ -606,6 +632,7 @@
           "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["toon", "textile"]
     },
     {
@@ -628,6 +655,7 @@
           "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["matcap", "textile"]
     }
   ],

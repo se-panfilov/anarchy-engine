@@ -34,6 +34,7 @@
           "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
         }
       },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["central_actor"]
     }
   ],

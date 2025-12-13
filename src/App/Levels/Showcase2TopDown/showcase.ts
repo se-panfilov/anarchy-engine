@@ -1,7 +1,7 @@
 import { combineLatest } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorParams, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorParams, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
 import { ActorType, ambientContext, buildSpaceFromConfig, Engine, EulerWrapper, isNotDefined, MaterialType, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -12,13 +12,16 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   function start(): void {
     engine.start();
-    const { actorService, cameraService, mouseService } = space.services;
+    const { actorService, spatialGridService, cameraService, mouseService } = space.services;
+    const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
+    if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" grid`);
 
     const actorDefaultParams: TActorParams = {
       type: ActorType.Cube,
       position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
       castShadow: true,
       material: { type: MaterialType.Toon, params: { color: '#5177ff' } },
+      spatial: { grid, isAutoUpdate: false },
       tags: []
     };
 

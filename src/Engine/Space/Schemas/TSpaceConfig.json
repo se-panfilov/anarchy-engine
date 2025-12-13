@@ -261,20 +261,11 @@
         "collisions": {
           "$ref": "#/definitions/TCollisionsDataConfig"
         },
-        "isCollisionsAutoUpdate": {
-          "type": "boolean"
-        },
         "spatial": {
           "$ref": "#/definitions/TSpatialDataConfig"
         },
-        "isSpatialAutoUpdate": {
-          "type": "boolean"
-        },
         "kinematic": {
           "$ref": "#/definitions/TKinematicDataConfig"
-        },
-        "isKinematicAutoUpdate": {
-          "type": "boolean"
         },
         "physics": {
           "$ref": "#/definitions/TWithPresetNamePhysicsBodyConfig"
@@ -322,14 +313,15 @@
           "type": "string"
         }
       },
-      "required": ["castShadow", "material", "position", "tags", "type"]
+      "required": ["castShadow", "material", "position", "spatial", "tags", "type"]
     },
     "TCollisionsDataConfig": {
-      "$ref": "#/definitions/TOptional%3CTCollisionsData%3E"
-    },
-    "TOptional<TCollisionsData>": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
+        "isAutoUpdate": {
+          "type": "boolean"
+        },
         "updatePriority": {
           "$ref": "#/definitions/CollisionsUpdatePriority"
         },
@@ -337,7 +329,7 @@
           "type": "number"
         }
       },
-      "additionalProperties": false
+      "required": ["isAutoUpdate"]
     },
     "CollisionsUpdatePriority": {
       "type": "number",
@@ -347,24 +339,29 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "isAutoupdate": {
+          "type": "boolean"
+        },
         "gridName": {
           "type": "string"
         },
         "updatePriority": {
           "$ref": "#/definitions/SpatialUpdatePriority"
         }
-      }
+      },
+      "required": ["gridName", "isAutoupdate"]
     },
     "SpatialUpdatePriority": {
       "type": "number",
       "enum": [5, 4, 3, 2, 1, 0]
     },
     "TKinematicDataConfig": {
-      "$ref": "#/definitions/TOptional%3CTKinematicData%3E"
-    },
-    "TOptional<TKinematicData>": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
+        "isAutoUpdate": {
+          "type": "boolean"
+        },
         "linearSpeed": {
           "type": "number"
         },
@@ -378,7 +375,7 @@
           "$ref": "#/definitions/Vector3"
         }
       },
-      "additionalProperties": false
+      "required": ["isAutoUpdate"]
     },
     "Vector3": {
       "type": "object",
