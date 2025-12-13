@@ -17,12 +17,12 @@ export function CollisionsService(): TCollisionsService {
   function checkCollisions(actorW: TActorWrapperAsync, radius: number, actorsToCheck: ReadonlyArray<TActorWrapperAsync>): TCollisionCheckResult | undefined {
     const actorBox: Box3 = new Box3().setFromObject(actorW.entity);
     const queryBox = {
-      minX: actorBox.min.x, // - radius,
-      minY: actorBox.min.y, // - radius,
-      minZ: actorBox.min.z, // - radius,
-      maxX: actorBox.max.x, // + radius,
-      maxY: actorBox.max.y, // + radius,
-      maxZ: actorBox.max.z // + radius
+      minX: actorBox.min.x - radius,
+      minY: actorBox.min.y - radius,
+      minZ: actorBox.min.z - radius,
+      maxX: actorBox.max.x + radius,
+      maxY: actorBox.max.y + radius,
+      maxZ: actorBox.max.z + radius
     };
 
     // TODO debug (window as any).sceneW

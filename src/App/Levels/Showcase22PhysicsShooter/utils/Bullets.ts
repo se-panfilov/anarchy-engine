@@ -42,7 +42,7 @@ export function getBulletsPool(count: number, actorService: TActorService, spati
           rotation: EulerWrapper({ x: 0, y: 1.57, z: 0 }),
           castShadow: false,
           spatial: { grid, isAutoUpdate: true },
-          collisions: { radius: 1, isAutoUpdate: true },
+          collisions: { radius: 0.5, isAutoUpdate: true },
           kinematic: {
             linearSpeed: meters(5),
             isAutoUpdate: true

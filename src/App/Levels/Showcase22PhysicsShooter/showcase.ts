@@ -77,7 +77,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       b.hit$.subscribe((hit: TCollisionCheckResult): void => {
         console.log('hit', hit);
         createHitEffect(hit.collisionPoint, sceneW);
-        applyExplosionImpulse(hit.object, hit.collisionPoint, 10);
+        applyExplosionImpulse(hit.object, hit.collisionPoint, 1000);
       });
     });
 
