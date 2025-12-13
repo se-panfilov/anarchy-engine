@@ -33,7 +33,7 @@ export function start(settings: TAppSettings): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { keyboardService, models3dService } = space.services;
+  const { keyboardService } = space.services;
   const { pressing$, released$ } = keyboardService;
 
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
