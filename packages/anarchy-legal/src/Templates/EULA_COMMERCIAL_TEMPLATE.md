@@ -30,7 +30,7 @@ If any term (including any limitation or exclusion of liability) is found invali
 
 ## 1. License Grant
 
-Subject to this EULA, Licensor grants you a personal, non-exclusive, non-transferable, revocable license to install and use {{PACKAGE_NAME}} on devices you own or control for {{USAGE_SCOPE}} purposes.
+Subject to this EULA, Licensor grants you a personal, non-exclusive, revocable license to install and use {{PACKAGE_NAME}} on devices you own or control for {{USAGE_SCOPE}} purposes, and—subject to Section 3—to make and distribute copies as permitted therein.
 
 ## 2. Ownership
 
@@ -44,10 +44,10 @@ You may:
 - make personal backup copies for your own use;
 - reverse engineer, decompile, disassemble, analyze and modify the Game to the extent permitted by applicable law **and** for interoperability, modding and educational purposes;
   {{#ALLOW_PERSONAL_SHARING}}
-- share **unmodified** copies of the Game **free of charge** with other individuals, provided that you include this EULA and do not hold us responsible for any issues arising from such sharing.
+- share **unmodified** copies of the Game **free of charge** with other individuals, provided that you include this EULA, do not hold us responsible for any issues arising from such sharing, and only where this is not prohibited by applicable law or the terms of the relevant Distribution Channel.
   {{/ALLOW_PERSONAL_SHARING}}
   {{#ALLOW_COMMERCIAL_RESALE}}
-- distribute or resell the Game commercially **as an unofficial build**, provided that you (i) clearly and prominently state that your distribution is **unofficial and not endorsed** by us, (ii) do **not** use our trademarks, logos or branding beyond nominative fair use, (iii) include this EULA and all third-party notices, and (iv) do not modify or bundle the Game with malware, adware, or telemetry.
+- distribute or resell the Game commercially **as an unofficial build**, provided that you (i) clearly and prominently state that your distribution is **unofficial and not endorsed** by us, (ii) do **not** use our trademarks, logos or branding beyond nominative fair use, (iii) include this EULA and all third-party notices, (iv) do not modify or bundle the Game with malware, adware, or telemetry, and (v) only where this is not prohibited by applicable law or the terms of the relevant Distribution Channel.
   {{/ALLOW_COMMERCIAL_RESALE}}
 
 You must **not**:
@@ -58,6 +58,8 @@ You must **not**:
 - violate applicable law or third-party rights when using, modifying, or sharing the Game.
 
 We do **not** provide support, tools, or compatibility commitments for reverse engineering, modifications, or shared copies. Updates may break mods or unofficial builds, and we are **not liable** for any resulting loss or damage. Nothing in this section grants rights to our trademarks or proprietary assets beyond what is necessary for interoperability and nominative fair use.
+
+Any distribution under this Section 3 is at your sole responsibility and expense. You act as the seller/distributor for legal purposes, and we provide no warranties, support, or obligations to your recipients.
 
 ## 4. Modding
 

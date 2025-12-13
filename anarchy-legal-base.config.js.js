@@ -9,6 +9,7 @@ export default [
       MOD_HOSTING: false,
       ALLOW_PERSONAL_SHARING: true,
       ALLOW_COMMERCIAL_RESALE: true,
+      IS_CHILD_DIRECTED: true,
 
       // REGIONS
       REGION_CN: true,
