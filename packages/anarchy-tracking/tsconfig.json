@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@Anarchy/Shared": ["packages/anarchy-shared/src/index.ts"],
+      "@Anarchy/Shared/*": ["packages/anarchy-shared/src/*"],
+      "@Anarchy/i18n": ["packages/anarchy-i18n/src/index.ts"],
+      "@Anarchy/i18n/*": ["packages/anarchy-i18n/src/*"],
+      "@Anarchy/Tracking": ["packages/anarchy-tracking/src/index.ts"],
+      "@Anarchy/Tracking/*": ["packages/anarchy-tracking/src/*"],
+      "@Showcases/Shared": ["packages/showcases-shared/src/index.ts"],
+      "@Showcases/Shared/*": ["packages/showcases-shared/src/*"]
+    },
+    "typeRoots": ["./node_modules/@types", "./node_modules", "../../node_modules/@types", "../../node_modules", "./src/Engine/Types", "./types"]
+  },
+  "include": ["src", "vite.config.ts", "types"]
+}
