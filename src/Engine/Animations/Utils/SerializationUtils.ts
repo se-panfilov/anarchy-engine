@@ -3,8 +3,8 @@ import type { AnimationAction } from 'three';
 import type { TAnimationStateParams } from '@/Engine/Animations/Models';
 import { isDefined } from '@/Engine/Utils';
 
+// TODO 15-0-0 implement applying of a leading animation
 export function applyAnimationActionProperties(action: AnimationAction, { enabled, weight, loop, repetitions, clampWhenFinished, timeScale, time, paused }: TAnimationStateParams): void {
-  action.reset();
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(enabled)) action.enabled = enabled;
   if (isDefined(weight)) action.setEffectiveWeight(weight);
@@ -12,9 +12,14 @@ export function applyAnimationActionProperties(action: AnimationAction, { enable
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(clampWhenFinished)) action.clampWhenFinished = clampWhenFinished;
   if (isDefined(timeScale)) action.setEffectiveTimeScale(timeScale);
+
+  action.reset();
+
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(time)) action.time = time;
-  action.play();
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(paused)) action.paused = paused;
+
+  const isLeadAnimation: boolean = action.enabled && action.time > 0 && action.weight > 0.5;
+  if (isLeadAnimation) action.play();
 }
