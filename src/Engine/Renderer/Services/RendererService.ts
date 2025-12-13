@@ -1,4 +1,4 @@
-import type { TDestroyable, IWithActiveMixinResult } from '@/Engine/Mixins';
+import type { IWithActiveMixinResult, TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import type { IRendererFactory, IRendererParams, IRendererRegistry, IRendererService, IRendererWrapper } from '@/Engine/Renderer/Models';
 

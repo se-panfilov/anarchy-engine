@@ -1,18 +1,18 @@
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
-  TActorAsyncRegistry,
-  TActorWrapperAsync,
   IAnimationParams,
-  TAppCanvas,
-  ICameraRegistry,
-  TControlsRegistry,
-  TEngine,
+  TCameraRegistry,
   IMoverService,
-  TSpace,
-  TSpaceConfig,
   IText2dWrapper,
   ITextAnyWrapper,
-  IWithCoordsXZ
+  IWithCoordsXZ,
+  TActorAsyncRegistry,
+  TActorWrapperAsync,
+  TAppCanvas,
+  TControlsRegistry,
+  TEngine,
+  TSpace,
+  TSpaceConfig
 } from '@/Engine';
 import {
   buildSpaceFromConfig,
@@ -39,7 +39,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   async function init(): Promise<void> {
     const { actorService, cameraService, controlsService, textService } = space.services;
     const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
-    const cameraRegistry: ICameraRegistry = cameraService.getRegistry();
+    const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
     const controlsRegistry: TControlsRegistry = controlsService.getRegistry();
     const { text2dRegistry } = textService.getRegistries();
 

@@ -8,7 +8,7 @@ import type {
   IMatcapMaterialTexturePack,
   IMaterialPackKeys,
   IMaterialPackParams,
-  IMaterialTexturePack,
+  TMaterialTexturePack,
   INormalMaterialTexturePack,
   IPhongMaterialTexturePack,
   IPhysicalMaterialTexturePack,
@@ -43,7 +43,7 @@ import type {
   IToonTextureUploadPromises
 } from '@/Engine/Texture/Models';
 import { applyColorSpace, applyFilters, applyTextureParams } from '@/Engine/Texture/Services/TextureServiceHelper';
-import type { IWriteable } from '@/Engine/Utils';
+import type { TWriteable } from '@/Engine/Utils';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function TextureService(): ITextureService {
@@ -59,14 +59,14 @@ export function TextureService(): ITextureService {
   function load(m: IMaterialPackParams<IPhysicalMaterialTexturePack>): IPhysicalTextureUploadPromises;
   function load(m: IMaterialPackParams<IToonMaterialTexturePack>): IToonTextureUploadPromises;
   function load(m: IMaterialPackParams<IStandardMaterialTexturePack>): IStandardTextureUploadPromises;
-  function load(m: IMaterialPackParams<IMaterialTexturePack>): ITextureUploadPromises {
+  function load(m: IMaterialPackParams<TMaterialTexturePack>): ITextureUploadPromises {
     let promises: Omit<ITextureUploadPromises, 'all' | 'material'> = {};
     if (isNotDefined(m.textures)) return { ...promises, all };
 
     Object.entries(m.textures).forEach(([key, packParams]: [string, ITexturePackParams]): void => {
       // TODO (S.Panfilov) do not load texture if already loaded
       const { url, params }: ITexturePackParams = packParams;
-      const p: Promise<ITexture> = textureLoader.loadAsync(url).then((texture: IWriteable<ITexture>): ITexture => {
+      const p: Promise<ITexture> = textureLoader.loadAsync(url).then((texture: TWriteable<ITexture>): ITexture => {
         applyTextureParams(texture, params);
         applyColorSpace(key as IMaterialPackKeys, texture, params);
         applyFilters(texture, params);

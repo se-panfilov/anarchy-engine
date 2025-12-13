@@ -7,13 +7,13 @@ import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import { withActiveMixin } from '@/Engine/Mixins';
 import { RendererModes } from '@/Engine/Renderer/Constants';
 import type { IRendererAccessors, IRendererParams, IRendererWrapper } from '@/Engine/Renderer/Models';
-import type { IScreenSizeValues, IScreenSizeWatcher } from '@/Engine/Screen';
-import type { IWriteable } from '@/Engine/Utils';
+import type { IScreenSizeValues, TScreenSizeWatcher } from '@/Engine/Screen';
+import type { TWriteable } from '@/Engine/Utils';
 import { isNotDefined, isWebGL2Available, isWebGLAvailable } from '@/Engine/Utils';
 
 import { getAccessors } from './Accessors';
 
-export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Readonly<IScreenSizeWatcher>): IRendererWrapper {
+export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Readonly<TScreenSizeWatcher>): IRendererWrapper {
   const maxPixelRatio: number = params.maxPixelRatio ?? 2;
   if (isNotDefined(params.canvas)) throw new Error(`Canvas is not defined`);
   if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');
@@ -41,7 +41,7 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
   accessors.setShadowMapType(PCFShadowMap);
 
   // eslint-disable-next-line functional/prefer-immutable-types
-  function setValues(entity: IWriteable<WebGLRenderer>, { width, height, ratio }: IScreenSizeValues): void {
+  function setValues(entity: TWriteable<WebGLRenderer>, { width, height, ratio }: IScreenSizeValues): void {
     if (isNotDefined(entity)) return;
     accessors.setSize(width, height);
     accessors.setPixelRatio(ratio, maxPixelRatio);

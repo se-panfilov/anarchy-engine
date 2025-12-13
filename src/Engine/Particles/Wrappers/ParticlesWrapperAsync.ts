@@ -1,7 +1,7 @@
 import { BufferAttribute } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { IColor } from '@/Engine/Color';
+import type { TColor } from '@/Engine/Color';
 import type { IWithMaterial } from '@/Engine/Material';
 import { isPointsMaterial, withMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
@@ -22,8 +22,8 @@ export async function ParticlesWrapperAsync(params: IParticlesParams, { material
   const withMaterialEntity: IWithMaterial = withMaterial(entity);
 
   // eslint-disable-next-line functional/immutable-data
-  const setMaterialColor = (color: IColor): void => void (material.color = color);
-  const getMaterialColor = (): IColor => material.color;
+  const setMaterialColor = (color: TColor): void => void (material.color = color);
+  const getMaterialColor = (): TColor => material.color;
   const setIndividualMaterialColors = (colors: Float32Array): void => void geometry.setAttribute('color', new BufferAttribute(colors, 3));
   const getIndividualMaterialColors = (): Float32Array => geometry.getAttribute('color').array as Float32Array;
   const setIndividualPositions = (positions: Float32Array): void => void geometry.setAttribute('position', new BufferAttribute(positions, 3));

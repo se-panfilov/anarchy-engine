@@ -1,8 +1,8 @@
-import type { IParamsFromConfig, TReactiveFactory } from '@/Engine/Abstract';
+import type { TParamsFromConfig, TReactiveFactory } from '@/Engine/Abstract';
 import type { TDestroyable } from '@/Engine/Mixins';
 
 import type { IFogConfig } from './IFogConfig';
 import type { IFogParams } from './IFogParams';
 import type { IFogWrapper } from './IFogWrapper';
 
-export type IFogFactory = TReactiveFactory<IFogWrapper, IFogParams> & IParamsFromConfig<IFogConfig, IFogParams> & TDestroyable;
+export type IFogFactory = TReactiveFactory<IFogWrapper, IFogParams> & TParamsFromConfig<IFogConfig, IFogParams> & TDestroyable;

@@ -4,10 +4,10 @@ import type { TWrapper } from '@/Engine/Abstract';
 import type { IWithActiveMixin, IWithTagsMixin } from '@/Engine/Mixins';
 import type { TVector3Wrapper } from '@/Engine/Vector';
 
-import type { IOrbitControlsAccessors } from './IOrbitControlsAccessors';
+import type { TOrbitControlsAccessors } from './TOrbitControlsAccessors';
 
 export type TOrbitControlsWrapper = TWrapper<OrbitControls> &
-  IOrbitControlsAccessors &
+  TOrbitControlsAccessors &
   Readonly<{
     update: () => boolean;
     enable: () => void;

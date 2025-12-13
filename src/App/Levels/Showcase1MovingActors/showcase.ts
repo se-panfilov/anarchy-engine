@@ -1,7 +1,7 @@
 import { filter } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, ICameraWrapper, TEngine, IIntersectionEvent, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
+import type { TCameraWrapper, IIntersectionEvent, TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TEngine, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -26,7 +26,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   }
 
   function startIntersections(): void {
-    const camera: ICameraWrapper | undefined = cameraService.findActive();
+    const camera: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
     // const actors: ReadonlyArray<IActorWrapperAsync> = actorRegistry.findAllByTags(['intersectable'], LookUpStrategy.Every);
     const intersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({ camera, actors: [], position$: mouseService.position$, isAutoStart: true, tags: [] });

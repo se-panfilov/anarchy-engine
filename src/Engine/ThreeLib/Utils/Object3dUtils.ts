@@ -1,9 +1,9 @@
 import { EulerWrapper } from '@/Engine/Euler';
-import type { IObject3DParams, IObject3DPropConfig } from '@/Engine/ThreeLib/Models';
+import type { IObject3DParams, TObject3DPropConfig } from '@/Engine/ThreeLib/Models';
 import { isDefined } from '@/Engine/Utils';
 import { Vector3Wrapper } from '@/Engine/Vector';
 
-export function configToParamsObject3d(config: Partial<IObject3DPropConfig>): IObject3DParams {
+export function configToParamsObject3d(config: Partial<TObject3DPropConfig>): IObject3DParams {
   const { position, rotation, scale } = config;
   return {
     ...config,

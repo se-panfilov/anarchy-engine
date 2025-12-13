@@ -1,9 +1,9 @@
-export type IWriteable<T> = { -readonly [P in keyof T]: T[P] };
+export type TWriteable<T> = { -readonly [P in keyof T]: T[P] };
 
-export type IDeepWriteable<T> = { -readonly [P in keyof T]: IDeepWriteable<T[P]> };
+export type TDeepWriteable<T> = { -readonly [P in keyof T]: TDeepWriteable<T[P]> };
 
-export type IOptional<T> = {
+export type TOptional<T> = {
   [P in keyof T]?: T[P];
 };
 
-export type IValueOf<T> = T[keyof T];
+export type TValueOf<T> = T[keyof T];

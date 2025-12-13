@@ -1,5 +1,5 @@
 export * from './IScreenSizeValues';
-export * from './IScreenSizeWatcher';
+export * from './TScreenSizeWatcher';
 export * from './IScreenSizeWatcherFactory';
 export * from './IScreenSizeWatcherParams';
 export * from './IScreenSizeWatcherRegistry';

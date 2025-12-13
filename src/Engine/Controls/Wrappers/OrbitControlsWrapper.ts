@@ -1,7 +1,7 @@
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { IOrbitControlsParams, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
+import type { TOrbitControlsParams, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
 import { getOrbitControlsAccessors } from '@/Engine/Controls/Wrappers/OrbitControlsAccessors';
 import { applyOrbitControlsParams } from '@/Engine/Controls/Wrappers/OrbitControlsWrapperHelper';
 import { withActiveMixin } from '@/Engine/Mixins';
@@ -9,7 +9,7 @@ import { isDefined } from '@/Engine/Utils';
 import type { TVector3Wrapper } from '@/Engine/Vector';
 import { Vector3Wrapper } from '@/Engine/Vector';
 
-export function OrbitControlsWrapper(params: IOrbitControlsParams): TOrbitControlsWrapper {
+export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitControlsWrapper {
   const entity: OrbitControls = new OrbitControls(params.camera.entity, params.canvas);
   if (isDefined(params.target)) {
     entity.target.set(params.target.getX(), params.target.getY(), params.target.getZ());

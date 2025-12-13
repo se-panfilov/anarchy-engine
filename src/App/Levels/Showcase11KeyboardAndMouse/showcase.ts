@@ -3,16 +3,16 @@ import { withLatestFrom } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
+  TCameraRegistry,
+  TCameraWrapper,
+  IIntersectionEvent,
+  IMouseWatcherEvent,
+  IMoverService,
   TActorAsyncRegistry,
   TActorWrapperAsync,
   TAppCanvas,
-  ICameraRegistry,
-  ICameraWrapper,
   TEngine,
-  IIntersectionEvent,
   TIntersectionsWatcher,
-  IMouseWatcherEvent,
-  IMoverService,
   TSpace,
   TSpaceConfig
 } from '@/Engine';
@@ -29,7 +29,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   const { actorService, cameraService, intersectionsWatcherService } = space.services;
   const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
-  const cameraRegistry: ICameraRegistry = cameraService.getRegistry();
+  const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
   if (isNotDefined(actorRegistry)) throw new Error('Actor registry is not defined');
   if (isNotDefined(cameraRegistry)) throw new Error('Camera registry is not defined');
   const { findByNameAsync, findByTagAsync, findByTagsAsync } = actorRegistry;
@@ -115,7 +115,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   }
 
   async function startIntersections(): Promise<TIntersectionsWatcher> {
-    const camera: ICameraWrapper | undefined = cameraService.findActive();
+    const camera: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
     const actor: TActorWrapperAsync | undefined = await findByNameAsync('surface');
     if (isNotDefined(actor)) throw new Error('Actor is not defined');

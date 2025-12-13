@@ -1,7 +1,7 @@
 import type { Material } from 'three';
 import type { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 
-import type { IEulerWrapper } from '@/Engine/Euler';
+import type { TEulerWrapper } from '@/Engine/Euler';
 import type {
   IBasicMaterialTexturePack,
   IDepthMaterialTexturePack,
@@ -9,7 +9,7 @@ import type {
   ILambertMaterialTexturePack,
   IMatcapMaterialTexturePack,
   IMaterialPackParams,
-  IMaterialTexturePack,
+  TMaterialTexturePack,
   INormalMaterialTexturePack,
   IPhongMaterialTexturePack,
   IPhysicalMaterialTexturePack,
@@ -48,11 +48,11 @@ export function applyTexturePack(obj: IWithTextures, pack: IMaterialPackParams<I
 export function applyTexturePack(obj: IWithTextures, pack: IMaterialPackParams<IPhysicalMaterialTexturePack>): Promise<Material>;
 export function applyTexturePack(obj: IWithTextures, pack: IMaterialPackParams<IToonMaterialTexturePack>): Promise<Material>;
 export function applyTexturePack(obj: IWithTextures, pack: IMaterialPackParams<IStandardMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTextures, pack: IMaterialPackParams<IMaterialTexturePack>): Promise<Material> {
+export function applyTexturePack(obj: IWithTextures, pack: IMaterialPackParams<TMaterialTexturePack>): Promise<Material> {
   return obj.loadAndApplyMaterialTexturePack(pack);
 }
 
-export function applyRotation(obj: IRotatable, rotation?: IEulerWrapper): void {
+export function applyRotation(obj: IRotatable, rotation?: TEulerWrapper): void {
   if (isDefined(rotation)) obj.setRotation(rotation.getRotationX(), rotation.getRotationY(), rotation.getRotationZ());
 }
 

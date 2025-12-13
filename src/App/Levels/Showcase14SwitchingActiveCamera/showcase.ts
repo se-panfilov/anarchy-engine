@@ -1,7 +1,7 @@
 import GUI from 'lil-gui';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, ICameraRegistry, ICameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TCameraRegistry, TCameraWrapper, TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -14,7 +14,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   const { actorService, cameraService } = space.services;
   const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
-  const cameraRegistry: ICameraRegistry = cameraService.getRegistry();
+  const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
   const { clickLeftRelease$ } = mouseService;
 
   async function init(): Promise<void> {
@@ -26,7 +26,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     let counter: number = 1;
     const getCameraName = (): string => `cam${counter}`;
     clickLeftRelease$.subscribe((): void => {
-      const camera: ICameraWrapper | undefined = cameraRegistry.findByName(getCameraName());
+      const camera: TCameraWrapper | undefined = cameraRegistry.findByName(getCameraName());
       console.log(getCameraName(), cameraService.findActive()?.name, getCameraName() === cameraService.findActive()?.name);
       if (isNotDefined(camera)) throw new Error(`Cannot switch camera: camera ("${getCameraName()}") not found`);
       cameraFolder = resetGui(cameraFolder, camera);
@@ -41,7 +41,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     });
   }
 
-  function resetGui(folder: GUI | undefined, camera: ICameraWrapper): GUI {
+  function resetGui(folder: GUI | undefined, camera: TCameraWrapper): GUI {
     folder?.destroy();
     folder = gui.addFolder(`Active camera ${camera.name}`);
     folder.add(camera.entity.position, 'x').min(-50).max(50).step(0.5);

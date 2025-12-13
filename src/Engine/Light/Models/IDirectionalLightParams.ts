@@ -1,6 +1,6 @@
-import type { IWithReadonlyTags } from '@/Engine/Mixins';
+import type { TWithReadonlyTags } from '@/Engine/Mixins';
 import type { IObject3DParams } from '@/Engine/ThreeLib';
 
 import type { IDirectionalLightProps } from './IDirectionalLightProps';
 
-export type IDirectionalLightParams = IDirectionalLightProps & IObject3DParams & IWithReadonlyTags;
+export type IDirectionalLightParams = IDirectionalLightProps & IObject3DParams & TWithReadonlyTags;

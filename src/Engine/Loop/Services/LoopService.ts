@@ -1,13 +1,13 @@
 import { Subject } from 'rxjs';
 import { Clock } from 'three';
 
-import type { ILoopService, ILoopTimes } from '@/Engine/Loop/Models';
+import type { TLoopService, ILoopTimes } from '@/Engine/Loop/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 
 type ILoopServiceState = { isLooping: boolean };
 
-export function LoopService(): ILoopService {
+export function LoopService(): TLoopService {
   const tick$: Subject<ILoopTimes> = new Subject<ILoopTimes>();
   const state: ILoopServiceState = {
     isLooping: false

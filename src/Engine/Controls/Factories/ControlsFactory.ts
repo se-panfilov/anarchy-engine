@@ -1,14 +1,14 @@
 import type { TReactiveFactory } from '@/Engine/Abstract';
 import { FactoryType, ReactiveFactory } from '@/Engine/Abstract';
 import { configToParams } from '@/Engine/Controls/Adapters';
-import type { IControlsFactory, IControlsParams, IControlsWrapper, IOrbitControlsParams } from '@/Engine/Controls/Models';
+import type { TControlsFactory, TControlsParams, TControlsWrapper, TOrbitControlsParams } from '@/Engine/Controls/Models';
 import { OrbitControlsWrapper } from '@/Engine/Controls/Wrappers';
 
 // eslint-disable-next-line functional/prefer-tacit
-function create(params: IOrbitControlsParams): IControlsWrapper {
+function create(params: TOrbitControlsParams): TControlsWrapper {
   // TODO (S.Panfilov) Add support for other types of controls
   return OrbitControlsWrapper(params);
 }
 
-export const controlsWithConfigFactory: TReactiveFactory<IControlsWrapper, IControlsParams> = { ...ReactiveFactory(FactoryType.Controls, create) };
-export const ControlsFactory = (): IControlsFactory => ({ ...controlsWithConfigFactory, configToParams });
+export const controlsWithConfigFactory: TReactiveFactory<TControlsWrapper, TControlsParams> = { ...ReactiveFactory(FactoryType.Controls, create) };
+export const ControlsFactory = (): TControlsFactory => ({ ...controlsWithConfigFactory, configToParams });

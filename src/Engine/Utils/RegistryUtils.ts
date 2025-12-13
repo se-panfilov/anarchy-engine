@@ -1,6 +1,6 @@
 import type { TAbstractEntityRegistry, TProtectedRegistry } from '@/Engine/Abstract/Models';
 import type { LookUpStrategy } from '@/Engine/Abstract/Registries';
-import type { TRegistrable, IWithActiveMixin } from '@/Engine/Mixins';
+import type { IWithActiveMixin, TRegistrable } from '@/Engine/Mixins';
 import { isNotDefined } from '@/Engine/Utils';
 
 export const getAll = <T>(registry: ReadonlyMap<string, T>): ReadonlyArray<T> => Array.from(registry.values());

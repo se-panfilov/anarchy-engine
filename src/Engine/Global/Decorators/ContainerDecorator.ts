@@ -1,9 +1,9 @@
 import { nanoid } from 'nanoid';
 
 import type { TAppCanvas } from '@/Engine/App';
-import type { IAppGlobalContainer, IGlobalContainerDecorator } from '@/Engine/Global/Models';
+import type { IAppGlobalContainer, TGlobalContainerDecorator } from '@/Engine/Global/Models';
 
-export function ContainerDecorator(container: IAppGlobalContainer): IGlobalContainerDecorator {
+export function ContainerDecorator(container: IAppGlobalContainer): TGlobalContainerDecorator {
   return {
     id: nanoid(),
     getWidth: (): number => container.innerWidth,

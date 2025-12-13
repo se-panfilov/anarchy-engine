@@ -1,8 +1,8 @@
-import type { ICameraConfig, ICameraParams } from '@/Engine/Camera/Models';
+import type { TCameraConfig, TCameraParams } from '@/Engine/Camera/Models';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { Vector3Wrapper } from '@/Engine/Vector';
 
-export function configToParams(config: ICameraConfig): ICameraParams {
+export function configToParams(config: TCameraConfig): TCameraParams {
   const { position, rotation, scale, layers, lookAt, animations, ...rest } = config;
 
   return {

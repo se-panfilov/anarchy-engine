@@ -1,12 +1,12 @@
 import { bindKey, bindKeyCombo, checkKey, checkKeyCombo, unbindKey, unbindKeyCombo } from '@rwh/keystrokes';
 import { Subject } from 'rxjs';
 
-import type { IGameKey, IKeyboardRegistry, IKeyboardRegistryValues, IKeyboardService, IKeyCombo, IKeySubscription } from '@/Engine/Keyboard/Models';
+import type { IGameKey, IKeyboardRegistry, IKeyboardRegistryValues, TKeyboardService, IKeyCombo, IKeySubscription } from '@/Engine/Keyboard/Models';
 import { KeyboardRegistry } from '@/Engine/Keyboard/Registries';
-import type { ILoopService, ILoopTimes } from '@/Engine/Loop';
+import type { TLoopService, ILoopTimes } from '@/Engine/Loop';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function KeyboardService(loopService: ILoopService): IKeyboardService {
+export function KeyboardService(loopService: TLoopService): TKeyboardService {
   const keyboardRegistry: IKeyboardRegistry = KeyboardRegistry();
 
   function createKeySubscriptions(key: IGameKey | IKeyCombo): IKeySubscription {

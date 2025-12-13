@@ -1,3 +1,3 @@
-import type { IMaterialTextureService } from '@/Engine/MaterialTexturePack/Models';
+import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack/Models';
 
-export type IParticlesDependencies = Readonly<{ materialTextureService: IMaterialTextureService }>;
+export type IParticlesDependencies = Readonly<{ materialTextureService: TMaterialTextureService }>;

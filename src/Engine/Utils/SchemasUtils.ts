@@ -1,8 +1,8 @@
 import Ajv from 'ajv';
 
-import type { ICameraConfig } from '@/Engine/Camera';
-import type { IControlsConfig } from '@/Engine/Controls';
-import type { IWithName, IWithReadonlyTags } from '@/Engine/Mixins';
+import type { TCameraConfig } from '@/Engine/Camera';
+import type { TControlsConfig } from '@/Engine/Controls';
+import type { IWithName, TWithReadonlyTags } from '@/Engine/Mixins';
 import type { ISceneConfig } from '@/Engine/Scene';
 import type { TSpaceConfig } from '@/Engine/Space';
 import ISpaceConfigSchema from '@/Engine/Space/Schemas/ISpaceConfig.json';
@@ -11,9 +11,9 @@ import { isDefined } from './CheckUtils';
 
 const ajv: Ajv = new Ajv();
 
-type ISchemaValidationResult = Readonly<{ isValid: boolean; errors: ReadonlyArray<any> | null | undefined }>;
+type TSchemaValidationResult = Readonly<{ isValid: boolean; errors: ReadonlyArray<any> | null | undefined }>;
 
-export function validLevelConfig(config: TSpaceConfig): ISchemaValidationResult {
+export function validLevelConfig(config: TSpaceConfig): TSchemaValidationResult {
   const jsonResult = validateJsonSchema(config);
   const dataResult = validateData(config);
   const jsonErrors: ReadonlyArray<any> = jsonResult.errors ?? [];
@@ -22,26 +22,26 @@ export function validLevelConfig(config: TSpaceConfig): ISchemaValidationResult 
   return { isValid: jsonResult.isValid && dataResult.isValid, errors: [...jsonErrors, ...dataErrors] };
 }
 
-function validateJsonSchema(config: TSpaceConfig): ISchemaValidationResult {
+function validateJsonSchema(config: TSpaceConfig): TSchemaValidationResult {
   const validate = ajv.compile(ISpaceConfigSchema);
   const isValid: boolean = validate(config);
   return { isValid, errors: validate.errors };
 }
 
-function validateData({ name, actors, cameras, scenes, controls, intersections, lights, fogs, texts, tags }: TSpaceConfig): ISchemaValidationResult {
+function validateData({ name, actors, cameras, scenes, controls, intersections, lights, fogs, texts, tags }: TSpaceConfig): TSchemaValidationResult {
   let errors: ReadonlyArray<string> = [];
 
   //must be defined
   const isNoScenesDefined: boolean = scenes.length === 0;
 
   //check active entities
-  const isMultipleActiveCameras: boolean = cameras.filter((camera: ICameraConfig) => camera.isActive).length > 1;
+  const isMultipleActiveCameras: boolean = cameras.filter((camera: TCameraConfig) => camera.isActive).length > 1;
   const isMultipleActiveScenes: boolean = scenes.filter((scene: ISceneConfig) => scene.isActive).length > 1;
-  const isMultipleActiveControls: boolean = controls.filter((control: IControlsConfig) => control.isActive).length > 1;
+  const isMultipleActiveControls: boolean = controls.filter((control: TControlsConfig) => control.isActive).length > 1;
 
   //check relations
   const isControlsWithoutCamera: boolean = controls.length > 0 && cameras.length === 0;
-  const isEveryControlsHasCamera: boolean = controls.every((control: IControlsConfig) => cameras.some((camera: ICameraConfig): boolean => camera.name === control.cameraName));
+  const isEveryControlsHasCamera: boolean = controls.every((control: TControlsConfig) => cameras.some((camera: TCameraConfig): boolean => camera.name === control.cameraName));
 
   //Regexp checks (ts-json schema does not support regexp patterns atm)
   //names
@@ -109,7 +109,7 @@ const validateCameraName = (entity: Readonly<{ cameraName: string }>): boolean =
 const validateActorNamesForEveryEntity = (entities: ReadonlyArray<Readonly<{ actorNames: ReadonlyArray<string> }>>): boolean => entities.every(validateActorNames);
 const validateActorNames = (entity: Readonly<{ actorNames: ReadonlyArray<string> }>): boolean => validateArrayField(entity, 'actorNames');
 
-const validateTagsForEveryEntity = (entities: ReadonlyArray<IWithReadonlyTags>): boolean => entities.every((e: IWithReadonlyTags): boolean => validateTags(e.tags));
+const validateTagsForEveryEntity = (entities: ReadonlyArray<TWithReadonlyTags>): boolean => entities.every((e: TWithReadonlyTags): boolean => validateTags(e.tags));
 const validateTags = (tags: ReadonlyArray<string>): boolean => tags.every(validate);
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument

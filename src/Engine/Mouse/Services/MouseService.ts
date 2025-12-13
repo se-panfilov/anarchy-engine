@@ -2,7 +2,7 @@ import { filter, Subject } from 'rxjs';
 
 import { WatcherTag } from '@/Engine/Abstract';
 import { ambientContext } from '@/Engine/Context';
-import type { IGlobalContainerDecorator } from '@/Engine/Global';
+import type { TGlobalContainerDecorator } from '@/Engine/Global';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@/Engine/Mouse/Constants';
@@ -19,7 +19,7 @@ import type {
 } from '@/Engine/Mouse/Models';
 import { MouseClickWatcherRegistry, MousePositionWatcherRegistry } from '@/Engine/Mouse/Registries';
 
-export function MouseService(container: IGlobalContainerDecorator): IMouseService {
+export function MouseService(container: TGlobalContainerDecorator): IMouseService {
   const mouseClickWatcherFactory: IMouseClickWatcherFactory = MouseClickWatcherFactory();
   const mouseClickWatcherRegistry: IMouseClickWatcherRegistry = MouseClickWatcherRegistry();
   mouseClickWatcherFactory.entityCreated$.subscribe((watcher: IMouseClickWatcher) => mouseClickWatcherRegistry.add(watcher));

@@ -1,10 +1,10 @@
-import type { IEulerWrapper } from '@/Engine/Euler';
+import type { TEulerWrapper } from '@/Engine/Euler';
 import { EulerWrapper } from '@/Engine/Euler';
 import type { IScalable, IWithScale } from '@/Engine/Mixins/GameObjects/Models';
 
 export function scalableMixin(entity: IWithScale): IScalable {
-  const setScale = (x: number, y: number, z: number): IEulerWrapper => EulerWrapper(entity.scale.set(x, y, z));
-  const getScale = (): IEulerWrapper => EulerWrapper(entity.scale);
+  const setScale = (x: number, y: number, z: number): TEulerWrapper => EulerWrapper(entity.scale.set(x, y, z));
+  const getScale = (): TEulerWrapper => EulerWrapper(entity.scale);
 
   const setScaleX = (x: number): void => void entity.scale.set(x, entity.scale.y, entity.scale.z);
   const getScaleX = (): number => entity.scale.x;

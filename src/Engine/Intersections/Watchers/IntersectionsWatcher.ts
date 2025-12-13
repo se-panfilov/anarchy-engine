@@ -4,20 +4,20 @@ import { Raycaster } from 'three';
 import type { TAbstractWatcher } from '@/Engine/Abstract';
 import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
 import type { TActorWrapperAsync } from '@/Engine/Actor';
-import type { ICameraWrapper } from '@/Engine/Camera';
-import type { IIntersectionEvent, TIntersectionsWatcher, IIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
+import type { TCameraWrapper } from '@/Engine/Camera';
+import type { IIntersectionEvent, IIntersectionsWatcherParams, TIntersectionsWatcher } from '@/Engine/Intersections/Models';
 import type { IMousePosition } from '@/Engine/Mouse';
 import { getNormalizedMousePosition } from '@/Engine/Mouse';
 import type { ISceneObject } from '@/Engine/Scene';
 import type { IMesh } from '@/Engine/ThreeLib';
-import type { IWriteable } from '@/Engine/Utils';
+import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined, unWrapEntities } from '@/Engine/Utils';
 
 export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...rest }: IIntersectionsWatcherParams): TIntersectionsWatcher {
   const abstractWatcher: TAbstractWatcher<IIntersectionEvent> = AbstractWatcher(WatcherType.IntersectionWatcher, name, tags);
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
   let actors: ReadonlyArray<TActorWrapperAsync> = [];
-  let camera: Readonly<ICameraWrapper> | undefined;
+  let camera: Readonly<TCameraWrapper> | undefined;
 
   const addActors = (actorWrappers: ReadonlyArray<TActorWrapperAsync>): void => void (actors = [...actors, ...actorWrappers]);
   const addActor = (actorWrapper: TActorWrapperAsync): void => void (actors = [...actors, actorWrapper]);
@@ -25,8 +25,8 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
   const removeActors = (actorWrapperIds: ReadonlyArray<string>): void => void (actors = actors.filter((actor: TActorWrapperAsync): boolean => !actorWrapperIds.includes(actor.id)));
   const removeActor = (actorWrapperId: string): void => void (actors = actors.filter((actor: TActorWrapperAsync): boolean => actorWrapperId !== actor.id));
 
-  const setCamera = (cam: ICameraWrapper): void => void (camera = cam);
-  const getCamera = (): ICameraWrapper | undefined => camera;
+  const setCamera = (cam: TCameraWrapper): void => void (camera = cam);
+  const getCamera = (): TCameraWrapper | undefined => camera;
 
   let mousePos$: Subscription | undefined;
 
@@ -48,7 +48,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
     return result;
   }
 
-  function getIntersection(position: IMousePosition, cameraWrapper: Readonly<ICameraWrapper>, list: Array<ISceneObject>): IIntersectionEvent | undefined | never {
+  function getIntersection(position: IMousePosition, cameraWrapper: Readonly<TCameraWrapper>, list: Array<ISceneObject>): IIntersectionEvent | undefined | never {
     if (isNotDefined(raycaster)) throw new Error('Intersections service: cannot get intersection: a raycaster is not defined');
     raycaster.setFromCamera(getNormalizedMousePosition(position), cameraWrapper.entity);
     return raycaster.intersectObjects(list)[0];
@@ -60,7 +60,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
     abstractWatcherSubscription.unsubscribe();
   });
 
-  const result: IWriteable<TIntersectionsWatcher> = {
+  const result: TWriteable<TIntersectionsWatcher> = {
     ...abstractWatcher,
     value$: abstractWatcher.value$.asObservable(),
     addActors,

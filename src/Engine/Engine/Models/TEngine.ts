@@ -1,7 +1,7 @@
-import type { IEngineServices } from './IEngineServices';
+import type { TEngineServices } from './TEngineServices';
 
 export type TEngine = Readonly<{
   start: () => void;
   stop: () => void;
-  services: IEngineServices;
+  services: TEngineServices;
 }>;

@@ -1,8 +1,8 @@
-import type { IEulerWrapper } from '@/Engine/Euler';
+import type { TEulerWrapper } from '@/Engine/Euler';
 
 export type IScalable = Readonly<{
-  setScale: (x: number, y: number, z: number) => IEulerWrapper;
-  getScale: () => IEulerWrapper;
+  setScale: (x: number, y: number, z: number) => TEulerWrapper;
+  getScale: () => TEulerWrapper;
   setScaleX: (x: number) => void;
   getScaleX: () => number;
   setScaleY: (y: number) => void;

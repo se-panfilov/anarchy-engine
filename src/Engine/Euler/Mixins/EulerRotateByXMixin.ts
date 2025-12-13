@@ -1,8 +1,8 @@
 import type { Euler } from 'three';
 
-import type { IEulerWithX } from '@/Engine/Euler/Models';
+import type { TEulerWithX } from '@/Engine/Euler/Models';
 
-export function eulerRotateByXMixin(entity: Euler): IEulerWithX {
+export function eulerRotateByXMixin(entity: Euler): TEulerWithX {
   // eslint-disable-next-line functional/immutable-data
   const setRotationX = (x: number): number => (entity.x = x);
   const getRotationX = (): number => entity.x;

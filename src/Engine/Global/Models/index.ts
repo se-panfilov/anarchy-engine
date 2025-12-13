@@ -1,2 +1,2 @@
 export * from './IAppGlobalContainer';
-export * from './IGlobalContainerDecorator';
+export * from './TGlobalContainerDecorator';

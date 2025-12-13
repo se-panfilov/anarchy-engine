@@ -8,7 +8,7 @@ import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry, Intersection
 import { LightFactory, LightRegistry, LightService } from '@/Engine/Light';
 import type { IMaterialService } from '@/Engine/Material';
 import { MaterialFactory, MaterialRegistry, MaterialService } from '@/Engine/Material';
-import type { IMaterialTextureService } from '@/Engine/MaterialTexturePack';
+import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import { MaterialTextureService } from '@/Engine/MaterialTexturePack';
 import { ParticlesAsyncRegistry, ParticlesFactory, ParticlesService } from '@/Engine/Particles';
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
@@ -28,7 +28,7 @@ export function initSceneService(): TScenesService {
 
 export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): Omit<TSpaceServices, 'scenesService'> {
   const materialService: IMaterialService = MaterialService(MaterialFactory(), MaterialRegistry());
-  const materialTextureService: IMaterialTextureService = MaterialTextureService(materialService, textureService);
+  const materialTextureService: TMaterialTextureService = MaterialTextureService(materialService, textureService);
 
   return {
     actorService: ActorService(ActorFactory(), ActorAsyncRegistry(), materialTextureService, scene),

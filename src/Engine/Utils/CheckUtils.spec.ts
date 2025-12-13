@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Vector2, Vector3, Vector4 } from 'three';
 
 import { ColorWrapper } from '@/Engine/Color';
-import type { TDestroyable, TRegistrable, IWithPosition2dProperty, IWithPosition3dProperty, IWithPosition4dProperty } from '@/Engine/Mixins';
+import type { IWithPosition2dProperty, IWithPosition3dProperty, IWithPosition4dProperty, TDestroyable, TRegistrable } from '@/Engine/Mixins';
 import { Vector2Wrapper, Vector3Wrapper, Vector4Wrapper } from '@/Engine/Vector';
 
 import {

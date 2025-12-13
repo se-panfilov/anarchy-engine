@@ -1,8 +1,8 @@
 import type { Euler } from 'three';
 
-import type { IEulerWithZ } from '@/Engine/Euler/Models';
+import type { TEulerWithZ } from '@/Engine/Euler/Models';
 
-export function eulerRotateByZMixin(entity: Euler): IEulerWithZ {
+export function eulerRotateByZMixin(entity: Euler): TEulerWithZ {
   // eslint-disable-next-line functional/immutable-data
   const setRotationZ = (z: number): number => (entity.z = z);
   const getRotationZ = (): number => entity.z;

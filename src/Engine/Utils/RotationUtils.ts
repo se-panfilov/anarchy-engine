@@ -1,4 +1,4 @@
-import type { IWithCoordsXYZ } from '@/Engine/Mixins';
+import type { TWithCoordsXYZ } from '@/Engine/Mixins';
 
 export function getRotationBySin(coord: number, fullRotation: number = 1, distance: number = 2): number {
   const rotateTimes: number = 2 * Math.PI * fullRotation;
@@ -16,7 +16,7 @@ export enum RotationDirections {
   XZ = 'XZ'
 }
 
-export function getCircleRotation(rotateBy: RotationDirections, x: number, y: number, z: number, fullRotation: number = 1, distance: number): IWithCoordsXYZ | never {
+export function getCircleRotation(rotateBy: RotationDirections, x: number, y: number, z: number, fullRotation: number = 1, distance: number): TWithCoordsXYZ | never {
   const rotateTimes: number = 2 * Math.PI * fullRotation;
   switch (rotateBy) {
     case RotationDirections.XY:

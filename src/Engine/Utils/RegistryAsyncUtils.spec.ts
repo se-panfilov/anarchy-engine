@@ -1,7 +1,7 @@
 import { firstValueFrom } from 'rxjs';
 import { expect } from 'vitest';
 
-import type { TAbstractAsyncRegistry, TAbstractEntityRegistry, RegistryType } from '@/Engine/Abstract';
+import type { RegistryType, TAbstractAsyncRegistry, TAbstractEntityRegistry } from '@/Engine/Abstract';
 import { AbstractAsyncRegistry, AbstractEntityRegistry, LookUpStrategy } from '@/Engine/Abstract';
 import type { TRegistrable } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins';

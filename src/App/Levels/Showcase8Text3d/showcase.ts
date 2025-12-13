@@ -1,7 +1,7 @@
 import './fonts.css';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { IAnimationParams, TAppCanvas, TEngine, IMoverService, TSpace, TSpaceConfig, IText3dWrapper, IWithCoordsXZ } from '@/Engine';
+import type { IAnimationParams, IMoverService, IText3dWrapper, IWithCoordsXZ, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, EulerWrapper, generateAnglesForCircle, mouseService, TextType, Vector3Wrapper } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 

@@ -1,5 +1,5 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAppCanvas, TEngine, IParticlesWrapperAsync, TSpace, TSpaceConfig } from '@/Engine';
+import type { IParticlesWrapperAsync, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined } from '@/Engine';
 
 import spaceConfig from './showcase.json';

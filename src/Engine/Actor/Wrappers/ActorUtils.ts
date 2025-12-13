@@ -1,14 +1,14 @@
 import { BoxGeometry, Mesh, PlaneGeometry, SphereGeometry } from 'three';
 
 import { ActorType } from '@/Engine/Actor/Constants';
-import type { IActorParams } from '@/Engine/Actor/Models';
+import type { TActorParams } from '@/Engine/Actor/Models';
 import type { IMaterials, IMaterialWrapper } from '@/Engine/Material';
-import type { IMaterialTextureService } from '@/Engine/MaterialTexturePack';
+import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import { meters } from '@/Engine/Measurements/Utils';
 import type { IMesh } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
 
-export async function createActor(params: IActorParams, materialTextureService: IMaterialTextureService): Promise<IMesh> | never {
+export async function createActor(params: TActorParams, materialTextureService: TMaterialTextureService): Promise<IMesh> | never {
   const materialWrapper: IMaterialWrapper = await materialTextureService.createAsync(params.material);
 
   if (params.type === ActorType.plane) return createPlane(params, materialWrapper.entity);
@@ -17,18 +17,18 @@ export async function createActor(params: IActorParams, materialTextureService: 
   throw new Error('Cannot create Actor: unknown actor type');
 }
 
-function createPlane({ width, height, widthSegments, heightSegments }: IActorParams, material: IMaterials): IMesh {
+function createPlane({ width, height, widthSegments, heightSegments }: TActorParams, material: IMaterials): IMesh {
   const w: number | undefined = isDefined(width) ? meters(width) : undefined;
   const h: number | undefined = isDefined(height) ? meters(height) : undefined;
   return new Mesh(new PlaneGeometry(w, h, widthSegments, heightSegments), material);
 }
 
-function createSphere({ radius, widthSegments, heightSegments }: IActorParams, material: IMaterials): IMesh {
+function createSphere({ radius, widthSegments, heightSegments }: TActorParams, material: IMaterials): IMesh {
   const r: number | undefined = isDefined(radius) ? meters(radius) : undefined;
   return new Mesh(new SphereGeometry(r, widthSegments, heightSegments), material);
 }
 
-function createCube({ width, height, depth, widthSegments, heightSegments, depthSegments }: IActorParams, material: IMaterials): IMesh {
+function createCube({ width, height, depth, widthSegments, heightSegments, depthSegments }: TActorParams, material: IMaterials): IMesh {
   const w: number | undefined = isDefined(width) ? meters(width) : undefined;
   const h: number | undefined = isDefined(height) ? meters(height) : undefined;
   return new Mesh(new BoxGeometry(w, h, depth, widthSegments, heightSegments, depthSegments), material);

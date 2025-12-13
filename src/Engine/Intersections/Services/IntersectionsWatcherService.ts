@@ -1,12 +1,12 @@
-import type { IActorService } from '@/Engine/Actor';
-import type { ICameraService } from '@/Engine/Camera';
+import type { TActorService } from '@/Engine/Actor';
+import type { TCameraService } from '@/Engine/Camera';
 import type {
-  TIntersectionsWatcher,
   IIntersectionsWatcherAsyncRegistry,
   IIntersectionsWatcherConfig,
   IIntersectionsWatcherFactory,
   IIntersectionsWatcherParams,
-  IIntersectionsWatcherService
+  IIntersectionsWatcherService,
+  TIntersectionsWatcher
 } from '@/Engine/Intersections/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -19,8 +19,8 @@ export function IntersectionsWatcherService(factory: IIntersectionsWatcherFactor
   const createFromConfigAsync = (
     configs: ReadonlyArray<IIntersectionsWatcherConfig>,
     mouseService: IMouseService,
-    cameraService: ICameraService,
-    actorService: IActorService
+    cameraService: TCameraService,
+    actorService: TActorService
   ): Promise<ReadonlyArray<TIntersectionsWatcher>> => {
     return Promise.all(
       configs.map((config: IIntersectionsWatcherConfig): Promise<TIntersectionsWatcher> => factory.configToParamsAsync(config, mouseService, cameraService, actorService).then(factory.create))

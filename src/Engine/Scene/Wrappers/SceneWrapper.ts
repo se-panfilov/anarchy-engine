@@ -3,10 +3,10 @@ import { Scene } from 'three';
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActorWrapperAsync } from '@/Engine/Actor';
-import type { ICameraWrapper } from '@/Engine/Camera';
-import type { IColor } from '@/Engine/Color';
+import type { TCameraWrapper } from '@/Engine/Camera';
+import type { TColor } from '@/Engine/Color';
 import { ColorWrapper } from '@/Engine/Color';
-import type { IDataTexture } from '@/Engine/EnvMap';
+import type { TDataTexture } from '@/Engine/EnvMap';
 import type { IFogWrapper } from '@/Engine/Fog';
 import type { IAbstractLightWrapper, ILight } from '@/Engine/Light';
 import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
@@ -14,18 +14,18 @@ import type { IParticlesWrapperAsync } from '@/Engine/Particles';
 import type { ISceneObject, ISceneParams, TSceneWrapper } from '@/Engine/Scene/Models';
 import type { ITextAnyWrapper } from '@/Engine/Text';
 import type { ICubeTexture, ITexture } from '@/Engine/Texture';
-import type { IWriteable } from '@/Engine/Utils';
+import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined, isString } from '@/Engine/Utils';
 
 export function SceneWrapper(params: ISceneParams): TSceneWrapper {
-  const entity: IWriteable<Scene> = new Scene();
+  const entity: TWriteable<Scene> = new Scene();
 
   if (isDefined(params.background)) setBackground(params.background);
 
   const wrapper: TWrapper<Scene> = AbstractWrapper(entity, WrapperType.Scene, params);
 
   const add = (obj: ISceneObject): void => void entity.add(obj);
-  const addCamera = (camera: Readonly<ICameraWrapper>): void => add(camera.entity);
+  const addCamera = (camera: Readonly<TCameraWrapper>): void => add(camera.entity);
   const addActor = (actor: Readonly<TActorWrapperAsync>): void => add(actor.entity);
   const addLight = <T extends ILight>(light: Readonly<IAbstractLightWrapper<T>>): void => add(light.entity);
   const addParticles = (particles: Readonly<IParticlesWrapperAsync>): void => add(particles.entity);
@@ -35,8 +35,8 @@ export function SceneWrapper(params: ISceneParams): TSceneWrapper {
   // eslint-disable-next-line functional/immutable-data
   const setFog = (fog: Readonly<IFogWrapper>): void => void (entity.fog = fog.entity);
 
-  function setBackground(color: string | IColor | ITexture | ICubeTexture | IDataTexture): void {
-    let background: string | IColor | ITexture | ICubeTexture | null = null;
+  function setBackground(color: string | TColor | ITexture | ICubeTexture | TDataTexture): void {
+    let background: string | TColor | ITexture | ICubeTexture | null = null;
     if (isString(color)) background = ColorWrapper(color).entity;
     else background = color;
     if (isNotDefined(background)) throw new Error('Invalid background');
@@ -44,10 +44,10 @@ export function SceneWrapper(params: ISceneParams): TSceneWrapper {
     entity.background = background;
   }
 
-  const getBackground = (): IColor | ITexture | ICubeTexture | null => entity.background;
+  const getBackground = (): TColor | ITexture | ICubeTexture | null => entity.background;
 
   // eslint-disable-next-line functional/immutable-data
-  const setEnvironmentMap = (texture: IDataTexture | ITexture): void => void (entity.environment = texture);
+  const setEnvironmentMap = (texture: TDataTexture | ITexture): void => void (entity.environment = texture);
 
   const getEnvironmentMap = (): ITexture | null => entity.environment;
 

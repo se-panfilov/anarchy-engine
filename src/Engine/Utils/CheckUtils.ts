@@ -1,8 +1,8 @@
 import { Color } from 'three';
 
 import type { TAbstractAsyncRegistry, TAbstractEntityRegistry, TWithUserData, TWithWrapperId, TWithWrapperIdEntity } from '@/Engine/Abstract/Models';
-import type { IColorWrapper } from '@/Engine/Color';
-import type { TDestroyable, TRegistrable, IWithPosition2dProperty, IWithPosition3dProperty, IWithPosition4dProperty, IWithPositionProperty } from '@/Engine/Mixins';
+import type { TColorWrapper } from '@/Engine/Color';
+import type { IWithPosition2dProperty, IWithPosition3dProperty, IWithPosition4dProperty, IWithPositionProperty, TDestroyable, TRegistrable } from '@/Engine/Mixins';
 import type { TVector2, TVector2Wrapper, TVector3, TVector3Wrapper, TVector4, TVector4Wrapper } from '@/Engine/Vector';
 
 import { isObject } from './ObjectUtils';
@@ -27,8 +27,8 @@ export function isString(value: unknown): value is string {
   return typeof value === 'string';
 }
 
-export function isColorWrapper(obj: unknown): obj is IColorWrapper {
-  return isDefined((obj as IColorWrapper).entity) && (obj as IColorWrapper).entity instanceof Color;
+export function isColorWrapper(obj: unknown): obj is TColorWrapper {
+  return isDefined((obj as TColorWrapper).entity) && (obj as TColorWrapper).entity instanceof Color;
 }
 
 export const isWithUserData = (entity: any): entity is TWithUserData => isDefined((entity as TWithUserData).userData);

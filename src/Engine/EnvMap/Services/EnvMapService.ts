@@ -2,15 +2,15 @@ import { Subject } from 'rxjs';
 import { EquirectangularReflectionMapping } from 'three';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
 
-import type { IDataTexture, IEnvMapService } from '@/Engine/EnvMap/Models';
-import type { IWriteable } from '@/Engine/Utils';
+import type { TDataTexture, TEnvMapService } from '@/Engine/EnvMap/Models';
+import type { TWriteable } from '@/Engine/Utils';
 
-export function EnvMapService(): IEnvMapService {
+export function EnvMapService(): TEnvMapService {
   const envMapLoader: RGBELoader = new RGBELoader();
-  const added$: Subject<IDataTexture> = new Subject<IDataTexture>();
+  const added$: Subject<TDataTexture> = new Subject<TDataTexture>();
 
-  function load(url: string): Promise<IDataTexture> {
-    return envMapLoader.loadAsync(url).then((texture: IWriteable<IDataTexture>): IDataTexture => {
+  function load(url: string): Promise<TDataTexture> {
+    return envMapLoader.loadAsync(url).then((texture: TWriteable<TDataTexture>): TDataTexture => {
       // eslint-disable-next-line functional/immutable-data
       texture.mapping = EquirectangularReflectionMapping;
       setTimeout(() => added$.next(texture), 1000);

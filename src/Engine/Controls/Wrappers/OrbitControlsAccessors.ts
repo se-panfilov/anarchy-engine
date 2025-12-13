@@ -1,10 +1,10 @@
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-import type { IOrbitControlsAccessors } from '@/Engine/Controls/Models';
-import type { IWriteable } from '@/Engine/Utils';
+import type { TOrbitControlsAccessors } from '@/Engine/Controls/Models';
+import type { TWriteable } from '@/Engine/Utils';
 import type { TVector3Wrapper } from '@/Engine/Vector';
 
-export function getOrbitControlsAccessors(entity: IWriteable<OrbitControls>): IOrbitControlsAccessors {
+export function getOrbitControlsAccessors(entity: TWriteable<OrbitControls>): TOrbitControlsAccessors {
   // eslint-disable-next-line functional/immutable-data
   const setDamping = (isEnabled: boolean): void => void (entity.enableDamping = isEnabled);
   const getDamping = (): boolean => entity.enableDamping;

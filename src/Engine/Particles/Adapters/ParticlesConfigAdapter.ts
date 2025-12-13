@@ -1,5 +1,5 @@
 import { configToParams as materialConfigToParams } from '@/Engine/Material/Adapters';
-import type { IMaterialPackParams, IMaterialTexturePack } from '@/Engine/MaterialTexturePack';
+import type { IMaterialPackParams, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
 import type { IParticlesConfig, IParticlesParams } from '@/Engine/Particles/Models';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 
@@ -9,7 +9,7 @@ export function configToParams(config: IParticlesConfig): IParticlesParams {
 
   return {
     ...rest,
-    material: { type: materialType, params: { ...restMaterialParams }, textures: material.textures } satisfies IMaterialPackParams<IMaterialTexturePack>,
+    material: { type: materialType, params: { ...restMaterialParams }, textures: material.textures } satisfies IMaterialPackParams<TMaterialTexturePack>,
     ...configToParamsObject3d({ position, rotation, scale, layers, animations })
   };
 }

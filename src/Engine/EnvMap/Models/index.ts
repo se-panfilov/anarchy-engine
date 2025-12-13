@@ -1,2 +1,2 @@
-export * from './IDataTexture';
-export * from './IEnvMapService';
+export * from './TDataTexture';
+export * from './TEnvMapService';

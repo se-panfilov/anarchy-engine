@@ -1,5 +1,5 @@
-import type { IValueOf } from '@/Engine/Utils';
+import type { TValueOf } from '@/Engine/Utils';
 
 import type { ITextCssProps } from './ITextCssProps';
 
-export type ITextCssPropsValue = IValueOf<ITextCssProps>;
+export type ITextCssPropsValue = TValueOf<ITextCssProps>;

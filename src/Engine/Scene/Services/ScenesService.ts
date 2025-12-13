@@ -1,4 +1,4 @@
-import type { TDestroyable, IWithActiveMixinResult } from '@/Engine/Mixins';
+import type { IWithActiveMixinResult, TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import type { ISceneConfig, ISceneFactory, ISceneParams, ISceneRegistry, TScenesService, TSceneWrapper } from '@/Engine/Scene';
 

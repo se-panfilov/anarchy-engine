@@ -1,17 +1,17 @@
-import type { TActorAsyncRegistry, IActorConfig, IActorFactory, IActorParams, IActorService, TActorWrapperAsync } from '@/Engine/Actor/Models';
-import type { IMaterialTextureService } from '@/Engine/MaterialTexturePack';
+import type { TActorConfig, TActorFactory, TActorParams, TActorService, TActorAsyncRegistry, TActorWrapperAsync } from '@/Engine/Actor/Models';
+import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 
-export function ActorService(factory: IActorFactory, registry: TActorAsyncRegistry, materialTextureService: IMaterialTextureService, scene: TSceneWrapper): IActorService {
+export function ActorService(factory: TActorFactory, registry: TActorAsyncRegistry, materialTextureService: TMaterialTextureService, scene: TSceneWrapper): TActorService {
   registry.added$.subscribe((wrapper: TActorWrapperAsync): void => scene.addActor(wrapper));
   factory.entityCreated$.subscribe((wrapper: TActorWrapperAsync): void => registry.add(wrapper));
 
-  const createAsync = (params: IActorParams): Promise<TActorWrapperAsync> => factory.createAsync(params, { materialTextureService });
-  const createFromConfig = (actors: ReadonlyArray<IActorConfig>): void => {
+  const createAsync = (params: TActorParams): Promise<TActorWrapperAsync> => factory.createAsync(params, { materialTextureService });
+  const createFromConfig = (actors: ReadonlyArray<TActorConfig>): void => {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    actors.forEach((config: IActorConfig): Promise<TActorWrapperAsync> => factory.createAsync(factory.configToParams(config), { materialTextureService }));
+    actors.forEach((config: TActorConfig): Promise<TActorWrapperAsync> => factory.createAsync(factory.configToParams(config), { materialTextureService }));
   };
 
   const destroyable: TDestroyable = destroyableMixin();
@@ -23,7 +23,7 @@ export function ActorService(factory: IActorFactory, registry: TActorAsyncRegist
   return {
     createAsync,
     createFromConfig,
-    getFactory: (): IActorFactory => factory,
+    getFactory: (): TActorFactory => factory,
     getRegistry: (): TActorAsyncRegistry => registry,
     getScene: (): TSceneWrapper => scene,
     ...destroyable

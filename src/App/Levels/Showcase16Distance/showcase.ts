@@ -1,5 +1,5 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, ICameraRegistry, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TCameraRegistry, TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined, KeyCode, mouseService, mpsSpeed } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -11,7 +11,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   const { actorService, cameraService } = space.services;
   const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
-  const cameraRegistry: ICameraRegistry = cameraService.getRegistry();
+  const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
   if (isNotDefined(actorRegistry)) throw new Error('Actor registry is not defined');
   if (isNotDefined(cameraRegistry)) throw new Error('Camera registry is not defined');
   const { findByNameAsync } = actorRegistry;

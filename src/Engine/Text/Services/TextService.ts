@@ -4,7 +4,7 @@ import type { IAppGlobalContainer } from '@/Engine/Global';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
-import type { IScreenSizeWatcher } from '@/Engine/Screen';
+import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import type {
   IText2dRegistry,
   IText2dRenderer,
@@ -47,13 +47,13 @@ export function TextService(
     text3dRendererRegistry.destroy();
   });
 
-  function createText2dRenderer(container: IAppGlobalContainer, screenSizeWatcher: Readonly<IScreenSizeWatcher>): IText2dRenderer {
+  function createText2dRenderer(container: IAppGlobalContainer, screenSizeWatcher: Readonly<TScreenSizeWatcher>): IText2dRenderer {
     const renderer: IText2dRenderer = initText2dRenderer(container, screenSizeWatcher);
     text2dRendererRegistry.add(renderer.id, renderer);
     return renderer;
   }
 
-  function createText3dRenderer(container: IAppGlobalContainer, screenSizeWatcher: Readonly<IScreenSizeWatcher>): IText3dRenderer {
+  function createText3dRenderer(container: IAppGlobalContainer, screenSizeWatcher: Readonly<TScreenSizeWatcher>): IText3dRenderer {
     const renderer: IText3dRenderer = initText3dRenderer(container, screenSizeWatcher);
     text3dRendererRegistry.add(renderer.id, renderer);
     return renderer;

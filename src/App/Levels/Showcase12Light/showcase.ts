@@ -4,17 +4,17 @@ import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHel
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
-  TAppCanvas,
   IDirectionalLightWrapper,
-  TEngine,
   IHemisphereLightWrapper,
   ILightRegistry,
   IPointLightWrapper,
   IRectAreaLightWrapper,
+  ISpotLightWrapper,
+  TAppCanvas,
+  TEngine,
   TSceneWrapper,
   TSpace,
-  TSpaceConfig,
-  ISpotLightWrapper
+  TSpaceConfig
 } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined } from '@/Engine';
 

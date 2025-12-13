@@ -1,7 +1,7 @@
 import type { WatcherTag } from '@/Engine/Abstract';
-import type { IGlobalContainerDecorator } from '@/Engine/Global';
+import type { TGlobalContainerDecorator } from '@/Engine/Global';
 
 export type IScreenSizeWatcherParams = Readonly<{
-  container: IGlobalContainerDecorator;
+  container: TGlobalContainerDecorator;
   tags?: ReadonlyArray<WatcherTag | string>;
 }>;

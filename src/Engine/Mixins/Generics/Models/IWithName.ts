@@ -1,4 +1,4 @@
-import type { IWriteable } from '@/Engine/Utils';
+import type { TWriteable } from '@/Engine/Utils';
 
 export type IWithName = Readonly<{ name?: string }>;
 export type IWithNameAccessors = Readonly<{
@@ -6,4 +6,4 @@ export type IWithNameAccessors = Readonly<{
   setName: (name: string) => void;
 }>;
 
-export type IWithNameAndNameAccessorsMixin = IWriteable<IWithName> & IWithNameAccessors;
+export type IWithNameAndNameAccessorsMixin = TWriteable<IWithName> & IWithNameAccessors;

@@ -1,7 +1,7 @@
-import type { IGlobalContainerDecorator } from '@/Engine/Global';
-import type { IWithReadonlyTags } from '@/Engine/Mixins';
+import type { TGlobalContainerDecorator } from '@/Engine/Global';
+import type { TWithReadonlyTags } from '@/Engine/Mixins';
 
 export type IMousePositionWatcherParams = Readonly<{
-  container: IGlobalContainerDecorator;
+  container: TGlobalContainerDecorator;
 }> &
-  IWithReadonlyTags;
+  TWithReadonlyTags;

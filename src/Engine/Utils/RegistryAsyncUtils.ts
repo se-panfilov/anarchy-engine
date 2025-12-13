@@ -1,7 +1,7 @@
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, catchError, filter, of, take, timeout } from 'rxjs';
 
-import type { TAbstractAsyncRegistry, TAbstractEntityRegistry, LookUpStrategy } from '@/Engine/Abstract';
+import type { LookUpStrategy, TAbstractAsyncRegistry, TAbstractEntityRegistry } from '@/Engine/Abstract';
 import type { TMultitonRegistrable, TRegistrable } from '@/Engine/Mixins';
 
 import { createDeferredPromise } from './AsyncUtils';

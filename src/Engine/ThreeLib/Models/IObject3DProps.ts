@@ -1,11 +1,11 @@
 import type { AnimationClip, Layers } from 'three';
 
-import type { IWithCoordsXYZ } from '@/Engine/Mixins';
+import type { TWithCoordsXYZ } from '@/Engine/Mixins';
 
 export type IObject3DProps = Readonly<{
-  position: IWithCoordsXYZ;
-  rotation: IWithCoordsXYZ;
-  scale?: IWithCoordsXYZ;
+  position: TWithCoordsXYZ;
+  rotation: TWithCoordsXYZ;
+  scale?: TWithCoordsXYZ;
   visible?: boolean;
   castShadow?: boolean;
   receiveShadow?: boolean;

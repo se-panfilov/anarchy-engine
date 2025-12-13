@@ -1,6 +1,6 @@
 import type { IAppGlobalContainer } from '@/Engine/Global';
 import type { TDestroyable } from '@/Engine/Mixins';
-import type { IScreenSizeWatcher } from '@/Engine/Screen';
+import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithSceneGetterService } from '@/Engine/Space';
 
 import type { IText2dRegistry } from './IText2dRegistry';
@@ -19,8 +19,8 @@ export type ITextService = TWithCreateService<ITextAnyWrapper, ITextParams> &
   TWithFactoryService<ITextFactory> &
   Readonly<{
     getRegistries: () => { text2dRegistry: IText2dRegistry; text3dRegistry: IText3dRegistry };
-    createText2dRenderer: (container: IAppGlobalContainer, screenSizeWatcher: Readonly<IScreenSizeWatcher>) => IText2dRenderer;
-    createText3dRenderer: (container: IAppGlobalContainer, screenSizeWatcher: Readonly<IScreenSizeWatcher>) => IText3dRenderer;
+    createText2dRenderer: (container: IAppGlobalContainer, screenSizeWatcher: Readonly<TScreenSizeWatcher>) => IText2dRenderer;
+    createText3dRenderer: (container: IAppGlobalContainer, screenSizeWatcher: Readonly<TScreenSizeWatcher>) => IText3dRenderer;
     getRendererRegistries: () => { text2dRendererRegistry: IText2dRendererRegistry; text3dRendererRegistry: IText3dRendererRegistry };
   }> &
   TWithSceneGetterService &

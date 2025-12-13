@@ -1,21 +1,21 @@
 import { PerspectiveCamera, Vector3 } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { ICameraAccessors, ICameraParams, ICameraWrapper, IPerspectiveCamera } from '@/Engine/Camera/Models';
+import type { TCameraAccessors, TCameraParams, TCameraWrapper, TPerspectiveCamera } from '@/Engine/Camera/Models';
 import { ambientContext } from '@/Engine/Context';
 import { withActiveMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins/Generics';
-import type { IWriteable } from '@/Engine/Utils';
+import type { TWriteable } from '@/Engine/Utils';
 import { applyObject3dParams, applyPosition, applyRotation, isDefined } from '@/Engine/Utils';
 
 import { getAccessors } from './Accessors';
 
-export function CameraWrapper(params: ICameraParams): ICameraWrapper {
-  const { fov = 45, near = 1, far = 10000, lookAt, tags }: ICameraParams = params;
+export function CameraWrapper(params: TCameraParams): TCameraWrapper {
+  const { fov = 45, near = 1, far = 10000, lookAt, tags }: TCameraParams = params;
   const aspectRatio: number = ambientContext.screenSizeWatcher.latest$.value.ratio || 0;
-  const entity: IWriteable<IPerspectiveCamera> = new PerspectiveCamera(fov, aspectRatio, near, far);
+  const entity: TWriteable<TPerspectiveCamera> = new PerspectiveCamera(fov, aspectRatio, near, far);
 
-  const accessors: ICameraAccessors = getAccessors(entity);
+  const accessors: TCameraAccessors = getAccessors(entity);
   const { width, height } = ambientContext.screenSizeWatcher.latest$.value;
   accessors.setAspect(width / height);
 

@@ -1,5 +1,5 @@
-import type { IWithReadonlyTags } from '@/Engine/Mixins';
+import type { TWithReadonlyTags } from '@/Engine/Mixins';
 
 import type { ITextureProps } from './ITextureProps';
 
-export type ITextureParams = ITextureProps & IWithReadonlyTags;
+export type ITextureParams = ITextureProps & TWithReadonlyTags;

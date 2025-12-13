@@ -1,5 +1,5 @@
 import type { TAbstractEntityRegistry, TProtectedRegistry } from '@/Engine/Abstract/Models';
 
-import type { IScreenSizeWatcher } from './IScreenSizeWatcher';
+import type { TScreenSizeWatcher } from './TScreenSizeWatcher';
 
-export type IScreenSizeWatcherRegistry = TProtectedRegistry<TAbstractEntityRegistry<IScreenSizeWatcher>>;
+export type IScreenSizeWatcherRegistry = TProtectedRegistry<TAbstractEntityRegistry<TScreenSizeWatcher>>;

@@ -1,1 +1,1 @@
-export * from './IAmbientContext';
+export * from './TAmbientContext';

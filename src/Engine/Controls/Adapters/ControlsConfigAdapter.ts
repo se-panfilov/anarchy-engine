@@ -1,17 +1,17 @@
 import type { IGetParamsFn } from '@/Engine/Abstract';
 import { ControlsType } from '@/Engine/Controls/Constants';
-import type { IAdditionalControlsConfigParams, IControlsConfig, IControlsParams } from '@/Engine/Controls/Models';
-import type { IWriteable } from '@/Engine/Utils';
+import type { TAdditionalControlsConfigParams, TControlsConfig, TControlsParams } from '@/Engine/Controls/Models';
+import type { TWriteable } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 import { Vector3Wrapper } from '@/Engine/Vector';
 
-export const configToParams: IGetParamsFn<IControlsParams, IControlsConfig> = (config: IControlsConfig, { camera, canvas }: IAdditionalControlsConfigParams): IControlsParams => {
+export const configToParams: IGetParamsFn<TControlsParams, TControlsConfig> = (config: TControlsConfig, { camera, canvas }: TAdditionalControlsConfigParams): TControlsParams => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { target, cursor, ...rest } = config;
 
   if (config.type !== ControlsType.OrbitControls) throw new Error(`Cannot create controls of unknown type "${config.type}"`);
 
-  let result: IWriteable<IControlsParams> = {
+  let result: TWriteable<TControlsParams> = {
     ...rest,
     camera,
     canvas,

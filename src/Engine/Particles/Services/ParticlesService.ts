@@ -1,10 +1,10 @@
-import type { IMaterialTextureService } from '@/Engine/MaterialTexturePack';
+import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { IParticlesAsyncRegistry, IParticlesConfig, IParticlesFactory, IParticlesParams, IParticlesService, IParticlesWrapperAsync } from '@/Engine/Particles/Models';
 import type { TSceneWrapper } from '@/Engine/Scene';
 
-export function ParticlesService(factory: IParticlesFactory, registry: IParticlesAsyncRegistry, materialTextureService: IMaterialTextureService, scene: TSceneWrapper): IParticlesService {
+export function ParticlesService(factory: IParticlesFactory, registry: IParticlesAsyncRegistry, materialTextureService: TMaterialTextureService, scene: TSceneWrapper): IParticlesService {
   registry.added$.subscribe((wrapper: IParticlesWrapperAsync): void => scene.addParticles(wrapper));
   factory.entityCreated$.subscribe((wrapper: IParticlesWrapperAsync): void => registry.add(wrapper));
 

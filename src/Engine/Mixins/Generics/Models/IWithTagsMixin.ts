@@ -7,6 +7,6 @@ export type IWithTagsMixin = Readonly<{
   clearTags: () => void;
 }>;
 
-export type IWithReadonlyTags = Readonly<{
+export type TWithReadonlyTags = Readonly<{
   tags: ReadonlyArray<string>;
 }>;

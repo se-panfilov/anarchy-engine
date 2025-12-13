@@ -1,5 +1,5 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorAsyncRegistry, IActorParams, TActorWrapperAsync, TAppCanvas, TEngine, IMoverService, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorParams, IMoverService, TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { ActorType, buildSpaceFromConfig, defaultMoverServiceConfig, Engine, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, mouseService, TextType, Vector3Wrapper } from '@/Engine';
 import type { IAnimationParams } from '@/Engine/Services';
 import { Easing } from '@/Engine/Services';
@@ -26,7 +26,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     const boxActorTag: string = 'box';
 
-    const actorTemplate: IActorParams = {
+    const actorTemplate: TActorParams = {
       type: ActorType.cube,
       width: 1,
       height: 1,

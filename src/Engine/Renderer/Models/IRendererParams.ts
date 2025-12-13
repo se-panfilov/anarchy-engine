@@ -1,4 +1,4 @@
-import type { IActive, IWithReadonlyTags } from '@/Engine/Mixins';
+import type { IActive, TWithReadonlyTags } from '@/Engine/Mixins';
 import type { RendererModes } from '@/Engine/Renderer/Constants';
 
 import type { ITreeJsRendererParams } from './ITreeJsRendererParams';
@@ -11,4 +11,4 @@ export type IRendererParams = ITreeJsRendererParams &
     maxPixelRatio?: number;
   }> &
   IActive &
-  IWithReadonlyTags;
+  TWithReadonlyTags;

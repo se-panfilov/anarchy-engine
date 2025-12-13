@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import type { TWithUserData, TWithWrapperId, TWithWrapperIdEntity, WrapperType } from '@/Engine/Abstract';
 import { withNoWrapperIdMixin, withWrapperIdMixin } from '@/Engine/Abstract';
 import type { TWrapper } from '@/Engine/Abstract/Models';
-import type { TDestroyable, TRegistrable, IWithEntity, IWithName, IWithNameAndNameAccessorsMixin, IWithTagsMixin } from '@/Engine/Mixins';
+import type { IWithEntity, IWithName, IWithNameAndNameAccessorsMixin, IWithTagsMixin, TDestroyable, TRegistrable } from '@/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins/Generics';
 import { isDefined, isWithUserData, isWithWrapperIdAccessors } from '@/Engine/Utils';

@@ -1,7 +1,7 @@
 import anime from 'animejs';
 import type { Subscription } from 'rxjs';
 
-import type { ILoopService, ILoopTimes } from '@/Engine/Loop';
+import type { TLoopService, ILoopTimes } from '@/Engine/Loop';
 import type { IMovable3dXYZ } from '@/Engine/Mixins';
 import type {
   IAnimationParams,
@@ -17,7 +17,7 @@ import type {
 } from '@/Engine/Services/MoverService/Models';
 import { createDeferredPromise } from '@/Engine/Utils';
 
-export function performMove(moveFn: IMoveFn | IMoveByPathFn, loopService: ILoopService, params: Omit<IMoveFnParams, 'complete'> | Omit<IMoveByPathFnParams, 'complete'>): Promise<void> {
+export function performMove(moveFn: IMoveFn | IMoveByPathFn, loopService: TLoopService, params: Omit<IMoveFnParams, 'complete'> | Omit<IMoveByPathFnParams, 'complete'>): Promise<void> {
   const { promise, resolve } = createDeferredPromise();
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const move = moveFn({ ...params, complete: resolve } as any);
@@ -25,7 +25,7 @@ export function performMove(moveFn: IMoveFn | IMoveByPathFn, loopService: ILoopS
   return promise.then(() => tickSubscription.unsubscribe());
 }
 
-export function performMoveUntil<F extends (params: P) => IMoveableByTick, P>(moveFn: F, loopService: ILoopService, params: P): IStopMoveCb {
+export function performMoveUntil<F extends (params: P) => IMoveableByTick, P>(moveFn: F, loopService: TLoopService, params: P): IStopMoveCb {
   let move: IMoveableByTick | undefined = moveFn(params);
   const tickSubscription: Subscription = loopService.tick$.subscribe(({ frameTime }: ILoopTimes): void => move?.tick(frameTime));
 

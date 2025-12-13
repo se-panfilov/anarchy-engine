@@ -1,5 +1,5 @@
-import type { IWithReadonlyTags } from '@/Engine/Mixins';
+import type { TWithReadonlyTags } from '@/Engine/Mixins';
 
 import type { IFogProps } from './IFogProps';
 
-export type IFogParams = IFogProps & IWithReadonlyTags;
+export type IFogParams = IFogProps & TWithReadonlyTags;

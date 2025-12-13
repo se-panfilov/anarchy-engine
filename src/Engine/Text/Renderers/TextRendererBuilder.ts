@@ -4,7 +4,7 @@ import type { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import type { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
 import type { IAppGlobalContainer } from '@/Engine/Global';
-import type { IScreenSizeValues, IScreenSizeWatcher } from '@/Engine/Screen';
+import type { IScreenSizeValues, TScreenSizeWatcher } from '@/Engine/Screen';
 import type { TextCssClass, TextRendererType } from '@/Engine/Text/Constants';
 import { RelatedEntityAttribute } from '@/Engine/Text/Constants';
 import type { ITextRenderer } from '@/Engine/Text/Models';
@@ -14,7 +14,7 @@ export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
   cssClass: TextCssClass,
   type: TextRendererType,
   container: IAppGlobalContainer,
-  screenSizeWatcher: Readonly<IScreenSizeWatcher>
+  screenSizeWatcher: Readonly<TScreenSizeWatcher>
 ): ITextRenderer<T> {
   const id: string = 'text_renderer_' + nanoid();
   renderer.setSize(container.innerWidth, container.innerHeight);

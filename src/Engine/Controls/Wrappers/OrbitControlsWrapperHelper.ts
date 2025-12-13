@@ -1,7 +1,7 @@
-import type { IOrbitControlsParams, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
+import type { TOrbitControlsParams, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
 import { isDefined } from '@/Engine/Utils';
 
-export function applyOrbitControlsParams(wrapper: TOrbitControlsWrapper, params: IOrbitControlsParams): void {
+export function applyOrbitControlsParams(wrapper: TOrbitControlsWrapper, params: TOrbitControlsParams): void {
   if (isDefined(params.enableDamping)) wrapper.setDamping(params.enableDamping);
   if (isDefined(params.target)) wrapper.setTarget(params.target);
   if (isDefined(params.autoRotate)) wrapper.setAutoRotate(params.autoRotate);

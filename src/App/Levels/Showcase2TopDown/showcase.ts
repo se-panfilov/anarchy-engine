@@ -1,7 +1,7 @@
 import { combineLatest } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { IActorParams, TAppCanvas, ICameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorParams, TCameraWrapper, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { ActorType, ambientContext, buildSpaceFromConfig, Engine, EulerWrapper, isNotDefined, MaterialType, mouseService, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -14,7 +14,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     engine.start();
     const { actorService, cameraService } = space.services;
 
-    const actorDefaultParams: IActorParams = {
+    const actorDefaultParams: TActorParams = {
       type: ActorType.cube,
       position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
       castShadow: true,
@@ -24,16 +24,16 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     const centralActorTag: string = 'central';
 
-    const actorParams1: IActorParams = { ...actorDefaultParams, position: Vector3Wrapper({ x: 2, y: 2, z: 0 }) };
-    const actorParams2: IActorParams = { ...actorDefaultParams, position: Vector3Wrapper({ x: -2, y: 0, z: 0 }) };
-    const actorParams3: IActorParams = { ...actorDefaultParams, position: Vector3Wrapper({ x: 0, y: 1, z: 0 }), tags: [centralActorTag] };
-    const actorParams4: IActorParams = { ...actorDefaultParams, position: Vector3Wrapper({ x: -2, y: 2, z: 0 }) };
-    const actorParams5: IActorParams = { ...actorDefaultParams, position: Vector3Wrapper({ x: 2, y: 0, z: 0 }) };
+    const actorParams1: TActorParams = { ...actorDefaultParams, position: Vector3Wrapper({ x: 2, y: 2, z: 0 }) };
+    const actorParams2: TActorParams = { ...actorDefaultParams, position: Vector3Wrapper({ x: -2, y: 0, z: 0 }) };
+    const actorParams3: TActorParams = { ...actorDefaultParams, position: Vector3Wrapper({ x: 0, y: 1, z: 0 }), tags: [centralActorTag] };
+    const actorParams4: TActorParams = { ...actorDefaultParams, position: Vector3Wrapper({ x: -2, y: 2, z: 0 }) };
+    const actorParams5: TActorParams = { ...actorDefaultParams, position: Vector3Wrapper({ x: 2, y: 0, z: 0 }) };
 
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    [actorParams1, actorParams2, actorParams3, actorParams4, actorParams5].forEach((actor: IActorParams) => actorService.createAsync(actor));
+    [actorParams1, actorParams2, actorParams3, actorParams4, actorParams5].forEach((actor: TActorParams) => actorService.createAsync(actor));
 
-    const camera: ICameraWrapper = cameraService.create({
+    const camera: TCameraWrapper = cameraService.create({
       position: Vector3Wrapper({ x: 0, y: 0, z: 3 }),
       rotation: EulerWrapper({ x: 0, y: 0, z: 0 }),
       isActive: true,

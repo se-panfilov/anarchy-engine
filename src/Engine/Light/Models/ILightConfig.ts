@@ -1,7 +1,7 @@
 import type { Color } from 'three/src/math/Color';
 
-import type { TWithCoordsXY, IWithReadonlyTags } from '@/Engine/Mixins';
-import type { IObject3DPropConfig } from '@/Engine/ThreeLib';
+import type { TWithReadonlyTags, TWithCoordsXY } from '@/Engine/Mixins';
+import type { TObject3DPropConfig } from '@/Engine/ThreeLib';
 
 import type { IAmbientLightProps } from './IAmbientLightProps';
 import type { IDirectionalLightProps } from './IDirectionalLightProps';
@@ -16,8 +16,8 @@ export type IAbstractLightConfig<T extends Readonly<{ color: Color; shadow?: ILi
     color: string;
     shadow?: ILightShadowConfig;
   }> &
-  IObject3DPropConfig &
-  IWithReadonlyTags;
+  TObject3DPropConfig &
+  TWithReadonlyTags;
 
 export type IAmbientLightConfig = IAbstractLightConfig<IAmbientLightProps>;
 export type IHemisphereLightConfig = Omit<IAbstractLightConfig<IHemisphereLightProps>, 'groundColor'> & Readonly<{ groundColor: string }>;
