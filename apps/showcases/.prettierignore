@@ -3,4 +3,3 @@ dist
 reports
 pnpm-lock.yaml
 package-lock.json
-packages/engine/src/Space/Schemas/TSpaceConfig.json
