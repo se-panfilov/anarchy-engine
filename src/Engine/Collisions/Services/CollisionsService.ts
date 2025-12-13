@@ -5,6 +5,7 @@ import { RaycastBvhService } from './RaycastBvhService';
 
 export function CollisionsService(): TCollisionsService {
   const bvhService: TRaycastBvhService = RaycastBvhService();
+
   // const spatialGrid = spatialGridService.createSpatialGrid();
 
   function checkCollision(actorW: TActorWrapperAsync, radius: number): TCollisionCheckResult | null {

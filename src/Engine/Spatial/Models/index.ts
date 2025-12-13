@@ -1,5 +1,7 @@
 export * from './TSpatialCell';
 export * from './TSpatialData';
+export * from './TSpatialDataConfig';
+export * from './TSpatialDataParams';
 export * from './TSpatialGridService';
 export * from './TSpatialLoopService';
 export * from './TSpatialMethods';
