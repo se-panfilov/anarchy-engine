@@ -33,7 +33,6 @@ app.whenReady().then(async (): Promise<void> => {
   const initialWindowSize: TResolution = getWindowSizeSafe();
   const win: BrowserWindow = windowService.createWindow(initialWindowSize.width, initialWindowSize.height, desktopAppSettings);
 
-  // TODO DESKTOP: save this settings into a desktop-level store (to implement) and return value from there when app requests (also update it on save and use it for apply)
   //Note: Do not "await" before window creation (cause problems in production – invisible window)
   const settings: TShowcaseGameSettings = await settingsService.loadAppSettings();
 
