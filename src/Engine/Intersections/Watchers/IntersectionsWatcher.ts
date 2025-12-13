@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { distinctUntilChanged, sampleTime, tap } from 'rxjs';
+import { distinctUntilChanged, tap, throttleTime } from 'rxjs';
 import type { Vector2Like } from 'three';
 import { Raycaster, Vector2 } from 'three';
 
@@ -39,7 +39,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
     mousePos$ = position$
       .pipe(
         distinctUntilChanged((_prev: Vector2Like, curr: Vector2Like): boolean => isEqualOrSimilarByXyCoords(prevValue[0], prevValue[1], curr.x, curr.y, threshold)),
-        sampleTime(delay),
+        throttleTime(delay),
         tap((value: Vector2Like): void => {
           // eslint-disable-next-line functional/immutable-data
           prevValue[0] = value.x;

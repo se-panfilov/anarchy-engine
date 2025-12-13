@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { distinctUntilChanged, sampleTime } from 'rxjs';
+import { distinctUntilChanged, throttleTime } from 'rxjs';
 import type { WebGLRendererParameters } from 'three';
 import { PCFShadowMap, WebGLRenderer } from 'three';
 
@@ -56,7 +56,7 @@ export function RendererWrapper(params: TRendererParams, screenSizeWatcher: Read
   // TODO 9.2.0 ACTIVE: This could be done only in active$ renderer and applied in onActive hook
   const screenSize$: Subscription = screenSizeWatcher.value$
     .pipe(
-      sampleTime(screenSizeUpdateDelay),
+      throttleTime(screenSizeUpdateDelay),
       distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height)
     )
     .subscribe((params: TScreenSizeValues): void => setValues(entity, params));

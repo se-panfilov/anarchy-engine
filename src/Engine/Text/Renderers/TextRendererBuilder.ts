@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
-import { distinctUntilChanged, sampleTime } from 'rxjs';
+import { distinctUntilChanged, throttleTime } from 'rxjs';
 import type { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import type { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
@@ -39,7 +39,8 @@ export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
 
   const screenSize$: Subscription = screenSizeWatcher.value$
     .pipe(
-      sampleTime(4),
+      // TODO 8.0.0. MODELS: throttleTime should be configurable
+      throttleTime(4),
       distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height)
     )
     .subscribe(updateSize);

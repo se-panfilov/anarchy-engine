@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { distinctUntilChanged, sampleTime } from 'rxjs';
+import { distinctUntilChanged, throttleTime } from 'rxjs';
 
 import type { TRegistryPack } from '@/Engine/Abstract';
 import type { TCameraConfig, TCameraFactory, TCameraParams, TCameraRegistry, TCameraService, TCameraWrapper } from '@/Engine/Camera/Models';
@@ -28,7 +28,7 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
     screenSizeSub$ = ambientContext.screenSizeWatcher.value$
       .pipe(
         // TODO we can have it as param if we move it to wrapper
-        sampleTime(4),
+        throttleTime(4),
         distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height)
       )
       .subscribe((params: TScreenSizeValues): void => {
