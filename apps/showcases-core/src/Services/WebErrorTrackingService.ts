@@ -13,6 +13,7 @@ export function WebErrorTrackingService(): TWebErrorTrackingService {
       {
         dsn: runtimeEnv.VITE_SENTRY_DSN,
         environment: __PLATFORM_MODE__,
+        // TODO DESKTOP: Release must match the platform's one.
         release: import.meta.env.__APP_VERSION__
       },
       // TODO DESKTOP: Useful to get app's settings (resolution, locale, etc). But should not break GDPR
@@ -21,6 +22,7 @@ export function WebErrorTrackingService(): TWebErrorTrackingService {
       {
         ...__BUILD_META_INFO__,
         ...(await platformApiService.getPackagesVersions()),
+        webAppVersion: import.meta.env.__APP_VERSION__,
         platformVersion: platformApiService.getPlatformVersion(),
         node: platformApiService.getNodeVersion(),
         wrappedAppVersion: await platformApiService.getWrappedAppVersion()
