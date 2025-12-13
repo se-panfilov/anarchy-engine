@@ -6,4 +6,5 @@ export * from './TextFontStyle';
 export * from './TextFontWeight';
 export * from './TextOverflowWrap';
 export * from './TextTag';
+export * from './TextType';
 export * from './TextWhiteSpace';

@@ -1,8 +1,9 @@
-import type { TextAlign, TextDirection, TextFontStyle, TextFontWeight, TextOverflowWrap, TextWhiteSpace } from '@/Engine/Domains/Text';
+import type { TextAlign, TextDirection, TextFontStyle, TextFontWeight, TextOverflowWrap, TextType, TextWhiteSpace } from '@/Engine/Domains/Text';
 import type { IVector2Wrapper } from '@/Engine/Wrappers';
 
 export type ITextProps = Readonly<{
   text: string;
+  type: TextType;
   backgroundColor?: string;
   className?: string;
   fontSize: string;

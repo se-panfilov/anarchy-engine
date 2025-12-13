@@ -22,7 +22,7 @@ import type { IRendererFactory, IRendererRegistry, IRendererWrapper } from '@/En
 import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@/Engine/Domains/Renderer';
 import type { ISceneConfig, ISceneFactory, ISceneRegistry, ISceneWrapper } from '@/Engine/Domains/Scene';
 import { SceneFactory, SceneRegistry, SceneTag } from '@/Engine/Domains/Scene';
-import type { IText2dRenderer, ITextConfig, ITextFactory, ITextRegistry, ITextWrapper } from '@/Engine/Domains/Text';
+import type { IText2dRenderer, IText2dWrapper, ITextConfig, ITextFactory, ITextRegistry } from '@/Engine/Domains/Text';
 import { initText2dRenderer, TextFactory, TextRegistry } from '@/Engine/Domains/Text';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -61,9 +61,9 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const text2dRenderer: IText2dRenderer = initText2dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
   const textFactory: ITextFactory = TextFactory();
   const textRegistry: ITextRegistry = TextRegistry();
-  const textAddedSubscription: Subscription = textRegistry.added$.subscribe((text: ITextWrapper) => scene.addText(text));
-  const textEntityCreatedSubscription: Subscription = textFactory.entityCreated$.subscribe((text: ITextWrapper): void => textRegistry.add(text));
-  texts.forEach((text: ITextConfig): ITextWrapper => textFactory.create(textFactory.configToParams({ ...text, tags: [...text.tags, CommonTag.FromConfig] })));
+  const textAddedSubscription: Subscription = textRegistry.added$.subscribe((text: IText2dWrapper) => scene.addText(text));
+  const textEntityCreatedSubscription: Subscription = textFactory.entityCreated$.subscribe((text: IText2dWrapper): void => textRegistry.add(text));
+  texts.forEach((text: ITextConfig): IText2dWrapper => textFactory.create(textFactory.configToParams({ ...text, tags: [...text.tags, CommonTag.FromConfig] })));
   messages$.next(`Texts (${texts.length}) created`);
 
   //build cameras

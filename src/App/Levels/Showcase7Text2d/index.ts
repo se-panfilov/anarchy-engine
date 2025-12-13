@@ -1,7 +1,7 @@
 import './fonts.css';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAnimationParams, IAppCanvas, ILevel, ILevelConfig, ITextWrapper, IWithCoordsXZ } from '@/Engine';
+import type { IAnimationParams, IAppCanvas, ILevel, ILevelConfig, IText2dWrapper, IWithCoordsXZ } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, standardMoverService, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-7-text-2d.config.json';
@@ -31,7 +31,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     tags: []
   });
 
-  const floatingText: ITextWrapper = textFactory.create({
+  const floatingText: IText2dWrapper = textFactory.create({
     text: 'LongCang',
     position: Vector3Wrapper({ x: -10, y: 8, z: -8 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
@@ -41,7 +41,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     tags: []
   });
 
-  const floatingText2: ITextWrapper = textFactory.create({
+  const floatingText2: IText2dWrapper = textFactory.create({
     text: 'VarelaRound',
     position: Vector3Wrapper({ x: -15, y: 6, z: -14 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
