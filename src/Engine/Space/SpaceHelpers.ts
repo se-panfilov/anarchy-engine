@@ -1,3 +1,4 @@
+import { ParticlesFactory, ParticlesRegistry, ParticlesService } from '@/Engine';
 import { ActorAsyncRegistry, ActorFactory, ActorService } from '@/Engine/Actor';
 import type { IAppCanvas } from '@/Engine/App';
 import { CameraFactory, CameraRegistry, CameraService } from '@/Engine/Camera';
@@ -12,7 +13,6 @@ import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
 import type { ISpaceServices } from '@/Engine/Space/Models';
 import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererRegistry, TextFactory, TextService } from '@/Engine/Text';
 import { isNotDefined } from '@/Engine/Utils';
-import { ParticlesFactory, ParticlesRegistry, ParticlesService } from '@/Engine';
 
 export function initSceneService(): IScenesService {
   const sceneFactory: ISceneFactory = SceneFactory();

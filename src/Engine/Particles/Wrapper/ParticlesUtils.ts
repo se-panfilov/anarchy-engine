@@ -1,20 +1,29 @@
 import type { Material } from 'three';
-import { BufferGeometry } from 'three';
+import { BufferAttribute, BufferGeometry } from 'three';
 
 import { materialService } from '@/Engine/Material';
-import type { IMesh, IParticlesParams } from '@/Engine/Particles/Models';
+import type { IParticlesParams } from '@/Engine/Particles/Models';
 import { textureService } from '@/Engine/Texture';
+import type { IBufferGeometry } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
 
-export async function createParticles(params: IParticlesParams): Promise<IMesh> | never {
+export async function createParticles(params: IParticlesParams): Promise<IBufferGeometry> | never {
   const material: Material = await getMaterial(params);
 
-  const particlesGeometry = new BufferGeometry();
+  const particlesGeometry: IBufferGeometry = new BufferGeometry();
   const count: number = 50000;
-  const positions = new Float32Array(count * 3);
-  const colors = new Float32Array(count * 3);
 
-  throw new Error('Cannot create Particles: unknown particles type');
+  // TODO (S.Panfilov) should be set via methods of the particular wrapper, not via config/params
+  // const positions: Float32Array = new Float32Array(count * 3);
+  // const colors: Float32Array = new Float32Array(count * 3);
+  //
+  // for(let i = 0; i < count * 3; i++)
+  // {
+  //   positions[i] = (Math.random() - 0.5) * 10
+  //   colors[i] = Math.random()
+  // }
+
+  return particlesGeometry;
 }
 
 async function getMaterial(params: IParticlesParams): Promise<Material> {
