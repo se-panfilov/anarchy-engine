@@ -2,12 +2,11 @@ import { TextCssClass } from '@/Engine/Domains/Text/Constants';
 import type { IElement2dAccessors, ITextProps } from '@/Engine/Domains/Text/Models';
 import { isDefined } from '@/Engine/Utils';
 
-export function applyElement2dParams(
-  element: IElement2dAccessors,
-  { backgroundColor, className, text, fontSize, color, fontFamily, maxWidth, lineHeight, letterSpacing, textAlign, direction, overflowWrap, whiteSpace, fontStyle, fontWeight }: ITextProps
-): void {
+export function applyElement2dParams(element: IElement2dAccessors, { text, cssProps }: ITextProps): void {
   element.setText(text);
   element.setClassName(TextCssClass.Text2d);
+
+  const { backgroundColor, className, fontSize, color, fontFamily, maxWidth, lineHeight, letterSpacing, textAlign, direction, overflowWrap, whiteSpace, fontStyle, fontWeight } = cssProps;
 
   if (isDefined(backgroundColor)) element.setBackgroundColor(backgroundColor);
   if (isDefined(className)) element.appendClassName(className);

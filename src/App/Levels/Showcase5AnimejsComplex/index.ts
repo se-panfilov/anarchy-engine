@@ -65,7 +65,9 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const notification: ITextAnyWrapper = textFactory.create({
       type: TextType.Text2d,
       text: 'Click is blocked',
-      fontSize: '12px',
+      cssProps: {
+        fontSize: '12px'
+      },
       position: Vector3Wrapper({ x: 0, y: 0, z: 1 }),
       rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
       visible: false,

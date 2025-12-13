@@ -10,9 +10,11 @@ describe('TextUtils', () => {
     text: 'VarelaRound',
     position: Vector3Wrapper({ x: -15, y: 6, z: -14 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
-    color: '#ff0000',
-    fontSize: '0.2rem',
-    fontFamily: '"VarelaRound", sans-serif',
+    cssProps: {
+      color: '#ff0000',
+      fontSize: '0.2rem',
+      fontFamily: '"VarelaRound", sans-serif'
+    },
     tags: []
   };
 

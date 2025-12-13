@@ -33,8 +33,8 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       tags: [boxActorTag]
     };
 
-    const positionZ = -30;
-    const gap = 2;
+    const positionZ: number = -30;
+    const gap: number = 2;
     forEachEnum(Easing, (easing: string | number, _key: string | number, i: number): void => {
       actorFactory.create({
         ...actorTemplate,
@@ -45,7 +45,9 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       textFactory.create({
         type: TextType.Text2d,
         text: String(easing),
-        fontSize: '12px',
+        cssProps: {
+          fontSize: '12px'
+        },
         position: Vector3Wrapper({ x: -32, y: 2, z: positionZ - 1 + gap * i }),
         rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
         tags: [...actorTemplate.tags, String(easing)]

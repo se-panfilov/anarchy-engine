@@ -977,6 +977,26 @@
         "type": {
           "$ref": "#/definitions/TextType"
         },
+        "cssProps": {
+          "$ref": "#/definitions/ITextCssProps"
+        },
+        "elementType": {
+          "type": "string"
+        }
+      },
+      "required": ["cssProps", "position", "tags", "text", "type"]
+    },
+    "TextTag": {
+      "type": "string",
+      "enum": ["ui", "action"]
+    },
+    "TextType": {
+      "type": "string",
+      "enum": ["2d", "3d"]
+    },
+    "ITextCssProps": {
+      "type": "object",
+      "properties": {
         "backgroundColor": {
           "type": "string"
         },
@@ -1018,20 +1038,9 @@
         },
         "fontWeight": {
           "$ref": "#/definitions/TextFontWeight"
-        },
-        "elementType": {
-          "type": "string"
         }
       },
-      "required": ["fontSize", "position", "tags", "text", "type"]
-    },
-    "TextTag": {
-      "type": "string",
-      "enum": ["ui", "action"]
-    },
-    "TextType": {
-      "type": "string",
-      "enum": ["2d", "3d"]
+      "additionalProperties": false
     },
     "TextAlign": {
       "type": "string",
