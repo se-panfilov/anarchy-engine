@@ -7,23 +7,15 @@ import { DeviceWatcher } from '@Engine/Watchers';
 
 export type ICameraWrapper = ReturnType<typeof AbstractWrapper<PerspectiveCamera>> & ReturnType<typeof getAccessors>;
 
-export function CameraWrapper({
-  width,
-  height,
-  fov = 45,
-  near = 1,
-  far = 10000,
-  lookAt,
-  position
-}: CameraParams): ICameraWrapper {
-  const entity: PerspectiveCamera = new PerspectiveCamera(fov, width / height, near, far);
+export function CameraWrapper({ fov = 45, near = 1, far = 10000, lookAt, position }: CameraParams): ICameraWrapper {
+  // TODO (S.Panfilov) Test this: aspect is 0 fot now, but should be set by deviceWatcher
+  const entity: PerspectiveCamera = new PerspectiveCamera(fov, 0, near, far);
   entity.lookAt(lookAt.x, lookAt.y, lookAt.z);
   entity.position.set(position.x, position.y, position.z);
 
   // TODO (S.Panfilov) DI deviceWatcher instead of a creation of a new entity
   const deviceWatcher: ReturnType<typeof DeviceWatcher> = DeviceWatcher();
 
-  // TODO (S.Panfilov) DI deviceWatcher
   deviceWatcher.value$.subscribe(({ width, height }) => {
     if (isNotDefined(entity)) return;
     entity.aspect = width / height;
