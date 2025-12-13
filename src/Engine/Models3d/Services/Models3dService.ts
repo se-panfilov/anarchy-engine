@@ -1,20 +1,21 @@
 import { Subject } from 'rxjs';
-import type { AnimationClip, Group, Mesh } from 'three';
+import type { Group, Mesh } from 'three';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
+import type { TAnimationsPack, TAnimationsService } from '@/Engine/Animations';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { model3dConfigToParams } from '@/Engine/Models3d/Adapters';
 import { Model3dType } from '@/Engine/Models3d/Constants';
-import type { TModel3dConfig, TModel3dLoadResult, TModel3dParams, TModels3dAnimationsAsyncRegistry, TModels3dAsyncRegistry, TModels3dService, TPerformLoadResult } from '@/Engine/Models3d/Models';
+import type { TModel3dConfig, TModel3dLoadResult, TModel3dParams, TModels3dAsyncRegistry, TModels3dService, TPerformLoadResult } from '@/Engine/Models3d/Models';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isDefined } from '@/Engine/Utils';
 
 import { applyPosition, applyRotation, applyScale } from './Models3dServiceHelper';
 
-export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models3dAnimationsRegistry: TModels3dAnimationsAsyncRegistry, sceneW: TSceneWrapper): TModels3dService {
+export function Models3dService(registry: TModels3dAsyncRegistry, animationsService: TAnimationsService, sceneW: TSceneWrapper): TModels3dService {
   const models3dLoader = new GLTFLoader();
   const dracoLoader = new DRACOLoader();
   dracoLoader.setDecoderPath('/three/examples/jsm/libs/draco/');
@@ -22,33 +23,29 @@ export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models
   dracoLoader.preload();
   models3dLoader.setDRACOLoader(dracoLoader);
   const added$: Subject<TPerformLoadResult> = new Subject<TPerformLoadResult>();
+  const animationsRegistry = animationsService.getRegistry();
 
   added$.subscribe(({ result, isExisting }: TPerformLoadResult): void => {
     const { url, model, animations, options } = result;
     if (options.shouldSaveToRegistry && !isExisting) {
-      models3dRegistry.add(url, model);
-      models3dAnimationsRegistry.add(url, animations);
+      registry.add(url, model);
+      animationsService.add({ url, pack: animations });
     }
     if (options.shouldAddToScene) sceneW.addModel(model);
   });
 
-  // TODO (S.Panfilov) 6.5 CWP make sure animations works
-  // TODO (S.Panfilov) 8. CWP implement models load via actor (merge branch and create a new one before doing this)
   function performLoad({ url, options }: TModel3dParams): Promise<TPerformLoadResult> {
     if ([...Object.values(Model3dType)].includes(url as Model3dType)) throw new Error(`Trying to load a primitive(e.g. cube, sphere, etc.) as an imported model: ${url}`);
 
     const preResult: Pick<TModel3dLoadResult, 'url' | 'options'> = { url, options };
     if (!options.isForce) {
-      const model: Mesh | Group | undefined = models3dRegistry.findByKey(url);
-      const animations: Record<string, AnimationClip> | undefined = models3dAnimationsRegistry.findByKey(url);
+      const model: Mesh | Group | undefined = registry.findByKey(url);
+      const animations: TAnimationsPack | undefined = animationsRegistry.findByKey(url);
       if (isDefined(model)) return Promise.resolve({ result: { ...preResult, model, animations: animations ?? {} }, isExisting: true });
     }
 
     return models3dLoader.loadAsync(url).then((gltf: GLTF): TPerformLoadResult => {
-      const animations: Record<string, AnimationClip> = {};
-      // eslint-disable-next-line functional/immutable-data
-      gltf.animations.forEach((a: AnimationClip): void => void (animations[a.name] = a));
-      return { result: { ...preResult, model: gltf.scene, animations }, isExisting: false };
+      return { result: { ...preResult, model: gltf.scene, animations: animationsService.gltfAnimationsToPack(gltf.animations) }, isExisting: false };
     });
   }
 
@@ -80,8 +77,7 @@ export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
-    models3dRegistry.destroy();
-    models3dAnimationsRegistry.destroy();
+    registry.destroy();
     added$.complete();
     added$.unsubscribe();
   });
@@ -90,8 +86,7 @@ export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models
     loadAsync,
     loadFromConfigAsync,
     added$: added$.asObservable(),
-    getRegistry: (): TModels3dAsyncRegistry => models3dRegistry,
-    getAnimationsRegistry: (): TModels3dAnimationsAsyncRegistry => models3dAnimationsRegistry,
+    getRegistry: (): TModels3dAsyncRegistry => registry,
     getScene: (): TSceneWrapper => sceneW,
     ...destroyable
   };

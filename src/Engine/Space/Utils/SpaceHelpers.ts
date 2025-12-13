@@ -1,4 +1,6 @@
 import { ActorAsyncRegistry, ActorFactory, ActorService } from '@/Engine/Actor';
+import type { TAnimationsService } from '@/Engine/Animations';
+import { AnimationsService } from '@/Engine/Animations';
 import type { TAppCanvas } from '@/Engine/App';
 import { CameraFactory, CameraRegistry, CameraService } from '@/Engine/Camera';
 import type { TCollisionsLoopService, TCollisionsService } from '@/Engine/Collisions';
@@ -18,7 +20,7 @@ import { MaterialFactory, MaterialRegistry, MaterialService } from '@/Engine/Mat
 import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import { MaterialTextureService } from '@/Engine/MaterialTexturePack';
 import type { TModels3dService } from '@/Engine/Models3d';
-import { Models3dAnimationsAsyncRegistry, Models3dAsyncRegistry, Models3dService } from '@/Engine/Models3d';
+import { Models3dAsyncRegistry, Models3dService } from '@/Engine/Models3d';
 import { MouseService } from '@/Engine/Mouse';
 import { ParticlesAsyncRegistry, ParticlesFactory, ParticlesService } from '@/Engine/Particles';
 import type { TPhysicsBodyService, TPhysicsLoopService, TPhysicsPresetsService, TPhysicsWorldService } from '@/Engine/Physics';
@@ -43,7 +45,8 @@ export function initSceneService(): TScenesService {
 export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas): Omit<TSpaceServices, 'scenesService'> {
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry());
   const materialTextureService: TMaterialTextureService = MaterialTextureService(materialService, textureService);
-  const models3dService: TModels3dService = Models3dService(Models3dAsyncRegistry(), Models3dAnimationsAsyncRegistry(), sceneW);
+  const animationsService: TAnimationsService = AnimationsService(Models3dAsyncRegistry());
+  const models3dService: TModels3dService = Models3dService(Models3dAsyncRegistry(), animationsService, sceneW);
   const physicsPresetService: TPhysicsPresetsService = PhysicsPresetsService(PhysicsPresetRegistry());
   const physicsWorldService: TPhysicsWorldService = PhysicsWorldService(sceneW);
   const physicsBodyService: TPhysicsBodyService = PhysicsBodyService(PhysicsBodyFactory(), PhysicsBodyRegistry(), physicsPresetService, physicsWorldService);
@@ -85,6 +88,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
     materialService,
     materialTextureService,
     models3dService,
+    animationsService,
     mouseService: MouseService(ambientContext.container, { loopService }),
     particlesService: ParticlesService(ParticlesFactory(), ParticlesAsyncRegistry(), materialTextureService, sceneW),
     physicsBodyService,

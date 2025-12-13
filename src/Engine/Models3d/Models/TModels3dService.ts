@@ -1,7 +1,7 @@
 import type { Observable } from 'rxjs';
 
 import type { TDestroyable } from '@/Engine/Mixins';
-import type { TModel3dConfig, TModel3dLoadResult, TModels3dAnimationsAsyncRegistry, TModels3dAsyncRegistry, TPerformLoadResult } from '@/Engine/Models3d/Models';
+import type { TModel3dConfig, TModel3dLoadResult, TModels3dAsyncRegistry, TPerformLoadResult } from '@/Engine/Models3d/Models';
 import type { TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
 
 import type { TModel3dParams } from './TModel3dParams';
@@ -11,9 +11,6 @@ export type TModels3dService = Readonly<{
   loadFromConfigAsync: (config: ReadonlyArray<TModel3dConfig>) => ReadonlyArray<Promise<TModel3dLoadResult>>;
   added$: Observable<TPerformLoadResult>;
 }> &
-  Readonly<{
-    getAnimationsRegistry: () => TModels3dAnimationsAsyncRegistry;
-  }> &
   TWithRegistryService<TModels3dAsyncRegistry> &
   TWithSceneGetterService &
   TDestroyable;

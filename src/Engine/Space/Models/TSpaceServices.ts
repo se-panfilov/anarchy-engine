@@ -1,4 +1,5 @@
 import type { TActorService } from '@/Engine/Actor';
+import type { TAnimationsService } from '@/Engine/Animations';
 import type { TCameraService } from '@/Engine/Camera';
 import type { TCollisionsLoopService, TCollisionsService } from '@/Engine/Collisions';
 import type { TControlsService } from '@/Engine/Controls';
@@ -34,6 +35,7 @@ export type TSpaceServices = Readonly<{
   materialService: TMaterialService;
   materialTextureService: TMaterialTextureService;
   models3dService: TModels3dService;
+  animationsService: TAnimationsService;
   mouseService: TMouseService;
   particlesService: TParticlesService;
   physicsBodyService: TPhysicsBodyService;

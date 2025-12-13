@@ -2,4 +2,4 @@ import type { AnimationClip } from 'three';
 
 import type { TAbstractSimpleAsyncRegistry, TProtectedRegistry } from '@/Engine/Abstract';
 
-export type TModels3dAnimationsAsyncRegistry = TProtectedRegistry<TAbstractSimpleAsyncRegistry<Record<string, AnimationClip>>>;
+export type TAnimationsAsyncRegistry = TProtectedRegistry<TAbstractSimpleAsyncRegistry<Record<string, AnimationClip>>>;
