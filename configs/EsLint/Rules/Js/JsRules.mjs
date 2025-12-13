@@ -65,6 +65,7 @@ export const JsRules = {
         'ajv',
         'anim',
         'anisotropy',
+        'argv',
         'atm',
         'autoplay',
         'behavior',
