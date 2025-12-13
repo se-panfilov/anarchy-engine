@@ -37,6 +37,8 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRe
     removed$.next({ key, value });
   }
 
+  const asObject = (): Record<string, T> => Object.fromEntries(registry.entries());
+
   return {
     id,
     add,
@@ -50,6 +52,7 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRe
     isEmpty,
     clear,
     remove,
+    asObject,
     removed$: removed$.asObservable(),
     replace,
     replaced$: replaced$.asObservable(),

@@ -27,7 +27,6 @@ export function showcase(space: TSpace): void {
   const { transformLoop } = space.loops;
 
   const actorRegistry: TActorRegistry = actorService.getRegistry();
-  console.log('XXX', space);
 
   addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
 
