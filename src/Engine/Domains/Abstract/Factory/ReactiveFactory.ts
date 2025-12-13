@@ -1,4 +1,5 @@
 import type { FactoryType } from '@Engine/Domains/Abstract/Constants';
+import type { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 
 import type { IReactiveFactory } from '@/Engine/Domains/Abstract/Models';
@@ -32,6 +33,9 @@ export function ReactiveFactory<T, P>(type: FactoryType | string, createEntityFn
 
   return {
     ...partialFactory,
+    get destroyed$(): Observable<void> {
+      return destroyed$.asObservable();
+    },
     isDestroyed,
     destroy,
     create
