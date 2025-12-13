@@ -1,4 +1,4 @@
-import type { TKinematicInfo } from '@/Engine/Kinematic';
+import type { TKinematicData } from '@/Engine/Kinematic';
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
@@ -11,7 +11,7 @@ export type TActorParams = TActorProps &
     physics?: TWithPresetNamePhysicsBodyParams;
   }> &
   Readonly<{
-    kinematic?: TKinematicInfo;
+    kinematic?: TKinematicData;
     isKinematicAutoUpdate?: boolean;
   }> &
   TWithReadonlyTags;

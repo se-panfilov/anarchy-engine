@@ -1,5 +1,7 @@
 Done:
 - 3.x.x Physics
+- 3.4.x Collision detection
+- 3.5.x Kinematic movement
 
 To be done:
 - 4.x.x Complex models

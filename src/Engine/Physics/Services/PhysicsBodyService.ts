@@ -13,7 +13,7 @@ import type {
   TPhysicsWorldService,
   TWithPresetNamePhysicsBodyConfig
 } from '@/Engine/Physics/Models';
-import { getKinematicInfoFromPhysics, isPhysicsBodyParamsComplete } from '@/Engine/Physics/Utils';
+import { getKinematicDataFromPhysics, isPhysicsBodyParamsComplete } from '@/Engine/Physics/Utils';
 import type { TOptional } from '@/Engine/Utils';
 import { isNotDefined } from '@/Engine/Utils';
 
@@ -63,7 +63,7 @@ export function PhysicsBodyService(
     createFromConfig,
     getFactory: (): TPhysicsBodyFactory => factory,
     getRegistry: (): TPhysicsBodyRegistry => registry,
-    getKinematicInfoFromPhysics,
+    getKinematicDataFromPhysics,
     ...destroyable
   };
 }

@@ -1,5 +1,5 @@
 import type { ActorType } from '@/Engine/Actor/Constants';
-import type { TKinematicInfo } from '@/Engine/Kinematic';
+import type { TKinematicData } from '@/Engine/Kinematic';
 import type { TMaterialPackConfig, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
@@ -13,7 +13,7 @@ export type TActorConfig = Omit<TActorProps, 'material'> &
     type: ActorType;
     castShadow: boolean;
     physics?: TWithPresetNamePhysicsBodyConfig;
-    kinematic?: TKinematicInfo;
+    kinematic?: TKinematicData;
     isKinematicAutoUpdate?: boolean;
   }> &
   TObject3DPropConfig &
