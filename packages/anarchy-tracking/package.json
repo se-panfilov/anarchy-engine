@@ -41,5 +41,8 @@
     "@sentry/browser": "10.17.0",
     "@sentry/cli": "2.56.1",
     "dotenv": "17.2.2"
+  },
+  "devDependencies": {
+    "@sentry/electron": "7.1.1"
   }
 }
