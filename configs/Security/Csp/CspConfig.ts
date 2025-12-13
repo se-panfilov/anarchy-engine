@@ -29,6 +29,8 @@ export type TCspKeys = TFetchDirectives | TDocumentDirectives | TNavigationDirec
 
 export type TCspRulles = Partial<Record<TCspKeys, Array<string>>>;
 
+const anarchyTrackingUrl = 'https://o*.ingest.sentry.io' as const;
+
 export const BASE_CSP: TCspRulles = {
   'default-src': ["'self'"],
 
@@ -42,7 +44,7 @@ export const BASE_CSP: TCspRulles = {
   'style-src-elem': ["'self'", "'unsafe-inline'"],
   'img-src': ["'self'", 'data:', 'blob:'],
   'font-src': ["'self'", 'data:'],
-  'connect-src': ["'self'", 'blob:'],
+  'connect-src': ["'self'", 'blob:', anarchyTrackingUrl],
   'media-src': ["'self'", 'blob:'],
 
   // Required for WebWorker/three.js/wasm
@@ -63,7 +65,7 @@ export const DESKTOP_CSP: TCspRulles = {
   ...BASE_CSP,
   'img-src': ["'self'", 'data:', 'blob:', 'file:'],
   'font-src': ["'self'", 'data:', 'file:'],
-  'connect-src': ["'self'", 'blob:', 'file:'],
+  'connect-src': ["'self'", 'blob:', 'file:', anarchyTrackingUrl],
   'media-src': ["'self'", 'blob:', 'file:'],
   'worker-src': ["'self'", 'blob:', 'file:']
 };
