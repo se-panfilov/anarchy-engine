@@ -34,11 +34,13 @@ export function buildGame(sceneConfig: ISceneConfig, canvas: IAppCanvas): IBuilt
   // TODO (S.Panfilov) refactor this maybe with command/strategy pattern?
   const actorFactory: IActorFactory = ActorFactory();
   const actorRegistry: IActorRegistry = ActorRegistry();
+  actorRegistry.added$.subscribe((actor: IActorWrapper) => scene.addActor(actor));
   actorFactory.entityCreated$.subscribe((instance: IActorWrapper): void => actorRegistry.add(instance));
   actors.forEach((actor: IActorConfig): IActorWrapper => actorFactory.create(actorFactory.getParams(actor)));
 
   const cameraFactory: ICameraFactory = CameraFactory();
   const cameraRegistry: ICameraRegistry = CameraRegistry();
+  cameraRegistry.added$.subscribe((camera: ICameraWrapper) => scene.addCamera(camera));
   cameraFactory.entityCreated$.subscribe((instance: ICameraWrapper): void => cameraRegistry.add(instance));
   cameras.forEach((camera: ICameraConfig): ICameraWrapper => cameraFactory.create(cameraFactory.getParams(camera)));
 
@@ -49,6 +51,7 @@ export function buildGame(sceneConfig: ISceneConfig, canvas: IAppCanvas): IBuilt
 
   const lightFactory: ILightFactory = LightFactory();
   const lightRegistry: ILightRegistry = LightRegistry();
+  lightRegistry.added$.subscribe((light: ILightWrapper) => scene.addLight(light));
   lightFactory.entityCreated$.subscribe((instance: ILightWrapper): void => lightRegistry.add(instance));
   lights.forEach((light: ILightConfig): ILightWrapper => lightFactory.create(lightFactory.getParams(light)));
 
@@ -68,14 +71,17 @@ export function buildGame(sceneConfig: ISceneConfig, canvas: IAppCanvas): IBuilt
 
     actorFactory.entityCreated$.unsubscribe();
     actorFactory.destroy();
+    actorRegistry.added$.unsubscribe();
     actorRegistry.destroy();
 
     cameraFactory.entityCreated$.unsubscribe();
     cameraFactory.destroy();
+    cameraRegistry.added$.unsubscribe();
     cameraRegistry.destroy();
 
     lightFactory.entityCreated$.unsubscribe();
     lightFactory.destroy();
+    lightRegistry.added$.unsubscribe();
     lightRegistry.destroy();
 
     controlsFactory.entityCreated$.unsubscribe();
