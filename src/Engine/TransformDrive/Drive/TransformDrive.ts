@@ -14,7 +14,7 @@ import { isEqualOrSimilarVector3Like, isNotDefined } from '@/Engine/Utils';
 // TransformDrive could use different "agents" (modes) which can be switched in runtime:
 // - Connected agent is expose mutable position/rotation/scale objects and follow the changes of them. Useful to work with 3rd party libs (e.g. animejs). But recommended to avoid.
 // - Kinematic agent is a mode that moves actor by angular velocity and linear velocity (vectors). Useful when you need to know the direction (e.g. bullet, car) of the object. Recommended way for NPCs.
-// - Default agent is providing almost nothing, just use position$.next() of transform drive. Recommended for static objects.
+// - Default agent is providing almost nothing, but setters. Recommended for static objects.
 // - Also: with every mode you can do position$.next() to "teleport" the object to the new position
 export function TransformDrive(params: TTransformDriveParams, agents: TTransformAgents): TTransformDrive | never {
   const agent$: BehaviorSubject<TransformAgent> = new BehaviorSubject<TransformAgent>(params.activeAgent ?? TransformAgent.Default);
@@ -35,6 +35,7 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
   });
 
   // TODO 8.0.0. MODELS: Make sure agents updates position values after "teleportation" (drive.position$.next())
+  // TODO 8.0.0. MODELS: Check also rotation and scale
 
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(activeAgent$.value.position$.value);
   const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(activeAgent$.value.rotation$.value);
