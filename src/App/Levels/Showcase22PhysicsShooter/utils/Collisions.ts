@@ -19,15 +19,15 @@ export async function enableCollisions(
   // spatialGridService.grid.addToGridBulk(actorService.getRegistry().getAll());
   const sphereActorW: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('sphere');
   if (isNotDefined(sphereActorW)) throw new Error(`Cannot find "sphere" actor`);
-  grid.addActorToGrid(sphereActorW);
+  grid.addActor(sphereActorW);
 
   const boxActor1W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static1');
   const boxActor2W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static2');
   const boxActor3W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static3');
   if (isNotDefined(boxActor1W) || isNotDefined(boxActor2W) || isNotDefined(boxActor3W)) throw new Error(`Cannot find "box_static" actors`);
-  grid.addActorToGrid(boxActor1W);
-  grid.addActorToGrid(boxActor2W);
-  grid.addActorToGrid(boxActor3W);
+  grid.addActor(boxActor1W);
+  grid.addActor(boxActor2W);
+  grid.addActor(boxActor3W);
 
   mouseLineIntersectionsWatcher.value$.subscribe((value) => {
     const objects = grid.getAllInCell(value.point.x, value.point.z);

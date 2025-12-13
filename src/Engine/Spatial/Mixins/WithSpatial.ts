@@ -1,6 +1,6 @@
 import type { TActorParams } from '@/Engine/Actor';
-import type { TSpatialGridWrapper } from '@/Engine/Spatial';
-import { SpatialUpdatePriority, withSpatialCell } from '@/Engine/Spatial';
+import type { TSpatialCell, TSpatialGridWrapper } from '@/Engine/Spatial';
+import { SpatialUpdatePriority } from '@/Engine/Spatial';
 import type { TSpatialData, TWithSpatial } from '@/Engine/Spatial/Models';
 import type { TWriteable } from '@/Engine/Utils';
 
@@ -36,10 +36,28 @@ export function withSpatial(params: TActorParams): TWithSpatial {
       setAutoUpdate(value: boolean): void {
         _isAutoUpdate = value;
       },
+      setGrid(grid: TSpatialGridWrapper): void {
+        // eslint-disable-next-line functional/immutable-data
+        (this.data as TWriteable<TSpatialData>).grid = grid;
+      },
       getGrid(): TSpatialGridWrapper | undefined {
         return this.data.grid;
       },
-      ...withSpatialCell()
+      resetGrid(): void {
+        // eslint-disable-next-line functional/immutable-data
+        (this.data as TWriteable<TSpatialData>).grid = undefined;
+      },
+      getSpatialCell(): TSpatialCell | undefined {
+        return this.data.cell;
+      },
+      setSpatialCell(newCell: TSpatialCell | undefined): void {
+        // eslint-disable-next-line functional/immutable-data
+        (this.data as TWriteable<TSpatialData>).cell = newCell;
+      },
+      resetSpatialCell(): void {
+        // eslint-disable-next-line functional/immutable-data
+        (this.data as TWriteable<TSpatialData>).cell = undefined;
+      }
     }
   };
 }

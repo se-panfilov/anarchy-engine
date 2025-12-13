@@ -17,5 +17,4 @@ export * from './TSpatialMethods';
 export * from './TWithReactivePosition';
 export * from './TWithReactiveRotation';
 export * from './TWithSpatial';
-export * from './TWithSpatialCell';
 export * from './TWithUpdateSpatialCell';

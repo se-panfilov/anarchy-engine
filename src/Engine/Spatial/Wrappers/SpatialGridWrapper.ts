@@ -59,7 +59,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     }
   }
 
-  function addActorToGrid(actorW: TActorWrapperAsync): void {
+  function addActor(actorW: TActorWrapperAsync): void {
     const { x, z } = actorW.getPosition().getCoords();
     addActorToCell(x, z, actorW);
   }
@@ -99,7 +99,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
   function updateActorCell(actorW: TActorWrapperAsync): void {
     removeFromGrid(actorW);
-    addActorToGrid(actorW);
+    addActor(actorW);
   }
 
   function findCells(x: number, z: number): ReadonlyArray<TSpatialCell> {
@@ -151,7 +151,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     destroy,
     addToGridBulk,
     addActorToCell,
-    addActorToGrid,
+    addActor,
     getAllItems,
     getAllInCell,
     getAllInCellByCellId,

@@ -14,7 +14,7 @@ export type TSpatialGridWrapper = TWrapper<TSpatialGrid> &
   Readonly<{
     addActorToCell: (x: number, y: number, actorW: TActorWrapperAsync) => void;
     addToGridBulk: (list: ReadonlyArray<TSpatialCell>) => TSpatialGrid;
-    addActorToGrid: (actorW: TActorWrapperAsync) => void;
+    addActor: (actorW: TActorWrapperAsync) => void;
     getAllItems: () => ReadonlyArray<TSpatialCell>;
     getAllInCell: (x: number, z: number) => ReadonlyArray<TActorWrapperAsync>;
     getAllInCellByCellId: (cellId: TSpatialCellId) => ReadonlyArray<TActorWrapperAsync>;

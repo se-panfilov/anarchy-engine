@@ -3,6 +3,7 @@ import type { Vector3 } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActorDependencies, TActorParams, TActorWrapperAsync } from '@/Engine/Actor/Models';
+import { applySpatialGrid } from '@/Engine/Actor/Wrappers/ActorWrapperHelper';
 import { withKinematic } from '@/Engine/Kinematic';
 import type { TWithMaterial } from '@/Engine/Material';
 import { withMaterial } from '@/Engine/Material';
@@ -15,7 +16,10 @@ import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefine
 
 import { createActorMesh } from './ActorUtils';
 
-export async function ActorWrapperAsync(params: TActorParams, { materialTextureService, kinematicLoopService, spatialLoopService }: TActorDependencies): Promise<TActorWrapperAsync> {
+export async function ActorWrapperAsync(
+  params: TActorParams,
+  { materialTextureService, kinematicLoopService, spatialLoopService, spatialGridService }: TActorDependencies
+): Promise<TActorWrapperAsync> {
   // TODO (S.Panfilov) AWAIT: could speed up by not awaiting mesh to be build
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const entity: TMesh = await createActorMesh(params, { materialTextureService });
@@ -68,13 +72,15 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
 
   applyPosition(actorW, params.position);
   applyRotation(actorW, params.rotation);
-  if (params.spatial?.grid) params.spatial?.grid.addActorToGrid(actorW);
+  applySpatialGrid(params, actorW, spatialGridService);
   if (isDefined(params.scale)) applyScale(actorW, params.scale);
   applyObject3dParams(actorW, params);
 
   // TODO (S.Panfilov) debug
   //WIP: position subject
   position$.subscribe((newPosition: Vector3): void => {
+    if (actorW.getName() === 'sphere') console.log(actorW.spatial.getData());
+
     // if (actorW.getName() === 'sphere') console.log(`Position changed to: x=${newPosition.x}, y=${newPosition.y}, z=${newPosition.z}`);
     // TODO (S.Panfilov) debug if
     // if (actorW.getName() === 'sphere') actorW.updateSpatialCell(newPosition, actorW.spatial.getGrid());
