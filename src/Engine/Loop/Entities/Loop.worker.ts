@@ -11,11 +11,10 @@ let intervalId: number | undefined = undefined;
 // eslint-disable-next-line functional/immutable-data
 self.onmessage = (event: MessageEvent<any>): void | never => {
   const { action, interval, loopId } = event.data;
-  console.log('XXX', event.data);
 
   switch (action) {
     case 'start':
-      intervalId = startLoop(deltaCalc, interval);
+      intervalId = startLoop(deltaCalc, interval, loopId);
       break;
     case 'stop':
       stopLoop(intervalId);
@@ -25,12 +24,12 @@ self.onmessage = (event: MessageEvent<any>): void | never => {
   }
 };
 
-function startLoop(deltaCalc: TDeltaCalculator, interval: number): number {
+function startLoop(deltaCalc: TDeltaCalculator, interval: number, loopId: string): number {
   if (deltaCalc.isPaused) deltaCalc.resume();
 
   return setInterval((): void => {
     const delta: TMilliseconds = deltaCalc.update();
-    self.postMessage({ delta });
+    self.postMessage({ delta, loopId });
   }, interval) as unknown as number;
 }
 

@@ -12,7 +12,6 @@ import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { DeltaCalculator } from './DeltaCalculator';
 
-// TODO 10.0.0. LOOPS: Refactor Loop to use web workers to prevent suppression of setInterval (and etc) in background tabs
 export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParallelMode }: TLoopParams): TLoop | never {
   const id: string = `${nanoid()}_${type}`;
   const enabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -59,12 +58,11 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
         tick$.next(0);
       } else {
         // TODO 10.0.0. LOOPS use constants for actions
-        if (isParallelMode && isDefined(worker)) worker.postMessage({ loopId: id, interval: trigger, action: 'stop' });
+        if (isParallelMode && isDefined(worker)) worker.postMessage({ loopId: id, interval: trigger, action: 'start' });
         if (!isParallelMode) intervalId = runInterval();
       }
     } else {
       deltaCalc?.reset();
-      console.log('XXX2', 'stop?', id);
       // TODO 10.0.0. LOOPS use constants for actions
       if (isParallelMode && isDefined(worker)) worker.postMessage({ loopId: id, interval: trigger, action: 'stop' });
       if (isDefined(intervalId)) clearInterval(intervalId);
