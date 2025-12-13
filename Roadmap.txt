@@ -1,4 +1,5 @@
 Done:
+- 1.0.x Initial
 - 2.0.x Spaces
 - 2.5.x Particles
 - 2.6.x Environment maps
