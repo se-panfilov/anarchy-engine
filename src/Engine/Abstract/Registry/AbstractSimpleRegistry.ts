@@ -1,18 +1,20 @@
 import { nanoid } from 'nanoid';
-import { Subject } from 'rxjs';
 
 import type { RegistryType } from '@/Engine/Abstract/Constants';
-import type { IAbstractSimpleRegistry } from '@/Engine/Abstract/Models';
+import type { IAbstractSimpleRegistry, IWithBaseAccessorsRegistry, IWithReactiveRegistry } from '@/Engine/Abstract/Models';
+import { withBaseAccessorsRegistry } from '@/Engine/Abstract/Registry/Mixin';
+import { withReactiveRegistry } from '@/Engine/Abstract/Registry/Mixin/Registry/WithReactiveRegistry';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { findInMap, getAll, isDestroyable, isNotDefined } from '@/Engine/Utils';
+import { isNotDefined } from '@/Engine/Utils';
 
 export function AbstractSimpleRegistry<T>(type: RegistryType): IAbstractSimpleRegistry<T> {
   const id: string = type + '_registry_' + nanoid();
   const registry: Map<string, T> = new Map();
-  const added$: Subject<T> = new Subject<T>();
-  const replaced$: Subject<T> = new Subject<T>();
-  const removed$: Subject<T> = new Subject<T>();
+
+  const destroyable: IDestroyable = destroyableMixin();
+  const { added$, replaced$, removed$ }: IWithReactiveRegistry<T> = withReactiveRegistry<T>(destroyable);
+  const { isEmpty, getLength, forEach, getAll, find }: IWithBaseAccessorsRegistry<T> = withBaseAccessorsRegistry<T>(registry);
 
   function add(key: string, value: T): void | never {
     if (registry.has(key)) throw new Error(`Cannot add to a registry("${id}") a value with key "${key}": The key is already exist in the registry`);
@@ -35,24 +37,6 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): IAbstractSimpleRe
     removed$.next(value);
   }
 
-  const destroyable: IDestroyable = destroyableMixin();
-
-  destroyable.destroyed$.subscribe((): void => {
-    added$.complete();
-    replaced$.complete();
-    removed$.complete();
-    registry.forEach((obj: T): void => {
-      if (isDestroyable(obj)) obj.destroy();
-    });
-    registry.clear();
-  });
-
-  const isEmpty = (): boolean => registry.size === 0;
-
-  const getLength = (): number => registry.size;
-  const forEach = (callback: (value: T) => void): void => registry.forEach(callback);
-  const find = (callback: (value: T) => boolean): T | undefined => findInMap(registry, callback);
-
   return {
     id,
     type,
@@ -62,7 +46,7 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): IAbstractSimpleRe
     add,
     replace,
     getByKey,
-    getAll: () => getAll(registry),
+    getAll,
     isEmpty,
     registry,
     remove,

@@ -13,6 +13,8 @@ export * from './IProtectedRegistry';
 export * from './IReactiveFactory';
 export * from './IWatcher';
 export * from './IWatcherWithState';
+export * from './IWithBaseAccessorsRegistry';
+export * from './IWithReactiveRegistry';
 export * from './IWithUserData';
 export * from './IWithWrapperId';
 export * from './IWithWrapperIdEntity';

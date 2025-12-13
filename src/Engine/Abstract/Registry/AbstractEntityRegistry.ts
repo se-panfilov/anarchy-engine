@@ -1,19 +1,21 @@
 import { nanoid } from 'nanoid';
-import { Subject } from 'rxjs';
 
 import type { RegistryType } from '@/Engine/Abstract/Constants';
-import type { IAbstractEntityRegistry } from '@/Engine/Abstract/Models';
+import type { IAbstractEntityRegistry, IWithBaseAccessorsRegistry, IWithReactiveRegistry } from '@/Engine/Abstract/Models';
 import type { LookUpStrategy } from '@/Engine/Abstract/Registry/Constants';
+import { withBaseAccessorsRegistry } from '@/Engine/Abstract/Registry/Mixin';
+import { withReactiveRegistry } from '@/Engine/Abstract/Registry/Mixin/Registry/WithReactiveRegistry';
 import type { IDestroyable, IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { findInMap, getAll, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, isDestroyable, isNotDefined } from '@/Engine/Utils';
+import { getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, isNotDefined } from '@/Engine/Utils';
 
 export function AbstractEntityRegistry<T extends IRegistrable | IMultitonRegistrable>(type: RegistryType): IAbstractEntityRegistry<T> {
   const id: string = type + '_registry_' + nanoid();
   const registry: Map<string, T> = new Map();
-  const added$: Subject<T> = new Subject<T>();
-  const replaced$: Subject<T> = new Subject<T>();
-  const removed$: Subject<T> = new Subject<T>();
+
+  const destroyable: IDestroyable = destroyableMixin();
+  const { added$, replaced$, removed$ }: IWithReactiveRegistry<T> = withReactiveRegistry<T>(destroyable);
+  const { isEmpty, getLength, forEach, getAll, find }: IWithBaseAccessorsRegistry<T> = withBaseAccessorsRegistry<T>(registry);
 
   function add(entity: T): void | never {
     if (registry.has(entity.id)) throw new Error(`Cannot add an entity with id "${entity.id}" to registry ${id}: already exist`);
@@ -42,29 +44,11 @@ export function AbstractEntityRegistry<T extends IRegistrable | IMultitonRegistr
     removed$.next(entity);
   }
 
-  const destroyable: IDestroyable = destroyableMixin();
-
-  destroyable.destroyed$.subscribe((): void => {
-    added$.complete();
-    replaced$.complete();
-    removed$.complete();
-    registry.forEach((obj: T): void => {
-      if (isDestroyable(obj)) obj.destroy();
-    });
-    registry.clear();
-  });
-
   const getAllByTags = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): ReadonlyArray<T> => getAllEntitiesWithTags(tags, registry, strategy);
   const getAllByTag = (tag: string): ReadonlyArray<T> => getAllEntitiesWithTag(tag, registry);
 
-  const isEmpty = (): boolean => registry.size === 0;
-
   const getUniqByTags = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): T | undefined | never => getUniqEntityWithTags(tags, registry, strategy);
   const getUniqByTag = (tag: string): T | undefined | never => getUniqEntityWithTag(tag, registry);
-
-  const getLength = (): number => registry.size;
-  const forEach = (callback: (entity: T) => void): void => registry.forEach(callback);
-  const find = (callback: (entity: T) => boolean): T | undefined => findInMap(registry, callback);
 
   return {
     id,
@@ -75,7 +59,7 @@ export function AbstractEntityRegistry<T extends IRegistrable | IMultitonRegistr
     add,
     replace,
     getById,
-    getAll: () => getAll(registry),
+    getAll,
     getAllByTags,
     getAllByTag,
     getUniqByTags,
