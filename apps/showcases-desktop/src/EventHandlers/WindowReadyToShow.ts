@@ -2,8 +2,8 @@ import type { TShowcaseGameSettings } from '@Showcases/Shared';
 import type { BrowserWindow } from 'electron';
 
 export function windowReadyToShow(win: BrowserWindow, settings: TShowcaseGameSettings): void {
-  win.webContents.on('will-navigate', (): void => {
-    console.log(`[Desktop Main]: window is ready to show`);
+  win.once('ready-to-show', (): void => {
+    console.log(`[Desktop Main] Window is ready to show`);
     win.show();
     applyFullscreen(win, settings);
   });
@@ -11,6 +11,7 @@ export function windowReadyToShow(win: BrowserWindow, settings: TShowcaseGameSet
 
 function applyFullscreen(win: BrowserWindow, settings: TShowcaseGameSettings): void {
   if (settings.graphics.isFullScreen) {
+    console.log(`[Desktop Main] Starting fullscreen mode`);
     if (process.platform === 'darwin') {
       win.setSimpleFullScreen(true);
     } else {
