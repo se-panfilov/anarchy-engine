@@ -3,6 +3,7 @@ Done:
 - 3.5.x Kinematic movement
 - 4.x.x Spatial grid detection
 - 5.x.x Raycasting & Collision detection
+- 5.2.1 Production build fix (WASM)
 
 Roadmap:
 - 6.0.x Complex models
@@ -16,7 +17,6 @@ Roadmap:
 - 8.4.x Registries refactoring (explicitly register/not register entities)
 - 8.5.x Logging
 - 9.0.x Deletion (memory management)
-- 9.1.x Production build fix (WASM)
 - 9.2.x Building app (desktop/mobile) (might be not a part of an engine)
 - 9.3.x Testing (screenshot tests)
 - 10.0.x Split apps and engine
