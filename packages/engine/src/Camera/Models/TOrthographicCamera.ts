@@ -1,3 +1,3 @@
-import type { OrthographicCamera } from 'three/src/cameras/OrthographicCamera';
+import type { OrthographicCamera } from 'three';
 
 export type TOrthographicCamera = Readonly<OrthographicCamera>;

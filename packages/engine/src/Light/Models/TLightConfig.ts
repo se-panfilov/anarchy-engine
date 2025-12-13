@@ -1,7 +1,6 @@
 import type { TWithTags } from '@Engine/Mixins';
 import type { TObject3DParams, TObject3DPropConfig } from '@Engine/ThreeLib';
-import type { Vector2Like } from 'three';
-import type { Color } from 'three/src/math/Color';
+import type { Color, Vector2Like } from 'three';
 
 import type { TAmbientLightParams } from './TAmbientLightParams';
 import type { TDirectionalLightParams } from './TDirectionalLightParams';

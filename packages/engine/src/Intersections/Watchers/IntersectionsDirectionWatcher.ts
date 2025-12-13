@@ -15,10 +15,10 @@ import { isDefined, isNotDefined } from '@Engine/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, EMPTY, filter, map, switchMap } from 'rxjs';
 import type { ColorRepresentation, Vector3Like } from 'three';
+import { Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
-import { Vector3 } from 'three/src/math/Vector3';
 
 export function IntersectionsDirectionWatcher(params: TIntersectionsDirectionWatcherParams): TIntersectionsDirectionWatcher {
   const { performance, intersectionsLoop } = params;

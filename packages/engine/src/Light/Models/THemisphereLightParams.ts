@@ -1,4 +1,4 @@
-import type { Color } from 'three/src/math/Color';
+import type { Color } from 'three';
 
 import type { TAbstractLightParams } from './TAbstractLightParams';
 

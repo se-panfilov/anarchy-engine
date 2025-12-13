@@ -1,4 +1,4 @@
-import type { AnimationActionLoopStyles } from 'three/src/constants';
+import type { AnimationActionLoopStyles } from 'three';
 
 export type TAnimationStateParams = Readonly<{
   name: string;

@@ -14,7 +14,7 @@ import { isIntersectionsCameraWatcherConfig, isIntersectionsDirectionWatcherConf
 import type { TLoopService } from '@Engine/Loop';
 import type { TMouseService } from '@Engine/Mouse';
 import { isNotDefined } from '@Engine/Utils';
-import { Vector3 } from 'three/src/math/Vector3';
+import { Vector3 } from 'three';
 
 export function configToParams(
   config: TAnyIntersectionsWatcherConfig,

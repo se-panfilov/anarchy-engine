@@ -8,8 +8,7 @@ import type {
 } from '@Engine/Intersections/Models';
 import type { TReadonlyVector2, TReadonlyVector3 } from '@Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@Engine/Utils';
-import { Vector2 } from 'three';
-import { Vector3 } from 'three/src/math/Vector3';
+import { Vector2, Vector3 } from 'three';
 
 export function isIntersectionsDirectionWatcherConfig(config: TIntersectionsCameraWatcherConfig | TIntersectionsDirectionWatcherConfig): config is TIntersectionsDirectionWatcherConfig {
   return isDefined((config as TIntersectionsDirectionWatcherConfig).origin) && isDefined((config as TIntersectionsDirectionWatcherConfig).direction);

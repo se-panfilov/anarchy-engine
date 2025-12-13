@@ -10,10 +10,9 @@ import { isDefined, isNotDefined } from '@Engine/Utils';
 import RBush from 'rbush';
 import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
-import type { Group, Mesh, Object3D } from 'three';
+import type { ColorRepresentation, Group, Mesh, Object3D } from 'three';
 import { Box3, Vector3 } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
-import type { ColorRepresentation } from 'three/src/math/Color';
 
 export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrapper {
   const entity: TSpatialGrid = createEntity(params);

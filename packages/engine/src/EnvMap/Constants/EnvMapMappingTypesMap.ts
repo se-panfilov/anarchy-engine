@@ -1,6 +1,5 @@
 import type { AnyMapping } from 'three';
-import { EquirectangularReflectionMapping } from 'three';
-import { CubeReflectionMapping, CubeRefractionMapping, CubeUVReflectionMapping, EquirectangularRefractionMapping, UVMapping } from 'three/src/constants';
+import { CubeReflectionMapping, CubeRefractionMapping, CubeUVReflectionMapping, EquirectangularReflectionMapping, EquirectangularRefractionMapping, UVMapping } from 'three';
 
 import { EnvMapMappingTypesName } from './EnvMapMappingTypesName';
 

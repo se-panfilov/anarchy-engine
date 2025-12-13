@@ -21,8 +21,7 @@ import { DriveToTargetConnector } from '@Engine/TransformDrive';
 import type { TOptional, TWriteable } from '@Engine/Utils';
 import { applyObject3dParams, isDefined, mergeAll } from '@Engine/Utils';
 import type { Subscription } from 'rxjs';
-import { Vector3 } from 'three';
-import { OrthographicCamera } from 'three/src/cameras/OrthographicCamera';
+import { OrthographicCamera, Vector3 } from 'three';
 
 import { getCommonCameraAccessors, getOrthographicCameraAccessors } from './Accessors';
 

@@ -1,3 +1,3 @@
-import type { Points } from 'three/src/objects/Points';
+import type { Points } from 'three';
 
 export type TPoints = Readonly<Points>;

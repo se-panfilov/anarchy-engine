@@ -32,6 +32,7 @@ import type {
   LineDashedMaterial,
   MeshBasicMaterial,
   MeshDepthMaterial,
+  MeshDistanceMaterialParameters,
   MeshLambertMaterial,
   MeshMatcapMaterial,
   MeshPhongMaterial,
@@ -39,7 +40,6 @@ import type {
   MeshStandardMaterial,
   PointsMaterial
 } from 'three';
-import type { MeshDistanceMaterialParameters } from 'three/src/materials/MeshDistanceMaterial';
 import type { SpriteNodeMaterial } from 'three/src/materials/nodes/NodeMaterials';
 
 export function materialToConfig(entity: TAnyMaterialWrapper, { textureResourceRegistry }: TMaterialEntityToConfigDependencies): TMaterialConfig {

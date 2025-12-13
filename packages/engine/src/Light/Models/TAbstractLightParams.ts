@@ -2,7 +2,7 @@ import type { LightType } from '@Engine/Light/Constants';
 import type { TWithName, TWithTags } from '@Engine/Mixins';
 import type { TObject3DParams } from '@Engine/ThreeLib';
 import type { TWithTransformAgentParam } from '@Engine/TransformDrive';
-import type { Color } from 'three/src/math/Color';
+import type { Color } from 'three';
 
 import type { TLightShadowParams } from './TLightShadowParams';
 

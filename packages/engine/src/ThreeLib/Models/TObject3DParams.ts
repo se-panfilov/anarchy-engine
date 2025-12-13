@@ -1,5 +1,4 @@
-import type { Quaternion, Vector3 } from 'three';
-import type { Euler } from 'three/src/math/Euler';
+import type { Euler, Quaternion, Vector3 } from 'three';
 
 export type TObject3DParams = Readonly<{
   position: Vector3;
