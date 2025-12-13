@@ -1,4 +1,4 @@
-import { Box3, Color, GridHelper, Plane, Raycaster, Vector2, Vector3 } from 'three';
+import { Box3, GridHelper, Plane, Raycaster, Vector2, Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
@@ -14,18 +14,17 @@ import type {
   TEngine,
   TGameKey,
   TKeySubscription,
-  TSceneWrapper,
   TSpace,
   TSpaceConfig,
   TWithCoordsXY,
-  TWithCoordsXYZ
+  TWithCoordsXYZ,
+  TWithCoordsXZ
 } from '@/Engine';
 import {
   ActorType,
   buildSpaceFromConfig,
   CollisionShape,
   Engine,
-  getPushCoordsFrom3dAzimuth,
   isDefined,
   isNotDefined,
   KeyCode,
@@ -64,11 +63,15 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const gridSize: Vector3 = new Box3().setFromObject(surface?.entity).getSize(new Vector3());
     initGridHelper(actorService, gridSize.x, gridSize.z);
 
-    await buildTower(actorService, 10, 10, 20);
+    await buildTower(actorService, { x: 0, z: 0 }, 10, 10, 20);
+    // await buildTower(actorService, { x: 20, z: 0 }, 5, 5, 15);
+    // await buildTower(actorService, { x: 0, z: 30 }, 6, 7, 18);
+    // await buildTower(actorService, { x: 17, z: 30 }, 7, 7, 35);
+    // await buildTower(actorService, { x: -15, z: -15 }, 10, 7, 15);
 
-    const raycaster = new Raycaster();
-    const plane = new Plane(new Vector3(0, 1, 0), 0); // XZ plane
-    const planeNormal = new Vector3(0, 1, 0); // Normal vector of the XZ plane
+    const raycaster: Raycaster = new Raycaster();
+    const plane: Plane = new Plane(new Vector3(0, 1, 0), 0); // XZ plane
+    const planeNormal: Vector3 = new Vector3(0, 1, 0); // Normal vector of the XZ plane
 
     let heroADC: THeroADC = {
       angle: 0,
@@ -95,7 +98,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     mouseService.clickLeftRelease$.subscribe((): void => {
       if (isNotDefined(heroW)) throw new Error(`Cannot find "hero" actor`);
-      heroW.physicsBody?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(heroADC.angle, 2, 100), true);
+      // heroW.physicsBody?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(heroADC.angle, 2, 100), true);
     });
 
     physicsLoopService.shouldAutoUpdate(true);
@@ -111,14 +114,14 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   return { start, space };
 }
 
-async function buildTower(actorService: TActorService, rows: number, cols: number, levels: number): Promise<ReadonlyArray<TActorWrapperWithPhysicsAsync>> {
-  const blocks: ReadonlyArray<Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>> = getBlocks(rows, cols, levels);
+async function buildTower(actorService: TActorService, startCoords: TWithCoordsXZ, rows: number, cols: number, levels: number): Promise<ReadonlyArray<TActorWrapperWithPhysicsAsync>> {
+  const blocks: ReadonlyArray<Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>> = getBlocks(startCoords, rows, cols, levels);
 
   console.log('number of blocks:', blocks.length);
 
   const result = blocks.map((block: Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>): Promise<TActorWrapperWithPhysicsAsync> => {
     return actorService.createAsync({
-      // name: `block-${i}-${j}`,
+      name: `block_${block.position.getX()}_${block.position.getY()}_${block.position.getZ()}`,
       type: ActorType.Cube,
       width: block.width,
       height: block.height,
@@ -146,7 +149,7 @@ async function buildTower(actorService: TActorService, rows: number, cols: numbe
   return await Promise.all(result);
 }
 
-function getBlocks(rows: number, cols: number, levels: number): ReadonlyArray<Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>> {
+function getBlocks(startCoords: TWithCoordsXZ, rows: number, cols: number, levels: number): ReadonlyArray<Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>> {
   let blocks: ReadonlyArray<Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>> = [];
   const gap: number = 0.1;
   const width: number = 1;
@@ -166,9 +169,9 @@ function getBlocks(rows: number, cols: number, levels: number): ReadonlyArray<Re
             height,
             depth,
             position: Vector3Wrapper({
-              x: i * (width + gap),
+              x: startCoords.x + i * (width + gap),
               y: k * (height + gap / 4),
-              z: j * (depth + gap)
+              z: startCoords.z + j * (depth + gap)
             })
           }
         ];

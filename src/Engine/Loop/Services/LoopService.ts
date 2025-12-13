@@ -1,5 +1,5 @@
 import { Subject, tap } from 'rxjs';
-// import Stats from 'stats.js';
+import Stats from 'stats.js';
 import { Clock } from 'three';
 
 import type { TLoopService, TLoopTimes } from '@/Engine/Loop/Models';
@@ -63,9 +63,9 @@ function getLoopFn(beforeTick$: Subject<TLoopTimes>, state: TLoopServiceState): 
   const clock: Clock = new Clock();
   let lastElapsedTime: number = 0;
 
-  // const stats: any = new Stats();
-  // stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
-  // document.body.appendChild(stats.dom);
+  const stats: any = new Stats();
+  stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+  document.body.appendChild(stats.dom);
 
   function loopFn(frameTime: number): void {
     // stats.begin();
@@ -76,7 +76,7 @@ function getLoopFn(beforeTick$: Subject<TLoopTimes>, state: TLoopServiceState): 
     lastElapsedTime = elapsedTime;
     beforeTick$.next({ delta, frameTime, elapsedTime });
 
-    // stats.end();
+    stats.end();
     requestAnimationFrame(loopFn);
   }
 
