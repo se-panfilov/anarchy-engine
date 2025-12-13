@@ -29,7 +29,6 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic/WithTags';
 import { screenService } from '@/Engine/Services';
 import { isDefined, isNotDefined, isValidLevelConfig } from '@/Engine/Utils';
-import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 
 export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
   if (!isValidLevelConfig(config)) throw new Error('Failed to launch a level: invalid data format');
@@ -122,7 +121,10 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
 
   const loopTickSubscription: Subscription = standardLoopService.tick$.subscribe(({ delta }: ILoopTimes): void => {
     const activeCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Active);
-    if (isDefined(activeCamera)) renderer.entity.render(scene.entity, activeCamera.entity);
+    if (isDefined(activeCamera)) {
+      renderer.entity.render(scene.entity, activeCamera.entity);
+      text2dRenderer.renderer.render(scene.entity, activeCamera.entity);
+    }
 
     // TODO (S.Panfilov) also perhaps make a controls service instead of a factory?
     // just for control's damping
@@ -130,36 +132,6 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
       if (controls.entity.enableDamping) controls.entity.update(delta);
     });
   });
-
-  // TODO (S.Panfilov) debug/////////////////////////////////
-  const elem2: HTMLElement = document.createElement('div');
-  document.body.appendChild(elem2);
-  // eslint-disable-next-line functional/immutable-data
-  elem2.textContent = 'DEBUG!';
-  const ent2: CSS2DObject = new CSS2DObject(elem2);
-  scene.entity.add(ent2);
-  let elapsed: number = 1;
-  setInterval((): void => {
-    const x: number = Math.sin(elapsed) * 5;
-    const z: number = Math.cos(elapsed) * 5;
-    ent2.position.set(x, 0, z);
-    elapsed += 0.01;
-  }, 100);
-
-  setInterval(() => console.log('ent2', ent2.position), 100);
-
-  // TODO (S.Panfilov) CWP
-  // call this inside tick!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  standardLoopService.tick$.subscribe((): void => {
-    const activeCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Active);
-    if (isNotDefined(activeCamera)) {
-      console.error('No active camera');
-      return;
-    }
-    // labelRenderer.render(scene, camera);
-    text2dRenderer.renderer.render(scene.entity, activeCamera.entity);
-  });
-  // TODO (S.Panfilov) debug/////////////////////////////////
 
   const destroyable: IDestroyable = destroyableMixin();
   const builtMixin: IWithBuilt = withBuiltMixin();
