@@ -25,10 +25,8 @@ export function BrowserTrackingService(options?: BrowserOptions, metaData?: Reco
           }
         };
 
-        // eslint-disable-next-line functional/immutable-data
-        delete (event.request.headers as any).Cookie;
-        // eslint-disable-next-line functional/immutable-data
-        delete (event.request.headers as any).cookie;
+        delete (event.request.headers as any)?.Cookie;
+        delete (event.request.headers as any)?.cookie;
       }
 
       // eslint-disable-next-line functional/immutable-data

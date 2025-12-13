@@ -26,7 +26,6 @@ export function DesktopTrackingService(options?: ElectronMainOptions, metaData?:
         };
 
         delete (event.request.headers as any)?.Cookie;
-
         delete (event.request.headers as any)?.cookie;
       }
 
@@ -61,18 +60,14 @@ export function DesktopTrackingService(options?: ElectronMainOptions, metaData?:
   function start(onErrorHandler: (ev: any) => void = onError, onRejectionHandler: (ev: PromiseRejectionEvent) => void = onRejection): void {
     if (isStarted) return;
     isStarted = true;
-    globalThis.window?.addEventListener?.('error', onErrorHandler);
-    globalThis.process?.on?.('uncaughtException', onErrorHandler);
-    globalThis.window?.addEventListener?.('unhandledrejection', onRejectionHandler);
-    globalThis.process?.on?.('unhandledRejection', onRejectionHandler);
+    process.on('uncaughtException', onErrorHandler);
+    process.on('unhandledRejection', onRejectionHandler);
   }
 
   function stop(onErrorHandler: (ev: any) => void = onError, onRejectionHandler: (ev: PromiseRejectionEvent) => void = onRejection): void {
     isStarted = false;
-    globalThis.window?.removeEventListener?.('error', onErrorHandler);
-    globalThis.process?.off?.('uncaughtException', onErrorHandler);
-    globalThis.window?.removeEventListener?.('unhandledrejection', onRejectionHandler);
-    globalThis.process?.off?.('unhandledRejection', onRejectionHandler);
+    process.off('uncaughtException', onErrorHandler);
+    process.off('unhandledRejection', onRejectionHandler);
   }
 
   start();
