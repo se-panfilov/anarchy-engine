@@ -12,11 +12,11 @@ import type {
   IText3dRegistry,
   IText3dRenderer,
   IText3dRendererRegistry,
-  ITextAnyWrapper,
   ITextConfig,
   ITextFactory,
   ITextParams,
-  ITextService
+  ITextService,
+  TTextAnyWrapper
 } from '@/Engine/Text/Models';
 import { initText2dRenderer, initText3dRenderer } from '@/Engine/Text/Renderers';
 import { isText2dWrapper, isText3dWrapper } from '@/Engine/Text/Utils';
@@ -29,14 +29,14 @@ export function TextService(
   text3dRendererRegistry: IText3dRendererRegistry,
   scene: TSceneWrapper
 ): ITextService {
-  merge(text2dRegistry.added$, text3dRegistry.added$).subscribe((text: ITextAnyWrapper) => scene.addText(text));
-  factory.entityCreated$.subscribe((text: ITextAnyWrapper): void => {
+  merge(text2dRegistry.added$, text3dRegistry.added$).subscribe((text: TTextAnyWrapper) => scene.addText(text));
+  factory.entityCreated$.subscribe((text: TTextAnyWrapper): void => {
     if (isText2dWrapper(text)) text2dRegistry.add(text);
     if (isText3dWrapper(text)) text3dRegistry.add(text);
   });
 
-  const create = (params: ITextParams): ITextAnyWrapper => factory.create(params);
-  const createFromConfig = (texts: ReadonlyArray<ITextConfig>): void => texts.forEach((text: ITextConfig): ITextAnyWrapper => factory.create(factory.configToParams(text)));
+  const create = (params: ITextParams): TTextAnyWrapper => factory.create(params);
+  const createFromConfig = (texts: ReadonlyArray<ITextConfig>): void => texts.forEach((text: ITextConfig): TTextAnyWrapper => factory.create(factory.configToParams(text)));
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe((): void => {

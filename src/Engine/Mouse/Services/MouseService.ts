@@ -14,8 +14,8 @@ import type {
   IMousePositionWatcher,
   IMousePositionWatcherFactory,
   IMousePositionWatcherRegistry,
-  IMouseWatcherEvent,
-  TMouseService
+  TMouseService,
+  TMouseWatcherEvent
 } from '@/Engine/Mouse/Models';
 import { MouseClickWatcherRegistry, MousePositionWatcherRegistry } from '@/Engine/Mouse/Registries';
 
@@ -31,21 +31,21 @@ export function MouseService(container: TGlobalContainerDecorator): TMouseServic
   mousePositionWatcherFactory.entityCreated$.subscribe((watcher: IMousePositionWatcher) => mousePositionWatcherRegistry.add(watcher));
   const mousePositionWatcher: IMousePositionWatcher = mousePositionWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }).start();
 
-  const clickPress$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const clickLeftPress$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const clickRightPress$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const clickMiddlePress$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const clickBackPress$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const clickForwardPress$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const clickExtraPress$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
+  const clickPress$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
+  const clickLeftPress$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
+  const clickRightPress$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
+  const clickMiddlePress$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
+  const clickBackPress$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
+  const clickForwardPress$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
+  const clickExtraPress$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
 
-  const clickRelease$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const clickLeftRelease$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const clickRightRelease$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const clickMiddleRelease$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const clickBackRelease$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const clickForwardRelease$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const clickExtraRelease$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
+  const clickRelease$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
+  const clickLeftRelease$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
+  const clickRightRelease$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
+  const clickMiddleRelease$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
+  const clickBackRelease$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
+  const clickForwardRelease$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
+  const clickExtraRelease$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
 
   const isLeftPressed$: Subject<boolean> = new Subject<boolean>();
   const isRightPressed$: Subject<boolean> = new Subject<boolean>();
@@ -54,20 +54,20 @@ export function MouseService(container: TGlobalContainerDecorator): TMouseServic
   const isForwardPressed$: Subject<boolean> = new Subject<boolean>();
   const isExtraPressed$: Subject<boolean> = new Subject<boolean>();
 
-  const doubleClick$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const doubleLeftClick$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const doubleRightClick$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
+  const doubleClick$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
+  const doubleLeftClick$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
+  const doubleRightClick$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
 
-  const wheel$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const wheelUp$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const wheelDown$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
+  const wheel$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
+  const wheelUp$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
+  const wheelDown$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
 
-  clickPress$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Left)).subscribe((event: IMouseWatcherEvent) => clickLeftPress$.next(event));
-  clickPress$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Right)).subscribe((event: IMouseWatcherEvent) => clickRightPress$.next(event));
-  clickPress$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Middle)).subscribe((event: IMouseWatcherEvent) => clickMiddlePress$.next(event));
-  clickPress$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Back)).subscribe((event: IMouseWatcherEvent) => clickBackPress$.next(event));
-  clickPress$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Forward)).subscribe((event: IMouseWatcherEvent) => clickForwardPress$.next(event));
-  clickPress$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Extra)).subscribe((event: IMouseWatcherEvent) => clickExtraPress$.next(event));
+  clickPress$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Left)).subscribe((event: TMouseWatcherEvent) => clickLeftPress$.next(event));
+  clickPress$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Right)).subscribe((event: TMouseWatcherEvent) => clickRightPress$.next(event));
+  clickPress$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Middle)).subscribe((event: TMouseWatcherEvent) => clickMiddlePress$.next(event));
+  clickPress$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Back)).subscribe((event: TMouseWatcherEvent) => clickBackPress$.next(event));
+  clickPress$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Forward)).subscribe((event: TMouseWatcherEvent) => clickForwardPress$.next(event));
+  clickPress$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Extra)).subscribe((event: TMouseWatcherEvent) => clickExtraPress$.next(event));
 
   clickLeftPress$.subscribe((): void => isLeftPressed$.next(true));
   clickRightPress$.subscribe((): void => isRightPressed$.next(true));
@@ -76,12 +76,12 @@ export function MouseService(container: TGlobalContainerDecorator): TMouseServic
   clickForwardPress$.subscribe((): void => isForwardPressed$.next(true));
   clickExtraPress$.subscribe((): void => isExtraPressed$.next(true));
 
-  clickRelease$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Left)).subscribe((event: IMouseWatcherEvent) => clickLeftRelease$.next(event));
-  clickRelease$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Right)).subscribe((event: IMouseWatcherEvent) => clickRightRelease$.next(event));
-  clickRelease$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Middle)).subscribe((event: IMouseWatcherEvent) => clickMiddleRelease$.next(event));
-  clickRelease$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Back)).subscribe((event: IMouseWatcherEvent) => clickBackRelease$.next(event));
-  clickRelease$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Forward)).subscribe((event: IMouseWatcherEvent) => clickForwardRelease$.next(event));
-  clickRelease$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Extra)).subscribe((event: IMouseWatcherEvent) => clickExtraRelease$.next(event));
+  clickRelease$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Left)).subscribe((event: TMouseWatcherEvent) => clickLeftRelease$.next(event));
+  clickRelease$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Right)).subscribe((event: TMouseWatcherEvent) => clickRightRelease$.next(event));
+  clickRelease$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Middle)).subscribe((event: TMouseWatcherEvent) => clickMiddleRelease$.next(event));
+  clickRelease$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Back)).subscribe((event: TMouseWatcherEvent) => clickBackRelease$.next(event));
+  clickRelease$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Forward)).subscribe((event: TMouseWatcherEvent) => clickForwardRelease$.next(event));
+  clickRelease$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Extra)).subscribe((event: TMouseWatcherEvent) => clickExtraRelease$.next(event));
 
   clickLeftRelease$.subscribe((): void => isLeftPressed$.next(false));
   clickRightRelease$.subscribe((): void => isRightPressed$.next(false));
@@ -90,13 +90,13 @@ export function MouseService(container: TGlobalContainerDecorator): TMouseServic
   clickForwardRelease$.subscribe((): void => isForwardPressed$.next(false));
   clickExtraRelease$.subscribe((): void => isExtraPressed$.next(false));
 
-  doubleClick$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Left)).subscribe((event: IMouseWatcherEvent) => doubleLeftClick$.next(event));
-  doubleClick$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Right)).subscribe((event: IMouseWatcherEvent) => doubleRightClick$.next(event));
+  doubleClick$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Left)).subscribe((event: TMouseWatcherEvent) => doubleLeftClick$.next(event));
+  doubleClick$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Right)).subscribe((event: TMouseWatcherEvent) => doubleRightClick$.next(event));
 
-  wheel$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseWheelValue.WheelUp)).subscribe((event: IMouseWatcherEvent) => wheelUp$.next(event));
-  wheel$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseWheelValue.WheelDown)).subscribe((event: IMouseWatcherEvent) => wheelDown$.next(event));
+  wheel$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseWheelValue.WheelUp)).subscribe((event: TMouseWatcherEvent) => wheelUp$.next(event));
+  wheel$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseWheelValue.WheelDown)).subscribe((event: TMouseWatcherEvent) => wheelDown$.next(event));
 
-  mouseClickWatcher.value$.subscribe((event: IMouseWatcherEvent): void => {
+  mouseClickWatcher.value$.subscribe((event: TMouseWatcherEvent): void => {
     if (event.type === MouseEventType.MouseDown) clickPress$.next(event);
     if (event.type === MouseEventType.MouseUp) clickRelease$.next(event);
     if (event.type === MouseEventType.DoubleClick) doubleClick$.next(event);

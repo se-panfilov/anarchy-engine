@@ -14,10 +14,10 @@ import type {
 } from 'three/src/constants';
 import type { ColorRepresentation } from 'three/src/math/Color';
 
-import type { ITexture } from '@/Engine/Texture/Models';
+import type { TTexture } from '@/Engine/Texture/Models';
 import type { TVector2, TVector3 } from '@/Engine/Vector';
 
-export type IAbstractMaterialProps = Readonly<{
+export type TAbstractMaterialProps = Readonly<{
   alphaHash?: boolean;
   alphaTest?: number;
   alphaToCoverage?: boolean;
@@ -65,7 +65,7 @@ export type IAbstractMaterialProps = Readonly<{
   userData?: Record<string, any>;
 }>;
 
-export type IBasicMaterialProps = IAbstractMaterialProps &
+export type TBasicMaterialProps = TAbstractMaterialProps &
   Readonly<{
     color?: ColorRepresentation;
     opacity?: number;
@@ -81,7 +81,7 @@ export type IBasicMaterialProps = IAbstractMaterialProps &
     wireframeLinejoin?: string;
   }>;
 
-export type IDepthMaterialProps = IAbstractMaterialProps &
+export type TDepthMaterialProps = TAbstractMaterialProps &
   Readonly<{
     depthPacking?: DepthPackingStrategies;
     displacementScale?: number;
@@ -90,7 +90,7 @@ export type IDepthMaterialProps = IAbstractMaterialProps &
     wireframeLinewidth?: number;
   }>;
 
-export type IDistanceMaterialProps = IAbstractMaterialProps &
+export type TDistanceMaterialProps = TAbstractMaterialProps &
   Readonly<{
     displacementScale?: number;
     displacementBias?: number;
@@ -99,7 +99,7 @@ export type IDistanceMaterialProps = IAbstractMaterialProps &
     referencePosition?: TVector3;
   }>;
 
-export type INormalMaterialProps = IAbstractMaterialProps &
+export type TNormalMaterialProps = TAbstractMaterialProps &
   Readonly<{
     bumpScale?: number;
     normalMapType?: NormalMapTypes;
@@ -110,7 +110,7 @@ export type INormalMaterialProps = IAbstractMaterialProps &
     wireframeLinewidth?: number;
   }>;
 
-export type IMatcapMaterialProps = IAbstractMaterialProps &
+export type TMatcapMaterialProps = TAbstractMaterialProps &
   Readonly<{
     color?: ColorRepresentation;
     bumpScale?: number;
@@ -122,7 +122,7 @@ export type IMatcapMaterialProps = IAbstractMaterialProps &
     flatShading?: boolean;
   }>;
 
-export type ILambertMaterialProps = IAbstractMaterialProps &
+export type TLambertMaterialProps = TAbstractMaterialProps &
   Readonly<{
     bumpScale?: number;
     color?: ColorRepresentation;
@@ -144,7 +144,7 @@ export type ILambertMaterialProps = IAbstractMaterialProps &
     fog?: boolean;
   }>;
 
-export type IPhongMaterialProps = IAbstractMaterialProps &
+export type TPhongMaterialProps = TAbstractMaterialProps &
   Readonly<{
     color?: ColorRepresentation;
     specular?: ColorRepresentation;
@@ -170,7 +170,7 @@ export type IPhongMaterialProps = IAbstractMaterialProps &
     flatShading?: boolean;
   }>;
 
-export type IToonMaterialProps = IAbstractMaterialProps &
+export type TToonMaterialProps = TAbstractMaterialProps &
   Readonly<{
     color?: ColorRepresentation;
     opacity?: number;
@@ -190,7 +190,7 @@ export type IToonMaterialProps = IAbstractMaterialProps &
     fog?: boolean;
   }>;
 
-export type IStandardMaterialProps = IAbstractMaterialProps &
+export type TStandardMaterialProps = TAbstractMaterialProps &
   Readonly<{
     color?: ColorRepresentation;
     roughness?: number;
@@ -211,7 +211,7 @@ export type IStandardMaterialProps = IAbstractMaterialProps &
     flatShading?: boolean;
   }>;
 
-export type IPhysicalMaterialProps = IStandardMaterialProps &
+export type TPhysicalMaterialProps = TStandardMaterialProps &
   Readonly<{
     clearcoat?: number;
     clearcoatRoughness?: number;
@@ -234,25 +234,25 @@ export type IPhysicalMaterialProps = IStandardMaterialProps &
     anisotropyRotation?: number;
   }>;
 
-export type IPointsMaterialProps = IAbstractMaterialProps &
+export type TPointsMaterialProps = TAbstractMaterialProps &
   Readonly<{
     color: ColorRepresentation;
-    map?: ITexture | null;
-    alphaMap?: ITexture | null;
+    map?: TTexture | null;
+    alphaMap?: TTexture | null;
     size?: number;
     sizeAttenuation?: boolean;
     fog?: boolean;
   }>;
 
-export type IMaterialProps =
-  | IBasicMaterialProps
-  | IDepthMaterialProps
-  | IDistanceMaterialProps
-  | INormalMaterialProps
-  | IMatcapMaterialProps
-  | ILambertMaterialProps
-  | IPhongMaterialProps
-  | IPhysicalMaterialProps
-  | IToonMaterialProps
-  | IStandardMaterialProps
-  | IPointsMaterialProps;
+export type TMaterialProps =
+  | TBasicMaterialProps
+  | TDepthMaterialProps
+  | TDistanceMaterialProps
+  | TNormalMaterialProps
+  | TMatcapMaterialProps
+  | TLambertMaterialProps
+  | TPhongMaterialProps
+  | TPhysicalMaterialProps
+  | TToonMaterialProps
+  | TStandardMaterialProps
+  | TPointsMaterialProps;

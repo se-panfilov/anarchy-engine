@@ -3,7 +3,7 @@ export * from './IRendererFactory';
 export * from './IRendererParams';
 export * from './IRendererRegistry';
 export * from './IRendererService';
-export * from './IRendererWrapper';
 export * from './IThreeJsRendererParamsAccessors';
 export * from './IThreeJsRendererPropsAccessors';
 export * from './ITreeJsRendererParams';
+export * from './TRendererWrapper';

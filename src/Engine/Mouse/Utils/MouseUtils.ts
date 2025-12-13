@@ -1,4 +1,4 @@
-import type { IMousePosition, IMouseWatcherEvent } from '@/Engine/Mouse';
+import type { IMousePosition, TMouseWatcherEvent } from '@/Engine/Mouse';
 import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@/Engine/Mouse';
 import { isNotDefined } from '@/Engine/Utils';
 import type { TVector2, TVector3 } from '@/Engine/Vector';
@@ -51,7 +51,7 @@ export function getMouseWheelValue(event: MouseEvent | WheelEvent): MouseWheelVa
   return (event as WheelEvent).deltaY < 0 ? MouseWheelValue.WheelUp : MouseWheelValue.WheelDown;
 }
 
-export function getMouseWatcherEvent(event: MouseEvent | WheelEvent): IMouseWatcherEvent {
+export function getMouseWatcherEvent(event: MouseEvent | WheelEvent): TMouseWatcherEvent {
   const type: MouseEventType = getMouseEventType(event);
   const value: MouseButtonValue | MouseWheelValue = type === MouseEventType.Wheel ? getMouseWheelValue(event) : getMouseButtonValue(event);
 

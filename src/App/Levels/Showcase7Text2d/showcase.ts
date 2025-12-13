@@ -1,7 +1,7 @@
 import './fonts.css';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { IAnimationParams, IMoverService, ITextAnyWrapper, IWithCoordsXZ, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TAnimationParams, TAppCanvas, TEngine, TMoverService, TSpace, TSpaceConfig, TTextAnyWrapper, TWithCoordsXZ } from '@/Engine';
 import { buildSpaceFromConfig, createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, EulerWrapper, generateAnglesForCircle, mouseService, TextType, Vector3Wrapper } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
@@ -39,7 +39,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     tags: []
   });
 
-  const floatingText: ITextAnyWrapper = textService.create({
+  const floatingText: TTextAnyWrapper = textService.create({
     type: TextType.Text2d,
     text: 'LongCang',
     position: Vector3Wrapper({ x: -10, y: 8, z: -8 }),
@@ -52,7 +52,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     tags: []
   });
 
-  const floatingText2: ITextAnyWrapper = textService.create({
+  const floatingText2: TTextAnyWrapper = textService.create({
     type: TextType.Text2d,
     text: 'VarelaRound',
     position: Vector3Wrapper({ x: -15, y: 6, z: -14 }),
@@ -69,16 +69,16 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const numberOfCircles: number = 1;
   const startAngle: number = 100;
   const radius: number = 15;
-  const circlePathXZ: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle), radius, { x: 0, z: 0 });
-  const circlePathXZ2: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle - 20), radius + 3, { x: -4, z: 0 });
+  const circlePathXZ: ReadonlyArray<TWithCoordsXZ> = createCirclePathXZ(generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle), radius, { x: 0, z: 0 });
+  const circlePathXZ2: ReadonlyArray<TWithCoordsXZ> = createCirclePathXZ(generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle - 20), radius + 3, { x: -4, z: 0 });
 
-  const animationParams: IAnimationParams = {
+  const animationParams: TAnimationParams = {
     duration: 2000,
     direction: 'normal',
     loop: true
   };
 
-  const moverService: IMoverService = MoverService(loopService, defaultMoverServiceConfig);
+  const moverService: TMoverService = MoverService(loopService, defaultMoverServiceConfig);
 
   mouseService.clickLeftRelease$.subscribe(() => {
     void moverService.goByPath(floatingText, circlePathXZ, { ...animationParams, easing: Easing.Linear });

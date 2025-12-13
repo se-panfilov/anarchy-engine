@@ -1,5 +1,5 @@
 import type { TWrapper } from '@/Engine/Abstract';
-import type { TMovable3dXYZ, TRotatable, IWithActiveMixin, TWithObject3d, TWithTagsMixin } from '@/Engine/Mixins';
+import type { IWithActiveMixin, TMovable3dXYZ, TRotatable, TWithObject3d, TWithTagsMixin } from '@/Engine/Mixins';
 
 import type { TCamera } from './TCamera';
 import type { TCameraAccessors } from './TCameraAccessors';

@@ -1,12 +1,12 @@
-import type { IMaterialConfig, IMaterialFactory, IMaterialParams, IMaterialRegistry, IMaterialService, IMaterialWrapper } from '@/Engine/Material/Models';
+import type { TMaterialConfig, TMaterialFactory, TMaterialParams, TMaterialRegistry, TMaterialService, TMaterialWrapper } from '@/Engine/Material/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 
-export function MaterialService(factory: IMaterialFactory, registry: IMaterialRegistry): IMaterialService {
-  factory.entityCreated$.subscribe((wrapper: IMaterialWrapper): void => registry.add(wrapper));
+export function MaterialService(factory: TMaterialFactory, registry: TMaterialRegistry): TMaterialService {
+  factory.entityCreated$.subscribe((wrapper: TMaterialWrapper): void => registry.add(wrapper));
 
-  const create = (params: IMaterialParams): IMaterialWrapper => factory.create(params);
-  const createFromConfig = (material: ReadonlyArray<IMaterialConfig>): void => material.forEach((config: IMaterialConfig): IMaterialWrapper => factory.create(factory.configToParams(config)));
+  const create = (params: TMaterialParams): TMaterialWrapper => factory.create(params);
+  const createFromConfig = (material: ReadonlyArray<TMaterialConfig>): void => material.forEach((config: TMaterialConfig): TMaterialWrapper => factory.create(factory.configToParams(config)));
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
@@ -17,8 +17,8 @@ export function MaterialService(factory: IMaterialFactory, registry: IMaterialRe
   return {
     create,
     createFromConfig,
-    getFactory: (): IMaterialFactory => factory,
-    getRegistry: (): IMaterialRegistry => registry,
+    getFactory: (): TMaterialFactory => factory,
+    getRegistry: (): TMaterialRegistry => registry,
     ...destroyable
   };
 }

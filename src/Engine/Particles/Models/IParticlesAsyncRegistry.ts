@@ -1,5 +1,5 @@
 import type { TAbstractAsyncRegistry, TProtectedRegistry } from '@/Engine/Abstract';
 
-import type { IParticlesWrapperAsync } from './IParticlesWrapperAsync';
+import type { TParticlesWrapperAsync } from './TParticlesWrapperAsync';
 
-export type IParticlesAsyncRegistry = TProtectedRegistry<TAbstractAsyncRegistry<IParticlesWrapperAsync>>;
+export type IParticlesAsyncRegistry = TProtectedRegistry<TAbstractAsyncRegistry<TParticlesWrapperAsync>>;

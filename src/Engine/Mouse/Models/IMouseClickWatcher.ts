@@ -1,5 +1,5 @@
 import type { TMultitonWatcher } from '@/Engine/Abstract';
 
-import type { IMouseWatcherEvent } from './IMouseWatcherEvent';
+import type { TMouseWatcherEvent } from './TMouseWatcherEvent';
 
-export type IMouseClickWatcher = TMultitonWatcher<IMouseWatcherEvent>;
+export type IMouseClickWatcher = TMultitonWatcher<TMouseWatcherEvent>;

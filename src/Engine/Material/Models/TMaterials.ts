@@ -12,7 +12,7 @@ import type {
   PointsMaterial
 } from 'three';
 
-export type IMaterials =
+export type TMaterials =
   | MeshBasicMaterial
   | MeshDepthMaterial
   | MeshDistanceMaterial
@@ -25,7 +25,7 @@ export type IMaterials =
   | MeshToonMaterial
   | PointsMaterial;
 
-export type ITypeOfMaterials =
+export type TTypeOfMaterials =
   | typeof MeshBasicMaterial
   | typeof MeshDepthMaterial
   | typeof MeshDistanceMaterial

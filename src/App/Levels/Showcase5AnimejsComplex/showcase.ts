@@ -1,18 +1,18 @@
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
-  IAnimationParams,
-  IMoverService,
-  IText2dWrapper,
-  ITextAnyWrapper,
-  IWithCoordsXZ,
   TActorAsyncRegistry,
   TActorWrapperAsync,
+  TAnimationParams,
   TAppCanvas,
   TCameraRegistry,
   TControlsRegistry,
   TEngine,
+  TMoverService,
   TSpace,
-  TSpaceConfig
+  TSpaceConfig,
+  TText2dWrapper,
+  TTextAnyWrapper,
+  TWithCoordsXZ
 } from '@/Engine';
 import {
   buildSpaceFromConfig,
@@ -51,14 +51,14 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const greenActor: TActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('green');
     if (isNotDefined(redActor) || isNotDefined(blueActor) || isNotDefined(greenActor)) throw new Error('Actors are not defined');
 
-    const redText: IText2dWrapper | undefined = text2dRegistry.findByTag('red');
-    const blueText: IText2dWrapper | undefined = text2dRegistry.findByTag('blue');
-    const greenText: IText2dWrapper | undefined = text2dRegistry.findByTag('green');
+    const redText: TText2dWrapper | undefined = text2dRegistry.findByTag('red');
+    const blueText: TText2dWrapper | undefined = text2dRegistry.findByTag('blue');
+    const greenText: TText2dWrapper | undefined = text2dRegistry.findByTag('green');
     if (isNotDefined(redText) || isNotDefined(blueText) || isNotDefined(greenText)) throw new Error('Texts are not defined');
 
     let isClickBlocked: boolean = false;
 
-    const animationParams: IAnimationParams = {
+    const animationParams: TAnimationParams = {
       duration: 2000,
       direction: 'normal'
     };
@@ -69,9 +69,9 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const radius: number = 15;
     const angleArray: ReadonlyArray<number> = generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle);
 
-    const redPath: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, radius, { x: 0, z: 0 });
-    const greenPath: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, radius - 2, { x: 0, z: 0 });
-    const bluePath: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, radius - 4, { x: 0, z: 0 });
+    const redPath: ReadonlyArray<TWithCoordsXZ> = createCirclePathXZ(angleArray, radius, { x: 0, z: 0 });
+    const greenPath: ReadonlyArray<TWithCoordsXZ> = createCirclePathXZ(angleArray, radius - 2, { x: 0, z: 0 });
+    const bluePath: ReadonlyArray<TWithCoordsXZ> = createCirclePathXZ(angleArray, radius - 4, { x: 0, z: 0 });
 
     let followersCb: Record<string, (() => void) | undefined> = {
       red: undefined,
@@ -79,7 +79,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       blue: undefined
     };
 
-    const moverService: IMoverService = MoverService(loopService, defaultMoverServiceConfig);
+    const moverService: TMoverService = MoverService(loopService, defaultMoverServiceConfig);
 
     function follow(): void {
       if (isNotDefined(redText) || isNotDefined(blueText) || isNotDefined(greenText)) throw new Error('Texts are not defined');
@@ -95,7 +95,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       followersCb.blue?.();
     }
 
-    const notification: ITextAnyWrapper = textService.create({
+    const notification: TTextAnyWrapper = textService.create({
       type: TextType.Text2d,
       text: 'Click is blocked',
       cssProps: {

@@ -3,8 +3,6 @@ import { withLatestFrom } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
-  IMouseWatcherEvent,
-  IMoverService,
   TActorAsyncRegistry,
   TActorWrapperAsync,
   TAppCanvas,
@@ -13,6 +11,8 @@ import type {
   TEngine,
   TIntersectionEvent,
   TIntersectionsWatcher,
+  TMouseWatcherEvent,
+  TMoverService,
   TSpace,
   TSpaceConfig
 } from '@/Engine';
@@ -94,9 +94,9 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const { clickLeftRelease$, isLeftPressed$, isRightPressed$, isMiddlePressed$, isBackPressed$, isForwardPressed$, isExtraPressed$, doubleLeftClick$, doubleRightClick$, wheelUp$, wheelDown$ } =
       mouseService;
 
-    const moverService: IMoverService = MoverService(engine.services.loopService, defaultMoverServiceConfig);
+    const moverService: TMoverService = MoverService(engine.services.loopService, defaultMoverServiceConfig);
 
-    clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [IMouseWatcherEvent, TIntersectionEvent]): void => {
+    clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [TMouseWatcherEvent, TIntersectionEvent]): void => {
       void moverService.goToPosition(actorMouse, { x: intersection.point.x, z: intersection.point.z }, { duration: 1000, easing: Easing.EaseInCubic });
     });
 
@@ -107,8 +107,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     isForwardPressed$.subscribe((isPressed: boolean): void => void actorMkeyForward.addY(isPressed ? -0.2 : 0.2));
     isExtraPressed$.subscribe((isPressed: boolean): void => void actorMkeyExtra.addY(isPressed ? -0.2 : 0.2));
 
-    doubleLeftClick$.subscribe((event: IMouseWatcherEvent): void => console.log('double click left', event));
-    doubleRightClick$.subscribe((event: IMouseWatcherEvent): void => console.log('double click right', event));
+    doubleLeftClick$.subscribe((event: TMouseWatcherEvent): void => console.log('double click left', event));
+    doubleRightClick$.subscribe((event: TMouseWatcherEvent): void => console.log('double click right', event));
 
     wheelUp$.subscribe((): void => actorMkeyMiddle.adjustRotationByX(10));
     wheelDown$.subscribe((): void => actorMkeyMiddle.adjustRotationByX(-10));

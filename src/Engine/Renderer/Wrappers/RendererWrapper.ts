@@ -6,14 +6,14 @@ import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import { withActiveMixin } from '@/Engine/Mixins';
 import { RendererModes } from '@/Engine/Renderer/Constants';
-import type { IRendererAccessors, IRendererParams, IRendererWrapper } from '@/Engine/Renderer/Models';
+import type { IRendererAccessors, IRendererParams, TRendererWrapper } from '@/Engine/Renderer/Models';
 import type { IScreenSizeValues, TScreenSizeWatcher } from '@/Engine/Screen';
 import type { TWriteable } from '@/Engine/Utils';
 import { isNotDefined, isWebGL2Available, isWebGLAvailable } from '@/Engine/Utils';
 
 import { getAccessors } from './Accessors';
 
-export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Readonly<TScreenSizeWatcher>): IRendererWrapper {
+export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Readonly<TScreenSizeWatcher>): TRendererWrapper {
   const maxPixelRatio: number = params.maxPixelRatio ?? 2;
   if (isNotDefined(params.canvas)) throw new Error(`Canvas is not defined`);
   if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');

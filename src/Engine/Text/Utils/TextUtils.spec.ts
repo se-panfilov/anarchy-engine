@@ -1,6 +1,6 @@
 import { EulerWrapper } from '@/Engine/Euler';
 import { TextType } from '@/Engine/Text/Constants';
-import type { IText2dWrapper, IText3dWrapper, ITextParams } from '@/Engine/Text/Models';
+import type { IText3dWrapper, ITextParams, TText2dWrapper } from '@/Engine/Text/Models';
 import { Text2dWrapper, Text3dWrapper } from '@/Engine/Text/Wrappers';
 import { Vector3Wrapper } from '@/Engine/Vector';
 
@@ -19,7 +19,7 @@ describe('TextUtils', () => {
     tags: []
   };
 
-  const text2dWrapper: IText2dWrapper = Text2dWrapper({ ...textPrams, type: TextType.Text2d });
+  const text2dWrapper: TText2dWrapper = Text2dWrapper({ ...textPrams, type: TextType.Text2d });
   const text3dWrapper: IText3dWrapper = Text3dWrapper({ ...textPrams, type: TextType.Text3d });
 
   describe('isText2dWrapper', () => {

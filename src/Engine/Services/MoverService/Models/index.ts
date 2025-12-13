@@ -1,4 +1,3 @@
-export * from './IAnimationParams';
 export * from './IFollowTargetParams';
 export * from './IFullKeyframeDestination';
 export * from './IKeyframeDestination';
@@ -7,6 +6,7 @@ export * from './IMoveByPathFnParams';
 export * from './IMoveDestination';
 export * from './IMoveFn';
 export * from './IMoveFnParams';
-export * from './IMoverService';
 export * from './IMoverServiceConfig';
 export * from './IStopMoveCb';
+export * from './TAnimationParams';
+export * from './TMoverService';

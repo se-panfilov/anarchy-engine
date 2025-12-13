@@ -1,6 +1,6 @@
 import type { Easing } from '@/Engine/Services/MoverService/Constants';
 
-export type IAnimationParams = {
+export type TAnimationParams = {
   duration: number;
   direction?: 'alternate' | 'reverse' | 'normal';
   round?: number; //i.g. animation steps (how often to update the value)

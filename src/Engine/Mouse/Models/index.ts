@@ -8,5 +8,5 @@ export * from './IMousePositionWatcher';
 export * from './IMousePositionWatcherFactory';
 export * from './IMousePositionWatcherParams';
 export * from './IMousePositionWatcherRegistry';
-export * from './IMouseWatcherEvent';
 export * from './TMouseService';
+export * from './TMouseWatcherEvent';

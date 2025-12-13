@@ -1,16 +1,16 @@
 import type { TWrapper } from '@/Engine/Abstract';
 import type { TColor } from '@/Engine/Color';
-import type { IWithMaterial } from '@/Engine/Material';
-import type { TMovable3dXYZ, TRotatable, IScalable, TWithObject3d, TWithTagsMixin } from '@/Engine/Mixins';
+import type { TWithMaterial } from '@/Engine/Material';
+import type { IScalable, TMovable3dXYZ, TRotatable, TWithObject3d, TWithTagsMixin } from '@/Engine/Mixins';
 import type { IWithTextures } from '@/Engine/Texture';
 import type { IPoints } from '@/Engine/ThreeLib';
 
-export type IParticlesWrapperAsync = TWrapper<IPoints> &
+export type TParticlesWrapperAsync = TWrapper<IPoints> &
   TMovable3dXYZ &
   TRotatable &
   IScalable &
   TWithObject3d &
-  IWithMaterial &
+  TWithMaterial &
   IWithTextures &
   TWithTagsMixin &
   Readonly<{

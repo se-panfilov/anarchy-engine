@@ -1,5 +1,5 @@
 import type { Material } from 'three';
 
-export type IWithMaterial = {
+export type TWithMaterial = {
   useMaterial: (material: Material) => Material;
 };

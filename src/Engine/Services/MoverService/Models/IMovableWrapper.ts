@@ -1,4 +1,4 @@
-import type { TMovable3dXYZ, IWithEntity } from '@/Engine/Mixins';
+import type { IWithEntity, TMovable3dXYZ } from '@/Engine/Mixins';
 import type { IObject3D } from '@/Engine/ThreeLib';
 
 export type IMovableWrapper<T> = IWithEntity<T> & TMovable3dXYZ;

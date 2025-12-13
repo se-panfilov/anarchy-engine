@@ -1,5 +1,5 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type { IParticlesWrapperAsync, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TAppCanvas, TEngine, TParticlesWrapperAsync, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -23,7 +23,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     }
 
     const particlesName: string = 'bubbles';
-    const particles: IParticlesWrapperAsync | undefined = await particlesService.getRegistry().findByNameAsync(particlesName);
+    const particles: TParticlesWrapperAsync | undefined = await particlesService.getRegistry().findByNameAsync(particlesName);
     if (isNotDefined(particles)) throw new Error(`Particles "${particlesName}" not found`);
     particles.setIndividualPositions(positions);
   }

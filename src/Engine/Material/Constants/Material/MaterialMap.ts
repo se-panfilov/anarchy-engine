@@ -12,11 +12,11 @@ import {
   PointsMaterial
 } from 'three';
 
-import type { ITypeOfMaterials } from '@/Engine/Material/Models';
+import type { TTypeOfMaterials } from '@/Engine/Material/Models';
 
 import { MaterialType } from './MaterialType';
 
-export const MaterialMap: Readonly<Record<MaterialType, ITypeOfMaterials>> = {
+export const MaterialMap: Readonly<Record<MaterialType, TTypeOfMaterials>> = {
   [MaterialType.Basic]: MeshBasicMaterial,
   [MaterialType.Depth]: MeshDepthMaterial,
   [MaterialType.Distance]: MeshDistanceMaterial,

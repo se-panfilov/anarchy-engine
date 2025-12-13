@@ -3,14 +3,14 @@ import { LinearFilter, NearestFilter, SRGBColorSpace } from 'three';
 
 import { MaterialType } from '@/Engine/Material';
 import type { IMaterialPackKeys, IMaterialPackParams, ITexturePackParams, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
-import type { ITexture, ITextureParams } from '@/Engine/Texture/Models';
+import type { ITextureParams, TTexture } from '@/Engine/Texture/Models';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export const getMagFilter = (magFilter?: MagnificationTextureFilter): MagnificationTextureFilter => (isDefined(magFilter) ? magFilter : LinearFilter);
 export const getMinFilter = (minFilter?: MinificationTextureFilter): MinificationTextureFilter => (isDefined(minFilter) ? minFilter : NearestFilter);
 
-export const applyColorSpace = (name: IMaterialPackKeys, texture: TWriteable<ITexture>, params?: ITextureParams): void => {
+export const applyColorSpace = (name: IMaterialPackKeys, texture: TWriteable<TTexture>, params?: ITextureParams): void => {
   let defaultColorSpace: ColorSpace;
 
   if (name === 'map' || name === 'matcap') {
@@ -23,7 +23,7 @@ export const applyColorSpace = (name: IMaterialPackKeys, texture: TWriteable<ITe
   texture.colorSpace = isDefined(params?.colorSpace) ? params.colorSpace : defaultColorSpace;
 };
 
-export function applyFilters(texture: TWriteable<ITexture>, params?: ITextureParams): void {
+export function applyFilters(texture: TWriteable<TTexture>, params?: ITextureParams): void {
   if (isNotDefined(params)) return;
 
   // eslint-disable-next-line functional/immutable-data
@@ -35,7 +35,7 @@ export function applyFilters(texture: TWriteable<ITexture>, params?: ITexturePar
   if (texture.minFilter === NearestFilter) texture.generateMipmaps = false;
 }
 
-export function applyTextureParams(texture: TWriteable<ITexture>, params?: ITextureParams): void {
+export function applyTextureParams(texture: TWriteable<TTexture>, params?: ITextureParams): void {
   if (isNotDefined(params)) return;
 
   // eslint-disable-next-line functional/immutable-data

@@ -9,12 +9,12 @@ import type { IText2dRendererRegistry } from './IText2dRendererRegistry';
 import type { IText3dRegistry } from './IText3dRegistry';
 import type { IText3dRenderer } from './IText3dRenderer';
 import type { IText3dRendererRegistry } from './IText3dRendererRegistry';
-import type { ITextAnyWrapper } from './ITextAnyWrapper';
 import type { ITextConfig } from './ITextConfig';
 import type { ITextFactory } from './ITextFactory';
 import type { ITextParams } from './ITextParams';
+import type { TTextAnyWrapper } from './TTextAnyWrapper';
 
-export type ITextService = TWithCreateService<ITextAnyWrapper, ITextParams> &
+export type ITextService = TWithCreateService<TTextAnyWrapper, ITextParams> &
   TWithCreateFromConfigService<ITextConfig> &
   TWithFactoryService<ITextFactory> &
   Readonly<{

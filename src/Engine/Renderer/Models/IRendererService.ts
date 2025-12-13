@@ -4,10 +4,10 @@ import type { TWithActiveAccessorsService, TWithCreateService, TWithFactoryServi
 import type { IRendererFactory } from './IRendererFactory';
 import type { IRendererParams } from './IRendererParams';
 import type { IRendererRegistry } from './IRendererRegistry';
-import type { IRendererWrapper } from './IRendererWrapper';
+import type { TRendererWrapper } from './TRendererWrapper';
 
-export type IRendererService = TWithCreateService<IRendererWrapper, IRendererParams> &
-  TWithActiveAccessorsService<IRendererWrapper> &
+export type IRendererService = TWithCreateService<TRendererWrapper, IRendererParams> &
+  TWithActiveAccessorsService<TRendererWrapper> &
   TWithFactoryService<IRendererFactory> &
   TWithRegistryService<IRendererRegistry> &
   TDestroyable;

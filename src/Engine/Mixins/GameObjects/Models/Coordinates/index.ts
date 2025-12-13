@@ -1,4 +1,3 @@
-export * from './IWithCoordsXZ';
 export * from './IWithCoordsYZ';
 export * from './IWithCoordW';
 export * from './IWithCoordX';
@@ -7,3 +6,4 @@ export * from './IWithCoordZ';
 export * from './TWithCoordsXY';
 export * from './TWithCoordsXYZ';
 export * from './TWithCoordsXYZW';
+export * from './TWithCoordsXZ';

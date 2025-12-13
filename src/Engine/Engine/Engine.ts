@@ -6,7 +6,7 @@ import type { TKeyboardService } from '@/Engine/Keyboard';
 import { KeyboardService } from '@/Engine/Keyboard';
 import type { TLoopService, TLoopTimes } from '@/Engine/Loop';
 import { LoopService } from '@/Engine/Loop';
-import type { IRendererWrapper } from '@/Engine/Renderer';
+import type { TRendererWrapper } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpace } from '@/Engine/Space';
 import { spaceLoop } from '@/Engine/Space/SpaceLoop';
@@ -22,7 +22,7 @@ export function Engine(space: TSpace): TEngine {
 
   const { text2dRegistry, text3dRegistry } = textService.getRegistries();
   const controlsRegistry: TControlsRegistry = controlsService.getRegistry();
-  const renderer: IRendererWrapper | undefined = rendererService.findActive();
+  const renderer: TRendererWrapper | undefined = rendererService.findActive();
 
   const { text2dRendererRegistry, text3dRendererRegistry } = textService.getRendererRegistries();
   const text2dRenderer: IText2dRenderer | undefined = text2dRendererRegistry.getAll()[0];

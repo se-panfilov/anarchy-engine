@@ -11,13 +11,13 @@ import {
   StencilOpMap
 } from '@/Engine/Material/Constants';
 import { StencilFuncMap } from '@/Engine/Material/Constants/StencilFuncName';
-import type { IMaterialConfig, IMaterialParams } from '@/Engine/Material/Models';
+import type { TMaterialConfig, TMaterialParams } from '@/Engine/Material/Models';
 import { isDefined } from '@/Engine/Utils';
 
-export function configToParams(config: IMaterialConfig): IMaterialParams {
+export function configToParams(config: TMaterialConfig): TMaterialParams {
   const { blending, blendDst, blendEquation, blendSrc, side, format, stencilFunc, stencilFail, stencilZFail, stencilZPass, combine, depthPacking, normalMapType, ...rest } = config;
 
-  let params: IMaterialParams = {} as IMaterialParams;
+  let params: TMaterialParams = {} as TMaterialParams;
 
   if (isDefined(blending)) params = { ...params, blending: BlendingMap[blending] };
   if (isDefined(blendDst)) params = { ...params, blendDst: BlendingDstFactorMap[blendDst] };

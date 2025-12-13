@@ -3,24 +3,24 @@ import type { Observable } from 'rxjs';
 import type { TDestroyable } from '@/Engine/Mixins';
 
 import type { IMousePosition } from './IMousePosition';
-import type { IMouseWatcherEvent } from './IMouseWatcherEvent';
+import type { TMouseWatcherEvent } from './TMouseWatcherEvent';
 
 export type TMouseService = Readonly<{
-  clickPress$: Observable<IMouseWatcherEvent>;
-  clickLeftPress$: Observable<IMouseWatcherEvent>;
-  clickRightPress$: Observable<IMouseWatcherEvent>;
-  clickMiddlePress$: Observable<IMouseWatcherEvent>;
-  clickBackPress$: Observable<IMouseWatcherEvent>;
-  clickForwardPress$: Observable<IMouseWatcherEvent>;
-  clickExtraPress$: Observable<IMouseWatcherEvent>;
+  clickPress$: Observable<TMouseWatcherEvent>;
+  clickLeftPress$: Observable<TMouseWatcherEvent>;
+  clickRightPress$: Observable<TMouseWatcherEvent>;
+  clickMiddlePress$: Observable<TMouseWatcherEvent>;
+  clickBackPress$: Observable<TMouseWatcherEvent>;
+  clickForwardPress$: Observable<TMouseWatcherEvent>;
+  clickExtraPress$: Observable<TMouseWatcherEvent>;
 
-  clickRelease$: Observable<IMouseWatcherEvent>;
-  clickLeftRelease$: Observable<IMouseWatcherEvent>;
-  clickRightRelease$: Observable<IMouseWatcherEvent>;
-  clickMiddleRelease$: Observable<IMouseWatcherEvent>;
-  clickBackRelease$: Observable<IMouseWatcherEvent>;
-  clickForwardRelease$: Observable<IMouseWatcherEvent>;
-  clickExtraRelease$: Observable<IMouseWatcherEvent>;
+  clickRelease$: Observable<TMouseWatcherEvent>;
+  clickLeftRelease$: Observable<TMouseWatcherEvent>;
+  clickRightRelease$: Observable<TMouseWatcherEvent>;
+  clickMiddleRelease$: Observable<TMouseWatcherEvent>;
+  clickBackRelease$: Observable<TMouseWatcherEvent>;
+  clickForwardRelease$: Observable<TMouseWatcherEvent>;
+  clickExtraRelease$: Observable<TMouseWatcherEvent>;
 
   isLeftPressed$: Observable<boolean>;
   isRightPressed$: Observable<boolean>;
@@ -29,13 +29,13 @@ export type TMouseService = Readonly<{
   isForwardPressed$: Observable<boolean>;
   isExtraPressed$: Observable<boolean>;
 
-  doubleClick$: Observable<IMouseWatcherEvent>;
-  doubleLeftClick$: Observable<IMouseWatcherEvent>;
-  doubleRightClick$: Observable<IMouseWatcherEvent>;
+  doubleClick$: Observable<TMouseWatcherEvent>;
+  doubleLeftClick$: Observable<TMouseWatcherEvent>;
+  doubleRightClick$: Observable<TMouseWatcherEvent>;
 
-  wheel$: Observable<IMouseWatcherEvent>;
-  wheelUp$: Observable<IMouseWatcherEvent>;
-  wheelDown$: Observable<IMouseWatcherEvent>;
+  wheel$: Observable<TMouseWatcherEvent>;
+  wheelUp$: Observable<TMouseWatcherEvent>;
+  wheelDown$: Observable<TMouseWatcherEvent>;
 
   position$: Observable<IMousePosition>;
 }> &

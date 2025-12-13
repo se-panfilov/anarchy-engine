@@ -1,6 +1,6 @@
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TControlsRegistry, TOrbitControlsWrapper } from '@/Engine/Controls';
-import type { IRendererWrapper } from '@/Engine/Renderer';
+import type { TRendererWrapper } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer } from '@/Engine/Text';
 import { isDefined } from '@/Engine/Utils';
@@ -8,7 +8,7 @@ import { isDefined } from '@/Engine/Utils';
 export function spaceLoop(
   delta: number,
   activeCamera: TCameraWrapper | undefined,
-  renderer: IRendererWrapper,
+  renderer: TRendererWrapper,
   activeScene: TSceneWrapper,
   text2dRegistry: IText2dRegistry,
   text3dRegistry: IText3dRegistry,

@@ -1,6 +1,6 @@
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActorDependencies, TActorParams, TActorWrapperAsync } from '@/Engine/Actor/Models';
-import type { IWithMaterial } from '@/Engine/Material';
+import type { TWithMaterial } from '@/Engine/Material';
 import { withMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import { withTextures } from '@/Engine/Texture';
@@ -13,7 +13,7 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const entity: IMesh = await createActor(params, materialTextureService);
 
-  const withMaterialEntity: IWithMaterial = withMaterial(entity);
+  const withMaterialEntity: TWithMaterial = withMaterial(entity);
 
   const result = {
     ...AbstractWrapper(entity, WrapperType.Actor, params),

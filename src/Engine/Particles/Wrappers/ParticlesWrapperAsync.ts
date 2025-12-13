@@ -2,24 +2,24 @@ import { BufferAttribute } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TColor } from '@/Engine/Color';
-import type { IWithMaterial } from '@/Engine/Material';
+import type { TWithMaterial } from '@/Engine/Material';
 import { isPointsMaterial, withMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
-import type { IParticlesDependencies, IParticlesParams, IParticlesWrapperAsync } from '@/Engine/Particles/Models';
+import type { IParticlesDependencies, IParticlesParams, TParticlesWrapperAsync } from '@/Engine/Particles/Models';
 import { withTextures } from '@/Engine/Texture';
 import type { IPoints } from '@/Engine/ThreeLib';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 import { createParticles } from './ParticlesUtils';
 
-export async function ParticlesWrapperAsync(params: IParticlesParams, { materialTextureService }: IParticlesDependencies): Promise<IParticlesWrapperAsync> {
+export async function ParticlesWrapperAsync(params: IParticlesParams, { materialTextureService }: IParticlesDependencies): Promise<TParticlesWrapperAsync> {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const entity: IPoints = await createParticles(params, materialTextureService);
 
   const { material, geometry } = entity;
   if (!isPointsMaterial(material)) throw new Error('Material is not PointsMaterial or not defined');
 
-  const withMaterialEntity: IWithMaterial = withMaterial(entity);
+  const withMaterialEntity: TWithMaterial = withMaterial(entity);
 
   // eslint-disable-next-line functional/immutable-data
   const setMaterialColor = (color: TColor): void => void (material.color = color);

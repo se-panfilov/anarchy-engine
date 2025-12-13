@@ -4,7 +4,6 @@ import type { Subscription } from 'rxjs';
 import type { TLoopService, TLoopTimes } from '@/Engine/Loop';
 import type { TMovable3dXYZ } from '@/Engine/Mixins';
 import type {
-  IAnimationParams,
   IFullKeyframeDestination,
   IKeyframeDestination,
   IMoveableByTick,
@@ -13,7 +12,8 @@ import type {
   IMoveDestination,
   IMoveFn,
   IMoveFnParams,
-  IStopMoveCb
+  IStopMoveCb,
+  TAnimationParams
 } from '@/Engine/Services/MoverService/Models';
 import { createDeferredPromise } from '@/Engine/Utils';
 
@@ -62,7 +62,7 @@ export function preparePathList(list: ReadonlyArray<IKeyframeDestination>, obj: 
   return list.map((destination: IKeyframeDestination) => addMissingCoords(destination, obj) as IFullKeyframeDestination);
 }
 
-export function getAnimationWrapperForComplexPathAnimation(baseAnimation: anime.AnimeInstance, animationParams: IAnimationParams): anime.AnimeInstance {
+export function getAnimationWrapperForComplexPathAnimation(baseAnimation: anime.AnimeInstance, animationParams: TAnimationParams): anime.AnimeInstance {
   return anime({
     targets: baseAnimation,
     progress: [0, 100],

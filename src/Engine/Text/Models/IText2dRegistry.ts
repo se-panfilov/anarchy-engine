@@ -1,4 +1,4 @@
-import type { IText2dWrapper } from './IText2dWrapper';
 import type { ITextRegistry } from './ITextRegistry';
+import type { TText2dWrapper } from './TText2dWrapper';
 
-export type IText2dRegistry = ITextRegistry<IText2dWrapper>;
+export type IText2dRegistry = ITextRegistry<TText2dWrapper>;

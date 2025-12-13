@@ -35,12 +35,12 @@ import type {
   IPhysicalTextureUploadPromises,
   IStandardTextureUploaded,
   IStandardTextureUploadPromises,
-  ITexture,
   ITextureService,
   ITextureUploaded,
   ITextureUploadPromises,
   IToonTextureUploaded,
-  IToonTextureUploadPromises
+  IToonTextureUploadPromises,
+  TTexture
 } from '@/Engine/Texture/Models';
 import { applyColorSpace, applyFilters, applyTextureParams } from '@/Engine/Texture/Services/TextureServiceHelper';
 import type { TWriteable } from '@/Engine/Utils';
@@ -66,7 +66,7 @@ export function TextureService(): ITextureService {
     Object.entries(m.textures).forEach(([key, packParams]: [string, ITexturePackParams]): void => {
       // TODO (S.Panfilov) do not load texture if already loaded
       const { url, params }: ITexturePackParams = packParams;
-      const p: Promise<ITexture> = textureLoader.loadAsync(url).then((texture: TWriteable<ITexture>): ITexture => {
+      const p: Promise<TTexture> = textureLoader.loadAsync(url).then((texture: TWriteable<TTexture>): TTexture => {
         applyTextureParams(texture, params);
         applyColorSpace(key as IMaterialPackKeys, texture, params);
         applyFilters(texture, params);

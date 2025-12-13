@@ -1,7 +1,7 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type { IMoverService, TActorAsyncRegistry, TActorParams, TActorWrapperAsync, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorAsyncRegistry, TActorParams, TActorWrapperAsync, TAppCanvas, TEngine, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
 import { ActorType, buildSpaceFromConfig, defaultMoverServiceConfig, Engine, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, mouseService, TextType, Vector3Wrapper } from '@/Engine';
-import type { IAnimationParams } from '@/Engine/Services';
+import type { TAnimationParams } from '@/Engine/Services';
 import { Easing } from '@/Engine/Services';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
@@ -19,7 +19,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     let isClickBlocked: boolean = false;
 
-    const animationParams: IAnimationParams = {
+    const animationParams: TAnimationParams = {
       duration: 2000,
       direction: 'alternate'
     };
@@ -66,7 +66,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       console.log('click is ready', !isClickBlocked);
       isClickBlocked = true;
 
-      const moverService: IMoverService = MoverService(loopService, defaultMoverServiceConfig);
+      const moverService: TMoverService = MoverService(loopService, defaultMoverServiceConfig);
 
       actorRegistry.findAllByTags([boxActorTag], LookUpStrategy.Some).forEach((actor: TActorWrapperAsync) => {
         const easing = actor.getTags()[1] as Easing;

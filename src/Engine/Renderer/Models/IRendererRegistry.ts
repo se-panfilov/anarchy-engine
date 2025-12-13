@@ -1,5 +1,5 @@
 import type { TAbstractEntityRegistry, TProtectedRegistry } from '@/Engine/Abstract/Models';
 
-import type { IRendererWrapper } from './IRendererWrapper';
+import type { TRendererWrapper } from './TRendererWrapper';
 
-export type IRendererRegistry = TProtectedRegistry<TAbstractEntityRegistry<IRendererWrapper>>;
+export type IRendererRegistry = TProtectedRegistry<TAbstractEntityRegistry<TRendererWrapper>>;

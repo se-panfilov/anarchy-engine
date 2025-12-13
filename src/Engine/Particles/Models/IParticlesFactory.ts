@@ -3,6 +3,6 @@ import type { TDestroyable } from '@/Engine/Mixins';
 
 import type { IParticlesConfig } from './IParticlesConfig';
 import type { IParticlesParams } from './IParticlesParams';
-import type { IParticlesWrapperAsync } from './IParticlesWrapperAsync';
+import type { TParticlesWrapperAsync } from './TParticlesWrapperAsync';
 
-export type IParticlesFactory = TAsyncReactiveFactory<IParticlesWrapperAsync, IParticlesParams> & TParamsFromConfig<IParticlesConfig, IParticlesParams> & TDestroyable;
+export type IParticlesFactory = TAsyncReactiveFactory<TParticlesWrapperAsync, IParticlesParams> & TParamsFromConfig<IParticlesConfig, IParticlesParams> & TDestroyable;
