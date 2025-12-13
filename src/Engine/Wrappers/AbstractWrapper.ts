@@ -1,8 +1,8 @@
 import { Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
-import type { Entity } from '@Engine/Models';
+import type { ReactiveWrapper } from '@Engine/Models';
 
-export function AbstractWrapper<T>(entity: T): Entity<T> {
+export function AbstractWrapper<T>(entity: T): ReactiveWrapper<T> {
   const id: string = nanoid();
   const destroyed$ = new Subject<void>();
 

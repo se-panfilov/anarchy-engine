@@ -1,8 +1,8 @@
 import { Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
-import type { Entity, Factory } from '@Engine/Models';
+import type { ReactiveWrapper, Factory } from '@Engine/Models';
 
-export function AbstractFactory<T extends Entity<unknown>, R extends Record<string, any>>(
+export function AbstractFactory<T extends ReactiveWrapper<unknown>, R extends Record<string, any>>(
   create: (params: R) => T
 ): Factory<T, R> {
   const id: string = nanoid();

@@ -1,6 +1,5 @@
-import type { Entity } from '@Engine/Models';
-import { nanoid } from 'nanoid';
-import { Subject } from 'rxjs';
+import { AbstractRegistry } from './AbstractRegistry';
+import type { ActorWrapper } from '@Engine/Wrappers';
 
-// TODO (S.Panfilov) any
-export function ActorRegistry<T extends Entity<unknown>>(): any {}
+export const ActorRegistry = (): ReturnType<typeof AbstractRegistry<ReturnType<typeof ActorWrapper>>> =>
+  AbstractRegistry();

@@ -1,9 +1,9 @@
-import type { Entity } from '@Engine/Models';
+import type { ReactiveWrapper } from '@Engine/Models';
 import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
+import type { Registry } from '@Engine/Models';
 
-// TODO (S.Panfilov) any
-export function ActorRegistry<T extends Entity<unknown>>(): any {
+export function AbstractRegistry<T extends ReactiveWrapper<unknown>>(): Registry<T> {
   const id: string = nanoid();
   const add$: Subject<T> = new Subject<T>();
   const replace$: Subject<T> = new Subject<T>();
