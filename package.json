@@ -37,6 +37,7 @@
     "ts-key-enum": "3.0.12"
   },
   "devDependencies": {
+    "@dimforge/rapier3d-compat": "0.13.1",
     "@types/animejs": "3.1.12",
     "@types/node": "20.12.12",
     "@types/three": "0.165.0",
