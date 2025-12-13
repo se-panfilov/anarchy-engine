@@ -2096,28 +2096,43 @@
           "$ref": "#/definitions/TDistanceMaterialConfigOptions"
         },
         {
-          "$ref": "#/definitions/TNormalMaterialConfigOptions"
+          "$ref": "#/definitions/TLambertMaterialConfigOptions"
+        },
+        {
+          "$ref": "#/definitions/TLineBasicMaterialConfigOptions"
+        },
+        {
+          "$ref": "#/definitions/TLineDashedMaterialConfigOptions"
         },
         {
           "$ref": "#/definitions/TMatcapMaterialConfigOptions"
         },
         {
-          "$ref": "#/definitions/TLambertMaterialConfigOptions"
+          "$ref": "#/definitions/TNormalMaterialConfigOptions"
         },
         {
           "$ref": "#/definitions/TPhongMaterialConfigOptions"
-        },
-        {
-          "$ref": "#/definitions/TToonMaterialConfigOptions"
-        },
-        {
-          "$ref": "#/definitions/TStandardMaterialConfigOptions"
         },
         {
           "$ref": "#/definitions/TPhysicalMaterialConfigOptions"
         },
         {
           "$ref": "#/definitions/TPointsMaterialConfigOptions"
+        },
+        {
+          "$ref": "#/definitions/TShaderMaterialConfigOptions"
+        },
+        {
+          "$ref": "#/definitions/TShadowMaterialConfigOptions"
+        },
+        {
+          "$ref": "#/definitions/TSpriteMaterialConfigOptions"
+        },
+        {
+          "$ref": "#/definitions/TStandardMaterialConfigOptions"
+        },
+        {
+          "$ref": "#/definitions/TToonMaterialConfigOptions"
         }
       ]
     },
@@ -2125,9 +2140,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "blending": {
-          "$ref": "#/definitions/BlendingName"
-        },
         "blendDst": {
           "$ref": "#/definitions/BlendingDstFactorName"
         },
@@ -2144,23 +2156,8 @@
             }
           ]
         },
-        "side": {
-          "$ref": "#/definitions/SideName"
-        },
-        "format": {
-          "$ref": "#/definitions/PixelFormatName"
-        },
-        "stencilFunc": {
-          "$ref": "#/definitions/StencilFuncName"
-        },
-        "stencilFail": {
-          "$ref": "#/definitions/StencilFailName"
-        },
-        "stencilZFail": {
-          "$ref": "#/definitions/StencilOpName"
-        },
-        "stencilZPass": {
-          "$ref": "#/definitions/StencilOpName"
+        "blending": {
+          "$ref": "#/definitions/BlendingName"
         },
         "combine": {
           "$ref": "#/definitions/CombineName"
@@ -2168,14 +2165,71 @@
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "format": {
+          "$ref": "#/definitions/PixelFormatName"
+        },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
         },
-        "map": {
-          "type": ["string", "null"]
+        "side": {
+          "$ref": "#/definitions/SideName"
         },
-        "alphaMap": {
-          "type": ["string", "null"]
+        "stencilFail": {
+          "$ref": "#/definitions/StencilFailName"
+        },
+        "stencilFunc": {
+          "$ref": "#/definitions/StencilFuncName"
+        },
+        "stencilZFail": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "stencilZPass": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "color": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "opacity": {
+          "type": "number"
+        },
+        "lightMapIntensity": {
+          "type": "number"
+        },
+        "aoMapIntensity": {
+          "type": "number"
+        },
+        "fog": {
+          "type": "boolean"
+        },
+        "reflectivity": {
+          "type": "number"
+        },
+        "refractionRatio": {
+          "type": "number"
+        },
+        "wireframe": {
+          "type": "boolean"
+        },
+        "wireframeLinewidth": {
+          "type": "number"
+        },
+        "wireframeLinecap": {
+          "type": "string"
+        },
+        "wireframeLinejoin": {
+          "type": "string"
         },
         "alphaHash": {
           "type": "boolean"
@@ -2210,7 +2264,6 @@
         "colorWrite": {
           "type": "boolean"
         },
-        "defines": {},
         "depthFunc": {
           "$ref": "#/definitions/DepthModes"
         },
@@ -2219,18 +2272,6 @@
         },
         "depthWrite": {
           "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "opacity": {
-          "type": "number"
         },
         "polygonOffset": {
           "type": "boolean"
@@ -2242,26 +2283,20 @@
           "type": "number"
         },
         "precision": {
-          "type": "string",
-          "enum": ["highp", "mediump", "lowp"]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
         },
-        "shadowSide": {
-          "$ref": "#/definitions/Side"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "stencilRef": {
-          "type": "number"
-        },
-        "stencilWrite": {
+        "forceSinglePass": {
           "type": "boolean"
         },
-        "stencilWriteMask": {
-          "type": "number"
+        "dithering": {
+          "type": "boolean"
+        },
+        "shadowSide": {
+          "$ref": "#/definitions/Side"
         },
         "toneMapped": {
           "type": "boolean"
@@ -2269,50 +2304,25 @@
         "transparent": {
           "type": "boolean"
         },
-        "userData": {
-          "type": "object"
-        },
         "vertexColors": {
           "type": "boolean"
         },
         "visible": {
           "type": "boolean"
         },
-        "aoMapIntensity": {
-          "type": "number"
-        },
-        "color": {
-          "$ref": "#/definitions/ColorRepresentation"
-        },
-        "fog": {
+        "stencilWrite": {
           "type": "boolean"
         },
-        "lightMapIntensity": {
+        "stencilRef": {
           "type": "number"
         },
-        "reflectivity": {
+        "stencilWriteMask": {
           "type": "number"
         },
-        "refractionRatio": {
-          "type": "number"
-        },
-        "wireframe": {
-          "type": "boolean"
-        },
-        "wireframeLinecap": {
-          "type": "string"
-        },
-        "wireframeLinejoin": {
-          "type": "string"
-        },
-        "wireframeLinewidth": {
+        "stencilFuncMask": {
           "type": "number"
         }
       }
-    },
-    "BlendingName": {
-      "type": "string",
-      "enum": ["AdditiveBlending", "CustomBlending", "MultiplyBlending", "NoBlending", "NormalBlending", "SubtractiveBlending"]
     },
     "BlendingDstFactorName": {
       "type": "string",
@@ -2341,25 +2351,9 @@
       "type": "string",
       "const": "SrcAlphaSaturateFactor"
     },
-    "SideName": {
+    "BlendingName": {
       "type": "string",
-      "enum": ["BackSide", "DoubleSide", "FrontSide"]
-    },
-    "PixelFormatName": {
-      "type": "string",
-      "enum": ["AlphaFormat", "DepthFormat", "DepthStencilFormat", "RGBAFormat", "RGBAIntegerFormat", "RGBFormat", "RGBIntegerFormat", "RGFormat", "RGIntegerFormat", "RedFormat", "RedIntegerFormat"]
-    },
-    "StencilFuncName": {
-      "type": "string",
-      "enum": ["AlwaysStencilFunc", "EqualStencilFunc", "GreaterEqualStencilFunc", "GreaterStencilFunc", "LessEqualStencilFunc", "LessStencilFunc", "NeverStencilFunc", "NotEqualStencilFunc"]
-    },
-    "StencilFailName": {
-      "type": "string",
-      "enum": ["DecrementStencilOp", "DecrementWrapStencilOp", "IncrementStencilOp", "IncrementWrapStencilOp", "InvertStencilOp", "KeepStencilOp", "ReplaceStencilOp", "ZeroStencilOp"]
-    },
-    "StencilOpName": {
-      "type": "string",
-      "enum": ["DecrementStencilOp", "DecrementWrapStencilOp", "IncrementStencilOp", "IncrementWrapStencilOp", "InvertStencilOp", "KeepStencilOp", "ReplaceStencilOp", "ZeroStencilOp"]
+      "enum": ["AdditiveBlending", "CustomBlending", "MultiplyBlending", "NoBlending", "NormalBlending", "SubtractiveBlending"]
     },
     "CombineName": {
       "type": "string",
@@ -2369,9 +2363,29 @@
       "type": "string",
       "enum": ["BasicDepthPacking", "RGBADepthPacking"]
     },
+    "PixelFormatName": {
+      "type": "string",
+      "enum": ["AlphaFormat", "DepthFormat", "DepthStencilFormat", "RGBAFormat", "RGBAIntegerFormat", "RGBFormat", "RGBIntegerFormat", "RGFormat", "RGIntegerFormat", "RedFormat", "RedIntegerFormat"]
+    },
     "NormalMapTypesName": {
       "type": "string",
       "enum": ["ObjectSpaceNormalMap", "TangentSpaceNormalMap"]
+    },
+    "SideName": {
+      "type": "string",
+      "enum": ["BackSide", "DoubleSide", "FrontSide"]
+    },
+    "StencilFailName": {
+      "type": "string",
+      "enum": ["DecrementStencilOp", "DecrementWrapStencilOp", "IncrementStencilOp", "IncrementWrapStencilOp", "InvertStencilOp", "KeepStencilOp", "ReplaceStencilOp", "ZeroStencilOp"]
+    },
+    "StencilFuncName": {
+      "type": "string",
+      "enum": ["AlwaysStencilFunc", "EqualStencilFunc", "GreaterEqualStencilFunc", "GreaterStencilFunc", "LessEqualStencilFunc", "LessStencilFunc", "NeverStencilFunc", "NotEqualStencilFunc"]
+    },
+    "StencilOpName": {
+      "type": "string",
+      "enum": ["DecrementStencilOp", "DecrementWrapStencilOp", "IncrementStencilOp", "IncrementWrapStencilOp", "InvertStencilOp", "KeepStencilOp", "ReplaceStencilOp", "ZeroStencilOp"]
     },
     "ColorRepresentation": {
       "anyOf": [
@@ -2426,9 +2440,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "blending": {
-          "$ref": "#/definitions/BlendingName"
-        },
         "blendDst": {
           "$ref": "#/definitions/BlendingDstFactorName"
         },
@@ -2445,23 +2456,8 @@
             }
           ]
         },
-        "side": {
-          "$ref": "#/definitions/SideName"
-        },
-        "format": {
-          "$ref": "#/definitions/PixelFormatName"
-        },
-        "stencilFunc": {
-          "$ref": "#/definitions/StencilFuncName"
-        },
-        "stencilFail": {
-          "$ref": "#/definitions/StencilFailName"
-        },
-        "stencilZFail": {
-          "$ref": "#/definitions/StencilOpName"
-        },
-        "stencilZPass": {
-          "$ref": "#/definitions/StencilOpName"
+        "blending": {
+          "$ref": "#/definitions/BlendingName"
         },
         "combine": {
           "$ref": "#/definitions/CombineName"
@@ -2469,14 +2465,50 @@
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "format": {
+          "$ref": "#/definitions/PixelFormatName"
+        },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
         },
-        "map": {
-          "type": ["string", "null"]
+        "side": {
+          "$ref": "#/definitions/SideName"
         },
-        "alphaMap": {
-          "type": ["string", "null"]
+        "stencilFail": {
+          "$ref": "#/definitions/StencilFailName"
+        },
+        "stencilFunc": {
+          "$ref": "#/definitions/StencilFuncName"
+        },
+        "stencilZFail": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "stencilZPass": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "displacementScale": {
+          "type": "number"
+        },
+        "displacementBias": {
+          "type": "number"
+        },
+        "wireframe": {
+          "type": "boolean"
+        },
+        "wireframeLinewidth": {
+          "type": "number"
         },
         "alphaHash": {
           "type": "boolean"
@@ -2511,7 +2543,6 @@
         "colorWrite": {
           "type": "boolean"
         },
-        "defines": {},
         "depthFunc": {
           "$ref": "#/definitions/DepthModes"
         },
@@ -2520,15 +2551,6 @@
         },
         "depthWrite": {
           "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
         },
         "opacity": {
           "type": "number"
@@ -2543,26 +2565,20 @@
           "type": "number"
         },
         "precision": {
-          "type": "string",
-          "enum": ["highp", "mediump", "lowp"]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
         },
-        "shadowSide": {
-          "$ref": "#/definitions/Side"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "stencilRef": {
-          "type": "number"
-        },
-        "stencilWrite": {
+        "forceSinglePass": {
           "type": "boolean"
         },
-        "stencilWriteMask": {
-          "type": "number"
+        "dithering": {
+          "type": "boolean"
+        },
+        "shadowSide": {
+          "$ref": "#/definitions/Side"
         },
         "toneMapped": {
           "type": "boolean"
@@ -2570,25 +2586,22 @@
         "transparent": {
           "type": "boolean"
         },
-        "userData": {
-          "type": "object"
-        },
         "vertexColors": {
           "type": "boolean"
         },
         "visible": {
           "type": "boolean"
         },
-        "displacementBias": {
-          "type": "number"
-        },
-        "displacementScale": {
-          "type": "number"
-        },
-        "wireframe": {
+        "stencilWrite": {
           "type": "boolean"
         },
-        "wireframeLinewidth": {
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWriteMask": {
+          "type": "number"
+        },
+        "stencilFuncMask": {
           "type": "number"
         }
       }
@@ -2597,9 +2610,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "blending": {
-          "$ref": "#/definitions/BlendingName"
-        },
         "blendDst": {
           "$ref": "#/definitions/BlendingDstFactorName"
         },
@@ -2616,23 +2626,8 @@
             }
           ]
         },
-        "side": {
-          "$ref": "#/definitions/SideName"
-        },
-        "format": {
-          "$ref": "#/definitions/PixelFormatName"
-        },
-        "stencilFunc": {
-          "$ref": "#/definitions/StencilFuncName"
-        },
-        "stencilFail": {
-          "$ref": "#/definitions/StencilFailName"
-        },
-        "stencilZFail": {
-          "$ref": "#/definitions/StencilOpName"
-        },
-        "stencilZPass": {
-          "$ref": "#/definitions/StencilOpName"
+        "blending": {
+          "$ref": "#/definitions/BlendingName"
         },
         "combine": {
           "$ref": "#/definitions/CombineName"
@@ -2640,120 +2635,43 @@
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "format": {
+          "$ref": "#/definitions/PixelFormatName"
+        },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
         },
-        "map": {
-          "type": ["string", "null"]
+        "side": {
+          "$ref": "#/definitions/SideName"
         },
-        "alphaMap": {
-          "type": ["string", "null"]
+        "stencilFail": {
+          "$ref": "#/definitions/StencilFailName"
         },
-        "alphaHash": {
-          "type": "boolean"
+        "stencilFunc": {
+          "$ref": "#/definitions/StencilFuncName"
         },
-        "alphaTest": {
-          "type": "number"
+        "stencilZFail": {
+          "$ref": "#/definitions/StencilOpName"
         },
-        "alphaToCoverage": {
-          "type": "boolean"
+        "stencilZPass": {
+          "$ref": "#/definitions/StencilOpName"
         },
-        "blendAlpha": {
-          "type": "number"
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
         },
-        "blendColor": {
-          "$ref": "#/definitions/ColorRepresentation"
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
         },
-        "blendDstAlpha": {
-          "type": "number"
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
         },
-        "blendEquationAlpha": {
-          "type": "number"
-        },
-        "blendSrcAlpha": {
-          "type": "number"
-        },
-        "clipIntersection": {
-          "type": "boolean"
-        },
-        "clipShadows": {
-          "type": "boolean"
-        },
-        "colorWrite": {
-          "type": "boolean"
-        },
-        "defines": {},
-        "depthFunc": {
-          "$ref": "#/definitions/DepthModes"
-        },
-        "depthTest": {
-          "type": "boolean"
-        },
-        "depthWrite": {
-          "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "opacity": {
-          "type": "number"
-        },
-        "polygonOffset": {
-          "type": "boolean"
-        },
-        "polygonOffsetFactor": {
-          "type": "number"
-        },
-        "polygonOffsetUnits": {
-          "type": "number"
-        },
-        "precision": {
-          "type": "string",
-          "enum": ["highp", "mediump", "lowp"]
-        },
-        "premultipliedAlpha": {
-          "type": "boolean"
-        },
-        "shadowSide": {
-          "$ref": "#/definitions/Side"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "stencilRef": {
-          "type": "number"
-        },
-        "stencilWrite": {
-          "type": "boolean"
-        },
-        "stencilWriteMask": {
-          "type": "number"
-        },
-        "toneMapped": {
-          "type": "boolean"
-        },
-        "transparent": {
-          "type": "boolean"
-        },
-        "userData": {
-          "type": "object"
-        },
-        "vertexColors": {
-          "type": "boolean"
-        },
-        "visible": {
-          "type": "boolean"
-        },
-        "displacementBias": {
-          "type": "number"
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
         },
         "displacementScale": {
+          "type": "number"
+        },
+        "displacementBias": {
           "type": "number"
         },
         "farDistance": {
@@ -2762,67 +2680,6 @@
         "nearDistance": {
           "type": "number"
         },
-        "referencePosition": {
-          "$ref": "#/definitions/Vector3Like"
-        }
-      }
-    },
-    "TNormalMaterialConfigOptions": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "blending": {
-          "$ref": "#/definitions/BlendingName"
-        },
-        "blendDst": {
-          "$ref": "#/definitions/BlendingDstFactorName"
-        },
-        "blendEquation": {
-          "$ref": "#/definitions/BlendEquationName"
-        },
-        "blendSrc": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/BlendingSrcFactorName"
-            },
-            {
-              "$ref": "#/definitions/BlendingDstFactorName"
-            }
-          ]
-        },
-        "side": {
-          "$ref": "#/definitions/SideName"
-        },
-        "format": {
-          "$ref": "#/definitions/PixelFormatName"
-        },
-        "stencilFunc": {
-          "$ref": "#/definitions/StencilFuncName"
-        },
-        "stencilFail": {
-          "$ref": "#/definitions/StencilFailName"
-        },
-        "stencilZFail": {
-          "$ref": "#/definitions/StencilOpName"
-        },
-        "stencilZPass": {
-          "$ref": "#/definitions/StencilOpName"
-        },
-        "combine": {
-          "$ref": "#/definitions/CombineName"
-        },
-        "depthPacking": {
-          "$ref": "#/definitions/DepthPackingStrategiesName"
-        },
-        "normalMapType": {
-          "$ref": "#/definitions/NormalMapTypesName"
-        },
-        "map": {
-          "type": ["string", "null"]
-        },
-        "alphaMap": {
-          "type": ["string", "null"]
-        },
         "alphaHash": {
           "type": "boolean"
         },
@@ -2856,7 +2713,6 @@
         "colorWrite": {
           "type": "boolean"
         },
-        "defines": {},
         "depthFunc": {
           "$ref": "#/definitions/DepthModes"
         },
@@ -2865,15 +2721,6 @@
         },
         "depthWrite": {
           "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
         },
         "opacity": {
           "type": "number"
@@ -2888,203 +2735,20 @@
           "type": "number"
         },
         "precision": {
-          "type": "string",
-          "enum": ["highp", "mediump", "lowp"]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
-          "type": "boolean"
-        },
-        "shadowSide": {
-          "$ref": "#/definitions/Side"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "stencilRef": {
-          "type": "number"
-        },
-        "stencilWrite": {
-          "type": "boolean"
-        },
-        "stencilWriteMask": {
-          "type": "number"
-        },
-        "toneMapped": {
-          "type": "boolean"
-        },
-        "transparent": {
-          "type": "boolean"
-        },
-        "userData": {
-          "type": "object"
-        },
-        "vertexColors": {
-          "type": "boolean"
-        },
-        "visible": {
-          "type": "boolean"
-        },
-        "bumpScale": {
-          "type": "number"
-        },
-        "displacementBias": {
-          "type": "number"
-        },
-        "displacementScale": {
-          "type": "number"
-        },
-        "wireframe": {
-          "type": "boolean"
-        },
-        "wireframeLinewidth": {
-          "type": "number"
-        },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        }
-      }
-    },
-    "TMatcapMaterialConfigOptions": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "blending": {
-          "$ref": "#/definitions/BlendingName"
-        },
-        "blendDst": {
-          "$ref": "#/definitions/BlendingDstFactorName"
-        },
-        "blendEquation": {
-          "$ref": "#/definitions/BlendEquationName"
-        },
-        "blendSrc": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/BlendingSrcFactorName"
-            },
-            {
-              "$ref": "#/definitions/BlendingDstFactorName"
-            }
-          ]
-        },
-        "side": {
-          "$ref": "#/definitions/SideName"
-        },
-        "format": {
-          "$ref": "#/definitions/PixelFormatName"
-        },
-        "stencilFunc": {
-          "$ref": "#/definitions/StencilFuncName"
-        },
-        "stencilFail": {
-          "$ref": "#/definitions/StencilFailName"
-        },
-        "stencilZFail": {
-          "$ref": "#/definitions/StencilOpName"
-        },
-        "stencilZPass": {
-          "$ref": "#/definitions/StencilOpName"
-        },
-        "combine": {
-          "$ref": "#/definitions/CombineName"
-        },
-        "depthPacking": {
-          "$ref": "#/definitions/DepthPackingStrategiesName"
-        },
-        "normalMapType": {
-          "$ref": "#/definitions/NormalMapTypesName"
-        },
-        "map": {
-          "type": ["string", "null"]
-        },
-        "alphaMap": {
-          "type": ["string", "null"]
-        },
-        "alphaHash": {
-          "type": "boolean"
-        },
-        "alphaTest": {
-          "type": "number"
-        },
-        "alphaToCoverage": {
-          "type": "boolean"
-        },
-        "blendAlpha": {
-          "type": "number"
-        },
-        "blendColor": {
-          "$ref": "#/definitions/ColorRepresentation"
-        },
-        "blendDstAlpha": {
-          "type": "number"
-        },
-        "blendEquationAlpha": {
-          "type": "number"
-        },
-        "blendSrcAlpha": {
-          "type": "number"
-        },
-        "clipIntersection": {
-          "type": "boolean"
-        },
-        "clipShadows": {
-          "type": "boolean"
-        },
-        "colorWrite": {
-          "type": "boolean"
-        },
-        "defines": {},
-        "depthFunc": {
-          "$ref": "#/definitions/DepthModes"
-        },
-        "depthTest": {
-          "type": "boolean"
-        },
-        "depthWrite": {
-          "type": "boolean"
-        },
-        "dithering": {
           "type": "boolean"
         },
         "forceSinglePass": {
           "type": "boolean"
         },
-        "name": {
-          "type": "string"
-        },
-        "opacity": {
-          "type": "number"
-        },
-        "polygonOffset": {
-          "type": "boolean"
-        },
-        "polygonOffsetFactor": {
-          "type": "number"
-        },
-        "polygonOffsetUnits": {
-          "type": "number"
-        },
-        "precision": {
-          "type": "string",
-          "enum": ["highp", "mediump", "lowp"]
-        },
-        "premultipliedAlpha": {
+        "dithering": {
           "type": "boolean"
         },
         "shadowSide": {
           "$ref": "#/definitions/Side"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "stencilRef": {
-          "type": "number"
-        },
-        "stencilWrite": {
-          "type": "boolean"
-        },
-        "stencilWriteMask": {
-          "type": "number"
         },
         "toneMapped": {
           "type": "boolean"
@@ -3092,35 +2756,23 @@
         "transparent": {
           "type": "boolean"
         },
-        "userData": {
-          "type": "object"
-        },
         "vertexColors": {
           "type": "boolean"
         },
         "visible": {
           "type": "boolean"
         },
-        "bumpScale": {
-          "type": "number"
-        },
-        "color": {
-          "$ref": "#/definitions/ColorRepresentation"
-        },
-        "displacementBias": {
-          "type": "number"
-        },
-        "displacementScale": {
-          "type": "number"
-        },
-        "flatShading": {
+        "stencilWrite": {
           "type": "boolean"
         },
-        "fog": {
-          "type": "boolean"
+        "stencilRef": {
+          "type": "number"
         },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
+        "stencilWriteMask": {
+          "type": "number"
+        },
+        "stencilFuncMask": {
+          "type": "number"
         }
       }
     },
@@ -3128,9 +2780,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "blending": {
-          "$ref": "#/definitions/BlendingName"
-        },
         "blendDst": {
           "$ref": "#/definitions/BlendingDstFactorName"
         },
@@ -3147,23 +2796,8 @@
             }
           ]
         },
-        "side": {
-          "$ref": "#/definitions/SideName"
-        },
-        "format": {
-          "$ref": "#/definitions/PixelFormatName"
-        },
-        "stencilFunc": {
-          "$ref": "#/definitions/StencilFuncName"
-        },
-        "stencilFail": {
-          "$ref": "#/definitions/StencilFailName"
-        },
-        "stencilZFail": {
-          "$ref": "#/definitions/StencilOpName"
-        },
-        "stencilZPass": {
-          "$ref": "#/definitions/StencilOpName"
+        "blending": {
+          "$ref": "#/definitions/BlendingName"
         },
         "combine": {
           "$ref": "#/definitions/CombineName"
@@ -3171,14 +2805,86 @@
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "format": {
+          "$ref": "#/definitions/PixelFormatName"
+        },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
         },
-        "map": {
-          "type": ["string", "null"]
+        "side": {
+          "$ref": "#/definitions/SideName"
         },
-        "alphaMap": {
-          "type": ["string", "null"]
+        "stencilFail": {
+          "$ref": "#/definitions/StencilFailName"
+        },
+        "stencilFunc": {
+          "$ref": "#/definitions/StencilFuncName"
+        },
+        "stencilZFail": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "stencilZPass": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "bumpScale": {
+          "type": "number"
+        },
+        "color": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "displacementScale": {
+          "type": "number"
+        },
+        "displacementBias": {
+          "type": "number"
+        },
+        "emissive": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "emissiveIntensity": {
+          "type": "number"
+        },
+        "flatShading": {
+          "type": "boolean"
+        },
+        "lightMapIntensity": {
+          "type": "number"
+        },
+        "aoMapIntensity": {
+          "type": "number"
+        },
+        "reflectivity": {
+          "type": "number"
+        },
+        "refractionRatio": {
+          "type": "number"
+        },
+        "wireframe": {
+          "type": "boolean"
+        },
+        "wireframeLinewidth": {
+          "type": "number"
+        },
+        "wireframeLinecap": {
+          "type": "string"
+        },
+        "wireframeLinejoin": {
+          "type": "string"
+        },
+        "fog": {
+          "type": "boolean"
         },
         "alphaHash": {
           "type": "boolean"
@@ -3213,7 +2919,6 @@
         "colorWrite": {
           "type": "boolean"
         },
-        "defines": {},
         "depthFunc": {
           "$ref": "#/definitions/DepthModes"
         },
@@ -3222,15 +2927,6 @@
         },
         "depthWrite": {
           "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
         },
         "opacity": {
           "type": "number"
@@ -3245,26 +2941,20 @@
           "type": "number"
         },
         "precision": {
-          "type": "string",
-          "enum": ["highp", "mediump", "lowp"]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
         },
-        "shadowSide": {
-          "$ref": "#/definitions/Side"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "stencilRef": {
-          "type": "number"
-        },
-        "stencilWrite": {
+        "forceSinglePass": {
           "type": "boolean"
         },
-        "stencilWriteMask": {
-          "type": "number"
+        "dithering": {
+          "type": "boolean"
+        },
+        "shadowSide": {
+          "$ref": "#/definitions/Side"
         },
         "toneMapped": {
           "type": "boolean"
@@ -3272,8 +2962,178 @@
         "transparent": {
           "type": "boolean"
         },
-        "userData": {
-          "type": "object"
+        "vertexColors": {
+          "type": "boolean"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWriteMask": {
+          "type": "number"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        }
+      }
+    },
+    "TLineBasicMaterialConfigOptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "blendDst": {
+          "$ref": "#/definitions/BlendingDstFactorName"
+        },
+        "blendEquation": {
+          "$ref": "#/definitions/BlendEquationName"
+        },
+        "blendSrc": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/BlendingSrcFactorName"
+            },
+            {
+              "$ref": "#/definitions/BlendingDstFactorName"
+            }
+          ]
+        },
+        "blending": {
+          "$ref": "#/definitions/BlendingName"
+        },
+        "combine": {
+          "$ref": "#/definitions/CombineName"
+        },
+        "depthPacking": {
+          "$ref": "#/definitions/DepthPackingStrategiesName"
+        },
+        "format": {
+          "$ref": "#/definitions/PixelFormatName"
+        },
+        "normalMapType": {
+          "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "side": {
+          "$ref": "#/definitions/SideName"
+        },
+        "stencilFail": {
+          "$ref": "#/definitions/StencilFailName"
+        },
+        "stencilFunc": {
+          "$ref": "#/definitions/StencilFuncName"
+        },
+        "stencilZFail": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "stencilZPass": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "color": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "fog": {
+          "type": "boolean"
+        },
+        "linewidth": {
+          "type": "number"
+        },
+        "linecap": {
+          "type": "string"
+        },
+        "linejoin": {
+          "type": "string"
+        },
+        "alphaHash": {
+          "type": "boolean"
+        },
+        "alphaTest": {
+          "type": "number"
+        },
+        "alphaToCoverage": {
+          "type": "boolean"
+        },
+        "blendAlpha": {
+          "type": "number"
+        },
+        "blendColor": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "blendDstAlpha": {
+          "type": "number"
+        },
+        "blendEquationAlpha": {
+          "type": "number"
+        },
+        "blendSrcAlpha": {
+          "type": "number"
+        },
+        "clipIntersection": {
+          "type": "boolean"
+        },
+        "clipShadows": {
+          "type": "boolean"
+        },
+        "colorWrite": {
+          "type": "boolean"
+        },
+        "depthFunc": {
+          "$ref": "#/definitions/DepthModes"
+        },
+        "depthTest": {
+          "type": "boolean"
+        },
+        "depthWrite": {
+          "type": "boolean"
+        },
+        "opacity": {
+          "type": "number"
+        },
+        "polygonOffset": {
+          "type": "boolean"
+        },
+        "polygonOffsetFactor": {
+          "type": "number"
+        },
+        "polygonOffsetUnits": {
+          "type": "number"
+        },
+        "precision": {
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
+        },
+        "premultipliedAlpha": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
+        "dithering": {
+          "type": "boolean"
+        },
+        "shadowSide": {
+          "$ref": "#/definitions/Side"
+        },
+        "toneMapped": {
+          "type": "boolean"
+        },
+        "transparent": {
+          "type": "boolean"
         },
         "vertexColors": {
           "type": "boolean"
@@ -3281,56 +3141,551 @@
         "visible": {
           "type": "boolean"
         },
-        "aoMapIntensity": {
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilRef": {
           "type": "number"
         },
-        "bumpScale": {
+        "stencilWriteMask": {
+          "type": "number"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        }
+      }
+    },
+    "TLineDashedMaterialConfigOptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "blendDst": {
+          "$ref": "#/definitions/BlendingDstFactorName"
+        },
+        "blendEquation": {
+          "$ref": "#/definitions/BlendEquationName"
+        },
+        "blendSrc": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/BlendingSrcFactorName"
+            },
+            {
+              "$ref": "#/definitions/BlendingDstFactorName"
+            }
+          ]
+        },
+        "blending": {
+          "$ref": "#/definitions/BlendingName"
+        },
+        "combine": {
+          "$ref": "#/definitions/CombineName"
+        },
+        "depthPacking": {
+          "$ref": "#/definitions/DepthPackingStrategiesName"
+        },
+        "format": {
+          "$ref": "#/definitions/PixelFormatName"
+        },
+        "normalMapType": {
+          "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "side": {
+          "$ref": "#/definitions/SideName"
+        },
+        "stencilFail": {
+          "$ref": "#/definitions/StencilFailName"
+        },
+        "stencilFunc": {
+          "$ref": "#/definitions/StencilFuncName"
+        },
+        "stencilZFail": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "stencilZPass": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "scale": {
+          "type": "number"
+        },
+        "dashSize": {
+          "type": "number"
+        },
+        "gapSize": {
           "type": "number"
         },
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
         },
-        "displacementBias": {
+        "fog": {
+          "type": "boolean"
+        },
+        "linewidth": {
+          "type": "number"
+        },
+        "linecap": {
+          "type": "string"
+        },
+        "linejoin": {
+          "type": "string"
+        },
+        "alphaHash": {
+          "type": "boolean"
+        },
+        "alphaTest": {
+          "type": "number"
+        },
+        "alphaToCoverage": {
+          "type": "boolean"
+        },
+        "blendAlpha": {
+          "type": "number"
+        },
+        "blendColor": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "blendDstAlpha": {
+          "type": "number"
+        },
+        "blendEquationAlpha": {
+          "type": "number"
+        },
+        "blendSrcAlpha": {
+          "type": "number"
+        },
+        "clipIntersection": {
+          "type": "boolean"
+        },
+        "clipShadows": {
+          "type": "boolean"
+        },
+        "colorWrite": {
+          "type": "boolean"
+        },
+        "depthFunc": {
+          "$ref": "#/definitions/DepthModes"
+        },
+        "depthTest": {
+          "type": "boolean"
+        },
+        "depthWrite": {
+          "type": "boolean"
+        },
+        "opacity": {
+          "type": "number"
+        },
+        "polygonOffset": {
+          "type": "boolean"
+        },
+        "polygonOffsetFactor": {
+          "type": "number"
+        },
+        "polygonOffsetUnits": {
+          "type": "number"
+        },
+        "precision": {
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
+        },
+        "premultipliedAlpha": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
+        "dithering": {
+          "type": "boolean"
+        },
+        "shadowSide": {
+          "$ref": "#/definitions/Side"
+        },
+        "toneMapped": {
+          "type": "boolean"
+        },
+        "transparent": {
+          "type": "boolean"
+        },
+        "vertexColors": {
+          "type": "boolean"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWriteMask": {
+          "type": "number"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        }
+      }
+    },
+    "TMatcapMaterialConfigOptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "blendDst": {
+          "$ref": "#/definitions/BlendingDstFactorName"
+        },
+        "blendEquation": {
+          "$ref": "#/definitions/BlendEquationName"
+        },
+        "blendSrc": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/BlendingSrcFactorName"
+            },
+            {
+              "$ref": "#/definitions/BlendingDstFactorName"
+            }
+          ]
+        },
+        "blending": {
+          "$ref": "#/definitions/BlendingName"
+        },
+        "combine": {
+          "$ref": "#/definitions/CombineName"
+        },
+        "depthPacking": {
+          "$ref": "#/definitions/DepthPackingStrategiesName"
+        },
+        "format": {
+          "$ref": "#/definitions/PixelFormatName"
+        },
+        "normalMapType": {
+          "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "side": {
+          "$ref": "#/definitions/SideName"
+        },
+        "stencilFail": {
+          "$ref": "#/definitions/StencilFailName"
+        },
+        "stencilFunc": {
+          "$ref": "#/definitions/StencilFuncName"
+        },
+        "stencilZFail": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "stencilZPass": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "color": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "bumpScale": {
           "type": "number"
         },
         "displacementScale": {
           "type": "number"
         },
-        "emissive": {
-          "$ref": "#/definitions/ColorRepresentation"
-        },
-        "emissiveIntensity": {
+        "displacementBias": {
           "type": "number"
-        },
-        "flatShading": {
-          "type": "boolean"
         },
         "fog": {
           "type": "boolean"
         },
-        "lightMapIntensity": {
+        "flatShading": {
+          "type": "boolean"
+        },
+        "alphaHash": {
+          "type": "boolean"
+        },
+        "alphaTest": {
           "type": "number"
         },
-        "reflectivity": {
+        "alphaToCoverage": {
+          "type": "boolean"
+        },
+        "blendAlpha": {
           "type": "number"
         },
-        "refractionRatio": {
+        "blendColor": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "blendDstAlpha": {
+          "type": "number"
+        },
+        "blendEquationAlpha": {
+          "type": "number"
+        },
+        "blendSrcAlpha": {
+          "type": "number"
+        },
+        "clipIntersection": {
+          "type": "boolean"
+        },
+        "clipShadows": {
+          "type": "boolean"
+        },
+        "colorWrite": {
+          "type": "boolean"
+        },
+        "depthFunc": {
+          "$ref": "#/definitions/DepthModes"
+        },
+        "depthTest": {
+          "type": "boolean"
+        },
+        "depthWrite": {
+          "type": "boolean"
+        },
+        "opacity": {
+          "type": "number"
+        },
+        "polygonOffset": {
+          "type": "boolean"
+        },
+        "polygonOffsetFactor": {
+          "type": "number"
+        },
+        "polygonOffsetUnits": {
+          "type": "number"
+        },
+        "precision": {
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
+        },
+        "premultipliedAlpha": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
+        "dithering": {
+          "type": "boolean"
+        },
+        "shadowSide": {
+          "$ref": "#/definitions/Side"
+        },
+        "toneMapped": {
+          "type": "boolean"
+        },
+        "transparent": {
+          "type": "boolean"
+        },
+        "vertexColors": {
+          "type": "boolean"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWriteMask": {
+          "type": "number"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        }
+      }
+    },
+    "TNormalMaterialConfigOptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "blendDst": {
+          "$ref": "#/definitions/BlendingDstFactorName"
+        },
+        "blendEquation": {
+          "$ref": "#/definitions/BlendEquationName"
+        },
+        "blendSrc": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/BlendingSrcFactorName"
+            },
+            {
+              "$ref": "#/definitions/BlendingDstFactorName"
+            }
+          ]
+        },
+        "blending": {
+          "$ref": "#/definitions/BlendingName"
+        },
+        "combine": {
+          "$ref": "#/definitions/CombineName"
+        },
+        "depthPacking": {
+          "$ref": "#/definitions/DepthPackingStrategiesName"
+        },
+        "format": {
+          "$ref": "#/definitions/PixelFormatName"
+        },
+        "normalMapType": {
+          "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "side": {
+          "$ref": "#/definitions/SideName"
+        },
+        "stencilFail": {
+          "$ref": "#/definitions/StencilFailName"
+        },
+        "stencilFunc": {
+          "$ref": "#/definitions/StencilFuncName"
+        },
+        "stencilZFail": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "stencilZPass": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "bumpScale": {
+          "type": "number"
+        },
+        "displacementScale": {
+          "type": "number"
+        },
+        "displacementBias": {
           "type": "number"
         },
         "wireframe": {
           "type": "boolean"
         },
-        "wireframeLinecap": {
-          "type": "string"
-        },
-        "wireframeLinejoin": {
-          "type": "string"
-        },
         "wireframeLinewidth": {
           "type": "number"
         },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
+        "flatShading": {
+          "type": "boolean"
+        },
+        "alphaHash": {
+          "type": "boolean"
+        },
+        "alphaTest": {
+          "type": "number"
+        },
+        "alphaToCoverage": {
+          "type": "boolean"
+        },
+        "blendAlpha": {
+          "type": "number"
+        },
+        "blendColor": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "blendDstAlpha": {
+          "type": "number"
+        },
+        "blendEquationAlpha": {
+          "type": "number"
+        },
+        "blendSrcAlpha": {
+          "type": "number"
+        },
+        "clipIntersection": {
+          "type": "boolean"
+        },
+        "clipShadows": {
+          "type": "boolean"
+        },
+        "colorWrite": {
+          "type": "boolean"
+        },
+        "depthFunc": {
+          "$ref": "#/definitions/DepthModes"
+        },
+        "depthTest": {
+          "type": "boolean"
+        },
+        "depthWrite": {
+          "type": "boolean"
+        },
+        "opacity": {
+          "type": "number"
+        },
+        "polygonOffset": {
+          "type": "boolean"
+        },
+        "polygonOffsetFactor": {
+          "type": "number"
+        },
+        "polygonOffsetUnits": {
+          "type": "number"
+        },
+        "precision": {
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
+        },
+        "premultipliedAlpha": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
+        "dithering": {
+          "type": "boolean"
+        },
+        "shadowSide": {
+          "$ref": "#/definitions/Side"
+        },
+        "toneMapped": {
+          "type": "boolean"
+        },
+        "transparent": {
+          "type": "boolean"
+        },
+        "vertexColors": {
+          "type": "boolean"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWriteMask": {
+          "type": "number"
+        },
+        "stencilFuncMask": {
+          "type": "number"
         }
       }
     },
@@ -3338,9 +3693,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "blending": {
-          "$ref": "#/definitions/BlendingName"
-        },
         "blendDst": {
           "$ref": "#/definitions/BlendingDstFactorName"
         },
@@ -3357,23 +3709,8 @@
             }
           ]
         },
-        "side": {
-          "$ref": "#/definitions/SideName"
-        },
-        "format": {
-          "$ref": "#/definitions/PixelFormatName"
-        },
-        "stencilFunc": {
-          "$ref": "#/definitions/StencilFuncName"
-        },
-        "stencilFail": {
-          "$ref": "#/definitions/StencilFailName"
-        },
-        "stencilZFail": {
-          "$ref": "#/definitions/StencilOpName"
-        },
-        "stencilZPass": {
-          "$ref": "#/definitions/StencilOpName"
+        "blending": {
+          "$ref": "#/definitions/BlendingName"
         },
         "combine": {
           "$ref": "#/definitions/CombineName"
@@ -3381,129 +3718,56 @@
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "format": {
+          "$ref": "#/definitions/PixelFormatName"
+        },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
         },
-        "map": {
-          "type": ["string", "null"]
+        "side": {
+          "$ref": "#/definitions/SideName"
         },
-        "alphaMap": {
-          "type": ["string", "null"]
+        "stencilFail": {
+          "$ref": "#/definitions/StencilFailName"
         },
-        "alphaHash": {
-          "type": "boolean"
+        "stencilFunc": {
+          "$ref": "#/definitions/StencilFuncName"
         },
-        "alphaTest": {
-          "type": "number"
+        "stencilZFail": {
+          "$ref": "#/definitions/StencilOpName"
         },
-        "alphaToCoverage": {
-          "type": "boolean"
+        "stencilZPass": {
+          "$ref": "#/definitions/StencilOpName"
         },
-        "blendAlpha": {
-          "type": "number"
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
         },
-        "blendColor": {
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "color": {
+          "$ref": "#/definitions/ColorRepresentation",
+          "description": "geometry color in hexadecimal. Default is 0xffffff."
+        },
+        "specular": {
           "$ref": "#/definitions/ColorRepresentation"
         },
-        "blendDstAlpha": {
+        "shininess": {
           "type": "number"
-        },
-        "blendEquationAlpha": {
-          "type": "number"
-        },
-        "blendSrcAlpha": {
-          "type": "number"
-        },
-        "clipIntersection": {
-          "type": "boolean"
-        },
-        "clipShadows": {
-          "type": "boolean"
-        },
-        "colorWrite": {
-          "type": "boolean"
-        },
-        "defines": {},
-        "depthFunc": {
-          "$ref": "#/definitions/DepthModes"
-        },
-        "depthTest": {
-          "type": "boolean"
-        },
-        "depthWrite": {
-          "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
         },
         "opacity": {
           "type": "number"
         },
-        "polygonOffset": {
-          "type": "boolean"
-        },
-        "polygonOffsetFactor": {
+        "lightMapIntensity": {
           "type": "number"
-        },
-        "polygonOffsetUnits": {
-          "type": "number"
-        },
-        "precision": {
-          "type": "string",
-          "enum": ["highp", "mediump", "lowp"]
-        },
-        "premultipliedAlpha": {
-          "type": "boolean"
-        },
-        "shadowSide": {
-          "$ref": "#/definitions/Side"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "stencilRef": {
-          "type": "number"
-        },
-        "stencilWrite": {
-          "type": "boolean"
-        },
-        "stencilWriteMask": {
-          "type": "number"
-        },
-        "toneMapped": {
-          "type": "boolean"
-        },
-        "transparent": {
-          "type": "boolean"
-        },
-        "userData": {
-          "type": "object"
-        },
-        "vertexColors": {
-          "type": "boolean"
-        },
-        "visible": {
-          "type": "boolean"
         },
         "aoMapIntensity": {
-          "type": "number"
-        },
-        "bumpScale": {
-          "type": "number"
-        },
-        "color": {
-          "$ref": "#/definitions/ColorRepresentation"
-        },
-        "displacementBias": {
-          "type": "number"
-        },
-        "displacementScale": {
           "type": "number"
         },
         "emissive": {
@@ -3512,13 +3776,13 @@
         "emissiveIntensity": {
           "type": "number"
         },
-        "flatShading": {
-          "type": "boolean"
+        "bumpScale": {
+          "type": "number"
         },
-        "fog": {
-          "type": "boolean"
+        "displacementScale": {
+          "type": "number"
         },
-        "lightMapIntensity": {
+        "displacementBias": {
           "type": "number"
         },
         "reflectivity": {
@@ -3527,434 +3791,114 @@
         "refractionRatio": {
           "type": "number"
         },
-        "shininess": {
-          "type": "number"
-        },
-        "specular": {
-          "$ref": "#/definitions/ColorRepresentation"
-        },
         "wireframe": {
           "type": "boolean"
+        },
+        "wireframeLinewidth": {
+          "type": "number"
         },
         "wireframeLinecap": {
           "type": "string"
         },
         "wireframeLinejoin": {
           "type": "string"
-        },
-        "wireframeLinewidth": {
-          "type": "number"
-        },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        }
-      }
-    },
-    "TToonMaterialConfigOptions": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "blending": {
-          "$ref": "#/definitions/BlendingName"
-        },
-        "blendDst": {
-          "$ref": "#/definitions/BlendingDstFactorName"
-        },
-        "blendEquation": {
-          "$ref": "#/definitions/BlendEquationName"
-        },
-        "blendSrc": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/BlendingSrcFactorName"
-            },
-            {
-              "$ref": "#/definitions/BlendingDstFactorName"
-            }
-          ]
-        },
-        "side": {
-          "$ref": "#/definitions/SideName"
-        },
-        "format": {
-          "$ref": "#/definitions/PixelFormatName"
-        },
-        "stencilFunc": {
-          "$ref": "#/definitions/StencilFuncName"
-        },
-        "stencilFail": {
-          "$ref": "#/definitions/StencilFailName"
-        },
-        "stencilZFail": {
-          "$ref": "#/definitions/StencilOpName"
-        },
-        "stencilZPass": {
-          "$ref": "#/definitions/StencilOpName"
-        },
-        "combine": {
-          "$ref": "#/definitions/CombineName"
-        },
-        "depthPacking": {
-          "$ref": "#/definitions/DepthPackingStrategiesName"
-        },
-        "normalMapType": {
-          "$ref": "#/definitions/NormalMapTypesName"
-        },
-        "map": {
-          "type": ["string", "null"]
-        },
-        "alphaMap": {
-          "type": ["string", "null"]
-        },
-        "alphaHash": {
-          "type": "boolean"
-        },
-        "alphaTest": {
-          "type": "number"
-        },
-        "alphaToCoverage": {
-          "type": "boolean"
-        },
-        "blendAlpha": {
-          "type": "number"
-        },
-        "blendColor": {
-          "$ref": "#/definitions/ColorRepresentation"
-        },
-        "blendDstAlpha": {
-          "type": "number"
-        },
-        "blendEquationAlpha": {
-          "type": "number"
-        },
-        "blendSrcAlpha": {
-          "type": "number"
-        },
-        "clipIntersection": {
-          "type": "boolean"
-        },
-        "clipShadows": {
-          "type": "boolean"
-        },
-        "colorWrite": {
-          "type": "boolean"
-        },
-        "defines": {},
-        "depthFunc": {
-          "$ref": "#/definitions/DepthModes"
-        },
-        "depthTest": {
-          "type": "boolean"
-        },
-        "depthWrite": {
-          "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "opacity": {
-          "type": "number"
-        },
-        "polygonOffset": {
-          "type": "boolean"
-        },
-        "polygonOffsetFactor": {
-          "type": "number"
-        },
-        "polygonOffsetUnits": {
-          "type": "number"
-        },
-        "precision": {
-          "type": "string",
-          "enum": ["highp", "mediump", "lowp"]
-        },
-        "premultipliedAlpha": {
-          "type": "boolean"
-        },
-        "shadowSide": {
-          "$ref": "#/definitions/Side"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "stencilRef": {
-          "type": "number"
-        },
-        "stencilWrite": {
-          "type": "boolean"
-        },
-        "stencilWriteMask": {
-          "type": "number"
-        },
-        "toneMapped": {
-          "type": "boolean"
-        },
-        "transparent": {
-          "type": "boolean"
-        },
-        "userData": {
-          "type": "object"
-        },
-        "vertexColors": {
-          "type": "boolean"
-        },
-        "visible": {
-          "type": "boolean"
-        },
-        "aoMapIntensity": {
-          "type": "number"
-        },
-        "bumpScale": {
-          "type": "number"
-        },
-        "color": {
-          "$ref": "#/definitions/ColorRepresentation"
-        },
-        "displacementBias": {
-          "type": "number"
-        },
-        "displacementScale": {
-          "type": "number"
-        },
-        "emissive": {
-          "$ref": "#/definitions/ColorRepresentation"
-        },
-        "emissiveIntensity": {
-          "type": "number"
         },
         "fog": {
           "type": "boolean"
-        },
-        "lightMapIntensity": {
-          "type": "number"
-        },
-        "wireframe": {
-          "type": "boolean"
-        },
-        "wireframeLinecap": {
-          "type": "string"
-        },
-        "wireframeLinejoin": {
-          "type": "string"
-        },
-        "wireframeLinewidth": {
-          "type": "number"
-        },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        }
-      }
-    },
-    "TStandardMaterialConfigOptions": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "blending": {
-          "$ref": "#/definitions/BlendingName"
-        },
-        "blendDst": {
-          "$ref": "#/definitions/BlendingDstFactorName"
-        },
-        "blendEquation": {
-          "$ref": "#/definitions/BlendEquationName"
-        },
-        "blendSrc": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/BlendingSrcFactorName"
-            },
-            {
-              "$ref": "#/definitions/BlendingDstFactorName"
-            }
-          ]
-        },
-        "side": {
-          "$ref": "#/definitions/SideName"
-        },
-        "format": {
-          "$ref": "#/definitions/PixelFormatName"
-        },
-        "stencilFunc": {
-          "$ref": "#/definitions/StencilFuncName"
-        },
-        "stencilFail": {
-          "$ref": "#/definitions/StencilFailName"
-        },
-        "stencilZFail": {
-          "$ref": "#/definitions/StencilOpName"
-        },
-        "stencilZPass": {
-          "$ref": "#/definitions/StencilOpName"
-        },
-        "combine": {
-          "$ref": "#/definitions/CombineName"
-        },
-        "depthPacking": {
-          "$ref": "#/definitions/DepthPackingStrategiesName"
-        },
-        "normalMapType": {
-          "$ref": "#/definitions/NormalMapTypesName"
-        },
-        "map": {
-          "type": ["string", "null"]
-        },
-        "alphaMap": {
-          "type": ["string", "null"]
-        },
-        "alphaHash": {
-          "type": "boolean"
-        },
-        "alphaTest": {
-          "type": "number"
-        },
-        "alphaToCoverage": {
-          "type": "boolean"
-        },
-        "blendAlpha": {
-          "type": "number"
-        },
-        "blendColor": {
-          "$ref": "#/definitions/ColorRepresentation"
-        },
-        "blendDstAlpha": {
-          "type": "number"
-        },
-        "blendEquationAlpha": {
-          "type": "number"
-        },
-        "blendSrcAlpha": {
-          "type": "number"
-        },
-        "clipIntersection": {
-          "type": "boolean"
-        },
-        "clipShadows": {
-          "type": "boolean"
-        },
-        "colorWrite": {
-          "type": "boolean"
-        },
-        "defines": {},
-        "depthFunc": {
-          "$ref": "#/definitions/DepthModes"
-        },
-        "depthTest": {
-          "type": "boolean"
-        },
-        "depthWrite": {
-          "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "opacity": {
-          "type": "number"
-        },
-        "polygonOffset": {
-          "type": "boolean"
-        },
-        "polygonOffsetFactor": {
-          "type": "number"
-        },
-        "polygonOffsetUnits": {
-          "type": "number"
-        },
-        "precision": {
-          "type": "string",
-          "enum": ["highp", "mediump", "lowp"]
-        },
-        "premultipliedAlpha": {
-          "type": "boolean"
-        },
-        "shadowSide": {
-          "$ref": "#/definitions/Side"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "stencilRef": {
-          "type": "number"
-        },
-        "stencilWrite": {
-          "type": "boolean"
-        },
-        "stencilWriteMask": {
-          "type": "number"
-        },
-        "toneMapped": {
-          "type": "boolean"
-        },
-        "transparent": {
-          "type": "boolean"
-        },
-        "userData": {
-          "type": "object"
-        },
-        "vertexColors": {
-          "type": "boolean"
-        },
-        "visible": {
-          "type": "boolean"
-        },
-        "aoMapIntensity": {
-          "type": "number"
-        },
-        "bumpScale": {
-          "type": "number"
-        },
-        "color": {
-          "$ref": "#/definitions/ColorRepresentation"
-        },
-        "displacementBias": {
-          "type": "number"
-        },
-        "displacementScale": {
-          "type": "number"
-        },
-        "emissive": {
-          "$ref": "#/definitions/ColorRepresentation"
-        },
-        "emissiveIntensity": {
-          "type": "number"
-        },
-        "envMapIntensity": {
-          "type": "number"
         },
         "flatShading": {
           "type": "boolean"
         },
-        "fog": {
+        "alphaHash": {
           "type": "boolean"
         },
-        "lightMapIntensity": {
+        "alphaTest": {
           "type": "number"
         },
-        "metalness": {
-          "type": "number"
-        },
-        "roughness": {
-          "type": "number"
-        },
-        "wireframe": {
+        "alphaToCoverage": {
           "type": "boolean"
         },
-        "wireframeLinewidth": {
+        "blendAlpha": {
           "type": "number"
         },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
+        "blendColor": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "blendDstAlpha": {
+          "type": "number"
+        },
+        "blendEquationAlpha": {
+          "type": "number"
+        },
+        "blendSrcAlpha": {
+          "type": "number"
+        },
+        "clipIntersection": {
+          "type": "boolean"
+        },
+        "clipShadows": {
+          "type": "boolean"
+        },
+        "colorWrite": {
+          "type": "boolean"
+        },
+        "depthFunc": {
+          "$ref": "#/definitions/DepthModes"
+        },
+        "depthTest": {
+          "type": "boolean"
+        },
+        "depthWrite": {
+          "type": "boolean"
+        },
+        "polygonOffset": {
+          "type": "boolean"
+        },
+        "polygonOffsetFactor": {
+          "type": "number"
+        },
+        "polygonOffsetUnits": {
+          "type": "number"
+        },
+        "precision": {
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
+        },
+        "premultipliedAlpha": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
+        "dithering": {
+          "type": "boolean"
+        },
+        "shadowSide": {
+          "$ref": "#/definitions/Side"
+        },
+        "toneMapped": {
+          "type": "boolean"
+        },
+        "transparent": {
+          "type": "boolean"
+        },
+        "vertexColors": {
+          "type": "boolean"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWriteMask": {
+          "type": "number"
+        },
+        "stencilFuncMask": {
+          "type": "number"
         }
       }
     },
@@ -3962,9 +3906,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "blending": {
-          "$ref": "#/definitions/BlendingName"
-        },
         "blendDst": {
           "$ref": "#/definitions/BlendingDstFactorName"
         },
@@ -3981,23 +3922,8 @@
             }
           ]
         },
-        "side": {
-          "$ref": "#/definitions/SideName"
-        },
-        "format": {
-          "$ref": "#/definitions/PixelFormatName"
-        },
-        "stencilFunc": {
-          "$ref": "#/definitions/StencilFuncName"
-        },
-        "stencilFail": {
-          "$ref": "#/definitions/StencilFailName"
-        },
-        "stencilZFail": {
-          "$ref": "#/definitions/StencilOpName"
-        },
-        "stencilZPass": {
-          "$ref": "#/definitions/StencilOpName"
+        "blending": {
+          "$ref": "#/definitions/BlendingName"
         },
         "combine": {
           "$ref": "#/definitions/CombineName"
@@ -4005,174 +3931,40 @@
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "format": {
+          "$ref": "#/definitions/PixelFormatName"
+        },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
         },
-        "map": {
-          "type": ["string", "null"]
+        "side": {
+          "$ref": "#/definitions/SideName"
         },
-        "alphaMap": {
-          "type": ["string", "null"]
+        "stencilFail": {
+          "$ref": "#/definitions/StencilFailName"
         },
-        "alphaHash": {
-          "type": "boolean"
+        "stencilFunc": {
+          "$ref": "#/definitions/StencilFuncName"
         },
-        "alphaTest": {
-          "type": "number"
+        "stencilZFail": {
+          "$ref": "#/definitions/StencilOpName"
         },
-        "alphaToCoverage": {
-          "type": "boolean"
+        "stencilZPass": {
+          "$ref": "#/definitions/StencilOpName"
         },
-        "blendAlpha": {
-          "type": "number"
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
         },
-        "blendColor": {
-          "$ref": "#/definitions/ColorRepresentation"
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
         },
-        "blendDstAlpha": {
-          "type": "number"
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
         },
-        "blendEquationAlpha": {
-          "type": "number"
-        },
-        "blendSrcAlpha": {
-          "type": "number"
-        },
-        "clipIntersection": {
-          "type": "boolean"
-        },
-        "clipShadows": {
-          "type": "boolean"
-        },
-        "colorWrite": {
-          "type": "boolean"
-        },
-        "defines": {},
-        "depthFunc": {
-          "$ref": "#/definitions/DepthModes"
-        },
-        "depthTest": {
-          "type": "boolean"
-        },
-        "depthWrite": {
-          "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "opacity": {
-          "type": "number"
-        },
-        "polygonOffset": {
-          "type": "boolean"
-        },
-        "polygonOffsetFactor": {
-          "type": "number"
-        },
-        "polygonOffsetUnits": {
-          "type": "number"
-        },
-        "precision": {
-          "type": "string",
-          "enum": ["highp", "mediump", "lowp"]
-        },
-        "premultipliedAlpha": {
-          "type": "boolean"
-        },
-        "shadowSide": {
-          "$ref": "#/definitions/Side"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "stencilRef": {
-          "type": "number"
-        },
-        "stencilWrite": {
-          "type": "boolean"
-        },
-        "stencilWriteMask": {
-          "type": "number"
-        },
-        "toneMapped": {
-          "type": "boolean"
-        },
-        "transparent": {
-          "type": "boolean"
-        },
-        "userData": {
-          "type": "object"
-        },
-        "vertexColors": {
-          "type": "boolean"
-        },
-        "visible": {
-          "type": "boolean"
-        },
-        "aoMapIntensity": {
-          "type": "number"
-        },
-        "bumpScale": {
-          "type": "number"
-        },
-        "color": {
-          "$ref": "#/definitions/ColorRepresentation"
-        },
-        "displacementBias": {
-          "type": "number"
-        },
-        "displacementScale": {
-          "type": "number"
-        },
-        "emissive": {
-          "$ref": "#/definitions/ColorRepresentation"
-        },
-        "emissiveIntensity": {
-          "type": "number"
-        },
-        "envMapIntensity": {
-          "type": "number"
-        },
-        "flatShading": {
-          "type": "boolean"
-        },
-        "fog": {
-          "type": "boolean"
-        },
-        "lightMapIntensity": {
-          "type": "number"
-        },
-        "metalness": {
-          "type": "number"
-        },
-        "roughness": {
-          "type": "number"
-        },
-        "wireframe": {
-          "type": "boolean"
-        },
-        "wireframeLinewidth": {
-          "type": "number"
-        },
-        "anisotropy": {
-          "type": "number"
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
         },
         "anisotropyRotation": {
-          "type": "number"
-        },
-        "attenuationColor": {
-          "$ref": "#/definitions/ColorRepresentation"
-        },
-        "attenuationDistance": {
-          "type": "number"
-        },
-        "clearcoat": {
           "type": "number"
         },
         "clearcoatRoughness": {
@@ -4181,7 +3973,7 @@
         "ior": {
           "type": "number"
         },
-        "iridescence": {
+        "reflectivity": {
           "type": "number"
         },
         "iridescenceIOR": {
@@ -4195,93 +3987,89 @@
           "minItems": 2,
           "maxItems": 2
         },
-        "reflectivity": {
-          "type": "number"
-        },
-        "sheen": {
-          "type": "number"
-        },
         "sheenColor": {
           "$ref": "#/definitions/ColorRepresentation"
         },
         "sheenRoughness": {
           "type": "number"
         },
-        "specularColor": {
+        "thickness": {
+          "type": "number"
+        },
+        "attenuationDistance": {
+          "type": "number"
+        },
+        "attenuationColor": {
           "$ref": "#/definitions/ColorRepresentation"
         },
         "specularIntensity": {
           "type": "number"
         },
-        "thickness": {
+        "specularColor": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "anisotropy": {
+          "type": "number"
+        },
+        "clearcoat": {
+          "type": "number"
+        },
+        "iridescence": {
+          "type": "number"
+        },
+        "dispersion": {
+          "type": "number"
+        },
+        "sheen": {
           "type": "number"
         },
         "transmission": {
           "type": "number"
         },
-        "clearcoatNormalScale": {
-          "$ref": "#/definitions/Vector2Like"
+        "color": {
+          "$ref": "#/definitions/ColorRepresentation"
         },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        }
-      }
-    },
-    "TPointsMaterialConfigOptions": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "blending": {
-          "$ref": "#/definitions/BlendingName"
+        "roughness": {
+          "type": "number"
         },
-        "blendDst": {
-          "$ref": "#/definitions/BlendingDstFactorName"
+        "metalness": {
+          "type": "number"
         },
-        "blendEquation": {
-          "$ref": "#/definitions/BlendEquationName"
+        "lightMapIntensity": {
+          "type": "number"
         },
-        "blendSrc": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/BlendingSrcFactorName"
-            },
-            {
-              "$ref": "#/definitions/BlendingDstFactorName"
-            }
-          ]
+        "aoMapIntensity": {
+          "type": "number"
         },
-        "side": {
-          "$ref": "#/definitions/SideName"
+        "emissive": {
+          "$ref": "#/definitions/ColorRepresentation"
         },
-        "format": {
-          "$ref": "#/definitions/PixelFormatName"
+        "emissiveIntensity": {
+          "type": "number"
         },
-        "stencilFunc": {
-          "$ref": "#/definitions/StencilFuncName"
+        "bumpScale": {
+          "type": "number"
         },
-        "stencilFail": {
-          "$ref": "#/definitions/StencilFailName"
+        "displacementScale": {
+          "type": "number"
         },
-        "stencilZFail": {
-          "$ref": "#/definitions/StencilOpName"
+        "displacementBias": {
+          "type": "number"
         },
-        "stencilZPass": {
-          "$ref": "#/definitions/StencilOpName"
+        "envMapIntensity": {
+          "type": "number"
         },
-        "combine": {
-          "$ref": "#/definitions/CombineName"
+        "wireframe": {
+          "type": "boolean"
         },
-        "depthPacking": {
-          "$ref": "#/definitions/DepthPackingStrategiesName"
+        "wireframeLinewidth": {
+          "type": "number"
         },
-        "normalMapType": {
-          "$ref": "#/definitions/NormalMapTypesName"
+        "fog": {
+          "type": "boolean"
         },
-        "map": {
-          "type": ["string", "null"]
-        },
-        "alphaMap": {
-          "type": ["string", "null"]
+        "flatShading": {
+          "type": "boolean"
         },
         "alphaHash": {
           "type": "boolean"
@@ -4316,7 +4104,6 @@
         "colorWrite": {
           "type": "boolean"
         },
-        "defines": {},
         "depthFunc": {
           "$ref": "#/definitions/DepthModes"
         },
@@ -4325,15 +4112,6 @@
         },
         "depthWrite": {
           "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
         },
         "opacity": {
           "type": "number"
@@ -4348,26 +4126,20 @@
           "type": "number"
         },
         "precision": {
-          "type": "string",
-          "enum": ["highp", "mediump", "lowp"]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
         },
-        "shadowSide": {
-          "$ref": "#/definitions/Side"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "stencilRef": {
-          "type": "number"
-        },
-        "stencilWrite": {
+        "forceSinglePass": {
           "type": "boolean"
         },
-        "stencilWriteMask": {
-          "type": "number"
+        "dithering": {
+          "type": "boolean"
+        },
+        "shadowSide": {
+          "$ref": "#/definitions/Side"
         },
         "toneMapped": {
           "type": "boolean"
@@ -4375,8 +4147,175 @@
         "transparent": {
           "type": "boolean"
         },
-        "userData": {
-          "type": "object"
+        "vertexColors": {
+          "type": "boolean"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWriteMask": {
+          "type": "number"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        }
+      }
+    },
+    "TPointsMaterialConfigOptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "blendDst": {
+          "$ref": "#/definitions/BlendingDstFactorName"
+        },
+        "blendEquation": {
+          "$ref": "#/definitions/BlendEquationName"
+        },
+        "blendSrc": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/BlendingSrcFactorName"
+            },
+            {
+              "$ref": "#/definitions/BlendingDstFactorName"
+            }
+          ]
+        },
+        "blending": {
+          "$ref": "#/definitions/BlendingName"
+        },
+        "combine": {
+          "$ref": "#/definitions/CombineName"
+        },
+        "depthPacking": {
+          "$ref": "#/definitions/DepthPackingStrategiesName"
+        },
+        "format": {
+          "$ref": "#/definitions/PixelFormatName"
+        },
+        "normalMapType": {
+          "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "side": {
+          "$ref": "#/definitions/SideName"
+        },
+        "stencilFail": {
+          "$ref": "#/definitions/StencilFailName"
+        },
+        "stencilFunc": {
+          "$ref": "#/definitions/StencilFuncName"
+        },
+        "stencilZFail": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "stencilZPass": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "color": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "size": {
+          "type": "number"
+        },
+        "sizeAttenuation": {
+          "type": "boolean"
+        },
+        "fog": {
+          "type": "boolean"
+        },
+        "alphaHash": {
+          "type": "boolean"
+        },
+        "alphaTest": {
+          "type": "number"
+        },
+        "alphaToCoverage": {
+          "type": "boolean"
+        },
+        "blendAlpha": {
+          "type": "number"
+        },
+        "blendColor": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "blendDstAlpha": {
+          "type": "number"
+        },
+        "blendEquationAlpha": {
+          "type": "number"
+        },
+        "blendSrcAlpha": {
+          "type": "number"
+        },
+        "clipIntersection": {
+          "type": "boolean"
+        },
+        "clipShadows": {
+          "type": "boolean"
+        },
+        "colorWrite": {
+          "type": "boolean"
+        },
+        "depthFunc": {
+          "$ref": "#/definitions/DepthModes"
+        },
+        "depthTest": {
+          "type": "boolean"
+        },
+        "depthWrite": {
+          "type": "boolean"
+        },
+        "opacity": {
+          "type": "number"
+        },
+        "polygonOffset": {
+          "type": "boolean"
+        },
+        "polygonOffsetFactor": {
+          "type": "number"
+        },
+        "polygonOffsetUnits": {
+          "type": "number"
+        },
+        "precision": {
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
+        },
+        "premultipliedAlpha": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
+        "dithering": {
+          "type": "boolean"
+        },
+        "shadowSide": {
+          "$ref": "#/definitions/Side"
+        },
+        "toneMapped": {
+          "type": "boolean"
+        },
+        "transparent": {
+          "type": "boolean"
         },
         "vertexColors": {
           "type": "boolean"
@@ -4384,20 +4323,969 @@
         "visible": {
           "type": "boolean"
         },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWriteMask": {
+          "type": "number"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        }
+      }
+    },
+    "TShaderMaterialConfigOptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "blendDst": {
+          "$ref": "#/definitions/BlendingDstFactorName"
+        },
+        "blendEquation": {
+          "$ref": "#/definitions/BlendEquationName"
+        },
+        "blendSrc": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/BlendingSrcFactorName"
+            },
+            {
+              "$ref": "#/definitions/BlendingDstFactorName"
+            }
+          ]
+        },
+        "blending": {
+          "$ref": "#/definitions/BlendingName"
+        },
+        "combine": {
+          "$ref": "#/definitions/CombineName"
+        },
+        "depthPacking": {
+          "$ref": "#/definitions/DepthPackingStrategiesName"
+        },
+        "format": {
+          "$ref": "#/definitions/PixelFormatName"
+        },
+        "normalMapType": {
+          "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "side": {
+          "$ref": "#/definitions/SideName"
+        },
+        "stencilFail": {
+          "$ref": "#/definitions/StencilFailName"
+        },
+        "stencilFunc": {
+          "$ref": "#/definitions/StencilFuncName"
+        },
+        "stencilZFail": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "stencilZPass": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "uniforms": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/IUniform"
+          }
+        },
+        "vertexShader": {
+          "type": "string"
+        },
+        "fragmentShader": {
+          "type": "string"
+        },
+        "linewidth": {
+          "type": "number"
+        },
+        "wireframe": {
+          "type": "boolean"
+        },
+        "wireframeLinewidth": {
+          "type": "number"
+        },
+        "lights": {
+          "type": "boolean"
+        },
+        "clipping": {
+          "type": "boolean"
+        },
+        "fog": {
+          "type": "boolean"
+        },
+        "extensions": {
+          "type": "object",
+          "properties": {
+            "clipCullDistance": {
+              "type": "boolean"
+            },
+            "multiDraw": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "glslVersion": {
+          "$ref": "#/definitions/GLSLVersion"
+        },
+        "alphaHash": {
+          "type": "boolean"
+        },
+        "alphaTest": {
+          "type": "number"
+        },
+        "alphaToCoverage": {
+          "type": "boolean"
+        },
+        "blendAlpha": {
+          "type": "number"
+        },
+        "blendColor": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "blendDstAlpha": {
+          "type": "number"
+        },
+        "blendEquationAlpha": {
+          "type": "number"
+        },
+        "blendSrcAlpha": {
+          "type": "number"
+        },
+        "clipIntersection": {
+          "type": "boolean"
+        },
+        "clipShadows": {
+          "type": "boolean"
+        },
+        "colorWrite": {
+          "type": "boolean"
+        },
+        "depthFunc": {
+          "$ref": "#/definitions/DepthModes"
+        },
+        "depthTest": {
+          "type": "boolean"
+        },
+        "depthWrite": {
+          "type": "boolean"
+        },
+        "opacity": {
+          "type": "number"
+        },
+        "polygonOffset": {
+          "type": "boolean"
+        },
+        "polygonOffsetFactor": {
+          "type": "number"
+        },
+        "polygonOffsetUnits": {
+          "type": "number"
+        },
+        "precision": {
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
+        },
+        "premultipliedAlpha": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
+        "dithering": {
+          "type": "boolean"
+        },
+        "shadowSide": {
+          "$ref": "#/definitions/Side"
+        },
+        "toneMapped": {
+          "type": "boolean"
+        },
+        "transparent": {
+          "type": "boolean"
+        },
+        "vertexColors": {
+          "type": "boolean"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWriteMask": {
+          "type": "number"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        }
+      }
+    },
+    "IUniform": {
+      "type": "object",
+      "properties": {
+        "value": {}
+      },
+      "required": ["value"],
+      "additionalProperties": false
+    },
+    "GLSLVersion": {
+      "type": "string",
+      "enum": ["100", "300 es"]
+    },
+    "TShadowMaterialConfigOptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "blendDst": {
+          "$ref": "#/definitions/BlendingDstFactorName"
+        },
+        "blendEquation": {
+          "$ref": "#/definitions/BlendEquationName"
+        },
+        "blendSrc": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/BlendingSrcFactorName"
+            },
+            {
+              "$ref": "#/definitions/BlendingDstFactorName"
+            }
+          ]
+        },
+        "blending": {
+          "$ref": "#/definitions/BlendingName"
+        },
+        "combine": {
+          "$ref": "#/definitions/CombineName"
+        },
+        "depthPacking": {
+          "$ref": "#/definitions/DepthPackingStrategiesName"
+        },
+        "format": {
+          "$ref": "#/definitions/PixelFormatName"
+        },
+        "normalMapType": {
+          "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "side": {
+          "$ref": "#/definitions/SideName"
+        },
+        "stencilFail": {
+          "$ref": "#/definitions/StencilFailName"
+        },
+        "stencilFunc": {
+          "$ref": "#/definitions/StencilFuncName"
+        },
+        "stencilZFail": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "stencilZPass": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
+        },
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
         },
         "fog": {
           "type": "boolean"
         },
-        "size": {
+        "alphaHash": {
+          "type": "boolean"
+        },
+        "alphaTest": {
+          "type": "number"
+        },
+        "alphaToCoverage": {
+          "type": "boolean"
+        },
+        "blendAlpha": {
+          "type": "number"
+        },
+        "blendColor": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "blendDstAlpha": {
+          "type": "number"
+        },
+        "blendEquationAlpha": {
+          "type": "number"
+        },
+        "blendSrcAlpha": {
+          "type": "number"
+        },
+        "clipIntersection": {
+          "type": "boolean"
+        },
+        "clipShadows": {
+          "type": "boolean"
+        },
+        "colorWrite": {
+          "type": "boolean"
+        },
+        "depthFunc": {
+          "$ref": "#/definitions/DepthModes"
+        },
+        "depthTest": {
+          "type": "boolean"
+        },
+        "depthWrite": {
+          "type": "boolean"
+        },
+        "opacity": {
+          "type": "number"
+        },
+        "polygonOffset": {
+          "type": "boolean"
+        },
+        "polygonOffsetFactor": {
+          "type": "number"
+        },
+        "polygonOffsetUnits": {
+          "type": "number"
+        },
+        "precision": {
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
+        },
+        "premultipliedAlpha": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
+        "dithering": {
+          "type": "boolean"
+        },
+        "shadowSide": {
+          "$ref": "#/definitions/Side"
+        },
+        "toneMapped": {
+          "type": "boolean"
+        },
+        "transparent": {
+          "type": "boolean"
+        },
+        "vertexColors": {
+          "type": "boolean"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWriteMask": {
+          "type": "number"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        }
+      }
+    },
+    "TSpriteMaterialConfigOptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "blendDst": {
+          "$ref": "#/definitions/BlendingDstFactorName"
+        },
+        "blendEquation": {
+          "$ref": "#/definitions/BlendEquationName"
+        },
+        "blendSrc": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/BlendingSrcFactorName"
+            },
+            {
+              "$ref": "#/definitions/BlendingDstFactorName"
+            }
+          ]
+        },
+        "blending": {
+          "$ref": "#/definitions/BlendingName"
+        },
+        "combine": {
+          "$ref": "#/definitions/CombineName"
+        },
+        "depthPacking": {
+          "$ref": "#/definitions/DepthPackingStrategiesName"
+        },
+        "format": {
+          "$ref": "#/definitions/PixelFormatName"
+        },
+        "normalMapType": {
+          "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "side": {
+          "$ref": "#/definitions/SideName"
+        },
+        "stencilFail": {
+          "$ref": "#/definitions/StencilFailName"
+        },
+        "stencilFunc": {
+          "$ref": "#/definitions/StencilFuncName"
+        },
+        "stencilZFail": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "stencilZPass": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "color": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "rotation": {
           "type": "number"
         },
         "sizeAttenuation": {
           "type": "boolean"
+        },
+        "fog": {
+          "type": "boolean"
+        },
+        "alphaHash": {
+          "type": "boolean"
+        },
+        "alphaTest": {
+          "type": "number"
+        },
+        "alphaToCoverage": {
+          "type": "boolean"
+        },
+        "blendAlpha": {
+          "type": "number"
+        },
+        "blendColor": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "blendDstAlpha": {
+          "type": "number"
+        },
+        "blendEquationAlpha": {
+          "type": "number"
+        },
+        "blendSrcAlpha": {
+          "type": "number"
+        },
+        "clipIntersection": {
+          "type": "boolean"
+        },
+        "clipShadows": {
+          "type": "boolean"
+        },
+        "colorWrite": {
+          "type": "boolean"
+        },
+        "depthFunc": {
+          "$ref": "#/definitions/DepthModes"
+        },
+        "depthTest": {
+          "type": "boolean"
+        },
+        "depthWrite": {
+          "type": "boolean"
+        },
+        "opacity": {
+          "type": "number"
+        },
+        "polygonOffset": {
+          "type": "boolean"
+        },
+        "polygonOffsetFactor": {
+          "type": "number"
+        },
+        "polygonOffsetUnits": {
+          "type": "number"
+        },
+        "precision": {
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
+        },
+        "premultipliedAlpha": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
+        "dithering": {
+          "type": "boolean"
+        },
+        "shadowSide": {
+          "$ref": "#/definitions/Side"
+        },
+        "toneMapped": {
+          "type": "boolean"
+        },
+        "transparent": {
+          "type": "boolean"
+        },
+        "vertexColors": {
+          "type": "boolean"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWriteMask": {
+          "type": "number"
+        },
+        "stencilFuncMask": {
+          "type": "number"
         }
-      },
-      "required": ["color"]
+      }
+    },
+    "TStandardMaterialConfigOptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "blendDst": {
+          "$ref": "#/definitions/BlendingDstFactorName"
+        },
+        "blendEquation": {
+          "$ref": "#/definitions/BlendEquationName"
+        },
+        "blendSrc": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/BlendingSrcFactorName"
+            },
+            {
+              "$ref": "#/definitions/BlendingDstFactorName"
+            }
+          ]
+        },
+        "blending": {
+          "$ref": "#/definitions/BlendingName"
+        },
+        "combine": {
+          "$ref": "#/definitions/CombineName"
+        },
+        "depthPacking": {
+          "$ref": "#/definitions/DepthPackingStrategiesName"
+        },
+        "format": {
+          "$ref": "#/definitions/PixelFormatName"
+        },
+        "normalMapType": {
+          "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "side": {
+          "$ref": "#/definitions/SideName"
+        },
+        "stencilFail": {
+          "$ref": "#/definitions/StencilFailName"
+        },
+        "stencilFunc": {
+          "$ref": "#/definitions/StencilFuncName"
+        },
+        "stencilZFail": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "stencilZPass": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "color": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "roughness": {
+          "type": "number"
+        },
+        "metalness": {
+          "type": "number"
+        },
+        "lightMapIntensity": {
+          "type": "number"
+        },
+        "aoMapIntensity": {
+          "type": "number"
+        },
+        "emissive": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "emissiveIntensity": {
+          "type": "number"
+        },
+        "bumpScale": {
+          "type": "number"
+        },
+        "displacementScale": {
+          "type": "number"
+        },
+        "displacementBias": {
+          "type": "number"
+        },
+        "envMapIntensity": {
+          "type": "number"
+        },
+        "wireframe": {
+          "type": "boolean"
+        },
+        "wireframeLinewidth": {
+          "type": "number"
+        },
+        "fog": {
+          "type": "boolean"
+        },
+        "flatShading": {
+          "type": "boolean"
+        },
+        "alphaHash": {
+          "type": "boolean"
+        },
+        "alphaTest": {
+          "type": "number"
+        },
+        "alphaToCoverage": {
+          "type": "boolean"
+        },
+        "blendAlpha": {
+          "type": "number"
+        },
+        "blendColor": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "blendDstAlpha": {
+          "type": "number"
+        },
+        "blendEquationAlpha": {
+          "type": "number"
+        },
+        "blendSrcAlpha": {
+          "type": "number"
+        },
+        "clipIntersection": {
+          "type": "boolean"
+        },
+        "clipShadows": {
+          "type": "boolean"
+        },
+        "colorWrite": {
+          "type": "boolean"
+        },
+        "depthFunc": {
+          "$ref": "#/definitions/DepthModes"
+        },
+        "depthTest": {
+          "type": "boolean"
+        },
+        "depthWrite": {
+          "type": "boolean"
+        },
+        "opacity": {
+          "type": "number"
+        },
+        "polygonOffset": {
+          "type": "boolean"
+        },
+        "polygonOffsetFactor": {
+          "type": "number"
+        },
+        "polygonOffsetUnits": {
+          "type": "number"
+        },
+        "precision": {
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
+        },
+        "premultipliedAlpha": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
+        "dithering": {
+          "type": "boolean"
+        },
+        "shadowSide": {
+          "$ref": "#/definitions/Side"
+        },
+        "toneMapped": {
+          "type": "boolean"
+        },
+        "transparent": {
+          "type": "boolean"
+        },
+        "vertexColors": {
+          "type": "boolean"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWriteMask": {
+          "type": "number"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        }
+      }
+    },
+    "TToonMaterialConfigOptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "blendDst": {
+          "$ref": "#/definitions/BlendingDstFactorName"
+        },
+        "blendEquation": {
+          "$ref": "#/definitions/BlendEquationName"
+        },
+        "blendSrc": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/BlendingSrcFactorName"
+            },
+            {
+              "$ref": "#/definitions/BlendingDstFactorName"
+            }
+          ]
+        },
+        "blending": {
+          "$ref": "#/definitions/BlendingName"
+        },
+        "combine": {
+          "$ref": "#/definitions/CombineName"
+        },
+        "depthPacking": {
+          "$ref": "#/definitions/DepthPackingStrategiesName"
+        },
+        "format": {
+          "$ref": "#/definitions/PixelFormatName"
+        },
+        "normalMapType": {
+          "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "side": {
+          "$ref": "#/definitions/SideName"
+        },
+        "stencilFail": {
+          "$ref": "#/definitions/StencilFailName"
+        },
+        "stencilFunc": {
+          "$ref": "#/definitions/StencilFuncName"
+        },
+        "stencilZFail": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "stencilZPass": {
+          "$ref": "#/definitions/StencilOpName"
+        },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "color": {
+          "$ref": "#/definitions/ColorRepresentation",
+          "description": "geometry color in hexadecimal. Default is 0xffffff."
+        },
+        "opacity": {
+          "type": "number"
+        },
+        "lightMapIntensity": {
+          "type": "number"
+        },
+        "aoMapIntensity": {
+          "type": "number"
+        },
+        "emissive": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "emissiveIntensity": {
+          "type": "number"
+        },
+        "bumpScale": {
+          "type": "number"
+        },
+        "displacementScale": {
+          "type": "number"
+        },
+        "displacementBias": {
+          "type": "number"
+        },
+        "wireframe": {
+          "type": "boolean"
+        },
+        "wireframeLinewidth": {
+          "type": "number"
+        },
+        "wireframeLinecap": {
+          "type": "string"
+        },
+        "wireframeLinejoin": {
+          "type": "string"
+        },
+        "fog": {
+          "type": "boolean"
+        },
+        "alphaHash": {
+          "type": "boolean"
+        },
+        "alphaTest": {
+          "type": "number"
+        },
+        "alphaToCoverage": {
+          "type": "boolean"
+        },
+        "blendAlpha": {
+          "type": "number"
+        },
+        "blendColor": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "blendDstAlpha": {
+          "type": "number"
+        },
+        "blendEquationAlpha": {
+          "type": "number"
+        },
+        "blendSrcAlpha": {
+          "type": "number"
+        },
+        "clipIntersection": {
+          "type": "boolean"
+        },
+        "clipShadows": {
+          "type": "boolean"
+        },
+        "colorWrite": {
+          "type": "boolean"
+        },
+        "depthFunc": {
+          "$ref": "#/definitions/DepthModes"
+        },
+        "depthTest": {
+          "type": "boolean"
+        },
+        "depthWrite": {
+          "type": "boolean"
+        },
+        "polygonOffset": {
+          "type": "boolean"
+        },
+        "polygonOffsetFactor": {
+          "type": "number"
+        },
+        "polygonOffsetUnits": {
+          "type": "number"
+        },
+        "precision": {
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
+        },
+        "premultipliedAlpha": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
+        "dithering": {
+          "type": "boolean"
+        },
+        "shadowSide": {
+          "$ref": "#/definitions/Side"
+        },
+        "toneMapped": {
+          "type": "boolean"
+        },
+        "transparent": {
+          "type": "boolean"
+        },
+        "vertexColors": {
+          "type": "boolean"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWriteMask": {
+          "type": "number"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        }
+      }
     },
     "TMaterialConfigTextures": {
       "anyOf": [

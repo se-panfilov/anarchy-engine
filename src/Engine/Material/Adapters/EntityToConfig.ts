@@ -29,7 +29,7 @@ import { getOptionName } from '@/Engine/Material/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TTexture, TTextureAsyncRegistry } from '@/Engine/Texture';
 import type { TOptional } from '@/Engine/Utils';
-import { eulerToXyz, filterOutEmptyFields, isDefined, isNotDefined, nullsToUndefined, vector2ToXy } from '@/Engine/Utils';
+import { eulerToXyz, filterOutEmptyFields, isDefined, isNotDefined, nullsToUndefined, vector2ToXy, vector3ToXyz } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate
 export function materialToConfig(entity: TMaterialWrapper, { textureResourceRegistry }: TMaterialEntityToConfigDependencies): TMaterialConfig {
@@ -87,7 +87,7 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TOptional<TMaterialCo
       emissive: serializeColorWhenPossible((entity as MeshLambertMaterial).emissive),
       emissiveIntensity: (entity as MeshLambertMaterial).emissiveIntensity,
       envMapIntensity: (entity as MeshStandardMaterial).envMapIntensity,
-      // envMapRotation: (entity as MeshPhongMaterial).envMapRotation,
+      envMapRotation: isDefined((entity as MeshPhongMaterial).envMapRotation) ? eulerToXyz((entity as MeshPhongMaterial).envMapRotation) : undefined,
       farDistance: (entity as any).farDistance,
       flatShading: (entity as MeshStandardMaterial).flatShading,
       fog: (entity as MeshPhongMaterial).fog,
@@ -110,7 +110,7 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TOptional<TMaterialCo
       polygonOffsetUnits: entity.polygonOffsetUnits,
       precision: entity.precision,
       premultipliedAlpha: entity.premultipliedAlpha,
-      referencePosition: (entity as any).referencePosition,
+      referencePosition: isDefined((entity as any).referencePosition) ? vector3ToXyz((entity as any).referencePosition) : undefined,
       reflectivity: (entity as MeshPhysicalMaterial).reflectivity,
       refractionRatio: (entity as MeshBasicMaterial).refractionRatio,
       rotation: isDefined((entity as any).rotation) ? eulerToXyz((entity as any).rotation) : undefined,
