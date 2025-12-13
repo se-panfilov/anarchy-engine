@@ -1,19 +1,16 @@
 import type { Subscription } from 'rxjs';
-import { exhaustMap, Subject } from 'rxjs';
+import { BehaviorSubject, exhaustMap } from 'rxjs';
 
 import { RendererModes } from '@/Engine/Renderer';
 import type { TSpace, TSpaceConfig, TSpaceHooks, TSpaceParams } from '@/Engine/Space/Models';
 import { createEntitiesFromConfig, loadResourcesFromConfig } from '@/Engine/Space/Utils';
-import type { TWriteable } from '@/Engine/Utils';
 
 import { Space } from './Space';
 
 export function SpaceFromConfig(params: TSpaceParams, config: TSpaceConfig, hooks?: TSpaceHooks): TSpace {
-  const builtFromConfig$: Subject<void> = new Subject<void>();
+  const builtFromConfig$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   const space: TSpace = Space(params);
-  // eslint-disable-next-line functional/immutable-data
-  (space as TWriteable<TSpace>).ready = false;
 
   space.built$
     .pipe(
@@ -27,15 +24,10 @@ export function SpaceFromConfig(params: TSpaceParams, config: TSpaceConfig, hook
       hooks?.beforeEntitiesCreatedFromConfig?.(config, space.services, space.loops);
       createEntitiesFromConfig(config.entities, space.services);
       hooks?.afterEntitiesCreatedFromConfig?.(config, space.services, space.loops);
-      builtFromConfig$.next();
+      builtFromConfig$.next(true);
+      builtFromConfig$.complete();
+      builtFromConfig$.unsubscribe();
     });
-
-  builtFromConfig$.subscribe((): void => {
-    // eslint-disable-next-line functional/immutable-data
-    (space as TWriteable<TSpace>).ready = true;
-    builtFromConfig$.next();
-    builtFromConfig$.complete();
-  });
 
   const destroySub$: Subscription = space.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
@@ -45,5 +37,5 @@ export function SpaceFromConfig(params: TSpaceParams, config: TSpaceConfig, hook
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(space, { built$: builtFromConfig$.asObservable() });
+  return Object.assign(space, { built$: builtFromConfig$ });
 }

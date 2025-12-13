@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
@@ -9,12 +9,11 @@ import { screenService } from '@/Engine/Services';
 import type { TSpace, TSpaceBaseServices, TSpaceEntities, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceServices } from '@/Engine/Space/Models';
 import { buildBaseServices, buildEntitiesServices, getActiveScene } from '@/Engine/Space/Utils';
 import { createLoops } from '@/Engine/Space/Utils/CreateLoopsUtils';
-import type { TWriteable } from '@/Engine/Utils';
 import { isDestroyable } from '@/Engine/Utils';
 
 export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   const { canvas, version, name, tags } = params;
-  const built$: Subject<void> = new Subject<void>();
+  const built$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   const { services, loops } = initSpaceServices(params, hooks);
   hooks?.afterAllServicesInitialized?.(canvas, services, loops, params);
@@ -24,16 +23,12 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   const entities: TSpaceEntities = {
     services,
     loops,
-    ready: false,
-    built$: built$.asObservable()
+    built$
   };
 
-  built$.subscribe((): void => {
-    // eslint-disable-next-line functional/immutable-data
-    (entities as TWriteable<TSpaceEntities>).ready = true;
-  });
-
   const space: TSpace = AbstractEntity(entities, EntityType.Space, { version, name, tags });
+
+  // TODO 13-0-0: Add possibility to drop while canvas on destroy
 
   const destroySub$: Subscription = space.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
@@ -45,7 +40,11 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(space, entities);
+  const result = Object.assign(space, entities);
+
+  built$.next(true);
+
+  return result;
 }
 
 function initSpaceServices(params: TSpaceParams, hooks?: TSpaceHooks): { services: TSpaceServices; loops: TSpaceLoops } {

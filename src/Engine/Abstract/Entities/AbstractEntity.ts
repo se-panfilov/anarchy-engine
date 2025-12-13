@@ -14,7 +14,7 @@ import { genericEntityCleanUp, isDefined } from '@/Engine/Utils';
 // TODO 13-0-0: Implement whole scene destroy (reload the page or destroy the canvas or smth)
 // TODO 13-0-0: Start implementing Multiple scenes support (14.x.x) (maybe with an url param?)
 
-export function AbstractEntity<T extends Record<string, any>>(entities: T, type: EntityType | string, params?: TEntityParams): TEntity<T> {
+export function AbstractEntity<T extends Record<string, any>, P extends TEntityParams>(entities: T, type: EntityType | string, params?: P): TEntity<T> {
   const id: string = isDefined(params?.id) ? params.id : type + '_' + nanoid();
 
   const withNameAndNameAccessors: TWithNameAndNameAccessorsMixin = withNameAndNameAccessorsMixin();
