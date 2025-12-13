@@ -1,11 +1,11 @@
 import type { TAbstractWatcherWithState } from '@/Engine/Abstract';
 import { AbstractWatcherWithState, WatcherType } from '@/Engine/Abstract';
-import type { IScreenSizeValues, IScreenSizeWatcherParams, TScreenSizeWatcher } from '@/Engine/Screen/Models';
+import type { TScreenSizeValues, TScreenSizeWatcher, TScreenSizeWatcherParams } from '@/Engine/Screen/Models';
 
-export function ScreenSizeWatcher({ container, tags = [] }: IScreenSizeWatcherParams): TScreenSizeWatcher {
-  const initialValue: IScreenSizeValues = { width: 0, height: 0, ratio: 0 };
+export function ScreenSizeWatcher({ container, tags = [] }: TScreenSizeWatcherParams): TScreenSizeWatcher {
+  const initialValue: TScreenSizeValues = { width: 0, height: 0, ratio: 0 };
   const containerIdTag: string = `container_id_${container.id}`;
-  const abstractWatcher: TAbstractWatcherWithState<IScreenSizeValues> = AbstractWatcherWithState(WatcherType.ScreenSizeWatcher, initialValue, tags);
+  const abstractWatcher: TAbstractWatcherWithState<TScreenSizeValues> = AbstractWatcherWithState(WatcherType.ScreenSizeWatcher, initialValue, tags);
 
   const onResize = (): void => {
     abstractWatcher.value$.next({

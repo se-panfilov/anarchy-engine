@@ -1,4 +1,4 @@
-import type { TWithPosition3d, IWithPosition3dProperty } from '@/Engine/Mixins/GameObjects/Models';
+import type { IWithPosition3dProperty, TWithPosition3d } from '@/Engine/Mixins/GameObjects/Models';
 import type { TVector3Wrapper } from '@/Engine/Vector';
 import { Vector3Wrapper } from '@/Engine/Vector';
 

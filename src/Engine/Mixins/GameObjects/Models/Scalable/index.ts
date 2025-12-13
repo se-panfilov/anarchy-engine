@@ -1,2 +1,2 @@
-export * from './TScalable';
 export * from './IWithScale';
+export * from './TScalable';

@@ -3,20 +3,20 @@ import type { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 
 import type { TEulerWrapper } from '@/Engine/Euler';
 import type {
-  IBasicMaterialTexturePack,
-  IDepthMaterialTexturePack,
-  IDistanceMaterialTexturePack,
-  ILambertMaterialTexturePack,
-  IMatcapMaterialTexturePack,
+  TBasicMaterialTexturePack,
+  TDepthMaterialTexturePack,
+  TDistanceMaterialTexturePack,
+  TLambertMaterialTexturePack,
+  TMatcapMaterialTexturePack,
   TMaterialPackParams,
-  INormalMaterialTexturePack,
-  IPhongMaterialTexturePack,
-  IPhysicalMaterialTexturePack,
-  IStandardMaterialTexturePack,
-  IToonMaterialTexturePack,
-  TMaterialTexturePack
+  TMaterialTexturePack,
+  TNormalMaterialTexturePack,
+  TPhongMaterialTexturePack,
+  TPhysicalMaterialTexturePack,
+  TStandardMaterialTexturePack,
+  TToonMaterialTexturePack
 } from '@/Engine/MaterialTexturePack';
-import type { TScalable, TMovable3dXYZ, TRotatable, TWithObject3d } from '@/Engine/Mixins';
+import type { TMovable3dXYZ, TRotatable, TScalable, TWithObject3d } from '@/Engine/Mixins';
 import type { TWithTextures } from '@/Engine/Texture';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils/index';
@@ -38,16 +38,16 @@ export function applyCenter(obj: CSS2DObject, center?: TVector2Wrapper): void {
   if (isDefined(center)) obj.center.set(center.getX(), center.getY());
 }
 
-export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<IBasicMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<IDepthMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<IDistanceMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<INormalMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<IMatcapMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<ILambertMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<IPhongMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<IPhysicalMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<IToonMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<IStandardMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<TBasicMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<TDepthMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<TDistanceMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<TNormalMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<TMatcapMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<TLambertMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<TPhongMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<TPhysicalMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<TToonMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<TStandardMaterialTexturePack>): Promise<Material>;
 export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<TMaterialTexturePack>): Promise<Material> {
   return obj.loadAndApplyMaterialTexturePack(pack);
 }

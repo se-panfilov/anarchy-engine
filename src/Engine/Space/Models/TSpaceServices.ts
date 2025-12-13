@@ -8,13 +8,13 @@ import type { TLightService } from '@/Engine/Light';
 import type { TMaterialService } from '@/Engine/Material';
 import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import type { TParticlesService } from '@/Engine/Particles';
-import type { IRendererService } from '@/Engine/Renderer';
+import type { TRendererService } from '@/Engine/Renderer';
 import type { TScenesService } from '@/Engine/Scene';
-import type { ITextService } from '@/Engine/Text';
+import type { TTextService } from '@/Engine/Text';
 
 export type TSpaceServices = Readonly<{
   actorService: TActorService;
-  textService: ITextService;
+  textService: TTextService;
   cameraService: TCameraService;
   intersectionsWatcherService: TIntersectionsWatcherService;
   lightService: TLightService;
@@ -24,6 +24,6 @@ export type TSpaceServices = Readonly<{
   materialService: TMaterialService;
   materialTextureService: TMaterialTextureService;
   scenesService: TScenesService;
-  rendererService: IRendererService;
+  rendererService: TRendererService;
   envMapService: TEnvMapService;
 }>;

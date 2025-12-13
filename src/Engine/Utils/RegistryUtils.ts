@@ -1,6 +1,6 @@
 import type { TAbstractEntityRegistry, TProtectedRegistry } from '@/Engine/Abstract/Models';
 import type { LookUpStrategy } from '@/Engine/Abstract/Registries';
-import type { IWithActiveMixin, TRegistrable } from '@/Engine/Mixins';
+import type { TRegistrable, TWithActiveMixin } from '@/Engine/Mixins';
 import { isNotDefined } from '@/Engine/Utils';
 
 export const getAll = <T>(registry: ReadonlyMap<string, T>): ReadonlyArray<T> => Array.from(registry.values());
@@ -22,7 +22,7 @@ export function getUniqEntityWithTag<T extends TRegistrable>(tag: string, regist
   return Array.from(registry.values()).find((obj: T) => obj.hasTag(tag));
 }
 
-export function setActiveWrappedEntity<E extends IWithActiveMixin & TRegistrable>(registry: TProtectedRegistry<TAbstractEntityRegistry<E>>, id: string): E | never {
+export function setActiveWrappedEntity<E extends TWithActiveMixin & TRegistrable>(registry: TProtectedRegistry<TAbstractEntityRegistry<E>>, id: string): E | never {
   let result: E | undefined;
   registry.forEach((entity: E): void => {
     const isTarget: boolean = entity.id === id;

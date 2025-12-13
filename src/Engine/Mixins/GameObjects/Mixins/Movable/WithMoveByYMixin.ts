@@ -1,5 +1,5 @@
 import { withPositionMixin } from '@/Engine/Mixins/GameObjects/Mixins/Position/WithPositionMixin';
-import type { TMovableY, IWithPositionProperty } from '@/Engine/Mixins/GameObjects/Models';
+import type { IWithPositionProperty, TMovableY } from '@/Engine/Mixins/GameObjects/Models';
 
 export function withMoveByYMixin(entity: IWithPositionProperty): TMovableY {
   // eslint-disable-next-line functional/immutable-data

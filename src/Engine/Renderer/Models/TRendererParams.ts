@@ -1,0 +1,14 @@
+import type { IActive, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { RendererModes } from '@/Engine/Renderer/Constants';
+
+import type { TTreeJsRendererParams } from './TTreeJsRendererParams';
+
+export type TRendererParams = TTreeJsRendererParams &
+  Readonly<{
+    canvas: HTMLElement;
+    mode: RendererModes;
+    isShadowMapEnabled?: boolean;
+    maxPixelRatio?: number;
+  }> &
+  IActive &
+  TWithReadonlyTags;

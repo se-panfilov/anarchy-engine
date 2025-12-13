@@ -1,4 +1,4 @@
-import type { TMovable4dXYZW, IWithPosition4dProperty } from '@/Engine/Mixins/GameObjects/Models';
+import type { IWithPosition4dProperty, TMovable4dXYZW } from '@/Engine/Mixins/GameObjects/Models';
 
 import { withMoveByWMixin } from './WithMoveByWMixin';
 import { withMoveByXMixin } from './WithMoveByXMixin';

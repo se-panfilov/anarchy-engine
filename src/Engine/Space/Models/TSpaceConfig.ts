@@ -6,21 +6,21 @@ import type { TIntersectionsWatcherConfig } from '@/Engine/Intersections';
 import type { TAnyLightConfig } from '@/Engine/Light';
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TParticlesConfig } from '@/Engine/Particles';
-import type { ISceneConfig } from '@/Engine/Scene';
+import type { TSceneConfig } from '@/Engine/Scene';
 import type { SpaceSchemaVersion } from '@/Engine/Space/Constants';
-import type { ITextConfig } from '@/Engine/Text';
+import type { TTextConfig } from '@/Engine/Text';
 
 export type TSpaceConfig = Readonly<{
   name: string;
   version: SpaceSchemaVersion;
-  scenes: ReadonlyArray<ISceneConfig>;
+  scenes: ReadonlyArray<TSceneConfig>;
   actors: ReadonlyArray<TActorConfig>;
   cameras: ReadonlyArray<TCameraConfig>;
   intersections: ReadonlyArray<TIntersectionsWatcherConfig>;
   lights: ReadonlyArray<TAnyLightConfig>;
   particles: ReadonlyArray<TParticlesConfig>;
   fogs: ReadonlyArray<TFogConfig>;
-  texts: ReadonlyArray<ITextConfig>;
+  texts: ReadonlyArray<TTextConfig>;
   controls: ReadonlyArray<TControlsConfig>;
   envMaps: ReadonlyArray<string>;
 }> &

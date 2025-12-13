@@ -6,14 +6,14 @@ import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import { withActiveMixin } from '@/Engine/Mixins';
 import { RendererModes } from '@/Engine/Renderer/Constants';
-import type { IRendererAccessors, IRendererParams, TRendererWrapper } from '@/Engine/Renderer/Models';
-import type { IScreenSizeValues, TScreenSizeWatcher } from '@/Engine/Screen';
+import type { TRendererAccessors, TRendererParams, TRendererWrapper } from '@/Engine/Renderer/Models';
+import type { TScreenSizeValues, TScreenSizeWatcher } from '@/Engine/Screen';
 import type { TWriteable } from '@/Engine/Utils';
 import { isNotDefined, isWebGL2Available, isWebGLAvailable } from '@/Engine/Utils';
 
 import { getAccessors } from './Accessors';
 
-export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Readonly<TScreenSizeWatcher>): TRendererWrapper {
+export function RendererWrapper(params: TRendererParams, screenSizeWatcher: Readonly<TScreenSizeWatcher>): TRendererWrapper {
   const maxPixelRatio: number = params.maxPixelRatio ?? 2;
   if (isNotDefined(params.canvas)) throw new Error(`Canvas is not defined`);
   if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');
@@ -35,13 +35,13 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
   }
 
   const entity: WebGLRenderer = new WebGLRenderer(options);
-  const accessors: IRendererAccessors = getAccessors(entity);
+  const accessors: TRendererAccessors = getAccessors(entity);
 
   accessors.setShadowMapEnabled(params.isShadowMapEnabled ?? true);
   accessors.setShadowMapType(PCFShadowMap);
 
   // eslint-disable-next-line functional/prefer-immutable-types
-  function setValues(entity: TWriteable<WebGLRenderer>, { width, height, ratio }: IScreenSizeValues): void {
+  function setValues(entity: TWriteable<WebGLRenderer>, { width, height, ratio }: TScreenSizeValues): void {
     if (isNotDefined(entity)) return;
     accessors.setSize(width, height);
     accessors.setPixelRatio(ratio, maxPixelRatio);
@@ -50,7 +50,7 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
   //init with the values which came before the start of the subscription
   setValues(entity, screenSizeWatcher.latest$.value);
 
-  const screenSize$: Subscription = screenSizeWatcher.value$.subscribe((params: IScreenSizeValues): void => setValues(entity, params));
+  const screenSize$: Subscription = screenSizeWatcher.value$.subscribe((params: TScreenSizeValues): void => setValues(entity, params));
 
   const screenSizeWatcherSubscription: Subscription = screenSizeWatcher.destroyed$.subscribe(() => {
     screenSize$.unsubscribe();

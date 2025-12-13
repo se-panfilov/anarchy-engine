@@ -1,1 +1,1 @@
-export * from './IScreenService';
+export * from './TScreenService';

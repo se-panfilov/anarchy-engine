@@ -1,10 +1,10 @@
 import type { TAppCanvas } from '@/Engine/App';
 import { ambientContext } from '@/Engine/Context';
 import type { TAppGlobalContainer } from '@/Engine/Global';
-import type { IScreenService } from '@/Engine/Services/ScreenService/Models';
+import type { TScreenService } from '@/Engine/Services/ScreenService/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function ScreenService(): IScreenService {
+export function ScreenService(): TScreenService {
   let canvas: TAppCanvas | undefined;
 
   return {
@@ -43,4 +43,4 @@ export function exitFullScreen(container: TAppGlobalContainer | undefined): Prom
   return container.document.exitFullscreen();
 }
 
-export const screenService: IScreenService = ScreenService();
+export const screenService: TScreenService = ScreenService();

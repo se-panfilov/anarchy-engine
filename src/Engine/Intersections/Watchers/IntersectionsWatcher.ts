@@ -8,7 +8,7 @@ import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TIntersectionEvent, TIntersectionsWatcher, TIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
 import type { TMousePosition } from '@/Engine/Mouse';
 import { getNormalizedMousePosition } from '@/Engine/Mouse';
-import type { ISceneObject } from '@/Engine/Scene';
+import type { TSceneObject } from '@/Engine/Scene';
 import type { IMesh } from '@/Engine/ThreeLib';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined, unWrapEntities } from '@/Engine/Utils';
@@ -48,7 +48,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
     return result;
   }
 
-  function getIntersection(position: TMousePosition, cameraWrapper: Readonly<TCameraWrapper>, list: Array<ISceneObject>): TIntersectionEvent | undefined | never {
+  function getIntersection(position: TMousePosition, cameraWrapper: Readonly<TCameraWrapper>, list: Array<TSceneObject>): TIntersectionEvent | undefined | never {
     if (isNotDefined(raycaster)) throw new Error('Intersections service: cannot get intersection: a raycaster is not defined');
     raycaster.setFromCamera(getNormalizedMousePosition(position), cameraWrapper.entity);
     return raycaster.intersectObjects(list)[0];

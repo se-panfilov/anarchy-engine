@@ -6,19 +6,19 @@ import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { AbstractWrapper } from '@/Engine/Abstract';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import { RelatedEntityAttribute, TextCssClass, TextType } from '@/Engine/Text/Constants';
-import type { ITextParams, ITextWrapper } from '@/Engine/Text/Models';
+import type { TTextParams, TTextWrapper } from '@/Engine/Text/Models';
 import { getCssAccessors } from '@/Engine/Text/Wrappers/Accessors';
 import { applyHtmlElementParams, getWrapperTypeByTextType } from '@/Engine/Text/Wrappers/TextWrapperHelper';
 import { applyCenter, applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
-export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: ITextParams, type: TextType): ITextWrapper<T> {
+export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: TTextParams, type: TextType): TTextWrapper<T> {
   const element: HTMLElement = document.createElement(params.elementType || 'div');
   // eslint-disable-next-line functional/immutable-data
   element.textContent = params.text;
 
   const entity: T = type === TextType.Text2d ? (new CSS2DObject(element) as T) : (new CSS3DObject(element) as T);
 
-  const result: ITextWrapper<T> = {
+  const result: TTextWrapper<T> = {
     type,
     ...AbstractWrapper(entity, getWrapperTypeByTextType(type), params),
     ...getCssAccessors(element),

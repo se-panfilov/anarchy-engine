@@ -1,12 +1,12 @@
 import anime from 'animejs';
 
 import { defaultAnimationParams, Easing } from '@/Engine/Services/MoverService/Constants';
-import type { IFollowTargetFn, IFollowTargetParams, IMoveableByTick, IMoveByPathFn, IMoveByPathFnParams, IMoveFn, IMoveFnParams } from '@/Engine/Services/MoverService/Models';
+import type { TFollowTargetFn, TFollowTargetParams, TMoveableByTick, TMoveByPathFn, TMoveByPathFnParams, TMoveFn, TMoveFnParams } from '@/Engine/Services/MoverService/Models';
 import { getAnimationWrapperForComplexPathAnimation } from '@/Engine/Services/MoverService/MoverServiceUtils';
 import { isVector3Wrapper } from '@/Engine/Utils';
 import type { TVector2Wrapper, TVector3Wrapper } from '@/Engine/Vector';
 
-export const goStraightMove: IMoveFn = ({ obj, destination, animationParams, complete }: IMoveFnParams): anime.AnimeInstance => {
+export const goStraightMove: TMoveFn = ({ obj, destination, animationParams, complete }: TMoveFnParams): anime.AnimeInstance => {
   return anime({
     targets: obj.entity.position,
     x: destination.x,
@@ -19,7 +19,7 @@ export const goStraightMove: IMoveFn = ({ obj, destination, animationParams, com
   });
 };
 
-export const byPathMove: IMoveByPathFn = ({ obj, path, animationParams, complete }: IMoveByPathFnParams): anime.AnimeInstance => {
+export const byPathMove: TMoveByPathFn = ({ obj, path, animationParams, complete }: TMoveByPathFnParams): anime.AnimeInstance => {
   return getAnimationWrapperForComplexPathAnimation(
     anime({
       targets: obj.entity.position,
@@ -35,7 +35,7 @@ export const byPathMove: IMoveByPathFn = ({ obj, path, animationParams, complete
 };
 
 // This function doesn't care about framerate (and delta time) because the position depends on the target
-export const followTarget: IFollowTargetFn = ({ obj, target, offset }: IFollowTargetParams): IMoveableByTick => {
+export const followTarget: TFollowTargetFn = ({ obj, target, offset }: TFollowTargetParams): TMoveableByTick => {
   return {
     tick: (): void => {
       const position: TVector3Wrapper | TVector2Wrapper = target.getPosition();

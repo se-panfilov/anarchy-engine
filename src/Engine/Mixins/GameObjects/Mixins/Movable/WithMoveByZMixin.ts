@@ -1,5 +1,5 @@
 import { withPositionMixin } from '@/Engine/Mixins/GameObjects/Mixins/Position';
-import type { TMovable3dZ, TMovable4dZ, IWithPosition3dProperty, IWithPosition4dProperty } from '@/Engine/Mixins/GameObjects/Models';
+import type { IWithPosition3dProperty, IWithPosition4dProperty, TMovable3dZ, TMovable4dZ } from '@/Engine/Mixins/GameObjects/Models';
 
 export function withMoveByZMixin(entity: IWithPosition3dProperty): TMovable3dZ;
 export function withMoveByZMixin(entity: IWithPosition4dProperty): TMovable4dZ;

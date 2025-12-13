@@ -1,7 +1,7 @@
 import './fonts.css';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { IText3dWrapper, TAnimationParams, TAppCanvas, TEngine, TMoverService, TSpace, TSpaceConfig, TWithCoordsXZ } from '@/Engine';
+import type { TAnimationParams, TAppCanvas, TEngine, TMoverService, TSpace, TSpaceConfig, TText3dWrapper, TWithCoordsXZ } from '@/Engine';
 import { buildSpaceFromConfig, createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, EulerWrapper, generateAnglesForCircle, mouseService, TextType, Vector3Wrapper } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
@@ -40,7 +40,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     tags: []
   });
 
-  const floatingText: IText3dWrapper = textService.create({
+  const floatingText: TText3dWrapper = textService.create({
     type: TextType.Text3d,
     text: 'LongCang',
     position: Vector3Wrapper({ x: -10, y: 8, z: -8 }),
@@ -53,7 +53,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     tags: []
   });
 
-  const floatingText2: IText3dWrapper = textService.create({
+  const floatingText2: TText3dWrapper = textService.create({
     type: TextType.Text3d,
     text: 'VarelaRound',
     position: Vector3Wrapper({ x: -15, y: 6, z: -14 }),

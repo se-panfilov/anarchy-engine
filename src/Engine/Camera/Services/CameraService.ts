@@ -5,7 +5,7 @@ import { ambientContext } from '@/Engine/Context';
 import type { IWithActiveMixinResult, TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
-import type { IScreenSizeValues } from '@/Engine/Screen';
+import type { TScreenSizeValues } from '@/Engine/Screen';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function CameraService(factory: TCameraFactory, registry: TCameraRegistry, scene: TSceneWrapper, isUpdateCamerasAspect: boolean = true): TCameraService {
@@ -21,7 +21,7 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
   const findActive = withActive.findActive;
 
   function startUpdatingCamerasAspect(shouldUpdateOnlyActiveCamera: boolean = false): void {
-    screenSize$ = ambientContext.screenSizeWatcher.value$.subscribe((params: IScreenSizeValues): void => {
+    screenSize$ = ambientContext.screenSizeWatcher.value$.subscribe((params: TScreenSizeValues): void => {
       if (shouldUpdateOnlyActiveCamera) {
         const activeCamera: TCameraWrapper | undefined = findActive();
         if (isNotDefined(activeCamera)) throw new Error('Cannot find an active camera during the aspect update.');

@@ -1,8 +1,8 @@
 import type { WebGLRenderer } from 'three';
 
-import type { IThreeJsRendererParamsAccessors } from '@/Engine/Renderer/Models';
+import type { TThreeJsRendererParamsAccessors } from '@/Engine/Renderer/Models';
 
-export function withThreeJsRendererParamsAccessors(entity: WebGLRenderer): IThreeJsRendererParamsAccessors {
+export function withThreeJsRendererParamsAccessors(entity: WebGLRenderer): TThreeJsRendererParamsAccessors {
   // eslint-disable-next-line functional/immutable-data
   const setCanvas = (canvas: HTMLCanvasElement): void => void (entity.domElement = canvas);
   const getCanvas = (): HTMLCanvasElement => entity.domElement;

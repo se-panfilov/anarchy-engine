@@ -1,8 +1,8 @@
-import type { IElementWithCssAccessors } from '@/Engine/Text/Models';
+import type { TElementWithCssAccessors } from '@/Engine/Text/Models';
 import type { TWriteable } from '@/Engine/Utils';
 import { camelToKebab } from '@/Engine/Utils';
 
-export function getCssAccessors(element: TWriteable<HTMLElement>): IElementWithCssAccessors {
+export function getCssAccessors(element: TWriteable<HTMLElement>): TElementWithCssAccessors {
   // eslint-disable-next-line functional/immutable-data
   const setText = (text: string): void => void (element.textContent = text);
   // eslint-disable-next-line functional/immutable-data

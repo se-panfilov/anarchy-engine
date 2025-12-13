@@ -12,7 +12,7 @@ import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import { MaterialTextureService } from '@/Engine/MaterialTexturePack';
 import { ParticlesAsyncRegistry, ParticlesFactory, ParticlesService } from '@/Engine/Particles';
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
-import type { ISceneFactory, ISceneRegistry, TScenesService, TSceneWrapper } from '@/Engine/Scene';
+import type { TSceneFactory, TSceneRegistry, TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
 import type { TSpaceServices } from '@/Engine/Space/Models';
 import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererRegistry, TextFactory, TextService } from '@/Engine/Text';
@@ -20,8 +20,8 @@ import { textureService } from '@/Engine/Texture';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function initSceneService(): TScenesService {
-  const sceneFactory: ISceneFactory = SceneFactory();
-  const sceneRegistry: ISceneRegistry = SceneRegistry();
+  const sceneFactory: TSceneFactory = SceneFactory();
+  const sceneRegistry: TSceneRegistry = SceneRegistry();
 
   return ScenesService(sceneFactory, sceneRegistry);
 }

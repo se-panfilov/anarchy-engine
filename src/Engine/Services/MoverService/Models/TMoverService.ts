@@ -1,12 +1,12 @@
-import type { TWithPosition3d, TWithCoordsXYZ } from '@/Engine/Mixins';
-import type { IMovableEntityWrapper, IStopMoveCb } from '@/Engine/Services/MoverService/Models';
+import type { TWithCoordsXYZ, TWithPosition3d } from '@/Engine/Mixins';
+import type { TMovableEntityWrapper, TStopMoveCb } from '@/Engine/Services/MoverService/Models';
 import type { TAnimationParams } from '@/Engine/Services/MoverService/Models/TAnimationParams';
 
-import type { IKeyframeDestination } from './IKeyframeDestination';
-import type { IMoveDestination } from './IMoveDestination';
+import type { TKeyframeDestination } from './TKeyframeDestination';
+import type { TMoveDestination } from './TMoveDestination';
 
 export type TMoverService = Readonly<{
-  goToPosition: (obj: IMovableEntityWrapper, destination: IMoveDestination, params: TAnimationParams) => Promise<void>;
-  goByPath: (obj: IMovableEntityWrapper, path: ReadonlyArray<IKeyframeDestination>, params: TAnimationParams) => Promise<void>;
-  followTarget: (obj: IMovableEntityWrapper, target: TWithPosition3d, offset?: Partial<TWithCoordsXYZ>) => IStopMoveCb;
+  goToPosition: (obj: TMovableEntityWrapper, destination: TMoveDestination, params: TAnimationParams) => Promise<void>;
+  goByPath: (obj: TMovableEntityWrapper, path: ReadonlyArray<TKeyframeDestination>, params: TAnimationParams) => Promise<void>;
+  followTarget: (obj: TMovableEntityWrapper, target: TWithPosition3d, offset?: Partial<TWithCoordsXYZ>) => TStopMoveCb;
 }>;

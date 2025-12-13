@@ -10,7 +10,7 @@ import type { TRendererWrapper } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpace } from '@/Engine/Space';
 import { spaceLoop } from '@/Engine/Space/SpaceLoop';
-import type { IText2dRenderer, IText3dRenderer } from '@/Engine/Text';
+import type { TText2dRenderer, TText3dRenderer } from '@/Engine/Text';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function Engine(space: TSpace): TEngine {
@@ -25,8 +25,8 @@ export function Engine(space: TSpace): TEngine {
   const renderer: TRendererWrapper | undefined = rendererService.findActive();
 
   const { text2dRendererRegistry, text3dRendererRegistry } = textService.getRendererRegistries();
-  const text2dRenderer: IText2dRenderer | undefined = text2dRendererRegistry.getAll()[0];
-  const text3dRenderer: IText3dRenderer | undefined = text3dRendererRegistry.getAll()[0];
+  const text2dRenderer: TText2dRenderer | undefined = text2dRendererRegistry.getAll()[0];
+  const text3dRenderer: TText3dRenderer | undefined = text3dRendererRegistry.getAll()[0];
 
   let camera: TCameraWrapper | undefined;
 

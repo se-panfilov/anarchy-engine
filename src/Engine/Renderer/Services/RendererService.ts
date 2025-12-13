@@ -1,8 +1,8 @@
 import type { IWithActiveMixinResult, TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
-import type { IRendererFactory, IRendererParams, IRendererRegistry, IRendererService, TRendererWrapper } from '@/Engine/Renderer/Models';
+import type { TRendererFactory, TRendererParams, TRendererRegistry, TRendererService, TRendererWrapper } from '@/Engine/Renderer/Models';
 
-export function RendererService(factory: IRendererFactory, registry: IRendererRegistry): IRendererService {
+export function RendererService(factory: TRendererFactory, registry: TRendererRegistry): TRendererService {
   const withActive: IWithActiveMixinResult<TRendererWrapper> = withActiveEntityServiceMixin<TRendererWrapper>(registry);
 
   registry.added$.subscribe((wrapper: TRendererWrapper): void => {
@@ -10,7 +10,7 @@ export function RendererService(factory: IRendererFactory, registry: IRendererRe
   });
   factory.entityCreated$.subscribe((wrapper: TRendererWrapper): void => registry.add(wrapper));
 
-  const create = (params: IRendererParams): TRendererWrapper => factory.create(params);
+  const create = (params: TRendererParams): TRendererWrapper => factory.create(params);
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
@@ -24,8 +24,8 @@ export function RendererService(factory: IRendererFactory, registry: IRendererRe
     setActive: withActive.setActive,
     findActive: withActive.findActive,
     active$: withActive.active$.asObservable(),
-    getFactory: (): IRendererFactory => factory,
-    getRegistry: (): IRendererRegistry => registry,
+    getFactory: (): TRendererFactory => factory,
+    getRegistry: (): TRendererRegistry => registry,
     ...destroyable
   };
 }

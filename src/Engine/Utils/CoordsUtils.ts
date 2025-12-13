@@ -1,4 +1,4 @@
-import type { TWithCoordsYZ, TWithCoordsXY, TWithCoordsXZ } from '@/Engine/Mixins';
+import type { TWithCoordsXY, TWithCoordsXZ, TWithCoordsYZ } from '@/Engine/Mixins';
 
 type ITempCoords = Readonly<{
   coord1: number;

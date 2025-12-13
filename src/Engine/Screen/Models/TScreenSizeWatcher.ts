@@ -1,4 +1,4 @@
 import type { TMultitonWatcherWithState } from '@/Engine/Abstract';
-import type { IScreenSizeValues } from '@/Engine/Screen/Models';
+import type { TScreenSizeValues } from '@/Engine/Screen/Models';
 
-export type TScreenSizeWatcher = TMultitonWatcherWithState<IScreenSizeValues>;
+export type TScreenSizeWatcher = TMultitonWatcherWithState<TScreenSizeValues>;

@@ -1,7 +1,7 @@
 import type { TMaterialPackParams, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
-import type { IWithName } from '@/Engine/Mixins';
+import type { TWithName } from '@/Engine/Mixins';
 
 export type TParticlesProps = Readonly<{
   material: TMaterialPackParams<TMaterialTexturePack>;
 }> &
-  IWithName;
+  TWithName;

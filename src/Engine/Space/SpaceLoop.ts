@@ -2,7 +2,7 @@ import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TControlsRegistry, TOrbitControlsWrapper } from '@/Engine/Controls';
 import type { TRendererWrapper } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
-import type { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer } from '@/Engine/Text';
+import type { TText2dRegistry, TText2dRenderer, TText3dRegistry, TText3dRenderer } from '@/Engine/Text';
 import { isDefined } from '@/Engine/Utils';
 
 export function spaceLoop(
@@ -10,10 +10,10 @@ export function spaceLoop(
   activeCamera: TCameraWrapper | undefined,
   renderer: TRendererWrapper,
   activeScene: TSceneWrapper,
-  text2dRegistry: IText2dRegistry,
-  text3dRegistry: IText3dRegistry,
-  text2dRenderer: IText2dRenderer,
-  text3dRenderer: IText3dRenderer,
+  text2dRegistry: TText2dRegistry,
+  text3dRegistry: TText3dRegistry,
+  text2dRenderer: TText2dRenderer,
+  text3dRenderer: TText3dRenderer,
   controlsRegistry: TControlsRegistry
 ): void {
   if (isDefined(activeCamera)) {

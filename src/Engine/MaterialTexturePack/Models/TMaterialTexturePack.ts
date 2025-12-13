@@ -13,27 +13,27 @@ import type {
 } from './TMaterialPackKeys';
 import type { TTexturePackParams } from './TTexturePackParams';
 
-export type IBasicMaterialTexturePack = Readonly<{ [key in TBasicMaterialPackKeys]?: TTexturePackParams }>;
-export type IDepthMaterialTexturePack = Readonly<{ [key in TDepthMaterialPackKeys]?: TTexturePackParams }>;
-export type IDistanceMaterialTexturePack = Readonly<{ [key in TDistanceMaterialPackKeys]?: TTexturePackParams }>;
-export type INormalMaterialTexturePack = Readonly<{ [key in TNormalMaterialPackKeys]?: TTexturePackParams }>;
-export type IMatcapMaterialTexturePack = Readonly<{ [key in TMatcapMaterialPackKeys]?: TTexturePackParams }>;
-export type ILambertMaterialTexturePack = Readonly<{ [key in TLambertMaterialPackKeys]?: TTexturePackParams }>;
-export type IPhongMaterialTexturePack = Readonly<{ [key in TPhongMaterialPackKeys]?: TTexturePackParams }>;
-export type IPhysicalMaterialTexturePack = Readonly<{ [key in TPhysicalMaterialPackKeys]?: TTexturePackParams }>;
-export type IToonMaterialTexturePack = Readonly<{ [key in TToonMaterialPackKeys]?: TTexturePackParams }>;
-export type IStandardMaterialTexturePack = Readonly<{ [key in TStandardMaterialPackKeys]?: TTexturePackParams }>;
+export type TBasicMaterialTexturePack = Readonly<{ [key in TBasicMaterialPackKeys]?: TTexturePackParams }>;
+export type TDepthMaterialTexturePack = Readonly<{ [key in TDepthMaterialPackKeys]?: TTexturePackParams }>;
+export type TDistanceMaterialTexturePack = Readonly<{ [key in TDistanceMaterialPackKeys]?: TTexturePackParams }>;
+export type TNormalMaterialTexturePack = Readonly<{ [key in TNormalMaterialPackKeys]?: TTexturePackParams }>;
+export type TMatcapMaterialTexturePack = Readonly<{ [key in TMatcapMaterialPackKeys]?: TTexturePackParams }>;
+export type TLambertMaterialTexturePack = Readonly<{ [key in TLambertMaterialPackKeys]?: TTexturePackParams }>;
+export type TPhongMaterialTexturePack = Readonly<{ [key in TPhongMaterialPackKeys]?: TTexturePackParams }>;
+export type TPhysicalMaterialTexturePack = Readonly<{ [key in TPhysicalMaterialPackKeys]?: TTexturePackParams }>;
+export type TToonMaterialTexturePack = Readonly<{ [key in TToonMaterialPackKeys]?: TTexturePackParams }>;
+export type TStandardMaterialTexturePack = Readonly<{ [key in TStandardMaterialPackKeys]?: TTexturePackParams }>;
 export type IPointsMaterialTexturePack = Readonly<{ [key in TPointsMaterialPackKeys]?: TTexturePackParams }>;
 
 export type TMaterialTexturePack =
-  | IBasicMaterialTexturePack
-  | IDepthMaterialTexturePack
-  | IDistanceMaterialTexturePack
-  | INormalMaterialTexturePack
-  | IMatcapMaterialTexturePack
-  | ILambertMaterialTexturePack
-  | IPhongMaterialTexturePack
-  | IPhysicalMaterialTexturePack
-  | IToonMaterialTexturePack
-  | IStandardMaterialTexturePack
+  | TBasicMaterialTexturePack
+  | TDepthMaterialTexturePack
+  | TDistanceMaterialTexturePack
+  | TNormalMaterialTexturePack
+  | TMatcapMaterialTexturePack
+  | TLambertMaterialTexturePack
+  | TPhongMaterialTexturePack
+  | TPhysicalMaterialTexturePack
+  | TToonMaterialTexturePack
+  | TStandardMaterialTexturePack
   | IPointsMaterialTexturePack;

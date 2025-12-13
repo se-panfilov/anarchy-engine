@@ -11,20 +11,20 @@ import type { TFogWrapper } from '@/Engine/Fog';
 import type { TAbstractLightWrapper, TLight } from '@/Engine/Light';
 import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
 import type { TParticlesWrapperAsync } from '@/Engine/Particles';
-import type { ISceneObject, ISceneParams, TSceneWrapper } from '@/Engine/Scene/Models';
+import type { TSceneObject, TSceneParams, TSceneWrapper } from '@/Engine/Scene/Models';
 import type { TTextAnyWrapper } from '@/Engine/Text';
-import type { ICubeTexture, TTexture } from '@/Engine/Texture';
+import type { TCubeTexture, TTexture } from '@/Engine/Texture';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined, isString } from '@/Engine/Utils';
 
-export function SceneWrapper(params: ISceneParams): TSceneWrapper {
+export function SceneWrapper(params: TSceneParams): TSceneWrapper {
   const entity: TWriteable<Scene> = new Scene();
 
   if (isDefined(params.background)) setBackground(params.background);
 
   const wrapper: TWrapper<Scene> = AbstractWrapper(entity, WrapperType.Scene, params);
 
-  const add = (obj: ISceneObject): void => void entity.add(obj);
+  const add = (obj: TSceneObject): void => void entity.add(obj);
   const addCamera = (camera: Readonly<TCameraWrapper>): void => add(camera.entity);
   const addActor = (actor: Readonly<TActorWrapperAsync>): void => add(actor.entity);
   const addLight = <T extends TLight>(light: Readonly<TAbstractLightWrapper<T>>): void => add(light.entity);
@@ -35,8 +35,8 @@ export function SceneWrapper(params: ISceneParams): TSceneWrapper {
   // eslint-disable-next-line functional/immutable-data
   const setFog = (fog: Readonly<TFogWrapper>): void => void (entity.fog = fog.entity);
 
-  function setBackground(color: string | TColor | TTexture | ICubeTexture | TDataTexture): void {
-    let background: string | TColor | TTexture | ICubeTexture | null = null;
+  function setBackground(color: string | TColor | TTexture | TCubeTexture | TDataTexture): void {
+    let background: string | TColor | TTexture | TCubeTexture | null = null;
     if (isString(color)) background = ColorWrapper(color).entity;
     else background = color;
     if (isNotDefined(background)) throw new Error('Invalid background');
@@ -44,7 +44,7 @@ export function SceneWrapper(params: ISceneParams): TSceneWrapper {
     entity.background = background;
   }
 
-  const getBackground = (): TColor | TTexture | ICubeTexture | null => entity.background;
+  const getBackground = (): TColor | TTexture | TCubeTexture | null => entity.background;
 
   // eslint-disable-next-line functional/immutable-data
   const setEnvironmentMap = (texture: TDataTexture | TTexture): void => void (entity.environment = texture);

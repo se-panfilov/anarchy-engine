@@ -1,5 +1,5 @@
-import type { IMoverServiceConfig } from '@/Engine/Services/MoverService/Models';
+import type { TMoverServiceConfig } from '@/Engine/Services/MoverService/Models';
 
-export const defaultMoverServiceConfig: IMoverServiceConfig = {
+export const defaultMoverServiceConfig: TMoverServiceConfig = {
   suspendWhenDocumentHidden: false
 };

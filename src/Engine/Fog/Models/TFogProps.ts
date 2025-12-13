@@ -1,10 +1,10 @@
 import type { Color } from 'three';
 
-import type { IWithName } from '@/Engine/Mixins';
+import type { TWithName } from '@/Engine/Mixins';
 
 export type TFogProps = Readonly<{
   color: Color;
   near?: number;
   far?: number;
 }> &
-  IWithName;
+  TWithName;

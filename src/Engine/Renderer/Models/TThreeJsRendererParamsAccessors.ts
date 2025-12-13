@@ -1,0 +1,26 @@
+export type TThreeJsRendererParamsAccessors = Readonly<{
+  setCanvas: (canvas: HTMLCanvasElement) => void;
+  getCanvas: () => HTMLCanvasElement;
+  // setContext: (context: WebGLRenderingContext) => void;
+  getContext: () => WebGLRenderingContext;
+  // setPrecision: (precision: string) => void;
+  // getPrecision: () => string;
+  // setAlpha: (isAlpha: boolean) => void;
+  // isAlpha: () => boolean;
+  // setPremultipliedAlpha: (isPremultipliedAlpha: boolean) => void;
+  // isPremultipliedAlpha: () => boolean;
+  // setAntialias: (isAntialias: boolean) => void;
+  // isAntialias: () => boolean;
+  // setStencil: (isStencil: boolean) => void;
+  // isStencil: () => boolean;
+  // setPreserveDrawingBuffer: (isPreserveDrawingBuffer: boolean) => void;
+  // isPreserveDrawingBuffer: () => boolean;
+  // setPowerPreference: (powerPreference: string) => void;
+  // getPowerPreference: () => string;
+  // setDepth: (isDepth: boolean) => void;
+  // isDepth: () => boolean;
+  // setLogarithmicDepthBuffer: (isLogarithmicDepthBuffer: boolean) => void;
+  // isLogarithmicDepthBuffer: () => boolean;
+  // setFailIfMajorPerformanceCaveat: (isFailIfMajorPerformanceCaveat: boolean) => void;
+  // isFailIfMajorPerformanceCaveat: () => boolean;
+}>;

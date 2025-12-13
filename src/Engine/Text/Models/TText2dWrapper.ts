@@ -1,5 +1,5 @@
 import type { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 
-import type { ITextWrapper } from './ITextWrapper';
+import type { TTextWrapper } from './TTextWrapper';
 
-export type TText2dWrapper = ITextWrapper<CSS2DObject>;
+export type TText2dWrapper = TTextWrapper<CSS2DObject>;

@@ -4,10 +4,10 @@ import type { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import type { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
 import type { TAppGlobalContainer } from '@/Engine/Global';
-import type { IScreenSizeValues, TScreenSizeWatcher } from '@/Engine/Screen';
+import type { TScreenSizeValues, TScreenSizeWatcher } from '@/Engine/Screen';
 import type { TextCssClass, TextRendererType } from '@/Engine/Text/Constants';
 import { RelatedEntityAttribute } from '@/Engine/Text/Constants';
-import type { ITextRenderer } from '@/Engine/Text/Models';
+import type { TTextRenderer } from '@/Engine/Text/Models';
 
 export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
   renderer: T,
@@ -15,7 +15,7 @@ export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
   type: TextRendererType,
   container: TAppGlobalContainer,
   screenSizeWatcher: Readonly<TScreenSizeWatcher>
-): ITextRenderer<T> {
+): TTextRenderer<T> {
   const id: string = 'text_renderer_' + nanoid();
   renderer.setSize(container.innerWidth, container.innerHeight);
   // eslint-disable-next-line functional/immutable-data
@@ -29,7 +29,7 @@ export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
   renderer.domElement.setAttribute(RelatedEntityAttribute, id);
   container.document.body.appendChild(renderer.domElement);
 
-  const updateSize = ({ width, height }: IScreenSizeValues): void => renderer.setSize(width, height);
+  const updateSize = ({ width, height }: TScreenSizeValues): void => renderer.setSize(width, height);
 
   //init with the values which came before the start of the subscription
   updateSize(screenSizeWatcher.latest$.value);

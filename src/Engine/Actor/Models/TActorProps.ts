@@ -1,6 +1,6 @@
 import type { ActorType } from '@/Engine/Actor/Constants';
 import type { TMaterialPackParams, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
-import type { IWithName } from '@/Engine/Mixins';
+import type { TWithName } from '@/Engine/Mixins';
 
 export type TActorProps = Readonly<{
   type: ActorType;
@@ -14,4 +14,4 @@ export type TActorProps = Readonly<{
   castShadow: boolean;
   material: TMaterialPackParams<TMaterialTexturePack>;
 }> &
-  IWithName;
+  TWithName;

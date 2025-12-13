@@ -1,7 +1,7 @@
-import type { ISceneConfig, ISceneParams } from '@/Engine/Scene/Models';
+import type { TSceneConfig, TSceneParams } from '@/Engine/Scene/Models';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 
-export function configToParams(config: ISceneConfig): ISceneParams {
+export function configToParams(config: TSceneConfig): TSceneParams {
   const { position, rotation, scale, layers, animations, ...rest } = config;
 
   return {

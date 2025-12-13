@@ -1,5 +1,5 @@
 import { RegistryType } from '@/Engine/Abstract/Constants';
 import { AbstractEntityRegistry, RegistryFacade } from '@/Engine/Abstract/Registries';
-import type { IText3dRegistry, IText3dWrapper } from '@/Engine/Text/Models';
+import type { TText3dRegistry, TText3dWrapper } from '@/Engine/Text/Models';
 
-export const Text3dRegistry = (): IText3dRegistry => RegistryFacade(AbstractEntityRegistry<IText3dWrapper>(RegistryType.Text));
+export const Text3dRegistry = (): TText3dRegistry => RegistryFacade(AbstractEntityRegistry<TText3dWrapper>(RegistryType.Text));

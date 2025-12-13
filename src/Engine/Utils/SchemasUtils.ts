@@ -2,8 +2,8 @@ import Ajv from 'ajv';
 
 import type { TCameraConfig } from '@/Engine/Camera';
 import type { TControlsConfig } from '@/Engine/Controls';
-import type { IWithName, TWithReadonlyTags } from '@/Engine/Mixins';
-import type { ISceneConfig } from '@/Engine/Scene';
+import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TSceneConfig } from '@/Engine/Scene';
 import type { TSpaceConfig } from '@/Engine/Space';
 import ISpaceConfigSchema from '@/Engine/Space/Schemas/ISpaceConfig.json';
 
@@ -36,7 +36,7 @@ function validateData({ name, actors, cameras, scenes, controls, intersections, 
 
   //check active entities
   const isMultipleActiveCameras: boolean = cameras.filter((camera: TCameraConfig) => camera.isActive).length > 1;
-  const isMultipleActiveScenes: boolean = scenes.filter((scene: ISceneConfig) => scene.isActive).length > 1;
+  const isMultipleActiveScenes: boolean = scenes.filter((scene: TSceneConfig) => scene.isActive).length > 1;
   const isMultipleActiveControls: boolean = controls.filter((control: TControlsConfig) => control.isActive).length > 1;
 
   //check relations
@@ -101,8 +101,8 @@ function validateData({ name, actors, cameras, scenes, controls, intersections, 
   return { isValid: errors.length === 0, errors };
 }
 
-const validateNames = (entities: ReadonlyArray<IWithName>): boolean => entities.every(validateName);
-const validateName = (entity: IWithName): boolean => validateField(entity, 'name');
+const validateNames = (entities: ReadonlyArray<TWithName>): boolean => entities.every(validateName);
+const validateName = (entity: TWithName): boolean => validateField(entity, 'name');
 const validateCameraNames = (entities: ReadonlyArray<Readonly<{ cameraName: string }>>): boolean => entities.every(validateCameraName);
 const validateCameraName = (entity: Readonly<{ cameraName: string }>): boolean => validateField(entity, 'cameraName');
 
