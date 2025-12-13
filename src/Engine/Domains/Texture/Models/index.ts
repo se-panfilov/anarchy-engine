@@ -1,4 +1,3 @@
-export * from './IMaterialPackKeys';
 export * from './IMaterialTexturePack';
 export * from './IMaterialTextureUploaded';
 export * from './IMaterialTextureUploadPromises';

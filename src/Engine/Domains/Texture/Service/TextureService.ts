@@ -1,6 +1,6 @@
 import { TextureLoader } from 'three';
 
-import type { MaterialType } from '@/Engine/Domains/Material';
+import type { IMaterialPackKeys, MaterialType } from '@/Engine/Domains/Material';
 import type {
   IBasicMaterialTexturePack,
   IBasicMaterialTextureUploaded,
@@ -17,7 +17,6 @@ import type {
   IMatcapMaterialTexturePack,
   IMatcapMaterialTextureUploaded,
   IMatcapMaterialTextureUploadPromises,
-  IMaterialPackKeys,
   IMaterialTexturePack,
   IMaterialTextureUploaded,
   IMaterialTextureUploadPromises,
