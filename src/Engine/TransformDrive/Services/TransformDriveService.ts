@@ -1,23 +1,39 @@
 import type { Subscription } from 'rxjs';
+import { Quaternion, Vector3 } from 'three';
 
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
+import type { TKinematicLoop } from '@/Engine/Kinematic';
+import { toQuaternion } from '@/Engine/Math';
 import type { TDisposable } from '@/Engine/Mixins';
 import { withFactoryService, withRegistryService } from '@/Engine/Mixins';
-import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
+import type { TPhysicalLoop } from '@/Engine/Physics';
+import { TransformAgent } from '@/Engine/TransformDrive/Constants';
+import { ConnectedTransformAgent, DefaultTransformAgent } from '@/Engine/TransformDrive/Entities';
 import type {
   TAbstractTransformAgent,
+  TGetTransformAgentsOptions,
+  TGetTransformAgentsParams,
+  TTransformAgentParams,
+  TTransformAgents,
   TTransformDrive,
   TTransformDriveCompatibleEntity,
   TTransformDriveFactory,
   TTransformDriveParams,
   TTransformDriveRegistry,
   TTransformDriveService,
+  TTransformDriveServiceDependencies,
   TTransformDriveServiceWithFactory,
   TTransformDriveServiceWithRegistry
 } from '@/Engine/TransformDrive/Models';
+import { getKinematicTransformAgent, getPhysicsTransformAgent } from '@/Engine/TransformDrive/Utils';
+import type { TOptional, TWriteable } from '@/Engine/Utils';
 
-export function TransformDriveService(factory: TTransformDriveFactory, registry: TTransformDriveRegistry): TTransformDriveService {
+export function TransformDriveService(
+  factory: TTransformDriveFactory,
+  registry: TTransformDriveRegistry,
+  { loopService, physicsBodyService }: TTransformDriveServiceDependencies
+): TTransformDriveService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((entity: TTransformDrive<TTransformDriveCompatibleEntity>): void => registry.add(entity));
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
@@ -36,6 +52,42 @@ export function TransformDriveService(factory: TTransformDriveFactory, registry:
   const withFactory: TTransformDriveServiceWithFactory = withFactoryService(factory);
   const withRegistry: TTransformDriveServiceWithRegistry = withRegistryService(registry);
 
+  function getTransformAgents(
+    { position, rotation, scale, kinematic, physics }: TGetTransformAgentsParams,
+    { isKinematic, isPhysics, isConnected }: TGetTransformAgentsOptions
+  ): TOptional<TTransformAgents> {
+    const result: TWriteable<TOptional<TTransformAgents>> = {};
+
+    //PhysicsTransformAgent might need a special "onDeactivated" hook if it supposed to switch physics/non-physics mode in runtime
+    const agentParams: TTransformAgentParams = {
+      position: position,
+      rotation: rotation ? toQuaternion(rotation) : new Quaternion(),
+      scale: scale ?? new Vector3(1, 1, 1),
+      onDeactivated: undefined,
+      onActivated: undefined
+    };
+
+    if (isKinematic) {
+      const kinematicLoop: TKinematicLoop = loopService.getKinematicLoop();
+      // eslint-disable-next-line functional/immutable-data
+      result[TransformAgent.Kinematic] = getKinematicTransformAgent(agentParams, kinematic, { kinematicLoop });
+    }
+
+    if (isPhysics) {
+      const physicalLoop: TPhysicalLoop = loopService.getPhysicalLoop();
+      // eslint-disable-next-line functional/immutable-data
+      result[TransformAgent.Physical] = getPhysicsTransformAgent(agentParams, physics, { physicalLoop, physicsBodyService });
+    }
+
+    // eslint-disable-next-line functional/immutable-data
+    if (isConnected) result[TransformAgent.Connected] = ConnectedTransformAgent(agentParams);
+
+    // eslint-disable-next-line functional/immutable-data
+    result[TransformAgent.Default] = DefaultTransformAgent(agentParams);
+
+    return result;
+  }
+
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, create, createFromList, withFactory, withRegistry);
+  return Object.assign(abstractService, create, createFromList, withFactory, withRegistry, { getTransformAgents });
 }

@@ -41,6 +41,7 @@ import { SpatialGridFactory, SpatialGridRegistry, SpatialGridService } from '@/E
 import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererRegistry, Text3dTextureRegistry, TextFactory, TextService } from '@/Engine/Text';
 import type { TTextureService } from '@/Engine/Texture';
 import { TextureAsyncRegistry, TextureService } from '@/Engine/Texture';
+import type { TTransformDriveService } from '@/Engine/TransformDrive';
 import { TransformDriveFactory, TransformDriveRegistry, TransformDriveService } from '@/Engine/TransformDrive';
 
 export function buildBaseServices(): TSpaceBaseServices {
@@ -76,6 +77,7 @@ export function buildEntitiesServices(
   const fsmService: TFsmService = FsmService(FsmInstanceFactory(), FsmSourceFactory(), FsmInstanceRegistry(), FsmSourceRegistry());
   const audioService: TAudioService = AudioService(AudioFactory(), AudioRegistry(), AudioResourceAsyncRegistry(), AudioListenersRegistry(), loops);
   const cameraService: TCameraService = CameraService(CameraFactory(), CameraRegistry(), sceneW, { audioService, screenService });
+  const transformDriveService: TTransformDriveService = TransformDriveService(TransformDriveFactory(), TransformDriveRegistry(), { loopService, physicsBodyService });
 
   return {
     actorService: ActorService(
@@ -127,6 +129,6 @@ export function buildEntitiesServices(
       sceneW
     ),
     textureService,
-    transformDriveService: TransformDriveService(TransformDriveFactory(), TransformDriveRegistry())
+    transformDriveService
   };
 }
