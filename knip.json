@@ -1,0 +1,4 @@
+{
+  "ignoreWorkspaces": ["apps/showcases", "packages/e2e"],
+  "ignore": ["configs/**"]
+}
