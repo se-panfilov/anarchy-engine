@@ -39,7 +39,6 @@ Done:
 - 20.0.x Configurable Space (added options)
 
 Roadmap:
-- 21.0.x Desktop/Mobile app builds (POC level)
 - 22.0.x Create a npm package
 - 23.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
 - 24.x.x Postprocessing
@@ -63,4 +62,3 @@ Thoughts:
 
 Won't be implemented soon:
 - Maybe: Split data entities from functional entities – ECS approach (too hard to migrate now);
-- GUI/UI/HUD/Menus: Leave it to the app (don't want to build a generic solution);

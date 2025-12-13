@@ -1,0 +1,10 @@
+Done:
+- 1.0.x Initial (monorepo)
+- 2.0.x Desktop Build
+
+Roadmap:
+- 3.0.x Mobile Build
+- 4.0.x Steam SDK
+- 5.0.x Initial load script <500kb)
+- 6.0.x Routing for showcases (and query params, e.g. "debug=true")
+- 7.0.x GUI POC
