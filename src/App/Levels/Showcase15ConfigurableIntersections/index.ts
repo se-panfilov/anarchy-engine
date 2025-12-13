@@ -17,13 +17,13 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   const { clickLeftRelease$ } = mouseService;
 
   function init(): void {
-    // const actor1: IActorWrapperAsync = await actorRegistry.findByNameAsync('actor1');
-    // const actor2: IActorWrapperAsync = await actorRegistry.findByNameAsync('actor2');
-    // const actor3: IActorWrapperAsync = await actorRegistry.findByNameAsync('actor3');
-    // const actor4: IActorWrapperAsync = await actorRegistry.findByNameAsync('actor4');
+    // const actor1: IActorWrapperAsync = await actorRegistry.findByNameAsync('actor_red_1');
+    // const actor2: IActorWrapperAsync = await actorRegistry.findByNameAsync('actor_red_2');
+    // const actor3: IActorWrapperAsync = await actorRegistry.findByNameAsync('actor_blue_1');
+    // const actor4: IActorWrapperAsync = await actorRegistry.findByNameAsync('actor_blue_');
 
     let cameraFolder: GUI | undefined;
-    let cameraName: string = 'main';
+    let cameraName: string = 'red';
     clickLeftRelease$.subscribe((): void => {
       const camera: ICameraWrapper | undefined = cameraRegistry.findByName(cameraName);
       console.log(cameraName, cameraService.findActive()?.name, cameraName === cameraService.findActive()?.name);
@@ -31,7 +31,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
       cameraFolder = resetGui(cameraFolder, camera);
 
       cameraService.setActive(camera.id);
-      cameraName = cameraName === 'main' ? 'alt' : 'main';
+      cameraName = cameraName === 'red' ? 'blue' : 'red';
     });
 
     // loopService.tick$.subscribe(({ elapsedTime }) => {
