@@ -8,6 +8,11 @@ import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function getStepRotation(agent: TKinematicTransformAgent, rotationStep: TRadians): Quaternion | undefined {
+  if (isDefined(agent.data.target?.rotation)) return getStepRotationToTarget(agent, rotationStep);
+  return getStepRotationInfinite(agent, rotationStep);
+}
+
+export function getStepRotationToTarget(agent: TKinematicTransformAgent, rotationStep: TRadians): Quaternion | undefined {
   if (isNotDefined(agent.data.target?.rotation)) return undefined;
 
   const currentRotation: Quaternion = agent.rotation$.value.clone().normalize();
@@ -32,7 +37,7 @@ export function getStepRotation(agent: TKinematicTransformAgent, rotationStep: T
 }
 
 // Fallback implementation for getStepRotation based on Euler angles
-// export function getStepRotation(agent: TKinematicTransformAgent, rotationStep: number): Quaternion | undefined {
+// export function getStepRotationToTarget(agent: TKinematicTransformAgent, rotationStep: number): Quaternion | undefined {
 //   if (!agent.data.target?.rotation) return undefined;
 //
 //   const currentEuler = new Euler().setFromQuaternion(agent.rotation$.value, 'YXZ');
@@ -51,6 +56,16 @@ export function getStepRotation(agent: TKinematicTransformAgent, rotationStep: T
 //
 //   return new Quaternion().setFromEuler(stepEuler);
 // }
+
+export function getStepRotationInfinite(agent: TKinematicTransformAgent, rotationStep: TRadians): Quaternion {
+  const angularDirection: Quaternion = agent.data.state.angularDirection;
+  const axis = new Vector3(angularDirection.x, angularDirection.y, angularDirection.z);
+  if (axis.lengthSq() < 1e-6) axis.set(0, 1, 0);
+
+  axis.normalize();
+
+  return new Quaternion().setFromAxisAngle(axis, rotationStep);
+}
 
 export function isPointReached(target: TKinematicTarget | undefined, position: Vector3, state: TKinematicState): boolean {
   if (isNotDefined(target)) return false;
