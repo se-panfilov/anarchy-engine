@@ -1,6 +1,5 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ICameraRegistry, IEngine, ISpace, ISpaceConfig } from '@/Engine';
-import { buildSpaceFromConfig, Engine, isNotDefined, KeyCode, mpsSpeed } from '@/Engine';
+import { buildSpaceFromConfig, Engine, IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ICameraRegistry, IEngine, isNotDefined, ISpace, ISpaceConfig, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -18,15 +17,36 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   const { findByNameAsync } = actorRegistry;
   const { onKey } = keyboardService;
 
+  const { clickLeftRelease$ } = mouseService;
+
   async function init(): Promise<void> {
     const car: IActorWrapperAsync | undefined = await findByNameAsync('car');
-
     if (isNotDefined(car)) throw new Error('Actor "car" is not defined');
 
-    onKey(KeyCode.W).pressing$.subscribe(({ delta }): void => {
-      console.log(mpsSpeed(-10, delta));
-      void car.addZ(mpsSpeed(-10, delta));
+    let isMove: boolean = false;
+    clickLeftRelease$.subscribe((): void => {
+      if (!isMove) isMove = true;
     });
+
+    engine.services.loopService.tick$.subscribe(({ delta }): void => {
+      if (car.entity.position.z <= -50) {
+        isMove = false;
+        // eslint-disable-next-line functional/immutable-data
+        car.entity.position.z = 50;
+        return;
+      }
+
+      if (isMove) {
+        console.log('123', isMove);
+        // eslint-disable-next-line functional/immutable-data
+        car.entity.position.z -= 10 * delta;
+      }
+    });
+
+    // onKey(KeyCode.W).pressing$.subscribe(({ delta }): void => {
+    //   console.log(mpsSpeed(-10, delta));
+    //   void car.addZ(mpsSpeed(-10, delta));
+    // });
   }
 
   function start(): void {

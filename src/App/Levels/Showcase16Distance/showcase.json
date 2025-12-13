@@ -23,6 +23,7 @@
       "tags": []
     },
     {
+      "name": "car",
       "type": "sphere",
       "width": 1,
       "height": 1,
@@ -31,7 +32,7 @@
       "material": { "type": "toon", "params": { "color": "#E91E63", "wireframe": true } },
       "position": { "x": -2, "y": 2, "z": 50 },
       "castShadow": true,
-      "tags": ["car"]
+      "tags": []
     }
   ],
   "intersections": [],
