@@ -48,12 +48,12 @@ function buildPhysics(physics: TWithPhysicsPresetParams, physicsService: TPhysic
     if (isNotDefined(presetFromRegistry)) throw new Error(`Physics preset not found: ${preset}`);
   }
 
-  let fullParams: TPhysicsPresetParams;
-  if (isDefined(presetFromRegistry)) fullParams = { ...presetFromRegistry, ...rest };
+  let fullParams: TPhysicsPresetParams = { ...rest };
+  if (isDefined(presetFromRegistry)) fullParams = { ...fullParams, ...presetFromRegistry };
 
-  // TODO (S.Panfilov) CWP here we build somehow,
+  // TODO (S.Panfilov) CWP here we build somehow (we need a factory and a registry),
   //  next we have to attach it to the actor and put to physics objects registry
   //  (and so to add to world, and use to update)
-  const physicsObject = physicsService.build(fullParams);
+  const physicsObject = physicsService.create(fullParams);
   return physicsObject;
 }

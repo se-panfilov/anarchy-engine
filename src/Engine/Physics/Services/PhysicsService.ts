@@ -1,13 +1,24 @@
 import { World } from '@dimforge/rapier3d';
 
+import type { TDestroyable } from '@/Engine/Mixins';
+import { destroyableMixin } from '@/Engine/Mixins';
 import { configToParams } from '@/Engine/Physics/Adapters';
-import type { TPhysicsDebugRenderer, TPhysicsPresetConfig, TPhysicsPresetParams, TPhysicsPresetRegistry, TPhysicsService, TPhysicsWorldParams } from '@/Engine/Physics/Models';
+import type {
+  TPhysicsDebugRenderer,
+  TPhysicsObjectFactory,
+  TPhysicsObjectRegistry,
+  TPhysicsPresetConfig,
+  TPhysicsPresetParams,
+  TPhysicsPresetRegistry,
+  TPhysicsService,
+  TPhysicsWorldParams
+} from '@/Engine/Physics/Models';
 import { PhysicsDebugRenderer } from '@/Engine/Physics/Utils';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isNotDefined } from '@/Engine/Utils';
 import type { TVector3Wrapper } from '@/Engine/Vector';
 
-export function PhysicsService(physicsPresetRegistry: TPhysicsPresetRegistry, scene: TSceneWrapper): TPhysicsService {
+export function PhysicsService(factory: TPhysicsObjectFactory, physicsObjectRegistry: TPhysicsObjectRegistry, physicsPresetRegistry: TPhysicsPresetRegistry, scene: TSceneWrapper): TPhysicsService {
   let world: World | undefined;
 
   function createWorld({
@@ -58,13 +69,27 @@ export function PhysicsService(physicsPresetRegistry: TPhysicsPresetRegistry, sc
   const addPresets = (presets: ReadonlyArray<TPhysicsPresetParams>): void => physicsPresetRegistry.add(presets);
   const addPresetsFromConfig = (presets: ReadonlyArray<TPhysicsPresetConfig>): void => addPresets(presets.map((preset: TPhysicsPresetConfig): TPhysicsPresetParams => configToParams(preset)));
 
+  const destroyable: TDestroyable = destroyableMixin();
+  destroyable.destroyed$.subscribe(() => {
+    // TODO (S.Panfilov) fix
+    factory.destroy();
+    physicsObjectRegistry.destroy();
+    physicsPresetRegistry.destroy();
+    world.dispose(); //dispose?
+    //destroy debug renderer?
+  });
+
   return {
     createWorld,
     addPresets,
     addPresetsFromConfig,
     getDebugRenderer,
     getWorld: (): World | undefined => world,
+    setGravity,
+    getFactory: (): TPhysicsObjectFactory => factory,
+    getPhysicsObjectsRegistry: (): TPhysicsObjectRegistry => physicsObjectRegistry,
     getPresetRegistry: (): TPhysicsPresetRegistry => physicsPresetRegistry,
-    setGravity
+    getScene: (): TSceneWrapper => scene,
+    ...destroyable
   };
 }
