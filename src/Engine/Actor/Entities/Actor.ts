@@ -9,7 +9,7 @@ import type { TActor, TActorDependencies, TActorEntities, TActorParams } from '@
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Wrappers/ActorHelper';
 import { withCollisions } from '@/Engine/Collisions';
 import { withKinematic } from '@/Engine/Kinematic';
-import type { TModel3dFacade } from '@/Engine/Models3d';
+import type { TModel3d } from '@/Engine/Models3d';
 import { withModel3dFacade } from '@/Engine/Models3d';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
 import { withReactivePosition, withReactiveRotation, withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
@@ -32,7 +32,7 @@ export function Actor(
   // TODO 8.0.0. MODELS: position$, rotation$, scale$ should update related model3d values
 
   const isModelAlreadyInUse: boolean = isDefined(model3dFacadeToActorConnectionRegistry.findByModel3dFacade(params.model3dSource));
-  const model3dF: TModel3dFacade = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
+  const model3dF: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
 
   // const { value$: position$, update: updatePosition } = withReactivePosition(model3d);
   // const { value$: rotation$, update: updateRotation } = withReactiveRotation(model3d);

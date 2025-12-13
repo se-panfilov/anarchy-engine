@@ -4,8 +4,8 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { Models3dLoader } from '@/Engine/Models3d/Loaders';
 import type {
+  TModel3d,
   TModel3dConfig,
-  TModel3dFacade,
   TModel3dParams,
   TModel3dRegistry,
   TModel3dResourceAsyncRegistry,
@@ -22,15 +22,15 @@ export function Models3dService(
   resourcesRegistry: TModel3dResourceAsyncRegistry,
   { materialService, animationsService, model3dToModel3dFacadeConnectionRegistry }: TModels3dServiceDependencies
 ): TModels3dService {
-  factory.entityCreated$.subscribe((wrapper: TModel3dFacade): void => registry.add(wrapper));
+  factory.entityCreated$.subscribe((wrapper: TModel3d): void => registry.add(wrapper));
   const model3dLoader: TModels3dLoader = Models3dLoader(resourcesRegistry);
   const materialRegistry: TMaterialRegistry = materialService.getRegistry();
 
-  const create = (params: TModel3dParams): TModel3dFacade => factory.create(params, { animationsService, model3dToModel3dFacadeConnectionRegistry });
-  const createFromConfig = (models3d: ReadonlyArray<TModel3dConfig>): ReadonlyArray<TModel3dFacade> =>
-    models3d.map((config: TModel3dConfig): TModel3dFacade => create(factory.configToParams(config, { materialRegistry, model3dResourceAsyncRegistry: resourcesRegistry })));
+  const create = (params: TModel3dParams): TModel3d => factory.create(params, { animationsService, model3dToModel3dFacadeConnectionRegistry });
+  const createFromConfig = (models3d: ReadonlyArray<TModel3dConfig>): ReadonlyArray<TModel3d> =>
+    models3d.map((config: TModel3dConfig): TModel3d => create(factory.configToParams(config, { materialRegistry, model3dResourceAsyncRegistry: resourcesRegistry })));
 
-  function clone(model3dFacade: TModel3dFacade, overrides?: TOptional<TModel3dParams>): TModel3dFacade {
+  function clone(model3dFacade: TModel3d, overrides?: TOptional<TModel3dParams>): TModel3d {
     const cloned = model3dFacade._clone(overrides);
     registry.add(cloned);
     return cloned;

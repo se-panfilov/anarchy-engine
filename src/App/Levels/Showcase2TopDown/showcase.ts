@@ -2,7 +2,7 @@ import { combineLatest } from 'rxjs';
 import { Euler, Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorParams, TAppCanvas, TCameraWrapper, TEngine, TMaterialWrapper, TModel3dFacade, TModels3dService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
+import type { TActorParams, TAppCanvas, TCameraWrapper, TEngine, TMaterialWrapper, TModel3d, TModels3dService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
 import { ambientContext, Engine, isNotDefined, MaterialType, PrimitiveModel3dType, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -54,7 +54,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   return { start, space };
 }
 
-function createCube(models3dService: TModels3dService, name: string, materialW: TMaterialWrapper): TModel3dFacade {
+function createCube(models3dService: TModels3dService, name: string, materialW: TMaterialWrapper): TModel3d {
   return models3dService.create({
     name,
     model3dSource: PrimitiveModel3dType.Cube,

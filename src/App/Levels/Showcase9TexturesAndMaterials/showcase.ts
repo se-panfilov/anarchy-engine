@@ -2,7 +2,7 @@ import { combineLatest, distinctUntilChanged } from 'rxjs';
 import type { Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAppCanvas, TCameraWrapper, TEngine, TModel3dFacade, TModel3dRegistry, TMouseService, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import type { TAppCanvas, TCameraWrapper, TEngine, TModel3d, TModel3dRegistry, TMouseService, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import { ambientContext, Engine, getRotationByCos, getRotationBySin, isDefined, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -18,7 +18,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const sceneW: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
-    const modelF: TModel3dFacade | undefined = models3dRegistry.findByName('wood_cube_model');
+    const modelF: TModel3d | undefined = models3dRegistry.findByName('wood_cube_model');
     if (isNotDefined(modelF)) throw new Error('Model is not found');
 
     sceneW.addModel3d(modelF.getModel3d());
@@ -35,7 +35,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 }
 
 // This is mostly a copy of Showcase 3 (camera rotation)
-function initCameraRotation(space: TSpace, modelF: TModel3dFacade | undefined, mouseService: TMouseService): void {
+function initCameraRotation(space: TSpace, modelF: TModel3d | undefined, mouseService: TMouseService): void {
   const { cameraService } = space.services;
 
   const camera: TCameraWrapper | undefined = cameraService.findActive();

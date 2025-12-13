@@ -1,18 +1,5 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type {
-  TActor,
-  TActorRegistry,
-  TAppCanvas,
-  TCameraWrapper,
-  TEngine,
-  TIntersectionEvent,
-  TIntersectionsWatcher,
-  TModel3dFacade,
-  TModel3dRegistry,
-  TSceneWrapper,
-  TSpace,
-  TSpaceConfig
-} from '@/Engine';
+import type { TActor, TActorRegistry, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TModel3d, TModel3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import { Engine, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -29,7 +16,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const sceneW: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
-    const planeModel3dF: TModel3dFacade | undefined = models3dRegistry.findByName('surface_model');
+    const planeModel3dF: TModel3d | undefined = models3dRegistry.findByName('surface_model');
     if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');
 
     sceneW.addModel3d(planeModel3dF.getModel3d());

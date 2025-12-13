@@ -13,7 +13,7 @@ import type {
   TLightService,
   TMaterialService,
   TMaterialWrapper,
-  TModel3dFacade,
+  TModel3d,
   TModels3dService,
   TMouseService,
   TRadians,
@@ -54,7 +54,7 @@ export function getBulletsPool(
   for (let i: number = 0; i < count; i++) {
     const id: string = nanoid();
 
-    const model3dF: TModel3dFacade = models3dService.create({
+    const model3dF: TModel3d = models3dService.create({
       name: `bullet_${i}_${id}_model3d`,
       model3dSource: PrimitiveModel3dType.Cube,
       animationsSource: [],

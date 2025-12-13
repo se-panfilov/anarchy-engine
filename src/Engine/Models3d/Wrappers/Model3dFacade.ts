@@ -2,12 +2,12 @@ import { FacadeType } from '@/Engine/Abstract';
 import { AbstractFacade } from '@/Engine/Abstract/Wrappers/AbstractFacade';
 import { withObject3d } from '@/Engine/Mixins';
 import { withModel3dFacadeEntities } from '@/Engine/Models3d/Mixins';
-import type { TModel3dEntities, TModel3dFacade, TModel3dFacadeDependencies, TModel3dParams } from '@/Engine/Models3d/Models';
+import type { TModel3d, TModel3dEntities, TModel3dFacadeDependencies, TModel3dParams } from '@/Engine/Models3d/Models';
 import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToModel3d, applyScaleToModel3d, createModels3dEntities } from '@/Engine/Models3d/Utils';
 import type { TOptional } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
-export function Model3dFacade(params: TModel3dParams, { animationsService, model3dToModel3dFacadeConnectionRegistry }: TModel3dFacadeDependencies): TModel3dFacade {
+export function Model3dFacade(params: TModel3dParams, { animationsService, model3dToModel3dFacadeConnectionRegistry }: TModel3dFacadeDependencies): TModel3d {
   const entities: TModel3dEntities = createModels3dEntities(params, animationsService);
 
   const isModelAlreadyInUse: boolean = isDefined(model3dToModel3dFacadeConnectionRegistry.findByModel3d(entities.model3dSource));
@@ -22,7 +22,7 @@ export function Model3dFacade(params: TModel3dParams, { animationsService, model
   const getParams = (): TModel3dParams => ({ ...params });
 
   // IMPORTANT!!!: This clone() doesn't save the facade to the registry. Consider using of clone() the models3d service instead.
-  const _clone = (overrides: TOptional<TModel3dParams> = {}): TModel3dFacade =>
+  const _clone = (overrides: TOptional<TModel3dParams> = {}): TModel3d =>
     Model3dFacade({ ...getParams(), forceClone: true, ...overrides }, { animationsService, model3dToModel3dFacadeConnectionRegistry });
 
   // TODO 8.0.0. MODELS: apply all the params from object3d (can we do it in a more generic way?)
@@ -38,7 +38,7 @@ export function Model3dFacade(params: TModel3dParams, { animationsService, model
     // TODO 8.0.0. MODELS: implement the removal of the model from the scene and destroy of the models (and unload the resources)
   });
 
-  model3dToModel3dFacadeConnectionRegistry.addModel3d(entities.model3dSource, facade as TModel3dFacade);
+  model3dToModel3dFacadeConnectionRegistry.addModel3d(entities.model3dSource, facade as TModel3d);
 
   return {
     ...withObject3d(entities.model3dSource),

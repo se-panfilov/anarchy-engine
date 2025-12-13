@@ -3,7 +3,7 @@ import { Euler, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAppCanvas, TEngine, TModel3dFacade, TModel3dRegistry, TModel3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
+import type { TAppCanvas, TEngine, TModel3d, TModel3dRegistry, TModel3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
 import { Engine, isNotDefined, KeyCode, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -29,7 +29,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       if (name !== 'fox_glb') models3dService.create({ name, model3dSource, position: new Vector3(), rotation: new Euler() });
     });
 
-    models3dRegistry.added$.subscribe(({ key, value: model3dSource }: TRegistryPack<TModel3dFacade>): void => {
+    models3dRegistry.added$.subscribe(({ key, value: model3dSource }: TRegistryPack<TModel3d>): void => {
       console.log(`Model "${model3dSource.name}" is created (${key})`);
       sceneW.addModel3d(model3dSource.getModel3d());
     });
@@ -49,14 +49,14 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     await models3dService.loadAsync({ name: originalName, url: '/Showcase/Models/Fox/Fox.gltf', options: { scale } });
 
     //Let's clone the original model (which was loaded from the code)
-    const modelOriginal: TModel3dFacade | undefined = models3dService.getRegistry().findByName(originalName);
+    const modelOriginal: TModel3d | undefined = models3dService.getRegistry().findByName(originalName);
     if (isNotDefined(modelOriginal)) throw new Error(`Model "${originalName}" doesn't exist in the registry`);
     models3dService.clone(modelOriginal, { name: cloneName, position: new Vector3(-5, 0, 0) });
 
-    const modelClone: TModel3dFacade | undefined = models3dService.getRegistry().findByName(cloneName);
+    const modelClone: TModel3d | undefined = models3dService.getRegistry().findByName(cloneName);
     if (isNotDefined(modelClone)) throw new Error(`Model "${modelClone}" model is not defined`);
 
-    const modelCompressed: TModel3dFacade | undefined = models3dService.getRegistry().findByName(originalCompressedName);
+    const modelCompressed: TModel3d | undefined = models3dService.getRegistry().findByName(originalCompressedName);
     if (isNotDefined(modelCompressed)) throw new Error(`Model "${modelCompressed}" model is not defined`);
 
     const runActionOriginalModel: AnimationAction = animationsService.startAutoUpdateMixer(modelOriginal).actions['Run'];

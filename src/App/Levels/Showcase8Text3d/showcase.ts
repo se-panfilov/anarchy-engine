@@ -3,7 +3,7 @@ import './fonts.css';
 import { Euler, Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAnimationParams, TAppCanvas, TEngine, TModel3dFacade, TModel3dRegistry, TMoverService, TSceneWrapper, TSpace, TSpaceConfig, TText3dTextureWrapper, TText3dWrapper } from '@/Engine';
+import type { TAnimationParams, TAppCanvas, TEngine, TModel3d, TModel3dRegistry, TMoverService, TSceneWrapper, TSpace, TSpaceConfig, TText3dTextureWrapper, TText3dWrapper } from '@/Engine';
 import { createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, generateAnglesForCircle, isNotDefined, spaceService, TextType } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
@@ -18,9 +18,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const sceneW: TSceneWrapper | undefined = scenesService.findActive();
   if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
-  const planeModel3dF: TModel3dFacade | undefined = models3dRegistry.findByName('surface_model');
+  const planeModel3dF: TModel3d | undefined = models3dRegistry.findByName('surface_model');
   if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');
-  const sphereModel3dF: TModel3dFacade | undefined = models3dRegistry.findByName('sphere_model');
+  const sphereModel3dF: TModel3d | undefined = models3dRegistry.findByName('sphere_model');
   if (isNotDefined(sphereModel3dF)) throw new Error('Sphere model is not defined');
 
   sceneW.addModel3d(planeModel3dF.getModel3d());
