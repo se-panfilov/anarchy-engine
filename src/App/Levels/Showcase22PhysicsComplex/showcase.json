@@ -42,7 +42,10 @@
       {
         "name": "wall_physics",
         "type": "fixed",
-        "collisionShape": "cuboid"
+        "collisionShape": "cuboid",
+        "mass": 1,
+        "friction": 0.5,
+        "restitution": 0
       }
     ],
     "isAutoUpdate": true

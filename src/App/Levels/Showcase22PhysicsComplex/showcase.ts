@@ -14,14 +14,24 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const { keyboardService } = engine.services;
   const { physicsLoopService, physicsWorldService, actorService, controlsService } = space.services;
 
-  function init(): void {
+  async function init(): Promise<void> {
     // physicsWorldService.getDebugRenderer(loopService).start();
 
     controlsService.findActive()?.entity.target.set(0, 10, 0);
 
-    const wold: World | undefined = physicsWorldService.getWorld();
-    if (isNotDefined(wold)) throw new Error('World is not defined');
-    void buildKevaTower(actorService);
+    const world: World | undefined = physicsWorldService.getWorld();
+    if (isNotDefined(world)) throw new Error('World is not defined');
+
+    // world.maxVelocityIterations = 2;
+    // world.maxPositionIterations = 1;
+
+    physicsLoopService.shouldAutoUpdate(false);
+    await buildKevaTower(actorService);
+    // setInterval(() => {
+    //   physicsLoopService.step();
+    // }, 100);
+
+    physicsLoopService.shouldAutoUpdate(true);
 
     keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicsLoopService.shouldAutoUpdate(!physicsLoopService.isAutoUpdate()));
   }
@@ -52,7 +62,6 @@ async function buildKevaTower(actorService: TActorService): Promise<void> {
     blockHeight += numY * halfExtents.y * 2.0 + halfExtents.x * 2.0;
   }
 }
-
 async function buildBlock(halfExtents: Vector, shift: Vector, numX: number, numY: number, numZ: number, actorService: TActorService): Promise<void> {
   const half_extents_zyx: Vector = {
     x: halfExtents.z,
@@ -93,6 +102,9 @@ async function buildBlock(halfExtents: Vector, shift: Vector, numX: number, numY
           physics: {
             type: RigidBodyTypesNames.Dynamic,
             collisionShape: CollisionShape.Cuboid,
+            mass: 1,
+            friction: 0.5,
+            restitution: 0,
             shapeParams: {
               hx: dim.x,
               hy: dim.y,
@@ -126,6 +138,8 @@ async function buildBlock(halfExtents: Vector, shift: Vector, numX: number, numY
         physics: {
           type: RigidBodyTypesNames.Dynamic,
           collisionShape: CollisionShape.Cuboid,
+          friction: 0.5,
+          restitution: 0,
           shapeParams: {
             hx: dim.x,
             hy: dim.y,
