@@ -12,7 +12,7 @@ import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixins';
 import type { TSpace, TSpaceConfig, TSpaceServices, TWithBuilt } from '@/Engine/Space/Models';
 import { initServices } from '@/Engine/Space/SpaceHelpers';
-import { isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
+import { isDefined, isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
 
 // TODO (S.Panfilov) SPACE: we need a space service, and factory, to create from config, and to create from the code.
 
@@ -25,7 +25,7 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     throw new Error('Failed to launch a space: invalid data format');
   }
 
-  const { name, actors, cameras, intersections, lights, fogs, texts, envMaps, controls, scenes, particles, tags } = config;
+  const { name, actors, cameras, intersections, lights, fogs, texts, envMaps, controls, scenes, particles, physics, tags } = config;
 
   screenService.setCanvas(canvas);
 
@@ -38,7 +38,11 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     return activeScene;
   });
 
-  const { actorService, cameraService, controlsService, lightService, fogService, envMapService, textService, rendererService, intersectionsWatcherService, particlesService } = services;
+  const { actorService, cameraService, controlsService, lightService, fogService, envMapService, textService, rendererService, intersectionsWatcherService, particlesService, physicsService } =
+    services;
+
+  if (isDefined(physics.global)) physicsService.createWorld(physics.global);
+  if (isDefined(physics.presets)) physicsService.addPresetsFromConfig(physics.presets);
 
   cameraService.createFromConfig(cameras);
   actorService.createFromConfig(actors);

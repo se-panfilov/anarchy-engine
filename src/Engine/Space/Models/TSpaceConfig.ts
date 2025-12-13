@@ -20,7 +20,7 @@ export type TSpaceConfig = Readonly<{
   intersections: ReadonlyArray<TIntersectionsWatcherConfig>;
   lights: ReadonlyArray<TAnyLightConfig>;
   particles: ReadonlyArray<TParticlesConfig>;
-  physics: ReadonlyArray<TPhysicsConfig>;
+  physics: TPhysicsConfig;
   fogs: ReadonlyArray<TFogConfig>;
   texts: ReadonlyArray<TTextConfig>;
   controls: ReadonlyArray<TControlsConfig>;

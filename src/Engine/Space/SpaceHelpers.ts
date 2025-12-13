@@ -11,6 +11,8 @@ import { MaterialFactory, MaterialRegistry, MaterialService } from '@/Engine/Mat
 import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import { MaterialTextureService } from '@/Engine/MaterialTexturePack';
 import { ParticlesAsyncRegistry, ParticlesFactory, ParticlesService } from '@/Engine/Particles';
+import { PhysicsPresetRegistry, TPhysicsService } from '@/Engine/Physics';
+import { PhysicsService } from '@/Engine/Physics';
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
 import type { TSceneFactory, TSceneRegistry, TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
@@ -29,9 +31,10 @@ export function initSceneService(): TScenesService {
 export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): Omit<TSpaceServices, 'scenesService'> {
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry());
   const materialTextureService: TMaterialTextureService = MaterialTextureService(materialService, textureService);
+  const physicsService: TPhysicsService = PhysicsService(PhysicsPresetRegistry(), scene);
 
   return {
-    actorService: ActorService(ActorFactory(), ActorAsyncRegistry(), materialTextureService, scene),
+    actorService: ActorService(ActorFactory(), ActorAsyncRegistry(), materialTextureService, physicsService, scene),
     cameraService: CameraService(CameraFactory(), CameraRegistry(), scene),
     lightService: LightService(LightFactory(), LightRegistry(), scene),
     fogService: FogService(FogFactory(), FogRegistry(), scene),
@@ -39,6 +42,7 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
     materialService,
     materialTextureService,
     particlesService: ParticlesService(ParticlesFactory(), ParticlesAsyncRegistry(), materialTextureService, scene),
+    physicsService,
     rendererService: RendererService(RendererFactory(), RendererRegistry()),
     textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), Text2dRendererRegistry(), Text3dRendererRegistry(), scene),
     intersectionsWatcherService: IntersectionsWatcherService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),
