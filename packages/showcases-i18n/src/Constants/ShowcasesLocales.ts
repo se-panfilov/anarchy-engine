@@ -1,6 +1,6 @@
 /* eslint-disable spellcheck/spell-checker */
 import { enUs, nlNl } from '@Anarchy/i18n';
-import type { TLocaleWithFont, TShowcaseLocales } from '@Showcases/Shared/Models';
+import type { TLocaleWithFont, TShowcaseLocales } from '@Showcases/i18n/Models';
 
 const getFontFamily = (font: string): string => `"${font}", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif`;
 

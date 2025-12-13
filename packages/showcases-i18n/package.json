@@ -1,0 +1,42 @@
+{
+  "name": "showcases-i18n",
+  "author": "S. Panfilov",
+  "private": true,
+  "version": "1.2.0",
+  "type": "module",
+  "sideEffects": false,
+  "license": "MIT",
+  "description": "Anarchy Showcases i18n – translations library for Anarchy Engine Showcases.",
+  "keywords": [
+    "anarchy",
+    "showcases",
+    "anarchy-showcases",
+    "showcases-shared"
+  ],
+  "files": [
+    "./legal/**",
+    "CHANGELOG.md",
+    "NOTICE.md",
+    "LICENSE",
+    "README.md",
+    "dist/"
+  ],
+  "scripts": {
+    "before:release": "npm run before:release:check && npm run generate:legal",
+    "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",
+    "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
+    "generate:legal:3rd-party-licenses": "npm run -w anarchy-legal generate:licenses -- --workspace packages/showcases-shared --out ../../packages/showcases-shared/legal/THIRD_PARTY_LICENSES.md",
+    "generate:legal:files": "npm run -w anarchy-legal generate:files -- --workspace packages/showcases-shared --out ../../packages/showcases-shared",
+    "generate:legal:notice": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace packages/showcases-shared --source ../../packages/showcases-shared/legal/THIRD_PARTY_LICENSES.md --out ../../packages/showcases-shared/legal/NOTICE.md",
+    "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json",
+    "lint": "eslint ./src",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier": "prettier --write .",
+    "prettier:check": "prettier --check .",
+    "sanitize-assets": "node ../../packages/anarchy-shared/ScriptUtils/SanitizeAssets.js ../showcases-i18n/src/Constants/assets",
+    "ts:check": "tsc --noEmit",
+    "ts:check:watch": "tsc --watch --noEmit"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
