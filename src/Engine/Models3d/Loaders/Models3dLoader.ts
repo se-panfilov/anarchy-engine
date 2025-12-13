@@ -22,8 +22,7 @@ export function Models3dLoader(registry: TModel3dResourceAsyncRegistry): TModels
 
   function applyParamsOnLoaded(loaded: TWriteable<GLTF>, options?: TModel3dResourceConfig['options']): GLTF {
     if (isNotDefined(options)) return loaded;
-    // TODO 9.0.0. RESOURCES: fix this types, remove "any"
-    loaded.scenes.forEach((scene) => applyObject3dParamsToModel3d(scene, options as any));
+    loaded.scenes.forEach((scene) => applyObject3dParamsToModel3d(scene, options));
 
     // TODO 9.0.0. RESOURCES: Make this applications more generic (with "applyObject3dParamsToModel3d") when get rid of custom coords wrappers
     if (isDefined(options.scale?.x) && isDefined(options.scale?.y) && isDefined(options.scale?.z)) {
