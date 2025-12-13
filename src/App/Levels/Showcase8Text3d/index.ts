@@ -14,10 +14,11 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   textFactory.create({
     type: TextType.Text3d,
     text: '3D text (RubikDoodleTriangles)',
-    position: Vector3Wrapper({ x: -4, y: 8, z: 0 }),
+    position: Vector3Wrapper({ x: -4, y: 2, z: 0 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
     color: '#000000',
-    fontSize: '4rem',
+    fontSize: '0.2rem',
+    backgroundColor: '#ff0000',
     fontFamily: '"RubikDoodleTriangles", sans-serif',
     tags: []
   });
@@ -28,7 +29,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     position: Vector3Wrapper({ x: -5, y: 12, z: 6 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
     color: '#ff0000',
-    fontSize: '4rem',
+    fontSize: '0.2rem',
     fontFamily: '"RubikScribble", sans-serif',
     tags: []
   });
@@ -39,7 +40,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     position: Vector3Wrapper({ x: -10, y: 8, z: -8 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
     color: '#ff0000',
-    fontSize: '4rem',
+    fontSize: '0.2rem',
     fontFamily: '"LongCang", sans-serif',
     tags: []
   });
@@ -50,7 +51,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     position: Vector3Wrapper({ x: -15, y: 6, z: -14 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
     color: '#ff0000',
-    fontSize: '4rem',
+    fontSize: '0.2rem',
     fontFamily: '"VarelaRound", sans-serif',
     tags: []
   });

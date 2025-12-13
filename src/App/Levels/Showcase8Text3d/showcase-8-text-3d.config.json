@@ -25,10 +25,10 @@
     {
       "type": "3d",
       "text": "Roboto",
-      "position": { "x": -20, "y": 2, "z": 2 },
+      "position": { "x": -25, "y": -18, "z": 18 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "color": "#ff0000",
-      "fontSize": "4rem",
+      "fontSize": "0.2rem",
       "fontFamily": "\"Roboto\", sans-serif",
       "tags": []
     }

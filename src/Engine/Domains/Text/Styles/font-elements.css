@@ -9,3 +9,15 @@
   top: 0;
   pointer-events: none;
 }
+
+.text-3d {
+  background: transparent;
+  user-select: none;
+  position: absolute;
+}
+
+.renderer-text-3d {
+  position: absolute;
+  top: 0;
+  pointer-events: none;
+}
