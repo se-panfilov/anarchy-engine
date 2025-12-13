@@ -1,6 +1,6 @@
 import type { TFpsControlsParams } from './TFpsControlsParams';
 
-export type TFpsControlsConfig = Omit<TFpsControlsParams, 'camera'> &
+export type TFpsControlsConfig = Omit<TFpsControlsParams, 'camera' | 'canvas'> &
   Readonly<{
     cameraName: string;
   }>;
