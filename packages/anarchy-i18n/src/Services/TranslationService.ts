@@ -1,6 +1,6 @@
 import { ReactiveTranslationMixin } from '@Anarchy/i18n/Mixins';
 import type { TLocale, TLocalesMapping, TMessages, TReactiveTranslationMixin, TTranslationService } from '@Anarchy/i18n/Models';
-import { isDefined } from '@Anarchy/Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { FormatNumberOptions, IntlCache, IntlShape } from '@formatjs/intl';
 import { createIntl, createIntlCache } from '@formatjs/intl';
 import type { FormatDateOptions } from '@formatjs/intl/src/types';
@@ -38,7 +38,9 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
   async function loadLocale(locale: TLocale): Promise<void> {
     try {
       loadingLocale$.next(new Set([...loadingLocale$.value, locale]));
-      if (!loaded.has(locale)) loaded.set(locale, await locales[locale.id]());
+      const loadFn = locales[locale.id];
+      if (isNotDefined(loadFn)) throw new Error('[TranslateService]: The locale is not defined in the locales mapping');
+      if (!loaded.has(locale)) loaded.set(locale, await loadFn());
       //I'm not 100% sure, that intlMap.clear() is really needed here
       intlMap.clear();
       intl$.next(getIntl(locale));
