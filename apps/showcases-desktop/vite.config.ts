@@ -62,7 +62,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         external: ['electron', 'path', 'fs'], // Prevent bundling electron and node modules
         plugins: []
       },
-      sourcemap: false,
+      sourcemap: true,
       ssr: true, // This is a build for node, not for browser
       target: 'esnext'
     }

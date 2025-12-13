@@ -33,6 +33,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         fileName: (): string => 'preload.js'
       },
       outDir: 'dist',
+      sourcemap: true,
       rollupOptions: {
         external: ['electron', 'path', 'fs'], // Prevent bundling electron module
         output: {
