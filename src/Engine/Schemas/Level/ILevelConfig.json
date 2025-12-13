@@ -396,22 +396,12 @@
           "type": "number"
         },
         "textAlign": {
-          "type": "string",
-          "enum": ["left", "right", "center", "justify"]
+          "$ref": "#/definitions/TextAlign"
         },
         "anchorX": {
           "anyOf": [
             {
-              "type": "string",
-              "const": "left"
-            },
-            {
-              "type": "string",
-              "const": "center"
-            },
-            {
-              "type": "string",
-              "const": "right"
+              "$ref": "#/definitions/TextAnchorX"
             },
             {
               "type": "number"
@@ -421,20 +411,7 @@
         "anchorY": {
           "anyOf": [
             {
-              "type": "string",
-              "const": "top"
-            },
-            {
-              "type": "string",
-              "const": "middle"
-            },
-            {
-              "type": "string",
-              "const": "bottom"
-            },
-            {
-              "type": "string",
-              "const": "baseline"
+              "$ref": "#/definitions/TextAnchorY"
             },
             {
               "type": "number"
@@ -453,16 +430,13 @@
           "type": "number"
         },
         "direction": {
-          "type": "string",
-          "enum": ["auto", "ltr", "rtl"]
+          "$ref": "#/definitions/TextDirection"
         },
         "overflowWrap": {
-          "type": "string",
-          "enum": ["normal", "break-word"]
+          "$ref": "#/definitions/TextOverflowWrap"
         },
         "whiteSpace": {
-          "type": "string",
-          "enum": ["normal", "nowrap"]
+          "$ref": "#/definitions/TextWhiteSpace"
         },
         "outlineWidth": {
           "type": "number"
@@ -492,12 +466,10 @@
           "type": "number"
         },
         "fontStyle": {
-          "type": "string",
-          "enum": ["normal", "italic"]
+          "$ref": "#/definitions/TextFontStyle"
         },
         "fontWeight": {
-          "type": "string",
-          "enum": ["normal", "bold"]
+          "$ref": "#/definitions/TextFontWeight"
         },
         "glyphGeometryDetail": {
           "type": "number"
@@ -535,6 +507,38 @@
         }
       },
       "required": ["fontSize", "position", "tags", "text"]
+    },
+    "TextAlign": {
+      "type": "string",
+      "enum": ["left", "right", "center", "justify"]
+    },
+    "TextAnchorX": {
+      "type": "string",
+      "enum": ["left", "right", "center"]
+    },
+    "TextAnchorY": {
+      "type": "string",
+      "enum": ["top", "bottom", "middle", "baseline"]
+    },
+    "TextDirection": {
+      "type": "string",
+      "enum": ["auto", "ltr", "rtl"]
+    },
+    "TextOverflowWrap": {
+      "type": "string",
+      "enum": ["normal", "break-word"]
+    },
+    "TextWhiteSpace": {
+      "type": "string",
+      "enum": ["normal", "nowrap"]
+    },
+    "TextFontStyle": {
+      "type": "string",
+      "enum": ["normal", "italic"]
+    },
+    "TextFontWeight": {
+      "type": "string",
+      "enum": ["normal", "bold"]
     },
     "TextTag": {
       "type": "string",
