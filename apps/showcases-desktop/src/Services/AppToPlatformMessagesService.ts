@@ -5,14 +5,14 @@ import type { IpcMainInvokeEvent } from 'electron';
 
 // TODO DESKTOP: fix handling of the events
 // TODO DESKTOP: any
-export function handleAppRequest({ settingsService }: THandleRequestDependencies, _event: IpcMainInvokeEvent, ...args: [PlatformActions | string, unknown]): Promise<any> | any {
+export function handleAppRequest({ settingsService }: THandleRequestDependencies, _event: IpcMainInvokeEvent, args: [PlatformActions | string, unknown]): Promise<any> | any {
   const type: PlatformActions | string = args[0];
   if (!isPlatformAction(type)) throw new Error(`[DESKTOP]: Unknown platform action: ${type}`);
   const payload: unknown = args[1];
 
   switch (type) {
     case PlatformActions.SaveAppSettings:
-      // TODO DESKTOP: implement saving app settings
+      // TODO DESKTOP: Should we let menu (and the app) know that the save is done? (however, it is sync atm)
       if (!settingsService.isSettings(payload)) throw new Error(`[DESKTOP]: Failed to save settings: Invalid payload`);
       settingsService.saveAppSettings(payload);
       return Promise.resolve();

@@ -4,7 +4,7 @@ import type { TDesktopAppConfig } from '@Desktop/Models';
 import { handleAppRequest, SettingsService, WindowService } from '@Desktop/Services';
 import { getDisplayInfo, hideMenuBar, noZoom, turnOffMenuBarAndHotkeys } from '@Desktop/Utils';
 import { platformApiChannel } from '@ShowcasesShared';
-import type { BrowserWindow } from 'electron';
+import type { BrowserWindow, IpcMainInvokeEvent } from 'electron';
 import { app, ipcMain } from 'electron';
 
 const desktopAppSettings: TDesktopAppConfig = {
@@ -27,7 +27,7 @@ const desktopAppSettings: TDesktopAppConfig = {
 const windowService = WindowService();
 const settingsService = SettingsService(app);
 
-ipcMain.handle(platformApiChannel, (event, args: [PlatformActions | string, unknown]) => handleAppRequest({ settingsService }, event, ...args));
+ipcMain.handle(platformApiChannel, (event: IpcMainInvokeEvent, ...args: [PlatformActions | string, unknown]) => handleAppRequest({ settingsService }, event, args));
 
 app.whenReady().then((): void => {
   // TODO DESKTOP: use "getDisplayInfo()" as default settings, prioritize saved user settings and use hardcoded fallback settings. Same for fullscreen mode
