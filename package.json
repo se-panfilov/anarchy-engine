@@ -17,10 +17,7 @@
     "gitleaks:scan:history": "gitleaks detect --config=.gitleaks.toml --report-format=table --verbose --source=.",
     "gitleaks:scan:files": "gitleaks detect --config=.gitleaks.toml --no-git --verbose --source=.",
     "prettier:changed": "git diff --name-only --diff-filter=ACMRTUXB HEAD | grep -E '\\.(ts|tsx|js|json|css|md)$' | xargs prettier --write",
-    "pretty-quick": "pretty-quick --staged",
-    "knip": "knip --tsConfig tsconfig.json",
-    "knip:ci": "knip --no-progress --reporter compact",
-    "knip:strict": "knip --strict"
+    "pretty-quick": "pretty-quick --staged"
   },
   "devDependencies": {
     "@eslint/js": "9.29.0",
