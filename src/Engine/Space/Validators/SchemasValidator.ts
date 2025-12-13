@@ -29,7 +29,7 @@ function validateJsonSchema(config: TSpaceConfig): TSchemaValidationResult {
   return { isValid, errors: validate.errors };
 }
 
-function validateData({ name, actors, cameras, scenes, controls, intersections, lights, fogs, texts, tags, physics }: TSpaceConfig): TSchemaValidationResult {
+function validateData({ name, actors, cameras, scenes, spatialGrids, controls, intersections, lights, fogs, texts, tags, physics }: TSpaceConfig): TSchemaValidationResult {
   let errors: ReadonlyArray<string> = [];
 
   //must be defined
@@ -62,9 +62,11 @@ function validateData({ name, actors, cameras, scenes, controls, intersections, 
   const isEveryControlsNameValid: boolean = validateNames(controls);
   const isEveryPhysicsPresetNameValid: boolean = validateNames(physics.presets ?? []);
   const isEveryActorsPhysicsPresetNameValid: boolean = validatePresetNames(actors);
+  const isEverySpatialGridNameValid: boolean = validateNames(spatialGrids);
   //tags
   const isConfigTagsValid: boolean = validateTags(tags);
   const isEverySceneTagsValid: boolean = validateTagsForEveryEntity(scenes);
+  const isEverySpatialGridsTagsValid: boolean = validateTagsForEveryEntity(spatialGrids);
   const isEveryActorTagsValid: boolean = validateTagsForEveryEntity(actors);
   const isEveryCameraTagsValid: boolean = validateTagsForEveryEntity(cameras);
   const isEveryIntersectionsTagsValid: boolean = validateTagsForEveryEntity(intersections);
@@ -84,6 +86,7 @@ function validateData({ name, actors, cameras, scenes, controls, intersections, 
   //names
   if (!isConfigNameValid) errors = [...errors, 'Space config name must be defined and contain only letters, numbers and underscores'];
   if (!isEverySceneNameValid) errors = [...errors, 'Scene names must be defined and contain only letters, numbers and underscores'];
+  if (!isEverySpatialGridNameValid) errors = [...errors, 'SpatialGrids names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryActorNameValid) errors = [...errors, 'Actor names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryCameraNameValid) errors = [...errors, 'Camera names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryIntersectionNameValid) errors = [...errors, 'Intersection names must be defined and contain only letters, numbers and underscores'];
@@ -98,6 +101,7 @@ function validateData({ name, actors, cameras, scenes, controls, intersections, 
   //tags
   if (!isConfigTagsValid) errors = [...errors, 'Space config tags must contain only letters, numbers and underscores'];
   if (!isEverySceneTagsValid) errors = [...errors, 'Scene tags must contain only letters, numbers and underscores'];
+  if (!isEverySpatialGridsTagsValid) errors = [...errors, 'SpatialGrids tags must contain only letters, numbers and underscores'];
   if (!isEveryActorTagsValid) errors = [...errors, 'Actor tags must contain only letters, numbers and underscores'];
   if (!isEveryCameraTagsValid) errors = [...errors, 'Camera tags must contain only letters, numbers and underscores'];
   if (!isEveryIntersectionsTagsValid) errors = [...errors, 'Intersection tags must contain only letters, numbers and underscores'];
