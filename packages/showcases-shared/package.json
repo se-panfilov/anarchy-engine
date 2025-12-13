@@ -23,7 +23,8 @@
   ],
   "scripts": {
     "before:release": "npm run before:release:check && npm run generate:legal",
-    "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",
+    "before:release:check": "npm run ts:check && npm run prettier:check && npm run check:circular-dependencies && npm run lint",
+    "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/index.ts",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
     "generate:legal:3rd-party-licenses": "npm run -w anarchy-legal generate:licenses -- --workspace packages/showcases-shared --out ../../packages/showcases-shared/legal/THIRD_PARTY_LICENSES.md",
     "generate:legal:files": "npm run -w anarchy-legal generate:files -- --workspace packages/showcases-shared --out ../../packages/showcases-shared",
