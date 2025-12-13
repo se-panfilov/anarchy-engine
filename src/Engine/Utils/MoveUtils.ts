@@ -49,7 +49,7 @@ export function goToPosition(actor: IActorWrapper, targetPosition: Position, par
     z: targetPosition.z,
     ...defaultAnimationParams,
     ...params,
-    complete: () => resolve()
+    complete: (): void => resolve()
   });
 
   return promise;
