@@ -1,9 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron';
-import { packageJsonVersion } from './src/Generated/versions.js';
-
-// TODO DESKTOP: Const duplications from AppToPlatformMessagesConstants
-const APP_TO_PLATFORM_CHANNEL: string = 'app-to-platform-channel';
-const PLATFORM_API_NAME: string = 'platformAPI';
+import { packageJsonVersion } from './src/Generated';
+import { APP_TO_PLATFORM_CHANNEL, PLATFORM_API_NAME } from './src/Constants';
 
 contextBridge.exposeInMainWorld(PLATFORM_API_NAME, {
   // TODO DESKTOP: define actions enum

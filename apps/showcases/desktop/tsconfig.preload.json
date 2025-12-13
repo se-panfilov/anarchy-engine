@@ -2,7 +2,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "CommonJS",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "paths": {
+      "@Desktop/*": ["./src/*"]
+    }
   },
   "include": ["preload.ts"],
   "exclude": ["dist", "dist-app", "node_modules"]
