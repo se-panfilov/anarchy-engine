@@ -1,2 +1,2 @@
-export * from './WatcherRegistry'
-export * from './Models'
+export * from './Models';
+export * from './WatcherRegistry';

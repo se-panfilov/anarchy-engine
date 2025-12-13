@@ -28,7 +28,7 @@ export function IntersectionsService(): IIntersectionsService {
 }
 
 // TODO (S.Panfilov) should be IWatcher
-function IntersectionsWatcher(actors: ReadonlyArray<IActorWrapper>, camera: ICameraWrapper, positionWatcher: IMousePositionWatcher): IIntersectionsWatcher {
+function IntersectionsWatcher(actors: ReadonlyArray<IActorWrapper>, camera: Readonly<ICameraWrapper>, positionWatcher: Readonly<IMousePositionWatcher>): IIntersectionsWatcher {
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
   let onIntersectCB: (obj: IVector3) => void;
 
@@ -41,7 +41,7 @@ function IntersectionsWatcher(actors: ReadonlyArray<IActorWrapper>, camera: ICam
     onIntersectCB = cb;
   }
 
-  function getIntersection(position: IMousePosition, cameraWrapper: ICameraWrapper, actors: ReadonlyArray<IActorWrapper>): IVector3 | undefined | never {
+  function getIntersection(position: IMousePosition, cameraWrapper: Readonly<ICameraWrapper>, actors: ReadonlyArray<IActorWrapper>): IVector3 | undefined | never {
     if (isNotDefined(raycaster)) throw new Error('Intersections service: cannot get intersection: a raycaster is not defined.');
     raycaster.setFromCamera(getNormalizedMousePosition(position), cameraWrapper.entity);
     const entitiesList: ReadonlyArray<ISceneObject> = unWrapEntities(actors);

@@ -1,4 +1,4 @@
-import type { IMouseClicksWatcher } from '@/Engine/Watchers';
 import { IWatcherRegistry } from '@/Engine';
+import type { IMouseClicksWatcher } from '@/Engine/Watchers';
 
 export type IMouseClicksWatcherRegistry = IWatcherRegistry<IMouseClicksWatcher>;

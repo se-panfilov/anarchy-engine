@@ -1,6 +1,7 @@
 import type { IGlobalContainerDecorator } from '@Engine/Global';
 import type { IAbstractWatcher, IMouseClicksWatcher } from '@Engine/Watchers';
 import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatcher';
+
 import { MouseClicksWatcherRegistry } from '@/Engine/Registries';
 
 export function MouseClicksWatcher(container: IGlobalContainerDecorator, tags: ReadonlyArray<string> = []): IMouseClicksWatcher {

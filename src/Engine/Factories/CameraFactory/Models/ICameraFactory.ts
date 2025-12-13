@@ -1,4 +1,4 @@
-import type { ICameraConfig, ICameraParams, IAbstractFromConfigFactory } from '@Engine/Models';
+import type { IAbstractFromConfigFactory, ICameraConfig, ICameraParams } from '@Engine/Models';
 import type { ICameraWrapper } from '@Engine/Wrappers';
 import type { Camera } from 'three';
 
