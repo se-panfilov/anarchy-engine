@@ -57,6 +57,8 @@ test.describe('Space save/load persistence', () => {
 
       await page.getByRole('button', { name: 'Change' }).click();
 
+      await page.waitForTimeout(100);
+
       const bufferA = await canvas.screenshot();
 
       await page.getByRole('button', { name: 'Save' }).click();
