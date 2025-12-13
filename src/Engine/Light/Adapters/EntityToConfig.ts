@@ -108,28 +108,36 @@ export function onlyLightShadowToConfig<T extends TLight>(
   const lightConfig = json as unknown as TDirectionalLightParams | TAbstractLightParams;
   const shadow: TLightShadowParams | TDirectionalLightShadowParams | undefined = lightConfig.shadow;
   if (isNotDefined(shadow)) return {};
+  const camera = shadow.camera as TDirectionalLightShadowConfig['camera'] | undefined;
 
-  return filterOutEmptyFields({
+  const result = filterOutEmptyFields({
     shadow: {
       ...shadow,
       mapSize: getMapSize(shadow),
-      //{ far: number; left?: number; right?: number; top?: number; bottom?: number }
-      // camera: omitInObjectWithoutMutation(shadow.camera as TCamera, ['uuid']) as TLightShadowConfig['camera'] | TDirectionalLightShadowConfig['camera']
-
-      camera: filterOutEmptyFields({
-        far: shadow.camera.far,
-        left: (shadow.camera as TDirectionalLightShadowConfig['camera']).left,
-        right: (shadow.camera as TDirectionalLightShadowConfig['camera']).right,
-        top: (shadow.camera as TDirectionalLightShadowConfig['camera']).top,
-        bottom: (shadow.camera as TDirectionalLightShadowConfig['camera']).bottom,
-        // layers: (shadow.camera as TDirectionalLightShadowConfig['camera']).layers,
-        near: (shadow.camera as TDirectionalLightShadowConfig['camera']).near,
-        type: (shadow.camera as TDirectionalLightShadowConfig['camera']).type,
-        up: (shadow.camera as TDirectionalLightShadowConfig['camera']).up,
-        zoom: (shadow.camera as TDirectionalLightShadowConfig['camera']).zoom
-      }) as TCamera
+      camera: undefined as unknown as TCamera
     }
   });
+
+  if (isNotDefined(camera)) return result;
+  const { far, left, right, top, bottom, near, type, up: upRaw, zoom, layers } = camera;
+  const up = isDefined(upRaw) ? { x: (upRaw as any)[0], y: (upRaw as any)[1], z: (upRaw as any)[2] } : undefined;
+
+  // eslint-disable-next-line functional/immutable-data
+  result.shadow.camera = {
+    far,
+    left,
+    right,
+    top,
+    bottom,
+    layers,
+    near,
+    type,
+    up,
+    zoom
+    // TODO 15-0-0: types doesn't match, due to "layers".
+  } as unknown as TCamera;
+
+  return result;
 }
 
 function getMapSize(shadow: TLightShadowConfig | TDirectionalLightShadowConfig | TLightShadowParams | TDirectionalLightShadowParams | undefined): Vector2Like {

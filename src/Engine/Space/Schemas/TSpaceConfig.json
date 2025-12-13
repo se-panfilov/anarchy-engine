@@ -1807,9 +1807,6 @@
             "far": {
               "type": "number"
             },
-            "near": {
-              "type": "number"
-            },
             "left": {
               "type": "number"
             },
@@ -1821,8 +1818,24 @@
             },
             "bottom": {
               "type": "number"
+            },
+            "near": {
+              "type": "number"
+            },
+            "type": {
+              "type": "string"
+            },
+            "up": {
+              "$ref": "#/definitions/Vector3Like"
+            },
+            "zoom": {
+              "type": "number"
+            },
+            "layers": {
+              "type": "number"
             }
           },
+          "required": ["far"],
           "additionalProperties": false
         },
         "normalBias": {

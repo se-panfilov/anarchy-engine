@@ -1,4 +1,4 @@
-import type { Vector2Like } from 'three';
+import type { Vector2Like, Vector3Like } from 'three';
 import type { Color } from 'three/src/math/Color';
 
 import type { TWithTags } from '@/Engine/Mixins';
@@ -45,5 +45,16 @@ export type TLightShadowConfig = Omit<TLightShadowParams, 'mapSize'> &
 export type TDirectionalLightShadowConfig = Omit<TDirectionalLightShadowParams, 'mapSize'> &
   Readonly<{
     mapSize: Vector2Like;
-    camera: { far: number; left?: number; right?: number; top?: number; bottom?: number; near?: number; type?: string; up?: Vector2Like; zoom?: number; layers?: number };
+    camera: {
+      far: number;
+      left?: number;
+      right?: number;
+      top?: number;
+      bottom?: number;
+      near?: number;
+      type?: string;
+      up?: Vector3Like;
+      zoom?: number;
+      layers?: number;
+    };
   }>;
