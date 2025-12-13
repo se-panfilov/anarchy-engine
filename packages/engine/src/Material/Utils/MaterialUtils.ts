@@ -3,7 +3,20 @@ import { MaterialMap, MaterialType } from '@Engine/Material/Constants';
 import type { TEulerLike, TEulerString } from '@Engine/ThreeLib';
 import type { TWithoutNull } from '@Engine/Utils';
 import { eulerToXyz, isNotDefined, vector2ToXy, vector3ToXyz } from '@Engine/Utils';
-import type { LineDashedMaterial, Material, MeshPhysicalMaterial, PointsMaterial, Vector2Like, Vector3Like } from 'three';
+import type {
+  LineDashedMaterial,
+  Material,
+  MeshBasicMaterial,
+  MeshDepthMaterial,
+  MeshLambertMaterial,
+  MeshMatcapMaterial,
+  MeshPhysicalMaterial,
+  MeshStandardMaterial,
+  PointsMaterial,
+  SpriteMaterial,
+  Vector2Like,
+  Vector3Like
+} from 'three';
 
 export function isPointsMaterial<T extends Material | ReadonlyArray<Material>>(material: PointsMaterial | T): material is PointsMaterial {
   return !Array.isArray(material) && (material as Material).type === MaterialType.Points;
@@ -13,8 +26,35 @@ export function isPhysicalMaterial<T extends Material | ReadonlyArray<Material>>
   return !Array.isArray(material) && (material as Material).type === MaterialType.Physical;
 }
 
-export function isLineDashedMaterial<T extends Material | ReadonlyArray<Material>>(material: T): material is LineDashedMaterial {
+export function isLineDashedMaterial<T extends Material | ReadonlyArray<Material>>(material: LineDashedMaterial | T): material is LineDashedMaterial {
   return !Array.isArray(material) && (material as Material).type === MaterialType.LineDashed;
+}
+
+export function isMeshBasicMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshBasicMaterial | T): material is MeshBasicMaterial {
+  return !Array.isArray(material) && (material as Material).type === MaterialType.Basic;
+}
+
+export function isMeshStandardMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshStandardMaterial | T): material is MeshStandardMaterial {
+  return !Array.isArray(material) && (material as Material).type === MaterialType.Standard;
+}
+
+export function isMeshLambertMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshLambertMaterial | T): material is MeshLambertMaterial {
+  return !Array.isArray(material) && (material as Material).type === MaterialType.Lambert;
+}
+
+export function isMeshDepthMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshDepthMaterial | T): material is MeshDepthMaterial {
+  return !Array.isArray(material) && (material as Material).type === MaterialType.Depth;
+}
+export function isMeshMatcapMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshMatcapMaterial | T): material is MeshMatcapMaterial {
+  return !Array.isArray(material) && (material as Material).type === MaterialType.Matcap;
+}
+
+export function isSpriteNodeMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshBasicMaterial | T): material is MeshBasicMaterial {
+  return !Array.isArray(material) && (material as Material).type === MaterialType.Sprite;
+}
+
+export function isMeshPhongMaterial<T extends Material | ReadonlyArray<Material>>(material: SpriteMaterial | T): material is SpriteMaterial {
+  return !Array.isArray(material) && (material as Material).type === MaterialType.Phong;
 }
 
 export function buildMaterial(params: TMaterialParams): TMaterials {
