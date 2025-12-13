@@ -9,7 +9,7 @@ import { isDefined } from '@/Engine/Utils';
 
 type TFacadeParams = Readonly<{ tags?: ReadonlyArray<string> } & TWithName>;
 
-export function AbstractFacade<T extends Record<string, any>>(entities: T, type: EntityType | string, params?: TFacadeParams): TFacade<T> {
+export function AbstractEntity<T extends Record<string, any>>(entities: T, type: EntityType | string, params?: TFacadeParams): TFacade<T> {
   const id: string = type + '_' + nanoid();
 
   const withNameAndNameAccessors: TWithNameAndNameAccessorsMixin = withNameAndNameAccessorsMixin();

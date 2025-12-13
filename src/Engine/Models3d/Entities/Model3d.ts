@@ -1,5 +1,5 @@
 import { EntityType } from '@/Engine/Abstract';
-import { AbstractFacade } from '@/Engine/Abstract/Wrappers/AbstractFacade';
+import { AbstractEntity } from '@/Engine/Abstract/Wrappers/AbstractEntity';
 import { withObject3d } from '@/Engine/Mixins';
 import { withModel3dFacadeEntities } from '@/Engine/Models3d/Mixins';
 import type { TModel3d, TModel3dEntities, TModel3dFacadeDependencies, TModel3dParams } from '@/Engine/Models3d/Models';
@@ -17,7 +17,7 @@ export function Model3d(params: TModel3dParams, { animationsService, model3dToMo
   if (isModelAlreadyInUse)
     throw new Error(`Model3dFacade: Trying to create Model3dFacade around model3d resource that is already in use by another Model3dFacade. Might be a mistake. Consider cloning the source instead.`);
 
-  const facade = AbstractFacade(withModel3dFacadeEntities(entities), EntityType.Model3d, params);
+  const facade = AbstractEntity(withModel3dFacadeEntities(entities), EntityType.Model3d, params);
 
   const getParams = (): TModel3dParams => ({ ...params });
 
