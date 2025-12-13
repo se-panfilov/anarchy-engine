@@ -48,7 +48,7 @@
     "build:prod:win:nsis:arm64": "npm run pack -- --mode=production.win nsis --arm64",
     "build:prod:win:nsis:x64": "npm run pack -- --mode=production.win nsis --x64",
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/desktop-main.ts",
-    "clean:prebuild": "rimraf dist",
+    "clean:prebuild": "node ./scripts/clean.js",
     "clean:postbuild": "node ./scripts/clean.js dist/desktop-main.js dist/desktop-main.js.map dist/preload.js dist/preload.js.map dist/dist-desktop",
     "copy:legal-to-assets": "node ../../packages/anarchy-shared/ScriptUtils/CopyDir.js from=./legal to=./assets/legal",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
