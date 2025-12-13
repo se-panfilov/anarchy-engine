@@ -2,6 +2,7 @@ import type { TShowcaseGameSettings } from '@ShowcasesShared';
 
 import type { TPlatformDriver } from '@/Models';
 
+// TODO DESKTOP: Implement the web driver
 export function Driver(): TPlatformDriver {
   function saveAppSettings(settings: TShowcaseGameSettings): Promise<void> {
     console.log('XXX [WEB]', 'saveAppSettings', settings);
