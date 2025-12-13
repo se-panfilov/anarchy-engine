@@ -1,6 +1,6 @@
 import type { Observable, Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
-import type { AnimationClip, Group, Mesh, Object3D } from 'three';
+import type { AnimationClip } from 'three';
 import { AnimationMixer } from 'three';
 
 import type { TAnimationActions, TAnimationActionsPack, TAnimationsService, TModel3dAnimations } from '@/Engine/Animations/Models';
