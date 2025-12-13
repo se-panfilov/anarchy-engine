@@ -1,5 +1,5 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAppCanvas, TEngine, TModel3dFacade, TModel3dLoadOptions, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
+import type { TAppCanvas, TEngine, TModel3dFacade, TSpace, TSpaceConfig, TWithCoordsXYZ } from '@/Engine';
 import { Engine, isNotDefined, KeyCode, spaceService, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -13,23 +13,18 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { animationsService, models3dService } = space.services;
 
   async function init(): Promise<void> {
-    const scale: TVector3Wrapper = Vector3Wrapper({ x: 0.025, y: 0.025, z: 0.025 });
-    const options: TModel3dLoadOptions = { shouldAddToRegistry: true, shouldAddToScene: true, isForce: false };
+    const scale: TWithCoordsXYZ = { x: 0.025, y: 0.025, z: 0.025 };
     const nameGltfOriginal: string = 'fox_gltf_original';
     const nameGltfClone1: string = 'fox_gltf_clone_1';
     const nameGltfClone2: string = 'fox_gltf_clone_from_pack_2';
     const nameGlb: string = 'fox_glb_config_original';
 
-    await Promise.all(
-      models3dService.loadAsync([
-        //gltf model
-        { url: '/Showcase/Models/Fox/Fox.gltf', name: nameGltfOriginal, scale, position: Vector3Wrapper({ x: -10, y: 0, z: 0 }), options, tags: [] }
-        //glb model (draco compressed), won't be loaded, cause already loaded from json config
-        // { url: '/Showcase/Models/Fox/Fox.glb, nameGlb: urlGlb, scale, position: Vector3Wrapper({ x: 0, y: 0, z: 0 }), options, tags: [] }
-      ])
-    );
+    //gltf model
+    await models3dService.loadAsync({ name: nameGltfOriginal, url: '/Showcase/Models/Fox/Fox.gltf', options: { scale, position: { x: -10, y: 0, z: 0 } } });
+    //glb model (draco compressed), won't be loaded, cause already loaded from json config
+    // await models3dService.loadAsync({ name: nameGlb, url: '/Showcase/Models/Fox/Fox.glb', options: { scale, position: { x: 0, y: 0, z: 0 } }});
 
-    const foxGltfOriginal: TModel3dFacade | undefined = await models3dService.getRegistry().findByNameAsync(nameGltfOriginal);
+    const foxGltfOriginal: TModel3dFacade | undefined = models3dService.getRegistry().findByName(nameGltfOriginal);
     if (isNotDefined(foxGltfOriginal)) throw new Error(`Model "${nameGltfOriginal}" model is not defined`);
 
     //could be cloned from original model
@@ -38,13 +33,13 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     //or could be created from pack
     models3dService.createFromPack({ ...foxGltfOriginal.getPack(), name: nameGltfClone2, position: Vector3Wrapper({ x: 0, y: 0, z: 0 }) });
 
-    const foxGltfClone1: TModel3dFacade | undefined = await models3dService.getRegistry().findByNameAsync(nameGltfClone1);
+    const foxGltfClone1: TModel3dFacade | undefined = models3dService.getRegistry().findByName(nameGltfClone1);
     if (isNotDefined(foxGltfClone1)) throw new Error(`Model "${foxGltfClone1}" model is not defined`);
 
-    const foxGltfClone2: TModel3dFacade | undefined = await models3dService.getRegistry().findByNameAsync(nameGltfClone2);
+    const foxGltfClone2: TModel3dFacade | undefined = models3dService.getRegistry().findByName(nameGltfClone2);
     if (isNotDefined(foxGltfClone2)) throw new Error(`Model "${foxGltfClone2}" model is not defined`);
 
-    const foxGlbOriginal2: TModel3dFacade | undefined = await models3dService.getRegistry().findByNameAsync(nameGlb);
+    const foxGlbOriginal2: TModel3dFacade | undefined = models3dService.getRegistry().findByName(nameGlb);
     if (isNotDefined(foxGlbOriginal2)) throw new Error(`Model "${foxGlbOriginal2}" model is not defined`);
 
     const runActionGltf = animationsService.startAutoUpdateMixer(foxGltfOriginal).actions['Run'];
