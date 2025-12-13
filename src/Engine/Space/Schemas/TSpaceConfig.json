@@ -63,7 +63,14 @@
           "type": "number"
         },
         "rotation": {
-          "$ref": "#/definitions/Vector3Like"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TEulerLike"
+            },
+            {
+              "$ref": "#/definitions/QuaternionLike"
+            }
+          ]
         },
         "scale": {
           "$ref": "#/definitions/Vector3Like"
@@ -82,6 +89,45 @@
         }
       },
       "required": ["isActive"]
+    },
+    "TEulerLike": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        },
+        "order": {
+          "type": "string",
+          "enum": ["XYZ", "XZY", "YXZ", "YZX", "ZXY", "ZYX"]
+        }
+      },
+      "required": ["x", "y", "z"],
+      "additionalProperties": false
+    },
+    "QuaternionLike": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        },
+        "w": {
+          "type": "number"
+        }
+      },
+      "required": ["x", "y", "z", "w"],
+      "additionalProperties": false
     },
     "Vector3Like": {
       "type": "object",
@@ -214,7 +260,14 @@
           "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/Vector3Like"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TEulerLike"
+            },
+            {
+              "$ref": "#/definitions/QuaternionLike"
+            }
+          ]
         },
         "scale": {
           "$ref": "#/definitions/Vector3Like"
@@ -306,25 +359,6 @@
     "RigidBodyTypesNames": {
       "type": "string",
       "enum": ["dynamic", "fixed", "kinematicPositionBased", "kinematicVelocityBased"]
-    },
-    "QuaternionLike": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number"
-        },
-        "y": {
-          "type": "number"
-        },
-        "z": {
-          "type": "number"
-        },
-        "w": {
-          "type": "number"
-        }
-      },
-      "required": ["x", "y", "z", "w"],
-      "additionalProperties": false
     },
     "CollisionShape": {
       "type": "string",
@@ -997,11 +1031,20 @@
         "linearSpeed": {
           "$ref": "#/definitions/TMetersPerSecond"
         },
+        "radius": {
+          "$ref": "#/definitions/TMeters"
+        },
         "angularSpeed": {
-          "$ref": "#/definitions/TMetersPerSecond"
+          "$ref": "#/definitions/TRadiansPerSecond"
+        },
+        "forwardAxis": {
+          "$ref": "#/definitions/ForwardAxis"
+        },
+        "isInfiniteRotation": {
+          "type": "boolean"
         }
       },
-      "required": ["angularDirection", "angularSpeed", "linearDirection", "linearSpeed"]
+      "required": ["angularDirection", "angularSpeed", "forwardAxis", "isInfiniteRotation", "linearDirection", "linearSpeed", "radius"]
     },
     "TMetersPerSecond": {
       "anyOf": [
@@ -1013,6 +1056,32 @@
           "const": 0
         }
       ]
+    },
+    "TMeters": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number",
+          "const": 0
+        }
+      ]
+    },
+    "TRadiansPerSecond": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number",
+          "const": 0
+        }
+      ]
+    },
+    "ForwardAxis": {
+      "type": "string",
+      "enum": ["X", "Z"]
     },
     "TKinematicConfigTarget": {
       "type": "object",
@@ -1078,7 +1147,14 @@
           "$ref": "#/definitions/Vector3Like"
         },
         "rotationOffset": {
-          "$ref": "#/definitions/Vector3Like"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/QuaternionLike"
+            },
+            {
+              "$ref": "#/definitions/TEulerLike"
+            }
+          ]
         },
         "scaleOffset": {
           "$ref": "#/definitions/Vector3Like"
@@ -1106,7 +1182,14 @@
           "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/Vector3Like"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TEulerLike"
+            },
+            {
+              "$ref": "#/definitions/QuaternionLike"
+            }
+          ]
         },
         "scale": {
           "$ref": "#/definitions/Vector3Like"
@@ -1242,7 +1325,14 @@
           "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/Vector3Like"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TEulerLike"
+            },
+            {
+              "$ref": "#/definitions/QuaternionLike"
+            }
+          ]
         },
         "scale": {
           "$ref": "#/definitions/Vector3Like"
@@ -1372,7 +1462,14 @@
           "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/Vector3Like"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TEulerLike"
+            },
+            {
+              "$ref": "#/definitions/QuaternionLike"
+            }
+          ]
         },
         "scale": {
           "$ref": "#/definitions/Vector3Like"
@@ -1403,7 +1500,14 @@
           "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/Vector3Like"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TEulerLike"
+            },
+            {
+              "$ref": "#/definitions/QuaternionLike"
+            }
+          ]
         },
         "scale": {
           "$ref": "#/definitions/Vector3Like"
@@ -1501,7 +1605,14 @@
           "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/Vector3Like"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TEulerLike"
+            },
+            {
+              "$ref": "#/definitions/QuaternionLike"
+            }
+          ]
         },
         "scale": {
           "$ref": "#/definitions/Vector3Like"
@@ -1568,7 +1679,14 @@
           "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/Vector3Like"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TEulerLike"
+            },
+            {
+              "$ref": "#/definitions/QuaternionLike"
+            }
+          ]
         },
         "scale": {
           "$ref": "#/definitions/Vector3Like"
@@ -1635,7 +1753,14 @@
           "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/Vector3Like"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TEulerLike"
+            },
+            {
+              "$ref": "#/definitions/QuaternionLike"
+            }
+          ]
         },
         "scale": {
           "$ref": "#/definitions/Vector3Like"
@@ -1699,7 +1824,14 @@
           "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/Vector3Like"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TEulerLike"
+            },
+            {
+              "$ref": "#/definitions/QuaternionLike"
+            }
+          ]
         },
         "options": {
           "$ref": "#/definitions/TModel3dOptions"
@@ -1789,17 +1921,6 @@
       },
       "additionalProperties": false
     },
-    "TMeters": {
-      "anyOf": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "number",
-          "const": 0
-        }
-      ]
-    },
     "Layers": {
       "type": "object",
       "properties": {
@@ -1833,7 +1954,14 @@
           "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/Vector3Like"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TEulerLike"
+            },
+            {
+              "$ref": "#/definitions/QuaternionLike"
+            }
+          ]
         },
         "scale": {
           "$ref": "#/definitions/Vector3Like"
@@ -2119,7 +2247,14 @@
           "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/Vector3Like"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TEulerLike"
+            },
+            {
+              "$ref": "#/definitions/QuaternionLike"
+            }
+          ]
         },
         "scale": {
           "$ref": "#/definitions/Vector3Like"
@@ -6706,7 +6841,14 @@
           "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/Vector3Like"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TEulerLike"
+            },
+            {
+              "$ref": "#/definitions/QuaternionLike"
+            }
+          ]
         },
         "scale": {
           "$ref": "#/definitions/Vector3Like"
