@@ -15,7 +15,29 @@
       "height": 20,
       "widthSegments": 1,
       "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#5EDCAE" } },
+      "material": {
+        "type": "physical",
+        "params": {
+          "clearcoat": 1,
+          "clearcoatRoughness": 0.12,
+          "displacementScale": 0,
+          "metalness": 0.97,
+          "roughness": 0.8,
+          "iridescence": 0.655,
+          "iridescenceIOR": 1.86,
+          "transmission": 0,
+          "ior": 2.5,
+          "thickness": 0
+        },
+        "textures": {
+          "bumpMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png" },
+          "map": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png" },
+          "normalMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png" },
+          "displacementMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png" },
+          "metalnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP16_1K_METALNESS.png" },
+          "roughnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png" }
+        }
+      },
       "type": "plane",
       "position": { "x": 0, "y": 0, "z": 0 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
@@ -29,7 +51,29 @@
       "depth": 5,
       "widthSegments": 1,
       "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#0F0F0F" } },
+      "material": {
+        "type": "physical",
+        "params": {
+          "clearcoat": 1,
+          "clearcoatRoughness": 0.12,
+          "displacementScale": 0,
+          "metalness": 0.97,
+          "roughness": 0.8,
+          "iridescence": 0.655,
+          "iridescenceIOR": 1.86,
+          "transmission": 0,
+          "ior": 2.5,
+          "thickness": 0
+        },
+        "textures": {
+          "bumpMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png" },
+          "map": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png" },
+          "normalMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png" },
+          "displacementMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png" },
+          "metalnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP16_1K_METALNESS.png" },
+          "roughnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png" }
+        }
+      },
       "type": "cube",
       "position": { "x": -10.5, "y": 0, "z": 0 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
@@ -43,7 +87,29 @@
       "depth": 5,
       "widthSegments": 1,
       "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#0F0F0F" } },
+      "material": {
+        "type": "physical",
+        "params": {
+          "clearcoat": 1,
+          "clearcoatRoughness": 0.12,
+          "displacementScale": 0,
+          "metalness": 0.97,
+          "roughness": 0.8,
+          "iridescence": 0.655,
+          "iridescenceIOR": 1.86,
+          "transmission": 0,
+          "ior": 2.5,
+          "thickness": 0
+        },
+        "textures": {
+          "bumpMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png" },
+          "map": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png" },
+          "normalMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png" },
+          "displacementMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png" },
+          "metalnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP16_1K_METALNESS.png" },
+          "roughnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png" }
+        }
+      },
       "type": "cube",
       "position": { "x": 10.5, "y": 0, "z": 0 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
@@ -51,29 +117,73 @@
       "tags": []
     },
     {
-      "name": "wall_bottom",
+      "name": "wall_front",
       "width": 1,
       "height": 22,
       "depth": 5,
       "widthSegments": 1,
       "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#0F0F0F" } },
+      "material": {
+        "type": "physical",
+        "params": {
+          "clearcoat": 1,
+          "clearcoatRoughness": 0.12,
+          "displacementScale": 0,
+          "metalness": 0.97,
+          "roughness": 0.8,
+          "iridescence": 0.655,
+          "iridescenceIOR": 1.86,
+          "transmission": 0,
+          "ior": 2.5,
+          "thickness": 0
+        },
+        "textures": {
+          "bumpMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png" },
+          "map": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png" },
+          "normalMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png" },
+          "displacementMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png" },
+          "metalnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP16_1K_METALNESS.png" },
+          "roughnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png" }
+        }
+      },
       "type": "cube",
-      "position": { "x": 0, "y": 0, "z": 10.5 },
+      "position": { "x": 0, "y": 0, "z": -10.5 },
       "rotation": { "x": -1.57, "y": 0, "z": -1.57 },
       "castShadow": false,
       "tags": []
     },
     {
-      "name": "wall_top",
+      "name": "wall_back",
       "width": 1,
       "height": 22,
       "depth": 5,
       "widthSegments": 1,
       "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#0F0F0F" } },
+      "material": {
+        "type": "physical",
+        "params": {
+          "clearcoat": 1,
+          "clearcoatRoughness": 0.12,
+          "displacementScale": 0,
+          "metalness": 0.97,
+          "roughness": 0.8,
+          "iridescence": 0.655,
+          "iridescenceIOR": 1.86,
+          "transmission": 0,
+          "ior": 2.5,
+          "thickness": 0
+        },
+        "textures": {
+          "bumpMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png" },
+          "map": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png" },
+          "normalMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png" },
+          "displacementMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png" },
+          "metalnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP16_1K_METALNESS.png" },
+          "roughnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png" }
+        }
+      },
       "type": "cube",
-      "position": { "x": 0, "y": 0, "z": -10.5 },
+      "position": { "x": 0, "y": 0, "z": 10.5 },
       "rotation": { "x": -1.57, "y": 0, "z": -1.57 },
       "castShadow": false,
       "tags": []

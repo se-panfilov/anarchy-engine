@@ -6,22 +6,9 @@ import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type {
-  TActorWrapperAsync,
-  TAppCanvas,
-  TCameraWrapper,
-  TEngine,
-  TIntersectionEvent,
-  TIntersectionsWatcher,
-  TIntersectionsWatcherParams,
-  TPhysicsDebugRenderer,
-  TSceneWrapper,
-  TSpace,
-  TSpaceConfig,
-  TWithCoordsXYZ
-} from '@/Engine';
 import {
   buildSpaceFromConfig,
+  degreesToQuaternion,
   Engine,
   EulerWrapper,
   getHorizontalAzimuth,
@@ -32,7 +19,19 @@ import {
   mouseService,
   PhysicsDebugRenderer,
   STANDARD_GRAVITY,
+  TActorWrapperAsync,
+  TAppCanvas,
+  TCameraWrapper,
+  TEngine,
   TextType,
+  TIntersectionEvent,
+  TIntersectionsWatcher,
+  TIntersectionsWatcherParams,
+  TPhysicsDebugRenderer,
+  TSceneWrapper,
+  TSpace,
+  TSpaceConfig,
+  TWithCoordsXYZ,
   Vector3Wrapper
 } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
@@ -50,14 +49,18 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   const ballActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('ball');
   const surfaceActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('surface');
+  // const wallLeftActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('wall_left');
+  // const wallRightActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('wall_right');
+  // const wallFrontActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('wall_front');
+  // const wallBackActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('wall_back');
 
   const world: World = new World(STANDARD_GRAVITY);
   const physicsDebugRenderer: TPhysicsDebugRenderer = PhysicsDebugRenderer(sceneWrapper.entity, world);
 
-  const rigidBodyDesc = RigidBodyDesc.dynamic().setTranslation(0, 6, 0); //should take the position of the actor
-  const rigidBody = world.createRigidBody(rigidBodyDesc);
-  const colliderDesc = ColliderDesc.ball(meters(1));
-  world.createCollider(colliderDesc, rigidBody);
+  const ballRigidBodyDesc = RigidBodyDesc.dynamic().setTranslation(0, 6, 0);
+  const ballRigidBody = world.createRigidBody(ballRigidBodyDesc);
+  const ballColliderDesc = ColliderDesc.ball(meters(1));
+  world.createCollider(ballColliderDesc, ballRigidBody);
 
   const line: Line2 = createLine();
   sceneWrapper.entity.add(line);
@@ -65,15 +68,31 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const groundColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(10), meters(0.1), meters(10));
   world.createCollider(groundColliderDesc);
 
+  const wallLeftColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(0.5), meters(2.5), meters(10)).setTranslation(-10.5, 0, 0);
+  world.createCollider(wallLeftColliderDesc);
+
+  const wallRightColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(0.5), meters(2.5), meters(10)).setTranslation(10.5, 0, 0);
+  world.createCollider(wallRightColliderDesc);
+
+  const wallFrontColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(0.5), meters(2.5), meters(11))
+    .setTranslation(0, 0, -10.5)
+    .setRotation(degreesToQuaternion({ x: 0, y: 90, z: 0 }));
+  world.createCollider(wallFrontColliderDesc);
+
+  const wallBackColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(0.5), meters(2.5), meters(11))
+    .setTranslation(0, 0, 10.5)
+    .setRotation(degreesToQuaternion({ x: 0, y: 90, z: 0 }));
+  world.createCollider(wallBackColliderDesc);
+
   let azimuth: number = 0;
 
   mouseService.clickLeftRelease$.subscribe(() => {
-    rigidBody.setLinvel(getPushCoordsFrom3dAzimuth(azimuth, 0, 5), true);
+    ballRigidBody.setLinvel(getPushCoordsFrom3dAzimuth(azimuth, 0, 5), true);
   });
 
   keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => {
-    const linvel = rigidBody.linvel();
-    rigidBody.setLinvel({ x: linvel.x, y: linvel.y + 5, z: linvel.z }, true);
+    const linvel = ballRigidBody.linvel();
+    ballRigidBody.setLinvel({ x: linvel.x, y: linvel.y + 5, z: linvel.z }, true);
   });
 
   async function init(): Promise<void> {
@@ -124,8 +143,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       }
 
       // Get and print the rigid-body's position.
-      const position: Vector = rigidBody.translation();
-      const rotation: Rotation = rigidBody.rotation();
+      const position: Vector = ballRigidBody.translation();
+      const rotation: Rotation = ballRigidBody.rotation();
 
       ballActorW.entity.position.set(position.x, position.y, position.z);
       ballActorW.entity.quaternion.set(rotation.x, rotation.y, rotation.z, rotation.w);
