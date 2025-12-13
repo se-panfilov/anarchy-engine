@@ -2,7 +2,7 @@
   "name": "anarchy_engine_showcases",
   "author": "S. Panfilov",
   "private": true,
-  "version": "2.5.0",
+  "version": "2.6.0",
   "type": "module",
   "license": "MIT",
   "scripts": {
@@ -22,26 +22,19 @@
     "sanitize-assets": "node ../../packages/shared/ScriptUtils/SanitizeAssets.js",
     "start:dev": "vite --mode dev",
     "start:e2e": "vite --mode e2e --port 5073 --logLevel error",
-    "ts:check": "npm run ts:check:app && npm run ts:check:vue",
-    "ts:check:app": "tsc --noEmit",
-    "ts:check:vue": "vue-tsc --noEmit -p tsconfig.vue.json",
+    "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit"
   },
   "dependencies": {
     "anarchy_engine": "*",
     "anarchy_engine_shared": "*",
+    "anarchy_engine_ui_menu": "*",
     "lil-gui": "0.20.0",
-    "pinia": "3.0.3",
     "sanitize.css": "13.0.0",
     "stats.js": "0.17.0",
-    "three-viewport-gizmo": "2.2.0",
-    "vue": "3.5.18"
+    "three-viewport-gizmo": "2.2.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "6.0.1",
-    "@vitejs/plugin-vue-jsx": "5.0.1",
-    "eslint-plugin-vue": "10.4.0",
-    "sass-embedded": "1.89.2",
-    "vue-tsc": "3.0.5"
+    "sass-embedded": "1.89.2"
   }
 }

@@ -6,8 +6,6 @@ import path from 'path';
 import { sharedAliases } from '../../vite.alias';
 import { visualizer } from 'rollup-plugin-visualizer';
 import wasm from 'vite-plugin-wasm';
-import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
 
 export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
   const root: string = process.cwd();
@@ -32,12 +30,6 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       }
     },
     plugins: [
-      //FOR GUI only///////
-      vue(),
-      vueJsx(),
-      // vueDevTools(),
-      //END: FOR GUI only///////
-
       wasm(),
       dts({
         exclude: ['**/*.spec.ts', '**/*.test.ts', 'vite.config.ts']
