@@ -31,12 +31,3 @@ export function movePhysicsDynamicObjectByVelocity(rigidBody: RigidBody, type: V
       throw new Error(`Cannot move physics object with velocity: velocity type is invalid: ${type}`);
   }
 }
-
-// export function movePhysicsKinematicObjectByPosition(rigidBody, translation) {
-//   rigidBody.setNextKinematicRotation(translation);
-//   rigidBody.setNextKinematicTranslation(translation);
-// }
-//
-// export function movePhysicsKinematicObjectByVelocity(rigidBody, translation) {
-//   // TODO (S.Panfilov) how to do this?
-// }

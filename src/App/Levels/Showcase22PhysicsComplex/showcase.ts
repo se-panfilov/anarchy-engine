@@ -1,8 +1,40 @@
-import type { World } from '@dimforge/rapier3d';
+import type { Vector3 } from 'three';
+import { Line2 } from 'three/examples/jsm/lines/Line2';
+import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
+import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorParams, TActorService, TActorWrapperWithPhysicsAsync, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
-import { ActorType, buildSpaceFromConfig, CollisionShape, Engine, isNotDefined, KeysExtra, MaterialType, RigidBodyTypesNames, Vector3Wrapper } from '@/Engine';
+import type {
+  TActorParams,
+  TActorService,
+  TActorWrapperAsync,
+  TActorWrapperWithPhysicsAsync,
+  TAppCanvas,
+  TCameraWrapper,
+  TEngine,
+  TIntersectionEvent,
+  TIntersectionsWatcher,
+  TSceneWrapper,
+  TSpace,
+  TSpaceConfig,
+  TWithCoordsXYZ
+} from '@/Engine';
+import {
+  ActorType,
+  buildSpaceFromConfig,
+  CollisionShape,
+  Engine,
+  get3DAzimuth,
+  getPushCoordsFrom3dAzimuth,
+  isDefined,
+  isNotDefined,
+  KeysExtra,
+  MaterialType,
+  mouseService,
+  RigidBodyTypesNames,
+  Vector3Wrapper
+} from '@/Engine';
+import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
 
@@ -10,15 +42,58 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { physicsLoopService, physicsWorldService, actorService, loopService, controlsService } = space.services;
+  const { physicsLoopService, cameraService, physicsWorldService, actorService, loopService, controlsService, intersectionsWatcherService } = space.services;
 
   async function init(): Promise<void> {
     physicsWorldService.getDebugRenderer(loopService).start();
+    physicsLoopService.shouldAutoUpdate(false);
 
     controlsService.findActive()?.entity.target.set(0, 10, 0);
+    const cameraW: TCameraWrapper | undefined = cameraService.findActive();
+    if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
 
-    physicsLoopService.shouldAutoUpdate(false);
-    await buildTower(actorService, 10, 10, 20);
+    const ballActorW: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('ball');
+    if (isNotDefined(ballActorW)) throw new Error(`Cannot find "ball" actor`);
+
+    const sceneWrapper: TSceneWrapper = actorService.getScene();
+
+    const blocks = await buildTower(actorService, 10, 10, 20);
+
+    const mouseLineIntersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({
+      name: 'mouse_line_intersections_watcher',
+      isAutoStart: true,
+      camera: cameraW,
+      actors: blocks,
+      position$: mouseService.position$,
+      tags: []
+    });
+
+    let mouseLineIntersectionsCoords: Vector3 | undefined = undefined;
+    mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent) => {
+      mouseLineIntersectionsCoords = intersection.point;
+    });
+
+    const line: Line2 = createLine();
+    sceneWrapper.entity.add(line);
+
+    let coords: Readonly<{ azimuth: number; elevation: number }> = {
+      azimuth: 0,
+      elevation: 0
+    };
+
+    loopService.tick$.subscribe(() => {
+      if (isDefined(mouseLineIntersectionsCoords)) {
+        const ballCoords: TWithCoordsXYZ = ballActorW.getPosition().getCoords();
+        coords = get3DAzimuth({ x: ballCoords.x, z: ballCoords.z, y: ballCoords.y }, mouseLineIntersectionsCoords);
+        line.geometry.setPositions([ballCoords.x, ballCoords.y, ballCoords.z, mouseLineIntersectionsCoords.x, mouseLineIntersectionsCoords.y, mouseLineIntersectionsCoords.z]);
+        line.computeLineDistances();
+      }
+    });
+
+    mouseService.clickLeftRelease$.subscribe(() => {
+      if (isNotDefined(ballActorW)) throw new Error(`Cannot find "ball" actor`);
+      ballActorW.physicsBody?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(coords.azimuth, coords.elevation, 100), true);
+    });
 
     physicsLoopService.shouldAutoUpdate(true);
 
@@ -99,4 +174,17 @@ function getBlocks(rows: number, cols: number, levels: number): ReadonlyArray<Re
   }
 
   return blocks;
+}
+
+function createLine(): Line2 {
+  const material = new LineMaterial({
+    color: '#E91E63',
+    linewidth: meters(0.1),
+    worldUnits: true,
+    alphaToCoverage: true
+  });
+  const geometry: LineGeometry = new LineGeometry();
+  geometry.setPositions([0, 0, 0, 0, 0, 0]);
+
+  return new Line2(geometry, material);
 }

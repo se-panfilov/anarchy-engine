@@ -26,6 +26,26 @@ export function getHorizontalAzimuth(center: TWithCoordsXZ, point: TWithCoordsXZ
 }
 
 // TODO (S.Panfilov) add unit tests
+export function get3DAzimuth(center: TWithCoordsXYZ, point: TWithCoordsXYZ): { azimuth: number; elevation: number } {
+  const dx: Decimal = new Decimal(point.x).minus(new Decimal(center.x));
+  const dy: Decimal = new Decimal(point.y).minus(new Decimal(center.y));
+  const dz: Decimal = new Decimal(point.z).minus(new Decimal(center.z));
+
+  let azimuth: Decimal = Decimal.atan2(dz, dx).times(new Decimal(180).div(new Decimal(Math.PI)));
+
+  if (azimuth.isNegative()) azimuth = azimuth.plus(new Decimal(360));
+
+  const horizontalDistance: Decimal = Decimal.sqrt(dx.pow(2).plus(dz.pow(2)));
+
+  const elevation: Decimal = Decimal.atan2(dy, horizontalDistance).times(new Decimal(180).div(new Decimal(Math.PI)));
+
+  return {
+    azimuth: azimuth.toNumber(),
+    elevation: elevation.toNumber()
+  };
+}
+
+// TODO (S.Panfilov) add unit tests
 export function degreesToEuler(degrees: TWithCoordsXYZ): TWithCoordsXYZ {
   // TODO (S.Panfilov) can I use "degToRad" here?
   const radians = {
