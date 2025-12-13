@@ -6,8 +6,8 @@
       "@AnarchyI18n": ["packages/anarchy-i18n/src/index.ts"],
       "@Shared/*": ["packages/shared/src/*"],
       "@Shared": ["packages/shared/src/index.ts"],
-      "@ShowcasesShared/*": ["packages/showcases_shared/src/*"],
-      "@ShowcasesShared": ["packages/showcases_shared/src/index.ts"]
+      "@ShowcasesShared/*": ["packages/showcases-shared/src/*"],
+      "@ShowcasesShared": ["packages/showcases-shared/src/index.ts"]
     },
     "typeRoots": ["./node_modules/@types", "./node_modules", "../../node_modules/@types", "../../node_modules", "./src/Engine/Types", "./types"]
   },

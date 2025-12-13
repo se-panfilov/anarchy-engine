@@ -1,4 +1,4 @@
-# Anarchy engine showcases_shared package
+# Anarchy engine showcases-shared package
 
 UI menu for showcases of Anarchy engine.
 
