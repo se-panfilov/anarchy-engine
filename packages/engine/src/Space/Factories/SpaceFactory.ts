@@ -11,7 +11,7 @@ function create(params: TSpaceParams, { config, registry }: TSpaceFactoryDepende
 }
 
 export function SpaceFactory(): TSpaceFactory {
-  const factory: TReactiveFactory<TSpace, TSpaceParams, TSpaceFactoryDependencies> = ReactiveFactory(FactoryType.Space, create);
+  const factory: TReactiveFactory<TSpace, TSpaceParams, TSpaceFactoryDependencies, TSpaceFlags> = ReactiveFactory(FactoryType.Space, create);
 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(factory, { configToParams });

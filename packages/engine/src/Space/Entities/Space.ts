@@ -14,6 +14,7 @@ import type { Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, skip, Subject } from 'rxjs';
 
 export function Space(params: TSpaceParams, registry: TSpaceRegistry, flags?: TSpaceFlags): TSpace {
+  // TODO 18-0-0: remove console
   console.log('XXX flags', flags);
   const { canvasSelector, version, name, tags } = params;
   const built$: BehaviorSubject<TSpace | undefined> = new BehaviorSubject<TSpace | undefined>(undefined);
