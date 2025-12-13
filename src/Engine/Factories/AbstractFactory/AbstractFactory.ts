@@ -5,20 +5,20 @@ import type { AbstractConfig } from '@Engine/Launcher/Models';
 import { isNotDefined } from '@Engine/Utils';
 import type { CreateFN } from '@Engine/Factories/AbstractFactory/Models';
 
-export function AbstractFactory<T extends ReactiveWrapper<ENT>, ENT, PRMS>(
+export function AbstractFactory<T extends ReactiveWrapper<ENT>, ENT, PRMS, C extends AbstractConfig>(
   type: string,
   create: CreateFN<T, PRMS>,
-  adapterFn?: (config: AbstractConfig) => PRMS
-): Factory<T, ENT, PRMS> {
+  adapterFn?: (config: C) => PRMS
+): Factory<T, ENT, PRMS, C> {
   const id: string = type + '_factory_' + nanoid();
   const latest$: Subject<T> = new Subject<T>();
   const create$: Subject<PRMS> = new Subject<PRMS>();
-  const createFromConfig$: Subject<AbstractConfig> = new Subject<AbstractConfig>();
+  const createFromConfig$: Subject<C> = new Subject<C>();
   const destroyed$: Subject<void> = new Subject<void>();
 
   create$.subscribe((params: PRMS): void => latest$.next(create(params)));
 
-  createFromConfig$.subscribe((config: AbstractConfig): void => {
+  createFromConfig$.subscribe((config: C): void => {
     if (isNotDefined(adapterFn))
       throw new Error(`Factory "${id}" cannot create from config: adapter function is not provided`);
     create$.next(adapterFn(config));
@@ -46,7 +46,7 @@ export function AbstractFactory<T extends ReactiveWrapper<ENT>, ENT, PRMS>(
     get create$(): Subject<PRMS> {
       return create$;
     },
-    get createFromConfig$(): Subject<AbstractConfig> {
+    get createFromConfig$(): Subject<C> {
       return createFromConfig$;
     },
     get destroyed$(): Subject<void> {
