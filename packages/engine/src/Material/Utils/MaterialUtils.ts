@@ -1,12 +1,20 @@
 import type { TMaterialParams, TMaterialParamsOptions, TMaterials, TTypeOfMaterials } from '@Engine/Material';
-import { MaterialMap } from '@Engine/Material/Constants';
+import { MaterialMap, MaterialType } from '@Engine/Material/Constants';
 import type { TEulerLike, TEulerString } from '@Engine/ThreeLib';
 import type { TWithoutNull } from '@Engine/Utils';
 import { eulerToXyz, isNotDefined, vector2ToXy, vector3ToXyz } from '@Engine/Utils';
-import type { Material, PointsMaterial, Vector2Like, Vector3Like } from 'three';
+import type { LineDashedMaterial, Material, MeshPhysicalMaterial, PointsMaterial, Vector2Like, Vector3Like } from 'three';
 
 export function isPointsMaterial<T extends Material | ReadonlyArray<Material>>(material: PointsMaterial | T): material is PointsMaterial {
-  return !Array.isArray(material) && (material as Material).type === 'PointsMaterial';
+  return !Array.isArray(material) && (material as Material).type === MaterialType.Points;
+}
+
+export function isPhysicalMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshPhysicalMaterial | T): material is MeshPhysicalMaterial {
+  return !Array.isArray(material) && (material as Material).type === MaterialType.Physical;
+}
+
+export function isLineDashedMaterial<T extends Material | ReadonlyArray<Material>>(material: T): material is LineDashedMaterial {
+  return !Array.isArray(material) && (material as Material).type === MaterialType.LineDashed;
 }
 
 export function buildMaterial(params: TMaterialParams): TMaterials {

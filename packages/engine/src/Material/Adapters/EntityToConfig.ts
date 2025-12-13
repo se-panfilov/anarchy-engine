@@ -22,23 +22,13 @@ import type {
   TMaterialParamsTextures,
   TMaterials
 } from '@Engine/Material/Models';
-import { eulerToXyzIfPossible, getOptionNameIfPossible, vector2ToXyIfPossible } from '@Engine/Material/Utils';
+import { eulerToXyzIfPossible, getOptionNameIfPossible, isPhysicalMaterial, vector2ToXyIfPossible } from '@Engine/Material/Utils';
 import { extractSerializableRegistrableFields } from '@Engine/Mixins';
 import type { TTexture, TTextureAsyncRegistry } from '@Engine/Texture';
 import type { TOptional } from '@Engine/Utils';
 import { filterOutEmptyFields, nullsToUndefined } from '@Engine/Utils';
 import { isEmpty } from 'lodash-es';
-import type {
-  LineDashedMaterial,
-  MeshBasicMaterial,
-  MeshDepthMaterial,
-  MeshLambertMaterial,
-  MeshMatcapMaterial,
-  MeshPhongMaterial,
-  MeshPhysicalMaterial,
-  MeshStandardMaterial,
-  PointsMaterial
-} from 'three';
+import type { LineDashedMaterial, MeshBasicMaterial, MeshDepthMaterial, MeshLambertMaterial, MeshMatcapMaterial, MeshPhongMaterial, MeshStandardMaterial, PointsMaterial } from 'three';
 import type { SpriteNodeMaterial } from 'three/src/materials/nodes/NodeMaterials';
 
 export function materialToConfig(entity: TAnyMaterialWrapper, { textureResourceRegistry }: TMaterialEntityToConfigDependencies): TMaterialConfig {
@@ -54,15 +44,17 @@ export function materialToConfig(entity: TAnyMaterialWrapper, { textureResourceR
 }
 
 function getMaterialOptions({ entity }: TAnyMaterialWrapper): TOptional<TMaterialConfigOptions> | undefined {
+  console.log('XXX entity', entity);
+
   return filterOutEmptyFields(
     nullsToUndefined({
       alphaHash: entity.alphaHash,
       alphaToCoverage: entity.alphaToCoverage,
-      anisotropy: (entity as MeshPhysicalMaterial).anisotropy,
-      anisotropyRotation: (entity as MeshPhysicalMaterial).anisotropyRotation,
+      anisotropy: isPhysicalMaterial(entity) ? entity.anisotropy : undefined,
+      anisotropyRotation: isPhysicalMaterial(entity) ? entity.anisotropyRotation : undefined,
       aoMapIntensity: (entity as MeshPhongMaterial).aoMapIntensity,
-      attenuationColor: serializeColorWhenPossible((entity as MeshPhysicalMaterial).attenuationColor),
-      attenuationDistance: (entity as MeshPhysicalMaterial).attenuationDistance,
+      attenuationColor: serializeColorWhenPossible(isPhysicalMaterial(entity) ? entity.attenuationColor : undefined),
+      attenuationDistance: isPhysicalMaterial(entity) ? entity.attenuationDistance : undefined,
       blendAlpha: entity.blendAlpha,
       blendColor: serializeColorWhenPossible(entity.blendColor),
       blendDst: getOptionNameIfPossible(entity.blendDst, BlendingDstFactorMap, 'blendDst'),
@@ -73,9 +65,9 @@ function getMaterialOptions({ entity }: TAnyMaterialWrapper): TOptional<TMateria
       blendSrcAlpha: entity.blendSrcAlpha,
       blending: getOptionNameIfPossible(entity.blending, BlendingMap, 'blending'),
       bumpScale: (entity as MeshPhongMaterial).bumpScale,
-      // clearcoat: (entity as MeshPhysicalMaterial).clearcoat,
-      clearcoatNormalScale: vector2ToXyIfPossible((entity as MeshPhysicalMaterial).clearcoatNormalScale),
-      clearcoatRoughness: (entity as MeshPhysicalMaterial).clearcoatRoughness,
+      // clearcoat: isPhysicalMaterial(entity) ? entity.clearcoat : undefined,
+      clearcoatNormalScale: vector2ToXyIfPossible(isPhysicalMaterial(entity) ? entity.clearcoatNormalScale : undefined),
+      clearcoatRoughness: isPhysicalMaterial(entity) ? entity.clearcoatRoughness : undefined,
       clipIntersection: entity.clipIntersection,
       clipShadows: entity.clipShadows,
       clippingPlanes: entity.clippingPlanes,
@@ -99,10 +91,10 @@ function getMaterialOptions({ entity }: TAnyMaterialWrapper): TOptional<TMateria
       fog: (entity as MeshPhongMaterial).fog,
       forceSinglePass: entity.forceSinglePass,
       gapSize: (entity as LineDashedMaterial).gapSize,
-      ior: (entity as MeshPhysicalMaterial).ior,
-      // iridescence: (entity as MeshPhysicalMaterial).iridescence,
-      iridescenceIOR: (entity as MeshPhysicalMaterial).iridescenceIOR,
-      iridescenceThicknessRange: (entity as MeshPhysicalMaterial).iridescenceThicknessRange,
+      ior: isPhysicalMaterial(entity) ? entity.ior : undefined,
+      // iridescence: isPhysicalMaterial(entity) ? entity.iridescence : undefined,
+      iridescenceIOR: isPhysicalMaterial(entity) ? entity.iridescenceIOR : undefined,
+      iridescenceThicknessRange: isPhysicalMaterial(entity) ? entity.iridescenceThicknessRange : undefined,
       lightMapIntensity: (entity as MeshPhongMaterial).lightMapIntensity,
       linewidth: (entity as LineDashedMaterial).linewidth,
       matcap: (entity as MeshMatcapMaterial).matcap,
@@ -117,22 +109,22 @@ function getMaterialOptions({ entity }: TAnyMaterialWrapper): TOptional<TMateria
       precision: entity.precision,
       premultipliedAlpha: entity.premultipliedAlpha,
       // referencePosition: vector3ToXyzIfPossible((entity as MeshDistanceMaterialParameters).referencePosition),
-      reflectivity: (entity as MeshPhysicalMaterial).reflectivity,
+      reflectivity: isPhysicalMaterial(entity) ? entity.reflectivity : undefined,
       refractionRatio: (entity as MeshBasicMaterial).refractionRatio,
       rotation: (entity as SpriteNodeMaterial).rotation,
       roughness: (entity as MeshStandardMaterial).roughness,
       scale: (entity as LineDashedMaterial).scale,
       shadowSide: entity.shadowSide,
-      sheen: (entity as MeshPhysicalMaterial).sheen,
-      sheenColor: serializeColorWhenPossible((entity as MeshPhysicalMaterial).sheenColor),
-      sheenRoughness: (entity as MeshPhysicalMaterial).sheenRoughness,
+      sheen: isPhysicalMaterial(entity) ? entity.sheen : undefined,
+      sheenColor: serializeColorWhenPossible(isPhysicalMaterial(entity) ? entity.sheenColor : undefined),
+      sheenRoughness: isPhysicalMaterial(entity) ? entity.sheenRoughness : undefined,
       shininess: (entity as MeshPhongMaterial).shininess,
       side: getOptionNameIfPossible(entity.side, SideMap, 'side'),
       size: (entity as PointsMaterial).size,
       sizeAttenuation: (entity as PointsMaterial).sizeAttenuation,
       specular: serializeColorWhenPossible((entity as MeshPhongMaterial).specular),
-      specularColor: serializeColorWhenPossible((entity as MeshPhysicalMaterial).specularColor),
-      specularIntensity: (entity as MeshPhysicalMaterial).specularIntensity,
+      specularColor: serializeColorWhenPossible(isPhysicalMaterial(entity) ? entity.specularColor : undefined),
+      specularIntensity: isPhysicalMaterial(entity) ? entity.specularIntensity : undefined,
       stencilFail: getOptionNameIfPossible(entity.stencilFail, StencilFailMap, 'stencilFail'),
       stencilFunc: getOptionNameIfPossible(entity.stencilFunc, StencilFuncMap, 'stencilFunc'),
       stencilFuncMask: entity.stencilFuncMask,
@@ -141,9 +133,9 @@ function getMaterialOptions({ entity }: TAnyMaterialWrapper): TOptional<TMateria
       stencilWriteMask: entity.stencilWriteMask,
       stencilZFail: getOptionNameIfPossible(entity.stencilZFail, StencilOpMap, 'stencilZFail'),
       stencilZPass: getOptionNameIfPossible(entity.stencilZPass, StencilOpMap, 'stencilZPass'),
-      thickness: (entity as MeshPhysicalMaterial).thickness,
+      thickness: isPhysicalMaterial(entity) ? entity.thickness : undefined,
       toneMapped: entity.toneMapped,
-      // transmission: (entity as MeshPhysicalMaterial).transmission,
+      // transmission: isPhysicalMaterial(entity) ? entity.transmission : undefined,
       transparent: entity.transparent,
       vertexColors: entity.vertexColors,
       visible: entity.visible,
