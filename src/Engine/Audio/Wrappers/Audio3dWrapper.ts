@@ -4,7 +4,8 @@ import { Vector3 } from 'three';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TAudio3dParams, TAudio3dWrapper } from '@/Engine/Audio/Models';
+import type { TAudio3dParams, TAudio3dWrapper, TAudio3dWrapperDependencies } from '@/Engine/Audio/Models';
+import type { TAudioLoop } from '@/Engine/Loop';
 import { LoopUpdatePriority } from '@/Engine/Loop';
 import type { TMeters } from '@/Engine/Math';
 import { meters } from '@/Engine/Measurements';
@@ -14,7 +15,7 @@ import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { isEqualOrSimilarByXyzCoords } from '@/Engine/Utils';
 
 // TODO 11.0.0: transform drive position? (connected?)
-export function Audio3dWrapper({ sound, volume, position, name, performance }: TAudio3dParams): TAudio3dWrapper {
+export function Audio3dWrapper({ sound, volume, position, name, performance }: TAudio3dParams, { loopService }: TAudio3dWrapperDependencies): TAudio3dWrapper {
   const entity: Howl = sound;
   const position$: BehaviorSubject<Vector3Like> = new BehaviorSubject<Vector3Like>(position);
   const listenerPosition$: BehaviorSubject<Vector3Like> = new BehaviorSubject<Vector3Like>(new Vector3());
@@ -27,6 +28,8 @@ export function Audio3dWrapper({ sound, volume, position, name, performance }: T
 
   // TODO 11.0.0: should use decibels instead of number?
   const volumeSub: Subscription = volume$.pipe(distinctUntilChanged()).subscribe((volume: number): void => void entity.volume(volume));
+
+  const audioLoop: TAudioLoop = loopService.getAudioLoop();
 
   const updateVolumeSub$: Subscription = updateVolume$
     .pipe(
@@ -75,7 +78,7 @@ export function Audio3dWrapper({ sound, volume, position, name, performance }: T
     volume$.unsubscribe();
   });
 
-  const result = {
+  return {
     ...AbstractWrapper(entity, WrapperType.Audio3d),
     getName: (): string => name,
     play: (): number => entity.play(),
@@ -85,8 +88,6 @@ export function Audio3dWrapper({ sound, volume, position, name, performance }: T
     listenerPosition$,
     ...destroyable
   };
-
-  return result;
 }
 
 function onPositionUpdate<T extends Vector3Like | Vector3 | TReadonlyVector3>(position$: BehaviorSubject<T>, noiseThreshold?: number): Observable<T> {
