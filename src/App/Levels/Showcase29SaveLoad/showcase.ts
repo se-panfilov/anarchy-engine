@@ -71,6 +71,10 @@ function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>)
   const space: TSpace = spaces.find((s: TSpace): boolean => s.name === name) as TSpace;
   if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot create the space "${name}"`);
 
+  space.built$.subscribe(() => {
+    spaceData.onSpaceReady?.(space, subscriptions);
+  });
+
   // eslint-disable-next-line functional/immutable-data
   subscriptions[`serializationInProgress$_${space.name}`] = space.serializationInProgress$.subscribe((isInProgress: boolean): void => setSpaceReady(!isInProgress));
 
@@ -109,7 +113,7 @@ function saveSpaceConfigInMemory(name: string | undefined, spaceRegistry: TSpace
 
   const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
-  const { onCreate, onChange, onUnload } = spaceData;
+  const { onSpaceReady, onChange, onUnload, onCreate } = spaceData;
 
   // eslint-disable-next-line functional/immutable-data
   spacesInMemoryData[index > -1 ? index : 0] = {
@@ -117,6 +121,7 @@ function saveSpaceConfigInMemory(name: string | undefined, spaceRegistry: TSpace
     config,
     container: config.canvasSelector,
     onCreate,
+    onSpaceReady,
     onChange,
     onUnload
   };

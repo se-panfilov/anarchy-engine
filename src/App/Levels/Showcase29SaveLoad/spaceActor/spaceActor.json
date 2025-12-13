@@ -66,12 +66,8 @@
         "initial": "Idle",
         "name": "solder_anim_fsm",
         "transitions": [
-          ["Idle", "Run", "Run"],
-          ["Idle", "Walk", "Walk"],
-          ["Walk", "Idle", "Idle"],
-          ["Walk", "Run", "Run"],
-          ["Run", "Walk", "Walk"],
-          ["Run", "Idle", "Idle"]
+          ["Idle", "TPose", "TPose"],
+          ["TPose", "Idle", "Idle"]
         ],
         "type": "animation"
       }

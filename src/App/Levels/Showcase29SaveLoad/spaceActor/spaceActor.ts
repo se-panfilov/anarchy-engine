@@ -1,4 +1,5 @@
-import type { TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TSpace, TSpaceConfig } from '@/Engine';
+import { isNotDefined } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { getContainer } from '../utils';
@@ -10,6 +11,12 @@ export const spaceActorData: TSpacesData = {
   name: config.name,
   config: config,
   container: getContainer(config.canvasSelector),
+  onSpaceReady(space: TSpace): void {
+    const solder: TActor | undefined = space.services.actorService.getRegistry().findByName('solder_actor_1');
+    if (isNotDefined(solder)) throw new Error('Solder actor not found');
+
+    solder.states.animationsFsm.send$.next('Idle');
+  },
   onChange: (space: TSpace): void => {
     // TODO 15-0-0: "states" and FSM not saves
     console.log('XXX position', space.services.cameraService.findActive()?.entity.position);
