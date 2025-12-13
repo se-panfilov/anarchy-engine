@@ -5,40 +5,34 @@ import type { TSpatialCell, TSpatialGridWrapper, TWithUpdateSpatialCell } from '
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function withUpdateSpatialCell(): TWithUpdateSpatialCell {
-  let prev: Pick<TSpatialCell, 'maxX' | 'maxY' | 'minX' | 'minY'> = {} as Pick<TSpatialCell, 'maxX' | 'maxY' | 'minX' | 'minY'>;
+  let prevCells: ReadonlyArray<Pick<TSpatialCell, 'maxX' | 'maxY' | 'minX' | 'minY'>> = [];
 
-  function updateSpatialCell(this: TActorWrapperAsync, newPosition: Vector3): void | never {
+  function updateSpatialCells(this: TActorWrapperAsync, newPosition: Vector3): void | never {
+    const grid: TSpatialGridWrapper | undefined = this.spatial.getGrid();
+    const cells: ReadonlyArray<TSpatialCell> = this.spatial.getSpatialCells();
+
     //first run
-    if (isNotDefined(prev.minX)) {
-      const cell: TSpatialCell | undefined = this.spatial.getSpatialCell();
-      if (isNotDefined(cell)) throw new Error(`Cannot update actor's (id: "${this.id}") spatial grid's cell: actor is not in the grid`);
-      prev = {
-        minX: cell.minX,
-        minY: cell.minY,
-        maxX: cell.maxX,
-        maxY: cell.maxY
-      };
-
+    if (prevCells.length === 0) {
+      prevCells = cells.map(({ maxX, maxY, minX, minY }): Pick<TSpatialCell, 'maxX' | 'maxY' | 'minX' | 'minY'> => ({ maxX, maxY, minX, minY }));
       return;
     }
 
-    if (newPosition.x < prev.minX || newPosition.x > prev.maxX || newPosition.z < prev.minY || newPosition.z > prev.maxY) {
-      const grid: TSpatialGridWrapper | undefined = this.spatial.getGrid();
-      if (isNotDefined(grid)) throw new Error(`Cannot update actor's (id: "${this.id}") spatial grid's cell: grid is not defined`);
-      grid.updateActorCell(this);
-      const newCell: TSpatialCell | undefined = this.spatial.getSpatialCell();
-      if (isDefined(newCell)) {
-        prev = {
-          maxX: newCell.maxX,
-          maxY: newCell.maxY,
-          minX: newCell.minX,
-          minY: newCell.minY
-        };
+    const isOutside = ({ minX, minY, maxX, maxY }: Pick<TSpatialCell, 'maxX' | 'maxY' | 'minX' | 'minY'>, newPosition: Vector3): boolean => {
+      return newPosition.x < minX || newPosition.x > maxX || newPosition.z < minY || newPosition.z > maxY;
+    };
+
+    // eslint-disable-next-line functional/no-loop-statements
+    for (let index: number = 0; index < cells.length; index++) {
+      if (isDefined(prevCells[index]) && isOutside(prevCells[index], newPosition)) {
+        if (isNotDefined(grid)) throw new Error(`Cannot update actor's (id: "${this.id}") spatial grid's cell: grid is not defined`);
+        grid.updateActorCell(this);
       }
     }
+
+    prevCells = cells.map(({ maxX, maxY, minX, minY }) => ({ maxX, maxY, minX, minY }));
   }
 
   return {
-    updateSpatialCell
+    updateSpatialCells
   };
 }

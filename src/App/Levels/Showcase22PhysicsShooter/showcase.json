@@ -60,7 +60,7 @@
     {
       "name": "sphere",
       "type": "sphere",
-      "radius": 1,
+      "radius": 3,
       "isSpatialAutoUpdate": true,
       "material": { "type": "standard", "params": { "color": "#E91E63" } },
       "position": { "x": 6, "y": 2, "z": 12 },

@@ -76,7 +76,10 @@ export async function ActorWrapperAsync(
   if (isDefined(params.scale)) applyScale(actorW, params.scale);
   applyObject3dParams(actorW, params);
 
-  position$.subscribe((newPosition: Vector3): void => actorW.updateSpatialCell(newPosition));
+  position$.subscribe((newPosition: Vector3): void => {
+    // TODO (S.Panfilov) debug "if" clause
+    if (actorW.name === 'sphere') actorW.updateSpatialCells(newPosition);
+  });
 
   return actorW;
 }
