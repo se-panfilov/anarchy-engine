@@ -1,8 +1,9 @@
-import type { IActorConfig, ICameraConfig, ILightConfig, ISceneConfig } from '@Engine/Launcher/Models';
+import type { IActorConfig, ICameraConfig, IControlsConfig, ILightConfig, ISceneConfig } from '@Engine/Launcher/Models';
 import type { IMousePosition, IRegistry, IWatcher } from '@Engine/Models';
 import type {
   IActorFactory,
   ICameraFactory,
+  IControlsFactory,
   ILightFactory,
   ILoopFactory,
   IRendererFactory,
@@ -11,6 +12,7 @@ import type {
 import {
   ActorFactory,
   CameraFactory,
+  ControlsFactory,
   LightFactory,
   LoopFactory,
   RendererFactory,
@@ -21,6 +23,7 @@ import { createDeferredPromise, isNotDefined } from '@Engine/Utils';
 import type {
   IActorWrapper,
   ICameraWrapper,
+  IControlsWrapper,
   ILightWrapper,
   ILoopWrapper,
   IRendererWrapper,
@@ -29,8 +32,8 @@ import type {
 import { combineLatest } from 'rxjs';
 import { MouseClicksWatcher, MousePositionWatcher } from '@Engine/Watchers';
 
-export async function launch(sceneConfig: ISceneConfig): Promise<void> {
-  const { name, actors, cameras, lights } = sceneConfig;
+export async function launch(sceneConfig: ISceneConfig, canvas: HTMLElement): Promise<void> {
+  const { name, actors, cameras, lights, controls } = sceneConfig;
   const { promise, resolve } = createDeferredPromise<void>();
 
   //Watchers
@@ -45,6 +48,7 @@ export async function launch(sceneConfig: ISceneConfig): Promise<void> {
   const cameraFactory: ICameraFactory = CameraFactory();
   const lightFactory: ILightFactory = LightFactory();
   const rendererFactory: IRendererFactory = RendererFactory();
+  const controlsFactory: IControlsFactory = ControlsFactory();
   const loopFactory: ILoopFactory = LoopFactory();
 
   //Entities registries
@@ -77,8 +81,20 @@ export async function launch(sceneConfig: ISceneConfig): Promise<void> {
     }
   );
 
+  combineLatest([controlsFactory.latest$, sceneFactory.latest$]).subscribe(
+    ([control, scene]: [IControlsWrapper, ISceneWrapper]): void => {
+      if (isNotDefined(scene) || isNotDefined(control)) return;
+      console.log('control!!');
+      // controlsRegistry.add$.next(control);
+      // scene.addControl$.next(control);
+    }
+  );
+
   combineLatest([loopFactory.latest$, rendererFactory.latest$, sceneFactory.latest$, cameraFactory.latest$]).subscribe(
     ([loop, renderer, scene, camera]: [ILoopWrapper, IRendererWrapper, ISceneWrapper, ICameraWrapper]): void => {
+      // TODO (S.Panfilov) this loop should start once every entity in the list is ready, not earlyer
+      // TODO (S.Panfilov) and once, not twice or whatever
+      // TODO (S.Panfilov) check!
       loop.start(renderer, scene, camera);
     }
   );
@@ -88,10 +104,7 @@ export async function launch(sceneConfig: ISceneConfig): Promise<void> {
   actors.forEach((config: IActorConfig) => actorFactory.createFromConfig$.next(config));
   cameras.forEach((config: ICameraConfig) => cameraFactory.createFromConfig$.next(config));
   lights.forEach((config: ILightConfig) => lightFactory.createFromConfig$.next(config));
-
-  // TODO (S.Panfilov) canvas (or something else) should come from settings or ambient context
-  const canvas: HTMLElement | null = document.querySelector('#app');
-  if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
+  controls.forEach((config: IControlsConfig) => controlsFactory.createFromConfig$.next(config));
 
   rendererFactory.create$.next({ canvas });
   // create controls (needs camera, renderer)/////////////////////

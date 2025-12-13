@@ -1,6 +1,7 @@
-import type { CameraWrapper } from '@Engine/Wrappers';
+import type { IAppCanvas } from '@Engine/Models/IAppCanvas';
+import type { ICameraWrapper } from '@Engine/Wrappers';
 
 export interface IControlsParams {
-  readonly camera: ReturnType<typeof CameraWrapper>;
-  readonly domElement: HTMLCanvasElement;
+  readonly camera: ICameraWrapper;
+  readonly canvas: IAppCanvas;
 }

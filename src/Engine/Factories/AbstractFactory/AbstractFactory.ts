@@ -5,6 +5,8 @@ import type { IAbstractConfig } from '@Engine/Launcher/Models';
 import { isNotDefined } from '@Engine/Utils';
 import type { ICreateFN } from '@Engine/Factories/AbstractFactory/Models';
 
+// TODO (S.Panfilov) create form config is an extra functionality,
+//  could be extracted from here ("FactoryFromConfig", which together with "AbstractFactory" makes just "Factory")
 export function AbstractFactory<T extends IReactiveWrapper<ENT>, ENT, PRMS, C extends IAbstractConfig>(
   type: string,
   create: ICreateFN<T, PRMS>,

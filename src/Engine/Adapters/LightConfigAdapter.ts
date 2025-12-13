@@ -1,5 +1,5 @@
 import type { ILightConfig, LightShadowConfig } from '@Engine/Launcher/Models';
-import type { ILightParams, LightShadowParams } from '@Engine/Models';
+import type { ILightParams, ILightShadowParams } from '@Engine/Models';
 import { Color, Vector2, Vector3 } from 'three';
 import { isNotDefined } from '@Engine/Utils';
 
@@ -17,7 +17,7 @@ function getLightColorParams(colorStr: string): { color: Color } {
   return { color: new Color(colorStr) };
 }
 
-function getLightShadowParams(shadow: LightShadowConfig | undefined): { shadow: LightShadowParams } | undefined {
+function getLightShadowParams(shadow: LightShadowConfig | undefined): { shadow: ILightShadowParams } | undefined {
   if (isNotDefined(shadow)) return undefined;
   return { shadow: { ...shadow, mapSize: new Vector2(shadow.mapSize.x, shadow.mapSize.y) } };
 }

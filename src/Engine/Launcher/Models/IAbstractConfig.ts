@@ -1,6 +1,7 @@
 import type {
   IActorConfig,
   ICameraConfig,
+  IControlsConfig,
   ILightConfig,
   ISceneConfig,
   IVector2dConfig,
@@ -10,6 +11,7 @@ import type {
 export type IAbstractConfig =
   | IActorConfig
   | ICameraConfig
+  | IControlsConfig
   | ILightConfig
   | ISceneConfig
   | IVector2dConfig
