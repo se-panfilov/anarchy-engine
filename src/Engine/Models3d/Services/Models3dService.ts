@@ -30,7 +30,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     added$.next(result);
   });
 
-  function createFacadeFromPack(pack: TModel3dPack): TModel3dFacade {
+  function createFromPack(pack: TModel3dPack): TModel3dFacade {
     const facade = Model3dFacade(pack, animationsService);
 
     if (pack.options.shouldSaveToRegistry) registry.add(facade);
@@ -88,7 +88,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
   return {
     loadAsync,
     loadFromConfigAsync,
-    createFacadeFromPack,
+    createFromPack,
     added$: added$.asObservable(),
     loaded$: loaded$.asObservable(),
     getRegistry: (): TModels3dAsyncRegistry => registry,

@@ -25,7 +25,7 @@ export async function createActorModel3d(
   if ((params.model3d.url as Model3dType) === Model3dType.Plane) result = { ...result, model: createPlane(params, materialWrapper.entity) };
   else if ((params.model3d.url as Model3dType) === Model3dType.Sphere) result = { ...result, model: createSphere(params, materialWrapper.entity) };
   else if ((params.model3d.url as Model3dType) === Model3dType.Cube) result = { ...result, model: createCube(params, materialWrapper.entity) };
-  return models3dService.createFacadeFromPack(result);
+  return models3dService.createFromPack(result);
 }
 
 function createPlane({ width, height, widthSegments, heightSegments }: TActorParams, material: TMaterials): Mesh {
