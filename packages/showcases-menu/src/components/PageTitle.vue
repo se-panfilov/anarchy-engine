@@ -9,12 +9,13 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
-@use 'anarchy-shared/src/assets/utils' as anarchy_utils;
+@use 'anarchy-shared/src/assets/_utils' as anarchy_utils;
+@use 'anarchy-shared/src/assets/_constants' as anarchy_constants;
 
 .page-title {
   letter-spacing: 2.1px;
   font-size: anarchy_utils.px-to-rem(64px);
-  line-height: 44px;
+  line-height: anarchy_constants.$big-title-line-height;
   text-transform: uppercase;
   text-align: center;
 }

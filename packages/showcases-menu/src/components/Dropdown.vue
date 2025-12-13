@@ -21,7 +21,8 @@ const modelValue = defineModel<T>();
 </template>
 
 <style scoped lang="scss">
-@use 'anarchy-shared/src/assets/utils' as anarchy_utils;
+@use 'anarchy-shared/src/assets/_utils' as anarchy_utils;
+@use 'anarchy-shared/src/assets/_constants' as anarchy_constants;
 
 .dropdown {
   display: flex;
@@ -31,13 +32,13 @@ const modelValue = defineModel<T>();
   &__label {
     font-weight: 500;
     font-size: anarchy_utils.px-to-rem(14px);
-    line-height: 16px;
+    line-height: anarchy_constants.$label-line-height;
   }
 
   &__input {
     font-weight: 500;
     font-size: anarchy_utils.px-to-rem(16px);
-    line-height: 18px;
+    line-height: anarchy_constants.$label-line-height;
     border: 1px solid black;
     border-radius: 6px;
     min-height: 42px;

@@ -10,7 +10,8 @@ defineProps<{ title: string }>();
 </template>
 
 <style scoped lang="scss">
-@use 'anarchy-shared/src/assets/utils' as anarchy_utils;
+@use 'anarchy-shared/src/assets/_utils' as anarchy_utils;
+@use 'anarchy-shared/src/assets/_constants' as anarchy_constants;
 
 .settings-group {
   display: flex;
@@ -20,7 +21,7 @@ defineProps<{ title: string }>();
   &__title {
     font-weight: 500;
     font-size: anarchy_utils.px-to-rem(18px);
-    line-height: 20px;
+    line-height: anarchy_constants.$small-title-line-height;
     margin-bottom: 8px;
   }
 }

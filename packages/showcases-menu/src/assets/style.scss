@@ -1,4 +1,4 @@
-@use 'anarchy-shared/src/assets/constants' as anarchy_constants;
+@use 'anarchy-shared/src/assets/_constants' as anarchy_constants;
 //Adds dynamic font-family (changed on locale/lang change)
 @use 'anarchy-i18n/src/assets/_i18n.scss';
 @use 'showcases-i18n/src/assets/_fonts';
@@ -13,8 +13,44 @@ html {
   font-size: anarchy_constants.$base-font-size;
   font-style: normal;
   font-weight: normal;
+  line-height: anarchy_constants.$base-line-height;
   user-select: none;
   -webkit-app-region: no-drag;
+}
+
+:lang(zh),
+:lang(ja),
+:lang(ko) {
+  line-height: anarchy_constants.$base-asian-line-height;
+}
+:lang(ar) {
+  line-height: anarchy_constants.$base-arabian-line-height;
+}
+:lang(ur) {
+  line-height: anarchy_constants.$base-nastaliq-line-height;
+}
+
+p {
+  line-height: anarchy_constants.$base-line-height;
+}
+
+h1 {
+  line-height: anarchy_constants.$big-title-line-height;
+}
+h2 {
+  line-height: anarchy_constants.$big-title-line-height;
+}
+h3 {
+  line-height: anarchy_constants.$big-title-line-height;
+}
+h4 {
+  line-height: anarchy_constants.$small-title-line-height;
+}
+h5 {
+  line-height: anarchy_constants.$small-title-line-height;
+}
+h6 {
+  line-height: anarchy_constants.$small-title-line-height;
 }
 
 #menu {

@@ -51,7 +51,7 @@ const backButtonText: ShallowRef<string> = $t('main-menu.navigation.back-button.
 </template>
 
 <style scoped lang="scss">
-@use 'anarchy-shared/src/assets/utils' as anarchy_utils;
+@use 'anarchy-shared/src/assets/_utils' as anarchy_utils;
 
 .navigation {
   display: flex;

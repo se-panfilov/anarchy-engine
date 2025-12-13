@@ -1,1 +1,18 @@
 $base-font-size: 16px !default;
+
+// line-height values
+//general
+$base-line-height: 1.5 !default;
+
+//languages
+$base-asian-line-height: 1.65 !default;
+$base-arabian-line-height: 1.65 !default;
+$base-nastaliq-line-height: 2 !default;
+
+//buttons/labels
+$button-line-height: 1.3 !default;
+$label-line-height: 1.3 !default;
+
+//titles
+$big-title-line-height: 1.05 !default;
+$small-title-line-height: 1.2 !default;
