@@ -1,9 +1,12 @@
 import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig, TText3dWrapper } from '@Engine';
 import { asRecord, isNotDefined, spaceService } from '@Engine';
+import { Events } from '@Menu/constants';
 import { initMenuApp } from '@Menu/main';
+import type { TMenuEvent } from '@Menu/models';
 import { filter, Subject } from 'rxjs';
 
-import { openMainMenu } from '@/Levels/Showcase28Menu/MainMenuService';
+import { closeMainMenu, openMainMenu } from '@/Levels/Showcase28Menu/MainMenuService';
+import { menuEventsBus$ } from '@/Levels/Showcase28Menu/MenuEventsBus';
 import type { TAppSettings } from '@/Models';
 import { addGizmo } from '@/Utils';
 
@@ -36,7 +39,19 @@ export function showcase(space: TSpace): void {
   sceneW.addModel3d(planeModel3d);
   sceneW.addText(text3d);
 
-  initMenuApp('#menu');
+  menuEventsBus$.subscribe((event: TMenuEvent): void => {
+    switch (event.type) {
+      case Events.Close: {
+        closeMainMenu();
+        break;
+      }
+      default: {
+        console.warn(`[Showcase]: Unknown event type "${event.type}" received in menuEventsBus$`);
+      }
+    }
+  });
+
+  initMenuApp('#menu', menuEventsBus$);
 
   const watcherMenuCube: TIntersectionsCameraWatcher = intersectionsWatcherService.getCameraWatcher('watcher_menu_cube');
 
