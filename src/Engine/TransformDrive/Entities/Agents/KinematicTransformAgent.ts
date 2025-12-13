@@ -1,7 +1,7 @@
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, EMPTY, switchMap } from 'rxjs';
 import type { QuaternionLike, Vector3Like } from 'three';
-import { Object3D, Quaternion, Vector3 } from 'three';
+import { Euler, Object3D, Quaternion, Vector3 } from 'three';
 
 import { metersPerSecond } from '@/Engine/Distance';
 import { ForwardAxis } from '@/Engine/Kinematic/Constants';
@@ -12,7 +12,7 @@ import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TKinematicAgentDependencies, TKinematicSpeed, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
 import { getStepRotation, isInstant, isPointReached, isRotationReached, moveInstantly, rotateInstantly } from '@/Engine/TransformDrive/Utils';
-import { isDefined, isNotDefined, quaternionToXyzw, vector3ToXyz } from '@/Engine/Utils';
+import { eulerToXyz, isDefined, isNotDefined, quaternionToXyzw, vector3ToXyz } from '@/Engine/Utils';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
 
@@ -301,7 +301,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
           linearSpeed,
           linearDirection: vector3ToXyz(linearDirection),
           angularSpeed,
-          angularDirection: quaternionToXyzw(angularDirection),
+          angularDirection: eulerToXyz(new Euler().setFromQuaternion(angularDirection)),
           radius,
           forwardAxis,
           isInfiniteRotation

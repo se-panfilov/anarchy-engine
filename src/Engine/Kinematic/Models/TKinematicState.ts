@@ -2,6 +2,7 @@ import type { Quaternion, Vector3, Vector3Like } from 'three';
 
 import type { ForwardAxis } from '@/Engine/Kinematic/Constants';
 import type { TMeters, TMetersPerSecond, TRadiansPerSecond } from '@/Engine/Math/Types';
+import type { TEulerLike } from '@/Engine/ThreeLib';
 
 export type TKinematicState = Readonly<{
   linearSpeed: TMetersPerSecond;
@@ -16,5 +17,5 @@ export type TKinematicState = Readonly<{
 export type TKinematicConfigState = Omit<TKinematicState, 'linearDirection' | 'angularDirection'> &
   Readonly<{
     linearDirection: Vector3Like;
-    angularDirection: Vector3Like;
+    angularDirection: TEulerLike;
   }>;
