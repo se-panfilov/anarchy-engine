@@ -11,5 +11,4 @@ export type * from './TCameraTransformAgents';
 export type * from './TCameraTransformDrive';
 export type * from './TCameraWrapper';
 export type * from './TOrthographicCamera';
-export type * from './TParamsFromConfigCamera';
 export type * from './TPerspectiveCamera';
