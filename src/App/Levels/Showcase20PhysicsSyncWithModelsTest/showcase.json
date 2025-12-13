@@ -8,142 +8,160 @@
       "isActive": true
     }
   ],
-  "spatialGrids": [
-    {
-      "name": "main_grid",
-      "mapWidth": 10,
-      "mapHeight": 10,
-      "cellSize": 10,
-      "centerX": 0,
-      "centerZ": 0,
-      "tags": []
-    }
-  ],
-  "actors": [
-    {
-      "name": "actor_1",
-      "model3d": {
-        "url": "sphere"
-      },
-      "radius": 1,
-      "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
-      "physics": {
-        "presetName": "ball_physics",
-        "shapeParams": {
+  "resources": {
+    "textures": [],
+    "envMaps": [],
+    "materials": [{ "name": "box_material", "type": "standard", "options": { "color": "#8E8E8E" } }],
+    "models3d": []
+  },
+  "entities": {
+    "spatialGrids": [
+      {
+        "name": "main_grid",
+        "mapWidth": 10,
+        "mapHeight": 10,
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "tags": []
+      }
+    ],
+    "models3d": [
+      {
+        "name": "sphere_1_model",
+        "model3dSource": "sphere",
+        "materialSource": "box_material",
+        "options": {
           "radius": 1
         },
-        "position": { "x": 0, "y": 6, "z": 0 }
+        "castShadow": true
       },
-      "position": { "x": 0, "y": 6, "z": 0 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "name": "actor_2",
-      "model3d": {
-        "url": "cube"
+      {
+        "name": "cube_1_model",
+        "model3dSource": "cube",
+        "materialSource": "box_material",
+        "options": {
+          "height": 4,
+          "width": 1,
+          "depth": 1,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": true
       },
-      "height": 4,
-      "width": 1,
-      "depth": 1,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
-      "physics": {
-        "presetName": "box_physics",
-        "shapeParams": {
-          "hx": 0.5,
-          "hy": 2,
-          "hz": 0.5
+      {
+        "name": "cube_2_model",
+        "model3dSource": "cube",
+        "materialSource": "box_material",
+        "options": {
+          "height": 4,
+          "width": 1,
+          "depth": 1,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": true
+      }
+    ],
+    "actors": [
+      {
+        "name": "actor_1",
+        "model3dEntity": "sphere_1_model",
+        "physics": {
+          "presetName": "ball_physics",
+          "shapeParams": {
+            "radius": 1
+          },
+          "position": { "x": 0, "y": 6, "z": 0 }
+        },
+        "position": { "x": 0, "y": 6, "z": 0 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      },
+      {
+        "name": "actor_2",
+        "model3dEntity": "cube_1_model",
+        "physics": {
+          "presetName": "box_physics",
+          "shapeParams": {
+            "hx": 0.5,
+            "hy": 2,
+            "hz": 0.5
+          },
+          "position": { "x": -4, "y": 4, "z": 3 },
+          "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
         },
         "position": { "x": -4, "y": 4, "z": 3 },
-        "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
       },
-      "position": { "x": -4, "y": 4, "z": 3 },
-      "rotation": { "x": 0, "y": 0, "z": 0 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "name": "actor_3",
-      "model3d": {
-        "url": "cube"
-      },
-      "height": 4,
-      "width": 1,
-      "depth": 1,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
-      "physics": {
-        "presetName": "box_physics",
-        "shapeParams": {
-          "hx": 0.5,
-          "hy": 2,
-          "hz": 0.5
+      {
+        "name": "actor_3",
+        "model3dEntity": "cube_2_model",
+        "physics": {
+          "presetName": "box_physics",
+          "shapeParams": {
+            "hx": 0.5,
+            "hy": 2,
+            "hz": 0.5
+          },
+          "position": { "x": 4, "y": 5, "z": -4 },
+          "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
         },
         "position": { "x": 4, "y": 5, "z": -4 },
-        "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
-      },
-      "position": { "x": 4, "y": 5, "z": -4 },
-      "rotation": { "x": 0, "y": 0, "z": 0 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    }
-  ],
-  "models3d": [],
-  "intersections": [],
-  "physics": {
-    "global": {
-      "gravity": { "x": 0, "y": -9.81, "z": 0 }
-    },
-    "presets": [
-      {
-        "name": "ball_physics",
-        "type": "dynamic",
-        "collisionShape": "ball"
-      },
-      {
-        "name": "box_physics",
-        "type": "dynamic",
-        "collisionShape": "cuboid"
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
       }
-    ]
-  },
-  "texts": [],
-  "cameras": [
-    {
-      "fov": 45,
-      "name": "main",
-      "near": 1,
-      "far": 10000,
-      "position": { "x": 14, "y": 5, "z": 6 },
-      "rotation": { "x": 0, "y": 0, "z": 0 },
-      "tags": [],
-      "isActive": true
-    }
-  ],
-  "lights": [
-    {
-      "type": "Directional",
-      "color": "#ffffff",
-      "intensity": 1,
-      "castShadow": true,
-      "shadow": {
-        "mapSize": { "x": 1024, "y": 1024 },
-        "camera": { "far": 15 },
-        "normalBias": 0.05
+    ],
+    "intersections": [],
+    "physics": {
+      "global": {
+        "gravity": { "x": 0, "y": -9.81, "z": 0 }
       },
-      "position": { "x": 0.25, "y": 2, "z": 2.25 },
-      "tags": []
-    }
-  ],
-  "controls": [],
-  "envMaps": [],
-  "particles": [],
-  "fogs": [],
+      "presets": [
+        {
+          "name": "ball_physics",
+          "type": "dynamic",
+          "collisionShape": "ball"
+        },
+        {
+          "name": "box_physics",
+          "type": "dynamic",
+          "collisionShape": "cuboid"
+        }
+      ]
+    },
+    "texts": [],
+    "cameras": [
+      {
+        "fov": 45,
+        "name": "main",
+        "near": 1,
+        "far": 10000,
+        "position": { "x": 14, "y": 5, "z": 6 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "tags": [],
+        "isActive": true
+      }
+    ],
+    "lights": [
+      {
+        "type": "Directional",
+        "color": "#ffffff",
+        "intensity": 1,
+        "castShadow": true,
+        "shadow": {
+          "mapSize": { "x": 1024, "y": 1024 },
+          "camera": { "far": 15 },
+          "normalBias": 0.05
+        },
+        "position": { "x": 0.25, "y": 2, "z": 2.25 },
+        "tags": []
+      }
+    ],
+    "controls": [],
+    "envMaps": [],
+    "particles": [],
+    "fogs": []
+  },
   "tags": []
 }

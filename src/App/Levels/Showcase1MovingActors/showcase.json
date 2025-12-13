@@ -49,13 +49,7 @@
         "name": "sphere_model",
         "model3dSource": "sphere",
         "materialSource": "sphere_material",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
+        "options": { "radius": 0.7 },
         "castShadow": true
       }
     ],
