@@ -91,6 +91,8 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
 
     if (isDefined(intervalId)) clearInterval(intervalId);
 
+    tickCounter = 0;
+
     worker?.postMessage({ loopId: id, action: LoopWorkerActions.Destroy } satisfies TLoopWorkerDestroyRequestData);
     worker?.terminate();
     worker = null;
