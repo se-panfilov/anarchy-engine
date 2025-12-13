@@ -1,1 +1,1 @@
-export type * from './TAppFlags';
+export type * from './TAppSettings';

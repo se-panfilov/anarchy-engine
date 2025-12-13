@@ -3,18 +3,18 @@ import { asRecord, getRotationByCos, getRotationBySin, isDefined, isNotDefined, 
 import { combineLatest, distinctUntilChanged, tap } from 'rxjs';
 import type { Vector2Like, Vector3 } from 'three';
 
-import type { TAppFlags } from '@/Models';
+import type { TAppSettings } from '@/Models';
 import { enableFPSCounter } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function start(flags: TAppFlags): void {
-  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], flags));
+export function start(settings: TAppSettings): void {
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig]));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
-  if (flags.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
+  if (settings.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
   space.built$.subscribe(showcase);
 }

@@ -49,7 +49,7 @@ import { Euler, Quaternion, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { degToRad, radToDeg } from 'three/src/math/MathUtils';
 
-import type { TAppFlags } from '@/Models';
+import type { TAppSettings } from '@/Models';
 import { addGizmo, attachConnectorPositionToSubj, enableFPSCounter, getMemoryUsage } from '@/Utils';
 
 import spaceConfigJson from './space.json';
@@ -69,11 +69,11 @@ import {
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function start(flags: TAppFlags): void {
-  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], flags));
+export function start(settings: TAppSettings): void {
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig]));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
-  if (flags.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
+  if (settings.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
   space.built$.subscribe(showcase);
 }

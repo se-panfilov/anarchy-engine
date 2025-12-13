@@ -4,7 +4,7 @@ import type { AnimationAction } from 'three';
 import { Euler, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import type { TAppFlags } from '@/Models';
+import type { TAppSettings } from '@/Models';
 import { addGizmo, enableFPSCounter } from '@/Utils';
 
 import spaceConfigJson from './space.json';
@@ -30,15 +30,15 @@ function beforeResourcesLoaded(_config: TSpaceConfig, { models3dService, scenesS
   });
 }
 
-export function start(flags: TAppFlags): void {
-  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], flags));
+export function start(settings: TAppSettings): void {
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig]));
   const space: TSpace = spaces[spaceConfig.name];
   space.events$.subscribe((event: TSpaceAnyEvent): void => {
     if (event.name === SpaceEvents.BeforeResourcesLoaded) beforeResourcesLoaded(event.args.config, event.args.services);
   });
 
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
-  if (flags.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
+  if (settings.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
   space.built$.subscribe(showcase);
 }
