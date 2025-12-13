@@ -9,7 +9,7 @@ import type { TLightParams } from './TLightParams';
 import type { TLightRegistry } from './TLightRegistry';
 
 export type TLightService = TWithCreateService<TAbstractLightWrapper<TLight>, TLightParams> &
-  TWithCreateFromConfigService<TAnyLightConfig> &
+  TWithCreateFromConfigService<TAnyLightConfig, TAbstractLightWrapper<TLight>> &
   TWithFactoryService<TLightFactory> &
   TWithRegistryService<TLightRegistry> &
   TWithSceneGetterService &

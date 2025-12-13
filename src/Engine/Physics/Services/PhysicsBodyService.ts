@@ -44,8 +44,8 @@ export function PhysicsBodyService(
     return createWithPreset(params, preset);
   };
 
-  const createFromConfig = (physics: ReadonlyArray<TWithPresetNamePhysicsBodyConfig>): void => {
-    physics.forEach((config: TWithPresetNamePhysicsBodyConfig): TPhysicsBodyFacade => {
+  const createFromConfig = (physics: ReadonlyArray<TWithPresetNamePhysicsBodyConfig>): ReadonlyArray<TPhysicsBodyFacade> => {
+    return physics.map((config: TWithPresetNamePhysicsBodyConfig): TPhysicsBodyFacade => {
       return create(physicsPresetService.getMergedConfigWithPresetParams(config, factory));
     });
   };

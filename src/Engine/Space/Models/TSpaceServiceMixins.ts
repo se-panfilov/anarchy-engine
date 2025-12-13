@@ -10,8 +10,8 @@ export type TWithCreateService<W, P> = Readonly<{
 
 export type TWithCreateAsyncService<W, P> = TWithCreateAsync<W, P>;
 
-export type TWithCreateFromConfigService<C> = Readonly<{
-  createFromConfig: (config: ReadonlyArray<C>) => void;
+export type TWithCreateFromConfigService<C, T> = Readonly<{
+  createFromConfig: (config: ReadonlyArray<C>) => ReadonlyArray<T>;
 }>;
 
 export type TWithCreateFromConfigAsyncService<C, R> = Readonly<{

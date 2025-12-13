@@ -8,7 +8,7 @@ import type { TParticlesRegistry } from './TParticlesRegistry';
 import type { TParticlesWrapper } from './TParticlesWrapper';
 
 export type TParticlesService = TWithCreateService<TParticlesWrapper, TParticlesParams> &
-  TWithCreateFromConfigService<TParticlesConfig> &
+  TWithCreateFromConfigService<TParticlesConfig, TParticlesWrapper> &
   TWithFactoryService<TParticlesFactory> &
   TWithRegistryService<TParticlesRegistry> &
   TWithSceneGetterService &

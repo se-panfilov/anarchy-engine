@@ -11,7 +11,7 @@ export type TCameraService = Readonly<{
   startUpdatingCamerasAspect: (isOnlyActive: boolean) => void;
 }> &
   TWithCreateService<TCameraWrapper, TCameraParams> &
-  TWithCreateFromConfigService<TCameraConfig> &
+  TWithCreateFromConfigService<TCameraConfig, TCameraWrapper> &
   TWithActiveAccessorsService<TCameraWrapper> &
   TWithFactoryService<TCameraFactory> &
   TWithRegistryService<TCameraRegistry> &

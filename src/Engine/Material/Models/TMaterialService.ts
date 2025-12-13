@@ -9,7 +9,7 @@ import type { TMaterialTexturePack } from './TMaterialTexturePack';
 import type { TMaterialWrapper } from './TMaterialWrapper';
 
 export type TMaterialService = TWithCreateService<TMaterialWrapper, TMaterialParams> &
-  TWithCreateFromConfigService<TMaterialPackConfig<TMaterialTexturePack>> &
+  TWithCreateFromConfigService<TMaterialPackConfig<TMaterialTexturePack>, TMaterialWrapper> &
   TWithFactoryService<TMaterialFactory> &
   TWithRegistryService<TMaterialRegistry> &
   TDestroyable;

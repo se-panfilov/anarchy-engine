@@ -29,9 +29,8 @@ export function Models3dService(
   const model3dLoader: TModels3dLoader = Models3dLoader(resourcesRegistry);
 
   const create = (params: TModel3dParams): TModel3dFacade => factory.create(params, { animationsService });
-  const createFromConfig = (models3d: ReadonlyArray<TModel3dConfig>): void => {
-    models3d.forEach((config: TModel3dConfig): TModel3dFacade => create(factory.configToParams(config, { materialService })));
-  };
+  const createFromConfig = (models3d: ReadonlyArray<TModel3dConfig>): ReadonlyArray<TModel3dFacade> =>
+    models3d.map((config: TModel3dConfig): TModel3dFacade => create(factory.configToParams(config, { materialService })));
 
   // function createFromPack(pack: TModel3dPack): TModel3dFacade {
   //   const facade: TModel3dFacade = isPrimitive(pack) ? Model3dPrimitiveFacade(createPrimitiveModel3dPack(pack)) : Model3dFacade(pack, animationsService);
@@ -65,10 +64,10 @@ export function Models3dService(
   //   return params.map((p: TModel3dParams): TModel3dFacade => create(p));
   // }
 
-  function loadOrCreateFromConfigAsync(config: ReadonlyArray<TModel3dResourceConfig>): Promise<ReadonlyArray<void | GLTF>> {
-    const promisesList: ReadonlyArray<Promise<void | GLTF>> = config.map((c: TModel3dResourceConfig): Promise<void | GLTF> => {
+  function loadOrCreateFromConfigAsync(config: ReadonlyArray<TModel3dResourceConfig>): Promise<ReadonlyArray<TModel3dFacade | GLTF>> {
+    const promisesList: ReadonlyArray<Promise<TModel3dFacade | GLTF>> = config.map((c: TModel3dResourceConfig): Promise<TModel3dFacade | GLTF> => {
       if (isPrimitiveModel3dConfig(c)) {
-        return Promise.resolve(createFromConfig(config));
+        return Promise.resolve(create(factory.configToParams(c, { materialService })));
       } else {
         return model3dLoader.loadAsync(c);
       }

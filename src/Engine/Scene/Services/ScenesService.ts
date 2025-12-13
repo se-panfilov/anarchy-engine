@@ -11,7 +11,7 @@ export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry):
   factory.entityCreated$.subscribe((wrapper: TSceneWrapper): void => registry.add(wrapper));
 
   const create = (params: TSceneParams): TSceneWrapper => factory.create(params);
-  const createFromConfig = (scenes: ReadonlyArray<TSceneConfig>): void => scenes.forEach((config: TSceneConfig): TSceneWrapper => factory.create(factory.configToParams(config)));
+  const createFromConfig = (scenes: ReadonlyArray<TSceneConfig>): ReadonlyArray<TSceneWrapper> => scenes.map((config: TSceneConfig): TSceneWrapper => factory.create(factory.configToParams(config)));
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {

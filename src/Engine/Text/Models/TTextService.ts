@@ -15,7 +15,7 @@ import type { TTextFactory } from './TTextFactory';
 import type { TTextParams } from './TTextParams';
 
 export type TTextService = TWithCreateService<TTextAnyWrapper, TTextParams> &
-  TWithCreateFromConfigService<TTextConfig> &
+  TWithCreateFromConfigService<TTextConfig, TTextAnyWrapper> &
   TWithFactoryService<TTextFactory> &
   Readonly<{
     getRegistries: () => { text2dRegistry: TText2dRegistry; text3dRegistry: TText3dRegistry };

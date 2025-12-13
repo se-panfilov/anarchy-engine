@@ -9,9 +9,9 @@ export function ActorService(factory: TActorFactory, registry: TActorRegistry, a
   factory.entityCreated$.subscribe((wrapper: TActorWrapper | TActorWrapperWithPhysics): void => registry.add(wrapper));
 
   const create = (params: TActorParams): TActorWrapper | TActorWrapperWithPhysics => factory.create(params, actorServiceDependencies);
-  const createFromConfig = (actors: ReadonlyArray<TActorConfig>): void => {
+  const createFromConfig = (actors: ReadonlyArray<TActorConfig>): ReadonlyArray<TActorWrapper | TActorWrapperWithPhysics> => {
     const spatialGridRegistry: TSpatialGridRegistry = actorServiceDependencies.spatialGridService.getRegistry();
-    actors.forEach(
+    return actors.map(
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       (config: TActorConfig): TActorWrapper | TActorWrapperWithPhysics =>
         factory.create(factory.configToParams(config, { spatialGridRegistry, models3dService: actorServiceDependencies.models3dService }), actorServiceDependencies)

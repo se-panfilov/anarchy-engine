@@ -8,7 +8,7 @@ import type { TSceneRegistry } from './TSceneRegistry';
 import type { TSceneWrapper } from './TSceneWrapper';
 
 export type TScenesService = TWithCreateService<TSceneWrapper, TSceneParams> &
-  TWithCreateFromConfigService<TSceneConfig> &
+  TWithCreateFromConfigService<TSceneConfig, TSceneWrapper> &
   TWithActiveAccessorsService<TSceneWrapper> &
   TWithFactoryService<TSceneFactory> &
   TWithRegistryService<TSceneRegistry> &

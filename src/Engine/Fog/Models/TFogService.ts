@@ -8,7 +8,7 @@ import type { TFogRegistry } from './TFogRegistry';
 import type { TFogWrapper } from './TFogWrapper';
 
 export type TFogService = TWithCreateService<TFogWrapper, TFogParams> &
-  TWithCreateFromConfigService<TFogConfig> &
+  TWithCreateFromConfigService<TFogConfig, TFogWrapper> &
   TWithFactoryService<TFogFactory> &
   TWithRegistryService<TFogRegistry> &
   TWithSceneGetterService &

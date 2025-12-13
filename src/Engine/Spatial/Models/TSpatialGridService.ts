@@ -8,7 +8,7 @@ import type { TSpatialGridRegistry } from './TSpatialGridRegistry';
 import type { TSpatialGridWrapper } from './TSpatialGridWrapper';
 
 export type TSpatialGridService = TWithCreateService<TSpatialGridWrapper, TSpatialGridParams> &
-  TWithCreateFromConfigService<TSpatialGridConfig> &
+  TWithCreateFromConfigService<TSpatialGridConfig, TSpatialGridWrapper> &
   TWithFactoryService<TSpatialGridFactory> &
   TWithRegistryService<TSpatialGridRegistry> &
   TDestroyable;

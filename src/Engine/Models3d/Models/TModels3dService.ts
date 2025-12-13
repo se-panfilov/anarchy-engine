@@ -12,12 +12,12 @@ export type TModels3dService = Readonly<{
   clone: (model3dFacade: TModel3dFacade, overrides?: TOptional<TModel3dPack>) => TModel3dFacade;
 }> &
   TWithCreateService<TModel3dFacade, TModel3dParams> &
-  TWithCreateFromConfigService<TModel3dConfig> &
+  TWithCreateFromConfigService<TModel3dConfig, TModel3dFacade> &
   TWithFactoryService<TModels3dFactory> &
   TWithRegistryService<TModel3dRegistry> &
   TWithResourcesRegistryService<TModel3dResourceAsyncRegistry> &
   TWithLoadResourcesAsyncService<TModel3dResourceConfig, GLTF> &
   Readonly<{
-    loadOrCreateFromConfigAsync: (config: ReadonlyArray<TModel3dResourceConfig>) => Promise<ReadonlyArray<void | GLTF>>;
+    loadOrCreateFromConfigAsync: (config: ReadonlyArray<TModel3dResourceConfig>) => Promise<ReadonlyArray<TModel3dFacade | GLTF>>;
   }> &
   TDestroyable;

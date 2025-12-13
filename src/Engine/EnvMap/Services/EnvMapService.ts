@@ -16,8 +16,8 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
   const envMapLoader: TEnvMapLoader = EnvMapLoader(resourcesRegistry);
 
   const create = (params: TEnvMapParams): TEnvMapWrapper => factory.create(params, { resourcesRegistry });
-  const createFromConfig = (envMaps: ReadonlyArray<TEnvMapConfig>): void => {
-    envMaps.forEach((config: TEnvMapConfig): TEnvMapWrapper => factory.create(factory.configToParams(config, { resourcesRegistry })));
+  const createFromConfig = (envMaps: ReadonlyArray<TEnvMapConfig>): ReadonlyArray<TEnvMapWrapper> => {
+    return envMaps.map((config: TEnvMapConfig): TEnvMapWrapper => factory.create(factory.configToParams(config, { resourcesRegistry })));
   };
 
   withActive.active$.subscribe((wrapper: TEnvMapWrapper | undefined): void => {

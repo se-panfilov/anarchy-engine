@@ -11,7 +11,7 @@ import type { TPhysicsPresetParams } from './TPhysicsPresetParams';
 import type { TWithPresetNamePhysicsBodyConfig } from './TWithPresetNamePhysicsBodyConfig';
 
 export type TPhysicsBodyService = TWithCreateService<TPhysicsBodyFacade, TPhysicsBodyParams> &
-  TWithCreateFromConfigService<TWithPresetNamePhysicsBodyConfig> &
+  TWithCreateFromConfigService<TWithPresetNamePhysicsBodyConfig, TPhysicsBodyFacade> &
   TWithFactoryService<TPhysicsBodyFactory> &
   TWithRegistryService<TPhysicsBodyRegistry> &
   TDestroyable &

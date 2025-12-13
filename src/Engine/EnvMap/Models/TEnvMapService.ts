@@ -12,7 +12,7 @@ import type {
 } from '@/Engine/Space';
 
 export type TEnvMapService = TWithCreateService<TEnvMapWrapper, TEnvMapParams> &
-  TWithCreateFromConfigService<TEnvMapConfig> &
+  TWithCreateFromConfigService<TEnvMapConfig, TEnvMapWrapper> &
   TWithActiveAccessorsService<TEnvMapWrapper> &
   TWithFactoryService<TEnvMapFactory> &
   TWithRegistryService<TEnvMapRegistry> &

@@ -11,7 +11,7 @@ import type { TIntersectionsWatcherParams } from './TIntersectionsWatcherParams'
 import type { TIntersectionsWatcherRegistry } from './TIntersectionsWatcherRegistry';
 
 export type TIntersectionsWatcherService = TWithCreateService<TIntersectionsWatcher, TIntersectionsWatcherParams> &
-  Omit<TWithCreateFromConfigService<TIntersectionsWatcherConfig>, 'createFromConfig'> &
+  Omit<TWithCreateFromConfigService<TIntersectionsWatcherConfig, TIntersectionsWatcher>, 'createFromConfig'> &
   Readonly<{
     createFromConfig: (
       configs: ReadonlyArray<TIntersectionsWatcherConfig>,

@@ -9,7 +9,7 @@ import type { TControlsRegistry } from './TControlsRegistry';
 import type { TControlsWrapper } from './TControlsWrapper';
 
 export type TControlsService = TWithCreateService<TControlsWrapper, TControlsParams> &
-  Omit<TWithCreateFromConfigService<TControlsConfig>, 'createFromConfig'> &
+  Omit<TWithCreateFromConfigService<TControlsConfig, TControlsWrapper>, 'createFromConfig'> &
   Readonly<{
     createFromConfig: (controls: ReadonlyArray<TControlsConfig>, camerasRegistry: TCameraRegistry) => void;
   }> &

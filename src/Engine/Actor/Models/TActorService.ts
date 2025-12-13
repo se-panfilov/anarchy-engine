@@ -9,7 +9,7 @@ import type { TActorWrapper } from './TActorWrapper';
 import type { TActorWrapperWithPhysics } from './TActorWrapperWithPhysics';
 
 export type TActorService = TWithCreateService<TActorWrapper | TActorWrapperWithPhysics, TActorParams> &
-  TWithCreateFromConfigService<TActorConfig> &
+  TWithCreateFromConfigService<TActorConfig, TActorWrapper | TActorWrapperWithPhysics> &
   TWithFactoryService<TActorFactory> &
   TWithRegistryService<TActorRegistry> &
   TWithSceneGetterService &
