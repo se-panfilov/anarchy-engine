@@ -93,7 +93,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
     models3dService,
     animationsService,
     mouseService: MouseService(ambientContext.container, { loopService }),
-    particlesService: ParticlesService(ParticlesFactory(), ParticlesRegistry(), materialTextureService, sceneW),
+    particlesService: ParticlesService(ParticlesFactory(), ParticlesRegistry(), materialService, sceneW),
     physicsBodyService,
     physicsWorldService,
     physicsPresetService,
