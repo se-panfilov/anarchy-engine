@@ -17,7 +17,7 @@ export function IntersectionsWatcher({ position$, tags = [] }: IIntersectionsWat
   let actors: ReadonlyArray<IWithWrapperIdEntity<IMesh>> = [];
   let camera: Readonly<ICameraWrapper> | undefined;
 
-  const addActors = (actorWrappers: ReadonlyArray<IActorWrapperAsync>): void => void (actors = [...actors, unWrapEntities(actorWrappers)] as ReadonlyArray<IWithWrapperIdEntity<IMesh>>);
+  const addActors = (actorWrappers: ReadonlyArray<IActorWrapperAsync>): void => void (actors = [...actors, ...unWrapEntities(actorWrappers)] as ReadonlyArray<IWithWrapperIdEntity<IMesh>>);
   const addActor = (actorWrapper: IActorWrapperAsync): void => void (actors = [...actors, actorWrapper.entity as IWithWrapperIdEntity<IMesh>]);
   const getActors = (): ReadonlyArray<IWithWrapperIdEntity<IMesh>> => actors;
   const removeActors = (actorWrapperIds: ReadonlyArray<string>): void =>
