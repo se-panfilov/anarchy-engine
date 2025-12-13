@@ -6,12 +6,10 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "before:release": "npm run before:release:check && npm run generate:third-party-list && npm run sanitize-assets",
+    "before:release": "npm run before:release:check",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",
     "build": "rimraf dist && vite build",
     "e2e": "playwright test",
-    "generate:licenses": "yarn licenses generate-disclaimer --production > THIRD_PARTY_LICENSES.md",
-    "generate:third-party-list": "npm install -g license-report && license-report --only=prod --output=markdown --department.value='Game Engine' --relatedTo.value='Runtime dependencies' --exclude=anarchy-shared > THIRD_PARTY_LIST.md",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "prettier --write .",
