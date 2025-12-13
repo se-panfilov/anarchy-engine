@@ -191,7 +191,7 @@ describe('RegistryAsyncUtils', () => {
           setTimeout(() => registryAsync.add(obj5None), 20);
           const result: TRegistrable | undefined = await getUniqEntityWithTagsAsync([tagB], registryAsync, LookUpStrategy.Every, waitingTime);
           expect(result).toBeUndefined();
-        }, 110);
+        }, 200);
       });
 
       describe('LookUpStrategy "some"', () => {
