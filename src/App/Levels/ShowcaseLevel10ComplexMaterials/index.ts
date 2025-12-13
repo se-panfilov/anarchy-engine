@@ -71,6 +71,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const isRoughness: boolean = isDefined((actor.entity.material as MeshStandardMaterial).roughness);
     const isAoMap: boolean = isDefined((actor.entity.material as MeshStandardMaterial).aoMap);
     const isDisplacementMap: boolean = isDefined((actor.entity.material as MeshStandardMaterial).displacementMap);
+    const isNormalMap: boolean = isDefined((actor.entity.material as MeshStandardMaterial).normalMap);
     const hasTunableProps: boolean = isMetalness || isRoughness || isAoMap || isDisplacementMap;
 
     if (hasTunableProps) gui.addFolder(actor.getTags()[0]);
@@ -78,6 +79,17 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     if (isRoughness) gui.add(actor.entity.material, 'roughness').min(0).max(1).step(0.0001);
     if (isAoMap) gui.add(actor.entity.material, 'aoMapIntensity').min(0).max(1).step(0.0001);
     if (isDisplacementMap) gui.add(actor.entity.material, 'displacementScale').min(0).max(1).step(0.0001);
+    if (isNormalMap) {
+      const scale = { normalScale: 1 };
+      gui
+        .add(scale, 'normalScale')
+        .min(0)
+        .max(1)
+        .step(0.0001)
+        .onChange((value: number): void => {
+          (actor.entity.material as MeshStandardMaterial).normalScale.set(value, value);
+        });
+    }
   });
 
   function start(): void {
