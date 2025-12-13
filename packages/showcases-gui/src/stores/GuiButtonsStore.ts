@@ -23,9 +23,9 @@ export const useGuiButtonStore = defineStore('guiButtonsStore', () => {
     state[buttonName].isActive = isActive;
   }
 
-  function setActiveButtonByKey(key: KeyCode | KeysExtra | MouseButtonValue, isActive: boolean): void | never {
-    const buttonEntry = Object.entries(state).find(([, buttonState]) => buttonState.key === key);
-    if (isNotDefined(buttonEntry)) throw new Error(`[GuiButtonsStore]: Can't set active button: button for key "${key}" is not found`);
+  function setActiveButtonByKey(key: KeyCode | KeysExtra | MouseButtonValue, isActive: boolean): void {
+    const buttonEntry = Object.entries(state).find(([, buttonState]): boolean => buttonState.key === key);
+    if (isNotDefined(buttonEntry)) return;
     const [buttonName] = buttonEntry;
     setActiveButton(buttonName as GuiBottomButtons, isActive);
   }
