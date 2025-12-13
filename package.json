@@ -4,6 +4,7 @@
   "private": true,
   "version": "3.1.0",
   "type": "module",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "rimraf ./dist tsc && vite build",
