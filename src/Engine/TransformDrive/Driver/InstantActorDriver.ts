@@ -8,11 +8,11 @@ import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { withMutablePositionConnector } from '@/Engine/TransformDrive/Mixins';
 import { withMutableRotationConnector } from '@/Engine/TransformDrive/Mixins/WithMutableRotationConnector';
 import { withMutableScaleConnector } from '@/Engine/TransformDrive/Mixins/WithMutableScaleConnector';
-import type { TInstantActorDriver } from '@/Engine/TransformDrive/Models';
+import type { TInstantTransformDriver } from '@/Engine/TransformDrive/Models';
 import type { TWithUndefined } from '@/Engine/Utils';
 import { updateSubjOnChange } from '@/Engine/Utils';
 
-export function InstantActorDriver(params: TActorParams): TInstantActorDriver {
+export function InstantActorDriver(params: TActorParams): TInstantTransformDriver {
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.position);
   const rotation$: BehaviorSubject<TReadonlyEuler> = new BehaviorSubject<TReadonlyEuler>(params.rotation);
   const scale$: BehaviorSubject<TReadonlyVector3 | undefined> = new BehaviorSubject<TReadonlyVector3 | undefined>(params.scale);

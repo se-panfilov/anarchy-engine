@@ -7,7 +7,7 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { TransformDriver } from '@/Engine/TransformDrive/Constants';
 import { ProtectedDriverFacade } from '@/Engine/TransformDrive/Facades';
-import type { TAbstractTransformDriver, TProtectedDriverFacade, TProtectedTransformDrivers, TTransformDrive, TTransformDrivers } from '@/Engine/TransformDrive/Models';
+import type { TAbstractTransformDriver, TProtectedTransformDriverFacade, TProtectedTransformDrivers, TTransformDrive, TTransformDrivers } from '@/Engine/TransformDrive/Models';
 
 export function TransformDrive(params: TActorParams, drivers: TTransformDrivers): TTransformDrive {
   //We don't want to expose these BehaviorSubjects, because they're vulnerable to external changes without .next()
@@ -80,7 +80,7 @@ export function TransformDrive(params: TActorParams, drivers: TTransformDrivers)
     scale$.complete();
     scale$.unsubscribe();
 
-    Object.values(drivers).forEach((driver: TProtectedDriverFacade<TAbstractTransformDriver>): void => driver.destroy$.next());
+    Object.values(drivers).forEach((driver: TProtectedTransformDriverFacade<TAbstractTransformDriver>): void => driver.destroy$.next());
   });
 
   return result;

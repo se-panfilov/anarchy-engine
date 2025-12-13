@@ -1,18 +1,18 @@
 import type { TransformDriver } from '@/Engine/TransformDrive/Constants';
 
-import type { TInstantActorDriver } from './TInstantActorDriver';
-import type { TKinematicActorDriver } from './TKinematicActorDriver';
-import type { TPhysicsActorDriver } from './TPhysicsActorDriver';
-import type { TProtectedDriverFacade } from './TProtectedDriverFacade';
+import type { TInstantTransformDriver } from './TInstantTransformDriver';
+import type { TKinematicTransformDriver } from './TKinematicTransformDriver';
+import type { TPhysicsTransformDriver } from './TPhysicsTransformDriver';
+import type { TProtectedTransformDriverFacade } from './TProtectedTransformDriverFacade';
 
 export type TTransformDrivers = Readonly<{
-  [TransformDriver.Kinematic]: TKinematicActorDriver;
-  [TransformDriver.Physical]: TPhysicsActorDriver;
-  [TransformDriver.Instant]: TInstantActorDriver;
+  [TransformDriver.Kinematic]: TKinematicTransformDriver;
+  [TransformDriver.Physical]: TPhysicsTransformDriver;
+  [TransformDriver.Instant]: TInstantTransformDriver;
 }>;
 
 export type TProtectedTransformDrivers = Readonly<{
-  [TransformDriver.Kinematic]: TProtectedDriverFacade<TKinematicActorDriver>;
-  [TransformDriver.Physical]: TProtectedDriverFacade<TPhysicsActorDriver>;
-  [TransformDriver.Instant]: TProtectedDriverFacade<TInstantActorDriver>;
+  [TransformDriver.Kinematic]: TProtectedTransformDriverFacade<TKinematicTransformDriver>;
+  [TransformDriver.Physical]: TProtectedTransformDriverFacade<TPhysicsTransformDriver>;
+  [TransformDriver.Instant]: TProtectedTransformDriverFacade<TInstantTransformDriver>;
 }>;

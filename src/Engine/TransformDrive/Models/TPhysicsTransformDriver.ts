@@ -1,3 +1,3 @@
 import type { TAbstractTransformDriver } from './TAbstractTransformDriver';
 
-export type TPhysicsActorDriver = TAbstractTransformDriver;
+export type TPhysicsTransformDriver = TAbstractTransformDriver;

@@ -5,7 +5,7 @@ import type { TReadonlyQuaternion } from '@/Engine/ThreeLib';
 
 import type { TAbstractTransformDriver } from './TAbstractTransformDriver';
 
-export type TKinematicActorDriver = TAbstractTransformDriver &
+export type TKinematicTransformDriver = TAbstractTransformDriver &
   Readonly<{
     data: TKinematicData;
     rotationQuaternion$: Observable<TReadonlyQuaternion>;

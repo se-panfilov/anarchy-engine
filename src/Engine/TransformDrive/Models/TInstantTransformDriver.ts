@@ -3,4 +3,4 @@ import type { TWithMutablePositionConnector } from './TWithMutablePositionConnec
 import type { TWithMutableRotationConnector } from './TWithMutableRotationConnector';
 import type { TWithMutableScaleConnector } from './TWithMutableScaleConnector';
 
-export type TInstantActorDriver = TAbstractInstantDriver & TWithMutablePositionConnector & TWithMutableRotationConnector & TWithMutableScaleConnector;
+export type TInstantTransformDriver = TAbstractInstantDriver & TWithMutablePositionConnector & TWithMutableRotationConnector & TWithMutableScaleConnector;
