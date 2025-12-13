@@ -1,5 +1,5 @@
 import type { TActorParams } from '@/Engine/Actor';
-import type { TSpatialCell, TSpatialGridWrapper } from '@/Engine/Spatial';
+import type { TSpatialCellWrapper, TSpatialGridWrapper } from '@/Engine/Spatial';
 import { SpatialUpdatePriority } from '@/Engine/Spatial';
 import type { TSpatialData, TWithSpatial } from '@/Engine/Spatial/Models';
 import type { TWriteable } from '@/Engine/Utils';
@@ -47,10 +47,10 @@ export function withSpatial(params: TActorParams): TWithSpatial {
         // eslint-disable-next-line functional/immutable-data
         (this.data as TWriteable<TSpatialData>).grid = undefined;
       },
-      getSpatialCells(): ReadonlyArray<TSpatialCell> {
+      getSpatialCells(): ReadonlyArray<TSpatialCellWrapper> {
         return this.data.cells;
       },
-      setSpatialCells(cells: ReadonlyArray<TSpatialCell>): void {
+      setSpatialCells(cells: ReadonlyArray<TSpatialCellWrapper>): void {
         // eslint-disable-next-line functional/immutable-data
         (this.data as TWriteable<TSpatialData>).cells = cells;
       },

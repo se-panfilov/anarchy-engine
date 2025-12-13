@@ -7,8 +7,8 @@ export type TSpatialCellId = `spatial_cell_${number}_${number}`;
 export type TSpatialCell = BBox &
   Readonly<{
     id: TSpatialCellId;
-    objects: Array<TActorWrapperAsync>;
   }> & {
+    objects: Array<TActorWrapperAsync>;
     // version represents the version of the cell. It's used to invalidate the cache of the cell. (e.g. when an object is added or removed)
     version: number;
   };

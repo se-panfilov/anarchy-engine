@@ -3,7 +3,9 @@ import { Box3, Raycaster } from 'three';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor/Models';
 import type { TCollisionCheckResult, TCollisionsService, TRaycastBvhService } from '@/Engine/Collisions/Models';
-import type { TSpatialCell, TSpatialGridWrapper } from '@/Engine/Spatial';
+import type { TSceneWrapper } from '@/Engine/Scene';
+import type { TSpatialCellWrapper, TSpatialGridWrapper } from '@/Engine/Spatial';
+import { createBoundingBox } from '@/Engine/Spatial/Services/SpatialHelper';
 
 import { RaycastBvhService } from './RaycastBvhService';
 
@@ -22,13 +24,15 @@ export function CollisionsService(): TCollisionsService {
     };
 
     // TODO (S.Panfilov) CWP something is wrong with this box. And actually, why it's a box? Who is an actor? A bullet or a target?
-    const cells: ReadonlyArray<TSpatialCell> = spatialGrid.findCellsForBox(queryBox);
-    console.log(cells);
+    const cells: ReadonlyArray<TSpatialCellWrapper> = spatialGrid.findCellsForBox(queryBox);
+
+    // TODO (S.Panfilov) debug
+    // console.log(cells.map((c: TSpatialCell) => c.id).join(', '));
     // const cells: ReadonlyArray<TSpatialCell> = spatialGrid.entity.search(queryBox);
     // eslint-disable-next-line functional/no-loop-statements
     for (const cell of cells) {
       // eslint-disable-next-line functional/no-loop-statements
-      for (const object of cell.objects) {
+      for (const object of cell.getObjects()) {
         // if (object.id !== actorW.id) {
         //   const intersection: Intersection = bvhService.raycastWithBvh(object as Mesh, actorW.entity);
         //   if (intersection.distance < radius) {

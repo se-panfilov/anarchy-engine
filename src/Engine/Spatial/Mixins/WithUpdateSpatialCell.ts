@@ -1,7 +1,7 @@
 import type { Vector3 } from 'three';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor';
-import type { TSpatialCell, TSpatialGridWrapper, TWithUpdateSpatialCell } from '@/Engine/Spatial/Models';
+import type { TSpatialCell, TSpatialCellWrapper, TSpatialGridWrapper, TWithUpdateSpatialCell } from '@/Engine/Spatial/Models';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function withUpdateSpatialCell(): TWithUpdateSpatialCell {
@@ -9,7 +9,7 @@ export function withUpdateSpatialCell(): TWithUpdateSpatialCell {
 
   function updateSpatialCells(this: TActorWrapperAsync, newPosition: Vector3): void | never {
     const grid: TSpatialGridWrapper | undefined = this.spatial.getGrid();
-    const cells: ReadonlyArray<TSpatialCell> = this.spatial.getSpatialCells();
+    const cells: ReadonlyArray<TSpatialCellWrapper> = this.spatial.getSpatialCells();
 
     //first run
     if (prevCells.length === 0) {

@@ -1,6 +1,6 @@
 import type { SpatialUpdatePriority } from '@/Engine/Spatial/Constants';
 
-import type { TSpatialCell } from './TSpatialCell';
+import type { TSpatialCellWrapper } from './TSpatialCellWrapper';
 import type { TSpatialData } from './TSpatialData';
 import type { TSpatialGridWrapper } from './TSpatialGridWrapper';
 
@@ -14,7 +14,7 @@ export type TSpatialMethods = Readonly<{
   setGrid: (grid: TSpatialGridWrapper) => void;
   getGrid: () => TSpatialGridWrapper | undefined;
   resetGrid: () => void;
-  getSpatialCells: () => ReadonlyArray<TSpatialCell>;
-  setSpatialCells: (cells: ReadonlyArray<TSpatialCell>) => void;
+  getSpatialCells: () => ReadonlyArray<TSpatialCellWrapper>;
+  setSpatialCells: (cells: ReadonlyArray<TSpatialCellWrapper>) => void;
   resetSpatialCells: () => void;
 }>;

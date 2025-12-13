@@ -1,5 +1,7 @@
 export * from './TParamsFromConfigSpatial';
 export * from './TSpatialCell';
+export * from './TSpatialCellParams';
+export * from './TSpatialCellWrapper';
 export * from './TSpatialConfigToParamsSpatialDataDependencies';
 export * from './TSpatialData';
 export * from './TSpatialDataConfig';

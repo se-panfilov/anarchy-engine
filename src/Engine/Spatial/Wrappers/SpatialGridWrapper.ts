@@ -10,15 +10,16 @@ import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActorWrapperAsync } from '@/Engine/Actor';
 import type { TWithCoordsXZ } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
-import type { TSpatialCell, TSpatialCellId, TSpatialGrid, TSpatialGridParams, TSpatialGridWrapper } from '@/Engine/Spatial/Models';
+import type { TSpatialCellId, TSpatialCellParams, TSpatialCellWrapper, TSpatialGrid, TSpatialGridParams, TSpatialGridWrapper } from '@/Engine/Spatial/Models';
 import { createBoundingBox, createOutline } from '@/Engine/Spatial/Services/SpatialHelper';
+import { SpatialCellWrapper } from '@/Engine/Spatial/Wrappers/SpatialCellWrapper';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrapper {
   const entity: TSpatialGrid = createEntity(params);
   let _debugOutlines: Array<Line2> = [];
   let _debugOutlinesIds: Array<number> = [];
-  const update$: Subject<TSpatialCell> = new Subject<TSpatialCell>();
+  const update$: Subject<TSpatialCellWrapper> = new Subject<TSpatialCellWrapper>();
 
   function createEntity({ mapWidth, mapHeight, cellSize, centerX, centerZ }: TSpatialGridParams): TSpatialGrid {
     const startX: number = centerX - Math.floor(mapWidth / cellSize / 2) * cellSize;
@@ -30,17 +31,9 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     for (let x = 0; x < mapWidth; x += cellSize) {
       // eslint-disable-next-line functional/no-loop-statements
       for (let z = 0; z < mapHeight; z += cellSize) {
-        const cell: TSpatialCell = {
-          id: `spatial_cell_${x}_${z}`,
-          minX: startX + x,
-          minY: startZ + z,
-          maxX: startX + x + cellSize,
-          maxY: startZ + z + cellSize,
-          version: 0,
-          objects: []
-        };
-
-        grid.insert(cell);
+        const cell: TSpatialCellParams = { minX: startX + x, minZ: startZ + z, maxX: startX + x + cellSize, maxZ: startZ + z + cellSize, x, z };
+        const cellW: TSpatialCellWrapper = SpatialCellWrapper(cell);
+        grid.insert(cellW);
       }
     }
 
@@ -68,26 +61,23 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     const min: Vector3 = boundingBox.min;
     const max: Vector3 = boundingBox.max;
 
-    const cells: ReadonlyArray<TSpatialCell> = entity.search({ minX: min.x, minY: min.z, maxX: max.x, maxY: max.z });
+    const cells: ReadonlyArray<TSpatialCellWrapper> = entity.search({ minX: min.x, minY: min.z, maxX: max.x, maxY: max.z });
     // eslint-disable-next-line functional/no-loop-statements
     for (const cell of cells) {
-      if (isNotDefined(cell.objects.find((aw: TActorWrapperAsync): boolean => aw.id === actorW.id))) {
-        // eslint-disable-next-line functional/immutable-data
-        cell.objects.push(actorW);
-        // eslint-disable-next-line functional/immutable-data
-        cell.version++;
+      if (isNotDefined(cell.findObject(actorW.id))) {
+        cell.addObject(actorW);
         update$.next(cell);
       }
     }
     actorW.spatial.setSpatialCells(cells);
   }
 
-  const getAllCells = (): ReadonlyArray<TSpatialCell> => entity.all();
+  const getAllCells = (): ReadonlyArray<TSpatialCellWrapper> => entity.all();
 
   function getAllInCell(x: number, z: number): ReadonlyArray<TActorWrapperAsync> {
-    const cells: ReadonlyArray<TSpatialCell> = entity.search({ minX: x, minY: z, maxX: x, maxY: z });
-    if (cells.length === 1) return cells[0].objects;
-    if (cells.length > 1) return cells.flatMap((cell: TSpatialCell): ReadonlyArray<TActorWrapperAsync> => cell.objects);
+    const cells: ReadonlyArray<TSpatialCellWrapper> = entity.search({ minX: x, minY: z, maxX: x, maxY: z });
+    if (cells.length === 1) return cells[0].getObjects();
+    if (cells.length > 1) return cells.flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActorWrapperAsync> => cell.getObjects());
     return [];
   }
 
@@ -97,23 +87,17 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
   };
 
   function getAllInCellByCellId(cellId: TSpatialCellId): ReadonlyArray<TActorWrapperAsync> {
-    // const cells: ReadonlyArray<TSpatialCell> = entity.all().filter((cell) => cell.id === cellId);
+    // const cells: ReadonlyArray<TSpatialCellWrapper> = entity.all().filter((cell) => cell.id === cellId);
     const { x, z } = getCoordsFromGridId(cellId);
     return getAllInCell(x, z);
   }
 
   function removeFromGrid(actorW: TActorWrapperAsync): void | never {
-    const cells: ReadonlyArray<TSpatialCell> = actorW.spatial.getSpatialCells();
+    const cells: ReadonlyArray<TSpatialCellWrapper> = actorW.spatial.getSpatialCells();
 
     // eslint-disable-next-line functional/no-loop-statements
     for (const cell of cells) {
-      const index: number = cell.objects.indexOf(actorW);
-      if (index === -1) throw new Error(`Cannot remove actor (id: "${actorW.id}", name: "${actorW.name}") from spatial cell (id: "${cell.id}"). Such actor is not in the cell`);
-
-      // eslint-disable-next-line functional/immutable-data
-      cell.objects.splice(index, 1);
-      // eslint-disable-next-line functional/immutable-data
-      cell.version++;
+      cell.removeObject(actorW);
       update$.next(cell);
     }
 
@@ -121,12 +105,14 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
   }
 
   function clearGrid(): void {
-    entity.clear();
-    getAllCells().forEach((cell: TSpatialCell): void => {
-      // eslint-disable-next-line functional/immutable-data
-      cell.version++;
-      update$.next(cell);
-    });
+    // TODO (S.Panfilov) should be tested before usage
+    throw new Error('SpatialGrid clearGrid not implemented, just a placeholder: test and fix before usage');
+    // entity.clear();
+    // getAllCells().forEach((cell: TSpatialCellWrapper): void => {
+    //   // eslint-disable-next-line functional/immutable-data
+    //   cell.version++;
+    //   update$.next(cell);
+    // });
   }
 
   function updateActorCell(this: TSpatialGridWrapper, actorW: TActorWrapperAsync): void {
@@ -134,19 +120,19 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     addActor.call(this, actorW);
   }
 
-  const findCellsForPoint = (x: number, z: number): ReadonlyArray<TSpatialCell> => entity.search({ minX: x, minY: z, maxX: x, maxY: z });
+  const findCellsForPoint = (x: number, z: number): ReadonlyArray<TSpatialCellWrapper> => entity.search({ minX: x, minY: z, maxX: x, maxY: z });
 
-  const findCellsForBox = ({ minX, minZ, maxX, maxZ }: Readonly<{ minX: number; minZ: number; maxX: number; maxZ: number }>): ReadonlyArray<TSpatialCell> =>
+  const findCellsForBox = ({ minX, minZ, maxX, maxZ }: Readonly<{ minX: number; minZ: number; maxX: number; maxZ: number }>): ReadonlyArray<TSpatialCellWrapper> =>
     entity.search({ minX, minY: minZ, maxX, maxY: maxZ });
 
-  function findCellById(id: TSpatialCellId): TSpatialCell | undefined {
-    return entity.all().filter((cell: TSpatialCell): boolean => cell.id === id)[0];
+  function findCellById(id: TSpatialCellId): TSpatialCellWrapper | undefined {
+    return entity.all().filter((cell: TSpatialCellWrapper): boolean => cell.id === id)[0];
   }
 
   function destroy(): void {
     update$.complete();
     wrapper.destroy();
-    // getAllCells().forEach((cell: TSpatialCell): void => void cell.destroy());
+    // getAllCells().forEach((cell: TSpatialCellWrapper): void => void cell.destroy());
     entity.clear();
 
     // TODO (S.Panfilov) DESTROY: implement destroy
@@ -155,7 +141,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
   //this visualization is for debugging purposes only
   function _debugVisualizeCells(sceneW: TSceneWrapper, color: ColorRepresentation = '#00ff00', wireframe: boolean = true): void {
-    entity.all().forEach((cell: TSpatialCell): void => {
+    entity.all().forEach((cell: TSpatialCellWrapper): void => {
       const box: Mesh = createBoundingBox(cell.minX, cell.minY, cell.maxX, cell.maxY, color, wireframe);
       sceneW.entity.add(box);
     });

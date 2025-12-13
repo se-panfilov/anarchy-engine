@@ -1,5 +1,5 @@
 import type RBush from 'rbush';
 
-import type { TSpatialCell } from '@/Engine/Spatial';
+import type { TSpatialCellWrapper } from '@/Engine/Spatial';
 
-export type TSpatialGrid = RBush<TSpatialCell>;
+export type TSpatialGrid = RBush<TSpatialCellWrapper>;
