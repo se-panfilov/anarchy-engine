@@ -1386,7 +1386,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## anarchy-engine@21.2.0
+## anarchy-engine@21.2.3
 
 **License:** MIT
 
@@ -4020,7 +4020,7 @@ _No license text file found; relying on package metadata._
 
 ---
 
-## showcases-i18n@1.4.0
+## showcases-i18n@1.4.1
 
 **License:** MIT
 

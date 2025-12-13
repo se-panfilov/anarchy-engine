@@ -315,7 +315,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-engine@21.2.0
+## anarchy-engine@21.2.3
 
 **License(s):** MIT
 

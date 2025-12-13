@@ -9919,7 +9919,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## anarchy-engine@21.2.0
+## anarchy-engine@21.2.3
 
 **License:** MIT
 
@@ -13800,7 +13800,7 @@ SOFTWARE.
 
 ---
 
-## showcases-gui@1.1.2
+## showcases-gui@1.1.3
 
 **License:** MIT
 
@@ -13830,7 +13830,7 @@ SOFTWARE.
 
 ---
 
-## showcases-i18n@1.4.0
+## showcases-i18n@1.4.1
 
 **License:** MIT
 
@@ -13860,7 +13860,7 @@ SOFTWARE.
 
 ---
 
-## showcases-menu@1.8.3
+## showcases-menu@1.8.4
 
 **License:** MIT
 
