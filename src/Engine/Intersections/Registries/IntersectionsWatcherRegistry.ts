@@ -1,5 +1,5 @@
 import { RegistryType } from '@/Engine/Abstract/Constants';
-import { AbstractAsyncRegistry, RegistryFacade } from '@/Engine/Abstract/Registries';
-import type { TIntersectionsWatcher, TIntersectionsWatcherAsyncRegistry } from '@/Engine/Intersections/Models';
+import { AbstractSimpleRegistry, RegistryFacade } from '@/Engine/Abstract/Registries';
+import type { TIntersectionsWatcher, TIntersectionsWatcherRegistry } from '@/Engine/Intersections/Models';
 
-export const IntersectionsWatcherRegistry = (): TIntersectionsWatcherAsyncRegistry => RegistryFacade(AbstractAsyncRegistry<TIntersectionsWatcher>(RegistryType.IntersectionsWatcher));
+export const IntersectionsWatcherRegistry = (): TIntersectionsWatcherRegistry => RegistryFacade(AbstractSimpleRegistry<TIntersectionsWatcher>(RegistryType.IntersectionsWatcher));

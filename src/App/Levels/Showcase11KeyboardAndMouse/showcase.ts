@@ -35,7 +35,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { findByName, findByTag, findByTags } = actorRegistry;
   const { onKey } = keyboardService;
 
-  async function init(): Promise<void> {
+  function init(): void {
     const actorKeyboard: TActorWrapper | undefined = findByTag('keyboard');
     const actorMouse: TActorWrapper | undefined = findByTag('mouse');
     const actorKeyW: TActorWrapper | undefined = findByTags(['key', 'W'], LookUpStrategy.Every);
@@ -78,7 +78,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     onKey(KeyCode.D).pressed$.subscribe((): void => void actorKeyD.addY(-0.2));
     onKey(KeyCode.D).released$.subscribe((): void => void actorKeyD.addY(0.2));
 
-    const intersectionsWatcher: TIntersectionsWatcher = await startIntersections();
+    const intersectionsWatcher: TIntersectionsWatcher = startIntersections();
     const coordsUI: { x: number; z: number } = { x: 0, z: 0 };
 
     gui.add(coordsUI, 'x').listen();

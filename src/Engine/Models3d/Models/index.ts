@@ -10,6 +10,7 @@ export * from './TModel3dPrimitiveParams';
 export * from './TModel3dProps';
 export * from './TModels3dAsyncRegistry';
 export * from './TModels3dFacadeParams';
+export * from './TModels3dPrimitiveFacadeParams';
 export * from './TModels3dService';
 export * from './TPerformLoadResult';
 export * from './TPrimitiveProps';

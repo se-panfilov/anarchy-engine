@@ -23,7 +23,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
 
-  async function init(): Promise<void> {
+  function init(): void {
     const { actorService, cameraService, controlsService, textService, loopService, mouseService } = space.services;
     const actorRegistry: TActorRegistry = actorService.getRegistry();
     const cameraRegistry: TCameraRegistry = cameraService.getRegistry();

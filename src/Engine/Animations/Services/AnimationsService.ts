@@ -25,9 +25,12 @@ export function AnimationsService(loopService: TLoopService): TAnimationsService
 
   function startAutoUpdateMixer(modelF: TModel3dFacade, updateTick$: Observable<TLoopTimes> = loopService.tick$): TAnimationActionsPack | never {
     const mixer = modelF.getMixer();
+    if (isNotDefined(mixer)) throw new Error(`Mixer is not defined for model facade (name: ${modelF.getName()}, id: ${modelF.id}})`);
+
     const subs$: Subscription = updateTick$.subscribe(({ delta }) => mixer.update(delta));
     if (isDefined(subscriptions.get(mixer)))
       throw new Error(`AnimationsService: Cannot auto-update mixer twice: subscribe is already exist. Mixer relates to the model facade (name: ${modelF.getName()}, id: ${modelF.id}})`);
+
     subscriptions.set(mixer, subs$);
     return { model: modelF.getModel(), mixer, actions: modelF.getActions() };
   }

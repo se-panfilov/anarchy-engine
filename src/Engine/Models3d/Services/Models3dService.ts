@@ -7,7 +7,17 @@ import type { TAnimationsService } from '@/Engine/Animations';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { model3dConfigToParams } from '@/Engine/Models3d/Adapters';
-import type { TModel3dConfig, TModel3dFacade, TModel3dPack, TModel3dParams, TModel3dPrimitiveParams, TModels3dAsyncRegistry, TModels3dService, TPerformLoadResult } from '@/Engine/Models3d/Models';
+import type {
+  TModel3dConfig,
+  TModel3dFacade,
+  TModel3dPack,
+  TModel3dParams,
+  TModel3dPrimitivePack,
+  TModel3dPrimitiveParams,
+  TModels3dAsyncRegistry,
+  TModels3dService,
+  TPerformLoadResult
+} from '@/Engine/Models3d/Models';
 import { isPrimitive } from '@/Engine/Models3d/Services/Models3dServiceHelper';
 import { Model3dFacade } from '@/Engine/Models3d/Wrappers';
 import { createPrimitiveModel3dPack } from '@/Engine/Models3d/Wrappers/PrimitiveModels3dUtils';
@@ -33,7 +43,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
 
   loaded$.subscribe((facade: TModel3dFacade): void => added$.next(facade));
 
-  function createFromPack(pack: TModel3dPack): TModel3dFacade {
+  function createFromPack(pack: TModel3dPack | TModel3dPrimitivePack): TModel3dFacade {
     const facade = Model3dFacade(pack, animationsService);
     added$.next(facade);
     return facade;

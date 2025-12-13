@@ -5,11 +5,11 @@ import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function configToParams(config: TAnyLightConfig): TLightParams {
-  const { position, rotation, scale, layers, animations, color, shadow, ...rest } = config;
+  const { position, rotation, scale, layers, color, shadow, ...rest } = config;
 
   return {
     ...rest,
-    ...configToParamsObject3d({ position, rotation, scale, layers, animations }),
+    ...configToParamsObject3d({ position, rotation, scale, layers }),
     ...getLightColorParams(color),
     ...getLightShadowParams(shadow)
   };

@@ -97,7 +97,7 @@ export async function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceCon
   rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2, isActive: true });
 
   //build intersections
-  void intersectionsWatcherService.createFromConfigAsync(intersections, mouseService, cameraService, actorService);
+  intersectionsWatcherService.createFromConfig(intersections, mouseService, cameraService, actorService);
 
   intersectionsWatcherService.getRegistry().added$.subscribe((watcher: TIntersectionsWatcher): void => {
     if (watcher.isAutoStart && !watcher.isStarted) watcher.start();

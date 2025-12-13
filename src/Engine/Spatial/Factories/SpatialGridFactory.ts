@@ -1,6 +1,6 @@
 import type { TReactiveFactory } from '@/Engine/Abstract';
 import { FactoryType, ReactiveFactory } from '@/Engine/Abstract';
-import { configToParams } from '@/Engine/Spatial/Adapters';
+import { configToParamsSpatial as configToParams } from '@/Engine/Spatial/Adapters';
 import type { TSpatialGridFactory, TSpatialGridParams, TSpatialGridWrapper } from '@/Engine/Spatial/Models';
 import { SpatialGridWrapper } from '@/Engine/Spatial/Wrappers';
 

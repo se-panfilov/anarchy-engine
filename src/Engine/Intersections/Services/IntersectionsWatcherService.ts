@@ -2,29 +2,27 @@ import type { TActorService } from '@/Engine/Actor';
 import type { TCameraService } from '@/Engine/Camera';
 import type {
   TIntersectionsWatcher,
-  TIntersectionsWatcherAsyncRegistry,
   TIntersectionsWatcherConfig,
   TIntersectionsWatcherFactory,
   TIntersectionsWatcherParams,
+  TIntersectionsWatcherRegistry,
   TIntersectionsWatcherService
 } from '@/Engine/Intersections/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TMouseService } from '@/Engine/Mouse';
 
-export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactory, registry: TIntersectionsWatcherAsyncRegistry): TIntersectionsWatcherService {
+export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactory, registry: TIntersectionsWatcherRegistry): TIntersectionsWatcherService {
   factory.entityCreated$.subscribe((watcher: TIntersectionsWatcher): void => registry.add(watcher));
 
   const create = (params: TIntersectionsWatcherParams): TIntersectionsWatcher => factory.create(params);
-  const createFromConfigAsync = (
+  const createFromConfig = (
     configs: ReadonlyArray<TIntersectionsWatcherConfig>,
     mouseService: TMouseService,
     cameraService: TCameraService,
     actorService: TActorService
-  ): Promise<ReadonlyArray<TIntersectionsWatcher>> => {
-    return Promise.all(
-      configs.map((config: TIntersectionsWatcherConfig): Promise<TIntersectionsWatcher> => factory.configToParamsAsync(config, mouseService, cameraService, actorService).then(factory.create))
-    );
+  ): ReadonlyArray<TIntersectionsWatcher> => {
+    return configs.map((config: TIntersectionsWatcherConfig): TIntersectionsWatcher => factory.create(factory.configToParams(config, mouseService, cameraService, actorService)));
   };
 
   const destroyable: TDestroyable = destroyableMixin();
@@ -35,9 +33,9 @@ export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactor
 
   return {
     create,
-    createFromConfigAsync,
+    createFromConfig,
     getFactory: (): TIntersectionsWatcherFactory => factory,
-    getRegistry: (): TIntersectionsWatcherAsyncRegistry => registry,
+    getRegistry: (): TIntersectionsWatcherRegistry => registry,
     ...destroyable
   };
 }

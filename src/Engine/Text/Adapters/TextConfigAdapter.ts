@@ -4,11 +4,11 @@ import { isDefined } from '@/Engine/Utils';
 import { Vector2Wrapper } from '@/Engine/Vector';
 
 export function configToParams(config: TTextConfig): TTextParams {
-  const { position, center, rotation, scale, layers, animations, ...rest } = config;
+  const { position, center, rotation, scale, layers, ...rest } = config;
 
   let result: TTextParams = {
     ...rest,
-    ...configToParamsObject3d({ position, rotation, scale, layers, animations })
+    ...configToParamsObject3d({ position, rotation, scale, layers })
   };
 
   if (isDefined(center)) result = { ...result, center: Vector2Wrapper(center) };
