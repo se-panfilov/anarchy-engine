@@ -4446,9 +4446,6 @@
         "type": {
           "$ref": "#/definitions/ControlsType"
         },
-        "cameraTag": {
-          "type": "string"
-        },
         "target": {
           "type": "object",
           "properties": {
@@ -4555,7 +4552,7 @@
           "type": "boolean"
         }
       },
-      "required": ["cameraTag", "isActive", "tags", "type"]
+      "required": ["isActive", "tags", "type"]
     },
     "ControlsTag": {
       "type": "string",

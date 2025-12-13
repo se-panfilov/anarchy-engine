@@ -659,7 +659,6 @@
   "controls": [
     {
       "type": "OrbitControls",
-      "cameraTag": "initial",
       "enableDamping": true,
       "autoRotate": false,
       "tags": ["orbit"],

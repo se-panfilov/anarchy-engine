@@ -713,7 +713,6 @@
   "controls": [
     {
       "type": "OrbitControls",
-      "cameraTag": "initial",
       "enableDamping": true,
       "tags": [],
       "isActive": true
