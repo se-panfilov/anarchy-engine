@@ -77,6 +77,66 @@
       "position": { "x": -16, "y": 2, "z": 12 },
       "castShadow": true,
       "tags": ["key", "D"]
+    },
+    {
+      "type": "cube",
+      "width": 2,
+      "height": 2,
+      "depth": 3,
+      "material": { "type": "toon", "params": { "color": "#373739" } },
+      "position": { "x": -12, "y": 2, "z": 9 },
+      "castShadow": true,
+      "tags": ["mkey", "Left"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "depth": 1,
+      "material": { "type": "toon", "params": { "color": "#373739" } },
+      "position": { "x": -10, "y": 2, "z": 10 },
+      "castShadow": true,
+      "tags": ["mkey", "Middle"]
+    },
+    {
+      "type": "cube",
+      "width": 2,
+      "height": 2,
+      "depth": 3,
+      "material": { "type": "toon", "params": { "color": "#373739" } },
+      "position": { "x": -8, "y": 2, "z": 9 },
+      "castShadow": true,
+      "tags": ["mkey", "Right"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "depth": 1,
+      "material": { "type": "toon", "params": { "color": "#373739" } },
+      "position": { "x": -12, "y": 2, "z": 12 },
+      "castShadow": true,
+      "tags": ["mkey", "Forward"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "depth": 1,
+      "material": { "type": "toon", "params": { "color": "#373739" } },
+      "position": { "x": -12, "y": 2, "z": 14 },
+      "castShadow": true,
+      "tags": ["mkey", "Back"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "depth": 1,
+      "material": { "type": "toon", "params": { "color": "#373739" } },
+      "position": { "x": -12, "y": 2, "z": 16 },
+      "castShadow": true,
+      "tags": ["mkey", "Extra"]
     }
   ],
   "texts": [],

@@ -20,6 +20,12 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const actorKeyA: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['key', 'A'], LookUpStrategy.Every);
     const actorKeyS: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['key', 'S'], LookUpStrategy.Every);
     const actorKeyD: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['key', 'D'], LookUpStrategy.Every);
+    const actorMkeyLeft: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['mkey', 'Left'], LookUpStrategy.Every);
+    const actorMkeyRight: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['mkey', 'Right'], LookUpStrategy.Every);
+    const actorMkeyMiddle: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['mkey', 'Middle'], LookUpStrategy.Every);
+    const actorMkeyBack: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['mkey', 'Back'], LookUpStrategy.Every);
+    const actorMkeyForward: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['mkey', 'Forward'], LookUpStrategy.Every);
+    const actorMkeyExtra: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['mkey', 'Extra'], LookUpStrategy.Every);
 
     keyboardService.onKey(KeyCode.W).pressing$.subscribe((): void => void actorKeyboard.addZ(-0.3));
     keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => void actorKeyW.addY(-0.2));
@@ -55,20 +61,12 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       void standardMoverService.goToPosition(actorMouse, { x: intersection.point.x, z: intersection.point.z }, { duration: 1000, easing: Easing.EaseInCubic });
     });
 
-    //console output of mouse events
-    mouseService.clickLeftRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click left', event));
-    mouseService.clickRightRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click right', event));
-    mouseService.clickMiddleRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click middle', event));
-    mouseService.clickBackRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click back', event));
-    mouseService.clickForwardRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click forward', event));
-    mouseService.clickExtraRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click extra', event));
-
-    mouseService.isLeftPressed$.subscribe((isPressed: boolean): void => console.log('left pressed', isPressed));
-    mouseService.isRightPressed$.subscribe((isPressed: boolean): void => console.log('right pressed', isPressed));
-    mouseService.isMiddlePressed$.subscribe((isPressed: boolean): void => console.log('middle pressed', isPressed));
-    mouseService.isBackPressed$.subscribe((isPressed: boolean): void => console.log('back pressed', isPressed));
-    mouseService.isForwardPressed$.subscribe((isPressed: boolean): void => console.log('forward pressed', isPressed));
-    mouseService.isExtraPressed$.subscribe((isPressed: boolean): void => console.log('extra pressed', isPressed));
+    mouseService.isLeftPressed$.subscribe((isPressed: boolean): void => void actorMkeyLeft.addY(isPressed ? -0.2 : 0.2));
+    mouseService.isRightPressed$.subscribe((isPressed: boolean): void => void actorMkeyRight.addY(isPressed ? -0.2 : 0.2));
+    mouseService.isMiddlePressed$.subscribe((isPressed: boolean): void => void actorMkeyMiddle.addY(isPressed ? -0.2 : 0.2));
+    mouseService.isBackPressed$.subscribe((isPressed: boolean): void => void actorMkeyBack.addY(isPressed ? -0.2 : 0.2));
+    mouseService.isForwardPressed$.subscribe((isPressed: boolean): void => void actorMkeyForward.addY(isPressed ? -0.2 : 0.2));
+    mouseService.isExtraPressed$.subscribe((isPressed: boolean): void => void actorMkeyExtra.addY(isPressed ? -0.2 : 0.2));
 
     mouseService.doubleLeftClick$.subscribe((event: IMouseWatcherEvent): void => console.log('double click left', event));
     mouseService.doubleRightClick$.subscribe((event: IMouseWatcherEvent): void => console.log('double click right', event));
