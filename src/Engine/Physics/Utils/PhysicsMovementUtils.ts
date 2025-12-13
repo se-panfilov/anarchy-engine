@@ -12,8 +12,8 @@ export function getPushCoordsFrom3dAzimuth(azimuthDeg: number, elevationDeg: num
   const forceDecimal: Decimal = new Decimal(force);
 
   const x: Decimal = forceDecimal.times(cos(elevationDecimal)).times(cos(azimuthDecimal));
-  const z: Decimal = forceDecimal.times(cos(elevationDecimal)).times(sin(azimuthDecimal));
   const y: Decimal = forceDecimal.times(sin(elevationDecimal));
+  const z: Decimal = forceDecimal.times(cos(elevationDecimal)).times(sin(azimuthDecimal));
 
   return { x: x.toNumber(), y: y.toNumber(), z: z.toNumber() };
 }
