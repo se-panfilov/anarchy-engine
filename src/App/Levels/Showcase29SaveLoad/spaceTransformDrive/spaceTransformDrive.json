@@ -307,6 +307,27 @@
         },
         "text": "kinematic",
         "type": "text_3d_texture"
+      },
+      {
+        "agent": "connected",
+        "cssProps": {
+          "color": "#0000FF",
+          "fontFamily": "\"Roboto\", sans-serif",
+          "fontSize": "0.1rem"
+        },
+        "name": "connected_text",
+        "position": {
+          "x": -6,
+          "y": 1,
+          "z": 0
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 1.57
+        },
+        "text": "connected",
+        "type": "text_3d"
       }
     ]
   },

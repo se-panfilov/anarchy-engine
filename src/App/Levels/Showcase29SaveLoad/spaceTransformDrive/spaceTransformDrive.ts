@@ -2,7 +2,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Vector3 } from 'three/src/math/Vector3';
 
 import { attachConnectorPositionToSubj, attachConnectorRotationToSubj } from '@/App/Levels/Utils';
-import type { TActor, TLightWrapper, TSpace, TSpaceConfig, TText3dTextureWrapper } from '@/Engine';
+import type { TActor, TLightWrapper, TSpace, TSpaceConfig, TText3dTextureWrapper, TText3dWrapper } from '@/Engine';
 import { getQueryParams, isDefined, isNotDefined, metersPerSecond } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
@@ -25,11 +25,12 @@ export const spaceTransformDriveData: TSpacesData = {
     addAwait('onCreate', spaceTransformDriveData.awaits$);
     space.loops.kinematicLoop.stop();
 
-    const { defaultActor, kinematicActor, connectedActor, connectedLight } = getShowcaseActors(space);
+    const { defaultActor, kinematicActor, connectedActor, connectedLight, connectedText } = getShowcaseActors(space);
 
     attachConnectorPositionToSubj(connectedActor, kinematicActor.drive.position$, { x: 4, y: 0, z: 0 });
     attachConnectorRotationToSubj(connectedActor, kinematicActor.drive.rotation$);
     attachConnectorPositionToSubj(connectedLight, defaultActor.drive.position$, { x: 4, y: -1, z: 0 });
+    attachConnectorPositionToSubj(connectedText, defaultActor.drive.position$, { x: -4, y: -1, z: 0 });
 
     removeAwait('onCreate', spaceTransformDriveData.awaits$);
   },
@@ -100,6 +101,7 @@ function getShowcaseActors({ services }: TSpace): {
   kinematicActor: TActor;
   connectedActor: TActor;
   kinematicText: TText3dTextureWrapper;
+  connectedText: TText3dWrapper;
   connectedLight: TLightWrapper;
 } {
   const defaultActor: TActor | undefined = services.actorService.getRegistry().findByName('cube_default_actor');
@@ -114,8 +116,11 @@ function getShowcaseActors({ services }: TSpace): {
   const kinematicText: TText3dTextureWrapper | undefined = services.textService.getRegistries().text3dTextureRegistry.findByName('kinematic_text');
   if (isNotDefined(kinematicText)) throw new Error('[Showcase]: Text "kinematic_text" not found');
 
+  const connectedText: TText3dWrapper | undefined = services.textService.getRegistries().text3dRegistry.findByName('connected_text');
+  if (isNotDefined(connectedText)) throw new Error('[Showcase]: Text "connected_text" not found');
+
   const connectedLight: TLightWrapper | undefined = services.lightService.getRegistry().findByName('connected_light') as TLightWrapper;
   if (isNotDefined(connectedLight)) throw new Error('[Showcase]: Actor "connected_light" not found');
 
-  return { defaultActor, kinematicActor, connectedActor, kinematicText, connectedLight };
+  return { defaultActor, kinematicActor, connectedActor, kinematicText, connectedLight, connectedText };
 }
