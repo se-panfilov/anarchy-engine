@@ -24,6 +24,7 @@ export const spaceTransformDriveData: TSpacesData = {
   awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
   onCreate: async (space: TSpace): Promise<void | never> => {
     addAwait('onCreate', spaceTransformDriveData.awaits$);
+    space.loops.kinematicLoop.stop();
 
     const defaultActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_default_actor');
     if (isNotDefined(defaultActor)) throw new Error('[Showcase]: Actor "cube_default_actor" not found');
@@ -43,23 +44,27 @@ export const spaceTransformDriveData: TSpacesData = {
   },
   onChange: async (space: TSpace): Promise<void> => {
     addAwait('onChange', spaceTransformDriveData.awaits$);
-    const defaultActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_default_actor');
-    if (isNotDefined(defaultActor)) throw new Error('[Showcase]: Actor "cube_default_actor" not found');
-
-    const kinematicActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_kinematic_actor');
-    if (isNotDefined(kinematicActor)) throw new Error('[Showcase]: Actor "cube_kinematic_actor" not found');
-
-    if (isOriginalSceneLoaded) {
-      defaultActor.drive.default.addZ(4);
-      kinematicActor.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.01));
-      kinematicActor.drive.kinematic.lookAt(new Vector3(0, 2, 0), metersPerSecond(0.00003));
-    }
-
-    await doKinematicSteps(space, 100, 25);
+    await performNormalSaveLoadTest(space);
     isOriginalSceneLoaded = false;
     removeAwait('onChange', spaceTransformDriveData.awaits$);
   }
 };
+
+async function performNormalSaveLoadTest(space: TSpace): Promise<void> {
+  const defaultActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_default_actor');
+  if (isNotDefined(defaultActor)) throw new Error('[Showcase]: Actor "cube_default_actor" not found');
+
+  const kinematicActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_kinematic_actor');
+  if (isNotDefined(kinematicActor)) throw new Error('[Showcase]: Actor "cube_kinematic_actor" not found');
+
+  if (isOriginalSceneLoaded) {
+    defaultActor.drive.default.addZ(4);
+    kinematicActor.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.01));
+    kinematicActor.drive.kinematic.lookAt(new Vector3(0, 2, 0), metersPerSecond(0.00003));
+  }
+
+  return doKinematicSteps(space, 100, 25);
+}
 
 function doKinematicSteps(space: TSpace, stepsCount: number, speed: number = 100): Promise<void> {
   return new Promise((resolve): void => {
