@@ -16,6 +16,7 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly
   const { fov = 45, near = 1, far = 10000, lookAt, tags }: ICameraParams = params;
   const aspectRatio: number = ambientContext.screenSizeWatcher.latest$.value.ratio || 0;
   const entity: IWriteable<IPerspectiveCamera> = new PerspectiveCamera(fov, aspectRatio, near, far);
+  let isActive: boolean = false;
 
   const accessors = getAccessors(entity);
 
@@ -41,7 +42,9 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly
     ...withMoveBy3dMixin(entity),
     ...withRotationByXyzMixin(entity),
     ...withObject3d(entity),
-    ...withTags(tags)
+    ...withTags(tags),
+    setActive: (value: boolean): void => void (isActive = value),
+    isActive: (): boolean => isActive
   };
 
   applyPosition(result, params.position);
