@@ -40,7 +40,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
 
   async function init(): Promise<void> {
-    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
 
     const scale: Vector3 = new Vector3(0.025, 0.025, 0.025);
     const { keyboardService } = engine.services;

@@ -19,7 +19,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     if (isNotDefined(scene)) throw new Error('Scene not found');
     if (isNotDefined(scene.entity.fog)) throw new Error("Scene's fog not found");
 
-    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
 
     rendererService.findActive()?.entity.setClearColor(scene.entity.fog.color);
 

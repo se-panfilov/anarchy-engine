@@ -30,13 +30,14 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
 
   function init(): void {
-    const { actorService, cameraService, controlsService, textService, loopService, mouseService } = space.services;
+    const { actorService, cameraService, controlsService, textService, mouseService } = space.services;
+    const { transformLoop } = space.loops;
     const actorRegistry: TActorRegistry = actorService.getRegistry();
     const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
     const controlsRegistry: TControlsRegistry = controlsService.getRegistry();
     const { text2dRegistry } = textService.getRegistries();
 
-    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
 
     controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
     cameraRegistry.getAll()[0]?.drive.position$.next(new Vector3(6, 30, 0));
@@ -74,7 +75,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       blue: undefined
     };
 
-    const moverService: TMoverService = MoverService(loopService, defaultMoverServiceConfig);
+    const moverService: TMoverService = MoverService(transformLoop, defaultMoverServiceConfig);
 
     function follow(): void {
       if (isNotDefined(redText) || isNotDefined(blueText) || isNotDefined(greenText)) throw new Error('Texts are not defined');

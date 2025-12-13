@@ -29,13 +29,14 @@ import spaceConfig from './showcase.json';
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
-  const { textService, loopService, models3dService, mouseService, scenesService } = space.services;
+  const { textService, models3dService, mouseService, scenesService } = space.services;
+  const { transformLoop } = space.loops;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
 
   const sceneW: TSceneWrapper | undefined = scenesService.findActive();
   if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
-  addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
+  addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
 
   const planeModel3d: TModel3d | undefined = models3dRegistry.findByName('surface_model');
   if (isNotDefined(planeModel3d)) throw new Error('Plane model is not defined');
@@ -122,7 +123,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     loop: true
   };
 
-  const moverService: TMoverService = MoverService(loopService, defaultMoverServiceConfig);
+  const moverService: TMoverService = MoverService(transformLoop, defaultMoverServiceConfig);
 
   mouseService.clickLeftRelease$.subscribe((): void => {
     void moverService.goByPath(floatingText, circlePathXZ, { ...animationParams, easing: Easing.Linear });

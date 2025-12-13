@@ -4,12 +4,11 @@ import type { Vector2Like } from 'three';
 import type { TAbstractWatcherWithState } from '@/Engine/Abstract';
 import { AbstractWatcherWithState, WatcherType } from '@/Engine/Abstract';
 import { ProtectedWatcher } from '@/Engine/Abstract/Watchers/ProtectedWatcher';
-import type { TLoopService } from '@/Engine/Loop';
-import type { TMouseEvent, TMousePositionWatcher, TMousePositionWatcherParams } from '@/Engine/Mouse/Models';
+import type { TMouseEvent, TMouseLoop, TMousePositionWatcher, TMousePositionWatcherParams } from '@/Engine/Mouse/Models';
 import { getNormalizedMousePosition } from '@/Engine/Mouse/Utils';
 import { isEqualOrSimilarByXyCoords } from '@/Engine/Utils';
 
-export function MousePositionWatcher({ container, tags, performance }: TMousePositionWatcherParams, loopService: TLoopService): TMousePositionWatcher {
+export function MousePositionWatcher({ container, tags, performance }: TMousePositionWatcherParams, mouseLoop: TMouseLoop): TMousePositionWatcher {
   const containerIdTag: string = `container_id_${container.id}`;
   const abstractWatcher: TAbstractWatcherWithState<Vector2Like> = AbstractWatcherWithState(WatcherType.MousePositionWatcher, 'global_mouse_position_watcher', { x: 0, y: 0 }, tags);
   const prevPosition: Float32Array = new Float32Array(2); // [x, y] = [0, 0]
@@ -27,7 +26,7 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
   const shouldUseDistinct: boolean = performance?.shouldUseDistinct ?? false;
 
   // TODO 10.0.0. LOOPS: Mouse should have an own loop independent from frame rate (driven by time)
-  loopService.tick$
+  mouseLoop.tick$
     .pipe(
       shouldUseDistinct ? distinctUntilChanged((): boolean => isEqualOrSimilarByXyCoords(prevPosition[0], prevPosition[1], position[0], position[1], threshold)) : identity,
       tap((): void => {

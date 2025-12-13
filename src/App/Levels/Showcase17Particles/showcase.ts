@@ -15,7 +15,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const positions: Float32Array = new Float32Array(count * 3);
     const colors: Float32Array = new Float32Array(count * 3);
 
-    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
 
     // eslint-disable-next-line functional/no-loop-statements
     for (let i: number = 0; i < count * 3; i++) {

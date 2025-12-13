@@ -1,12 +1,13 @@
 import type { GizmoOptions } from 'three-viewport-gizmo';
 import { ViewportGizmo } from 'three-viewport-gizmo';
 
-import type { TCameraWrapper, TOrbitControlsWrapper, TRendererWrapper, TScreenSizeWatcher, TSpaceServices } from '@/Engine';
+import type { TCameraWrapper, TOrbitControlsWrapper, TRendererWrapper, TScreenSizeWatcher, TSpaceLoops, TSpaceServices } from '@/Engine';
 import { isNotDefined } from '@/Engine';
 
 export function addGizmo(
-  { cameraService, rendererService, controlsService, loopService }: Pick<TSpaceServices, 'cameraService' | 'rendererService' | 'controlsService' | 'loopService'>,
+  { cameraService, rendererService, controlsService }: Pick<TSpaceServices, 'cameraService' | 'rendererService' | 'controlsService' | 'loopService'>,
   screenSizeWatcher: TScreenSizeWatcher,
+  { renderLoop }: TSpaceLoops,
   options?: GizmoOptions
 ): void {
   const camera: TCameraWrapper | undefined = cameraService.findActive();
@@ -23,5 +24,5 @@ export function addGizmo(
 
   screenSizeWatcher.value$.subscribe((): ViewportGizmo => gizmo.update());
 
-  loopService.tick$.subscribe(() => gizmo.render());
+  renderLoop.tick$.subscribe(() => gizmo.render());
 }

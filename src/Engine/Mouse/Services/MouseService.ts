@@ -12,7 +12,6 @@ import type {
   TMouseClickWatcherFactory,
   TMouseClickWatcherRegistry,
   TMousePositionWatcher,
-  TMousePositionWatcherDependencies,
   TMousePositionWatcherFactory,
   TMousePositionWatcherRegistry,
   TMouseService,
@@ -20,8 +19,9 @@ import type {
   TMouseWatcherEvent
 } from '@/Engine/Mouse/Models';
 import { MouseClickWatcherRegistry, MousePositionWatcherRegistry } from '@/Engine/Mouse/Registries';
+import type { TSpaceLoops } from '@/Engine/Space';
 
-export function MouseService(container: TGlobalContainerDecorator, { loopService }: TMousePositionWatcherDependencies): TMouseService {
+export function MouseService(container: TGlobalContainerDecorator, { mouseLoop }: TSpaceLoops): TMouseService {
   const mouseClickWatcherFactory: TMouseClickWatcherFactory = MouseClickWatcherFactory();
   const mouseClickWatcherRegistry: TMouseClickWatcherRegistry = MouseClickWatcherRegistry();
   mouseClickWatcherFactory.entityCreated$.subscribe((watcher: TMouseClickWatcher) => mouseClickWatcherRegistry.add(watcher));
@@ -31,7 +31,7 @@ export function MouseService(container: TGlobalContainerDecorator, { loopService
   const mousePositionWatcherRegistry: TMousePositionWatcherRegistry = MousePositionWatcherRegistry();
 
   mousePositionWatcherFactory.entityCreated$.subscribe((watcher: TMousePositionWatcher): void => mousePositionWatcherRegistry.add(watcher));
-  const mousePositionWatcher: TMousePositionWatcher = mousePositionWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }, { loopService }).start();
+  const mousePositionWatcher: TMousePositionWatcher = mousePositionWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }, { mouseLoop }).start();
 
   const clickPress$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
   const clickLeftPress$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();

@@ -9,7 +9,8 @@ import spaceConfig from './showcase.json';
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
-  const { actorService, cameraService, loopService, physicsWorldService } = space.services;
+  const { actorService, cameraService, physicsWorldService } = space.services;
+  const { physicalLoop } = space.loops;
 
   const actorAsyncRegistry = actorService.getRegistry();
 
@@ -34,9 +35,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     cameraW.lookAt(actor1Position);
     cameraW.drive.default.setY(actor1Position.y);
 
-    physicsWorldService.getDebugRenderer(loopService).start();
+    physicsWorldService.getDebugRenderer(physicalLoop).start();
 
-    loopService.tick$.subscribe(() => {
+    physicalLoop.tick$.subscribe(() => {
       actor3.drive.physical.physicsBody$.value?.getRigidBody()?.setAngvel({ x: 0, y: 3, z: 1 }, true);
       cameraW.drive.default.setY(actor1.drive.position$.value.y);
     });

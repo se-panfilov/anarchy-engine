@@ -3,7 +3,19 @@ import { BufferGeometry, Color, PointsMaterial } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TAppCanvas, TEngine, TMaterialConfig, TMaterialParams, TParticlesConfig, TParticlesWrapper, TSpace, TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources } from '@/Engine';
+import type {
+  TAppCanvas,
+  TEngine,
+  TMaterialConfig,
+  TMaterialParams,
+  TMilliseconds,
+  TParticlesConfig,
+  TParticlesWrapper,
+  TSpace,
+  TSpaceConfig,
+  TSpaceConfigEntities,
+  TSpaceConfigResources
+} from '@/Engine';
 import { ambientContext, Engine, isDefined, isNotDefined, spaceService } from '@/Engine';
 import { configToParams as materialConfigToParams } from '@/Engine/Material/Adapters';
 
@@ -13,7 +25,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const gui: GUI = new GUI();
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
-  const { particlesService, loopService, textureService } = space.services;
+  const { particlesService, textureService } = space.services;
+  const { transformLoop } = space.loops;
 
   const particlesName: string = 'stars';
 
@@ -112,14 +125,14 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     return { positions, colors };
   }
 
-  loopService.tick$.subscribe((delta) => {
+  transformLoop.tick$.subscribe((delta: TMilliseconds): void => {
     if (isDefined(particles)) {
       particles.drive.default.adjustRotationByY(delta * 0.018);
     }
   });
 
   function init(): void {
-    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
     gui.add(parameters, 'count').min(1000).max(1000000).step(1000).onFinishChange(createGalaxy);
     gui.add(parameters, 'size').min(0.001).max(1).step(0.001).onFinishChange(createGalaxy);
     gui.add(parameters, 'radius').min(0.01).max(20).step(0.01).onFinishChange(createGalaxy);

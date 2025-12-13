@@ -45,7 +45,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
 
-  addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
+  addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
 
   const { actorService, controlsService } = space.services;
   const actorRegistry: TActorRegistry = actorService.getRegistry();

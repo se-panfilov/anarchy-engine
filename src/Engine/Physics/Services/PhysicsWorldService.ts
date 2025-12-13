@@ -6,12 +6,13 @@ import type { TAbstractLoop, TAbstractReadonlyLoopWith } from '@/Engine/Abstract
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { STANDARD_GRAVITY } from '@/Engine/Physics/Constants';
-import type { TPhysicalWorldServiceDependencies, TPhysicsDebugRenderer, TPhysicsWorldParams, TPhysicsWorldService } from '@/Engine/Physics/Models';
+import type { TPhysicsDebugRenderer, TPhysicsWorldParams, TPhysicsWorldService } from '@/Engine/Physics/Models';
 import { PhysicsDebugRenderer } from '@/Engine/Physics/Renderers';
 import type { TSceneWrapper } from '@/Engine/Scene';
+import type { TSpaceLoops } from '@/Engine/Space';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TPhysicalWorldServiceDependencies): TPhysicsWorldService {
+export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TSpaceLoops): TPhysicsWorldService {
   let world: World | undefined;
 
   function createWorld({

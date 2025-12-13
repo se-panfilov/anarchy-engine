@@ -15,7 +15,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   function start(): void {
     engine.start();
-    const { actorService, textService, loopService, mouseService, spatialGridService, materialService, models3dService } = space.services;
+    const { actorService, textService, mouseService, spatialGridService, materialService, models3dService } = space.services;
+    const { transformLoop } = space.loops;
     const actorRegistry: TActorRegistry = actorService.getRegistry();
 
     let isClickBlocked: boolean = false;
@@ -80,7 +81,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       console.log('click is ready', !isClickBlocked);
       isClickBlocked = true;
 
-      const moverService: TMoverService = MoverService(loopService, defaultMoverServiceConfig);
+      const moverService: TMoverService = MoverService(transformLoop, defaultMoverServiceConfig);
 
       actorRegistry.findAllByTags([boxActorTag], LookUpStrategy.Some).forEach((actor: TActor): void => {
         const easing = getTags(actor)[1] as Easing;

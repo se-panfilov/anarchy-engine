@@ -57,15 +57,16 @@ export function buildBaseServices(): TSpaceBaseServices {
   return { loopService, scenesService };
 }
 
+// TODO 10.0.0: Loops: check if loopService is redundant
 export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas, loops: TSpaceLoops, { loopService, scenesService }: TSpaceBaseServices): TSpaceServices {
   const textureService: TTextureService = TextureService(TextureAsyncRegistry());
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry(), { textureService });
   const physicsPresetService: TPhysicsPresetsService = PhysicsPresetsService(PhysicsPresetRegistry());
-  const physicsWorldService: TPhysicsWorldService = PhysicsWorldService(sceneW, { physicalLoop: loops.physicalLoop });
+  const physicsWorldService: TPhysicsWorldService = PhysicsWorldService(sceneW, loops);
   const physicsBodyService: TPhysicsBodyService = PhysicsBodyService(PhysicsBodyFactory(), PhysicsBodyRegistry(), physicsPresetService, physicsWorldService);
   const spatialGridService: TSpatialGridService = SpatialGridService(SpatialGridFactory(), SpatialGridRegistry());
   const collisionsService: TCollisionsService = CollisionsService();
-  const animationsService: TAnimationsService = AnimationsService(loopService, AnimationsResourceAsyncRegistry());
+  const animationsService: TAnimationsService = AnimationsService(AnimationsResourceAsyncRegistry(), loops);
   const model3dToActorConnectionRegistry: TModel3dToActorConnectionRegistry = Model3dToActorConnectionRegistry();
   const model3dRawToModel3dConnectionRegistry: TModel3dRawToModel3dConnectionRegistry = Model3dRawToModel3dConnectionRegistry();
   const models3dService: TModels3dService = Models3dService(Models3dFactory(), Models3dRegistry(), Models3dResourceAsyncRegistry(), {
@@ -104,7 +105,7 @@ export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas,
     materialService,
     models3dService,
     animationsService,
-    mouseService: MouseService(ambientContext.container, { loopService }),
+    mouseService: MouseService(ambientContext.container, loops),
     particlesService: ParticlesService(ParticlesFactory(), ParticlesRegistry(), materialService, sceneW),
     physicsBodyService,
     physicsWorldService,

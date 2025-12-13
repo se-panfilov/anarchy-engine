@@ -1,12 +1,12 @@
 import { bindKey, bindKeyCombo, checkKey, checkKeyCombo, unbindKey, unbindKeyCombo } from '@rwh/keystrokes';
 import { filter, map, Subject } from 'rxjs';
 
-import type { TGameKey, TKeyboardRegistry, TKeyboardRegistryValues, TKeyboardService, TKeyCombo, TKeySubscription } from '@/Engine/Keyboard/Models';
+import type { TGameKey, TKeyboardLoop, TKeyboardRegistry, TKeyboardRegistryValues, TKeyboardService, TKeyCombo, TKeySubscription } from '@/Engine/Keyboard/Models';
 import { KeyboardRegistry } from '@/Engine/Keyboard/Registries';
-import type { TDelta, TLoopService } from '@/Engine/Loop';
+import type { TDelta } from '@/Engine/Loop';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function KeyboardService(loopService: TLoopService): TKeyboardService {
+export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
   const keyboardRegistry: TKeyboardRegistry = KeyboardRegistry();
 
   function createKeySubscriptions(key: TGameKey | TKeyCombo): TKeySubscription {
@@ -40,7 +40,7 @@ export function KeyboardService(loopService: TLoopService): TKeyboardService {
 
     let pressedKey: TGameKey | TKeyCombo | undefined = undefined;
 
-    loopService.tick$
+    keyboardLoop.tick$
       .pipe(
         filter((): boolean => isDefined(pressedKey)),
         map((v: TDelta): [TDelta, TGameKey | TKeyCombo] => [v, pressedKey as TGameKey | TKeyCombo])

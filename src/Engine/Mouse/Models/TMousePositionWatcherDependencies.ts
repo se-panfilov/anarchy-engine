@@ -1,5 +1,5 @@
-import type { TLoopService } from '@/Engine/Loop';
+import type { TMouseLoop } from './TMouseLoop';
 
 export type TMousePositionWatcherDependencies = Readonly<{
-  loopService: TLoopService;
+  mouseLoop: TMouseLoop;
 }>;

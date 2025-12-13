@@ -45,12 +45,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { cameraService, physicsWorldService, actorService, lightService, loopService, models3dService, materialService, mouseService, intersectionsWatcherService, spatialGridService } =
-    space.services;
-  const { physicalLoop } = space.loops;
+  const { cameraService, physicsWorldService, actorService, lightService, models3dService, materialService, mouseService, intersectionsWatcherService, spatialGridService } = space.services;
+  const { physicalLoop, transformLoop } = space.loops;
 
   async function init(): Promise<void> {
-    physicsWorldService.getDebugRenderer(loopService).start();
+    physicsWorldService.getDebugRenderer(physicalLoop).start();
     physicalLoop.enabled$.next(false);
 
     // (window as any).space = space;
@@ -133,7 +132,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     cameraFollowingActor(cameraW, hero);
 
-    loopService.tick$.subscribe((delta): void => {
+    transformLoop.tick$.subscribe((delta): void => {
       updateBullets(bullets, delta);
       // TODO this should be updated only if coords or angle are changed
       if (isDefined(mouseLineIntersections.point)) {

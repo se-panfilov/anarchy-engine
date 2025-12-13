@@ -3,7 +3,7 @@ import { FactoryType, ReactiveFactoryWithDependencies } from '@/Engine/Abstract'
 import type { TMousePositionWatcher, TMousePositionWatcherDependencies, TMousePositionWatcherFactory, TMousePositionWatcherParams } from '@/Engine/Mouse/Models';
 import { MousePositionWatcher } from '@/Engine/Mouse/Watchers';
 
-const createMousePositionWatcher = (params: TMousePositionWatcherParams, { loopService }: TMousePositionWatcherDependencies): TMousePositionWatcher => MousePositionWatcher(params, loopService);
+const createMousePositionWatcher = (params: TMousePositionWatcherParams, { mouseLoop }: TMousePositionWatcherDependencies): TMousePositionWatcher => MousePositionWatcher(params, mouseLoop);
 
 const factory: TReactiveFactoryWithDependencies<TMousePositionWatcher, TMousePositionWatcherParams, TMousePositionWatcherDependencies> = ReactiveFactoryWithDependencies(
   FactoryType.MousePositionWatcher,

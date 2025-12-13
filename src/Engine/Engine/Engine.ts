@@ -10,8 +10,7 @@ import type { TText2dRenderer, TText3dRenderer } from '@/Engine/Text';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function Engine(space: TSpace): TEngine {
-  // TODO 10.0.0. LOOPS: refactor this, keyboard will have an own loop
-  const keyboardService: TKeyboardService = KeyboardService(space.services.loopService);
+  const keyboardService: TKeyboardService = KeyboardService(space.loops.keyboardLoop);
 
   const { rendererService, scenesService, textService } = space.services;
   const activeScene: TSceneWrapper | undefined = scenesService.findActive();

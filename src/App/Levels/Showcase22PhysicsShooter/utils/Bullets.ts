@@ -17,6 +17,7 @@ import type {
   TMaterialService,
   TMaterialWrapper,
   TMetersPerSecond,
+  TMilliseconds,
   TModel3d,
   TModels3dService,
   TMouseService,
@@ -39,7 +40,7 @@ export type TBullet = TActor &
     setActive: (act: boolean) => void;
     isActive: () => boolean;
     reset: () => void;
-    update: (delta: number) => void;
+    update: (delta: TMilliseconds) => void;
     hit$: Observable<TCollisionCheckResult>;
   }>;
 
@@ -135,7 +136,7 @@ export function Bullet(params: TActorParams, actorService: TActorService): TBull
 
   actor.collisions.value$.subscribe(reset);
 
-  function update(delta: number): void {
+  function update(delta: TMilliseconds): void {
     if (isActive()) {
       // TODO wtf this calculation is doing?
       // const azimuthRadians: TRadians = actor.drive.kinematic.getLinearDirection();
@@ -192,7 +193,7 @@ export function shoot(actorPosition: Vector3, target: Vector3, speed: TMetersPer
   }
 }
 
-export function updateBullets(bullets: ReadonlyArray<TBullet>, delta: number): void {
+export function updateBullets(bullets: ReadonlyArray<TBullet>, delta: TMilliseconds): void {
   bullets.forEach((bullet: TBullet): void => bullet.update(delta));
 }
 

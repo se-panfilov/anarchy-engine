@@ -43,7 +43,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const scene: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(scene)) throw new Error('Scene not found');
 
-    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
 
     //directional light
     const directionalLight: TDirectionalLightWrapper | undefined = lightRegistry.findByTag('directional') as TDirectionalLightWrapper | undefined;

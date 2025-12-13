@@ -17,7 +17,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
 
-  const { actorService, cameraService, intersectionsWatcherService, loopService, mouseService, scenesService } = space.services;
+  const { actorService, cameraService, intersectionsWatcherService, mouseService, scenesService } = space.services;
+  const { transformLoop } = space.loops;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
   const { findByName, findByTags } = actorRegistry;
   const { onKey } = keyboardService;
@@ -26,7 +27,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const camera: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
 
-    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
 
     const actorKeyboard: TActor | undefined = findByName('sphere_keyboard_actor');
     const actorMouse: TActor | undefined = findByName('sphere_mouse_actor');
@@ -89,7 +90,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const { clickLeftRelease$, isLeftPressed$, isRightPressed$, isMiddlePressed$, isBackPressed$, isForwardPressed$, isExtraPressed$, doubleLeftClick$, doubleRightClick$, wheelUp$, wheelDown$ } =
       mouseService;
 
-    const moverService: TMoverService = MoverService(loopService, defaultMoverServiceConfig);
+    const moverService: TMoverService = MoverService(transformLoop, defaultMoverServiceConfig);
 
     const folder: GUI = gui.addFolder('Mouse Actor');
     const mode = { isKinematicMouseActor: false };

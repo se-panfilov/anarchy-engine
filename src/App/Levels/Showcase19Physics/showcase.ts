@@ -28,15 +28,16 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { actorService, cameraService, intersectionsWatcherService, loopService, mouseService, textService, physicsWorldService } = space.services;
+  const { actorService, cameraService, intersectionsWatcherService, mouseService, textService, physicsWorldService } = space.services;
+  const { physicalLoop } = space.loops;
 
   const actorAsyncRegistry = actorService.getRegistry();
   const sceneWrapper: TSceneWrapper = actorService.getScene();
 
   function init(): void {
-    physicsWorldService.getDebugRenderer(loopService).start();
+    physicsWorldService.getDebugRenderer(physicalLoop).start();
 
-    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
 
     const line: Line2 = createLine();
     sceneWrapper.entity.add(line);
@@ -92,7 +93,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       mouseLineIntersectionsCoords = intersection.point;
     });
 
-    loopService.tick$.subscribe(() => {
+    physicalLoop.tick$.subscribe(() => {
       if (isDefined(mouseLineIntersectionsCoords)) {
         const ballCoords: Vector3 = ballActor.drive.position$.value;
         azimuth = getHorizontalAzimuth(ballCoords.x, ballCoords.z, mouseLineIntersectionsCoords, ForwardAxis.Z);

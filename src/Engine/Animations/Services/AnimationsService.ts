@@ -3,16 +3,17 @@ import { Subject } from 'rxjs';
 import type { AnimationClip } from 'three';
 import { AnimationMixer } from 'three';
 
+import type { TSpaceLoops } from '@/Engine';
 import { AnimationsLoader } from '@/Engine/Animations/Loader';
 import type { TAnimationActions, TAnimationActionsPack, TAnimationsLoader, TAnimationsResourceAsyncRegistry, TAnimationsService, TModel3dAnimations } from '@/Engine/Animations/Models';
-import type { TDelta, TLoopService } from '@/Engine/Loop';
+import type { TDelta } from '@/Engine/Loop';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TModel3d, TRawModel3d } from '@/Engine/Models3d';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function AnimationsService(loopService: TLoopService, resourcesRegistry: TAnimationsResourceAsyncRegistry): TAnimationsService {
+export function AnimationsService(resourcesRegistry: TAnimationsResourceAsyncRegistry, { renderLoop }: TSpaceLoops): TAnimationsService {
   const animationsLoader: TAnimationsLoader = AnimationsLoader(resourcesRegistry);
   const added$: Subject<TModel3dAnimations> = new Subject<TModel3dAnimations>();
   const subscriptions: Map<AnimationMixer, Subscription> = new Map<AnimationMixer, Subscription>();
@@ -26,7 +27,7 @@ export function AnimationsService(loopService: TLoopService, resourcesRegistry: 
     return { model, mixer, actions };
   }
 
-  function startAutoUpdateMixer(model3d: TModel3d, updateTick$: Observable<TDelta> = loopService.tick$): TAnimationActionsPack | never {
+  function startAutoUpdateMixer(model3d: TModel3d, updateTick$: Observable<TDelta> = renderLoop.tick$): TAnimationActionsPack | never {
     const mixer = model3d.getMixer();
     if (isNotDefined(mixer)) throw new Error(`Mixer is not defined for model3d (name: ${model3d.getName()}, id: ${model3d.id}})`);
 

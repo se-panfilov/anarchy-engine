@@ -1,7 +1,8 @@
 import GUI from 'lil-gui';
+import { Clock } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActor, TActorRegistry, TAppCanvas, TCameraRegistry, TCameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TActorRegistry, TAppCanvas, TCameraRegistry, TCameraWrapper, TEngine, TMilliseconds, TSpace, TSpaceConfig } from '@/Engine';
 import { Engine, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -11,7 +12,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
 
-  const { actorService, cameraService, loopService, mouseService } = space.services;
+  const { actorService, cameraService, mouseService } = space.services;
+  const { transformLoop } = space.loops;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
   const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
   const { clickLeftRelease$ } = mouseService;
@@ -34,7 +36,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       counter = counter === 1 ? 2 : 1;
     });
 
-    loopService.tick$.subscribe(({ elapsedTime }) => {
+    const clock: Clock = new Clock();
+    transformLoop.tick$.subscribe((): void => {
+      const elapsedTime: TMilliseconds = clock.getElapsedTime() as TMilliseconds;
       actor.drive.default.setX(Math.sin(elapsedTime) * 8);
       actor.drive.default.setZ(Math.cos(elapsedTime) * 8);
     });

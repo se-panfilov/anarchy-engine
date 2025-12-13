@@ -1,3 +1,5 @@
+import { Clock } from 'three';
+
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
 import type {
@@ -5,10 +7,10 @@ import type {
   TActorRegistry,
   TAppCanvas,
   TCameraWrapper,
-  TDelta,
   TEngine,
   TIntersectionEvent,
   TIntersectionsWatcher,
+  TMilliseconds,
   TModel3d,
   TModels3dRegistry,
   TSceneWrapper,
@@ -23,7 +25,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
 
-  const { actorService, cameraService, intersectionsWatcherService, loopService, models3dService, mouseService, scenesService } = space.services;
+  const { actorService, cameraService, intersectionsWatcherService, models3dService, mouseService, scenesService } = space.services;
+  const { transformLoop } = space.loops;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
   const actorRegistry: TActorRegistry = actorService.getRegistry();
 
@@ -31,7 +34,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const sceneW: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
-    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
 
     const planeModel3d: TModel3d | undefined = models3dRegistry.findByName('surface_model');
     if (isNotDefined(planeModel3d)) throw new Error('Plane model is not defined');
@@ -43,7 +46,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     watchIntersections([actor]);
 
-    loopService.tick$.subscribe(({ elapsedTime }: TDelta): void => {
+    const clock: Clock = new Clock();
+    transformLoop.tick$.subscribe((): void => {
+      const elapsedTime: TMilliseconds = clock.getElapsedTime() as TMilliseconds;
       actor.drive.default.setX(Math.sin(elapsedTime) * 8);
       actor.drive.default.setZ(Math.cos(elapsedTime) * 8);
       // actor.drive.position$.next(new Vector3(Math.sin(elapsedTime) * 8, actor.drive.position$.value.y, Math.cos(elapsedTime) * 8));

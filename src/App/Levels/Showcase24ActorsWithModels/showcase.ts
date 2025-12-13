@@ -26,7 +26,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { onKey, isKeyPressed } = keyboardService;
 
   function init(): void {
-    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
     const fadeDuration = 0.3;
 
     const solder1AnimFsm: TFsmWrapper = initSolder1('solder_actor_1', fadeDuration, space.services);

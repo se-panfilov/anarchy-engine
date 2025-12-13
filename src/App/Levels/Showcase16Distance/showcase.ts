@@ -3,7 +3,7 @@ import { Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TActorRegistry, TAppCanvas, TCameraRegistry, TEngine, TMetersPerSecond, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TActorRegistry, TAppCanvas, TCameraRegistry, TEngine, TMetersPerSecond, TMilliseconds, TSpace, TSpaceConfig } from '@/Engine';
 import { ambientContext, Engine, isNotDefined, KeysExtra, meters, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -19,7 +19,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const mode = { isKinematic: false };
   folder.add(mode, 'isKinematic').name('Actor is in kinematic mode');
 
-  const { actorService, cameraService, loopService } = space.services;
+  const { actorService, cameraService } = space.services;
+  const { transformLoop } = space.loops;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
   const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
   if (isNotDefined(actorRegistry)) throw new Error('Actor registry is not defined');
@@ -31,7 +32,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const sphere: TActor | undefined = findByName('sphere_actor');
     if (isNotDefined(sphere)) throw new Error('Actor "sphere_actor" is not defined');
 
-    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
 
     let isMove: boolean = false;
     let isTimerStarted: boolean = false;
@@ -64,7 +65,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     });
 
     //Move by click once
-    loopService.tick$.subscribe((delta): void => {
+    transformLoop.tick$.subscribe((delta: TMilliseconds): void => {
       if (isMove && !isTimerStarted) {
         isTimerStarted = true;
         console.time('move');
