@@ -27,7 +27,7 @@ import type { ILevel, ILevelConfig } from '../Models';
 // TODO (S.Panfilov) CWP All factories should be self-registrable (maybe pass a registry as a param there?)
 // TODO (S.Panfilov) Registries' destroy() should kill all registered instances
 
-// TODO (S.Panfilov) CWP 2. Add relations to all wrappers during the level build
+// TODO (S.Panfilov) CWP 2. maybe add relations to all wrappers during the level build?
 
 export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
   const built$: Subject<void> = new Subject<void>();
@@ -50,18 +50,20 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const actorRegistry: IActorRegistry = ActorRegistry();
   const actorAddedSubscription: Subscription = actorRegistry.added$.subscribe((actor: IActorWrapper) => scene.addActor(actor));
   const actorEntityCreatedSubscription: Subscription = actorFactory.entityCreated$.subscribe((instance: IActorWrapper): void => actorRegistry.add(instance));
-  actors.forEach((actor: IActorConfig): IActorWrapper => actorFactory.create(actorFactory.getParams(actor)));
+  actors.forEach((actor: IActorConfig): IActorWrapper => actorFactory.create(actorFactory.getParams({ ...actor, tags: [...actor.tags, CommonTags.FromConfig] })));
 
   const cameraFactory: ICameraFactory = CameraFactory();
   const cameraRegistry: ICameraRegistry = CameraRegistry();
   const cameraAddedSubscription: Subscription = cameraRegistry.added$.subscribe((camera: ICameraWrapper) => scene.addCamera(camera));
   const cameraEntityCreatedSubscription: Subscription = cameraFactory.entityCreated$.subscribe((instance: ICameraWrapper): void => cameraRegistry.add(instance));
-  cameras.forEach((camera: ICameraConfig): ICameraWrapper => cameraFactory.create(cameraFactory.getParams(camera)));
+  cameras.forEach((camera: ICameraConfig): ICameraWrapper => cameraFactory.create(cameraFactory.getParams({ ...camera, tags: [...camera.tags, CommonTags.FromConfig] })));
 
   const controlsFactory: IControlsFactory = ControlsFactory();
   const controlsRegistry: IControlsRegistry = ControlsRegistry();
   const controlsEntityCreatedSubscription: Subscription = controlsFactory.entityCreated$.subscribe((instance: IOrbitControlsWrapper): void => controlsRegistry.add(instance));
-  controls.forEach((control: IControlsConfig): IOrbitControlsWrapper => controlsFactory.create(controlsFactory.getParams(control, { cameraRegistry, canvas })));
+  controls.forEach(
+    (control: IControlsConfig): IOrbitControlsWrapper => controlsFactory.create(controlsFactory.getParams({ ...control, tags: [...control.tags, CommonTags.FromConfig] }, { cameraRegistry, canvas }))
+  );
 
   const clickableActors: ReadonlyArray<IActorWrapper> = actorRegistry.getAllWithEveryTag([ActorTag.Intersectable]);
   const camera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Initial);
@@ -78,7 +80,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const lightRegistry: ILightRegistry = LightRegistry();
   const lightAddedSubscription: Subscription = lightRegistry.added$.subscribe((light: ILightWrapper) => scene.addLight(light));
   const lightEntityCreatedSubscription: Subscription = lightFactory.entityCreated$.subscribe((instance: ILightWrapper): void => lightRegistry.add(instance));
-  lights.forEach((light: ILightConfig): ILightWrapper => lightFactory.create(lightFactory.getParams(light)));
+  lights.forEach((light: ILightConfig): ILightWrapper => lightFactory.create(lightFactory.getParams({ ...light, tags: [...light.tags, CommonTags.FromConfig] })));
 
   const rendererFactory: IRendererFactory = RendererFactory();
   const rendererRegistry: IRendererRegistry = RendererRegistry();

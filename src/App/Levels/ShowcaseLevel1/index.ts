@@ -7,6 +7,7 @@ export function showcaseLevel1(canvas: IAppCanvas): void {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
   level.start();
 
+  console.log(level);
   level.intersectionsWatcher.registry.initial.getAll()[0].value$.subscribe((obj: IVector3): void => {
     console.log('intersect obj', obj);
   });
