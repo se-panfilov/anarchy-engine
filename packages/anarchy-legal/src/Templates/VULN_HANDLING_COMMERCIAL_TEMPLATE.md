@@ -28,7 +28,7 @@
 ## 5. Notifications (Legal/Regulatory)
 
 - Where **required by law**, notify competent authorities and/or users **within the legally mandated timelines** for actively exploited vulnerabilities or other reportable events.
-  _Examples of potentially applicable regimes (depending on distribution and features):_ EU CRA, GDPR/UK-GDPR/LGPD/PIPEDA/AU Privacy (if personal data is impacted), PIPL (China), and sectoral rules.
+  _Examples (depending on distribution and features):_ EU CRA, GDPR/UK-GDPR/LGPD/PIPEDA/AU Privacy (if personal data is impacted), PIPL (China), sectoral rules.
 - If operating via app stores, follow their incident disclosure policies.
 
 ## 6. Third-Party Components
