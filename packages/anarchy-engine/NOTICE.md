@@ -1,10 +1,15 @@
-# NOTICE
+# Third-Party Notices
 
 ## Application: anarchy-engine
 
+This product includes third-party components. Their **licenses and attributions** are listed below.
+For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
+
 Components listed: 19
 
----
+## 1) Mandatory Attributions (verbatim)
+
+The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
 
 ## @dimforge/rapier3d@0.17.3
 
@@ -217,3 +222,9 @@ Components listed: 19
 **URL:** https://github.com/eram/typescript-fsm#readme
 
 **Attribution:** Copyright (c) 2018 eram
+
+---
+
+    ## 2) General OSS Acknowledgment
+
+This product incorporates open-source software. **If any term of this file or the EULA conflicts with an OSS license for a specific component, the OSS license controls for that component.**

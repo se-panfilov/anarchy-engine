@@ -1,10 +1,15 @@
-# NOTICE
+# Third-Party Notices
 
 ## Application: showcases-e2e
 
-Components listed: 23
+This product includes third-party components. Their **licenses and attributions** are listed below.
+For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
----
+Components listed: 22
+
+## 1) Mandatory Attributions (verbatim)
+
+The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
 
 ## @dimforge/rapier3d@0.17.3
 
@@ -87,18 +92,6 @@ Components listed: 23
 **URL:** https://github.com/fastify/fast-uri
 
 **Attribution:** Copyright (c) 2021 The Fastify Team
-
----
-
-## fsevents@2.3.2
-
-**License(s):** MIT
-
-**Repository:** https://github.com/fsevents/fsevents.git
-
-**URL:** https://github.com/fsevents/fsevents
-
-**Attribution:** Copyright (C) 2010-2020 by Philipp Dunkel, Ben Noordhuis, Elan Shankar, Paul Miller
 
 ---
 
@@ -261,3 +254,9 @@ Components listed: 23
 **URL:** https://github.com/eram/typescript-fsm#readme
 
 **Attribution:** Copyright (c) 2018 eram
+
+---
+
+    ## 2) General OSS Acknowledgment
+
+This product incorporates open-source software. **If any term of this file or the EULA conflicts with an OSS license for a specific component, the OSS license controls for that component.**

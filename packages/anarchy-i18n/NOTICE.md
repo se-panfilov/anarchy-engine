@@ -1,10 +1,15 @@
-# NOTICE
+# Third-Party Notices
 
 ## Application: anarchy-i18n
 
+This product includes third-party components. Their **licenses and attributions** are listed below.
+For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
+
 Components listed: 11
 
----
+## 1) Mandatory Attributions (verbatim)
+
+The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
 
 ## @formatjs/ecma402-abstract@2.3.4
 
@@ -129,3 +134,9 @@ Components listed: 11
 **URL:** https://www.typescriptlang.org/
 
 **Attribution:** Microsoft Corp.
+
+---
+
+    ## 2) General OSS Acknowledgment
+
+This product incorporates open-source software. **If any term of this file or the EULA conflicts with an OSS license for a specific component, the OSS license controls for that component.**

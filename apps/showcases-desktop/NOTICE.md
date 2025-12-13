@@ -1,10 +1,15 @@
-# NOTICE
+# Third-Party Notices
 
 ## Application: showcases-desktop
 
+This product includes third-party components. Their **licenses and attributions** are listed below.
+For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
+
 Components listed: 73
 
----
+## 1) Mandatory Attributions (verbatim)
+
+The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
 
 ## @babel/helper-string-parser@7.27.1
 
@@ -811,3 +816,9 @@ Components listed: 73
 **URL:** https://github.com/vuejs/core/tree/main/packages/vue#readme
 
 **Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
+
+---
+
+    ## 2) General OSS Acknowledgment
+
+This product incorporates open-source software. **If any term of this file or the EULA conflicts with an OSS license for a specific component, the OSS license controls for that component.**
