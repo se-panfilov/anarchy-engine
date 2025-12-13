@@ -1,5 +1,5 @@
 import { CreateEntitiesStrategy } from '@Engine/Space/Constants';
-import type { TSpace, TSpaceConfig, TSpaceHooks, TSpaceParams, TSpaceRegistry } from '@Engine/Space/Models';
+import type { TSpace, TSpaceConfig, TSpaceParams, TSpaceRegistry } from '@Engine/Space/Models';
 import { createEntities, loadResourcesFromConfig } from '@Engine/Space/Utils';
 import type { TWriteable } from '@Engine/Utils';
 import { isDefined } from '@Engine/Utils';
@@ -8,7 +8,7 @@ import { BehaviorSubject, exhaustMap, filter, takeUntil } from 'rxjs';
 
 import { Space } from './Space';
 
-export function SpaceFromConfig(params: TSpaceParams, config: TSpaceConfig, registry: TSpaceRegistry, hooks?: TSpaceHooks): TSpace {
+export function SpaceFromConfig(params: TSpaceParams, config: TSpaceConfig, registry: TSpaceRegistry): TSpace {
   const builtFromConfig$: BehaviorSubject<TSpace | undefined> = new BehaviorSubject<TSpace | undefined>(undefined);
 
   const space: TSpace = Space(params, registry);
@@ -19,13 +19,8 @@ export function SpaceFromConfig(params: TSpaceParams, config: TSpaceConfig, regi
   oldBuilt$
     .pipe(
       exhaustMap(async (): Promise<unknown> => {
-        hooks?.beforeResourcesLoaded?.(config, space.services, space.loops);
         await loadResourcesFromConfig(config.resources, space.services);
-
-        hooks?.beforeEntitiesCreated?.(config, space.services, space.loops);
         await createEntities(config.entities, space.services, space.container, CreateEntitiesStrategy.Config);
-        hooks?.afterEntitiesCreated?.(config, space.services, space.loops);
-
         return;
       }),
       takeUntil(space.destroy$)

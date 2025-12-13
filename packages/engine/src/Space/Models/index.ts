@@ -8,7 +8,6 @@ export type * from './TSpaceConfigResources';
 export type * from './TSpaceFactory';
 export type * from './TSpaceFactoryDependencies';
 export type * from './TSpaceFlags';
-export type * from './TSpaceHooks';
 export type * from './TSpaceLoops';
 export type * from './TSpaceOptions';
 export type * from './TSpaceParams';

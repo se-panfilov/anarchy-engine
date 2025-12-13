@@ -5,9 +5,9 @@ import { Space, SpaceFromConfig } from '@Engine/Space/Entities';
 import type { TSpace, TSpaceFactory, TSpaceFactoryDependencies, TSpaceParams } from '@Engine/Space/Models';
 import { isDefined } from '@Engine/Utils';
 
-function create(params: TSpaceParams, { config, hooks, registry }: TSpaceFactoryDependencies): TSpace | never {
-  if (isDefined(config) && Object.keys.length !== 0) return SpaceFromConfig(params, config, registry, hooks);
-  return Space(params, registry, hooks);
+function create(params: TSpaceParams, { config, registry }: TSpaceFactoryDependencies): TSpace | never {
+  if (isDefined(config) && Object.keys.length !== 0) return SpaceFromConfig(params, config, registry);
+  return Space(params, registry);
 }
 
 export function SpaceFactory(): TSpaceFactory {
