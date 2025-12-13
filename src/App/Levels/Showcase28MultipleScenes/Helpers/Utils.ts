@@ -1,6 +1,7 @@
 import type { TSubscriptionsData } from '@/App/Levels/Showcase28MultipleScenes/Helpers/TSubscriptionsData';
+import { addBtn } from '@/App/Levels/Utils';
 import type { TActor, TActorRegistry, TKeyboardPressingEvent, TParticlesWrapper, TSpace, TSpaceServices } from '@/Engine';
-import { createDomElement, isDefined, isNotDefined, KeyCode, metersPerSecond, mpsSpeed } from '@/Engine';
+import { createDomElement, isNotDefined, KeyCode, metersPerSecond, mpsSpeed } from '@/Engine';
 
 export function createContainersDivs(): void {
   createDomElement(
@@ -31,46 +32,6 @@ export function createContainersDivs(): void {
     'right_bottom_container',
     'position: fixed; left: calc(50% + 2px); right: 0; top: calc(50% + 2px); bottom: 0; outline: none; background: oklab(0.79 0 -0.11)'
   );
-}
-
-export function addBtn(
-  text: string,
-  containerId: string,
-  cb: (...rest: ReadonlyArray<any>) => void,
-  params?: {
-    right?: string;
-    left?: string;
-    top?: string;
-  }
-): void {
-  const { right, left, top } = params ?? {};
-
-  let container: HTMLDivElement | null = document.querySelector('#' + containerId);
-  if (isNotDefined(container)) {
-    container = document.createElement('div');
-    // eslint-disable-next-line functional/immutable-data
-    container.id = containerId;
-    // eslint-disable-next-line functional/immutable-data
-    container.style.position = 'absolute';
-    // eslint-disable-next-line functional/immutable-data
-    container.style.top = top ?? '10px';
-    // eslint-disable-next-line functional/immutable-data
-    if (isDefined(right)) container.style.right = right;
-    // eslint-disable-next-line functional/immutable-data
-    if (isDefined(left)) container.style.left = left;
-    // eslint-disable-next-line functional/immutable-data
-    container.style.display = 'flex';
-    // eslint-disable-next-line functional/immutable-data
-    container.style.gap = '8px';
-    document.body.appendChild(container);
-  }
-
-  const button: HTMLButtonElement = document.createElement('button');
-  // eslint-disable-next-line functional/immutable-data
-  button.textContent = text;
-
-  button.addEventListener('click', cb);
-  container.appendChild(button);
 }
 
 export function driveByKeyboard(actorName: string, { actorService, keyboardService }: TSpaceServices): void {
