@@ -6,8 +6,6 @@ import fs from 'fs';
 import type http from 'http';
 import path from 'path';
 
-import { isNotDefined } from '@/Engine';
-
 const app: Express = express();
 export const PORT = 3001;
 
@@ -49,7 +47,7 @@ app.post('/screenshot/:spaceName', (req, res) => {
   const { name, base64 } = req.body;
   const { spaceName } = req.params;
 
-  if (isNotDefined(name) || isNotDefined(base64)) return res.status(400).send(`[Test server] Missing name or base64`);
+  if (!name || !base64) return res.status(400).send(`[Test server] Missing name or base64`);
 
   const base64Data = base64.replace(/^data:image\/png;base64,/, '');
   fs.writeFileSync(path.join(`${imageDir}/${spaceName}`, name + '_new'), base64Data, 'base64');
@@ -60,14 +58,14 @@ app.post('/screenshot/:spaceName', (req, res) => {
 // Get the original screenshot of the "spaceName"
 app.get('/screenshot/original/:spaceName', (req, res) => {
   const result: ReadonlyArray<string> | undefined = getImage(req.params.spaceName, false);
-  if (isNotDefined(result)) return res.status(404).send(`File with name "${req.params.spaceName}" not found`);
+  if (!result) return res.status(404).send(`File with name "${req.params.spaceName}" not found`);
   res.json(result);
 });
 
 // Get the new screenshot of the "spaceName"
 app.get('/screenshot/new/:spaceName', (req, res) => {
   const result: ReadonlyArray<string> | undefined = getImage(req.params.spaceName, true);
-  if (isNotDefined(result)) return res.status(404).send(`File with name "${req.params.spaceName}_new" not found`);
+  if (!result) return res.status(404).send(`File with name "${req.params.spaceName}_new" not found`);
   res.json(result);
 });
 
