@@ -1,4 +1,4 @@
-import type { Object3DJSONObject, Vector2Like } from 'three';
+import type { DirectionalLightShadow, Object3DJSONObject, PointLightShadow, SpotLightShadow, Vector2Like } from 'three';
 import { Vector2 } from 'three';
 
 import type { TCommonCameraParams } from '@/Engine/Camera';
@@ -7,7 +7,6 @@ import { serializeColor } from '@/Engine/Color';
 import { LightType } from '@/Engine/Light/Constants';
 import type {
   TAbstractLightConfig,
-  TAbstractLightParams,
   TAbstractLightWrapper,
   TAmbientLightConfig,
   TAnyLight,
@@ -18,17 +17,19 @@ import type {
   TLightShadowConfig,
   TLightShadowParams,
   TPointLightConfig,
+  TPointLightParams,
   TPointLightWrapper,
   TRectAreaLightConfig,
   TRectAreaLightWrapper,
   TShadowCameraConfig,
   TShadowCameraParams,
   TSpotLightConfig,
+  TSpotLightParams,
   TSpotLightWrapper
 } from '@/Engine/Light/Models';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TWriteable } from '@/Engine/Utils';
-import { filterOutEmptyFields, isDefined, isNotDefined } from '@/Engine/Utils';
+import { filterOutEmptyFields, isDefined, isNotDefined, vector2ToXy } from '@/Engine/Utils';
 
 export function lightToConfig<T extends TAnyLight>(entity: TAbstractLightWrapper<T>): TDirectionalLightConfig | THemisphereLightConfig | TRectAreaLightConfig | TAmbientLightConfig | TSpotLightConfig {
   const { drive } = entity;
@@ -107,7 +108,7 @@ export function onlyLightShadowToConfig<T extends TAnyLight>(
 }> {
   const json: Object3DJSONObject = entity.entity.toJSON().object;
 
-  const lightConfig = json as unknown as TDirectionalLightParams | TAbstractLightParams;
+  const lightConfig = json as unknown as TDirectionalLightParams | TPointLightParams | TSpotLightParams;
   const shadow: TLightShadowParams | undefined = lightConfig.shadow;
   if (isNotDefined(shadow)) return {};
   const camera: TShadowCameraParams = shadow.camera;
@@ -115,7 +116,8 @@ export function onlyLightShadowToConfig<T extends TAnyLight>(
   const result: Readonly<{ shadow: TWriteable<TLightShadowConfig> }> = filterOutEmptyFields({
     shadow: {
       ...shadow,
-      mapSize: getMapSize(shadow),
+      mapSize: getMapSize(shadow) ?? getMapSize(entity.entity.shadow),
+      normalBias: shadow.normalBias ?? entity.entity.shadow?.normalBias,
       camera: undefined as unknown as TCommonCameraParams
     }
   });
@@ -134,7 +136,7 @@ export function onlyLightShadowToConfig<T extends TAnyLight>(
   return result;
 }
 
-function getMapSize(shadow: TLightShadowConfig | TLightShadowParams | undefined): Vector2Like {
+function getMapSize(shadow: TLightShadowConfig | TLightShadowParams | DirectionalLightShadow | PointLightShadow | SpotLightShadow | undefined): Vector2Like {
   let mapSize: Vector2Like | undefined = undefined;
   if (isDefined(shadow) && isDefined(shadow.mapSize)) {
     mapSize =
@@ -142,5 +144,5 @@ function getMapSize(shadow: TLightShadowConfig | TLightShadowParams | undefined)
         ? { x: (shadow.mapSize as any)[0] as number, y: (shadow.mapSize as any)[1] as number }
         : undefined;
   }
-  return mapSize ?? new Vector2();
+  return vector2ToXy(mapSize ?? new Vector2());
 }
