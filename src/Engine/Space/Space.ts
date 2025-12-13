@@ -66,7 +66,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
   //build intersections
   // TODO (S.Panfilov) CWP
-  // TODO (S.Panfilov) turn of intersections watcher for inactive cameras (then turn on again on active)
+  // TODO (S.Panfilov) turn off intersections watcher for inactive cameras (then turn on again on active)
   // TODO (S.Panfilov) we need a normal logging from services (which service with which id do what)
   // TODO (S.Panfilov) add validation for intersections config (names, uniq, patterns, etc)
   // TODO (S.Panfilov) stop watching actors after all the intersections are ready

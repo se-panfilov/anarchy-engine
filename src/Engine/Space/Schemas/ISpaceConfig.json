@@ -35,7 +35,7 @@
     "intersections": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/IIntersectionConfig"
+        "$ref": "#/definitions/IIntersectionsWatcherConfig"
       }
     },
     "lights": {
@@ -2737,7 +2737,7 @@
       },
       "required": ["isActive", "position", "tags"]
     },
-    "IIntersectionConfig": {
+    "IIntersectionsWatcherConfig": {
       "type": "object",
       "properties": {
         "tags": {
@@ -2745,6 +2745,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "name": {
+          "type": "string"
         },
         "cameraName": {
           "type": "string"

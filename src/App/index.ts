@@ -1,6 +1,6 @@
 import '@/App/style.css';
 
-// import { showcase } from '@/App/Levels/Showcase1MovingActors';
+import { showcase } from '@/App/Levels/Showcase1MovingActors';
 // import { showcase } from '@/App/Levels/Showcase2TopDown';
 // import { showcase } from '@/App/Levels/Showcase3CameraFlying';
 // import { showcase } from '@/App/Levels/Showcase4AnimejsSimple';
@@ -14,7 +14,7 @@ import '@/App/style.css';
 // import { showcase } from '@/App/Levels/Showcase12Light';
 // import { showcase } from '@/App/Levels/Showcase13Fog';
 // import { showcase } from '@/App/Levels/Showcase14SwitchingActiveCamera';
-import { showcase } from '@/App/Levels/Showcase15ConfigurableIntersections';
+// import { showcase } from '@/App/Levels/Showcase15ConfigurableIntersections';
 import type { IAppCanvas } from '@/Engine';
 import { ambientContext, isNotDefined } from '@/Engine';
 
