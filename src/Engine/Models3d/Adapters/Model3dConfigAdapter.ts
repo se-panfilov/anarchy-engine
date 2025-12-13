@@ -1,6 +1,7 @@
+import type { AnimationClip } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import type { TMaterialWrapper } from '@/Engine/Material';
+import type { TAnimationsResourceAsyncRegistry } from '@/Engine/Animations';
 import type { PrimitiveModel3dType } from '@/Engine/Models3d/Constants';
 import type { TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModel3dResourceAsyncRegistry } from '@/Engine/Models3d/Models';
 import { isPrimitiveModel3dData } from '@/Engine/Models3d/Utils';
@@ -10,14 +11,12 @@ import { isDefined, isNotDefined } from '@/Engine/Utils';
 export function configToParams(config: TModel3dConfig, { materialRegistry, model3dResourceAsyncRegistry }: TModel3dConfigToParamsDependencies): TModel3dParams {
   const { position, rotation, materialSource, scale, ...rest } = config;
 
-  const material: TMaterialWrapper | undefined = isDefined(materialSource) ? materialRegistry.findByName(materialSource) : undefined;
-
   return {
     ...rest,
-    animationsSource: [],
+    ...configToParamsObject3d({ position, rotation, scale }),
+    animationsSource: getAnimationsSource(config),
     model3dSource: getModel3d(config, model3dResourceAsyncRegistry),
-    materialSource: material,
-    ...configToParamsObject3d({ position, rotation, scale })
+    materialSource: isDefined(materialSource) ? materialRegistry.findByName(materialSource) : undefined
   };
 }
 
@@ -32,4 +31,17 @@ function getModel3d(config: TModel3dConfig, model3dResourceAsyncRegistry: TModel
   if (isNotDefined(model3d)) throw new Error(`Model3dConfigAdapter: model3dSource not found: ${config.model3dSource}`);
 
   return model3d;
+}
+
+function getAnimationsSource(config: TModel3dConfig, animationsResourceAsyncRegistry: TAnimationsResourceAsyncRegistry): ReadonlyArray<AnimationClip> | never {
+  let animations: ReadonlyArray<AnimationClip> = [];
+  if (isDefined(config.animationsSource)) {
+    config.animationsSource.forEach((source: string): void => {
+      const a: AnimationClip | undefined = animationsResourceAsyncRegistry.findByKey(source);
+      if (isNotDefined(a)) throw new Error(`Model3dConfigAdapter: animationsSource not found: ${source}`);
+      animations = [...animations, a];
+    });
+  }
+
+  return animations;
 }
