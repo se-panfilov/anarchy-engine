@@ -3,7 +3,7 @@ export enum FactoryType {
   Camera = 'camera_factory',
   Controls = 'controls_factory',
   Input = 'input_factory',
-  Intersections = 'intersections_factory',
+  IntersectionsWatcher = 'intersections_watcher_factory',
   Light = 'light_factory',
   Loop = 'loop_factory',
   Renderer = 'renderer_factory',

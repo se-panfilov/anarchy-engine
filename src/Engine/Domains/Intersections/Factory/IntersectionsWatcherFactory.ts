@@ -1,22 +1,9 @@
-import type { IFactory } from '@Engine/Domains/Abstract';
-import { AbstractFactory, FactoryType } from '@Engine/Domains/Abstract';
+import type { IReactiveFactory } from '@Engine/Domains/Abstract';
+import { FactoryType, ReactiveFactory } from '@Engine/Domains/Abstract';
 
-import type { IIntersectionsParams, IIntersectionsWatcher, IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '../Models';
-import { IntersectionsWatcherRegistry } from '../Registry';
-import { IntersectionsWatcher } from '../Watchers';
+import { IntersectionsWatcher } from '@/Engine/Domains/Intersections/Watchers';
 
-export function IntersectionsWatcherFactory(): IIntersectionsWatcherFactory {
-  const registry: IIntersectionsWatcherRegistry = IntersectionsWatcherRegistry();
+import type { IIntersectionsWatcher, IIntersectionsWatcherFactory, IIntersectionsWatcherParams } from '../Models';
 
-  function create({ actors, camera, positionWatcher, tags }: IIntersectionsParams): IIntersectionsWatcher {
-    const watcher: IIntersectionsWatcher = IntersectionsWatcher(actors, camera, positionWatcher, tags);
-    registry.add(watcher);
-    return watcher;
-  }
-
-  const factory: IFactory<IIntersectionsWatcher, IIntersectionsParams> = { ...AbstractFactory(FactoryType.Intersections), create };
-
-  return {
-    ...factory
-  };
-}
+const factory: IReactiveFactory<IIntersectionsWatcher, IIntersectionsWatcherParams> = { ...ReactiveFactory(FactoryType.IntersectionsWatcher, IntersectionsWatcher) };
+export const IntersectionsWatcherFactory = (): IIntersectionsWatcherFactory => ({ ...factory });
