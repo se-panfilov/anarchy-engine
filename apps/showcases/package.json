@@ -6,7 +6,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "before:release": "npm run clean:reinstall && npm run before:release:check && npm run generate:license-report && npm run generate:all-licenses-list",
+    "before:release": "npm run clean:reinstall && npm run before:release:check && npm run generate:license-report && npm run generate:all-licenses-list && npm run sanitize-assets",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",
     "build": "rimraf ./dist && vite build",
     "build:desktop": "npm run build -- --mode production.desktop && cd ./desktop && npm run build:desktop",
