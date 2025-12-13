@@ -52,8 +52,8 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       if (isNotDefined(redText) || isNotDefined(blueText) || isNotDefined(greenText)) throw new Error('Texts are not defined');
       if (isNotDefined(redActor) || isNotDefined(blueActor) || isNotDefined(greenActor)) throw new Error('Actors are not defined');
       followersCb = { ...followersCb, red: standardMoverService.followTarget(redText, redActor, { x: 1 }) };
-      followersCb = { ...followersCb, red: standardMoverService.followTarget(blueText, blueActor, { x: 1 }) };
-      followersCb = { ...followersCb, red: standardMoverService.followTarget(greenText, greenActor, { x: 1 }) };
+      followersCb = { ...followersCb, blue: standardMoverService.followTarget(blueText, blueActor, { x: 1 }) };
+      followersCb = { ...followersCb, green: standardMoverService.followTarget(greenText, greenActor, { x: 1 }) };
     }
 
     function stopFollowing(): void {
