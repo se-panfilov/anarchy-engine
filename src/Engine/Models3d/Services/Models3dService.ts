@@ -46,17 +46,18 @@ export function Models3dService(
   //   return Promise.all([...loadFromConfigAsync(complexModelsConfigs), ...createPrimitiveFromConfig(primitiveModelsConfigs)]);
   // }
 
-  // const createPrimitiveFromConfig = (config: ReadonlyArray<TModel3dConfig>): ReadonlyArray<Promise<TModel3dPrimitiveFacade>> =>
-  //   createPrimitiveAsync(config.map((c) => model3dConfigPrimitiveToParams(c, { materialService })));
-
   function clone(model3dFacade: TModel3dFacade, overrides?: TOptional<TModel3dPack>): TModel3dFacade {
     const cloned = model3dFacade._clone(overrides);
     registry.add(cloned);
     return cloned;
   }
 
-  // function createPrimitiveAsync(params: ReadonlyArray<TModel3dConfig>): ReadonlyArray<Promise<TModel3dPrimitiveFacade>> {
-  //   return params.map((p: TModel3dPrimitiveParams): Promise<TModel3dPrimitiveFacade> => Promise.resolve(createFromPack(createPrimitiveModel3dPack(p)) as TModel3dPrimitiveFacade));
+  // TODO 9.0.0. RESOURCES: It looks like we need to just call "create" method when we need to create a primitive model
+  // const createPrimitiveFromConfig = (config: ReadonlyArray<TModel3dConfig>): ReadonlyArray<TModel3dFacade> => createPrimitiveAsync(config.map((c) => configToParams(c, { materialService })));
+  //
+  // function createPrimitiveAsync(params: ReadonlyArray<TModel3dParams>): ReadonlyArray<TModel3dFacade> {
+  //   // return params.map((p: TModel3dParams): TModel3dFacade => createFromPack(createModel3dPack(p)));
+  //   return params.map((p: TModel3dParams): TModel3dFacade => create(p));
   // }
 
   const destroyable: TDestroyable = destroyableMixin();
