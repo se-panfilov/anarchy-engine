@@ -6,7 +6,6 @@ export * from './IFactory';
 export * from './IFromConfig';
 export * from './IFromConfigFactory';
 export * from './IGenericDestroyableFactory';
-export * from './IGenericFactory';
 export * from './IIntersectionsParams';
 export * from './ILaunchedEngine';
 export * from './ILaunchedScene';

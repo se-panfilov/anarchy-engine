@@ -1,5 +1,5 @@
-import type { IAbstractWrapperFactory, IDestroyableFactory } from '@Engine/Domains/Abstract';
-import { AbstractDestroyableFactory, AbstractWrapperFactory } from '@Engine/Domains/Abstract';
+import type { IAbstractWrapperFactory } from '@Engine/Domains/Abstract';
+import { AbstractWrapperFactory } from '@Engine/Domains/Abstract';
 import type { IActorFactory } from '@Engine/Domains/Actor';
 import { ActorFactory } from '@Engine/Domains/Actor';
 import type { ICameraFactory } from '@Engine/Domains/Camera';
@@ -27,7 +27,6 @@ describe('DestroyableUtils', () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-return
       const abstractFactory: IAbstractWrapperFactory<any, any, any> = AbstractWrapperFactory('mock', () => ({} as any));
       // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-return
-      const abstractDestroyableFactory: IDestroyableFactory<any, any, any, any> = AbstractDestroyableFactory('mock', () => ({} as any));
       const actorFactory: IActorFactory = ActorFactory();
       const cameraFactory: ICameraFactory = CameraFactory();
       const controlsFactory: IControlsFactory = ControlsFactory(controlsFactoryParams);
@@ -39,7 +38,6 @@ describe('DestroyableUtils', () => {
 
       it('should return "false" for normal factories', () => {
         expect(isDestroyedFactory(abstractFactory)).toBe(false);
-        expect(isDestroyedFactory(abstractDestroyableFactory)).toBe(false);
         expect(isDestroyedFactory(actorFactory)).toBe(false);
         expect(isDestroyedFactory(cameraFactory)).toBe(false);
         expect(isDestroyedFactory(controlsFactory)).toBe(false);
@@ -52,13 +50,6 @@ describe('DestroyableUtils', () => {
     });
 
     describe('destroyed factories', () => {
-      it('should return "true" for destroyed ControlsFactory', () => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-return
-        const abstractDestroyableFactory: IDestroyableFactory<any, any, any, any> = AbstractDestroyableFactory('mock', () => ({} as any));
-        abstractDestroyableFactory.destroy();
-        expect(isDestroyedFactory(abstractDestroyableFactory)).toBe(true);
-      });
-
       it('should return "true" for destroyed ControlsFactory', () => {
         const destroyedControlsFactory: IControlsFactory = ControlsFactory(controlsFactoryParams);
         destroyedControlsFactory.destroy();
