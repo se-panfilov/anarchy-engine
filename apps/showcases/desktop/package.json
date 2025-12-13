@@ -40,6 +40,14 @@
   "build": {
     "appId": "com.anarchy.showcases.demo.desktop",
     "productName": "AnarchyDemo",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "ADD-YOUR-GITHUB-USERNAME",
+        "repo": "ADD-YOUR-REPO-NAME",
+        "private": false
+      }
+    ],
     "copyright": "Copyright © 2025 ADD YOUR NAME",
     "author": {
       "name": "ADD YOUR NAME",
@@ -77,7 +85,7 @@
       "signingHashAlgorithms": [
         "sha256"
       ],
-      "rfc3161TimeStampServer": "http://timestamp.digicert.com",
+      "rfc3161TimeStampServer": "http://timestamp.sectigo.com",
       "artifactName": "${productName}-${version}-${arch}.${ext}"
     },
     "linux": {
