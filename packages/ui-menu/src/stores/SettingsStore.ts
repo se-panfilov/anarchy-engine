@@ -2,7 +2,7 @@ import type { TDeepWriteable } from '@Engine';
 import { Languages } from '@Menu/constants';
 import type { TGameSettings, TResolution } from '@Shared/Showcase';
 import { defineStore } from 'pinia';
-import { reactive } from 'vue';
+import { computed, reactive } from 'vue';
 
 export const useSettingsStore = defineStore('settingsStore', () => {
   const state: TDeepWriteable<TGameSettings> = reactive({
@@ -34,5 +34,18 @@ export const useSettingsStore = defineStore('settingsStore', () => {
     ];
   }
 
-  return { ...state, getAvailableResolutions };
+  const graphics = computed(() => state.graphics);
+  const audio = computed(() => state.audio);
+  const localization = computed(() => state.localization);
+  const debug = computed(() => state.debug);
+  const internal = computed(() => state.internal);
+
+  return {
+    graphics,
+    audio,
+    localization,
+    debug,
+    internal,
+    getAvailableResolutions
+  };
 });
