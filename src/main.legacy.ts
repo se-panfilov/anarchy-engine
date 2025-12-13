@@ -38,7 +38,7 @@ const lightManager = new LightManager();
 const controlsManager = new ControlsManager();
 // const inputManager = new InputManager();
 const loopManager = new LoopManager();
-const sceneManager = new SceneFactory();
+const sceneManager = new SceneManager();
 const rendererManager = new RendererManager();
 
 const scene = sceneManager.create('test_scene_1');
