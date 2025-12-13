@@ -1,5 +1,5 @@
 import type { TAbstractEntityRegistry, TProtectedRegistry } from '@/Engine/Abstract';
 
-import type { TPhysicsWrapper } from './TPhysicsWrapper';
+import type { TPhysicsBodyWrapper } from './TPhysicsBodyWrapper';
 
-export type TPhysicsRegistry = TProtectedRegistry<TAbstractEntityRegistry<TPhysicsWrapper>>;
+export type TPhysicsRegistry = TProtectedRegistry<TAbstractEntityRegistry<TPhysicsBodyWrapper>>;

@@ -1,2 +1,2 @@
-export * from './PhysicsRegistry';
 export * from './PhysicsPresetRegistry';
+export * from './PhysicsRegistry';

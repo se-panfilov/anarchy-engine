@@ -67,7 +67,7 @@ export function PhysicsService(factory: TPhysicsFactory, registry: TPhysicsRegis
   }
 
   const addPresets = (presets: ReadonlyArray<TPhysicsPresetParams>): void => physicsPresetRegistry.add(presets);
-  const addPresetsFromConfig = (presets: ReadonlyArray<TPhysicsPresetConfig>): void => addPresets(presets.map((preset: TPhysicsPresetConfig): TPhysicsPresetParams => configToParams(preset)));
+  const addPresetsFromConfig = (presets: ReadonlyArray<TPhysicsPresetConfig>): void => addPresets(presets.map(configToParams));
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {

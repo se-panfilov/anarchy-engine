@@ -11,6 +11,7 @@ export enum WrapperType {
   Material = 'material_wrapper',
   Particles = 'particles_wrapper',
   PointLight = 'point_light_wrapper',
+  Physics = 'physics_wrapper',
   RectAreaLight = 'rect_area_light_wrapper',
   Renderer = 'renderer_wrapper',
   Scene = 'scene_wrapper',
