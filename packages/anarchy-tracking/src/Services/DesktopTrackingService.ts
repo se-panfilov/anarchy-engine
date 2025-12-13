@@ -1,14 +1,13 @@
 import { isDefined, parseDistName } from '@Anarchy/Shared/Utils';
-import type { TTrackingService } from '@Anarchy/Tracking/Models';
+import type { TMetaData, TTrackingService } from '@Anarchy/Tracking/Models';
 import { rewriteFramesIntegrationNode } from '@Anarchy/Tracking/Utils/IntegrationsNode';
 import { scrubEvent } from '@Anarchy/Tracking/Utils/ScrubEvent';
 import { scrubUserPathsDesktop } from '@Anarchy/Tracking/Utils/ScrubsDesktop';
-import type { Primitive } from '@sentry/core';
 import type { ElectronMainOptions } from '@sentry/electron/esm/main';
 import type { ErrorEvent, EventHint } from '@sentry/electron/main';
 import { captureException, init, setTags } from '@sentry/electron/main';
 
-export function DesktopTrackingService(options?: ElectronMainOptions, metaData?: Readonly<Record<string, Primitive>>): TTrackingService {
+export function DesktopTrackingService(options?: ElectronMainOptions, metaData?: TMetaData): TTrackingService {
   let isStarted: boolean = false;
 
   const defaultOptions: ElectronMainOptions = {

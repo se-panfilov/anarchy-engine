@@ -1,13 +1,13 @@
 import { isDefined, parseDistName } from '@Anarchy/Shared/Utils';
-import type { TTrackingService } from '@Anarchy/Tracking/Models';
+import type { TMetaData, TTrackingService } from '@Anarchy/Tracking/Models';
 import { rewriteFramesIntegrationBrowser } from '@Anarchy/Tracking/Utils/IntegrationsBrowser';
 import { scrubEvent } from '@Anarchy/Tracking/Utils/ScrubEvent';
 import { scrubUserPathsBrowser } from '@Anarchy/Tracking/Utils/ScrubsBrowser';
-import type { Integration, Primitive } from '@sentry/core';
+import type { Integration } from '@sentry/core';
 import type { ErrorEvent, EventHint } from '@sentry/electron/renderer';
 import { captureException, init, setTags } from '@sentry/electron/renderer';
 
-export function DesktopPreloadTrackingService(options?: Record<string, any>, metaData?: Readonly<Record<string, Primitive>>): TTrackingService {
+export function DesktopPreloadTrackingService(options?: Record<string, any>, metaData?: TMetaData): TTrackingService {
   let isStarted: boolean = false;
 
   const defaultOptions = {
