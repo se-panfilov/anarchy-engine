@@ -1,7 +1,7 @@
 import type { ElectronApplication, Page } from '@playwright/test';
 import { _electron as electron } from '@playwright/test';
 
-type TLaunchResult = Readonly<{
+type TDesktopAppLaunchResult = Readonly<{
   electronApp: ElectronApplication;
   page: Page;
 }>;
@@ -11,7 +11,7 @@ const VIEWPORT = {
   height: 600
 } as const;
 
-export async function launchPackagedElectronApp(): Promise<TLaunchResult> {
+export async function launchPackagedElectronApp(): Promise<TDesktopAppLaunchResult> {
   const executablePath: string | undefined = process.env.DESKTOP_E2E_APP_PATH;
 
   if (!executablePath) {
