@@ -12,6 +12,8 @@ import { genericEntityCleanUp, isDefined } from '@/Engine/Utils';
 // TODO 14-0-0: Check destroy with Physics
 // TODO 14-0-0: Check destroy with Collisions
 // TODO 14-0-0: Check destroy with FSM
+// TODO 14-0-0: Check destroy with Particles
+// TODO 14-0-0: Check destroy with Intersections
 
 export function AbstractEntity<T extends Record<string, any>, P extends TEntityParams>(entities: T, type: EntityType | string, params?: P): TEntity<T> {
   const id: string = isDefined(params?.id) ? params.id : type + '_' + nanoid();
