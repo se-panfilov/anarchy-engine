@@ -1,6 +1,12 @@
+import type { TLocale, TLocaleId } from '@Anarchy/i18n';
+import { getLocaleByLocaleId, getPreferLocaleId } from '@Anarchy/i18n';
+import { isDefined } from '@Anarchy/Shared/Utils';
+import { ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/i18n';
 import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared';
+import { DefaultShowcaseGameSettings } from '@Showcases/Shared';
 
 import type { TPlatformDriver } from '@/Models';
+import { settingsWebDbService } from '@/Services';
 
 // TODO DESKTOP: Make sure ALL these methods are working correctly
 // TODO DESKTOP: Implement the web driver
@@ -29,9 +35,39 @@ export function Driver(): TPlatformDriver {
     return Promise.resolve('XXX [WEB] mocked wrapped app version');
   }
 
-  function getAppSettings(): Promise<TShowcaseGameSettings> {
-    console.log('XXX [WEB]', 'getAppSettings');
-    return Promise.resolve({} as any);
+  async function getAppSettings(): Promise<TShowcaseGameSettings> {
+    const settings: TShowcaseGameSettings | undefined = await settingsWebDbService.findSettings();
+    if (isDefined(settings)) return settings;
+
+    console.log(`[WEB] Settings not found. Applying default settings.`);
+    const defaultSettings: TShowcaseGameSettings = await buildDefaultSettings();
+    await setAppSettings(defaultSettings);
+    return defaultSettings;
+  }
+
+  // TODO DESKTOP: this code returns en-us instead of en-US
+  function getPreferredLocales(): Promise<ReadonlyArray<TLocaleId>> {
+    const navigatorLanguages: ReadonlyArray<string> = Array.isArray(navigator.languages) ? navigator.languages : [];
+    const languages: ReadonlyArray<string> = isDefined(navigator.language) ? [navigator.language, ...navigatorLanguages] : navigatorLanguages;
+    return Promise.resolve(Array.from(new Set(languages.map((lang: string): TLocaleId => lang as TLocaleId))));
+  }
+
+  async function buildDefaultSettings(): Promise<TShowcaseGameSettings> {
+    const availableLocales: ReadonlyArray<TLocale> = Object.values(ShowcasesLocales);
+    const availableLocalesIds: ReadonlyArray<TLocaleId> = availableLocales.map((locale: TLocale): TLocaleId => locale.id);
+    const locale: TLocale = getLocaleByLocaleId(getPreferLocaleId(await getPreferredLocales(), availableLocalesIds, ShowcasesFallbackLocale.id), availableLocales);
+
+    const platformDetectedSettings: Partial<TShowcaseGameSettings> = {
+      localization: {
+        ...DefaultShowcaseGameSettings.localization,
+        locale
+      }
+    };
+
+    return {
+      ...DefaultShowcaseGameSettings,
+      ...platformDetectedSettings
+    };
   }
 
   async function getLegalDocs({ name }: TLoadDocPayload): Promise<TLegalDoc> {
@@ -61,14 +97,15 @@ export function Driver(): TPlatformDriver {
 
   return {
     closeApp,
+    getAppSettings,
     getChromeVersion,
+    getLegalDocs,
     getNodeVersion,
     getPlatformVersion,
+    getPreferredLocales,
     getWrappedAppVersion,
-    getAppSettings,
-    getLegalDocs,
     restartApp,
-    setFirstRun,
-    setAppSettings
+    setAppSettings,
+    setFirstRun
   };
 }
