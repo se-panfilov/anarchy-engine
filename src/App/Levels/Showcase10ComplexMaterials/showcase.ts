@@ -32,7 +32,7 @@ import type {
   TWithThickness,
   TWithTransmission
 } from '@/Engine';
-import { ambientContext, Engine, isDefined, isNotDefined, KeyCode, LookUpStrategy, spaceService, TextType } from '@/Engine';
+import { ambientContext, Engine, getTags, isDefined, isNotDefined, KeyCode, LookUpStrategy, spaceService, TextType } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -83,7 +83,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     textService.create({
       type: TextType.Text3d,
-      text: actor.getTags()[0],
+      text: getTags(actor)[0],
       cssProps: { fontSize: '0.3px', color: 'red' },
       position: new Vector3(x, y - 0.5, z + 1.2),
       rotation: new Euler(-1.57, 0, 0)

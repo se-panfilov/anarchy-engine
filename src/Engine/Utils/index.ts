@@ -12,6 +12,7 @@ export * from './RegistryUtils';
 export * from './RotationUtils';
 export * from './RxJsUtils';
 export * from './StringUtils';
+export * from './TagsUtils';
 export * from './TransformUtils';
 export type * from './TypesUtils';
 export * from './WebGLUtils';

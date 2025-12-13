@@ -5,7 +5,6 @@ import type { TCameraAccessors, TCameraParams, TCameraTransformDrive, TCameraWra
 import { CameraTransformDrive } from '@/Engine/Camera/TransformDrive';
 import { ambientContext } from '@/Engine/Context';
 import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
-import { withTagsMixin } from '@/Engine/Mixins/Generics';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import type { TWriteable } from '@/Engine/Utils';
@@ -32,7 +31,7 @@ export function CameraWrapper(params: TCameraParams): TCameraWrapper {
     entity,
     ...withObject3d(entity),
     ...withActiveMixin(),
-    ...withTagsMixin(tags)
+    ...tags
   };
 
   applyObject3dParams(result, params);

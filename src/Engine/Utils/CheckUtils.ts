@@ -4,7 +4,7 @@ import type { Vector3, Vector3Like } from 'three/src/math/Vector3';
 
 import type { TAbstractAsyncRegistry, TAbstractEntityRegistry, TWithUserData, TWithWrapperId, TWithWrapperIdEntity } from '@/Engine/Abstract/Models';
 import type { TColorWrapper } from '@/Engine/Color';
-import type { TDestroyable, TRegistrable, TWithPosition2dProperty, TWithPosition3dProperty, TWithPosition4dProperty, TWithPositionProperty } from '@/Engine/Mixins';
+import type { TDestroyable, TWithPosition2dProperty, TWithPosition3dProperty, TWithPosition4dProperty, TWithPositionProperty } from '@/Engine/Mixins';
 import type { TEulerLike } from '@/Engine/ThreeLib';
 
 import { isObject } from './ObjectUtils';
@@ -16,8 +16,6 @@ export const isAllDefined = <T>(values: ReadonlyArray<T | undefined | null>): va
 export const isNotDefined = <T>(value: T | undefined | null): value is undefined | null => !isDefined<T>(value);
 
 export const isAllNotDefined = <T>(values: ReadonlyArray<T | undefined | null>): values is ReadonlyArray<undefined | null> => values.every(isNotDefined);
-
-export const isRegistrable = (obj: unknown): obj is TRegistrable => isDefined((obj as TRegistrable).getTags) && Boolean((obj as TRegistrable).addTag);
 
 export function isDestroyable(obj: unknown): obj is TDestroyable {
   return isDefined((obj as TDestroyable).destroy$) && isDefined((obj as TDestroyable).isDestroyed);

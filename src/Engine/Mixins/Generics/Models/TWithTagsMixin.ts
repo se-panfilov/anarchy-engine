@@ -1,12 +1,5 @@
-export type TWithTagsMixin = Readonly<{
-  setTags: (tagsList: ReadonlyArray<string>) => void;
-  addTag: (tag: string) => void;
-  removeTag: (tag: string) => void;
-  hasTag: (tag: string) => boolean;
-  getTags: () => ReadonlyArray<string>;
-  clearTags: () => void;
-}>;
-
+// TODO rename to withTags
 export type TWithReadonlyTags = Readonly<{
+  // TODO make tags optional again!
   tags?: ReadonlyArray<string>;
 }>;

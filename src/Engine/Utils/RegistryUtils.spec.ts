@@ -5,7 +5,6 @@ import { LookUpStrategy } from '@/Engine/Abstract/Registries';
 import type { TCameraRegistry, TCameraWrapper } from '@/Engine/Camera';
 import { CameraRegistry, CameraWrapper } from '@/Engine/Camera';
 import type { TRegistrable } from '@/Engine/Mixins';
-import { withTagsMixin } from '@/Engine/Mixins/Generics/WithTagsMixin';
 import type { TSceneRegistry, TSceneWrapper } from '@/Engine/Scene';
 import { SceneRegistry, SceneWrapper } from '@/Engine/Scene';
 
@@ -20,15 +19,15 @@ describe('RegistryUtils', () => {
   const tagUniq1: string = 'tagUniq1';
   const tagUniq2: string = 'tagUniq2';
 
-  const obj1AB: TRegistrable = { id: '1', ...withTagsMixin([tagA, tagB]) };
-  const obj2B: TRegistrable = { id: '2', ...withTagsMixin([tagB]) };
-  const obj3CD: TRegistrable = { id: '3', ...withTagsMixin([tagC, tagD]) };
-  const obj4BE: TRegistrable = { id: '4', ...withTagsMixin([tagB, tagE]) };
-  const obj5None: TRegistrable = { id: '5', ...withTagsMixin([]) };
-  const obj6ABE: TRegistrable = { id: '6', ...withTagsMixin([tagA, tagB, tagE]) };
-  const obj7EB: TRegistrable = { id: '7', ...withTagsMixin([tagE, tagB]) };
-  const obj8Uniq1: TRegistrable = { id: '8', ...withTagsMixin([tagUniq1]) };
-  const obj9Uniq2: TRegistrable = { id: '9', ...withTagsMixin([tagD, tagUniq2, tagC, tagE]) };
+  const obj1AB: TRegistrable = { id: '1', tags: [tagA, tagB] };
+  const obj2B: TRegistrable = { id: '2', tags: [tagB] };
+  const obj3CD: TRegistrable = { id: '3', tags: [tagC, tagD] };
+  const obj4BE: TRegistrable = { id: '4', tags: [tagB, tagE] };
+  const obj5None: TRegistrable = { id: '5', tags: [] };
+  const obj6ABE: TRegistrable = { id: '6', tags: [tagA, tagB, tagE] };
+  const obj7EB: TRegistrable = { id: '7', tags: [tagE, tagB] };
+  const obj8Uniq1: TRegistrable = { id: '8', tags: [tagUniq1] };
+  const obj9Uniq2: TRegistrable = { id: '9', tags: [tagD, tagUniq2, tagC, tagE] };
 
   const registry: Map<string, TRegistrable> = new Map();
   registry.set('obj1AB', obj1AB);

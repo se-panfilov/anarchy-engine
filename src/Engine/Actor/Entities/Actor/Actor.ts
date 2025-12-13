@@ -29,7 +29,6 @@ export function Actor(
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d(), params.model3dSettings);
 
   // TODO CWP:
-  // TODO 8.0.0. MODELS: Close all todoes with tag 9.2.0
   // TODO 8.0.0. MODELS: Close all todoes with tag 10.0.0
   // TODO 8.0.0. MODELS: Check all "mixins consumers" (a mixin should return a new object, which should be used in the entity)
 

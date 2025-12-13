@@ -1,3 +1,3 @@
-import type { TWithId, TWithNameOptional, TWithTagsMixin } from '@/Engine/Mixins';
+import type { TWithId, TWithNameOptional, TWithReadonlyTags } from '@/Engine/Mixins';
 
-export type TRegistrable = TWithId & TWithNameOptional & TWithTagsMixin;
+export type TRegistrable = TWithId & TWithNameOptional & TWithReadonlyTags;

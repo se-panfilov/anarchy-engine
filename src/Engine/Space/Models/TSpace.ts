@@ -1,11 +1,11 @@
 import type { Observable } from 'rxjs';
 
-import type { TDestroyable, TWithName, TWithTagsMixin } from '@/Engine/Mixins';
+import type { TDestroyable, TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TSpaceServices, TWithBuilt } from '@/Engine/Space';
 
 export type TSpace = TDestroyable &
   Omit<TWithBuilt, 'built$'> &
-  TWithTagsMixin &
+  TWithReadonlyTags &
   TWithName &
   Readonly<{
     services: TSpaceServices;

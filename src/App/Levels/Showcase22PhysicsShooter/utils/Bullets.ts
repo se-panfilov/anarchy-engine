@@ -26,7 +26,7 @@ import type {
   TSpatialGridService,
   TSpatialGridWrapper
 } from '@/Engine';
-import { isDefined, isNotDefined, MaterialType, metersPerSecond, mpsSpeed, PrimitiveModel3dType, SpatialUpdatePriority, TransformAgent } from '@/Engine';
+import { getTags, isDefined, isNotDefined, MaterialType, metersPerSecond, mpsSpeed, PrimitiveModel3dType, SpatialUpdatePriority, TransformAgent } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 export const BULLET_TAG = 'bullet';
@@ -148,7 +148,7 @@ export function Bullet(params: TActorParams, actorService: TActorService): TBull
     }
   }
 
-  actor.collisions.setCollisionsFilterFn((actor: TActor): boolean => actor.getTags().includes(BULLET_TARGET_TAG));
+  actor.collisions.setCollisionsFilterFn((actor: TActor): boolean => getTags(actor).includes(BULLET_TARGET_TAG));
 
   return {
     ...actor,

@@ -2,7 +2,7 @@ import { Euler, Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActor, TActorParams, TActorRegistry, TAppCanvas, TEngine, TMaterialWrapper, TModel3d, TMoverService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
-import { defaultMoverServiceConfig, Engine, forEachEnum, LookUpStrategy, MaterialType, meters, PrimitiveModel3dType, spaceService, TextType, TransformAgent } from '@/Engine';
+import { defaultMoverServiceConfig, Engine, forEachEnum, getTags, LookUpStrategy, MaterialType, meters, PrimitiveModel3dType, spaceService, TextType, TransformAgent } from '@/Engine';
 import type { TAnimationParams } from '@/Engine/Services';
 import { Easing } from '@/Engine/Services';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
@@ -83,7 +83,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       const moverService: TMoverService = MoverService(loopService, defaultMoverServiceConfig);
 
       actorRegistry.findAllByTags([boxActorTag], LookUpStrategy.Some).forEach((actor: TActor): void => {
-        const easing = actor.getTags()[1] as Easing;
+        const easing = getTags(actor)[1] as Easing;
         void moverService.goToPosition(actor, { x: 20 }, { ...animationParams, easing });
       });
     });

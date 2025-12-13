@@ -4,7 +4,6 @@ import { expect } from 'vitest';
 import type { RegistryType, TAbstractAsyncRegistry, TAbstractEntityRegistry, TAbstractResourceAsyncRegistry, TAbstractSimpleRegistry, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractEntityAsyncRegistry, AbstractEntityRegistry, AbstractSimpleAsyncRegistry, AbstractSimpleRegistry, LookUpStrategy } from '@/Engine/Abstract';
 import type { TRegistrable } from '@/Engine/Mixins';
-import { withTagsMixin } from '@/Engine/Mixins';
 
 import {
   getAsyncUniqEntityByKeyAsync,
@@ -40,15 +39,15 @@ describe('RegistryAsyncUtils', () => {
   const tagUniq1: string = 'tagUniq1';
   const tagUniq2: string = 'tagUniq2';
 
-  const obj1AB: TRegistrable = { id: 'obj1AB', ...withTagsMixin([tagA, tagB]) };
-  const obj2B: TRegistrable = { id: 'obj2B', ...withTagsMixin([tagB]) };
-  const obj3CD: TRegistrable = { id: 'obj3CD', ...withTagsMixin([tagC, tagD]) };
-  const obj4BE: TRegistrable = { id: 'obj4BE', ...withTagsMixin([tagB, tagE]) };
-  const obj5None: TRegistrable = { id: 'obj5None', ...withTagsMixin([]) };
-  const obj6ABE: TRegistrable = { id: 'obj6ABE', ...withTagsMixin([tagA, tagB, tagE]) };
-  const obj7EB: TRegistrable = { id: 'obj7EB', ...withTagsMixin([tagE, tagB]) };
-  const obj8Uniq1: TRegistrable = { id: 'obj8Uniq1', ...withTagsMixin([tagUniq1]) };
-  const obj9Uniq2: TRegistrable = { id: 'obj9Uniq2', ...withTagsMixin([tagD, tagUniq2, tagC, tagE]) };
+  const obj1AB: TRegistrable = { id: 'obj1AB', tags: [tagA, tagB] };
+  const obj2B: TRegistrable = { id: 'obj2B', tags: [tagB] };
+  const obj3CD: TRegistrable = { id: 'obj3CD', tags: [tagC, tagD] };
+  const obj4BE: TRegistrable = { id: 'obj4BE', tags: [tagB, tagE] };
+  const obj5None: TRegistrable = { id: 'obj5None', tags: [] };
+  const obj6ABE: TRegistrable = { id: 'obj6ABE', tags: [tagA, tagB, tagE] };
+  const obj7EB: TRegistrable = { id: 'obj7EB', tags: [tagE, tagB] };
+  const obj8Uniq1: TRegistrable = { id: 'obj8Uniq1', tags: [tagUniq1] };
+  const obj9Uniq2: TRegistrable = { id: 'obj9Uniq2', tags: [tagD, tagUniq2, tagC, tagE] };
 
   const simpleObj1: TSimpeObj = { name: 'simpleObj1' };
   const simpleObj2: TSimpeObj = { name: 'simpleObj2' };
@@ -316,7 +315,7 @@ describe('RegistryAsyncUtils', () => {
   describe('getAsyncUniqEntityByNameAsync', () => {
     it('should return an uniq object that contains a name', async () => {
       const name: string = 'john';
-      const objJohn: TRegistrable = { id: 'j12', name, ...withTagsMixin([]) };
+      const objJohn: TRegistrable = { id: 'j12', name, tags: [] };
       setTimeout(() => registryAsync.add(objJohn), 20);
       const result: TRegistrable | undefined = await getAsyncUniqEntityByNameAsync(name, registryAsync, waitingTime);
       expect(result).toEqual(objJohn);
@@ -324,7 +323,7 @@ describe('RegistryAsyncUtils', () => {
 
     it('should return an uniq object that contains a name from Sync registry', async () => {
       const name: string = 'john';
-      const objJohn: TRegistrable = { id: 'j12', name, ...withTagsMixin([]) };
+      const objJohn: TRegistrable = { id: 'j12', name, tags: [] };
       setTimeout(() => registrySync.add(objJohn), 20);
       const result: TRegistrable | undefined = await getAsyncUniqEntityByNameAsync(name, registrySync, waitingTime);
       expect(result).toEqual(objJohn);

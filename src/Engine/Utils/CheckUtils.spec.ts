@@ -2,7 +2,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { Vector2, Vector3, Vector4 } from 'three';
 
 import { ColorWrapper } from '@/Engine/Color';
-import type { TDestroyable, TRegistrable, TWithPosition2dProperty, TWithPosition3dProperty, TWithPosition4dProperty } from '@/Engine/Mixins';
+import type { TDestroyable, TWithPosition2dProperty, TWithPosition3dProperty, TWithPosition4dProperty } from '@/Engine/Mixins';
 
 import {
   isAllDefined,
@@ -16,7 +16,6 @@ import {
   isEntityWith3dPosition,
   isEntityWith4dPosition,
   isNotDefined,
-  isRegistrable,
   isString,
   isVector2Like,
   isVector3Like,
@@ -288,23 +287,6 @@ describe('CheckUtils', () => {
       expect(isAllNotDefined([1, undefined])).toBe(false);
       expect(isAllNotDefined([undefined, '2', undefined])).toBe(false);
       expect(isAllNotDefined([1, '2', undefined, 4])).toBe(false);
-    });
-  });
-
-  describe('isRegistrable', () => {
-    it('should return "true"', () => {
-      const obj: Partial<TRegistrable> = { id: 'mock-id', getTags: vi.fn(), addTag: vi.fn() };
-      expect(isRegistrable(obj)).toBe(true);
-    });
-
-    it('should return "false" if  "getTags" is "undefined"', () => {
-      const obj: Partial<TRegistrable> = { id: 'mock-id', addTag: vi.fn() };
-      expect(isRegistrable(obj)).toBe(false);
-    });
-
-    it('should return "false" if addTag is undefined', () => {
-      const obj: Partial<TRegistrable> = { id: 'mock-id', getTags: vi.fn() };
-      expect(isRegistrable(obj)).toBe(false);
     });
   });
 

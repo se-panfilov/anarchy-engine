@@ -7,6 +7,7 @@ import type { TMultitonRegistrable, TRegistrable } from '@/Engine/Mixins';
 import { createDeferredPromise } from './AsyncUtils';
 import { isDefined } from './CheckUtils';
 import { shouldHaveTags } from './RegistryUtils';
+import { hasTag } from './TagsUtils';
 
 export function getUniqEntityWithTagsAsync<T extends TRegistrable>(
   tags: ReadonlyArray<string>,
@@ -20,7 +21,7 @@ export function getUniqEntityWithTagsAsync<T extends TRegistrable>(
 
 // TODO all waiting times should be set from default config
 export function getAsyncUniqEntityWithTag<T extends TRegistrable>(tag: string, registry: TAbstractEntityRegistry<T> | TAbstractAsyncRegistry<T>, waitingTime: number = 3000): Promise<T | undefined> {
-  return getEntityValueAsync<T>(registry, (entity: T): boolean => entity.hasTag(tag), undefined, waitingTime);
+  return getEntityValueAsync<T>(registry, (entity: T): boolean => hasTag(entity, tag), undefined, waitingTime);
 }
 
 export function getAsyncUniqEntityByNameAsync<T extends TRegistrable>(
@@ -44,7 +45,7 @@ export function getUniqEntityWithTags$<T extends TRegistrable>(tags: ReadonlyArr
 export function getUniqEntityWithTag$<T extends TRegistrable>(tag: string, registry: TAbstractEntityRegistry<T> | TAbstractAsyncRegistry<T>): Observable<T> {
   const result: T | undefined = isDefined((registry as TAbstractEntityRegistry<T>).findByTag) ? (registry as TAbstractEntityRegistry<T>).findByTag(tag) : undefined;
   if (isDefined(result)) return new BehaviorSubject(result).asObservable();
-  return subscribeToEntityValue$<T>(registry, (pack: TRegistryPack<T>): boolean => pack.value.hasTag(tag));
+  return subscribeToEntityValue$<T>(registry, (pack: TRegistryPack<T>): boolean => hasTag(pack.value, tag));
 }
 
 export function getUniqEntityByName$<T extends TRegistrable>(name: string, registry: TAbstractEntityRegistry<T> | TAbstractAsyncRegistry<T>): Observable<T> {

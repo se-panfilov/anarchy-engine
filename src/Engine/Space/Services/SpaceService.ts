@@ -3,7 +3,6 @@ import type { Subscription } from 'rxjs';
 import type { TAppCanvas } from '@/Engine/App';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { withTagsMixin } from '@/Engine/Mixins/Generics';
 import { RendererModes } from '@/Engine/Renderer';
 import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixins';
@@ -51,7 +50,7 @@ export function SpaceService(): TSpaceService {
       ...builtMixin,
       built$: builtMixin.built$.asObservable(),
       ...destroyable,
-      ...withTagsMixin(config.tags)
+      tags: config.tags
     };
   }
 
