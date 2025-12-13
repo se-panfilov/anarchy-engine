@@ -6,7 +6,7 @@ import type { TIntersectionsLoop } from '@Engine/Intersections';
 import type { TKeyboardLoop } from '@Engine/Keyboard';
 import type { TKinematicLoop } from '@Engine/Kinematic';
 import type { TLoopService } from '@Engine/Loop';
-import { getMainLoopNameByType, LoopType, LoopUpdatePriority } from '@Engine/Loop';
+import { getMainLoopNameByType, LOOPS_DEFAULT_SETTINGS, LoopType, LoopUpdatePriority } from '@Engine/Loop';
 import { milliseconds } from '@Engine/Measurements';
 import type { TMouseLoop } from '@Engine/Mouse';
 import type { TPhysicsLoop } from '@Engine/Physics';
@@ -18,39 +18,35 @@ import type { TTransformLoop } from '@Engine/TransformDrive';
 export function createLoops({ create }: TLoopService): TSpaceLoops {
   const { Audio, Render, Intersections, Spatial, Mouse, Text, Kinematic, Collisions, Controls, Transform, Keyboard, Physics } = LoopType;
 
-  // TODO 16-0-0: CONFIG: configs are coming from dotenv files, should be possible to override in runtime (via space config or something)
-  // TODO 16-0-0: CONFIG: A fake config, unless we have a way to load this from space config or something
-  const config: Record<string, any> = {};
-
-  // TODO 19-0-0: SIZE: Rapier3d must be lazy loaded
-  // TODO 18-0-0: MONO: VITE_SHOW_DEBUG_INFO should come from the app config, not from the env/engine
-  const showDebugInfo: boolean = false; //config.showDebugInfo ?? runtimeEnv.VITE_SHOW_DEBUG_INFO;
+  // TODO 18-0-0: MONO & 19-0-0: SIZE: Rapier3d must be lazy loaded
+  // TODO 18-0-0: MONO: VITE_SHOW_DEBUG_INFO should come from the app LOOPS_DEFAULT_SETTINGS, not from the env/engine
+  const showDebugInfo: boolean = false; //LOOPS_DEFAULT_SETTINGS.showDebugInfo ?? runtimeEnv.VITE_SHOW_DEBUG_INFO;
 
   //steps
-  const audioLoopStep: number = config.audioLoopStep ?? runtimeEnv.VITE_AUDIO_LOOP_STEP;
-  const physicsLoopStep: number = config.physicsLoopStep ?? runtimeEnv.VITE_PHYSICS_LOOP_STEP;
-  const collisionsLoopStep: number = config.collisionsLoopStep ?? runtimeEnv.VITE_COLLISIONS_LOOP_STEP;
-  const kinematicLoopStep: number = config.kinematicLoopStep ?? runtimeEnv.VITE_KINEMATIC_LOOP_STEP;
-  const spatialLoopStep: number = config.spatialLoopStep ?? runtimeEnv.VITE_SPATIAL_LOOP_STEP;
-  const transformLoopStep: number = config.transformLoopStep ?? runtimeEnv.VITE_TRANSFORM_LOOP_STEP;
-  const textLoopStep: number = config.textLoopStep ?? runtimeEnv.VITE_TEXT_LOOP_STEP;
-  const keyboardLoopStep: number = config.keyboardLoopStep ?? runtimeEnv.VITE_KEYBOARD_LOOP_STEP;
-  const mouseLoopStep: number = config.mouseLoopStep ?? runtimeEnv.VITE_MOUSE_LOOP_STEP;
-  const intersectionsLoopStep: number = config.intersectionsLoopStep ?? runtimeEnv.VITE_INTERSECTIONS_LOOP_STEP;
-  const controlsLoopStep: number = config.controlsLoopStep ?? runtimeEnv.VITE_CONTROLS_LOOP_STEP;
+  const audioLoopStep: number = LOOPS_DEFAULT_SETTINGS.audioLoopStep ?? runtimeEnv.VITE_AUDIO_LOOP_STEP;
+  const physicsLoopStep: number = LOOPS_DEFAULT_SETTINGS.physicsLoopStep ?? runtimeEnv.VITE_PHYSICS_LOOP_STEP;
+  const collisionsLoopStep: number = LOOPS_DEFAULT_SETTINGS.collisionsLoopStep ?? runtimeEnv.VITE_COLLISIONS_LOOP_STEP;
+  const kinematicLoopStep: number = LOOPS_DEFAULT_SETTINGS.kinematicLoopStep ?? runtimeEnv.VITE_KINEMATIC_LOOP_STEP;
+  const spatialLoopStep: number = LOOPS_DEFAULT_SETTINGS.spatialLoopStep ?? runtimeEnv.VITE_SPATIAL_LOOP_STEP;
+  const transformLoopStep: number = LOOPS_DEFAULT_SETTINGS.transformLoopStep ?? runtimeEnv.VITE_TRANSFORM_LOOP_STEP;
+  const textLoopStep: number = LOOPS_DEFAULT_SETTINGS.textLoopStep ?? runtimeEnv.VITE_TEXT_LOOP_STEP;
+  const keyboardLoopStep: number = LOOPS_DEFAULT_SETTINGS.keyboardLoopStep ?? runtimeEnv.VITE_KEYBOARD_LOOP_STEP;
+  const mouseLoopStep: number = LOOPS_DEFAULT_SETTINGS.mouseLoopStep ?? runtimeEnv.VITE_MOUSE_LOOP_STEP;
+  const intersectionsLoopStep: number = LOOPS_DEFAULT_SETTINGS.intersectionsLoopStep ?? runtimeEnv.VITE_INTERSECTIONS_LOOP_STEP;
+  const controlsLoopStep: number = LOOPS_DEFAULT_SETTINGS.controlsLoopStep ?? runtimeEnv.VITE_CONTROLS_LOOP_STEP;
 
   // Parallel mode
-  const isAudioParallel: boolean = config.isAudioParallel ?? runtimeEnv.VITE_AUDIO_LOOP_IS_PARALLEL;
-  const isPhysicsParallel: boolean = config.isPhysicsParallel ?? runtimeEnv.VITE_PHYSICS_LOOP_IS_PARALLEL;
-  const isCollisionsParallel: boolean = config.isCollisionsParallel ?? runtimeEnv.VITE_COLLISIONS_LOOP_IS_PARALLEL;
-  const isKinematicParallel: boolean = config.isKinematicParallel ?? runtimeEnv.VITE_KINEMATIC_LOOP_IS_PARALLEL;
-  const isSpatialParallel: boolean = config.isSpatialParallel ?? runtimeEnv.VITE_SPATIAL_LOOP_IS_PARALLEL;
-  const isTransformParallel: boolean = config.isTransformParallel ?? runtimeEnv.VITE_TRANSFORM_LOOP_IS_PARALLEL;
-  const isTextParallel: boolean = config.isTextParallel ?? runtimeEnv.VITE_TEXT_LOOP_IS_PARALLEL;
-  const isKeyboardParallel: boolean = config.isKeyboardParallel ?? runtimeEnv.VITE_KEYBOARD_LOOP_IS_PARALLEL;
-  const isMouseParallel: boolean = config.isMouseParallel ?? runtimeEnv.VITE_MOUSE_LOOP_IS_PARALLEL;
-  const isIntersectionsParallel: boolean = config.isIntersectionsParallel ?? runtimeEnv.VITE_INTERSECTIONS_LOOP_IS_PARALLEL;
-  const isControlsParallel: boolean = config.isControlsParallel ?? runtimeEnv.VITE_CONTROLS_LOOP_IS_PARALLEL;
+  const isAudioParallel: boolean = LOOPS_DEFAULT_SETTINGS.isAudioParallel ?? runtimeEnv.VITE_AUDIO_LOOP_IS_PARALLEL;
+  const isPhysicsParallel: boolean = LOOPS_DEFAULT_SETTINGS.isPhysicsParallel ?? runtimeEnv.VITE_PHYSICS_LOOP_IS_PARALLEL;
+  const isCollisionsParallel: boolean = LOOPS_DEFAULT_SETTINGS.isCollisionsParallel ?? runtimeEnv.VITE_COLLISIONS_LOOP_IS_PARALLEL;
+  const isKinematicParallel: boolean = LOOPS_DEFAULT_SETTINGS.isKinematicParallel ?? runtimeEnv.VITE_KINEMATIC_LOOP_IS_PARALLEL;
+  const isSpatialParallel: boolean = LOOPS_DEFAULT_SETTINGS.isSpatialParallel ?? runtimeEnv.VITE_SPATIAL_LOOP_IS_PARALLEL;
+  const isTransformParallel: boolean = LOOPS_DEFAULT_SETTINGS.isTransformParallel ?? runtimeEnv.VITE_TRANSFORM_LOOP_IS_PARALLEL;
+  const isTextParallel: boolean = LOOPS_DEFAULT_SETTINGS.isTextParallel ?? runtimeEnv.VITE_TEXT_LOOP_IS_PARALLEL;
+  const isKeyboardParallel: boolean = LOOPS_DEFAULT_SETTINGS.isKeyboardParallel ?? runtimeEnv.VITE_KEYBOARD_LOOP_IS_PARALLEL;
+  const isMouseParallel: boolean = LOOPS_DEFAULT_SETTINGS.isMouseParallel ?? runtimeEnv.VITE_MOUSE_LOOP_IS_PARALLEL;
+  const isIntersectionsParallel: boolean = LOOPS_DEFAULT_SETTINGS.isIntersectionsParallel ?? runtimeEnv.VITE_INTERSECTIONS_LOOP_IS_PARALLEL;
+  const isControlsParallel: boolean = LOOPS_DEFAULT_SETTINGS.isControlsParallel ?? runtimeEnv.VITE_CONTROLS_LOOP_IS_PARALLEL;
 
   // You could use testTickRate() to test the tick rate of the loop in the main stream and in "parallel mode" (in the worker),
   // cause usually loops in workers fires a way faster due to the fact that the worker is not blocked by the main thread (rendering and etc)
