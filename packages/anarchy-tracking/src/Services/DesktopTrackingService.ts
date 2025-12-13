@@ -1,15 +1,15 @@
 import { isDefined } from '@Anarchy/Shared/Utils';
 import type { TTrackingService } from '@Anarchy/Tracking/Models';
 import type { EventHint } from '@sentry/browser';
-import type { Client } from '@sentry/core';
-import type { ElectronMainOptions } from '@sentry/electron';
-import { captureException, init } from '@sentry/electron';
+import type { ErrorEvent } from '@sentry/core';
+import type { ElectronMainOptions } from '@sentry/electron/esm/main';
+import { captureException, init } from '@sentry/electron/renderer';
 
 export function ElectronTrackingService(options?: ElectronMainOptions, metaData?: Readonly<Record<string, unknown>>): TTrackingService {
   let isStarted: boolean = false;
 
-  const defaultOptions = {
-    beforeSend(event: SentryEvent, _hint: EventHint) {
+  const defaultOptions: ElectronMainOptions = {
+    beforeSend(event: ErrorEvent, _hint: EventHint): PromiseLike<ErrorEvent | null> | ErrorEvent | null {
       // eslint-disable-next-line functional/immutable-data
       if (isDefined(event.user)) event.user = null as any;
 
@@ -51,57 +51,34 @@ export function ElectronTrackingService(options?: ElectronMainOptions, metaData?
     sendDefaultPii: false
   };
 
-  const client: Client | undefined = init({
+  init({
     ...defaultOptions,
     ...options
   });
 
-  const onError = (ev: any): void => void captureException(ev.error ?? ev);
-  const onRejection = (ev: PromiseRejectionEvent): void => void captureException((ev as PromiseRejectionEvent).reason ?? ev);
+  const onError = (ev: any): void => void captureException(ev?.error ?? ev);
+  const onRejection = (ev: PromiseRejectionEvent): void => void captureException((ev as PromiseRejectionEvent)?.reason ?? ev);
 
   function start(onErrorHandler: (ev: any) => void = onError, onRejectionHandler: (ev: PromiseRejectionEvent) => void = onRejection): void {
     if (isStarted) return;
     isStarted = true;
-    window.addEventListener('error', onErrorHandler);
-    window.addEventListener('unhandledrejection', onRejectionHandler);
+    globalThis.window?.addEventListener?.('error', onErrorHandler);
+    globalThis.process?.on?.('uncaughtException', onErrorHandler);
+    globalThis.window?.addEventListener?.('unhandledrejection', onRejectionHandler);
+    globalThis.process?.on?.('unhandledRejection', onRejectionHandler);
   }
 
   function stop(onErrorHandler: (ev: any) => void = onError, onRejectionHandler: (ev: PromiseRejectionEvent) => void = onRejection): void {
     isStarted = false;
-    window.removeEventListener('error', onErrorHandler);
-    window.removeEventListener('unhandledrejection', onRejectionHandler);
+    globalThis.window?.removeEventListener?.('error', onErrorHandler);
+    globalThis.process?.off?.('uncaughtException', onErrorHandler);
+    globalThis.window?.removeEventListener?.('unhandledrejection', onRejectionHandler);
+    globalThis.process?.off?.('unhandledRejection', onRejectionHandler);
   }
 
-  // if (isRenderer && typeof window !== 'undefined') {
-  //     window.addEventListener('error', onWindowError);
-  //     window.addEventListener('unhandledrejection', onWindowRejection as any);
-  //   } else if (isMain) {
-  //     process.on('uncaughtException', onProcessUncaught as any);
-  //     process.on('unhandledRejection', onProcessRejection as any);
-  //   } else {
-  //     // На всякий случай — если кто-то вызвал в неизвестной среде
-  //     // ничего не делаем; captureException всё равно доступен вручную.
-  //   }
-
-  function stop(): void {
-    isStarted = false;
-    window.removeEventListener('error', onErrorHandler);
-    window.removeEventListener('unhandledrejection', onRejectionHandler);
-
-    // if (isRenderer && typeof window !== 'undefined') {
-    //   window.removeEventListener('error', onWindowError);
-    //   window.removeEventListener('unhandledrejection', onWindowRejection as any);
-    // } else if (isMain) {
-    //   process.off?.('uncaughtException', onProcessUncaught as any);
-    //   process.off?.('unhandledRejection', onProcessRejection as any);
-    //   // (для старых Node можно использовать removeListener)
-    // }
-  }
-
-  if (isDefined(client)) start();
+  start();
 
   return {
-    client,
     captureException,
     start,
     stop,

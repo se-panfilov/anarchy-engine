@@ -56,8 +56,8 @@ export function BrowserTrackingService(options?: BrowserOptions, metaData?: Reco
     ...options
   });
 
-  const onError = (ev: any): void => void captureException(ev.error ?? ev);
-  const onRejection = (ev: PromiseRejectionEvent): void => void captureException((ev as PromiseRejectionEvent).reason ?? ev);
+  const onError = (ev: any): void => void captureException(ev?.error ?? ev);
+  const onRejection = (ev: PromiseRejectionEvent): void => void captureException((ev as PromiseRejectionEvent)?.reason ?? ev);
 
   function start(onErrorHandler: (ev: any) => void = onError, onRejectionHandler: (ev: PromiseRejectionEvent) => void = onRejection): void {
     if (isStarted) return;
@@ -75,7 +75,6 @@ export function BrowserTrackingService(options?: BrowserOptions, metaData?: Reco
   if (isDefined(client)) start();
 
   return {
-    client,
     captureException,
     start,
     stop,
