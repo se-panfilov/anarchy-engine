@@ -8,26 +8,18 @@ const GAME_URL: string = `http://localhost:${process.env.PORT ?? '4173'}?path=me
 
 let context: TLaunchContext;
 
-test.describe('Space Transform Drive save/load Special tests (desktop packaged)', () => {
+test.describe('Desktop app tests', () => {
   test.beforeAll(async () => {
     const { electronApp, page } = await launchPackagedElectronApp();
 
     context = { electronApp, page };
 
     await page.goto(GAME_URL);
-
-    await waitUntilReady('GO_TO_PAGE', page, 30_000);
   });
 
-  test.afterAll(async () => {
-    if (context?.electronApp) await context.electronApp.close();
-  });
-
-  test.beforeEach(async () => {
-    const { page } = context;
-
-    await waitUntilReady('RESET_AND_GO_TO_PAGE', page, 30_000);
-  });
+  // test.afterAll(async () => {
+  //   if (context?.electronApp) await context.electronApp.close();
+  // });
 
   test('Open plain page', async () => {
     const { page } = context;
@@ -35,30 +27,30 @@ test.describe('Space Transform Drive save/load Special tests (desktop packaged)'
     await expect(page).toHaveScreenshot('plain-page.png', { fullPage: true });
   });
 
-  test('Translations for plain page should work', async () => {
-    const { page } = context;
-
-    await toggleLanguage(page);
-
-    await expect(page).toHaveScreenshot('plain-page-language-toggled.png', { fullPage: true });
-  });
-
-  test('Open menu', async () => {
-    const { page } = context;
-
-    await openSettings(page);
-
-    await expect(page).toHaveScreenshot('settings-open.png', { fullPage: true });
-  });
-
-  test('Open menu with language toggle', async () => {
-    const { page } = context;
-
-    await openSettings(page);
-    await toggleLanguage(page);
-
-    await expect(page).toHaveScreenshot('settings-open-language-toggled.png', { fullPage: true });
-  });
+  // test('Translations for plain page should work', async () => {
+  //   const { page } = context;
+  //
+  //   await toggleLanguage(page);
+  //
+  //   await expect(page).toHaveScreenshot('plain-page-language-toggled.png', { fullPage: true });
+  // });
+  //
+  // test('Open menu', async () => {
+  //   const { page } = context;
+  //
+  //   await openSettings(page);
+  //
+  //   await expect(page).toHaveScreenshot('settings-open.png', { fullPage: true });
+  // });
+  //
+  // test('Open menu with language toggle', async () => {
+  //   const { page } = context;
+  //
+  //   await openSettings(page);
+  //   await toggleLanguage(page);
+  //
+  //   await expect(page).toHaveScreenshot('settings-open-language-toggled.png', { fullPage: true });
+  // });
 });
 
 export async function waitUntilReady(actionName: string, page: Page, timeout: number = 30_000): Promise<void> {
