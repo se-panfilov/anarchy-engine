@@ -38,7 +38,7 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
   const destroyable: TDestroyable = destroyableMixin();
 
   // TODO ENV: limit is 60 fps, perhaps should be configurable
-  const delay: number = params.updateDelay ?? 16; // 60 FPS
+  const delay: number = params.updateDelay ?? 4; // 240 FPS (when 16 is 60 FPS)
   const threshold: number = params.noiseThreshold ?? 0.001;
 
   const positionSub$: Subscription = agent$
