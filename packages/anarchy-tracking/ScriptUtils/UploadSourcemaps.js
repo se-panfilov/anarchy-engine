@@ -8,7 +8,7 @@ import * as dotenv from 'dotenv';
  * Features:
  *  - release: from --release | $RELEASE | "<VITE_RELEASE_NAME_PREFIX>@$npm_package_version"
  *  - build dir: from --dist | positional | "dist"
- *  - sentry dist-name: --dist-name | --sentry-dist | $DIST (e.g., "darwin-arm64", "web")
+ *  - sentry dist-name: --dist-name | --sentry-dist | VITE_DIST_NAME (e.g., "darwin-arm64", "web-web")
  *  - urlPrefix: --url-prefix | auto from Vite "base" | "~/" fallback
  *  - dev-guard (ON by default): blocks upload unless mode=production; can disable via --no-dev-guard
  *  - org/project overrides: --org, --project (otherwise read from .sentryclirc)
@@ -42,7 +42,7 @@ Args:
   --org <slug>            Override Sentry org (else .sentryclirc).
   --project <slug>        Override Sentry project (else .sentryclirc).
   --url-prefix <prefix>   upload-sourcemaps urlPrefix (e.g., "~/" or "app:///dist").
-  --dist-name <name>      Sentry "dist" value (e.g., "darwin-arm64", "win32-x64", "web"). Also read from $DIST.
+  --dist-name <name>      Sentry "dist" value (e.g., "darwin-arm64", "win32-x64", "web"). Also read from <VITE_DIST_NAME>.
   --sentry-dist <name>    Alias of --dist-name.
   --mode <name>           Build mode (e.g., production). If omitted, checks $MODE or $NODE_ENV.
   --no-dev-guard          Disable protection that blocks upload when mode != "production".
@@ -200,7 +200,7 @@ function runSentryCli(args, env, dryRun) {
   }
 
   // Resolve Sentry dist (optional but recommended for multi-platform builds)
-  const distName = argv.distName || process.env.DIST || undefined;
+  const distName = argv.distName || process.env.VITE_DIST_NAME || undefined;
 
   // Dev-guard (default ON)
   if (argv.devGuard) {
