@@ -10,7 +10,7 @@ This policy applies to commercial builds of **[GAME NAME]** distributed via **[S
 ## Reporting a Vulnerability
 
 Email **security@[YOUR-DOMAIN]**. Please include the affected version/platform, minimal reproduction, impact, and (if available) a small PoC.
-**Encryption is not required.** If you prefer encrypted exchange or need to share large files, contact us and we will provide a secure upload link or an OpenPGP key **on request**.
+**Encryption is not required.** If you prefer encrypted exchange or need to share large files, contact us.
 
 ## Handling
 
