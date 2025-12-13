@@ -3,3 +3,6 @@
 - 2.1.0 Lint/Prettier/etc.
 - 2.2.0 Save settings
 - 2.3.0 Load settings
+
+Roadmap:
+- Replace legal _TEMPLATE docs with proper ones;

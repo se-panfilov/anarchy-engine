@@ -47,6 +47,9 @@ Roadmap:
 - 24.0.x Shaders
 - 25.0.x Modules: distinct engine/rapier from engine/core. Bonus: Make possible to load engine/rapier in async way
 
+Roadmap:
+- Replace legal _TEMPLATE docs with proper ones;
+
 Thoughts:
 - Maybe: Add a possibility to run E2E tests against minified code (prod). Cause minification could break things;
 - Maybe: Replace all arrays (with no allowed duplicates) with Maps (for performance)?;
