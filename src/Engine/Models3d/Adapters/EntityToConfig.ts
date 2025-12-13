@@ -2,19 +2,19 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { PrimitiveModel3dType } from '@/Engine/Models3d/Constants';
-import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModels3dResourceAsyncRegistry } from '@/Engine/Models3d/Models';
+import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModels3dResourceAsyncRegistry, TRawModel3d } from '@/Engine/Models3d/Models';
 import { isPrimitiveModel3dSource } from '@/Engine/Models3d/Utils';
 import { filterOutEmptyFields, isDefined, isNotDefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
-export function model3dToConfig(entity: TModel3d, { animationsResourceAsyncRegistry, materialRegistry, model3dResourceAsyncRegistry }: TModel3dConfigToParamsDependencies): TModel3dConfig {
+export function model3dToConfig(entity: TModel3d, { animationsResourceAsyncRegistry, model3dResourceAsyncRegistry }: TModel3dConfigToParamsDependencies): TModel3dConfig {
   // TODO 15-0-0: make sure working with Primitive models
   // TODO 15-0-0: make sure working with complex uploaded models
   // TODO 15-0-0: make sure working with cloned models
   // TODO 15-0-0: make sure working with animations
   // TODO 15-0-0: make sure working with materials
 
-  // const json = entity.getRawModel3d().toJSON().object;
+  const rawModel3d: TRawModel3d = entity.getRawModel3d();
 
   const params: TModel3dParams = entity.getParams();
   const isPrimitive: boolean = isPrimitiveModel3dSource(params.model3dSource);
@@ -30,6 +30,11 @@ export function model3dToConfig(entity: TModel3d, { animationsResourceAsyncRegis
     animationsSource,
     options: params.options,
     forceClone: entity.forceClone,
+    castShadow: rawModel3d.castShadow,
+    receiveShadow: rawModel3d.receiveShadow,
+    position: rawModel3d.position,
+    rotation: rawModel3d.rotation,
+    scale: rawModel3d.scale,
     ...extractSerializableRegistrableFields(entity)
   });
 }
