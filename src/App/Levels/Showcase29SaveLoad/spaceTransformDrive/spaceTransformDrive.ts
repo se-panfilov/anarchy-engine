@@ -97,13 +97,13 @@ async function performContinuousMoveSaveLoadTest(space: TSpace): Promise<void> {
   continuousStepCounter += 1;
 }
 
-function doKinematicSteps(space: TSpace, stepsCount: number, speed: number = 100): Promise<void> {
+function doKinematicSteps(space: TSpace, stepsCount: number, stepCooldown: number = 100): Promise<void> {
   return new Promise((resolve): void => {
     let step: number = 0;
     const idx = setInterval((): void => {
       space.loops.kinematicLoop.tick$.next(0);
       step += 1;
       if (step >= stepsCount) resolve(clearInterval(idx));
-    }, speed);
+    }, stepCooldown);
   });
 }
