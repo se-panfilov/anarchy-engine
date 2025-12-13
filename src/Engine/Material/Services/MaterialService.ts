@@ -14,7 +14,8 @@ import type {
 } from 'three';
 
 import type { IMaterialParams, IMaterialProps, ITypeOfMaterials, MaterialType } from '@/Engine/Material';
-import { MaterialMap } from '@/Engine/Material';
+import { BlendingMap } from '@/Engine/Material';
+import { MaterialMap } from '@/Engine/Material/Constants';
 import type { IMaterialService } from '@/Engine/Material/Models';
 import type { IMaterialTexturePack } from '@/Engine/Texture';
 import { textureService } from '@/Engine/Texture';
@@ -47,8 +48,7 @@ export function MaterialService(): IMaterialService {
   function buildMaterial(type: MaterialType, params?: IMaterialParams, textures?: IStandardTextureUploaded): MeshStandardMaterial;
   function buildMaterial(type: MaterialType, params?: IMaterialParams, textures?: IPointsTextureUploaded): PointsMaterial;
   function buildMaterial(type: MaterialType, params?: IMaterialParams, textures?: ITextureUploaded): Material {
-    // TODO (S.Panfilov) fix applying of blending
-    // params = {...params, blending: undefined};
+    if (isDefined(params?.blending)) params = { ...params, blending: BlendingMap[params.blending] };
 
     const MaterialConstructor: ITypeOfMaterials = MaterialMap[type];
     if (isNotDefined(MaterialConstructor)) throw new Error(`Unsupported material type: ${type}`);

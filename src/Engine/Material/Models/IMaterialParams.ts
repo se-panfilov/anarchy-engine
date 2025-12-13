@@ -1,5 +1,4 @@
 import type {
-  Blending,
   BlendingDstFactor,
   BlendingEquation,
   BlendingSrcFactor,
@@ -14,6 +13,7 @@ import type {
 } from 'three/src/constants';
 import type { ColorRepresentation } from 'three/src/math/Color';
 
+import type { BlendingName } from '@/Engine/Material/Constants';
 import type { ITexture } from '@/Engine/Texture/Models';
 import type { IVector2, IVector3 } from '@/Engine/Vector';
 
@@ -27,7 +27,7 @@ export type IAbstractMaterialParams = Readonly<{
   blendDstAlpha?: number;
   blendEquation?: BlendingEquation;
   blendEquationAlpha?: number;
-  blending?: Blending;
+  blending?: BlendingName;
   blendSrc?: BlendingSrcFactor | BlendingDstFactor;
   blendSrcAlpha?: number;
   clipIntersection?: boolean;
