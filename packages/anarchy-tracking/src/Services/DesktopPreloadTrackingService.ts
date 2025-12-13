@@ -1,8 +1,9 @@
 import { isDefined } from '@Anarchy/Shared/Utils';
 import type { TTrackingService } from '@Anarchy/Tracking/Models';
+import { rewriteFramesIntegrationBrowser } from '@Anarchy/Tracking/Utils/IntegrationsBrowser';
 import { scrubEvent } from '@Anarchy/Tracking/Utils/ScrubEvent';
 import { scrubUserPathsBrowser } from '@Anarchy/Tracking/Utils/ScrubsBrowser';
-import type { Primitive } from '@sentry/core';
+import type { Integration, Primitive } from '@sentry/core';
 import type { ErrorEvent, EventHint } from '@sentry/electron/renderer';
 import { captureException, init, setTags } from '@sentry/electron/renderer';
 
@@ -13,7 +14,7 @@ export function DesktopPreloadTrackingService(options?: Record<string, any>, met
     beforeSend(event: ErrorEvent, _hint: EventHint): PromiseLike<ErrorEvent | null> | ErrorEvent | null {
       return scrubUserPathsBrowser(scrubEvent(event as any)) as ErrorEvent;
     },
-    // integrations: [rewriteFramesIntegrationBrowser()],
+    integrations: [rewriteFramesIntegrationBrowser() as () => Integration],
     tracesSampleRate: 0,
     //Important: make sure this is false if you want anonymous reports (no IPs, etc. for GDPR and similar acts).
     sendDefaultPii: false
