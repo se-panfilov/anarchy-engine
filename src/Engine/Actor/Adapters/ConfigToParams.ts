@@ -7,7 +7,7 @@ import { configToParamsSpatialData } from '@/Engine/Spatial';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function configToParamsActorAdapter(config: TActorConfig, dependencies: TActorConfigToParamsDependencies): TActorParams {
+export function configToParams(config: TActorConfig, dependencies: TActorConfigToParamsDependencies): TActorParams {
   const { position, rotation, scale, physics, spatial, states, model3dSource, kinematic, model3dSettings, ...rest } = config;
 
   const model3d: TModel3d | undefined = dependencies.models3dService.getRegistry().findByName(model3dSource);
