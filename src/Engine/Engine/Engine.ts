@@ -15,7 +15,7 @@ import { isNotDefined } from '@/Engine/Utils';
 export function Engine(space: TSpace): TEngine {
   const keyboardService: TKeyboardService = KeyboardService(space.services.loopService);
 
-  const { cameraService, rendererService, scenesService, textService, controlsService, physicsLoopService } = space.services;
+  const { cameraService, rendererService, scenesService, textService, controlsService, physicsLoopService, kinematicLoopService } = space.services;
   const activeScene: TSceneWrapper | undefined = scenesService.findActive();
 
   const { text2dRegistry, text3dRegistry } = textService.getRegistries();
@@ -36,7 +36,7 @@ export function Engine(space: TSpace): TEngine {
 
     cameraService.active$.subscribe((wrapper: TCameraWrapper | undefined): void => void (camera = wrapper));
     space.services.loopService.setBeforeEveryTick(({ delta }: TLoopTimes): void => {
-      spaceLoop(delta, camera, renderer, activeScene, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer, controlsRegistry, physicsLoopService);
+      spaceLoop(delta, camera, renderer, activeScene, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer, controlsRegistry, physicsLoopService, kinematicLoopService);
     });
     space.services.loopService.start();
   }

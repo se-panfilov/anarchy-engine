@@ -22,6 +22,7 @@ export async function buildTower(actorService: TActorService, startCoords: TWith
         mass: 1,
         friction: 0.5,
         restitution: 0,
+        isSleep: true,
         shapeParams: {
           hx: block.width / 2,
           hy: block.height / 2,

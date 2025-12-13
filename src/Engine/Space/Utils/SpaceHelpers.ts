@@ -5,6 +5,8 @@ import { ControlService, ControlsFactory, ControlsRegistry } from '@/Engine/Cont
 import { EnvMapAsyncRegistry, EnvMapService } from '@/Engine/EnvMap';
 import { FogFactory, FogRegistry, FogService } from '@/Engine/Fog';
 import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry, IntersectionsWatcherService } from '@/Engine/Intersections';
+import type { TKinematicLoopService } from '@/Engine/Kinematic';
+import { KinematicLoopService } from '@/Engine/Kinematic';
 import { LightFactory, LightRegistry, LightService } from '@/Engine/Light';
 import type { TLoopService } from '@/Engine/Loop';
 import { LoopService } from '@/Engine/Loop';
@@ -37,15 +39,17 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
   const physicsWorldService: TPhysicsWorldService = PhysicsWorldService(scene);
   const physicsBodyService: TPhysicsBodyService = PhysicsBodyService(PhysicsBodyFactory(), PhysicsBodyRegistry(), physicsPresetService, physicsWorldService);
   const physicsLoopService: TPhysicsLoopService = PhysicsLoopService(physicsWorldService);
+  const kinematicLoopService: TKinematicLoopService = KinematicLoopService();
   const loopService: TLoopService = LoopService();
 
   return {
-    actorService: ActorService(ActorFactory(), ActorAsyncRegistry(), { materialTextureService, physicsBodyService, physicsLoopService }, scene),
+    actorService: ActorService(ActorFactory(), ActorAsyncRegistry(), { materialTextureService, physicsBodyService, physicsLoopService, kinematicLoopService }, scene),
     cameraService: CameraService(CameraFactory(), CameraRegistry(), scene),
     controlsService: ControlService(ControlsFactory(), ControlsRegistry(), canvas),
     envMapService: EnvMapService(EnvMapAsyncRegistry()),
     fogService: FogService(FogFactory(), FogRegistry(), scene),
     intersectionsWatcherService: IntersectionsWatcherService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),
+    kinematicLoopService,
     lightService: LightService(LightFactory(), LightRegistry(), scene),
     loopService,
     materialService,

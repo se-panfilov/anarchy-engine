@@ -1,3 +1,4 @@
+import type { TKinematicLoopService } from '@/Engine/Kinematic';
 import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack/Models';
 import type { TPhysicsBodyService, TPhysicsLoopService } from '@/Engine/Physics';
 

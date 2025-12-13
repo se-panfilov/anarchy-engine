@@ -15,6 +15,7 @@ export * from './Fog';
 export * from './Global';
 export * from './Intersections';
 export * from './Keyboard';
+export * from './Kinematic';
 export * from './Light';
 export * from './Loop';
 export * from './Material';

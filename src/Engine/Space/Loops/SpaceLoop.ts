@@ -1,5 +1,6 @@
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TControlsRegistry, TOrbitControlsWrapper } from '@/Engine/Controls';
+import type { TKinematicLoopService } from '@/Engine/Kinematic';
 import type { TPhysicsLoopService } from '@/Engine/Physics';
 import type { TRendererWrapper } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
@@ -16,7 +17,8 @@ export function spaceLoop(
   text2dRenderer: TText2dRenderer,
   text3dRenderer: TText3dRenderer,
   controlsRegistry: TControlsRegistry,
-  physicsLoopService: TPhysicsLoopService
+  physicsLoopService: TPhysicsLoopService,
+  kinematicLoopService: TKinematicLoopService
 ): void {
   const isAutoUpdatePhysicalWorld: boolean = physicsLoopService.isAutoUpdate();
   if (isAutoUpdatePhysicalWorld) physicsLoopService.step();
@@ -29,6 +31,8 @@ export function spaceLoop(
   }
 
   if (isAutoUpdatePhysicalWorld) physicsLoopService.tick$.next();
+
+  if (kinematicLoopService.isAutoUpdate()) kinematicLoopService.tick$.next(delta);
 
   // just for control's damping
   controlsRegistry.getAll().forEach((controls: TOrbitControlsWrapper): void => {
