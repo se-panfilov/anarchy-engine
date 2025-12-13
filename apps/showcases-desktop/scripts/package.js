@@ -69,10 +69,11 @@ const run = (cmd, opts = {}) => {
 console.log(`[package] mode: ${mode}`);
 
 // 0) Clean prebuild artifacts via npm script
-if (!dryRun) run('npm run clean:prebuild');
+let cleanCmd = '';
+if (!dryRun) cleanCmd = 'npm run clean:prebuild && ';
 
 // 1) Prebuild for the selected mode
-run(`node ./scripts/prebuild.js --mode=${mode}${dryRun ? ' --dry-run' : ''}`);
+run(`${cleanCmd}node ./scripts/prebuild.js --mode=${mode}${dryRun ? ' --dry-run' : ''}`);
 
 // 2) Package with electron-builder and merged args
 const ebCmd = `npx electron-builder ${ebArgs}`.trim();
