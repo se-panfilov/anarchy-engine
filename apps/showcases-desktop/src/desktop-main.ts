@@ -24,7 +24,7 @@ const desktopAppSettings: TDesktopAppConfig = {
 // TODO DESKTOP: Does "exit to desktop" button displayed (and works)?
 // TODO DESKTOP: Send user locale to the app (then to menu) for translations
 
-const desktopAppService: TDesktopAppService = DesktopAppService();
+const desktopAppService: TDesktopAppService = DesktopAppService(app);
 const windowService: TWindowService = WindowService();
 const filesService: TFilesService = FilesService(app);
 const settingsService: TSettingsService = SettingsService(filesService);
