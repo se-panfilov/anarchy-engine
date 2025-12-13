@@ -37,6 +37,7 @@ export function Actor(
   // TODO 8.0.0. MODELS: Take a look to todoes with tag Layers
   // TODO 8.0.0. MODELS: GET RID OF PROPS (Use params as defaults, and configs as extended)
   // TODO 8.0.0. MODELS: Get rid of withTagsEntity (keep only with readonly tags), methods such as hasTag, addTah, should be in utils
+  // TODO 8.0.0. MODELS: Check all "mixins consumers" (a mixin should return a new object, which should be used in the entity)
 
   const entities: TActorEntities = {
     // TODO ACTOR: state encapsulate AI (connection)
