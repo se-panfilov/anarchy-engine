@@ -57,7 +57,7 @@ export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TSpa
 
   const getDebugRenderer = (loop: TPhysicalLoop): TPhysicsDebugRenderer => {
     if (isNotDefined(world)) throw new Error('Cannot get debug renderer: world is not defined');
-    const res = PhysicsDebugRenderer(scene, world, loop);
+    const res: TPhysicsDebugRenderer = PhysicsDebugRenderer(scene, world, loop);
     // eslint-disable-next-line functional/immutable-data
     debugRenderersList.push(res);
     return res;
