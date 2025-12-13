@@ -43,7 +43,7 @@
             "$ref": "#/definitions/LevelTag"
           },
           {
-            "$ref": "#/definitions/CommonTags"
+            "$ref": "#/definitions/CommonTag"
           },
           {
             "type": "string"
@@ -73,7 +73,7 @@
                 "$ref": "#/definitions/SceneTag"
               },
               {
-                "$ref": "#/definitions/CommonTags"
+                "$ref": "#/definitions/CommonTag"
               },
               {
                 "type": "string"
@@ -88,7 +88,7 @@
       "type": "string",
       "const": "current"
     },
-    "CommonTags": {
+    "CommonTag": {
       "type": "string",
       "const": "from_config"
     },
@@ -140,7 +140,7 @@
                 "$ref": "#/definitions/ActorTag"
               },
               {
-                "$ref": "#/definitions/CommonTags"
+                "$ref": "#/definitions/CommonTag"
               },
               {
                 "type": "string"
@@ -235,7 +235,7 @@
                 "$ref": "#/definitions/CameraTag"
               },
               {
-                "$ref": "#/definitions/CommonTags"
+                "$ref": "#/definitions/CommonTag"
               },
               {
                 "type": "string"
@@ -280,7 +280,7 @@
                 "$ref": "#/definitions/LightTag"
               },
               {
-                "$ref": "#/definitions/CommonTags"
+                "$ref": "#/definitions/CommonTag"
               },
               {
                 "type": "string"
@@ -355,7 +355,7 @@
                 "$ref": "#/definitions/ControlsTag"
               },
               {
-                "$ref": "#/definitions/CommonTags"
+                "$ref": "#/definitions/CommonTag"
               },
               {
                 "type": "string"
