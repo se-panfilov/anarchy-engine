@@ -22,7 +22,9 @@ export function actorToConfig(entity: TActor, { models3dService }: TActorEntityT
 
   return filterOutEmptyFields({
     model3dSource,
+    // TODO 15-0-0: should we save physic's state to config (impulse, velocity, etc.)?
     physics: getPhysics(entity, drive),
+    // TODO 15-0-0: should we save kinematic state to config?
     // kinematic?: TKinematicConfig,
     spatial: getSpatial(entity),
     collisions: getCollisions(entity),
