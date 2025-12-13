@@ -1,22 +1,26 @@
 import GUI from 'lil-gui';
 import { BufferGeometry, Color, PointsMaterial } from 'three';
 
-import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TEngine, TMaterialConfig, TMaterialParams, TMilliseconds, TParticlesConfig, TParticlesWrapper, TSpace, TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources } from '@/Engine';
-import { ambientContext, Engine, isDefined, isNotDefined, spaceService } from '@/Engine';
+import type { TMaterialConfig, TMaterialParams, TMilliseconds, TParticlesConfig, TParticlesWrapper, TSpace, TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources } from '@/Engine';
+import { ambientContext, isDefined, isNotDefined, spaceService } from '@/Engine';
 import { configToParams as materialConfigToParams } from '@/Engine/Material/Adapters';
 
 import spaceConfigJson from './showcase.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function showcase(): TShowcase {
-  const gui: GUI = new GUI();
+export function start(): void {
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
   // TODO 14-0-0: implement spaceService.findActive()
   const space: TSpace = spaces[0];
+  if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
 
+  space.built$.subscribe(showcase);
+}
+
+export function showcase(space: TSpace): void {
+  const gui: GUI = new GUI();
   const { particlesService, textureService } = space.services;
   const { transformLoop } = space.loops;
 
@@ -123,25 +127,18 @@ export function showcase(): TShowcase {
     }
   });
 
-  function init(): void {
-    addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
-    gui.add(parameters, 'count').min(1000).max(1000000).step(1000).onFinishChange(createGalaxy);
-    gui.add(parameters, 'size').min(0.001).max(1).step(0.001).onFinishChange(createGalaxy);
-    gui.add(parameters, 'radius').min(0.01).max(20).step(0.01).onFinishChange(createGalaxy);
-    gui.add(parameters, 'branches').min(2).max(20).step(1).onFinishChange(createGalaxy);
-    gui.add(parameters, 'spin').min(-5).max(5).step(0.001).onFinishChange(createGalaxy);
-    gui.add(parameters, 'randomness').min(0).max(2).step(0.001).onFinishChange(createGalaxy);
-    gui.add(parameters, 'randomnessPower').min(1).max(10).step(0.001).onFinishChange(createGalaxy);
-    gui.addColor(parameters, 'insideColor').onChange(createGalaxy);
-    gui.addColor(parameters, 'outsideColor').onChange(createGalaxy);
+  addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
+  gui.add(parameters, 'count').min(1000).max(1000000).step(1000).onFinishChange(createGalaxy);
+  gui.add(parameters, 'size').min(0.001).max(1).step(0.001).onFinishChange(createGalaxy);
+  gui.add(parameters, 'radius').min(0.01).max(20).step(0.01).onFinishChange(createGalaxy);
+  gui.add(parameters, 'branches').min(2).max(20).step(1).onFinishChange(createGalaxy);
+  gui.add(parameters, 'spin').min(-5).max(5).step(0.001).onFinishChange(createGalaxy);
+  gui.add(parameters, 'randomness').min(0).max(2).step(0.001).onFinishChange(createGalaxy);
+  gui.add(parameters, 'randomnessPower').min(1).max(10).step(0.001).onFinishChange(createGalaxy);
+  gui.addColor(parameters, 'insideColor').onChange(createGalaxy);
+  gui.addColor(parameters, 'outsideColor').onChange(createGalaxy);
 
-    createGalaxy();
-  }
+  createGalaxy();
 
-  function start(): void {
-    engine.start();
-    void init();
-  }
-
-  return { start, space };
+  space.start$.next(true);
 }

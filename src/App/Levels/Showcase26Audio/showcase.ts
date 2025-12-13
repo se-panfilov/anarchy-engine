@@ -3,14 +3,12 @@ import { distinctUntilChanged } from 'rxjs';
 import type { AnimationAction, AudioListener } from 'three';
 import { Clock } from 'three';
 
-import type { TShowcase } from '@/App/Levels/Models';
 import type {
   TActor,
   TAnyAudioWrapper,
   TAudio3dWrapper,
   TCameraWrapper,
   TDebugAudioRenderer,
-  TEngine,
   TFsmStates,
   TFsmWrapper,
   TLoop,
@@ -23,17 +21,22 @@ import type {
   TSpaceLoops,
   TSpaceServices
 } from '@/Engine';
-import { DebugAudioRenderer, Engine, isAudio3dWrapper, isDefined, isNotDefined, spaceService } from '@/Engine';
+import { DebugAudioRenderer, isAudio3dWrapper, isDefined, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfigJson from './showcase.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function showcase(): TShowcase {
+export function start(): void {
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
   // TODO 14-0-0: implement spaceService.findActive()
   const space: TSpace = spaces[0];
+  if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
 
+  space.built$.subscribe(showcase);
+}
+
+export function showcase(space: TSpace): void {
   const gui: GUI = new GUI();
 
   const { scenesService, audioService, cameraService } = space.services;
@@ -44,41 +47,34 @@ export function showcase(): TShowcase {
   if (isNotDefined(camera)) throw new Error('Active camera listener is not found');
   if (isNotDefined(mainListener)) throw new Error('Main audio listener is not found');
 
-  async function init(): Promise<void> {
-    const scene: TSceneWrapper | undefined = scenesService.findActive();
-    if (isNotDefined(scene)) throw new Error('Showcase: No active scene is not found');
+  const scene: TSceneWrapper | undefined = scenesService.findActive();
+  if (isNotDefined(scene)) throw new Error('Showcase: No active scene is not found');
 
-    const gunshotName1: string = 'gunshot_1';
-    const gunshotName2: string = 'gunshot_2';
+  const gunshotName1: string = 'gunshot_1';
+  const gunshotName2: string = 'gunshot_2';
 
-    const gunshot1: TAudio3dWrapper | undefined = audioService.getRegistry().findByName(gunshotName1) as TAudio3dWrapper | undefined;
-    if (isNotDefined(gunshot1)) throw new Error(`Showcase: Audio "${gunshotName1}" is not found`);
-    DebugAudioRenderer(gunshot1, scene, audioLoop);
-    const gunshot2: TAudio3dWrapper | undefined = audioService.getRegistry().findByName(gunshotName2) as TAudio3dWrapper | undefined;
-    if (isNotDefined(gunshot2)) throw new Error(`Showcase: Audio "${gunshotName2}" is not found`);
-    DebugAudioRenderer(gunshot2, scene, audioLoop);
+  const gunshot1: TAudio3dWrapper | undefined = audioService.getRegistry().findByName(gunshotName1) as TAudio3dWrapper | undefined;
+  if (isNotDefined(gunshot1)) throw new Error(`Showcase: Audio "${gunshotName1}" is not found`);
+  DebugAudioRenderer(gunshot1, scene, audioLoop);
+  const gunshot2: TAudio3dWrapper | undefined = audioService.getRegistry().findByName(gunshotName2) as TAudio3dWrapper | undefined;
+  if (isNotDefined(gunshot2)) throw new Error(`Showcase: Audio "${gunshotName2}" is not found`);
+  DebugAudioRenderer(gunshot2, scene, audioLoop);
 
-    initMutant('mutant_actor_1', space.services);
-    const lady: TActor = initLady('medea_actor', gunshot1, space.services);
-    initMovingCube('box_actor', gunshot2, space.services, space.loops);
-    initMusicWithControls('bg_music', 'Background music', gui, space.services);
-    initMusicWithControls('monster_singing', 'Positional music', gui, space.services, { loop: audioLoop, scene });
+  initMutant('mutant_actor_1', space.services);
+  const lady: TActor = initLady('medea_actor', gunshot1, space.services);
+  initMovingCube('box_actor', gunshot2, space.services, space.loops);
+  initMusicWithControls('bg_music', 'Background music', gui, space.services);
+  initMusicWithControls('monster_singing', 'Positional music', gui, space.services, { loop: audioLoop, scene });
 
-    //Keep in mind that setInterval/setTimeout could be slowdown in background tabs, don't use it for production (or use in web workers)
-    setInterval((): void => {
-      const ladyShootFsm: TFsmWrapper | undefined = lady.getAnimationsFsm();
-      if (isNotDefined(ladyShootFsm)) throw new Error('Showcase: Animations FSM is not found');
-      ladyShootFsm.send$.next('Shoot');
-      setTimeout((): void => ladyShootFsm.send$.next('Idle'), 500);
-    }, 1500);
-  }
+  //Keep in mind that setInterval/setTimeout could be slowdown in background tabs, don't use it for production (or use in web workers)
+  setInterval((): void => {
+    const ladyShootFsm: TFsmWrapper | undefined = lady.getAnimationsFsm();
+    if (isNotDefined(ladyShootFsm)) throw new Error('Showcase: Animations FSM is not found');
+    ladyShootFsm.send$.next('Shoot');
+    setTimeout((): void => ladyShootFsm.send$.next('Idle'), 500);
+  }, 1500);
 
-  function start(): void {
-    engine.start();
-    void init();
-  }
-
-  return { start, space };
+  space.start$.next(true);
 }
 
 function initMutant(actorName: string, { animationsService, actorService }: TSpaceServices): TActor {

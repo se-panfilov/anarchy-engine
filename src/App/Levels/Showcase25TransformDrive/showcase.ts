@@ -4,14 +4,12 @@ import { Euler, Quaternion, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { degToRad, radToDeg } from 'three/src/math/MathUtils';
 
-import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo, getMemoryUsage } from '@/App/Levels/Utils';
 import type {
   TActor,
   TCameraWrapper,
   TControlsWrapper,
   TDegrees,
-  TEngine,
   TIntersectionEvent,
   TIntersectionsWatcher,
   TModel3d,
@@ -35,7 +33,6 @@ import {
   ambientContext,
   ControlsType,
   degrees,
-  Engine,
   ForwardAxis,
   getDistance,
   getElevation,
@@ -78,16 +75,32 @@ const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 // - Physical agent is a mode when model3d reads values from a physical body. Requires setup of physics. Recommended for environmental objects (e.g. physical bricks in a wall).
 // - Default agent is providing almost nothing, but setters. Recommended for static objects.
 // - Also: with every mode you can do position$.next() to "teleport" the object to the new position
-export function showcase(): TShowcase {
-  const gui: GUI = new GUI();
+export function start(): void {
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
   // TODO 14-0-0: implement spaceService.findActive()
   const space: TSpace = spaces[0];
+  if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
 
-  const { cameraService, controlsService, lightService, models3dService, mouseService, particlesService, physicsWorldService, rendererService, scenesService, spatialGridService, textService } =
-    space.services;
+  space.built$.subscribe(showcase);
+}
+
+export function showcase(space: TSpace): void {
+  const gui: GUI = new GUI();
+  const {
+    cameraService,
+    controlsService,
+    keyboardService,
+    lightService,
+    models3dService,
+    mouseService,
+    particlesService,
+    physicsWorldService,
+    rendererService,
+    scenesService,
+    spatialGridService,
+    textService
+  } = space.services;
   const { physicalLoop } = space.loops;
-  const { keyboardService } = engine.services;
   const { clickLeftRelease$ } = mouseService;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
 
@@ -103,126 +116,118 @@ export function showcase(): TShowcase {
     return models3dService.loadAsync({ name: foxModelName, url: '/Showcase/Models/Fox/Fox.glb', options: { scale: new Vector3(1, 1, 1) } });
   }
 
-  function init(): void {
-    const sceneW: TSceneWrapper | undefined = scenesService.findActive();
-    if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
+  await preloadModels3d();
 
-    const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
-    if (isNotDefined(grid)) throw new Error('Grid is not defined');
+  const sceneW: TSceneWrapper | undefined = scenesService.findActive();
+  if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
-    const planeModel3d: TModel3d | undefined = models3dRegistry.findByName('surface_model');
-    if (isNotDefined(planeModel3d)) throw new Error('Plane model is not defined');
+  const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
+  if (isNotDefined(grid)) throw new Error('Grid is not defined');
 
-    const camera: TCameraWrapper | undefined = cameraService.findActive();
-    if (isNotDefined(camera)) throw new Error('Camera is not defined');
+  const planeModel3d: TModel3d | undefined = models3dRegistry.findByName('surface_model');
+  if (isNotDefined(planeModel3d)) throw new Error('Plane model is not defined');
 
-    const controls: TControlsWrapper | undefined = controlsService.findActive();
-    if (isNotDefined(controls)) throw new Error('Controls are not defined');
-    if (!isOrbitControls(controls)) throw new Error(`Active controls are not of type "${ControlsType.OrbitControls}", but ${controls.getType()}`);
+  const camera: TCameraWrapper | undefined = cameraService.findActive();
+  if (isNotDefined(camera)) throw new Error('Camera is not defined');
 
-    const light: TPointLightWrapper | undefined = lightService.getRegistry().findByName('point_light') as TPointLightWrapper | undefined;
-    if (isNotDefined(light)) throw new Error('Light is not defined');
+  const controls: TControlsWrapper | undefined = controlsService.findActive();
+  if (isNotDefined(controls)) throw new Error('Controls are not defined');
+  if (!isOrbitControls(controls)) throw new Error(`Active controls are not of type "${ControlsType.OrbitControls}", but ${controls.getType()}`);
 
-    const particles: TParticlesWrapper | undefined = particlesService.getRegistry().findByName('bubbles');
-    if (isNotDefined(particles)) throw new Error('Particles are not defined');
+  const light: TPointLightWrapper | undefined = lightService.getRegistry().findByName('point_light') as TPointLightWrapper | undefined;
+  if (isNotDefined(light)) throw new Error('Light is not defined');
 
-    const sphereText: TText3dWrapper | undefined = textService.getRegistries().text3dRegistry.findByName('sphere_text');
-    if (isNotDefined(sphereText)) throw new Error('Text is not defined');
+  const particles: TParticlesWrapper | undefined = particlesService.getRegistry().findByName('bubbles');
+  if (isNotDefined(particles)) throw new Error('Particles are not defined');
 
-    const renderer: TRendererWrapper | undefined = rendererService.findActive();
-    if (isNotDefined(renderer)) throw new Error('Renderer is not defined');
+  const sphereText: TText3dWrapper | undefined = textService.getRegistries().text3dRegistry.findByName('sphere_text');
+  if (isNotDefined(sphereText)) throw new Error('Text is not defined');
 
-    addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
+  const renderer: TRendererWrapper | undefined = rendererService.findActive();
+  if (isNotDefined(renderer)) throw new Error('Renderer is not defined');
 
-    setParticles(particles);
-    grid._debugVisualizeCells(sceneW, '#4e0c85');
+  addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
 
-    console.log('Click "space" to change actor movement mode ("agent")');
+  setParticles(particles);
+  grid._debugVisualizeCells(sceneW, '#4e0c85');
 
-    sceneW.addModel3d(planeModel3d);
+  console.log('Click "space" to change actor movement mode ("agent")');
 
-    const actorCoords = new Vector3(0, actorsOffsetY, 0);
-    const sphereActorPhysics: TWithPresetNamePhysicsBodyParams = {
-      presetName: 'ball_physics',
-      shapeParams: {
-        radius: 0.7
-      },
-      restitution: 0.9
-    };
+  sceneW.addModel3d(planeModel3d);
 
-    const foxModel3dSource: GLTF | undefined = models3dService.getResourceRegistry().findByKey(foxModelName);
-    if (isNotDefined(foxModel3dSource)) throw new Error('Fox model is not defined');
+  const actorCoords = new Vector3(0, actorsOffsetY, 0);
+  const sphereActorPhysics: TWithPresetNamePhysicsBodyParams = {
+    presetName: 'ball_physics',
+    shapeParams: {
+      radius: 0.7
+    },
+    restitution: 0.9
+  };
 
-    const sphereActor: TActor = createActor('sphere', foxModel3dSource, TransformAgent.Default, grid, actorCoords, '#E91E63', sphereActorPhysics, space.services);
-    gui.add(mode, 'isTeleportationMode').name('Teleportation mode');
-    addActorFolderGui(gui, sphereActor);
-    addKinematicActorFolderGui(gui, sphereActor);
+  const foxModel3dSource: GLTF | undefined = models3dService.getResourceRegistry().findByKey(foxModelName);
+  if (isNotDefined(foxModel3dSource)) throw new Error('Fox model is not defined');
 
-    combineLatest([sphereActor.drive.position$, sphereActor.drive.rotation$]).subscribe(([p, r]: [TReadonlyVector3, TReadonlyQuaternion]): void => {
-      sphereText.setText(`x: ${p.x.toFixed(2)} y: ${p.y.toFixed(2)} z: ${p.z.toFixed(2)}, Rotation: ${radToDeg(r.y).toFixed(2)}`);
+  const sphereActor: TActor = createActor('sphere', foxModel3dSource, TransformAgent.Default, grid, actorCoords, '#E91E63', sphereActorPhysics, space.services);
+  gui.add(mode, 'isTeleportationMode').name('Teleportation mode');
+  addActorFolderGui(gui, sphereActor);
+  addKinematicActorFolderGui(gui, sphereActor);
+
+  combineLatest([sphereActor.drive.position$, sphereActor.drive.rotation$]).subscribe(([p, r]: [TReadonlyVector3, TReadonlyQuaternion]): void => {
+    sphereText.setText(`x: ${p.x.toFixed(2)} y: ${p.y.toFixed(2)} z: ${p.z.toFixed(2)}, Rotation: ${radToDeg(r.y).toFixed(2)}`);
+  });
+
+  createRepeaterActor(sphereActor, sphereActor.model3d, { x: 0, y: 0, z: 4 }, grid, gui, space.services);
+
+  const intersectionsWatcher: TIntersectionsWatcher = startIntersections(space.services);
+
+  addSpatialGuiFolder(gui, grid, intersectionsWatcher);
+
+  connectCameraToActor(camera, controls, sphereActor, gui);
+  connectObjToActor('Light', light, sphereActor, gui);
+  connectObjToActor('Particles', particles, sphereActor, gui);
+  connectObjToActor('Text', sphereText, sphereActor, gui);
+
+  const { line } = createReactiveLineFromActor('#E91E63', sphereActor, intersectionsWatcher);
+  sceneW.entity.add(line);
+
+  const azimuthText: TTextAnyWrapper = textService.create({
+    text: 'Azimuth...',
+    type: TextType.Text3d,
+    cssProps: { fontSize: '0.05rem' },
+    position: new Vector3(3, 0.3, 6),
+    rotation: new Euler(-1.57, 0, 0)
+  });
+
+  const azimuth$: BehaviorSubject<{ azimuth: TDegrees; elevation: TDegrees }> = new BehaviorSubject<{ azimuth: TDegrees; elevation: TDegrees }>({ azimuth: degrees(0), elevation: degrees(0) });
+
+  azimuth$
+    .pipe(withLatestFrom(sphereActor.drive.agent$, intersectionsWatcher.value$))
+    .subscribe(([{ azimuth, elevation }, agent, { point }]: [{ azimuth: TDegrees; elevation: TDegrees }, TransformAgent, TIntersectionEvent]): void => {
+      azimuthText.setText(`Azimuth: ${azimuth.toFixed(2)}, Elevation: ${elevation.toFixed(2)}`);
+
+      //rotation is for a "default" agent, for "kinematic" agent we will use target position (vector) to look at
+      const rotation: Quaternion = new Quaternion().setFromEuler(new Euler(degToRad(elevation * -1), degToRad(azimuth), 0, 'YXZ'));
+      rotateActorTo(sphereActor, point, rotation, agent);
     });
 
-    createRepeaterActor(sphereActor, sphereActor.model3d, { x: 0, y: 0, z: 4 }, grid, gui, space.services);
+  intersectionsWatcher.value$.pipe(withLatestFrom(sphereActor.drive.position$)).subscribe(([v, actorPosition]: [TIntersectionEvent, TReadonlyVector3]): void => {
+    const elevation: TRadians = getElevation(actorPosition.x, actorPosition.y, actorPosition.z, v.point);
+    const azimuth: TRadians = getHorizontalAzimuth(actorPosition.x, actorPosition.z, v.point, ForwardAxis.Z);
+    azimuth$.next({ azimuth: degrees(radToDeg(azimuth)), elevation: degrees(radToDeg(elevation)) });
+  });
 
-    const intersectionsWatcher: TIntersectionsWatcher = startIntersections(space.services);
+  clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$, sphereActor.drive.agent$)).subscribe(([, intersection, agent]: [TMouseWatcherEvent, TIntersectionEvent, TransformAgent]): void => {
+    const adjustedPoint: Vector3 = intersection.point.clone().add(new Vector3(0, 0, 0));
+    moveActorTo(sphereActor, adjustedPoint, agent, mode.isTeleportationMode);
+  });
 
-    addSpatialGuiFolder(gui, grid, intersectionsWatcher);
+  attachConnectorPositionToSubj(sphereActor, intersectionsWatcher.value$.pipe(map((v: TIntersectionEvent): Vector3 => v.point.add(new Vector3(0, actorsOffsetY, 0)))));
 
-    connectCameraToActor(camera, controls, sphereActor, gui);
-    connectObjToActor('Light', light, sphereActor, gui);
-    connectObjToActor('Particles', particles, sphereActor, gui);
-    connectObjToActor('Text', sphereText, sphereActor, gui);
+  changeActorActiveAgent(sphereActor, KeysExtra.Space, keyboardService);
 
-    const { line } = createReactiveLineFromActor('#E91E63', sphereActor, intersectionsWatcher);
-    sceneW.entity.add(line);
+  console.log('Memory usage:', getMemoryUsage());
 
-    const azimuthText: TTextAnyWrapper = textService.create({
-      text: 'Azimuth...',
-      type: TextType.Text3d,
-      cssProps: { fontSize: '0.05rem' },
-      position: new Vector3(3, 0.3, 6),
-      rotation: new Euler(-1.57, 0, 0)
-    });
-
-    const azimuth$: BehaviorSubject<{ azimuth: TDegrees; elevation: TDegrees }> = new BehaviorSubject<{ azimuth: TDegrees; elevation: TDegrees }>({ azimuth: degrees(0), elevation: degrees(0) });
-
-    azimuth$
-      .pipe(withLatestFrom(sphereActor.drive.agent$, intersectionsWatcher.value$))
-      .subscribe(([{ azimuth, elevation }, agent, { point }]: [{ azimuth: TDegrees; elevation: TDegrees }, TransformAgent, TIntersectionEvent]): void => {
-        azimuthText.setText(`Azimuth: ${azimuth.toFixed(2)}, Elevation: ${elevation.toFixed(2)}`);
-
-        //rotation is for a "default" agent, for "kinematic" agent we will use target position (vector) to look at
-        const rotation: Quaternion = new Quaternion().setFromEuler(new Euler(degToRad(elevation * -1), degToRad(azimuth), 0, 'YXZ'));
-        rotateActorTo(sphereActor, point, rotation, agent);
-      });
-
-    intersectionsWatcher.value$.pipe(withLatestFrom(sphereActor.drive.position$)).subscribe(([v, actorPosition]: [TIntersectionEvent, TReadonlyVector3]): void => {
-      const elevation: TRadians = getElevation(actorPosition.x, actorPosition.y, actorPosition.z, v.point);
-      const azimuth: TRadians = getHorizontalAzimuth(actorPosition.x, actorPosition.z, v.point, ForwardAxis.Z);
-      azimuth$.next({ azimuth: degrees(radToDeg(azimuth)), elevation: degrees(radToDeg(elevation)) });
-    });
-
-    clickLeftRelease$
-      .pipe(withLatestFrom(intersectionsWatcher.value$, sphereActor.drive.agent$))
-      .subscribe(([, intersection, agent]: [TMouseWatcherEvent, TIntersectionEvent, TransformAgent]): void => {
-        const adjustedPoint: Vector3 = intersection.point.clone().add(new Vector3(0, 0, 0));
-        moveActorTo(sphereActor, adjustedPoint, agent, mode.isTeleportationMode);
-      });
-
-    attachConnectorPositionToSubj(sphereActor, intersectionsWatcher.value$.pipe(map((v: TIntersectionEvent): Vector3 => v.point.add(new Vector3(0, actorsOffsetY, 0)))));
-
-    changeActorActiveAgent(sphereActor, KeysExtra.Space, keyboardService);
-
-    console.log('Memory usage:', getMemoryUsage());
-  }
-
-  async function start(): Promise<void> {
-    engine.start();
-    await preloadModels3d();
-    void init();
-  }
-
-  return { start, space };
+  space.start$.next(true);
 }
 
 function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, isTeleportationMode: boolean): void | never {

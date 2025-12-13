@@ -3,34 +3,25 @@ import './fonts.css';
 import { Euler, Vector3 } from 'three';
 import { degToRad } from 'three/src/math/MathUtils';
 
-import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TAnimationParams, TEngine, TMeters, TModel3d, TModels3dRegistry, TMoverService, TRadians, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper } from '@/Engine';
-import {
-  ambientContext,
-  createCirclePathXZ,
-  defaultMoverServiceConfig,
-  Easing,
-  Engine,
-  generateAnglesForCircle,
-  isNotDefined,
-  meters,
-  radians,
-  spaceService,
-  TextType,
-  TransformAgent
-} from '@/Engine';
+import type { TAnimationParams, TMeters, TModel3d, TModels3dRegistry, TMoverService, TRadians, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper } from '@/Engine';
+import { ambientContext, createCirclePathXZ, defaultMoverServiceConfig, Easing, generateAnglesForCircle, isNotDefined, meters, radians, spaceService, TextType, TransformAgent } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfigJson from './showcase.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function showcase(): TShowcase {
+export function start(): void {
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
   // TODO 14-0-0: implement spaceService.findActive()
   const space: TSpace = spaces[0];
+  if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
 
+  space.built$.subscribe(showcase);
+}
+
+export function showcase(space: TSpace): void {
   const { textService, mouseService, models3dService, scenesService } = space.services;
   const { transformLoop } = space.loops;
 
@@ -119,5 +110,5 @@ export function showcase(): TShowcase {
     }, 1000);
   });
 
-  return { start: engine.start, space };
+  space.start$.next(true);
 }

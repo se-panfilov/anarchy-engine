@@ -1,8 +1,7 @@
 import { Euler, Vector3 } from 'three';
 
-import type { TShowcase } from '@/App/Levels/Models';
-import type { TActor, TActorParams, TActorRegistry, TEngine, TMaterialWrapper, TModel3d, TMoverService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
-import { defaultMoverServiceConfig, Engine, forEachEnum, getTags, LookUpStrategy, MaterialType, meters, PrimitiveModel3dType, spaceService, TextType, TransformAgent } from '@/Engine';
+import type { TActor, TActorParams, TActorRegistry, TMaterialWrapper, TModel3d, TMoverService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
+import { defaultMoverServiceConfig, forEachEnum, getTags, isNotDefined, LookUpStrategy, MaterialType, meters, PrimitiveModel3dType, spaceService, TextType, TransformAgent } from '@/Engine';
 import type { TAnimationParams } from '@/Engine/Services';
 import { Easing } from '@/Engine/Services';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
@@ -11,87 +10,89 @@ import spaceConfigJson from './showcase.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function showcase(): TShowcase {
+export function start(): void {
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
   // TODO 14-0-0: implement spaceService.findActive()
   const space: TSpace = spaces[0];
+  if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
 
-  function start(): void {
-    engine.start();
-    const { actorService, textService, mouseService, spatialGridService, materialService, models3dService } = space.services;
-    const { transformLoop } = space.loops;
-    const actorRegistry: TActorRegistry = actorService.getRegistry();
+  space.built$.subscribe(showcase);
+}
 
-    let isClickBlocked: boolean = false;
+export function showcase(space: TSpace): void {
+  const { actorService, textService, mouseService, spatialGridService, materialService, models3dService } = space.services;
+  const { transformLoop } = space.loops;
+  const actorRegistry: TActorRegistry = actorService.getRegistry();
 
-    const animationParams: TAnimationParams = {
-      duration: 2000,
-      direction: 'alternate'
-    };
+  let isClickBlocked: boolean = false;
 
-    const boxActorTag: string = 'box';
-    const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
+  const animationParams: TAnimationParams = {
+    duration: 2000,
+    direction: 'alternate'
+  };
 
-    const materialW: TMaterialWrapper = materialService.create({ name: 'cube_material', type: MaterialType.Toon, options: { color: '#5177ff' } });
+  const boxActorTag: string = 'box';
+  const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
 
-    const cubeModel3d: TModel3d = models3dService.create({
-      name: 'cube_model',
-      model3dSource: PrimitiveModel3dType.Cube,
-      animationsSource: [],
-      materialSource: materialW,
-      options: { width: meters(1), height: meters(1), depth: meters(1) },
-      position: new Vector3(0, 0, 0),
-      rotation: new Euler(0, 0, 0)
+  const materialW: TMaterialWrapper = materialService.create({ name: 'cube_material', type: MaterialType.Toon, options: { color: '#5177ff' } });
+
+  const cubeModel3d: TModel3d = models3dService.create({
+    name: 'cube_model',
+    model3dSource: PrimitiveModel3dType.Cube,
+    animationsSource: [],
+    materialSource: materialW,
+    options: { width: meters(1), height: meters(1), depth: meters(1) },
+    position: new Vector3(0, 0, 0),
+    rotation: new Euler(0, 0, 0)
+  });
+
+  const actorTemplate: TActorParams = {
+    model3dSource: cubeModel3d,
+    spatial: { isAutoUpdate: true, grid },
+    position: new Vector3(-20, 2, -2),
+    rotation: new Euler(0, 0, 0),
+    agent: TransformAgent.Connected,
+    tags: [boxActorTag]
+  };
+
+  const positionZ: number = -30;
+  const gap: number = 2;
+  forEachEnum(Easing, (easing: string | number, _key: string | number, i: number): void => {
+    actorService.create({
+      ...actorTemplate,
+      name: `box_${easing}`,
+      position: new Vector3(-20, 2, positionZ + gap * i),
+      tags: [...(actorTemplate.tags ?? []), String(easing)]
     });
 
-    const actorTemplate: TActorParams = {
-      model3dSource: cubeModel3d,
-      spatial: { isAutoUpdate: true, grid },
-      position: new Vector3(-20, 2, -2),
-      rotation: new Euler(0, 0, 0),
-      agent: TransformAgent.Connected,
-      tags: [boxActorTag]
-    };
-
-    const positionZ: number = -30;
-    const gap: number = 2;
-    forEachEnum(Easing, (easing: string | number, _key: string | number, i: number): void => {
-      actorService.create({
-        ...actorTemplate,
-        name: `box_${easing}`,
-        position: new Vector3(-20, 2, positionZ + gap * i),
-        tags: [...(actorTemplate.tags ?? []), String(easing)]
-      });
-
-      textService.create({
-        type: TextType.Text2d,
-        text: String(easing),
-        cssProps: {
-          fontSize: '12px'
-        },
-        position: new Vector3(-32, 2, positionZ - 1 + gap * i),
-        rotation: new Euler(-1.57, 0, 0),
-        tags: [...(actorTemplate.tags ?? []), String(easing)]
-      });
+    textService.create({
+      type: TextType.Text2d,
+      text: String(easing),
+      cssProps: {
+        fontSize: '12px'
+      },
+      position: new Vector3(-32, 2, positionZ - 1 + gap * i),
+      rotation: new Euler(-1.57, 0, 0),
+      tags: [...(actorTemplate.tags ?? []), String(easing)]
     });
+  });
 
-    mouseService.clickLeftRelease$.subscribe((): void => {
-      if (isClickBlocked) {
-        console.log('click is blocked');
-        isClickBlocked = false;
-        return;
-      }
-      console.log('click is ready', !isClickBlocked);
-      isClickBlocked = true;
+  mouseService.clickLeftRelease$.subscribe((): void => {
+    if (isClickBlocked) {
+      console.log('click is blocked');
+      isClickBlocked = false;
+      return;
+    }
+    console.log('click is ready', !isClickBlocked);
+    isClickBlocked = true;
 
-      const moverService: TMoverService = MoverService(transformLoop, defaultMoverServiceConfig);
+    const moverService: TMoverService = MoverService(transformLoop, defaultMoverServiceConfig);
 
-      actorRegistry.findAllByTags([boxActorTag], LookUpStrategy.Some).forEach((actor: TActor): void => {
-        const easing = getTags(actor)[1] as Easing;
-        void moverService.goToPosition(actor, { x: 20 }, { ...animationParams, easing });
-      });
+    actorRegistry.findAllByTags([boxActorTag], LookUpStrategy.Some).forEach((actor: TActor): void => {
+      const easing = getTags(actor)[1] as Easing;
+      void moverService.goToPosition(actor, { x: 20 }, { ...animationParams, easing });
     });
-  }
+  });
 
-  return { start, space };
+  space.start$.next(true);
 }

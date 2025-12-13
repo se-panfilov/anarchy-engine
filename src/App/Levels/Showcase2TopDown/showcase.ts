@@ -1,58 +1,59 @@
 import { combineLatest } from 'rxjs';
 import { Euler, Vector3 } from 'three';
 
-import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorParams, TCameraWrapper, TEngine, TMaterialWrapper, TModel3d, TModels3dService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
-import { ambientContext, Engine, isNotDefined, MaterialType, meters, PrimitiveModel3dType, spaceService } from '@/Engine';
+import type { TActorParams, TCameraWrapper, TMaterialWrapper, TModel3d, TModels3dService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
+import { ambientContext, isNotDefined, MaterialType, meters, PrimitiveModel3dType, spaceService } from '@/Engine';
 
 import spaceConfigJson from './showcase.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function showcase(): TShowcase {
+export function start(): void {
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
   // TODO 14-0-0: implement spaceService.findActive()
   const space: TSpace = spaces[0];
+  if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
 
-  function start(): void {
-    engine.start();
-    const { actorService, spatialGridService, cameraService, materialService, models3dService, mouseService } = space.services;
-    const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
-    if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" grid`);
+  space.built$.subscribe(showcase);
+}
 
-    const materialW: TMaterialWrapper = materialService.create({ name: 'model_material', type: MaterialType.Toon, options: { color: '#5177ff' } });
+export function showcase(space: TSpace): void {
+  const { actorService, spatialGridService, cameraService, materialService, models3dService, mouseService } = space.services;
+  const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
+  if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" grid`);
 
-    const actorDefaultParams: Omit<TActorParams, 'model3dSource'> = {
-      position: new Vector3(),
-      rotation: new Euler(),
-      spatial: { grid, isAutoUpdate: false }
-    };
+  const materialW: TMaterialWrapper = materialService.create({ name: 'model_material', type: MaterialType.Toon, options: { color: '#5177ff' } });
 
-    const actorParams1: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube1', materialW), position: new Vector3(2, 2, 0) };
-    const actorParams2: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube2', materialW), position: new Vector3(-2, 0, 0) };
-    const actorParams3: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube3', materialW), position: new Vector3(0, 1, 0) };
-    const actorParams4: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube4', materialW), position: new Vector3(-2, 2, 0) };
-    const actorParams5: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube5', materialW), position: new Vector3(2, 0, 0) };
+  const actorDefaultParams: Omit<TActorParams, 'model3dSource'> = {
+    position: new Vector3(),
+    rotation: new Euler(),
+    spatial: { grid, isAutoUpdate: false }
+  };
 
-    [actorParams1, actorParams2, actorParams3, actorParams4, actorParams5].forEach((actor: TActorParams) => actorService.create(actor));
+  const actorParams1: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube1', materialW), position: new Vector3(2, 2, 0) };
+  const actorParams2: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube2', materialW), position: new Vector3(-2, 0, 0) };
+  const actorParams3: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube3', materialW), position: new Vector3(0, 1, 0) };
+  const actorParams4: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube4', materialW), position: new Vector3(-2, 2, 0) };
+  const actorParams5: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube5', materialW), position: new Vector3(2, 0, 0) };
 
-    const camera: TCameraWrapper = cameraService.create({
-      position: new Vector3(0, 0, 3),
-      rotation: new Euler(),
-      isActive: true
-    });
+  [actorParams1, actorParams2, actorParams3, actorParams4, actorParams5].forEach((actor: TActorParams) => actorService.create(actor));
 
-    const { screenSizeWatcher } = ambientContext;
-    combineLatest([mouseService.position$, screenSizeWatcher.value$]).subscribe(([coords, { width, height }]): void => {
-      if (isNotDefined(camera)) return;
-      const xRatio: number = coords.x / width - 0.5;
-      const yRatio: number = -(coords.y / height - 0.5);
-      camera.drive.default.setX(xRatio * 5);
-      camera.drive.default.setY(yRatio * 5);
-    });
-  }
+  const camera: TCameraWrapper = cameraService.create({
+    position: new Vector3(0, 0, 3),
+    rotation: new Euler(),
+    isActive: true
+  });
 
-  return { start, space };
+  const { screenSizeWatcher } = ambientContext;
+  combineLatest([mouseService.position$, screenSizeWatcher.value$]).subscribe(([coords, { width, height }]): void => {
+    if (isNotDefined(camera)) return;
+    const xRatio: number = coords.x / width - 0.5;
+    const yRatio: number = -(coords.y / height - 0.5);
+    camera.drive.default.setX(xRatio * 5);
+    camera.drive.default.setY(yRatio * 5);
+  });
+
+  space.start$.next(true);
 }
 
 function createCube(models3dService: TModels3dService, name: string, materialW: TMaterialWrapper): TModel3d {

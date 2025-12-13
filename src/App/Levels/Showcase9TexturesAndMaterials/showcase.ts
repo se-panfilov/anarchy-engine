@@ -1,40 +1,37 @@
 import { combineLatest, distinctUntilChanged, tap } from 'rxjs';
 import type { Vector2Like, Vector3 } from 'three';
 
-import type { TShowcase } from '@/App/Levels/Models';
-import type { TCameraWrapper, TEngine, TModel3d, TModels3dRegistry, TMouseService, TSceneWrapper, TScreenSizeValues, TSpace, TSpaceConfig } from '@/Engine';
-import { ambientContext, Engine, getRotationByCos, getRotationBySin, isDefined, isNotDefined, spaceService } from '@/Engine';
+import type { TCameraWrapper, TModel3d, TModels3dRegistry, TMouseService, TSceneWrapper, TScreenSizeValues, TSpace, TSpaceConfig } from '@/Engine';
+import { ambientContext, getRotationByCos, getRotationBySin, isDefined, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfigJson from './showcase.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function showcase(): TShowcase {
+export function start(): void {
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
   // TODO 14-0-0: implement spaceService.findActive()
   const space: TSpace = spaces[0];
+  if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
 
+  space.built$.subscribe(showcase);
+}
+
+export function showcase(space: TSpace): void {
   const { models3dService, mouseService, scenesService } = space.services;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
 
-  function init(): void {
-    const sceneW: TSceneWrapper | undefined = scenesService.findActive();
-    if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
+  const sceneW: TSceneWrapper | undefined = scenesService.findActive();
+  if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
-    const model3d: TModel3d | undefined = models3dRegistry.findByName('wood_cube_model');
-    if (isNotDefined(model3d)) throw new Error('Model is not found');
+  const model3d: TModel3d | undefined = models3dRegistry.findByName('wood_cube_model');
+  if (isNotDefined(model3d)) throw new Error('Model is not found');
 
-    sceneW.addModel3d(model3d);
+  sceneW.addModel3d(model3d);
 
-    initCameraRotation(space, model3d, mouseService);
-  }
+  initCameraRotation(space, model3d, mouseService);
 
-  function start(): void {
-    engine.start();
-    void init();
-  }
-
-  return { start, space };
+  space.start$.next(true);
 }
 
 // This is mostly a copy of Showcase 3 (camera rotation)

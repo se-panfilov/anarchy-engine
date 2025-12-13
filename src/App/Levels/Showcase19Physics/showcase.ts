@@ -3,12 +3,10 @@ import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
-import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TRadians, TReadonlyVector3, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TCameraWrapper, TIntersectionEvent, TIntersectionsWatcher, TRadians, TReadonlyVector3, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import {
   ambientContext,
-  Engine,
   ForwardAxis,
   getDistance,
   getHorizontalAzimuth,
@@ -26,97 +24,94 @@ import spaceConfigJson from './showcase.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function showcase(): TShowcase {
+export function start(): void {
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
   // TODO 14-0-0: implement spaceService.findActive()
   const space: TSpace = spaces[0];
+  if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
 
-  const { keyboardService } = engine.services;
-  const { actorService, cameraService, intersectionsWatcherService, mouseService, textService, physicsWorldService } = space.services;
+  space.built$.subscribe(showcase);
+}
+
+export function showcase(space: TSpace): void {
+  const { actorService, cameraService, intersectionsWatcherService, keyboardService, mouseService, textService, physicsWorldService } = space.services;
   const { physicalLoop, intersectionsLoop } = space.loops;
 
   const actorAsyncRegistry = actorService.getRegistry();
   const sceneWrapper: TSceneWrapper = actorService.getScene();
 
-  function init(): void {
-    physicsWorldService.getDebugRenderer(physicalLoop).start();
+  physicsWorldService.getDebugRenderer(physicalLoop).start();
 
-    addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
 
-    const line: Line2 = createLine();
-    sceneWrapper.entity.add(line);
+  const line: Line2 = createLine();
+  sceneWrapper.entity.add(line);
 
-    let azimuth: TRadians = radians(0);
-    let forcePower: number = 0;
+  let azimuth: TRadians = radians(0);
+  let forcePower: number = 0;
 
-    const ballActor: TActor | undefined = actorAsyncRegistry.findByName('sphere_actor');
-    if (isNotDefined(ballActor)) throw new Error(`Cannot find "ball" actor`);
-    if (!isActorHasPhysicsBody(ballActor)) throw new Error(`"ball" actor is not a physic actor`);
+  const ballActor: TActor | undefined = actorAsyncRegistry.findByName('sphere_actor');
+  if (isNotDefined(ballActor)) throw new Error(`Cannot find "ball" actor`);
+  if (!isActorHasPhysicsBody(ballActor)) throw new Error(`"ball" actor is not a physic actor`);
 
-    const surfaceActor: TActor | undefined = actorAsyncRegistry.findByName('surface_actor');
-    if (isNotDefined(surfaceActor)) throw new Error(`Cannot find "surfaceActor" actor`);
-    if (!isActorHasPhysicsBody(surfaceActor)) throw new Error(`"surfaceActor" actor is not a physic actor`);
+  const surfaceActor: TActor | undefined = actorAsyncRegistry.findByName('surface_actor');
+  if (isNotDefined(surfaceActor)) throw new Error(`Cannot find "surfaceActor" actor`);
+  if (!isActorHasPhysicsBody(surfaceActor)) throw new Error(`"surfaceActor" actor is not a physic actor`);
 
-    const cameraW: TCameraWrapper | undefined = cameraService.findActive();
-    if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
+  const cameraW: TCameraWrapper | undefined = cameraService.findActive();
+  if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
 
-    mouseService.clickLeftRelease$.subscribe(() => {
-      ballActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, radians(0), forcePower * 10.5, ForwardAxis.X), true);
-    });
+  mouseService.clickLeftRelease$.subscribe(() => {
+    ballActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, radians(0), forcePower * 10.5, ForwardAxis.X), true);
+  });
 
-    keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => {
-      ballActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse({ x: 0, y: 20, z: 0 }, true);
-    });
+  keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => {
+    ballActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse({ x: 0, y: 20, z: 0 }, true);
+  });
 
-    const mouseLineIntersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({
-      name: 'mouse_line_intersections_watcher',
-      isAutoStart: true,
-      camera: cameraW,
-      actors: [surfaceActor],
-      position$: mouseService.position$,
-      intersectionsLoop
-    });
+  const mouseLineIntersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({
+    name: 'mouse_line_intersections_watcher',
+    isAutoStart: true,
+    camera: cameraW,
+    actors: [surfaceActor],
+    position$: mouseService.position$,
+    intersectionsLoop
+  });
 
-    const azimuthText = textService.create({
-      text: 'Azimuth...',
-      type: TextType.Text3d,
-      cssProps: { fontSize: '0.05rem' },
-      position: new Vector3(3, 0.3, 6),
-      rotation: new Euler(-1.57, 0, 0)
-    });
+  const azimuthText = textService.create({
+    text: 'Azimuth...',
+    type: TextType.Text3d,
+    cssProps: { fontSize: '0.05rem' },
+    position: new Vector3(3, 0.3, 6),
+    rotation: new Euler(-1.57, 0, 0)
+  });
 
-    const forcePowerText = textService.create({
-      text: 'Force...',
-      type: TextType.Text3d,
-      cssProps: { fontSize: '0.05rem' },
-      position: new Vector3(3, 0.3, 7),
-      rotation: new Euler(-1.57, 0, 0)
-    });
+  const forcePowerText = textService.create({
+    text: 'Force...',
+    type: TextType.Text3d,
+    cssProps: { fontSize: '0.05rem' },
+    position: new Vector3(3, 0.3, 7),
+    rotation: new Euler(-1.57, 0, 0)
+  });
 
-    let mouseLineIntersectionsCoords: Vector3 | undefined = undefined;
-    mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent) => {
-      mouseLineIntersectionsCoords = intersection.point;
-    });
+  let mouseLineIntersectionsCoords: Vector3 | undefined = undefined;
+  mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent) => {
+    mouseLineIntersectionsCoords = intersection.point;
+  });
 
-    physicalLoop.tick$.subscribe(() => {
-      if (isDefined(mouseLineIntersectionsCoords)) {
-        const ballCoords: TReadonlyVector3 = ballActor.drive.position$.value;
-        azimuth = getHorizontalAzimuth(ballCoords.x, ballCoords.z, mouseLineIntersectionsCoords, ForwardAxis.Z);
-        azimuthText.setText(`Azimuth: ${azimuth.toFixed(2)}`);
-        forcePowerText.setText(`Force: ${forcePower.toFixed(2)}`);
-        forcePower = getDistance(ballActor.drive.position$.value, mouseLineIntersectionsCoords);
-        line.geometry.setPositions([ballCoords.x, ballCoords.y, ballCoords.z, mouseLineIntersectionsCoords.x, mouseLineIntersectionsCoords.y, mouseLineIntersectionsCoords.z]);
-        line.computeLineDistances();
-      }
-    });
-  }
+  physicalLoop.tick$.subscribe(() => {
+    if (isDefined(mouseLineIntersectionsCoords)) {
+      const ballCoords: TReadonlyVector3 = ballActor.drive.position$.value;
+      azimuth = getHorizontalAzimuth(ballCoords.x, ballCoords.z, mouseLineIntersectionsCoords, ForwardAxis.Z);
+      azimuthText.setText(`Azimuth: ${azimuth.toFixed(2)}`);
+      forcePowerText.setText(`Force: ${forcePower.toFixed(2)}`);
+      forcePower = getDistance(ballActor.drive.position$.value, mouseLineIntersectionsCoords);
+      line.geometry.setPositions([ballCoords.x, ballCoords.y, ballCoords.z, mouseLineIntersectionsCoords.x, mouseLineIntersectionsCoords.y, mouseLineIntersectionsCoords.z]);
+      line.computeLineDistances();
+    }
+  });
 
-  function start(): void {
-    engine.start();
-    void init();
-  }
-
-  return { start, space };
+  space.start$.next(true);
 }
 
 // TODO LINES: refactor this with lines domain

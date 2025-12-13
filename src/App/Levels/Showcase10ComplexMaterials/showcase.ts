@@ -4,14 +4,12 @@ import { BehaviorSubject, combineLatest, startWith, Subject } from 'rxjs';
 import type { Mesh, MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
 import { Euler, Vector3 } from 'three';
 
-import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
 import type {
   TActor,
   TActorRegistry,
   TControlsRegistry,
   TControlsWrapper,
-  TEngine,
   TReadonlyVector3,
   TRegistryPack,
   TSpace,
@@ -31,21 +29,24 @@ import type {
   TWithThickness,
   TWithTransmission
 } from '@/Engine';
-import { ambientContext, ControlsType, Engine, getTags, isDefined, isNotDefined, isOrbitControls, KeyCode, LookUpStrategy, spaceService, TextType } from '@/Engine';
+import { ambientContext, ControlsType, getTags, isDefined, isNotDefined, isOrbitControls, KeyCode, LookUpStrategy, spaceService, TextType } from '@/Engine';
 
 import spaceConfigJson from './showcase.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function showcase(): TShowcase {
-  const gui: GUI = new GUI();
-
+export function start(): void {
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
   // TODO 14-0-0: implement spaceService.findActive()
   const space: TSpace = spaces[0];
-  const { textService } = space.services;
+  if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
 
-  const { keyboardService } = engine.services;
+  space.built$.subscribe(showcase);
+}
+
+export function showcase(space: TSpace): void {
+  const gui: GUI = new GUI();
+  const { textService, keyboardService } = space.services;
 
   addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
 
@@ -290,9 +291,5 @@ export function showcase(): TShowcase {
     return controllers;
   }
 
-  function start(): void {
-    engine.start();
-  }
-
-  return { start, space };
+  space.start$.next(true);
 }
