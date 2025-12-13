@@ -4,6 +4,7 @@ import Stats from 'stats.js';
 import { Clock } from 'three';
 
 import type { TLoopService, TLoopTimes } from '@/Engine/Loop/Models';
+import type { TMilliseconds } from '@/Engine/Math/Types';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { isDefined } from '@/Engine/Utils';
@@ -29,6 +30,7 @@ export function LoopService(): TLoopService {
     .subscribe(tick$);
 
   const loopFn = getLoopFn(beforeTick$, state);
+
   // const loopFn = getLoopFn(tick$, state);
 
   function start(): void {
@@ -76,11 +78,11 @@ function getLoopFn(beforeTick$: Subject<TLoopTimes>, state: TLoopServiceState): 
   function loopFn(frameTime: number): void {
     // stats.begin();
     if (!state.isLooping) return;
-    const elapsedTime: number = clock.getElapsedTime();
+    const elapsedTime: TMilliseconds = clock.getElapsedTime() as TMilliseconds;
     // TODO MATH: need precision calculations??? (or not? how performant they are?)
-    const delta: number = elapsedTime - lastElapsedTime;
+    const delta: TMilliseconds = (elapsedTime - lastElapsedTime) as TMilliseconds;
     lastElapsedTime = elapsedTime;
-    beforeTick$.next({ delta, frameTime, elapsedTime });
+    beforeTick$.next({ delta, frameTime: frameTime as TMilliseconds, elapsedTime });
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
     stats.end();

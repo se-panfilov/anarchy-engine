@@ -1,6 +1,6 @@
 import { Vector3 } from 'three';
 
-import { metersPerSecond } from '@/Engine';
+import { metersPerSecond } from '@/Engine/Distance';
 import type { TKinematicData, TKinematicParams } from '@/Engine/Kinematic/Models';
 import type { TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
 import { KinematicTransformAgent, PhysicsTransformAgent } from '@/Engine/TransformDrive/Agents';

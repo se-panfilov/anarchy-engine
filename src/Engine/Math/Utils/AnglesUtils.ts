@@ -4,7 +4,7 @@ import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad, euclideanModulo, radToDeg } from 'three/src/math/MathUtils';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
-import { metersPerSecond } from '@/Engine';
+import { metersPerSecond } from '@/Engine/Distance';
 import type { TDegrees, TMetersPerSecond, TRadians } from '@/Engine/Math';
 
 // TODO add unit tests
