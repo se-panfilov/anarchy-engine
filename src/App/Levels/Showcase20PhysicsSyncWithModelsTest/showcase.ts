@@ -30,13 +30,14 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const cameraW: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
 
+    actor1W.physicsBody?.getRigidBody()?.addForce({ x: 0, y: 0, z: 0.001 }, true);
+    actor2W.physicsBody?.getRigidBody()?.addTorque({ x: 0.1, y: -0.01, z: 0.1 }, true);
+    actor3W.physicsBody?.getRigidBody()?.addTorque({ x: 0.01, y: 0.1, z: -0.1 }, true);
+
     // TODO (S.Panfilov) extract physics world update to the main loop
     loopService.tick$.subscribe(() => {
       cameraW.lookAt(actor1W.getPosition());
       cameraW.setY(actor1W.getPosition().getY());
-
-      actor2W.physicsBody?.getRigidBody()?.setAngvel({ x: 0.1, y: 0, z: 0.1 }, true);
-      actor3W.physicsBody?.getRigidBody()?.setAngvel({ x: 0, y: 0.2, z: -0.1 }, true);
 
       // TODO (S.Panfilov) debug: this should not be done here, but instead in the service (with an option to manual update)
       // const world = physicsBodyService.getWorld();
