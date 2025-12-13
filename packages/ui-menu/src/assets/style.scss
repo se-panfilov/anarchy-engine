@@ -1,0 +1,25 @@
+@import url(sanitize.css);
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-size: 14px;
+  user-select: none;
+  -webkit-app-region: no-drag;
+}
+
+#menu {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: auto;
+  backdrop-filter: blur(4px);
+
+  &.-active {
+    display: flex;
+  }
+}
