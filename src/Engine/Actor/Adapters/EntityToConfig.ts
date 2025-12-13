@@ -7,6 +7,7 @@ import type { TSpatialDataConfig } from '@/Engine/Spatial';
 import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: (finish 14-0-0 tasks)
+// TODO 15-0-0: CWP: add more scenes to test save/load (all types of entities)
 
 // TODO 15-0-0: validate result
 export function actorToConfig(entity: TActor, { models3dService }: TActorEntityToConfigDependencies): TActorConfig {

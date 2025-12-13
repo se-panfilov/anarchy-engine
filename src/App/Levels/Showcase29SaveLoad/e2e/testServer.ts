@@ -1,6 +1,6 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import type { Application, Express } from 'express';
+import type { Express } from 'express';
 import express from 'express';
 import fs from 'fs';
 import type http from 'http';
@@ -10,8 +10,8 @@ const app: Express = express();
 export const PORT = 3001;
 
 // Directories for JSON and image files
-const jsonDir: string = path.join(__dirname, 'json');
-const imageDir: string = path.join(__dirname, 'screenshots');
+const jsonDir: string = path.join(process.cwd(), 'json');
+const imageDir: string = path.join(process.cwd(), 'screenshots');
 
 fs.mkdirSync(jsonDir, { recursive: true });
 fs.mkdirSync(imageDir, { recursive: true });
@@ -30,11 +30,14 @@ app.post('/save-json', (req, res) => {
 });
 
 app.get('/load-json/:name', (req, res) => {
-  const filename = path.join(jsonDir, req.params.name);
-  if (!fs.existsSync(filename)) return res.status(404).send('File not found');
-
-  const data = fs.readFileSync(filename, 'utf8');
-  res.json(JSON.parse(data));
+  // const filename = path.join(jsonDir, req.params.name);
+  // if (!fs.existsSync(filename)) return res.status(404).send('File not found');
+  //
+  // const data = fs.readFileSync(filename, 'utf8');
+  // res.json(JSON.parse(data));
+  res.json(JSON.parse({ name: req.params.name }));
+  // console.log('XXX111', req.params.name);
+  // res.send({ name: req.params.name });
 });
 
 app.post('/save-image', (req, res) => {
@@ -76,3 +79,5 @@ export function stopServer(): Promise<void> {
     });
   });
 }
+
+startServer();

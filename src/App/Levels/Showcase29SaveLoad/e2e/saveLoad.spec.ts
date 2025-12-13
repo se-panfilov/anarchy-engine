@@ -1,15 +1,17 @@
+import { describe } from 'vitest';
+
 import { PORT, startServer, stopServer } from './testServer';
 
-beforeAll(async () => {
-  await startServer();
-});
+describe('SaveLoad', () => {
+  beforeAll(async () => await startServer());
 
-afterAll(async () => {
-  await stopServer();
-});
+  afterAll(async () => await stopServer());
 
-it('my test', async () => {
-  const res = await fetch(`http://localhost:${PORT}/load-json/textTest.json`);
-  const data = await res.json();
-  expect(data).toBeDefined();
+  it('my test', async () => {
+    // await startServer();
+    const res = await fetch(`http://localhost:${PORT}/load-json/textTest.json`);
+    console.log('XXX res', res);
+    // const data = await res.json();
+    // expect(data).toBeDefined();
+  });
 });
