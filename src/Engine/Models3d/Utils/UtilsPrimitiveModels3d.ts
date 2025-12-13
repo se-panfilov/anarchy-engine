@@ -9,7 +9,7 @@
 import type { TModel3dPrimitivePack, TModel3dPrimitiveParams } from '@/Engine/Models3d';
 import { isDefined } from '@/Engine/Utils';
 
-// TODO CWP enable all the commented out code here!
+// TODO MODELS: enable all the commented out code here!
 export function createPrimitiveModel3dPack(params: TModel3dPrimitiveParams): TModel3dPrimitivePack | never {
   // const { primitive, material } = params;
   const { primitive } = params;
@@ -20,7 +20,7 @@ export function createPrimitiveModel3dPack(params: TModel3dPrimitiveParams): TMo
   //   primitive,
   //   options: { shouldAddToScene: false, shouldAddToRegistry: true, isForce: false }
   // };
-  // TODO debug, fix materials
+  // TODO MODELS: fix material type
   // if (primitive.type === PrimitiveModel3dType.Plane) return { ...pre, model: createPlane(primitive, material.entity) };
   // else if (primitive.type === PrimitiveModel3dType.Sphere) return { ...pre, model: createSphere(primitive, material.entity) };
   // else if (primitive.type === PrimitiveModel3dType.Cube) return { ...pre, model: createCube(primitive, material.entity) };

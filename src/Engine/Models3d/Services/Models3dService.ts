@@ -94,8 +94,8 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     return params.map((p: TModel3dPrimitiveParams): Promise<TModel3dPrimitiveFacade> => Promise.resolve(createFromPack(createPrimitiveModel3dPack(p)) as TModel3dPrimitiveFacade));
   }
 
-  // TODO CWP test if model can be found by preset name
-  // TODO CWP test if overrides are working
+  // TODO MODELS: test if model can be found by preset name
+  // TODO MODELS: test if overrides are working
   function findModel3dAndOverride(name: string, overrides?: TOptional<TModel3dConfig>): TModel3dFacade | undefined {
     const model3d: TModel3dFacade | undefined = registry.findByName(name);
     if (isNotDefined(model3d)) return undefined;

@@ -115,7 +115,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const targetActor3W: TActorWrapper | undefined = actorService.getRegistry().findByName('target_3');
     if (isNotDefined(targetActor3W)) throw new Error(`Cannot find "target_3" actor`);
 
-    // TODO (S.Panfilov) CWP refactor objects creation (do not add to a registry immediately, cause in that case if we extend, there will be unextetended version in the registy)
+    // TODO CWP refactor objects creation (do not add to a registry immediately, cause in that case if we extend, there will be unextetended version in the registy)
     moveActorBounce(targetActor1W, 4, -270, 3000);
     // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
     setTimeout(() => moveActorBounce(targetActor2W, 4.5, -270, 3000), 500);

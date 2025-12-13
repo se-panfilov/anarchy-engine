@@ -12,6 +12,6 @@ export type TObject3DProps = Readonly<{
   layers?: Layers;
   frustumCulled?: boolean;
   renderOrder?: number;
-  // TODO not supported at the moment
+  // TODO ANIMATIONS: animations are not supported at the moment
   // animations?: ReadonlyArray<AnimationClip>;
 }>;

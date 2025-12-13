@@ -22,12 +22,12 @@ export function ActorWrapper(
   const facade: TModel3dFacade = params.model3d;
   const entity: Group | Mesh | Object3D = facade.getModel();
 
-  // TODO (S.Panfilov) CWP MATERIAL MIXIN: decide what to do with this mixin
+  // TODO MODELS: MATERIAL MIXIN: decide what to do with this mixin
   // TODO Option 1.: Test if this override model's material and maybe keep it here
   // TODO Option 1.: Or move it into TModel3dFacade
   const withMaterialEntity: TWithMaterial = withMaterial(entity);
 
-  // TODO options such as "castShadow", "receiveShadow" and etc might be not needed here
+  // TODO MODELS: options such as "castShadow", "receiveShadow" and etc might be not needed here
 
   const { value$: position$, update: updatePosition } = withReactivePosition(entity);
   const { value$: rotation$, update: updateRotation } = withReactiveRotation(entity);
@@ -39,7 +39,7 @@ export function ActorWrapper(
     ...scalableMixin(entity),
     ...withObject3d(entity),
     ...withMaterialEntity,
-    // TODO (S.Panfilov) CWP MATERIAL MIXIN: check if this works and decide: keep it mere, or move to TModel3dFacade
+    // TODO MODELS: MATERIAL MIXIN: check if this works and decide: keep it mere, or move to TModel3dFacade
     ...withTextures(withMaterialEntity, materialTextureService),
     ...withKinematic(params),
     ...withSpatial(params),

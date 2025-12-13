@@ -7,9 +7,9 @@ export function configToParamsObject3d(config: Partial<TObject3DPropConfig>): TO
   const { position, rotation, scale } = config;
   let result = { ...config } as TObject3DParams;
 
-  // TODO layers are not supported at the moment
+  // TODO LAYERS: layers are not supported at the moment
   if (isDefined(config.layers)) result = { ...result, layers: undefined };
-  // TODO animations are not supported at the moment
+  // TODO ANIMATIONS: animations are not supported at the moment
   // if (isDefined(config.animations)) result = { ...result, animations: config.animations };
 
   if (isDefined(position)) result = { ...result, position: Vector3Wrapper(position) };

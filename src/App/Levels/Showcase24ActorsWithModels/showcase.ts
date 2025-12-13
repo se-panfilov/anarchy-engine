@@ -17,7 +17,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   // const dirLightW: TDirectionalLightWrapper = lightService.getRegistry().findByName('dir_light') as unknown as TDirectionalLightWrapper;
   // scenesService.findActive()?.entity.add(new CameraHelper(dirLightW.entity.shadow.camera));
 
-  // TODO debug camera coors
+  // TODO debug camera coords
   // setInterval(() => {
   //   console.log(cameraService.findActive()?.getPosition().getCoords());
   // }, 3000);
