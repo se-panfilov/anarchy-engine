@@ -3,13 +3,13 @@ import { getNormalizedMousePosition, isNotDefined, unWrapEntities } from '@Engin
 import type { IActorWrapper, ICameraWrapper, IVector3 } from '@Engine/Wrappers';
 import { Raycaster } from 'three';
 
-export type IntersectionsService = Readonly<{
+export type IIntersectionsService = Readonly<{
   getIntersection: (position: IMousePosition, cameraWrapper: ICameraWrapper, actors: ReadonlyArray<IActorWrapper>) => IVector3 | undefined | never;
   reset: () => void;
 }> &
   IDestroyable;
 
-export function IntersectionsService(): IntersectionsService {
+export function IntersectionsService(): IIntersectionsService {
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
 
   function getIntersection(position: IMousePosition, cameraWrapper: ICameraWrapper, actors: ReadonlyArray<IActorWrapper>): IVector3 | undefined | never {
