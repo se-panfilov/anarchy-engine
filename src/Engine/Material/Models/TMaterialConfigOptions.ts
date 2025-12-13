@@ -10,6 +10,7 @@ import type {
   NormalMapTypesName,
   PixelFormatName,
   SideName,
+  StencilFailName,
   StencilFuncName,
   StencilOpName
 } from '@/Engine/Material/Constants';
@@ -99,7 +100,7 @@ export type TMaterialConfigFields = Readonly<{
   side?: SideName;
   format?: PixelFormatName;
   stencilFunc?: StencilFuncName;
-  stencilFail?: StencilOpName;
+  stencilFail?: StencilFailName;
   stencilZFail?: StencilOpName;
   stencilZPass?: StencilOpName;
   combine?: CombineName;

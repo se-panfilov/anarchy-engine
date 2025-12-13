@@ -1,7 +1,7 @@
 import type { MaterialJSON } from 'three';
 
 import type { MaterialType } from '@/Engine/Material/Constants';
-import { BlendEquationMap, BlendingDstFactorMap, BlendingMap, BlendingSrcFactorMap, SideMap, StencilFailMap, StencilFuncMap } from '@/Engine/Material/Constants';
+import { BlendEquationMap, BlendingDstFactorMap, BlendingMap, BlendingSrcFactorMap, SideMap, StencilFailMap, StencilFuncMap, StencilOpMap } from '@/Engine/Material/Constants';
 import type { TAllMaterialConfigOptions, TMaterialConfig, TMaterialConfigOptions, TMaterialWrapper } from '@/Engine/Material/Models';
 import { getOptionName } from '@/Engine/Material/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
@@ -33,8 +33,8 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TAllMaterialConfigOpt
       format: (entity as any).format,
       stencilFunc: getOptionName(entity.stencilFunc, StencilFuncMap, 'stencilFunc'),
       stencilFail: getOptionName(entity.stencilFail, StencilFailMap, 'stencilFail'),
-      stencilZFail: entity.stencilZFail,
-      stencilZPass: entity.stencilZPass,
+      stencilZFail: getOptionName(entity.stencilZFail, StencilOpMap, 'stencilZFail'),
+      stencilZPass: getOptionName(entity.stencilZPass, StencilOpMap, 'stencilZPass'),
       referencePosition: (entity as any).referencePosition,
       normalScale: (entity as any).normalScale,
       combine: (entity as any).combine,
