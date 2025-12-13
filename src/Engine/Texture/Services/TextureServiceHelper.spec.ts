@@ -1,5 +1,3 @@
-import { describe, it } from 'vitest';
-
 import { MaterialType } from '@/Engine/Material';
 import type { ITexturePackParams } from '@/Engine/Texture/Models';
 import { isIMaterialProps, isMaterialType } from '@/Engine/Texture/Services/TextureServiceHelper';
