@@ -3,7 +3,7 @@ import type { Subscription } from 'rxjs';
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@/Engine/Mixins';
 import type {
   TPhysicsBody,
   TPhysicsBodyConfig,
@@ -29,7 +29,16 @@ export function PhysicsBodyService(factory: TPhysicsBodyFactory, registry: TPhys
   const withFactory: TPhysicsBodyServiceWithFactory = withFactoryService(factory);
   const withRegistry: TPhysicsBodyServiceWithRegistry = withRegistryService(registry);
 
-  return mergeAll(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TPhysicsBodyConfig, undefined>(registry), {
-    getKinematicDataFromPhysics
-  });
+  return mergeAll(
+    abstractService,
+    withCreateService,
+    withCreateFromConfigService,
+    withFactory,
+    withRegistry,
+    withSerializableEntities<TPhysicsBody, TPhysicsBodyConfig, undefined>(registry),
+
+    {
+      getKinematicDataFromPhysics
+    }
+  );
 }

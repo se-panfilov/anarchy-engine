@@ -14,7 +14,7 @@ export type TPhysicsBodyServiceWithCreateFromConfig = TWithCreateFromConfigServi
 export type TPhysicsBodyServiceWithFactory = TWithFactoryService<TPhysicsBody, TPhysicsBodyParams, TPhysicsDependencies, TPhysicsBodyFactory>;
 export type TPhysicsBodyServiceWithRegistry = TWithRegistryService<TPhysicsBodyRegistry>;
 
-export type TPhysicsBodyService = TSerializableEntitiesService<TPhysicsBodyConfig> &
+export type TPhysicsBodyService = TSerializableEntitiesService<TPhysicsBody, TPhysicsBodyConfig> &
   TPhysicsBodyServiceWithCreate &
   TPhysicsBodyServiceWithCreateFromConfig &
   TPhysicsBodyServiceWithFactory &

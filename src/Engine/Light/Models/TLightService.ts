@@ -15,7 +15,7 @@ export type TLightServiceWithCreateFromConfig = TWithCreateFromConfigService<TAn
 export type TLightServiceWithFactory = TWithFactoryService<TAnyLightWrapper, TLightParams, TLightServiceDependencies, TLightFactory>;
 export type TLightServiceWithRegistry = TWithRegistryService<TLightRegistry>;
 
-export type TLightService = TSerializableEntitiesService<TAnyLightConfig> &
+export type TLightService = TSerializableEntitiesService<TAnyLightWrapper, TAnyLightConfig> &
   TLightServiceWithCreate &
   TLightServiceWithCreateFromConfig &
   TLightServiceWithFactory &

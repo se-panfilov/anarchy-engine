@@ -4,6 +4,7 @@ import { distinctUntilChanged, takeUntil } from 'rxjs';
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type {
+  TAnyCameraConfig,
   TAnyCameraWrapper,
   TCameraFactory,
   TCameraRegistry,
@@ -13,8 +14,7 @@ import type {
   TCameraServiceWithCreateFromConfig,
   TCameraServiceWithFactory,
   TCameraServiceWithRegistry,
-  TCameraWrapperDependencies,
-  TCommonCameraConfig
+  TCameraWrapperDependencies
 } from '@/Engine/Camera/Models';
 import { isOrthographicCameraWrapper, isPerspectiveCameraWrapper } from '@/Engine/Camera/Utils';
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
@@ -25,7 +25,7 @@ import {
   withFactoryService,
   withRegistryService,
   withSceneGetterService,
-  withSerializeAllEntities
+  withSerializableEntities
 } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isNotDefined, mergeAll } from '@/Engine/Utils';
@@ -84,7 +84,7 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
     withRegistry,
     withFactory,
     withSceneGetterService(scene),
-    withSerializeAllEntities<TCommonCameraConfig, Pick<TCameraWrapperDependencies, 'audioService'>>(registry, { audioService: dependencies.audioService }),
+    withSerializableEntities<TAnyCameraWrapper, TAnyCameraConfig, Pick<TCameraWrapperDependencies, 'audioService'>>(registry, { audioService: dependencies.audioService }),
     {
       setActive: withActive.setActive,
       findActive,

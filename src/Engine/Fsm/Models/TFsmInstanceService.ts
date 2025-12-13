@@ -11,4 +11,4 @@ export type TFsmInstanceServiceWithCreate = TWithCreateService<TFsmWrapper, TFsm
 export type TFsmInstanceServiceWithFactory = TWithFactoryService<TFsmWrapper, TFsmSource, undefined, TFsmInstanceFactory>;
 export type TFsmInstanceServiceWithRegistry = TWithRegistryService<TFsmInstanceRegistry>;
 
-export type TFsmInstanceService = TSerializableEntitiesService<TFsmConfig> & TFsmInstanceServiceWithCreate & TFsmInstanceServiceWithFactory & TFsmInstanceServiceWithRegistry;
+export type TFsmInstanceService = TSerializableEntitiesService<TFsmWrapper, TFsmConfig> & TFsmInstanceServiceWithCreate & TFsmInstanceServiceWithFactory & TFsmInstanceServiceWithRegistry;

@@ -4,7 +4,7 @@ import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TMaterialRegistry } from '@/Engine/Material';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService, withSerializeAllEntities } from '@/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@/Engine/Mixins';
 import type {
   TParticlesConfig,
   TParticlesConfigToParamsDependencies,
@@ -40,7 +40,8 @@ export function ParticlesService(factory: TParticlesFactory, registry: TParticle
     withCreateFromConfigService,
     withFactory,
     withRegistry,
-    withSerializeAllEntities<TParticlesConfig, TParticlesConfigToParamsDependencies>(registry, { materialRegistry }),
+    withSerializableEntities<TParticlesWrapper, TParticlesConfig, TParticlesConfigToParamsDependencies>(registry, { materialRegistry }),
+
     withSceneGetterService(scene)
   );
 }

@@ -14,7 +14,7 @@ import type {
   TFogWrapper
 } from '@/Engine/Fog/Models';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService, withSerializeAllEntities } from '@/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { mergeAll } from '@/Engine/Utils';
 
@@ -29,5 +29,13 @@ export function FogService(factory: TFogFactory, registry: TFogRegistry, scene: 
   const withFactory: TFogServiceWithFactory = withFactoryService(factory);
   const withRegistry: TFogServiceWithRegistry = withRegistryService(registry);
 
-  return mergeAll(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TFogConfig, undefined>(registry), withSceneGetterService(scene));
+  return mergeAll(
+    abstractService,
+    withCreateService,
+    withCreateFromConfigService,
+    withFactory,
+    withRegistry,
+    withSerializableEntities<TFogWrapper, TFogConfig, undefined>(registry),
+    withSceneGetterService(scene)
+  );
 }

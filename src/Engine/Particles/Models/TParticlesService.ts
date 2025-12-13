@@ -13,7 +13,7 @@ export type TParticlesServiceWithCreateFromConfig = TWithCreateFromConfigService
 export type TParticlesServiceWithFactory = TWithFactoryService<TParticlesWrapper, TParticlesParams, TParticlesServiceDependencies, TParticlesFactory>;
 export type TParticlesServiceWithRegistry = TWithRegistryService<TParticlesRegistry>;
 
-export type TParticlesService = TSerializableEntitiesService<TParticlesConfig> &
+export type TParticlesService = TSerializableEntitiesService<TParticlesWrapper, TParticlesConfig> &
   TParticlesServiceWithCreate &
   TParticlesServiceWithCreateFromConfig &
   TParticlesServiceWithFactory &

@@ -19,7 +19,7 @@ import type {
 import { isIntersectionsCameraWatcher, isIntersectionsDirectionWatcher } from '@/Engine/Intersections/Utils';
 import type { TLoopService } from '@/Engine/Loop';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
+import { withFactoryService, withRegistryService, withSerializableEntities } from '@/Engine/Mixins';
 import type { TMouseService } from '@/Engine/Mouse';
 import { isDefined, mergeAll } from '@/Engine/Utils';
 
@@ -70,7 +70,7 @@ export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactor
     return watcher;
   }
 
-  return mergeAll(abstractService, withFactory, withRegistry, withSerializeAllEntities<TAnyIntersectionsWatcherConfig, undefined>(registry), {
+  return mergeAll(abstractService, withFactory, withRegistry, withSerializableEntities<TAnyIntersectionsWatcher, TAnyIntersectionsWatcherConfig, undefined>(registry), {
     create,
     createFromList,
     createFromConfig,

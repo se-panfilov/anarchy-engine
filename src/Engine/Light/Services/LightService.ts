@@ -38,7 +38,7 @@ export function LightService(factory: TLightFactory, registry: TLightRegistry, d
     withCreateFromConfigService,
     withFactory,
     withRegistry,
-    withSerializeAllEntities<TAnyLightConfig, undefined>(registry),
+    withSerializableEntities<TAnyLightWrapper, TAnyLightConfig, undefined>(registry),
     withSceneGetterService(scene)
   );
 }

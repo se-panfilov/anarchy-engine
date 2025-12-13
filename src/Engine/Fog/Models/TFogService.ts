@@ -12,7 +12,7 @@ export type TFogServiceWithCreateFromConfig = TWithCreateFromConfigService<TFogC
 export type TFogServiceWithFactory = TWithFactoryService<TFogWrapper, TFogParams, undefined, TFogFactory>;
 export type TFogServiceWithRegistry = TWithRegistryService<TFogRegistry>;
 
-export type TFogService = TSerializableEntitiesService<TFogConfig> &
+export type TFogService = TSerializableEntitiesService<TFogWrapper, TFogConfig> &
   TFogServiceWithCreate &
   TFogServiceWithCreateFromConfig &
   TFogServiceWithFactory &

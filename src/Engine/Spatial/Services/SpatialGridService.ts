@@ -3,7 +3,7 @@ import type { Subscription } from 'rxjs';
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateServiceMixin, withSerializeAllEntities } from '@/Engine/Mixins';
+import { withCreateServiceMixin, withSerializableEntities } from '@/Engine/Mixins';
 import { withCreateFromConfigServiceMixin } from '@/Engine/Mixins/Services/WithCreateFromConfigService';
 import { withFactoryService } from '@/Engine/Mixins/Services/WithFactoryService';
 import { withRegistryService } from '@/Engine/Mixins/Services/WithRegistryService';
@@ -30,5 +30,5 @@ export function SpatialGridService(factory: TSpatialGridFactory, registry: TSpat
   const withFactory: TSpatialGridServiceWithFactory = withFactoryService(factory);
   const withRegistry: TSpatialGridServiceWithRegistry = withRegistryService(registry);
 
-  return mergeAll(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TSpatialGridConfig, undefined>(registry));
+  return mergeAll(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializableEntities<TSpatialGridWrapper, TSpatialGridConfig, undefined>(registry));
 }

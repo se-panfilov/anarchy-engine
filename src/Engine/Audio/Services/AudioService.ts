@@ -25,8 +25,7 @@ import type {
   TAudioServiceWithRegistry
 } from '@/Engine/Audio/Models';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities, withSerializeAllResources } from '@/Engine/Mixins';
-import { withSerializeEntity } from '@/Engine/Mixins/Generics/WithSerializeEntity';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities, withSerializeAllResources } from '@/Engine/Mixins';
 import type { TSpaceLoops } from '@/Engine/Space';
 import { mergeAll } from '@/Engine/Utils';
 
@@ -68,8 +67,7 @@ export function AudioService(
       audioListenersRegistry,
       metaInfoRegistry
     }),
-    withSerializeAllEntities<TAnyAudioConfig, TAudioConfigToParamsDependencies>(registry, { audioResourceAsyncRegistry, audioListenersRegistry }),
-    withSerializeEntity<TAnyAudioWrapper, TAudioConfigToParamsDependencies>(),
+    withSerializableEntities<TAnyAudioWrapper, TAnyAudioConfig, TAudioConfigToParamsDependencies>(registry, { audioResourceAsyncRegistry, audioListenersRegistry }),
     {
       getResourceRegistry: (): TAudioResourceAsyncRegistry => audioResourceAsyncRegistry,
       getMetaInfoRegistry: (): TAudioMetaInfoRegistry => metaInfoRegistry,

@@ -15,8 +15,7 @@ import type {
   TActorServiceWithRegistry
 } from '@/Engine/Actor/Models';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withFactoryService, withRegistryService, withSceneGetterService, withSerializeAllEntities } from '@/Engine/Mixins';
-import { withSerializeEntity } from '@/Engine/Mixins/Generics/WithSerializeEntity';
+import { withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpatialGridRegistry } from '@/Engine/Spatial';
 import { mergeAll } from '@/Engine/Utils';
@@ -52,8 +51,7 @@ export function ActorService(factory: TActorFactory, registry: TActorRegistry, a
     withFactory,
     withRegistry,
     withSceneGetterService(scene),
-    withSerializeAllEntities<TActorConfig, TActorEntityToConfigDependencies>(registry, actorServiceDependencies),
-    withSerializeEntity<TActor, TActorEntityToConfigDependencies>(),
+    withSerializableEntities<TActor, TActorConfig, TActorEntityToConfigDependencies>(registry, actorServiceDependencies),
     {
       create,
       createFromList,

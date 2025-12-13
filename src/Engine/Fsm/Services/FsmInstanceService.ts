@@ -6,7 +6,7 @@ import type { TFsmConfig, TFsmInstanceServiceWithCreate, TFsmInstanceServiceWith
 import type { TFsmInstanceFactory, TFsmInstanceRegistry, TFsmWrapper } from '@/Engine/Fsm/Models';
 import type { TFsmInstanceService } from '@/Engine/Fsm/Models/TFsmInstanceService';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
+import { withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@/Engine/Mixins';
 import { mergeAll } from '@/Engine/Utils';
 
 export function FsmInstanceService(factory: TFsmInstanceFactory, registry: TFsmInstanceRegistry): TFsmInstanceService {
@@ -18,5 +18,5 @@ export function FsmInstanceService(factory: TFsmInstanceFactory, registry: TFsmI
   const withFactory: TFsmInstanceServiceWithFactory = withFactoryService(factory);
   const withRegistry: TFsmInstanceServiceWithRegistry = withRegistryService(registry);
 
-  return mergeAll(abstractService, withCreateService, withFactory, withRegistry, withSerializeAllEntities<TFsmConfig, undefined>(registry));
+  return mergeAll(abstractService, withCreateService, withFactory, withRegistry, withSerializableEntities<TFsmWrapper, TFsmConfig>(registry));
 }

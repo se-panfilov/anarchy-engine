@@ -6,7 +6,7 @@ import { AbstractService } from '@/Engine/Abstract';
 import type { TKinematicLoop } from '@/Engine/Kinematic';
 import { toQuaternion } from '@/Engine/Math';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
+import { withFactoryService, withRegistryService, withSerializableEntities } from '@/Engine/Mixins';
 import type { TPhysicsLoop } from '@/Engine/Physics';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import { ConnectedTransformAgent, DefaultTransformAgent, PhysicsTransformAgent } from '@/Engine/TransformDrive/Entities';
@@ -86,7 +86,7 @@ export function TransformDriveService(factory: TTransformDriveFactory, registry:
     return result;
   }
 
-  return mergeAll(abstractService, withFactory, withRegistry, withSerializeAllEntities<TTransformDriveSerializedData, undefined>(registry), {
+  return mergeAll(abstractService, withFactory, withRegistry, withSerializableEntities<TTransformDrive<TTransformDriveCompatibleEntity>, TTransformDriveSerializedData, undefined>(registry), {
     create,
     createFromList,
     getTransformAgents

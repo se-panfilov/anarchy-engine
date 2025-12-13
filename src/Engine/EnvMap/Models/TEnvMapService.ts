@@ -1,15 +1,5 @@
 import type { TSerializableEntitiesService, TSerializableResourceService } from '@/Engine/Abstract';
-import type {
-  TEnvMapConfig,
-  TEnvMapConfigToParamsDependencies,
-  TEnvMapFactory,
-  TEnvMapParams,
-  TEnvMapRegistry,
-  TEnvMapResourceConfig,
-  TEnvMapTexture,
-  TEnvMapTextureAsyncRegistry,
-  TEnvMapWrapper
-} from '@/Engine/EnvMap/Models';
+import type { TEnvMapConfig, TEnvMapFactory, TEnvMapParams, TEnvMapRegistry, TEnvMapResourceConfig, TEnvMapTexture, TEnvMapTextureAsyncRegistry, TEnvMapWrapper } from '@/Engine/EnvMap/Models';
 import type {
   TWithActiveAccessorsService,
   TWithCreateFromConfigService,
@@ -19,8 +9,7 @@ import type {
   TWithRegistryService,
   TWithResourcesMetaInfoRegistryService,
   TWithResourcesRegistryService,
-  TWithSceneGetterService,
-  TWithSerializeEntity
+  TWithSceneGetterService
 } from '@/Engine/Mixins';
 
 export type TEnvMapServiceWithCreate = TWithCreateService<TEnvMapWrapper, TEnvMapParams>;
@@ -32,11 +21,10 @@ export type TEnvMapService = TEnvMapServiceWithCreate &
   TEnvMapServiceWithCreateFromConfig &
   TEnvMapServiceWithFactory &
   TEnvMapServiceWithRegistry &
-  TSerializableEntitiesService<TEnvMapConfig> &
+  TSerializableEntitiesService<TEnvMapWrapper, TEnvMapConfig> &
   TSerializableResourceService<TEnvMapResourceConfig> &
   TWithActiveAccessorsService<TEnvMapWrapper> &
   TWithLoadResourcesAsyncService<TEnvMapResourceConfig, TEnvMapTexture> &
   TWithResourcesMetaInfoRegistryService<TEnvMapResourceConfig> &
   TWithResourcesRegistryService<TEnvMapTextureAsyncRegistry> &
-  TWithSceneGetterService &
-  TWithSerializeEntity<TEnvMapWrapper, TEnvMapConfigToParamsDependencies>;
+  TWithSceneGetterService;

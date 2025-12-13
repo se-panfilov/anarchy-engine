@@ -12,7 +12,7 @@ export type TSpatialGridServiceWithCreateFromConfig = TWithCreateFromConfigServi
 export type TSpatialGridServiceWithFactory = TWithFactoryService<TSpatialGridWrapper, TSpatialGridParams, undefined, TSpatialGridFactory>;
 export type TSpatialGridServiceWithRegistry = TWithRegistryService<TSpatialGridRegistry>;
 
-export type TSpatialGridService = TSerializableEntitiesService<TSpatialGridConfig> &
+export type TSpatialGridService = TSerializableEntitiesService<TSpatialGridWrapper, TSpatialGridConfig> &
   TSpatialGridServiceWithCreate &
   TSpatialGridServiceWithCreateFromConfig &
   TSpatialGridServiceWithFactory &

@@ -13,7 +13,7 @@ export type TRendererServiceWithCreateFromConfig = TWithCreateFromConfigService<
 export type TRendererServiceWithFactory = TWithFactoryService<TRendererWrapper, TRendererParams, TRendererWrapperDependencies, TRendererFactory>;
 export type TRendererServiceWithRegistry = TWithRegistryService<TRendererRegistry>;
 
-export type TRendererService = TSerializableEntitiesService<TRendererConfig> &
+export type TRendererService = TSerializableEntitiesService<TRendererWrapper, TRendererConfig> &
   TRendererServiceWithCreate &
   TRendererServiceWithCreateFromConfig &
   TWithActiveAccessorsService<TRendererWrapper> &

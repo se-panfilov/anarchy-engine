@@ -28,7 +28,7 @@ export type TTransformDriveServiceWithCreate = TWithCreateTransformDriveService<
 export type TTransformDriveServiceWithFactory = TWithFactoryService<TTransformDrive<TTransformDriveCompatibleEntity>, TTransformDriveFactoryParams, undefined, TTransformDriveFactory>;
 export type TTransformDriveServiceWithRegistry = TWithRegistryService<TTransformDriveRegistry>;
 
-export type TTransformDriveService = TSerializableEntitiesService<TTransformDriveSerializedData> &
+export type TTransformDriveService = TSerializableEntitiesService<TTransformDrive<TTransformDriveCompatibleEntity>, TTransformDriveSerializedData> &
   TTransformDriveServiceWithCreate &
   TTransformDriveServiceWithFactory &
   TTransformDriveServiceWithRegistry &

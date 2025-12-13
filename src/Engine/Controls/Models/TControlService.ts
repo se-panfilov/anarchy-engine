@@ -12,7 +12,7 @@ export type TControlsServiceWithCreateFromConfig = Omit<TWithCreateFromConfigSer
 export type TControlsServiceWithFactory = TWithFactoryService<TAnyControlsWrapper, TControlsParams, undefined, TControlsFactory>;
 export type TControlsServiceWithRegistry = TWithRegistryService<TControlsRegistry>;
 
-export type TControlsService = TSerializableEntitiesService<TControlsConfig> &
+export type TControlsService = TSerializableEntitiesService<TAnyControlsWrapper, TControlsConfig> &
   TControlsServiceWithCreate &
   TControlsServiceWithCreateFromConfig &
   Readonly<{

@@ -12,7 +12,7 @@ export type TScenesServiceWithCreateFromConfig = TWithCreateFromConfigService<TS
 export type TScenesServiceWithFactory = TWithFactoryService<TSceneWrapper, TSceneParams, undefined, TSceneFactory>;
 export type TScenesServiceWithRegistry = TWithRegistryService<TSceneRegistry>;
 
-export type TScenesService = TSerializableEntitiesService<TSceneConfig> &
+export type TScenesService = TSerializableEntitiesService<TSceneWrapper, TSceneConfig> &
   TScenesServiceWithCreate &
   TScenesServiceWithCreateFromConfig &
   TScenesServiceWithFactory &

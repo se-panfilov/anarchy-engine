@@ -10,13 +10,11 @@ import type {
   TWithLoadResourcesAsyncService,
   TWithRegistryService,
   TWithResourcesMetaInfoRegistryService,
-  TWithResourcesRegistryService,
-  TWithSerializeEntity
+  TWithResourcesRegistryService
 } from '@/Engine/Mixins';
 import type {
   TModel3d,
   TModel3dConfig,
-  TModel3dConfigToParamsDependencies,
   TModel3dParams,
   TModel3dResourceConfig,
   TModels3dFactory,
@@ -40,12 +38,11 @@ export type TModels3dService = TModel3dServiceWithCreate &
   TModel3dServiceWithCreateFromConfig &
   TModel3dServiceWithFactory &
   TModel3dServiceWithRegistry &
-  TSerializableEntitiesService<TModel3dConfig> &
+  TSerializableEntitiesService<TModel3d, TModel3dConfig> &
   TSerializableResourceService<TModel3dResourceConfig> &
   TWithLoadResourcesAsyncService<TModel3dResourceConfig, GLTF> &
   TWithResourcesMetaInfoRegistryService<TModel3dResourceConfig> &
   TWithResourcesRegistryService<TModels3dResourceAsyncRegistry> &
-  TWithSerializeEntity<TModel3d, TModel3dConfigToParamsDependencies> &
   Readonly<{
     getAnimationsService: () => TAnimationsService;
     getMaterialService: () => TMaterialService;

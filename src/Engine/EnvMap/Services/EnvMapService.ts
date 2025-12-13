@@ -28,10 +28,9 @@ import {
   withFactoryService,
   withRegistryService,
   withSceneGetterService,
-  withSerializeAllEntities,
+  withSerializableEntities,
   withSerializeAllResources
 } from '@/Engine/Mixins';
-import { withSerializeEntity } from '@/Engine/Mixins/Generics/WithSerializeEntity';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isDefined, mergeAll } from '@/Engine/Utils';
 
@@ -82,8 +81,7 @@ export function EnvMapService(
     withRegistry,
     withSceneGetterService(sceneW),
     withSerializeAllResources<TEnvMapResourceConfig, TEnvMapSerializeResourcesDependencies>(resourcesRegistry, { metaInfoRegistry }),
-    withSerializeAllEntities<TEnvMapConfig, TEnvMapConfigToParamsDependencies>(registry, { resourcesRegistry }),
-    withSerializeEntity<TEnvMapWrapper, TEnvMapConfigToParamsDependencies>(),
+    withSerializableEntities<TEnvMapWrapper, TEnvMapConfig, TEnvMapConfigToParamsDependencies>(registry, { resourcesRegistry }),
     {
       loadAsync: envMapLoader.loadAsync,
       loadFromConfigAsync: envMapLoader.loadFromConfigAsync,

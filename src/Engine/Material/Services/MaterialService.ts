@@ -16,7 +16,7 @@ import type {
   TMaterialServiceWithRegistry
 } from '@/Engine/Material/Models';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@/Engine/Mixins';
 import { mergeAll } from '@/Engine/Utils';
 
 export function MaterialService(factory: TMaterialFactory, registry: TMaterialRegistry, dependencies: TMaterialServiceDependencies): TMaterialService {
@@ -35,6 +35,6 @@ export function MaterialService(factory: TMaterialFactory, registry: TMaterialRe
     withCreateFromConfigService,
     withFactory,
     withRegistry,
-    withSerializeAllEntities<TMaterialConfig, TMaterialEntityToConfigDependencies>(registry, { textureResourceRegistry: dependencies.textureService.getResourceRegistry() })
+    withSerializableEntities<TAnyMaterialWrapper, TMaterialConfig, TMaterialEntityToConfigDependencies>(registry, { textureResourceRegistry: dependencies.textureService.getResourceRegistry() })
   );
 }

@@ -18,7 +18,7 @@ export type TIntersectionsWatcherServiceWithCreateFromConfig = Omit<TWithCreateF
 export type TIntersectionsWatcherServiceWithFactory = TWithFactoryService<TAnyIntersectionsWatcher, TAnyIntersectionsWatcherParams, undefined, TIntersectionsWatcherFactory>;
 export type TIntersectionsWatcherServiceWithRegistry = TWithRegistryService<TIntersectionsWatcherRegistry>;
 
-export type TIntersectionsWatcherService = TSerializableEntitiesService<TAnyIntersectionsWatcherConfig> &
+export type TIntersectionsWatcherService = TSerializableEntitiesService<TAnyIntersectionsWatcher, TAnyIntersectionsWatcherConfig> &
   TIntersectionsWatcherServiceWithCreate &
   TIntersectionsWatcherServiceWithCreateFromConfig &
   Readonly<{

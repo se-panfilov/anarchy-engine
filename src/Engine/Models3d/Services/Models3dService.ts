@@ -5,8 +5,7 @@ import { AbstractService } from '@/Engine/Abstract';
 import type { TAnimationsResourceAsyncRegistry, TAnimationsService } from '@/Engine/Animations';
 import type { TMaterialRegistry, TMaterialService } from '@/Engine/Material';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities, withSerializeAllResources } from '@/Engine/Mixins';
-import { withSerializeEntity } from '@/Engine/Mixins/Generics/WithSerializeEntity';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities, withSerializeAllResources } from '@/Engine/Mixins';
 import { Models3dLoader } from '@/Engine/Models3d/Loaders';
 import type {
   TModel3d,
@@ -71,11 +70,10 @@ export function Models3dService(
     withFactory,
     withRegistry,
     withSerializeAllResources<TModel3dResourceConfig, TModel3dSerializeResourcesDependencies>(resourcesRegistry, { metaInfoRegistry }),
-    withSerializeAllEntities<TModel3dConfig, Pick<TModel3dConfigToParamsDependencies, 'animationsResourceAsyncRegistry' | 'model3dResourceAsyncRegistry'>>(registry, {
+    withSerializableEntities<TModel3d, TModel3dConfig, Pick<TModel3dConfigToParamsDependencies, 'animationsResourceAsyncRegistry' | 'model3dResourceAsyncRegistry'>>(registry, {
       animationsResourceAsyncRegistry,
       model3dResourceAsyncRegistry: resourcesRegistry
     }),
-    withSerializeEntity<TModel3d, TModel3dConfigToParamsDependencies>(),
     {
       loadAsync: model3dLoader.loadAsync,
       loadFromConfigAsync: model3dLoader.loadFromConfigAsync,

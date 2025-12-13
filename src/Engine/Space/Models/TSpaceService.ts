@@ -14,4 +14,4 @@ export type TSpaceServiceWithCreateFromConfig = TWithCreateFromConfigServiceWith
 export type TSpaceServiceWithFactory = TWithFactoryService<TSpace, TSpaceParams, TSpaceFactoryDependencies, TSpaceFactory>;
 export type TSpaceServiceWithRegistry = TWithRegistryService<TSpaceRegistry>;
 
-export type TSpaceService = TSerializableEntitiesService<TSpaceConfig> & TSpaceServiceWithCreate & TSpaceServiceWithCreateFromConfig & TSpaceServiceWithFactory & TSpaceServiceWithRegistry;
+export type TSpaceService = TSerializableEntitiesService<TSpace, TSpaceConfig> & TSpaceServiceWithCreate & TSpaceServiceWithCreateFromConfig & TSpaceServiceWithFactory & TSpaceServiceWithRegistry;

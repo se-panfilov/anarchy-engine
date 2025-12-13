@@ -59,20 +59,13 @@ export function ControlService(
     withActive.active$.complete();
   });
 
-  return mergeAll(
-    abstractService,
-    withFactory,
-    withRegistry,
-    withSerializeAllEntities<TControlsConfig, TControlsServiceDependencies>(registry, { cameraService }),
-    withSerializeEntity<TOrbitControlsWrapper | TFpsControlsWrapper, TControlsServiceDependencies>(),
-    {
-      create,
-      createFromList,
-      createFromConfig,
-      setActive: withActive.setActive,
-      findActive: withActive.findActive,
-      getActive: withActive.getActive,
-      active$: withActive.active$
-    }
-  );
+  return mergeAll(abstractService, withFactory, withRegistry, withSerializableEntities<TAnyControlsWrapper, TControlsConfig, TControlsServiceDependencies>(registry, { cameraService }), {
+    create,
+    createFromList,
+    createFromConfig,
+    setActive: withActive.setActive,
+    findActive: withActive.findActive,
+    getActive: withActive.getActive,
+    active$: withActive.active$
+  });
 }

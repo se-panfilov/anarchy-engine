@@ -3,7 +3,7 @@ import type { Subscription } from 'rxjs';
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
-import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
+import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@/Engine/Mixins';
 import type {
   TSceneConfig,
   TSceneFactory,
@@ -39,10 +39,19 @@ export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry):
     withActive.active$.complete();
   });
 
-  return mergeAll(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TSceneConfig, undefined>(registry), {
-    setActive: withActive.setActive,
-    findActive: withActive.findActive,
-    getActive: withActive.getActive,
-    active$: withActive.active$
-  });
+  return mergeAll(
+    abstractService,
+    withCreateService,
+    withCreateFromConfigService,
+    withFactory,
+    withRegistry,
+    withSerializableEntities<TSceneWrapper, TSceneConfig, undefined>(registry),
+
+    {
+      setActive: withActive.setActive,
+      findActive: withActive.findActive,
+      getActive: withActive.getActive,
+      active$: withActive.active$
+    }
+  );
 }
