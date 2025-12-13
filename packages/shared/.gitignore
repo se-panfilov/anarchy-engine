@@ -11,7 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
-./reports/*
+reports/
 stats.html
 graph.svg
 
@@ -25,10 +25,6 @@ graph.svg
 *.njsproj
 *.sln
 *.sw?
-
-# Workspaces
-packages/*/package-lock.json
-apps/*/package-lock.json
 
 # Playwright
 /playwright/.cache/
