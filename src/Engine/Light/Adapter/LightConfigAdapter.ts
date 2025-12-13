@@ -1,10 +1,10 @@
 import { Color, Vector2 } from 'three';
 
-import type { ILightConfig, ILightParams, ILightShadowParams, LightShadowConfig } from '@/Engine/Light/Models';
+import type { IAnyLightConfig, ILightParams, ILightShadowParams, LightShadowConfig } from '@/Engine/Light/Models';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function configToParams(config: ILightConfig): ILightParams {
+export function configToParams(config: IAnyLightConfig): ILightParams {
   const { position, rotation, scale, layers, animations, color, shadow, ...rest } = config;
 
   return {

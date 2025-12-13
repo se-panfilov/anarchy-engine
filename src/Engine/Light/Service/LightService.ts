@@ -1,4 +1,4 @@
-import type { IAbstractLightWrapper, ILight, ILightConfig, ILightFactory, ILightParams, ILightRegistry, ILightService } from '@/Engine/Light/Models';
+import type { IAbstractLightWrapper, IAnyLightConfig, ILight, ILightFactory, ILightParams, ILightRegistry, ILightService } from '@/Engine/Light/Models';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { ISceneWrapper } from '@/Engine/Scene';
@@ -8,7 +8,7 @@ export function LightService(factory: ILightFactory, registry: ILightRegistry, s
   factory.entityCreated$.subscribe((wrapper: IAbstractLightWrapper<ILight>): void => registry.add(wrapper));
 
   const create = (params: ILightParams): IAbstractLightWrapper<ILight> => factory.create(params);
-  const createFromConfig = (lights: ReadonlyArray<ILightConfig>): void => lights.forEach((config: ILightConfig): IAbstractLightWrapper<ILight> => factory.create(factory.configToParams(config)));
+  const createFromConfig = (lights: ReadonlyArray<IAnyLightConfig>): void => lights.forEach((config: IAnyLightConfig): IAbstractLightWrapper<ILight> => factory.create(factory.configToParams(config)));
 
   const destroyable: IDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {

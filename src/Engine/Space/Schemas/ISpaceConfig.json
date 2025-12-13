@@ -42,7 +42,7 @@
     "lights": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/ILightConfig"
+        "$ref": "#/definitions/IAnyLightConfig"
       }
     },
     "fogs": {
@@ -2815,7 +2815,32 @@
       },
       "required": ["actorNames", "cameraName", "isAutoStart", "tags"]
     },
-    "ILightConfig": {
+    "IAnyLightConfig": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/IAmbientLightConfig"
+        },
+        {
+          "$ref": "#/definitions/IHemisphereLightConfig"
+        },
+        {
+          "$ref": "#/definitions/IDirectionalLightConfig"
+        },
+        {
+          "$ref": "#/definitions/IPointLightConfig"
+        },
+        {
+          "$ref": "#/definitions/IRectAreaLightConfig"
+        },
+        {
+          "$ref": "#/definitions/ISpotLightConfig"
+        }
+      ]
+    },
+    "IAmbientLightConfig": {
+      "$ref": "#/definitions/IAbstractLightConfig%3CIAmbientLightProps%3E"
+    },
+    "IAbstractLightConfig<IAmbientLightProps>": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -2915,6 +2940,353 @@
     "LightType": {
       "type": "string",
       "enum": ["Ambient", "Directional", "Point", "Hemisphere", "RectArea", "Spot"]
+    },
+    "IHemisphereLightConfig": {
+      "$ref": "#/definitions/IAbstractLightConfig%3CIHemisphereLightProps%3E"
+    },
+    "IAbstractLightConfig<IHemisphereLightProps>": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "layers": {
+          "type": "number"
+        },
+        "animations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "position": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "rotation": {
+          "$ref": "#/definitions/IEuler3dConfig"
+        },
+        "scale": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "color": {
+          "type": "string"
+        },
+        "shadow": {
+          "$ref": "#/definitions/LightShadowConfig"
+        },
+        "type": {
+          "$ref": "#/definitions/LightType"
+        },
+        "intensity": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "groundColor": {
+          "$ref": "#/definitions/Color"
+        }
+      },
+      "required": ["color", "groundColor", "position", "tags", "type"]
+    },
+    "IDirectionalLightConfig": {
+      "$ref": "#/definitions/IAbstractLightConfig%3CIDirectionalLightProps%3E"
+    },
+    "IAbstractLightConfig<IDirectionalLightProps>": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "layers": {
+          "type": "number"
+        },
+        "animations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "position": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "rotation": {
+          "$ref": "#/definitions/IEuler3dConfig"
+        },
+        "scale": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "color": {
+          "type": "string"
+        },
+        "shadow": {
+          "$ref": "#/definitions/LightShadowConfig"
+        },
+        "type": {
+          "$ref": "#/definitions/LightType"
+        },
+        "intensity": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": ["color", "position", "tags", "type"]
+    },
+    "IPointLightConfig": {
+      "$ref": "#/definitions/IAbstractLightConfig%3CIPointLightProps%3E"
+    },
+    "IAbstractLightConfig<IPointLightProps>": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "layers": {
+          "type": "number"
+        },
+        "animations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "position": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "rotation": {
+          "$ref": "#/definitions/IEuler3dConfig"
+        },
+        "scale": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "color": {
+          "type": "string"
+        },
+        "shadow": {
+          "$ref": "#/definitions/LightShadowConfig"
+        },
+        "type": {
+          "$ref": "#/definitions/LightType"
+        },
+        "intensity": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "distance": {
+          "type": "number"
+        },
+        "decay": {
+          "type": "number"
+        }
+      },
+      "required": ["color", "position", "tags", "type"]
+    },
+    "IRectAreaLightConfig": {
+      "$ref": "#/definitions/IAbstractLightConfig%3CIRectAreaLightProps%3E"
+    },
+    "IAbstractLightConfig<IRectAreaLightProps>": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "layers": {
+          "type": "number"
+        },
+        "animations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "position": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "rotation": {
+          "$ref": "#/definitions/IEuler3dConfig"
+        },
+        "scale": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "color": {
+          "type": "string"
+        },
+        "shadow": {
+          "$ref": "#/definitions/LightShadowConfig"
+        },
+        "type": {
+          "$ref": "#/definitions/LightType"
+        },
+        "intensity": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        }
+      },
+      "required": ["color", "height", "position", "tags", "type", "width"]
+    },
+    "ISpotLightConfig": {
+      "$ref": "#/definitions/IAbstractLightConfig%3CISpotLightProps%3E"
+    },
+    "IAbstractLightConfig<ISpotLightProps>": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "layers": {
+          "type": "number"
+        },
+        "animations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "position": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "rotation": {
+          "$ref": "#/definitions/IEuler3dConfig"
+        },
+        "scale": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "color": {
+          "type": "string"
+        },
+        "shadow": {
+          "$ref": "#/definitions/LightShadowConfig"
+        },
+        "type": {
+          "$ref": "#/definitions/LightType"
+        },
+        "intensity": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "distance": {
+          "type": "number"
+        },
+        "angle": {
+          "type": "number"
+        },
+        "penumbra": {
+          "type": "number"
+        },
+        "decay": {
+          "type": "number"
+        }
+      },
+      "required": ["color", "position", "tags", "type"]
     },
     "IFogConfig": {
       "type": "object",

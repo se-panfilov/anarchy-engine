@@ -3,7 +3,7 @@ import type { ICameraConfig } from '@/Engine/Camera';
 import type { IControlsConfig } from '@/Engine/Controls';
 import type { IFogConfig } from '@/Engine/Fog';
 import type { IIntersectionsWatcherConfig } from '@/Engine/Intersections';
-import type { ILightConfig } from '@/Engine/Light';
+import type { IAnyLightConfig } from '@/Engine/Light';
 import type { IWithReadonlyTags } from '@/Engine/Mixins';
 import type { ISceneConfig } from '@/Engine/Scene';
 import type { SpaceSchemaVersion } from '@/Engine/Space/Constants';
@@ -16,7 +16,7 @@ export type ISpaceConfig = Readonly<{
   actors: ReadonlyArray<IActorConfig>;
   cameras: ReadonlyArray<ICameraConfig>;
   intersections: ReadonlyArray<IIntersectionsWatcherConfig>;
-  lights: ReadonlyArray<ILightConfig>;
+  lights: ReadonlyArray<IAnyLightConfig>;
   fogs: ReadonlyArray<IFogConfig>;
   texts: ReadonlyArray<ITextConfig>;
   controls: ReadonlyArray<IControlsConfig>;

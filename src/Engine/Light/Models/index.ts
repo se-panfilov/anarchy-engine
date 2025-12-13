@@ -5,6 +5,7 @@ export * from './IAmbientLight';
 export * from './IAmbientLightParams';
 export * from './IAmbientLightProps';
 export * from './IAmbientLightWrapper';
+export * from './IAnyLightProps';
 export * from './IDirectionalLight';
 export * from './IDirectionalLightParams';
 export * from './IDirectionalLightProps';

@@ -3,13 +3,13 @@ import type { IWithCreateFromConfigService, IWithCreateService, IWithFactoryServ
 
 import type { IAbstractLightWrapper } from './IAbstractLightWrapper';
 import type { ILight } from './ILight';
-import type { ILightConfig } from './ILightConfig';
+import type { IAnyLightConfig } from './ILightConfig';
 import type { ILightFactory } from './ILightFactory';
 import type { ILightParams } from './ILightParams';
 import type { ILightRegistry } from './ILightRegistry';
 
 export type ILightService = IWithCreateService<IAbstractLightWrapper<ILight>, ILightParams> &
-  IWithCreateFromConfigService<ILightConfig> &
+  IWithCreateFromConfigService<IAnyLightConfig> &
   IWithFactoryService<ILightFactory> &
   IWithRegistryService<ILightRegistry> &
   IWithSceneGetterService &
