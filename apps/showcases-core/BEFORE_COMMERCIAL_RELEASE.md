@@ -61,4 +61,5 @@
 
 - Legal/About screen with CE mark;
 - Legal docs are available via main menu in a game;
-- Legal docs are provided with binary
+- Legal docs are provided with binary/package
+- For web: `./well-known/security.txt` available
