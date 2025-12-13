@@ -151,8 +151,8 @@ export function Bullet(params: TActorParams, actorService: TActorService): TBull
 
   actor.collisions.setCollisionsFilterFn((actor: TActor): boolean => getTags(actor).includes(BULLET_TARGET_TAG));
 
-  return {
-    ...actor,
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(actor, {
     setDistanceTraveled,
     getDistanceTraveled,
     setActive,
@@ -160,7 +160,7 @@ export function Bullet(params: TActorParams, actorService: TActorService): TBull
     reset,
     update,
     hit$: actor.collisions.value$
-  };
+  });
 }
 
 export function prepareShooting(
