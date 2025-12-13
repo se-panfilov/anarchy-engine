@@ -78,14 +78,14 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const plane: Plane = new Plane(new Vector3(0, 1, 0), 0); // XZ plane
     const planeNormal: Vector3 = new Vector3(0, 1, 0); // Normal vector of the XZ plane
 
-    let heroADC: THeroADC = {
+    let heroMousePointer: THeroADC = {
       angle: 0,
       distance: 0,
       coords: undefined
     };
 
     mouseService.position$.subscribe(({ normalizedCoords }): void => {
-      heroADC = getADCFromActor(heroW, normalizedCoords, raycaster, cameraW, plane, planeNormal);
+      heroMousePointer = getADCFromActor(heroW, normalizedCoords, raycaster, cameraW, plane, planeNormal);
     });
 
     const line: Line2 = createLine();
@@ -95,16 +95,16 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       cameraFollowingActor(cameraW, heroW);
       updateBullets(bullets, delta.delta);
 
-      if (isDefined(heroADC.coords)) {
+      if (isDefined(heroMousePointer.coords)) {
         const heroCoords: TWithCoordsXYZ = heroW.getPosition().getCoords();
-        line.geometry.setPositions([heroCoords.x, heroCoords.y, heroCoords.z, heroADC.coords.x, heroADC.coords.y, heroADC.coords.z]);
+        line.geometry.setPositions([heroCoords.x, heroCoords.y, heroCoords.z, heroMousePointer.coords.x, heroMousePointer.coords.y, heroMousePointer.coords.z]);
         line.computeLineDistances();
       }
     });
 
     mouseService.clickLeftRelease$.subscribe((): void => {
       if (isNotDefined(heroW)) throw new Error(`Cannot find "hero" actor`);
-      shoot(heroW.getPosition().getCoords(), heroADC.coords, heroADC.angle, heroADC.distance, bullets);
+      shoot(heroW.getPosition().getCoords(), heroMousePointer.coords, heroMousePointer.angle, heroMousePointer.distance, bullets);
     });
 
     physicsLoopService.shouldAutoUpdate(true);
