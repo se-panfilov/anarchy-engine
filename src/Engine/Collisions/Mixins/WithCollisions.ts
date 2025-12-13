@@ -31,15 +31,15 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
   return {
     collisions: {
       data: {
-        updatePriority: params.collisions?.updatePriority ?? CollisionsUpdatePriority.LOW,
-        radius: params.collisions?.radius ?? 0.01
+        updatePriority: params.collisions?.updatePriority ?? CollisionsUpdatePriority.LOW
       },
       start(actorW: TActorWrapperAsync): void {
-        collisionsLoopServiceSub$ = collisionsLoopService.tick$.pipe(filter(() => _isAutoUpdate)).subscribe(({ priority }): void => {
+        const collisionsInterpolationLengthMultiplier: number = 4;
+        collisionsLoopServiceSub$ = collisionsLoopService.tick$.pipe(filter(() => _isAutoUpdate)).subscribe(({ delta, priority }): void => {
           if (priority < this.getCollisionsUpdatePriority()) return;
 
           // TODO should be possible to check collisions against another grid
-          const collision: TCollisionCheckResult | undefined = collisionsService.checkCollisions(actorW, this.data.radius, getActorsToCheck(actorW));
+          const collision: TCollisionCheckResult | undefined = collisionsService.checkCollisions(actorW, getActorsToCheck(actorW), collisionsInterpolationLengthMultiplier, delta);
           if (isDefined(collision)) value$.next(collision);
         });
       },
@@ -58,13 +58,6 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
       },
       getCollisionsUpdatePriority(): CollisionsUpdatePriority {
         return this.data.updatePriority;
-      },
-      setRadius(value: number): void {
-        // eslint-disable-next-line functional/immutable-data
-        (this.data as TWriteable<TCollisionsData>).radius = value;
-      },
-      getRadius(): number {
-        return this.data.radius;
       },
       isAutoUpdate(): boolean {
         return _isAutoUpdate;

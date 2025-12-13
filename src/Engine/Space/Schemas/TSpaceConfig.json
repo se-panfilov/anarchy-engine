@@ -324,9 +324,6 @@
         },
         "updatePriority": {
           "$ref": "#/definitions/CollisionsUpdatePriority"
-        },
-        "radius": {
-          "type": "number"
         }
       },
       "required": ["isAutoUpdate"]

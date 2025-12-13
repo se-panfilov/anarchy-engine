@@ -39,7 +39,7 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     activeSceneW = sceneW;
 
     // TODO debug (window as any).sceneW
-    (window as any).sceneW = sceneW;
+    // (window as any).sceneW = sceneW;
 
     return activeSceneW;
   });

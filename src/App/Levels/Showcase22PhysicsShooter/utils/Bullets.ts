@@ -1,7 +1,6 @@
 import type { RigidBody } from '@dimforge/rapier3d';
 import { nanoid } from 'nanoid';
 import type { Observable } from 'rxjs';
-import type { Mesh } from 'three';
 import { BufferAttribute, BufferGeometry, PointsMaterial, Vector3 } from 'three';
 import { Points } from 'three/src/objects/Points';
 
@@ -55,7 +54,7 @@ export function getBulletsPool(count: number, actorService: TActorService, spati
           rotation: EulerWrapper({ x: 0, y: 1.57, z: 0 }),
           castShadow: false,
           spatial: { grid, isAutoUpdate: true, updatePriority: SpatialUpdatePriority.ASAP },
-          collisions: { radius: 0.5, isAutoUpdate: true },
+          collisions: { isAutoUpdate: true },
           kinematic: {
             linearSpeed: meters(5),
             isAutoUpdate: true
@@ -82,7 +81,7 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
   function setActive(act: boolean): void {
     actorW.collisions.setAutoUpdate(act);
     // eslint-disable-next-line functional/immutable-data
-    (actorW.entity as Mesh).visible = true;
+    // (actorW.entity as Mesh).visible = true;
     active = act;
   }
 
@@ -98,7 +97,7 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
     setDistanceTraveled(0);
     setActive(false);
     // eslint-disable-next-line functional/immutable-data
-    (actorW.entity as Mesh).visible = false;
+    // (actorW.entity as Mesh).visible = false;
   }
 
   actorW.collisions.value$.subscribe(reset);

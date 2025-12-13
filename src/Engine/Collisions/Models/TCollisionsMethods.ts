@@ -10,8 +10,6 @@ export type TCollisionsMethods = Readonly<{
   setCollisionsUpdatePriority: (priority: CollisionsUpdatePriority) => void;
   setCollisionsFilterFn: (filterFn: (actorW: TActorWrapperAsync) => boolean) => void;
   getCollisionsUpdatePriority: () => CollisionsUpdatePriority;
-  setRadius: (value: number) => void;
-  getRadius: () => number;
   setData: (data: TCollisionsData) => void;
   getData: () => TCollisionsData;
 }>;
