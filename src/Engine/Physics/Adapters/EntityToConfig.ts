@@ -39,7 +39,7 @@ export function physicBodyToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
     };
   }
 
-  const body: RigidBody | undefined = entity.getRigidBody();
+  const body: RigidBody | Collider | undefined = entity.getRigidBody() ?? entity.getCollider();
   let position: Vector3Like = { x: 0, y: 0, z: 0 };
   let rotation: TEulerLike = { x: 0, y: 0, z: 0 };
 
