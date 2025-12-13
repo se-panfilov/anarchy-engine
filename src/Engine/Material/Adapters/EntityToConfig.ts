@@ -1,7 +1,9 @@
 import type { MaterialJSON } from 'three';
 
 import type { MaterialType } from '@/Engine/Material/Constants';
+import { BlendEquationMap, BlendingDstFactorMap, BlendingMap, BlendingSrcFactorMap, SideMap, StencilFailMap, StencilFuncMap } from '@/Engine/Material/Constants';
 import type { TAllMaterialConfigOptions, TMaterialConfig, TMaterialConfigOptions, TMaterialWrapper } from '@/Engine/Material/Models';
+import { getOptionName } from '@/Engine/Material/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields, nullsToUndefined } from '@/Engine/Utils';
 
@@ -10,8 +12,6 @@ export function materialToConfig(entity: TMaterialWrapper): TMaterialConfig {
   const json: MaterialJSON = entity.entity.toJSON();
 
   const options: TMaterialConfigOptions | undefined = getMaterialOptions(entity);
-
-  console.log('XXX options', options);
 
   return filterOutEmptyFields({
     type: json.type as MaterialType,
@@ -24,15 +24,15 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TAllMaterialConfigOpt
   // Should more or less match threejs's MaterialParameters type
   return filterOutEmptyFields(
     nullsToUndefined({
-      blending: entity.blending,
-      blendDst: entity.blendDst,
-      blendEquation: entity.blendEquation,
-      blendSrc: entity.blendSrc,
+      blending: getOptionName(entity.blending, BlendingMap, 'blending'),
+      blendDst: getOptionName(entity.blendDst, BlendingDstFactorMap, 'blendDst'),
+      blendEquation: getOptionName(entity.blendEquation, BlendEquationMap, 'blendEquation'),
+      blendSrc: getOptionName(entity.blendSrc, BlendingSrcFactorMap, 'blendSrc'),
       color: `#${(entity as any).color.getHexString()}`,
-      side: entity.side,
+      side: getOptionName(entity.side, SideMap, 'side'),
       format: (entity as any).format,
-      stencilFunc: entity.stencilFunc,
-      stencilFail: entity.stencilFail,
+      stencilFunc: getOptionName(entity.stencilFunc, StencilFuncMap, 'stencilFunc'),
+      stencilFail: getOptionName(entity.stencilFail, StencilFailMap, 'stencilFail'),
       stencilZFail: entity.stencilZFail,
       stencilZPass: entity.stencilZPass,
       referencePosition: (entity as any).referencePosition,
