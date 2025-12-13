@@ -20,15 +20,15 @@ export function createLoops({ create }: TLoopService): TSpaceLoops {
 
   return {
     renderLoop: create({ name: getMainLoopNameByType(Render), type: Render, trigger: requestAnimationFrame, showDebugInfo: true }) as TRenderLoop,
-    physicalLoop: create({ name: getMainLoopNameByType(Physical), type: Physical, trigger: milliseconds(16) }) as TPhysicalLoop,
-    collisionsLoop: create({ name: getMainLoopNameByType(Collisions), type: Collisions, trigger: milliseconds(16), maxPriority: LoopUpdatePriority.ASAP }) as TCollisionsLoop,
-    kinematicLoop: create({ name: getMainLoopNameByType(Kinematic), type: Kinematic, trigger: milliseconds(16) }) as TKinematicLoop,
-    spatialLoop: create({ name: getMainLoopNameByType(Spatial), type: Spatial, trigger: milliseconds(16), maxPriority: LoopUpdatePriority.ASAP }) as TSpatialLoop,
-    transformLoop: create({ name: getMainLoopNameByType(Transform), type: Transform, trigger: milliseconds(16) }) as TTransformLoop,
-    textLoop: create({ name: getMainLoopNameByType(Text), type: Text, trigger: milliseconds(16) }) as TTextLoop,
-    keyboardLoop: create({ name: getMainLoopNameByType(Keyboard), type: Keyboard, trigger: milliseconds(16) }) as TKeyboardLoop,
-    mouseLoop: create({ name: getMainLoopNameByType(Mouse), type: Mouse, trigger: milliseconds(16) }) as TMouseLoop,
-    intersectionsLoop: create({ name: getMainLoopNameByType(Intersections), type: Intersections, trigger: milliseconds(16) }) as TIntersectionsLoop,
-    controlsLoop: create({ name: getMainLoopNameByType(Controls), type: Controls, trigger: milliseconds(16) }) as TControlsLoop
+    physicalLoop: create({ name: getMainLoopNameByType(Physical), type: Physical, trigger: milliseconds(16), isParallelMode: false }) as TPhysicalLoop,
+    collisionsLoop: create({ name: getMainLoopNameByType(Collisions), type: Collisions, trigger: milliseconds(16), isParallelMode: false, maxPriority: LoopUpdatePriority.ASAP }) as TCollisionsLoop,
+    kinematicLoop: create({ name: getMainLoopNameByType(Kinematic), type: Kinematic, trigger: milliseconds(16), isParallelMode: false }) as TKinematicLoop,
+    spatialLoop: create({ name: getMainLoopNameByType(Spatial), type: Spatial, trigger: milliseconds(16), isParallelMode: false, maxPriority: LoopUpdatePriority.ASAP }) as TSpatialLoop,
+    transformLoop: create({ name: getMainLoopNameByType(Transform), type: Transform, trigger: milliseconds(16), isParallelMode: false }) as TTransformLoop,
+    textLoop: create({ name: getMainLoopNameByType(Text), type: Text, trigger: milliseconds(16), isParallelMode: false }) as TTextLoop,
+    keyboardLoop: create({ name: getMainLoopNameByType(Keyboard), type: Keyboard, trigger: milliseconds(16), isParallelMode: false }) as TKeyboardLoop,
+    mouseLoop: create({ name: getMainLoopNameByType(Mouse), type: Mouse, trigger: milliseconds(16), isParallelMode: false }) as TMouseLoop,
+    intersectionsLoop: create({ name: getMainLoopNameByType(Intersections), type: Intersections, trigger: milliseconds(16), isParallelMode: false }) as TIntersectionsLoop,
+    controlsLoop: create({ name: getMainLoopNameByType(Controls), type: Controls, trigger: milliseconds(16), isParallelMode: false }) as TControlsLoop
   };
 }
