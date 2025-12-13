@@ -6,5 +6,6 @@ export const sharedAliases = {
   '@Showcases/Menu': path.resolve(__dirname, 'packages/showcases-menu/src'),
   '@Anarchy/Shared': path.resolve(__dirname, 'packages/anarchy-shared/src'),
   '@Anarchy/i18n': path.resolve(__dirname, 'packages/anarchy-i18n/src'),
+  '@Showcases/i18n': path.resolve(__dirname, 'packages/showcases-i18n/src'),
   lodash: 'lodash-es'
 };
