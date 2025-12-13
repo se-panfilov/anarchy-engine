@@ -2,6 +2,8 @@ import type { FormatNumberOptions, IntlShape } from '@formatjs/intl';
 import type { FormatDateOptions } from '@formatjs/intl/src/types';
 import type { BehaviorSubject, Observable, Subject } from 'rxjs';
 
+import type { TReactiveTranslationMixin } from './TReactiveTranslationMixin';
+
 export type TTranslationService<TLocale extends string> = Readonly<{
   translate: (id: string, params?: Record<string, string>) => string | never;
   formatDate: (value: Date | number, options?: FormatDateOptions) => string;
@@ -10,4 +12,5 @@ export type TTranslationService<TLocale extends string> = Readonly<{
   ready$: BehaviorSubject<boolean>;
   destroy$: Subject<void>;
   intl$: Observable<IntlShape<string> | undefined>;
-}>;
+}> &
+  TReactiveTranslationMixin;

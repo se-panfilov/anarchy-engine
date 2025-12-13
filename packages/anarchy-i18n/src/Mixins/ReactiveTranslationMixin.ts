@@ -1,15 +1,9 @@
-import type { TTranslationService } from '@Anarchy/i18n/Models';
+import type { TReactiveTranslationMixin, TTranslationService } from '@Anarchy/i18n/Models';
 import { isDefined, toObservable$ } from '@Anarchy/Shared/Utils';
 import type { FormatNumberOptions, IntlShape } from '@formatjs/intl';
 import type { FormatDateOptions } from '@formatjs/intl/src/types';
 import type { Observable } from 'rxjs';
 import { combineLatest, distinctUntilChanged, filter, map, shareReplay } from 'rxjs';
-
-type TReactiveTranslationMixin = Readonly<{
-  $t: (id: string, params?: Record<string, string> | Observable<Record<string, string>>) => Observable<string>;
-  $n: (value: number | Observable<number>, options?: FormatNumberOptions | Observable<FormatNumberOptions | undefined>) => Observable<string>;
-  $d: (value: number | Date | Observable<number | Date>, options?: FormatDateOptions | Observable<FormatDateOptions | undefined>) => Observable<string>;
-}>;
 
 export function ReactiveTranslationMixin<TLocale extends string>(service: TTranslationService<TLocale>): TReactiveTranslationMixin {
   const intlReady$: Observable<IntlShape<string>> = service.intl$.pipe(filter(isDefined), distinctUntilChanged(), shareReplay({ bufferSize: 1, refCount: true }));
