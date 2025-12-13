@@ -1,5 +1,5 @@
 import type { PlatformActions } from '@Showcases/Desktop/Constants';
-import { appCrashHandler, appWindowAllClosedHandler, windowNavigateHandler, windowSecondInstanceHandler } from '@Showcases/Desktop/EventHandlers';
+import { appBeforeQuitHandler, appCrashHandler, appWindowAllClosedHandler, windowNavigateHandler, windowSecondInstanceHandler } from '@Showcases/Desktop/EventHandlers';
 import type { TDesktopAppConfig, TDesktopAppService, TDocsService, TFilesService, TSettingsService, TWindowService } from '@Showcases/Desktop/Models';
 import { DesktopAppService, DocsService, FilesService, handleAppRequest, SettingsService, WindowService } from '@Showcases/Desktop/Services';
 import { getDisplayInfo, hideMenuBar, noZoom, turnOffMenuBarAndHotkeys } from '@Showcases/Desktop/Utils';
@@ -46,6 +46,7 @@ app.whenReady().then((): void => {
   noZoom(win);
   windowSecondInstanceHandler(app, win);
   // Some cleanup if needed
+  appBeforeQuitHandler(app, desktopAppService);
   //appQuitHandler(app);
   // On crash. Could try to restart the window or something
   appCrashHandler(app);
