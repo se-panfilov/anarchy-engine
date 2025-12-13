@@ -1,6 +1,6 @@
 import type { RigidBody, Rotation, Vector } from '@dimforge/rapier3d';
 import type { Subject, Subscription } from 'rxjs';
-import { BehaviorSubject, combineLatest, filter, map, switchMap } from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, map, switchMap, withLatestFrom } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
 
 import type { TPhysicsBody, TPhysicsBodyService, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
@@ -25,7 +25,6 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
 
   const physicsBody$: BehaviorSubject<TPhysicsBody | undefined> = new BehaviorSubject<TPhysicsBody | undefined>(undefined);
 
-  // TODO 8.0.0. MODELS: Set isSleep = true if physicsBody is inactive
   // TODO 8.0.0. MODELS: apply position from an external source
 
   const agent: TPhysicsTransformAgent = {
@@ -36,11 +35,26 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
 
   physicsBody$.next(createPhysicsBody(adaptedParams, physicsBodyService));
 
+  let previousPhysicsBodyType: RigidBodyTypesNames = physicsBody$.value?.getPhysicsBodyType() ?? RigidBodyTypesNames.Fixed;
+
+  const prevBodyTypeSub: Subscription = physicsBody$.subscribe((physicsBody: TPhysicsBody | undefined): void => {
+    if (isNotDefined(physicsBody)) return;
+    previousPhysicsBodyType = physicsBody.getPhysicsBodyType();
+  });
+
+  const enabledSub$: Subscription = agent.enabled$.pipe(withLatestFrom(physicsBody$)).subscribe(([isEnabled, physicsBody]: [boolean, TPhysicsBody | undefined]): void => {
+    if (isNotDefined(physicsBody?.getRigidBody())) return;
+    if (!isEnabled) physicsBody.setPhysicsBodyType(RigidBodyTypesNames.KinematicPositionBased, false);
+    else physicsBody?.setPhysicsBodyType(previousPhysicsBodyType, false);
+  });
+
   const destroySub$: Subscription = abstractTransformAgent.destroy$.subscribe((): void => {
     //Stop subscriptions
     destroySub$.unsubscribe();
     rotationQuaternionSub$.unsubscribe();
     physicsSub$?.unsubscribe();
+    enabledSub$.unsubscribe();
+    prevBodyTypeSub.unsubscribe();
 
     abstractTransformAgent.destroy$.next();
     physicsBody$.complete();
