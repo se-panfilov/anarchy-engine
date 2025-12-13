@@ -2,7 +2,7 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TAppCanvas, TEngine, TModel3d, TModel3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
+import type { TActor, TAnimationsFsmWrapper, TAppCanvas, TEngine, TModel3d, TModel3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
 import { ambientContext, Engine, isNotDefined, KeyCode, KeysExtra, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -21,11 +21,13 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
 
   const { keyboardService } = engine.services;
-  const { animationsService, models3dService } = space.services;
+  const { actorService, animationsService, animationsFsmService, models3dService } = space.services;
   const { onKey, onKeyCombo, isKeyPressed } = keyboardService;
 
   function init(): void {
     addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
+
+    const fadeDuration = 0.3;
 
     // TODO perhaps should be moved inside actor
     const solderModel3d: TModel3d | undefined = models3dService.getRegistry().findByName('solder_model_entity');
@@ -34,38 +36,54 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const runAction = actions['Run'];
     const walkAction = actions['Walk'];
     const idleAction = actions['Idle'];
-    const tPoseAction = actions['TPose'];
+    // const tPoseAction = actions['TPose'];
 
-    const fadeDuration = 0.3;
+    const solderAnimFsm: TAnimationsFsmWrapper = animationsFsmService.create({
+      id: 'solder_animation_fsm',
+      initial: 'idle',
+      states: {
+        idle: { on: { WALK: 'walk', RUN: 'run' } },
+        walk: { on: { IDLE: 'idle', RUN: 'run' } },
+        run: { on: { IDLE: 'idle', WALK: 'walk' } }
+      }
+    });
 
-    // tPoseAction.play();
-    idleAction.play();
-    walkAction.play();
-    walkAction.weight = 0;
-    idleAction.weight = 1;
-    // tPoseAction.crossFadeTo(idleAction, fadeDuration, true);
-    tPoseAction.stop();
+    const solderActor: TActor | undefined = actorService.getRegistry().findByName('solder_actor_1');
+    if (isNotDefined(solderActor)) throw new Error('Solder actor is not found');
+    solderActor.setAnimationsFsm(solderAnimFsm);
 
-    let runModifier: boolean = false;
-    onKey(KeysExtra.Shift).pressed$.subscribe((): void => void (runModifier = true));
-    onKey(KeysExtra.Shift).released$.subscribe((): void => void (runModifier = false));
+    solderActor.states.animationsFsm.subscribe((state) => {
+      console.log('XXX state', state);
+      if (state.matches('idle')) {
+        idleAction.play();
+        walkAction.stop();
+        runAction.stop();
+      } else if (state.matches('walk')) {
+        walkAction.play();
+        idleAction.stop();
+        runAction.stop();
+        // if (!idleAction.isRunning()) idleAction.play();
+        // if (!walkAction.isRunning()) walkAction.play();
+        // idleAction.crossFadeTo(walkAction, fadeDuration, true);
+      } else if (state.matches('run')) {
+        runAction.play();
+        idleAction.stop();
+        walkAction.stop();
+      }
+    });
 
     onKey(KeyCode.W).pressed$.subscribe((): void => {
       if (isKeyPressed(KeysExtra.Shift)) return;
-      console.log('XXX Single');
-      if (!idleAction.isRunning()) idleAction.play();
-      if (!walkAction.isRunning()) walkAction.play();
-      idleAction.crossFadeTo(walkAction, fadeDuration, true);
+      solderActor.states.animationsFsm.send({ type: 'WALK' });
+    });
+    //
+    onKeyCombo(`${KeyCode.W} + ${KeysExtra.Shift}`).pressed$.subscribe((): void => {
+      console.log('XXX Combo');
+      solderActor.states.animationsFsm.send({ type: 'RUN' });
     });
 
-    // onKeyCombo(`${KeyCode.W} + ${KeysExtra.Shift}`).pressed$.subscribe((): void => {
-    //   console.log('XXX Combo');
-    //   // runAction.play();
-    //   // idleAction.crossFadeTo(runAction, fadeDuration, true);
-    // });
-
     onKey(KeyCode.W).released$.subscribe((): void => {
-      // walkAction.crossFadeTo(idleAction, fadeDuration, true);
+      solderActor.states.animationsFsm.send({ type: 'IDLE' });
     });
   }
 
@@ -76,58 +94,3 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   return { start, space };
 }
-
-// TODO debug
-// function prepareCrossFade(startAction, endAction, defaultDuration) {
-//   // Switch default / custom crossfade duration (according to the user's choice)
-//
-//   const duration = setCrossFadeDuration(defaultDuration);
-//
-//   // Make sure that we don't go on in singleStepMode, and that all actions are unpaused
-//
-//   singleStepMode = false;
-//   unPauseAllActions();
-//
-//   // If the current action is 'idle' (duration 4 sec), execute the crossfade immediately;
-//   // else wait until the current action has finished its current loop
-//
-//   if (startAction === idleAction) {
-//     executeCrossFade(startAction, endAction, duration);
-//   } else {
-//     synchronizeCrossFade(startAction, endAction, duration);
-//   }
-// }
-//
-// function setCrossFadeDuration(defaultDuration) {
-//   // Switch default crossfade duration <-> custom crossfade duration
-//
-//   if (settings['use default duration']) {
-//     return defaultDuration;
-//   } else {
-//     return settings['set custom duration'];
-//   }
-// }
-//
-// function executeCrossFade(startAction, endAction, duration) {
-//   // Not only the start action, but also the end action must get a weight of 1 before fading
-//   // (concerning the start action this is already guaranteed in this place)
-//
-//   setWeight(endAction, 1);
-//   endAction.time = 0;
-//
-//   // Crossfade with warping - you can also try without warping by setting the third parameter to false
-//
-//   startAction.crossFadeTo(endAction, duration, true);
-// }
-//
-// function setWeight(action, weight) {
-//   action.enabled = true;
-//   action.setEffectiveTimeScale(1);
-//   action.setEffectiveWeight(weight);
-// }
-//
-// function unPauseAllActions() {
-//   actions.forEach(function (action) {
-//     action.paused = false;
-//   });
-// }
