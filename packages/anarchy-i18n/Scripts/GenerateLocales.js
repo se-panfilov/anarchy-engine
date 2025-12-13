@@ -1,17 +1,53 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
-import url from 'node:url';
 
-const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, '..');
+const argv = process.argv.slice(2);
+const getArg = (flag, def) => {
+  const i = argv.indexOf(flag);
+  return i >= 0 ? argv[i + 1] : def;
+};
 
-const { Locales } = await import(path.join(ROOT, 'Scripts', 'locales.config.js'));
+const CONFIG_PATH = getArg('--config', 'i18n/locales.config.jsonc');
+const OUT_PATH = getArg('--out', 'i18n/locales.gen.ts');
+
+const fileExists = async (p) => {
+  try {
+    await fs.access(p);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+const readText = (p) => fs.readFile(p, 'utf8');
+
+const parseJSONC = (text) => {
+  const noComments = text.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
+  const noTrailingCommas = noComments.replace(/,\s*([\]}])/g, '$1');
+  return JSON.parse(noTrailingCommas);
+};
+
+const ext = (p) => path.extname(p).toLowerCase();
+
+async function loadConfig(configPath) {
+  const abs = path.resolve(process.cwd(), configPath);
+  const e = ext(abs);
+  if (e === '.json' || e === '.jsonc') {
+    const txt = await readText(abs);
+    const data = e === '.jsonc' ? parseJSONC(txt) : JSON.parse(txt);
+    return [...(data || [])];
+  }
+
+  throw new Error(`Unsupported config extension: ${e}. Use .json/.jsonc`);
+}
 
 const isScript = (sub) => /^[A-Z][a-z]{3}$/.test(sub); // Latn, Cyrl, Hans, Hant...
 const isRegion = (sub) => /^([A-Z]{2}|\d{3})$/.test(sub); // US, GB, NL, 419...
 
 const parseParts = (tagRaw) => {
-  const tag = tagRaw.trim().replace(/_/g, '-');
+  const tag = String(tagRaw || '')
+    .trim()
+    .replace(/_/g, '-');
   const [langRaw, ...rest] = tag.split('-');
   const language = (langRaw || '').toLowerCase();
   let script;
@@ -45,98 +81,116 @@ const RTL_LANGS = new Set(['ar', 'fa', 'he', 'ur', 'ps', 'dv', 'ku']);
 
 const inferDirection = (language, script) => ((script && RTL_SCRIPTS.has(script)) || RTL_LANGS.has(language) ? 'rtl' : 'ltr');
 
-const dn = (locales, type) => new Intl.DisplayNames(locales, { type });
-
-const buildEnglishName = (id, p) => {
-  // Compose like "Chinese (Simplified, China)" or "English (US)" or "Arabic (Saudi Arabia)"
-  const enLang = dn('en', 'language').of(p.language) ?? p.language;
-  const bits = [];
-  if (p.script) {
-    const enScript = dn('en', 'script').of(p.script) ?? p.script;
-    bits.push(enScript);
+// Intl.DisplayNames helpers (with graceful fallback)
+const makeDN = (locale, type) => {
+  try {
+    return new Intl.DisplayNames(locale, { type });
+  } catch {
+    // Older Node without full-ICU — we fallback to simple identity
+    return { of: (x) => x };
   }
-  if (p.region) {
-    const enRegion = dn('en', 'region').of(p.region) ?? p.region;
-    bits.push(enRegion);
-  }
-  return bits.length ? `${enLang} (${bits.join(', ')})` : enLang;
+};
+const dn = {
+  en: {
+    language: makeDN('en', 'language'),
+    region: makeDN('en', 'region'),
+    script: makeDN('en', 'script')
+  },
+  any: (loc, type) => makeDN(loc, type)
 };
 
-const buildNativeName = (id, p) => {
-  // Use the locale itself for native display where possible
+const buildEnglishName = (id, parts) => {
+  const lang = dn.en.language.of(parts.language) || parts.language;
+  const bits = [];
+  if (parts.script) bits.push(dn.en.script.of(parts.script) || parts.script);
+  if (parts.region) bits.push(dn.en.region.of(parts.region) || parts.region);
+  return bits.length ? `${lang} (${bits.join(', ')})` : lang;
+};
+
+const buildNativeName = (id, parts) => {
   let langName;
   try {
-    langName = dn(id, 'language').of(p.language);
+    langName = dn.any(id, 'language').of(parts.language);
   } catch {}
   if (!langName) {
-    // Fallback to language self-name (best-effort)
     try {
-      langName = dn(p.language, 'language').of(p.language);
+      langName = dn.any(parts.language, 'language').of(parts.language);
     } catch {}
   }
-  langName ||= p.language;
+  langName ||= parts.language;
 
   const bits = [];
-  if (p.script) {
+  if (parts.script) {
     let s;
     try {
-      s = dn(id, 'script').of(p.script);
+      s = dn.any(id, 'script').of(parts.script);
     } catch {}
-    s ||= p.script;
-    bits.push(s);
+    bits.push(s || parts.script);
   }
-  if (p.region) {
+  if (parts.region) {
     let r;
     try {
-      r = dn(id, 'region').of(p.region);
+      r = dn.any(id, 'region').of(parts.region);
     } catch {}
-    r ||= p.region;
-    bits.push(r);
+    bits.push(r || parts.region);
   }
   return bits.length ? `${langName} (${bits.join(', ')})` : langName;
 };
 
-const buildLocale = (rawId) => {
-  const id = canonicalize(rawId);
-  const p = parseParts(id);
-  if (!p.language) throw new Error(`Invalid locale id: "${rawId}"`);
-  const dir = inferDirection(p.language, p.script);
-  return {
-    id,
-    languageCode: p.language,
-    regionCode: p.region,
-    scriptCode: p.script,
-    englishName: buildEnglishName(id, p),
-    nativeName: buildNativeName(id, p),
-    dir
+const toTsLiteral = (obj) => JSON.stringify(obj, null, 2);
+
+async function generate(localeIds) {
+  if (!Array.isArray(localeIds) || localeIds.length === 0) {
+    throw new Error('Config must have non-empty "localeIds" array.');
+  }
+
+  const locales = localeIds.map((rawId) => {
+    const id = canonicalize(rawId);
+    const p = parseParts(id);
+    if (!p.language) throw new Error(`Invalid locale id: "${rawId}"`);
+    const dir = inferDirection(p.language, p.script);
+
+    return {
+      id,
+      languageCode: p.language,
+      regionCode: p.region,
+      scriptCode: p.script,
+      englishName: buildEnglishName(id, p),
+      nativeName: buildNativeName(id, p),
+      dir
+    };
+  });
+
+  const header = ['/* AUTO-GENERATED by GenerateLocales.js script — do not edit manually. */', '\n'].join('\n');
+
+  const toTs = (l) => {
+    const json = JSON.stringify(l, null, 2)
+      .replace(/"([a-zA-Z0-9_]+)":/g, '$1:') // unquote keys (pretty)
+      .replace(/"ltr"|\"rtl\"/g, (m) => m); // keep as strings
+    return json;
   };
-};
 
-const locales = Locales.map(buildLocale);
+  function kebabToCamel(input) {
+    if (!input.includes('-')) return input;
 
-const outPath = path.join(ROOT, 'src/Constants', 'Locales.gen.ts');
-const header = ['/* AUTO-GENERATED by GenerateLocales.js script — do not edit manually. */', '\n'].join('\n');
+    return input
+      .toLowerCase()
+      .split('-')
+      .map((part, index) => (index === 0 ? part : part.charAt(0).toUpperCase() + part.slice(1)))
+      .join('');
+  }
 
-const toTs = (l) => {
-  const json = JSON.stringify(l, null, 2)
-    .replace(/"([a-zA-Z0-9_]+)":/g, '$1:') // unquote keys (pretty)
-    .replace(/"ltr"|\"rtl\"/g, (m) => m); // keep as strings
-  return json;
-};
+  const body = `${locales.map((l) => `export const ${kebabToCamel(l.id)} =  ` + toTs(l)).join(';\n\n')};\n\n`;
 
-function kebabToCamel(input) {
-  if (!input.includes('-')) return input;
+  await fs.mkdir(path.dirname(OUT_PATH), { recursive: true });
+  await fs.writeFile(OUT_PATH, header + body, 'utf8');
 
-  return input
-    .toLowerCase()
-    .split('-')
-    .map((part, index) => (index === 0 ? part : part.charAt(0).toUpperCase() + part.slice(1)))
-    .join('');
+  process.stdout.write(`Generated ${path.relative(process.cwd(), OUT_PATH)} with ${locales.length} locales.\n`);
 }
 
-const body = `${locales.map((l) => `export const ${kebabToCamel(l.id)} =  ` + toTs(l)).join(';\n\n')};\n\n`;
-
-await fs.mkdir(path.dirname(outPath), { recursive: true });
-await fs.writeFile(outPath, header + body, 'utf8');
-
-process.stdout.write(`Generated ${path.relative(ROOT, outPath)} with ${locales.length} locales.\n`);
+const cfgExists = await fileExists(CONFIG_PATH);
+if (!cfgExists) {
+  throw new Error(`Config file not found: ${CONFIG_PATH}`);
+}
+const config = await loadConfig(CONFIG_PATH);
+await generate(config);
