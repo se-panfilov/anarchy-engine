@@ -40,10 +40,12 @@ function initCameraRotation(space: TSpace, model3d: TModel3d | undefined, mouseS
   const camera: TCameraWrapper | undefined = cameraService.findActive();
 
   const prevValue: Float32Array = new Float32Array([0, 0, 0, 0]); // [x, y, wight, height]
-  combineLatest([mouseService.position$, space.container.resize$])
+  combineLatest([mouseService.position$, space.container.viewportRect$])
     .pipe(
-      distinctUntilChanged((_previous: [Vector2Like, DOMRect], [currPosition, currScreenSize]: [Vector2Like, DOMRect]): boolean => {
-        return prevValue[0] === currPosition.x && prevValue[1] === currPosition.y && prevValue[2] === currScreenSize.width && prevValue[3] === currScreenSize.height;
+      distinctUntilChanged((prev: [Vector2Like, DOMRect], curr: [Vector2Like, DOMRect]): boolean => {
+        const prevVector: Vector2Like = prev[0];
+        const currVector: Vector2Like = curr[0];
+        return prevVector.x === currVector.x && prevVector.y === currVector.y;
       }),
       tap(([position, screenSize]: [Vector2Like, DOMRect]): void => {
         // eslint-disable-next-line functional/immutable-data
