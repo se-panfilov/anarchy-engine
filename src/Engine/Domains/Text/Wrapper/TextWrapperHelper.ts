@@ -4,7 +4,7 @@ import { isDefined } from '@/Engine/Utils';
 
 export function applyElement2dParams(
   element: IElement2dAccessors,
-  { backgroundColor, className, text, fontSize, color, font, maxWidth, lineHeight, letterSpacing, textAlign, direction, overflowWrap, whiteSpace, fontStyle, fontWeight }: ITextProps
+  { backgroundColor, className, text, fontSize, color, fontFamily, maxWidth, lineHeight, letterSpacing, textAlign, direction, overflowWrap, whiteSpace, fontStyle, fontWeight }: ITextProps
 ): void {
   element.setText(text);
   element.setClassName(TEXT_CSS_CLASS.CSS_2D_CLASS);
@@ -17,7 +17,7 @@ export function applyElement2dParams(
   if (isDefined(className)) element.appendClassName(className);
   if (isDefined(fontSize)) element.setFontSize(fontSize);
   if (isDefined(color)) element.setColor(color);
-  if (isDefined(font)) element.setFont(font);
+  if (isDefined(fontFamily)) element.setFontFamily(fontFamily);
   if (isDefined(maxWidth)) element.setMaxWidth(maxWidth);
   if (isDefined(lineHeight)) element.setLineHeight(lineHeight);
   if (isDefined(letterSpacing)) element.setLetterSpacing(letterSpacing);

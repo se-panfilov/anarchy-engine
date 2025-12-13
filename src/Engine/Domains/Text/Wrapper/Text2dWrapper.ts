@@ -31,5 +31,8 @@ export function Text2dWrapper(params: ITextParams): ITextWrapper {
   applyRotation(result, params.rotation);
   if (isDefined(params.scale)) applyScale(result, params.scale);
 
+  console.log('111 element', result.getElement());
+  console.log('111 entity', result.entity);
+
   return result;
 }

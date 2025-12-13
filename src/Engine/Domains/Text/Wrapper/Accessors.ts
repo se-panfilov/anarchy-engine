@@ -21,8 +21,8 @@ export function getElement2dAccessors(element: IWriteable<HTMLDivElement>): IEle
   const setColor = (color: string): void => void (element.style.color = color);
   const getColor = (): string => element.style.color;
   // eslint-disable-next-line functional/immutable-data
-  const setFont = (font: string): void => void (element.style.font = font);
-  const getFont = (): string => element.style.font;
+  const setFontFamily = (fontFamily: string): void => void (element.style.fontFamily = fontFamily);
+  const getFontFamily = (): string => element.style.fontFamily;
   // eslint-disable-next-line functional/immutable-data
   const setMaxWidth = (maxWidth: string): void => void (element.style.maxWidth = maxWidth);
   const getMaxWidth = (): string => element.style.maxWidth;
@@ -63,8 +63,8 @@ export function getElement2dAccessors(element: IWriteable<HTMLDivElement>): IEle
     getFontSize,
     setColor,
     getColor,
-    setFont,
-    getFont,
+    setFontFamily,
+    getFontFamily,
     setMaxWidth,
     getMaxWidth,
     setLineHeight,

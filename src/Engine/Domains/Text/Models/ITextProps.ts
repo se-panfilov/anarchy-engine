@@ -7,7 +7,7 @@ export type ITextProps = Readonly<{
   className?: string;
   fontSize: string;
   color?: string;
-  font?: string;
+  fontFamily?: string;
   maxWidth?: string;
   lineHeight?: string;
   letterSpacing?: string;
