@@ -8,7 +8,7 @@ export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher, sp
   const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
   if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" spatial grid`);
 
-  const mouse: Record<string, any> = {
+  const mouse: Record<string, string | number> = {
     x: 0,
     y: 0,
     z: 0,
@@ -18,8 +18,8 @@ export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher, sp
     objectName: ''
   };
 
-  const cell = { id: '' };
-  const actor = { name: '' };
+  const cell: Record<string, string> = { id: '' };
+  const actor: Record<string, string> = { name: '' };
 
   mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent) => {
     // eslint-disable-next-line functional/immutable-data
@@ -33,13 +33,13 @@ export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher, sp
     // eslint-disable-next-line functional/immutable-data
     mouse.objectId = intersection.object.uuid;
     // eslint-disable-next-line functional/immutable-data
-    mouse.wrapperId = intersection.object.userData.wrapperId;
+    mouse.wrapperId = intersection.object.userData.wrapperId as string;
     // eslint-disable-next-line functional/immutable-data
     mouse.objectName = intersection.object.name;
     // eslint-disable-next-line functional/immutable-data
     cell.id = grid.findCells(intersection.point.x, intersection.point.z)[0]?.id;
     // eslint-disable-next-line functional/immutable-data
-    actor.name = actorService.getRegistry().findById(mouse.wrapperId)?.name;
+    actor.name = actorService.getRegistry().findById(mouse.wrapperId)?.name ?? '';
   });
 
   const mouseFolderGui: GUI = gui.addFolder('Mouse');
