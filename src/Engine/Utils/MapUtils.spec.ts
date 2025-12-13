@@ -1,7 +1,7 @@
 import { findInMap } from './MapUtils';
 
 describe('MapUtils', () => {
-  const map = new Map<string, number>();
+  const map: Map<string, number> = new Map<string, number>();
   map.set('a', 1);
   map.set('b', 2);
   map.set('c', 3);

@@ -1,5 +1,6 @@
-import type { IWithTagsMixin } from '@/Engine/Mixins';
+import type { IWithName, IWithTagsMixin } from '@/Engine/Mixins';
 
 export type IRegistrable = {
   id: string;
-} & IWithTagsMixin;
+} & IWithName &
+  IWithTagsMixin;

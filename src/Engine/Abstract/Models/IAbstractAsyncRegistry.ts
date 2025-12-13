@@ -5,11 +5,13 @@ import type { IDestroyable, IRegistrable } from '@/Engine/Mixins';
 
 import type { IAbstractEntityRegistry } from './IAbstractEntityRegistry';
 
-export type IAbstractAsyncRegistry<T extends IRegistrable> = Omit<IAbstractEntityRegistry<T>, 'findByTags' | 'findByTag'> &
+export type IAbstractAsyncRegistry<T extends IRegistrable> = Omit<IAbstractEntityRegistry<T>, 'findByTags' | 'findByTag' | 'findByName'> &
   Readonly<{
     findByTagsAsync: (tags: ReadonlyArray<string>, strategy: LookUpStrategy) => Promise<T>;
     findByTags$: (tags: ReadonlyArray<string>, strategy: LookUpStrategy) => Observable<T>;
     findByTagAsync: (tag: string) => Promise<T>;
     findByTag$: (tag: string) => Observable<T>;
+    findByNameAsync: (name: string) => Promise<T>;
+    findByName$: (name: string) => Observable<T>;
   }> &
   IDestroyable;

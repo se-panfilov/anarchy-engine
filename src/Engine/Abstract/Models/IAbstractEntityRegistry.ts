@@ -9,6 +9,7 @@ export type IAbstractEntityRegistry<T extends IRegistrable> = Omit<IAbstractSimp
     replace: (entity: T) => void;
     remove: (id: string) => void;
     findById: (id: string) => T | undefined;
+    findByName: (name: string) => T | undefined;
     find: (predicate: (value: T, key: string) => boolean) => T | undefined;
     findAllByTags: (tags: ReadonlyArray<string>, strategy: LookUpStrategy) => ReadonlyArray<T>;
     findAllByTag: (tag: string) => ReadonlyArray<T>;
