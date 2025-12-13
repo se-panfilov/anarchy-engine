@@ -1,9 +1,10 @@
 import { BehaviorSubject } from 'rxjs';
+import { degToRad } from 'three/src/math/MathUtils';
 import { Vector3 } from 'three/src/math/Vector3';
 
 import { attachConnectorPositionToSubj, attachConnectorRotationToSubj } from '@/App/Levels/Utils';
 import type { TActor, TCameraWrapper, TLightWrapper, TSpace, TSpaceConfig, TText3dTextureWrapper, TText3dWrapper } from '@/Engine';
-import { getQueryParams, isDefined, metersPerSecond } from '@/Engine';
+import { degrees, ForwardAxis, getPushCoordsFrom3dAzimuth, getQueryParams, isDefined, metersPerSecond, radians } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { addAwait, getContainer, removeAwait } from '../utils';
@@ -21,6 +22,8 @@ export const spaceTransformDriveData: TSpacesData = {
   container: getContainer(config.canvasSelector),
   awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
   onCreate: async (space: TSpace): Promise<void | never> => {
+    // space.services.physicsWorldService.getDebugRenderer(space.loops.physicalLoop).start();
+
     addAwait('onCreate', spaceTransformDriveData.awaits$);
     space.loops.kinematicLoop.stop();
 
@@ -49,7 +52,7 @@ export const spaceTransformDriveData: TSpacesData = {
 };
 
 async function performNormalSaveLoadTest(space: TSpace): Promise<void> {
-  const { defaultActor, kinematicActor, kinematicText, camera } = getShowcaseActors(space);
+  const { camera, defaultActor, kinematicActor, kinematicText, physicsActor } = getShowcaseActors(space);
 
   if (isOriginalSceneLoaded) {
     defaultActor.drive.default.addZ(4);
@@ -57,6 +60,7 @@ async function performNormalSaveLoadTest(space: TSpace): Promise<void> {
     kinematicActor.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.05));
     kinematicActor.drive.kinematic.lookAt(new Vector3(0, 2, 0), metersPerSecond(0.00003));
     kinematicText.drive.kinematic.moveTo(new Vector3(2, 2, 2.5), metersPerSecond(0.05));
+    physicsActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(radians(degToRad(degrees(90))), radians(0), 40, ForwardAxis.Z), true);
   }
 
   return doKinematicSteps(space, 100, 15);
@@ -101,6 +105,7 @@ function getShowcaseActors({ services }: TSpace): {
   defaultActor: TActor;
   kinematicActor: TActor;
   connectedActor: TActor;
+  physicsActor: TActor;
   kinematicText: TText3dTextureWrapper;
   connectedText: TText3dWrapper;
   connectedLight: TLightWrapper;
@@ -109,10 +114,11 @@ function getShowcaseActors({ services }: TSpace): {
   const defaultActor: TActor = services.actorService.getRegistry().getByName('cube_default_actor');
   const kinematicActor: TActor = services.actorService.getRegistry().getByName('cube_kinematic_actor');
   const connectedActor: TActor = services.actorService.getRegistry().getByName('cube_connected_actor');
+  const physicsActor: TActor = services.actorService.getRegistry().getByName('cube_physics_actor');
   const kinematicText: TText3dTextureWrapper = services.textService.getRegistries().text3dTextureRegistry.getByName('kinematic_text');
   const connectedText: TText3dWrapper = services.textService.getRegistries().text3dRegistry.getByName('connected_text');
   const connectedLight: TLightWrapper = services.lightService.getRegistry().getByName('connected_light') as TLightWrapper;
   const camera: TCameraWrapper<any> = services.cameraService.getActive();
 
-  return { defaultActor, kinematicActor, connectedActor, kinematicText, connectedLight, connectedText, camera };
+  return { defaultActor, kinematicActor, connectedActor, physicsActor, kinematicText, connectedLight, connectedText, camera };
 }

@@ -6,6 +6,7 @@
         "agent": "default",
         "model3dSource": "surface_model",
         "name": "surface_actor",
+        "physicBodyName": "surface_actor_physics",
         "position": {
           "x": 0,
           "y": 0,
@@ -76,6 +77,26 @@
         "spatial": {
           "grid": "main_grid",
           "isAutoUpdate": true
+        }
+      },
+      {
+        "agent": "physical",
+        "model3dSource": "cube_physics_model",
+        "name": "cube_physics_actor",
+        "physicBodyName": "cube_physics_physics",
+        "position": {
+          "x": 0,
+          "y": 0.5,
+          "z": -3
+        },
+        "rotation": {
+          "x": 0,
+          "y": 1.57,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
         }
       }
     ],
@@ -196,6 +217,13 @@
           "color": "#9C27B0"
         },
         "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "cube_physics_material",
+        "options": {
+          "color": "#00ADA5"
+        },
+        "type": "MeshStandardMaterial"
       }
     ],
     "models3d": [
@@ -265,10 +293,72 @@
           "height": 1,
           "width": 1
         }
+      },
+      {
+        "castShadow": true,
+        "material": "cube_physics_material",
+        "model3dSource": "cube",
+        "name": "cube_physics_model",
+        "options": {
+          "depth": 4,
+          "height": 1,
+          "width": 1
+        }
       }
     ],
     "particles": [],
-    "physics": {},
+    "physics": {
+      "bodies": [
+        {
+          "collisionShape": "cuboid",
+          "name": "surface_actor_physics",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "rotation": {
+            "x": -1.57,
+            "y": 0,
+            "z": 0
+          },
+          "shapeParams": {
+            "hx": 50,
+            "hy": 50,
+            "hz": 0.025
+          },
+          "type": "fixed"
+        },
+        {
+          "collisionShape": "cuboid",
+          "name": "cube_physics_physics",
+          "position": {
+            "x": 0,
+            "y": 0.5,
+            "z": -3
+          },
+          "restitution": 0.1,
+          "rotation": {
+            "x": 0,
+            "y": -0.75,
+            "z": 0
+          },
+          "shapeParams": {
+            "hx": 0.5,
+            "hy": 0.5,
+            "hz": 2
+          },
+          "type": "dynamic"
+        }
+      ],
+      "world": {
+        "gravity": {
+          "x": 0,
+          "y": -9.81,
+          "z": 0
+        }
+      }
+    },
     "renderers": [
       {
         "alpha": true,

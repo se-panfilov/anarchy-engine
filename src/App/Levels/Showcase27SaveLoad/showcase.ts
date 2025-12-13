@@ -53,7 +53,7 @@ const spacesData: ReadonlyArray<TSpacesData> = [
 ];
 
 // const initialSpaceDataName: string = spaceBasicData.name;
-const initialSpaceDataName: string = spacePhysicsData.name;
+const initialSpaceDataName: string = spaceTransformDriveData.name;
 
 const spacesInMemoryData: Array<TSpacesData> = [];
 
