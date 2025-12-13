@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import type { TNoticeService, TNoticeUtilsService, TRepoUtilsService, TTemplateParsedEntry } from '@Anarchy/Legal/Models';
+import type { TNoticeService, TNoticeUtilsService, TRepoUtilsService, TTemplateParsedEntry, TWorkspaceInfo } from '@Anarchy/Legal/Models';
 // eslint-disable-next-line spellcheck/spell-checker
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
@@ -82,10 +82,10 @@ This product incorporates open-source software. **If any term of this file or th
     repoUtilsService.setDebugMode(isDebug);
 
     // Locate monorepo root
-    const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+    const scriptDir: string = path.dirname(fileURLToPath(import.meta.url));
     const startCandidates = [process.env.INIT_CWD, process.cwd(), scriptDir].filter(Boolean) as string[];
-    const rootDir: string | undefined = await startCandidates.reduce<Promise<string | undefined>>(async (accP, c) => {
-      const acc = await accP;
+    const rootDir: string | undefined = await startCandidates.reduce<Promise<string | undefined>>(async (accP: Promise<string | undefined>, c: string): Promise<string | undefined> => {
+      const acc: string | undefined = await accP;
       if (acc) return acc;
       try {
         return await findMonorepoRoot(c);
@@ -97,8 +97,8 @@ This product incorporates open-source software. **If any term of this file or th
     if (!rootDir) throw new Error(`Failed to find monorepo root from: ${startCandidates.join(', ')}`);
 
     // Workspaces
-    const workspaces = await loadWorkspaces(rootDir);
-    const ws = resolveWorkspaceFromArg(String(argv.workspace), workspaces, rootDir);
+    const workspaces: ReadonlyMap<string, TWorkspaceInfo> = await loadWorkspaces(rootDir);
+    const ws: TWorkspaceInfo = resolveWorkspaceFromArg(String(argv.workspace), workspaces, rootDir);
     debugLog(isDebug, 'target workspace:', ws.name, ws.dir);
 
     // Source & Out paths
@@ -115,10 +115,10 @@ This product incorporates open-source software. **If any term of this file or th
       process.exit(1);
     }
 
-    const src = await fs.readFile(srcPath, 'utf8');
+    const src: string = await fs.readFile(srcPath, 'utf8');
 
     // collect declared ids from headings for audit
-    const declaredIds = collectAllHeadingIds(src);
+    const declaredIds: ReadonlySet<string> = collectAllHeadingIds(src);
 
     const entries = parseThirdPartyMarkdown(src);
     debugLog(isDebug, 'parsed entries:', entries.length);
@@ -126,24 +126,24 @@ This product incorporates open-source software. **If any term of this file or th
     // Optional upstream NOTICE load
     const finalEntries: ReadonlyArray<TTemplateParsedEntry> = await (async (): Promise<ReadonlyArray<TTemplateParsedEntry>> => {
       if (!argv['include-upstream-notices']) return entries;
-      const maxBytes = Math.max(1, Math.floor(Number(argv['max-upstream-notice-kb']) || 128)) * 1024;
+      const maxBytes: number = Math.max(1, Math.floor(Number(argv['max-upstream-notice-kb']) || 128)) * 1024;
       const withUpstream = await Promise.all(
-        entries.map(async (e) => {
+        entries.map(async (e: TTemplateParsedEntry) => {
           if (!e.path) return e;
-          const u = await loadUpstreamNotice(e.path, maxBytes);
+          const u: string | undefined = await loadUpstreamNotice(e.path, maxBytes);
           return u ? { ...e, upstreamNotice: u } : e;
         })
       );
-      const filledCount = withUpstream.filter((e) => Boolean(e.upstreamNotice)).length;
+      const filledCount: number = withUpstream.filter((e): boolean => Boolean(e.upstreamNotice)).length;
       debugLog(isDebug, 'upstream notices loaded:', filledCount);
       return withUpstream;
     })();
 
     // Audit report
     if (argv.audit) {
-      const parsedIds = new Set(finalEntries.map((e) => e.id));
-      const missing = Array.from(declaredIds)
-        .filter((id): boolean => !parsedIds.has(id))
+      const parsedIds = new Set(finalEntries.map((e: TTemplateParsedEntry): string => e.id));
+      const missing: ReadonlyArray<string> = Array.from(declaredIds)
+        .filter((id: string): boolean => !parsedIds.has(id))
         .toSorted();
 
       console.log(`NOTICE audit:
@@ -152,7 +152,7 @@ This product incorporates open-source software. **If any term of this file or th
   missing in NOTICE:   ${missing.length}`);
 
       if (missing.length) {
-        console.log(missing.map((x) => `  - ${x}`).join('\n'));
+        console.log(missing.map((x: string): string => `  - ${x}`).join('\n'));
         if (argv.strict) {
           console.error('Audit failed: some entries were not parsed into NOTICE.');
           process.exit(2);
