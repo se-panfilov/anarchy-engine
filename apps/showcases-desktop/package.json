@@ -39,7 +39,7 @@
     "ts:check:watch": "tsc --watch --noEmit"
   },
   "devDependencies": {
-    "anarchy_engine_showcases": "*",
+    "showcases-core": "*",
     "anarchy-shared": "*",
     "showcases-shared": "*",
     "electron": "37.2.1",
