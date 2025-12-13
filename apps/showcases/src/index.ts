@@ -30,5 +30,5 @@ const settings: TAppSettings = {
 setBrowserSafeguards(window);
 
 void route(settings).then((): void => {
-  if (runtimeEnv.VITE_APP_SHOW_DEBUG_INFO) addNavigationPanel(document.body);
+  if (runtimeEnv.VITE_APP_SHOW_DEV_NAV) addNavigationPanel(document.body);
 });
