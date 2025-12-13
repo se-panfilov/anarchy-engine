@@ -1,7 +1,8 @@
 import type { TEventsService } from '@Menu/models';
+import { useSettingsStore } from '@Menu/stores/SettingsStore';
 import { isNotDefined } from '@Shared/Utils';
 import type { TFromMenuEvent, TShowcaseGameSettings, TToMenuEvent } from '@ShowcasesShared';
-import { FromMenuEvents, ToMenuEvents } from '@ShowcasesShared';
+import { FromMenuEvents, isSettings, ToMenuEvents } from '@ShowcasesShared';
 import type { Observable, Subject } from 'rxjs';
 import { toRaw } from 'vue';
 
@@ -59,8 +60,8 @@ function EventsService(): TEventsService {
     switch (event.type) {
       case ToMenuEvents.SettingsLoaded: {
         console.log('[EventsService]: Settings loaded:', event.payload);
-        // TODO DESKTOP: implement!!!
-        console.error('[EventsService]: Settings loaded not implemented yet');
+        if (!isSettings(event.payload)) throw new Error(`[EventsService]: Failed to apply settings: Invalid payload`);
+        useSettingsStore().setState(event.payload);
         break;
       }
       default: {

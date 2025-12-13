@@ -3,8 +3,8 @@ import * as path from 'node:path';
 
 import { AllowedFolders } from '@Desktop/Constants';
 import type { TSettingsService } from '@Desktop/Models';
-import { isAllNotDefined, isNotDefined } from '@Shared/Utils';
 import type { TShowcaseGameSettings } from '@ShowcasesShared';
+import { isSettings } from '@ShowcasesShared';
 import type { App } from 'electron';
 
 export function SettingsService(app: App): TSettingsService {
@@ -41,18 +41,8 @@ export function SettingsService(app: App): TSettingsService {
     console.log('[DESKTOP]: settings saved:', finalPath);
   }
 
-  function isSettings(settings: TShowcaseGameSettings | unknown): settings is TShowcaseGameSettings {
-    if (isNotDefined(settings)) return false;
-    if (typeof settings !== 'object') return false;
-    const { graphics, localization, debug, internal, audio } = settings as TShowcaseGameSettings;
-    if (isAllNotDefined([graphics, audio, localization, debug, internal])) return false;
-
-    return true;
-  }
-
   return {
     loadAppSettings,
-    saveAppSettings,
-    isSettings
+    saveAppSettings
   };
 }

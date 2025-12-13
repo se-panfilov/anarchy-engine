@@ -1,6 +1,7 @@
 import { PlatformActions } from '@Desktop/Constants';
 import type { THandleRequestDependencies } from '@Desktop/Models';
 import { isPlatformAction } from '@Desktop/Utils';
+import { isSettings } from '@ShowcasesShared';
 import type { IpcMainInvokeEvent } from 'electron';
 
 // TODO DESKTOP: any
@@ -12,7 +13,7 @@ export function handleAppRequest({ settingsService }: THandleRequestDependencies
   switch (type) {
     case PlatformActions.SaveAppSettings:
       // TODO DESKTOP: Should we let menu (and the app) know that the save is done? (however, it is sync atm)
-      if (!settingsService.isSettings(payload)) throw new Error(`[DESKTOP]: Failed to save settings: Invalid payload`);
+      if (!isSettings(payload)) throw new Error(`[DESKTOP]: Failed to save settings: Invalid payload`);
       settingsService.saveAppSettings(payload);
       return Promise.resolve();
     case PlatformActions.LoadAppSettings:
