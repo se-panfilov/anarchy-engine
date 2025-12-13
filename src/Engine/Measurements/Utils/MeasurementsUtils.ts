@@ -1,17 +1,17 @@
 import type { Vector } from '@dimforge/rapier3d/math';
 import { Vector3 } from 'three';
 
-import type { TDegrees, TRadians } from '@/Engine/Math/Types';
+import type { TDegrees, TMeters, TMilliseconds, TRadians, TSeconds } from '@/Engine/Math/Types';
 import { HOUR, METER, MINUTE, SECOND } from '@/Engine/Measurements/Constants';
 
-// TODO MATH: need precision calculations??? (or not? how performant they are?)
-export const meters = (meters: number): number => meters * METER;
-export const centimetersToMeters = (cm: number): number => cm / 100;
-export const kilometersToMeters = (km: number): number => km * 1000 * METER;
+// TODO CONFIG: values of meters/hours, etc should be configurable
+export const meters = (meters: number): TMeters => (meters * METER) as TMeters;
+export const centimetersToMeters = (cm: number): TMeters => ((cm / 100) * METER) as TMeters;
+export const kilometersToMeters = (km: number): TMeters => (km * 1000 * METER) as TMeters;
 
-export const secondsToMS = (seconds: number): number => seconds * SECOND;
-export const minutesToMS = (minutes: number): number => minutes * MINUTE;
-export const hoursToMS = (hours: number): number => hours * HOUR;
+export const secondsToMS = (seconds: number | TSeconds): TMilliseconds => (seconds * SECOND) as TMilliseconds;
+export const minutesToMS = (minutes: number): TMilliseconds => (minutes * MINUTE) as TMilliseconds;
+export const hoursToMS = (hours: number): TMilliseconds => (hours * HOUR) as TMilliseconds;
 
 export const coordsXYZToMeters = ({ x, y, z }: Vector3 | Vector): Vector3 => new Vector3(meters(x), meters(y), meters(z));
 
