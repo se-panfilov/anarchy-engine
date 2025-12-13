@@ -47,6 +47,8 @@ export default [
       DPO_EMAIL: 'TBD until market release',
       EU_REPRESENTATIVE_CONTACT: 'TBD until market release',
       CHINA_REPRESENTATIVE_CONTACT: 'TBD until market release',
+      HAS_ACCESSIBILITY_CONTACT: false,
+      ACCESSIBILITY_CONTACT: 'TBD until market release',
 
       // EULA (commercial)
 
