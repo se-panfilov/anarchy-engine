@@ -65,6 +65,7 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true
   },
+  dedupe: ['three', 'three-mesh-bvh', 'lodash', '@rwh/keystrokes', 'lodash-es', 'rxjs', 'nanoid', 'rbush', 'ts-key-enum', 'typescript-fsm', 'ajv', 'date-fns', '@dimforge/rapier3d'],
   test: {
     globals: true,
     environment: 'jsdom', // TODO try "node", could be faster.
