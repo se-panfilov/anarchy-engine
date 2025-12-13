@@ -91,9 +91,9 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
   function removeFromGrid(actorW: TActorWrapperAsync): void | never {
     const cell: TSpatialCell | undefined = actorW.spatial.getSpatialCell();
-    if (isNotDefined(cell)) throw new Error(`Cannot remove actor (id: "${actorW.id}") from spatial grid, such actor is not in the grid`);
+    if (isNotDefined(cell)) throw new Error(`Cannot remove actor (id: "${actorW.id}", name: "${actorW.name}") from spatial grid, such actor is not in the grid`);
     const index: number = cell.objects.indexOf(actorW);
-    if (index === -1) throw new Error(`Cannot remove actor (id: "${actorW.id}") from spatial grid, such actor is not in the grid`);
+    if (index === -1) throw new Error(`Cannot remove actor (id: "${actorW.id}", name: "${actorW.name}") from spatial grid, such actor is not in the grid`);
 
     // eslint-disable-next-line functional/immutable-data
     cell.objects.splice(index, 1);
