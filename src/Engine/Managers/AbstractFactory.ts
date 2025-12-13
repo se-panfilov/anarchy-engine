@@ -20,5 +20,13 @@ export function AbstractFactory<T extends Entity<unknown>, R extends Record<stri
     destroyed$.complete();
   }
 
-  return { id, create, latest$, add$, destroy, destroyed$ };
+  return {
+    get id() {
+      return id;
+    },
+    latest$,
+    add$,
+    destroy,
+    destroyed$
+  };
 }

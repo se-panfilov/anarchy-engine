@@ -21,23 +21,24 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   const scene: SceneWrapper = sceneManager.create(name);
   ////////////////////////////////////
 
+  const actorFactory = ActorFactory();
+  const cameraFactory = CameraFactory();
+  const lightFactory = LightFactory();
+
   // create actors/////////////////////
-  ActorFactory().latest$.subscribe(scene.addActor);
-  CameraFactory().latest$.subscribe(scene.addCamera);
-  LightFactory().latest$.subscribe(scene.addLight);
+  actorFactory.latest$.subscribe(scene.addActor);
+  cameraFactory.latest$.subscribe(scene.addCamera);
+  lightFactory.latest$.subscribe(scene.addLight);
 
   const rendererManager = new RendererManager();
 
-  // add actors to scene/////////////////////
-  actorManager.list$.subscribe((actor) => {
-    console.log(actor);
-    // scene.addActor()
-  });
   ////////////////////////////////////
 
   actors.forEach((config: ActorConfig) => {
     const params: ActorParams = actorAdapter(config);
-    const actor: ActorWrapper = actorManager.create(params);
+    actorFactory.add$.next(params);
+    // TODO (S.Panfilov) CWP we should set actor's position adn etc in a single place, avoid multiple subscriptions if possible
+    // const actor: ActorWrapper = actorManager.create(params);
     actor.setPosition(config.position.x, config.position.y, config.position.z);
     actor.setCastShadow(config.castShadow);
   });
