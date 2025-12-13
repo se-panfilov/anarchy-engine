@@ -41,8 +41,7 @@
           "heightSegments": 1
         },
         "castShadow": false,
-        "receiveShadow": true,
-        "rotation": { "x": -1.57, "y": 0, "z": 0 }
+        "receiveShadow": true
       },
       {
         "name": "sphere_model",

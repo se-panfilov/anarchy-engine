@@ -41,11 +41,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     let azimuth: number = 0;
     let forcePower: number = 0;
 
-    const ballActorW: TActorWrapper | undefined = actorAsyncRegistry.findByName('ball');
+    const ballActorW: TActorWrapper | undefined = actorAsyncRegistry.findByName('sphere_actor');
     if (isNotDefined(ballActorW)) throw new Error(`Cannot find "ball" actor`);
     if (!isActorHasPhysicsBody(ballActorW)) throw new Error(`"ball" actor is not a physic actor`);
 
-    const surfaceActorW: TActorWrapper | undefined = actorAsyncRegistry.findByName('surface');
+    const surfaceActorW: TActorWrapper | undefined = actorAsyncRegistry.findByName('surface_actor');
     if (isNotDefined(surfaceActorW)) throw new Error(`Cannot find "surfaceActor" actor`);
     if (!isActorHasPhysicsBody(surfaceActorW)) throw new Error(`"surfaceActor" actor is not a physic actor`);
 
