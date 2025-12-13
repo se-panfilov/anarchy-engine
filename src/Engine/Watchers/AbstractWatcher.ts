@@ -16,11 +16,13 @@ export abstract class AbstractWatcher implements Watcher {
   public abstract start(): void;
   public abstract stop(): void;
 
-  public destroy() {
+  public destroy(): void {
     this.destroyed$.next();
     this.destroyed$.unsubscribe();
     this.destroyed$.complete();
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,functional/immutable-data
     this.id = undefined as any;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,functional/immutable-data
     this.destroyed$ = undefined as any;
   }
 }

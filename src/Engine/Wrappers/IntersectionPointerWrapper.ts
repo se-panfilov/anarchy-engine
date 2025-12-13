@@ -1,11 +1,11 @@
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Raycaster, Vector3 } from 'three';
-import { getNormalizedMousePosition } from "../Utils/lib/Mouse'";
 import type { MousePosition } from '../Models/MousePosition';
 import { Object3D } from 'three/src/core/Object3D';
 import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
 import type { CameraWrapper } from '@Engine/Wrappers/CameraWrapper';
 import type { MousePointerWrapper } from '@Engine/Wrappers/MousePointerWrapper';
+import { getNormalizedMousePosition } from '@Engine/Utils/lib/Mouse';
 
 export class IntersectionPointerWrapper extends AbstractWrapper<WrappedIntersectionPointer> {
   public position$: BehaviorSubject<Vector3>;
@@ -35,6 +35,7 @@ export class IntersectionPointerWrapper extends AbstractWrapper<WrappedIntersect
       mousePointer.position$.unsubscribe();
       this.position$.complete();
       this.click$.complete();
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,functional/immutable-data
       this.raycaster = undefined as any;
     });
   }

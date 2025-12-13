@@ -1,4 +1,4 @@
-export function isWebGLAvailable() {
+export function isWebGLAvailable(): boolean {
   try {
     const canvas = document.createElement('canvas');
     return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
@@ -7,7 +7,7 @@ export function isWebGLAvailable() {
   }
 }
 
-export function isWebGL2Available() {
+export function isWebGL2Available(): boolean {
   try {
     const canvas = document.createElement('canvas');
     return !!(window.WebGL2RenderingContext && canvas.getContext('webgl2'));

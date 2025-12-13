@@ -7,8 +7,8 @@ export class MousePointerWrapper extends AbstractWrapper<any> {
   public position$ = new BehaviorSubject<MousePosition>({ x: 0, y: 0 });
   public click$ = new Subject<{ readonly position: MousePosition; readonly event: MouseEvent }>();
 
-  private onMouseMoveListener = ({ clientX: x, clientY: y }: MouseEvent) => this.position$.next({ x, y });
-  private onMouseUpListener = (event: MouseEvent) => this.click$.next({ position: this.position$.value, event });
+  private onMouseMoveListener = ({ clientX: x, clientY: y }: MouseEvent): void => this.position$.next({ x, y });
+  private onMouseUpListener = (event: MouseEvent): void => this.click$.next({ position: this.position$.value, event });
   // public addIntersectionPointer = (camera: CameraWrapper, obj: ReadonlyArray<Object3D>) =>
   //   new IntersectionPointerWrapper(
   //     {

@@ -18,6 +18,7 @@ export class DeviceWatcher extends AbstractWatcher {
     this.destroyed$.subscribe(() => {
       this.stop();
       this.size$.complete();
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,functional/immutable-data
       this.size$ = undefined as any;
     });
   }
