@@ -49,10 +49,10 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     sceneW.addModel3d(planeModel3dF);
 
-    const repeaterOffset: number = 4;
+    const repeaterOffset: number = -4;
     const actorCoords = new Vector3(0, 2, 0);
-    const sphereActor: TActor = createActor('sphere', grid, actorCoords, space.services);
-    const repeaterActor: TActor = createActor('repeater', grid, actorCoords.clone().add({ x: 0, y: repeaterOffset, z: 0 }), space.services);
+    const sphereActor: TActor = createActor('sphere', grid, actorCoords, '#E91E63', space.services);
+    const repeaterActor: TActor = createActor('repeater', grid, actorCoords.clone().add({ x: 0, y: repeaterOffset, z: 0 }), '#1ebae9', space.services);
 
     sphereActor.drive.position$.subscribe((position: Vector3): void => {
       // eslint-disable-next-line functional/immutable-data
@@ -85,8 +85,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   return { start, space };
 }
 
-function createActor(name: string, grid: TSpatialGridWrapper, position: Vector3, { actorService, materialService, models3dService }: TSpaceServices): TActor {
-  const material: TMaterialWrapper = materialService.create({ name: `${name}_material`, type: MaterialType.Standard, options: { color: '#E91E63' } });
+function createActor(name: string, grid: TSpatialGridWrapper, position: Vector3, color: string, { actorService, materialService, models3dService }: TSpaceServices): TActor {
+  const material: TMaterialWrapper = materialService.create({ name: `${name}_material`, type: MaterialType.Standard, options: { color } });
 
   const model: TModel3d = models3dService.create({
     name: `${name}_model`,
