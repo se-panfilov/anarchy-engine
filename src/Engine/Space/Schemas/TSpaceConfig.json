@@ -259,7 +259,7 @@
           "type": "boolean"
         }
       },
-      "required": ["castShadow", "position", "receiveShadow", "spatial"]
+      "required": ["position", "spatial"]
     },
     "TCollisionsDataConfig": {
       "type": "object",
