@@ -3,6 +3,7 @@ export * from './IControlsFactory';
 export * from './IControlsFactoryParams';
 export * from './IControlsRegistry';
 export * from './IControlsType';
+export * from './IOrbitControlsAccessors';
 export * from './IOrbitControlsConfig';
 export * from './IOrbitControlsParams';
 export * from './IOrbitControlsProps';
