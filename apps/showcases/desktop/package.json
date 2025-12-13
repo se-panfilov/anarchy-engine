@@ -49,10 +49,6 @@
       }
     ],
     "copyright": "Copyright © 2025 ADD YOUR NAME",
-    "author": {
-      "name": "ADD YOUR NAME",
-      "email": "ADD@YOUR.EMAIL"
-    },
     "directories": {
       "output": "dist",
       "buildResources": "assets"
@@ -82,10 +78,12 @@
         "zip"
       ],
       "icon": "assets/icon.ico",
-      "signingHashAlgorithms": [
-        "sha256"
-      ],
-      "rfc3161TimeStampServer": "http://timestamp.sectigo.com",
+      "signtoolOptions": {
+        "signingHashAlgorithms": [
+          "sha256"
+        ],
+        "timeStampServer": "http://timestamp.sectigo.com"
+      },
       "artifactName": "${productName}-${version}-${arch}.${ext}"
     },
     "linux": {
