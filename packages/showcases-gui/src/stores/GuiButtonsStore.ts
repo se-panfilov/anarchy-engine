@@ -1,29 +1,21 @@
-import type { KeyCode, MouseButtonValue } from '@Anarchy/Engine';
+import { KeyCode, KeysExtra, MouseButtonValue } from '@Anarchy/Engine';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import { GuiBottomButtons } from '@Showcases/GUI/constants';
 import type { TGuiButtonState, TGuiButtonStoreState } from '@Showcases/GUI/models';
-import { vueTranslationService } from '@Showcases/i18n';
+import { Backpack, Map as MapIcon, Settings as SettingsIcon, Shield, Sword } from 'lucide-vue-next';
 import { nanoid } from 'nanoid';
 import { defineStore } from 'pinia';
-import type { ShallowRef } from 'vue';
 import { computed, reactive } from 'vue';
 
 export const useGuiButtonStore = defineStore('guiButtonsStore', () => {
   const { Attack, Map, Defense, Settings, Inventory } = GuiBottomButtons;
 
-  const attackTitle: ShallowRef<string> = vueTranslationService.$t('gui.bottom.button.attack.title');
-
   const state: TGuiButtonStoreState = reactive({
-    [Attack]: { id: nanoid(), isVisible: true, isActive: true, title: attackTitle.value, key: undefined },
-    [Defense]: { id: nanoid(), isVisible: true, isActive: true, title: vueTranslationService.$t('gui.bottom.button.defense.title').value, key: undefined },
-    [Inventory]: { id: nanoid(), isVisible: true, isActive: true, title: vueTranslationService.$t('gui.bottom.button.attack.title').value, key: undefined },
-    [Map]: { id: nanoid(), isVisible: true, isActive: true, title: vueTranslationService.$t('gui.bottom.button.attack.title').value, key: undefined },
-    [Settings]: { id: nanoid(), isVisible: true, isActive: true, title: vueTranslationService.$t('gui.bottom.button.attack.title').value, key: undefined }
-  });
-
-  vueTranslationService.locale$.subscribe((locale) => {
-    console.log('XXX changed', attackTitle.value);
-    console.log('XXX 222', vueTranslationService.translate('gui.bottom.button.attack.title'));
+    [Attack]: { id: nanoid(), isVisible: true, isActive: false, i18n: 'gui.bottom.button.attack.title', key: MouseButtonValue.Left, icon: Sword },
+    [Defense]: { id: nanoid(), isVisible: true, isActive: false, i18n: 'gui.bottom.button.defense.title', key: MouseButtonValue.Right, icon: Shield },
+    [Inventory]: { id: nanoid(), isVisible: true, isActive: false, i18n: 'gui.bottom.button.inventory.title', key: KeyCode.I, icon: Backpack },
+    [Map]: { id: nanoid(), isVisible: true, isActive: false, i18n: 'gui.bottom.button.map.title', key: KeyCode.M, icon: MapIcon },
+    [Settings]: { id: nanoid(), isVisible: true, isActive: false, i18n: 'gui.bottom.button.settings.title', key: KeysExtra.Escape, icon: SettingsIcon }
   });
 
   function setActiveButton(buttonName: GuiBottomButtons, isActive: boolean): void | never {
@@ -31,14 +23,14 @@ export const useGuiButtonStore = defineStore('guiButtonsStore', () => {
     state[buttonName].isActive = isActive;
   }
 
-  function setActiveButtonByKey(key: KeyCode | MouseButtonValue, isActive: boolean): void | never {
+  function setActiveButtonByKey(key: KeyCode | KeysExtra | MouseButtonValue, isActive: boolean): void | never {
     const buttonEntry = Object.entries(state).find(([, buttonState]) => buttonState.key === key);
     if (isNotDefined(buttonEntry)) throw new Error(`[GuiButtonsStore]: Can't set active button: button for key "${key}" is not found`);
     const [buttonName] = buttonEntry;
     setActiveButton(buttonName as GuiBottomButtons, isActive);
   }
 
-  function bindButtonKey(buttonName: GuiBottomButtons, key: KeyCode | MouseButtonValue): void | never {
+  function bindButtonKey(buttonName: GuiBottomButtons, key: KeyCode | KeysExtra | MouseButtonValue): void | never {
     if (isNotDefined(state[buttonName])) throw new Error(`Invalid GUI button: "${buttonName}"`);
     state[buttonName].key = key;
   }
