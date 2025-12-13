@@ -43,7 +43,7 @@ export function spaceToConfig(
     models3d: models3dService.serializeAllEntities(),
     particles: particlesService.serializeAllEntities(),
     physics: {
-      global: physicsWorldService.serializeWorld(),
+      world: physicsWorldService.serializeWorld(),
       bodies: physicsBodyService.serializeAllEntities()
     },
     renderers: rendererService.serializeAllEntities(),

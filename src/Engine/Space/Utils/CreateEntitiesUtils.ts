@@ -67,8 +67,8 @@ export async function createEntitiesFromConfigs(entities: TSpaceConfigEntities, 
   models3dService.createFromConfig(models3d);
   audioService.createFromConfig(audio);
 
-  if (isDefined(physics.global)) {
-    physicsWorldService.createWorld(physics.global);
+  if (isDefined(physics.world)) {
+    physicsWorldService.createWorld(physics.world);
     if (isDefined(physics.bodies)) physicsBodyService.createFromConfig(physics.bodies);
   }
 
@@ -125,8 +125,8 @@ export async function createEntitiesFromParams(entities: TSpaceParamsEntities, s
   if (isDefined(models3d)) models3dService.createFromList(models3d);
   if (isDefined(audio)) audioService.createFromList(audio);
 
-  if (isDefined(physics?.global)) {
-    physicsWorldService.createWorld(physics.global);
+  if (isDefined(physics?.world)) {
+    physicsWorldService.createWorld(physics.world);
     if (isDefined(physics.bodies)) physicsBodyService.createFromList(physics.bodies);
   }
 
