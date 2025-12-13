@@ -1,27 +1,25 @@
 import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatcher';
+import type { IGlobalContainerDecorator } from '@Engine/Global';
 import type { IScreenSizeWatcher } from '@Engine/Watchers/ScreenSizeWatcher/Models/IScreenSizeWatcher';
 import type { IScreenParams } from '@Engine/Models';
 import { Subject } from 'rxjs';
 
-export function ScreenSizeWatcher(): IScreenSizeWatcher {
+export function ScreenSizeWatcher(container: IGlobalContainerDecorator): IScreenSizeWatcher {
   const value$: Subject<IScreenParams> = new Subject<IScreenParams>();
 
-  // TODO (S.Panfilov) window should be global?
   const onResize = (): void =>
     value$.next({
-      width: window.innerWidth,
-      height: window.innerHeight,
-      ratio: window.devicePixelRatio || 1
+      width: container.width,
+      height: container.height,
+      ratio: container.ratio
     });
 
-  // TODO (S.Panfilov) window should be global?
   const start = (): void => {
-    setTimeout(() => onResize());
-    window.addEventListener('resize', onResize);
+    onResize();
+    container.startWatch('resize', onResize);
   };
 
-  // TODO (S.Panfilov) window should be global?
-  const stop = (): void => window.removeEventListener('resize', onResize);
+  const stop = (): void => container.stopWatch('resize', onResize);
 
   return {
     ...AbstractWatcher('device', start, stop),
