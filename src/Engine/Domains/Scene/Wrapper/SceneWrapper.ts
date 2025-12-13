@@ -8,11 +8,11 @@ import type { IDataTexture } from '@/Engine/Domains/EnvMap';
 import type { ILightWrapper } from '@/Engine/Domains/Light';
 import type { ISceneObject, ISceneParams, ISceneWrapper } from '@/Engine/Domains/Scene/Models';
 import type { ITextAnyWrapper } from '@/Engine/Domains/Text';
-import type { ITexture } from '@/Engine/Domains/Texture';
+import type { ICubeTexture, ITexture } from '@/Engine/Domains/Texture';
 import { withObject3d } from '@/Engine/Mixins';
 import type { IWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined, isString } from '@/Engine/Utils';
-import type { IColor, ICubeTexture } from '@/Engine/Wrappers';
+import type { IColor } from '@/Engine/Wrappers';
 import { ColorWrapper } from '@/Engine/Wrappers';
 
 export function SceneWrapper(params: ISceneParams): ISceneWrapper {

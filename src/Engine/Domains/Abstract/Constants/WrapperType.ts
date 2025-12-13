@@ -3,7 +3,6 @@ export enum WrapperType {
   Camera = 'camera_wrapper',
   Controls = 'controls_wrapper',
   Color = 'color_wrapper',
-  CubeTexture = 'cube_texture_wrapper',
   Input = 'input_wrapper',
   Light = 'light_wrapper',
   Renderer = 'renderer_wrapper',

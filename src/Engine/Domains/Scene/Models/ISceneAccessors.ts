@@ -3,8 +3,8 @@ import type { ICameraWrapper } from '@/Engine/Domains/Camera';
 import type { IDataTexture } from '@/Engine/Domains/EnvMap';
 import type { ILightWrapper } from '@/Engine/Domains/Light';
 import type { ITextAnyWrapper } from '@/Engine/Domains/Text';
-import type { ITexture } from '@/Engine/Domains/Texture';
-import type { IColor, ICubeTexture } from '@/Engine/Wrappers';
+import type { ICubeTexture, ITexture } from '@/Engine/Domains/Texture';
+import type { IColor } from '@/Engine/Wrappers';
 
 import type { ISceneObject } from './ISceneObject';
 
