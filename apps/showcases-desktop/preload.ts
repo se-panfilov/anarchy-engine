@@ -16,7 +16,7 @@ const mapping: TShowcasesDesktopApi = {
   loadAppSettings: (): Promise<TShowcaseGameSettings> => ipcRenderer.invoke(platformApiChannel, LoadAppSettings),
   loadLegalDocs: (options: TLoadDocPayload): Promise<TLegalDoc> => ipcRenderer.invoke(platformApiChannel, LoadLegalDocs, options),
   node: (): string => process.versions.node,
-  restartApp: (): void => ipcRenderer.send(platformApiChannel, 'restartApp'),
+  restartApp: (args?: ReadonlyArray<string>): void => ipcRenderer.send(platformApiChannel, 'restartApp', args),
   saveAppSettings: (settings: TShowcaseGameSettings): Promise<void> => ipcRenderer.invoke(platformApiChannel, SaveAppSettings, settings)
 };
 
