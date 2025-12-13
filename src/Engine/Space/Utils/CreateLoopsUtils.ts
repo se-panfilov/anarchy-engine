@@ -36,7 +36,6 @@ export function createLoops({ create }: TLoopService): TSpaceLoops {
     keyboardLoop: create({ name: KeyboardMain, type: Keyboard, trigger: milliseconds(16) }) as TKeyboardLoop,
     mouseLoop: create({ name: MouseMain, type: Mouse, trigger: milliseconds(16) }) as TMouseLoop,
     intersectionsLoop: create({ name: IntersectionsMain, type: Intersections, trigger: milliseconds(16) }) as TIntersectionsLoop,
-    // TODO 10.0.0. LOOPS: do we use collisions loop?
     controlsLoop: create({ name: ControlsMain, type: Controls, trigger: milliseconds(16) }) as TControlsLoop
   };
 }
