@@ -1,5 +1,6 @@
 export type * from './TParamsFromConfigSpatial';
 export type * from './TSpatialCell';
+export type * from './TSpatialCellId';
 export type * from './TSpatialCellParams';
 export type * from './TSpatialCellSerializedData';
 export type * from './TSpatialCellWrapper';

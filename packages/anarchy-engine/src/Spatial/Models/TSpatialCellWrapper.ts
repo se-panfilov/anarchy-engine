@@ -1,8 +1,9 @@
 import type { TWrapper } from '@Anarchy/Engine/Abstract';
 import type { TActor } from '@Anarchy/Engine/Actor';
 import type { TWithName } from '@Anarchy/Engine/Mixins';
-import type { TSpatialCell } from '@Anarchy/Engine/Spatial';
 import type { Observable } from 'rxjs';
+
+import type { TSpatialCell } from './TSpatialCell';
 
 export type TSpatialCellWrapper = Omit<TWrapper<TSpatialCell>, 'name'> &
   Readonly<{

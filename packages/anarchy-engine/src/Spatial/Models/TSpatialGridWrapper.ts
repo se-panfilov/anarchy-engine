@@ -2,11 +2,13 @@ import type { TWrapper } from '@Anarchy/Engine/Abstract';
 import type { TActor } from '@Anarchy/Engine/Actor';
 import type { TDestroyable } from '@Anarchy/Engine/Mixins';
 import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
-import type { TSpatialCellId, TSpatialCellWrapper, TSpatialGridParams } from '@Anarchy/Engine/Spatial';
 import type { Observable } from 'rxjs';
 import type { ColorRepresentation } from 'three';
 
+import type { TSpatialCellId } from './TSpatialCellId';
+import type { TSpatialCellWrapper } from './TSpatialCellWrapper';
 import type { TSpatialGrid } from './TSpatialGrid';
+import type { TSpatialGridParams } from './TSpatialGridParams';
 
 export type TSpatialGridWrapper = TWrapper<TSpatialGrid> &
   TDestroyable &
