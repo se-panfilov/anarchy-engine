@@ -25,7 +25,7 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
     autoUpdate$.unsubscribe();
     value$.complete();
     value$.unsubscribe();
-    collisionsLoopSub$.unsubscribe();
+    collisionsLoopSub$?.unsubscribe();
   });
 
   function getActorsToCheck(actor: TActor): ReadonlyArray<TActor> {

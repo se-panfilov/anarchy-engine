@@ -16,6 +16,7 @@ import { withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
+import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isEqualOrSimilarByXyzCoords } from '@/Engine/Utils';
 
 export function Actor(params: TActorParams, { spatialGridService, physicsBodyService, loopService, collisionsService, models3dService, model3dToActorConnectionRegistry }: TActorDependencies): TActor {
@@ -54,14 +55,25 @@ export function Actor(params: TActorParams, { spatialGridService, physicsBodySer
     //Finish subscriptions
     positionChangeSub$?.unsubscribe();
 
-    // Destroy related entities
-    driveToTargetConnector.destroy$.next();
+    //Destroy related entities
     model3d.destroy$.next();
     entities.spatial.destroy$.next();
     entities.collisions?.destroy$.next();
 
-    //stop Fsm's
+    //Destroy spatial
+    actor.spatial.destroy$.next();
+
+    //Destroy collisions
+    actor.collisions.destroy$.next();
+
+    //Destroy transform drive
+    actor.drive.destroy$.next();
+    driveToTargetConnector.destroy$.next();
+
+    //Destroy Fsm's
     Object.values(entities.states).forEach((value: TFsmWrapper): void => value.destroy$.next());
+    // eslint-disable-next-line functional/immutable-data
+    (actor as TWriteable<TActor>).states = {};
   });
 
   applySpatialGrid(params, actor, spatialGridService);
