@@ -1,15 +1,15 @@
-# Security Policy — [GAME NAME]
+# Security Policy — {{PACKAGE_NAME}}
 
-**Effective date:** [YYYY-MM-DD]
-**Contact:** security@[YOUR-DOMAIN] (PGP below)
+**Effective date:** {{EFFECTIVE_DATE}}
+**Contact:** {{SECURITY_EMAIL}}
 
 ## Scope
 
-This policy applies to commercial builds of **[GAME NAME]** distributed via **[STEAM / …]**. It describes how to contact us about potential security issues. **It does not create service levels, warranties, or contractual obligations.**
+This policy applies to commercial builds of **{{PACKAGE_NAME}}** distributed via **{{DISTRIBUTION_PLATFORMS}}**. It describes how to contact us about potential security issues. **It does not create service levels, warranties, or contractual obligations.**
 
 ## Reporting a Vulnerability
 
-Email **security@[YOUR-DOMAIN]**. Please include the affected version/platform, minimal reproduction, impact, and (if available) a small PoC.
+Email **{{SECURITY_EMAIL}}**. Please include the affected version/platform, minimal reproduction, impact, and (if available) a small PoC.
 **Encryption is not required.** If you prefer encrypted exchange or need to share large files, contact us.
 
 ## Handling
@@ -22,7 +22,7 @@ Where required by law, we will **notify competent authorities and/or users withi
 
 ## Updates & Delivery
 
-Security updates are delivered through **[STORE AUTO-UPDATES]**. Release notes and advisories (when applicable) are posted at **[URL]**.
+Security updates are delivered through **{{STORE_AUTO_UPDATES}}**. Release notes and advisories (when applicable) are posted at **{{RELEASE_NOTES_URL}}**.
 
 ## In/Out of Scope
 
