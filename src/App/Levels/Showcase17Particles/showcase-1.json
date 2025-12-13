@@ -1,0 +1,83 @@
+{
+  "name": "showcase",
+  "version": "1.0.0",
+  "scenes": [
+    {
+      "name": "showcase",
+      "tags": [],
+      "isActive": true
+    }
+  ],
+  "actors": [
+    {
+      "width": 60,
+      "height": 40,
+      "widthSegments": 10,
+      "heightSegments": 10,
+      "material": { "type": "standard", "params": { "color": "#5EDCAE" } },
+      "type": "plane",
+      "position": { "x": 0, "y": 2, "z": 0 },
+      "rotation": { "x": -1.57, "y": 0, "z": 0 },
+      "castShadow": false,
+      "tags": []
+    },
+    {
+      "type": "sphere",
+      "width": 32,
+      "height": 32,
+      "material": { "type": "standard", "params": { "color": "#E91E63" } },
+      "position": { "x": 0, "y": 2, "z": 0 },
+      "castShadow": true,
+      "tags": ["intersectable"]
+    }
+  ],
+  "intersections": [],
+  "texts": [],
+  "cameras": [
+    {
+      "fov": 45,
+      "name": "main",
+      "near": 1,
+      "far": 10000,
+      "position": { "x": 3, "y": 20, "z": 35 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "tags": [],
+      "isActive": true
+    }
+  ],
+  "lights": [
+    {
+      "type": "Ambient",
+      "color": "#ffffff",
+      "intensity": 0.5,
+      "castShadow": false,
+      "position": { "x": 0.25, "y": 2, "z": 2.25 },
+      "tags": []
+    },
+    {
+      "type": "Directional",
+      "color": "#ffffff",
+      "intensity": 1,
+      "castShadow": true,
+      "shadow": {
+        "mapSize": { "x": 1024, "y": 1024 },
+        "camera": { "far": 15 },
+        "normalBias": 0.05
+      },
+      "position": { "x": 0.25, "y": 2, "z": 2.25 },
+      "tags": []
+    }
+  ],
+  "controls": [
+    {
+      "type": "OrbitControls",
+      "cameraName": "main",
+      "enableDamping": true,
+      "tags": [],
+      "isActive": true
+    }
+  ],
+  "envMaps": [],
+  "fogs": [],
+  "tags": []
+}
