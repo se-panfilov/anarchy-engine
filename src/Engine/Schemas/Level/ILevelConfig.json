@@ -986,7 +986,7 @@
         "color": {
           "type": "string"
         },
-        "font": {
+        "fontFamily": {
           "type": "string"
         },
         "maxWidth": {

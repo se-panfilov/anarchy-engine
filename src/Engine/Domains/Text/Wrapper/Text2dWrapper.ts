@@ -28,7 +28,9 @@ export function Text2dWrapper(params: ITextParams): ITextWrapper {
 
   element.setAttribute('data-ref', result.id.toString());
 
-  // TODO (S.Panfilov) we should remove such elements on destroy/dispose
+  // TODO (S.Panfilov) we are removing element, but do not dispose entity (but we should)
+  result.destroyed$.subscribe(() => document.body.removeChild(element));
+
   document.body.appendChild(element);
 
   applyElement2dParams(result, params);
