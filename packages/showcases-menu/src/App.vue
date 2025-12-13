@@ -4,6 +4,11 @@ import './assets/style.scss';
 import RouterView from '@Menu/components/RouterView.vue';
 import { eventsService } from '@Menu/services';
 import { useSettingsStore } from '@Menu/stores/SettingsStore';
+import { onMounted } from 'vue';
+
+// useSettingsStore().setState(settings);
+
+onMounted(() => eventsService.emitLoadMenuSettings());
 
 function save(): void {
   eventsService.emitSaveMenuSettings(useSettingsStore().state);
