@@ -4,4 +4,8 @@ The following audio files are used in this project under the Creative Commons At
 
  - "Persimmon" by Pierce Murphy – https://freemusicarchive.org/music/Pierce_Murphy/fellow-traveler/persimmon/ (Licensed under CC-BY)
 
+ - "sample-vocals" (girl_singing) by iiRTJJF2023Freesound – https://freesound.org/people/iiRTJJF2023Freesound/sounds/720444/ (Licensed under COMMONS)
+
+
 Full CC-BY license: https://creativecommons.org/licenses/by/4.0/
+Full CCO license: https://creativecommons.org/publicdomain/zero/1.0/
