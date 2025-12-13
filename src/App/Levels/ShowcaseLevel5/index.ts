@@ -1,6 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapper, IAnimationParams, IAppCanvas, ILevel, ILevelConfig, ITextWrapper, IWithCoordsXZ } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, createCirclePathXZ, Easing, generateAnglesForCircle, isNotDefined, standardMoverService } from '@/Engine';
+import { ambientContext, buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, isNotDefined, standardMoverService, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-level-5.config.json';
 
@@ -10,7 +10,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
   function start(): void {
     level.start();
-    const { actorRegistry, cameraRegistry, controlsRegistry, textRegistry } = level.entities;
+    const { actorRegistry, cameraRegistry, controlsRegistry, textRegistry, textFactory } = level.entities;
 
     controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
     cameraRegistry.getAll()[0]?.setPosition(6, 30, 0);
@@ -46,9 +46,20 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     standardMoverService.followTarget(blueText, blueActor, { x: 1 });
     standardMoverService.followTarget(greenText, greenActor, { x: 1 });
 
+    const notification: ITextWrapper = textFactory.create({
+      text: 'Click is blocked',
+      fontSize: 1.2,
+      position: Vector3Wrapper({ x: 0, y: 0, z: 1 }),
+      rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
+      visible: false,
+      tags: []
+    });
+
     ambientContext.mouseClickWatcher.value$.subscribe(() => {
       if (isClickBlocked) {
-        console.log('click is blocked');
+        redActor.setVisible(false);
+        notification.setVisible(true);
+        setTimeout(() => notification.setVisible(false), 1000);
         return;
       }
       isClickBlocked = true;
