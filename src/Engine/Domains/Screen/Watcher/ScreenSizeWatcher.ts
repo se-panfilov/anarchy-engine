@@ -1,13 +1,11 @@
 import type { IAbstractWatcherWithState } from '@Engine/Domains/Abstract';
 import { AbstractWatcherWithState } from '@Engine/Domains/Abstract';
-import type { IGlobalContainerDecorator } from '@Engine/Domains/Global';
+import type { IScreenSizeValues, IScreenSizeWatcher, IScreenSizeWatcherParams } from '@Engine/Domains/Screen/Models';
 
-import type { IScreenParams, IScreenSizeWatcher } from '../Models';
-
-export function ScreenSizeWatcher(container: IGlobalContainerDecorator, tags: ReadonlyArray<string> = []): IScreenSizeWatcher {
-  const initialValue: IScreenParams = { width: 0, height: 0, ratio: 0 };
+export function ScreenSizeWatcher({ container, tags = [] }: IScreenSizeWatcherParams): IScreenSizeWatcher {
+  const initialValue: IScreenSizeValues = { width: 0, height: 0, ratio: 0 };
   const containerIdTag: string = `container_id_${container.id}`;
-  const abstractWatcher: IAbstractWatcherWithState<IScreenParams> = AbstractWatcherWithState('screen-size', initialValue, tags);
+  const abstractWatcher: IAbstractWatcherWithState<IScreenSizeValues> = AbstractWatcherWithState('screen-size', initialValue, tags);
 
   const onResize = (): void =>
     abstractWatcher.value$.next({

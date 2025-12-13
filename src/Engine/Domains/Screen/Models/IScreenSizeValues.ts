@@ -1,4 +1,4 @@
-export type IScreenParams = Readonly<{
+export type IScreenSizeValues = Readonly<{
   width: number;
   height: number;
   ratio: number;

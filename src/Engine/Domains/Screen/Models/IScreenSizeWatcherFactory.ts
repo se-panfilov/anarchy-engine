@@ -1,7 +1,8 @@
-import type { IFactory } from '@Engine/Domains/Abstract';
+import type { IReactiveFactory } from '@Engine/Domains/Abstract';
 
-import type { IScreenSizeWatcher } from './IScreenSizeWatcher';
+import type { IDestroyable } from '@/Engine/Domains/Mixins';
+import type { IScreenSizeWatcher } from '@/Engine/Domains/Screen/Models';
+
 import type { IScreenSizeWatcherParams } from './IScreenSizeWatcherParams';
-import type { IScreenSizeWatcherRegistry } from './IScreenSizeWatcherRegistry';
 
-export type IScreenSizeWatcherFactory = IFactory<IScreenSizeWatcher, IScreenSizeWatcherParams> & IScreenSizeWatcherRegistry;
+export type IScreenSizeWatcherFactory = IReactiveFactory<IScreenSizeWatcher, IScreenSizeWatcherParams> & IDestroyable;

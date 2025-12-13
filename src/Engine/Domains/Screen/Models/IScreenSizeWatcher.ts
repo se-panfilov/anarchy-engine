@@ -1,5 +1,5 @@
 import type { IMultitonWatcherWithState } from '@Engine/Domains/Abstract';
 
-import type { IScreenParams } from '../Models';
+import type { IScreenSizeValues } from '../Models';
 
-export type IScreenSizeWatcher = IMultitonWatcherWithState<IScreenParams>;
+export type IScreenSizeWatcher = IMultitonWatcherWithState<IScreenSizeValues>;

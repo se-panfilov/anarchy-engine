@@ -1,6 +1,6 @@
 import type { IWrapper } from '@Engine/Domains/Abstract';
 import { AbstractWrapper } from '@Engine/Domains/Abstract';
-import type { IScreenParams, IScreenSizeWatcher } from '@Engine/Domains/Screen';
+import type { IScreenSizeValues, IScreenSizeWatcher } from '@Engine/Domains/Screen';
 import type { IWriteable } from '@Engine/Utils';
 import { isNotDefined, isWebGL2Available, isWebGLAvailable } from '@Engine/Utils';
 import type { WebGLRendererParameters } from 'three';
@@ -36,7 +36,7 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
   entity.shadowMap.type = PCFShadowMap;
 
   // eslint-disable-next-line functional/prefer-immutable-types
-  function setValues(entity: IWriteable<WebGLRenderer>, { width, height, ratio }: IScreenParams): void {
+  function setValues(entity: IWriteable<WebGLRenderer>, { width, height, ratio }: IScreenSizeValues): void {
     if (isNotDefined(entity)) return;
     entity.setSize(width, height);
     entity.setPixelRatio(Math.min(ratio, 2));
@@ -45,7 +45,7 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
   //init with the values which came before the start of the subscription
   setValues(entity, screenSizeWatcher.latest$.value);
 
-  screenSizeWatcher.value$.subscribe((params: IScreenParams): void => setValues(entity, params));
+  screenSizeWatcher.value$.subscribe((params: IScreenSizeValues): void => setValues(entity, params));
 
   screenSizeWatcher.destroy$.subscribe(() => {
     screenSizeWatcher.value$.unsubscribe();

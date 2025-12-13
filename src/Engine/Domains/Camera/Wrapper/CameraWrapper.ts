@@ -1,5 +1,5 @@
 import { AbstractWrapper } from '@Engine/Domains/Abstract';
-import type { IScreenParams, IScreenSizeWatcher } from '@Engine/Domains/Screen';
+import type { IScreenSizeValues, IScreenSizeWatcher } from '@Engine/Domains/Screen';
 import type { IWriteable } from '@Engine/Utils';
 import { isNotDefined } from '@Engine/Utils';
 import { PerspectiveCamera } from 'three';
@@ -15,7 +15,7 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly
   entity.position.set(position.x, position.y, position.z);
 
   // eslint-disable-next-line functional/prefer-immutable-types
-  function setValues(entity: IWriteable<IPerspectiveCamera>, { width, height }: IScreenParams): void {
+  function setValues(entity: IWriteable<IPerspectiveCamera>, { width, height }: IScreenSizeValues): void {
     if (isNotDefined(entity)) return;
     // eslint-disable-next-line functional/immutable-data
     entity.aspect = width / height;
@@ -25,7 +25,7 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly
   //init with the values which came before the start of the subscription
   setValues(entity, screenSizeWatcher.latest$.value);
 
-  screenSizeWatcher.value$.subscribe((params: IScreenParams): void => setValues(entity, params));
+  screenSizeWatcher.value$.subscribe((params: IScreenSizeValues): void => setValues(entity, params));
 
   screenSizeWatcher.destroy$.subscribe(() => {
     screenSizeWatcher.value$.unsubscribe();
