@@ -66,14 +66,14 @@ function EventsService(): TEventsService {
   function handleToMenuEvents(event: TToMenuEvent): void {
     switch (event.type) {
       case ToMenuEvents.SettingsLoaded: {
-        console.log('[EventsService]: Settings loaded:', event.payload);
+        console.log('[EventsService]: Settings loaded');
         if (!isSettings(event.payload)) throw new Error(`[EventsService]: Failed to apply settings: Invalid payload`);
         // TODO DESKTOP: languages should apply to menu immediately
         useSettingsStore().setState(event.payload);
         break;
       }
       case ToMenuEvents.LegalDocsLoaded: {
-        console.log('[EventsService]: Legal docs loaded:', event.payload);
+        console.log('[EventsService]: Legal docs loaded');
         if (!isLoadDoc(event.payload)) throw new Error(`[EventsService]: Failed to apply legal docs: Invalid payload`);
         useLegalDocsStore().setDoc(event.payload);
         break;

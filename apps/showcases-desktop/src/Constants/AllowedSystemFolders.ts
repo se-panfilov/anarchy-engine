@@ -1,4 +1,4 @@
-export enum AllowedFolders {
+export enum AllowedSystemFolders {
   Home = 'home',
   AppData = 'appData',
   UserData = 'userData',
@@ -15,4 +15,9 @@ export enum AllowedFolders {
   Recent = 'recent',
   Logs = 'logs',
   CrashDumps = 'crashDumps'
+}
+
+export enum AllowedAppFolders {
+  Assets = 'assets',
+  LegalDocs = 'assets/legal'
 }

@@ -1,8 +1,8 @@
-import type { AllowedFolders } from '@Showcases/Desktop/Constants';
+import type { AllowedAppFolders, AllowedSystemFolders } from '@Showcases/Desktop/Constants';
 
 export type TFilesService = {
-  getPathToFile: (dir: AllowedFolders, fileName: string) => string | never;
-  readTextFile: (filePath: string) => Promise<string> | never;
-  readJsonFile: <T>(filePath: string, validator?: (v: unknown) => v is T) => Promise<T> | never;
-  writeFile: (dir: AllowedFolders, fileName: string, content: string) => Promise<boolean> | never;
+  getPathToFile: (fileName: string, dir: AllowedSystemFolders | AllowedAppFolders) => string | never;
+  readFile: (fileName: string, dir: AllowedSystemFolders | AllowedAppFolders) => Promise<string> | never;
+  readFileAsJson: <T>(filePath: string, dir: AllowedSystemFolders | AllowedAppFolders, validator?: (v: unknown) => v is T) => Promise<T> | never;
+  writeFile: (fileName: string, dir: AllowedSystemFolders, content: string) => Promise<boolean> | never;
 };

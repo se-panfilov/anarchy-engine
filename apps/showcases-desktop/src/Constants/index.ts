@@ -1,2 +1,2 @@
-export * from './AllowedFolders';
+export * from './AllowedSystemFolders';
 export * from './PlatformActions';
