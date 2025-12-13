@@ -8,15 +8,15 @@ import type { TSpatialGrid } from './TSpatialGrid';
 
 export type TSpatialGridService = Readonly<{
   createGrid: (mapWidth: number, mapHeight: number, cellSize: number, centerX: number, centerZ: number) => TSpatialGrid;
-  addActorToCell: (x: number, y: number, actorW: TActorWrapperAsync, tree: TSpatialGrid) => void;
-  addToGridBulk: (tree: TSpatialGrid, list: ReadonlyArray<TSpatialCell>) => TSpatialGrid;
-  addActorToGrid: (tree: TSpatialGrid, actorW: TActorWrapperAsync) => void;
-  getAllItems: (tree: TSpatialGrid) => ReadonlyArray<TSpatialCell>;
-  getAllInCell: (tree: TSpatialGrid, x: number, z: number) => ReadonlyArray<TActorWrapperAsync>;
-  getAllInCellByCellId: (tree: TSpatialGrid, cellId: TSpatialCellId) => ReadonlyArray<TActorWrapperAsync>;
+  addActorToCell: (x: number, y: number, actorW: TActorWrapperAsync, grid: TSpatialGrid) => void;
+  addToGridBulk: (grid: TSpatialGrid, list: ReadonlyArray<TSpatialCell>) => TSpatialGrid;
+  addActorToGrid: (grid: TSpatialGrid, actorW: TActorWrapperAsync) => void;
+  getAllItems: (grid: TSpatialGrid) => ReadonlyArray<TSpatialCell>;
+  getAllInCell: (grid: TSpatialGrid, x: number, z: number) => ReadonlyArray<TActorWrapperAsync>;
+  getAllInCellByCellId: (grid: TSpatialGrid, cellId: TSpatialCellId) => ReadonlyArray<TActorWrapperAsync>;
   removeFromGrid: (actorW: TActorWrapperAsync) => void;
-  clearGrid: (tree: TSpatialGrid) => TSpatialGrid;
-  updateActorCell: (tree: TSpatialGrid, actorW: TActorWrapperAsync) => void;
-  _debugVisualizeCells: (tree: TSpatialGrid, sceneW: TSceneWrapper, color?: ColorRepresentation, wireframe?: boolean) => void;
-  _debugHighlightObjects: (tree: TSpatialGrid, sceneW: TSceneWrapper, x: number, z: number) => void;
+  clearGrid: (grid: TSpatialGrid) => TSpatialGrid;
+  updateActorCell: (grid: TSpatialGrid, actorW: TActorWrapperAsync) => void;
+  _debugVisualizeCells: (grid: TSpatialGrid, sceneW: TSceneWrapper, color?: ColorRepresentation, wireframe?: boolean) => void;
+  _debugHighlightObjects: (grid: TSpatialGrid, sceneW: TSceneWrapper, x: number, z: number) => void;
 }>;

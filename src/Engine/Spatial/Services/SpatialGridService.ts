@@ -11,7 +11,7 @@ import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { createOutline } from './SpatialHelper';
 
-// TODO (S.Panfilov) Maybe we need factories and registries for grids. Well, at least to manage trees.
+// TODO (S.Panfilov) Maybe we need factories and registries for grids. Well, at least to manage grids.
 export function SpatialGridService(): TSpatialGridService {
   let _debugOutlines: Array<Line2> = [];
   let _debugOutlinesIds: Array<number> = [];
@@ -20,7 +20,7 @@ export function SpatialGridService(): TSpatialGridService {
     const startX: number = centerX - Math.floor(mapWidth / cellSize / 2) * cellSize;
     const startZ: number = centerZ - Math.floor(mapHeight / cellSize / 2) * cellSize;
 
-    const tree: TSpatialGrid = new RBush();
+    const grid: TSpatialGrid = new RBush();
 
     // eslint-disable-next-line functional/no-loop-statements
     for (let x = 0; x < mapWidth; x += cellSize) {
@@ -35,11 +35,11 @@ export function SpatialGridService(): TSpatialGridService {
           objects: []
         };
 
-        tree.insert(cell);
+        grid.insert(cell);
       }
     }
 
-    return tree;
+    return grid;
   }
 
   // TODO (S.Panfilov) this function could be extracted to some kind of utils
@@ -53,10 +53,10 @@ export function SpatialGridService(): TSpatialGridService {
     return plane;
   }
 
-  const addToGridBulk = (tree: TSpatialGrid, list: ReadonlyArray<TSpatialCell>): TSpatialGrid => tree.load(list);
+  const addToGridBulk = (grid: TSpatialGrid, list: ReadonlyArray<TSpatialCell>): TSpatialGrid => grid.load(list);
 
-  function addActorToCell(x: number, z: number, actorW: TActorWrapperAsync, tree: TSpatialGrid): void {
-    const cells: ReadonlyArray<TSpatialCell> = tree.search({ minX: x, minY: z, maxX: x, maxY: z });
+  function addActorToCell(x: number, z: number, actorW: TActorWrapperAsync, grid: TSpatialGrid): void {
+    const cells: ReadonlyArray<TSpatialCell> = grid.search({ minX: x, minY: z, maxX: x, maxY: z });
     // eslint-disable-next-line functional/no-loop-statements
     for (const cell of cells) {
       if (isNotDefined(cell.objects.find((aw: TActorWrapperAsync): boolean => aw.id === actorW.id))) {
@@ -67,15 +67,15 @@ export function SpatialGridService(): TSpatialGridService {
     }
   }
 
-  function addActorToGrid(tree: TSpatialGrid, actorW: TActorWrapperAsync): void {
+  function addActorToGrid(grid: TSpatialGrid, actorW: TActorWrapperAsync): void {
     const { x, z } = actorW.getPosition().getCoords();
-    addActorToCell(x, z, actorW, tree);
+    addActorToCell(x, z, actorW, grid);
   }
 
-  const getAllItems = (tree: TSpatialGrid): ReadonlyArray<TSpatialCell> => tree.all();
+  const getAllItems = (grid: TSpatialGrid): ReadonlyArray<TSpatialCell> => grid.all();
 
-  function getAllInCell(tree: TSpatialGrid, x: number, z: number): ReadonlyArray<TActorWrapperAsync> {
-    const cells: ReadonlyArray<TSpatialCell> = tree.search({ minX: x, minY: z, maxX: x, maxY: z });
+  function getAllInCell(grid: TSpatialGrid, x: number, z: number): ReadonlyArray<TActorWrapperAsync> {
+    const cells: ReadonlyArray<TSpatialCell> = grid.search({ minX: x, minY: z, maxX: x, maxY: z });
     if (cells.length > 0) return cells[0].objects;
     return [];
   }
@@ -85,10 +85,10 @@ export function SpatialGridService(): TSpatialGridService {
     return { x, z };
   };
 
-  function getAllInCellByCellId(tree: TSpatialGrid, cellId: TSpatialCellId): ReadonlyArray<TActorWrapperAsync> {
-    // const cells: ReadonlyArray<TSpatialCell> = tree.all().filter((cell) => cell.id === cellId);
+  function getAllInCellByCellId(grid: TSpatialGrid, cellId: TSpatialCellId): ReadonlyArray<TActorWrapperAsync> {
+    // const cells: ReadonlyArray<TSpatialCell> = grid.all().filter((cell) => cell.id === cellId);
     const { x, z } = getCoordsFromGridId(cellId);
-    return getAllInCell(tree, x, z);
+    return getAllInCell(grid, x, z);
   }
 
   function removeFromGrid(actorW: TActorWrapperAsync): void | never {
@@ -102,23 +102,23 @@ export function SpatialGridService(): TSpatialGridService {
     actorW.spatial.resetSpatialCell();
   }
 
-  const clearGrid = (tree: TSpatialGrid): TSpatialGrid => tree.clear();
+  const clearGrid = (grid: TSpatialGrid): TSpatialGrid => grid.clear();
 
-  function updateActorCell(tree: TSpatialGrid, actorW: TActorWrapperAsync): void {
+  function updateActorCell(grid: TSpatialGrid, actorW: TActorWrapperAsync): void {
     removeFromGrid(actorW);
-    addActorToGrid(tree, actorW);
+    addActorToGrid(grid, actorW);
   }
 
   //this visualization is for debugging purposes only
-  function _debugVisualizeCells(tree: TSpatialGrid, sceneW: TSceneWrapper, color: ColorRepresentation = '#00ff00', wireframe: boolean = true): void {
-    tree.all().forEach((cell: TSpatialCell): void => {
+  function _debugVisualizeCells(grid: TSpatialGrid, sceneW: TSceneWrapper, color: ColorRepresentation = '#00ff00', wireframe: boolean = true): void {
+    grid.all().forEach((cell: TSpatialCell): void => {
       const box: Mesh = createBoundingBox(cell.minX, cell.minY, cell.maxX, cell.maxY, color, wireframe);
       sceneW.entity.add(box);
     });
   }
 
   //this highlight is for debugging purposes only (only adds outlines to scene, might not remove them afterward!!!)
-  function _debugHighlightObjects(tree: TSpatialGrid, sceneW: TSceneWrapper, x: number, z: number, color: ColorRepresentation = '#0000ff'): void {
+  function _debugHighlightObjects(grid: TSpatialGrid, sceneW: TSceneWrapper, x: number, z: number, color: ColorRepresentation = '#0000ff'): void {
     _debugOutlines.forEach((outline: Line2): void => void sceneW.entity.remove(outline));
     _debugOutlines = [];
     _debugOutlinesIds.forEach((id: number): void => {
@@ -127,7 +127,7 @@ export function SpatialGridService(): TSpatialGridService {
     });
     _debugOutlinesIds = [];
 
-    const actorsWrapperList: ReadonlyArray<TActorWrapperAsync> = getAllInCell(tree, x, z);
+    const actorsWrapperList: ReadonlyArray<TActorWrapperAsync> = getAllInCell(grid, x, z);
 
     actorsWrapperList.forEach((actorW: TActorWrapperAsync): void => {
       const outline: Line2 = createOutline(actorW, color, 0.1);
