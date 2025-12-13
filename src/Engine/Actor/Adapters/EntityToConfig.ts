@@ -1,13 +1,21 @@
 import type { TActor, TActorConfig, TActorConfigToParamsDependencies } from '@/Engine/Actor/Models';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
-import { filterOutEmptyFields } from '@/Engine/Utils';
+import type { TModel3d, TModels3dRegistry } from '@/Engine/Models3d';
+import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: (finish 14-0-0 tasks)
 
 // TODO 15-0-0: validate result
 export function actorToConfig(entity: TActor, { fsmService, models3dService, spatialGridRegistry }: TActorConfigToParamsDependencies): TActorConfig {
   const { drive } = entity;
-  // TODO 15-0-0: implement
+  console.log('XXX entity', entity);
+  console.log('XXX models3dRegistry', models3dService.getRegistry().asObject());
+  console.log('XXX entity.model3d', entity.model3d.id);
+
+  const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
+  const model3d: TModel3d | undefined = models3dRegistry.findById(entity.model3d.id);
+  if (isNotDefined(model3d)) throw new Error(`[Serialization] Actor: model3d not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
+  const model3dSource: string = model3d.name;
 
   return filterOutEmptyFields({
     // driveUpdateDelay //needs a getter (maybe at TransformDrive)
@@ -15,7 +23,7 @@ export function actorToConfig(entity: TActor, { fsmService, models3dService, spa
 
     //   model3dSettings?: TActorModel3dSettings;
 
-    // model3dSource: 'string'
+    model3dSource,
     // physics?: TWithPresetNamePhysicsBodyConfig,
     // kinematic?: TKinematicConfig,
     // spatial: TSpatialDataConfig,
