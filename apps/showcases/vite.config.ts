@@ -8,6 +8,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import wasm from 'vite-plugin-wasm';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
   const root: string = process.cwd();
@@ -35,6 +36,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       //FOR GUI only///////
       vue(),
       vueJsx(),
+      tailwindcss(),
       //END: FOR GUI only///////
 
       wasm(),
