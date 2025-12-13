@@ -35,6 +35,7 @@ export function createActor(
   grid: TSpatialGridWrapper,
   position: Vector3,
   color: string,
+  physics: TWithPresetNamePhysicsBodyParams | undefined,
   { actorService, materialService, models3dService }: TSpaceServices
 ): TActor {
   const material: TMaterialWrapper = materialService.create({ name: `${name}_material`, type: MaterialType.Standard, options: { color } });
@@ -50,14 +51,6 @@ export function createActor(
     rotation: new Euler(0, 0, 0)
   });
 
-  const physics: TWithPresetNamePhysicsBodyParams = {
-    presetName: 'ball_physics',
-    shapeParams: {
-      radius: 0.7
-    },
-    restitution: 0.9
-  };
-
   return actorService.create({
     name: `${name}_actor`,
     model3dSource: model,
@@ -70,7 +63,7 @@ export function createActor(
 }
 
 export function createRepeaterActor(actor: TActor, offset: Vector3Like, grid: TSpatialGridWrapper, gui: GUI, services: TSpaceServices, color: string = '#1ebae9'): Subscription {
-  const repeaterActor: TActor = createActor('repeater', TransformAgent.Connected, grid, actor.drive.getPosition().clone().add(offset), color, services);
+  const repeaterActor: TActor = createActor('repeater', TransformAgent.Connected, grid, actor.drive.getPosition().clone().add(offset), color, undefined, services);
 
   //"repeaterActor" is connected with "positionConnector" (from "connected" agent) to "sphereActor" position
   const subj$: Subscription = attachConnectorToSubj(repeaterActor, actor.drive.position$, offset);

@@ -22,7 +22,8 @@ import type {
   TSpace,
   TSpaceConfig,
   TSpatialGridWrapper,
-  TText3dWrapper
+  TText3dWrapper,
+  TWithPresetNamePhysicsBodyParams
 } from '@/Engine';
 import { Engine, getMouseAzimuthAndElevation, isNotDefined, KeysExtra, spaceService, TransformAgent } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
@@ -119,7 +120,14 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     sceneW.addModel3d(planeModel3dF);
 
     const actorCoords = new Vector3(0, actorsOffsetY, 0);
-    const sphereActor: TActor = createActor('sphere', TransformAgent.Default, grid, actorCoords, '#E91E63', space.services);
+    const sphereActorPhysics: TWithPresetNamePhysicsBodyParams = {
+      presetName: 'ball_physics',
+      shapeParams: {
+        radius: 0.7
+      },
+      restitution: 0.9
+    };
+    const sphereActor: TActor = createActor('sphere', TransformAgent.Default, grid, actorCoords, '#E91E63', sphereActorPhysics, space.services);
     gui.add(mode, 'isTeleportationMode').name('Teleportation mode');
     addActorFolderGui(gui, sphereActor);
 

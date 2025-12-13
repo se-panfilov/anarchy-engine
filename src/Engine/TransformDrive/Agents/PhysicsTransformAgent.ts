@@ -25,6 +25,11 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
 
   const physicsBody$: BehaviorSubject<TPhysicsBody | undefined> = new BehaviorSubject<TPhysicsBody | undefined>(undefined);
 
+  // TODO debug
+  // physicsBody$.subscribe((value: TPhysicsBody | undefined): void => {
+  //   console.log('PhysicsBody:', value);
+  // });
+
   // TODO CWP test all of this and add a showcase
   // TODO 8.0.0. MODELS: PhysicsTransformAgent should do nothing if actor has no "physics" field.
   // TODO 8.0.0. MODELS: Make sure we can work with presets
