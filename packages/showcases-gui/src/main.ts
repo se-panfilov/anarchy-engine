@@ -1,19 +1,24 @@
 import { eventsService } from '@Showcases/GUI/services';
-import { vueTranslationService } from '@Showcases/i18n';
+import { initVueI18n, vueTranslationService } from '@Showcases/i18n';
 import type { TFromGuiEvent, TToGuiEvent } from '@Showcases/Shared';
 import { createPinia } from 'pinia';
 import type { Observable, Subject } from 'rxjs';
 import type { App as VueApp } from 'vue';
 import { createApp } from 'vue';
+import type { I18n } from 'vue-i18n';
 
 import App from './App.vue';
 
+const i18n: I18n = initVueI18n();
+
 export async function initGuiApp(id: string, fromGuiBus$: Subject<TFromGuiEvent>, toGuiBus$: Observable<TToGuiEvent>): Promise<void> {
-  const guiApp: VueApp<Element> = createApp(App);
+  const app: VueApp<Element> = createApp(App);
+  app.use(i18n);
   await vueTranslationService.waitInitialReady();
-  guiApp.use(createPinia());
+  vueTranslationService.connectVueI18n(i18n);
+  app.use(createPinia());
   eventsService.setFromGuiBus(fromGuiBus$);
   eventsService.setToGuiBus(toGuiBus$);
-  guiApp.mount(id);
+  app.mount(id);
   console.log(`[GUI] GUI app initialized at element with ID "${id}"`);
 }

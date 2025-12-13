@@ -2,11 +2,8 @@
 import ActionButton from '@Showcases/GUI/components/ActionButton.vue';
 import ValueBar from '@Showcases/GUI/components/ValueBar.vue';
 import { useGuiButtonStore } from '@Showcases/GUI/stores/GuiButtonsStore';
-import { vueTranslationService } from '@Showcases/i18n';
 import { Heart, Zap } from 'lucide-vue-next';
 import { computed } from 'vue';
-
-const { $t } = vueTranslationService.useTranslations();
 
 const buttons = computed(() => {
   return useGuiButtonStore()
