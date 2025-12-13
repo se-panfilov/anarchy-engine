@@ -6,7 +6,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import type { TAnimationsService } from '@/Engine/Animations';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { model3dConfigToParams } from '@/Engine/Models3d/Adapters';
+import { model3dConfigComplexToParams, model3dConfigPrimitiveToParams } from '@/Engine/Models3d/Adapters';
 import type {
   TModel3dComplexConfig,
   TModel3dComplexFacade,
@@ -64,8 +64,9 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     });
   }
 
-  const loadFromConfigAsync = (config: ReadonlyArray<TModel3dComplexConfig>): ReadonlyArray<Promise<TModel3dComplexFacade>> => loadAsync(config.map(model3dConfigToParams));
-  const createPrimitiveFromConfig = (config: ReadonlyArray<TModel3dPrimitiveConfig>): ReadonlyArray<Promise<TModel3dPrimitiveFacade>> => createPrimitiveAsync(config.map(model3dConfigToParams));
+  const loadFromConfigAsync = (config: ReadonlyArray<TModel3dComplexConfig>): ReadonlyArray<Promise<TModel3dComplexFacade>> => loadAsync(config.map(model3dConfigComplexToParams));
+  const createPrimitiveFromConfig = (config: ReadonlyArray<TModel3dPrimitiveConfig>): ReadonlyArray<Promise<TModel3dPrimitiveFacade>> =>
+    createPrimitiveAsync(config.map(model3dConfigPrimitiveToParams));
 
   function loadAsync(model3dList: ReadonlyArray<TModel3dComplexParams>): ReadonlyArray<Promise<TModel3dComplexFacade>> {
     let promises: ReadonlyArray<Promise<TModel3dComplexFacade>> = [];

@@ -22,3 +22,11 @@ export function model3dConfigToParams(config: TModel3dComplexConfig | TModel3dPr
     ...configToParamsObject3d({ position, rotation, scale })
   };
 }
+
+export function model3dConfigComplexToParams(config: TModel3dComplexConfig): TModel3dComplexParams {
+  return model3dConfigToParams(config) as TModel3dComplexParams;
+}
+
+export function model3dConfigPrimitiveToParams(config: TModel3dPrimitiveConfig): TModel3dPrimitiveParams {
+  return model3dConfigToParams(config) as TModel3dPrimitiveParams;
+}
