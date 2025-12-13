@@ -46,7 +46,7 @@ export function showcase(space: TSpace): void {
 
   mouseService.clickLeftRelease$.pipe(filter((): boolean => isMouseOverMenuCube)).subscribe((): void => openMenu$.next(true));
 
-  openMenu$.pipe().subscribe((): void => openMainMenu());
+  openMenu$.pipe().subscribe(openMainMenu);
 
   space.start$.next(true);
 }
