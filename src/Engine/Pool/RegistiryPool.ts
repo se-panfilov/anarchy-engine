@@ -8,11 +8,11 @@ import type { ILightWrapper } from '@Engine/Domains/Light';
 import { LightRegistry } from '@Engine/Domains/Light';
 import { MouseClicksWatcherRegistry, MousePositionWatcherRegistry } from '@Engine/Domains/Mouse';
 import type { ISceneWrapper } from '@Engine/Domains/Scene';
+import { ScreenSizeWatcherRegistry } from '@Engine/Domains/Screen';
 import { DestroyablePool } from '@Engine/Pool/Mixins/DestroyablePool';
 import { isNotDefined } from '@Engine/Utils';
 
 import type { IDestroyablePool, IRegistries, IRegistryPool } from './Models';
-import { ScreenSizeWatcherRegistry } from '@Engine/Domains/Screen';
 
 export function RegistryPool(): IRegistryPool {
   const abstractPool: IDestroyablePool<IRegistries> = DestroyablePool<IRegistries>({

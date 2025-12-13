@@ -1,4 +1,3 @@
-export * from './ISceneLauncher';
 export * from './IScreenParams';
 export * from './IScreenSizeWatcher';
 export * from './IScreenSizeWatcherFactory';

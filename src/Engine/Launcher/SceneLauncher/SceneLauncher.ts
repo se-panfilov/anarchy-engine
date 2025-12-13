@@ -5,13 +5,15 @@ import { LoopTag } from '@Engine/Domains/Loop';
 import type { IRendererWrapper } from '@Engine/Domains/Renderer';
 import { RendererTag } from '@Engine/Domains/Renderer';
 import type { ISceneConfig, ISceneWrapper } from '@Engine/Domains/Scene';
-import type { IAppCanvas, ILaunchedScene, ISceneLauncher } from '@Engine/Models';
+import type { IAppCanvas, ILaunchedScene } from '@Engine/Models';
 import type { IDestroyableFactories, ILocalFactoryPool, IRegistryPool } from '@Engine/Pool';
 import { RegistryPool } from '@Engine/Pool';
 import { LocalFactoriesPool } from '@Engine/Pool/LocalFactoriesPool';
 import type { IFactories, IRegistries } from '@Engine/Pool/Models';
 import { addFromConfigToRegistry, isNotDefined, isValidSceneConfig } from '@Engine/Utils';
 import { BehaviorSubject } from 'rxjs';
+
+import type { ISceneLauncher } from '@/Engine/Launcher';
 
 // TODO (S.Panfilov) CWP fix ts
 // finish factories refactoring 1 (HOC from config)
