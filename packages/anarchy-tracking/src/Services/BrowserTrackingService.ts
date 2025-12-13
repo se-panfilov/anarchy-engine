@@ -1,20 +1,25 @@
 import { isDefined, parseDistName } from '@Anarchy/Shared/Utils';
 import type { TMetaData, TTrackingService } from '@Anarchy/Tracking/Models';
+import { mutateEventWithDynamicData } from '@Anarchy/Tracking/Utils/DynamicDataUtils';
 import { rewriteFramesIntegrationBrowser } from '@Anarchy/Tracking/Utils/IntegrationsBrowser';
 import { scrubEvent } from '@Anarchy/Tracking/Utils/ScrubEvent';
 import { scrubUserPathsBrowser } from '@Anarchy/Tracking/Utils/ScrubsBrowser';
 import type { BrowserOptions, EventHint } from '@sentry/browser';
 import { captureException, init, setTags } from '@sentry/browser';
-import type { Client, ErrorEvent } from '@sentry/core';
+import type { Client, ErrorEvent, Primitive } from '@sentry/core';
 
-export function BrowserTrackingService(options?: BrowserOptions, metaData?: TMetaData, dynamicDataFn?: () => Record<string, any>): TTrackingService {
+export function BrowserTrackingService(
+  options?: BrowserOptions,
+  metaData?: TMetaData,
+  dynamicContextFn?: () => Record<string, any>,
+  dynamicTagsFn?: () => Record<string, Primitive>
+): TTrackingService {
   let isStarted: boolean = false;
 
   const defaultOptions: BrowserOptions = {
     beforeSend(event: ErrorEvent, _hint: EventHint): PromiseLike<ErrorEvent | null> | ErrorEvent | null {
       const result: ErrorEvent = scrubUserPathsBrowser(scrubEvent(event));
-      // eslint-disable-next-line functional/immutable-data
-      if (isDefined(dynamicDataFn)) result.contexts = { ...(result.contexts ?? {}), extra: dynamicDataFn() };
+      mutateEventWithDynamicData(result, dynamicContextFn, dynamicTagsFn);
       return result;
     },
     integrations: [rewriteFramesIntegrationBrowser()],

@@ -1,20 +1,26 @@
 import { isDefined, parseDistName } from '@Anarchy/Shared/Utils';
 import type { TMetaData, TTrackingService } from '@Anarchy/Tracking/Models';
+import { mutateEventWithDynamicData } from '@Anarchy/Tracking/Utils/DynamicDataUtils';
 import { rewriteFramesIntegrationNode } from '@Anarchy/Tracking/Utils/IntegrationsNode';
 import { scrubEvent } from '@Anarchy/Tracking/Utils/ScrubEvent';
 import { scrubUserPathsDesktop } from '@Anarchy/Tracking/Utils/ScrubsDesktop';
+import type { Primitive } from '@sentry/core';
 import type { ElectronMainOptions } from '@sentry/electron/esm/main';
 import type { ErrorEvent, EventHint } from '@sentry/electron/main';
 import { captureException, init, setTags } from '@sentry/electron/main';
 
-export function DesktopTrackingService(options?: ElectronMainOptions, metaData?: TMetaData, dynamicDataFn?: () => Record<string, any>): TTrackingService {
+export function DesktopTrackingService(
+  options?: ElectronMainOptions,
+  metaData?: TMetaData,
+  dynamicContextFn?: () => Record<string, any>,
+  dynamicTagsFn?: () => Record<string, Primitive>
+): TTrackingService {
   let isStarted: boolean = false;
 
   const defaultOptions: ElectronMainOptions = {
     beforeSend(event: ErrorEvent, _hint: EventHint): PromiseLike<ErrorEvent | null> | ErrorEvent | null {
       const result: ErrorEvent = scrubUserPathsDesktop(scrubEvent(event as any) as ErrorEvent);
-      // eslint-disable-next-line functional/immutable-data
-      if (isDefined(dynamicDataFn)) result.contexts = { ...(result.contexts ?? {}), extra: dynamicDataFn() };
+      mutateEventWithDynamicData(result as any, dynamicContextFn, dynamicTagsFn);
       return result;
     },
     integrations: [rewriteFramesIntegrationNode()],
