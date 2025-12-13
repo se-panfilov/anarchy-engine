@@ -13,6 +13,7 @@
 - 2.11.0 IndexedDB for settings (web)
 - 2.12.0 Build meta info (versions)
 - 2.13.0 Added CSP
+- 2.13.1 CSP fixes
 
 Roadmap:
 
