@@ -7,8 +7,6 @@ import type { Vector3Like } from 'three/src/math/Vector3';
 import type { TKinematicData, TKinematicState, TKinematicTarget, TKinematicWritableData } from '@/Engine/Kinematic/Models';
 import type { TMeters, TMetersPerSecond, TMilliseconds, TRadians } from '@/Engine/Math';
 import { getAzimuthFromDirection, getElevationFromDirection } from '@/Engine/Math';
-import { radians } from '@/Engine/Measurements';
-import type { TReadonlyQuaternion } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TKinematicAgentDependencies, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
@@ -42,6 +40,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
         positionThreshold: 0.01,
         position: undefined,
         rotationThreshold: 0.0001,
+        // TODO 8.0.0. MODELS: rename "rotation" to "angularDirection"
         rotation: undefined
       }
     },
@@ -86,6 +85,25 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       agent.setLinearSpeed(speed);
       return undefined;
     },
+    // lookAt(targetPosition: Vector3, speed: TMetersPerSecond, radius: TMeters): void {
+    //   if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
+    //   if (speed === 0) return agent.setAngularSpeed(0);
+    //   if (radius <= 0) throw new Error('Radius must be greater than 0 to calculate angular speed.');
+    //   const angularSpeed: TMetersPerSecond = (speed / radius) as TMetersPerSecond;
+    //
+    //   // eslint-disable-next-line functional/immutable-data
+    //   agent.data.target.position = targetPosition;
+    //
+    //   // Calculate angle to the target using dot product
+    //   const dot: number = agent.data.state.linearDirection.dot(targetPosition.clone().sub(abstractTransformAgent.position$.value).normalize());
+    //   const angleToTarget: number = Math.acos(2 * dot * dot - 1);
+    //   if (angleToTarget < agent.data.target.rotationThreshold) return agent.setAngularSpeed(0);
+    //
+    //   agent.setAngularDirection(targetPosition.clone().sub(abstractTransformAgent.position$.value).normalize());
+    //   agent.setAngularSpeed(angularSpeed);
+    //
+    //   return undefined;
+    // },
     rotateTo(targetRotation: Quaternion, speed: TMetersPerSecond, radius: TMeters): void | never {
       if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
       if (speed === 0) return agent.setAngularSpeed(0);
@@ -100,7 +118,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       const angleToTarget: number = Math.acos(2 * dot * dot - 1);
       if (angleToTarget < agent.data.target.rotationThreshold) return agent.setAngularSpeed(0);
 
-      agent.setAngularDirection(targetRotation);
+      // agent.setAngularDirection(targetRotation);
       agent.setAngularSpeed(angularSpeed);
 
       return undefined;
@@ -230,6 +248,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
   const linearDirection = new Vector3();
   const displacement = new Vector3();
 
+  // TODO 8.0.0. MODELS: Implement infinite move when no target (undefined)
   function doKinematicMove(delta: TMilliseconds): void {
     if (agent.data.state.linearSpeed <= 0) return;
 
@@ -241,20 +260,17 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     abstractTransformAgent.position$.next(abstractTransformAgent.position$.value.clone().add(displacement));
   }
 
-  // TODO 8.0.0. MODELS: Destroy subscriptions tempQuaternion on agent destroy
-  const tempQuaternion: Quaternion = new Quaternion();
-  const angleThreshold: TRadians = radians(0.0001);
-
+  // TODO 8.0.0. MODELS: Implement infinite rotation when no target (undefined)
   function doKinematicRotation(delta: TMilliseconds): void {
     if (agent.data.state.angularSpeed <= 0) return;
+    if (isRotationReached(agent.data.target, agent.rotation$.value, agent.data.state)) return;
 
-    if (isRotationReached(agent.data.target, agent.rotation$.value, agent.data.state, delta)) return;
+    const rotationStep: number = agent.data.state.angularSpeed * delta;
+    const stepRotation: Quaternion | undefined = getStepRotation(rotationStep);
+    if (isNotDefined(stepRotation)) return;
 
-    const angle: TRadians = (agent.data.state.angularSpeed * delta) as TRadians;
-    if (angle < angleThreshold) return;
-
-    const quaternion: TReadonlyQuaternion = tempQuaternion.setFromAxisAngle(agent.data.state.angularDirection, angle);
-    agent.rotation$.next(agent.rotation$.value.clone().multiply(quaternion));
+    agent.data.state.angularDirection.multiply(stepRotation).normalize();
+    agent.rotation$.next(agent.data.state.angularDirection);
   }
 
   kinematicSub$ = combineLatest([agent.enabled$, agent.autoUpdate$])
@@ -266,6 +282,32 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       doKinematicRotation(delta);
       doKinematicMove(delta);
     });
+
+  function getStepRotation(rotationStep: number): Quaternion | undefined {
+    if (isNotDefined(agent.data.target.rotation)) return undefined;
+    // Calculate the relative rotation (difference between current and target)
+    const relativeRotation: Quaternion = agent.data.target.rotation.clone().multiply(agent.data.state.angularDirection.clone().invert());
+
+    // Extract the axis and angle of rotation from the relative rotation
+    const axis = new Vector3();
+    relativeRotation.normalize();
+
+    // Compute the angle and axis of the relative rotation
+    const angleToTarget: TRadians = (2 * Math.acos(relativeRotation.w)) as TRadians;
+    const scaleFactor = Math.sqrt(1 - relativeRotation.w * relativeRotation.w);
+
+    if (scaleFactor > 1e-6) {
+      axis.set(relativeRotation.x / scaleFactor, relativeRotation.y / scaleFactor, relativeRotation.z / scaleFactor).normalize();
+    } else {
+      // If scaleFactor is too small, fallback to a default axis
+      axis.set(1, 0, 0);
+    }
+
+    // Avoid division by zero if the angle is too small
+    if (angleToTarget < 1e-6) return undefined;
+
+    return new Quaternion().setFromAxisAngle(axis, Math.min(rotationStep, angleToTarget));
+  }
 
   return agent;
 }
@@ -293,12 +335,13 @@ function isPointReached(target: TKinematicTarget | undefined, position: Vector3,
   return false;
 }
 
-function isRotationReached(target: TKinematicTarget | undefined, rotation: Quaternion, state: TKinematicState, delta: TMilliseconds): boolean {
+function isRotationReached(target: TKinematicTarget | undefined, rotation: Quaternion, state: TKinematicState): boolean {
   if (isNotDefined(target)) return false;
   const { rotation: targetRotation, rotationThreshold } = target;
+
   if (isNotDefined(targetRotation)) return false;
 
-  const { angularSpeed, angularDirection } = state;
+  const { angularSpeed } = state;
 
   // If the speed is 0, do nothing
   if (angularSpeed === 0) return true;
@@ -308,17 +351,6 @@ function isRotationReached(target: TKinematicTarget | undefined, rotation: Quate
 
   // If the agent is close enough to the target, stop
   if (angleToTarget < rotationThreshold) return true;
-
-  // Predict the next rotation step
-  const deltaAngle: TRadians = (angularSpeed * delta) as TRadians;
-  const stepRotation: Quaternion = new Quaternion().setFromAxisAngle(angularDirection, deltaAngle);
-  const predictedRotation: Quaternion = rotation.clone().multiply(stepRotation);
-
-  // Calculate the new angle after the rotation step
-  const newAngleToTarget: TRadians = predictedRotation.angleTo(targetRotation) as TRadians;
-
-  // If the new angle is greater than the current angle, we've "overshot" the target
-  if (newAngleToTarget > angleToTarget) return true;
 
   return false;
 }

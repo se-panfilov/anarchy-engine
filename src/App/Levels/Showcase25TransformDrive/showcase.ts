@@ -32,6 +32,7 @@ import type {
 } from '@/Engine';
 import {
   ambientContext,
+  degrees,
   Engine,
   getDistancePrecisely,
   getHorizontalAzimuthDeg,
@@ -41,11 +42,11 @@ import {
   KeysExtra,
   meters,
   metersPerSecond,
+  radians,
   spaceService,
   TextType,
   TransformAgent
 } from '@/Engine';
-import { degrees, radians } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
 import {
@@ -227,7 +228,6 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
     case TransformAgent.Default:
       return actor.drive.default.setPosition(position);
     case TransformAgent.Kinematic:
-      actor.drive.kinematic.setLinearAzimuth(azimuth);
       // return actor.drive.kinematic.setLinearSpeed(metersPerSecond(5));
       return actor.drive.kinematic.moveTo(position, metersPerSecond(5));
     case TransformAgent.Connected:
@@ -252,10 +252,9 @@ function rotateActorTo(actor: TActor, rotation: Quaternion, agent: TransformAgen
       return actor.drive.default.setRotation(rotation);
     case TransformAgent.Kinematic:
       // actor.drive.kinematic.setAngularAzimuth(radians(rotationXYZ.y));
-      // actor.drive.kinematic.setAngularAzimuth(radians(degToRad(90)));
+      // actor.drive.kinematic.setAngularAzimuth(radians(degToRad(-90)));
       // return actor.drive.kinematic.setAngularSpeed(metersPerSecond(2));
-      // return actor.drive.kinematic.rotateTo(new Quaternion().setFromEuler(new Euler(rotationXYZ.x, rotationXYZ.y, rotationXYZ.z)), metersPerSecond(5), meters(1)); //actor.model3d.getParams().radius);
-      return actor.drive.kinematic.rotateTo(rotation, metersPerSecond(5), meters(1)); //actor.model3d.getParams().radius);
+      return actor.drive.kinematic.rotateTo(rotation, metersPerSecond(5), meters(1));
     case TransformAgent.Connected:
       // no need to do anything here, cause already connected
       return undefined;
