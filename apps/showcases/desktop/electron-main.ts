@@ -28,7 +28,6 @@ function createWindow(width: number, height: number): void {
     width,
     height,
     webPreferences: {
-      // TODO DESKTOP: what is "contextIsolation"?
       contextIsolation: true,
       preload: join(__dirname, 'preload.js'),
       nodeIntegration: false //Must be off fore security reasons
