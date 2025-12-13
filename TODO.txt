@@ -32,7 +32,6 @@ Roadmap:
 - 23.0.x Shaders
 
 Thoughts:
-- BUG: Production build is not working due to WASM integration
 - Maybe: Add domain for timers (based on web workers);
 - Maybe: Refactor withActive entities (use active$) (camera, renderer, etc);
 - Maybe: a single generic factory and registries for all entities (actor, model, etc), instead of files create them with params;
