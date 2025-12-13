@@ -12,4 +12,4 @@ export type TPhysicsBodyProps = Readonly<{
   friction?: number;
   collisionGroups?: number;
 }> &
-  TWithName;
+  Required<TWithName>;
