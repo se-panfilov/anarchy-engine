@@ -1,5 +1,6 @@
-import type { IAmbientLight, IDirectionalLight, ILightParams } from '@Engine/Domains/Light';
 import { AmbientLight, DirectionalLight } from 'three';
+
+import type { IAmbientLight, IDirectionalLight, ILightParams } from '../Models';
 
 export function getLight({ type, color, intensity }: ILightParams): IAmbientLight | IDirectionalLight | never {
   switch (type) {

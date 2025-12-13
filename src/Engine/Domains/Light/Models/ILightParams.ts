@@ -1,6 +1,9 @@
-import type { LightTag } from '@Engine/Domains/Light';
-import type { IVector2, IVector3 } from '@Engine/Wrappers';
+import type { IVector3 } from '@Engine/Wrappers';
 import type { Color } from 'three/src/math/Color';
+
+import type { LightTag } from '../Constants';
+import type { ILightShadowParams } from './ILightShadowParams';
+import type { ILightType } from './ILightType';
 
 export type ILightParams = Readonly<{
   type: ILightType;
@@ -11,11 +14,3 @@ export type ILightParams = Readonly<{
   shadow?: ILightShadowParams;
   tags: ReadonlyArray<LightTag>;
 }>;
-
-export type ILightShadowParams = Readonly<{
-  mapSize: IVector2;
-  camera: { far: number };
-  normalBias: number;
-}>;
-
-export type ILightType = 'ambient' | 'directional';

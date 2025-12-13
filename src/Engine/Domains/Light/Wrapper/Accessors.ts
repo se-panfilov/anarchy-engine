@@ -1,8 +1,9 @@
 import type { IOrthographicCamera } from '@Engine/Domains/Camera';
-import type { IAmbientLight, IDirectionalLight, ILightAccessors } from '@Engine/Domains/Light';
 import type { IWriteable } from '@Engine/Utils';
 import type { IVector2 } from '@Engine/Wrappers/Vector2Wrapper';
 import type { IVector3 } from '@Engine/Wrappers/Vector3Wrapper';
+
+import type { IAmbientLight, IDirectionalLight, ILightAccessors } from '../Models';
 
 // eslint-disable-next-line functional/prefer-immutable-types
 export function getAccessors(entity: IWriteable<IAmbientLight | IDirectionalLight>): ILightAccessors {
