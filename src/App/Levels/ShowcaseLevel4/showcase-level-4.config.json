@@ -13,7 +13,7 @@
       "height": 40,
       "widthSegments": 10,
       "heightSegments": 10,
-      "materialParams": { "color": "#5EDCAE" },
+      "materialParams": { "color": "#5ddc9a" },
       "type": "plane",
       "position": { "x": 0, "y": 0, "z": 0 },
       "castShadow": false,
@@ -23,10 +23,28 @@
       "type": "cube",
       "width": 1,
       "height": 1,
+      "position": { "x": 0, "y": 2, "z": -2 },
+      "castShadow": true,
+      "materialParams": { "color": "#5177ff" },
+      "tags": ["top_actor"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
       "position": { "x": 0, "y": 2, "z": 0 },
       "castShadow": true,
       "materialParams": { "color": "#5177ff" },
       "tags": ["central_actor"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 0, "y": 2, "z": 2 },
+      "castShadow": true,
+      "materialParams": { "color": "#5177ff" },
+      "tags": ["bottom_actor"]
     }
   ],
   "cameras": [
@@ -34,8 +52,8 @@
       "fov": 45,
       "near": 1,
       "far": 10000,
-      "position": { "x": 0, "y": 5, "z": 5 },
-      "rotation": { "x": -1.5, "y": 0, "z": 0 },
+      "position": { "x": 7, "y": 10, "z": 5 },
+      "rotation": { "x": 0, "y": 2, "z": -2 },
       "tags": ["initial"]
     }
   ],
@@ -62,6 +80,13 @@
       "tags": []
     }
   ],
-  "controls": [],
+  "controls": [
+    {
+      "type": "OrbitControls",
+      "cameraTag": "initial",
+      "enableDamping": true,
+      "tags": []
+    }
+  ],
   "tags": ["build-in"]
 }

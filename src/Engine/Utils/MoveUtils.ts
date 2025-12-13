@@ -1,4 +1,6 @@
-import anime from 'animejs';
+import anime, { EasingOptions } from 'animejs';
+
+import type { IMesh } from '@/Engine';
 
 interface Position {
   x: number;
@@ -8,22 +10,22 @@ interface Position {
 
 type EasingType = 'linear' | 'easeIn' | 'easeOut' | 'easeInOut'; // Modify this to include the actual easing types
 
-export function goToPosition(
-  actor: any, // Actor,
-  position: Position,
-  duration: number = 1000,
-  easing: EasingType = 'linear'
-): Promise<void> {
-  const { x, y, z } = actor.getPosition();
-
+export function goToPosition(actor: IMesh, position: Position, duration: number, easing: EasingOptions = 'linear'): Promise<void> {
   anime({
-    targets: { x, y, z },
+    targets: actor.position,
     x: position.x,
     y: position.y,
     z: position.z,
-    easing,
+    round: 0, //i.g. animation steps (how often to update the value)
+    delay: 0,
+    endDelay: 0, //i.g. delay after animation
+    direction: 'alternate', //i.g. alternate, reverse, normal
+    // loop: true,
     duration,
-    update: () => actor.setPosition({ x, y, z })
+    easing,
+    update: function () {
+      // console.log(actor.position);
+    }
   });
 
   return Promise.resolve();

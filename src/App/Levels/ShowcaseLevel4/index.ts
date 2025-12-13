@@ -1,6 +1,7 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
-import { buildLevelFromConfig, CameraTag } from '@/Engine';
+import { ambientContext, IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
+import { buildLevelFromConfig, CameraTag, isNotDefined } from '@/Engine';
+import { goToPosition } from '@/Engine/Utils/MoveUtils';
 
 import levelConfig from './showcase-level-4.config.json';
 
@@ -12,20 +13,19 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     level.start();
     const { actorRegistry, cameraRegistry } = level.entities;
 
-    const camera = cameraRegistry.getUniqByTag(CameraTag.Active);
-    console.log(actorRegistry.getAll());
-    const actor = actorRegistry.getUniqByTag('central_actor');
+    const topActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('top_actor');
+    const centralActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('central_actor');
+    const bottomActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('bottom_actor');
 
-    // actor.goTo({ x: 0, y: 0, z: 0 }, 1000, 'easeInOutQuad');
-    let direction: number = 1;
-    setInterval(() => {
-      if (actor?.getX() > 5) direction = -1;
-      if (actor?.getX() < -5) direction = 1;
-      actor?.setX(actor?.getX() + 0.1 * direction);
-      camera.lookAt(actor.getPosition());
-    }, 30);
-
-    // goToPosition(actor, { x: 5, y: 0, z: 0 }, 1000, 'easeInOutQuad');
+    ambientContext.mouseClickWatcher.value$.subscribe((event) => {
+      console.log(cameraRegistry.getAll()[0].getRotation());
+      if (isNotDefined(topActor) || isNotDefined(centralActor) || isNotDefined(bottomActor)) throw new Error('Actors are not defined');
+      goToPosition(topActor.entity, { x: 13, y: topActor.getY(), z: topActor.getZ() }, 1500, 'easeInCirc').then(() => {
+        console.log('topActor is done');
+      });
+      goToPosition(centralActor.entity, { x: 13, y: centralActor.getY(), z: centralActor.getZ() }, 1500, 'linear');
+      goToPosition(bottomActor.entity, { x: 13, y: bottomActor.getY(), z: bottomActor.getZ() }, 1500, 'easeInOutQuad');
+    });
   }
 
   return { start, level };
