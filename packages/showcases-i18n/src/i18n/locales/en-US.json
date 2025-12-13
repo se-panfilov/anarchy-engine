@@ -1,4 +1,7 @@
 {
+  "app.showcases-menu.menu.button.text": "Menu",
+  "app.showcases-menu.menu.cta.text": "Click on the \"menu\" button",
+  "app.showcases-menu.menu.greetings.text": "Welcome",
   "main-menu.home.button.close-menu.text": "Close Menu",
   "main-menu.home.button.continue-game.text": "Continue",
   "main-menu.home.button.exit-app.text": "Exit",
