@@ -3,8 +3,9 @@ import { getLocaleByLocaleId, getPreferLocaleId } from '@Anarchy/i18n';
 import { AllowedSystemFolders } from '@Showcases/Desktop/Constants';
 import type { TSettingsService, TSettingsServiceDependencies } from '@Showcases/Desktop/Models';
 import { detectResolution } from '@Showcases/Desktop/Utils';
+import { ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/i18n';
 import type { TShowcaseGameSettings } from '@Showcases/Shared';
-import { DefaultShowcaseGameSettings, isSettings, ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/Shared';
+import { DefaultShowcaseGameSettings, isSettings } from '@Showcases/Shared';
 import type { App } from 'electron';
 
 // TODO DESKTOP: Add protection (allowed files list, name/extension checks, sanitization, etc)
