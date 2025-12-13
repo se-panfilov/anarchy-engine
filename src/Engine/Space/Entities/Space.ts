@@ -83,7 +83,7 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
     built$.complete();
     built$.unsubscribe();
     Object.values(services).forEach((service: TAbstractService): void => void (isDestroyable(service) && service.destroy$.next()));
-    Object.values(loops).forEach((service: TLoop): void => void (isDestroyable(service) && service.destroy$.next()));
+    Object.values(loops).forEach((loop: TLoop): void => void (isDestroyable(loop) && loop.destroy$.next()));
   });
 
   // eslint-disable-next-line functional/immutable-data
