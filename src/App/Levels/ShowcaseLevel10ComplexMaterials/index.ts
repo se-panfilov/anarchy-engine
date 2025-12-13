@@ -20,16 +20,13 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
   const materials: ReadonlyArray<string> = ['standard', 'basic', 'phong', 'lambert', 'toon', 'physical', 'matcap'];
   const currentMaterialIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
-  const currentMaterial$: BehaviorSubject<string> = new BehaviorSubject(materials[currentMaterialIndex$.value]);
+  const currentMaterial$: Subject<string> = new Subject();
   const currentActor$: Subject<IActorWrapper> = new Subject();
   currentMaterialIndex$.subscribe((index: number): void => currentMaterial$.next(materials[index]));
   currentMaterial$.subscribe((material: string): void => {
-    // TODO (S.Panfilov) debug timeout to handle async creation
-    setTimeout(() => {
-      const actor: IActorWrapper | undefined = actorRegistry.getUniqByTag(material);
-      if (isNotDefined(actor)) throw new Error(`Actor with tag "${material}" is not found`);
-      currentActor$.next(actor);
-    }, 500);
+    const actor: IActorWrapper | undefined = actorRegistry.getUniqByTag(material);
+    if (isNotDefined(actor)) throw new Error(`Actor with tag "${material}" is not found`);
+    currentActor$.next(actor);
   });
 
   currentActor$.subscribe(moveCameraToActor);
