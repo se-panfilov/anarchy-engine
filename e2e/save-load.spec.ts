@@ -12,7 +12,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto(GAME_URL);
 });
 
-const scenes: ReadonlyArray<string> = ['SpaceBasic', 'SpaceCustomModels'];
+const scenes: ReadonlyArray<string> = ['SpaceBasic', 'SpaceCustomModels', 'SpaceTexts'];
 
 test.describe('Space save/load persistence', () => {
   const thresholds = {
@@ -25,7 +25,7 @@ test.describe('Space save/load persistence', () => {
       const spaceSelect: Locator = page.getByLabel('Spaces');
       await expect(spaceSelect).toBeVisible();
       await page.getByLabel('Spaces').selectOption(sceneName);
-      await expect(page.locator('canvas')).toHaveScreenshot(`${sceneName}-default.png`);
+      await expect(page.locator('canvas')).toHaveScreenshot(`${sceneName}-1-default.png`);
     });
 
     test(`Load, Save, Load: [${sceneName}]`, async ({ page }, testInfo) => {
@@ -40,7 +40,7 @@ test.describe('Space save/load persistence', () => {
 
       const bufferB = await canvas.screenshot();
 
-      const snapshotName: string = `${sceneName}-compare-same.png`;
+      const snapshotName: string = `${sceneName}-2-compare-same.png`;
       const snapshotPath: string = testInfo.snapshotPath(snapshotName);
 
       if (!fs.existsSync(snapshotPath)) {
@@ -65,7 +65,7 @@ test.describe('Space save/load persistence', () => {
 
       const bufferB = await canvas.screenshot();
 
-      const snapshotName: string = `${sceneName}-compare-changed.png`;
+      const snapshotName: string = `${sceneName}-3-compare-changed.png`;
       const snapshotPath: string = testInfo.snapshotPath(snapshotName);
 
       if (!fs.existsSync(snapshotPath)) {
