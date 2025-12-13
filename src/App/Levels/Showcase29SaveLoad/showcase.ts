@@ -1,5 +1,7 @@
 import './style.css';
 
+import type { Subscription } from 'rxjs';
+
 import { addDropdown } from '@/App/Levels/Utils';
 import type { TModel3d, TRegistryPack, TSpace, TSpaceConfig, TSpaceRegistry } from '@/Engine';
 import { createDomElement, isNotDefined, spaceService } from '@/Engine';
@@ -14,7 +16,9 @@ const spaceTextsConfig: TSpaceConfig = spaceTexts as TSpaceConfig;
 
 const getContainer = (canvasSelector: string): string => canvasSelector.split('#')[1].trim();
 
-type TSpacesData = Readonly<{ name: string; config: TSpaceConfig; container: string; init?: (space: TSpace) => void }>;
+type TSpacesData = Readonly<{ name: string; config: TSpaceConfig; container: string; init?: (space: TSpace) => void; onUnload?: (space: TSpace) => void }>;
+
+const subscriptions: Record<string, Subscription> = {};
 
 const spacesData: ReadonlyArray<TSpacesData> = [
   { name: spaceBasicConfig.name, config: spaceBasicConfig, container: getContainer(spaceBasicConfig.canvasSelector) },
@@ -23,10 +27,15 @@ const spacesData: ReadonlyArray<TSpacesData> = [
     config: spaceCustomModelsConfig,
     container: getContainer(spaceCustomModelsConfig.canvasSelector),
     init: (space: TSpace): void => {
-      space.services.models3dService.getRegistry().added$.subscribe(({ key, value: model3dSource }: TRegistryPack<TModel3d>): void => {
+      const sub$: Subscription = space.services.models3dService.getRegistry().added$.subscribe(({ key, value: model3dSource }: TRegistryPack<TModel3d>): void => {
         console.log(`Model "${model3dSource.name}" is created (${key})`);
         space.services.scenesService.findActive()?.addModel3d(model3dSource);
       });
+      // eslint-disable-next-line functional/immutable-data
+      subscriptions[spaceCustomModelsConfig.name] = sub$;
+    },
+    onUnload: (space: TSpace): void => {
+      subscriptions[spaceCustomModelsConfig.name].unsubscribe();
     }
   },
   { name: spaceTextsConfig.name, config: spaceTextsConfig, container: getContainer(spaceTextsConfig.canvasSelector) }
@@ -79,6 +88,10 @@ function unloadSpace(name: string | undefined, spaceRegistry: TSpaceRegistry): v
   const space: TSpace | undefined = spaceRegistry.findByName(name);
   if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot destroy the space "${name}"`);
   setContainerVisibility(name, false);
+
+  const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
+  if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
+  spaceData.onUnload?.(space);
   space.drop();
 }
 
