@@ -4,6 +4,8 @@ import type { TActorConfig } from '@/Engine/Actor';
 import type { TCameraConfig } from '@/Engine/Camera';
 import type { TControlsConfig } from '@/Engine/Controls';
 import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TModel3dConfig } from '@/Engine/Models3d';
+import { Model3dType } from '@/Engine/Models3d';
 import type { TPhysicsPresetConfig, TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
 import type { TSceneConfig } from '@/Engine/Scene/Models';
 import type { TSpaceConfig } from '@/Engine/Space/Models';
@@ -78,6 +80,9 @@ function validateData({ name, actors, cameras, scenes, spatialGrids, controls, i
   const isEveryControlsTagsValid: boolean = validateTagsForEveryEntity(controls);
   const isEveryModels3dTagsValid: boolean = validateTagsForEveryEntity(models3d);
 
+  //urls
+  const isEveryModels3dUrlValid: boolean = validateFileUrls(models3d);
+
   //Adding errors
   if (isNoScenesDefined) errors = [...errors, 'No scenes are defined'];
   if (isMultipleActiveCameras) errors = [...errors, 'Can be only one active camera, but multiple set as active'];
@@ -102,6 +107,7 @@ function validateData({ name, actors, cameras, scenes, spatialGrids, controls, i
   if (!isEveryControlsNameValid) errors = [...errors, 'Controls names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryPhysicsPresetNameValid) errors = [...errors, 'Physics presets names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryActorsPhysicsPresetNameValid) errors = [...errors, 'Actors physics preset names must be defined and contain only letters, numbers and underscores'];
+
   //tags
   if (!isConfigTagsValid) errors = [...errors, 'Space config tags must contain only letters, numbers and underscores'];
   if (!isEverySceneTagsValid) errors = [...errors, 'Scene tags must contain only letters, numbers and underscores'];
@@ -114,6 +120,9 @@ function validateData({ name, actors, cameras, scenes, spatialGrids, controls, i
   if (!isEveryTextTagsValid) errors = [...errors, 'Text tags must contain only letters, numbers and underscores'];
   if (!isEveryControlsTagsValid) errors = [...errors, 'Controls tags must contain only letters, numbers and underscores'];
   if (!isEveryModels3dTagsValid) errors = [...errors, 'Models3d tags must contain only letters, numbers and underscores'];
+
+  //urls
+  if (!isEveryModels3dUrlValid) errors = [...errors, 'Models3d urls must contain only valid characters (a normal path to a file)'];
 
   //presets
   if (!isAllActorsHasPhysicsPreset) errors = [...errors, 'Not every actor has a defined physics preset (check actors presetName against physics presets names)'];
@@ -155,4 +164,14 @@ function validateAllActorsHasPhysicsPreset(actors: ReadonlyArray<TActorConfig>, 
     if (isNotDefined(presets)) return true;
     return presets.some((preset: TPhysicsPresetConfig): boolean => isNotDefined(actor.physics) || isNotDefined(actor.physics?.presetName) || preset.name === actor.physics.presetName);
   });
+}
+
+function validateFileUrls(models3d: ReadonlyArray<TModel3dConfig>): boolean {
+  return models3d.every((model3d: TModel3dConfig): boolean => validateFileUrl(model3d.url));
+}
+
+function validateFileUrl(url: string | Model3dType): boolean {
+  if (Object.values(Model3dType).includes(url as Model3dType)) return true;
+  const regex = /^(\/|[a-zA-Z]:\\)[a-zA-Z0-9_\-/\\]+\.(gltf|glb)$/;
+  return regex.test(url);
 }
