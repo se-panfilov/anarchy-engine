@@ -1,5 +1,5 @@
 import type { TLocalesMapping, TMessages, TTranslateService } from '@Anarchy/i18n/Models';
-import { isDefined, omitInArray } from '@Anarchy/Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import type { FormatNumberOptions, IntlCache, IntlShape } from '@formatjs/intl';
 import { createIntl, createIntlCache } from '@formatjs/intl';
 import type { FormatDateOptions } from '@formatjs/intl/src/types';
@@ -7,7 +7,7 @@ import { BehaviorSubject, concatMap, distinctUntilChanged, from, map } from 'rxj
 
 export function TranslateService<TLocale extends string>(initialLocale: TLocale, defaultLocale: TLocale, locales: TLocalesMapping<TLocale>): TTranslateService<TLocale> {
   const loaded: Map<TLocale, TMessages> = new Map<TLocale, TMessages>();
-  const loadingLocale$: BehaviorSubject<ReadonlyArray<TLocale>> = new BehaviorSubject<ReadonlyArray<TLocale>>([initialLocale, defaultLocale]);
+  const loadingLocale$: BehaviorSubject<Set<TLocale>> = new BehaviorSubject<Set<TLocale>>(new Set());
 
   //Preload the locales (without waiting the result)
   void Promise.all([loadLocale(defaultLocale), loadLocale(initialLocale)]);
@@ -33,17 +33,24 @@ export function TranslateService<TLocale extends string>(initialLocale: TLocale,
   }
 
   async function loadLocale(locale: TLocale): Promise<void> {
-    loadingLocale$.next([...loadingLocale$.value, locale]);
-    if (!loaded.has(locale)) loaded.set(locale, await locales[locale]());
-    //I'm not 100% sure, that intlMap.clear() is really needed here
-    intlMap.clear();
-    intl$.next(getIntl(locale));
-    loadingLocale$.next(omitInArray(loadingLocale$.value, locale));
+    try {
+      loadingLocale$.next(new Set([...loadingLocale$.value, locale]));
+      if (!loaded.has(locale)) loaded.set(locale, await locales[locale]());
+      //I'm not 100% sure, that intlMap.clear() is really needed here
+      intlMap.clear();
+      intl$.next(getIntl(locale));
+    } catch (error) {
+      throw new Error(`[TranslateService]: Failed to load locale "${locale}". Error: ${error instanceof Error ? error.message : String(error)}`);
+    } finally {
+      const newLoading: Set<TLocale> = new Set(loadingLocale$.value);
+      newLoading.delete(locale);
+      loadingLocale$.next(newLoading);
+    }
   }
 
   loadingLocale$
     .pipe(
-      map((list: ReadonlyArray<TLocale>): boolean => list.length === 0),
+      map((list: Set<TLocale>): boolean => list.size === 0),
       distinctUntilChanged()
     )
     .subscribe((v: boolean): void => void ready$.next(v));
