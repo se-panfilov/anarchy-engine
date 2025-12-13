@@ -2,7 +2,7 @@
 
 ## Application: showcases-e2e
 
-Production dependencies (including transition dependencies): 23
+Production dependencies (including transition dependencies): 22
 
 ---
 
@@ -448,14 +448,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 The complete list of contributors can be found at:
 
 - https://github.com/garycourt/uri-js/graphs/contributors
-
----
-
-## fsevents@2.3.2
-
-**License:** UNKNOWN
-
-_No license text file found; relying on package metadata._
 
 ---
 

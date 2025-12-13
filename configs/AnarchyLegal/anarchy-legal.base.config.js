@@ -1,4 +1,5 @@
-// TODO DESKTOP: LEGAL: Actually, we can use constants here (GENERIC, DISCLAIMER, EULA, PRIVACY, SECURITY) and other values (Software, Project, etc.)
+import { TradeMarkSymbol } from './Constants/TradeMarkSymbol.js';
+import { ProductTerm } from './Constants/ProductTerm.js';
 
 //Base config for Anarchy Legal docs generator (with common defaults).
 export default {
@@ -13,8 +14,8 @@ export default {
       ALLOW_COMMERCIAL_RESALE: true,
       IS_CHILD_DIRECTED: false,
       SHOW_TECH_IDENTIFIERS: true,
-      TRADEMARK_SYMBOL: '', //Empty by default. Possible '™' (no obligations, just an indication it's a trademark) or '®' (registered trademark, which requires registration in the country of use).
-      PRODUCT_TERM: 'Software', //E.g. 'Software', 'Product', 'Game', etc.
+      TRADEMARK_SYMBOL: TradeMarkSymbol.None,
+      PRODUCT_TERM: ProductTerm.Software,
       STORE_DISCLOSURES: true,
       LEGAL_FOLDER: './legal/',
       PATH_TO_CE_MARK: 'ce-mark.png',
