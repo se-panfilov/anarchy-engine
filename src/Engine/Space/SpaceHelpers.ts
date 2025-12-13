@@ -38,7 +38,7 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
   const loopService: TLoopService = LoopService();
 
   return {
-    actorService: ActorService(ActorFactory(), ActorAsyncRegistry(), { materialTextureService, physicsBodyService }, scene),
+    actorService: ActorService(ActorFactory(), ActorAsyncRegistry(), { materialTextureService, physicsBodyService, loopService }, scene),
     cameraService: CameraService(CameraFactory(), CameraRegistry(), scene),
     controlsService: ControlService(ControlsFactory(), ControlsRegistry(), canvas),
     envMapService: EnvMapService(EnvMapAsyncRegistry()),

@@ -1,19 +1,37 @@
-import { Subject } from 'rxjs';
+import { Subject, tap } from 'rxjs';
 import { Clock } from 'three';
 
 import type { TLoopService, TLoopTimes } from '@/Engine/Loop/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
+import { isDefined } from '@/Engine/Utils';
 
 type TLoopServiceState = { isLooping: boolean };
 
 export function LoopService(): TLoopService {
   const tick$: Subject<TLoopTimes> = new Subject<TLoopTimes>();
+  const beforeTick$: Subject<TLoopTimes> = new Subject<TLoopTimes>();
   const state: TLoopServiceState = {
     isLooping: false
   };
 
-  const loopFn = getLoopFn(tick$, state);
+  let beforeTick: ((times: TLoopTimes) => void) | undefined = undefined;
+  const setBeforeTick = (fn: (times: TLoopTimes) => void): void => void (beforeTick = fn);
+
+  beforeTick$
+    .pipe(
+      tap((times: TLoopTimes) => {
+        if (isDefined(beforeTick)) beforeTick(times);
+      })
+    )
+    .subscribe((times: TLoopTimes): void => {
+      // console.log('beforeTick$: "LoopService"');
+      // if (isDefined(beforeTick)) beforeTick(times);
+      tick$.next(times);
+    });
+
+  const loopFn = getLoopFn(beforeTick$, state);
+  // const loopFn = getLoopFn(tick$, state);
 
   function start(): void {
     // eslint-disable-next-line functional/immutable-data
@@ -27,18 +45,22 @@ export function LoopService(): TLoopService {
   }
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroyed$.subscribe((): void => tick$.complete());
+  destroyable.destroyed$.subscribe((): void => {
+    beforeTick$.complete();
+    tick$.complete();
+  });
 
   return {
     start,
     stop,
+    setBeforeTick,
     tick$: tick$.asObservable(),
     getIsLooping: (): boolean => state.isLooping,
     ...destroyable
   };
 }
 
-function getLoopFn(tick$: Subject<TLoopTimes>, state: TLoopServiceState): (time: number) => void {
+function getLoopFn(beforeTick$: Subject<TLoopTimes>, state: TLoopServiceState): (time: number) => void {
   const clock: Clock = new Clock();
   let lastElapsedTime: number = 0;
 
@@ -49,7 +71,7 @@ function getLoopFn(tick$: Subject<TLoopTimes>, state: TLoopServiceState): (time:
     // TODO (S.Panfilov) MATH: need precision calculations??? (or not? how performant they are?)
     const delta: number = elapsedTime - lastElapsedTime;
     lastElapsedTime = elapsedTime;
-    tick$.next({ delta, frameTime, elapsedTime });
+    beforeTick$.next({ delta, frameTime, elapsedTime });
 
     // (fpsGraph as any).end();
     requestAnimationFrame(loopFn);

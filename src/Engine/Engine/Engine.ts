@@ -1,3 +1,5 @@
+import type { World } from '@dimforge/rapier3d';
+
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TControlsRegistry } from '@/Engine/Controls';
 import type { TEngine } from '@/Engine/Engine/Models';
@@ -15,7 +17,7 @@ import { isNotDefined } from '@/Engine/Utils';
 export function Engine(space: TSpace): TEngine {
   const keyboardService: TKeyboardService = KeyboardService(space.services.loopService);
 
-  const { cameraService, rendererService, scenesService, textService, controlsService } = space.services;
+  const { cameraService, rendererService, scenesService, textService, controlsService, physicsBodyService } = space.services;
   const activeScene: TSceneWrapper | undefined = scenesService.findActive();
 
   const { text2dRegistry, text3dRegistry } = textService.getRegistries();
@@ -35,8 +37,9 @@ export function Engine(space: TSpace): TEngine {
     if (isNotDefined(renderer)) throw new Error('Cannot find an active renderer');
 
     cameraService.active$.subscribe((wrapper: TCameraWrapper | undefined): void => void (camera = wrapper));
+    const world: World | undefined = physicsBodyService.getWorld();
     space.services.loopService.tick$.subscribe(({ delta }: TLoopTimes): void =>
-      spaceLoop(delta, camera, renderer, activeScene, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer, controlsRegistry)
+      spaceLoop(delta, camera, renderer, activeScene, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer, controlsRegistry, world)
     );
     space.services.loopService.start();
   }

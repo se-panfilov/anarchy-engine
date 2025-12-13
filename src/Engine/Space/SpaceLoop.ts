@@ -1,3 +1,5 @@
+import type { World } from '@dimforge/rapier3d';
+
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TControlsRegistry, TOrbitControlsWrapper } from '@/Engine/Controls';
 import type { TRendererWrapper } from '@/Engine/Renderer';
@@ -14,8 +16,14 @@ export function spaceLoop(
   text3dRegistry: TText3dRegistry,
   text2dRenderer: TText2dRenderer,
   text3dRenderer: TText3dRenderer,
-  controlsRegistry: TControlsRegistry
+  controlsRegistry: TControlsRegistry,
+  physicsWorld: World | undefined
 ): void {
+  // TODO (S.Panfilov) CWP make beforeEveryTick from engine out of this.
+  //  Try to move the debug renderer above (where it was before) and see if everything works fine (it's just a test).
+  //  remove all the console.log's
+  if (isDefined(physicsWorld)) physicsWorld.step();
+
   if (isDefined(activeCamera)) {
     renderer.entity.render(activeScene.entity, activeCamera.entity);
     // TODO (S.Panfilov) update these text renderers only when there are any text (or maybe only when it's changed)

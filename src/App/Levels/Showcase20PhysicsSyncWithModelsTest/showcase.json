@@ -41,10 +41,10 @@
           "hy": 2,
           "hz": 0.5
         },
-        "position": { "x": -4, "y": 2, "z": 2 },
+        "position": { "x": -4, "y": 4, "z": 3 },
         "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
       },
-      "position": { "x": -4, "y": 2, "z": 2 },
+      "position": { "x": -4, "y": 4, "z": 3 },
       "rotation": { "x": 0, "y": 0, "z": 0 },
       "castShadow": true,
       "tags": []
@@ -65,10 +65,10 @@
           "hy": 2,
           "hz": 0.5
         },
-        "position": { "x": 4, "y": 4, "z": -4 },
+        "position": { "x": 4, "y": 5, "z": -4 },
         "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
       },
-      "position": { "x": 4, "y": 4, "z": -4 },
+      "position": { "x": 4, "y": 5, "z": -4 },
       "rotation": { "x": 0, "y": 0, "z": 0 },
       "castShadow": true,
       "tags": []

@@ -16,7 +16,8 @@ import type {
   TPhysicsWorldParams,
   TWithPresetNamePhysicsBodyConfig
 } from '@/Engine/Physics/Models';
-import { isPhysicsBodyParamsComplete, PhysicsDebugRenderer } from '@/Engine/Physics/Utils';
+import { PhysicsDebugRenderer } from '@/Engine/Physics/Renderers';
+import { isPhysicsBodyParamsComplete } from '@/Engine/Physics/Utils';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TOptional } from '@/Engine/Utils';
 import { isNotDefined } from '@/Engine/Utils';

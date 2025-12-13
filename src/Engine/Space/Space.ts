@@ -46,7 +46,6 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     fogService,
     intersectionsWatcherService,
     lightService,
-    loopService,
     particlesService,
     physicsBodyService,
     physicsPresetService,

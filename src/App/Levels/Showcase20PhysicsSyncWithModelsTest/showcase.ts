@@ -1,6 +1,6 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorWrapperAsync, TActorWrapperWithPhysicsAsync, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
-import { buildSpaceFromConfig, Engine, isNotDefined } from '@/Engine';
+import type { TActorWrapperAsync, TActorWrapperWithPhysicsAsync, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
+import { buildSpaceFromConfig, Engine, isNotDefined, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -15,7 +15,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const actor2Promise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('actor_2');
   const actor3Promise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('actor_3');
 
-  physicsBodyService.getDebugRenderer(loopService).start();
+  // physicsBodyService.getDebugRenderer(loopService).start();
 
   async function init(): Promise<void> {
     const actor1W: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await actor1Promise;
@@ -30,19 +30,29 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const cameraW: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
 
-    // actor1W.physicsBody?.getRigidBody()?.addForce({ x: 0, y: 0, z: 0.001 }, true);
-    actor2W.physicsBody?.getRigidBody()?.addTorque({ x: -0.05, y: -0.01, z: 0.05 }, true);
-    actor3W.physicsBody?.getRigidBody()?.addTorque({ x: 0.01, y: 0.1, z: -0.05 }, true);
+    actor1W.physicsBody?.getRigidBody()?.addTorque({ x: -0.2, y: 0.5, z: 1 }, true);
+    actor2W.physicsBody?.getRigidBody()?.addTorque({ x: -0.5, y: -0.01, z: 0.05 }, true);
+    actor3W.physicsBody?.getRigidBody()?.addTorque({ x: 0.01, y: 5, z: -0.05 }, true);
+
+    const actor1Position: TVector3Wrapper = actor1W.getPosition();
+    cameraW.lookAt(Vector3Wrapper(actor1Position.getCoords()));
+    cameraW.setY(actor1Position.getY());
+
+    physicsBodyService.getDebugRenderer(loopService).start();
 
     // TODO (S.Panfilov) extract physics world update to the main loop
     loopService.tick$.subscribe(() => {
-      cameraW.lookAt(actor1W.getPosition());
-      cameraW.setY(actor1W.getPosition().getY());
-
       // TODO (S.Panfilov) debug: this should not be done here, but instead in the service (with an option to manual update)
       // const world = physicsBodyService.getWorld();
       // if (isNotDefined(world)) throw new Error(`Cannot find physics world`);
       // world.step();
+
+      actor3W.physicsBody?.getRigidBody()?.setAngvel({ x: 0, y: 3, z: 1 }, true);
+      cameraW.setY(actor1W.getPosition().getY());
+
+      // updateActorByPhysics(actor1W.physicsBody.getRigidBody(), actor1W);
+      // updateActorByPhysics(actor2W.physicsBody.getRigidBody(), actor2W);
+      // updateActorByPhysics(actor3W.physicsBody.getRigidBody(), actor3W);
     });
   }
 
@@ -53,3 +63,11 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   return { start, space };
 }
+
+// function updateActorByPhysics(rigidBody: RigidBody, actor: TActorWrapperAsync): void {
+//   const position = rigidBody.translation();
+//   const rotation = rigidBody.rotation();
+//
+//   actor.setPosition(Vector3Wrapper(position));
+//   actor.entity.quaternion.set(rotation.x, rotation.y, rotation.z, rotation.w);
+// }

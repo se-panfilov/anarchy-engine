@@ -8,9 +8,9 @@ import { createPhysicsBody } from './PhysicsBodyUtils';
 export function PhysicsBodyFacade(params: TPhysicsBodyParams, { world }: TPhysicsFacadeDependencies): TPhysicsBodyFacade {
   const entities: TPhysicsBodyFacadeEntities = createPhysicsBody(params, world);
 
-  const result = {
-    ...AbstractFacade(withPhysicsBodyFacadeEntities(entities), FacadeType.PhysicsBody, params)
+  return {
+    ...AbstractFacade(withPhysicsBodyFacadeEntities(entities), FacadeType.PhysicsBody, params),
+    getPhysicsBodyType: () => params.type,
+    getPhysicsBodyShape: () => params.collisionShape
   };
-
-  return result;
 }

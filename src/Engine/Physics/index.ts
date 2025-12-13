@@ -5,6 +5,7 @@ export * from './HOFs';
 export * from './Mixins';
 export * from './Models';
 export * from './Registries';
+export * from './Renderers';
 export * from './Services';
 export * from './Utils';
 export * from './Wrappers';
