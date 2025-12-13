@@ -27,9 +27,6 @@ export function Actor(
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d(), params.model3dSettings);
 
   // TODO CWP:
-  // TODO 8.0.0. MODELS: Make sure, that collisions are working
-  // TODO 8.0.0. MODELS: In showcase check spatial and collisions
-
   // TODO 8.0.0. MODELS: Make sure, rotations are working for kinematics (add some methods to move to a point, rotate to a point)
   // TODO 8.0.0. MODELS: Kinematic drive needs additional methods: go to position (and stop), rotate to angle (and stop), move to point (calculate azimuth, elevation by itelf)
 
