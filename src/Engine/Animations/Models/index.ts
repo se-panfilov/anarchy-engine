@@ -1,3 +1,4 @@
+export * from './TAnimationActions';
 export * from './TAnimationsAsyncRegistry';
 export * from './TAnimationsPack';
 export * from './TAnimationsService';

@@ -9,9 +9,9 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { model3dConfigToParams } from '@/Engine/Models3d/Adapters';
 import { Model3dType } from '@/Engine/Models3d/Constants';
-import type { TModel3dConfig, TModel3dLoadResult, TModel3dParams, TModels3dAsyncRegistry, TModels3dService, TPerformLoadResult } from '@/Engine/Models3d/Models';
+import type { TModel3dConfig, TModel3dPack, TModel3dParams, TModels3dAsyncRegistry, TModels3dService, TPerformLoadResult } from '@/Engine/Models3d/Models';
 import type { TSceneWrapper } from '@/Engine/Scene';
-import { isDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { applyPosition, applyRotation, applyScale } from './Models3dServiceHelper';
 
@@ -37,7 +37,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
   function performLoad({ url, options }: TModel3dParams): Promise<TPerformLoadResult> {
     if ([...Object.values(Model3dType)].includes(url as Model3dType)) throw new Error(`Trying to load a primitive(e.g. cube, sphere, etc.) as an imported model: ${url}`);
 
-    const preResult: Pick<TModel3dLoadResult, 'url' | 'options'> = { url, options };
+    const preResult: Pick<TModel3dPack, 'url' | 'options'> = { url, options };
     if (!options.isForce) {
       const model: Mesh | Group | undefined = registry.findByKey(url);
       const animations: TAnimationsPack | undefined = animationsRegistry.findByKey(url);
@@ -49,15 +49,15 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     });
   }
 
-  function loadFromConfigAsync(config: ReadonlyArray<TModel3dConfig>): ReadonlyArray<Promise<TModel3dLoadResult>> {
+  function loadFromConfigAsync(config: ReadonlyArray<TModel3dConfig>): ReadonlyArray<Promise<TModel3dPack>> {
     return loadAsync(config.map(model3dConfigToParams));
   }
 
-  function loadAsync(model3dList: ReadonlyArray<TModel3dParams>): ReadonlyArray<Promise<TModel3dLoadResult>> {
-    let promises: ReadonlyArray<Promise<TModel3dLoadResult>> = [];
+  function loadAsync(model3dList: ReadonlyArray<TModel3dParams>): ReadonlyArray<Promise<TModel3dPack>> {
+    let promises: ReadonlyArray<Promise<TModel3dPack>> = [];
 
     model3dList.forEach((m: TModel3dParams): void => {
-      const p: Promise<TModel3dLoadResult> = performLoad(m).then(({ result, isExisting }: TPerformLoadResult): TModel3dLoadResult => {
+      const p: Promise<TModel3dPack> = performLoad(m).then(({ result, isExisting }: TPerformLoadResult): TModel3dPack => {
         //adjust model before adding to scene and registries
         if (isDefined(m.scale)) applyScale(result.model, m.scale);
         if (isDefined(m.rotation)) applyRotation(result.model, m.rotation);
@@ -73,6 +73,19 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     });
 
     return promises;
+  }
+
+  // TODO test this method, if it works correctly (animations are played for cloned model)
+  function cloneModel3dPack({ url }: TModel3dPack): TModel3dPack {
+    const model: Mesh | Group | undefined = registry.findByKey(url);
+    if (isNotDefined(model)) throw new Error(`Model with url: ${url} not found in registry`);
+    const clone = model.clone();
+    const animations = animationsRegistry.findByKey(url);
+    if (isDefined(animations)) {
+      // TODO question: do we need to .clone() animations?
+      const { mixer, actions } = animationsService.createActions(clone, animations);
+    }
+    return clone;
   }
 
   const destroyable: TDestroyable = destroyableMixin();

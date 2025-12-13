@@ -2,7 +2,7 @@ import { Subject } from 'rxjs';
 import type { AnimationClip, Group, Mesh } from 'three';
 import { AnimationMixer } from 'three';
 
-import type { TAnimationsAsyncRegistry, TAnimationsPack, TAnimationsService, TModel3dAnimations } from '@/Engine/Animations/Models';
+import type { TAnimationActions, TAnimationsAsyncRegistry, TAnimationsPack, TAnimationsService, TModel3dAnimations } from '@/Engine/Animations/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { isDefined } from '@/Engine/Utils';
@@ -31,11 +31,15 @@ export function AnimationsService(registry: TAnimationsAsyncRegistry): TAnimatio
     added$.next(modelAnimations);
   }
 
-  const createAnimationMixer = (model: Mesh | Group, animations: TAnimationsPack = {}): AnimationMixer => {
+  function createActions(model: Mesh | Group, animations: TAnimationsPack = {}): AnimationMixer {
     const mixer = new AnimationMixer(model);
-    Object.values(animations).forEach((clip: AnimationClip): void => void mixer.clipAction(clip));
-    return mixer;
-  };
+    const actions: TAnimationActions = {};
+    Object.entries(animations).forEach(([name, clip]: [string, AnimationClip]): void => {
+      // eslint-disable-next-line functional/immutable-data
+      actions[name] = mixer.clipAction(clip);
+    });
+    return { model, mixer, actions };
+  }
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
@@ -46,7 +50,7 @@ export function AnimationsService(registry: TAnimationsAsyncRegistry): TAnimatio
 
   return {
     add,
-    createAnimationMixer,
+    createActions,
     added$: added$.asObservable(),
     gltfAnimationsToPack,
     getRegistry: (): TAnimationsAsyncRegistry => registry,

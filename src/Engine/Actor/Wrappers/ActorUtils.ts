@@ -3,22 +3,22 @@ import { BoxGeometry, Mesh, PlaneGeometry, SphereGeometry } from 'three';
 import type { TActorDependencies, TActorParams } from '@/Engine/Actor/Models';
 import type { TMaterials, TMaterialWrapper } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
-import type { TModel3dLoadResult } from '@/Engine/Models3d';
+import type { TModel3dPack } from '@/Engine/Models3d';
 import { Model3dType } from '@/Engine/Models3d';
 import { isDefined } from '@/Engine/Utils';
 
-export async function createActorModel3d(params: TActorParams, { materialTextureService }: Pick<TActorDependencies, 'materialTextureService'>): Promise<TModel3dLoadResult> | never {
+export async function createActorModel3d(params: TActorParams, { materialTextureService }: Pick<TActorDependencies, 'materialTextureService'>): Promise<TModel3dPack> | never {
   // TODO AWAIT: could speed up by not awaiting material loading (return promise of an actor)
   const materialWrapper: TMaterialWrapper = await materialTextureService.createAsync(params.material);
 
   if (!Object.values(Model3dType).includes(params.model3d.url as Model3dType)) throw new Error('Cannot create Actor: unknown actor type');
 
-  let result: TModel3dLoadResult = {
+  let result: TModel3dPack = {
     url: params.model3d.url,
     animations: [],
     model: undefined,
     options: { shouldAddToScene: false, shouldSaveToRegistry: true, isForce: false }
-  } as unknown as TModel3dLoadResult;
+  } as unknown as TModel3dPack;
   if ((params.model3d.url as Model3dType) === Model3dType.Plane) result = { ...result, model: createPlane(params, materialWrapper.entity) };
   else if ((params.model3d.url as Model3dType) === Model3dType.Sphere) result = { ...result, model: createSphere(params, materialWrapper.entity) };
   else if ((params.model3d.url as Model3dType) === Model3dType.Cube) result = { ...result, model: createCube(params, materialWrapper.entity) };

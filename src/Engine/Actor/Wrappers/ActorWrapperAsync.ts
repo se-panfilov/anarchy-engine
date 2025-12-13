@@ -10,7 +10,7 @@ import { withKinematic } from '@/Engine/Kinematic';
 import type { TWithMaterial } from '@/Engine/Material';
 import { withMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
-import type { TModel3dLoadResult } from '@/Engine/Models3d';
+import type { TModel3dPack } from '@/Engine/Models3d';
 import { Model3dType } from '@/Engine/Models3d';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
 import { withReactivePosition, withReactiveRotation, withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
@@ -30,12 +30,12 @@ export async function ActorWrapperAsync(
     isForce: params.model3d.options?.isForce ?? false
   };
   // TODO AWAIT: could speed up by not awaiting mesh to be build?
-  const model3dLoadResultList: ReadonlyArray<Promise<TModel3dLoadResult>> = isPrimitiveModel3d
+  const model3dLoadResultList: ReadonlyArray<Promise<TModel3dPack>> = isPrimitiveModel3d
     ? [createActorModel3d(params, { materialTextureService })]
     : models3dService.loadAsync([{ ...params.model3d, options }]);
   if (model3dLoadResultList.length === 0) throw new Error(`Model3d not loaded: ${params.model3d.url}`);
   if (model3dLoadResultList.length > 1) throw new Error(`Model3d loaded more than one model: ${params.model3d.url}`);
-  const model3dLoadResult: TModel3dLoadResult = await model3dLoadResultList[0];
+  const model3dLoadResult: TModel3dPack = await model3dLoadResultList[0];
   const entity: Mesh | Group = model3dLoadResult.model;
 
   const withMaterialEntity: TWithMaterial = withMaterial(entity);

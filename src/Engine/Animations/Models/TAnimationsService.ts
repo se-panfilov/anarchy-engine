@@ -10,7 +10,7 @@ import type { TModel3dAnimations } from './TModel3dAnimations';
 
 export type TAnimationsService = Readonly<{
   add: (modelAnimations: TModel3dAnimations) => void;
-  createAnimationMixer: (model: Mesh | Group, animations?: TAnimationsPack) => AnimationMixer;
+  createActions: (model: Mesh | Group, animations?: TAnimationsPack) => AnimationMixer;
   gltfAnimationsToPack: (animations: ReadonlyArray<AnimationClip>) => TAnimationsPack;
   added$: Observable<TModel3dAnimations>;
 }> &
