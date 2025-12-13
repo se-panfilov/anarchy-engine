@@ -27,27 +27,27 @@ type TMeshStandardMaterialPick = Pick<
 >;
 type TPointsMaterialPick = Pick<PointsMaterialParameters, 'map' | 'alphaMap'>;
 
-export type TBasicMaterialPackKeys = keyof TMeshBasicMaterialPick;
-export type TDepthMaterialPackKeys = keyof TMeshDepthMaterialPick;
-export type TDistanceMaterialPackKeys = keyof TMeshDistanceMaterialPick;
-export type TNormalMaterialPackKeys = keyof TMeshNormalMaterialPick;
-export type TMatcapMaterialPackKeys = keyof TMeshMatcapMaterialPick;
-export type TLambertMaterialPackKeys = keyof TMeshLambertMaterialPick;
-export type TPhongMaterialPackKeys = keyof TMeshPhongMaterialPick;
-export type TPhysicalMaterialPackKeys = keyof TMeshPhysicalMaterialPick;
-export type TToonMaterialPackKeys = keyof TMeshToonMaterialPick;
-export type TStandardMaterialPackKeys = keyof TMeshStandardMaterialPick;
-export type TPointsMaterialPackKeys = keyof TPointsMaterialPick;
+export type TBasicMaterialTextureKeys = keyof TMeshBasicMaterialPick;
+export type TDepthMaterialTextureKeys = keyof TMeshDepthMaterialPick;
+export type TDistanceMaterialTextureKeys = keyof TMeshDistanceMaterialPick;
+export type TNormalMaterialTextureKeys = keyof TMeshNormalMaterialPick;
+export type TMatcapMaterialTextureKeys = keyof TMeshMatcapMaterialPick;
+export type TLambertMaterialTextureKeys = keyof TMeshLambertMaterialPick;
+export type TPhongMaterialTextureKeys = keyof TMeshPhongMaterialPick;
+export type TPhysicalMaterialTextureKeys = keyof TMeshPhysicalMaterialPick;
+export type TToonMaterialTextureKeys = keyof TMeshToonMaterialPick;
+export type TStandardMaterialTextureKeys = keyof TMeshStandardMaterialPick;
+export type TPointsMaterialTextureKeys = keyof TPointsMaterialPick;
 
-export type TMaterialPackKeys =
-  | TBasicMaterialPackKeys
-  | TDepthMaterialPackKeys
-  | TDistanceMaterialPackKeys
-  | TNormalMaterialPackKeys
-  | TMatcapMaterialPackKeys
-  | TLambertMaterialPackKeys
-  | TPhysicalMaterialPackKeys
-  | TToonMaterialPackKeys
-  | TStandardMaterialPackKeys
+export type TMaterialTextureKeys =
+  | TBasicMaterialTextureKeys
+  | TDepthMaterialTextureKeys
+  | TDistanceMaterialTextureKeys
+  | TNormalMaterialTextureKeys
+  | TMatcapMaterialTextureKeys
+  | TLambertMaterialTextureKeys
+  | TPhysicalMaterialTextureKeys
+  | TToonMaterialTextureKeys
+  | TStandardMaterialTextureKeys
   // eslint-disable-next-line @typescript-eslint/no-duplicate-type-constituents
-  | TPointsMaterialPackKeys;
+  | TPointsMaterialTextureKeys;

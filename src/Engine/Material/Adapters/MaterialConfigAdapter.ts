@@ -11,7 +11,7 @@ import {
   StencilOpMap
 } from '@/Engine/Material/Constants';
 import { StencilFuncMap } from '@/Engine/Material/Constants/StencilFuncName';
-import type { TMaterialConfig, TMaterialConfigToParamsDependencies, TMaterialParams, TMaterialParamsOptions, TMaterialTexturePack } from '@/Engine/Material/Models';
+import type { TMaterialConfig, TMaterialConfigToParamsDependencies, TMaterialParams, TMaterialParamsOptions, TMaterialParamsTextures } from '@/Engine/Material/Models';
 import type { TTexture } from '@/Engine/Texture';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -38,7 +38,7 @@ export function configToParams(config: TMaterialConfig, { textureService }: TMat
     if (isDefined(normalMapType)) options = { ...options, normalMapType: NormalMapTypesMap[normalMapType] };
   }
 
-  let textures: TMaterialTexturePack | undefined = {} as TMaterialTexturePack;
+  let textures: TMaterialParamsTextures | undefined = undefined;
   if (isDefined(config.textures)) {
     textures = {};
 
@@ -49,12 +49,10 @@ export function configToParams(config: TMaterialConfig, { textureService }: TMat
     });
   }
 
-  let result = {
+  // TODO 9.0.0. RESOURCES: add name to texture's userData
+  return {
     ...config,
+    textures,
     options
   };
-
-  if (isDefined(textures)) result = { ...result, textures };
-
-  return result;
 }
