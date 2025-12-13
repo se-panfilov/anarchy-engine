@@ -1,6 +1,6 @@
 import type { IMultitonRegistrable, IRegistrable } from '@Engine/Domains/Mixins';
 import type { RegistryName } from '@Engine/Registries';
-import { getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag, isNotDefined } from '@Engine/Utils';
+import { getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag, isDestroyable, isNotDefined } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
 
@@ -46,6 +46,9 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     added$.complete();
     replaced$.complete();
     removed$.complete();
+    registry.forEach((obj: T): void => {
+      if (isDestroyable(obj)) obj.destroy();
+    });
     registry.clear();
   }
 

@@ -20,7 +20,7 @@ import { LightFactory, LightRegistry } from '@/Engine/Domains/Light';
 
 // TODO (S.Panfilov) fix IBuiltGame type
 // TODO (S.Panfilov) CWP All factories should be self-registrable
-// TODO (S.Panfilov) Registries should kill all registred instances
+// TODO (S.Panfilov) Registries' destroy() should kill all registred instances
 
 export function buildGame(sceneConfig: ISceneConfig, canvas: IAppCanvas): IBuiltGame {
   const built$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -110,15 +110,15 @@ export function buildGame(sceneConfig: ISceneConfig, canvas: IAppCanvas): IBuilt
     },
     built$,
     destroyed$,
-    actors: {
+    actor: {
       factory: { initial: actorFactory },
       registry: { initial: actorRegistry }
     },
-    cameras: {
+    camera: {
       factory: { initial: cameraFactory },
       registry: { initial: cameraRegistry }
     },
-    lights: {
+    light: {
       factory: { initial: lightFactory },
       registry: { initial: lightRegistry }
     },
@@ -126,11 +126,11 @@ export function buildGame(sceneConfig: ISceneConfig, canvas: IAppCanvas): IBuilt
       factory: { initial: controlsFactory },
       registry: { initial: controlsRegistry }
     },
-    loops: {
+    loop: {
       factory: { initial: loopFactory },
       registry: { initial: loopRegistry }
     },
-    renderers: {
+    renderer: {
       factory: { initial: rendererFactory },
       registry: { initial: rendererRegistry }
     }

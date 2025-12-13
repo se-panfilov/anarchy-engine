@@ -8,12 +8,13 @@ import type { IActorWrapper, IAppCanvas, IBuiltGame, ICameraWrapper, ISceneConfi
 import { ActorTag, ambientContext, buildGame, CameraTag, isNotDefined } from '@/Engine';
 
 const canvas: IAppCanvas | null = ambientContext.container.getCanvasElement('#app');
+if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
 const game: IBuiltGame = buildGame(sceneConfig as ISceneConfig, canvas);
 game.start();
 
-const clickableActors: ReadonlyArray<IActorWrapper> = game.actors.initial.registry.getAllWithEveryTag([ActorTag.Intersectable]);
+const clickableActors: ReadonlyArray<IActorWrapper> = game.actor.registry.initial.getAllWithEveryTag([ActorTag.Intersectable]);
 const cameraTag: CameraTag = CameraTag.Initial;
-const camera: ICameraWrapper | undefined = game.camera.initial.registry.getUniqByTag(cameraTag);
+const camera: ICameraWrapper | undefined = game.camera.registry.initial.getUniqByTag(cameraTag);
 
 if (isNotDefined(camera)) throw new Error(`Cannot init intersection service: camera with tag "${cameraTag}" is not defined`);
 const intersectionsWatcher: IIntersectionsWatcher = IntersectionsWatcherFactory().create({ actors: clickableActors, camera, positionWatcher: ambientContext.mousePositionWatcher });
