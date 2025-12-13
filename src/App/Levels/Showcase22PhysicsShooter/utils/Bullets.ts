@@ -66,6 +66,8 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
 
   function setActive(act: boolean): void {
     actorW.collisions.setAutoUpdate(act);
+    // eslint-disable-next-line functional/immutable-data
+    (actorW.entity as Mesh).visible = true;
     active = act;
   }
 
@@ -84,8 +86,8 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
   }
 
   actorW.collisions.value$.subscribe((collision: any): void => {
-    // TODO (S.Panfilov) CWP this should work, but it doesn't. Debug
     console.log('Bullet hit', collision);
+    reset();
   });
 
   function update(delta: number): void {
