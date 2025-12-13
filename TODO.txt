@@ -47,6 +47,7 @@ Thoughts:
 - Maybe: a single generic factory and registries for all entities (actor, model, etc), instead of files create them with params;
 - Maybe: if it makes sense to replace Rapier with Havok;
 - Maybe: remove animejs from the engine (use it only in the app);
+- Maybe: serialization should return promise (cause it looks async);
 - BUG: #191823 Text3dTextures doesn't update text values on textures on change;
 - TASK: Check every function in the engine that it's not calling every second (with adding console.log everywhere);
 - TASK: Check performance (make sure materials and env maps are async)
