@@ -45,11 +45,13 @@ function validateData({ name, actors, cameras, scenes, controls, intersections, 
 
   //Regexp checks (ts-json schema does not support regexp patterns atm)
   //names
-  const isConfigNameValid: boolean = validateName(name);
+  const isConfigNameValid: boolean = validate(name);
   const isEverySceneNameValid: boolean = validateNames(scenes);
   const isEveryActorNameValid: boolean = validateNames(actors);
   const isEveryCameraNameValid: boolean = validateNames(cameras);
   const isEveryIntersectionNameValid: boolean = validateNames(intersections);
+  const isEveryIntersectionCameraNameValid: boolean = validateCameraNames(intersections);
+  const isEveryIntersectionActorNamesValid: boolean = validateActorNamesForEveryEntity(intersections);
   const isEveryLightNameValid: boolean = validateNames(lights);
   const isEveryFogNameValid: boolean = validateNames(fogs);
   const isEveryTextNameValid: boolean = validateNames(texts);
@@ -79,6 +81,8 @@ function validateData({ name, actors, cameras, scenes, controls, intersections, 
   if (!isEveryActorNameValid) errors = [...errors, 'Actor names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryCameraNameValid) errors = [...errors, 'Camera names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryIntersectionNameValid) errors = [...errors, 'Intersection names must be defined and contain only letters, numbers and underscores'];
+  if (!isEveryIntersectionCameraNameValid) errors = [...errors, 'Intersection "cameraName" must be defined and contain only letters, numbers and underscores'];
+  if (!isEveryIntersectionActorNamesValid) errors = [...errors, 'Intersection "actorNames" must be an array of strings that contain only letters, numbers and underscores'];
   if (!isEveryLightNameValid) errors = [...errors, 'Light names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryFogNameValid) errors = [...errors, 'Fog names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryTextNameValid) errors = [...errors, 'Text names must be defined and contain only letters, numbers and underscores'];
@@ -97,10 +101,18 @@ function validateData({ name, actors, cameras, scenes, controls, intersections, 
   return { isValid: errors.length === 0, errors };
 }
 
-const validateNames = (entities: ReadonlyArray<IWithName>): boolean => entities.every((e: IWithName): boolean => validateName(e.name));
+const validateNames = (entities: ReadonlyArray<IWithName>): boolean => entities.every(validateName);
+const validateName = (entity: IWithName): boolean => validateField(entity, 'name');
+const validateCameraNames = (entities: ReadonlyArray<Readonly<{ cameraName: string }>>): boolean => entities.every(validateCameraName);
+const validateCameraName = (entity: Readonly<{ cameraName: string }>): boolean => validateField(entity, 'cameraName');
 
-const validateName = (name: string | undefined): boolean => (isDefined(name) ? name.length > 0 && /^[A-z0-9_]+$/gm.test(name) : true);
-
-const validateTags = (tags: ReadonlyArray<string>): boolean => tags.every(validateName);
+const validateActorNamesForEveryEntity = (entities: ReadonlyArray<Readonly<{ actorNames: ReadonlyArray<string> }>>): boolean => entities.every(validateActorNames);
+const validateActorNames = (entity: Readonly<{ actorNames: ReadonlyArray<string> }>): boolean => validateField(entity, 'actorNames');
 
 const validateTagsForEveryEntity = (entities: ReadonlyArray<IWithReadonlyTags>): boolean => entities.every((e: IWithReadonlyTags): boolean => validateTags(e.tags));
+const validateTags = (tags: ReadonlyArray<string>): boolean => tags.every(validate);
+
+// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+const validateField = <T extends Record<string, any>>(obj: T, field: keyof T): boolean => validate(obj[field]);
+
+const validate = (str: string | undefined): boolean => (isDefined(str) ? str.length > 0 && /^[A-z0-9_]+$/gm.test(str) : true);
