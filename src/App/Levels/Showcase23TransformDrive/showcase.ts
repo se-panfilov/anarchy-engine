@@ -126,7 +126,7 @@ export async function showcase(space: TSpace): Promise<void> {
   sceneW.addModel3d(planeModel3d);
 
   const actorCoords = new Vector3(0, actorsOffsetY, 0);
-  const sphereActorPhysics: TPhysicsBodyParams = {
+  const sphereActorPhysicsParams: Omit<TPhysicsBodyParams, 'position' | 'rotation'> = {
     name: 'sphere_actor_physics',
     collisionShape: CollisionShape.Ball,
     type: RigidBodyTypesNames.Dynamic,
@@ -138,7 +138,7 @@ export async function showcase(space: TSpace): Promise<void> {
 
   const foxModel3dSource: GLTF = models3dService.getResourceRegistry().getByKey(foxModelName);
 
-  const sphereActor: TActor = createActor('sphere', foxModel3dSource, TransformAgent.Default, grid, actorCoords, '#E91E63', sphereActorPhysics, space.services);
+  const sphereActor: TActor = createActor('sphere', foxModel3dSource, TransformAgent.Default, grid, actorCoords.clone(), '#E91E63', sphereActorPhysicsParams, space.services);
   gui.add(mode, 'isTeleportationMode').name('Teleportation mode');
   addActorFolderGui(gui, sphereActor);
   addKinematicActorFolderGui(gui, sphereActor);

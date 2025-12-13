@@ -1,5 +1,5 @@
 import type { Vector3Like } from 'three';
-import { Euler, Vector3 } from 'three';
+import { Euler, Quaternion, Vector3 } from 'three';
 
 import { BULLET_TARGET_TAG } from '@/App/Levels/Showcase20PhysicsShooter/utils/Bullets';
 import type {
@@ -72,7 +72,8 @@ export function buildTower(
         hy: block.height / 2,
         hz: block.depth / 2
       },
-      position: block.position
+      position: block.position,
+      rotation: new Quaternion()
     });
 
     return actorService.create({

@@ -39,13 +39,15 @@ export function createActor(
   grid: TSpatialGridWrapper,
   position: Vector3,
   color: string,
-  physics: TPhysicsBodyParams | undefined,
+  physics: Omit<TPhysicsBodyParams, 'position' | 'rotation'> | undefined,
   { actorService, materialService, models3dService, physicsBodyService }: TSpaceServices
 ): TActor {
   const material: TMaterialWrapper = materialService.create({ name: `${name}_material`, type: MaterialType.Standard, options: { color } });
 
+  const rotation: Euler = new Euler(0, 0, 0);
+
   let physicBody: TPhysicsBody | undefined;
-  if (isDefined(physics)) physicBody = physicsBodyService.create(physics);
+  if (isDefined(physics)) physicBody = physicsBodyService.create({ ...physics, position, rotation: new Quaternion().setFromEuler(rotation) });
 
   let model: TModel3d;
 
@@ -59,8 +61,8 @@ export function createActor(
       options: { radius: meters(0.7) },
       castShadow: true,
       receiveShadow: true,
-      position: position.clone(),
-      rotation: new Euler(0, 0, 0)
+      position,
+      rotation
     });
   }
 
