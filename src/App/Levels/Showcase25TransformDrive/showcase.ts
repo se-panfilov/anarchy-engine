@@ -35,7 +35,7 @@ import {
   degrees,
   Engine,
   ForwardAxis,
-  getDistancePrecisely,
+  getDistance,
   getElevation,
   getHorizontalAzimuth,
   getMouseAzimuthAndElevation,
@@ -250,7 +250,7 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
       // no need to do anything here, cause already connected
       return undefined;
     case TransformAgent.Physical:
-      forcePower = getDistancePrecisely(actor.drive.getPosition(), position).toNumber();
+      forcePower = getDistance(actor.drive.getPosition(), position);
       actor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, radians(0), forcePower * 1.5), true);
       return undefined;
     default:

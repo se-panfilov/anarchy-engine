@@ -10,7 +10,7 @@ import {
   ambientContext,
   Engine,
   ForwardAxis,
-  getDistancePrecisely,
+  getDistance,
   getHorizontalAzimuth,
   getPushCoordsFrom3dAzimuth,
   isActorHasPhysicsBody,
@@ -100,7 +100,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         azimuth = getHorizontalAzimuth(ballCoords.x, ballCoords.z, mouseLineIntersectionsCoords, ForwardAxis.Z);
         azimuthText.setText(`Azimuth: ${azimuth.toFixed(2)}`);
         forcePowerText.setText(`Force: ${forcePower.toFixed(2)}`);
-        forcePower = getDistancePrecisely(ballActor.drive.getPosition(), mouseLineIntersectionsCoords).toNumber();
+        forcePower = getDistance(ballActor.drive.getPosition(), mouseLineIntersectionsCoords);
         line.geometry.setPositions([ballCoords.x, ballCoords.y, ballCoords.z, mouseLineIntersectionsCoords.x, mouseLineIntersectionsCoords.y, mouseLineIntersectionsCoords.z]);
         line.computeLineDistances();
       }

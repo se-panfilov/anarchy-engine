@@ -1,9 +1,9 @@
-import Decimal from 'decimal.js';
 import type { Vector3 } from 'three';
 
-export function getDistancePrecisely(pointA: Vector3, pointB: Vector3): Decimal {
-  const dx: Decimal = new Decimal(pointB.x).minus(pointA.x);
-  const dy: Decimal = new Decimal(pointB.y).minus(pointA.y);
-  const dz: Decimal = new Decimal(pointB.z).minus(pointA.z);
-  return Decimal.sqrt(dx.pow(2).plus(dy.pow(2)).plus(dz.pow(2)));
+export function getDistance(pointA: Vector3, pointB: Vector3): number {
+  const dx: number = pointB.x - pointA.x;
+  const dy: number = pointB.y - pointA.y;
+  const dz: number = pointB.z - pointA.z;
+
+  return Math.sqrt(dx * dx + dy * dy + dz * dz);
 }

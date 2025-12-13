@@ -1,4 +1,3 @@
-import Decimal from 'decimal.js';
 import type { EulerOrder, QuaternionLike } from 'three';
 import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad, euclideanModulo, radToDeg } from 'three/src/math/MathUtils';
@@ -110,20 +109,21 @@ export const getDirectionFromAngularVelocity = (angularVelocity: Quaternion): Qu
 
 // TODO add unit tests
 export function get3DAzimuth(center: Vector3Like, point: Vector3Like): { azimuth: TRadians; elevation: TRadians } {
-  const dx: Decimal = new Decimal(point.x).minus(center.x);
-  const dy: Decimal = new Decimal(point.y).minus(center.y);
-  const dz: Decimal = new Decimal(point.z).minus(center.z);
+  const dx: number = point.x - center.x;
+  const dy: number = point.y - center.y;
+  const dz: number = point.z - center.z;
 
-  let azimuth: Decimal = Decimal.atan2(dz, dx);
+  let azimuth: number = Math.atan2(dz, dx);
 
-  if (azimuth.isNegative()) azimuth = azimuth.plus(2 * Math.PI);
+  // Ensure azimuth is in range [0, 2π]
+  if (azimuth < 0) azimuth += 2 * Math.PI;
 
-  const horizontalDistance: Decimal = Decimal.sqrt(dx.pow(2).plus(dz.pow(2)));
-  const elevation: Decimal = Decimal.atan2(dy, horizontalDistance);
+  const horizontalDistance: number = Math.sqrt(dx * dx + dz * dz);
+  const elevation: number = Math.atan2(dy, horizontalDistance);
 
   return {
-    azimuth: azimuth.toNumber() as TRadians,
-    elevation: elevation.toNumber() as TRadians
+    azimuth: azimuth as TRadians,
+    elevation: elevation as TRadians
   };
 }
 
