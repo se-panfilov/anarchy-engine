@@ -38,8 +38,7 @@ export function SettingsService(app: App): TSettingsService {
     fs.writeFileSync(tmpPath, data, { encoding: 'utf-8' });
     fs.renameSync(tmpPath, finalPath);
 
-    console.log('XXX tmpPath', tmpPath);
-    console.log('XXX finalPath', finalPath);
+    console.log('[DESKTOP]: settings saved:', finalPath);
   }
 
   function isSettings(settings: TShowcaseGameSettings | unknown): settings is TShowcaseGameSettings {
