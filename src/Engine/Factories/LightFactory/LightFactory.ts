@@ -1,4 +1,5 @@
-import { ILightWrapper, LightWrapper } from '@Engine/Wrappers';
+import type { ILightWrapper } from '@Engine/Wrappers';
+import { LightWrapper } from '@Engine/Wrappers';
 import type { LightParams } from '@Engine/Models';
 import { lightAdapter } from '@Engine/Adapters';
 import type { ICreateLightFn, ILightFactory } from '@Engine/Factories';
