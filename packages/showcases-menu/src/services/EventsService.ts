@@ -3,6 +3,7 @@ import type { TEventsService } from '@Menu/models';
 import type { TMenuEvent, TShowcaseGameSettings } from '@ShowcasesShared';
 import { MenuEvents } from '@ShowcasesShared';
 import type { Subject } from 'rxjs';
+import { toRaw } from 'vue';
 
 function EventsService(): TEventsService {
   let bus$: Subject<TMenuEvent> | undefined;
@@ -20,7 +21,7 @@ function EventsService(): TEventsService {
   function emitSaveMenuSettings(settings: TShowcaseGameSettings): void | never {
     if (isNotDefined(bus$)) throw new Error(noBusError);
     console.log('[EventsService]: emitSaveMenuSettings');
-    bus$.next({ type: MenuEvents.SaveSettings, payload: settings });
+    bus$.next({ type: MenuEvents.SaveSettings, payload: toRaw(settings) });
   }
 
   function emitLoadMenuSettings(): void | never {
