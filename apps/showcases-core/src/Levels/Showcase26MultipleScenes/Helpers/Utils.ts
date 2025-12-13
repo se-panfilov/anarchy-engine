@@ -1,5 +1,6 @@
 import type { TActor, TActorRegistry, TKeysPressingEvent, TParticlesWrapper, TSpace, TSpaceServices } from '@Anarchy/Engine';
 import { ambientContext, createDomElement, KeyCode, metersPerSecond, mpsSpeed } from '@Anarchy/Engine';
+import { isKeyPressed } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
 
 import type { TSubscriptionsData } from '@/Levels/Showcase26MultipleScenes/Helpers/TSubscriptionsData';
 import { addBtn } from '@/Utils';
@@ -42,12 +43,14 @@ export function createContainersDivs(): void {
 export function driveByKeyboard(actorName: string, { actorService, keyboardService }: TSpaceServices): void {
   const actorRegistry: TActorRegistry = actorService.getRegistry();
   const actor: TActor = actorRegistry.getByName(actorName);
-  const { onKey } = keyboardService;
+  const { pressing$ } = keyboardService;
 
-  onKey(KeyCode.W).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actor.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta)));
-  onKey(KeyCode.A).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actor.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta)));
-  onKey(KeyCode.S).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actor.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta)));
-  onKey(KeyCode.D).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actor.drive.default.addX(mpsSpeed(metersPerSecond(10), delta)));
+  pressing$.subscribe(({ keys, delta }: TKeysPressingEvent): void => {
+    if (isKeyPressed(KeyCode.W, keys)) actor.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta));
+    if (isKeyPressed(KeyCode.A, keys)) actor.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta));
+    if (isKeyPressed(KeyCode.S, keys)) actor.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta));
+    if (isKeyPressed(KeyCode.D, keys)) actor.drive.default.addX(mpsSpeed(metersPerSecond(10), delta));
+  });
 }
 
 export function destroySpace({ totalSubscriptions, completedSubscriptions, subscriptionStacks }: TSubscriptionsData, cb: () => void, shouldLogStack: boolean = false): void {

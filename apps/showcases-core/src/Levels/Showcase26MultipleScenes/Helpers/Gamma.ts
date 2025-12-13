@@ -1,5 +1,6 @@
-import type { TFsmStates, TFsmWrapper, TSpace } from '@Anarchy/Engine';
+import type { TFsmStates, TFsmWrapper, TKeysPressingEvent, TSpace } from '@Anarchy/Engine';
 import { KeyCode } from '@Anarchy/Engine';
+import { isEventKey, isKeyPressed } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
 import { distinctUntilChanged } from 'rxjs';
 import { Clock } from 'three';
 
@@ -17,7 +18,7 @@ export function runGamma(space: TSpace): void {
 
 function addActors(space: TSpace): void {
   const { keyboardService } = space.services;
-  const { onKey, isKeyPressed } = keyboardService;
+  const { pressing$, released$ } = keyboardService;
 
   moveByCircle('box_actor', space.services.actorService, space.loops.transformLoop, new Clock());
 
@@ -34,12 +35,12 @@ function addActors(space: TSpace): void {
     }
   });
 
-  onKey(KeyCode.W).pressing$.subscribe((): void => {
-    const action: 'Run' | 'Walk' = isKeyPressed(KeyCode.ShiftLeft) ? 'Run' : 'Walk';
+  pressing$.subscribe(({ keys }: TKeysPressingEvent): void => {
+    const action: 'Run' | 'Walk' = isKeyPressed(KeyCode.ShiftLeft, keys) ? 'Run' : 'Walk';
     if (solder1AnimFsm.getState() !== action) solder1AnimFsm.send$.next(action);
   });
 
-  onKey(KeyCode.W).released$.subscribe((): void => {
-    solder1AnimFsm.send$.next('Idle');
+  released$.subscribe((event: KeyboardEvent): void => {
+    if (isEventKey(KeyCode.W, event)) solder1AnimFsm.send$.next('Idle');
   });
 }
