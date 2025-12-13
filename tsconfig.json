@@ -14,6 +14,7 @@
     "noUnusedParameters": true,
     "paths": {
       "@Engine/*": ["packages/engine/src/*"],
+      "@Engine": ["packages/engine/src/index.ts"],
       "@Shared/*": ["packages/shared/*"]
     },
     "resolveJsonModule": true,
