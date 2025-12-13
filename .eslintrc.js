@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'functional', 'jest', 'sort-export-all'],
+  plugins: ['@typescript-eslint', 'functional', 'sort-export-all'],
   parserOptions: {
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.json']
@@ -26,15 +26,19 @@ module.exports = {
         allowRestParameter: true,
         allowArgumentsKeyword: false,
         enforceParameterCount: false
-        // enforceParameterCount: {
-        //   count: 'atLeastOne',
-        //   ignoreIIFE: true
-        // }
       }
     ],
     'functional/no-expression-statement': 'off',
     'functional/prefer-readonly-type': 'off', //deprecated
-    'functional/prefer-immutable-types': 'off', // TODO (S.Panfilov) should be fixed and set to "error" or something
+    'functional/prefer-immutable-types': [
+      'error',
+      {
+        enforcement: 'None',
+        parameters: {
+          enforcement: 'ReadonlyShallow'
+        }
+      }
+    ],
     'functional/no-expression-statements': 'off',
     'functional/no-throw-statements': 'off',
     'functional/no-throw-statement': 'off',
@@ -42,9 +46,10 @@ module.exports = {
     'functional/no-let': 'off',
     'functional/no-mixed-type': 'off',
     'functional/no-conditional-statement': 'off', // TODO (S.Panfilov) temp off (don't get this rule tbh)
-    'functional/no-class': 'off', // TODO (S.Panfilov) temp off (would be great to not use classes)
-    'functional/no-classes': 'off', // TODO (S.Panfilov) would be nice to avoid classes
-    'functional/no-this-expression': 'off', // TODO (S.Panfilov) temp off (would be great to not use classes)
+    'functional/no-class': 'off',
+    'functional/no-classes': 'off',
+    'functional/readonly-type': ['error', 'generic'],
+    'functional/no-this-expression': 'off',
     'functional/no-return-void': 'off', // TODO (S.Panfilov) temp off (don't get this rule tbh)
     '@typescript-eslint/explicit-function-return-type': 'error',
     '@typescript-eslint/no-explicit-any': 'error'

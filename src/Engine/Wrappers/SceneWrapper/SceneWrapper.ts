@@ -1,12 +1,13 @@
 import type { IActorWrapper, ICameraWrapper, ILightWrapper } from '@Engine/Wrappers';
-import type { ISceneObject, IWrapper } from '@Engine/Models';
+import type { IScene, ISceneObject, IWrapper } from '@Engine/Models';
 import { AbstractWrapper } from '@Engine/Wrappers';
 import type { ISceneParams } from '@Engine/Models/ISceneParams';
 import type { ISceneWrapper } from './Models';
 import { Scene } from 'three';
+import type { Writeable } from '@Engine/Utils';
 
 export function SceneWrapper({ name }: ISceneParams): ISceneWrapper {
-  const entity: Scene = new Scene();
+  const entity: Writeable<IScene> = new Scene();
 
   // eslint-disable-next-line functional/immutable-data
   entity.name = name;

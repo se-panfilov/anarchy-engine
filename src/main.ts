@@ -8,8 +8,9 @@ import { getRegistryPool } from '@Engine/Pool/GetRegistiryPool';
 import type { IRegistriesPool } from '@Engine/Pool/Models/IRegistriesPool';
 import { getFactoriesPool } from '@Engine/Pool/GetFactoriesPool';
 import type { IFactoriesPool } from '@Engine/Pool/Models/IFactoriesPool';
+import type { IAppCanvas } from '@Engine/Models';
 
-const canvas: HTMLCanvasElement | null = document.querySelector('#app');
+const canvas: IAppCanvas | null = document.querySelector('#app');
 if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
 if (!isValidSceneConfig(sceneConfig)) throw new Error('Failed to load a scene: invalid data format');
 

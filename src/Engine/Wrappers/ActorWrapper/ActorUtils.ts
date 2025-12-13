@@ -1,7 +1,7 @@
 import { Mesh, MeshToonMaterial, PlaneGeometry, SphereGeometry } from 'three';
-import type { IActorParams } from '@Engine/Models';
+import type { IActorParams, IMesh } from '@Engine/Models';
 
-export function createActor(params: IActorParams): Mesh | never {
+export function createActor(params: IActorParams): IMesh | never {
   if (params.type === 'plane') return createPlane(params);
   if (params.type === 'sphere') return createSphere(params);
   throw new Error('Cannot create Actor: unknown actor type');
@@ -16,7 +16,7 @@ function createPlane({
   rotation,
   position,
   castShadow
-}: IActorParams): Mesh {
+}: IActorParams): IMesh {
   const plane = new Mesh(
     new PlaneGeometry(width, height, widthSegments, heightSegments),
     new MeshToonMaterial(materialParams)
@@ -39,7 +39,7 @@ function createSphere({
   materialParams,
   position,
   castShadow
-}: IActorParams): Mesh {
+}: IActorParams): IMesh {
   // const sphere = new Mesh(new SphereGeometry(1, 32, 32), new MeshToonMaterial({ color: new Color('#5EDCAE') }));
   const sphere = new Mesh(
     new SphereGeometry(radius, widthSegments, heightSegments),

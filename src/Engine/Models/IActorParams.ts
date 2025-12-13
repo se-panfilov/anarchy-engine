@@ -1,4 +1,5 @@
-import type { MeshToonMaterialParameters, Vector3 } from 'three';
+import type { MeshToonMaterialParameters } from 'three';
+import type { IVector3 } from '@Engine/Models/IVector3';
 
 export type IActorParams = Readonly<{
   type: IActorType;
@@ -8,8 +9,8 @@ export type IActorParams = Readonly<{
   widthSegments?: number;
   heightSegments?: number;
   materialParams?: MeshToonMaterialParameters;
-  position: Vector3;
-  rotation?: Vector3;
+  position: IVector3;
+  rotation?: IVector3;
   castShadow: boolean;
 }>;
 

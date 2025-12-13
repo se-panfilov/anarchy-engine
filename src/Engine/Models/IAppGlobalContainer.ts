@@ -1,1 +1,1 @@
-export type IAppGlobalContainer = Window;
+export type IAppGlobalContainer = Readonly<Window>;

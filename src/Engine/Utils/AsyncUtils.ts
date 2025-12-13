@@ -3,8 +3,8 @@ export function createDeferredPromise<T>(): DeferredPromise<T> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let reject: (reason?: any) => void;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const promise: Promise<T> = new Promise(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (res: (value: T | PromiseLike<T>) => void, rej: (reason?: any) => void): void => {
       resolve = res;
       reject = rej;

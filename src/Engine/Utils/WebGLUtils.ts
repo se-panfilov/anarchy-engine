@@ -1,5 +1,7 @@
+import type { IAppCanvas } from '@Engine/Models';
+
 export function isWebGLAvailable(): boolean {
-  let canvas: HTMLCanvasElement | undefined = undefined;
+  let canvas: IAppCanvas | undefined = undefined;
 
   try {
     if (!window || !document) return false;
@@ -14,7 +16,7 @@ export function isWebGLAvailable(): boolean {
 }
 
 export function isWebGL2Available(): boolean {
-  let canvas: HTMLCanvasElement | undefined = undefined;
+  let canvas: IAppCanvas | undefined = undefined;
 
   try {
     if (!window || !document) return false;

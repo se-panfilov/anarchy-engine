@@ -1,1 +1,1 @@
-export type IAppCanvas = HTMLCanvasElement;
+export type IAppCanvas = Readonly<HTMLCanvasElement>;

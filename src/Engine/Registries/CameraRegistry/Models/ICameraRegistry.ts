@@ -1,8 +1,7 @@
 import type { ICameraWrapper } from '@Engine/Wrappers';
 import type { IProtectedRegistry } from '@Engine/Models';
-import { IAbstractRegistry } from '@Engine/Models';
 
-export type ICameraRegistry = IProtectedRegistry<ICameraWrapper, IAbstractRegistry<ICameraWrapper>> &
+export type ICameraRegistry = IProtectedRegistry<ICameraWrapper> &
   Readonly<{
     getByTag: (tag: string) => ICameraWrapper | never;
   }>;
