@@ -32,12 +32,13 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
   screenService.setCanvas(canvas);
 
-  let scene: ISceneWrapper | undefined;
+  let activeScene: ISceneWrapper;
   const services: ISpaceServices = initServices(canvas, (scenesService: IScenesService): ISceneWrapper | never => {
     scenesService.createFromConfig(scenes);
-    scene = scenesService.findActiveScene();
+    const scene: ISceneWrapper | undefined = scenesService.findActiveScene();
     if (isNotDefined(scene)) throw new Error(`Cannot find an active scene for space "${name}" during space's services initialization.`);
-    return scene;
+    activeScene = scene;
+    return activeScene;
   });
 
   const { cameraService, lightService, fogService, envMapService, textService, rendererService } = services;
@@ -59,8 +60,8 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
   //env maps
   envMapService.added$.subscribe((texture: IDataTexture): void => {
-    scene.setBackground(texture);
-    scene.setEnvironmentMap(texture);
+    activeScene.setBackground(texture);
+    activeScene.setEnvironmentMap(texture);
   });
 
   const renderer: IRendererWrapper = rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2, isActive: true });
@@ -70,10 +71,10 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     const activeCamera: ICameraWrapper | undefined = cameraService?.findActiveCamera();
     if (isDefined(activeCamera)) {
       if (isNotDefined(renderer)) throw new Error('Cannot find renderer');
-      renderer.entity.render(scene.entity, activeCamera.entity);
+      renderer.entity.render(activeScene.entity, activeCamera.entity);
       // TODO (S.Panfilov) update these text renderers only when there are any text (or maybe only when it's changed)
-      if (!text2dRegistry?.isEmpty()) text2dRenderer?.renderer.render(scene.entity, activeCamera.entity);
-      if (!text3dRegistry?.isEmpty()) text3dRenderer?.renderer.render(scene.entity, activeCamera.entity);
+      if (!text2dRegistry?.isEmpty()) text2dRenderer?.renderer.render(activeScene.entity, activeCamera.entity);
+      if (!text3dRegistry?.isEmpty()) text3dRenderer?.renderer.render(activeScene.entity, activeCamera.entity);
     }
 
     if (isNotDefined(loopTick$)) throw new Error('Loop tick subscription is not defined');
@@ -102,7 +103,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     stop(): void {
       // TODO (S.Panfilov) implement stop
       // if (isDefined(intersectionsWatcher)) intersectionsWatcher.stop();
-      // loop.stop(renderer, scene, controlsRegistry, cameraRegistry);
+      // loop.stop(renderer, activeScene, controlsRegistry, cameraRegistry);
     },
     services,
     ...builtMixin,
