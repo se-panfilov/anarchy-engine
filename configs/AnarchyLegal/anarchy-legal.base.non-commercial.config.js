@@ -13,7 +13,7 @@ export default {
   },
 
   //Root
-  NOTICE: { template: 'NOTICE_SLIM_TEMPLATE' },
+  NOTICE: { template: 'NOTICE_SLIM_NON_COMMERCIAL_TEMPLATE' },
 
   //LEGAL folder (include in a package/binary)
   DISCLAIMER: { template: 'DISCLAIMER_TEMPLATE', relativeOutput: './legal' },

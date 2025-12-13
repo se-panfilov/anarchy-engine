@@ -1,6 +1,6 @@
 # Third-Party Notices (Pointer)
 
-This distribution of **showcases-e2e** may include third-party open-source components.
+This distribution of **{{PACKAGE_NAME}}** may include third-party open-source components.
 
 Full attributions and license texts are provided **offline** at:
 
@@ -10,4 +10,4 @@ Full attributions and license texts are provided **offline** at:
 
 Nothing in this pointer modifies third-party licenses. If there is any conflict between this note and a third-party license, the third-party license controls.
 
-Questions: TBD until market release
+Questions: {{LEGAL_EMAIL}}

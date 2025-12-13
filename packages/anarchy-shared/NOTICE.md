@@ -1,6 +1,6 @@
 # Third-Party Notices (Pointer)
 
-This distribution of \*\*\*\* may include third-party open-source components.
+This distribution of **anarchy-shared** may include third-party open-source components.
 
 Full attributions and license texts are provided **offline** at:
 

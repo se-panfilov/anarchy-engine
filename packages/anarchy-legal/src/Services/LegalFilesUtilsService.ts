@@ -309,6 +309,7 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
   }
 
   async function generateAll(renderInput: TRenderInput & { keys: ReadonlySet<string> }, options: TTemplateGeneratorOptions): Promise<void> {
+    // eslint-disable-next-line functional/no-loop-statements
     for (const k of renderInput.keys) {
       await generateForType(renderInput, k, options);
     }
@@ -325,11 +326,10 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
 
   // Ensure every configured doc type has a non-empty "template" field
   function assertTemplatesPresent(config: TAnarchyLegalConfig, keys: ReadonlySet<string>): void | never {
-    const missing: string[] = [];
-    for (const k of keys) {
+    const missing = Array.from(keys).filter((k) => {
       const tpl = config[k]?.template;
-      if (typeof tpl !== 'string' || tpl.trim() === '') missing.push(k);
-    }
+      return typeof tpl !== 'string' || tpl.trim() === '';
+    });
 
     if (missing.length) {
       throw new Error(`anarchy-legal.config.js: "template" is required for sections: ${missing.join(', ')}`);
@@ -337,12 +337,7 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
   }
 
   function getConfiguredDocKeys(config: TAnarchyLegalConfig): ReadonlySet<string> {
-    const set = new Set<string>();
-    for (const k of Object.keys(config || {})) {
-      if (k === 'GENERIC') continue;
-      set.add(k);
-    }
-    return set;
+    return new Set(Object.keys(config || {}).filter((k) => k !== 'GENERIC'));
   }
 
   return {
