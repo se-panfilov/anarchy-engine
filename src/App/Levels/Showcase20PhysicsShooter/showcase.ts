@@ -10,7 +10,7 @@ import type {
   TAnyCameraWrapper,
   TCollisionCheckResult,
   TIntersectionEvent,
-  TIntersectionsWatcher,
+  TIntersectionsCameraWatcher,
   TMetersPerSecond,
   TMilliseconds,
   TRawModel3d,
@@ -94,7 +94,7 @@ export function showcase(space: TSpace): void {
     });
   });
 
-  const mouseLineIntersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({
+  const mouseLineIntersectionsWatcher: TIntersectionsCameraWatcher = intersectionsWatcherService.create({
     name: 'mouse_line_intersections_watcher',
     isAutoStart: true,
     camera: cameraW,

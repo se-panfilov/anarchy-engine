@@ -1,6 +1,6 @@
 import GUI from 'lil-gui';
 
-import type { TAnyCameraWrapper, TCameraRegistry, TIntersectionEvent, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
+import type { TAnyCameraWrapper, TCameraRegistry, TIntersectionEvent, TIntersectionsCameraWatcher, TSpace, TSpaceConfig } from '@/Engine';
 import { asRecord, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
@@ -21,8 +21,8 @@ export function showcase(space: TSpace): void {
   const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
   const { clickLeftRelease$ } = mouseService;
 
-  const watcherRed: TIntersectionsWatcher = intersectionsWatcherService.getRegistry().getByName('watcher_red');
-  const watcherBlue: TIntersectionsWatcher = intersectionsWatcherService.getRegistry().getByName('watcher_blue');
+  const watcherRed: TIntersectionsCameraWatcher = intersectionsWatcherService.getRegistry().getByName('watcher_red');
+  const watcherBlue: TIntersectionsCameraWatcher = intersectionsWatcherService.getRegistry().getByName('watcher_blue');
 
   watcherRed.value$.subscribe((value: TIntersectionEvent): void => console.log('redWatcher', value));
   watcherBlue.value$.subscribe((value: TIntersectionEvent): void => console.log('blueWatcher', value));

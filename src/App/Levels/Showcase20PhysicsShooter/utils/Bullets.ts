@@ -12,7 +12,7 @@ import type {
   TActorService,
   TCollisionCheckResult,
   TIntersectionEvent,
-  TIntersectionsWatcher,
+  TIntersectionsCameraWatcher,
   TLightService,
   TMaterialService,
   TMaterialWrapper,
@@ -164,7 +164,7 @@ export function Bullet(params: TActorParams, actorService: TActorService): TBull
 export function prepareShooting(
   actor: TActor,
   mouseService: TMouseService,
-  intersectionsWatcher: TIntersectionsWatcher,
+  intersectionsWatcher: TIntersectionsCameraWatcher,
   shootingParams: Readonly<{ cooldownMs: number; speed: TMetersPerSecond }>,
   bullets: ReadonlyArray<TBullet>
 ): void {

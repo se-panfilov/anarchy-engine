@@ -11,7 +11,7 @@ import type {
   TControlsWrapper,
   TDegrees,
   TIntersectionEvent,
-  TIntersectionsWatcher,
+  TIntersectionsCameraWatcher,
   TModel3d,
   TModels3dRegistry,
   TMouseWatcherEvent,
@@ -149,7 +149,7 @@ export async function showcase(space: TSpace): Promise<void> {
 
   createRepeaterActor(sphereActor, sphereActor.model3d, { x: 0, y: 0, z: 4 }, grid, gui, space.services);
 
-  const intersectionsWatcher: TIntersectionsWatcher = startIntersections(space.services);
+  const intersectionsWatcher: TIntersectionsCameraWatcher = startIntersections(space.services);
 
   addSpatialGuiFolder(gui, grid, intersectionsWatcher);
 

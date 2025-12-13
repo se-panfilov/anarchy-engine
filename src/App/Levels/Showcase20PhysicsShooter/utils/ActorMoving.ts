@@ -1,14 +1,14 @@
 import { BehaviorSubject, combineLatest, map, Subject } from 'rxjs';
 import { degToRad } from 'three/src/math/MathUtils';
 
-import type { TActor, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService, TMetersPerSecond, TMilliseconds, TRadians } from '@/Engine';
+import type { TActor, TIntersectionEvent, TIntersectionsCameraWatcher, TKeyboardService, TMetersPerSecond, TMilliseconds, TRadians } from '@/Engine';
 import { getMouseAzimuthAndElevation, KeyCode, metersPerSecond } from '@/Engine';
 import { radians } from '@/Engine/Measurements/Utils';
 
 type TMoveKeysState = { Forward: boolean; Left: boolean; Right: boolean; Backward: boolean };
 type TIntersectionDirection = Readonly<{ azimuth: TRadians; elevation: TRadians }>;
 
-export function startMoveActorWithKeyboard(actor: TActor, keyboardService: TKeyboardService, mouseLineIntersectionsWatcher: TIntersectionsWatcher): void {
+export function startMoveActorWithKeyboard(actor: TActor, keyboardService: TKeyboardService, mouseLineIntersectionsWatcher: TIntersectionsCameraWatcher): void {
   const keyStates$: BehaviorSubject<TMoveKeysState> = new BehaviorSubject<TMoveKeysState>({ Forward: false, Left: false, Right: false, Backward: false });
   const intersectionDirection$: Subject<TIntersectionDirection> = new Subject<TIntersectionDirection>();
 

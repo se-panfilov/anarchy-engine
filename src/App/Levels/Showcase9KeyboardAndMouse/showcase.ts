@@ -4,7 +4,7 @@ import { Vector3 } from 'three';
 
 import { createReactiveLineFromActor } from '@/App/Levels/Showcase23TransformDrive/Utils';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TActorRegistry, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsWatcher, TKeyboardPressingEvent, TMouseWatcherEvent, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TActorRegistry, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TKeyboardPressingEvent, TMouseWatcherEvent, TSpace, TSpaceConfig } from '@/Engine';
 import { asRecord, isNotDefined, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
@@ -63,7 +63,7 @@ export function showcase(space: TSpace): void {
   onKey(KeyCode.D).pressed$.subscribe((): void => void actorKeyD.drive.default.addY(-0.2));
   onKey(KeyCode.D).released$.subscribe((): void => void actorKeyD.drive.default.addY(0.2));
 
-  const intersectionsWatcher: TIntersectionsWatcher = startIntersections(camera);
+  const intersectionsWatcher: TIntersectionsCameraWatcher = startIntersections(camera);
   const coordsUI: { x: number; z: number } = { x: 0, z: 0 };
 
   const { line } = createReactiveLineFromActor('#E91E63', actorMouse, intersectionsWatcher);
@@ -100,7 +100,7 @@ export function showcase(space: TSpace): void {
   wheelUp$.subscribe((): void => actorMkeyMiddle.drive.default.adjustRotationByX(10));
   wheelDown$.subscribe((): void => actorMkeyMiddle.drive.default.adjustRotationByX(-10));
 
-  function startIntersections(camera: TAnyCameraWrapper): TIntersectionsWatcher {
+  function startIntersections(camera: TAnyCameraWrapper): TIntersectionsCameraWatcher {
     const actor: TActor = getByName('surface_actor');
 
     return intersectionsWatcherService.create({

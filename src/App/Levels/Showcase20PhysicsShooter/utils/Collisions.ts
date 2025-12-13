@@ -1,7 +1,7 @@
-import type { TActor, TIntersectionsWatcher, TSceneWrapper, TSpaceServices } from '@/Engine';
+import type { TActor, TIntersectionsCameraWatcher, TSceneWrapper, TSpaceServices } from '@/Engine';
 import type { TSpatialGridWrapper } from '@/Engine/Spatial';
 
-export function enableCollisions(mouseLineIntersectionsWatcher: TIntersectionsWatcher, { actorService, spatialGridService, collisionsService }: TSpaceServices): void {
+export function enableCollisions(mouseLineIntersectionsWatcher: TIntersectionsCameraWatcher, { actorService, spatialGridService, collisionsService }: TSpaceServices): void {
   const sceneW: TSceneWrapper = actorService.getScene();
   const grid: TSpatialGridWrapper = spatialGridService.getRegistry().getByName('main_grid');
   const registry = actorService.getRegistry();

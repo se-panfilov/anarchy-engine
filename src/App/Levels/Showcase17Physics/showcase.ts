@@ -4,7 +4,7 @@ import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsWatcher, TRadians, TReadonlyVector3, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper } from '@/Engine';
+import type { TActor, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TRadians, TReadonlyVector3, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper } from '@/Engine';
 import { asRecord, ForwardAxis, getDistance, getHorizontalAzimuth, getPushCoordsFrom3dAzimuth, isActorHasPhysicsBody, isDefined, isNotDefined, KeysExtra, spaceService, TextType } from '@/Engine';
 import { meters, radians } from '@/Engine/Measurements/Utils';
 
@@ -53,7 +53,7 @@ export function showcase(space: TSpace): void {
     ballActor.drive.physics.physicsBody$.value?.getRigidBody()?.applyImpulse({ x: 0, y: 20, z: 0 }, true);
   });
 
-  const mouseLineIntersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({
+  const mouseLineIntersectionsWatcher: TIntersectionsCameraWatcher = intersectionsWatcherService.create({
     name: 'mouse_line_intersections_watcher',
     isAutoStart: true,
     camera: cameraW,

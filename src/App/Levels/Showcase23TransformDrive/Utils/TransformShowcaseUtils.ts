@@ -15,7 +15,7 @@ import type {
   TActor,
   TAnyCameraWrapper,
   TIntersectionEvent,
-  TIntersectionsWatcher,
+  TIntersectionsCameraWatcher,
   TKeyboardService,
   TMaterialWrapper,
   TModel3d,
@@ -93,7 +93,7 @@ export function createRepeaterActor(actor: TActor, model3d: TModel3d, offset: Ve
   addActorFolderGui(gui, repeaterActor);
 }
 
-export function startIntersections({ actorService, cameraService, intersectionsWatcherService, mouseService, loopService }: TSpaceServices): TIntersectionsWatcher {
+export function startIntersections({ actorService, cameraService, intersectionsWatcherService, mouseService, loopService }: TSpaceServices): TIntersectionsCameraWatcher {
   const camera: TAnyCameraWrapper = cameraService.getActive();
   const surfaceActor: TActor = actorService.getRegistry().getByName('surface_actor');
   const boxActor1: TActor = actorService.getRegistry().getByName('box_actor_1');
@@ -241,7 +241,7 @@ export function addKinematicActorFolderGui(gui: GUI, actor: TActor): void {
   gui.add(kinematicActions, 'rotateXyRight');
 }
 
-export function addSpatialGuiFolder(gui: GUI, grid: TSpatialGridWrapper, mouseLineIntersectionsWatcher: TIntersectionsWatcher): void {
+export function addSpatialGuiFolder(gui: GUI, grid: TSpatialGridWrapper, mouseLineIntersectionsWatcher: TIntersectionsCameraWatcher): void {
   const cell: Record<string, string> = { name: '', actors: '' };
 
   mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent) => {
@@ -291,7 +291,7 @@ export function createLine(color: ColorRepresentation, width: number): Line2 {
 export function createReactiveLineFromActor(
   color: ColorRepresentation,
   actor: TActor,
-  intersectionsWatcher: TIntersectionsWatcher
+  intersectionsWatcher: TIntersectionsCameraWatcher
 ): {
   line: Line2;
   sub$: Subscription;

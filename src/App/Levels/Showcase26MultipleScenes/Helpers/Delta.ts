@@ -3,7 +3,7 @@ import { Clock, Vector3 } from 'three';
 
 import { createReactiveLineFromActor } from '@/App/Levels/Showcase23TransformDrive/Utils';
 import { moveByCircle } from '@/App/Levels/Utils/MoveUtils';
-import type { TActor, TActorRegistry, TAnyCameraWrapper, TAudio3dWrapper, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TSceneWrapper, TSpace } from '@/Engine';
+import type { TActor, TActorRegistry, TAnyCameraWrapper, TAudio3dWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TMouseWatcherEvent, TSceneWrapper, TSpace } from '@/Engine';
 import { DebugAudioRenderer, metersPerSecond } from '@/Engine';
 
 import { addParticles } from './Utils';
@@ -42,7 +42,7 @@ function initAudio(space: TSpace): void {
   });
 }
 
-function startIntersections(space: TSpace, camera: TAnyCameraWrapper): TIntersectionsWatcher {
+function startIntersections(space: TSpace, camera: TAnyCameraWrapper): TIntersectionsCameraWatcher {
   const { actorService, intersectionsWatcherService, mouseService } = space.services;
   const { intersectionsLoop } = space.loops;
   const surfaceActor: TActor = actorService.getRegistry().getByName('surface_actor');
@@ -63,7 +63,7 @@ function initKinematic(space: TSpace): void {
   const { clickLeftRelease$ } = mouseService;
 
   const camera: TAnyCameraWrapper = cameraService.getActive();
-  const intersectionsWatcher: TIntersectionsWatcher = startIntersections(space, camera);
+  const intersectionsWatcher: TIntersectionsCameraWatcher = startIntersections(space, camera);
   const actorMouse: TActor = actorService.getRegistry().getByName('sphere_mouse_actor');
 
   const { line } = createReactiveLineFromActor('#E91E63', actorMouse, intersectionsWatcher);
