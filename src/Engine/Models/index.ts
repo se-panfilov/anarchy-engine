@@ -3,8 +3,5 @@ export * from './IAppGlobalContainer';
 export * from './IIntersectionsParams';
 export * from './ILaunchedEngine';
 export * from './ILaunchedScene';
-export * from './ISceneLauncher';
-export * from './IScreenParams';
-export * from './IScreenSizeWatcherParams';
 export * from './IVector2dConfig';
 export * from './IVector3dConfig';

@@ -9,3 +9,7 @@ export * from './ICreateFN';
 export * from './IDestroyableFactory';
 export * from './IDestroyableFromConfigFactory';
 export * from './IWrapper';
+export * from './IMultitonWatcher';
+export * from './IMultitonWatcherWithState';
+export * from './IWatcher';
+export * from './IWatcherWithState';
