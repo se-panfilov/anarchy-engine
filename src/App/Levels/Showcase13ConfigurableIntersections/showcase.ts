@@ -24,8 +24,8 @@ export function showcase(space: TSpace): void {
   const watcherRed: TIntersectionsWatcher = intersectionsWatcherService.getRegistry().getByName('watcher_red');
   const watcherBlue: TIntersectionsWatcher = intersectionsWatcherService.getRegistry().getByName('watcher_blue');
 
-  watcherRed.value$.subscribe((value: TIntersectionEvent) => console.log('redWatcher', value));
-  watcherBlue.value$.subscribe((value: TIntersectionEvent) => console.log('blueWatcher', value));
+  watcherRed.value$.subscribe((value: TIntersectionEvent): void => console.log('redWatcher', value));
+  watcherBlue.value$.subscribe((value: TIntersectionEvent): void => console.log('blueWatcher', value));
 
   let cameraFolder: GUI | undefined;
   let cameraName: string = 'camera_red';
