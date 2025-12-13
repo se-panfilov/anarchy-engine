@@ -1,6 +1,7 @@
-import type { Subject } from 'rxjs';
+import type { Observable, Subject } from 'rxjs';
+import { defer, finalize } from 'rxjs';
 
-import { isDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import type { TWriteable } from './TypesUtils';
 
@@ -14,5 +15,26 @@ export function updateSubjOnChange<T extends Record<K, V>, K extends keyof T, V>
       if (isTargetField) subj$.next(val);
       return true;
     }
+  });
+}
+
+export function _debugTracked<T>(source$: Observable<T>, name = 'Unnamed'): Observable<T> {
+  // eslint-disable-next-line functional/immutable-data
+  if (isNotDefined((window as any)._subscriptionsCreated)) (window as any)._subscriptionsCreated = 0;
+  // eslint-disable-next-line functional/immutable-data
+  if (isNotDefined((window as any)._subscriptionsFinalized)) (window as any)._subscriptionsFinalized = 0;
+
+  return defer(() => {
+    // eslint-disable-next-line functional/immutable-data
+    (window as any)._subscriptionsCreated++;
+    // console.log(`[${name}] subscribed (${(window as any)._subscriptionsCreated} total)`);
+
+    return source$.pipe(
+      finalize(() => {
+        // eslint-disable-next-line functional/immutable-data
+        (window as any)._subscriptionsFinalized++;
+        // console.log(`[${name}] finalized (${(window as any)._subscriptionsFinalized} total)`);
+      })
+    );
   });
 }
