@@ -1,4 +1,4 @@
-import { combineLatest } from 'rxjs';
+import { combineLatest, Observable, Subscription } from 'rxjs';
 import { Clock } from 'three';
 
 import { moveByCircle } from '@/App/Levels/Utils/MoveUtils';
@@ -7,6 +7,9 @@ import { asRecord, createDomElement, isDefined, isNotDefined, spaceService } fro
 
 import spaceAlphaConfigJson from './spaceAlpha.json';
 import spaceBetaConfigJson from './spaceBeta.json';
+
+const tracked = new Set<Subscription>();
+hackRxJsSubscriptions(tracked);
 
 const spaceAlphaConfig: TSpaceConfig = spaceAlphaConfigJson as TSpaceConfig;
 const spaceBetaConfig: TSpaceConfig = spaceBetaConfigJson as TSpaceConfig;
@@ -33,11 +36,21 @@ export function start(): void {
   const rightContainerId = 'btn-container-right';
   addBtn('Start Alpha', leftContainerId, (): void => spaceAlpha.start$.next(true), 'calc(50% + 4px)');
   addBtn('Stop Alpha', leftContainerId, (): void => spaceAlpha.start$.next(false));
-  addBtn('Destroy Alpha', leftContainerId, (): void => spaceAlpha.destroy$.next());
+  addBtn('Destroy Alpha', leftContainerId, (): void => {
+    console.log('Subscriptions before destroy:', tracked.size);
+    console.log('Cleaning up...');
+    spaceAlpha.destroy$.next();
+    setTimeout(() => console.log('Subscriptions after destroy:', tracked.size), 1000);
+  });
 
   addBtn('Start Beta', rightContainerId, (): void => spaceBeta.start$.next(true), '4px');
   addBtn('Stop Beta', rightContainerId, (): void => spaceBeta.start$.next(false));
-  addBtn('Destroy Beta', rightContainerId, (): void => spaceBeta.destroy$.next());
+  addBtn('Destroy Beta', rightContainerId, (): void => {
+    console.log('Subscriptions before destroy:', tracked.size);
+    console.log('Cleaning up...');
+    spaceBeta.destroy$.next();
+    setTimeout(() => console.log('Subscriptions after destroy:', tracked.size), 1000);
+  });
 }
 
 export function runAlpha(space: TSpace): void {
@@ -77,4 +90,24 @@ function addBtn(text: string, containerId: string, cb: (...rest: ReadonlyArray<a
 
   button.addEventListener('click', cb);
   container.appendChild(button);
+}
+
+function hackRxJsSubscriptions(tracked: Set<Subscription>): void {
+  //Hack RxJS to track subscriptions to prevent memory leaks (DO NOT USE IN PRODUCTION);
+  const originalUnsubscribe = Subscription.prototype.unsubscribe;
+
+  // eslint-disable-next-line functional/immutable-data
+  Subscription.prototype.unsubscribe = function (): void {
+    if (tracked.has(this)) tracked.delete(this);
+    return originalUnsubscribe.apply(this);
+  };
+
+  const originalSubscribe = Observable.prototype.subscribe;
+
+  // eslint-disable-next-line functional/immutable-data
+  Observable.prototype.subscribe = function (...args: any[]): Subscription {
+    const sub$: Subscription = originalSubscribe.apply(this, args as any);
+    tracked.add(sub$);
+    return sub$;
+  };
 }
