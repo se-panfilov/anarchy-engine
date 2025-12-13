@@ -30,8 +30,10 @@ function save(space: TSpace): void {
   const a: HTMLAnchorElement = document.createElement('a');
   // eslint-disable-next-line functional/immutable-data
   a.href = url;
+  const date = new Date();
+  const dateStr: string = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}_${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
   // eslint-disable-next-line functional/immutable-data
-  a.download = `${space.name}_${new Date().toISOString()}.json`;
+  a.download = `${space.name}_${dateStr}.json`;
   a.click();
   URL.revokeObjectURL(url);
   a.remove();
