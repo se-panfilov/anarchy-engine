@@ -44,7 +44,8 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
 
   const volumeSub$: Subscription = volume$
     .pipe(
-      skipWhile((volume: number, index: number): boolean => index === 0 && volume === 1), // to avoid initial value (only if it's a default one)
+      // to avoid initial value (only if it's a default one)
+      skipWhile((volume: number, index: number): boolean => index === 0 && volume === 1),
       distinctUntilChanged()
     )
     .subscribe((volume: number): void => void entity.setVolume(volume));
