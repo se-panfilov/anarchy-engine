@@ -2159,17 +2159,29 @@
         "blending": {
           "$ref": "#/definitions/BlendingName"
         },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
         "combine": {
           "$ref": "#/definitions/CombineName"
         },
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
         "format": {
           "$ref": "#/definitions/PixelFormatName"
         },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
         },
         "side": {
           "$ref": "#/definitions/SideName"
@@ -2185,18 +2197,6 @@
         },
         "stencilZPass": {
           "$ref": "#/definitions/StencilOpName"
-        },
-        "clearcoatNormalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "envMapRotation": {
-          "$ref": "#/definitions/TEulerLike"
-        },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "referencePosition": {
-          "$ref": "#/definitions/Vector3Like"
         },
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
@@ -2459,17 +2459,29 @@
         "blending": {
           "$ref": "#/definitions/BlendingName"
         },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
         "combine": {
           "$ref": "#/definitions/CombineName"
         },
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
         "format": {
           "$ref": "#/definitions/PixelFormatName"
         },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
         },
         "side": {
           "$ref": "#/definitions/SideName"
@@ -2485,18 +2497,6 @@
         },
         "stencilZPass": {
           "$ref": "#/definitions/StencilOpName"
-        },
-        "clearcoatNormalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "envMapRotation": {
-          "$ref": "#/definitions/TEulerLike"
-        },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "referencePosition": {
-          "$ref": "#/definitions/Vector3Like"
         },
         "displacementScale": {
           "type": "number"
@@ -2629,17 +2629,29 @@
         "blending": {
           "$ref": "#/definitions/BlendingName"
         },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
         "combine": {
           "$ref": "#/definitions/CombineName"
         },
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
         "format": {
           "$ref": "#/definitions/PixelFormatName"
         },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
         },
         "side": {
           "$ref": "#/definitions/SideName"
@@ -2655,18 +2667,6 @@
         },
         "stencilZPass": {
           "$ref": "#/definitions/StencilOpName"
-        },
-        "clearcoatNormalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "envMapRotation": {
-          "$ref": "#/definitions/TEulerLike"
-        },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "referencePosition": {
-          "$ref": "#/definitions/Vector3Like"
         },
         "displacementScale": {
           "type": "number"
@@ -2799,17 +2799,29 @@
         "blending": {
           "$ref": "#/definitions/BlendingName"
         },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
         "combine": {
           "$ref": "#/definitions/CombineName"
         },
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
         "format": {
           "$ref": "#/definitions/PixelFormatName"
         },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
         },
         "side": {
           "$ref": "#/definitions/SideName"
@@ -2825,18 +2837,6 @@
         },
         "stencilZPass": {
           "$ref": "#/definitions/StencilOpName"
-        },
-        "clearcoatNormalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "envMapRotation": {
-          "$ref": "#/definitions/TEulerLike"
-        },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "referencePosition": {
-          "$ref": "#/definitions/Vector3Like"
         },
         "bumpScale": {
           "type": "number"
@@ -3005,17 +3005,29 @@
         "blending": {
           "$ref": "#/definitions/BlendingName"
         },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
         "combine": {
           "$ref": "#/definitions/CombineName"
         },
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
         "format": {
           "$ref": "#/definitions/PixelFormatName"
         },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
         },
         "side": {
           "$ref": "#/definitions/SideName"
@@ -3031,18 +3043,6 @@
         },
         "stencilZPass": {
           "$ref": "#/definitions/StencilOpName"
-        },
-        "clearcoatNormalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "envMapRotation": {
-          "$ref": "#/definitions/TEulerLike"
-        },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "referencePosition": {
-          "$ref": "#/definitions/Vector3Like"
         },
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
@@ -3178,17 +3178,29 @@
         "blending": {
           "$ref": "#/definitions/BlendingName"
         },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
         "combine": {
           "$ref": "#/definitions/CombineName"
         },
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
         "format": {
           "$ref": "#/definitions/PixelFormatName"
         },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
         },
         "side": {
           "$ref": "#/definitions/SideName"
@@ -3204,18 +3216,6 @@
         },
         "stencilZPass": {
           "$ref": "#/definitions/StencilOpName"
-        },
-        "clearcoatNormalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "envMapRotation": {
-          "$ref": "#/definitions/TEulerLike"
-        },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "referencePosition": {
-          "$ref": "#/definitions/Vector3Like"
         },
         "scale": {
           "type": "number"
@@ -3360,17 +3360,29 @@
         "blending": {
           "$ref": "#/definitions/BlendingName"
         },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
         "combine": {
           "$ref": "#/definitions/CombineName"
         },
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
         "format": {
           "$ref": "#/definitions/PixelFormatName"
         },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
         },
         "side": {
           "$ref": "#/definitions/SideName"
@@ -3386,18 +3398,6 @@
         },
         "stencilZPass": {
           "$ref": "#/definitions/StencilOpName"
-        },
-        "clearcoatNormalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "envMapRotation": {
-          "$ref": "#/definitions/TEulerLike"
-        },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "referencePosition": {
-          "$ref": "#/definitions/Vector3Like"
         },
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
@@ -3536,17 +3536,29 @@
         "blending": {
           "$ref": "#/definitions/BlendingName"
         },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
         "combine": {
           "$ref": "#/definitions/CombineName"
         },
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
         "format": {
           "$ref": "#/definitions/PixelFormatName"
         },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
         },
         "side": {
           "$ref": "#/definitions/SideName"
@@ -3562,18 +3574,6 @@
         },
         "stencilZPass": {
           "$ref": "#/definitions/StencilOpName"
-        },
-        "clearcoatNormalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "envMapRotation": {
-          "$ref": "#/definitions/TEulerLike"
-        },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "referencePosition": {
-          "$ref": "#/definitions/Vector3Like"
         },
         "bumpScale": {
           "type": "number"
@@ -3712,17 +3712,29 @@
         "blending": {
           "$ref": "#/definitions/BlendingName"
         },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
         "combine": {
           "$ref": "#/definitions/CombineName"
         },
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
         "format": {
           "$ref": "#/definitions/PixelFormatName"
         },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
         },
         "side": {
           "$ref": "#/definitions/SideName"
@@ -3738,18 +3750,6 @@
         },
         "stencilZPass": {
           "$ref": "#/definitions/StencilOpName"
-        },
-        "clearcoatNormalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "envMapRotation": {
-          "$ref": "#/definitions/TEulerLike"
-        },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "referencePosition": {
-          "$ref": "#/definitions/Vector3Like"
         },
         "color": {
           "$ref": "#/definitions/ColorRepresentation",
@@ -3925,17 +3925,29 @@
         "blending": {
           "$ref": "#/definitions/BlendingName"
         },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
         "combine": {
           "$ref": "#/definitions/CombineName"
         },
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
         "format": {
           "$ref": "#/definitions/PixelFormatName"
         },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
         },
         "side": {
           "$ref": "#/definitions/SideName"
@@ -3951,18 +3963,6 @@
         },
         "stencilZPass": {
           "$ref": "#/definitions/StencilOpName"
-        },
-        "clearcoatNormalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "envMapRotation": {
-          "$ref": "#/definitions/TEulerLike"
-        },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "referencePosition": {
-          "$ref": "#/definitions/Vector3Like"
         },
         "anisotropyRotation": {
           "type": "number"
@@ -4190,17 +4190,29 @@
         "blending": {
           "$ref": "#/definitions/BlendingName"
         },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
         "combine": {
           "$ref": "#/definitions/CombineName"
         },
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
         "format": {
           "$ref": "#/definitions/PixelFormatName"
         },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
         },
         "side": {
           "$ref": "#/definitions/SideName"
@@ -4216,18 +4228,6 @@
         },
         "stencilZPass": {
           "$ref": "#/definitions/StencilOpName"
-        },
-        "clearcoatNormalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "envMapRotation": {
-          "$ref": "#/definitions/TEulerLike"
-        },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "referencePosition": {
-          "$ref": "#/definitions/Vector3Like"
         },
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
@@ -4360,17 +4360,29 @@
         "blending": {
           "$ref": "#/definitions/BlendingName"
         },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
         "combine": {
           "$ref": "#/definitions/CombineName"
         },
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
         "format": {
           "$ref": "#/definitions/PixelFormatName"
         },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
         },
         "side": {
           "$ref": "#/definitions/SideName"
@@ -4386,18 +4398,6 @@
         },
         "stencilZPass": {
           "$ref": "#/definitions/StencilOpName"
-        },
-        "clearcoatNormalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "envMapRotation": {
-          "$ref": "#/definitions/TEulerLike"
-        },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "referencePosition": {
-          "$ref": "#/definitions/Vector3Like"
         },
         "uniforms": {
           "type": "object",
@@ -4575,17 +4575,29 @@
         "blending": {
           "$ref": "#/definitions/BlendingName"
         },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
         "combine": {
           "$ref": "#/definitions/CombineName"
         },
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
         "format": {
           "$ref": "#/definitions/PixelFormatName"
         },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
         },
         "side": {
           "$ref": "#/definitions/SideName"
@@ -4601,18 +4613,6 @@
         },
         "stencilZPass": {
           "$ref": "#/definitions/StencilOpName"
-        },
-        "clearcoatNormalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "envMapRotation": {
-          "$ref": "#/definitions/TEulerLike"
-        },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "referencePosition": {
-          "$ref": "#/definitions/Vector3Like"
         },
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
@@ -4739,17 +4739,29 @@
         "blending": {
           "$ref": "#/definitions/BlendingName"
         },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
         "combine": {
           "$ref": "#/definitions/CombineName"
         },
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
         "format": {
           "$ref": "#/definitions/PixelFormatName"
         },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
         },
         "side": {
           "$ref": "#/definitions/SideName"
@@ -4765,18 +4777,6 @@
         },
         "stencilZPass": {
           "$ref": "#/definitions/StencilOpName"
-        },
-        "clearcoatNormalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "envMapRotation": {
-          "$ref": "#/definitions/TEulerLike"
-        },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "referencePosition": {
-          "$ref": "#/definitions/Vector3Like"
         },
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
@@ -4909,17 +4909,29 @@
         "blending": {
           "$ref": "#/definitions/BlendingName"
         },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
         "combine": {
           "$ref": "#/definitions/CombineName"
         },
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
         "format": {
           "$ref": "#/definitions/PixelFormatName"
         },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
         },
         "side": {
           "$ref": "#/definitions/SideName"
@@ -4935,18 +4947,6 @@
         },
         "stencilZPass": {
           "$ref": "#/definitions/StencilOpName"
-        },
-        "clearcoatNormalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "envMapRotation": {
-          "$ref": "#/definitions/TEulerLike"
-        },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "referencePosition": {
-          "$ref": "#/definitions/Vector3Like"
         },
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
@@ -5112,17 +5112,29 @@
         "blending": {
           "$ref": "#/definitions/BlendingName"
         },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
         "combine": {
           "$ref": "#/definitions/CombineName"
         },
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategiesName"
         },
+        "envMapRotation": {
+          "$ref": "#/definitions/TEulerLike"
+        },
         "format": {
           "$ref": "#/definitions/PixelFormatName"
         },
         "normalMapType": {
           "$ref": "#/definitions/NormalMapTypesName"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "referencePosition": {
+          "$ref": "#/definitions/Vector3Like"
         },
         "side": {
           "$ref": "#/definitions/SideName"
@@ -5138,18 +5150,6 @@
         },
         "stencilZPass": {
           "$ref": "#/definitions/StencilOpName"
-        },
-        "clearcoatNormalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "envMapRotation": {
-          "$ref": "#/definitions/TEulerLike"
-        },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "referencePosition": {
-          "$ref": "#/definitions/Vector3Like"
         },
         "color": {
           "$ref": "#/definitions/ColorRepresentation",

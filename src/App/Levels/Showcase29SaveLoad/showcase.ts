@@ -191,8 +191,6 @@ function saveSpaceConfigInMemory(name: string | undefined, spaceRegistry: TSpace
   const index: number = spacesInMemoryData.findIndex((s: TSpacesData): boolean => s.name === name);
   const config: TSpaceConfig = space.serialize();
 
-  console.log('XXXconfig', config);
-
   const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
   const { onCreate, onChange, onUnload } = spaceData;
@@ -213,6 +211,7 @@ function loadSpaceConfigFromMemory(name: string | undefined): void {
   const spaceData: TSpacesData | undefined = spacesInMemoryData.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
 
+  console.log('XXX2 spaceData.config', spaceData.config);
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceData.config]);
   const space: TSpace = spaces.find((s: TSpace): boolean => s.name === name) as TSpace;
   if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot create the space "${name}"`);

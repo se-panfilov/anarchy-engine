@@ -14,6 +14,10 @@ export type TWithUndefined<T> = {
   [P in keyof T]: T[P] | undefined;
 };
 
+export type TWithoutNull<T> = {
+  [K in keyof T]: Exclude<T[K], null> extends never ? undefined : Exclude<T[K], null> | undefined;
+};
+
 export type TWithMandatoryField<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
 
 export type TValueOf<T> = T[keyof T];

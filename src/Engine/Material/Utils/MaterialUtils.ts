@@ -1,7 +1,8 @@
 import type { Material, PointsMaterial } from 'three';
 
-import type { TMaterialParams, TMaterials, TTypeOfMaterials } from '@/Engine/Material';
+import type { TMaterialParams, TMaterialParamsOptions, TMaterials, TTypeOfMaterials } from '@/Engine/Material';
 import { MaterialMap } from '@/Engine/Material/Constants';
+import type { TWithoutNull } from '@/Engine/Utils';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function isPointsMaterial<T extends Material | ReadonlyArray<Material>>(material: PointsMaterial | T): material is PointsMaterial {
@@ -13,7 +14,7 @@ export function buildMaterial(params: TMaterialParams): TMaterials {
 
   const MaterialConstructor: TTypeOfMaterials = MaterialMap[type];
   if (isNotDefined(MaterialConstructor)) throw new Error(`Unsupported material type: ${type}`);
-  return new MaterialConstructor({ ...options, ...textures });
+  return new MaterialConstructor({ ...(options as TWithoutNull<TMaterialParamsOptions>), ...textures });
 }
 
 export function getOptionName<T extends string, V>(option: V, optionsMap: Readonly<Record<T, V>>, name: string): T | never {
