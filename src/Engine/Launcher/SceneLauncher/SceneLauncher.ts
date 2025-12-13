@@ -56,7 +56,7 @@ export function SceneLauncher(): ISceneLauncher {
     const renderer: IRendererWrapper = rendererFactory.create({ canvas, tags: [RendererTag.Main] });
 
     const loop: ILoopWrapper = loopFactory.create({ tags: [LoopTag.Main] });
-    const initialCamera: ICameraWrapper | undefined = cameraRegistry.getUniqWithTag([CameraTag.Initial]);
+    const initialCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Initial);
     if (isNotDefined(initialCamera)) throw new Error(`Cannot start the main loop for the scene ${sceneName}: initial camera is not defined`);
     loop.start(renderer, scene, initialCamera);
 
