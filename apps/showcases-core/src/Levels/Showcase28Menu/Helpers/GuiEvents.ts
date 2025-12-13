@@ -1,5 +1,5 @@
 import type { TKeyboardService, TKeyEvent, TMouseService } from '@Anarchy/Engine';
-import { isPressEvent, KeyCode } from '@Anarchy/Engine';
+import { hasKey, isPressEvent, KeyCode } from '@Anarchy/Engine';
 import { isKeyInEvent } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
 import type { TToGuiEvent } from '@Showcases/Shared';
 import type { Subject } from 'rxjs';
@@ -10,7 +10,7 @@ export function initGuiEvents(keyboardService: TKeyboardService, mouseService: T
   const { clickLeftRelease$, clickLeftPress$, clickRightPress$, clickRightRelease$ } = mouseService;
   const { keys$ } = keyboardService;
 
-  const { Attack, Defense, MiniMap, Inventory, Settings } = GuiActionType;
+  const { Attack, Defense, MiniMap, Inventory, Settings, Language } = GuiActionType;
 
   clickLeftPress$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Attack, true)));
   clickLeftRelease$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Attack, false)));
@@ -21,10 +21,12 @@ export function initGuiEvents(keyboardService: TKeyboardService, mouseService: T
   const openInventory = (open: boolean): void => toGuiEventsBus$.next(createToGuiActionEvent(Inventory, open));
   const openSettings = (open: boolean): void => toGuiEventsBus$.next(createToGuiActionEvent(Settings, open));
   const openMiniMap = (open: boolean): void => toGuiEventsBus$.next(createToGuiActionEvent(MiniMap, open));
+  const toggleLang = (): void => void toGuiEventsBus$.next(createToGuiActionEvent(Language, true));
 
   keys$.subscribe((keyEvent: TKeyEvent): void => {
     if (isKeyInEvent(KeyCode.I, keyEvent)) openInventory(isPressEvent(keyEvent));
     if (isKeyInEvent(KeyCode.M, keyEvent)) openMiniMap(isPressEvent(keyEvent));
+    if (hasKey(KeyCode.L, keyEvent.keys)) toggleLang();
     if (isKeyInEvent(KeyCode.Escape, keyEvent)) openSettings(isPressEvent(keyEvent));
   });
 }
