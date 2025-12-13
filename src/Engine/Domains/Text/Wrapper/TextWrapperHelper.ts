@@ -1,10 +1,12 @@
-import type { IObject3DPropParams } from '@/Engine';
 import type { ITextAccessors, ITextParams } from '@/Engine/Domains/Text/Models';
-import { isDefined } from '@/Engine/Utils';
+import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 export function applyParams(params: ITextParams, entityWithAccessors: ITextAccessors): void {
   applyTextParams(params, entityWithAccessors);
-  applyObjectParams(params, entityWithAccessors);
+  applyObject3dParams(params, entityWithAccessors);
+  applyPosition(params.position, entityWithAccessors);
+  applyRotation(params.rotation, entityWithAccessors);
+  if (isDefined(params.scale)) applyScale(params.scale, entityWithAccessors);
   entityWithAccessors.update();
 }
 
@@ -84,25 +86,4 @@ export function applyTextParams(
   if (isDefined(sdfGlyphSize)) entityWithAccessors.setSdfGlyphSize(sdfGlyphSize);
   if (isDefined(textIndent)) entityWithAccessors.setTextIndent(textIndent);
   if (isDefined(unicodeFontsUrl)) entityWithAccessors.setUnicodeFontsUrl(unicodeFontsUrl);
-}
-
-// TODO (S.Panfilov) fix this
-export function applyObject3DParams({
-                                    position,
-                                    rotation,
-                                    scale,
-                                    visible,
-                                    castShadow,
-                                    receiveShadow,
-                                    frustumCulled,
-                                    renderOrder
-                                  }: IObject3DPropParams, entityWithAccessors: IWithObject3d): void {
-  if (isDefined(position)) entityWithAccessors.setPosition(position.x, position.y, position.z);
-  if (isDefined(rotation)) entityWithAccessors.setRotation(rotation.x, rotation.y, rotation.z);
-  if (isDefined(scale)) entityWithAccessors.setScale(scale.x, scale.y, scale.z);
-  if (isDefined(visible)) entityWithAccessors.setVisible(visible);
-  if (isDefined(castShadow)) entityWithAccessors.setCastShadow(castShadow);
-  if (isDefined(receiveShadow)) entityWithAccessors.setReceiveShadow(receiveShadow);
-  if (isDefined(frustumCulled)) entityWithAccessors.setFrustumCulled(frustumCulled);
-  if (isDefined(renderOrder)) entityWithAccessors.setRenderOrder(renderOrder);
 }

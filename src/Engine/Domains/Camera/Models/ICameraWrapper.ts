@@ -1,6 +1,6 @@
 import type { IWrapper } from '@/Engine/Domains/Abstract';
 import type { CameraTag } from '@/Engine/Domains/Camera/Constants';
-import type { IWithTags } from '@/Engine/Mixins';
+import type { IWithObject3d, IWithTags } from '@/Engine/Mixins';
 
 import type { ICameraAccessors } from './ICameraAccessors';
 import type { IPerspectiveCamera } from './IPerspectiveCamera';

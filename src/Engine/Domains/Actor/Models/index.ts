@@ -1,4 +1,3 @@
-export * from './IActorAccessors';
 export * from './IActorConfig';
 export * from './IActorFactory';
 export * from './IActorParams';

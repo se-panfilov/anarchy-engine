@@ -10,3 +10,4 @@ export * from './RotationUtils';
 export * from './SchemasUtils';
 export * from './TypesUtils';
 export * from './WebGLUtils';
+export * from './WrapperHelpers';

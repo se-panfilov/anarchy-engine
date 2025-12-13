@@ -6,7 +6,7 @@ import type { ICameraWrapper } from '@/Engine/Domains/Camera';
 import type { ILightWrapper } from '@/Engine/Domains/Light';
 import type { SceneTag } from '@/Engine/Domains/Scene';
 import type { ITextWrapper } from '@/Engine/Domains/Text';
-import type { IWithTags } from '@/Engine/Mixins';
+import type { IWithObject3d, IWithTags } from '@/Engine/Mixins';
 import type { IColor, ICubeTexture, ITexture } from '@/Engine/Wrappers';
 
 import type { ISceneObject } from './ISceneObject';
@@ -20,6 +20,6 @@ export type ISceneWrapper = IWrapper<Scene> &
     addText: (text: Readonly<ITextWrapper>) => void;
     setBackground: (color: string) => void;
     getBackground: () => IColor | ITexture | ICubeTexture | null;
-  }>
-  & IWithObject3d
-  & IWithTags<SceneTag>;
+  }> &
+  IWithObject3d &
+  IWithTags<SceneTag>;
