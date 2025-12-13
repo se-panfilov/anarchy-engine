@@ -27,7 +27,7 @@ import type {
   TWithPresetNamePhysicsBodyParams,
   TWithTransformDrive
 } from '@/Engine';
-import { isNotDefined, MaterialType, metersPerSecond, TransformAgent } from '@/Engine';
+import { ForwardAxis, isNotDefined, MaterialType, metersPerSecond, TransformAgent } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 export function createActor(
@@ -67,7 +67,12 @@ export function createActor(
     position: position.clone(),
     rotation: new Euler(0, 0, 0),
     scale: new Vector3(0.025, 0.025, 0.025),
-    spatial: { grid, isAutoUpdate: true }
+    spatial: { grid, isAutoUpdate: true },
+    kinematic: {
+      state: {
+        forwardAxis: ForwardAxis.Z
+      }
+    }
     // collisions: { isAutoUpdate: name === 'sphere' }
   });
 }

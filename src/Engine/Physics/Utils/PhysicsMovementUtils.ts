@@ -1,9 +1,11 @@
-import type { RigidBody } from '@dimforge/rapier3d';
+import type { Collider, RigidBody, Shape } from '@dimforge/rapier3d';
+import { Ball, Capsule, Cuboid, Cylinder } from '@dimforge/rapier3d';
 import type { Vector } from '@dimforge/rapier3d/math';
 import { Euler, Quaternion, Vector3 } from 'three';
 
 import type { TKinematicState } from '@/Engine/Kinematic';
-import type { TRadians } from '@/Engine/Math';
+import { ForwardAxis } from '@/Engine/Kinematic';
+import type { TMeters, TRadians } from '@/Engine/Math';
 import { getDirectionFromAngularVelocity, getDirectionFromLinearVelocity, getSpeedFromAngularVelocity, getSpeedFromLinearVelocity } from '@/Engine/Math';
 import { VelocityType } from '@/Engine/Physics/Constants';
 import type { TPhysicsBody } from '@/Engine/Physics/Models';
@@ -31,6 +33,23 @@ export function movePhysicsDynamicObjectByVelocity(rigidBody: RigidBody, type: V
   }
 }
 
+function getColliderSize(collider: Collider): number {
+  const shape: Shape = collider.shape;
+
+  if (shape instanceof Ball) {
+    return shape.radius;
+  } else if (shape instanceof Cuboid) {
+    return Math.max(shape.halfExtents.x, shape.halfExtents.y, shape.halfExtents.z);
+  } else if (shape instanceof Capsule) {
+    return shape.radius + shape.halfHeight;
+  } else if (shape instanceof Cylinder) {
+    return shape.radius + shape.halfHeight;
+  } else {
+    console.warn('Physics: Unknown collider type:', collider);
+    return 1;
+  }
+}
+
 export function getKinematicDataFromPhysics(body: TPhysicsBody): TKinematicState {
   const rigidBody: RigidBody | undefined = body.getRigidBody();
   if (isNotDefined(rigidBody)) throw new Error('Cannot get movement info: rigid body is not defined');
@@ -38,13 +57,15 @@ export function getKinematicDataFromPhysics(body: TPhysicsBody): TKinematicState
   const linearVelocity: Vector3 = new Vector3(linVel.x, linVel.y, linVel.z);
 
   const angVel: Vector = rigidBody.angvel();
-  // TODO 8.0.0. MODELS: check if this still working after replacing Euler with Quaternion
   const angularVelocity: Quaternion = new Quaternion().setFromEuler(new Euler(angVel.x, angVel.y, angVel.z));
 
   return {
     linearSpeed: getSpeedFromLinearVelocity(linearVelocity),
     linearDirection: getDirectionFromLinearVelocity(linearVelocity),
     angularSpeed: getSpeedFromAngularVelocity(angularVelocity),
-    angularDirection: getDirectionFromAngularVelocity(angularVelocity)
+    angularDirection: getDirectionFromAngularVelocity(angularVelocity),
+    radius: getColliderSize(rigidBody.collider(0)) as TMeters,
+    forwardAxis: ForwardAxis.X,
+    isInfiniteRotation: false
   };
 }

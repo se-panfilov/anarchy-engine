@@ -4,9 +4,9 @@ import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad, euclideanModulo, radToDeg } from 'three/src/math/MathUtils';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
-import { metersPerSecond } from '@/Engine/Distance';
+import { metersPerSecond, radiansPerSecond } from '@/Engine/Distance';
 import { ForwardAxis } from '@/Engine/Kinematic/Constants';
-import type { TDegrees, TMetersPerSecond, TRadians } from '@/Engine/Math';
+import type { TDegrees, TMetersPerSecond, TRadians, TRadiansPerSecond } from '@/Engine/Math';
 import type { TEulerLike } from '@/Engine/ThreeLib';
 import { isEulerLike, isQuaternionLike } from '@/Engine/Utils';
 
@@ -103,7 +103,7 @@ export const getLinearVelocity = (speed: TMetersPerSecond, azimuth: TRadians, el
   new Vector3(speed * Math.cos(elevation) * Math.cos(azimuth), speed * Math.sin(elevation), speed * Math.cos(elevation) * Math.sin(azimuth));
 
 // TODO add unit tests
-export const getSpeedFromAngularVelocity = (angularVelocity: Quaternion): TMetersPerSecond => metersPerSecond(angularVelocity.length());
+export const getSpeedFromAngularVelocity = (angularVelocity: Quaternion): TRadiansPerSecond => radiansPerSecond(angularVelocity.length());
 
 // TODO add unit tests
 export const getDirectionFromAngularVelocity = (angularVelocity: Quaternion): Quaternion => angularVelocity.clone().normalize();

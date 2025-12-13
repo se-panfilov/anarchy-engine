@@ -34,6 +34,7 @@ import {
   ambientContext,
   degrees,
   Engine,
+  ForwardAxis,
   getDistancePrecisely,
   getElevation,
   getHorizontalAzimuth,
@@ -200,7 +201,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     intersectionsWatcher.value$.pipe(withLatestFrom(sphereActor.drive.position$)).subscribe(([v, actorPosition]: [TIntersectionEvent, Vector3]): void => {
       const elevation: TRadians = getElevation(actorPosition.x, actorPosition.y, actorPosition.z, v.point);
-      const azimuth: TRadians = getHorizontalAzimuth(actorPosition.x, actorPosition.z, v.point, 'Z');
+      const azimuth: TRadians = getHorizontalAzimuth(actorPosition.x, actorPosition.z, v.point, ForwardAxis.Z);
       azimuth$.next({ azimuth: degrees(radToDeg(azimuth)), elevation: degrees(radToDeg(elevation)) });
     });
 
