@@ -1,5 +1,5 @@
 import type { CreateFN } from '@Engine/Factories';
 import type { RendererWrapper } from '@Engine/Wrappers';
-import type { RendererParams } from '@Engine/Models';
+import type { IRendererParams } from '@Engine/Models';
 
-export type ICreateRendererFn = CreateFN<ReturnType<typeof RendererWrapper>, RendererParams>;
+export type ICreateRendererFn = CreateFN<ReturnType<typeof RendererWrapper>, IRendererParams>;

@@ -1,7 +1,7 @@
 import type { Vector2, Vector3 } from 'three';
 import type { Color } from 'three/src/math/Color';
 
-export interface LightParams {
+export interface ILightParams {
   readonly type: LightType;
   readonly color: Color;
   readonly intensity?: number;

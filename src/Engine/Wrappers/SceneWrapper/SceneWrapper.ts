@@ -9,11 +9,11 @@ import type {
 } from '@Engine/Wrappers';
 import { AbstractWrapper } from '@Engine/Wrappers';
 import { getAccessors } from './Accessors';
-import type { SceneParams } from '@Engine/Models/SceneParams';
+import type { ISceneParams } from '@Engine/Models/ISceneParams';
 import type { ISceneWrapper } from './Models';
 import { Subject } from 'rxjs';
 
-export function SceneWrapper({ name }: SceneParams): ISceneWrapper {
+export function SceneWrapper({ name }: ISceneParams): ISceneWrapper {
   const entity: Scene = new Scene();
 
   // eslint-disable-next-line functional/immutable-data

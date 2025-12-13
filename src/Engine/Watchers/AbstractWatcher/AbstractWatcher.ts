@@ -1,8 +1,8 @@
 import { Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
-import type { Watcher } from '@Engine/Models';
+import type { IWatcher } from '@Engine/Models';
 
-export function AbstractWatcher<T>(type: string, start: () => void, stop: () => void): Watcher<T> {
+export function AbstractWatcher<T>(type: string, start: () => void, stop: () => void): IWatcher<T> {
   const id: string = type + '_watcher_' + nanoid();
   const value$: Subject<T> = new Subject<T>();
   const start$: Subject<void> = new Subject<void>();

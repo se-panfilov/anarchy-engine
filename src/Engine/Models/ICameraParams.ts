@@ -1,6 +1,6 @@
 import type { Vector3 } from 'three';
 
-export interface CameraParams {
+export interface ICameraParams {
   readonly fov?: number;
   readonly near?: number;
   readonly far?: number;

@@ -1,5 +1,5 @@
 import type { ActorConfig, CameraConfig, LightConfig, SceneConfig } from '@Engine/Launcher/Models';
-import type { MousePosition, Registry, Watcher } from '@Engine/Models';
+import type { IMousePosition, IRegistry, IWatcher } from '@Engine/Models';
 import type {
   IActorFactory,
   ICameraFactory,
@@ -34,10 +34,10 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   const { promise, resolve } = createDeferredPromise<void>();
 
   //Watchers
-  const mouseClicksWatcher: Watcher<void> = MouseClicksWatcher();
+  const mouseClicksWatcher: IWatcher<void> = MouseClicksWatcher();
   // mouseClicksWatcher.value$.subscribe(console.log)
   mouseClicksWatcher.start$.next();
-  const mousePositionWatcher: Watcher<MousePosition> = MousePositionWatcher();
+  const mousePositionWatcher: IWatcher<IMousePosition> = MousePositionWatcher();
   // mousePositionWatcher.value$.subscribe(console.log)
   mousePositionWatcher.start$.next();
 
@@ -50,9 +50,9 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   const loopFactory: ILoopFactory = LoopFactory();
 
   //Entities registries
-  const actorRegistry: Registry<IActorWrapper> = ActorRegistry();
-  const cameraRegistry: Registry<ICameraWrapper> = CameraRegistry();
-  const lightRegistry: Registry<ILightWrapper> = LightRegistry();
+  const actorRegistry: IRegistry<IActorWrapper> = ActorRegistry();
+  const cameraRegistry: IRegistry<ICameraWrapper> = CameraRegistry();
+  const lightRegistry: IRegistry<ILightWrapper> = LightRegistry();
 
   //Subscriptions
   combineLatest([actorFactory.latest$, sceneFactory.latest$]).subscribe(

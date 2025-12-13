@@ -1,11 +1,11 @@
-import type { ScreenParams, Watcher } from '@Engine/Models';
+import type { IScreenParams, IWatcher } from '@Engine/Models';
 import { ScreenSizeWatcher } from '@Engine/Watchers';
 import type { IAmbientContext } from './Models';
 
-const screenSizeWatcher: Watcher<ScreenParams> = ScreenSizeWatcher();
+const screenSizeWatcher: IWatcher<IScreenParams> = ScreenSizeWatcher();
 
 export const ambientContext: IAmbientContext = {
-  get screenSizeWatcher(): Watcher<ScreenParams> {
+  get screenSizeWatcher(): IWatcher<IScreenParams> {
     return screenSizeWatcher;
   }
 };

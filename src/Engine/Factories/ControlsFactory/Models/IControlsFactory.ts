@@ -1,5 +1,5 @@
-import type { ControlsParams, Factory } from '@Engine/Models';
+import type { IControlsParams, IFactory } from '@Engine/Models';
 import type { IControlsWrapper } from '@Engine/Wrappers';
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-export type IControlsFactory = Factory<IControlsWrapper, OrbitControls, ControlsParams, void>;
+export type IControlsFactory = IFactory<IControlsWrapper, OrbitControls, IControlsParams, void>;

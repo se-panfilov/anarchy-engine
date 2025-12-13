@@ -3,9 +3,9 @@ import { AbstractWrapper } from '@Engine/Wrappers';
 import { getUtils } from './utils';
 import type { ILoopWrapper } from './Models';
 import type { LoopFn } from './Models/LoopFn';
-import type { LoopParams } from '@Engine/Models';
+import type { ILoopParams } from '@Engine/Models';
 
-export function LoopWrapper(params: LoopParams): ILoopWrapper {
+export function LoopWrapper(params: ILoopParams): ILoopWrapper {
   const entity: LoopFn = (
     renderer: ReturnType<typeof RendererWrapper>,
     scene: ReturnType<typeof SceneWrapper>,

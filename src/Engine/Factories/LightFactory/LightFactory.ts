@@ -1,9 +1,9 @@
 import type { ILightWrapper } from '@Engine/Wrappers';
 import { LightWrapper } from '@Engine/Wrappers';
-import type { LightParams } from '@Engine/Models';
+import type { ILightParams } from '@Engine/Models';
 import { lightAdapter } from '@Engine/Adapters';
 import type { ICreateLightFn, ILightFactory } from '@Engine/Factories';
 import { AbstractFactory } from '../AbstractFactory';
 
-const create: ICreateLightFn = (params: LightParams): ILightWrapper => LightWrapper(params);
+const create: ICreateLightFn = (params: ILightParams): ILightWrapper => LightWrapper(params);
 export const LightFactory = (): ILightFactory => AbstractFactory('light', create, lightAdapter);

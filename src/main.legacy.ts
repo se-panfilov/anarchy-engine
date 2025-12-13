@@ -10,7 +10,7 @@ import { DeviceWatcher } from '@Engine/Watchers/DeviceWatcher';
 import { isNotDefined } from '@Engine/Utils';
 import { RendererManager } from '@Engine/Managers/RendererManager';
 import type { OrthographicCamera } from 'three/src/cameras/OrthographicCamera';
-import { ActorParams } from '@Engine/Models/ActorParams';
+import { IActorParams } from '@Engine/Models/IActorParams';
 
 // TODO (S.Panfilov) flow
 // create actors
@@ -49,7 +49,7 @@ sceneManager.setCurrent(scene);
 // sceneManager.attachTo(lightManager, scene);
 // sceneManager.attachTo(inputManager, scene);
 
-const planeParams: ActorParams = {
+const planeParams: IActorParams = {
   width: 60,
   height: 40,
   widthSegments: 10,

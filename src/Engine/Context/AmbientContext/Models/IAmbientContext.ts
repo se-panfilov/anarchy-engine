@@ -1,5 +1,5 @@
-import type { ScreenParams, Watcher } from '@Engine/Models';
+import type { IScreenParams, IWatcher } from '@Engine/Models';
 
 export interface IAmbientContext {
-  readonly screenSizeWatcher: Watcher<ScreenParams>;
+  readonly screenSizeWatcher: IWatcher<IScreenParams>;
 }

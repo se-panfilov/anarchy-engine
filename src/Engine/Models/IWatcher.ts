@@ -1,6 +1,6 @@
 import type { Subject } from 'rxjs';
 
-export interface Watcher<T> {
+export interface IWatcher<T> {
   readonly id: string;
   readonly type: string;
   readonly value$: Subject<T>;

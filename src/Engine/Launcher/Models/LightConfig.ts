@@ -1,8 +1,8 @@
-import type { LightParams, LightShadowParams, LightType } from '@Engine/Models';
+import type { ILightParams, LightShadowParams, LightType } from '@Engine/Models';
 import type { Vector2dConfig } from './Vector2dConfig';
 import type { Vector3dConfig } from './Vector3dConfig';
 
-export interface LightConfig extends Omit<LightParams, 'color' | 'position' | 'shadow'> {
+export interface LightConfig extends Omit<ILightParams, 'color' | 'position' | 'shadow'> {
   readonly type: LightType;
   readonly color: string;
   readonly intensity: number;

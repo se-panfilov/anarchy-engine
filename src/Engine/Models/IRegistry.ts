@@ -1,7 +1,7 @@
 import type { Subject } from 'rxjs';
-import type { ReactiveWrapper } from '@Engine/Models';
+import type { IReactiveWrapper } from '@Engine/Models';
 
-export interface Registry<T extends ReactiveWrapper<unknown>> {
+export interface IRegistry<T extends IReactiveWrapper<unknown>> {
   readonly id: string;
   readonly add$: Subject<T>;
   readonly replace$: Subject<T>;

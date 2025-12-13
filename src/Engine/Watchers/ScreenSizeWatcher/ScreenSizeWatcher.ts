@@ -1,10 +1,10 @@
 import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatcher';
 import type { IScreenSizeWatcher } from '@Engine/Watchers/ScreenSizeWatcher/Models/IScreenSizeWatcher';
-import type { ScreenParams } from '@Engine/Models';
+import type { IScreenParams } from '@Engine/Models';
 import { Subject } from 'rxjs';
 
 export function ScreenSizeWatcher(): IScreenSizeWatcher {
-  const value$: Subject<ScreenParams> = new Subject<ScreenParams>();
+  const value$: Subject<IScreenParams> = new Subject<IScreenParams>();
 
   // TODO (S.Panfilov) window should be global?
   const onResize = (): void =>

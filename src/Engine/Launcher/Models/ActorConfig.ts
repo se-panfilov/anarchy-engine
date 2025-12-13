@@ -1,7 +1,7 @@
-import type { ActorParams } from '@Engine/Models';
+import type { IActorParams } from '@Engine/Models';
 import type { Vector3dConfig } from './Vector3dConfig';
 
-export interface ActorConfig extends Omit<ActorParams, 'materialParams' | 'position'> {
+export interface ActorConfig extends Omit<IActorParams, 'materialParams' | 'position'> {
   readonly type: ActorType;
   readonly width: number;
   readonly height: number;

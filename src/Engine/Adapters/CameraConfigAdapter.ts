@@ -1,8 +1,8 @@
 import type { CameraConfig } from '@Engine/Launcher/Models';
-import type { CameraParams } from '@Engine/Models';
+import type { ICameraParams } from '@Engine/Models';
 import { Vector3 } from 'three';
 
-export function cameraAdapter(config: CameraConfig): CameraParams {
+export function cameraAdapter(config: CameraConfig): ICameraParams {
   const { position, lookAt, ...rest } = config;
   return {
     ...rest,
