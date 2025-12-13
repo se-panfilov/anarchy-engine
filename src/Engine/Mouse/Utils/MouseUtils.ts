@@ -1,5 +1,5 @@
 import type { IMousePosition, IMouseWatcherEvent } from '@/Engine/Mouse';
-import { MouseButtonValue } from '@/Engine/Mouse';
+import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@/Engine/Mouse';
 import type { IVector2, IVector3 } from '@/Engine/Vector';
 import { Vector2Wrapper } from '@/Engine/Vector';
 
@@ -30,10 +30,26 @@ export function getMouseButtonValue(button: number): MouseButtonValue {
   }
 }
 
-export function getMouseWatcherEvent(e: MouseEvent | WheelEvent): IMouseWatcherEvent {
-  // TODO (S.Panfilov) debug
-  console.log(e);
-  const mouseBtnValue: MouseButtonValue = getMouseButtonValue(e.button);
+export function getMouseEventType(e: MouseEvent | WheelEvent): MouseEventType | never {
+  switch (e.type) {
+    case 'mouseup':
+      return MouseEventType.MouseUp;
+    case 'mousedown':
+      return MouseEventType.MouseDown;
+    case 'dblclick':
+      return MouseEventType.DoubleClick;
+    case 'wheel':
+      return MouseEventType.Wheel;
+    default:
+      throw new Error(`Unknown mouse event type: ${e.type}`);
+  }
+}
 
-  return { eventType: 'click_with_release', value: mouseBtnValue, button: e.button, x: e.clientX, y: e.clientY };
+export const getMouseWheelValue = (button: number): MouseWheelValue => (button === 0 ? MouseWheelValue.WheelUp : MouseWheelValue.WheelDown);
+
+export function getMouseWatcherEvent(e: MouseEvent | WheelEvent): IMouseWatcherEvent {
+  const eventType: MouseEventType = getMouseEventType(e);
+  const value: MouseButtonValue | MouseWheelValue = eventType === MouseEventType.Wheel ? getMouseWheelValue(e.button) : getMouseButtonValue(e.button);
+
+  return { eventType, value, button: e.button, x: e.clientX, y: e.clientY };
 }

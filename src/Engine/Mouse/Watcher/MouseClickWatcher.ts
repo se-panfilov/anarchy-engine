@@ -1,5 +1,6 @@
 import type { IAbstractWatcher } from '@/Engine/Abstract';
 import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
+import { MouseEventType } from '@/Engine/Mouse/Constants';
 import type { IMouseClickWatcher, IMouseClickWatcherParams, IMouseWatcherEvent } from '@/Engine/Mouse/Models';
 import { getMouseWatcherEvent } from '@/Engine/Mouse/Utils';
 
@@ -13,18 +14,18 @@ export function MouseClickWatcher({ container, tags = [] }: IMouseClickWatcherPa
   };
 
   function start(): IMouseClickWatcher {
-    container.startWatch('mouseup', onMouseListener);
-    container.startWatch('mousedown', onMouseListener);
-    container.startWatch('dblclick', onMouseListener);
-    container.startWatch('wheel', onMouseListener);
+    container.startWatch(MouseEventType.MouseUp, onMouseListener);
+    container.startWatch(MouseEventType.MouseDown, onMouseListener);
+    container.startWatch(MouseEventType.DoubleClick, onMouseListener);
+    container.startWatch(MouseEventType.Wheel, onMouseListener);
     return result;
   }
 
   function stop(): IMouseClickWatcher {
-    container.stopWatch('mouseup', onMouseListener);
-    container.stopWatch('mousedown', onMouseListener);
-    container.stopWatch('dblclick', onMouseListener);
-    container.stopWatch('wheel', onMouseListener);
+    container.stopWatch(MouseEventType.MouseUp, onMouseListener);
+    container.stopWatch(MouseEventType.MouseDown, onMouseListener);
+    container.stopWatch(MouseEventType.DoubleClick, onMouseListener);
+    container.stopWatch(MouseEventType.Wheel, onMouseListener);
     return result;
   }
 
