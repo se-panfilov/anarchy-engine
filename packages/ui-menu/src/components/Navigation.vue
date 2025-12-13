@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Routes } from '@Menu/constants';
+import { eventsService } from '@Menu/services';
 import { useRouterStore } from '@Menu/stores/RouterStore';
 // TODO DESKTOP: extract to... shared?
 // import { closeMainMenu } from 'anarchy_engine_showcases/src/Levels/Showcase28Menu/MainMenuService';
@@ -22,7 +23,7 @@ const menuRouterStore = useRouterStore();
         <button type="button" class="menu-navigation__button -localization" @click="menuRouterStore.go(Routes.Localization)">Localization</button>
       </li>
       <li class="menu-navigation__list-item">
-        <button type="button" class="menu-navigation__button -close-menu" @click="closeMainMenu()">Close menu</button>
+        <button type="button" class="menu-navigation__button -close-menu" @click="eventsService.emitClose()">Close menu</button>
       </li>
       <li class="menu-navigation__list-item">
         <button type="button" class="menu-navigation__button -exit">Exit to desktop</button>
