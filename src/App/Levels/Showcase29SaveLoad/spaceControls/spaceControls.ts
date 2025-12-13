@@ -1,6 +1,7 @@
 import type { Subscription } from 'rxjs';
+import { Euler } from 'three';
 
-import type { TModel3d, TRegistryPack, TSpace, TSpaceConfig } from '@/Engine';
+import type { TModel3d, TOrbitControlsWrapper, TRegistryPack, TSpace, TSpaceConfig } from '@/Engine';
 import { isNotDefined } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
@@ -24,9 +25,10 @@ export const spaceControlsData: TSpacesData = {
     subscriptions[config.name] = sub$;
   },
   onChange: (space: TSpace): void => {
-    const controls = space.services.controlsService.findActive();
+    const controls: TOrbitControlsWrapper | undefined = space.services.controlsService.findActive() as TOrbitControlsWrapper | undefined;
     if (isNotDefined(controls)) throw new Error(`[Showcase]: Controls are not defined for space "${space.name}"`);
-    console.log('XXX controls', controls.entity);
+
+    controls.rotateCameraTo(new Euler(-0.21611581505751948, 0.7673075650744225, 0.15124389190255216));
   },
   onUnload: (_space: TSpace, subscriptions?: Record<string, Subscription>): void | never => {
     if (isNotDefined(subscriptions)) throw new Error(`[Showcase]: Subscriptions is not defined`);
