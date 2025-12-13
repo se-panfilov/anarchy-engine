@@ -23,8 +23,6 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     if (isDebug) console.log('[debug]', ...args);
   }
 
-  // ---------- Monorepo root detection ----------
-
   function hasWorkspacesField(pkg: any): boolean {
     const ws = pkg?.workspaces;
     if (!ws) return false;
@@ -61,8 +59,6 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     if (!found) throw new Error(`Monorepo root not found starting from "${startDir}". Provide --root explicitly pointing to a package.json with "workspaces".`);
     return found;
   }
-
-  // ---------- Load root + workspaces ----------
 
   async function loadRoot(rootDir: string): Promise<TRootInfo> {
     const rootPkgPath: string = path.join(rootDir, 'package.json');
@@ -125,8 +121,6 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     };
   }
 
-  // ---------- Workspace dependency graph ----------
-
   function buildWsGraph(ws: ReadonlyMap<string, TWorkspaceInfo>): ReadonlyMap<string, ReadonlySet<string>> {
     const names: Set<string> = new Set(ws.keys());
     const graph = Array.from(ws.entries()).reduce((acc, [name, info]) => {
@@ -166,8 +160,6 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     dfs(start);
   }
 
-  // ---------- Reachable workspaces (closure) ----------
-
   function collectWorkspaceClosure(graph: ReadonlyMap<string, ReadonlySet<string>>, start: string): ReadonlySet<string> {
     const visited: Set<string> = new Set<string>();
 
@@ -180,8 +172,6 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     visit(start);
     return visited;
   }
-
-  // ---------- npm ls (prod) ----------
 
   async function npmLsJson(rootDir: string, workspace: string): Promise<TDependencyNode | undefined> {
     return new Promise((resolve, reject): void => {
@@ -228,8 +218,6 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     });
   }
 
-  // ---------- Seeds from package.json ----------
-
   function collectExternalSeedNames(closure: ReadonlySet<string>, wsMap: ReadonlyMap<string, TWorkspaceInfo>, wsNames: ReadonlySet<string>): ReadonlySet<string> {
     const seeds: Set<string> = new Set<string>();
     [...closure].forEach((wsName: string): void => {
@@ -242,8 +230,6 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     });
     return seeds;
   }
-
-  // ---------- Collect third-party (with install paths) ----------
 
   function collectThirdPartyMap(root: TDependencyNode | undefined, wsNames: ReadonlySet<string>, seedNames: ReadonlySet<string>): ReadonlyMap<string, TCollected> {
     const acc: Map<string, TCollected> = new Map<string, TCollected>();
@@ -270,8 +256,6 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     return acc;
   }
 
-  // ---------- Fallback: resolve missing install paths via Node resolver ----------
-
   function resolvePackageDir(pkgName: string, fromDir: string): string | undefined {
     try {
       const req: NodeJS.Require = createRequire(path.join(fromDir, 'package.json'));
@@ -295,8 +279,6 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     });
     debugLog(isDebug, 'install paths filled via resolver:', filled);
   }
-
-  // ---------- Read license from package folder ----------
 
   async function findLicenseFile(dir: string): Promise<string | undefined> {
     try {
@@ -419,8 +401,6 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     return [...list].sort((a, b): number => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
   }
 
-  // ---------- Workspace license entries ----------
-
   async function buildWorkspaceLicenseEntries(names: ReadonlySet<string>, wsMap: ReadonlyMap<string, TWorkspaceInfo>, excludeName?: string): Promise<ReadonlyArray<TLicenseEntry>> {
     const filtered: any[] = [...names].filter((name) => !(excludeName && name === excludeName));
     const entries = await Promise.all(
@@ -449,8 +429,6 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     return [...entries].sort((a, b) => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
   }
 
-  // ---------- Markdown ----------
-
   function renderMarkdown(workspaceLabel: string, items: ReadonlyArray<TLicenseEntry>, emptyNote?: string): string {
     const header: string[] = [`# Third-Party Licenses`, `## Application: ${workspaceLabel}`, `Production dependencies (including transition dependencies): ${items.length}`, ``];
     const note: string[] = items.length === 0 && emptyNote ? [`**Note:** ${emptyNote}`, ``] : [];
@@ -472,8 +450,6 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
 
     return [...header, ...note, ...body].join('\n');
   }
-
-  // ---------- Resolve workspace from arg ----------
 
   function resolveWorkspaceFromArg(
     arg: string,
