@@ -6,6 +6,7 @@ import type {
   TAbstractLightWrapper,
   TAnyLight,
   TAnyLightConfig,
+  TAnyLightWrapper,
   TLightFactory,
   TLightRegistry,
   TLightService,
@@ -16,13 +17,13 @@ import type {
   TLightServiceWithRegistry
 } from '@/Engine/Light/Models';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService, withSerializeAllEntities } from '@/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { mergeAll } from '@/Engine/Utils';
 
 export function LightService(factory: TLightFactory, registry: TLightRegistry, dependencies: TLightServiceDependencies, scene: TSceneWrapper): TLightService {
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TAbstractLightWrapper<TAnyLight>>) => scene.addLight(value));
-  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TAbstractLightWrapper<TAnyLight>): void => registry.add(wrapper));
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TAnyLightWrapper): void => registry.add(wrapper));
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, registrySub$, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 

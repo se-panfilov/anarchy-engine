@@ -5,6 +5,7 @@ export type * from './TAmbientLightParams';
 export type * from './TAmbientLightWrapper';
 export type * from './TAnyLight';
 export type * from './TAnyLightParams';
+export type * from './TAnyLightWrapper';
 export type * from './TDirectionalLight';
 export type * from './TDirectionalLightParams';
 export type * from './TDirectionalLightWrapper';
