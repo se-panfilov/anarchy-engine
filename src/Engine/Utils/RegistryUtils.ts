@@ -2,20 +2,23 @@ export function getAllEntitiesWithEveryTag<T extends { tags: ReadonlyArray<strin
   tagList: ReadonlyArray<string>,
   registry: ReadonlyMap<string, T>
 ): ReadonlyArray<T> {
-  if (tagList.length === 0) return [];
-
-  return Array.from(registry.values()).filter((obj: T) => tagList.every((tag: string) => obj.tags.includes(tag)));
+  return getEntitiesWithTag(tagList, registry, true);
 }
 
 export function getAllEntitiesWithSomeTag<T extends { tags: ReadonlyArray<string> }>(
   tagList: ReadonlyArray<string>,
   registry: ReadonlyMap<string, T>
 ): ReadonlyArray<T> {
-  if (tagList.includes('intersectable')) {
-    console.log(Array.from(registry.values()));
-    // debugger
-  }
-  if (tagList.length === 0) return [];
+  return getEntitiesWithTag(tagList, registry, false);
+}
 
-  return Array.from(registry.values()).filter((obj: T) => tagList.some((tag: string) => obj.tags.includes(tag)));
+function getEntitiesWithTag<T extends { tags: ReadonlyArray<string> }>(
+  tagList: ReadonlyArray<string>,
+  registry: ReadonlyMap<string, T>,
+  shouldMatchAllTags: boolean
+): ReadonlyArray<T> {
+  if (tagList.length === 0) return [];
+  const methodName: 'every' | 'some' = shouldMatchAllTags ? 'every' : 'some';
+
+  return Array.from(registry.values()).filter((obj: T) => tagList[methodName]((tag: string) => obj.tags.includes(tag)));
 }
