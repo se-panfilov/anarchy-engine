@@ -15,6 +15,7 @@ const config: TSpaceConfig = spaceConfig as TSpaceConfig;
 let isOriginalSceneLoaded: boolean = true;
 let continuousStepCounter: number = 0;
 
+// TODO 15-0-0: Physical object doesn't move after save/load
 export const spaceTransformDriveData: TSpacesData = {
   name: config.name,
   config: config,
