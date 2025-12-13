@@ -1,6 +1,7 @@
 import { Euler, Vector3 } from 'three';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
+import { BULLET_TARGET_TAG } from '@/App/Levels/Showcase22PhysicsShooter/utils/Bullets';
 import type { TActor, TActorService, TBoxGeometryProps, TMaterialService, TMaterialWrapper, TModel3d, TModels3dService, TObject3DParams, TSpatialGridWrapper } from '@/Engine';
 import { CollisionShape, MaterialType, PrimitiveModel3dType, RigidBodyTypesNames, TransformAgent } from '@/Engine';
 
@@ -61,7 +62,7 @@ export async function buildTower(
       position: block.position,
       rotation: new Euler(),
       spatial: { isAutoUpdate: true, grid },
-      tags: ['physics_block']
+      tags: ['physics_block', BULLET_TARGET_TAG]
     });
   });
 

@@ -232,7 +232,8 @@
         },
         "position": { "x": 0, "y": 0, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["target"]
       },
       {
         "name": "hero",
@@ -248,7 +249,8 @@
         "model3dSource": "sphere_1_model",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 6, "y": 2, "z": 12 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": true }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true },
+        "tags": ["target"]
       },
       {
         "name": "box_static_1",
@@ -256,7 +258,8 @@
         "agent": "default",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 24, "y": 2, "z": 14 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["target"]
       },
       {
         "name": "box_static_2",
@@ -264,7 +267,8 @@
         "agent": "default",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 26, "y": 1, "z": 17 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["target"]
       },
       {
         "name": "box_static_3",
@@ -272,7 +276,8 @@
         "agent": "default",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 23, "y": 2, "z": 22 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["target"]
       },
       {
         "name": "box_static_4",
@@ -280,7 +285,8 @@
         "agent": "default",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 32, "y": 1, "z": 20 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["target"]
       },
       {
         "name": "box_static_5",
@@ -288,7 +294,8 @@
         "agent": "default",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 40, "y": 1, "z": 20 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["target"]
       },
       {
         "name": "box_static_6",
@@ -296,7 +303,8 @@
         "agent": "default",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 14, "y": 1, "z": 28 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["target"]
       },
       {
         "name": "box_static_7",
@@ -305,7 +313,8 @@
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 1, "y": 1, "z": 30 },
         "rotation": { "x": 0, "y": 0.9, "z": 0 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["target"]
       },
       {
         "name": "target_1",
@@ -314,7 +323,8 @@
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": -6, "y": 0, "z": 8.5 },
         "rotation": { "x": 0, "y": 0, "z": 0 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["target"]
       },
       {
         "name": "target_2",
@@ -323,7 +333,8 @@
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": -15, "y": 0, "z": 8.5 },
         "rotation": { "x": 0, "y": 0, "z": 0 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["target"]
       },
       {
         "name": "target_3",
@@ -332,7 +343,8 @@
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": -22, "y": 0, "z": 8.5 },
         "rotation": { "x": 0, "y": 0, "z": 0 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["target"]
       }
     ],
     "intersections": [],

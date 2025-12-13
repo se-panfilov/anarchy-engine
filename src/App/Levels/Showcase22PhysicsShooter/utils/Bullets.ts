@@ -26,6 +26,7 @@ import { isDefined, isNotDefined, MaterialType, mpsSpeed, PrimitiveModel3dType, 
 import { meters, radians } from '@/Engine/Measurements/Utils';
 
 export const BULLET_TAG = 'bullet';
+export const BULLET_TARGET_TAG = 'target';
 
 export type TBullet = TActor &
   Readonly<{
@@ -142,7 +143,7 @@ export function BulletAsync(params: TActorParams, actorService: TActorService): 
     }
   }
 
-  actor.collisions.setCollisionsFilterFn((actor: TActor): boolean => !actor.getTags().includes(BULLET_TAG));
+  actor.collisions.setCollisionsFilterFn((actor: TActor): boolean => actor.getTags().includes(BULLET_TARGET_TAG));
 
   return {
     ...actor,
