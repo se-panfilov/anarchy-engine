@@ -1,7 +1,6 @@
 import type { TAbstractWatcherWithState } from '@Anarchy/Engine/Abstract';
 import { AbstractWatcherWithState, WatcherType } from '@Anarchy/Engine/Abstract';
 import { ContainerEvents } from '@Anarchy/Engine/Global';
-import { KeyboardEventType } from '@Anarchy/Engine/Keyboard/Constants';
 import type { TGameKey, TKeyComboWatcher, TKeyComboWatcherDependencies, TKeyComboWatcherParams, TKeyEvent, TKeysCombo } from '@Anarchy/Engine/Keyboard/Models';
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs';
@@ -29,9 +28,9 @@ export function KeyComboWatcher({ container, tags }: TKeyComboWatcherParams, { k
 
   watcher.enabled$.pipe(distinctUntilChanged(), takeUntil(watcher.destroy$)).subscribe((value: boolean): void => {
     if (value) {
-      container.startWatch(KeyboardEventType.KeyDown, releaseAllKeys);
+      container.startWatch(ContainerEvents.Blur, releaseAllKeys);
     } else {
-      container.stopWatch(KeyboardEventType.KeyDown, releaseAllKeys);
+      container.stopWatch(ContainerEvents.Blur, releaseAllKeys);
     }
   });
 
