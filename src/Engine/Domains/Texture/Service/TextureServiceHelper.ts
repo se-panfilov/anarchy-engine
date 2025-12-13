@@ -1,15 +1,25 @@
-import type { MagnificationTextureFilter, MinificationTextureFilter } from 'three';
+import type { ColorSpace, MagnificationTextureFilter, MinificationTextureFilter } from 'three';
 import { LinearFilter, NearestFilter, SRGBColorSpace } from 'three';
 
-import type { ITexture, ITextureParams } from '@/Engine/Domains/Texture/Models';
+import type { ITexture, ITexturePackKeys, ITextureParams } from '@/Engine/Domains/Texture/Models';
 import type { IWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export const getMagFilter = (magFilter?: MagnificationTextureFilter): MagnificationTextureFilter => (isDefined(magFilter) ? magFilter : LinearFilter);
 export const getMinFilter = (minFilter?: MinificationTextureFilter): MinificationTextureFilter => (isDefined(minFilter) ? minFilter : NearestFilter);
 
-// eslint-disable-next-line functional/immutable-data
-export const applyColorSpace = (texture: IWriteable<ITexture>, params?: ITextureParams): void => void (texture.colorSpace = isDefined(params?.colorSpace) ? params.colorSpace : SRGBColorSpace);
+export const applyColorSpace = (name: ITexturePackKeys, texture: IWriteable<ITexture>, params?: ITextureParams): void => {
+  let defaultColorSpace: ColorSpace;
+
+  if (name === 'map' || name === 'matcap') {
+    defaultColorSpace = SRGBColorSpace;
+  } else {
+    defaultColorSpace = texture.colorSpace;
+  }
+
+  // eslint-disable-next-line functional/immutable-data
+  texture.colorSpace = isDefined(params?.colorSpace) ? params.colorSpace : defaultColorSpace;
+};
 
 export function applyFilters(texture: IWriteable<ITexture>, params?: ITextureParams): void {
   if (isNotDefined(params)) return;

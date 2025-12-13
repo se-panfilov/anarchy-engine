@@ -1,6 +1,6 @@
 import { TextureLoader } from 'three';
 
-import type { ITexture, ITexturePack, ITextureService, ITextureUploaded, ITextureUploadPromises } from '@/Engine/Domains/Texture/Models';
+import type { ITexture, ITexturePack, ITexturePackKeys, ITextureService, ITextureUploaded, ITextureUploadPromises } from '@/Engine/Domains/Texture/Models';
 import { applyColorSpace, applyFilters, applyTextureParams } from '@/Engine/Domains/Texture/Service/TextureServiceHelper';
 import type { IWriteable } from '@/Engine/Utils';
 
@@ -13,7 +13,7 @@ export function TextureService(): ITextureService {
     Object.entries(pack).forEach(([key, { url, params }]): void => {
       const p: Promise<ITexture> = textureLoader.loadAsync(url).then((texture: IWriteable<ITexture>): ITexture => {
         applyTextureParams(texture, params);
-        applyColorSpace(texture, params);
+        applyColorSpace(key as ITexturePackKeys, texture, params);
         applyFilters(texture, params);
         return texture;
       });

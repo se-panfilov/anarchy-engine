@@ -304,6 +304,27 @@
         },
         "lightMap": {
           "$ref": "#/definitions/ITexturePackParams"
+        },
+        "matcap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "bumpMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "normalMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "displacementMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "emissiveMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "roughnessMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "metalnessMap": {
+          "$ref": "#/definitions/ITexturePackParams"
         }
       },
       "additionalProperties": false
