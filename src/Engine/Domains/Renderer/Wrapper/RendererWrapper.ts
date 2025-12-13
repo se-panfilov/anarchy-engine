@@ -1,7 +1,7 @@
 import { AbstractWrapper } from '@Engine/Domains/Abstract';
 import type { IRendererParams, IRendererWrapper } from '@Engine/Domains/Renderer';
 import type { IScreenParams, IWrapper } from '@Engine/Models';
-import type { Writeable } from '@Engine/Utils';
+import type { IWriteable } from '@Engine/Utils';
 import { isNotDefined, isWebGLAvailable } from '@Engine/Utils';
 import type { IScreenSizeWatcher } from '@Engine/Watchers';
 import { PCFShadowMap, WebGLRenderer } from 'three';
@@ -20,7 +20,7 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
   entity.useLegacyLights = false;
 
   // eslint-disable-next-line functional/prefer-immutable-types
-  function setValues(entity: Writeable<WebGLRenderer>, { width, height, ratio }: IScreenParams): void {
+  function setValues(entity: IWriteable<WebGLRenderer>, { width, height, ratio }: IScreenParams): void {
     if (isNotDefined(entity)) return;
     entity.setSize(width, height);
     entity.setPixelRatio(Math.min(ratio, 2));

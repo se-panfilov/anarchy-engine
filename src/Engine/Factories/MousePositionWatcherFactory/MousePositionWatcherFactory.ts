@@ -1,8 +1,8 @@
-import type { IMousePositionWatcherParams } from '@/Engine/Models';
-import type { IMousePositionWatcherRegistry } from '@/Engine/Registries';
-import { MousePositionWatcherRegistry } from '@/Engine/Registries';
-import type { IMousePositionWatcher } from '@/Engine/Watchers';
-import { MousePositionWatcher } from '@/Engine/Watchers';
+import type { IMousePositionWatcherParams } from '@Engine/Models';
+import type { IMousePositionWatcherRegistry } from '@Engine/Registries';
+import { MousePositionWatcherRegistry } from '@Engine/Registries';
+import type { IMousePositionWatcher } from '@Engine/Watchers';
+import { MousePositionWatcher } from '@Engine/Watchers';
 
 import type { IMousePositionWatcherFactory } from './Models';
 

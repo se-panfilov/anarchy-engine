@@ -1,7 +1,6 @@
 import type { ActorTag } from '@Engine/Domains/Actor';
+import type { IVector3 } from '@Engine/Wrappers';
 import type { MeshToonMaterialParameters } from 'three';
-
-import type { IVector3 } from '@/Engine/Wrappers';
 
 export type IActorParams = Readonly<{
   type: IActorType;

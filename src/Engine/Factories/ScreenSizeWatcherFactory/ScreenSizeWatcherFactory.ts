@@ -1,8 +1,8 @@
-import type { IScreenSizeWatcherParams } from '@/Engine/Models';
-import type { IScreenSizeWatcherRegistry } from '@/Engine/Registries';
-import { ScreenSizeWatcherRegistry } from '@/Engine/Registries';
-import type { IScreenSizeWatcher } from '@/Engine/Watchers';
-import { ScreenSizeWatcher } from '@/Engine/Watchers';
+import type { IScreenSizeWatcherParams } from '@Engine/Models';
+import type { IScreenSizeWatcherRegistry } from '@Engine/Registries';
+import { ScreenSizeWatcherRegistry } from '@Engine/Registries';
+import type { IScreenSizeWatcher } from '@Engine/Watchers';
+import { ScreenSizeWatcher } from '@Engine/Watchers';
 
 import type { IScreenSizeWatcherFactory } from './Models';
 

@@ -19,7 +19,6 @@ function getEntitiesWithTag<T extends { tags: ReadonlyArray<string> }>(tagList: 
 
 export function addFromConfigToRegistry<E, W extends IWrapper<E>, C extends IAbstractConfig = void>(
   configList: ReadonlyArray<C>,
-  // eslint-disable-next-line functional/prefer-immutable-types
   factory: IFromConfigFactory<W, E, never, IAbstractFactory<W, never>, C>,
   registry: IProtectedRegistry<W, IAbstractRegistry<any>>
 ): void {

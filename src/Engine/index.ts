@@ -1,4 +1,5 @@
 export * from './Context';
+export * from './Domains/Abstract';
 export * from './Domains/Actor';
 export * from './Domains/Camera';
 export * from './Domains/Controls';

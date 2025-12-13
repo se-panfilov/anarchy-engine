@@ -1,8 +1,7 @@
+export * from '../Domains/Abstract/Models/IWrapper';
 export * from './IAppCanvas';
 export * from './IAppGlobalContainer';
 export * from './IDestroyable';
-export * from './IDestroyableFactory';
-export * from './IDestroyableFromConfigFactory';
 export * from './IFactory';
 export * from './IFromConfig';
 export * from './IFromConfigFactory';
@@ -23,4 +22,3 @@ export * from './IScreenParams';
 export * from './IScreenSizeWatcherParams';
 export * from './IVector2dConfig';
 export * from './IVector3dConfig';
-export * from './IWrapper';

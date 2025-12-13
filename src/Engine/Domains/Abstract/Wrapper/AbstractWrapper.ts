@@ -1,6 +1,7 @@
-import type { IWrapper } from '@Engine/Models';
 import { cleanObject } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
+
+import type { IWrapper } from '../Models';
 
 export function AbstractWrapper<T>(entity: T, params?: Readonly<{ tags: ReadonlyArray<string> }>): IWrapper<T> {
   const id: string = nanoid();

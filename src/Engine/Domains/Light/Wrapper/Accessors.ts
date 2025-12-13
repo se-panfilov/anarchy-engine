@@ -1,12 +1,11 @@
 import type { IOrthographicCamera } from '@Engine/Domains/Camera';
 import type { IAmbientLight, IDirectionalLight, ILightAccessors } from '@Engine/Domains/Light';
-import type { Writeable } from '@Engine/Utils';
-
-import type { IVector2 } from '@/Engine/Wrappers/Vector2Wrapper';
-import type { IVector3 } from '@/Engine/Wrappers/Vector3Wrapper';
+import type { IWriteable } from '@Engine/Utils';
+import type { IVector2 } from '@Engine/Wrappers/Vector2Wrapper';
+import type { IVector3 } from '@Engine/Wrappers/Vector3Wrapper';
 
 // eslint-disable-next-line functional/prefer-immutable-types
-export function getAccessors(entity: Writeable<IAmbientLight | IDirectionalLight>): ILightAccessors {
+export function getAccessors(entity: IWriteable<IAmbientLight | IDirectionalLight>): ILightAccessors {
   const setPosition = (x: number, y: number, z: number): IVector3 => entity.position.set(x, y, z);
   // eslint-disable-next-line functional/immutable-data
   const setCastShadow = (value: boolean): boolean => (entity.castShadow = value);
@@ -15,7 +14,7 @@ export function getAccessors(entity: Writeable<IAmbientLight | IDirectionalLight
   function setFar(far: number): number | never {
     if (isAmbientLight(entity)) throw new Error('Cannot call "setFar" for IAmbientLight');
     // eslint-disable-next-line functional/immutable-data
-    return ((entity.shadow.camera as Writeable<IOrthographicCamera>).far = far);
+    return ((entity.shadow.camera as IWriteable<IOrthographicCamera>).far = far);
   }
 
   function setShadowMapSize(x: number, y: number): IVector2 {

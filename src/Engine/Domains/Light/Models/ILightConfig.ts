@@ -1,6 +1,5 @@
 import type { ILightParams, ILightShadowParams, ILightType } from '@Engine/Domains/Light';
-
-import type { IVector2dConfig, IVector3dConfig } from '@/Engine/Models';
+import type { IVector2dConfig, IVector3dConfig } from '@Engine/Models';
 
 export type ILightConfig = Omit<ILightParams, 'color' | 'position' | 'shadow'> &
   Readonly<{

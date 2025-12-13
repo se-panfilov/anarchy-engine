@@ -1,7 +1,7 @@
-import { AbstractWrapperFactory } from '@Engine/Domains/Abstract';
-import type { ICreateFN } from '@Engine/Domains/Abstract';
-import type { IDestroyableFactory, IWrapper } from '@Engine/Models';
+import { AbstractWrapperFactory } from '@Engine/Domains/Abstract/Factory';
 import { cleanObject } from '@Engine/Utils';
+
+import type { ICreateFN, IDestroyableFactory, IWrapper } from '../Models';
 
 export function AbstractDestroyableFactory<T extends IWrapper<ENT>, ENT, PRMS>(type: string, createFn: ICreateFN<T, PRMS>): IDestroyableFactory<T, ENT, PRMS> {
   const factory: IDestroyableFactory<T, ENT, PRMS> = {

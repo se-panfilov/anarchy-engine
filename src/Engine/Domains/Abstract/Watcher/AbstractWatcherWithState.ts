@@ -1,6 +1,7 @@
-import type { IAbstractWatcher, IAbstractWatcherWithState } from '@Engine/Domains/Abstract';
-import { AbstractWatcher } from '@Engine/Domains/Abstract';
 import { BehaviorSubject } from 'rxjs';
+
+import type { IAbstractWatcher, IAbstractWatcherWithState } from '../Models';
+import { AbstractWatcher } from './AbstractWatcher';
 
 export function AbstractWatcherWithState<T>(type: string, initialValue: T, tags: ReadonlyArray<string> = []): IAbstractWatcherWithState<T> {
   const abstractWatcher: IAbstractWatcher<T> = AbstractWatcher(type, tags);

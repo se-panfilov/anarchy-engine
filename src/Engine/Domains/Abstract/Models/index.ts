@@ -6,3 +6,6 @@ export * from './IAbstractWatcher';
 export * from './IAbstractWatcherWithState';
 export * from './IAbstractWrapperFactory';
 export * from './ICreateFN';
+export * from './IDestroyableFactory';
+export * from './IDestroyableFromConfigFactory';
+export * from './IWrapper';
