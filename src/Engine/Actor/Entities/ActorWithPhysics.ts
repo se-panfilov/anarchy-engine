@@ -45,5 +45,5 @@ function updateActorByPhysicalBody(actorPhysicalW: TActorWithPhysics): void | ne
 function updateMovementInfo(actorPhysicalW: TActorWithPhysics, physicsBodyService: TPhysicsBodyService): void | never {
   if (!actorPhysicalW.physicsBody.shouldUpdateKinematic()) return;
   if (actorPhysicalW.physicsBody.getPhysicsBodyType() === RigidBodyTypesNames.Fixed) return;
-  actorPhysicalW.kinematic.setData(physicsBodyService.getKinematicDataFromPhysics(actorPhysicalW.physicsBody));
+  actorPhysicalW.drive.kinematic.setData(physicsBodyService.getKinematicDataFromPhysics(actorPhysicalW.physicsBody));
 }

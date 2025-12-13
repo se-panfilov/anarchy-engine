@@ -117,9 +117,9 @@ export function BulletAsync(params: TActorParams, actorService: TActorService): 
 
   function reset(): void {
     actor.setPosition(new Vector3(0, 0, 0));
-    actor.kinematic.setLinearAzimuthRad(0);
-    actor.kinematic.setLinearElevationRad(0);
-    actor.kinematic.setLinearSpeed(0);
+    actor.drive.kinematic.setLinearAzimuthRad(0);
+    actor.drive.kinematic.setLinearElevationRad(0);
+    actor.drive.kinematic.setLinearSpeed(0);
     setDistanceTraveled(0);
     setActive(false);
     // eslint-disable-next-line functional/immutable-data
@@ -130,12 +130,12 @@ export function BulletAsync(params: TActorParams, actorService: TActorService): 
 
   function update(delta: number): void {
     if (isActive()) {
-      const azimuthRadians: TRadians = actor.kinematic.getLinearAzimuthRad();
-      const elevationRadians: TRadians = actor.kinematic.getLinearElevationRad();
+      const azimuthRadians: TRadians = actor.drive.kinematic.getLinearAzimuthRad();
+      const elevationRadians: TRadians = actor.drive.kinematic.getLinearElevationRad();
       const vectorDirection: Vector3 = new Vector3(Math.cos(elevationRadians) * Math.cos(azimuthRadians), Math.sin(elevationRadians), Math.cos(elevationRadians) * Math.sin(azimuthRadians));
-      actor.kinematic.setLinearDirection(vectorDirection);
+      actor.drive.kinematic.setLinearDirection(vectorDirection);
 
-      setDistanceTraveled(getDistanceTraveled() + mpsSpeed(actor.kinematic.getLinearSpeed(), delta));
+      setDistanceTraveled(getDistanceTraveled() + mpsSpeed(actor.drive.kinematic.getLinearSpeed(), delta));
       if (getDistanceTraveled() > maxDistance) reset();
     }
   }
@@ -178,10 +178,10 @@ export function shoot(actorPosition: Vector3, toAngle: TRadians, elevation: TRad
   const bullet: TBullet | undefined = bullets.find((b: TBullet) => !b.isActive());
   if (isDefined(bullet)) {
     bullet.setPosition(actorPosition);
-    bullet.kinematic.setLinearAzimuthRad(toAngle);
-    bullet.kinematic.setLinearElevationRad(elevation);
+    bullet.drive.kinematic.setLinearAzimuthRad(toAngle);
+    bullet.drive.kinematic.setLinearElevationRad(elevation);
     bullet.setDistanceTraveled(0);
-    bullet.kinematic.setLinearSpeed(meters(speedMeters));
+    bullet.drive.kinematic.setLinearSpeed(meters(speedMeters));
     bullet.setActive(true);
   }
 }

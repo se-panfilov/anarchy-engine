@@ -12,8 +12,8 @@ export function CollisionsService(): TCollisionsService {
   // i.g. bigger "interpolationLengthMultiplier" (2, 4, etc.) is safer (but better test it first)
   function checkCollisions(actor: TActor, actorsToCheck: ReadonlyArray<TActor>, interpolationLengthMultiplier: number, delta: number): TCollisionCheckResult | undefined {
     const currentPosition = actor.getPosition().clone();
-    const direction = actor.kinematic.getLinearDirection().normalize();
-    const speed = actor.kinematic.getLinearSpeed();
+    const direction = actor.drive.kinematic.getLinearDirection().normalize();
+    const speed = actor.drive.kinematic.getLinearSpeed();
 
     const extendedDistance = speed * delta * interpolationLengthMultiplier;
     const previousPosition = currentPosition.clone().sub(direction.multiplyScalar(extendedDistance));
