@@ -1,8 +1,8 @@
-import { Howl } from 'howler';
+import type { Howl } from 'howler';
+import type { Subscription } from 'rxjs';
 
-import type { AudioType } from '@/Engine/Audio/Constants';
 import { AudioLoader } from '@/Engine/Audio/Loader';
-import type { TAudioFactory, TAudioLoader, TAudioOptions, TAudioRegistry, TAudioResourceAsyncRegistry, TAudioService } from '@/Engine/Audio/Models';
+import type { TAudioConfig, TAudioFactory, TAudioLoader, TAudioRegistry, TAudioResourceAsyncRegistry, TAudioService, TAudioWrapper } from '@/Engine/Audio/Models';
 
 // TODO 11.0.0: Load all audio resources in Space (during config build)
 // TODO 11.0.0: Fix type TAudioService
@@ -16,22 +16,21 @@ import type { TAudioFactory, TAudioLoader, TAudioOptions, TAudioRegistry, TAudio
 export function AudioService(factory: TAudioFactory, registry: TAudioRegistry, resourcesRegistry: TAudioResourceAsyncRegistry): TAudioService {
   const sounds: Map<string, Howl> = new Map();
   const audioLoader: TAudioLoader = AudioLoader(resourcesRegistry);
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TAudioWrapper): void => registry.add(wrapper));
 
-  function loadSound(name: string, src: string, type: AudioType, options: TAudioOptions = {}): void {
-    const sound = new Howl({
-      src: [src],
-      loop: options.loop || false,
-      volume: options.volume || 1.0
-    });
-
-    sounds.set(name, sound);
-  }
+  const create = (params: TAudioParams): TAudioWrapper => factory.create(params, { animationsService, model3dRawToAudioConnectionRegistry });
+  const createFromConfig = (models3d: ReadonlyArray<TAudioConfig>): ReadonlyArray<TAudioWrapper> =>
+    models3d.map(
+      (config: TAudioConfig): TAudioWrapper => create(factory.configToParams(config, { animationsResourceAsyncRegistry, materialRegistry, model3dResourceAsyncRegistry: resourcesRegistry }))
+    );
 
   const play = (name: string): void => void sounds.get(name)?.play();
   const stop = (name: string): void => void sounds.get(name)?.stop();
   const setVolume = (name: string, volume: number): void => void sounds.get(name)?.volume(volume);
 
   return {
+    create,
+    createFromConfig,
     loadAsync: audioLoader.loadAsync,
     loadFromConfigAsync: audioLoader.loadFromConfigAsync,
     play,

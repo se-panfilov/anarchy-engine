@@ -7,5 +7,5 @@ import type { TAudioConfigToParamsDependencies } from './TAudioConfigToParamsDep
 import type { TAudioParams } from './TAudioParams';
 import type { TAudioServiceDependencies } from './TAudioServiceDependencies';
 
-export type TAudioFactory = TReactiveFactoryWithDependencies<Howl, TAudioParams, Pick<TAudioServiceDependencies, 'animationsService' | 'AudioRawToAudioConnectionRegistry'>> &
+export type TAudioFactory = TReactiveFactoryWithDependencies<Howl, TAudioParams, Pick<TAudioServiceDependencies, 'AudioRawToAudioConnectionRegistry'>> &
   TParamsFromConfigWithDependencies<TAudioConfig, TAudioParams, TAudioConfigToParamsDependencies>;

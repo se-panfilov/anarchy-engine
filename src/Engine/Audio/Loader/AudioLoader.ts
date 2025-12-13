@@ -11,6 +11,14 @@ export function AudioLoader(registry: TAudioResourceAsyncRegistry): TAudioLoader
 
   function applyParamsOnLoaded(loaded: TWriteable<Howl>, options?: TAudioResourceConfig['options']): Howl {
     // TODO 11.0.0: do we need this?
+
+    //     const sound = new Howl({
+    //       src: [src],
+    //       loop: options.loop || false,
+    //       volume: options.volume || 1.0
+    //     });
+    //
+    //     sounds.set(name, sound);
     return loaded;
   }
 
