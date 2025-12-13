@@ -5,6 +5,9 @@
     "name": {
       "type": "string"
     },
+    "version": {
+      "type": "string"
+    },
     "scenes": {
       "type": "array",
       "items": {
@@ -52,7 +55,7 @@
       }
     }
   },
-  "required": ["name", "scenes", "actors", "cameras", "lights", "controls", "tags"],
+  "required": ["name", "version", "scenes", "actors", "cameras", "lights", "controls", "tags"],
   "additionalProperties": false,
   "definitions": {
     "ISceneConfig": {

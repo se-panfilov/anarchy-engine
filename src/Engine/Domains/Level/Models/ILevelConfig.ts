@@ -9,6 +9,7 @@ import type { LevelTag } from '@/Engine/Domains/Level/Constants';
 
 export type ILevelConfig = Readonly<{
   name: string;
+  version: string;
   scenes: ReadonlyArray<ISceneConfig>;
   actors: ReadonlyArray<IActorConfig>;
   cameras: ReadonlyArray<ICameraConfig>;
