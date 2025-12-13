@@ -12,7 +12,6 @@ import { isDefined } from '@/Engine/Utils';
 export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models3dAnimationsRegistry: TModels3dAnimationsAsyncRegistry, sceneW: TSceneWrapper): TModels3dService {
   const models3dLoader = new GLTFLoader();
   const dracoLoader = new DRACOLoader();
-  // TODO (S.Panfilov) CWP test if draco loader is actually working
   dracoLoader.setDecoderPath('/three/examples/jsm/libs/draco/');
   dracoLoader.setDecoderConfig({ type: 'wasm' });
   dracoLoader.preload();
@@ -27,10 +26,14 @@ export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models
     if (options.shouldAddToScene) sceneW.addModel(model);
   });
 
-  // TODO enable upload from config
-  // function loadFromConfigAsync(models3ds: ReadonlyArray<string>): ReadonlyArray<Promise<Mesh>> {
-  //   return models3ds.map((url: string): Promise<Mesh> => loadAsync(url));
-  // }
+  // TODO (S.Panfilov) 1. CWP implement loading of array of models (loadAsync)
+  // TODO (S.Panfilov) 2. CWP fix loadFromConfigAsync
+  // TODO (S.Panfilov) 3. CWP load some models from showcase.json
+  // TODO (S.Panfilov) 4. CWP add validation rules for models3ds (in config)
+  // TODO (S.Panfilov) 5. CWP implement models load via actor (merge branch and create a new one before doing this)
+  function loadFromConfigAsync(models3ds: ReadonlyArray<string>): ReadonlyArray<Promise<Mesh>> {
+    return models3ds.map((url: string): Promise<Mesh> => loadAsync(url));
+  }
 
   function loadAsync({ url, options }: TModel3dParams): Promise<TModel3dLoadResult> {
     if ([...Object.values(Model3dType)].includes(url as Model3dType)) throw new Error(`Trying to load a primitive(e.g. cube, sphere, etc.) as an imported model: ${url}`);
@@ -51,8 +54,7 @@ export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models
 
   return {
     loadAsync,
-    // TODO debug
-    // loadFromConfigAsync,
+    loadFromConfigAsync,
     added$: added$.asObservable()
   };
 }
