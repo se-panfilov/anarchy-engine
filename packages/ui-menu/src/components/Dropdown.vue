@@ -20,4 +20,27 @@ const modelValue = defineModel<T>();
   </label>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &__label {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  &__input {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 18px;
+    border: 1px solid black;
+    border-radius: 6px;
+    min-height: 42px;
+    padding: 0 8px;
+    cursor: pointer;
+  }
+}
+</style>
