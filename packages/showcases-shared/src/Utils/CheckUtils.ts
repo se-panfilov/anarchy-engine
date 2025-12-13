@@ -11,6 +11,11 @@ export function isSettings(settings: TShowcaseGameSettings | unknown): settings 
   return true;
 }
 
+// TODO DESKTOP: Better isBuildMeta
+export function isBuildMeta(value: string): boolean {
+  return true;
+}
+
 export function isPartialSettings(settings: TShowcaseGameSettings | unknown): settings is Partial<TShowcaseGameSettings> {
   if (isNotDefined(settings)) return false;
   if (typeof settings !== 'object') return false;
