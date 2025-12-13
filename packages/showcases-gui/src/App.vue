@@ -2,6 +2,7 @@
 import './assets/style.scss';
 
 import { eventsService } from '@Showcases/GUI/services';
+import Home from '@Showcases/GUI/views/Home.vue';
 import type { Subscription } from 'rxjs';
 import { onMounted, onUnmounted } from 'vue';
 
@@ -22,6 +23,7 @@ onUnmounted((): void => appEventsSub$?.unsubscribe());
 <template>
   <div class="gui">
     <!--    <RouterView class="gui__item -view" @save="some" />-->
+    <Home class="gui__item -home" />
   </div>
 </template>
 
