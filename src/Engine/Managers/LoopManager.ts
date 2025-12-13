@@ -1,20 +1,5 @@
-import { Subject } from 'rxjs';
-import { nanoid } from 'nanoid';
-import type { Manager } from './Models/Manager';
+import { AbstractManager } from '@Engine/Managers/AbstractManager';
 
-interface ILoopManager extends Manager<LoopWrapper> {
-  readonly start: () => void;
-}
-
-export function LoopManager(): ILoopManager {
-  const destroyed$ = new Subject<void>();
-
-  function start(): void {}
-
-  function destroy() {
-    destroyed$.next();
-    destroyed$.complete();
-  }
-
-  return { id: `loop_manager_${nanoid()}`, start, destroy, destroyed$ };
+export class LoopManager extends AbstractManager<LoopWrapper> {
+  public start(): void {}
 }

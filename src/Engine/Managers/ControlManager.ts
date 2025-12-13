@@ -1,30 +1,12 @@
-import { BehaviorSubject, Subject } from 'rxjs';
-import { nanoid } from 'nanoid';
-import type { Manager } from './Models/Manager';
-import type { WrappedControl } from '@Engine/Control/Models/WrappedControl';
-import { ControlWrapper } from '@Engine/Control/ControlWrapper';
-import type { WrappedCamera } from '@Engine/Camera/Models/WrappedCamera';
-import type { WrappedRenderer } from '@Engine/Renderer/Models/WrappedRenderer';
+import { ControlWrapper } from '@Engine/Wrappers/ControlWrapper';
+import { AbstractManager } from '@Engine/Managers/AbstractManager';
+import type { CameraWrapper } from '@Engine/Wrappers/CameraWrapper';
+import type { RendererWrapper } from '@Engine/Wrappers/RendererWrapper';
 
-export function ControlManager(): Manager<WrappedControl> {
-  const current$ = new BehaviorSubject<WrappedControl | undefined>(undefined);
-  const list$ = new BehaviorSubject<ReadonlyArray<WrappedControl>>([]);
-  const destroyed$ = new Subject<void>();
-
-  function create(wrappedCamera: WrappedCamera, wrappedRenderer: WrappedRenderer): WrappedControl {
-    const wrapper = ControlWrapper(wrappedCamera, wrappedRenderer);
-    list$.next([...list$.value, wrapper]);
+export class ControlManager extends AbstractManager<ControlWrapper> {
+  public create(wrappedCamera: CameraWrapper, wrappedRenderer: RendererWrapper): ControlWrapper {
+    const wrapper = new ControlWrapper(wrappedCamera, wrappedRenderer);
+    this.list$.next([...this.list$.value, wrapper]);
     return wrapper;
   }
-
-  const setCurrent = (pointer: WrappedControl): void => current$.next(pointer);
-
-  function destroy() {
-    current$.complete();
-    list$.complete();
-    destroyed$.next();
-    destroyed$.complete();
-  }
-
-  return { id: `control_manager_${nanoid()}`, create, setCurrent, current$, list$, destroy, destroyed$ };
 }

@@ -1,5 +1,5 @@
-import { Vector2, Vector3 } from 'three';
-import { MousePosition } from '../models/MousePosition';
+import type { Vector2, Vector3 } from 'three';
+import type { MousePosition } from '@Engine/Models/MousePosition';
 
 // TODO (S.Panfilov) I don't like this being a distinct function, also don't really get why I might need that normalization
 export function getNormalizedMousePosition(position: MousePosition | Vector3 | Vector2): MousePosition {

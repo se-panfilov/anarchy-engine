@@ -1,26 +1,20 @@
 import { Mesh, MeshToonMaterial, PlaneGeometry, SphereGeometry } from 'three';
-import { Subject } from 'rxjs';
-import { nanoid } from 'nanoid';
-import type { WrappedActor } from '@Engine/Actor/Models/WrappedActor';
-import type { ActorParams } from '@Engine/Actor/Models/ActorParams';
+import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
+import type { MeshToonMaterialParameters } from 'three/src/materials/MeshToonMaterial';
 
-export function ActorWrapper(params: ActorParams): WrappedActor {
-  let actor: Mesh = createActor(params);
-  const destroyed$ = new Subject<void>();
+export class ActorWrapper extends AbstractWrapper<Mesh> {
+  public entity: Mesh;
 
-  function destroy() {
-    actor = undefined as any;
-    destroyed$.next();
-    destroyed$.complete();
+  constructor(params: ActorParams) {
+    super();
+    this.entity = createActor(params);
   }
-
-  return { id: `actor_wrapper_${nanoid()}`, actor, destroy, destroyed$ };
 }
 
 function createActor(params: ActorParams): Mesh {
   if (params.type === 'plane') return createPlane(params);
   if (params.type === 'sphere') return createSphere(params);
-  throw new Error('Unknown actor type');
+  throw new Error('Cannot create Actor: unknown actor type');
 }
 
 function createPlane({ width, height, widthSegments, heightSegments, materialParams }: ActorParams): Mesh {
@@ -45,4 +39,14 @@ function createSphere({ radius, widthSegments, heightSegments, materialParams }:
   sphere.castShadow = true;
 
   return sphere;
+}
+
+export interface ActorParams {
+  readonly type: 'sphere' | 'plane';
+  readonly width?: number;
+  readonly height?: number;
+  readonly radius?: number;
+  readonly widthSegments?: number;
+  readonly heightSegments?: number;
+  readonly materialParams?: MeshToonMaterialParameters;
 }

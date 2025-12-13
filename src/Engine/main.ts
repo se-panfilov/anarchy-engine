@@ -1,7 +1,7 @@
 import { Color, Mesh, MeshToonMaterial, Scene, SphereGeometry, Vector3 } from 'three';
 import { IntersectionPointerWrapper, MousePointerWrapper } from './Pointer';
-import { RendererWrapper } from './Renderer/RendererWrapper';
-import { CameraWrapper } from './Camera/CameraWrapper';
+import { RendererWrapper } from './Wrappers/RendererWrapper';
+import { CameraWrapper } from './Wrappers/CameraWrapper';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { startWatchResize } from './Watchers/Device/ResizeWatcher';
 import { deviceSize$ } from './Store/DeviceSize';
