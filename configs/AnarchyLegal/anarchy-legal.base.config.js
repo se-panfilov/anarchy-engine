@@ -1,6 +1,6 @@
 // TODO DESKTOP: LEGAL: Actually, we can use constants here (GENERIC, DISCLAIMER, EULA, PRIVACY, SECURITY) and other values (Software, Project, etc.)
-// TODO DESKTOP: LEGAL: Do not create files which are not in the config
 
+//Base config for Anarchy Legal docs generator (with common defaults).
 export default {
   GENERIC: {
     messages: {
@@ -60,7 +60,7 @@ export default {
       // evaluation purposes only – for demo/beta, if you want to explicitly limit to evaluation.
       // educational and research — for educational and research editions.
       USAGE_SCOPE: 'personal and commercial',
-      IS_GAME: false, //If it's game, add game-specific messages, e.g. no cheating, etc.
+      IS_GAME: false, //If it's a videogame, add game-specific messages, e.g. no cheating, etc.
 
       //CRA (commercial)
       HAS_NOTIFIED_BODY: false, //only for critical software, e.g. medical devices, automotive, etc.

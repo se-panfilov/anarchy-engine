@@ -1,17 +1,6 @@
-import base from '../../anarchy-legal-base.config.js';
+import nonCommercialBase from '../../configs/AnarchyLegal/anarchy-legal.base.non-commercial.config.js';
 
 //Non-Commercial configuration for legal docs
 export default {
-  GENERIC: {
-    messages: {
-      ...base.GENERIC.messages,
-
-      PRODUCT_TERM: 'Project',
-      STORE_DISCLOSURES: false
-    }
-  },
-  DISCLAIMER: { template: 'DISCLAIMER_TEMPLATE' },
-  EULA: { template: 'EULA_NON_COMMERCIAL_TEMPLATE' },
-  PRIVACY: { template: 'PRIVACY_NON_COMMERCIAL_TEMPLATE' },
-  SECURITY: { template: 'SECURITY_NON_COMMERCIAL_TEMPLATE' }
+  ...nonCommercialBase
 };
