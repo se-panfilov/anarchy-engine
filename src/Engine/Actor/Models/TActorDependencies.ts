@@ -4,5 +4,5 @@ import type { TPhysicsBodyService, TPhysicsPresetsService } from '@/Engine/Physi
 export type TActorDependencies = Readonly<{
   materialTextureService: TMaterialTextureService;
   physicsPresetService: TPhysicsPresetsService;
-  physicsBodyFacadeService: TPhysicsBodyService;
+  physicsBodyService: TPhysicsBodyService;
 }>;

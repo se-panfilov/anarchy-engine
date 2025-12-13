@@ -21,7 +21,7 @@ export type TSpaceServices = Readonly<{
   lightService: TLightService;
   particlesService: TParticlesService;
   physicsPresetService: TPhysicsPresetsService;
-  physicsBodyFacadeService: TPhysicsBodyService;
+  physicsBodyService: TPhysicsBodyService;
   fogService: TFogService;
   controlsService: TControlsService;
   materialService: TMaterialService;

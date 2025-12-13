@@ -32,10 +32,10 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry());
   const materialTextureService: TMaterialTextureService = MaterialTextureService(materialService, textureService);
   const physicsPresetService: TPhysicsPresetsService = PhysicsPresetsService(PhysicsPresetRegistry());
-  const physicsBodyFacadeService: TPhysicsBodyService = PhysicsBodyService(PhysicsBodyFactory(), PhysicsBodyRegistry(), scene);
+  const physicsBodyService: TPhysicsBodyService = PhysicsBodyService(PhysicsBodyFactory(), PhysicsBodyRegistry(), scene);
 
   return {
-    actorService: ActorService(ActorFactory(), ActorAsyncRegistry(), { materialTextureService, physicsPresetService, physicsBodyFacadeService }, scene),
+    actorService: ActorService(ActorFactory(), ActorAsyncRegistry(), { materialTextureService, physicsPresetService, physicsBodyService }, scene),
     cameraService: CameraService(CameraFactory(), CameraRegistry(), scene),
     lightService: LightService(LightFactory(), LightRegistry(), scene),
     fogService: FogService(FogFactory(), FogRegistry(), scene),
@@ -44,7 +44,7 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
     materialTextureService,
     particlesService: ParticlesService(ParticlesFactory(), ParticlesAsyncRegistry(), materialTextureService, scene),
     physicsPresetService,
-    physicsBodyFacadeService,
+    physicsBodyService,
     rendererService: RendererService(RendererFactory(), RendererRegistry()),
     textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), Text2dRendererRegistry(), Text3dRendererRegistry(), scene),
     intersectionsWatcherService: IntersectionsWatcherService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),

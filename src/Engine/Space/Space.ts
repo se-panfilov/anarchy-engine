@@ -50,10 +50,10 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     intersectionsWatcherService,
     particlesService,
     physicsPresetService,
-    physicsBodyFacadeService
+    physicsBodyService
   } = services;
 
-  if (isDefined(physics.global)) physicsBodyFacadeService.createWorld(physics.global);
+  if (isDefined(physics.global)) physicsBodyService.createWorld(physics.global);
   if (isDefined(physics.presets)) physicsPresetService.addPresetsFromConfig(physics.presets);
 
   cameraService.createFromConfig(cameras);

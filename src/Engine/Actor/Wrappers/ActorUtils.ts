@@ -39,7 +39,7 @@ function createCube({ width, height, depth, widthSegments, heightSegments, depth
 
 export function createPhysicsBody(
   physics: TWithPresetPhysicsBodyParams,
-  { physicsBodyFacadeService, physicsPresetService }: Pick<TActorDependencies, 'physicsBodyFacadeService' | 'physicsPresetService'>
+  { physicsBodyService, physicsPresetService }: Pick<TActorDependencies, 'physicsBodyService' | 'physicsPresetService'>
 ): TPhysicsBody {
   const { presetName, ...rest } = physics;
   let presetFromRegistry: TPhysicsBodyParams | undefined;
@@ -56,6 +56,6 @@ export function createPhysicsBody(
   // TODO (S.Panfilov) CWP here we build somehow (we need a factory and a registry),
   //  next we have to attach it to the actor and put to physics objects registry
   //  (and so to add to world, and use to update)
-  const physicsObject = physicsBodyFacadeService.create(fullParams);
+  const physicsObject = physicsBodyService.create(fullParams);
   return physicsObject;
 }
