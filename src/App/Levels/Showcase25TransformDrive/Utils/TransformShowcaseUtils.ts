@@ -110,7 +110,7 @@ export function attachConnectorRotationToSubj(connectedActor: TActor, subj: Subj
   });
 }
 
-export function startIntersections({ actorService, cameraService, intersectionsWatcherService, mouseService }: TSpaceServices): TIntersectionsWatcher {
+export function startIntersections({ actorService, cameraService, intersectionsWatcherService, mouseService, loopService }: TSpaceServices): TIntersectionsWatcher {
   const camera: TCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(camera)) throw new Error('Camera is not defined');
   const surfaceActor: TActor | undefined = actorService.getRegistry().findByName('surface_actor');
@@ -120,7 +120,13 @@ export function startIntersections({ actorService, cameraService, intersectionsW
   const boxActor2: TActor | undefined = actorService.getRegistry().findByName('box_actor_2');
   if (isNotDefined(boxActor2)) throw new Error('Actor "box_actor_2" is not defined');
 
-  return intersectionsWatcherService.create({ actors: [surfaceActor, boxActor1, boxActor2], camera, isAutoStart: true, position$: mouseService.position$ });
+  return intersectionsWatcherService.create({
+    actors: [surfaceActor, boxActor1, boxActor2],
+    camera,
+    isAutoStart: true,
+    position$: mouseService.position$,
+    intersectionsLoop: loopService.getIntersectionsLoop()
+  });
 }
 
 export function changeActorActiveAgent(actor: TActor, key: KeyCode | KeysExtra, keyboardService: TKeyboardService): Subscription {

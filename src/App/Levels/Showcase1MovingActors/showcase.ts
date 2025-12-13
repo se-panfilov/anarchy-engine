@@ -26,7 +26,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
 
   const { actorService, cameraService, intersectionsWatcherService, models3dService, mouseService, scenesService } = space.services;
-  const { transformLoop } = space.loops;
+  const { transformLoop, intersectionsLoop } = space.loops;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
   const actorRegistry: TActorRegistry = actorService.getRegistry();
 
@@ -59,7 +59,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const camera: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
 
-    const intersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({ camera, actors, position$: mouseService.position$, isAutoStart: true });
+    const intersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({ camera, actors, position$: mouseService.position$, isAutoStart: true, intersectionsLoop });
 
     intersectionsWatcher.value$.subscribe((obj: TIntersectionEvent): void => console.log('intersect obj', obj));
     mouseService.clickLeftRelease$.subscribe((): void => console.log('int click:'));

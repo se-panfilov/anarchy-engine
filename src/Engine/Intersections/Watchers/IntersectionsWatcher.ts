@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { distinctUntilChanged, identity, tap } from 'rxjs';
+import { distinctUntilChanged, identity, map, tap, withLatestFrom } from 'rxjs';
 import type { Vector2Like } from 'three';
 import { Raycaster, Vector2 } from 'three';
 
@@ -15,7 +15,7 @@ import type { TSceneObject } from '@/Engine/Scene';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isEqualOrSimilarByXyCoords, isNotDefined } from '@/Engine/Utils';
 
-export function IntersectionsWatcher({ position$, isAutoStart, tags, name, performance, ...rest }: TIntersectionsWatcherParams): TIntersectionsWatcher {
+export function IntersectionsWatcher({ position$, isAutoStart, tags, name, performance, intersectionsLoop, ...rest }: TIntersectionsWatcherParams): TIntersectionsWatcher {
   const abstractWatcher: TAbstractWatcher<TIntersectionEvent> = AbstractWatcher<TIntersectionEvent>(WatcherType.IntersectionWatcher, name, tags);
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
   let actors: ReadonlyArray<TActor> = [];
@@ -39,8 +39,11 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
   function start(): TIntersectionsWatcher {
     const prevValue: Float32Array = new Float32Array([0, 0]);
     // TODO 10.0.0. LOOPS: Intersections could have an own loop independent from frame rate (driven by time)
-    positionSub$ = position$
+    positionSub$ = intersectionsLoop.tick$
       .pipe(
+        withLatestFrom(position$),
+        // TODO 10.0.0. LOOPS: could we get rid of map?
+        map(({ 1: position }: { 1: Vector2Like }): Vector2Like => position),
         shouldUseDistinct ? distinctUntilChanged((_prev: Vector2Like, curr: Vector2Like): boolean => isEqualOrSimilarByXyCoords(prevValue[0], prevValue[1], curr.x, curr.y, threshold)) : identity,
         tap((value: Vector2Like): void => {
           // eslint-disable-next-line functional/immutable-data

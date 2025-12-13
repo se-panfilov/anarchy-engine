@@ -18,7 +18,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { keyboardService } = engine.services;
 
   const { actorService, cameraService, intersectionsWatcherService, mouseService, scenesService } = space.services;
-  const { transformLoop } = space.loops;
+  const { transformLoop, intersectionsLoop } = space.loops;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
   const { findByName, findByTags } = actorRegistry;
   const { onKey } = keyboardService;
@@ -125,7 +125,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const actor: TActor | undefined = findByName('surface_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not defined');
 
-    return intersectionsWatcherService.create({ actors: [actor], camera, isAutoStart: true, position$: mouseService.position$ });
+    return intersectionsWatcherService.create({ actors: [actor], camera, isAutoStart: true, position$: mouseService.position$, intersectionsLoop });
   }
 
   function start(): void {

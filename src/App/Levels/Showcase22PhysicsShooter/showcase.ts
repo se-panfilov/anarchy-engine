@@ -46,7 +46,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
   const { cameraService, physicsWorldService, actorService, lightService, models3dService, materialService, mouseService, intersectionsWatcherService, spatialGridService } = space.services;
-  const { physicalLoop, transformLoop } = space.loops;
+  const { physicalLoop, transformLoop, intersectionsLoop } = space.loops;
 
   async function init(): Promise<void> {
     physicsWorldService.getDebugRenderer(physicalLoop).start();
@@ -92,7 +92,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       isAutoStart: true,
       camera: cameraW,
       actors: [...blocks, ...blocks2, ...blocks3, surface, sphereActor],
-      position$: mouseService.position$
+      position$: mouseService.position$,
+      intersectionsLoop
     });
 
     startMoveActorWithKeyboard(hero, keyboardService, mouseLineIntersectionsWatcher);

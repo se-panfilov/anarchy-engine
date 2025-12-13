@@ -17,6 +17,7 @@ import type { TTextLoop } from '@/Engine/Text';
 import type { TTransformLoop } from '@/Engine/TransformDrive';
 
 export function createLoops({ create }: TLoopService): TSpaceLoops {
+  // TODO 10.0.0. LOOPS: add priority in every loop
   // TODO 10.0.0. LOOPS: 16ms is hardcoded here, should be configurable
   // TODO 10.0.0. LOOPS: showDebugInfo is hardcoded here, should be configurable
   // TODO 10.0.0. LOOPS: Make sure to make use of all of these loops
@@ -26,14 +27,18 @@ export function createLoops({ create }: TLoopService): TSpaceLoops {
   return {
     renderLoop: create({ name: RenderMain, type: Render, trigger: requestAnimationFrame, showDebugInfo: true }) as TRenderLoop,
     physicalLoop: create({ name: PhysicalMain, type: Physical, trigger: milliseconds(16) }) as TPhysicalLoop,
+    // TODO 10.0.0. LOOPS: how do we use collisions loop?
     collisionsLoop: create({ name: CollisionsMain, type: Collisions, trigger: milliseconds(16), maxPriority: CollisionsUpdatePriority.ASAP }) as TCollisionsLoop,
     kinematicLoop: create({ name: KinematicMain, type: Kinematic, trigger: milliseconds(16) }) as TKinematicLoop,
+    // TODO 10.0.0. LOOPS: do we use spatial loop?
     spatialLoop: create({ name: SpatialMain, type: Spatial, trigger: milliseconds(16), maxPriority: SpatialUpdatePriority.ASAP }) as TSpatialLoop,
     transformLoop: create({ name: TransformMain, type: Transform, trigger: milliseconds(16) }) as TTransformLoop,
     textLoop: create({ name: TextMain, type: Text, trigger: milliseconds(16) }) as TTextLoop,
+    // TODO 10.0.0. LOOPS: check pressing speed
     keyboardLoop: create({ name: KeyboardMain, type: Keyboard, trigger: milliseconds(16) }) as TKeyboardLoop,
     mouseLoop: create({ name: MouseMain, type: Mouse, trigger: milliseconds(16) }) as TMouseLoop,
     intersectionsLoop: create({ name: IntersectionsMain, type: Intersections, trigger: milliseconds(16) }) as TIntersectionsLoop,
+    // TODO 10.0.0. LOOPS: do we use collisions loop?
     controlsLoop: create({ name: ControlsMain, type: Controls, trigger: milliseconds(16) }) as TControlsLoop
   };
 }

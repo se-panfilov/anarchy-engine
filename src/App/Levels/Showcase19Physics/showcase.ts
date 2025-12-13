@@ -29,7 +29,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
   const { actorService, cameraService, intersectionsWatcherService, mouseService, textService, physicsWorldService } = space.services;
-  const { physicalLoop } = space.loops;
+  const { physicalLoop, intersectionsLoop } = space.loops;
 
   const actorAsyncRegistry = actorService.getRegistry();
   const sceneWrapper: TSceneWrapper = actorService.getScene();
@@ -69,7 +69,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       isAutoStart: true,
       camera: cameraW,
       actors: [surfaceActor],
-      position$: mouseService.position$
+      position$: mouseService.position$,
+      intersectionsLoop
     });
 
     const azimuthText = textService.create({

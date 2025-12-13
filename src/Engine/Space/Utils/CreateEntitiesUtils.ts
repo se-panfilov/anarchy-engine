@@ -17,6 +17,7 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
     fsmService,
     intersectionsWatcherService,
     lightService,
+    loopService,
     models3dService,
     mouseService,
     particlesService,
@@ -49,7 +50,7 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
   lightService.createFromConfig(lights);
   particlesService.createFromConfig(particles);
 
-  intersectionsWatcherService.createFromConfig(intersections, mouseService, cameraService, actorService);
+  intersectionsWatcherService.createFromConfig(intersections, mouseService, cameraService, actorService, loopService);
 
   // TODO Not the best place for this, perhaps better to do it in a wrapper (or service?)
   intersectionsWatcherService.getRegistry().added$.subscribe(({ value }: TRegistryPack<TIntersectionsWatcher>): void => {

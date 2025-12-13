@@ -1292,6 +1292,9 @@
         "isAutoStart": {
           "type": "boolean"
         },
+        "intersectionsLoop": {
+          "type": "string"
+        },
         "performance": {
           "$ref": "#/definitions/TIntersectionsWatcherPerformanceOptions"
         },

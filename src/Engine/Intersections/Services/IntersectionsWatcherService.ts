@@ -10,6 +10,7 @@ import type {
   TIntersectionsWatcherRegistry,
   TIntersectionsWatcherService
 } from '@/Engine/Intersections/Models';
+import type { TLoopService } from '@/Engine/Loop';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TMouseService } from '@/Engine/Mouse';
@@ -22,9 +23,10 @@ export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactor
     configs: ReadonlyArray<TIntersectionsWatcherConfig>,
     mouseService: TMouseService,
     cameraService: TCameraService,
-    actorService: TActorService
+    actorService: TActorService,
+    loopService: TLoopService
   ): ReadonlyArray<TIntersectionsWatcher> =>
-    configs.map((config: TIntersectionsWatcherConfig): TIntersectionsWatcher => create(factory.configToParams(config, mouseService, cameraService, actorService)));
+    configs.map((config: TIntersectionsWatcherConfig): TIntersectionsWatcher => create(factory.configToParams(config, mouseService, cameraService, actorService, loopService)));
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {

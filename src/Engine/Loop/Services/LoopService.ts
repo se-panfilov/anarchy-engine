@@ -1,16 +1,21 @@
 import type { Subscription } from 'rxjs';
 
 import type { TCollisionsLoop } from '@/Engine/Collisions';
+import type { TControlsLoop } from '@/Engine/Controls';
+import type { TIntersectionsLoop } from '@/Engine/Intersections';
+import type { TKeyboardLoop } from '@/Engine/Keyboard';
 import type { TKinematicLoop } from '@/Engine/Kinematic';
 import { LoopType } from '@/Engine/Loop/Constants';
 import type { TLoop, TLoopFactory, TLoopParams, TLoopRegistry, TLoopService, TLoopWithPriority } from '@/Engine/Loop/Models';
 import { getMainLoopNameByType } from '@/Engine/Loop/Utils';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
+import type { TMouseLoop } from '@/Engine/Mouse';
 import type { TPhysicalLoop } from '@/Engine/Physics';
 import type { TRenderLoop } from '@/Engine/Space';
 import type { SpaceLoopNames } from '@/Engine/Space/Constants';
 import type { TSpatialLoop } from '@/Engine/Spatial';
+import type { TTextLoop } from '@/Engine/Text';
 import type { TTransformLoop } from '@/Engine/TransformDrive';
 import { isNotDefined } from '@/Engine/Utils';
 
@@ -40,12 +45,17 @@ export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLo
   return {
     create,
     getLoop,
+    getRenderLoop: (name?: string): TRenderLoop | never => getLoop(name, LoopType.Render) as TRenderLoop,
+    getPhysicalLoop: (name?: string): TPhysicalLoop | never => getLoop(name, LoopType.Physical) as TPhysicalLoop,
     getCollisionsLoop: (name?: string): TCollisionsLoop | never => getLoop(name, LoopType.Collisions) as TCollisionsLoop,
     getKinematicLoop: (name?: string): TKinematicLoop | never => getLoop(name, LoopType.Kinematic) as TKinematicLoop,
-    getPhysicalLoop: (name?: string): TPhysicalLoop | never => getLoop(name, LoopType.Physical) as TPhysicalLoop,
-    getRenderLoop: (name?: string): TRenderLoop | never => getLoop(name, LoopType.Render) as TRenderLoop,
     getSpatialLoop: (name?: string): TSpatialLoop | never => getLoop(name, LoopType.Spatial) as TSpatialLoop,
     getTransformLoop: (name?: string): TTransformLoop | never => getLoop(name, LoopType.Transform) as TTransformLoop,
+    getTextLoop: (name?: string): TTextLoop | never => getLoop(name, LoopType.Text) as TTextLoop,
+    getKeyboardLoop: (name?: string): TKeyboardLoop | never => getLoop(name, LoopType.Keyboard) as TKeyboardLoop,
+    getMouseLoop: (name?: string): TMouseLoop | never => getLoop(name, LoopType.Mouse) as TMouseLoop,
+    getIntersectionsLoop: (name?: string): TIntersectionsLoop | never => getLoop(name, LoopType.Intersections) as TIntersectionsLoop,
+    getControlsLoop: (name?: string): TControlsLoop | never => getLoop(name, LoopType.Controls) as TControlsLoop,
     getFactory: (): TLoopFactory => factory,
     getRegistry: (): TLoopRegistry => registry,
     ...destroyable

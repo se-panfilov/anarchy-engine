@@ -5,6 +5,7 @@ import type { TActor } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TWithNameOptional, TWithTags } from '@/Engine/Mixins';
 
+import type { TIntersectionsLoop } from './TIntersectionsLoop';
 import type { TIntersectionsWatcherPerformanceOptions } from './TIntersectionsWatcherPerformanceOptions';
 
 export type TIntersectionsWatcherParams = Readonly<{
@@ -12,6 +13,7 @@ export type TIntersectionsWatcherParams = Readonly<{
   camera: TCameraWrapper;
   actors: ReadonlyArray<TActor>;
   position$: Observable<Vector2Like>;
+  intersectionsLoop: TIntersectionsLoop;
   performance?: TIntersectionsWatcherPerformanceOptions;
 }> &
   TWithNameOptional &
