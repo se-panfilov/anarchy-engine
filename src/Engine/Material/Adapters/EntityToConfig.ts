@@ -27,7 +27,7 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TAllMaterialConfigOpt
       blending: getOptionName(entity.blending, BlendingMap, 'blending'),
       blendDst: getOptionName(entity.blendDst, BlendingDstFactorMap, 'blendDst'),
       blendEquation: getOptionName(entity.blendEquation, BlendEquationMap, 'blendEquation'),
-      blendSrc: getOptionName(entity.blendSrc, BlendingSrcFactorMap, 'blendSrc'),
+      blendSrc: getOptionName(entity.blendSrc, { ...BlendingSrcFactorMap, ...BlendingDstFactorMap }, 'blendSrc'),
       color: `#${(entity as any).color.getHexString()}`,
       side: getOptionName(entity.side, SideMap, 'side'),
       format: (entity as any).format,
