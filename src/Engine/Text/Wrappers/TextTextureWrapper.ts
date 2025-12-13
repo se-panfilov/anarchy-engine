@@ -1,7 +1,7 @@
 import { LinearFilter, Mesh, MeshBasicMaterial, PlaneGeometry, Texture } from 'three';
 
 import { AbstractWrapper } from '@/Engine/Abstract';
-import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
+import { withMoveBy3dMixin, withObject3d, withRotationByXyzMixin, withScaleMixin } from '@/Engine/Mixins';
 import type { TextType } from '@/Engine/Text/Constants';
 import type { TTextParams, TTextTextureWrapper } from '@/Engine/Text/Models';
 import { getWrapperTypeByTextType } from '@/Engine/Text/Wrappers/TextWrapperHelper';
@@ -70,7 +70,7 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType): T
     ...AbstractWrapper(entity, getWrapperTypeByTextType(type), params),
     ...withMoveBy3dMixin(entity),
     ...withRotationByXyzMixin(entity),
-    ...scalableMixin(entity),
+    ...withScaleMixin(entity),
     ...withObject3d(entity),
     getElement: () => canvas,
     setText

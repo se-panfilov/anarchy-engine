@@ -4,7 +4,7 @@ import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TColor } from '@/Engine/Color';
 import type { TWithMaterial } from '@/Engine/Material';
 import { isPointsMaterial, withMaterial } from '@/Engine/Material';
-import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
+import { withMoveBy3dMixin, withObject3d, withRotationByXyzMixin, withScaleMixin } from '@/Engine/Mixins';
 import type { TParticlesParams, TParticlesWrapper } from '@/Engine/Particles/Models';
 import type { TBufferGeometry, TPoints } from '@/Engine/ThreeLib';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
@@ -30,7 +30,7 @@ export function ParticlesWrapper(params: TParticlesParams): TParticlesWrapper {
     ...AbstractWrapper(entity, WrapperType.Particles, params),
     ...withMoveBy3dMixin(entity),
     ...withRotationByXyzMixin(entity),
-    ...scalableMixin(entity),
+    ...withScaleMixin(entity),
     ...withObject3d(entity),
     ...withMaterialEntity,
     setMaterialColor,

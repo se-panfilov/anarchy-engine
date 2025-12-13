@@ -2,7 +2,7 @@ import type { Euler, Vector2 } from 'three';
 import type { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import type { Vector3 } from 'three/src/math/Vector3';
 
-import type { TMovable3dXYZ, TRotatable, TScalable, TWithObject3d } from '@/Engine/Mixins';
+import type { TMovable3dXYZ, TRotatable, TScaleMixin, TWithObject3d } from '@/Engine/Mixins';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils/index';
 
@@ -26,6 +26,6 @@ export function applyRotation(obj: TRotatable, rotation?: Euler): void {
   if (isDefined(rotation)) obj.setRotation(rotation.x, rotation.y, rotation.z);
 }
 
-export function applyScale(obj: TScalable, scale?: Vector3): void {
+export function applyScale(obj: TScaleMixin, scale?: Vector3): void {
   if (isDefined(scale)) obj.setScale(scale.x, scale.y, scale.z);
 }

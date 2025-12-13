@@ -1,13 +1,14 @@
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import type { Euler, Vector3 } from 'three';
+import type { Euler } from 'three';
+import { Vector3 } from 'three';
 
 import type { TActorParams } from '@/Engine/Actor';
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
+import type { TDestroyable, TWithPosition3dProperty, TWithRotationProperty, TWithScaleProperty } from '@/Engine/Mixins';
+import { destroyableMixin, withMoveBy3dMixin, withRotationMixin, withScaleMixin } from '@/Engine/Mixins';
 import type { TPhysicsActorDriver } from '@/Engine/Physics/Models';
+import { updateSubjOnChange } from '@/Engine/Utils';
 
-// TODO 8.0.0. MODELS: This is a placeholder for InstantActorDriver
 export function InstantActorDriver(params: TActorParams): TPhysicsActorDriver {
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
   const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(params.rotation);
@@ -27,11 +28,22 @@ export function InstantActorDriver(params: TActorParams): TPhysicsActorDriver {
     destroyable.destroy$.unsubscribe();
   });
 
+  const positionObj: TWithPosition3dProperty = { position: position$.value.clone() };
+  const rotationObj: TWithRotationProperty = { rotation: rotation$.value.clone() };
+  const scaleObj: TWithScaleProperty = { scale: scale$.value?.clone() ?? new Vector3(1, 1, 1) };
+
+  const proxyTransformObj = updateSubjOnChange(positionObj, position$);
+  const proxyRotationObj = updateSubjOnChange(rotationObj, rotation$);
+  const proxyScaleObj = updateSubjOnChange(scaleObj, scale$);
+
   const driver = {
     ...destroyable,
     position$,
     rotation$,
-    scale$
+    scale$,
+    ...withMoveBy3dMixin(proxyTransformObj),
+    ...withRotationMixin(proxyRotationObj),
+    ...withScaleMixin(proxyScaleObj)
   };
 
   return driver;

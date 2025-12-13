@@ -4,7 +4,7 @@ import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
 import { AbstractWrapper } from '@/Engine/Abstract';
-import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
+import { withMoveBy3dMixin, withObject3d, withRotationByXyzMixin, withScaleMixin } from '@/Engine/Mixins';
 import { RelatedEntityAttribute, TextCssClass, TextType } from '@/Engine/Text/Constants';
 import type { TTextParams, TTextWrapper } from '@/Engine/Text/Models';
 import { getCssAccessors } from '@/Engine/Text/Wrappers/Accessors';
@@ -23,7 +23,7 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: T
     ...getCssAccessors(element),
     ...withMoveBy3dMixin(entity),
     ...withRotationByXyzMixin(entity),
-    ...scalableMixin(entity),
+    ...withScaleMixin(entity),
     ...withObject3d(entity),
     getElement: () => element
   };

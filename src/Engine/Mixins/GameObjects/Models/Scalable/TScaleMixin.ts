@@ -1,6 +1,6 @@
 import type { Vector3 } from 'three';
 
-export type TScalable = Readonly<{
+export type TScaleMixin = Readonly<{
   setScale: (x: number, y: number, z: number) => Vector3;
   getScale: () => Vector3;
   setScaleX: (x: number) => void;

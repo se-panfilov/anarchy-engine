@@ -1,1 +1,1 @@
-export * from './ScalableMixin';
+export * from './WithScaleMixin';
