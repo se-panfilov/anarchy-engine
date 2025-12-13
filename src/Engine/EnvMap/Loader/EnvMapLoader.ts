@@ -3,7 +3,7 @@ import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
 
 import type { TEnvMap, TEnvMapAsyncRegistry, TEnvMapLoader, TEnvMapWrapperAsync } from '@/Engine/EnvMap/Models';
 import type { TWriteable } from '@/Engine/Utils';
-import { isDefined } from '@/Engine/Utils';
+import { findByUrl, isDefined } from '@/Engine/Utils';
 
 // TODO 9.0.0. RESOURCES: add loaders folder for textures, materials, models3d
 export function EnvMapLoader(registry: TEnvMapAsyncRegistry): TEnvMapLoader {
@@ -16,7 +16,8 @@ export function EnvMapLoader(registry: TEnvMapAsyncRegistry): TEnvMapLoader {
 
   function loadAsync(url: string, isForce: boolean = false): Promise<TEnvMap> {
     if (!isForce) {
-      const wrapper: TEnvMapWrapperAsync | undefined = registry.findByKey(url);
+      // TODO 9.0.0. RESOURCES: use findByUrl everywhere in loaders, instead of having registries with uniq urls (we need to have a way to load multiple entities with the same url)
+      const wrapper: TEnvMapWrapperAsync | undefined = findByUrl(url, registry);
       if (isDefined(wrapper)) return Promise.resolve(wrapper.entity);
     }
 

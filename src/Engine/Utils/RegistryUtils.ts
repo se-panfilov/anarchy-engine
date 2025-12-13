@@ -38,3 +38,7 @@ export function setActiveWrappedEntity<E extends TWithActiveMixin & TRegistrable
 }
 
 export const shouldHaveTags = <T extends TRegistrable>(obj: T, tagList: ReadonlyArray<string>, strategy: LookUpStrategy): boolean => tagList[strategy]((tag: string) => obj.hasTag(tag));
+
+export function findByUrl<T extends TRegistrable & Readonly<{ getUrl: () => string }>>(url: string, registry: TProtectedRegistry<TAbstractEntityRegistry<T>>): T | undefined {
+  return registry.find((value: T): boolean => value.getUrl() === url);
+}

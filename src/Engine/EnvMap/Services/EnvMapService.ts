@@ -10,7 +10,7 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapAsyncReg
     if (wrapper.isActive()) withActive.active$.next(wrapper);
   });
 
-  factory.entityCreated$.subscribe((wrapper: TEnvMapWrapperAsync): void => registry.add(wrapper.getUrl(), wrapper));
+  factory.entityCreated$.subscribe((wrapper: TEnvMapWrapperAsync): void => registry.add(wrapper));
 
   const withActive: TWithActiveMixinResult<TEnvMapWrapperAsync> = withActiveEntityServiceMixin<TEnvMapWrapperAsync>(registry);
   const envMapLoader: TEnvMapLoader = EnvMapLoader(registry);
