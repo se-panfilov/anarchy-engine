@@ -1,3 +1,6 @@
+export * from './AbstractLightWrapper';
 export * from './Accessors';
-export * from './LightWrapper';
+export * from './AmbientLightWrapper';
+export * from './DirectionalLightWrapper';
+export * from './PointLightWrapper';
 export * from './utils';

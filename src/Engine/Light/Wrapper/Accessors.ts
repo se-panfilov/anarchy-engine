@@ -1,8 +1,10 @@
 import type { IOrthographicCamera } from '@/Engine/Camera';
-import { IAmbientLight, IDirectionalLight, ILightAccessors, IPointLight } from '@/Engine/Light/Models';
+import type { IAmbientLight, IDirectionalLight, ILightAccessors, IPointLight } from '@/Engine/Light/Models';
 import type { IWriteable } from '@/Engine/Utils';
 import type { IVector2Wrapper, IVector3Wrapper } from '@/Engine/Vector';
 import { Vector2Wrapper, Vector3Wrapper } from '@/Engine/Vector';
+
+import { isAmbientLight } from './utils';
 
 // eslint-disable-next-line functional/prefer-immutable-types
 export function getAccessors(entity: IWriteable<IAmbientLight | IDirectionalLight | IPointLight>): ILightAccessors {
@@ -27,12 +29,4 @@ export function getAccessors(entity: IWriteable<IAmbientLight | IDirectionalLigh
   }
 
   return { setControls, setFar, setShadowMapSize, setNormalBias };
-}
-
-// function isDirectionalLight(light: IAmbientLight | IDirectionalLight): light is IDirectionalLight {
-//   return Boolean((light as IDirectionalLight).isDirectionalLight);
-// }
-
-function isAmbientLight(light: IAmbientLight | IDirectionalLight | IPointLight): light is IAmbientLight {
-  return Boolean((light as IAmbientLight).isAmbientLight);
 }

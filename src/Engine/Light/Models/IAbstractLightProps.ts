@@ -1,14 +1,13 @@
 import type { Color } from 'three/src/math/Color';
 
-import type { ILightShadowParams } from './ILightShadowParams';
-import type { ILightType } from './ILightType';
+import type { LightType } from '@/Engine/Light/Constants';
 
-export type ILightProps = Readonly<{
-  type: ILightType;
+import type { ILightShadowParams } from './ILightShadowParams';
+
+export type IAbstractLightProps = Readonly<{
+  type: LightType;
   color: Color;
   intensity?: number;
   castShadow: boolean;
-  distance?: number;
-  decay?: number;
   shadow?: ILightShadowParams;
 }>;

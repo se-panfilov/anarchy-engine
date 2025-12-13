@@ -1,1 +1,1 @@
-export * from './LightTag';
+export * from './LightType';
