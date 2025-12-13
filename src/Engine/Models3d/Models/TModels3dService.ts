@@ -1,13 +1,12 @@
 import type { Observable } from 'rxjs';
-import type { Mesh } from 'three';
+
+import type { TModel3dLoadResult } from '@/Engine/Models3d/Models';
 
 import type { TModel3dParams } from './TModel3dParams';
 
 export type TModels3dService = Readonly<{
-  // TODO debug
-  // loadAsync: (params: TModel3dParams, isForce?: boolean) => Promise<Mesh>;
-  loadAsync: (params: TModel3dParams, shouldAddToScene: boolean) => Promise<Mesh>;
+  loadAsync: (params: TModel3dParams, shouldAddToScene: boolean, isForce?: boolean) => Promise<TModel3dLoadResult>;
   // TODO debug
   // loadFromConfigAsync: (Models3d: ReadonlyArray<string>) => ReadonlyArray<Promise<Mesh>>;
-  added$: Observable<Mesh>;
+  added$: Observable<TModel3dLoadResult>;
 }>;
