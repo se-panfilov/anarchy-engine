@@ -1,6 +1,6 @@
 import './style.css';
 import { Color } from 'three';
-import { SceneManager } from '@Engine/Managers/SceneManager';
+import { SceneFactory } from '@Engine/Managers/SceneFactory';
 import { LoopManager } from '@Engine/Managers/LoopManager';
 import { CameraManager } from '@Engine/Managers/CameraManager';
 import { LightManager } from '@Engine/Managers/LightManager';
@@ -38,7 +38,7 @@ const lightManager = new LightManager();
 const controlsManager = new ControlsManager();
 // const inputManager = new InputManager();
 const loopManager = new LoopManager();
-const sceneManager = new SceneManager();
+const sceneManager = new SceneFactory();
 const rendererManager = new RendererManager();
 
 const scene = sceneManager.create('test_scene_1');

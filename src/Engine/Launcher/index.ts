@@ -3,7 +3,7 @@ import type { ActorConfig, CameraConfig, LightConfig, SceneConfig } from '@Engin
 import { createDeferredPromise, isNotDefined } from '@Engine/Utils';
 import { actorAdapter, lightAdapter } from '@Engine/Launcher/ConfigToParamAdapters';
 import type { ActorParams } from '@Engine/Models/ActorParams';
-import { SceneManager } from '@Engine/Managers/SceneManager';
+import { SceneFactory } from '@Engine/Managers/SceneFactory';
 import type { SceneWrapper } from '@Engine/Wrappers/SceneWrapper';
 import { CameraFactory } from '@Engine/Managers/CameraFactory';
 import { RendererFactory } from '@Engine/Managers/RendererFactory';
@@ -15,7 +15,7 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   const { promise, resolve } = createDeferredPromise<void>();
 
   // create scene/////////////////////
-  const sceneManager = new SceneManager();
+  const sceneManager = new SceneFactory();
   const scene: SceneWrapper = sceneManager.create(name);
   ////////////////////////////////////
 
