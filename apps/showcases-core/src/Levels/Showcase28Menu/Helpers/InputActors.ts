@@ -17,7 +17,7 @@ import { Vector3 } from 'three';
 
 export function initInputActors(actorService: TActorService, keyboardService: TKeyboardService, mouseService: TMouseService, intersectionsWatcherService: TIntersectionsWatcherService): void {
   const { getByName, getByTags } = actorService.getRegistry();
-  const { combo$, pressing$, pressed$, released$ } = keyboardService;
+  const { pressing$, pressed$, released$ } = keyboardService;
 
   const actorKeyboard: TActor = getByName('sphere_keyboard_actor');
   const actorMouse: TActor = getByName('sphere_mouse_actor');
@@ -37,10 +37,6 @@ export function initInputActors(actorService: TActorService, keyboardService: TK
   };
 
   const { GoDown, GoLeft, GoRight, GoUp } = actionKeys;
-
-  combo$.subscribe((v) => {
-    console.log('XXX1', v);
-  });
 
   pressed$.subscribe((event: KeyboardEvent): void => {
     if (isEventKey(GoUp, event)) void actorKeyW.drive.default.addY(-0.2);
