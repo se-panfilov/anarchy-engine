@@ -1,5 +1,5 @@
 // import GUI from 'lil-gui';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, IOrbitControlsWrapper, IVector3Wrapper } from '@/Engine';
@@ -21,14 +21,15 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const materials: ReadonlyArray<string> = ['standard', 'basic', 'phong', 'lambert', 'toon', 'physical', 'matcap'];
   const currentMaterialIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
   const currentMaterial$: BehaviorSubject<string> = new BehaviorSubject(materials[currentMaterialIndex$.value]);
-  const initialActor: IActorWrapper | undefined = actorRegistry.getUniqByTag(currentMaterial$.value);
-  if (isNotDefined(initialActor)) throw new Error(`Actor with tag "${currentMaterialIndex$.value}" is not found`);
-  const currentActor$: BehaviorSubject<IActorWrapper> = new BehaviorSubject(initialActor);
+  const currentActor$: Subject<IActorWrapper> = new Subject();
   currentMaterialIndex$.subscribe((index: number): void => currentMaterial$.next(materials[index]));
   currentMaterial$.subscribe((material: string): void => {
-    const actor: IActorWrapper | undefined = actorRegistry.getUniqByTag(material);
-    if (isNotDefined(actor)) throw new Error(`Actor with tag "${material}" is not found`);
-    currentActor$.next(actor);
+    // TODO (S.Panfilov) debug timeout to handle async creation
+    setTimeout(() => {
+      const actor: IActorWrapper | undefined = actorRegistry.getUniqByTag(material);
+      if (isNotDefined(actor)) throw new Error(`Actor with tag "${material}" is not found`);
+      currentActor$.next(actor);
+    }, 500);
   });
 
   currentActor$.subscribe(moveCameraToActor);

@@ -10,7 +10,7 @@ export function withTexturesActor<T extends IWithMaterialActor>(entity: T): IWit
     return textureService
       .load(pack)
       .all()
-      .then((mt: IMaterialTextureUploaded) => entity.useMaterial(materialService.buildMaterial(mt)));
+      .then((mt: IMaterialTextureUploaded) => entity.useMaterial(materialService.buildMaterial(pack.type, mt)));
   }
 
   return {

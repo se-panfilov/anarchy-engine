@@ -20,7 +20,7 @@ async function getMaterial(params: IActorParams): Promise<Material> {
   let textures;
   if (isDefined(params.material.textures)) textures = await textureService.load(params.material).all();
   let material: Material;
-  if (isDefined(textures)) material = materialService.buildMaterial(textures);
+  if (isDefined(textures)) material = materialService.buildMaterial(params.material.type, textures);
   else material = new MeshBasicMaterial(params.material.params);
 
   return material;

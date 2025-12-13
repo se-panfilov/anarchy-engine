@@ -248,9 +248,6 @@
         "height": {
           "type": "number"
         },
-        "materialParams": {
-          "$ref": "#/definitions/IActorMaterialConfig"
-        },
         "depth": {
           "type": "number"
         },
@@ -266,11 +263,11 @@
         "depthSegments": {
           "type": "number"
         },
-        "textures": {
-          "$ref": "#/definitions/IMaterialTexturePack"
+        "material": {
+          "$ref": "#/definitions/IMaterialProps%3CIMaterialTexturePack%3E"
         }
       },
-      "required": ["castShadow", "height", "materialParams", "position", "tags", "type", "width"]
+      "required": ["castShadow", "height", "material", "position", "tags", "type", "width"]
     },
     "ActorTag": {
       "type": "string",
@@ -280,14 +277,33 @@
       "type": "string",
       "enum": ["sphere", "plane", "cube"]
     },
-    "IActorMaterialConfig": {
+    "IMaterialProps<IMaterialTexturePack>": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/MaterialType"
+        },
+        "params": {
+          "$ref": "#/definitions/IMaterialParams"
+        },
+        "textures": {
+          "$ref": "#/definitions/IMaterialTexturePack"
+        }
+      },
+      "required": ["type"],
+      "additionalProperties": false
+    },
+    "MaterialType": {
+      "type": "string",
+      "enum": ["basic", "depth", "distance", "normal", "matcap", "lambert", "phong", "physical", "toon", "standard"]
+    },
+    "IMaterialParams": {
       "type": "object",
       "properties": {
         "color": {
           "type": "string"
         }
       },
-      "required": ["color"],
       "additionalProperties": false
     },
     "IMaterialTexturePack": {
@@ -344,12 +360,8 @@
         },
         "lightMap": {
           "$ref": "#/definitions/ITexturePackParams"
-        },
-        "material": {
-          "$ref": "#/definitions/MaterialType"
         }
       },
-      "required": ["material"],
       "additionalProperties": false
     },
     "ITexturePackParams": {
@@ -462,10 +474,6 @@
       "type": "string",
       "enum": ["", "srgb", "srgb-linear", "display-p3", "display-p3-linear"]
     },
-    "MaterialType": {
-      "type": "string",
-      "enum": ["basic", "depth", "distance", "normal", "matcap", "lambert", "phong", "physical", "toon", "standard"]
-    },
     "IDepthMaterialTexturePack": {
       "type": "object",
       "properties": {
@@ -477,12 +485,8 @@
         },
         "displacementMap": {
           "$ref": "#/definitions/ITexturePackParams"
-        },
-        "material": {
-          "$ref": "#/definitions/MaterialType"
         }
       },
-      "required": ["material"],
       "additionalProperties": false
     },
     "IDistanceMaterialTexturePack": {
@@ -493,12 +497,8 @@
         },
         "alphaMap": {
           "$ref": "#/definitions/ITexturePackParams"
-        },
-        "material": {
-          "$ref": "#/definitions/MaterialType"
         }
       },
-      "required": ["material"],
       "additionalProperties": false
     },
     "INormalMaterialTexturePack": {
@@ -512,12 +512,8 @@
         },
         "displacementMap": {
           "$ref": "#/definitions/ITexturePackParams"
-        },
-        "material": {
-          "$ref": "#/definitions/MaterialType"
         }
       },
-      "required": ["material"],
       "additionalProperties": false
     },
     "IMatcapMaterialTexturePack": {
@@ -540,12 +536,8 @@
         },
         "alphaMap": {
           "$ref": "#/definitions/ITexturePackParams"
-        },
-        "material": {
-          "$ref": "#/definitions/MaterialType"
         }
       },
-      "required": ["material"],
       "additionalProperties": false
     },
     "ILambertMaterialTexturePack": {
@@ -580,12 +572,8 @@
         },
         "envMap": {
           "$ref": "#/definitions/ITexturePackParams"
-        },
-        "material": {
-          "$ref": "#/definitions/MaterialType"
         }
       },
-      "required": ["material"],
       "additionalProperties": false
     },
     "IPhongMaterialTexturePack": {
@@ -620,12 +608,8 @@
         },
         "envMap": {
           "$ref": "#/definitions/ITexturePackParams"
-        },
-        "material": {
-          "$ref": "#/definitions/MaterialType"
         }
       },
-      "required": ["material"],
       "additionalProperties": false
     },
     "IPhysicalMaterialTexturePack": {
@@ -639,12 +623,8 @@
         },
         "clearcoatNormalMap": {
           "$ref": "#/definitions/ITexturePackParams"
-        },
-        "material": {
-          "$ref": "#/definitions/MaterialType"
         }
       },
-      "required": ["material"],
       "additionalProperties": false
     },
     "IToonMaterialTexturePack": {
@@ -676,12 +656,8 @@
         },
         "alphaMap": {
           "$ref": "#/definitions/ITexturePackParams"
-        },
-        "material": {
-          "$ref": "#/definitions/MaterialType"
         }
       },
-      "required": ["material"],
       "additionalProperties": false
     },
     "IStandardMaterialTexturePack": {
@@ -719,12 +695,8 @@
         },
         "envMap": {
           "$ref": "#/definitions/ITexturePackParams"
-        },
-        "material": {
-          "$ref": "#/definitions/MaterialType"
         }
       },
-      "required": ["material"],
       "additionalProperties": false
     },
     "ICameraConfig": {

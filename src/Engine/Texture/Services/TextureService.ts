@@ -60,6 +60,8 @@ export function TextureService(): ITextureService {
     let promises: Omit<IMaterialTextureUploadPromises, 'all' | 'material'> = {};
     const material: MaterialType = m.type;
 
+    if (isNotDefined(m.textures)) return { ...promises, all };
+
     Object.entries(m.textures).forEach(([key, packParams]: [string, ITexturePackParams]): void => {
       // TODO (S.Panfilov) do not load texture if already loaded
       const { url, params }: ITexturePackParams = packParams;
@@ -84,7 +86,7 @@ export function TextureService(): ITextureService {
     function all(): Promise<IToonMaterialTextureUploaded>;
     function all(): Promise<IStandardMaterialTextureUploaded>;
     function all(): Promise<IMaterialTextureUploaded> {
-      let uploaded: IMaterialTextureUploaded = { material };
+      let uploaded: IMaterialTextureUploaded = {};
       return Promise.all(Object.values(promises)).then((textures) => {
         if (isNotDefined(m.textures)) return { ...uploaded, material };
         Object.keys(m.textures).forEach((key: string, index: number): void => void (uploaded = { ...uploaded, [key]: textures[index] }));
@@ -92,7 +94,7 @@ export function TextureService(): ITextureService {
       });
     }
 
-    return { ...promises, material, all };
+    return { ...promises, all };
   }
 
   return { load };
