@@ -1,6 +1,6 @@
 # Third-Party Notices (Pointer)
 
-This distribution of **showcases-iui** may include **third-party components**.
+This distribution of **showcases-gui** may include **third-party components**.
 
 Full attributions and license texts are provided **offline** at:
 

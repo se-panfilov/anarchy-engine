@@ -23,7 +23,7 @@ function save(): void {
 
 <template>
   <div class="gui">
-    <RouterView class="ui__item -view" @save="save" />
+    <RouterView class="gui__item -view" @save="save" />
   </div>
 </template>
 

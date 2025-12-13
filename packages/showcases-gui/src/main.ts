@@ -9,11 +9,11 @@ import { createApp } from 'vue';
 import App from './App.vue';
 
 export async function initGuiApp(id: string, fromGuiBus$: Subject<TFromGuiEvent>, toGuiBus$: Observable<TToGuiEvent>, options?: TGuiOptions): Promise<void> {
-  const uiApp: VueApp<Element> = createApp(App);
+  const guiApp: VueApp<Element> = createApp(App);
   await vueTranslationService.waitInitialReady();
-  uiApp.use(createPinia());
+  guiApp.use(createPinia());
   eventsService.setFromGuiBus(fromGuiBus$);
   eventsService.setToGuiBus(toGuiBus$);
-  uiApp.mount(id);
+  guiApp.mount(id);
   console.log(`[GUI] GUI app initialized at element with ID "${id}"`);
 }
