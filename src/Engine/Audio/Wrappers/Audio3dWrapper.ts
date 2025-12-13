@@ -18,14 +18,12 @@ export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3d
   const entity: Howl = sound;
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(position);
   const listenerPosition$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(new Vector3());
-  // TODO 11.0.0: should use decibels instead of number?
   const volume$: BehaviorSubject<number> = new BehaviorSubject<number>(volume);
 
   const updatePriority: LoopUpdatePriority = performance?.updatePriority ?? LoopUpdatePriority.LOW;
   // TODO 11.0.0: maybe the default threshold should be higher?
   const noiseThreshold: TMeters = performance?.noiseThreshold ?? meters(0.000001);
 
-  // TODO 11.0.0: should use decibels instead of number?
   const volumeSub: Subscription = volume$.pipe(distinctUntilChanged()).subscribe((volume: number): void => void entity.volume(volume));
 
   const audioLoop: TAudioLoop = loopService.getAudioLoop();
@@ -45,7 +43,6 @@ export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3d
       entity.pos(relativePos.x, relativePos.y, relativePos.z);
     });
 
-  // TODO 11.0.0: should use decibels instead of number?
   function calculateVolume(sourcePosition: TReadonlyVector3, listenerPos: TReadonlyVector3): number {
     const distance: TMeters = sourcePosition.distanceTo(listenerPos) as TMeters;
 

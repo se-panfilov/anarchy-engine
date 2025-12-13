@@ -1,4 +1,5 @@
 export type * from './TAudio3dParams';
+export type * from './TAudio3dTransformAgents';
 export type * from './TAudio3dWrapper';
 export type * from './TAudio3dWrapperDependencies';
 export type * from './TAudioLoop';
