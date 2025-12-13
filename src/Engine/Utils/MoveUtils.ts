@@ -3,6 +3,15 @@ import anime from 'animejs';
 
 import type { IActorWrapper } from '@/Engine/Domains/Actor';
 import { createDeferredPromise } from '@/Engine/Utils/AsyncUtils';
+import { ILoopWrapper } from '@/Engine';
+
+// TODO (S.Panfilov) should be a service (MoveService) that uses LoopService
+
+let loop: ILoopWrapper;
+// TODO (S.Panfilov) debug
+export function setLoopForMoveUtils(loopWrapper: ILoopWrapper): void {
+  loop = loopWrapper;
+}
 
 // TODO (S.Panfilov) should be configurable
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,functional/immutable-data
@@ -42,7 +51,7 @@ const defaultAnimationParams: Partial<IAnimationParams> = {
 export function goToPosition(actor: IActorWrapper, targetPosition: Position, params: IAnimationParams): Promise<void> {
   const { promise, resolve } = createDeferredPromise<void>();
 
-  anime({
+  const animation = anime({
     targets: actor.entity.position,
     x: targetPosition.x,
     y: targetPosition.y,
@@ -51,6 +60,11 @@ export function goToPosition(actor: IActorWrapper, targetPosition: Position, par
     ...params,
     complete: (): void => resolve()
   });
+
+  // loop.tick$.subscribe((delta: number): void => {
+  //   console.log('tick');
+  //   animation.tick(delta);
+  // });
 
   return promise;
 }

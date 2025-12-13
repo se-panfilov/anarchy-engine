@@ -18,9 +18,13 @@ export function getUtils(entity: LoopFn): ILoopUtils {
 
 function loopWrapper(fn: LoopFn, renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, controlsRegistry: IControlsRegistry, cameraRegistry: ICameraRegistry): () => void {
   const clock: Clock = new Clock();
+  let lastElapsedTime: number = 0;
   const loop = (): void => {
     // (fpsGraph as any).begin();
-    fn(renderer, scene, clock.getElapsedTime(), controlsRegistry, cameraRegistry);
+    const elapsedTime: number = clock.getElapsedTime();
+    const delta: number = elapsedTime - lastElapsedTime;
+    lastElapsedTime = elapsedTime;
+    fn(renderer, scene, delta, controlsRegistry, cameraRegistry);
 
     // (fpsGraph as any).end();
     requestAnimationFrame(loop);
