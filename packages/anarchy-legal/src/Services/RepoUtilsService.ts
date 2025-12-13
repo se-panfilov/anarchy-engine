@@ -7,8 +7,11 @@ import type { TCollected, TDependencyNode, TLicenseEntry, TRepoUtilsService, TRo
 // eslint-disable-next-line spellcheck/spell-checker
 import { globby } from 'globby';
 
-export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
+export function RepoUtilsService(): TRepoUtilsService {
+  let isDebug: boolean = false;
   const readJson = async <T extends Record<string, unknown>>(p: string): Promise<T> => JSON.parse(await fs.readFile(p, 'utf8')) as T;
+
+  const setDebugMode = (debug: boolean): void => void (isDebug = debug);
 
   const exists = async (p: string): Promise<boolean> => {
     try {
@@ -481,6 +484,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     loadRoot,
     npmLsJson,
     renderMarkdown,
-    resolveWorkspaceFromArg
+    resolveWorkspaceFromArg,
+    setDebugMode
   };
 }

@@ -3,18 +3,95 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import type { TCollected, TDependencyNode, TLicenseEntry, TRepoUtilsService, TRootInfo, TThirdPartyLicensesService } from '@Anarchy/Legal/Models';
+import type { InferredOptionType, Options, PositionalOptions } from 'yargs';
 // eslint-disable-next-line spellcheck/spell-checker
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 import { RepoUtilsService } from './RepoUtilsService.ts';
 
+type TArgs = Readonly<{
+  root: InferredOptionType<Options | PositionalOptions>;
+  workspace: InferredOptionType<Options | PositionalOptions>;
+  out: InferredOptionType<Options | PositionalOptions>;
+  debug: InferredOptionType<Options | PositionalOptions>;
+  includeWorkspaces: InferredOptionType<Options | PositionalOptions>;
+  'include-workspaces': InferredOptionType<Options | PositionalOptions>;
+  includeWorkspaceSelf: InferredOptionType<Options | PositionalOptions>;
+  'include-workspace-self': InferredOptionType<Options | PositionalOptions>;
+}>;
+
 export function ThirdPartyLicensesService(): TThirdPartyLicensesService {
   let isDebug: boolean = false;
+  const repoUtilsService: TRepoUtilsService = RepoUtilsService();
+
+  const {
+    assertNoCycles,
+    buildLicenseEntries,
+    buildWorkspaceLicenseEntries,
+    buildWsGraph,
+    collectExternalSeedNames,
+    collectThirdPartyMap,
+    collectWorkspaceClosure,
+    debugLog,
+    fillMissingInstallPaths,
+    findMonorepoRoot,
+    loadRoot,
+    npmLsJson,
+    renderMarkdown,
+    resolveWorkspaceFromArg
+  } = repoUtilsService;
+
+  function getStartCandidates(argv: TArgs): ReadonlyArray<string> {
+    const scriptDir: string = path.dirname(fileURLToPath(import.meta.url));
+    return [argv.root as string | undefined, process.env.INIT_CWD, process.cwd(), scriptDir].filter(Boolean) as string[];
+  }
+
+  function getMonorepoRoot(startCandidates: ReadonlyArray<string>): Promise<string | undefined> {
+    return startCandidates.reduce<Promise<string | undefined>>(async (prev, c) => {
+      const acc: string | undefined = await prev;
+      if (acc) return acc;
+      try {
+        const found: string = await findMonorepoRoot(c);
+        debugLog(isDebug, 'monorepo root picked:', found, '(from', c + ')');
+        return found;
+      } catch (e) {
+        debugLog(isDebug, 'no root from', c, ':', (e as Error).message);
+        return undefined;
+      }
+    }, Promise.resolve<string | undefined>(undefined));
+  }
+
+  async function getWorkspaceEntries(argv: TArgs, wsName: string, closure: ReadonlySet<string>, root: TRootInfo): Promise<ReadonlyArray<TLicenseEntry>> {
+    let wsEntries: ReadonlyArray<TLicenseEntry> = [];
+    if (argv['include-workspaces'] !== false) {
+      wsEntries = await buildWorkspaceLicenseEntries(
+        closure,
+        root.workspaces,
+        argv['include-workspace-self'] ? undefined : wsName // exclude self
+      );
+    }
+    return wsEntries;
+  }
+
+  function getEmptyNote(sorted: ReadonlyArray<TLicenseEntry>, seedNames: ReadonlySet<string>): string | undefined {
+    if (sorted.length !== 0) return undefined;
+    const noSeeds: boolean = seedNames.size === 0;
+    return noSeeds
+      ? 'This workspace declares no production dependencies and has no reachable internal workspaces. Therefore, there are no third-party licenses to list.'
+      : 'There are no third-party production dependencies reachable from this workspace. Therefore, there are no third-party licenses to list.';
+  }
+
+  async function writeResultFile(outPath: string, wsName: string, sorted: ReadonlyArray<TLicenseEntry>, emptyNote: string | undefined): Promise<void> {
+    const resultFile: string = renderMarkdown(wsName, sorted, emptyNote);
+    await fs.mkdir(path.dirname(outPath), { recursive: true });
+    await fs.writeFile(outPath, resultFile, 'utf8');
+    console.log(`The result file written to: ${outPath}`);
+  }
 
   async function generate(): Promise<void> {
     // eslint-disable-next-line spellcheck/spell-checker
-    const argv = await yargs(hideBin(process.argv))
+    const argv: TArgs = await yargs(hideBin(process.argv))
       // .scriptName('anarchy-legal')
       .usage('$0 --workspace <name|path> --out <file> [--root <dir>] [--debug] [--no-include-workspaces]')
       .option('root', {
@@ -50,78 +127,14 @@ export function ThirdPartyLicensesService(): TThirdPartyLicensesService {
       .parseAsync();
 
     isDebug = Boolean(argv.debug);
-
-    const repoUtilsService: TRepoUtilsService = RepoUtilsService(isDebug);
-    const {
-      assertNoCycles,
-      buildLicenseEntries,
-      buildWorkspaceLicenseEntries,
-      buildWsGraph,
-      collectExternalSeedNames,
-      collectThirdPartyMap,
-      collectWorkspaceClosure,
-      debugLog,
-      fillMissingInstallPaths,
-      findMonorepoRoot,
-      loadRoot,
-      npmLsJson,
-      renderMarkdown,
-      resolveWorkspaceFromArg
-    } = repoUtilsService;
-
-    function getStartCandidates(): ReadonlyArray<string> {
-      const scriptDir: string = path.dirname(fileURLToPath(import.meta.url));
-      return [argv.root as string | undefined, process.env.INIT_CWD, process.cwd(), scriptDir].filter(Boolean) as string[];
-    }
-
-    function getMonorepoRoot(): Promise<string | undefined> {
-      return startCandidates.reduce<Promise<string | undefined>>(async (prev, c) => {
-        const acc: string | undefined = await prev;
-        if (acc) return acc;
-        try {
-          const found: string = await findMonorepoRoot(c);
-          debugLog(isDebug, 'monorepo root picked:', found, '(from', c + ')');
-          return found;
-        } catch (e) {
-          debugLog(isDebug, 'no root from', c, ':', (e as Error).message);
-          return undefined;
-        }
-      }, Promise.resolve<string | undefined>(undefined));
-    }
-
-    async function getWorkspaceEntries(closure: ReadonlySet<string>, root: TRootInfo): Promise<ReadonlyArray<TLicenseEntry>> {
-      let wsEntries: ReadonlyArray<TLicenseEntry> = [];
-      if (argv['include-workspaces'] !== false) {
-        wsEntries = await buildWorkspaceLicenseEntries(
-          closure,
-          root.workspaces,
-          argv['include-workspace-self'] ? undefined : wsName // exclude self
-        );
-      }
-      return wsEntries;
-    }
-
-    function getEmptyNote(sorted: ReadonlyArray<TLicenseEntry>, seedNames: ReadonlySet<string>): string | undefined {
-      if (sorted.length !== 0) return undefined;
-      const noSeeds: boolean = seedNames.size === 0;
-      return noSeeds
-        ? 'This workspace declares no production dependencies and has no reachable internal workspaces. Therefore, there are no third-party licenses to list.'
-        : 'There are no third-party production dependencies reachable from this workspace. Therefore, there are no third-party licenses to list.';
-    }
-
-    async function writeResultFile(outPath: string, wsName: string, sorted: ReadonlyArray<TLicenseEntry>, emptyNote: string | undefined): Promise<void> {
-      const resultFile: string = renderMarkdown(wsName, sorted, emptyNote);
-      await fs.mkdir(path.dirname(outPath), { recursive: true });
-      await fs.writeFile(outPath, resultFile, 'utf8');
-      console.log(`The result file written to: ${outPath}`);
-    }
+    repoUtilsService.setDebugMode(isDebug);
 
     // 1) Determine start points
-    const startCandidates: ReadonlyArray<string> = getStartCandidates();
+    const startCandidates: ReadonlyArray<string> = getStartCandidates(argv);
     debugLog(isDebug, 'start candidates:', startCandidates);
 
     // 2) Find monorepo root
-    const monorepoRoot: string | undefined = await getMonorepoRoot();
+    const monorepoRoot: string | undefined = await getMonorepoRoot(startCandidates);
     if (!monorepoRoot) throw new Error(`Failed to locate monorepo root from candidates: ${startCandidates.join(', ')}`);
 
     // 3) Load root + workspaces
@@ -153,7 +166,7 @@ export function ThirdPartyLicensesService(): TThirdPartyLicensesService {
     else if (isDebug) console.log('[debug] examples (third-party):', [...thirdPartyMap.values()].slice(0, 5));
 
     // 9) Workspace licenses (excluding self by default)
-    const wsEntries: ReadonlyArray<TLicenseEntry> = await getWorkspaceEntries(closure, root);
+    const wsEntries: ReadonlyArray<TLicenseEntry> = await getWorkspaceEntries(argv, wsName, closure, root);
     debugLog(isDebug, 'workspace license entries (after self-filter):', wsEntries.length);
 
     // 10) Third-party licenses
