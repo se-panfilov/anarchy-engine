@@ -18,6 +18,7 @@ stats.html
 graph.svg
 ./__temp.txt
 *.tsbuildinfo
+__temp.txt
 
 # Editor directories and files
 .vscode/*
