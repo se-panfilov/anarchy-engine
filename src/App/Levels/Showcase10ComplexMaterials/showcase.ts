@@ -29,16 +29,15 @@ import type {
   TWithThickness,
   TWithTransmission
 } from '@/Engine';
-import { ambientContext, ControlsType, getTags, isDefined, isNotDefined, isOrbitControls, KeyCode, LookUpStrategy, spaceService, TextType } from '@/Engine';
+import { ambientContext, asRecord, ControlsType, getTags, isDefined, isNotDefined, isOrbitControls, KeyCode, LookUpStrategy, spaceService, TextType } from '@/Engine';
 
 import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
 export function start(): void {
-  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
-  // TODO 14-0-0: implement spaceService.findActive()
-  const space: TSpace = spaces[0];
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig]));
+  const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
 
   space.built$.subscribe(showcase);

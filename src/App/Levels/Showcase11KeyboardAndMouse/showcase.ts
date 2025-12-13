@@ -5,7 +5,7 @@ import { Vector3 } from 'three';
 import { createReactiveLineFromActor } from '@/App/Levels/Showcase25TransformDrive/Utils';
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TActorRegistry, TCameraWrapper, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
-import { ambientContext, defaultMoverServiceConfig, Easing, isNotDefined, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@/Engine';
+import { ambientContext, asRecord, defaultMoverServiceConfig, Easing, isNotDefined, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfigJson from './space.json';
@@ -13,9 +13,8 @@ import spaceConfigJson from './space.json';
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
 export function start(): void {
-  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
-  // TODO 14-0-0: implement spaceService.findActive()
-  const space: TSpace = spaces[0];
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig]));
+  const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
 
   space.built$.subscribe(showcase);

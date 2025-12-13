@@ -2,16 +2,15 @@ import { combineLatest } from 'rxjs';
 import { Euler, Vector3 } from 'three';
 
 import type { TActorParams, TCameraWrapper, TMaterialWrapper, TModel3d, TModels3dService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
-import { ambientContext, isNotDefined, MaterialType, meters, PrimitiveModel3dType, spaceService } from '@/Engine';
+import { ambientContext, asRecord, isNotDefined, MaterialType, meters, PrimitiveModel3dType, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
 export function start(): void {
-  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
-  // TODO 14-0-0: implement spaceService.findActive()
-  const space: TSpace = spaces[0];
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig]));
+  const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
 
   space.built$.subscribe(showcase);

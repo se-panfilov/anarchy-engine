@@ -5,7 +5,7 @@ import { degToRad } from 'three/src/math/MathUtils';
 
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TAnimationParams, TMeters, TModel3d, TModels3dRegistry, TMoverService, TRadians, TSceneWrapper, TSpace, TSpaceConfig, TText3dTextureWrapper, TText3dWrapper } from '@/Engine';
-import { ambientContext, createCirclePathXZ, defaultMoverServiceConfig, Easing, generateAnglesForCircle, isNotDefined, spaceService, TextType, TransformAgent } from '@/Engine';
+import { ambientContext, asRecord, createCirclePathXZ, defaultMoverServiceConfig, Easing, generateAnglesForCircle, isNotDefined, spaceService, TextType, TransformAgent } from '@/Engine';
 import { meters, radians } from '@/Engine/Measurements/Utils';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
@@ -14,9 +14,8 @@ import spaceConfigJson from './space.json';
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
 export function start(): void {
-  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
-  // TODO 14-0-0: implement spaceService.findActive()
-  const space: TSpace = spaces[0];
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig]));
+  const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
 
   space.built$.subscribe(showcase);

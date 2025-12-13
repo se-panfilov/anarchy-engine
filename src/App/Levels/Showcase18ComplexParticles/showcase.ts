@@ -3,7 +3,7 @@ import { BufferGeometry, Color, PointsMaterial } from 'three';
 
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TMaterialConfig, TMaterialParams, TMilliseconds, TParticlesConfig, TParticlesWrapper, TSpace, TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources } from '@/Engine';
-import { ambientContext, isDefined, isNotDefined, spaceService } from '@/Engine';
+import { ambientContext, asRecord, isDefined, isNotDefined, spaceService } from '@/Engine';
 import { configToParams as materialConfigToParams } from '@/Engine/Material/Adapters';
 
 import spaceConfigJson from './space.json';
@@ -11,9 +11,8 @@ import spaceConfigJson from './space.json';
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
 export function start(): void {
-  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
-  // TODO 14-0-0: implement spaceService.findActive()
-  const space: TSpace = spaces[0];
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig]));
+  const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
 
   space.built$.subscribe(showcase);
