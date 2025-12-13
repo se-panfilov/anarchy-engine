@@ -1,10 +1,6 @@
-import type { IVector3 } from '@/Engine/Wrappers';
+import type { IVector3Wrapper } from '@/Engine/Wrappers';
 
-export type IWithPosition = {
-  position: {
-    x: number;
-    y: number;
-    z: number;
-    set: (x: number, y: number, z: number) => IVector3;
-  };
-};
+export type IWithPosition = Readonly<{
+  setPosition: (x: number, y: number, z: number) => IVector3Wrapper;
+  getPosition: () => IVector3Wrapper;
+}>;

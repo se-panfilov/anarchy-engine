@@ -2,6 +2,8 @@ import { Vector3 } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { IWithCoordsXYZ } from '@/Engine/Mixins';
+import { vectorMoveByXMixin, vectorMoveByYMixin } from '@/Engine/Wrappers/Vector2Wrapper';
+import { vectorMoveByZMixin } from '@/Engine/Wrappers/Vector3Wrapper/Mixins';
 
 import type { IVector3, IVector3Params, IVector3Wrapper } from './Models';
 
@@ -12,5 +14,12 @@ export function Vector3Wrapper(params: IVector3Params): IVector3Wrapper {
     return { x: entity.x, y: entity.y, z: entity.z };
   }
 
-  return { ...AbstractWrapper(entity, WrapperType.Vector3), getCoords, entity };
+  return {
+    ...AbstractWrapper(entity, WrapperType.Vector3),
+    ...vectorMoveByXMixin(entity),
+    ...vectorMoveByYMixin(entity),
+    ...vectorMoveByZMixin(entity),
+    getCoords,
+    entity
+  };
 }
