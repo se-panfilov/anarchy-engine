@@ -37,6 +37,7 @@ export function Driver(): TPlatformDriver {
   }
 
   const getLegalDocs = (options: TLoadDocPayload): Promise<TLegalDoc> => {
+    // TODO MOBILE: sanitize result here
     console.log('XXX [MOBILE]', 'getLegalDocs', options);
     return Promise.resolve({} as any);
   };
