@@ -1,7 +1,7 @@
 import { isDefined } from '@Anarchy/Shared/Utils';
 import { HiddenField } from '@Anarchy/Tracking/Constants';
 import type { TTrackingService } from '@Anarchy/Tracking/Models';
-import { rewriteFramesIntegrationBrowser } from '@Anarchy/Tracking/Utils';
+import { rewriteFramesIntegrationBrowser } from '@Anarchy/Tracking/Utils/IntegrationsBrowser';
 import { scrubUserPathsBrowser } from '@Anarchy/Tracking/Utils/ScrubsBrowser';
 import type { BrowserOptions, EventHint } from '@sentry/browser';
 import { captureException, init } from '@sentry/browser';
