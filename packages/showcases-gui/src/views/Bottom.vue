@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="home">
+  <div class="bottom">
     <div class="panel -bottom">
       <h1>Welcome to Showcases GUI!</h1>
       <p>This is a graphical user interface for managing and showcasing various projects and applications.</p>
@@ -11,7 +11,7 @@
 </template>
 
 <style scoped lang="scss">
-.home {
+.bottom {
   display: flex;
   min-width: 100%;
   min-height: 100%;

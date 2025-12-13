@@ -2,7 +2,7 @@
 import './assets/style.scss';
 
 import { eventsService } from '@Showcases/GUI/services';
-import Home from '@Showcases/GUI/views/Home.vue';
+import Bottom from '@Showcases/GUI/views/Bottom.vue';
 import type { TInputShieldService } from '@Showcases/Shared';
 import { InputShieldService } from '@Showcases/Shared';
 import type { Subscription } from 'rxjs';
@@ -31,8 +31,7 @@ onUnmounted((): void => {
 
 <template>
   <div ref="root" class="gui">
-    <!--    <RouterView class="gui__item -view" @save="some" />-->
-    <Home class="gui__item -home" />
+    <Bottom class="gui__item -bottom" />
   </div>
 </template>
 
