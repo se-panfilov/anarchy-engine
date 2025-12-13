@@ -76,22 +76,22 @@ export function TranslateService<TLocale extends string>(initialLocale: TLocale,
 
   return {
     translate: (id: string, params?: Record<string, string>): string | never => {
-      const intl = intl$.value;
+      const intl: IntlShape<string> | undefined = intl$.value;
       if (isDefined(intl)) {
-        const defaultMessage = (loaded.get(defaultLocale) ?? {})[id] ?? id;
+        const defaultMessage: string = (loaded.get(defaultLocale) ?? {})[id] ?? id;
         return intl.formatMessage({ id, defaultMessage }, params);
       }
-      throw new Error(`[TranslateService]: The service is not ready. At id "${id}"`);
+      throw new Error(`[TranslateService]: The service is not ready. Tried to translate: "${id}"`);
     },
     formatDate: (value: Date | number, options?: FormatDateOptions): string | never => {
-      const intl = intl$.value;
+      const intl: IntlShape<string> | undefined = intl$.value;
       if (isDefined(intl)) return intl.formatDate(value, options);
-      throw new Error(`[TranslateService]: The service is not ready. At the value "${value}"`);
+      throw new Error(`[TranslateService]: The service is not ready. Tried to formatDate: "${value}"`);
     },
     formatNumber: (value: number, options?: FormatNumberOptions): string | never => {
-      const intl = intl$.value;
+      const intl: IntlShape<string> | undefined = intl$.value;
       if (isDefined(intl)) return intl.formatNumber(value, options);
-      throw new Error(`[TranslateService]: The service is not ready. At the value "${value}"`);
+      throw new Error(`[TranslateService]: The service is not ready. Tried to formatNumber: "${value}"`);
     },
     ready$,
     locale$,
