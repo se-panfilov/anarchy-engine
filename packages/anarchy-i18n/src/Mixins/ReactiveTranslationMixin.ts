@@ -14,7 +14,7 @@ export function ReactiveTranslationMixin(service: Omit<TTranslationService, keyo
       map(([intl, p]) => intl.formatMessage({ id, defaultMessage: id }, p)),
       distinctUntilChanged(),
       tap((value: string): string => {
-        console.warn(`[TranslationService]: Can't find translation for "${id}".`);
+        if (value === id) console.warn(`[TranslationService]: Can't find translation for "${id}".`);
         return value;
       }),
       shareReplay({ bufferSize: 1, refCount: true })
