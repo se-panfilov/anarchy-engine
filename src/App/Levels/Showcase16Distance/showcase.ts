@@ -4,7 +4,7 @@ import { buildSpaceFromConfig, Engine, isNotDefined, KeyCode, mpsSpeed } from '@
 
 import spaceConfig from './showcase.json';
 
-//Showcase 16: Distace
+//Showcase 16: Distance
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
   const engine: IEngine = Engine(space);
