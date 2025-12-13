@@ -20,9 +20,10 @@ import type { TTransformLoop } from '@/Engine/TransformDrive';
 
 export function createLoops(loopService: TLoopService): TSpaceLoops {
   // TODO 10.0.0. LOOPS: 16ms is hardcoded here, should be configurable
+  // TODO 10.0.0. LOOPS: showDebugInfo is hardcoded here, should be configurable
   // TODO 10.0.0. LOOPS: Make sure to make use of all of these loops
   return {
-    renderLoop: loopService.create({ name: SpaceMainLoopNames.Render, type: LoopType.Render, trigger: requestAnimationFrame }) as TRenderLoop,
+    renderLoop: loopService.create({ name: SpaceMainLoopNames.Render, type: LoopType.Render, trigger: requestAnimationFrame, showDebugInfo: true }) as TRenderLoop,
     physicalLoop: loopService.create({ name: SpaceMainLoopNames.Physical, type: LoopType.Physical, trigger: milliseconds(16) }) as TPhysicalLoop,
     collisionsLoop: loopService.create({ name: SpaceMainLoopNames.Collisions, type: LoopType.Collisions, trigger: milliseconds(16), maxPriority: CollisionsUpdatePriority.ASAP }) as TCollisionsLoop,
     kinematicLoop: loopService.create({ name: SpaceMainLoopNames.Kinematic, type: LoopType.Kinematic, trigger: milliseconds(16) }) as TKinematicLoop,
