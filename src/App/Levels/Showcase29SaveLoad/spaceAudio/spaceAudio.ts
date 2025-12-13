@@ -12,7 +12,6 @@ const config: TSpaceConfig = spaceConfig as TSpaceConfig;
 const soundName: string = 'gunshot_1';
 let renderer: TDebugAudioRenderer | undefined;
 
-// TODO 15-0-0: make sure that Camera saves audioListener and load it again
 export const spaceAudioData: TSpacesData = {
   name: config.name,
   config: config,
