@@ -1,5 +1,5 @@
 import './style.css';
-import { Color, Mesh, MeshToonMaterial, SphereGeometry, Vector3 } from 'three';
+import { Color } from 'three';
 import { SceneManager } from '@Engine/Managers/SceneManager';
 import { LoopManager } from '@Engine/Managers/LoopManager';
 import { CameraManager } from '@Engine/Managers/CameraManager';
@@ -32,10 +32,10 @@ const rendererManager = new RendererManager();
 const scene = sceneManager.create();
 sceneManager.setCurrent(scene);
 
-// sceneManager.attachManagerToScene(actorManager, scene);
-// sceneManager.attachManagerToScene(cameraManager, scene);
-// sceneManager.attachManagerToScene(lightManager, scene);
-// sceneManager.attachManagerToScene(inputManager, scene);
+// sceneManager.attachTo(actorManager, scene);
+// sceneManager.attachTo(cameraManager, scene);
+// sceneManager.attachTo(lightManager, scene);
+// sceneManager.attachTo(inputManager, scene);
 
 const actorParams: Partial<ActorParams> = {
   width: 1,
@@ -45,8 +45,8 @@ const actorParams: Partial<ActorParams> = {
 };
 const sphereParams: ActorParams = { ...actorParams, type: 'sphere' };
 const planeParams: ActorParams = { ...actorParams, type: 'plane' };
-actorManager.create(sphereParams);
-actorManager.create(planeParams);
+const sphereActor = actorManager.create(sphereParams);
+const planeActor = actorManager.create(planeParams);
 
 const params: CameraParams = {
   width: deviceWatcher.size$.value.width,
@@ -85,7 +85,16 @@ wrappedDirectionalLight.entity.position.set(0.25, 2, 2.25);
 
 // inputManager.initMousePointer().addIntersectionPointer().onClick(onMouseClick);
 
-loopManager.start();
+if (isNotDefined(sceneManager.current$.value)) throw new Error('Current scene is not set');
+sceneManager.current$.value.entity.add(planeActor.entity);
+sceneManager.current$.value.entity.add(wrappedCamera.entity);
+
+const loop = loopManager.create();
+loopManager.setCurrent(loop);
+loopManager.start(renderer, scene, wrappedCamera);
+
+//This is how to stop the loop
+// setTimeout(() => loopManager.stop(), 3000);
 
 // TODO (S.Panfilov) move it to any other place
 // function onMouseClick({ x, y, z }: Vector3, event: MouseEvent): void {
