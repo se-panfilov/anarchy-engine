@@ -18,7 +18,7 @@ export function AnimationsService(resourcesRegistry: TAnimationsResourceAsyncReg
   const animationsLoader: TAnimationsLoader = AnimationsLoader(resourcesRegistry);
   const added$: Subject<TModel3dAnimations> = new Subject<TModel3dAnimations>();
   const subscriptions: Map<AnimationMixer, Subscription> = new Map<AnimationMixer, Subscription>();
-  const disposable: ReadonlyArray<TDisposable> = [resourcesRegistry];
+  const disposable: ReadonlyArray<TDisposable> = [resourcesRegistry, animationsLoader];
   const abstractService: TAbstractService = AbstractService(disposable);
 
   //If you want to create an animation action for a model that already has actions (and a mixer), provide that mixer here

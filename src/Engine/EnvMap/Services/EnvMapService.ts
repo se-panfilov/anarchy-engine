@@ -26,11 +26,12 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
   });
 
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TEnvMapWrapper): void => registry.add(wrapper));
-  const disposable: ReadonlyArray<TDisposable> = [registry, resourcesRegistry, factory, registrySub$, factorySub$];
-  const abstractService: TAbstractService = AbstractService(disposable);
 
   const withActive: TWithActiveMixinResult<TEnvMapWrapper> = withActiveEntityServiceMixin<TEnvMapWrapper>(registry);
   const envMapLoader: TEnvMapLoader = EnvMapLoader(resourcesRegistry);
+
+  const disposable: ReadonlyArray<TDisposable> = [registry, resourcesRegistry, factory, envMapLoader, registrySub$, factorySub$];
+  const abstractService: TAbstractService = AbstractService(disposable);
 
   const withCreateService: TEnvMapServiceWithCreate = withCreateServiceMixin(factory, undefined);
   const withCreateFromConfigService: TEnvMapServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, { resourcesRegistry });
