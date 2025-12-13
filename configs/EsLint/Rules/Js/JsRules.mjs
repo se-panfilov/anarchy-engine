@@ -86,6 +86,7 @@ export const JsRules = {
         'dm',
         'dmg',
         'docx',
+        'dpr',
         'draco',
         'dragover',
         'dsn',
