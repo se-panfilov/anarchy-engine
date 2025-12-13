@@ -1,12 +1,13 @@
 import type { TAbstractService } from '@Engine/Abstract';
 import { AbstractService } from '@Engine/Abstract';
 import type { TDisposable } from '@Engine/Mixins';
-import { withCreateServiceWithHooksMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Engine/Mixins';
+import { withCreateServiceWithHooksAndFlagsMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Engine/Mixins';
 import { SpaceFactory } from '@Engine/Space/Factories';
 import type {
   TSpace,
   TSpaceConfig,
   TSpaceFactory,
+  TSpaceFlags,
   TSpaceHooks,
   TSpaceRegistry,
   TSpaceService,
@@ -27,11 +28,11 @@ export function SpaceService(factory: TSpaceFactory, registry: TSpaceRegistry): 
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
-  const createFromConfig = (spaces: ReadonlyArray<TSpaceConfig>, hooks?: TSpaceHooks): ReadonlyArray<TSpace> => {
+  const createFromConfig = (spaces: ReadonlyArray<TSpaceConfig>, hooks?: TSpaceHooks, flags?: TSpaceFlags): ReadonlyArray<TSpace> => {
     return spaces.map((config: TSpaceConfig): TSpace => {
       hooks?.beforeConfigValidation?.(config);
       validateConfig(config);
-      return factory.create(factory.configToParams(config), { config, registry, hooks });
+      return factory.create(factory.configToParams(config), { config, registry, hooks, flags });
     });
   };
 
