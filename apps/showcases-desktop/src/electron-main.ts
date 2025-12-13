@@ -1,9 +1,9 @@
 import { existsSync } from 'node:fs';
 
 import { platformApiChannel } from '@Desktop/Constants';
+import { appCrashHandler, appWindowAllClosedHandler, windowNavigateHandler, windowSecondInstanceHandler } from '@Desktop/EventHandlers';
 import { handleAppRequest } from '@Desktop/Services';
 import { getDisplayInfo } from '@Desktop/Utils';
-import type { Event, WebContentsWillNavigateEventParams } from 'electron';
 import { app, BrowserWindow, dialog, ipcMain, Menu } from 'electron';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
@@ -29,9 +29,9 @@ function getIndexHtmlPath(): string {
   const path: string = join(__dirname, 'dist-desktop', 'index.html');
 
   if (!existsSync(path)) {
-    const errMsg: string = `[Desktop Main] index.html not found at: ${path}`;
+    const errMsg: string = `[Desktop Main]: index.html not found at: ${path}`;
     console.error(errMsg);
-    dialog.showErrorBox('Startup Error', errMsg);
+    dialog.showErrorBox('[Desktop Main]: Startup Error', errMsg);
     app.quit();
   }
 
@@ -75,71 +75,30 @@ app.whenReady().then((): void => {
   const { width, height } = getDisplayInfo();
   const win: BrowserWindow = createWindow(width, height);
 
-  app.on('window-all-closed', (): void => {
-    //Quit the app when all windows are closed (even on macOS, which is a bit non-macOS style)
-    app.quit();
-
-    // Makes quit not to quit on macOS (macOS style)
-    // if (process.platform !== 'darwin') app.quit();
-  });
+  appWindowAllClosedHandler(app);
 
   // Turn off the menu bar (and Hotkeys(!!!) such as Ctrl+R, Ctrl+F5, etc.)
   const emptyMenu: Menu = Menu.buildFromTemplate([]);
   Menu.setApplicationMenu(emptyMenu);
 
   // TODO DESKTOP: Make sure navigation isn't working (also from mouse extra buttons)
-  win.webContents.on('will-navigate', (event: Event<WebContentsWillNavigateEventParams>, url: string): void => {
-    console.log(`[Desktop Main] navigation to ${event.url} `);
-
-    // TODO DESKTOP: Make this configurable
-    // event.preventDefault(); // Prevent navigation to other pages
-
-    // Prevent drag and drop navigation
-    if (url !== win.webContents.getURL()) {
-      event.preventDefault();
-      console.log(`[Desktop Main] navigation by drag and drop prevented`);
-    }
-  });
-
-  // win.webContents.on('will-prevent-unload', (event) => {
-  // event.preventDefault(); // Prevent the default behavior of closing the window
-  // });
+  windowNavigateHandler(win);
+  // useWindowUnloadHandler(win);
 
   // Hide the menu bar
   win.setMenuBarVisibility(false);
 
   // No zooming
   win.webContents.setVisualZoomLevelLimits(1, 1).catch((err: any): void => {
-    console.log('[Desktop Main] Error setting zoom level limits:');
+    console.log('[Desktop Main]: Error setting zoom level limits:');
     console.error(err);
   });
 
-  // No new windows via window.open
-  win.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
+  windowSecondInstanceHandler(app, win);
 
-  const gotTheLock: boolean = app.requestSingleInstanceLock();
+  // Some cleanup if needed
+  //appQuitHandler(app);
 
-  // TODO DESKTOP: Test this on windows
-  //Allow only one instance of the app to run
-  if (!gotTheLock) {
-    app.quit(); // Close the second instance of the app
-  } else {
-    // eslint-disable-next-line spellcheck/spell-checker
-    app.on('second-instance', (_event: unknown, _argv: ReadonlyArray<string>, _cwd: string): void => {
-      // Restore the window if it was minimized
-      if (win) {
-        if (win.isMinimized()) win.restore();
-        win.focus();
-      }
-    });
-  }
-
-  // app.on('will-quit', (): void => {
-  //  // Some cleanup if needed
-  // });
-
-  // app.on('render-process-gone', (_event, webContents, details) => {
-  //   console.error(`Renderer crashed:`, details);
-  //   // Could try to restart the window or something
-  // });
+  // On crash. Could try to restart the window or something
+  appCrashHandler(app);
 });
