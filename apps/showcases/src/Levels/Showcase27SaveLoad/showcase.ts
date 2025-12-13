@@ -2,7 +2,8 @@ import '@Public/resources/fonts.css';
 import './style.css';
 
 import type { TSpace, TSpaceConfig, TSpaceRegistry } from '@Engine';
-import { isNotDefined, spaceService } from '@Engine';
+import { spaceService } from '@Engine';
+import { isNotDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 
 import { spaceActorData } from '@/Levels/Showcase27SaveLoad/spaceActor';
