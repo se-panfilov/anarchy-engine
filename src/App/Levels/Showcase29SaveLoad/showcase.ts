@@ -21,6 +21,21 @@ const getContainer = (canvasSelector: string): string => canvasSelector.split('#
 
 const subscriptions: Record<string, Subscription> = {};
 
+// TODO 15-0-0: E2E: Camera
+// TODO 15-0-0: E2E: OrbitControls
+// TODO 15-0-0: E2E: FpsControls
+// TODO 15-0-0: E2E: FpsControls
+// TODO 15-0-0: E2E: Materials
+// TODO 15-0-0: E2E: Light
+// TODO 15-0-0: E2E: Fog
+// TODO 15-0-0: E2E: Intersections
+// TODO 15-0-0: E2E: Particles
+// TODO 15-0-0: E2E: Physics
+// TODO 15-0-0: E2E: Actors with models
+// TODO 15-0-0: E2E: Actors with FSM
+// TODO 15-0-0: E2E: TransformDrive (default, connected, physics, kinematic)
+// TODO 15-0-0: E2E: Animations (state, progress, etc)
+// TODO 15-0-0: E2E: Complex scene (similar to Showcase22PhysicsShooter)
 const spacesData: ReadonlyArray<TSpacesData> = [
   {
     name: spaceBasicConfig.name,
