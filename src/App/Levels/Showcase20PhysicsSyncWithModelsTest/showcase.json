@@ -66,7 +66,7 @@
     "actors": [
       {
         "name": "actor_1",
-        "model3dEntity": "sphere_1_model",
+        "model3dSource": "sphere_1_model",
         "physics": {
           "presetName": "ball_physics",
           "shapeParams": {
@@ -79,7 +79,7 @@
       },
       {
         "name": "actor_2",
-        "model3dEntity": "cube_1_model",
+        "model3dSource": "cube_1_model",
         "physics": {
           "presetName": "box_physics",
           "shapeParams": {
@@ -96,7 +96,7 @@
       },
       {
         "name": "actor_3",
-        "model3dEntity": "cube_2_model",
+        "model3dSource": "cube_2_model",
         "physics": {
           "presetName": "box_physics",
           "shapeParams": {

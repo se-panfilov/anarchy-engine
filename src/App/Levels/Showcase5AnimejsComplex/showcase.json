@@ -87,26 +87,26 @@
     ],
     "actors": [
       {
-        "model3dEntity": "plane_model",
+        "model3dSource": "plane_model",
         "position": { "x": 0, "y": 0, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": []
       },
       {
-        "model3dEntity": "cube_red_model",
+        "model3dSource": "cube_red_model",
         "position": { "x": -20, "y": 2, "z": 2 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["actor", "red"]
       },
       {
-        "model3dEntity": "cube_green_model",
+        "model3dSource": "cube_green_model",
         "position": { "x": -20, "y": 2, "z": 4 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["actor", "green"]
       },
       {
-        "model3dEntity": "cube_blue_model",
+        "model3dSource": "cube_blue_model",
         "position": { "x": -20, "y": 2, "z": 6 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["actor", "blue"]

@@ -75,7 +75,7 @@
     "actors": [
       {
         "name": "surface_actor",
-        "model3dEntity": "surface_model",
+        "model3dSource": "surface_model",
         "position": { "x": 0, "y": 0.5, "z": 0 },
         "castShadow": false,
         "receiveShadow": true,
@@ -84,7 +84,7 @@
       },
       {
         "name": "sphere_keyboard_actor",
-        "model3dEntity": "sphere_keyboard_model",
+        "model3dSource": "sphere_keyboard_model",
         "position": { "x": -2, "y": 2, "z": 0 },
         "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": true },
@@ -92,7 +92,7 @@
       },
       {
         "name": "sphere_mouse_actor",
-        "model3dEntity": "sphere_mouse_model",
+        "model3dSource": "sphere_mouse_model",
         "position": { "x": 4, "y": 2, "z": 0 },
         "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": true },
@@ -100,7 +100,7 @@
       },
       {
         "name": "key_w_model",
-        "model3dEntity": "key_model",
+        "model3dSource": "key_model",
         "position": { "x": -19, "y": 2, "z": 9 },
         "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
@@ -108,7 +108,7 @@
       },
       {
         "name": "key_a_model",
-        "model3dEntity": "key_model",
+        "model3dSource": "key_model",
         "position": { "x": -22, "y": 2, "z": 12 },
         "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
@@ -116,7 +116,7 @@
       },
       {
         "name": "key_s_model",
-        "model3dEntity": "key_model",
+        "model3dSource": "key_model",
         "position": { "x": -19, "y": 2, "z": 12 },
         "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
@@ -124,7 +124,7 @@
       },
       {
         "name": "key_d_model",
-        "model3dEntity": "key_model",
+        "model3dSource": "key_model",
         "position": { "x": -16, "y": 2, "z": 12 },
         "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
@@ -132,7 +132,7 @@
       },
       {
         "name": "mkey_left_model",
-        "model3dEntity": "key_model",
+        "model3dSource": "key_model",
         "position": { "x": -12, "y": 2, "z": 9 },
         "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
@@ -140,7 +140,7 @@
       },
       {
         "name": "mkey_middle_model",
-        "model3dEntity": "key_model",
+        "model3dSource": "key_model",
         "position": { "x": -10, "y": 2, "z": 10 },
         "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
@@ -148,7 +148,7 @@
       },
       {
         "name": "mkey_right_model",
-        "model3dEntity": "key_model",
+        "model3dSource": "key_model",
         "position": { "x": -8, "y": 2, "z": 9 },
         "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
@@ -156,7 +156,7 @@
       },
       {
         "name": "mkey_forward_model",
-        "model3dEntity": "key_model",
+        "model3dSource": "key_model",
         "position": { "x": -12, "y": 2, "z": 12 },
         "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
@@ -164,7 +164,7 @@
       },
       {
         "name": "mkey_back_model",
-        "model3dEntity": "key_model",
+        "model3dSource": "key_model",
         "position": { "x": -12, "y": 2, "z": 14 },
         "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
@@ -172,7 +172,7 @@
       },
       {
         "name": "mkey_extra_model",
-        "model3dEntity": "key_model",
+        "model3dSource": "key_model",
         "position": { "x": -12, "y": 2, "z": 16 },
         "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },

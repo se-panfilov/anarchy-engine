@@ -259,7 +259,7 @@
         "physics": {
           "$ref": "#/definitions/TWithPresetNamePhysicsBodyConfig"
         },
-        "model3dEntity": {
+        "model3dSource": {
           "type": "string"
         },
         "name": {
@@ -272,7 +272,7 @@
           "type": "boolean"
         }
       },
-      "required": ["model3dEntity", "position", "spatial"]
+      "required": ["model3dSource", "position", "spatial"]
     },
     "TCollisionsDataConfig": {
       "type": "object",

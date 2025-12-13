@@ -18,17 +18,17 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const materialW: TMaterialWrapper = materialService.create({ name: 'model_material', type: MaterialType.Toon, options: { color: '#5177ff' } });
 
-    const actorDefaultParams: Omit<TActorParams, 'model3dEntity'> = {
+    const actorDefaultParams: Omit<TActorParams, 'model3dSource'> = {
       position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
       castShadow: true,
       spatial: { grid, isAutoUpdate: false }
     };
 
-    const actorParams1: TActorParams = { ...actorDefaultParams, model3dEntity: createCube(models3dService, 'cube1', materialW), position: Vector3Wrapper({ x: 2, y: 2, z: 0 }) };
-    const actorParams2: TActorParams = { ...actorDefaultParams, model3dEntity: createCube(models3dService, 'cube2', materialW), position: Vector3Wrapper({ x: -2, y: 0, z: 0 }) };
-    const actorParams3: TActorParams = { ...actorDefaultParams, model3dEntity: createCube(models3dService, 'cube3', materialW), position: Vector3Wrapper({ x: 0, y: 1, z: 0 }) };
-    const actorParams4: TActorParams = { ...actorDefaultParams, model3dEntity: createCube(models3dService, 'cube4', materialW), position: Vector3Wrapper({ x: -2, y: 2, z: 0 }) };
-    const actorParams5: TActorParams = { ...actorDefaultParams, model3dEntity: createCube(models3dService, 'cube5', materialW), position: Vector3Wrapper({ x: 2, y: 0, z: 0 }) };
+    const actorParams1: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube1', materialW), position: Vector3Wrapper({ x: 2, y: 2, z: 0 }) };
+    const actorParams2: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube2', materialW), position: Vector3Wrapper({ x: -2, y: 0, z: 0 }) };
+    const actorParams3: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube3', materialW), position: Vector3Wrapper({ x: 0, y: 1, z: 0 }) };
+    const actorParams4: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube4', materialW), position: Vector3Wrapper({ x: -2, y: 2, z: 0 }) };
+    const actorParams5: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube5', materialW), position: Vector3Wrapper({ x: 2, y: 0, z: 0 }) };
 
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     [actorParams1, actorParams2, actorParams3, actorParams4, actorParams5].forEach((actor: TActorParams) => actorService.create(actor));

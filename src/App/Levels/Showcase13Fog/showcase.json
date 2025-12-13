@@ -70,7 +70,7 @@
     "actors": [
       {
         "name": "surface_actor",
-        "model3dEntity": "surface_model",
+        "model3dSource": "surface_model",
         "position": { "x": 0, "y": 0, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
         "castShadow": false,
@@ -80,7 +80,7 @@
       },
       {
         "name": "sphere_actor",
-        "model3dEntity": "sphere_model",
+        "model3dSource": "sphere_model",
         "position": { "x": 2, "y": 6, "z": -2 },
         "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": true },

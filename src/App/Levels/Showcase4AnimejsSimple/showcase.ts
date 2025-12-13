@@ -37,7 +37,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     });
 
     const actorTemplate: TActorParams = {
-      model3dEntity: cubeModel3dF,
+      model3dSource: cubeModel3dF,
       position: Vector3Wrapper({ x: -20, y: 2, z: -2 }),
       castShadow: true,
       spatial: { isAutoUpdate: true, grid },

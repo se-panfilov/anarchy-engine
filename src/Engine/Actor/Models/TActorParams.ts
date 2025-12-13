@@ -10,7 +10,7 @@ import type { TActorProps } from './TActorProps';
 
 export type TActorParams = TActorProps &
   Readonly<{
-    model3dEntity: TModel3dFacade;
+    model3dSource: TModel3dFacade;
   }> &
   Readonly<{
     physics?: TWithPresetNamePhysicsBodyParams;

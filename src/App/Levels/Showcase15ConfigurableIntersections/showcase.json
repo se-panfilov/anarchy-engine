@@ -79,7 +79,7 @@
     "actors": [
       {
         "name": "surface_actor",
-        "model3dEntity": "surface_model",
+        "model3dSource": "surface_model",
         "position": { "x": 0, "y": 2, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
         "castShadow": false,
@@ -89,28 +89,28 @@
       },
       {
         "name": "sphere_red_1_actor",
-        "model3dEntity": "sphere_red_1_model",
+        "model3dSource": "sphere_red_1_model",
         "position": { "x": -2, "y": 2, "z": -10 },
         "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": true }
       },
       {
         "name": "sphere_red_2_actor",
-        "model3dEntity": "sphere_red_2_model",
+        "model3dSource": "sphere_red_2_model",
         "position": { "x": 4, "y": 2, "z": -10 },
         "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": true }
       },
       {
         "name": "cube_blue_1_actor",
-        "model3dEntity": "cube_blue_1_model",
+        "model3dSource": "cube_blue_1_model",
         "position": { "x": -2, "y": 2, "z": 10 },
         "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": true }
       },
       {
         "name": "cube_blue_2_actor",
-        "model3dEntity": "cube_blue_2_model",
+        "model3dSource": "cube_blue_2_model",
         "position": { "x": 4, "y": 2, "z": 10 },
         "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": true }

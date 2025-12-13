@@ -44,7 +44,7 @@
     "actors": [
       {
         "name": "plane_actor",
-        "model3dEntity": "plane_model",
+        "model3dSource": "plane_model",
         "position": { "x": 0, "y": 0, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },

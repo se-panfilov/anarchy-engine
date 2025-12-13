@@ -774,169 +774,169 @@
     ],
     "actors": [
       {
-        "model3dEntity": "sphere_standard_metal",
+        "model3dSource": "sphere_standard_metal",
         "position": { "x": 0, "y": 2, "z": 2 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["standard", "metal"]
       },
       {
-        "model3dEntity": "sphere_physical_metal",
+        "model3dSource": "sphere_physical_metal",
         "position": { "x": 2, "y": 2, "z": 2 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["physical", "metal"]
       },
       {
-        "model3dEntity": "sphere_basic_metal",
+        "model3dSource": "sphere_basic_metal",
         "position": { "x": 4, "y": 2, "z": 2 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["basic", "metal"]
       },
       {
-        "model3dEntity": "sphere_phong_metal",
+        "model3dSource": "sphere_phong_metal",
         "position": { "x": 6, "y": 2, "z": 2 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["phong", "metal"]
       },
       {
-        "model3dEntity": "sphere_lambert_metal",
+        "model3dSource": "sphere_lambert_metal",
         "position": { "x": 8, "y": 2, "z": 2 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["lambert", "metal"]
       },
       {
-        "model3dEntity": "sphere_toon_metal",
+        "model3dSource": "sphere_toon_metal",
         "position": { "x": 10, "y": 2, "z": 2 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["toon", "metal"]
       },
       {
-        "model3dEntity": "sphere_matcap_metal",
+        "model3dSource": "sphere_matcap_metal",
         "position": { "x": 12, "y": 2, "z": 2 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["matcap", "metal"]
       },
       {
-        "model3dEntity": "cube_standard_wood",
+        "model3dSource": "cube_standard_wood",
         "position": { "x": 0, "y": 2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["standard", "wood"]
       },
       {
-        "model3dEntity": "cube_physical_wood",
+        "model3dSource": "cube_physical_wood",
         "position": { "x": 2, "y": 2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["physical", "wood"]
       },
       {
-        "model3dEntity": "cube_basic_wood",
+        "model3dSource": "cube_basic_wood",
         "position": { "x": 4, "y": 2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["basic", "wood"]
       },
       {
-        "model3dEntity": "cube_phong_wood",
+        "model3dSource": "cube_phong_wood",
         "position": { "x": 6, "y": 2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["phong", "wood"]
       },
       {
-        "model3dEntity": "cube_lambert_wood",
+        "model3dSource": "cube_lambert_wood",
         "position": { "x": 8, "y": 2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["lambert", "wood"]
       },
       {
-        "model3dEntity": "cube_toon_wood",
+        "model3dSource": "cube_toon_wood",
         "position": { "x": 10, "y": 2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["toon", "wood"]
       },
       {
-        "model3dEntity": "cube_matcap_wood",
+        "model3dSource": "cube_matcap_wood",
         "position": { "x": 12, "y": 2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["matcap", "wood"]
       },
       {
-        "model3dEntity": "sphere_standard_glass",
+        "model3dSource": "sphere_standard_glass",
         "position": { "x": 0, "y": 2, "z": -2 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["standard", "glass"]
       },
       {
-        "model3dEntity": "sphere_physical_glass",
+        "model3dSource": "sphere_physical_glass",
         "position": { "x": 2, "y": 2, "z": -2 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["physical", "glass"]
       },
       {
-        "model3dEntity": "sphere_basic_glass",
+        "model3dSource": "sphere_basic_glass",
         "position": { "x": 4, "y": 2, "z": -2 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["basic", "glass"]
       },
       {
-        "model3dEntity": "sphere_phong_glass",
+        "model3dSource": "sphere_phong_glass",
         "position": { "x": 6, "y": 2, "z": -2 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["phong", "glass"]
       },
       {
-        "model3dEntity": "sphere_lambert_glass",
+        "model3dSource": "sphere_lambert_glass",
         "position": { "x": 8, "y": 2, "z": -2 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["lambert", "glass"]
       },
       {
-        "model3dEntity": "sphere_toon_glass",
+        "model3dSource": "sphere_toon_glass",
         "position": { "x": 10, "y": 2, "z": -2 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["toon", "glass"]
       },
       {
-        "model3dEntity": "sphere_matcap_glass",
+        "model3dSource": "sphere_matcap_glass",
         "position": { "x": 12, "y": 2, "z": -2 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["matcap", "glass"]
       },
       {
-        "model3dEntity": "sphere_standard_textile",
+        "model3dSource": "sphere_standard_textile",
         "position": { "x": 0, "y": 2, "z": -4 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["standard", "textile"]
       },
       {
-        "model3dEntity": "sphere_physical_textile",
+        "model3dSource": "sphere_physical_textile",
         "position": { "x": 2, "y": 2, "z": -4 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["physical", "textile"]
       },
       {
-        "model3dEntity": "sphere_basic_textile",
+        "model3dSource": "sphere_basic_textile",
         "position": { "x": 4, "y": 2, "z": -4 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["basic", "textile"]
       },
       {
-        "model3dEntity": "sphere_phong_textile",
+        "model3dSource": "sphere_phong_textile",
         "position": { "x": 6, "y": 2, "z": -4 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["phong", "textile"]
       },
       {
-        "model3dEntity": "sphere_lambert_textile",
+        "model3dSource": "sphere_lambert_textile",
         "position": { "x": 8, "y": 2, "z": -4 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["lambert", "textile"]
       },
       {
-        "model3dEntity": "sphere_toon_textile",
+        "model3dSource": "sphere_toon_textile",
         "position": { "x": 10, "y": 2, "z": -4 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["toon", "textile"]
       },
       {
-        "model3dEntity": "sphere_matcap_textile",
+        "model3dSource": "sphere_matcap_textile",
         "position": { "x": 12, "y": 2, "z": -4 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["matcap", "textile"]

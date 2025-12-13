@@ -56,7 +56,7 @@
     "actors": [
       {
         "name": "sphere_actor",
-        "model3dEntity": "sphere_model",
+        "model3dSource": "sphere_model",
         "position": { "x": 0, "y": 2, "z": 0 },
         "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": true },

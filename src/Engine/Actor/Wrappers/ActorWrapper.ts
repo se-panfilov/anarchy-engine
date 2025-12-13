@@ -15,7 +15,7 @@ import { withReactivePosition, withReactiveRotation, withSpatial, withUpdateSpat
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 export function ActorWrapper(params: TActorParams, { kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService }: TActorDependencies): TActorWrapper {
-  const facade: TModel3dFacade = params.model3dEntity;
+  const facade: TModel3dFacade = params.model3dSource;
   const entity: Group | Mesh | Object3D = facade.getModel();
 
   // TODO 8.0.0. MODELS: MATERIAL MIXIN: decide what to do with this mixin
