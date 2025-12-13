@@ -11,6 +11,7 @@ import type { IWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined, isString } from '@/Engine/Utils';
 import type { IColor, ICubeTexture, ITexture } from '@/Engine/Wrappers';
 import { ColorWrapper } from '@/Engine/Wrappers';
+import { withObject3d } from '@/Engine/Mixins';
 
 export function SceneWrapper(params: ISceneParams): ISceneWrapper {
   const entity: IWriteable<Scene> = new Scene();
@@ -43,5 +44,5 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
     return entity.background;
   }
 
-  return { ...wrapper, add, addActor, addCamera, addLight, addText, setBackground, getBackground, entity };
+  return { ...wrapper, add, addActor, addCamera, addLight, addText, setBackground, getBackground, ...withObject3d(entity), entity };
 }

@@ -1,3 +1,4 @@
+export * from './ISceneAccessors';
 export * from './ISceneConfig';
 export * from './ISceneFactory';
 export * from './ISceneObject';
