@@ -15,9 +15,6 @@ export function TextureService(resourcesRegistry: TTextureAsyncRegistry): TTextu
   return {
     loadAsync: texturesLoader.loadAsync,
     loadFromConfigAsync: texturesLoader.loadFromConfigAsync,
-    // TODO 9.0.0. RESOURCES: are we gonna use somewhere "loadMaterialPack" and "loadList"?
-    // loadList,
-    // loadMaterialPack,
     getResourceRegistry: (): TTextureAsyncRegistry => resourcesRegistry,
     ...destroyable
   };
