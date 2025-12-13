@@ -7,13 +7,12 @@ import { AbstractService } from '@/Engine/Abstract';
 import type { TGameKey, TKeyboardLoop, TKeyboardPressingEvent, TKeyboardRegistry, TKeyboardRegistryValues, TKeyboardService, TKeyCombo, TKeySubscription } from '@/Engine/Keyboard/Models';
 import { KeyboardRegistry } from '@/Engine/Keyboard/Registries';
 import type { TDelta } from '@/Engine/Loop';
-import type { TDisposable } from '@/Engine/Mixins';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
   const keyboardRegistry: TKeyboardRegistry = KeyboardRegistry();
-  const disposable: ReadonlyArray<TDisposable> = [keyboardRegistry];
-  const abstractService: TAbstractService = AbstractService(disposable);
+  // Do not add keyboardRegistry to disposable, because we may need to manually destroy entities.
+  const abstractService: TAbstractService = AbstractService();
 
   function createKeySubscriptions(key: TGameKey | TKeyCombo): TKeySubscription {
     const subscriptions: TKeyboardRegistryValues | undefined = keyboardRegistry.findByKey(key);
@@ -51,7 +50,12 @@ export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
         filter((): boolean => isDefined(pressedKey)),
         map((v: TDelta): [TDelta, TGameKey | TKeyCombo] => [v, pressedKey as TGameKey | TKeyCombo])
       )
-      .subscribe(([delta, pressedKey]: [TDelta, TGameKey | TKeyCombo]): void => pressing$.next({ key: pressedKey, delta }));
+      .subscribe(([delta, pressedKey]: [TDelta, TGameKey | TKeyCombo]): void =>
+        pressing$.next({
+          key: pressedKey,
+          delta
+        })
+      );
 
     if (isCombo) {
       bindKeyCombo(key, {
@@ -77,7 +81,11 @@ export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
       });
     }
 
-    return { pressed$: pressed$.asObservable(), pressing$: pressing$.asObservable(), released$: released$.asObservable() };
+    return {
+      pressed$: pressed$.asObservable(),
+      pressing$: pressing$.asObservable(),
+      released$: released$.asObservable()
+    };
   }
 
   const pauseKeyBinding = (key: TGameKey): void => unbindKey(key);
@@ -85,7 +93,7 @@ export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
   const resumeKeyBinding = (key: TGameKey): void => void bind(key, false);
   const resumeKeyComboBinding = (combo: TKeyCombo): void => void bind(combo, true);
 
-  function removeBinding(key: TGameKey | TKeyCombo, isCombo: boolean): void {
+  function removeBinding(key: TGameKey | TKeyCombo, isCombo: boolean, skipValidation: boolean = false): void {
     if (isCombo) {
       unbindKeyCombo(key);
     } else {
@@ -93,23 +101,24 @@ export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
     }
 
     const subjects: TKeyboardRegistryValues | undefined = keyboardRegistry.findByKey(key);
-    if (isNotDefined(subjects)) throw new Error(`Cannot remove key "${key}": it's not in the registry`);
-    subjects.pressed$.complete();
-    subjects.pressing$.complete();
-    subjects.released$.complete();
+    if (isNotDefined(subjects) && !skipValidation) throw new Error(`Cannot remove key "${key}": it's not in the registry`);
+    if (isNotDefined(subjects) && skipValidation) return;
+    subjects?.pressed$.complete();
+    subjects?.pressing$.complete();
+    subjects?.released$.complete();
     keyboardRegistry.remove(key);
   }
 
   const removeKeyBinding = (key: TGameKey): void => removeBinding(key, false);
   const removeKeyComboBinding = (key: TKeyCombo): void => removeBinding(key, true);
 
-  // TODO 14-0-0: Validate that we unbind all keys on destroy (and combos) and finish pressed$, pressing$ and released$
   const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     Object.keys(keyboardRegistry.asObject()).forEach((val: string): void => {
-      removeBinding(val, false);
-      removeBinding(val, true);
+      removeBinding(val, false, true);
+      removeBinding(val, true, true);
     });
 
+    keyboardRegistry.destroy$.next();
     destroySub$.unsubscribe();
   });
 
