@@ -3,7 +3,7 @@ import type { Vector } from '@dimforge/rapier3d/math';
 import { Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorService, TActorWrapperAsync, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorService, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { ActorType, buildSpaceFromConfig, CollisionShape, Engine, isNotDefined, KeysExtra, MaterialType, RigidBodyTypesNames, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -12,10 +12,12 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { physicsLoopService, physicsWorldService, actorService, loopService } = space.services;
+  const { physicsLoopService, physicsWorldService, actorService, controlsService } = space.services;
 
   function init(): void {
     // physicsWorldService.getDebugRenderer(loopService).start();
+
+    controlsService.findActive()?.entity.target.set(0, 10, 0);
 
     const wold: World | undefined = physicsWorldService.getWorld();
     if (isNotDefined(wold)) throw new Error('World is not defined');
@@ -81,8 +83,7 @@ async function buildBlock(halfExtents: Vector, shift: Vector, numX: number, numY
         // once = false;
         const z: number = i % 2 == 0 ? dim.z * k * 2.0 : spacing * k * 2.0;
         // Build the rigid body.
-
-        const actor: TActorWrapperAsync = await actorService.createAsync({
+        await actorService.createAsync({
           name: `block-${i}-${j}`,
           type: ActorType.Cube,
           width: dim.x * 2,
@@ -96,18 +97,13 @@ async function buildBlock(halfExtents: Vector, shift: Vector, numX: number, numY
               hx: dim.x,
               hy: dim.y,
               hz: dim.z
-            }
+            },
+            position: Vector3Wrapper({ x: x + dim.x + shift.x, y: y + dim.y + shift.y, z: z + dim.z + shift.z })
           },
+          position: Vector3Wrapper({ x: x + dim.x + shift.x, y: y + dim.y + shift.y, z: z + dim.z + shift.z }),
           castShadow: true,
           tags: []
         });
-
-        actor.setPosition(Vector3Wrapper({ x: x + dim.x + shift.x, y: y + dim.y + shift.y, z: z + dim.z + shift.z }));
-        actor.physicsBody?.getRigidBody()?.setTranslation({ x: x + dim.x + shift.x, y: y + dim.y + shift.y, z: z + dim.z + shift.z } satisfies Vector, true);
-        // const bodyDesc: RigidBodyDesc = RigidBodyDesc.dynamic().setTranslation(x + dim.x + shift.x, y + dim.y + shift.y, z + dim.z + shift.z);
-        // const body: RigidBody = world.createRigidBody(bodyDesc);
-        // const colliderDesc: ColliderDesc = ColliderDesc.cuboid(dim.x, dim.y, dim.z);
-        // world.createCollider(colliderDesc, body);
       }
     }
   }
@@ -120,7 +116,7 @@ async function buildBlock(halfExtents: Vector, shift: Vector, numX: number, numY
     // eslint-disable-next-line functional/no-loop-statements
     for (j = 0; j < blockWidth / (dim.z * 2.0); ++j) {
       // Build the rigid body.
-      const actor2 = await actorService.createAsync({
+      await actorService.createAsync({
         name: `block-${i}-${j}`,
         type: ActorType.Cube,
         width: dim.x * 2,
@@ -134,23 +130,13 @@ async function buildBlock(halfExtents: Vector, shift: Vector, numX: number, numY
             hx: dim.x,
             hy: dim.y,
             hz: dim.z
-          }
-          // position: Vector3Wrapper({ x: -4, y: 4, z: 3 }),
-          // rotation: Vector4Wrapper({ x: 0, y: 0, z: 0, w: 1 })
+          },
+          position: Vector3Wrapper({ x: i * dim.x * 2.0 + dim.x + shift.x, y: dim.y + shift.y + blockHeight, z: j * dim.z * 2.0 + dim.z + shift.z })
         },
-        // position: Vector3Wrapper({ x: -4, y: 4, z: 3 }),
-        // rotation: EulerWrapper({ x: 0, y: 0, z: 0 }),
+        position: Vector3Wrapper({ x: i * dim.x * 2.0 + dim.x + shift.x, y: dim.y + shift.y + blockHeight, z: j * dim.z * 2.0 + dim.z + shift.z }),
         castShadow: true,
         tags: []
       });
-
-      actor2.setPosition(Vector3Wrapper({ x: i * dim.x * 2.0 + dim.x + shift.x, y: dim.y + shift.y + blockHeight, z: j * dim.z * 2.0 + dim.z + shift.z }));
-      actor2.physicsBody?.getRigidBody()?.setTranslation({ x: i * dim.x * 2.0 + dim.x + shift.x, y: dim.y + shift.y + blockHeight, z: j * dim.z * 2.0 + dim.z + shift.z } satisfies Vector, true);
-
-      // const bodyDesc: RigidBodyDesc = RigidBodyDesc.dynamic().setTranslation(i * dim.x * 2.0 + dim.x + shift.x, dim.y + shift.y + blockHeight, j * dim.z * 2.0 + dim.z + shift.z);
-      // const body: RigidBody = world.createRigidBody(bodyDesc);
-      // const colliderDesc: ColliderDesc = ColliderDesc.cuboid(dim.x, dim.y, dim.z);
-      // world.createCollider(colliderDesc, body);
     }
   }
 }
