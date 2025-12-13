@@ -2,7 +2,7 @@
   "name": "showcases-menu",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.6.1",
+  "version": "1.6.2",
   "type": "module",
   "license": "MIT",
   "description": "Anarchy Showcases-Menu – a menu for Anarchy Engine Showcases.",
