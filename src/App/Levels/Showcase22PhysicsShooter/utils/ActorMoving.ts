@@ -6,19 +6,10 @@ import type { TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TKe
 import { getAzimuthRadFromDirection, getElevationRadFromDirection, KeyCode } from '@/Engine';
 
 type TMoveKeysState = Readonly<{ Forward: boolean; Left: boolean; Right: boolean; Backward: boolean }>;
-type TActorMovingParams = Readonly<{ speed: number; azimuthAngleDeviationRad: TRadians; toSideAzimuthRad: TRadians; toBackwardAzimuthRad: TRadians }>;
-type TActorMoveState = Readonly<{ currentSpeed: number; azimuthDeviationLeftRad: TRadians; azimuthDeviationRightRad: TRadians; azimuthDeviationBackwardRad: TRadians }>;
 
 export function startMoveActorWithKeyboard(actorW: TActorWrapperAsync, keyboardService: TKeyboardService, mouseLineIntersectionsWatcher: TIntersectionsWatcher): void {
   let keyStates: TMoveKeysState = { Forward: false, Left: false, Right: false, Backward: false };
   let baseAzimuthRad: TRadians = 0;
-
-  const actorMovingParams: TActorMovingParams = {
-    speed: 5,
-    azimuthAngleDeviationRad: degToRad(45),
-    toSideAzimuthRad: degToRad(90),
-    toBackwardAzimuthRad: degToRad(180)
-  };
 
   keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => void (keyStates = { ...keyStates, Forward: true }));
   keyboardService.onKey(KeyCode.A).pressed$.subscribe((): void => void (keyStates = { ...keyStates, Left: true }));
@@ -39,13 +30,8 @@ export function startMoveActorWithKeyboard(actorW: TActorWrapperAsync, keyboardS
 
   // TODO (S.Panfilov) DEBUG: remove. Testing kinematic movement
   setInterval(() => {
-    const state: TActorMoveState = getActorMoveState(keyStates, actorMovingParams);
-    actorW.kinematic.setLinearSpeed(state.currentSpeed);
-    actorW.kinematic.setLinearAzimuthRad(baseAzimuthRad + state.azimuthDeviationLeftRad + state.azimuthDeviationRightRad + state.azimuthDeviationBackwardRad);
-    console.log(
-      radToDeg(baseAzimuthRad + state.azimuthDeviationLeftRad + state.azimuthDeviationRightRad + state.azimuthDeviationBackwardRad),
-      `${keyStates.Forward ? 'Forward' : ''} ${keyStates.Left ? 'Left' : ''} ${keyStates.Right ? 'Right' : ''} ${keyStates.Backward ? 'Backward' : ''}`.trim()
-    );
+    actorW.kinematic.setLinearSpeed(getActorMoveSpeed(keyStates, 5, 4, 3));
+    actorW.kinematic.setLinearAzimuthRad(getActorMoveDirection(keyStates));
   }, 40);
 }
 
@@ -57,29 +43,50 @@ function getMouseAzimuthAndElevation(mousePosition: Vector3, playerPosition: Vec
   return { azimuth, elevation };
 }
 
-function getActorMoveState(keyStates: TMoveKeysState, { speed, azimuthAngleDeviationRad, toSideAzimuthRad, toBackwardAzimuthRad }: TActorMovingParams): TActorMoveState {
-  let currentSpeed: number = 0;
-  let azimuthDeviationLeftRad: TRadians = 0;
-  let azimuthDeviationRightRad: TRadians = 0;
-  let azimuthDeviationBackwardRad: TRadians = 0;
+function getActorMoveSpeed(keyStates: TMoveKeysState, forwardSpeed: number, sideWalkSpeed: number, backwardSped: number): number {
+  const { Forward, Backward, Left, Right } = keyStates;
 
-  //moving any direction but not forward and backward at the same time
-  if ((keyStates.Forward || keyStates.Left || keyStates.Right || keyStates.Backward) && !(keyStates.Forward && keyStates.Backward)) currentSpeed = speed;
-  //moving forward and left or backward and left
-  if ((keyStates.Forward && keyStates.Left) || (keyStates.Backward && keyStates.Left)) azimuthDeviationLeftRad = -azimuthAngleDeviationRad;
-  //moving forward and right or backward and right
-  if ((keyStates.Forward && keyStates.Right) || (keyStates.Backward && keyStates.Right)) azimuthDeviationRightRad = azimuthAngleDeviationRad;
-  //moving just left (not forward/backward + left)
-  if ((!keyStates.Forward && keyStates.Left) || (!keyStates.Backward && keyStates.Left)) azimuthDeviationLeftRad = -toSideAzimuthRad;
-  //moving just right (not forward/backward + right)
-  if ((!keyStates.Forward && keyStates.Right) || (!keyStates.Backward && keyStates.Right)) azimuthDeviationRightRad = toSideAzimuthRad;
-  //moving just backward (not backward + left/right)
-  if (((keyStates.Backward && !keyStates.Left) || (keyStates.Backward && !keyStates.Right)) && !keyStates.Forward) azimuthDeviationBackwardRad = toBackwardAzimuthRad;
-  //trying to move forward and backward at the same time
-  if (keyStates.Forward && keyStates.Backward) {
-    currentSpeed = 0;
-    azimuthDeviationBackwardRad = 0;
-  }
+  //just forward
+  if (Forward && !Backward && !Left && !Right) return forwardSpeed;
+  //just backward
+  if (!Forward && Backward && !Left && !Right) return backwardSped;
+  //just left
+  if (!Forward && !Backward && Left && !Right) return sideWalkSpeed;
+  //just right
+  if (!Forward && !Backward && !Left && Right) return sideWalkSpeed;
 
-  return { currentSpeed, azimuthDeviationLeftRad, azimuthDeviationRightRad, azimuthDeviationBackwardRad };
+  //forward and left
+  if (Forward && !Backward && Left && !Right) return (forwardSpeed + sideWalkSpeed) / 2;
+  //forward and right
+  if (Forward && !Backward && !Left && Right) return (forwardSpeed + sideWalkSpeed) / 2;
+  //backward and left
+  if (!Forward && Backward && Left && !Right) return (backwardSped + sideWalkSpeed) / 2;
+  //backward and right
+  if (!Forward && Backward && !Left && Right) return (backwardSped + sideWalkSpeed) / 2;
+
+  return 0;
+}
+
+function getActorMoveDirection(keyStates: TMoveKeysState): TRadians {
+  const { Forward, Backward, Left, Right } = keyStates;
+
+  //just forward
+  if (Forward && !Backward && !Left && !Right) return degToRad(0);
+  //just backward
+  if (!Forward && Backward && !Left && !Right) return degToRad(180);
+  //just left
+  if (!Forward && !Backward && Left && !Right) return degToRad(-90);
+  //just right
+  if (!Forward && !Backward && !Left && Right) return degToRad(90);
+
+  //forward and left
+  if (Forward && !Backward && Left && !Right) return degToRad(-45);
+  //forward and right
+  if (Forward && !Backward && !Left && Right) return degToRad(45);
+  //backward and left
+  if (!Forward && Backward && Left && !Right) return degToRad(225);
+  //backward and right
+  if (!Forward && Backward && !Left && Right) return degToRad(135);
+
+  return 0;
 }
