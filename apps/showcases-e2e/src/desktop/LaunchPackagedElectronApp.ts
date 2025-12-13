@@ -8,7 +8,7 @@ export async function launchPackagedElectronApp(): Promise<TDesktopAppLaunchResu
   const executablePath: string | undefined = process.env.DESKTOP_E2E_APP_PATH;
   if (!executablePath) throw new Error('DESKTOP_E2E_APP_PATH env variable is required for packaged Electron tests');
 
-  const args = [`--width=${VIEWPORT.width}`, `--height=${VIEWPORT.height}`, '--fullscreen=false'];
+  const args = [`--width=${VIEWPORT.width}`, `--height=${VIEWPORT.height}`, '--fullscreen=false', '--dev-tools=false'];
   console.log('[E2E] Desktop app launched with args:', args.join(','));
 
   const electronApp: ElectronApplication = await electron.launch({

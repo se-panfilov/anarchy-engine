@@ -8,11 +8,19 @@ import { platformApiChannel } from '@Showcases/Shared';
 import type { BrowserWindow, IpcMainInvokeEvent } from 'electron';
 import { app, ipcMain } from 'electron';
 
+const isDevToolsStr: string = app.commandLine.getSwitchValue('dev-tools');
+
+console.log('XXX isDevToolsStr', isDevToolsStr);
+console.log("XXX isDevToolsStr === 'true'", isDevToolsStr === 'true');
+console.log('XXX import.meta.env.VITE_IS_DEV_TOOL_OPEN', import.meta.env.VITE_IS_DEV_TOOL_OPEN);
+console.log("XXX import.meta.env.VITE_IS_DEV_TOOL_OPEN === 'true'", import.meta.env.VITE_IS_DEV_TOOL_OPEN === 'true');
+
 const desktopAppSettings: TDesktopAppConfig = {
-  isOpenDevTools: true
+  isOpenDevTools: isDevToolsStr === 'true' || import.meta.env.VITE_IS_DEV_TOOL_OPEN === 'true' || false
 };
 
-// TODO DESKTOP: We need e2e eventually
+console.log('XXX desktopAppSettings.isOpenDevTools', desktopAppSettings.isOpenDevTools);
+
 // TODO DESKTOP: Linux: make sure we can build the project
 // TODO DESKTOP: Build every platform-version on any machine (use docker or something)
 // TODO DESKTOP: Steam integration (manifest, cloud_sync.vdf, cloud saves, achievements, layer, etc.)
