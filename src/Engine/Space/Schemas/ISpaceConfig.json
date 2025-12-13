@@ -2942,17 +2942,41 @@
       "enum": ["Ambient", "Directional", "Point", "Hemisphere", "RectArea", "Spot"]
     },
     "IHemisphereLightConfig": {
-      "$ref": "#/definitions/IAbstractLightConfig%3CIHemisphereLightProps%3E"
-    },
-    "IAbstractLightConfig<IHemisphereLightProps>": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "groundColor": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/LightType"
+        },
+        "intensity": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "shadow": {
+          "$ref": "#/definitions/LightShadowConfig"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
         },
         "layers": {
           "type": "number"
@@ -2972,38 +2996,11 @@
         "scale": {
           "$ref": "#/definitions/IWithCoordsXYZ"
         },
-        "visible": {
-          "type": "boolean"
-        },
-        "castShadow": {
-          "type": "boolean"
-        },
-        "receiveShadow": {
-          "type": "boolean"
-        },
-        "frustumCulled": {
-          "type": "boolean"
-        },
-        "renderOrder": {
-          "type": "number"
-        },
-        "color": {
-          "type": "string"
-        },
-        "shadow": {
-          "$ref": "#/definitions/LightShadowConfig"
-        },
-        "type": {
-          "$ref": "#/definitions/LightType"
-        },
-        "intensity": {
-          "type": "number"
-        },
-        "name": {
-          "type": "string"
-        },
-        "groundColor": {
-          "$ref": "#/definitions/Color"
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["color", "groundColor", "position", "tags", "type"]

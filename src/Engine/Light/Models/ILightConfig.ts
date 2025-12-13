@@ -20,7 +20,7 @@ export type IAbstractLightConfig<T extends Readonly<{ color: Color; shadow?: ILi
   IWithReadonlyTags;
 
 export type IAmbientLightConfig = IAbstractLightConfig<IAmbientLightProps>;
-export type IHemisphereLightConfig = IAbstractLightConfig<IHemisphereLightProps>;
+export type IHemisphereLightConfig = Omit<IAbstractLightConfig<IHemisphereLightProps>, 'groundColor'> & Readonly<{ groundColor: string }>;
 export type IDirectionalLightConfig = IAbstractLightConfig<IDirectionalLightProps>;
 export type IPointLightConfig = IAbstractLightConfig<IPointLightProps>;
 export type IRectAreaLightConfig = IAbstractLightConfig<IRectAreaLightProps>;
