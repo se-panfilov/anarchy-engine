@@ -53,7 +53,7 @@ export function Actor(
     withUpdateSpatialCell()
   );
 
-  const actor: TActor = Object.assign(AbstractEntity(entities, EntityType.Actor, { name: params.name, id }), {
+  const actor: TActor = Object.assign(AbstractEntity(entities, EntityType.Actor, { name: params.name, tags: params.tags, id }), {
     serialize: (dependencies: TActorEntityToConfigDependencies): TActorConfig => actorToConfig(actor, dependencies),
     getModel3dSettings: (): TActorModel3dSettingsConfig | undefined => params.model3dSettings
   });
