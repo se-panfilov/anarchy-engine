@@ -1,6 +1,6 @@
 import { afterEach, expect, it } from 'vitest';
 
-import type { TEntitiesService } from '@/Engine/Abstract';
+import type { TAbstractService } from '@/Engine/Abstract';
 import type { TRegistrable, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 import type { TWriteable } from '@/Engine/Utils';
 
@@ -11,7 +11,7 @@ function expectSame<T>(a: T | undefined, b: T | undefined): void {
   expect(a).toEqual(b);
 }
 
-type TAnyMockService<T, P> = TEntitiesService & TWithCreateService<T, P> & TWithFactoryService<any, any, any, any> & TWithRegistryService<any>;
+type TAnyMockService<T, P> = TAbstractService & TWithCreateService<T, P> & TWithFactoryService<any, any, any, any> & TWithRegistryService<any>;
 
 export function validateCommonServiceBehavior<T extends TRegistrable, P>(
   getData: () => Promise<{
