@@ -1,11 +1,10 @@
 import { nanoid } from 'nanoid';
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, EMPTY, Subject, switchMap, takeWhile, withLatestFrom } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, EMPTY, Subject, switchMap, takeWhile } from 'rxjs';
 
-import { LoopTrigger, LoopUpdatePriority, LoopWorkerActions } from '@/Engine/Loop/Constants';
+import { LoopTrigger, LoopUpdatePriority, LoopWorkerActions, MaxTicks } from '@/Engine/Loop/Constants';
 import type { TDelta, TDeltaCalculator, TLoop, TLoopParams, TLoopTriggerFn, TLoopWorkerResponseData, TLoopWorkerStartRequestData, TLoopWorkerStopRequestData } from '@/Engine/Loop/Models';
 import { enableFPSCounter } from '@/Engine/Loop/Utils';
-import type { TMilliseconds } from '@/Engine/Math';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
@@ -16,8 +15,7 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
   const id: string = `${nanoid()}_${type}`;
   const enabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   const tick$: Subject<TDelta> = new Subject<TDelta>();
-  const initialPriority: number = maxPriority ?? LoopUpdatePriority.ASAP;
-  const priority$: BehaviorSubject<number> = new BehaviorSubject<number>(initialPriority);
+  let tickCounter: number = 0;
 
   let worker: Worker | null = null;
   const isTriggerFn: boolean = typeof trigger === 'function';
@@ -33,12 +31,14 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
     worker.onmessage = ({ data }: MessageEvent<TLoopWorkerResponseData>): void => tick$.next(data.delta);
   }
 
-  const loopSub$: Subscription = tick$
-    .pipe(
-      takeWhile((): boolean => maxPriority !== undefined),
-      withLatestFrom(priority$)
-    )
-    .subscribe(([, priority]: [TMilliseconds, number]): void => priority$.next(priority === 0 ? initialPriority : priority - 1));
+  const loopSub$: Subscription = tick$.pipe(takeWhile((): boolean => maxPriority !== undefined)).subscribe((): void => {
+    tickCounter = (tickCounter + 1) % MaxTicks;
+  });
+
+  function shouldUpdateWithPriority(priority: LoopUpdatePriority): boolean {
+    const period: number = 1 << (LoopUpdatePriority.ASAP - priority);
+    return (tickCounter & (period - 1)) === 0;
+  }
 
   const tickSub$: Subscription = enabled$
     .pipe(switchMap((isEnabled: boolean): Subject<TDelta> | Observable<never> => (isEnabled && !isParallelMode && isTriggerFn ? tick$ : EMPTY)))
@@ -77,8 +77,6 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
     tick$.unsubscribe();
     enabled$.complete();
     enabled$.unsubscribe();
-    priority$.complete();
-    priority$.unsubscribe();
 
     if (isDefined(intervalId)) clearInterval(intervalId);
 
@@ -98,7 +96,7 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
     start: (): void => void enabled$.next(true),
     stop: (): void => void enabled$.next(false),
     enabled$,
-    priority$,
+    shouldUpdateWithPriority,
     ...destroyable
   };
 }

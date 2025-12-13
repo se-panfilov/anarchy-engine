@@ -1,7 +1,7 @@
 import type { BehaviorSubject } from 'rxjs';
 
 import type { TAbstractLoop } from '@/Engine/Abstract';
-import type { LoopTrigger, LoopType } from '@/Engine/Loop/Constants';
+import type { LoopTrigger, LoopType, LoopUpdatePriority } from '@/Engine/Loop/Constants';
 import type { TDestroyable, TRegistrable, TWithName } from '@/Engine/Mixins';
 
 import type { TDelta } from './TDelta';
@@ -16,7 +16,7 @@ export type TLoop = TAbstractLoop<TDelta> &
     start: () => void;
     stop: () => void;
     enabled$: BehaviorSubject<boolean>;
-    priority$: BehaviorSubject<number>;
+    shouldUpdateWithPriority: (priority: LoopUpdatePriority) => boolean;
   }> &
   Omit<TRegistrable, 'name'> &
   TWithName &
