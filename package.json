@@ -6,7 +6,8 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "dev": "vite",
+    "start:dev": "vite",
+    "start:e2e": "vite --mode e2e --port 5073",
     "build": "rimraf ./dist tsc && vite build",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run check:ts-morph && npm run lint && unit:coverage",
     "before:release": "npm run before:release:check && clean:reinstall && generate:license-report && generate:all-licenses-list",
@@ -69,6 +70,7 @@
     "@typescript-eslint/parser": "8.31.0",
     "@vitest/coverage-v8": "3.1.2",
     "@vitest/ui": "3.1.2",
+    "dotenv": "16.5.0",
     "eslint": "9.25.1",
     "eslint-plugin-functional": "9.0.1",
     "eslint-plugin-import": "2.31.0",

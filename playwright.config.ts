@@ -1,4 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
+import * as dotenv from 'dotenv';
+import * as path from 'path';
 
 /**
  * Read environment variables from file.
@@ -7,6 +9,9 @@ import { defineConfig, devices } from '@playwright/test';
 // import dotenv from 'dotenv';
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
+
+// Load environment variables from .env.e2e file
+dotenv.config({ path: path.join(process.cwd(), '.env.e2e') });
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -69,12 +74,12 @@ export default defineConfig({
     //   name: 'Google Chrome',
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
-  ]
+  ],
 
   /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start:e2e',
-  //   url: 'http://127.0.0.1:3000',
-  //   reuseExistingServer: !process.env.CI
-  // }
+  webServer: {
+    command: 'npm run start:e2e',
+    url: `http://localhost:${process.env.PORT}`,
+    reuseExistingServer: !process.env.CI
+  }
 });
