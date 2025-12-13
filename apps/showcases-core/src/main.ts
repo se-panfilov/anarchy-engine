@@ -19,6 +19,9 @@ const settings: TAppSettings = {
   }
 };
 
+// TODO DESKTOP: Integrate Sentry for desktop app error tracking
+// TODO MOBILE: Integrate Sentry for mobile app error tracking
+
 if (__PLATFORM_MODE__ === 'production.web') WebErrorTrackingService().start();
 
 // TODO MOBILE: Detect user locale in mobile app and send it to the app settings (menu)
