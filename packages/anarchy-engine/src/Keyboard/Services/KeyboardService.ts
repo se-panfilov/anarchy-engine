@@ -31,6 +31,7 @@ export function KeyboardService(container: TContainerDecorator, keyWatcherFactor
   //  - ignore input fields
   //  - remove listeners on destroy
   //  - remove extra models
+  //  - send pressing event in keyboard loop (avoid deps on hardware)
 
   const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
