@@ -24,7 +24,6 @@ const spaceBetaConfig: TSpaceConfig = spaceBetaConfigJson as TSpaceConfig;
 const spaceGammaConfig: TSpaceConfig = spaceGammaConfigJson as TSpaceConfig;
 const spaceDeltaConfig: TSpaceConfig = spaceDeltaConfigJson as TSpaceConfig;
 
-// TODO 18-0-0 showcase broken
 export function start(flags: TAppFlags): void {
   createContainersDivs();
 

@@ -32,15 +32,7 @@
         "agent": "physics",
         "model3dSource": "cube_1_model",
         "name": "actor_2",
-        "physics": {
-          "collisionShape": "cuboid",
-          "shapeParams": {
-            "hx": 0.5,
-            "hy": 2,
-            "hz": 0.5
-          },
-          "type": "dynamic"
-        },
+        "physicsBodyName": "cube_1_model_physics",
         "position": {
           "x": -4,
           "y": 24,
@@ -177,13 +169,35 @@
       }
     ],
     "physics": {
-      "global": {
+      "world": {
         "gravity": {
           "x": 0,
           "y": -1,
           "z": 0
         }
-      }
+      },
+      "bodies": [
+        {
+          "name": "cube_1_model_physics",
+          "position": {
+            "x": 0,
+            "y": 10,
+            "z": 0
+          },
+          "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "collisionShape": "cuboid",
+          "shapeParams": {
+            "hx": 0.5,
+            "hy": 2,
+            "hz": 0.5
+          },
+          "type": "dynamic"
+        }
+      ]
     },
     "renderers": [
       {
