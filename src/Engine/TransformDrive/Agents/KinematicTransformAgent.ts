@@ -72,9 +72,6 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     getData(): TKinematicData {
       return agent.data;
     },
-    // TODO CWP
-    // TODO 8.0.0. MODELS: Refactor this code. It's working, but it's a mess atm.
-    // TODO 8.0.0. MODELS: with showcase multiple "moveTo" in the same direction increases the speed, while opposite directions stopped the model
     moveTo(targetPosition: Vector3, speed: TMetersPerSecond): void {
       if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
       if (speed === 0) return agent.setLinearSpeed(0);
@@ -89,7 +86,6 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       agent.setLinearSpeed(speed);
       return undefined;
     },
-    // TODO 8.0.0. MODELS: Refactor this code. It's working, but it's a mess atm.
     rotateTo(targetRotation: Quaternion, speed: TMetersPerSecond, radius: TMeters): void | never {
       if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
       if (speed === 0) return agent.setAngularSpeed(0);

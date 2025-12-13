@@ -6,21 +6,7 @@ import type { TShowcase } from '@/App/Levels/Models';
 import { createReactiveLineFromActor } from '@/App/Levels/Showcase25TransformDrive/Utils';
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TActorRegistry, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
-import {
-  ambientContext,
-  defaultMoverServiceConfig,
-  Easing,
-  Engine,
-  getMouseAzimuthAndElevation,
-  isNotDefined,
-  KeyCode,
-  LookUpStrategy,
-  metersPerSecond,
-  mpsSpeed,
-  spaceService,
-  TransformAgent
-} from '@/Engine';
-import { radians } from '@/Engine/Measurements/Utils';
+import { ambientContext, defaultMoverServiceConfig, Easing, Engine, isNotDefined, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
@@ -107,7 +93,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const folder: GUI = gui.addFolder('Mouse Actor');
     const mode = { isKinematicMouseActor: false };
-    folder.add(mode, 'isKinematicMouseActor').name('Mouse actor in kinematic mode');
+    folder.add(mode, 'isKinematicMouseActor').name('Mouse actor is in kinematic mode');
 
     clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [TMouseWatcherEvent, TIntersectionEvent]): void => {
       if (!mode.isKinematicMouseActor) {
@@ -115,11 +101,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         void moverService.goToPosition(actorMouse, { x: intersection.point.x, z: intersection.point.z }, { duration: 1000, easing: Easing.EaseInCubic });
       } else {
         if (actorMouse.drive.getActiveAgent().type !== TransformAgent.Kinematic) actorMouse.drive.agent$.next(TransformAgent.Kinematic);
-        const position: Vector3 = intersection.point.clone().add(new Vector3(0, 0, 0));
-        const azimuth: number = getMouseAzimuthAndElevation(position, actorMouse.drive.getPosition()).azimuth;
-
-        actorMouse.drive.kinematic.setLinearAzimuth(radians(azimuth));
-        actorMouse.drive.kinematic.setLinearSpeed(metersPerSecond(5));
+        const position: Vector3 = intersection.point.clone().add(new Vector3(0, 1.5, 0));
+        actorMouse.drive.kinematic.moveTo(position, metersPerSecond(15));
       }
     });
 
