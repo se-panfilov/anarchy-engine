@@ -1,9 +1,8 @@
 import type { TAbstractWatcherWithState } from '@Anarchy/Engine/Abstract';
 import { AbstractWatcherWithState, WatcherType } from '@Anarchy/Engine/Abstract';
 import { ContainerEvents } from '@Anarchy/Engine/Global';
-import type { TGameKey, TKeyComboWatcher, TKeyComboWatcherDependencies, TKeyComboWatcherParams, TKeysCombo } from '@Anarchy/Engine/Keyboard';
-import { KeyboardEventType } from '@Anarchy/Engine/Keyboard';
-import type { TKeyEvent } from '@Anarchy/Engine/Keyboard/Models/TKeyEvent';
+import { KeyboardEventType } from '@Anarchy/Engine/Keyboard/Constants';
+import type { TGameKey, TKeyComboWatcher, TKeyComboWatcherDependencies, TKeyComboWatcherParams, TKeyEvent, TKeysCombo } from '@Anarchy/Engine/Keyboard/Models';
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs';
 

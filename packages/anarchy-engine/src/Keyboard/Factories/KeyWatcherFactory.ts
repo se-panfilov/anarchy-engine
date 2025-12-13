@@ -1,7 +1,6 @@
 import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
-import type { TKeyComboWatcher, TKeyComboWatcherDependencies, TKeyComboWatcherParams } from '@Anarchy/Engine/Keyboard';
-import { KeyWatcherType } from '@Anarchy/Engine/Keyboard';
-import type { TKeyWatcher, TKeyWatcherFactory, TKeyWatcherParams } from '@Anarchy/Engine/Keyboard/Models';
+import { KeyWatcherType } from '@Anarchy/Engine/Keyboard/Constants';
+import type { TKeyComboWatcher, TKeyComboWatcherDependencies, TKeyComboWatcherParams, TKeyWatcher, TKeyWatcherFactory, TKeyWatcherParams } from '@Anarchy/Engine/Keyboard/Models';
 import { KeyPressWatcher, KeyReleaseWatcher } from '@Anarchy/Engine/Keyboard/Watchers';
 import { KeyComboWatcher } from '@Anarchy/Engine/Keyboard/Watchers/KeyComboWatcher';
 

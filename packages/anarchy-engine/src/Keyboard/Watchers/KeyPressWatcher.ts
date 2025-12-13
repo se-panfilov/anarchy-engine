@@ -1,8 +1,7 @@
 import type { TAbstractWatcher } from '@Anarchy/Engine/Abstract';
 import { AbstractWatcher, WatcherType } from '@Anarchy/Engine/Abstract';
-import type { TKeyWatcher } from '@Anarchy/Engine/Keyboard';
-import { KeyboardEventType } from '@Anarchy/Engine/Keyboard';
-import type { TKeyWatcherParams } from '@Anarchy/Engine/Keyboard/Models';
+import { KeyboardEventType } from '@Anarchy/Engine/Keyboard/Constants';
+import type { TKeyWatcher, TKeyWatcherParams } from '@Anarchy/Engine/Keyboard/Models';
 import { distinctUntilChanged, takeUntil } from 'rxjs';
 
 export function KeyPressWatcher({ container, tags }: TKeyWatcherParams): TKeyWatcher {

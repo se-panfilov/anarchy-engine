@@ -1,4 +1,4 @@
-import type { TKeyWatcher } from '@Anarchy/Engine/Keyboard';
+import type { TKeyWatcher } from './TKeyWatcher';
 
 export type TKeyComboWatcherDependencies = Readonly<{
   keyPressWatcher: TKeyWatcher;
