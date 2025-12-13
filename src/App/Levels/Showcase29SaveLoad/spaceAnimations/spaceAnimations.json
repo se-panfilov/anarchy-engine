@@ -39,6 +39,25 @@
           "grid": "main_grid",
           "isAutoUpdate": true
         }
+      },
+      {
+        "agent": "default",
+        "model3dSource": "solder_model_entity_2",
+        "name": "solder_actor_2",
+        "position": {
+          "x": -1.5,
+          "y": 0,
+          "z": 1.3
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0.8,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        }
       }
     ],
     "audio": [],
@@ -132,6 +151,12 @@
         "castShadow": true,
         "model3dSource": "solder_model",
         "name": "solder_model_entity_1"
+      },
+      {
+        "animationsSource": ["dance_anim"],
+        "castShadow": true,
+        "model3dSource": "solder_model",
+        "name": "solder_model_entity_2"
       }
     ],
     "particles": [],
