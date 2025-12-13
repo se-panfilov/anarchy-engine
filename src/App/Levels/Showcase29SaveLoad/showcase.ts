@@ -6,6 +6,7 @@ import type { Subscription } from 'rxjs';
 import { spaceBasicData } from '@/App/Levels/Showcase29SaveLoad/spaceBasic/spaceBasic';
 import { spaceCameraData } from '@/App/Levels/Showcase29SaveLoad/spaceCamera';
 import { spaceCustomModelsData } from '@/App/Levels/Showcase29SaveLoad/spaceCustomModels';
+import { SpaceFpsControlsData } from '@/App/Levels/Showcase29SaveLoad/spaceFpsControls';
 import { spaceLightData } from '@/App/Levels/Showcase29SaveLoad/spaceLight/spaceLight';
 import { spaceMaterialsData } from '@/App/Levels/Showcase29SaveLoad/spaceMaterials';
 import { SpaceOrbitControlsData } from '@/App/Levels/Showcase29SaveLoad/spaceOrbitControls';
@@ -31,7 +32,16 @@ const subscriptions: Record<string, Subscription> = {};
 // TODO 15-0-0: E2E: Complex scene (similar to Showcase22PhysicsShooter)
 
 // TODO 15-0-0: E2E: Perhaps serialization should return promise (cause it feels kinda async)
-const spacesData: ReadonlyArray<TSpacesData> = [spaceBasicData, spaceCustomModelsData, spaceTextData, spaceCameraData, spaceLightData, spaceMaterialsData, SpaceOrbitControlsData];
+const spacesData: ReadonlyArray<TSpacesData> = [
+  spaceBasicData,
+  spaceCustomModelsData,
+  spaceTextData,
+  spaceCameraData,
+  spaceLightData,
+  spaceMaterialsData,
+  SpaceOrbitControlsData,
+  SpaceFpsControlsData
+];
 
 const spacesInMemoryData: Array<TSpacesData> = [];
 
