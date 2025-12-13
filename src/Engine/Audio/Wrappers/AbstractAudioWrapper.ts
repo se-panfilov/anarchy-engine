@@ -102,7 +102,7 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
   });
 
   // eslint-disable-next-line functional/immutable-data
-  const result = Object.assign(wrapper, {
+  const result: TAbstractAudioWrapper<T> = Object.assign(wrapper, {
     play$,
     pause$,
     speed$,
@@ -113,8 +113,7 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
     volume$,
     listener$,
     // TODO 15-0-0: add serializer to the service to avoid dependencies passing
-    // TODO 15-0-0: remove any
-    serialize: (dependencies: TAudioConfigToParamsDependencies): TAnyAudioConfig => audioToConfig(result as any, dependencies)
+    serialize: (dependencies: TAudioConfigToParamsDependencies): TAnyAudioConfig => audioToConfig(result, dependencies)
   });
 
   return result;

@@ -1,9 +1,9 @@
-import type { TAnyAudioConfig, TAnyAudioWrapper, TAudio3dConfig, TAudioConfigToParamsDependencies } from '@/Engine/Audio/Models';
+import type { TAbstractAudioWrapper, TAnyAudio, TAnyAudioConfig, TAudio3dConfig, TAudioConfigToParamsDependencies } from '@/Engine/Audio/Models';
 import { isAudio3dWrapper } from '@/Engine/Audio/Utils';
 import { isNotDefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
-export function audioToConfig(entity: TAnyAudioWrapper, { audioResourceAsyncRegistry, audioListenersRegistry }: TAudioConfigToParamsDependencies): TAnyAudioConfig {
+export function audioToConfig<T extends TAnyAudio>(entity: TAbstractAudioWrapper<T>, { audioResourceAsyncRegistry, audioListenersRegistry }: TAudioConfigToParamsDependencies): TAnyAudioConfig {
   const { name, volume$, loop$, speed$, pause$, seek$ } = entity;
 
   const audio3dConfig: TAudio3dConfig = isAudio3dWrapper(entity)

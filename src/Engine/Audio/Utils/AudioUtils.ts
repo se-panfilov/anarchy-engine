@@ -2,13 +2,13 @@ import type { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, tap } from 'rxjs';
 import { Audio, PositionalAudio } from 'three';
 
-import type { TAnyAudio, TAnyAudioConfig, TAnyAudioParams, TAnyAudioWrapper, TAudio3dConfig, TAudio3dParams, TAudio3dWrapper, TAudioParams } from '@/Engine/Audio/Models';
+import type { TAbstractAudioWrapper, TAnyAudio, TAnyAudioConfig, TAnyAudioParams, TAnyAudioWrapper, TAudio3dConfig, TAudio3dParams, TAudio3dWrapper, TAudioParams } from '@/Engine/Audio/Models';
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { isDefined, isEqualOrSimilarByXyzCoords, isNotDefined } from '@/Engine/Utils';
 
 export const isAudio3dConfig = (config: TAnyAudioConfig): config is TAudio3dConfig => isDefined((config as TAudio3dConfig).position);
 export const isAudio3dParams = (config: TAnyAudioParams): config is TAudio3dParams => isDefined((config as TAudio3dParams).position);
-export const isAudio3dWrapper = (wrapper: TAnyAudioWrapper): wrapper is TAudio3dWrapper => isDefined((wrapper as TAudio3dWrapper).drive);
+export const isAudio3dWrapper = (wrapper: TAnyAudioWrapper | TAbstractAudioWrapper<any>): wrapper is TAudio3dWrapper => isDefined((wrapper as TAudio3dWrapper).drive);
 
 export function seekAudio(entity: TAnyAudio, time: number, shouldPlay: boolean): void {
   if (!entity.buffer) return;
