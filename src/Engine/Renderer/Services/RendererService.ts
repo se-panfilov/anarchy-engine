@@ -22,7 +22,9 @@ export function RendererService(factory: TRendererFactory, registry: TRendererRe
 
     factory.destroy$.next();
     registry.destroy$.next();
+
     withActive.active$.complete();
+    withActive.active$.unsubscribe();
   });
 
   return {

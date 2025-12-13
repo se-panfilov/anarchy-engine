@@ -24,6 +24,7 @@ export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry):
     factory.destroy$.next();
     registry.destroy$.next();
     withActive.active$.complete();
+    withActive.active$.unsubscribe();
   });
 
   return {

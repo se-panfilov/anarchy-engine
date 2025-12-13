@@ -31,7 +31,9 @@ export function ControlService(factory: TControlsFactory, registry: TControlsReg
 
     factory.destroy$.next();
     registry.destroy$.next();
+
     withActive.active$.complete();
+    withActive.active$.unsubscribe();
   });
 
   return {

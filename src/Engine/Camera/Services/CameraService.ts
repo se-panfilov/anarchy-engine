@@ -50,7 +50,10 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
 
     factory.destroy$.next();
     registry.destroy$.next();
+
     withActive.active$.complete();
+    withActive.active$.unsubscribe();
+
     screenSize$?.unsubscribe();
     screenSizeDestroy$.unsubscribe();
   });
