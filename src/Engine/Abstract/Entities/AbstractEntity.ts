@@ -7,8 +7,10 @@ import type { TDestroyable, TNoSpread, TRegistrable, TWithNameAndNameAccessorsMi
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import { isDefined } from '@/Engine/Utils';
 
+// TODO 13-0-0: AbstractEntity should do the same things that AbstractWrapper does
 // TODO 13-0-0: Services should have an abstract service with a common destroy$
 // TODO 13-0-0: Build destroy chain Services -> registries -> entities -> sub-entities
+// TODO 13-0-0: Test partial destroy of entities
 // TODO 13-0-0: Implement whole scene destroy (reload the page or destroy the canvas or smth)
 // TODO 13-0-0: Start implementing Multiple scenes support (14.x.x) (maybe with an url param?)
 
@@ -19,7 +21,6 @@ export function AbstractEntity<T extends Record<string, any>>(entities: T, type:
   const destroyable: TDestroyable = destroyableMixin();
 
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
-    // TODO 13-0-0: Do the same things that AbstractWrapper does
     destroySub$.unsubscribe();
     destroyable.destroy$.complete();
     destroyable.destroy$.unsubscribe();
