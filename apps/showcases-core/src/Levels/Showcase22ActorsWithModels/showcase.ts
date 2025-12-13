@@ -1,6 +1,6 @@
 import type { TFsmStates, TFsmWrapper, TKeysEvent, TModels3dResourceAsyncRegistry, TRegistryPack, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceServices } from '@Anarchy/Engine';
 import { KeyCode, SpaceEvents, spaceService } from '@Anarchy/Engine';
-import { isKeyPressed } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
+import { hasKey } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import { distinctUntilChanged } from 'rxjs';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -56,8 +56,8 @@ export function showcase(space: TSpace): void {
   });
 
   keys$.subscribe(({ keys }: TKeysEvent): void => {
-    const isWalk: boolean = isKeyPressed(KeyCode.W, keys);
-    const isRun: boolean = isWalk && isKeyPressed(KeyCode.ShiftLeft, keys);
+    const isWalk: boolean = hasKey(KeyCode.W, keys);
+    const isRun: boolean = isWalk && hasKey(KeyCode.ShiftLeft, keys);
     const action = isRun ? run : isWalk ? walk : idle;
     if (solder1AnimFsm.getState() !== action) solder1AnimFsm.send$.next(action);
   });

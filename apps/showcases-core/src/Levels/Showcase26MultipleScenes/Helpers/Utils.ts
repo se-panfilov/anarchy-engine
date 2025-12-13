@@ -1,6 +1,6 @@
 import type { TActor, TActorRegistry, TKeysPressingEvent, TParticlesWrapper, TSpace, TSpaceServices } from '@Anarchy/Engine';
 import { ambientContext, createDomElement, KeyCode, metersPerSecond, mpsSpeed } from '@Anarchy/Engine';
-import { isKeyPressed } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
+import { hasKey } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
 
 import type { TSubscriptionsData } from '@/Levels/Showcase26MultipleScenes/Helpers/TSubscriptionsData';
 import { addBtn } from '@/Utils';
@@ -46,10 +46,10 @@ export function driveByKeyboard(actorName: string, { actorService, keyboardServi
   const { pressing$ } = keyboardService;
 
   pressing$.subscribe(({ keys, delta }: TKeysPressingEvent): void => {
-    if (isKeyPressed(KeyCode.W, keys)) actor.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta));
-    if (isKeyPressed(KeyCode.A, keys)) actor.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta));
-    if (isKeyPressed(KeyCode.S, keys)) actor.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta));
-    if (isKeyPressed(KeyCode.D, keys)) actor.drive.default.addX(mpsSpeed(metersPerSecond(10), delta));
+    if (hasKey(KeyCode.W, keys)) actor.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta));
+    if (hasKey(KeyCode.A, keys)) actor.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta));
+    if (hasKey(KeyCode.S, keys)) actor.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta));
+    if (hasKey(KeyCode.D, keys)) actor.drive.default.addX(mpsSpeed(metersPerSecond(10), delta));
   });
 }
 

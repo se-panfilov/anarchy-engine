@@ -9,9 +9,9 @@ import type {
   TMouseService,
   TMouseWatcherEvent
 } from '@Anarchy/Engine';
-import { KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed } from '@Anarchy/Engine';
+import { isPressEvent, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed } from '@Anarchy/Engine';
 import type { TKeysEvent } from '@Anarchy/Engine/Keyboard/Models';
-import { isKeyInEvent, isKeyPressed } from '@Anarchy/Engine/Keyboard/Utils';
+import { hasKey, isKeyInEvent } from '@Anarchy/Engine/Keyboard/Utils';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import { withLatestFrom } from 'rxjs';
 import { Vector3 } from 'three';
@@ -46,20 +46,20 @@ export function initInputActors(
   const actorMkeyRight: TActor = getByTags(['mkey', 'Right'], Every);
   const actorMkeyMiddle: TActor = getByTags(['mkey', 'Middle'], Every);
 
-  keys$.subscribe(({ keys, event }: TKeysEvent): void => {
+  keys$.subscribe((event: TKeysEvent): void => {
     //true/false switches
-    if (isKeyInEvent(GoUp, event)) void actorKeyW.drive.default.addY(isKeyPressed(GoUp, keys) ? -0.2 : 0.2);
-    if (isKeyInEvent(GoLeft, event)) void actorKeyA.drive.default.addY(isKeyPressed(GoLeft, keys) ? -0.2 : 0.2);
-    if (isKeyInEvent(GoDown, event)) void actorKeyS.drive.default.addY(isKeyPressed(GoDown, keys) ? -0.2 : 0.2);
-    if (isKeyInEvent(GoRight, event)) void actorKeyD.drive.default.addY(isKeyPressed(GoRight, keys) ? -0.2 : 0.2);
+    if (isKeyInEvent(GoUp, event)) void actorKeyW.drive.default.addY(isPressEvent(event) ? -0.2 : 0.2);
+    if (isKeyInEvent(GoLeft, event)) void actorKeyA.drive.default.addY(isPressEvent(event) ? -0.2 : 0.2);
+    if (isKeyInEvent(GoDown, event)) void actorKeyS.drive.default.addY(isPressEvent(event) ? -0.2 : 0.2);
+    if (isKeyInEvent(GoRight, event)) void actorKeyD.drive.default.addY(isPressEvent(event) ? -0.2 : 0.2);
   });
 
   kinematicLoop.tick$.pipe(withLatestFrom(keys$)).subscribe(([delta, { keys }]) => {
     //continues movement while key is pressed
-    if (isKeyPressed(GoUp, keys)) actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta));
-    if (isKeyPressed(GoLeft, keys)) actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta));
-    if (isKeyPressed(GoDown, keys)) actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta));
-    if (isKeyPressed(GoRight, keys)) actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(10), delta));
+    if (hasKey(GoUp, keys)) actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta));
+    if (hasKey(GoLeft, keys)) actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta));
+    if (hasKey(GoDown, keys)) actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta));
+    if (hasKey(GoRight, keys)) actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(10), delta));
   });
 
   const watcherSurface: TIntersectionsCameraWatcher = intersectionsWatcherService.getCameraWatcher('watcher_surface');

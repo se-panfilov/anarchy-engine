@@ -1,5 +1,5 @@
-import type { TActor, TIntersectionEvent, TIntersectionsCameraWatcher, TKeyboardService, TMetersPerSecond, TMilliseconds, TRadians } from '@Anarchy/Engine';
-import { getMouseAzimuthAndElevation, isKeyInEvent, isKeyPressed, KeyCode, metersPerSecond } from '@Anarchy/Engine';
+import type { TActor, TIntersectionEvent, TIntersectionsCameraWatcher, TKeyboardService, TKeysEvent, TMetersPerSecond, TMilliseconds, TRadians } from '@Anarchy/Engine';
+import { getMouseAzimuthAndElevation, isKeyInEvent, isPressEvent, KeyCode, metersPerSecond } from '@Anarchy/Engine';
 import { radians } from '@Anarchy/Engine/Measurements/Utils';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import { BehaviorSubject, combineLatest, map, Subject } from 'rxjs';
@@ -14,11 +14,11 @@ export function startMoveActorWithKeyboard(actor: TActor, keyboardService: TKeyb
 
   const { keys$ } = keyboardService;
 
-  keys$.subscribe(({ keys, event }): void => {
-    if (isKeyInEvent(KeyCode.W, event)) keyStates$.next({ ...keyStates$.value, Forward: isKeyPressed(KeyCode.W, keys) });
-    if (isKeyInEvent(KeyCode.A, event)) keyStates$.next({ ...keyStates$.value, Left: isKeyPressed(KeyCode.A, keys) });
-    if (isKeyInEvent(KeyCode.S, event)) keyStates$.next({ ...keyStates$.value, Backward: isKeyPressed(KeyCode.S, keys) });
-    if (isKeyInEvent(KeyCode.D, event)) keyStates$.next({ ...keyStates$.value, Right: isKeyPressed(KeyCode.D, keys) });
+  keys$.subscribe((event: TKeysEvent): void => {
+    if (isKeyInEvent(KeyCode.W, event)) keyStates$.next({ ...keyStates$.value, Forward: isPressEvent(event) });
+    if (isKeyInEvent(KeyCode.A, event)) keyStates$.next({ ...keyStates$.value, Left: isPressEvent(event) });
+    if (isKeyInEvent(KeyCode.S, event)) keyStates$.next({ ...keyStates$.value, Backward: isPressEvent(event) });
+    if (isKeyInEvent(KeyCode.D, event)) keyStates$.next({ ...keyStates$.value, Right: isPressEvent(event) });
   });
 
   mouseLineIntersectionsWatcher.value$
