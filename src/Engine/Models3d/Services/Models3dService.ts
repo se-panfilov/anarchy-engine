@@ -11,7 +11,6 @@ import type {
   TModel3dComplexConfig,
   TModel3dComplexFacade,
   TModel3dComplexParams,
-  TModel3dConfig,
   TModel3dFacade,
   TModel3dPack,
   TModel3dPrimitiveConfig,
@@ -96,7 +95,9 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
 
   // TODO MODELS: test if model can be found by preset name
   // TODO MODELS: test if overrides are working
-  function findModel3dAndOverride(name: string, overrides?: TOptional<TModel3dConfig>): TModel3dFacade | undefined {
+  // function findModel3dAndOverride(name: string, overrides?: TOptional<TModel3dConfig>): TModel3dFacade | undefined {
+  // TODO MODELS: debug signature
+  function findModel3dAndOverride(name: string): TModel3dFacade | undefined {
     const model3d: TModel3dFacade | undefined = registry.findByName(name);
     if (isNotDefined(model3d)) return undefined;
 

@@ -246,8 +246,63 @@
         "physics": {
           "$ref": "#/definitions/TWithPresetNamePhysicsBodyConfig"
         },
-        "model3dName": {
-          "type": "string"
+        "model3d": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "options": {
+              "$ref": "#/definitions/TModel3dLoadOptions"
+            },
+            "visible": {
+              "type": "boolean"
+            },
+            "castShadow": {
+              "type": "boolean"
+            },
+            "receiveShadow": {
+              "type": "boolean"
+            },
+            "layers": {
+              "type": "number"
+            },
+            "frustumCulled": {
+              "type": "boolean"
+            },
+            "renderOrder": {
+              "type": "number"
+            },
+            "material": {
+              "$ref": "#/definitions/TMaterialPackConfig%3CTMaterialTexturePack%3E"
+            },
+            "position": {
+              "$ref": "#/definitions/TWithCoordsXYZ"
+            },
+            "rotation": {
+              "$ref": "#/definitions/TEuler3dConfig"
+            },
+            "scale": {
+              "$ref": "#/definitions/TWithCoordsXYZ"
+            },
+            "name": {
+              "type": "string"
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "primitive": {
+              "$ref": "#/definitions/TPrimitiveProps"
+            },
+            "presetName": {
+              "type": "string"
+            }
+          },
+          "required": ["presetName"]
         },
         "name": {
           "type": "string"
@@ -259,7 +314,7 @@
           "type": "boolean"
         }
       },
-      "required": ["position", "spatial"]
+      "required": ["model3d", "position", "spatial"]
     },
     "TCollisionsDataConfig": {
       "type": "object",
@@ -1057,127 +1112,21 @@
       "required": ["halfHeight", "radius", "borderRadius"],
       "additionalProperties": false
     },
-    "TCameraConfig": {
+    "TModel3dLoadOptions": {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "layers": {
-          "type": "number"
-        },
-        "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
-        },
-        "rotation": {
-          "$ref": "#/definitions/TEuler3dConfig"
-        },
-        "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
-        },
-        "visible": {
+        "shouldAddToScene": {
           "type": "boolean"
         },
-        "castShadow": {
+        "shouldAddToRegistry": {
           "type": "boolean"
         },
-        "receiveShadow": {
-          "type": "boolean"
-        },
-        "frustumCulled": {
-          "type": "boolean"
-        },
-        "renderOrder": {
-          "type": "number"
-        },
-        "lookAt": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
-        },
-        "fov": {
-          "type": "number"
-        },
-        "near": {
-          "type": "number"
-        },
-        "far": {
-          "type": "number"
-        },
-        "name": {
-          "type": "string"
-        },
-        "isActive": {
+        "isForce": {
           "type": "boolean"
         }
       },
-      "required": ["isActive", "position"]
-    },
-    "TModel3dComplexConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "name": {
-          "type": "string"
-        },
-        "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
-        },
-        "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
-        },
-        "rotation": {
-          "$ref": "#/definitions/TEuler3dConfig"
-        },
-        "visible": {
-          "type": "boolean"
-        },
-        "castShadow": {
-          "type": "boolean"
-        },
-        "receiveShadow": {
-          "type": "boolean"
-        },
-        "frustumCulled": {
-          "type": "boolean"
-        },
-        "renderOrder": {
-          "type": "number"
-        },
-        "layers": {
-          "$ref": "#/definitions/Layers"
-        },
-        "material": {
-          "$ref": "#/definitions/TMaterialPackConfig%3CTMaterialTexturePack%3E"
-        },
-        "url": {
-          "type": "string"
-        },
-        "options": {
-          "$ref": "#/definitions/TModel3dLoadOptions"
-        }
-      },
-      "required": ["options", "position", "url"]
-    },
-    "Layers": {
-      "type": "object",
-      "properties": {
-        "mask": {
-          "type": "number",
-          "description": "A bit mask storing which of the 32 layers this layers object is currently a member of."
-        }
-      },
-      "required": ["mask"],
-      "additionalProperties": false,
-      "description": "A  {@link  THREE.Layers Layers }  object assigns an  {@link  THREE.Object3D Object3D }  to 1 or more of 32 layers numbered `0` to `31` - internally the layers are stored as a  {@link  https://en.wikipedia.org/wiki/Mask_(computing) bit mask } , and by default all Object3Ds are a member of layer `0`."
+      "required": ["shouldAddToScene", "shouldAddToRegistry"],
+      "additionalProperties": false
     },
     "TMaterialPackConfig<TMaterialTexturePack>": {
       "type": "object",
@@ -2084,21 +2033,174 @@
       },
       "additionalProperties": false
     },
-    "TModel3dLoadOptions": {
+    "TPrimitiveProps": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
-        "shouldAddToScene": {
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "widthSegments": {
+          "type": "number"
+        },
+        "heightSegments": {
+          "type": "number"
+        },
+        "radius": {
+          "type": "number"
+        },
+        "phiStart": {
+          "type": "number"
+        },
+        "phiLength": {
+          "type": "number"
+        },
+        "thetaStart": {
+          "type": "number"
+        },
+        "thetaLength": {
+          "type": "number"
+        },
+        "depth": {
+          "type": "number"
+        },
+        "depthSegments": {
+          "type": "number"
+        },
+        "type": {
+          "$ref": "#/definitions/PrimitiveModel3dType"
+        }
+      },
+      "required": ["type"]
+    },
+    "PrimitiveModel3dType": {
+      "type": "string",
+      "enum": ["cube", "plane", "sphere"]
+    },
+    "TCameraConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "layers": {
+          "type": "number"
+        },
+        "position": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "rotation": {
+          "$ref": "#/definitions/TEuler3dConfig"
+        },
+        "scale": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "visible": {
           "type": "boolean"
         },
-        "shouldAddToRegistry": {
+        "castShadow": {
           "type": "boolean"
         },
-        "isForce": {
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "lookAt": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "fov": {
+          "type": "number"
+        },
+        "near": {
+          "type": "number"
+        },
+        "far": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "isActive": {
           "type": "boolean"
         }
       },
-      "required": ["shouldAddToScene", "shouldAddToRegistry"],
-      "additionalProperties": false
+      "required": ["isActive", "position"]
+    },
+    "TModel3dComplexConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "scale": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "rotation": {
+          "$ref": "#/definitions/TEuler3dConfig"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "layers": {
+          "$ref": "#/definitions/Layers"
+        },
+        "material": {
+          "$ref": "#/definitions/TMaterialPackConfig%3CTMaterialTexturePack%3E"
+        },
+        "url": {
+          "type": "string"
+        },
+        "options": {
+          "$ref": "#/definitions/TModel3dLoadOptions"
+        }
+      },
+      "required": ["options", "position", "url"]
+    },
+    "Layers": {
+      "type": "object",
+      "properties": {
+        "mask": {
+          "type": "number",
+          "description": "A bit mask storing which of the 32 layers this layers object is currently a member of."
+        }
+      },
+      "required": ["mask"],
+      "additionalProperties": false,
+      "description": "A  {@link  THREE.Layers Layers }  object assigns an  {@link  THREE.Object3D Object3D }  to 1 or more of 32 layers numbered `0` to `31` - internally the layers are stored as a  {@link  https://en.wikipedia.org/wiki/Mask_(computing) bit mask } , and by default all Object3Ds are a member of layer `0`."
     },
     "TIntersectionsWatcherConfig": {
       "type": "object",

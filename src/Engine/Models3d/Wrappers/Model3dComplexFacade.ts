@@ -3,7 +3,7 @@ import { AbstractFacade } from '@/Engine/Abstract/Wrappers/AbstractFacade';
 import type { TAnimationsService } from '@/Engine/Animations/Models';
 import { withModel3dComplexFacadeEntities } from '@/Engine/Models3d/Mixins';
 import type { TModel3dComplexEntities, TModel3dComplexFacade, TModel3dComplexFacadeParams, TModel3dComplexPack } from '@/Engine/Models3d/Models';
-import { applyCastShadow, applyPosition, applyRotation, applyScale, createModels3dEntities } from '@/Engine/Models3d/Utils';
+import { applyCastShadowToModel3d, applyPositionToModel3d, applyRotationToModel3d, applyScaleToModel3d, createModels3dEntities } from '@/Engine/Models3d/Utils';
 import type { TOptional } from '@/Engine/Utils';
 import { isDefined, omitInObjectWithoutMutation } from '@/Engine/Utils';
 
@@ -24,10 +24,10 @@ export function Model3dComplexFacade(params: TModel3dComplexFacadeParams, animat
   // TODO MODELS: apply all the params form object3d
   // TODO MODELS: Remove duplication: extract applying of params to utils
   //applying model's params
-  if (isDefined(params.scale)) applyScale(entities.model, params.scale);
-  if (isDefined(params.rotation)) applyRotation(entities.model, params.rotation);
-  if (isDefined(params.position)) applyPosition(entities.model, params.position);
-  if (isDefined(params.castShadow)) applyCastShadow(entities.model, params.castShadow);
+  if (isDefined(params.scale)) applyScaleToModel3d(entities.model, params.scale);
+  if (isDefined(params.rotation)) applyRotationToModel3d(entities.model, params.rotation);
+  if (isDefined(params.position)) applyPositionToModel3d(entities.model, params.position);
+  if (isDefined(params.castShadow)) applyCastShadowToModel3d(entities.model, params.castShadow);
 
   return {
     ...facade,

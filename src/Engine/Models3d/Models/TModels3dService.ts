@@ -5,6 +5,7 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import type {
   TModel3dComplexConfig,
   TModel3dComplexFacade,
+  TModel3dConfig,
   TModel3dFacade,
   TModel3dPack,
   TModel3dPrimitiveConfig,
@@ -23,7 +24,7 @@ export type TModels3dService = Readonly<{
   createFromPack: (pack: TModel3dPack) => TModel3dFacade;
   createPrimitiveAsync: (params: ReadonlyArray<TModel3dPrimitiveParams>) => ReadonlyArray<Promise<TModel3dPrimitiveFacade>>;
   createPrimitiveFromConfig: (config: ReadonlyArray<TModel3dPrimitiveConfig>) => ReadonlyArray<Promise<TModel3dPrimitiveFacade>>;
-  findModel3dAndOverride: (name: string, overrides?: TOptional<TModel3dPack>) => TModel3dFacade | undefined;
+  findModel3dAndOverride: (name: string, overrides?: TOptional<TModel3dConfig>) => TModel3dFacade | undefined;
   getAnimationService: () => TAnimationsService;
   added$: Observable<TModel3dFacade>;
   loaded$: Observable<TModel3dComplexFacade>;
