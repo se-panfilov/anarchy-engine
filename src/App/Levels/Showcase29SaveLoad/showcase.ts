@@ -99,7 +99,7 @@ function loadSpace(name: string): void {
 function unloadSpace(name: string | undefined, spaceRegistry: TSpaceRegistry): void {
   if (isNotDefined(name)) return;
   const space: TSpace | undefined = spaceRegistry.findByName(name);
-  if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot destroy the space "${name}"`);
+  if (isNotDefined(space)) return;
   setContainerVisibility(name, false, spacesData);
 
   const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);

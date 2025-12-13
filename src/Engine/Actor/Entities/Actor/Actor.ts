@@ -79,7 +79,7 @@ export function Actor(
     actor.collisions.destroy$.next();
 
     //Destroy Fsm's
-    Object.values(entities.states).forEach((value: TFsmWrapper): void => value.destroy$.next());
+    Object.values(entities.states).forEach((value: TFsmWrapper): void => value?.destroy$.next());
     // eslint-disable-next-line functional/immutable-data
     (actor as TWriteable<TActor>).states = {};
   });
