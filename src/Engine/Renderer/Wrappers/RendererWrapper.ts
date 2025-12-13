@@ -56,7 +56,7 @@ export function RendererWrapper(params: TRendererParams, { container }: TRendere
       setValues(entity, rect, container.getRatio());
     });
 
-  const wrapper: TAbstractWrapper<WebGLRenderer> = AbstractWrapper(entity, WrapperType.Renderer, params);
+  const wrapper: TAbstractWrapper<WebGLRenderer> = AbstractWrapper(entity, WrapperType.Renderer, { name: params.name });
 
   const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
     entity.dispose();
@@ -68,7 +68,7 @@ export function RendererWrapper(params: TRendererParams, { container }: TRendere
   });
 
   // eslint-disable-next-line functional/immutable-data
-  const result = Object.assign(wrapper, accessors, withActiveMixin(), entity, { serialize: (): TRendererConfig => rendererToConfig(result) });
+  const result = Object.assign(wrapper, accessors, withActiveMixin(), { serialize: (): TRendererConfig => rendererToConfig(result) });
 
   result._setActive(params.isActive, true);
 

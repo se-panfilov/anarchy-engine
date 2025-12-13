@@ -8,6 +8,20 @@ export function rendererToConfig(entity: TRendererWrapper): TRendererConfig {
 
   // TODO 15-0-0: fix any
   return filterOutEmptyFields({
+    // precision: entity.precision,
+    // alpha: entity.alpha,
+    // premultipliedAlpha: entity.premultipliedAlpha,
+    // antialias: entity.antialias,
+    // stencil: entity.stencil,
+    // preserveDrawingBuffer: entity.preserveDrawingBuffer,
+    // powerPreference: entity.powerPreference,
+    // depth: entity.depth,
+    // logarithmicDepthBuffer: entity.logarithmicDepthBuffer,
+    // failIfMajorPerformanceCaveat: entity.failIfMajorPerformanceCaveat,
+    // mode: entity.mode,
+    // isShadowMapEnabled: entity.isShadowMapEnabled,
+    // maxPixelRatio: entity.maxPixelRatio,
+    isActive: entity.isActive(),
     ...extractSerializableRegistrableFields(entity)
   }) as any;
 }
