@@ -13,7 +13,8 @@ import {
   createModels3dEntities,
   isModel3dAlreadyInUse
 } from '@Engine/Models3d/Utils';
-import { applyObject3dParams, destroyModel3dAnimationEntities, disposeGltf, isDefined, mergeAll } from '@Engine/Utils';
+import { applyObject3dParams, destroyModel3dAnimationEntities, disposeGltf, mergeAll } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 
 export function Model3d(params: TModel3dParams, { animationsService, model3dRawToModel3dConnectionRegistry }: TModel3dDependencies): TModel3d {

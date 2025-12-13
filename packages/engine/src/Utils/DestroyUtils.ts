@@ -3,7 +3,8 @@ import type { TAnyAudio } from '@Engine/Audio';
 import type { TAnyMaterialWrapper, TMaterials } from '@Engine/Material';
 import type { TWithModel3d, TWithModel3dEntities } from '@Engine/Models3d';
 import { hasTransformDrive } from '@Engine/TransformDrive/Utils';
-import { hasGeometry, hasMaterial, isDefined, isNotDefined, isWrapper } from '@Engine/Utils';
+import { hasGeometry, hasMaterial, isWrapper } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { AnimationAction, AnimationClip, Material, Object3D, PositionalAudio } from 'three';
 import { Mesh, Texture } from 'three';
 

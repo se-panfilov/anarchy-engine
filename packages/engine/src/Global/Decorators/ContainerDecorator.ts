@@ -2,7 +2,8 @@ import type { TAppGlobalContainer, TContainerDecorator } from '@Engine/Global/Mo
 import type { TDestroyable } from '@Engine/Mixins';
 import { destroyableMixin } from '@Engine/Mixins';
 import type { TSpaceCanvas } from '@Engine/Space';
-import { exitFullScreen, getWindowFromDomElement, goFullScreen, isDefined, isFullScreen, isNotDefined, observeContainerRect } from '@Engine/Utils';
+import { exitFullScreen, getWindowFromDomElement, goFullScreen, isFullScreen, observeContainerRect } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, skip, Subject, switchMap } from 'rxjs';

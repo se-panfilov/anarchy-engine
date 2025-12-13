@@ -1,7 +1,8 @@
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Engine/ThreeLib';
 import type { TransformAgent } from '@Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TTransformDriveCompatibleEntity, TWithTransformDrive } from '@Engine/TransformDrive/Models';
-import { isDefined, isEqualOrSimilarByXyzCoords } from '@Engine/Utils';
+import { isEqualOrSimilarByXyzCoords } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 import type { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, EMPTY, switchMap, tap } from 'rxjs';
 

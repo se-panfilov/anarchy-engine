@@ -19,7 +19,8 @@ import type { TLoopService } from '@Engine/Loop';
 import type { TDisposable } from '@Engine/Mixins';
 import { withFactoryService, withRegistryService, withSerializableEntities } from '@Engine/Mixins';
 import type { TMouseService } from '@Engine/Mouse';
-import { isDefined, mergeAll } from '@Engine/Utils';
+import { mergeAll } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 
 export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactory, registry: TIntersectionsWatcherRegistry): TIntersectionsWatcherService {

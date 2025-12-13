@@ -9,7 +9,8 @@ import { applyOrbitControlsParams } from '@Engine/Controls/Wrappers/OrbitControl
 import type { TMilliseconds } from '@Engine/Math';
 import { withActiveMixin } from '@Engine/Mixins';
 import type { TReadonlyVector3 } from '@Engine/ThreeLib';
-import { isDefined, isEulerLike } from '@Engine/Utils';
+import { isEulerLike } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 import type { Euler } from 'three';
 import { Quaternion, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';

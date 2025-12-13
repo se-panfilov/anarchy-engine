@@ -3,7 +3,8 @@ import { withNoWrapperIdMixin, withWrapperIdMixin } from '@Engine/Abstract';
 import type { TDestroyable, TRegistrable, TWithEntity, TWithName } from '@Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@Engine/Mixins';
 import type { TWithTags } from '@Engine/Mixins/Generics/Models/TWithTags';
-import { genericEntityCleanUp, isDefined, isWithUserData, isWithWrapperIdAccessors, mergeAll } from '@Engine/Utils';
+import { genericEntityCleanUp, isWithUserData, isWithWrapperIdAccessors, mergeAll } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 

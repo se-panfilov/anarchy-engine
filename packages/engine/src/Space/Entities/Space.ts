@@ -21,7 +21,8 @@ import type {
   TSpaceSettings
 } from '@Engine/Space/Models';
 import { buildBaseServices, buildEntitiesServices, createEntities, createLoops } from '@Engine/Space/Utils';
-import { findDomElement, getCanvasContainer, getOrCreateCanvasFromSelector, isCanvasElement, isDefined, isDestroyable, isNotDefined, mergeAll } from '@Engine/Utils';
+import { findDomElement, getCanvasContainer, getOrCreateCanvasFromSelector, isCanvasElement, isDestroyable, mergeAll } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, skip, Subject } from 'rxjs';
 

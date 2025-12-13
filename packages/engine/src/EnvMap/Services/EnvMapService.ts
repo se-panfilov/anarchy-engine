@@ -30,7 +30,8 @@ import {
   withSerializeAllResources
 } from '@Engine/Mixins';
 import type { TSceneWrapper } from '@Engine/Scene';
-import { isDefined, mergeAll } from '@Engine/Utils';
+import { mergeAll } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 
 export function EnvMapService(
