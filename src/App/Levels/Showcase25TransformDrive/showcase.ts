@@ -7,25 +7,20 @@ import type { TShowcase } from '@/App/Levels/Models';
 import type {
   KeyCode,
   TActor,
-  TActorService,
   TAppCanvas,
-  TCameraService,
   TCameraWrapper,
   TEngine,
   TIntersectionEvent,
   TIntersectionsWatcher,
-  TIntersectionsWatcherService,
   TKeyboardService,
-  TMaterialService,
   TMaterialWrapper,
   TModel3d,
   TModel3dRegistry,
-  TModels3dService,
-  TMouseService,
   TMouseWatcherEvent,
   TSceneWrapper,
   TSpace,
   TSpaceConfig,
+  TSpaceServices,
   TSpatialGridWrapper
 } from '@/Engine';
 import { Engine, isNotDefined, KeysExtra, MaterialType, PrimitiveModel3dType, spaceService, TransformAgent } from '@/Engine';
@@ -37,7 +32,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
 
-  const { actorService, cameraService, intersectionsWatcherService, materialService, models3dService, mouseService, scenesService, spatialGridService } = space.services;
+  const { models3dService, mouseService, scenesService, spatialGridService } = space.services;
   const { keyboardService } = engine.services;
   const { clickLeftRelease$ } = mouseService;
   const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
@@ -54,15 +49,31 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     sceneW.addModel3d(planeModel3dF);
 
-    const sphereActor: TActor = createSphereActor(grid, actorService, materialService, models3dService);
+    const sphereActor: TActor = createActor('sphere', grid, new Vector3(0, 2, 0), space.services);
+    const repeaterActor: TActor = createActor('repeater', grid, new Vector3(0, 6, 0), space.services);
 
-    gui.add(sphereActor.drive.agent$, 'value').listen();
-    gui.add(sphereActor.drive.getPosition(), 'x').listen();
-    gui.add(sphereActor.drive.getPosition(), 'y').listen();
-    gui.add(sphereActor.drive.getPosition(), 'z').listen();
-    const intersectionsWatcher: TIntersectionsWatcher = startIntersections(actorService, cameraService, intersectionsWatcherService, mouseService);
+    sphereActor.drive.position$.subscribe((position: Vector3): void => {
+      // eslint-disable-next-line functional/immutable-data
+      repeaterActor.drive.instant.positionConnector.x = position.x;
+      // eslint-disable-next-line functional/immutable-data
+      repeaterActor.drive.instant.positionConnector.y = position.y + 4;
+      // eslint-disable-next-line functional/immutable-data
+      repeaterActor.drive.instant.positionConnector.z = position.z;
+    });
 
-    // TODO implement go to (with current active agent)
+    const sphereActorFolder: GUI = gui.addFolder('Sphere Actor');
+    sphereActorFolder.add(sphereActor.drive.agent$, 'value').listen();
+    sphereActorFolder.add(sphereActor.drive.getPosition(), 'x').listen();
+    sphereActorFolder.add(sphereActor.drive.getPosition(), 'y').listen();
+    sphereActorFolder.add(sphereActor.drive.getPosition(), 'z').listen();
+    const repeaterActorFolder: GUI = gui.addFolder('Repeater Actor');
+    repeaterActorFolder.add(repeaterActor.drive.agent$, 'value').listen();
+    repeaterActorFolder.add(repeaterActor.drive.getPosition(), 'x').listen();
+    repeaterActorFolder.add(repeaterActor.drive.getPosition(), 'y').listen();
+    repeaterActorFolder.add(repeaterActor.drive.getPosition(), 'z').listen();
+
+    const intersectionsWatcher: TIntersectionsWatcher = startIntersections(space.services);
+
     clickLeftRelease$
       .pipe(withLatestFrom(intersectionsWatcher.value$, sphereActor.drive.agent$))
       .subscribe(([, intersection, agent]: [TMouseWatcherEvent, TIntersectionEvent, TransformAgent]): void => {
@@ -80,30 +91,30 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   return { start, space };
 }
 
-function createSphereActor(grid: TSpatialGridWrapper, actorService: TActorService, materialService: TMaterialService, models3dService: TModels3dService): TActor {
-  const sphereMaterial: TMaterialWrapper = materialService.create({ name: 'surface_material', type: MaterialType.Standard, options: { color: '#E91E63' } });
+function createActor(name: string, grid: TSpatialGridWrapper, position: Vector3, { actorService, materialService, models3dService }: TSpaceServices): TActor {
+  const material: TMaterialWrapper = materialService.create({ name: `${name}_material`, type: MaterialType.Standard, options: { color: '#E91E63' } });
 
-  const sphereModel: TModel3d = models3dService.create({
-    name: 'sphere_model',
+  const model: TModel3d = models3dService.create({
+    name: `${name}_model`,
     model3dSource: PrimitiveModel3dType.Sphere,
-    materialSource: sphereMaterial,
+    materialSource: material,
     options: { radius: 0.7 },
     castShadow: true,
     receiveShadow: true,
-    position: new Vector3(0, 2, 0),
+    position: position.clone(),
     rotation: new Euler(0, 0, 0)
   });
 
   return actorService.create({
-    name: 'sphere_actor',
-    model3dSource: sphereModel,
-    position: new Vector3(0, 2, 0),
+    name: `${name}_actor`,
+    model3dSource: model,
+    position: position.clone(),
     rotation: new Euler(0, 0, 0),
     spatial: { grid, isAutoUpdate: true }
   });
 }
 
-function startIntersections(actorService: TActorService, cameraService: TCameraService, intersectionsWatcherService: TIntersectionsWatcherService, mouseService: TMouseService): TIntersectionsWatcher {
+function startIntersections({ actorService, cameraService, intersectionsWatcherService, mouseService }: TSpaceServices): TIntersectionsWatcher {
   const camera: TCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(camera)) throw new Error('Camera is not defined');
   const actor: TActor | undefined = actorService.getRegistry().findByName('surface_actor');
@@ -121,7 +132,20 @@ function changeActorActiveAgent(actor: TActor, key: KeyCode | KeysExtra, keyboar
 }
 
 function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent): void {
-  actor.drive.agent$.next(agent);
-  actor.drive.position$.next(position);
+  switch (agent) {
+    case TransformAgent.Kinematic:
+      // TODO (S.Panfilov) 8.0.0. MODELS: Implement Kinematic movement
+      break;
+    case TransformAgent.Instant:
+      // TODO (S.Panfilov) 8.0.0. MODELS: fix this
+      actor.drive.instant.setPosition(position);
+      break;
+    case TransformAgent.Physical:
+      // TODO (S.Panfilov) 8.0.0. MODELS: Implement Physics movement
+      break;
+    default:
+      throw new Error(`Unknown agent: ${agent}`);
+  }
+  // actor.drive.position$.next(position);
   // void moverService.goToPosition(actorMouse.drive.instant.positionConnector, { x: intersection.point.x, z: intersection.point.z }, { duration: 1000, easing: Easing.EaseInCubic });
 }
