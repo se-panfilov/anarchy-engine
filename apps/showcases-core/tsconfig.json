@@ -2,8 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "paths": {
-      "@/*": ["apps/showcases/src/*"],
-      "@Public/*": ["apps/showcases/public/*"],
+      "@/*": ["apps/showcases-core/src/*"],
+      "@Public/*": ["apps/showcases-core/public/*"],
       "@Engine/*": ["packages/anarchy-engine/src/*"],
       "@Engine": ["packages/anarchy-engine/src/index.ts"],
       "@Shared/*": ["packages/shared/src/*"],
@@ -15,7 +15,7 @@
       "@E2E/*": ["apps/e2e/src/*"],
       "@E2E": ["apps/e2e/src/index.ts"],
       "showcases-menu/src/main": ["apps/showcases/types/showcases-menu-shim"],
-      "platform:api": ["apps/showcases/src/Platform/Drivers/web"]
+      "platform:api": ["apps/showcases-core/src/Platform/Drivers/web"]
     }
   },
   "include": ["src", "vite.config.ts", "types", "dist-desktop", "dist-web", "dist-mobile", "dist"]

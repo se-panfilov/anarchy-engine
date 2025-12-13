@@ -33,7 +33,7 @@ export default defineConfig({
         copy({
           targets: [
             {
-              src: path.resolve(__dirname, '../showcases/dist-desktop'),
+              src: path.resolve(__dirname, '../showcases-core/dist-desktop'),
               dest: path.resolve(__dirname, 'dist')
             },
             //Electron cannot recognize three/examples/jsm/libs/draco import, so we copy files manually

@@ -20,7 +20,7 @@
     "lint:fix": "npm run lint -- --fix",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
-    "start:e2e-server": "cd ../../ && npm run start:e2e --workspace=apps/showcases",
+    "start:e2e-server": "cd ../../ && npm run start:e2e --workspace=apps/showcases-core",
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit"
   },
