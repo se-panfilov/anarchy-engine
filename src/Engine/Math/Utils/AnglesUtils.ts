@@ -10,6 +10,8 @@ export const degToRad = (degrees: number): Decimal => new Decimal(degrees).times
 export const cos = (value: Decimal): Decimal => new Decimal(Decimal.cos(value));
 // TODO (S.Panfilov) add unit tests
 export const sin = (value: Decimal): Decimal => new Decimal(Decimal.sin(value));
+// TODO (S.Panfilov) add unit tests
+export const radiansToDegrees = (radians: number): Decimal => new Decimal(radians).times(180).div(Math.PI);
 
 // TODO (S.Panfilov) add unit tests
 export function getHorizontalAzimuth(center: TWithCoordsXZ, point: TWithCoordsXZ): number {
@@ -57,4 +59,19 @@ export function degreesToQuaternion(degrees: TWithCoordsXYZ): TWithCoordsXYZW {
     y: new Decimal(quaternion.y).toNumber(),
     z: new Decimal(quaternion.z).toNumber()
   };
+}
+
+// TODO (S.Panfilov) add unit tests
+export function quaternionToDegrees(quaternion: TWithCoordsXYZW): TWithCoordsXYZ {
+  const q: Quaternion = new Quaternion(new Decimal(quaternion.x).toNumber(), new Decimal(quaternion.y).toNumber(), new Decimal(quaternion.z).toNumber(), new Decimal(quaternion.w).toNumber());
+
+  const euler = new Euler().setFromQuaternion(q, 'XYZ');
+
+  const degrees = {
+    x: radiansToDegrees(euler.x).toNumber(),
+    y: radiansToDegrees(euler.y).toNumber(),
+    z: radiansToDegrees(euler.z).toNumber()
+  };
+
+  return degrees;
 }
