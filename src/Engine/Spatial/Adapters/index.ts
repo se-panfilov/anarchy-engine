@@ -1,2 +1,2 @@
-export * from './SpatialConfigAdapter';
-export * from './SpatialConfigAdapterSpatialData';
+export * from './ConfigToParams';
+export * from './ConfigToParamsSpatialData';
