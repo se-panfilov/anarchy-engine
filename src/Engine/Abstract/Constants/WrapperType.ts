@@ -1,5 +1,4 @@
 export enum WrapperType {
-  Actor = 'actor_wrapper',
   AmbientLight = 'ambient_light_wrapper',
   Camera = 'camera_wrapper',
   Color = 'color_wrapper',
@@ -22,8 +21,5 @@ export enum WrapperType {
   Text2d = 'text_2d_wrapper',
   Text3d = 'text_3d_wrapper',
   Text3dTexture = 'text_3d_texture_wrapper',
-  Texture = 'texture_wrapper',
-  Vector2 = 'vector2_wrapper',
-  Vector3 = 'vector3_wrapper',
-  Vector4 = 'vector4_wrapper'
+  Texture = 'texture_wrapper'
 }
