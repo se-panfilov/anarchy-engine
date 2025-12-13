@@ -25,3 +25,14 @@ export function startCollisions(actor: TActor): void {
   if (isNotDefined(actor.collisions) || !actor.collisions.isAutoUpdate()) return;
   actor.collisions.start(actor);
 }
+
+type TVector3OrEuler = Readonly<{
+  x: number;
+  y: number;
+  z: number;
+  equals: (v: any) => boolean;
+}>;
+
+export function isEqualOrSimilar(prev: TVector3OrEuler, curr: TVector3OrEuler, threshold: number): boolean {
+  return prev.equals(curr) || (Math.abs(curr.x - prev.x) <= threshold && Math.abs(curr.y - prev.y) <= threshold && Math.abs(curr.z - prev.z) <= threshold);
+}

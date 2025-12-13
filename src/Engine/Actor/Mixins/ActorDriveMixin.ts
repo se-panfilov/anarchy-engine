@@ -1,10 +1,11 @@
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, filter, ReplaySubject, switchMap } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, filter, ReplaySubject, sampleTime, switchMap } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
 import { ProtectedDriverFacade } from '@/Engine/Abstract';
 import { ActorDriver } from '@/Engine/Actor/Constants';
 import type { TActorActiveDrivers, TActorDependencies, TActorDriveMixin, TActorParams } from '@/Engine/Actor/Models';
+import { isEqualOrSimilar } from '@/Engine/Actor/Utils';
 import type { TKinematicActorDriver } from '@/Engine/Kinematic';
 import { KinematicActorDriver } from '@/Engine/Kinematic';
 import type { TDestroyable } from '@/Engine/Mixins';
@@ -36,14 +37,16 @@ export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: 
   const positionSub$: Subscription = driver$
     .pipe(
       switchMap((drive: ActorDriver): Observable<Vector3> => availableDrives[drive as keyof TActorActiveDrivers].position$),
-      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr))
+      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilar(prev, curr, coordsTreshold)),
+      sampleTime(updateDelay)
     )
     .subscribe(position$);
 
   const rotationSub$: Subscription = driver$
     .pipe(
       switchMap((drive: ActorDriver): Observable<Euler> => availableDrives[drive as keyof TActorActiveDrivers].rotation$),
-      distinctUntilChanged((prev: Euler, curr: Euler): boolean => prev.equals(curr))
+      distinctUntilChanged((prev: Euler, curr: Euler): boolean => isEqualOrSimilar(prev, curr, coordsTreshold)),
+      sampleTime(updateDelay)
     )
     .subscribe(rotation$);
 
@@ -51,7 +54,8 @@ export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: 
     .pipe(
       switchMap((drive: ActorDriver): Observable<Vector3 | undefined> => availableDrives[drive as keyof TActorActiveDrivers].scale$),
       filter((value: Vector3 | undefined): value is Vector3 => value !== undefined),
-      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr))
+      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilar(prev, curr, coordsTreshold)),
+      sampleTime(updateDelay)
     )
     .subscribe(scale$);
 
