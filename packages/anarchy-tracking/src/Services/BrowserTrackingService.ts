@@ -4,45 +4,59 @@ import type { BrowserOptions, EventHint } from '@sentry/browser';
 import { captureException, init } from '@sentry/browser';
 import type { Client, ErrorEvent } from '@sentry/core';
 
-const defaultOptions: BrowserOptions = {
-  beforeSend(event: ErrorEvent, _hint: EventHint): PromiseLike<ErrorEvent | null> | ErrorEvent | null {
-    // eslint-disable-next-line functional/immutable-data
-    if (isDefined(event.user)) event.user = null as any;
+export function BrowserTrackingService(options?: BrowserOptions, metaData?: Record<string, any>): TTrackingService {
+  const defaultOptions: BrowserOptions = {
+    beforeSend(event: ErrorEvent, _hint: EventHint): PromiseLike<ErrorEvent | null> | ErrorEvent | null {
+      // eslint-disable-next-line functional/immutable-data
+      if (isDefined(event.user)) event.user = null as any;
 
-    // eslint-disable-next-line functional/immutable-data
-    event.request = {
-      ...event.request,
-      url: 'hidden',
-      headers: {
-        ...event.request?.headers,
-        url: 'hidden'
-      }
-    };
+      // eslint-disable-next-line functional/immutable-data
+      event.request = {
+        ...event.request,
+        url: 'hidden',
+        headers: {
+          ...event.request?.headers,
+          url: 'hidden'
+        }
+      };
 
-    // eslint-disable-next-line functional/immutable-data
-    if (isDefined(event.breadcrumbs)) event.breadcrumbs = undefined;
+      // eslint-disable-next-line functional/immutable-data
+      if (isDefined(event.breadcrumbs)) event.breadcrumbs = undefined;
 
-    return event;
-  },
-  tracesSampleRate: 0,
-  //Important: make sure this is false if you want Anonymous reports (no IPs, etc.).
-  // eslint-disable-next-line spellcheck/spell-checker
-  sendDefaultPii: false
-};
+      // eslint-disable-next-line functional/immutable-data
+      (event as any).tags = { ...event.tags, ...metaData };
 
-export function BrowserTrackingService(options?: BrowserOptions): TTrackingService {
+      return event;
+    },
+    tracesSampleRate: 0,
+    //Important: make sure this is false if you want Anonymous reports (no IPs, etc.).
+    sendDefaultPii: false
+  };
+
   const client: Client | undefined = init({
     ...defaultOptions,
     ...options
   });
 
-  window.addEventListener('error', (ev: any): void => void captureException(ev.error ?? ev));
+  const onError = (ev: any): void => void captureException(ev.error ?? ev);
+  const onRejection = (ev: PromiseRejectionEvent): void => void captureException((ev as PromiseRejectionEvent).reason ?? ev);
 
-  // eslint-disable-next-line spellcheck/spell-checker
-  window.addEventListener('unhandledrejection', (ev: PromiseRejectionEvent): void => void captureException((ev as PromiseRejectionEvent).reason ?? ev));
+  function start(onErrorHandler: (ev: any) => void = onError, onRejectionHandler: (ev: PromiseRejectionEvent) => void = onRejection): void {
+    window.addEventListener('error', onErrorHandler);
+    window.addEventListener('unhandledrejection', onRejectionHandler);
+  }
+
+  function stop(onErrorHandler: (ev: any) => void = onError, onRejectionHandler: (ev: PromiseRejectionEvent) => void = onRejection): void {
+    window.removeEventListener('error', onErrorHandler);
+    window.removeEventListener('unhandledrejection', onRejectionHandler);
+  }
+
+  if (isDefined(client)) start();
 
   return {
     client,
-    captureException
+    captureException,
+    start,
+    stop
   };
 }
