@@ -47,9 +47,7 @@
     ],
     "actors": [
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -75,9 +73,7 @@
         "tags": ["standard", "metal"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -112,9 +108,7 @@
         "tags": ["physical", "metal"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -132,9 +126,7 @@
         "tags": ["basic", "metal"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -158,9 +150,7 @@
         "tags": ["phong", "metal"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -184,9 +174,7 @@
         "tags": ["lambert", "metal"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -210,9 +198,7 @@
         "tags": ["toon", "metal"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -416,9 +402,7 @@
         "tags": ["matcap", "wood"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -437,9 +421,7 @@
         "tags": ["standard", "glass"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -466,9 +448,7 @@
         "tags": ["physical", "glass"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -483,9 +463,7 @@
         "tags": ["basic", "glass"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -503,9 +481,7 @@
         "tags": ["phong", "glass"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -523,9 +499,7 @@
         "tags": ["lambert", "glass"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -543,9 +517,7 @@
         "tags": ["toon", "glass"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -563,9 +535,7 @@
         "tags": ["matcap", "glass"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -590,9 +560,7 @@
         "tags": ["standard", "textile"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -617,9 +585,7 @@
         "tags": ["physical", "textile"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -638,9 +604,7 @@
         "tags": ["basic", "textile"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -664,9 +628,7 @@
         "tags": ["phong", "textile"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -690,9 +652,7 @@
         "tags": ["lambert", "textile"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
@@ -716,9 +676,7 @@
         "tags": ["toon", "textile"]
       },
       {
-        "model3d": {
-          "url": "sphere"
-        },
+        "model3d": "sphere",
         "width": 1,
         "height": 1,
         "radius": 0.7,
