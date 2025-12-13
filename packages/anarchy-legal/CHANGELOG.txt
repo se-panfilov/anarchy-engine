@@ -1,3 +1,3 @@
 1.0.0 Initial
 1.4.0 Conditional templates
-1.5.0 JS-based config
+1.5.0 JS-based config and new templates
