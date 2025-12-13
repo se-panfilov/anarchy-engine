@@ -12,7 +12,7 @@ import { MouseClickWatcherFactory, MouseClickWatcherRegistry, MousePositionWatch
 import type { IScreenSizeWatcher, IScreenSizeWatcherFactory, IScreenSizeWatcherRegistry } from '@Engine/Domains/Screen';
 import { ScreenSizeWatcherFactory, ScreenSizeWatcherRegistry } from '@Engine/Domains/Screen';
 
-import { WatcherTags } from '@/Engine';
+import { WatcherTags } from '@/Engine/Domains/Abstract';
 
 import type { IAmbientContext } from './Models';
 
