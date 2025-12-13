@@ -1,26 +1,29 @@
+import { isDefined } from '@Anarchy/Shared/Utils';
 import type { TTrackingService } from '@Anarchy/Tracking/Models';
-import type { BrowserOptions } from '@sentry/browser';
+import type { BrowserOptions, EventHint } from '@sentry/browser';
 import { captureException, init } from '@sentry/browser';
-import type { Client } from '@sentry/core';
+import type { Client, ErrorEvent } from '@sentry/core';
 
 const defaultOptions: BrowserOptions = {
-  // eslint-disable-next-line spellcheck/spell-checker
-  // dsn: import.meta.env.VITE_SENTRY_DSN,
-  // environment: import.meta.env.MODE,
-  // release: __APP_VERSION__,
-  // TODO DESKTOP: check if beforeSend is doing a real anonymization
-  // beforeSend(event: ErrorEvent, _hint: EventHint): PromiseLike<ErrorEvent | null> | ErrorEvent | null {
-  //   // eslint-disable-next-line functional/immutable-data
-  //   event.user = null as any;
-  //   // eslint-disable-next-line functional/immutable-data
-  //   if (event.request) delete (event as any).request;
-  //   // eslint-disable-next-line functional/immutable-data
-  //   event.tags = { ...(event.tags ?? {}), app: 'web', release: __APP_VERSION__ };
-  //   // eslint-disable-next-line functional/immutable-data
-  //   event.breadcrumbs = undefined;
-  //
-  //   return event;
-  // },
+  beforeSend(event: ErrorEvent, _hint: EventHint): PromiseLike<ErrorEvent | null> | ErrorEvent | null {
+    // eslint-disable-next-line functional/immutable-data
+    if (isDefined(event.user)) event.user = null as any;
+
+    // eslint-disable-next-line functional/immutable-data
+    event.request = {
+      ...event.request,
+      url: 'hidden',
+      headers: {
+        ...event.request?.headers,
+        url: 'hidden'
+      }
+    };
+
+    // eslint-disable-next-line functional/immutable-data
+    if (isDefined(event.breadcrumbs)) event.breadcrumbs = undefined;
+
+    return event;
+  },
   tracesSampleRate: 0,
   //Important: make sure this is false if you want Anonymous reports (no IPs, etc.).
   // eslint-disable-next-line spellcheck/spell-checker
@@ -33,14 +36,10 @@ export function BrowserTrackingService(options?: BrowserOptions): TTrackingServi
     ...options
   });
 
-  window.addEventListener('error', (ev: ErrorEvent): void => {
-    captureException(ev.error ?? ev);
-  });
+  window.addEventListener('error', (ev: any): void => void captureException(ev.error ?? ev));
 
   // eslint-disable-next-line spellcheck/spell-checker
-  window.addEventListener('unhandledrejection', (ev: PromiseRejectionEvent): void => {
-    captureException((ev as PromiseRejectionEvent).reason ?? ev);
-  });
+  window.addEventListener('unhandledrejection', (ev: PromiseRejectionEvent): void => void captureException((ev as PromiseRejectionEvent).reason ?? ev));
 
   return {
     client,
