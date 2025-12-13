@@ -36,8 +36,8 @@ const options = computed((): ReadonlyArray<TDropdownOption<Languages>> => {
 <template>
   <View class="localization" title="Localization">
     <form name="audio" @submit.prevent="save(state)">
-      <SettingsGroup class="main-menu-view__group" title="Main Localization Settings">
-        <Dropdown v-model="state.language" :options="options" class="main-menu-view__setting -resolution" label="Resolution" />
+      <SettingsGroup title="Main Localization Settings">
+        <Dropdown v-model="state.language" :options="options" class="localization__setting -resolution" label="Resolution" />
       </SettingsGroup>
       <ViewActions @reset="reset()" />
       <Navigation class="settings__navigation" :back-btn="true" />
