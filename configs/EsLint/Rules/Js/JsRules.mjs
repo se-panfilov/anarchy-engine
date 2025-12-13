@@ -1,8 +1,5 @@
 export const JsRules = {
   'consistent-return': 'error',
-  // TODO 10-1-0: EsLiont fix:  simple-import-sort/imports
-  // 'simple-import-sort/imports': 'error',
-  // 'simple-import-sort/exports': 'error',
   'no-restricted-syntax': [
     'error',
     { selector: "MethodDefinition[kind='set']", message: 'Property setters are not allowed' },
