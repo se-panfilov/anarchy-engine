@@ -1,7 +1,9 @@
-import { Vector3 } from 'three';
+import type { Euler } from 'three';
+import { Quaternion, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
+import type { TCameraWrapper } from '@/Engine/Camera';
 import { controlsToConfig } from '@/Engine/Controls/Adapters';
 import type { ControlsType } from '@/Engine/Controls/Constants';
 import type { TControlsServiceDependencies, TOrbitControlsConfig, TOrbitControlsParams, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
@@ -11,7 +13,7 @@ import { applyOrbitControlsParams } from '@/Engine/Controls/Wrappers/OrbitContro
 import type { TMilliseconds } from '@/Engine/Math';
 import { withActiveMixin } from '@/Engine/Mixins';
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
-import { isDefined } from '@/Engine/Utils';
+import { isDefined, isEulerLike } from '@/Engine/Utils';
 
 export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitControlsWrapper {
   const entity: OrbitControls = new OrbitControls(params.camera.entity, params.canvas);
@@ -51,6 +53,35 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
     result.setTarget(position);
   }
 
+  function rotateCameraBy(rotation: Quaternion | Euler): void {
+    const quaternion: Quaternion = isEulerLike(rotation) ? new Quaternion().setFromEuler(rotation) : rotation;
+
+    const offset: Vector3 = new Vector3().subVectors(params.camera.entity.position, entity.target);
+    offset.applyQuaternion(quaternion);
+
+    params.camera.entity.position.copy(entity.target).add(offset);
+    params.camera.entity.quaternion.copy(quaternion);
+
+    entity.update();
+    entity.dispatchEvent({ type: 'end' });
+  }
+
+  function rotateCameraTo(rotation: Quaternion | Euler): void {
+    const quaternion: Quaternion = isEulerLike(rotation) ? new Quaternion().setFromEuler(rotation) : rotation;
+
+    const distance: number = params.camera.entity.position.distanceTo(entity.target);
+
+    const direction: Vector3 = new Vector3(0, 0, 1).applyQuaternion(quaternion).multiplyScalar(distance);
+
+    const newCameraPosition: Vector3 = new Vector3().copy(entity.target).add(direction);
+
+    params.camera.entity.position.copy(newCameraPosition);
+    params.camera.entity.quaternion.copy(quaternion);
+
+    entity.update();
+    entity.dispatchEvent({ type: 'end' });
+  }
+
   const result = Object.assign(AbstractWrapper(entity, WrapperType.Controls, { name: params.name, tags: params.tags }), {
     update,
     enable,
@@ -60,6 +91,9 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
     ...getOrbitControlsAccessors(entity),
     ...withActiveMixin(),
     moveToTargetSmoothly,
+    rotateCameraBy,
+    rotateCameraTo,
+    getCamera: (): TCameraWrapper => params.camera,
     entity,
     // TODO 15-0-0: add serializer to the service to avoid dependencies passing
     serialize: (dependencies: TControlsServiceDependencies): TOrbitControlsConfig => controlsToConfig(result, dependencies) as TOrbitControlsConfig
