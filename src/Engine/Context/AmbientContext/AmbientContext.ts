@@ -8,10 +8,11 @@ import { ScreenSizeWatcherFactory } from '@Engine/Domains/Screen';
 import type { IAmbientContext } from './Models';
 
 const container: IGlobalContainerDecorator = ContainerDecorator(window);
-const screenSizeWatcher: IScreenSizeWatcher = ScreenSizeWatcherFactory().create({ container }).start();
-const mouseClicksWatcher: IMouseClicksWatcher = MouseClicksWatcherFactory().create({ container }).start();
+const screenSizeWatcher: IScreenSizeWatcher = ScreenSizeWatcherFactory().create({ container, tags: [] }).start();
+const mouseClicksWatcher: IMouseClicksWatcher = MouseClicksWatcherFactory().create({ container, tags: [] }).start();
 const mousePositionWatcher: IMousePositionWatcher = MousePositionWatcherFactory().create({ container, tags: [] }).start();
 
+// TODO (S.Panfilov) maybe get rid of ambient context?
 export const ambientContext: IAmbientContext = {
   container,
   screenSizeWatcher,
