@@ -1,5 +1,7 @@
 import '@/style.css';
 
+import type { TSpaceSettings } from '@Engine';
+
 import { runtimeEnv } from '@/env';
 // import { start } from '@/Levels/Showcase1MovingActors';
 // import { start } from '@/Levels/Showcase2TopDown';
@@ -30,8 +32,15 @@ import { runtimeEnv } from '@/env';
 import { start } from '@/Levels/Showcase27SaveLoad';
 import type { TAppSettings } from '@/Models/TAppSettings';
 
-const settings: TAppSettings = {
-  loopsDebugInfo: runtimeEnv.VITE_SHOW_DEBUG_INFO
+const settings: TAppSettings & Readonly<{ spaceSettings: TSpaceSettings }> = {
+  loopsDebugInfo: runtimeEnv.VITE_APP_SHOW_DEBUG_INFO,
+  spaceSettings: {
+    threeJsSettings: {
+      draco: {
+        dracoLoaderDecoderPath: runtimeEnv.VITE_APP_DRACO_DECODER_PATH
+      }
+    }
+  }
 };
 
 void start(settings);
