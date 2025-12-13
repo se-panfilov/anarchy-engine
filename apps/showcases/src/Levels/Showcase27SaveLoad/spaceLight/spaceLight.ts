@@ -1,4 +1,5 @@
-import type { THemisphereLightWrapper, TPointLightWrapper, TSpace, TSpaceConfig, TSpotLightWrapper, TWriteable } from '@Engine';
+import type { THemisphereLightWrapper, TPointLightWrapper, TSpace, TSpaceConfig, TSpotLightWrapper } from '@Engine';
+import type { TWriteable } from '@Shared/Utils';
 import { BehaviorSubject } from 'rxjs';
 import type { HemisphereLight, PointLight, SpotLight } from 'three';
 import { Color, Vector3 } from 'three';

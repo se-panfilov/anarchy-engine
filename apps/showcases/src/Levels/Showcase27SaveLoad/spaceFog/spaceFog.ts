@@ -1,4 +1,5 @@
-import type { TFogWrapper, TSpace, TSpaceConfig, TWriteable } from '@Engine';
+import type { TFogWrapper, TSpace, TSpaceConfig } from '@Engine';
+import type { TWriteable } from '@Shared/Utils';
 import { BehaviorSubject } from 'rxjs';
 import type { Fog } from 'three';
 import { Color } from 'three';
