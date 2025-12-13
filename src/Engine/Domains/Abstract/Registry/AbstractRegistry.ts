@@ -12,6 +12,7 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
   const added$: Subject<T> = new Subject<T>();
   const replaced$: Subject<T> = new Subject<T>();
   const removed$: Subject<T> = new Subject<T>();
+  const destroyed$: Subject<void> = new Subject<void>();
 
   function add(entity: T): void | never {
     if (registry.has(entity.id)) throw new Error(`Cannot add an entity with id "${entity.id}" to registry ${id}: already exist`);
@@ -43,6 +44,8 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
   }
 
   function destroy(): void {
+    destroyed$.next();
+    destroyed$.complete();
     added$.complete();
     replaced$.complete();
     removed$.complete();
@@ -81,6 +84,9 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     get replaced$(): Subject<T> {
       return replaced$;
     },
+    get destroyed$(): Subject<void> {
+      return destroyed$;
+    },
     get removed$(): Subject<T> {
       return removed$;
     },
@@ -95,6 +101,7 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     getUniqByTag,
     registry,
     remove,
+    isDestroyed: false,
     destroy
   };
 }

@@ -24,6 +24,7 @@ import { LightFactory, LightRegistry } from '@/Engine/Domains/Light';
 export function buildGame(sceneConfig: ISceneConfig, canvas: IAppCanvas): IBuiltGame {
   const built$: Subject<void> = new Subject<void>();
   const destroyed$: Subject<void> = new Subject<void>();
+  let isDestroyed: boolean = false;
 
   if (!isValidSceneConfig(sceneConfig)) throw new Error('Failed to launch a scene: invalid data format');
   const { name: sceneName, actors, cameras, lights, controls, tags } = sceneConfig;
@@ -62,6 +63,7 @@ export function buildGame(sceneConfig: ISceneConfig, canvas: IAppCanvas): IBuilt
   const loop: ILoopWrapper = loopFactory.create({ tags: [LoopTag.Main] });
 
   destroyed$.subscribe(() => {
+    isDestroyed = true;
     built$.complete();
 
     actorFactory.entityCreated$.unsubscribe();
@@ -103,6 +105,7 @@ export function buildGame(sceneConfig: ISceneConfig, canvas: IAppCanvas): IBuilt
 
   return {
     destroy,
+    isDestroyed,
     start(): ILoopWrapper {
       loop.start(renderer, scene, initialCamera);
       return loop;

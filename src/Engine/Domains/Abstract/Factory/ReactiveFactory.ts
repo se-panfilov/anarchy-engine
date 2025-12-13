@@ -7,6 +7,7 @@ import { cleanObject } from '@/Engine/Utils';
 export function ReactiveFactory<T, P>(type: string, createEntityFn: (params: P) => T): IReactiveFactory<T, P> {
   const entityCreated$: Subject<T> = new Subject<T>();
   const destroyed$: Subject<void> = new Subject<void>();
+  let isDestroyed: boolean = false;
 
   const partialFactory = {
     ...AbstractFactory(type),
@@ -15,6 +16,7 @@ export function ReactiveFactory<T, P>(type: string, createEntityFn: (params: P) 
   };
 
   function destroy(this: IReactiveFactory<T>): void {
+    isDestroyed = true;
     partialFactory.destroyed$.next();
     partialFactory.destroyed$.complete();
     return cleanObject(this);
@@ -28,6 +30,7 @@ export function ReactiveFactory<T, P>(type: string, createEntityFn: (params: P) 
 
   return {
     ...partialFactory,
+    isDestroyed,
     destroy,
     create
   };

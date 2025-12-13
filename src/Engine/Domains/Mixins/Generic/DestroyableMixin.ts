@@ -1,15 +1,20 @@
-import type { IDestroyable } from '@Engine/Domains/Mixins';
-import { cleanObject, isDefined, isReactiveFactory } from '@Engine/Utils';
+import type { IDestroyable, IReactiveDestroyable } from '@Engine/Domains/Mixins';
+import { cleanObject, isDefined, isReactiveDestroyable } from '@Engine/Utils';
 
-export function destroyableMixin(factory: Record<string, any>, _destroy?: (...params: ReadonlyArray<any>) => void): IDestroyable {
-  return {
+export function destroyableMixin(obj: Record<string, any>, _destroy?: (...params: ReadonlyArray<any>) => void): IDestroyable | IReactiveDestroyable {
+  const result = {
+    isDestroyed: false,
     destroy: (...params: ReadonlyArray<any>): void => {
       if (isDefined(_destroy)) return _destroy(params);
-      if (isReactiveFactory(factory)) {
-        factory.destroyed$.next();
-        factory.destroyed$.complete();
+      if (isReactiveDestroyable(obj)) {
+        obj.destroyed$.next();
+        obj.destroyed$.complete();
       }
-      return cleanObject(factory);
+      // eslint-disable-next-line functional/immutable-data
+      result.isDestroyed = true;
+      return cleanObject(obj);
     }
   };
+
+  return result;
 }

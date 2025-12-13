@@ -1,4 +1,4 @@
-import type { IDestroyable, IRegistrable } from '@Engine/Domains/Mixins';
+import type { IReactiveDestroyable, IRegistrable } from '@Engine/Domains/Mixins';
 import type { Subject } from 'rxjs';
 
 import type { RegistryName } from '@/Engine/Registries';
@@ -21,4 +21,4 @@ export type IAbstractRegistry<T extends IRegistrable> = Readonly<{
   remove: (id: string) => void;
   removed$: Subject<T>;
 }> &
-  IDestroyable;
+  IReactiveDestroyable;
