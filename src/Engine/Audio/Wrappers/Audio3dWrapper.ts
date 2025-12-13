@@ -27,7 +27,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
   const speed$: BehaviorSubject<number> = new BehaviorSubject<number>(params.speed ?? 1);
   const seek$: BehaviorSubject<number> = new BehaviorSubject<number>(params.seek ?? 0);
   const loop$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.loop ?? false);
-  const volume$: BehaviorSubject<number> = new BehaviorSubject<number>(volume);
+  const volume$: BehaviorSubject<number> = new BehaviorSubject<number>(volume ?? 1);
 
   const updatePriority: LoopUpdatePriority = performance?.updatePriority ?? LoopUpdatePriority.LOW;
   // TODO 11.0.0: maybe the default threshold should be higher?

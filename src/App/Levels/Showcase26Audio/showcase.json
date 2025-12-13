@@ -40,7 +40,18 @@
         }
       }
     ],
-    "audio": [],
+    "audio": [
+      {
+        "audioSource": "persimmon_music",
+        "name": "bg_music",
+        "listener": "main_listener",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    ],
     "cameras": [
       {
         "far": 100,
@@ -173,7 +184,12 @@
   "name": "showcase",
   "resources": {
     "animations": [],
-    "audio": [],
+    "audio": [
+      {
+        "name": "persimmon_music",
+        "url": "/Showcase/Audio/Pierce Murphy - Persimmon.mp3"
+      }
+    ],
     "envMaps": [],
     "materials": [
       {

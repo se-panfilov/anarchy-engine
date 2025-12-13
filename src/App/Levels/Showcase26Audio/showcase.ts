@@ -10,10 +10,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
 
-  const { controlsService } = space.services;
-  const controls = controlsService.findActive();
-  console.log('XXX', controls);
-
   function init(): void {
     const fadeDuration = 0.3;
 

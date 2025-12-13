@@ -9,7 +9,7 @@ import type { TSpaceLoops } from '@/Engine/Space';
 function create(params: TAudioParams, loops: Pick<TSpaceLoops, 'audioLoop'>): TAudioWrapper | never {
   if (isAudio3dParams(params)) return Audio3dWrapper(params, loops);
   // TODO 11.0.0: add possibility to create music, sfx and other types of non-spatial audio
-  throw new Error('Audio factory: unknown params type');
+  throw new Error('Audio factory: unknown audio type');
 }
 
 const factory: TReactiveFactoryWithDependencies<TAudioWrapper, TAudioParams, Pick<TAudioWrapperDependencies, 'audioLoop'>> = ReactiveFactoryWithDependencies(FactoryType.Audio, create);

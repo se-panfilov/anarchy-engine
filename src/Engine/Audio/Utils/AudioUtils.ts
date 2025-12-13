@@ -7,7 +7,7 @@ export const isAudio3dParams = (config: TAudioParams | TAudio3dParams): config i
 
 // TODO 11.0.0: implement pauseAudio
 export function pauseAudio(entity: PositionalAudio): void {
-  console.warn('pauseAudio is not implemented yet');
+  console.warn('pauseAudio is not implemented yet', entity);
   // if (!entity.isPlaying) return;
   // entity.pausedAt = entity.context.currentTime - entity.startTime;
   // entity.stop();
@@ -16,7 +16,7 @@ export function pauseAudio(entity: PositionalAudio): void {
 
 // TODO 11.0.0: implement resumeAudio
 export function resumeAudio(entity: PositionalAudio): void {
-  console.warn('resumeAudio is not implemented yet');
+  console.warn('resumeAudio is not implemented yet', entity);
   // if (!entity.isPaused || entity.pausedAt === null) return;
   // entity.offset = entity.pausedAt;
   // entity.play();
@@ -46,7 +46,7 @@ export function createPositionalAudion(audioSource: AudioBuffer, params: TAudioP
 
   positionalAudio.setBuffer(audioSource!);
   positionalAudio.setRefDistance(params.refDistance ?? 1);
-  positionalAudio.setVolume(params.volume);
+  positionalAudio.setVolume(params.volume ?? 1);
   if (params.rolloffFactor) positionalAudio.setRolloffFactor(params.rolloffFactor);
   positionalAudio.setDistanceModel(params.distanceModel ?? 'linear');
   if (params.maxDistance) positionalAudio.setMaxDistance(params.maxDistance);

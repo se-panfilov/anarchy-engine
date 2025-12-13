@@ -1211,11 +1211,11 @@
         "listener": {
           "type": "string"
         },
-        "volume": {
-          "type": "number"
-        },
         "name": {
           "type": "string"
+        },
+        "volume": {
+          "type": "number"
         },
         "loop": {
           "type": "boolean"
@@ -1255,7 +1255,7 @@
           "$ref": "#/definitions/TransformAgent"
         }
       },
-      "required": ["audioSource", "listener", "position", "volume"]
+      "required": ["audioSource", "listener", "position"]
     },
     "TAudioPerformanceOptions": {
       "type": "object",
@@ -1273,20 +1273,17 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "position": {
-          "$ref": "#/definitions/Vector3Like"
-        },
         "audioSource": {
           "type": "string"
         },
         "listener": {
           "type": "string"
         },
-        "volume": {
-          "type": "number"
-        },
         "name": {
           "type": "string"
+        },
+        "volume": {
+          "type": "number"
         },
         "loop": {
           "type": "boolean"
@@ -1326,7 +1323,7 @@
           "$ref": "#/definitions/TransformAgent"
         }
       },
-      "required": ["audioSource", "listener", "position", "volume"]
+      "required": ["audioSource", "listener"]
     },
     "TCameraConfig": {
       "type": "object",
