@@ -1,4 +1,5 @@
 export type * from './TLocale';
+export type * from './TLocales.gen';
 export type * from './TLocalesMapping';
 export type * from './TMessages';
 export type * from './TReactiveTranslationMixin';
