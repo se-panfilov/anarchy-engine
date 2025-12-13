@@ -1,36 +1,24 @@
 <script setup lang="ts">
 import './assets/style.scss';
 
-import type { TLocalesMapping, TMessages } from '@Anarchy/i18n';
-import { TranslateService } from '@Anarchy/i18n';
 import RouterView from '@Showcases/Menu/components/RouterView.vue';
-import { eventsService } from '@Showcases/Menu/services';
+import { eventsService, translationService } from '@Showcases/Menu/services';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
+import { Locales } from '@Showcases/Shared';
 import type { Subscription } from 'rxjs';
-import { filter } from 'rxjs';
 import { onMounted, onUnmounted } from 'vue';
 
 let appEventsSub$: Subscription | undefined;
 
 // TODO DESKTOP: DEBUG CODE
-enum Locales {
-  en = 'en',
-  nl = 'nl'
-}
-const loaders: TLocalesMapping<Locales> = {
-  en: () => import('./locales/en.json').then((m) => (m.default ?? m) as TMessages),
-  nl: () => import('./locales/nl.json').then((m) => (m.default ?? m) as TMessages)
-} as const;
+console.log('XXX1', translationService.translate('menu.start'));
+translationService.locale$.next(Locales.nl);
+setTimeout(() => {
+  console.log('XXX2', translationService.translate('menu.start'));
+}, 100);
 
-const i18n = TranslateService<Locales>(Locales.en, Locales.en, loaders);
-
-i18n.ready$.pipe(filter(Boolean)).subscribe(() => {
-  console.log('XXX1', i18n.translate('menu.start'));
-  i18n.locale$.next(Locales.nl);
-  console.log('XXX2', i18n.translate('menu.start'));
-  console.log(i18n.translate('hud.fps', { count: '60' }));
-  console.log(i18n.formatNumber(1234.56, { style: 'currency', currency: 'EUR' }));
-});
+// console.log(i18n.translate('hud.fps', { count: '60' }));
+// console.log(i18n.formatNumber(1234.56, { style: 'currency', currency: 'EUR' }));
 // TODO DESKTOP: DEBUG CODE END
 
 onMounted((): void => {
