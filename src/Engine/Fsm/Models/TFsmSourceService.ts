@@ -1,4 +1,4 @@
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
 
 import type { TFsmConfig } from './TFsmConfig';
@@ -11,4 +11,5 @@ export type TFsmSourceService = TWithCreateService<TFsmSource, TFsmParams> &
   TWithCreateFromConfigService<TFsmConfig, TFsmSource> &
   TWithFactoryService<TFsmSourceFactory> &
   TWithRegistryService<TFsmSourceRegistry> &
+  TNoSpread &
   TDestroyable;

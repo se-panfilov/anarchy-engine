@@ -1,4 +1,5 @@
 import type { TAppCanvas } from '@/Engine/App';
+import type { TNoSpread } from '@/Engine/Mixins';
 
 export type TScreenService = Readonly<{
   setCanvas: (canvas: TAppCanvas) => void;
@@ -7,4 +8,5 @@ export type TScreenService = Readonly<{
   exitFullScreen: () => Promise<void>;
   toggleFullScreen: () => Promise<void>;
   isFullScreen: () => boolean;
-}>;
+}> &
+  TNoSpread;

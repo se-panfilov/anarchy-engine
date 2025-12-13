@@ -5,7 +5,7 @@ import type { TIntersectionsLoop } from '@/Engine/Intersections';
 import type { TKeyboardLoop } from '@/Engine/Keyboard';
 import type { TKinematicLoop } from '@/Engine/Kinematic';
 import type { LoopType } from '@/Engine/Loop/Constants';
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
 import type { TMouseLoop } from '@/Engine/Mouse';
 import type { TPhysicalLoop } from '@/Engine/Physics';
 import type { TRenderLoop, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
@@ -36,4 +36,5 @@ export type TLoopService = Readonly<{
   TWithCreateService<TLoop, TLoopParams> &
   TWithFactoryService<TLoopFactory> &
   TWithRegistryService<TLoopRegistry> &
+  TNoSpread &
   TDestroyable;

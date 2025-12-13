@@ -1,3 +1,3 @@
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
 
-export type TDriveToTargetConnector = TDestroyable;
+export type TDriveToTargetConnector = TNoSpread & TDestroyable;

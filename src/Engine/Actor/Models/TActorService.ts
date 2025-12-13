@@ -1,4 +1,4 @@
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
 
 import type { TActor } from './TActor';
@@ -12,4 +12,5 @@ export type TActorService = TWithCreateService<TActor, TActorParams> &
   TWithFactoryService<TActorFactory> &
   TWithRegistryService<TActorRegistry> &
   TWithSceneGetterService &
+  TNoSpread &
   TDestroyable;

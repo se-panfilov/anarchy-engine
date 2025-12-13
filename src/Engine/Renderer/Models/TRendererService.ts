@@ -1,4 +1,4 @@
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
 import type { TWithActiveAccessorsService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
 
 import type { TRendererFactory } from './TRendererFactory';
@@ -10,4 +10,5 @@ export type TRendererService = TWithCreateService<TRendererWrapper, TRendererPar
   TWithActiveAccessorsService<TRendererWrapper> &
   TWithFactoryService<TRendererFactory> &
   TWithRegistryService<TRendererRegistry> &
+  TNoSpread &
   TDestroyable;

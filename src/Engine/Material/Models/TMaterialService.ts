@@ -1,4 +1,4 @@
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
 
 import type { TMaterialConfig } from './TMaterialConfig';
@@ -11,4 +11,5 @@ export type TMaterialService = TWithCreateService<TMaterialWrapper, TMaterialPar
   TWithCreateFromConfigService<TMaterialConfig, TMaterialWrapper> &
   TWithFactoryService<TMaterialFactory> &
   TWithRegistryService<TMaterialRegistry> &
+  TNoSpread &
   TDestroyable;

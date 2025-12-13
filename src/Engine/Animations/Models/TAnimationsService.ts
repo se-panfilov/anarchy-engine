@@ -2,7 +2,7 @@ import type { Observable } from 'rxjs';
 import type { AnimationClip, AnimationMixer } from 'three';
 
 import type { TDelta } from '@/Engine/Loop';
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
 import type { TModel3d, TRawModel3d } from '@/Engine/Models3d';
 import type { TWithLoadResourcesAsyncService, TWithResourcesRegistryService } from '@/Engine/Space';
 
@@ -20,4 +20,5 @@ export type TAnimationsService = Readonly<{
 }> &
   TWithResourcesRegistryService<TAnimationsResourceAsyncRegistry> &
   TWithLoadResourcesAsyncService<TAnimationsResourceConfig, TAnimations> &
+  TNoSpread &
   TDestroyable;

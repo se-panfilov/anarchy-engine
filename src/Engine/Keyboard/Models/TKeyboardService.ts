@@ -1,3 +1,5 @@
+import type { TNoSpread } from '@/Engine/Mixins';
+
 import type { TGameKey } from './TGameKey';
 import type { TKeyCombo } from './TKeyCombo';
 import type { TKeySubscription } from './TKeySubscription';
@@ -13,4 +15,5 @@ export type TKeyboardService = Readonly<{
   resumeKeyComboBinding: (combo: TKeyCombo) => void;
   isKeyPressed: (key: TGameKey) => boolean;
   isKeyComboPressed: (combo: TKeyCombo) => boolean;
-}>;
+}> &
+  TNoSpread;

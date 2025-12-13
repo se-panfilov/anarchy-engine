@@ -1,13 +1,13 @@
 import type { BehaviorSubject, ReplaySubject } from 'rxjs';
 
-import type { TDestroyable, TWithId } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread, TWithId } from '@/Engine/Mixins';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 
 import type { TAbstractTransformAgent } from './TAbstractTransformAgent';
 import type { TProtectedTransformAgentFacade } from './TProtectedTransformAgentFacade';
 
-export type TTransformDrive<T extends Partial<Record<TransformAgent, TAbstractTransformAgent>>> = TTransformDriveMandatoryFields & T & TDestroyable;
+export type TTransformDrive<T extends Partial<Record<TransformAgent, TAbstractTransformAgent>>> = TTransformDriveMandatoryFields & T & TNoSpread & TDestroyable;
 
 export type TTransformDriveMandatoryFields = Readonly<{
   agent$: BehaviorSubject<TransformAgent>;

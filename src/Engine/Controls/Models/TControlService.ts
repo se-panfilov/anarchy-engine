@@ -1,5 +1,5 @@
 import type { TCameraRegistry } from '@/Engine/Camera';
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
 import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
 
 import type { TControlsConfig } from './TControlsConfig';
@@ -16,4 +16,5 @@ export type TControlsService = TWithCreateService<TControlsWrapper, TControlsPar
   TWithActiveAccessorsService<TControlsWrapper> &
   TWithFactoryService<TControlsFactory> &
   TWithRegistryService<TControlsRegistry> &
+  TNoSpread &
   TDestroyable;

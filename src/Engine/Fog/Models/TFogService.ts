@@ -1,4 +1,4 @@
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
 
 import type { TFogConfig } from './TFogConfig';
@@ -12,4 +12,5 @@ export type TFogService = TWithCreateService<TFogWrapper, TFogParams> &
   TWithFactoryService<TFogFactory> &
   TWithRegistryService<TFogRegistry> &
   TWithSceneGetterService &
+  TNoSpread &
   TDestroyable;

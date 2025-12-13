@@ -1,4 +1,4 @@
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
 import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
 
 import type { TCameraConfig } from './TCameraConfig';
@@ -16,4 +16,5 @@ export type TCameraService = Readonly<{
   TWithFactoryService<TCameraFactory> &
   TWithRegistryService<TCameraRegistry> &
   TWithSceneGetterService &
+  TNoSpread &
   TDestroyable;

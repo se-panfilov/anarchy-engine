@@ -1,4 +1,4 @@
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
 
 import type { TSpatialGridConfig } from './TSpatialGridConfig';
@@ -11,4 +11,5 @@ export type TSpatialGridService = TWithCreateService<TSpatialGridWrapper, TSpati
   TWithCreateFromConfigService<TSpatialGridConfig, TSpatialGridWrapper> &
   TWithFactoryService<TSpatialGridFactory> &
   TWithRegistryService<TSpatialGridRegistry> &
+  TNoSpread &
   TDestroyable;

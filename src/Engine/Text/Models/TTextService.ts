@@ -1,7 +1,7 @@
 import type { Observable } from 'rxjs';
 
 import type { TAppGlobalContainer } from '@/Engine/Global';
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithSceneGetterService } from '@/Engine/Space';
 
@@ -31,4 +31,5 @@ export type TTextService = TWithCreateService<TTextAnyWrapper, TTextParams> &
     getActiveText3dRenderer: () => TText3dRenderer | undefined;
   }> &
   TWithSceneGetterService &
+  TNoSpread &
   TDestroyable;

@@ -100,6 +100,8 @@ export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
   const removeKeyBinding = (key: TGameKey): void => removeBinding(key, false);
   const removeKeyComboBinding = (key: TKeyCombo): void => removeBinding(key, true);
 
+  // TODO DESTROY: we need to destroy all bindings on destroy$
+
   return {
     onKey,
     onKeyCombo,

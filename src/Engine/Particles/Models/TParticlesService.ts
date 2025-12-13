@@ -1,4 +1,4 @@
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
 
 import type { TParticlesConfig } from './TParticlesConfig';
@@ -12,4 +12,5 @@ export type TParticlesService = TWithCreateService<TParticlesWrapper, TParticles
   TWithFactoryService<TParticlesFactory> &
   TWithRegistryService<TParticlesRegistry> &
   TWithSceneGetterService &
+  TNoSpread &
   TDestroyable;

@@ -1,6 +1,6 @@
 import type { AudioListener } from 'three';
 
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithLoadResourcesAsyncService, TWithRegistryService, TWithResourcesRegistryService } from '@/Engine/Space';
 
 import type { TAnyAudioConfig } from './TAnyAudioConfig';
@@ -22,4 +22,5 @@ export type TAudioService = TWithCreateService<TAnyAudioWrapper, TAnyAudioParams
     getMainListener: () => AudioListener | undefined;
   }> &
   TWithLoadResourcesAsyncService<TAudioResourceConfig, AudioBuffer> &
+  TNoSpread &
   TDestroyable;

@@ -1,5 +1,5 @@
 import type { TEnvMapConfig, TEnvMapFactory, TEnvMapParams, TEnvMapRegistry, TEnvMapResourceConfig, TEnvMapTexture, TEnvMapTextureAsyncRegistry, TEnvMapWrapper } from '@/Engine/EnvMap/Models';
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
 import type {
   TWithActiveAccessorsService,
   TWithCreateFromConfigService,
@@ -19,4 +19,5 @@ export type TEnvMapService = TWithCreateService<TEnvMapWrapper, TEnvMapParams> &
   TWithResourcesRegistryService<TEnvMapTextureAsyncRegistry> &
   TWithLoadResourcesAsyncService<TEnvMapResourceConfig, TEnvMapTexture> &
   TWithSceneGetterService &
+  TNoSpread &
   TDestroyable;

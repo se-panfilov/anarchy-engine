@@ -342,10 +342,6 @@ function validateModificationApplies<T extends TRegistrable & { fieldA?: string;
   });
 }
 
-// TODO CWP
-// TODO 12-0-0: Add a test with adding, modifying entity from constant and check if changes appears in a registry
-// TODO 12-0-0: Add an option to skip the adding entity to the registry
-
 export function createMockEntity(): TRegistrable {
   return {
     id: nanoid(),

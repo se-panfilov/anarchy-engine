@@ -1,7 +1,7 @@
 import type { TActorService } from '@/Engine/Actor';
 import type { TCameraService } from '@/Engine/Camera';
 import type { TLoopService } from '@/Engine/Loop';
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
 import type { TMouseService } from '@/Engine/Mouse';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
 
@@ -24,4 +24,5 @@ export type TIntersectionsWatcherService = TWithCreateService<TIntersectionsWatc
   }> &
   TWithFactoryService<TIntersectionsWatcherFactory> &
   TWithRegistryService<TIntersectionsWatcherRegistry> &
+  TNoSpread &
   TDestroyable;
