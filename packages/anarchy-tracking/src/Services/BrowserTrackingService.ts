@@ -1,6 +1,7 @@
 import { isDefined } from '@Anarchy/Shared/Utils';
 import { HiddenField } from '@Anarchy/Tracking/Constants';
 import type { TTrackingService } from '@Anarchy/Tracking/Models';
+import { rewriteFramesIntegrationBrowser } from '@Anarchy/Tracking/Utils';
 import { scrubUserPathsBrowser } from '@Anarchy/Tracking/Utils/ScrubsBrowser';
 import type { BrowserOptions, EventHint } from '@sentry/browser';
 import { captureException, init } from '@sentry/browser';
@@ -46,6 +47,7 @@ export function BrowserTrackingService(options?: BrowserOptions, metaData?: Reco
 
       return scrubUserPathsBrowser(event);
     },
+    integrations: [rewriteFramesIntegrationBrowser()],
     tracesSampleRate: 0,
     //Important: make sure this is false if you want Anonymous reports (no IPs, etc.).
     sendDefaultPii: false

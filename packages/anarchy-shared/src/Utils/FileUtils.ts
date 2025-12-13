@@ -16,3 +16,5 @@ export function getFileExtension(name: string): string | undefined {
   const extension: RegExpExecArray | null = /^.+\.([^.]+)$/.exec(name);
   return isDefined(extension) ? extension[1] : undefined;
 }
+
+export const toPosix = (s: string): string => s.replace(/\\/g, '/');
