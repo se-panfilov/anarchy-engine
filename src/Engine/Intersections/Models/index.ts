@@ -1,4 +1,5 @@
 export type * from './TAbstractIntersectionsWatcher';
+export type * from './TAbstractIntersectionsWatcherConfig';
 export type * from './TAbstractIntersectionsWatcherParams';
 export type * from './TAnyIntersectionsWatcher';
 export type * from './TAnyIntersectionsWatcherConfig';
