@@ -1,4 +1,4 @@
-import type { TEntitiesService } from '@/Engine/Abstract';
+import type { TSerializableEntitiesService } from '@/Engine/Abstract';
 import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 
 import type { TControlsConfig } from './TControlsConfig';
@@ -12,7 +12,7 @@ export type TControlsServiceWithCreateFromConfig = Omit<TWithCreateFromConfigSer
 export type TControlsServiceWithFactory = TWithFactoryService<TControlsWrapper, TControlsParams, undefined, TControlsFactory>;
 export type TControlsServiceWithRegistry = TWithRegistryService<TControlsRegistry>;
 
-export type TControlsService = TEntitiesService &
+export type TControlsService = TSerializableEntitiesService<TControlsConfig> &
   TControlsServiceWithCreate &
   TControlsServiceWithCreateFromConfig &
   Readonly<{

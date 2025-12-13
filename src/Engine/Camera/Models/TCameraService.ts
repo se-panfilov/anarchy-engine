@@ -1,4 +1,4 @@
-import type { TEntitiesService } from '@/Engine/Abstract';
+import type { TSerializableEntitiesService } from '@/Engine/Abstract';
 import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Mixins';
 
 import type { TCameraConfig } from './TCameraConfig';
@@ -13,7 +13,7 @@ export type TCameraServiceWithCreateFromConfig = TWithCreateFromConfigService<TC
 export type TCameraServiceWithFactory = TWithFactoryService<TCameraWrapper, TCameraParams, TCameraServiceDependencies, TCameraFactory>;
 export type TCameraServiceWithRegistry = TWithRegistryService<TCameraRegistry>;
 
-export type TCameraService = TEntitiesService &
+export type TCameraService = TSerializableEntitiesService<TCameraConfig> &
   Readonly<{
     startUpdatingCamerasAspect: (isOnlyActive: boolean) => void;
   }> &

@@ -4,6 +4,7 @@ import { distinctUntilChanged, takeUntil } from 'rxjs';
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type {
+  TCameraConfig,
   TCameraFactory,
   TCameraRegistry,
   TCameraService,
@@ -15,7 +16,15 @@ import type {
   TCameraWrapper
 } from '@/Engine/Camera/Models';
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
-import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService } from '@/Engine/Mixins';
+import {
+  withActiveEntityServiceMixin,
+  withCreateFromConfigServiceMixin,
+  withCreateServiceMixin,
+  withFactoryService,
+  withRegistryService,
+  withSceneGetterService,
+  withSerializeAllEntities
+} from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isNotDefined } from '@/Engine/Utils';
 
@@ -63,10 +72,19 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withRegistry, withFactory, withSceneGetterService(scene), {
-    setActive: withActive.setActive,
-    findActive,
-    active$: withActive.active$,
-    startUpdatingCamerasAspect
-  });
+  return Object.assign(
+    abstractService,
+    withCreateService,
+    withCreateFromConfigService,
+    withRegistry,
+    withFactory,
+    withSceneGetterService(scene),
+    withSerializeAllEntities<TCameraConfig, undefined>(registry),
+    {
+      setActive: withActive.setActive,
+      findActive,
+      active$: withActive.active$,
+      startUpdatingCamerasAspect
+    }
+  );
 }

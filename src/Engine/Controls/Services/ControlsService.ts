@@ -16,7 +16,7 @@ import type {
   TControlsWrapper
 } from '@/Engine/Controls/Models';
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
-import { withActiveEntityServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
+import { withActiveEntityServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
 import type { TSpaceCanvas, TSpaceLoops } from '@/Engine/Space';
 import { isNotDefined } from '@/Engine/Utils';
 
@@ -61,7 +61,7 @@ export function ControlService(
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withFactory, withRegistry, {
+  return Object.assign(abstractService, withFactory, withRegistry, withSerializeAllEntities<TControlsConfig, undefined>(registry), {
     create,
     createFromList,
     createFromConfig,

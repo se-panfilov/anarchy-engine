@@ -5,6 +5,7 @@ import { AbstractService } from '@/Engine/Abstract';
 import type {
   TActor,
   TActorConfig,
+  TActorEntityToConfigDependencies,
   TActorFactory,
   TActorParams,
   TActorRegistry,
@@ -14,7 +15,7 @@ import type {
   TActorServiceWithRegistry
 } from '@/Engine/Actor/Models';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withFactoryService, withRegistryService, withSceneGetterService } from '@/Engine/Mixins';
+import { withFactoryService, withRegistryService, withSceneGetterService, withSerializeAllEntities } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpatialGridRegistry } from '@/Engine/Spatial';
 
@@ -38,7 +39,7 @@ export function ActorService(factory: TActorFactory, registry: TActorRegistry, a
   const withRegistry: TActorServiceWithRegistry = withRegistryService(registry);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withFactory, withRegistry, withSceneGetterService(scene), {
+  return Object.assign(abstractService, withFactory, withRegistry, withSceneGetterService(scene), withSerializeAllEntities<TActorConfig, TActorEntityToConfigDependencies>(registry), {
     create,
     createFromList,
     createFromConfig
