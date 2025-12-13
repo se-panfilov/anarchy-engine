@@ -3,7 +3,7 @@ import * as path from 'node:path';
 
 import { AllowedFolders } from '@Desktop/Constants';
 import type { TSettingsService } from '@Desktop/Models';
-import { isAllNotDefined, isNotDefined } from '@Engine';
+import { isAllNotDefined, isNotDefined } from '@Shared/Utils';
 import type { TShowcaseGameSettings } from '@ShowcasesShared';
 import type { App } from 'electron';
 
