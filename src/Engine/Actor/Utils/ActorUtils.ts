@@ -1,6 +1,5 @@
 import type { TActor, TActorDependencies, TActorParams, TActorWithPhysics, TActorWithPhysicsDependencies } from '@/Engine/Actor/Models';
 import type { TSpatialGridService, TSpatialGridWrapper } from '@/Engine/Spatial';
-import type { TVector3OrEuler } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export const isActorHasPhysicsBody = (actor: TActor | TActorWithPhysics): actor is TActorWithPhysics => isDefined(actor.physicsBody);
@@ -25,8 +24,4 @@ export function applySpatialGrid(params: TActorParams, actor: TActor, spatialGri
 export function startCollisions(actor: TActor): void {
   if (isNotDefined(actor.collisions) || !actor.collisions.isAutoUpdate()) return;
   actor.collisions.start(actor);
-}
-
-export function isEqualOrSimilar(prev: TVector3OrEuler, curr: TVector3OrEuler, threshold: number): boolean {
-  return prev.equals(curr) || (Math.abs(curr.x - prev.x) <= threshold && Math.abs(curr.y - prev.y) <= threshold && Math.abs(curr.z - prev.z) <= threshold);
 }

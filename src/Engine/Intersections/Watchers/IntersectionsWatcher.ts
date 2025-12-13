@@ -13,7 +13,7 @@ import type { TMousePosition } from '@/Engine/Mouse';
 import { getNormalizedMousePosition } from '@/Engine/Mouse';
 import type { TSceneObject } from '@/Engine/Scene';
 import type { TWriteable } from '@/Engine/Utils';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { isDefined, isEqualOrSimilarVector2Like, isNotDefined } from '@/Engine/Utils';
 
 export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...rest }: TIntersectionsWatcherParams): TIntersectionsWatcher {
   const abstractWatcher: TAbstractWatcher<TIntersectionEvent> = AbstractWatcher(WatcherType.IntersectionWatcher, name, tags);
@@ -31,13 +31,14 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
   const getCamera = (): TCameraWrapper | undefined => camera;
 
   let mousePos$: Subscription | undefined;
-  // TODO ENV: limit is 60 fps, perhaps should be configurable
-  const delay: number = rest.delay ?? 4; // 240 FPS (when 16 is 60 FPS)
+  // TODO ENV: limited fps, perhaps should be configurable
+  const delay: number = rest.delay ?? 2; // 480 FPS (when 16 is 60 FPS)
+  const threshold: number = rest.noiseThreshold ?? 0.001;
 
   function start(): TIntersectionsWatcher {
     mousePos$ = position$
       .pipe(
-        distinctUntilChanged((prev: TMousePosition, curr: TMousePosition): boolean => prev.coords.x === curr.coords.x && prev.coords.y === curr.coords.y),
+        distinctUntilChanged(({ coords: prevCoords }: TMousePosition, { coords: currCoords }: TMousePosition): boolean => isEqualOrSimilarVector2Like(prevCoords, currCoords, threshold)),
         sampleTime(delay)
       )
       .subscribe((position: TMousePosition): void => {
@@ -48,7 +49,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
           actors.map((a: TActor): TRawModel3d => a.model3d.model3d.getRawModel3d())
         );
         // TODO 8.0.0. MODELS: check if this works while mouse not moving, but the scene is moving
-        //console.log('XXX 111', position);
+        // console.log('XXX 111', position);
         if (isDefined(intersection)) abstractWatcher.value$.next(intersection);
       });
     // eslint-disable-next-line functional/immutable-data

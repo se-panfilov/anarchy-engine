@@ -13,5 +13,6 @@ export type TIntersectionsWatcherParams = Omit<TIntersectionsWatcherProps, 'came
     actors: ReadonlyArray<TActor>;
     position$: Observable<TMousePosition>;
     delay?: number;
+    noiseThreshold?: number;
   }> &
   TWithReadonlyTags;

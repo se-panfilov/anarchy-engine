@@ -2,13 +2,12 @@ import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, ReplaySubject, sampleTime, switchMap } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
-import { isEqualOrSimilar } from '@/Engine/Actor/Utils';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import { ProtectedTransformAgentFacade } from '@/Engine/TransformDrive/Facades';
 import type { TAbstractTransformAgent, TProtectedTransformAgentFacade, TProtectedTransformAgents, TTransformAgents, TTransformDrive, TTransformDriveParams } from '@/Engine/TransformDrive/Models';
-import { isNotDefined } from '@/Engine/Utils';
+import { isEqualOrSimilarVector3Like, isNotDefined } from '@/Engine/Utils';
 
 // TransformDrive is an entity to move/rotate/scale other entities
 // TransformDrive could use different "agents" (modes) which can be switched in runtime:
@@ -44,7 +43,7 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
   const positionSub$: Subscription = agent$
     .pipe(
       switchMap((drive: TransformAgent): Observable<Vector3> => agents[drive as keyof TTransformAgents].position$),
-      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilar(prev, curr, threshold)),
+      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prev, curr, threshold)),
       sampleTime(delay)
     )
     .subscribe(position$);
@@ -52,7 +51,7 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
   const rotationSub$: Subscription = agent$
     .pipe(
       switchMap((drive: TransformAgent): Observable<Euler> => agents[drive as keyof TTransformAgents].rotation$),
-      distinctUntilChanged((prev: Euler, curr: Euler): boolean => isEqualOrSimilar(prev, curr, threshold)),
+      distinctUntilChanged((prev: Euler, curr: Euler): boolean => isEqualOrSimilarVector3Like(prev, curr, threshold)),
       sampleTime(delay)
     )
     .subscribe(rotation$);
@@ -60,7 +59,7 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
   const scaleSub$: Subscription = agent$
     .pipe(
       switchMap((drive: TransformAgent): Observable<Vector3> => agents[drive as keyof TTransformAgents].scale$),
-      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilar(prev, curr, threshold)),
+      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prev, curr, threshold)),
       sampleTime(delay)
     )
     .subscribe(scale$);
