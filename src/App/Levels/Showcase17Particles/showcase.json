@@ -33,26 +33,20 @@
       "heightSegments": 64,
       "castShadow": true,
       "material": {
-        "type": "physical",
+        "type": "points",
         "params": {
-          "clearcoat": 1,
-          "clearcoatRoughness": 0.12,
-          "displacementScale": 0,
-          "metalness": 0.97,
-          "roughness": 0.8,
-          "iridescence": 0.655,
-          "iridescenceIOR": 1.86,
-          "transmission": 0,
-          "ior": 2.5,
-          "thickness": 0
+          "color": "#E91E63",
+          "size": 0.5,
+          "sizeAttenuation": true,
+          "transparent": true,
+          "alphaTest": 0.01,
+          "depthTest": false,
+          "depthWrite": false,
+          "blending": "AdditiveBlending",
+          "vertexColors": true
         },
         "textures": {
-          "bumpMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png" },
-          "map": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png" },
-          "normalMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png" },
-          "displacementMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png" },
-          "metalnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP16_1K_METALNESS.png" },
-          "roughnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png" }
+          "alphaMap": { "url": "/Showcase/particles/2.png" }
         }
       },
       "tags": []
@@ -97,30 +91,7 @@
     }
   ],
   "envMaps": [],
-  "particles": [
-    {
-      "name": "bubbles",
-      "position": { "x": 0, "y": 2, "z": 0 },
-      "material": {
-        "type": "points",
-        "params": {
-          "color": "#E91E63",
-          "size": 0.5,
-          "sizeAttenuation": true,
-          "transparent": true,
-          "alphaTest": 0.01,
-          "depthTest": false,
-          "depthWrite": false,
-          "blending": "AdditiveBlending",
-          "vertexColors": true
-        },
-        "textures": {
-          "alphaMap": { "url": "/Showcase/particles/2.png" }
-        }
-      },
-      "tags": []
-    }
-  ],
+  "particles": [],
   "fogs": [],
   "tags": []
 }

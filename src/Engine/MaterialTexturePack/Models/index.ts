@@ -1,3 +1,4 @@
+export * from './IMaterialPackConfig';
 export * from './IMaterialPackKeys';
 export * from './IMaterialPackParams';
 export * from './IMaterialTexturePack';
