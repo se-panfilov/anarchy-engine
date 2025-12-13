@@ -5,5 +5,5 @@ export type IStartedScene = Readonly<{
   loop: ILoopWrapper;
   renderer: IRendererWrapper;
   registryPool: IRegistryPool;
-  sceneFactories: IDestroyableFactories;
+  factories: IDestroyableFactories;
 }>;

@@ -18,8 +18,8 @@ export function SceneLauncher(sceneConfig: ISceneConfig, canvas: IAppCanvas, fac
   const destroyed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   let registryPool: IRegistryPool;
-  let sceneFactoriesPool: ILocalFactoryPool;
-  let sceneFactories: IDestroyableFactories;
+  let localFactoriesPool: ILocalFactoryPool;
+  let localFactories: IDestroyableFactories;
   let registries: IRegistries;
   let scene: ISceneWrapper;
   let renderer: IRendererWrapper;
@@ -28,8 +28,8 @@ export function SceneLauncher(sceneConfig: ISceneConfig, canvas: IAppCanvas, fac
   function prepare(): void {
     registryPool = RegistryPool();
     registries = registryPool.pool;
-    sceneFactoriesPool = LocalFactoriesPool({ canvas, cameraRegistry: registries.cameraRegistry });
-    sceneFactories = sceneFactoriesPool.pool;
+    localFactoriesPool = LocalFactoriesPool({ canvas, cameraRegistry: registries.cameraRegistry });
+    localFactories = localFactoriesPool.pool;
     prepared$.next(true);
   }
 
@@ -38,7 +38,7 @@ export function SceneLauncher(sceneConfig: ISceneConfig, canvas: IAppCanvas, fac
 
     const { actorFactory, cameraFactory, lightFactory, rendererFactory, sceneFactory, loopFactory } = factories;
     const { actorRegistry, cameraRegistry, lightRegistry, controlsRegistry } = registries;
-    const { controlsFactory } = sceneFactories;
+    const { controlsFactory } = localFactories;
     scene = sceneFactory.create({ name: sceneName, tags: sceneTags });
 
     registryPool.startAddSubscription(scene);
@@ -57,7 +57,7 @@ export function SceneLauncher(sceneConfig: ISceneConfig, canvas: IAppCanvas, fac
     loop.start(renderer, scene, initialCamera);
 
     launched$.next(true);
-    return { loop, renderer, registryPool, sceneFactories };
+    return { loop, renderer, registryPool, factories: localFactories };
   }
 
   function destroy(): void {
@@ -65,7 +65,7 @@ export function SceneLauncher(sceneConfig: ISceneConfig, canvas: IAppCanvas, fac
     launched$.complete();
     destroyed$.complete();
     registryPool.destroy();
-    sceneFactoriesPool.destroy();
+    localFactoriesPool.destroy();
     loop.destroy();
     renderer.destroy();
     scene.destroy();
