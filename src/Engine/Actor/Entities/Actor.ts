@@ -1,9 +1,9 @@
 import type { Subscription } from 'rxjs';
-import { combineLatest, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { Euler, Vector3 } from 'three';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
-import { ActorDrive } from '@/Engine/Actor/Constants';
+import type { ActorDrive } from '@/Engine/Actor/Constants';
 import type { TActor, TActorDependencies, TActorEntities, TActorParams } from '@/Engine/Actor/Models';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
 import { withCollisions } from '@/Engine/Collisions';
@@ -21,28 +21,27 @@ export function Actor(
   const position$: Subject<Vector3> = new Subject<Vector3>();
   const rotation$: Subject<Euler> = new Subject<Euler>();
   const scale$: Subject<Vector3> = new Subject<Vector3>();
-  const drive$: Subject<ActorDrive> = new Subject<ActorDrive>();
+  const drive$: BehaviorSubject<ActorDrive> = new BehaviorSubject<ActorDrive>(params.drive);
 
   const isModelAlreadyInUse: boolean = isDefined(model3dToActorConnectionRegistry.findByModel3d(params.model3dSource));
   const model3d: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
 
-  drive$.subscribe((drive: ActorDrive): void => {
-    if (drive === ActorDrive.Kinematic) {
-      // TODO 8.0.0. MODELS: implement
-      // stopPhysicsDrive();
-      startKinematicDrive();
-    } else if (drive === ActorDrive.Physical) {
-      stopKinematicDrive();
-      // TODO 8.0.0. MODELS: implement
-      // startPhysicsDrive();
-    } else {
-      // TODO 8.0.0. MODELS: implement
-      // stopKinematicDrive();
-      // stopPhysicsDrive();
-    }
-  });
-
-  drive$.next(params.drive);
+  // TODO 8.0.0. MODELS: maybe not needed at all, cause we can check current drive in mixins
+  // drive$.subscribe((drive: ActorDrive): void => {
+  //   if (drive === ActorDrive.Kinematic) {
+  //     // TODO 8.0.0. MODELS: implement
+  //     // stopPhysicsDrive();
+  //     startKinematicDrive();
+  //   } else if (drive === ActorDrive.Physical) {
+  //     stopKinematicDrive();
+  //     // TODO 8.0.0. MODELS: implement
+  //     // startPhysicsDrive();
+  //   } else {
+  //     // TODO 8.0.0. MODELS: implement
+  //     // stopKinematicDrive();
+  //     // stopPhysicsDrive();
+  //   }
+  // });
 
   // TODO CWP The Actor flow is the following:
   //  Case "Kinematic":
@@ -74,7 +73,7 @@ export function Actor(
     ...withModel3d(model3d),
     // TODO 8.0.0. MODELS: Kinematic should update rotation (and position?) (if "drive" is "kinematic")
     // TODO 8.0.0. MODELS: Physics should update position and rotation (if "drive" is "physics")
-    ...withKinematic(params, kinematicLoopService, { position$, rotation$ }),
+    ...withKinematic(params, kinematicLoopService, drive$, { position$, rotation$ }),
     ...withSpatial(params),
     ...withCollisions(params, collisionsService, collisionsLoopService),
     ...withUpdateSpatialCell()

@@ -4,6 +4,7 @@ import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad } from 'three/src/math/MathUtils';
 
 import type { TActorParams } from '@/Engine/Actor';
+import { ActorDrive } from '@/Engine/Actor';
 import type { TKinematicData, TKinematicLoopService, TWithKinematic } from '@/Engine/Kinematic/Models';
 import type { TDegrees, TRadians } from '@/Engine/Math';
 import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
@@ -13,10 +14,17 @@ import type { TObject3dMoveData } from '@/Engine/ThreeLib';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
-export function withKinematic(params: TActorParams, kinematicLoopService: TKinematicLoopService, { position, rotation }: Omit<TObject3dMoveData, 'scale'>): TWithKinematic {
-  let _isAutoUpdate: boolean = params.kinematic?.isAutoUpdate ?? false;
+export function withKinematic(
+  params: TActorParams,
+  kinematicLoopService: TKinematicLoopService,
+  drive$: BehaviorSubject<ActorDrive>,
+  { position, rotation }: Omit<TObject3dMoveData, 'scale'>
+): TWithKinematic {
+  let _isAutoUpdate: boolean = (params.kinematic?.isAutoUpdate && drive$.value === ActorDrive.Kinematic) ?? false;
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(position);
   const rotation$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(new Quaternion().setFromEuler(rotation));
+
+  drive$.subscribe((drive: ActorDrive): void => void (_isAutoUpdate = !!(drive === ActorDrive.Kinematic && params.kinematic?.isAutoUpdate)));
 
   let kinematicSub$: Subscription;
 
