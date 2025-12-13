@@ -1,0 +1,4 @@
+import type { TPhysicsGlobalParams } from './TPhysicsGlobalParams';
+import type { TPhysicsPresetParams } from './TPhysicsPresetParams';
+
+export type TPhysicsParams = TPhysicsGlobalParams | TPhysicsPresetParams;

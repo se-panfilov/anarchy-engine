@@ -6,6 +6,7 @@ import type { TIntersectionsWatcherConfig } from '@/Engine/Intersections';
 import type { TAnyLightConfig } from '@/Engine/Light';
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TParticlesConfig } from '@/Engine/Particles';
+import type { TPhysicsConfig } from '@/Engine/Physics';
 import type { TSceneConfig } from '@/Engine/Scene';
 import type { SpaceSchemaVersion } from '@/Engine/Space/Constants';
 import type { TTextConfig } from '@/Engine/Text';
@@ -19,6 +20,7 @@ export type TSpaceConfig = Readonly<{
   intersections: ReadonlyArray<TIntersectionsWatcherConfig>;
   lights: ReadonlyArray<TAnyLightConfig>;
   particles: ReadonlyArray<TParticlesConfig>;
+  physics: ReadonlyArray<TPhysicsConfig>;
   fogs: ReadonlyArray<TFogConfig>;
   texts: ReadonlyArray<TTextConfig>;
   controls: ReadonlyArray<TControlsConfig>;

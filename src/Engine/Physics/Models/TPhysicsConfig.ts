@@ -1,0 +1,4 @@
+import type { TPhysicsGlobalConfig } from './TPhysicsGlobalConfig';
+import type { TPhysicsPresetConfig } from './TPhysicsPresetConfig';
+
+export type TPhysicsConfig = TPhysicsGlobalConfig | TPhysicsPresetConfig;
