@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 
 import type { IGameKey, IKeyboardRegistry, IKeyboardRegistryValues, IKeyboardService, IKeyCombo, IKeySubscription } from '@/Engine/Keyboard/Models';
 import { KeyboardRegistry } from '@/Engine/Keyboard/Registry';
-import type { ILoopService } from '@/Engine/Loop';
+import type { ILoopService, ILoopTimes } from '@/Engine/Loop';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function KeyboardService(loopService: ILoopService): IKeyboardService {
@@ -13,12 +13,13 @@ export function KeyboardService(loopService: ILoopService): IKeyboardService {
     const subscriptions: IKeyboardRegistryValues | undefined = keyboardRegistry.getByKey(key);
     if (!subscriptions) {
       const pressed$: Subject<IGameKey | IKeyCombo> = new Subject();
-      const pressing$: Subject<IGameKey | IKeyCombo> = new Subject();
+      const pressing$: Subject<Readonly<{ key: IGameKey | IKeyCombo; delta: ILoopTimes }>> = new Subject();
       const released$: Subject<IGameKey | IKeyCombo> = new Subject();
 
       keyboardRegistry.add(key, { pressed$, pressing$, released$ });
       return { pressed$, pressing$, released$ };
     }
+
     return subscriptions;
   }
 
@@ -41,10 +42,8 @@ export function KeyboardService(loopService: ILoopService): IKeyboardService {
 
     loopService.tick$.subscribe((delta) => {
       // TODO (S.Panfilov) pass delta to pressing
-      if (isDefined(pressedKey)) pressing$.next(pressedKey);
+      if (isDefined(pressedKey)) pressing$.next({ key: pressedKey, delta });
     });
-
-    pressing$.next(key);
 
     if (isCombo) {
       bindKeyCombo(key, {
