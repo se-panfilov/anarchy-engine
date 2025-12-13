@@ -37,7 +37,7 @@ export function CollisionsService(): TCollisionsService {
       });
     }
 
-    // TODO (S.Panfilov) CWP What if bullet is not in the grid? Should be still possible to get actors from a grid anyway
+    // TODO (S.Panfilov) CWP What if bullet is not in the grid? Should be still possible to get actors from a grid anyway (could have if/else and 2 checks for bullet in grid and not in grid)
     // TODO (S.Panfilov) CWP Also remember that bullet could be bigger than 1 cell
     // TODO (S.Panfilov) CWP test this code (should not produce memory leaks)
     let actorSub$: Subscription | undefined = actorW.spatial.cellsChanged$.subscribe((cells: ReadonlyArray<TSpatialCellWrapper>): void => {
