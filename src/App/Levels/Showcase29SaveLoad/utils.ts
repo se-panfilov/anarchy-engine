@@ -84,3 +84,38 @@ export function addModel3dToScene(space: TSpace, modelName: string): void | neve
   const model3d: TModel3d = space.services.models3dService.getRegistry().getByName(modelName);
   space.services.scenesService.getActive().addModel3d(model3d);
 }
+
+export function getParticlesDeterministicPositions(count: number, areaSize: number): Float32Array {
+  // Calculate the approximate step of the grid
+  const gridSize: number = Math.ceil(Math.cbrt(count)); // Number of particles per side
+  const step: number = areaSize / gridSize;
+
+  const positions: Float32Array = new Float32Array(count * 3);
+
+  let index: number = 0;
+  // eslint-disable-next-line functional/no-loop-statements
+  for (let xi: number = 0; xi < gridSize; xi++) {
+    // eslint-disable-next-line functional/no-loop-statements
+    for (let yi: number = 0; yi < gridSize; yi++) {
+      // eslint-disable-next-line functional/no-loop-statements
+      for (let zi: number = 0; zi < gridSize; zi++) {
+        if (index >= count) break;
+
+        const x: number = (xi + 0.5) * step - areaSize / 2;
+        const y: number = (yi + 0.5) * step - areaSize / 2;
+        const z: number = (zi + 0.5) * step - areaSize / 2;
+
+        // eslint-disable-next-line functional/immutable-data
+        positions[index * 3 + 0] = x;
+        // eslint-disable-next-line functional/immutable-data
+        positions[index * 3 + 1] = y;
+        // eslint-disable-next-line functional/immutable-data
+        positions[index * 3 + 2] = z;
+
+        index++;
+      }
+    }
+  }
+
+  return positions;
+}
