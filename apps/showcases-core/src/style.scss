@@ -24,9 +24,11 @@ html {
 :lang(ko) {
   line-height: anarchy_constants.$base-asian-line-height;
 }
+
 :lang(ar) {
   line-height: anarchy_constants.$base-arabian-line-height;
 }
+
 :lang(ur) {
   line-height: anarchy_constants.$base-nastaliq-line-height;
 }
@@ -38,18 +40,23 @@ p {
 h1 {
   line-height: anarchy_constants.$big-title-line-height;
 }
+
 h2 {
   line-height: anarchy_constants.$big-title-line-height;
 }
+
 h3 {
   line-height: anarchy_constants.$big-title-line-height;
 }
+
 h4 {
   line-height: anarchy_constants.$small-title-line-height;
 }
+
 h5 {
   line-height: anarchy_constants.$small-title-line-height;
 }
+
 h6 {
   line-height: anarchy_constants.$small-title-line-height;
 }
