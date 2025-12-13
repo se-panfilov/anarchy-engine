@@ -40,6 +40,10 @@ export function AbstractTransformAgent(params: TTransformAgentParams, type: Tran
     position$.unsubscribe();
     rotation$.complete();
     rotation$.unsubscribe();
+    scale$.complete();
+    scale$.unsubscribe();
+    enabled$.complete();
+    enabled$.unsubscribe();
     onActivated$.complete();
     onActivated$.unsubscribe();
     onDeactivated$.complete();
