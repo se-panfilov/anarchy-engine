@@ -15,7 +15,7 @@ import { computed, reactive } from 'vue';
 
 const emit = defineEmits(['reset', 'save']);
 
-const { $t } = vueTranslationService;
+const { $t } = vueTranslationService.useTranslations();
 const settingsStore = useSettingsStore();
 
 type TLocalizationState = { locale: TShowcaseLocaleIds };

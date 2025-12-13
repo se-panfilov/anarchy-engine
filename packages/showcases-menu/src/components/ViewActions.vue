@@ -4,7 +4,7 @@ import type { ShallowRef } from 'vue';
 
 defineEmits(['reset']);
 
-const { $t } = vueTranslationService;
+const { $t } = vueTranslationService.useTranslations();
 
 const saveBtnText: ShallowRef<string> = $t('view-actions.button.text.save');
 const resetBtnText: ShallowRef<string> = $t('view-actions.button.text.reset');

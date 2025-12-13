@@ -14,7 +14,7 @@ import { reactive } from 'vue';
 
 const emit = defineEmits(['reset', 'save']);
 
-const { $t } = vueTranslationService;
+const { $t } = vueTranslationService.useTranslations();
 const settingsStore = useSettingsStore();
 
 const state: TWriteable<TGraphicsSettings> = reactive({

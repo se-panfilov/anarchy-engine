@@ -30,7 +30,7 @@ onMounted(() => {
   if (isNotDefined(legalDocsStore.translatedThirdPartyLicenses)) eventsService.emitGetLegalDocs({ name: THIRD_PARTY_LICENSES, locale });
 });
 
-const { $t } = vueTranslationService;
+const { $t } = vueTranslationService.useTranslations();
 
 const viewTitleText: ShallowRef<string> = $t('main-menu.settings.legal.view.title');
 </script>

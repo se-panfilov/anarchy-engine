@@ -7,7 +7,7 @@ import type { TVueNavOption } from '@Showcases/Menu/models';
 import { useRouterStore } from '@Showcases/Menu/stores/RouterStore';
 import type { ShallowRef } from 'vue';
 
-const { $t } = vueTranslationService;
+const { $t } = vueTranslationService.useTranslations();
 const menuRouterStore = useRouterStore();
 
 const viewTitleText: ShallowRef<string> = $t('main-menu.settings.view.title');
