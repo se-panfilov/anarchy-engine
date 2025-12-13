@@ -4,7 +4,7 @@ import type { CameraWrapper } from '@Engine/Wrappers/CameraWrapper';
 import { isNotDefined } from '@Engine/Utils';
 import type { RendererWrapper } from '@Engine/Wrappers/RendererWrapper';
 
-export class ControlWrapper extends AbstractWrapper<OrbitControls> {
+export class ControlsWrapper extends AbstractWrapper<OrbitControls> {
   public entity: OrbitControls;
 
   constructor(camera: CameraWrapper, renderer: RendererWrapper) {

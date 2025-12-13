@@ -5,7 +5,7 @@ import { LoopManager } from '@Engine/Managers/LoopManager';
 import { CameraManager } from '@Engine/Managers/CameraManager';
 import { LightManager } from '@Engine/Managers/LightManager';
 import { ActorManager } from '@Engine/Managers/ActorManager';
-import { ControlManager } from '@Engine/Managers/ControlManager';
+import { ControlsManager } from '@Engine/Managers/ControlsManager';
 import { DeviceWatcher } from '@Engine/Watchers/DeviceWatcher';
 import type { CameraParams } from '@Engine/Wrappers/CameraWrapper';
 import type { ActorParams } from '@Engine/Wrappers/ActorWrapper';
@@ -22,7 +22,7 @@ const deviceWatcher = new DeviceWatcher({
 const actorManager = new ActorManager();
 const cameraManager = new CameraManager();
 const lightManager = new LightManager();
-const controlManager = new ControlManager();
+const controlsManager = new ControlsManager();
 // const inputManager = new InputManager();
 const loopManager = new LoopManager();
 const sceneManager = new SceneManager();
@@ -79,8 +79,8 @@ if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
 const renderer = rendererManager.create(canvas, deviceWatcher);
 rendererManager.setCurrent(renderer);
 if (isNotDefined(rendererManager.current$.value)) throw new Error('Renderer is not ready');
-const controls = controlManager.create(cameraManager.current$.value, rendererManager.current$.value);
-controlManager.setCurrent(controls);
+const controls = controlsManager.create(cameraManager.current$.value, rendererManager.current$.value);
+controlsManager.setCurrent(controls);
 
 const ambientLight = lightManager.create({ type: 'ambient', color: 0xffffff, intensity: 0.5 });
 const wrappedDirectionalLight = lightManager.create({
