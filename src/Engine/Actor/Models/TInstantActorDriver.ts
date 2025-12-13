@@ -1,3 +1,3 @@
-import type { TAbstractDriver } from '@/Engine/Abstract';
+import type { TAbstractInstantDriver } from '@/Engine/Abstract';
 
-export type TInstantActorDriver = TAbstractDriver;
+export type TInstantActorDriver = TAbstractInstantDriver;

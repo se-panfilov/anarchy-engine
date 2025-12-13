@@ -3,14 +3,13 @@ import { BehaviorSubject } from 'rxjs';
 import type { Euler } from 'three';
 import { Vector3 } from 'three';
 
-import type { TActorParams } from '@/Engine/Actor';
+import type { TActorParams, TInstantActorDriver } from '@/Engine/Actor/Models';
 import type { TDestroyable, TWithPosition3dProperty, TWithRotationProperty, TWithScaleProperty } from '@/Engine/Mixins';
 import { destroyableMixin, withMoveBy3dMixin, withRotationMixin, withScaleMixin } from '@/Engine/Mixins';
-import type { TPhysicsActorDriver } from '@/Engine/Physics/Models';
 import type { TWithUndefined } from '@/Engine/Utils';
 import { updateSubjOnChange } from '@/Engine/Utils';
 
-export function InstantActorDriver(params: TActorParams): TPhysicsActorDriver {
+export function InstantActorDriver(params: TActorParams): TInstantActorDriver {
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
   const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(params.rotation);
   const scale$: BehaviorSubject<Vector3 | undefined> = new BehaviorSubject<Vector3 | undefined>(params.scale);
@@ -37,7 +36,7 @@ export function InstantActorDriver(params: TActorParams): TPhysicsActorDriver {
   const proxyRotationObj: TWithRotationProperty = updateSubjOnChange(rotationObj, rotation$);
   const proxyScaleObj: TWithScaleProperty = updateSubjOnChange(scaleObj as TWithUndefined<TWithScaleProperty>, scale$) as TWithScaleProperty;
 
-  const driver = {
+  return {
     ...destroyable,
     position$,
     rotation$,
@@ -46,6 +45,4 @@ export function InstantActorDriver(params: TActorParams): TPhysicsActorDriver {
     ...withRotationMixin(proxyRotationObj),
     ...withScaleMixin(proxyScaleObj)
   };
-
-  return driver;
 }

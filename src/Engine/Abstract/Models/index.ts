@@ -1,6 +1,7 @@
 export * from './TAbstractAsyncRegistry';
 export * from './TAbstractDriver';
 export * from './TAbstractEntityRegistry';
+export * from './TAbstractInstantDriver';
 export * from './TAbstractLoadedResourcePack';
 export * from './TAbstractLoader';
 export * from './TAbstractOnLoadFunction';
@@ -25,6 +26,9 @@ export * from './TRegistryPack';
 export * from './TWatcher';
 export * from './TWatcherWithState';
 export * from './TWithBaseAccessorsRegistry';
+export * from './TWithInstantProtectedDriver';
+export * from './TWithKinematicProtectedDriver';
+export * from './TWithPhysicsProtectedDriver';
 export * from './TWithReactiveRegistry';
 export * from './TWithUserData';
 export * from './TWithWrapperId';
