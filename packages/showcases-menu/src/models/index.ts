@@ -1,2 +1,2 @@
 export type * from './TEventsService';
-export type * from './TTranslationService';
+export type * from './TVueTranslationService';

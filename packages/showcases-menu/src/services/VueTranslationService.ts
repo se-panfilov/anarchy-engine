@@ -1,12 +1,12 @@
 import type { TLocalesMapping, TTranslationService } from '@Anarchy/i18n';
 import { TranslationService } from '@Anarchy/i18n';
 import { locales } from '@Showcases/Menu/i18n';
-import type { TTranslationService } from '@Showcases/Menu/models';
+import type { TVueTranslationService } from '@Showcases/Menu/models';
 import { Locales } from '@Showcases/Shared';
 import type { Subscription } from 'rxjs';
 import { filter } from 'rxjs';
 
-export function VueTranslationService(localesMapping: TLocalesMapping<Locales> = locales): TTranslationService {
+export function VueTranslationService(localesMapping: TLocalesMapping<Locales> = locales): TVueTranslationService {
   const i18n: TTranslationService<Locales> = TranslationService<Locales>(Locales.en, Locales.en, localesMapping);
 
   const isReadyPromise: Promise<void> = new Promise<void>((resolve, reject): void => {
@@ -29,4 +29,4 @@ export function VueTranslationService(localesMapping: TLocalesMapping<Locales> =
   return Object.assign(i18n, { waitInitialReady });
 }
 
-export const vueTranslationService: TTranslationService = VueTranslationService();
+export const vueTranslationService: TVueTranslationService = VueTranslationService();

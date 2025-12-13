@@ -1,7 +1,7 @@
 import type { TTranslationService } from '@Anarchy/i18n';
 import type { Locales } from '@Showcases/Shared';
 
-export type TTranslationService = TTranslationService<Locales> &
+export type TVueTranslationService = TTranslationService<Locales> &
   Readonly<{
     waitInitialReady: () => Promise<void>;
   }>;
