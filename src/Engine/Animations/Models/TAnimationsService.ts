@@ -3,7 +3,7 @@ import type { AnimationClip, AnimationMixer } from 'three';
 
 import type { TSerializableResourceService } from '@/Engine/Abstract';
 import type { TDelta } from '@/Engine/Loop';
-import type { TWithLoadResourcesAsyncService, TWithResourcesRegistryService } from '@/Engine/Mixins';
+import type { TWithLoadResourcesAsyncService, TWithResourcesMetaInfoRegistryService, TWithResourcesRegistryService } from '@/Engine/Mixins';
 import type { TModel3d, TRawModel3d } from '@/Engine/Models3d';
 
 import type { TAnimationActionsPack } from './TAnimationActionsPack';
@@ -20,4 +20,5 @@ export type TAnimationsService = TSerializableResourceService<TAnimationsResourc
     stopAutoUpdateMixer: (mixer: AnimationMixer) => void | never;
   }> &
   TWithResourcesRegistryService<TAnimationsResourceAsyncRegistry> &
+  TWithResourcesMetaInfoRegistryService<TAnimationsResourceConfig> &
   TWithLoadResourcesAsyncService<TAnimationsResourceConfig, TAnimations>;

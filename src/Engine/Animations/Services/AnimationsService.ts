@@ -10,6 +10,7 @@ import type {
   TAnimationActions,
   TAnimationActionsPack,
   TAnimationsLoader,
+  TAnimationsMetaInfoRegistry,
   TAnimationsResourceAsyncRegistry,
   TAnimationsResourceConfig,
   TAnimationsService,
@@ -23,8 +24,8 @@ import type { TSpaceLoops } from '@/Engine/Space';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function AnimationsService(resourcesRegistry: TAnimationsResourceAsyncRegistry, { renderLoop }: TSpaceLoops): TAnimationsService {
-  const animationsLoader: TAnimationsLoader = AnimationsLoader(resourcesRegistry);
+export function AnimationsService(resourcesRegistry: TAnimationsResourceAsyncRegistry, metaInfoRegistry: TAnimationsMetaInfoRegistry, { renderLoop }: TSpaceLoops): TAnimationsService {
+  const animationsLoader: TAnimationsLoader = AnimationsLoader(resourcesRegistry, metaInfoRegistry);
   const added$: Subject<TModel3dAnimations> = new Subject<TModel3dAnimations>();
   const subscriptions: Map<AnimationMixer, Subscription> = new Map<AnimationMixer, Subscription>();
   const disposable: ReadonlyArray<TDisposable> = [resourcesRegistry, animationsLoader];
@@ -75,6 +76,7 @@ export function AnimationsService(resourcesRegistry: TAnimationsResourceAsyncReg
     stopAutoUpdateMixer,
     loadAsync: animationsLoader.loadAsync,
     loadFromConfigAsync: animationsLoader.loadFromConfigAsync,
-    getResourceRegistry: (): TAnimationsResourceAsyncRegistry => resourcesRegistry
+    getResourceRegistry: (): TAnimationsResourceAsyncRegistry => resourcesRegistry,
+    getMetaInfoRegistry: (): TAnimationsMetaInfoRegistry => metaInfoRegistry
   });
 }
