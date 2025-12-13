@@ -1,6 +1,5 @@
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, EMPTY, filter, map, switchMap, takeWhile, withLatestFrom } from 'rxjs';
-import type { QuaternionLike, Vector3Like } from 'three';
 import { Quaternion, Vector3 } from 'three';
 
 import type { TMeters, TRadians } from '@/Engine/Math';
@@ -92,8 +91,10 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
     physicsBody$.complete();
   });
 
-  let prevPosition: Vector3Like | undefined = undefined;
-  let prevRotation: QuaternionLike | undefined = undefined;
+  const tmpPosition = new Float32Array(3);
+  const prevPosition = new Float32Array(3);
+  const tmpRotation = new Float32Array(4);
+  const prevRotation = new Float32Array(4);
 
   physicsSub$ = agent.enabled$
     .pipe(
@@ -104,18 +105,14 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
         return isDefined(body) && body.getPhysicsBodyType() !== RigidBodyTypesNames.Fixed;
       }),
       //Get the latest transform data from the physics body every physical tick
-      map((): TRigidBodyTransformData | undefined => getPhysicalBodyTransform(physicsBody$.value?.getRigidBody(), prevPosition, prevRotation, positionNoiseThreshold, rotationNoiseThreshold)),
+      map((): TRigidBodyTransformData | undefined =>
+        getPhysicalBodyTransform(physicsBody$.value?.getRigidBody(), prevPosition, prevRotation, tmpPosition, tmpRotation, positionNoiseThreshold, rotationNoiseThreshold)
+      ),
       filter(isDefined)
     )
-    .subscribe(({ position, rotation }: TRigidBodyTransformData): void => {
-      if (position) {
-        agent.position$.next(new Vector3(position.x, position.y, position.z));
-        prevPosition = position;
-      }
-      if (rotation) {
-        agent.rotation$.next(new Quaternion(rotation.x, rotation.y, rotation.z, rotation.w));
-        prevRotation = rotation;
-      }
+    .subscribe(({ position, rotation }): void => {
+      if (position) agent.position$.next(new Vector3(position[0], position[1], position[2]));
+      if (rotation) agent.rotation$.next(new Quaternion(rotation[0], rotation[1], rotation[2], rotation[3]));
     });
 
   return agent;
