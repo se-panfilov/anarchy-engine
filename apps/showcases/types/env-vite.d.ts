@@ -12,7 +12,7 @@ interface ImportMetaEnv {
   VITE_BUILD_SOURCEMAPS: boolean;
   VITE_BUILD_TARGET_DIR: string;
   VITE_APP_SHOW_DEBUG_INFO: string;
-  VITE_APP_DRACO_DECODER_PATH: string;
+  // VITE_APP_DRACO_DECODER_PATH: string;
 }
 
 interface ImportMeta {

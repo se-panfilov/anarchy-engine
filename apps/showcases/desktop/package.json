@@ -24,7 +24,7 @@
     "clean": "rimraf dist && rimraf dist-app",
     "clean:postbuild": "rimraf dist/electron-main.js dist/electron-main.js.map dist/preload.js dist/preload.js.map",
     "copy:dist-app": "node ../../../packages/shared/ScriptUtils/CopyDir.js -- from=../dist-desktop to=dist-app",
-    "copy:draco": "node ../../../packages/shared/ScriptUtils/CopyFiles.js ../../../node_modules/three/examples/jsm/libs/draco/draco_decoder.js ../../../node_modules/three/examples/jsm/libs/draco/draco_wasm_wrapper.js ../../../node_modules/three/examples/jsm/libs/draco/draco_decoder.wasm to=dist-app/draco",
+    "copy:draco": "node ../../../packages/shared/ScriptUtils/CopyFiles.js ../../../node_modules/three/examples/jsm/libs/draco/draco_decoder.js ../../../node_modules/three/examples/jsm/libs/draco/draco_wasm_wrapper.js ../../../node_modules/three/examples/jsm/libs/draco/draco_decoder.wasm to=dist-app/three/examples/jsm/libs/draco/",
     "prebuild": "npm run prebuild:ts && npm run prebuild:preload",
     "prebuild:preload": "tsc -p tsconfig.preload.json",
     "prebuild:ts": "tsc",

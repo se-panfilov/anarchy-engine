@@ -33,11 +33,11 @@ import type { TAppSettings } from '@/Models/TAppSettings';
 const settings: TAppSettings = {
   loopsDebugInfo: runtimeEnv.VITE_APP_SHOW_DEBUG_INFO,
   spaceSettings: {
-    threeJsSettings: {
-      draco: {
-        dracoLoaderDecoderPath: runtimeEnv.VITE_APP_DRACO_DECODER_PATH
-      }
-    }
+    // threeJsSettings: {
+    //   draco: {
+    //     dracoLoaderDecoderPath: runtimeEnv.VITE_APP_DRACO_DECODER_PATH
+    //   }
+    // }
   }
 };
 
