@@ -2,7 +2,7 @@ import type { Object3D } from 'three';
 import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils';
 
 import type { TAnimationsService } from '@/Engine/Animations/Models';
-import type { TModel3dComplexEntities, TModel3dComplexFacadeParams, TModel3dPrimitiveEntities, TModels3dPrimitiveFacadeParams } from '@/Engine/Models3d/Models';
+import type { TModel3dComplexEntities, TModel3dComplexFacadeParams, TModel3dPrimitiveEntities, TModel3dPrimitiveFacadeParams } from '@/Engine/Models3d/Models';
 import { isPrimitive } from '@/Engine/Models3d/Services/Models3dServiceHelper';
 
 export function createModels3dEntities(params: TModel3dComplexFacadeParams, animationsService: TAnimationsService): TModel3dComplexEntities {
@@ -14,7 +14,7 @@ export function createModels3dEntities(params: TModel3dComplexFacadeParams, anim
   return { ...params, model, actions, mixer };
 }
 
-export function createModels3dPrimitiveEntities(params: TModels3dPrimitiveFacadeParams): TModel3dPrimitiveEntities {
+export function createModels3dPrimitiveEntities(params: TModel3dPrimitiveFacadeParams): TModel3dPrimitiveEntities {
   if (!isPrimitive(params)) throw new Error(`Attempting to create primitive model3d entities from a complex model`);
   return { ...params, model: params.model.clone() };
 }

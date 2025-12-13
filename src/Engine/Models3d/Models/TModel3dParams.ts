@@ -1,4 +1,4 @@
 import type { TModel3dComplexParams } from './TModel3dComplexParams';
-import type { TModels3dPrimitiveFacadeParams } from './TModels3dPrimitiveFacadeParams';
+import type { TModel3dPrimitiveFacadeParams } from './TModel3dPrimitiveFacadeParams';
 
-export type TModel3dParams = TModel3dComplexParams | TModels3dPrimitiveFacadeParams;
+export type TModel3dParams = TModel3dComplexParams | TModel3dPrimitiveFacadeParams;
