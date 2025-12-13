@@ -18,9 +18,11 @@ Done:
 - 11.0.x Sounds/Music
 - 12.0.x Fix Registries (should always return the same object)
 - 12.1.x Fixed production build (removed topLevelAsync vite plugin)
+- 13.0.x Deletion and resource dispose (memory management)
+- 13.1.x Refactored spaces and services (better destroy and re-create)
 
 Roadmap:
-- 13.0.x Deletion and resource dispose (memory management)
+- 13.2.x Hard scene reset (canvas drop?)
 - 14.0.0 Multiple scenes full support (unload/load scenes one after another)
 - 15.x.x Save/Load configs (serialization)
 - 16.0.x Split apps and engine (and add config for an app to set up engine)
