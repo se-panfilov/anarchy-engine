@@ -10,7 +10,8 @@ import type { TDriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
 import { applyObject3dParams } from '@Anarchy/Engine/Utils';
 import { isDefined, isNotDefined, stripUnits, toPx, toRem } from '@Anarchy/Shared/Utils';
-import { distinctUntilChanged, Subscription } from 'rxjs';
+import type { Subscription } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs';
 import { LinearFilter, Mesh, MeshBasicMaterial, PlaneGeometry, Texture } from 'three';
 
 export function createTextTextureWrapper(params: TTextParams, type: TextType, dependencies: TTextServiceDependencies): TTextTextureWrapper<Mesh> {
@@ -46,7 +47,6 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
   }
 
   async function setTextInternal(newText: string): Promise<void> {
-    console.log('XXX3', newText);
     text = newText;
     const fontSize: string = toPx(params.cssProps?.fontSize);
 
