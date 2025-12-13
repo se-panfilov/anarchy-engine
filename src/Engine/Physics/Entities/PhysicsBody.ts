@@ -6,7 +6,7 @@ import { physicsToConfig } from '@/Engine/Physics/Adapters';
 import type { CollisionShape, RigidBodyTypesNames } from '@/Engine/Physics/Constants';
 import { RigidBodyTypesMap } from '@/Engine/Physics/Constants';
 import { withPhysicsBodyEntities } from '@/Engine/Physics/Mixins';
-import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsBodyEntities, TPhysicsBodyParams, TPhysicsDependencies } from '@/Engine/Physics/Models';
+import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsBodyEntities, TPhysicsBodyParams, TPhysicsDependencies, TPhysicsShapeParams } from '@/Engine/Physics/Models';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -46,6 +46,7 @@ export function PhysicsBody(params: TPhysicsBodyParams, { world }: TPhysicsDepen
       return result;
     },
     getPhysicsBodyShape: (): CollisionShape => params.collisionShape,
+    getShapeParams: (): TPhysicsShapeParams => params.shapeParams,
     serialize: (): TPhysicsBodyConfig => physicsToConfig(result)
   });
 

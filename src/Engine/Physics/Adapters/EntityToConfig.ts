@@ -34,7 +34,7 @@ export function physicsToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
       collisionGroups: collider.collisionGroups(),
       solverGroups: collider.solverGroups(),
       isSensor: collider.isSensor(),
-      shapeParams: getShapeParams(collider)
+      shapeParams: entity.getShapeParams()
     };
   }
 
@@ -44,12 +44,4 @@ export function physicsToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
     ...colliderSettings,
     ...extractSerializableRegistrableFields(entity)
   });
-}
-
-function getShapeParams(collider: Collider) {
-  // TODO 15-0-0: implement
-
-  console.log('XXX collider', collider);
-  //a, b, c, borderRadius, nrows, ncols, heights, scale, halfHeight, flags, radius, hx, hy, hz, vertices, indices.
-  return {};
 }
