@@ -5,6 +5,7 @@ export * from './TMouseClickWatcherRegistry';
 export * from './TMouseEvent';
 export * from './TMousePosition';
 export * from './TMousePositionWatcher';
+export * from './TMousePositionWatcherDependencies';
 export * from './TMousePositionWatcherFactory';
 export * from './TMousePositionWatcherParams';
 export * from './TMousePositionWatcherRegistry';

@@ -9,6 +9,7 @@ import type { TLightService } from '@/Engine/Light';
 import type { TLoopService } from '@/Engine/Loop';
 import type { TMaterialService } from '@/Engine/Material';
 import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack';
+import type { TMouseService } from '@/Engine/Mouse';
 import type { TParticlesService } from '@/Engine/Particles';
 import type { TPhysicsBodyService, TPhysicsLoopService, TPhysicsPresetsService, TPhysicsWorldService } from '@/Engine/Physics';
 import type { TRendererService } from '@/Engine/Renderer';
@@ -27,6 +28,7 @@ export type TSpaceServices = Readonly<{
   loopService: TLoopService;
   materialService: TMaterialService;
   materialTextureService: TMaterialTextureService;
+  mouseService: TMouseService;
   particlesService: TParticlesService;
   physicsBodyService: TPhysicsBodyService;
   physicsWorldService: TPhysicsWorldService;

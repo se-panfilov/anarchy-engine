@@ -1,7 +1,6 @@
 import { filter, Subject } from 'rxjs';
 
 import { WatcherTag } from '@/Engine/Abstract';
-import { ambientContext } from '@/Engine/Context';
 import type { TGlobalContainerDecorator } from '@/Engine/Global';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -12,6 +11,7 @@ import type {
   TMouseClickWatcherFactory,
   TMouseClickWatcherRegistry,
   TMousePositionWatcher,
+  TMousePositionWatcherDependencies,
   TMousePositionWatcherFactory,
   TMousePositionWatcherRegistry,
   TMouseService,
@@ -19,7 +19,7 @@ import type {
 } from '@/Engine/Mouse/Models';
 import { MouseClickWatcherRegistry, MousePositionWatcherRegistry } from '@/Engine/Mouse/Registries';
 
-export function MouseService(container: TGlobalContainerDecorator): TMouseService {
+export function MouseService(container: TGlobalContainerDecorator, { loopService }: TMousePositionWatcherDependencies): TMouseService {
   const mouseClickWatcherFactory: TMouseClickWatcherFactory = MouseClickWatcherFactory();
   const mouseClickWatcherRegistry: TMouseClickWatcherRegistry = MouseClickWatcherRegistry();
   mouseClickWatcherFactory.entityCreated$.subscribe((watcher: TMouseClickWatcher) => mouseClickWatcherRegistry.add(watcher));
@@ -29,7 +29,7 @@ export function MouseService(container: TGlobalContainerDecorator): TMouseServic
   const mousePositionWatcherRegistry: TMousePositionWatcherRegistry = MousePositionWatcherRegistry();
 
   mousePositionWatcherFactory.entityCreated$.subscribe((watcher: TMousePositionWatcher) => mousePositionWatcherRegistry.add(watcher));
-  const mousePositionWatcher: TMousePositionWatcher = mousePositionWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }).start();
+  const mousePositionWatcher: TMousePositionWatcher = mousePositionWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }, { loopService }).start();
 
   const clickPress$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
   const clickLeftPress$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
@@ -173,5 +173,3 @@ export function MouseService(container: TGlobalContainerDecorator): TMouseServic
     ...destroyable
   };
 }
-
-export const mouseService: TMouseService = MouseService(ambientContext.container);

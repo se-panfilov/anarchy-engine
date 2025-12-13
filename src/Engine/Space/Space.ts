@@ -7,7 +7,6 @@ import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins/Generics';
-import { mouseService } from '@/Engine/Mouse';
 import { RendererModes } from '@/Engine/Renderer';
 import type { TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
@@ -49,10 +48,11 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     fogService,
     intersectionsWatcherService,
     lightService,
+    mouseService,
     particlesService,
-    physicsWorldService,
     physicsLoopService,
     physicsPresetService,
+    physicsWorldService,
     rendererService,
     textService
   } = services;

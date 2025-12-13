@@ -1,5 +1,5 @@
 import type { Intersection } from 'three';
-import { Box3, Mesh, Object3D, Vector3 } from 'three';
+import { Box3, Vector3 } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
 
 import type { TShowcase } from '@/App/Levels/Models';
@@ -11,12 +11,13 @@ import type {
   TEngine,
   TIntersectionEvent,
   TIntersectionsWatcher,
+  TMousePosition,
   TRadians,
   TSpace,
   TSpaceConfig,
   TWithCoordsXYZ
 } from '@/Engine';
-import { buildSpaceFromConfig, collisionsService, Engine, get3DAzimuthRad, isDefined, isNotDefined, KeysExtra, mouseService } from '@/Engine';
+import { buildSpaceFromConfig, Engine, get3DAzimuthRad, isDefined, isNotDefined, KeysExtra } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
@@ -27,7 +28,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { physicsLoopService, cameraService, actorService, loopService, intersectionsWatcherService } = space.services;
+  const { physicsLoopService, cameraService, actorService, loopService, mouseService, intersectionsWatcherService } = space.services;
 
   async function init(): Promise<void> {
     // physicsWorldService.getDebugRenderer(loopService).start();
@@ -89,9 +90,15 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       elevation: 0
     };
 
+    // let mousePosition: TMousePosition = { coords: { x: 0, y: 0 }, normalizedCoords: { x: 0, y: 0 } };
+    // mouseService.position$.subscribe((position): void => {
+    //   mousePosition = position;
+    // });
+
     loopService.tick$.subscribe((delta): void => {
       cameraFollowingActor(cameraW, heroW);
       updateBullets(bullets, delta.delta);
+      // mouseLineIntersectionsWatcher.update(mousePosition);
 
       // TODO (S.Panfilov) this should be updated only if coords or angle are changed
       if (isDefined(mouseLineIntersections.point)) {

@@ -1,6 +1,7 @@
 import { ActorAsyncRegistry, ActorFactory, ActorService } from '@/Engine/Actor';
 import type { TAppCanvas } from '@/Engine/App';
 import { CameraFactory, CameraRegistry, CameraService } from '@/Engine/Camera';
+import { ambientContext } from '@/Engine/Context';
 import { ControlService, ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
 import { EnvMapAsyncRegistry, EnvMapService } from '@/Engine/EnvMap';
 import { FogFactory, FogRegistry, FogService } from '@/Engine/Fog';
@@ -14,6 +15,7 @@ import type { TMaterialService } from '@/Engine/Material';
 import { MaterialFactory, MaterialRegistry, MaterialService } from '@/Engine/Material';
 import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import { MaterialTextureService } from '@/Engine/MaterialTexturePack';
+import { MouseService } from '@/Engine/Mouse';
 import { ParticlesAsyncRegistry, ParticlesFactory, ParticlesService } from '@/Engine/Particles';
 import type { TPhysicsBodyService, TPhysicsLoopService, TPhysicsPresetsService, TPhysicsWorldService } from '@/Engine/Physics';
 import { PhysicsBodyFactory, PhysicsBodyRegistry, PhysicsBodyService, PhysicsLoopService, PhysicsPresetRegistry, PhysicsPresetsService, PhysicsWorldService } from '@/Engine/Physics';
@@ -54,6 +56,7 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
     loopService,
     materialService,
     materialTextureService,
+    mouseService: MouseService(ambientContext.container, { loopService }),
     particlesService: ParticlesService(ParticlesFactory(), ParticlesAsyncRegistry(), materialTextureService, scene),
     physicsBodyService,
     physicsWorldService,
