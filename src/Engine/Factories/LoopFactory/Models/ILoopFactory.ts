@@ -1,5 +1,5 @@
-import type { IFactory, ILoopParams } from '@Engine/Models';
+import type { IAbstractFromConfigFactory, ILoopParams } from '@Engine/Models';
 import type { ILoopWrapper } from '@Engine/Wrappers';
 import type { LoopFn } from '@Engine/Wrappers/LoopWrapper/Models';
 
-export type ILoopFactory = IFactory<ILoopWrapper, LoopFn, ILoopParams, void>;
+export type ILoopFactory = IAbstractFromConfigFactory<ILoopWrapper, LoopFn, ILoopParams, void>;

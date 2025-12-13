@@ -1,6 +1,5 @@
 import type { IWatcher } from '@/Engine';
 
-export type IWatcherWithContainer<T> = IWatcher<T> &
-  Readonly<{
-    containerId: string;
-  }>;
+export type IWatcherWithContainer<T> = Readonly<{
+  containerId: string;
+}> & IWatcher<T>

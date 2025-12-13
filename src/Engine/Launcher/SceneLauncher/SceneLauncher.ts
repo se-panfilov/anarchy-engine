@@ -4,7 +4,7 @@ import type { IDestroyableFactories, ILocalFactoryPool, IRegistryPool } from '@E
 import { RegistryPool } from '@Engine/Pool';
 import { LocalFactoriesPool } from '@Engine/Pool/LocalFactoriesPool';
 import type { IFactories, IRegistries } from '@Engine/Pool/Models';
-import { addToRegistry, isNotDefined, isValidSceneConfig } from '@Engine/Utils';
+import { addFromConfigToRegistry, isNotDefined, isValidSceneConfig } from '@Engine/Utils';
 import type { ICameraWrapper, ILoopWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
 import { BehaviorSubject } from 'rxjs';
 
@@ -41,10 +41,10 @@ export function SceneLauncher(): ISceneLauncher {
 
     registryPool.startAddSubscription(scene);
 
-    addToRegistry(actors, actorFactory, actorRegistry);
-    addToRegistry(cameras, cameraFactory, cameraRegistry);
-    addToRegistry(lights, lightFactory, lightRegistry);
-    addToRegistry(controls, controlsFactory, controlsRegistry);
+    addFromConfigToRegistry(actors, actorFactory, actorRegistry);
+    addFromConfigToRegistry(cameras, cameraFactory, cameraRegistry);
+    addFromConfigToRegistry(lights, lightFactory, lightRegistry);
+    addFromConfigToRegistry(controls, controlsFactory, controlsRegistry);
 
     const renderer: IRendererWrapper = rendererFactory.create({ canvas, tags: [RendererTag.Main] });
 

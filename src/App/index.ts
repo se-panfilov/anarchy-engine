@@ -13,9 +13,9 @@ const { actorRegistry, cameraRegistry }: IRegistries = registries;
 // TODO (S.Panfilov) UNDER CONSTRUCTION: intersections START///////////////////////////////////////////
 const intersectionsService: IIntersectionsService = IntersectionsService();
 
-const clickableActors: ReadonlyArray<IActorWrapper> = actorRegistry.getAllWithTag([ActorTag.Intersectable]);
+const clickableActors: ReadonlyArray<IActorWrapper> = actorRegistry.getAllWithEveryTag([ActorTag.Intersectable]);
 const cameraTag: CameraTag = CameraTag.Initial;
-const camera: ICameraWrapper | undefined = cameraRegistry.getUniqWithTag([cameraTag]);
+const camera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(cameraTag);
 
 if (isNotDefined(camera)) throw new Error(`Cannot init intersection service: camera with tag "${cameraTag}" is not defined`);
 
