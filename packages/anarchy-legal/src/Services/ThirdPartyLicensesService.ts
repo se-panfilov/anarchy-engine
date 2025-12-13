@@ -10,7 +10,7 @@ import { hideBin } from 'yargs/helpers';
 
 import { RepoUtilsService } from './RepoUtilsService.ts';
 
-type TArgs = Readonly<{
+type TThirdPartyGeneratorArgs = Readonly<{
   root: InferredOptionType<Options | PositionalOptions>;
   workspace: InferredOptionType<Options | PositionalOptions>;
   out: InferredOptionType<Options | PositionalOptions>;
@@ -42,7 +42,7 @@ export function ThirdPartyLicensesService(): TThirdPartyLicensesService {
     resolveWorkspaceFromArg
   } = repoUtilsService;
 
-  function getStartCandidates(argv: TArgs): ReadonlyArray<string> {
+  function getStartCandidates(argv: TThirdPartyGeneratorArgs): ReadonlyArray<string> {
     const scriptDir: string = path.dirname(fileURLToPath(import.meta.url));
     return [argv.root as string | undefined, process.env.INIT_CWD, process.cwd(), scriptDir].filter(Boolean) as string[];
   }
@@ -62,7 +62,7 @@ export function ThirdPartyLicensesService(): TThirdPartyLicensesService {
     }, Promise.resolve<string | undefined>(undefined));
   }
 
-  async function getWorkspaceEntries(argv: TArgs, wsName: string, closure: ReadonlySet<string>, root: TRootInfo): Promise<ReadonlyArray<TLicenseEntry>> {
+  async function getWorkspaceEntries(argv: TThirdPartyGeneratorArgs, wsName: string, closure: ReadonlySet<string>, root: TRootInfo): Promise<ReadonlyArray<TLicenseEntry>> {
     let wsEntries: ReadonlyArray<TLicenseEntry> = [];
     if (argv['include-workspaces'] !== false) {
       wsEntries = await buildWorkspaceLicenseEntries(
@@ -91,7 +91,7 @@ export function ThirdPartyLicensesService(): TThirdPartyLicensesService {
 
   async function generate(): Promise<void> {
     // eslint-disable-next-line spellcheck/spell-checker
-    const argv: TArgs = await yargs(hideBin(process.argv))
+    const argv: TThirdPartyGeneratorArgs = await yargs(hideBin(process.argv))
       // .scriptName('anarchy-legal')
       .usage('$0 --workspace <name|path> --out <file> [--root <dir>] [--debug] [--no-include-workspaces]')
       .option('root', {
