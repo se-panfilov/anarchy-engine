@@ -46,7 +46,7 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
 
   function subscribeKeyChange(textKey: string): Subscription {
     if (isNotDefined(textTranslationService)) throw new Error(`[TextWrapper]: Translation service is not defined. Wrapper Id: ${wrapper.id}, name: "${wrapper.name}".`);
-    return textTranslationService.t$(textKey).pipe(distinctUntilChanged()).subscribe(setTextInternal);
+    return textTranslationService.translate$(textKey).pipe(distinctUntilChanged()).subscribe(setTextInternal);
   }
 
   function setTranslationService(translationService: TTextTranslationService): void {
@@ -60,7 +60,7 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
     const fontSize: string = toPx(params.cssProps?.fontSize);
 
     const fontSizeNoUnits: number = stripUnits(fontSize);
-    const fontFamily: string | undefined = params.cssProps?.fontFamily || textTranslationService?.locale$.value.font;
+    const fontFamily: string | undefined = params.cssProps?.fontFamily || textTranslationService?.getCurrentLocale();
     const bg: string | undefined = params.cssProps?.backgroundColor;
     const fg: string = params.cssProps?.color ?? '#000000';
 

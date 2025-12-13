@@ -1,8 +1,9 @@
-import type { BehaviorSubject, Observable } from 'rxjs';
+import type { Observable } from 'rxjs';
 
 export type TTextTranslationService = Readonly<{
-  t$: (id: string, params?: Record<string, string> | Observable<Record<string, string>>) => Observable<string>;
-  locale$: BehaviorSubject<any | Readonly<{ font?: string }>>;
-  // n$: (value: number | Observable<number>, options?: FormatNumberOptions | Observable<FormatNumberOptions | undefined>) => Observable<string>;
-  // d$: (value: number | Date | Observable<number | Date>, options?: FormatDateOptions | Observable<FormatDateOptions | undefined>) => Observable<string>;
+  translate$: (id: string, params?: Record<string, string> | Observable<Record<string, string>>) => Observable<string>;
+  locale$: Observable<any | Readonly<{ font?: string }>>;
+  getCurrentLocale: () => any | Readonly<{ font?: string }>;
+  // formatNumber$: (value: number | Observable<number>, options?: FormatNumberOptions | Observable<FormatNumberOptions | undefined>) => Observable<string>;
+  // formatDate$: (value: number | Date | Observable<number | Date>, options?: FormatDateOptions | Observable<FormatDateOptions | undefined>) => Observable<string>;
 }>;

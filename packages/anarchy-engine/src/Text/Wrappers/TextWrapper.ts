@@ -34,7 +34,7 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: T
     if (isNotDefined(textTranslationService)) throw new Error(`[TextWrapper]: Translation service is not defined. Wrapper Id: ${wrapper.id}, name: "${wrapper.name}".`);
     return (
       textTranslationService
-        .t$(textKey)
+        .translate$(textKey)
         .pipe(distinctUntilChanged())
         // eslint-disable-next-line functional/immutable-data
         .subscribe((value: string): void => void (element.textContent = value))
