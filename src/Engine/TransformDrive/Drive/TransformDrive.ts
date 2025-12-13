@@ -1,15 +1,21 @@
-import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, EMPTY, pairwise, ReplaySubject, sampleTime, switchMap } from 'rxjs';
+import type { Subscription } from 'rxjs';
+import { BehaviorSubject, pairwise, ReplaySubject } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import { ProtectedTransformAgentFacade } from '@/Engine/TransformDrive/Facades';
-import type { TAbstractTransformAgent, TProtectedTransformAgentFacade, TTransformDrive, TTransformDriveMandatoryFields, TTransformDriveParams } from '@/Engine/TransformDrive/Models';
-import { getDynamicAgents } from '@/Engine/TransformDrive/Utils';
-import { isDefined, isEqualOrSimilarVector3Like, isNotDefined } from '@/Engine/Utils';
+import type {
+  TAbstractTransformAgent,
+  TProtectedTransformAgentFacade,
+  TTransformDrive,
+  TTransformDriveMandatoryFields,
+  TTransformDriveParams,
+  TTransformDrivePerformanceOptions
+} from '@/Engine/TransformDrive/Models';
+import { getDynamicAgents, updateFromActiveAgent } from '@/Engine/TransformDrive/Utils';
+import { isNotDefined } from '@/Engine/Utils';
 
 // TransformDrive is an entity to move/rotate/scale other entities
 // TransformDrive could use different "agents" (modes) which can be switched in runtime:
@@ -74,51 +80,22 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   const destroyable: TDestroyable = destroyableMixin();
 
   // TODO ENV: limited fps, perhaps should be configurable
-  const positionDelay: number = params.performance?.updatePositionDelay ?? 4; // 240 FPS (when 16 is 60 FPS)
-  const rotationDelay: number = params.performance?.updateRotationDelay ?? 4; // 240 FPS (when 16 is 60 FPS)
-  const scaleDelay: number = params.performance?.updateScaleDelay ?? 4; // 240 FPS (when 16 is 60 FPS)
-  const positionThreshold: number = params.performance?.positionNoiseThreshold ?? 0.001;
-  const rotationThreshold: number = params.performance?.positionNoiseThreshold ?? 0.001;
-  const scaleThreshold: number = params.performance?.positionNoiseThreshold ?? 0.001;
+  const performance: Required<TTransformDrivePerformanceOptions> = {
+    updatePositionDelay: params.performance?.updatePositionDelay ?? 4, // 240 FPS (when 16 is 60 FPS)
+    updateRotationDelay: params.performance?.updateRotationDelay ?? 4, // 240 FPS (when 16 is 60 FPS)
+    updateScaleDelay: params.performance?.updateScaleDelay ?? 4, // 240 FPS (when 16 is 60 FPS)
+    positionNoiseThreshold: params.performance?.positionNoiseThreshold ?? 0.001,
+    rotationNoiseThreshold: params.performance?.rotationNoiseThreshold ?? 0.001,
+    scaleNoiseThreshold: params.performance?.scaleNoiseThreshold ?? 0.001
+  };
 
-  let prevPosition: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
-  const positionSub$: Subscription = activeAgent$
-    .pipe(
-      switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyVector3> | Observable<never> => (isDefined(agent) ? agent.position$ : EMPTY)),
-      distinctUntilChanged((_prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prevPosition, curr, positionThreshold)),
-      sampleTime(positionDelay)
-    )
-    .subscribe((position: Vector3): void => {
-      //assign like that to avoid sharing the same reference
-      prevPosition = { x: position.x, y: position.y, z: position.z };
-      position$.next(position);
-    });
-
-  let prevRotation: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
-  const rotationSub$: Subscription = activeAgent$
-    .pipe(
-      switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyEuler> | Observable<never> => (isDefined(agent) ? agent.rotation$ : EMPTY)),
-      distinctUntilChanged((_prev: Euler, curr: Euler): boolean => isEqualOrSimilarVector3Like(prevRotation, curr, rotationThreshold)),
-      sampleTime(rotationDelay)
-    )
-    .subscribe((rotation: Euler): void => {
-      //assign like that to avoid sharing the same reference
-      prevRotation = { x: rotation.x, y: rotation.y, z: rotation.z };
-      rotation$.next(rotation);
-    });
-
-  let prevScale: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
-  const scaleSub$: Subscription = activeAgent$
-    .pipe(
-      switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyVector3> | Observable<never> => (isDefined(agent) ? agent.scale$ : EMPTY)),
-      distinctUntilChanged((_prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prevScale, curr, scaleThreshold)),
-      sampleTime(scaleDelay)
-    )
-    .subscribe((scale: Vector3): void => {
-      //assign like that to avoid sharing the same reference
-      prevScale = { x: scale.x, y: scale.y, z: scale.z };
-      scale$.next(scale);
-    });
+  const positionSub$: Subscription = updateFromActiveAgent<Vector3>(activeAgent$, 'position$', { delay: performance.updatePositionDelay, threshold: performance.positionNoiseThreshold }).subscribe(
+    position$
+  );
+  const rotationSub$: Subscription = updateFromActiveAgent<Euler>(activeAgent$, 'rotation$', { delay: performance.updateRotationDelay, threshold: performance.rotationNoiseThreshold }).subscribe(
+    rotation$
+  );
+  const scaleSub$: Subscription = updateFromActiveAgent<Vector3>(activeAgent$, 'scale$', { delay: performance.updateScaleDelay, threshold: performance.scaleNoiseThreshold }).subscribe(scale$);
 
   const result: TTransformDriveMandatoryFields = {
     ...destroyable,
