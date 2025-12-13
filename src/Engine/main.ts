@@ -35,7 +35,7 @@ const intersectionPointer = IntersectionPointerWrapper(MousePointerWrapper(), ca
 
 intersectionPointer.click$.subscribe(({ position, event }) => onMouseClick(position, event));
 
-const loop = () => {
+const loop = (): void => {
   // (fpsGraph as any).begin();
   renderer.render(scene, camera);
 

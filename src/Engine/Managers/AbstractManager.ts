@@ -15,15 +15,18 @@ export abstract class AbstractManager<T extends Entity> implements Manager<T> {
     this.current$.next(actor);
   }
 
-  public destroy() {
+  public destroy(): void {
     this.current$.complete();
     this.list$.complete();
     this.destroyed$.next();
     this.destroyed$.complete();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, functional/immutable-data
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,functional/immutable-data
     this.id = undefined as any;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,functional/immutable-data
     this.current$ = undefined as any;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,functional/immutable-data
     this.list$ = undefined as any;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,functional/immutable-data
     this.destroyed$ = undefined as any;
   }
 }
