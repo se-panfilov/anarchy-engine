@@ -40,12 +40,12 @@ export function initSceneService(): TScenesService {
   return ScenesService(sceneFactory, sceneRegistry);
 }
 
-export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): Omit<TSpaceServices, 'scenesService'> {
+export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas): Omit<TSpaceServices, 'scenesService'> {
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry());
   const materialTextureService: TMaterialTextureService = MaterialTextureService(materialService, textureService);
-  const models3dService: TModels3dService = Models3dService(Models3dAsyncRegistry());
+  const models3dService: TModels3dService = Models3dService(Models3dAsyncRegistry(), sceneW);
   const physicsPresetService: TPhysicsPresetsService = PhysicsPresetsService(PhysicsPresetRegistry());
-  const physicsWorldService: TPhysicsWorldService = PhysicsWorldService(scene);
+  const physicsWorldService: TPhysicsWorldService = PhysicsWorldService(sceneW);
   const physicsBodyService: TPhysicsBodyService = PhysicsBodyService(PhysicsBodyFactory(), PhysicsBodyRegistry(), physicsPresetService, physicsWorldService);
   const physicsLoopService: TPhysicsLoopService = PhysicsLoopService(physicsWorldService);
   const kinematicLoopService: TKinematicLoopService = KinematicLoopService();
@@ -70,22 +70,23 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
         collisionsLoopService,
         collisionsService
       },
-      scene
+      sceneW
     ),
-    cameraService: CameraService(CameraFactory(), CameraRegistry(), scene),
+    cameraService: CameraService(CameraFactory(), CameraRegistry(), sceneW),
     controlsService: ControlService(ControlsFactory(), ControlsRegistry(), canvas),
     collisionsService,
     collisionsLoopService,
     envMapService: EnvMapService(EnvMapAsyncRegistry()),
-    fogService: FogService(FogFactory(), FogRegistry(), scene),
+    fogService: FogService(FogFactory(), FogRegistry(), sceneW),
     intersectionsWatcherService: IntersectionsWatcherService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),
     kinematicLoopService,
-    lightService: LightService(LightFactory(), LightRegistry(), scene),
+    lightService: LightService(LightFactory(), LightRegistry(), sceneW),
     loopService,
     materialService,
     materialTextureService,
+    models3dService,
     mouseService: MouseService(ambientContext.container, { loopService }),
-    particlesService: ParticlesService(ParticlesFactory(), ParticlesAsyncRegistry(), materialTextureService, scene),
+    particlesService: ParticlesService(ParticlesFactory(), ParticlesAsyncRegistry(), materialTextureService, sceneW),
     physicsBodyService,
     physicsWorldService,
     physicsPresetService,
@@ -93,7 +94,7 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
     rendererService: RendererService(RendererFactory(), RendererRegistry()),
     spatialLoopService,
     spatialGridService,
-    textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), Text2dRendererRegistry(), Text3dRendererRegistry(), scene)
+    textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), Text2dRendererRegistry(), Text3dRendererRegistry(), sceneW)
   };
 }
 

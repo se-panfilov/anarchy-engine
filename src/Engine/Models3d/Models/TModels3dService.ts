@@ -6,7 +6,7 @@ import type { TModel3dParams } from './TModel3dParams';
 export type TModels3dService = Readonly<{
   // TODO debug
   // loadAsync: (params: TModel3dParams, isForce?: boolean) => Promise<Mesh>;
-  loadAsync: (params: TModel3dParams) => Promise<Mesh>;
+  loadAsync: (params: TModel3dParams, shouldAddToScene: boolean) => Promise<Mesh>;
   // TODO debug
   // loadFromConfigAsync: (Models3d: ReadonlyArray<string>) => ReadonlyArray<Promise<Mesh>>;
   added$: Observable<Mesh>;
