@@ -9,7 +9,6 @@ import type {
   SceneParams
 } from '@Engine/Models';
 import { ActorFactory, CameraFactory, LightFactory, RendererFactory, SceneFactory } from '@Engine/Factories';
-import { actorAdapter, cameraAdapter, lightAdapter } from '@Engine/Launcher/ConfigToParamAdapters';
 import { ActorRegistry, CameraRegistry, LightRegistry } from '@Engine/Registries';
 import { createDeferredPromise, isNotDefined } from '@Engine/Utils';
 import type { IActorWrapper, ICameraWrapper, ILightWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
@@ -56,16 +55,16 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   });
 
   //Dynamic create entities
-  sceneFactory.add$.next({ name });
-  actors.forEach((config: ActorConfig) => actorFactory.add$.next(actorAdapter(config)));
-  cameras.forEach((config: CameraConfig) => cameraFactory.add$.next(cameraAdapter(config)));
-  lights.forEach((config: LightConfig) => lightFactory.add$.next(lightAdapter(config)));
+  sceneFactory.create$.next({ name });
+  actors.forEach((config: ActorConfig) => actorFactory.createFromConfig$.next(config));
+  cameras.forEach((config: CameraConfig) => cameraFactory.createFromConfig$.next(config));
+  lights.forEach((config: LightConfig) => lightFactory.createFromConfig$.next(config));
 
   // TODO (S.Panfilov) canvas (or something else) should come from settings
   const canvas: HTMLElement | null = document.querySelector('#app');
   if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
 
-  rendererFactory.add$.next({ canvas });
+  rendererFactory.create$.next({ canvas });
 
   // create controls (needs camera, renderer)/////////////////////
   // TODO (S.Panfilov)

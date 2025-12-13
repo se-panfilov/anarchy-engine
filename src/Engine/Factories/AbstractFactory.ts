@@ -1,20 +1,35 @@
 import { Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
 import type { ReactiveWrapper, Factory } from '@Engine/Models';
+import type { AbstractConfig } from '@Engine/Launcher/Models';
+import { isNotDefined } from '@Engine/Utils';
 
-export function AbstractFactory<T extends ReactiveWrapper<unknown>, R extends Record<string, any>>(
-  create: (params: R) => T
-): Factory<T, R> {
-  const id: string = nanoid();
+export function AbstractFactory<T extends ReactiveWrapper<unknown>, PARAMS extends Record<string, any>>(
+  // TODO (S.Panfilov) should be AbstractConfig instead of any, but doesn't work for some reason
+  // factoryType: string, create: (params: PARAMS) => T, adapterFn?: (config: AbstractConfig) => PARAMS
+  factoryType: string,
+  create: (params: PARAMS) => T,
+  adapterFn?: (config: any) => PARAMS
+): Factory<T, PARAMS> {
+  const id: string = factoryType + '_' + nanoid();
   const latest$: Subject<T> = new Subject<T>();
-  const add$: Subject<R> = new Subject<R>();
+  const create$: Subject<PARAMS> = new Subject<PARAMS>();
+  const createFromConfig$: Subject<AbstractConfig> = new Subject<AbstractConfig>();
   const destroyed$: Subject<void> = new Subject<void>();
 
-  add$.subscribe((val: R): void => latest$.next(create(val)));
+  create$.subscribe((val: PARAMS): void => latest$.next(create(val)));
+
+  createFromConfig$.subscribe((config: AbstractConfig): void => {
+    if (isNotDefined(adapterFn))
+      throw new Error(`Factory "${id}" cannot create from config: adapter function is not provided`);
+    create$.next(adapterFn(config));
+  });
 
   destroyed$.subscribe(() => {
-    add$.unsubscribe();
-    add$.complete();
+    create$.unsubscribe();
+    create$.complete();
+    createFromConfig$.unsubscribe();
+    createFromConfig$.complete();
     latest$.complete();
     destroyed$.complete();
   });
@@ -23,11 +38,17 @@ export function AbstractFactory<T extends ReactiveWrapper<unknown>, R extends Re
     get id(): string {
       return id;
     },
+    get factoryType(): string {
+      return factoryType;
+    },
     get latest$(): Subject<T> {
       return latest$;
     },
-    get add$(): Subject<R> {
-      return add$;
+    get create$(): Subject<PARAMS> {
+      return create$;
+    },
+    get createFromConfig$(): Subject<AbstractConfig> {
+      return createFromConfig$;
     },
     get destroyed$(): Subject<void> {
       return destroyed$;

@@ -4,4 +4,4 @@ import type { Factory, LoopParams } from '@Engine/Models';
 
 const create = (params: LoopParams): ReturnType<typeof LoopWrapper> => LoopWrapper(params);
 
-export const LoopFactory = (): Factory<ReturnType<typeof LoopWrapper>, LoopParams> => AbstractFactory(create);
+export const LoopFactory = (): Factory<ReturnType<typeof LoopWrapper>, LoopParams> => AbstractFactory('loop', create);

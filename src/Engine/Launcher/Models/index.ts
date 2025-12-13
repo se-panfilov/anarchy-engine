@@ -1,3 +1,4 @@
+export * from './AbstractConfig';
 export * from './ActorConfig';
 export * from './CameraConfig';
 export * from './LightConfig';

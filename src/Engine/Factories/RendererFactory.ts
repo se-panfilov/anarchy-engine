@@ -5,4 +5,4 @@ import type { Factory, RendererParams } from '@Engine/Models';
 const create = (params: RendererParams): ReturnType<typeof RendererWrapper> => RendererWrapper(params);
 
 export const RendererFactory = (): Factory<ReturnType<typeof RendererWrapper>, RendererParams> =>
-  AbstractFactory(create);
+  AbstractFactory('renderer', create);
