@@ -11,7 +11,7 @@ import { TextTransformDrive } from '@/Engine/Text/TransformDrive';
 import { getWrapperTypeByTextType } from '@/Engine/Text/Wrappers/TextWrapperHelper';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
-import { applyObject3dParams, isNotDefined } from '@/Engine/Utils';
+import { applyObject3dParams, stripUnits, toPx } from '@/Engine/Utils';
 
 export function createTextTextureWrapper(params: TTextParams, type: TextType, dependencies: TTextServiceDependencies): TTextTextureWrapper<Mesh> {
   let canvas: HTMLCanvasElement = document.createElement('canvas');
@@ -42,6 +42,9 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
 
     // eslint-disable-next-line functional/immutable-data
     context.font = `${fontSize} ${fontFamily ?? 'Arial'}`;
+
+    // TODO CWP font size after the load doesn't match (due to units?)
+    console.log('XXX2 context.font', context.font);
 
     const textMetrics: TextMetrics = context.measureText(text);
     const padding: number = fontSizeNoUnits * 0.2;
@@ -133,18 +136,4 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
   });
 
   return result;
-}
-
-function toPx(value: string | number | undefined): string {
-  // TODO better to use base text size from CSS or config file
-  const baseTextSize: number = 16;
-  if (isNotDefined(value)) return `${baseTextSize}px`;
-  if (typeof value === 'number') return `${value}px`;
-  if (/^\d+rem$/.test(value.toString())) return `${parseInt(value.toString()) * baseTextSize}px`;
-  if (/^\d+em$/.test(value.toString())) return `${parseInt(value.toString()) * baseTextSize}px`;
-  return `${baseTextSize}px`;
-}
-
-function stripUnits(value: string): number {
-  return parseInt(value.replace(/[^\d]/g, ''));
 }
