@@ -16,32 +16,32 @@ import type { ITypeOfMaterials, MaterialType } from '@/Engine/Material';
 import { MaterialMap } from '@/Engine/Material';
 import type { IMaterialService } from '@/Engine/Material/Models';
 import type {
-  IBasicMaterialTextureUploaded,
-  IDepthMaterialTextureUploaded,
-  IDistanceMaterialTextureUploaded,
-  ILambertMaterialTextureUploaded,
-  IMatcapMaterialTextureUploaded,
-  IMaterialTextureUploaded,
-  INormalMaterialTextureUploaded,
-  IPhongMaterialTextureUploaded,
-  IPhysicalMaterialTextureUploaded,
-  IStandardMaterialTextureUploaded,
-  IToonMaterialTextureUploaded
+  IBasicTextureUploaded,
+  IDepthTextureUploaded,
+  IDistanceTextureUploaded,
+  ILambertTextureUploaded,
+  IMatcapTextureUploaded,
+  INormalTextureUploaded,
+  IPhongTextureUploaded,
+  IPhysicalTextureUploaded,
+  IStandardTextureUploaded,
+  ITextureUploaded,
+  IToonTextureUploaded
 } from '@/Engine/Texture/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function MaterialService(): IMaterialService {
-  function buildMaterial(type: MaterialType, textures: IBasicMaterialTextureUploaded): MeshBasicMaterial;
-  function buildMaterial(type: MaterialType, textures: IDepthMaterialTextureUploaded): MeshDepthMaterial;
-  function buildMaterial(type: MaterialType, textures: IDistanceMaterialTextureUploaded): MeshDistanceMaterial;
-  function buildMaterial(type: MaterialType, textures: INormalMaterialTextureUploaded): MeshNormalMaterial;
-  function buildMaterial(type: MaterialType, textures: IMatcapMaterialTextureUploaded): MeshMatcapMaterial;
-  function buildMaterial(type: MaterialType, textures: ILambertMaterialTextureUploaded): MeshLambertMaterial;
-  function buildMaterial(type: MaterialType, textures: IPhongMaterialTextureUploaded): MeshPhongMaterial;
-  function buildMaterial(type: MaterialType, textures: IPhysicalMaterialTextureUploaded): MeshPhysicalMaterial;
-  function buildMaterial(type: MaterialType, textures: IToonMaterialTextureUploaded): MeshToonMaterial;
-  function buildMaterial(type: MaterialType, textures: IStandardMaterialTextureUploaded): MeshStandardMaterial;
-  function buildMaterial(type: MaterialType, textures: IMaterialTextureUploaded): Material {
+  function buildMaterial(type: MaterialType, textures: IBasicTextureUploaded): MeshBasicMaterial;
+  function buildMaterial(type: MaterialType, textures: IDepthTextureUploaded): MeshDepthMaterial;
+  function buildMaterial(type: MaterialType, textures: IDistanceTextureUploaded): MeshDistanceMaterial;
+  function buildMaterial(type: MaterialType, textures: INormalTextureUploaded): MeshNormalMaterial;
+  function buildMaterial(type: MaterialType, textures: IMatcapTextureUploaded): MeshMatcapMaterial;
+  function buildMaterial(type: MaterialType, textures: ILambertTextureUploaded): MeshLambertMaterial;
+  function buildMaterial(type: MaterialType, textures: IPhongTextureUploaded): MeshPhongMaterial;
+  function buildMaterial(type: MaterialType, textures: IPhysicalTextureUploaded): MeshPhysicalMaterial;
+  function buildMaterial(type: MaterialType, textures: IToonTextureUploaded): MeshToonMaterial;
+  function buildMaterial(type: MaterialType, textures: IStandardTextureUploaded): MeshStandardMaterial;
+  function buildMaterial(type: MaterialType, textures: ITextureUploaded): Material {
     const MaterialConstructor: ITypeOfMaterials = MaterialMap[type];
     if (isNotDefined(MaterialConstructor)) throw new Error(`Unsupported material type: ${type}`);
     return new MaterialConstructor(textures);

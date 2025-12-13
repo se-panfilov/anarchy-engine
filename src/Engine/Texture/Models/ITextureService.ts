@@ -13,28 +13,28 @@ import type {
   IToonMaterialTexturePack
 } from './IMaterialTexturePack';
 import type {
-  IBasicMaterialTextureUploadPromises,
-  IDepthMaterialTextureUploadPromises,
-  IDistanceMaterialTextureUploadPromises,
-  ILambertMaterialTextureUploadPromises,
-  IMatcapMaterialTextureUploadPromises,
-  INormalMaterialTextureUploadPromises,
-  IPhongMaterialTextureUploadPromises,
-  IPhysicalMaterialTextureUploadPromises,
-  IStandardMaterialTextureUploadPromises,
-  IToonMaterialTextureUploadPromises
-} from './IMaterialTextureUploadPromises';
+  IBasicTextureUploadPromises,
+  IDepthTextureUploadPromises,
+  IDistanceTextureUploadPromises,
+  ILambertTextureUploadPromises,
+  IMatcapTextureUploadPromises,
+  INormalTextureUploadPromises,
+  IPhongTextureUploadPromises,
+  IPhysicalTextureUploadPromises,
+  IStandardTextureUploadPromises,
+  IToonTextureUploadPromises
+} from './ITextureUploadPromises';
 
-export type IWithBasicMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<IBasicMaterialTexturePack>) => IBasicMaterialTextureUploadPromises }>;
-export type IWithDepthMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<IDepthMaterialTexturePack>) => IDepthMaterialTextureUploadPromises }>;
-export type IWithDistanceMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<IDistanceMaterialTexturePack>) => IDistanceMaterialTextureUploadPromises }>;
-export type IWithNormalMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<INormalMaterialTexturePack>) => INormalMaterialTextureUploadPromises }>;
-export type IWithMatcapMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<IMatcapMaterialTexturePack>) => IMatcapMaterialTextureUploadPromises }>;
-export type IWithLamberMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<ILambertMaterialTexturePack>) => ILambertMaterialTextureUploadPromises }>;
-export type IWithPhongMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<IPhongMaterialTexturePack>) => IPhongMaterialTextureUploadPromises }>;
-export type IWithPhysicalMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<IPhysicalMaterialTexturePack>) => IPhysicalMaterialTextureUploadPromises }>;
-export type IWithToonMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<IToonMaterialTexturePack>) => IToonMaterialTextureUploadPromises }>;
-export type IWithStandardMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<IStandardMaterialTexturePack>) => IStandardMaterialTextureUploadPromises }>;
+export type IWithBasicMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<IBasicMaterialTexturePack>) => IBasicTextureUploadPromises }>;
+export type IWithDepthMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<IDepthMaterialTexturePack>) => IDepthTextureUploadPromises }>;
+export type IWithDistanceMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<IDistanceMaterialTexturePack>) => IDistanceTextureUploadPromises }>;
+export type IWithNormalMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<INormalMaterialTexturePack>) => INormalTextureUploadPromises }>;
+export type IWithMatcapMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<IMatcapMaterialTexturePack>) => IMatcapTextureUploadPromises }>;
+export type IWithLamberMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<ILambertMaterialTexturePack>) => ILambertTextureUploadPromises }>;
+export type IWithPhongMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<IPhongMaterialTexturePack>) => IPhongTextureUploadPromises }>;
+export type IWithPhysicalMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<IPhysicalMaterialTexturePack>) => IPhysicalTextureUploadPromises }>;
+export type IWithToonMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<IToonMaterialTexturePack>) => IToonTextureUploadPromises }>;
+export type IWithStandardMaterialTextureLoader = Readonly<{ load: (m: IMaterialProps<IStandardMaterialTexturePack>) => IStandardTextureUploadPromises }>;
 
 export type IBasicMaterialTextureService = IWithBasicMaterialTextureLoader;
 export type IDepthMaterialTextureService = IWithDepthMaterialTextureLoader;

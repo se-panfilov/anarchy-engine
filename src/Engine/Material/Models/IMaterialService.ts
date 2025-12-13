@@ -13,56 +13,56 @@ import type {
 
 import type { MaterialType } from '@/Engine/Material/Constants';
 import type {
-  IBasicMaterialTextureUploaded,
-  IDepthMaterialTextureUploaded,
-  IDistanceMaterialTextureUploaded,
-  ILambertMaterialTextureUploaded,
-  IMatcapMaterialTextureUploaded,
-  INormalMaterialTextureUploaded,
-  IPhongMaterialTextureUploaded,
-  IPhysicalMaterialTextureUploaded,
-  IStandardMaterialTextureUploaded,
-  IToonMaterialTextureUploaded
+  IBasicTextureUploaded,
+  IDepthTextureUploaded,
+  IDistanceTextureUploaded,
+  ILambertTextureUploaded,
+  IMatcapTextureUploaded,
+  INormalTextureUploaded,
+  IPhongTextureUploaded,
+  IPhysicalTextureUploaded,
+  IStandardTextureUploaded,
+  IToonTextureUploaded
 } from '@/Engine/Texture/Models';
 
 export type IBasicMaterialService = {
-  buildMaterial: (type: MaterialType, mt: IBasicMaterialTextureUploaded) => MeshBasicMaterial;
+  buildMaterial: (type: MaterialType, mt: IBasicTextureUploaded) => MeshBasicMaterial;
 };
 
 export type IDepthMaterialService = {
-  buildMaterial: (type: MaterialType, mt: IDepthMaterialTextureUploaded) => MeshDepthMaterial;
+  buildMaterial: (type: MaterialType, mt: IDepthTextureUploaded) => MeshDepthMaterial;
 };
 
 export type IDistanceMaterialService = {
-  buildMaterial: (type: MaterialType, mt: IDistanceMaterialTextureUploaded) => MeshDistanceMaterial;
+  buildMaterial: (type: MaterialType, mt: IDistanceTextureUploaded) => MeshDistanceMaterial;
 };
 
 export type INormalMaterialService = {
-  buildMaterial: (type: MaterialType, mt: INormalMaterialTextureUploaded) => MeshNormalMaterial;
+  buildMaterial: (type: MaterialType, mt: INormalTextureUploaded) => MeshNormalMaterial;
 };
 
 export type IMatcapMaterialService = {
-  buildMaterial: (type: MaterialType, mt: IMatcapMaterialTextureUploaded) => MeshMatcapMaterial;
+  buildMaterial: (type: MaterialType, mt: IMatcapTextureUploaded) => MeshMatcapMaterial;
 };
 
 export type ILambertMaterialService = {
-  buildMaterial: (type: MaterialType, mt: ILambertMaterialTextureUploaded) => MeshLambertMaterial;
+  buildMaterial: (type: MaterialType, mt: ILambertTextureUploaded) => MeshLambertMaterial;
 };
 
 export type IPhongMaterialService = {
-  buildMaterial: (type: MaterialType, mt: IPhongMaterialTextureUploaded) => MeshPhongMaterial;
+  buildMaterial: (type: MaterialType, mt: IPhongTextureUploaded) => MeshPhongMaterial;
 };
 
 export type IPhysicalMaterialService = {
-  buildMaterial: (type: MaterialType, mt: IPhysicalMaterialTextureUploaded) => MeshPhysicalMaterial;
+  buildMaterial: (type: MaterialType, mt: IPhysicalTextureUploaded) => MeshPhysicalMaterial;
 };
 
 export type IToonMaterialService = {
-  buildMaterial: (type: MaterialType, mt: IToonMaterialTextureUploaded) => MeshToonMaterial;
+  buildMaterial: (type: MaterialType, mt: IToonTextureUploaded) => MeshToonMaterial;
 };
 
 export type IStandardMaterialService = {
-  buildMaterial: (type: MaterialType, mt: IStandardMaterialTextureUploaded) => MeshStandardMaterial;
+  buildMaterial: (type: MaterialType, mt: IStandardTextureUploaded) => MeshStandardMaterial;
 };
 
 export type IMaterialService =
