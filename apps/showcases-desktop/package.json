@@ -2,7 +2,7 @@
   "name": "anarchy_engine_showcases_desktop",
   "author": "S. Panfilov",
   "private": true,
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Desktop application for Anarchy Engine showcases",
   "main": "dist/desktop-main.js",
   "type": "module",
