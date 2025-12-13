@@ -16,7 +16,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   return {
     define: {
       __DESKTOP_APP_VERSION__: JSON.stringify(version),
-      __PLATFORM_MODE__: JSON.stringify(mode) //always 'production' (for vite, but not for electron)
+      __PLATFORM_MODE__: JSON.stringify(mode)
     },
     resolve: {
       alias: {
