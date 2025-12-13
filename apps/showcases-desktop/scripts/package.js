@@ -107,9 +107,14 @@ run(`${cleanCmd}node ./scripts/prebuild.js --mode=${mode}${dryRun ? ' --dry-run'
 try {
   const outDir = path.resolve(process.cwd(), 'dist');
   mkdirSync(outDir, { recursive: true });
+
+  // Map EB platform tokens to Node.js platform tokens for storage in dist-info
+  const mapEbToNodePlatform = (p) => (p === 'mac' ? 'darwin' : p === 'win' ? 'win32' : p);
+  const platformsForInfo = resolvedPlatforms.map(mapEbToNodePlatform);
+
   const { path: infoPath } = writeDistInfo({
     mode,
-    platforms: resolvedPlatforms,
+    platforms: platformsForInfo,
     archs: resolvedArchs,
     installers: parsedInstallers,
     outDir

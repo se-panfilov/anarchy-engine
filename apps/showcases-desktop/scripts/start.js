@@ -31,8 +31,8 @@ run(`node ./scripts/prebuild.js --mode=${mode}${dryRun ? ' --dry-run' : ''}`);
 
 // 3) Write dist-info.json for dev run (treat as 'dir' target)
 try {
-  const platform = process.platform === 'darwin' ? 'mac' : process.platform === 'win32' ? 'win' : 'linux';
-  const arch = process.arch === 'arm64' ? 'arm64' : 'x64';
+  const platform = process.platform; // keep as-is (darwin/win32/linux)
+  const arch = process.arch; // keep as-is (arm64/x64/...)
   const outDir = path.resolve(process.cwd(), 'dist');
   const { path: infoPath } = writeDistInfo({ mode, platforms: [platform], archs: [arch], installers: ['dir'], outDir });
   console.log(`[start] wrote ${path.relative(process.cwd(), infoPath)}`);
