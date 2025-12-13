@@ -42,6 +42,15 @@ export function AbstractEntity<T extends Record<string, any>, P extends TEntityP
     tags: params?.tags ?? [],
     ...destroyable
   };
+  const partialResult: T & TRegistrable & TNoSpread & TDestroyable = Object.assign(
+    {
+      ...params,
+      id,
+      ...entities,
+      tags: params?.tags ?? []
+    },
+    destroyable
+  );
 
   // eslint-disable-next-line functional/immutable-data
   const result: TEntity<T> = Object.assign(partialResult, withNameAndNameAccessors);
