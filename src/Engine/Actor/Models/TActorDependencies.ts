@@ -17,5 +17,4 @@ export type TActorDependencies = Readonly<{
   model3dToActorConnectionRegistry: TModel3dToActorConnectionRegistry;
 }>;
 
-// TODO 8.0.0. MODELS: do we need both "TActorDependencies" and "TActorServiceDependencies"?
 export type TActorServiceDependencies = TActorDependencies;

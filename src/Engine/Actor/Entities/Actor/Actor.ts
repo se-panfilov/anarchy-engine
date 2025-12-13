@@ -28,7 +28,6 @@ export function Actor(
 
   // TODO CWP:
   // TODO 8.0.0. MODELS: close all issues (todoes) with tag 8.0.0
-  // TODO 8.0.0. MODELS: make sure animations are working with actors & models
 
   const entities: TActorEntities = {
     drive,
@@ -69,14 +68,11 @@ export function Actor(
         prevValue[2] = value.z;
       })
     )
-    .subscribe((position: Vector3): void => {
-      // TODO 8.0.0. MODELS: not sure if "updateSpatialCells()" should happen on rotation$ and scale$ changes
-      actor.updateSpatialCells(position);
-    });
+    // I'm not sure if we need to update spatial cells as well on rotation or scale is change
+    .subscribe((position: Vector3): void => actor.updateSpatialCells(position));
 
   applySpatialGrid(params, actor, spatialGridService);
 
-  // TODO 8.0.0. MODELS: check how collisions works with the model3d?
   startCollisions(actor);
 
   model3dToActorConnectionRegistry.addModel3d(model3d, actor);
