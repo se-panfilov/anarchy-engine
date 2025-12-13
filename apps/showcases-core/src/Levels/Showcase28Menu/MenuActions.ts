@@ -1,5 +1,5 @@
 import { isNotDefined } from '@Anarchy/Shared/Utils';
-import type { TFromMenuEvent, TLoadDocPayload, TShowcaseGameSettings, TToMenuEvent } from '@Showcases/Shared';
+import type { TFromMenuEvent, TLegalDoc, TLoadDocPayload, TShowcaseGameSettings, TToMenuEvent } from '@Showcases/Shared';
 import { FromMenuEvents, isLoadDocPayload, isSettings, ToMenuEvents } from '@Showcases/Shared';
 import type { Observable, Subject } from 'rxjs';
 
@@ -8,7 +8,7 @@ import { closeMainMenu, loadLegalDocs, loadSettings, saveSettings } from '@/Leve
 // TODO DESKTOP: App should react on save or load settings: E.g. language change should apply immediately (in the game).
 export function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEvent>, toMenuEventsBus$: Subject<TToMenuEvent>): void {
   let settings: TShowcaseGameSettings | undefined;
-  let legalDocs: string | undefined;
+  let legalDocs: TLegalDoc | undefined;
 
   fromMenuEventsBus$.subscribe(async (event: TFromMenuEvent): Promise<void> => {
     switch (event.type) {
@@ -52,7 +52,7 @@ export function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEve
         if (isNotDefined(legalDocs)) throw new Error(`[Showcase]: Failed to load  legal docs: ${legalDocs}`);
 
         toMenuEventsBus$.next({
-          type: ToMenuEvents.SettingsLoaded,
+          type: ToMenuEvents.LegalDocsLoaded,
           payload: { legal: legalDocs }
         });
         break;

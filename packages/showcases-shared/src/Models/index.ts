@@ -1,4 +1,5 @@
 export type * from './TDropdownOption';
+export type * from './TLegalDoc';
 export type * from './TLoadDocPayload';
 export type * from './TMenuEvent';
 export type * from './TMenuOptions';

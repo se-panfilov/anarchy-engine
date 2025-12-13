@@ -4,7 +4,7 @@ import { join, normalize } from 'node:path';
 
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { TDocsService } from '@Showcases/Desktop/Models';
-import type { TLoadDocPayload } from '@Showcases/Shared';
+import type { TLegalDoc, TLoadDocPayload } from '@Showcases/Shared';
 import { AllowedLegalDocNames } from '@Showcases/Shared';
 import type { App } from 'electron';
 
@@ -24,13 +24,14 @@ export function DocsService(app: App): TDocsService {
 
   // TODO DESKTOP: Extract file reading/writing to a separate utility
   // TODO DESKTOP: Better to make all of this async
-  function load({ name }: TLoadDocPayload): Promise<string> | never {
+  async function load({ name }: TLoadDocPayload): Promise<TLegalDoc> | never {
     const filePath: string = resolveDocPath(name);
     if (isNotDefined(filePath) || !fs.existsSync(filePath)) throw new Error(`[DESKTOP]: Document "${name}" does not found: ${filePath}`);
 
-    const result: Promise<string> = readFile(filePath, 'utf-8');
-    // TODO DESKTOP: sanitize result
-    return result;
+    // TODO DESKTOP: fix type of the result
+    const result: string = await readFile(filePath, 'utf-8');
+    // TODO DESKTOP: should sanitize result here
+    return { name, content: result };
   }
 
   return {

@@ -1,5 +1,5 @@
-import type { TLoadDocPayload } from '@Showcases/Shared';
+import type { TLegalDoc, TLoadDocPayload } from '@Showcases/Shared';
 
 export type TDocsService = Readonly<{
-  load: (payload: TLoadDocPayload) => Promise<string> | never;
+  load: (payload: TLoadDocPayload) => Promise<TLegalDoc> | never;
 }>;

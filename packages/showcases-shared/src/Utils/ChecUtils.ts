@@ -1,6 +1,6 @@
 import { isAllNotDefined, isDefined, isNotDefined, isString } from '@Anarchy/Shared/Utils';
 import { ShowcasesLocales } from '@Showcases/Shared/Constants';
-import type { TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared/Models';
+import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared/Models';
 
 export function isSettings(settings: TShowcaseGameSettings | unknown): settings is TShowcaseGameSettings {
   if (isNotDefined(settings)) return false;
@@ -10,6 +10,7 @@ export function isSettings(settings: TShowcaseGameSettings | unknown): settings 
 
   return true;
 }
+
 export function isLoadDocPayload(payload: TLoadDocPayload | unknown): payload is TLoadDocPayload {
   if (isNotDefined(payload)) return false;
   if (typeof payload !== 'object') return false;
@@ -17,6 +18,17 @@ export function isLoadDocPayload(payload: TLoadDocPayload | unknown): payload is
   if (isAllNotDefined([name])) return false;
   if (!isString(name)) return false;
   if (isDefined(locale) && isNotDefined(ShowcasesLocales[locale])) return false;
+
+  return true;
+}
+
+export function isLoadDoc(doc: TLegalDoc | unknown): doc is TLegalDoc {
+  if (isNotDefined(doc)) return false;
+  if (typeof doc !== 'object') return false;
+  const { name, content } = doc as TLegalDoc;
+  if (isAllNotDefined([name])) return false;
+  if (!isString(name)) return false;
+  if (!isString(content)) return false;
 
   return true;
 }

@@ -1,8 +1,9 @@
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { TEventsService } from '@Showcases/Menu/models';
+import { useLegalDocsStore } from '@Showcases/Menu/stores/LegalDocsStore';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
 import type { TFromMenuEvent, TLoadDocPayload, TShowcaseGameSettings, TToMenuEvent } from '@Showcases/Shared';
-import { FromMenuEvents, isSettings, ToMenuEvents } from '@Showcases/Shared';
+import { FromMenuEvents, isLoadDoc, isSettings, ToMenuEvents } from '@Showcases/Shared';
 import type { Observable, Subject, Subscription } from 'rxjs';
 import { toRaw } from 'vue';
 
@@ -69,6 +70,12 @@ function EventsService(): TEventsService {
         if (!isSettings(event.payload)) throw new Error(`[EventsService]: Failed to apply settings: Invalid payload`);
         // TODO DESKTOP: languages should apply to menu immediately
         useSettingsStore().setState(event.payload);
+        break;
+      }
+      case ToMenuEvents.LegalDocsLoaded: {
+        console.log('[EventsService]: Legal docs loaded:', event.payload);
+        if (!isLoadDoc(event.payload)) throw new Error(`[EventsService]: Failed to apply legal docs: Invalid payload`);
+        useLegalDocsStore().setDoc(event.payload);
         break;
       }
       default: {
