@@ -1,26 +1,26 @@
 import { BehaviorSubject, Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
 import type { Manager } from '@Engine/Managers/Models/Manager';
+import type { WrappedScene } from '@Engine/Scene/Models/WrappedScene';
+import { SceneWrapper } from '@Engine/Scene/SceneWrapper';
 
-interface ISceneManager extends Manager {
-  readonly create: (params: SceneParams) => void;
-  readonly setCurrent: (scene: WrappedScene) => void;
-  readonly current$: BehaviorSubject<WrappedScene | undefined>;
-  readonly list$: BehaviorSubject<ReadonlyArray<WrappedScene>>;
-  readonly start: () => void;
-}
+// interface ISceneManager extends Manager<WrappedScene> {
+// readonly addCamera: (camera: WrappedCamera) => void;
+// readonly attachManagerToScene: <T extends Entity>(manager: Manager<T>, scene: WrappedScene) => void;
+// }
 
-export function SceneManager(): ISceneManager {
+export function SceneManager(): Manager<WrappedScene> {
   const current$ = new BehaviorSubject<WrappedScene | undefined>(undefined);
   const list$ = new BehaviorSubject<ReadonlyArray<WrappedScene>>([]);
   const destroyed$ = new Subject<void>();
 
-  const create = (params: SceneParams): void => list$.next([...list$.value, SceneWrapper(params)]);
-  const setCurrent = (camera: WrappedScene): void => current$.next(camera);
-
-  function start(): void {
-    // TODO (S.Panfilov)
+  function create(): WrappedScene {
+    const wrapper = SceneWrapper();
+    list$.next([...list$.value, wrapper]);
+    return wrapper;
   }
+
+  const setCurrent = (camera: WrappedScene): void => current$.next(camera);
 
   function destroy() {
     current$.complete();

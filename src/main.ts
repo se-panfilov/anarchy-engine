@@ -14,19 +14,19 @@ const inputManager = InputManager();
 const loopManager = LoopManager();
 const sceneManager = SceneManager();
 
-const scene = sceneManager.createScene();
-sceneManager.setCurrentScene(scene);
+const scene = sceneManager.create();
+sceneManager.setCurrent(scene);
 
-sceneManager.currentScene.attachActorManager(actorManager);
-sceneManager.currentScene.attachCameraManager(cameraManager);
-sceneManager.currentScene.attachLightManager(lightManager);
-sceneManager.currentScene.attachInputManager(inputManager);
+// sceneManager.attachManagerToScene(actorManager, scene);
+// sceneManager.attachManagerToScene(cameraManager, scene);
+// sceneManager.attachManagerToScene(lightManager, scene);
+// sceneManager.attachManagerToScene(inputManager, scene);
 
-actorManager.addActor('sphere');
-actorManager.addActor('plane');
+actorManager.create('sphere');
+actorManager.create('plane');
 
-const wrappedCamera = cameraManager.createCamera();
-cameraManager.setCurrentCamera(wrappedCamera);
+const wrappedCamera = cameraManager.create();
+cameraManager.setCurrent(wrappedCamera);
 wrappedCamera.camera.setPosition(3, 2, 15).lookAt(0, 0, 0).setControls('OrbitControls');
 
 lightManager.createAmbientLight({ type: 'ambient', color: 0xffffff, intensity: 0.5 });

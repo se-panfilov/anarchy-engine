@@ -4,19 +4,17 @@ import type { Manager } from './Models/Manager';
 import { MousePointerWrapper } from '@Engine/Pointer';
 import type { WrappedMousePointer } from '@Engine/Pointer/lib/models/WrappedMousePointer';
 
-interface IInputManager extends Manager {
-  readonly create: () => void;
-  readonly setCurrent: (pointer: WrappedMousePointer) => void;
-  readonly current$: BehaviorSubject<WrappedInput | undefined>;
-  readonly list$: BehaviorSubject<ReadonlyArray<WrappedInput>>;
-}
-
-export function InputManager(): IInputManager {
+export function InputManager(): Manager<WrappedInput> {
   const current$ = new BehaviorSubject<WrappedInput | undefined>(undefined);
   const list$ = new BehaviorSubject<ReadonlyArray<WrappedInput>>([]);
   const destroyed$ = new Subject<void>();
 
-  const create = (): void => list$.next([...list$.value, MousePointerWrapper()]);
+  function create(): WrappedInput {
+    const wrapper = MousePointerWrapper();
+    list$.next([...list$.value, wrapper]);
+    return wrapper;
+  }
+
   const setCurrent = (pointer: WrappedMousePointer): void => current$.next(pointer);
 
   function destroy() {

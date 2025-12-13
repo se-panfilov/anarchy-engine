@@ -5,19 +5,17 @@ import { CameraWrapper } from '@Engine/Camera/CameraWrapper';
 import type { WrappedCamera } from '@Engine/Camera/Models/WrappedCamera';
 import type { CameraParams } from '@Engine/Camera/Models/CameraParams';
 
-interface ICameraManager extends Manager {
-  readonly create: (params: CameraParams) => void;
-  readonly setCurrent: (camera: WrappedCamera) => void;
-  readonly current$: BehaviorSubject<WrappedCamera | undefined>;
-  readonly list$: BehaviorSubject<ReadonlyArray<WrappedCamera>>;
-}
-
-export function CameraManager(): ICameraManager {
+export function CameraManager(): Manager<WrappedCamera> {
   const current$ = new BehaviorSubject<WrappedCamera | undefined>(undefined);
   const list$ = new BehaviorSubject<ReadonlyArray<WrappedCamera>>([]);
   const destroyed$ = new Subject<void>();
 
-  const create = (params: CameraParams): void => list$.next([...list$.value, CameraWrapper(params)]);
+  function create(params: CameraParams): WrappedCamera {
+    const wrapper = CameraWrapper(params);
+    list$.next([...list$.value, wrapper]);
+    return wrapper;
+  }
+
   // TODO (S.Panfilov) maybe check if the entity in the list (also same for all managers)
   const setCurrent = (camera: WrappedCamera): void => current$.next(camera);
 

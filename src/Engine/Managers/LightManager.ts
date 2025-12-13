@@ -5,13 +5,9 @@ import { LightWrapper } from '@Engine/Light/LightWrapper';
 import type { WrappedAmbientLight, WrappedDirectionalLight, WrappedLight } from '@Engine/Light/Models/WrappedLight';
 import type { LightParams } from '@Engine/Light/Models/LightParams';
 
-interface ILightManager extends Manager {
-  readonly create: (params: LightParams) => WrappedLight;
+interface ILightManager extends Manager<WrappedLight> {
   readonly createAmbientLight: (params: LightParams) => WrappedAmbientLight;
   readonly createDirectionalLight: (params: LightParams) => WrappedDirectionalLight;
-  readonly setCurrent: (camera: WrappedLight) => void;
-  readonly current$: BehaviorSubject<WrappedLight | undefined>;
-  readonly list$: BehaviorSubject<ReadonlyArray<WrappedLight>>;
 }
 
 export function LightManager(): ILightManager {
@@ -23,11 +19,11 @@ export function LightManager(): ILightManager {
   const createDirectionalLight = (params: LightParams): WrappedDirectionalLight =>
     create(params) as WrappedDirectionalLight;
 
-  const create = (params: LightParams): WrappedLight => {
+  function create(params: LightParams): WrappedLight {
     const light = LightWrapper(params);
     list$.next([...list$.value, LightWrapper(params)]);
     return light;
-  };
+  }
 
   const setCurrent = (light: WrappedLight): void => current$.next(light);
 

@@ -7,19 +7,12 @@ import type { ActorParams } from '@Engine/Actor/Models/ActorParams';
 
 // type ActorType = 'sphere' | 'plane';
 
-interface IActorManager extends Manager {
-  readonly create: (params: ActorParams) => void;
-  readonly setCurrent: (camera: WrappedActor) => void;
-  readonly current$: BehaviorSubject<WrappedActor | undefined>;
-  readonly list$: BehaviorSubject<ReadonlyArray<WrappedActor>>;
-}
-
-export function ActorManager(): IActorManager {
+export function ActorManager(): Manager<WrappedActor> {
   const current$ = new BehaviorSubject<WrappedActor | undefined>(undefined);
   const list$ = new BehaviorSubject<ReadonlyArray<WrappedActor>>([]);
   const destroyed$ = new Subject<void>();
 
-  function create(params: ActorParams): void {
+  function create(params: ActorParams): WrappedActor {
     // const params: ActorParams = {
     //   type: 'sphere',
     //   width: 1,
@@ -30,6 +23,9 @@ export function ActorManager(): IActorManager {
     const wrappedActor = ActorWrapper(params);
     wrappedActor.actor.position.set(0, 2, 0);
     wrappedActor.actor.castShadow = true;
+    list$.next([...list$.value, wrappedActor]);
+
+    return wrappedActor;
   }
 
   const setCurrent = (actor: WrappedActor): void => current$.next(actor);

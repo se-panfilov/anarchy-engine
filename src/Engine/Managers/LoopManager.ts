@@ -2,7 +2,7 @@ import { Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
 import type { Manager } from './Models/Manager';
 
-interface ILoopManager extends Manager {
+interface ILoopManager extends Manager<LoopWrapper> {
   readonly start: () => void;
 }
 
