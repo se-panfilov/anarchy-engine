@@ -1069,7 +1069,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-shared@1.2.0
+## anarchy-shared@1.3.0
 
 **License:** MIT
 
@@ -3265,7 +3265,7 @@ SOFTWARE.
 
 ---
 
-## showcases-shared@1.3.3
+## showcases-shared@1.3.4
 
 **License:** MIT
 
