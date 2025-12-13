@@ -2,8 +2,8 @@ import { nanoid } from 'nanoid';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, EMPTY, Subject, switchMap, takeWhile, withLatestFrom } from 'rxjs';
 
-import { LoopTrigger, LoopUpdatePriority } from '@/Engine/Loop/Constants';
-import type { TDelta, TDeltaCalculator, TLoop, TLoopParams, TLoopTriggerFn } from '@/Engine/Loop/Models';
+import { LoopTrigger, LoopUpdatePriority, LoopWorkerActions } from '@/Engine/Loop/Constants';
+import type { TDelta, TDeltaCalculator, TLoop, TLoopParams, TLoopTriggerFn, TLoopWorkerResponseData, TLoopWorkerStartRequestData, TLoopWorkerStopRequestData } from '@/Engine/Loop/Models';
 import { enableFPSCounter } from '@/Engine/Loop/Utils';
 import type { TMilliseconds } from '@/Engine/Math';
 import type { TDestroyable } from '@/Engine/Mixins';
@@ -29,9 +29,8 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
 
   if (isParallelMode) {
     worker = new Worker(new URL('./Loop.worker.ts', import.meta.url), { type: 'module' });
-    // TODO 10.0.0. LOOPS: fix any
     // eslint-disable-next-line functional/immutable-data
-    worker.onmessage = ({ data }: MessageEvent<any>): void => tick$.next(data.delta);
+    worker.onmessage = ({ data }: MessageEvent<TLoopWorkerResponseData>): void => tick$.next(data.delta);
   }
 
   const loopSub$: Subscription = tick$
@@ -57,14 +56,12 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
       if (isTriggerFn) {
         tick$.next(0);
       } else {
-        // TODO 10.0.0. LOOPS use constants for actions
-        if (isParallelMode && isDefined(worker)) worker.postMessage({ loopId: id, interval: trigger, action: 'start' });
+        if (isParallelMode && isDefined(worker)) worker.postMessage({ loopId: id, interval: trigger as number, action: LoopWorkerActions.Start } satisfies TLoopWorkerStartRequestData);
         if (!isParallelMode) intervalId = runInterval();
       }
     } else {
       deltaCalc?.reset();
-      // TODO 10.0.0. LOOPS use constants for actions
-      if (isParallelMode && isDefined(worker)) worker.postMessage({ loopId: id, interval: trigger, action: 'stop' });
+      if (isParallelMode && isDefined(worker)) worker.postMessage({ action: LoopWorkerActions.Stop } satisfies TLoopWorkerStopRequestData);
       if (isDefined(intervalId)) clearInterval(intervalId);
     }
   });

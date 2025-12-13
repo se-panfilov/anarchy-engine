@@ -1,4 +1,5 @@
-import type { TDeltaCalculator } from '@/Engine/Loop/Models';
+import { LoopWorkerActions } from '@/Engine/Loop/Constants';
+import type { TDeltaCalculator, TLoopWorkerResponseData, TLoopWorkerStartRequestData, TLoopWorkerStopRequestData } from '@/Engine/Loop/Models';
 import type { TMilliseconds } from '@/Engine/Math';
 import { isDefined } from '@/Engine/Utils/CheckUtils';
 
@@ -7,16 +8,15 @@ import { DeltaCalculator } from './DeltaCalculator';
 const deltaCalc: TDeltaCalculator = DeltaCalculator(false);
 let intervalId: number | undefined = undefined;
 
-// TODO 10.0.0. LOOPS: fix any
 // eslint-disable-next-line functional/immutable-data
-self.onmessage = (event: MessageEvent<any>): void | never => {
-  const { action, interval, loopId } = event.data;
+self.onmessage = (event: MessageEvent<TLoopWorkerStopRequestData | TLoopWorkerStartRequestData>): void | never => {
+  const { action, interval, loopId } = event.data as TLoopWorkerStartRequestData;
 
   switch (action) {
-    case 'start':
+    case LoopWorkerActions.Start:
       intervalId = startLoop(deltaCalc, interval, loopId);
       break;
-    case 'stop':
+    case LoopWorkerActions.Stop:
       stopLoop(intervalId);
       break;
     default:
@@ -29,7 +29,7 @@ function startLoop(deltaCalc: TDeltaCalculator, interval: number, loopId: string
 
   return setInterval((): void => {
     const delta: TMilliseconds = deltaCalc.update();
-    self.postMessage({ delta, loopId });
+    self.postMessage({ delta, loopId } satisfies TLoopWorkerResponseData);
   }, interval) as unknown as number;
 }
 

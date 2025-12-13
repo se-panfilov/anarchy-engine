@@ -1,0 +1,11 @@
+import type { LoopWorkerActions } from '@/Engine/Loop/Constants';
+
+export type TLoopWorkerStopRequestData = Readonly<{
+  action: LoopWorkerActions;
+}>;
+
+export type TLoopWorkerStartRequestData = TLoopWorkerStopRequestData &
+  Readonly<{
+    interval: number;
+    loopId: string;
+  }>;

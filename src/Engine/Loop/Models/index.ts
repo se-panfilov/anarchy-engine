@@ -7,3 +7,5 @@ export type * from './TLoopRegistry';
 export type * from './TLoopService';
 export type * from './TLoopTriggerFn';
 export type * from './TLoopUtils';
+export type * from './TLoopWorkerRequestData';
+export type * from './TLoopWorkerResponseData';
