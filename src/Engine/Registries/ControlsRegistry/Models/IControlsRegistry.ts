@@ -1,4 +1,4 @@
-import type { IAbstractRegistry, IProtectedRegistry } from '@Engine/Models';
 import type { IControlsWrapper } from '@Engine/Wrappers';
+import type { IProtectedRegistry } from '@Engine/Models';
 
-export type IControlsRegistry = IProtectedRegistry<IControlsWrapper, IAbstractRegistry<IControlsWrapper>>;
+export type IControlsRegistry = IProtectedRegistry<IControlsWrapper>;

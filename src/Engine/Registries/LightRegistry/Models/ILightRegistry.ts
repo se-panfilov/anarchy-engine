@@ -1,4 +1,4 @@
 import type { ILightWrapper } from '@Engine/Wrappers';
-import type { IAbstractRegistry, IProtectedRegistry } from '@Engine/Models';
+import type { IProtectedRegistry } from '@Engine/Models';
 
-export type ILightRegistry = IProtectedRegistry<ILightWrapper, IAbstractRegistry<ILightWrapper>>;
+export type ILightRegistry = IProtectedRegistry<ILightWrapper>;
