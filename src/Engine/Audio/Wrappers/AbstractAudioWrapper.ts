@@ -5,7 +5,7 @@ import type { AudioListener } from 'three';
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TAbstractAudioWrapper, TAnyAudio, TAnyAudioParams, TAudioCreateFn } from '@/Engine/Audio/Models';
-import { seekAudio } from '@/Engine/Audio/Utils';
+import { disposeAudio, seekAudio } from '@/Engine/Audio/Utils';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 
@@ -118,8 +118,7 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
     loop$.unsubscribe();
     volume$.complete();
     volume$.unsubscribe();
-
-    // TODO 11.0.0: guess we need to dispose the Audio
+    disposeAudio(entity);
   });
 
   return {

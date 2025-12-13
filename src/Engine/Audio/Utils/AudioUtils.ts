@@ -59,3 +59,14 @@ export function onAudioPositionUpdate(position$: BehaviorSubject<TReadonlyVector
     })
   );
 }
+
+export function disposeAudio(audio: TAnyAudio): void {
+  if (audio.isPlaying) audio.stop();
+  audio.setBuffer(null as any);
+  if (audio.parent) audio.removeFromParent();
+  if (audio.gain) audio.gain.disconnect();
+  if ((audio as PositionalAudio).panner) (audio as PositionalAudio).panner.disconnect();
+
+  // eslint-disable-next-line functional/immutable-data
+  audio.source = null;
+}
