@@ -1,4 +1,5 @@
 import type { TCollisionsService } from '@/Engine/Collisions';
+import type { TFsmService } from '@/Engine/Fsm';
 import type { TLoopService } from '@/Engine/Loop';
 import type { TModels3dService } from '@/Engine/Models3d';
 import type { TSpatialGridService } from '@/Engine/Spatial';
@@ -12,6 +13,7 @@ export type TActorDependencies = Readonly<{
   collisionsService: TCollisionsService;
   transformDriveService: TTransformDriveService;
   model3dToActorConnectionRegistry: TModel3dToActorConnectionRegistry;
+  fsmService: TFsmService;
   loopService: TLoopService;
 }>;
 

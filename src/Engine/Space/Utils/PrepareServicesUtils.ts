@@ -89,6 +89,7 @@ export function buildEntitiesServices(
         collisionsService,
         models3dService,
         model3dToActorConnectionRegistry,
+        fsmService,
         transformDriveService
       },
       sceneW

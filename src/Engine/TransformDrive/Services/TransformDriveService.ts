@@ -89,5 +89,5 @@ export function TransformDriveService(
   }
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, create, createFromList, withFactory, withRegistry, { getTransformAgents });
+  return Object.assign(abstractService, withFactory, withRegistry, { create, createFromList, getTransformAgents });
 }
