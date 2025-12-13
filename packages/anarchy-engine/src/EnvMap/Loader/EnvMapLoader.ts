@@ -4,10 +4,10 @@ import type { TEnvMapLoader, TEnvMapMetaInfoRegistry, TEnvMapResourceConfig, TEn
 import type { TWriteable } from '@Anarchy/Shared/Utils';
 import { isDefined } from '@Anarchy/Shared/Utils';
 import { EquirectangularReflectionMapping } from 'three';
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
+import { HDRLoader } from 'three/examples/jsm/loaders/HDRLoader';
 
 export function EnvMapLoader(registry: TEnvMapTextureAsyncRegistry, metaInfoRegistry: TEnvMapMetaInfoRegistry): TEnvMapLoader {
-  const envMapLoader: RGBELoader = new RGBELoader();
+  const envMapLoader: HDRLoader = new HDRLoader();
   const loader: TEnvMapLoader = AbstractLoader(envMapLoader, registry, metaInfoRegistry, LoaderType.EnvMap);
 
   function applyParamsOnLoaded(loaded: TWriteable<TEnvMapTexture>, options?: TEnvMapResourceConfig['options']): TEnvMapTexture {
