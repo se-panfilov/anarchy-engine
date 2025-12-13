@@ -2,11 +2,11 @@
 
 **Effective date:** {{EFFECTIVE_DATE}}
 **Publisher/Developer (Licensor):** {{PACKAGE_AUTHOR}}
-**Contact:** {{CONTACT_EMAIL}}
+**Contact:** {{SUPPORT_EMAIL}}
 
 ## 1. License Grant
 
-Subject to this EULA, Licensor grants you a **personal, non-exclusive, non-transferable, revocable** license to install and use **{{PACKAGE_NAME}}** (the “Game”) on devices linked to your **[STORE PLATFORM ACCOUNT]** for **personal, non-commercial** purposes.
+Subject to this EULA, Licensor grants you a **personal, non-exclusive, non-transferable, revocable** license to install and use **{{PACKAGE_NAME}}** (the “Game”) on devices linked to your **{{STORE_ACCOUNT}** for **personal, non-commercial** purposes.
 
 ## 2. Ownership
 
@@ -63,4 +63,4 @@ Third-party licenses and attributions are provided in **Third-Party Notices** (e
 
 We may update this EULA. Material changes will be communicated via **{{EULA_UPDATE_COMMUNICATION}}**. Continued use after the effective date constitutes acceptance.
 
-**Contact:** For questions about this EULA, write to **{{CONTACT_LEGAL_EMAIL}}**.
+**Contact:** For questions about this EULA, write to **{{LEGAL_EMAIL}}**.
