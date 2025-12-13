@@ -48,15 +48,14 @@ function getComplexModel3dSource(entity: TModel3d, model3dResourceAsyncRegistry:
 
 function getAllAnimationsSource(entity: TModel3d, animationsResourceAsyncRegistry: TAnimationsResourceAsyncRegistry): ReadonlyArray<string> | undefined {
   const allAnimations: ReadonlyArray<AnimationClip> = entity.getAnimations();
+
   const animationsSource: ReadonlyArray<string> = allAnimations
     .map((animation: AnimationClip): string | undefined => {
       return animationsResourceAsyncRegistry.findKey((val: TAnimations): boolean => {
-        // TODO 15-0-0: Fix this, guess we should not just check the first element of TAnimations
-        return val[0].name === animation.name;
+        return val[0] === animation;
       });
     })
     .filter(isDefined);
 
-  console.log('XXX animationsSource', animationsSource);
   return animationsSource.length > 0 ? animationsSource : undefined;
 }
