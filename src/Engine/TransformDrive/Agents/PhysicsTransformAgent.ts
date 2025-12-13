@@ -1,5 +1,5 @@
-import type { Subject, Subscription } from 'rxjs';
-import { BehaviorSubject, combineLatest, distinctUntilChanged, filter, map, scan, switchMap, takeWhile, withLatestFrom } from 'rxjs';
+import type { Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinctUntilChanged, map, scan, switchMap, takeWhile, withLatestFrom } from 'rxjs';
 import type { QuaternionLike } from 'three';
 import { Euler, Quaternion, Vector3 } from 'three';
 import type { Vector3Like } from 'three/src/math/Vector3';
@@ -98,12 +98,17 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
     physicsBody$.unsubscribe();
   });
 
+  //Watching $ticks only when agent is enabled and physics loop is auto-updating
   physicsSub$ = combineLatest([agent.enabled$, physicsLoopService.autoUpdate$])
     .pipe(
-      // TODO 8.0.0. MODELS: does this pipe turn on and turn off watching tick$? Check everywhere (cause looks like it's turn it on, but not off)
-      filter(([isEnabled, isAutoUpdate]: ReadonlyArray<boolean>): boolean => isEnabled && isAutoUpdate),
-      switchMap((): Subject<void> => physicsLoopService.tick$),
+      //If agent is enabled and physics loop is auto-updating, then we are switching to the physics loop ticks
+      switchMap(([isEnabled, isAutoUpdate]: ReadonlyArray<boolean>) => {
+        if (isEnabled && isAutoUpdate) return physicsLoopService.tick$;
+        return [];
+      }),
+      //Get the latest transform data from the physics body every physical tick
       map((): TRigidBodyTransformData => getPhysicalBodyTransform(agent)),
+      //Collect previous and current transform data to compare values later do nothing on the same data (distinctUntilChanged is not working great here)
       scan(
         (prev: TAccumulatedRigidBodyTransformData, curr: TRigidBodyTransformData): TAccumulatedRigidBodyTransformData => {
           return {
@@ -122,10 +127,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
       )
     )
     .subscribe(({ prevPosition, currPosition, prevRotation, currRotation }: TAccumulatedRigidBodyTransformData): void => {
-      if (shouldUpdatePosition(prevPosition, currPosition, noiseThreshold)) {
-        console.log('XXX update!');
-        agent.position$.next(new Vector3(currPosition.x, currPosition.y, currPosition.z));
-      }
+      if (shouldUpdatePosition(prevPosition, currPosition, noiseThreshold)) agent.position$.next(new Vector3(currPosition.x, currPosition.y, currPosition.z));
       if (shouldUpdateRotation(prevRotation, currRotation, noiseThreshold)) rotationQuaternion$.next(new Quaternion(currRotation.x, currRotation.y, currRotation.z, currRotation.w));
     });
 
