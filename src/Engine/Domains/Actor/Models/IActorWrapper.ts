@@ -1,4 +1,6 @@
 import type { IWrapper } from '@Engine/Domains/Abstract';
-import type { IActorAccessors, IMesh } from '@Engine/Domains/Actor';
+
+import type { IActorAccessors } from './IActorAccessors';
+import type { IMesh } from './IMesh';
 
 export type IActorWrapper = IWrapper<IMesh> & IActorAccessors;

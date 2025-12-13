@@ -1,5 +1,6 @@
-import type { IActorParams, IMesh } from '@Engine/Domains/Actor';
 import { Mesh, MeshToonMaterial, PlaneGeometry, SphereGeometry } from 'three';
+
+import type { IActorParams, IMesh } from '../Models';
 
 export function createActor(params: IActorParams): IMesh | never {
   if (params.type === 'plane') return createPlane(params);

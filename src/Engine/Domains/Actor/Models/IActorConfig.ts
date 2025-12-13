@@ -1,5 +1,6 @@
-import type { IActorParams, IActorType } from '@Engine/Domains/Actor';
 import type { IVector3dConfig } from '@Engine/Models';
+
+import type { IActorParams, IActorType } from '../Models';
 
 export type IActorConfig = Omit<IActorParams, 'materialParams' | 'position'> &
   Readonly<{

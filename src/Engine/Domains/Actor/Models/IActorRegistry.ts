@@ -1,5 +1,6 @@
 import type { IAbstractRegistry } from '@Engine/Domains/Abstract';
-import type { IActorWrapper } from '@Engine/Domains/Actor';
 import type { IProtectedRegistry } from '@Engine/Mixins';
+
+import type { IActorWrapper } from './IActorWrapper';
 
 export type IActorRegistry = IProtectedRegistry<IActorWrapper, IAbstractRegistry<IActorWrapper>>;
