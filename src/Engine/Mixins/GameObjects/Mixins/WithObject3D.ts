@@ -1,4 +1,4 @@
-import type { AnimationClip, Layers } from 'three';
+import type { Layers } from 'three';
 
 import type { TWithObject3d } from '@/Engine/Mixins/GameObjects/Models';
 import type { TObject3D } from '@/Engine/ThreeLib';
@@ -30,8 +30,8 @@ export function withObject3d<T extends TObject3D>(entity: T): TWithObject3d {
   const getRenderOrder = (): number => entity.renderOrder;
 
   // eslint-disable-next-line functional/immutable-data
-  const setAnimations = (animations: ReadonlyArray<AnimationClip>): void => void ((entity as TWriteable<T>).animations = animations as Array<AnimationClip>);
-  const getAnimations = (): ReadonlyArray<AnimationClip> => entity.animations;
+  // const setAnimations = (animations: ReadonlyArray<AnimationClip>): void => void ((entity as TWriteable<T>).animations = animations as Array<AnimationClip>);
+  // const getAnimations = (): ReadonlyArray<AnimationClip> => entity.animations;
 
   return {
     setVisible,
@@ -45,8 +45,8 @@ export function withObject3d<T extends TObject3D>(entity: T): TWithObject3d {
     setFrustumCulled,
     getFrustumCulled,
     setRenderOrder,
-    getRenderOrder,
-    setAnimations,
-    getAnimations
+    getRenderOrder
+    // setAnimations,
+    // getAnimations
   };
 }

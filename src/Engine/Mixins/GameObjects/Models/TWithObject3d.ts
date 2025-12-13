@@ -1,4 +1,4 @@
-import type { AnimationClip, Layers } from 'three';
+import type { Layers } from 'three';
 
 export type TWithObject3d = Readonly<{
   setVisible: (visible: boolean) => void;
@@ -13,6 +13,6 @@ export type TWithObject3d = Readonly<{
   getFrustumCulled: () => boolean;
   setRenderOrder: (renderOrder: number) => void;
   getRenderOrder: () => number;
-  setAnimations: (animations: ReadonlyArray<AnimationClip>) => void;
-  getAnimations: () => ReadonlyArray<AnimationClip>;
+  // setAnimations: (animations: ReadonlyArray<AnimationClip>) => void;
+  // getAnimations: () => ReadonlyArray<AnimationClip>;
 }>;
