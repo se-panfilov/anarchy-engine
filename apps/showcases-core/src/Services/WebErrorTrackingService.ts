@@ -18,6 +18,7 @@ export function WebErrorTrackingService(): TWebErrorTrackingService {
         dist: await platformApiService.getDistName()
       },
       // TODO DESKTOP: Useful to get app's settings (resolution, locale, etc). But should not break GDPR
+      // TODO DESKTOP: Useful to add installator type (nsis, dmg, app) to tags
       // TODO DESKTOP: Implement an adapter to avoid users fingerprinting and send the settings fo Sentry. Same for Desktop.
       // TODO DESKTOP: And maybe add some "state in the game" (level, quest, etc). But we have to apply it dynamically guess, not here.
       {
