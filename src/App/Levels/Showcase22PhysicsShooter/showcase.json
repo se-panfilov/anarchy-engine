@@ -312,7 +312,8 @@
         "name": "box_static_7",
         "model3dSource": "box_7_model",
         "kinematic": { "isAutoUpdate": true },
-        "position": { "x": 14, "y": 1, "z": 28 },
+        "position": { "x": 1, "y": 1, "z": 30 },
+        "rotation": { "x": 0, "y": 0.9, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
       },
       {

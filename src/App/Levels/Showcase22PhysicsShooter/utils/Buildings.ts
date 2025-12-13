@@ -32,7 +32,7 @@ export async function buildTower(
         heightSegments: 1
       },
       castShadow: true,
-      receiveShadow: true
+      receiveShadow: false
     });
 
     return actorService.create({
@@ -53,7 +53,6 @@ export async function buildTower(
         position: block.position
       },
       position: block.position,
-      castShadow: true,
       spatial: { isAutoUpdate: true, grid },
       tags: ['physics_block']
     }) as TActorWrapperWithPhysics;
