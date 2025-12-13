@@ -177,8 +177,8 @@ describe('ObjectUtils', () => {
 
     it('should keep class instances (prototype intact)', () => {
       class Foo {
-        x = 1;
-        getX() {
+        x: number = 1;
+        getX(): number {
           return this.x;
         }
       }
