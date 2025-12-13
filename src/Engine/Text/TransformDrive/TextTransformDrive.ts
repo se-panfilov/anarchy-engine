@@ -3,9 +3,9 @@ import type { TTransformDriveParams } from '@/Engine/TransformDrive';
 
 export function TextTransformDrive(params: TTextParams, { transformDriveService }: Pick<TTextServiceDependencies, 'transformDriveService'>, relatedEntityId: string): TTextTransformDrive {
   const transformAgents: TTextTransformAgents = transformDriveService.getTransformAgents(params, {
-    isKinematic: true,
-    isPhysics: true,
-    isConnected: true
+    hasKinematic: true,
+    hasPhysics: true,
+    hasConnected: true
   }) as TTextTransformAgents;
   const driveParams: TTransformDriveParams = { activeAgent: params.agent, relatedEntityId };
 

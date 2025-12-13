@@ -54,7 +54,7 @@ export function TransformDriveService(
 
   function getTransformAgents(
     { position, rotation, scale, kinematic, physics }: TGetTransformAgentsParams,
-    { isKinematic, isPhysics, isConnected }: TGetTransformAgentsOptions
+    { hasKinematic, hasPhysics, hasConnected }: TGetTransformAgentsOptions
   ): TOptional<TTransformAgents> {
     const result: TWriteable<TOptional<TTransformAgents>> = {};
 
@@ -67,20 +67,20 @@ export function TransformDriveService(
       onActivated: undefined
     };
 
-    if (isKinematic) {
+    if (hasKinematic) {
       const kinematicLoop: TKinematicLoop = loopService.getKinematicLoop();
       // eslint-disable-next-line functional/immutable-data
       result[TransformAgent.Kinematic] = getKinematicTransformAgent(agentParams, kinematic, { kinematicLoop });
     }
 
-    if (isPhysics) {
+    if (hasPhysics) {
       const physicalLoop: TPhysicalLoop = loopService.getPhysicalLoop();
       // eslint-disable-next-line functional/immutable-data
       result[TransformAgent.Physical] = getPhysicsTransformAgent(agentParams, physics, { physicalLoop, physicsBodyService });
     }
 
     // eslint-disable-next-line functional/immutable-data
-    if (isConnected) result[TransformAgent.Connected] = ConnectedTransformAgent(agentParams);
+    if (hasConnected) result[TransformAgent.Connected] = ConnectedTransformAgent(agentParams);
 
     // eslint-disable-next-line functional/immutable-data
     result[TransformAgent.Default] = DefaultTransformAgent(agentParams);

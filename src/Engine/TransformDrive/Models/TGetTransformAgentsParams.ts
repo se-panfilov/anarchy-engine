@@ -12,7 +12,7 @@ export type TGetTransformAgentsParams = Readonly<{
 }>;
 
 export type TGetTransformAgentsOptions = Readonly<{
-  isKinematic?: boolean;
-  isPhysics?: boolean;
-  isConnected?: boolean;
+  hasKinematic?: boolean;
+  hasPhysics?: boolean;
+  hasConnected?: boolean;
 }>;

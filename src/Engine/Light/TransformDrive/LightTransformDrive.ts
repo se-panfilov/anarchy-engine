@@ -2,7 +2,7 @@ import type { TLightParams, TLightServiceDependencies, TLightTransformAgents, TL
 import type { TTransformDriveParams } from '@/Engine/TransformDrive';
 
 export function LightTransformDrive(params: TLightParams, { transformDriveService }: Pick<TLightServiceDependencies, 'transformDriveService'>, relatedEntityId: string): TLightTransformDrive {
-  const transformAgents: TLightTransformAgents = transformDriveService.getTransformAgents(params, { isConnected: true }) as TLightTransformAgents;
+  const transformAgents: TLightTransformAgents = transformDriveService.getTransformAgents(params, { hasConnected: true }) as TLightTransformAgents;
   const driveParams: TTransformDriveParams = { activeAgent: params.agent, relatedEntityId };
 
   return transformDriveService.create(driveParams, transformAgents) as TLightTransformDrive;

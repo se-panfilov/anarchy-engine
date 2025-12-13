@@ -3,9 +3,9 @@ import type { TTransformDriveParams } from '@/Engine/TransformDrive';
 
 export function ActorTransformDrive(params: TActorParams, { transformDriveService }: Pick<TActorDependencies, 'transformDriveService'>, relatedEntityId: string): TActorTransformDrive {
   const transformAgents: TActorTransformAgents = transformDriveService.getTransformAgents(params, {
-    isKinematic: true,
-    isPhysics: true,
-    isConnected: true
+    hasKinematic: true,
+    hasPhysics: true,
+    hasConnected: true
   }) as TActorTransformAgents;
   const driveParams: TTransformDriveParams = { activeAgent: params.agent, relatedEntityId };
 
