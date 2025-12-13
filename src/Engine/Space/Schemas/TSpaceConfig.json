@@ -2316,12 +2316,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
         "layers": {
           "type": "number"
         },
@@ -2363,7 +2357,7 @@
           "$ref": "#/definitions/TKinematicConfig"
         },
         "physics": {
-          "$ref": "#/definitions/TWithPresetNamePhysicsBodyConfig"
+          "$ref": "#/definitions/TWithPresetNamePhysicsBodyParams"
         },
         "text": {
           "type": "string"
@@ -2382,9 +2376,118 @@
         },
         "name": {
           "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["position", "text", "type"]
+    },
+    "TWithPresetNamePhysicsBodyParams": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "presetName": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/RigidBodyTypesNames"
+        },
+        "collisionShape": {
+          "$ref": "#/definitions/CollisionShape"
+        },
+        "shapeParams": {
+          "$ref": "#/definitions/TPhysicsShapeParams"
+        },
+        "mass": {
+          "type": "number"
+        },
+        "restitution": {
+          "type": "number"
+        },
+        "friction": {
+          "type": "number"
+        },
+        "collisionGroups": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/definitions/Vector3"
+        },
+        "rotation": {
+          "$ref": "#/definitions/Quaternion"
+        },
+        "isSleep": {
+          "type": "boolean"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Vector3": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "default": 0
+        },
+        "y": {
+          "type": "number",
+          "default": 0
+        },
+        "z": {
+          "type": "number",
+          "default": 0
+        },
+        "isVector3": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "required": ["x", "y", "z", "isVector3"],
+      "additionalProperties": false,
+      "description": "3D vector.\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
+    },
+    "Quaternion": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "default": 0
+        },
+        "y": {
+          "type": "number",
+          "default": 0
+        },
+        "z": {
+          "type": "number",
+          "default": 0
+        },
+        "w": {
+          "type": "number",
+          "default": 1
+        },
+        "isQuaternion": {
+          "type": "boolean",
+          "const": true
+        },
+        "_onChangeCallback": {
+          "$comment": "() => void"
+        }
+      },
+      "required": ["x", "y", "z", "w", "isQuaternion", "_onChangeCallback"],
+      "additionalProperties": false,
+      "description": "Implementation of a quaternion. This is used for rotating things without incurring in the dreaded gimbal lock issue, amongst other advantages."
     },
     "TextType": {
       "type": "string",

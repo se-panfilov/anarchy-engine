@@ -1,17 +1,15 @@
 import type { Vector2Like } from 'three';
 
 import type { TKinematicConfig } from '@/Engine/Kinematic';
-import type { TWithReadonlyTags } from '@/Engine/Mixins';
-import type { TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
-import type { TObject3DPropConfig } from '@/Engine/ThreeLib';
+import type { TWithPresetNamePhysicsBodyConfig, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
+import type { TObject3DParams, TObject3DPropConfig } from '@/Engine/ThreeLib';
 
-import type { TTextProps } from './TTextProps';
+import type { TTextParams } from './TTextParams';
 
-export type TTextConfig = Omit<TTextProps, 'center' | 'kinematic'> &
+export type TTextConfig = Omit<TTextParams, keyof TObject3DParams | 'center' | 'kinematic'> &
   Readonly<{
     center?: Vector2Like;
     kinematic?: TKinematicConfig;
-    physics?: TWithPresetNamePhysicsBodyConfig;
+    physics?: Omit<TTextParams['physics'], keyof TWithPresetNamePhysicsBodyParams> & TWithPresetNamePhysicsBodyConfig;
   }> &
-  TObject3DPropConfig &
-  TWithReadonlyTags;
+  TObject3DPropConfig;
