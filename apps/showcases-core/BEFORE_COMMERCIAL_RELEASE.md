@@ -63,3 +63,4 @@
 - Legal docs are available via main menu in a game;
 - Legal docs are provided with binary/package
 - For web: `./well-known/security.txt` available
+- Display EULA/License via menu
