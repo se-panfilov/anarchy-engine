@@ -87,6 +87,7 @@
       {
         "name": "move_material",
         "options": {
+          "clearcoatRoughness": 0.09,
           "displacementScale": 0.1,
           "ior": 1,
           "iridescence": 0,

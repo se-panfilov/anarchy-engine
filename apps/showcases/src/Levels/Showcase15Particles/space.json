@@ -140,6 +140,7 @@
       {
         "name": "glass_material",
         "options": {
+          "clearcoatRoughness": 0.09,
           "displacementScale": 0.1,
           "ior": 1.26,
           "iridescence": 0,

@@ -540,6 +540,7 @@
       {
         "name": "surface_material",
         "options": {
+          "clearcoatRoughness": 0.12,
           "displacementScale": 0,
           "ior": 2.33,
           "iridescence": 0.655,

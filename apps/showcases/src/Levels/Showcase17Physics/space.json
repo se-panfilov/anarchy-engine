@@ -264,6 +264,7 @@
       {
         "name": "metal_material",
         "options": {
+          "clearcoatRoughness": 0.12,
           "displacementScale": 0,
           "ior": 2.3,
           "iridescence": 0.655,

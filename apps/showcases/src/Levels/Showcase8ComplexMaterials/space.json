@@ -494,6 +494,7 @@
       {
         "name": "physics_metal",
         "options": {
+          "clearcoatRoughness": 0.12,
           "displacementScale": 0,
           "ior": 2.33,
           "iridescence": 0.655,
@@ -693,6 +694,7 @@
       {
         "name": "physics_glass",
         "options": {
+          "clearcoatRoughness": 0.09,
           "displacementScale": 0.1,
           "ior": 1.26,
           "iridescence": 0,
