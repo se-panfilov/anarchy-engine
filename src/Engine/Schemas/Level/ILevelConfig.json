@@ -6,7 +6,7 @@
       "type": "string"
     },
     "version": {
-      "type": "string"
+      "$ref": "#/definitions/SchemaVersion"
     },
     "scenes": {
       "type": "array",
@@ -58,6 +58,10 @@
   "required": ["name", "version", "scenes", "actors", "cameras", "lights", "controls", "tags"],
   "additionalProperties": false,
   "definitions": {
+    "SchemaVersion": {
+      "type": "string",
+      "const": "1.0.0"
+    },
     "ISceneConfig": {
       "type": "object",
       "additionalProperties": false,

@@ -6,10 +6,11 @@ import type { ISceneConfig } from '@Engine/Domains/Scene';
 
 import type { CommonTag } from '@/Engine/Domains/Abstract';
 import type { LevelTag } from '@/Engine/Domains/Level/Constants';
+import type { SchemaVersion } from '@/Engine/Schemas';
 
 export type ILevelConfig = Readonly<{
   name: string;
-  version: string;
+  version: SchemaVersion;
   scenes: ReadonlyArray<ISceneConfig>;
   actors: ReadonlyArray<IActorConfig>;
   cameras: ReadonlyArray<ICameraConfig>;
