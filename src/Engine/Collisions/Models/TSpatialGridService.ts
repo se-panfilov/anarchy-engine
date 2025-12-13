@@ -7,16 +7,16 @@ import type { TSpatialCell, TSpatialCellId } from '@/Engine/Collisions/Models';
 import type { TSceneWrapper } from '@/Engine/Scene';
 
 export type TSpatialGridService = Readonly<{
-  createSpatialGrid: (mapWidth: number, mapHeight: number, cellSize: number, centerX: number, centerZ: number) => RBush<TSpatialCell>;
-  addToSpatialCell: (x: number, y: number, actorW: TActorWrapperAsync, tree: RBush<TSpatialCell>) => void;
-  addToSpatialGridBulk: (tree: RBush<TSpatialCell>, list: ReadonlyArray<TSpatialCell>) => RBush<TSpatialCell>;
-  getAllItemsFromSpatialGrid: (tree: RBush<TSpatialCell>) => ReadonlyArray<TSpatialCell>;
-  getObjectsInSpatialCell: (tree: RBush<TSpatialCell>, x: number, z: number) => ReadonlyArray<TActorWrapperAsync>;
-  getObjectsInSpatialCellById: (tree: RBush<TSpatialCell>, cellId: TSpatialCellId) => ReadonlyArray<TActorWrapperAsync>;
-  removeFromSpatialCell: (actorW: TActorWrapperAsync) => void;
-  removeAllFromGrid: (tree: RBush<TSpatialCell>) => RBush<TSpatialCell>;
-  moveToNewSpatialCell: (x: number, y: number, tree: RBush<TSpatialCell>, actorW: TActorWrapperAsync) => void;
-  updateActorsSpatialCells: (actorsW: ReadonlyArray<TActorWrapperAsync>, tree: RBush<TSpatialCell>) => void;
-  _debugVisualizeSpatialCells: (tree: RBush<TSpatialCell>, sceneW: TSceneWrapper, color?: ColorRepresentation, wireframe?: boolean) => void;
-  _debugHighlightCellObjects: (position: Vector2, camera: TCameraWrapper, scene: TSceneWrapper, tree: RBush<TSpatialCell>) => void;
+  createGrid: (mapWidth: number, mapHeight: number, cellSize: number, centerX: number, centerZ: number) => RBush<TSpatialCell>;
+  addToCell: (x: number, y: number, actorW: TActorWrapperAsync, tree: RBush<TSpatialCell>) => void;
+  addToGridBulk: (tree: RBush<TSpatialCell>, list: ReadonlyArray<TSpatialCell>) => RBush<TSpatialCell>;
+  getAllItems: (tree: RBush<TSpatialCell>) => ReadonlyArray<TSpatialCell>;
+  getAllInCell: (tree: RBush<TSpatialCell>, x: number, z: number) => ReadonlyArray<TActorWrapperAsync>;
+  getAllInCellByCellId: (tree: RBush<TSpatialCell>, cellId: TSpatialCellId) => ReadonlyArray<TActorWrapperAsync>;
+  removeFromCell: (actorW: TActorWrapperAsync) => void;
+  clearGrid: (tree: RBush<TSpatialCell>) => RBush<TSpatialCell>;
+  moveToNewCell: (x: number, y: number, tree: RBush<TSpatialCell>, actorW: TActorWrapperAsync) => void;
+  updateActorsCells: (actorsW: ReadonlyArray<TActorWrapperAsync>, tree: RBush<TSpatialCell>) => void;
+  _debugVisualizeCells: (tree: RBush<TSpatialCell>, sceneW: TSceneWrapper, color?: ColorRepresentation, wireframe?: boolean) => void;
+  _debugHighlightObjects: (position: Vector2, camera: TCameraWrapper, scene: TSceneWrapper, tree: RBush<TSpatialCell>) => void;
 }>;

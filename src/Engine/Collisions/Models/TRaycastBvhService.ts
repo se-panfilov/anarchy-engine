@@ -3,7 +3,7 @@ import type { MeshBVH } from 'three-mesh-bvh';
 
 import type { TBvhOptions } from './TBvhOptions';
 
-export type TBvhService = Readonly<{
+export type TRaycastBvhService = Readonly<{
   computeBVHBoundsTree: (geometry: BufferGeometry, options?: TBvhOptions) => MeshBVH;
   disposeBVHBoundsTree: (geometry: BufferGeometry) => void;
   raycastWithBvh: (mesh: Mesh, raycaster: Raycaster, intersects: Array<Intersection>) => void;

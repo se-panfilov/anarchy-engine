@@ -2,13 +2,13 @@ import type { Intersection, Mesh } from 'three';
 import { Box3, Raycaster } from 'three';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor/Models';
-import type { TBvhService, TCollisionCheckResult, TCollisionsService, TSpatialGridService } from '@/Engine/Collisions/Models';
+import type { TCollisionCheckResult, TCollisionsService, TRaycastBvhService, TSpatialGridService } from '@/Engine/Collisions/Models';
 
 import { RaycastBvhService } from './RaycastBvhService';
 import { SpatialGridService } from './SpatialGridService';
 
 export function CollisionsService(): TCollisionsService {
-  const bvhService: TBvhService = RaycastBvhService();
+  const bvhService: TRaycastBvhService = RaycastBvhService();
   const spatialGridService: TSpatialGridService = SpatialGridService();
   // const spatialGrid = spatialGridService.createSpatialGrid();
 
@@ -52,8 +52,8 @@ export function CollisionsService(): TCollisionsService {
 
   return {
     checkCollision,
-    ...bvhService,
-    ...spatialGridService
+    grid: spatialGridService,
+    raycast: bvhService
   };
 }
 

@@ -1,6 +1,6 @@
 import RBush from 'rbush';
 import type { ColorRepresentation, LineSegments, Vector2, Vector3 } from 'three';
-import { BoxGeometry, Mesh, MeshBasicMaterial, PlaneGeometry, Raycaster } from 'three';
+import { Mesh, MeshBasicMaterial, PlaneGeometry, Raycaster } from 'three';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
@@ -13,12 +13,6 @@ import { isDefined, isNotDefined } from '@/Engine/Utils';
 // TODO (S.Panfilov) CWP we need factories and registries for grids, perhaps.
 export function SpatialGridService(): TSpatialGridService {
   function createBoundingBox(minX: number, minY: number, maxX: number, maxY: number, color: ColorRepresentation = '#00ff00', wireframe: boolean = true): Mesh {
-    // const geometry: BoxGeometry = new BoxGeometry(maxX - minX, 1, maxY - minY);
-    // const material: MeshBasicMaterial = new MeshBasicMaterial({ color, wireframe });
-    // const box: Mesh = new Mesh(geometry, material);
-    // box.position.set((minX + maxX) / 2, 0.5, (minY + maxY) / 2);
-    // return box;
-
     const geometry: PlaneGeometry = new PlaneGeometry(maxX - minX, maxY - minY);
     const material: MeshBasicMaterial = new MeshBasicMaterial({ color, wireframe });
     const plane: Mesh = new Mesh(geometry, material);
@@ -29,7 +23,7 @@ export function SpatialGridService(): TSpatialGridService {
   }
 
   //this visualization is for debugging purposes only
-  function _debugVisualizeSpatialCells(tree: RBush<TSpatialCell>, sceneW: TSceneWrapper, color: ColorRepresentation = '#00ff00', wireframe: boolean = true): void {
+  function _debugVisualizeCells(tree: RBush<TSpatialCell>, sceneW: TSceneWrapper, color: ColorRepresentation = '#00ff00', wireframe: boolean = true): void {
     tree.all().forEach((cell: TSpatialCell): void => {
       const box: Mesh = createBoundingBox(cell.minX, cell.minY, cell.maxX, cell.maxY, color, wireframe);
       sceneW.entity.add(box);
@@ -39,7 +33,7 @@ export function SpatialGridService(): TSpatialGridService {
   let outlines: LineSegments[] = [];
 
   //this highlight is for debugging purposes only
-  function _debugHighlightCellObjects(position: Vector2, camera: TCameraWrapper, scene: TSceneWrapper, tree: RBush<TSpatialCell>): void {
+  function _debugHighlightObjects(position: Vector2, camera: TCameraWrapper, scene: TSceneWrapper, tree: RBush<TSpatialCell>): void {
     // eslint-disable-next-line functional/no-loop-statements
     for (const outline of outlines) {
       scene.entity.remove(outline);
@@ -68,9 +62,9 @@ export function SpatialGridService(): TSpatialGridService {
     }
   }
 
-  const addToSpatialGridBulk = (tree: RBush<TSpatialCell>, list: ReadonlyArray<TSpatialCell>): RBush<TSpatialCell> => tree.load(list);
+  const addToGridBulk = (tree: RBush<TSpatialCell>, list: ReadonlyArray<TSpatialCell>): RBush<TSpatialCell> => tree.load(list);
 
-  function addToSpatialCell(x: number, y: number, actorW: TActorWrapperAsync, tree: RBush<TSpatialCell>): void {
+  function addToCell(x: number, y: number, actorW: TActorWrapperAsync, tree: RBush<TSpatialCell>): void {
     const cells: ReadonlyArray<TSpatialCell> = tree.search({ minX: x, minY: y, maxX: x, maxY: y });
     // eslint-disable-next-line functional/no-loop-statements
     for (const cell of cells) {
@@ -82,9 +76,9 @@ export function SpatialGridService(): TSpatialGridService {
     }
   }
 
-  const getAllItemsFromSpatialGrid = (tree: RBush<TSpatialCell>): ReadonlyArray<TSpatialCell> => tree.all();
+  const getAllItems = (tree: RBush<TSpatialCell>): ReadonlyArray<TSpatialCell> => tree.all();
 
-  function getObjectsInSpatialCell(tree: RBush<TSpatialCell>, x: number, z: number): ReadonlyArray<TActorWrapperAsync> {
+  function getAllInCell(tree: RBush<TSpatialCell>, x: number, z: number): ReadonlyArray<TActorWrapperAsync> {
     const cells: ReadonlyArray<TSpatialCell> = tree.search({ minX: x, minY: z, maxX: x, maxY: z });
     if (cells.length > 0) return cells[0].objects;
     return [];
@@ -95,13 +89,13 @@ export function SpatialGridService(): TSpatialGridService {
     return { x, z };
   };
 
-  function getObjectsInSpatialCellById(tree: RBush<TSpatialCell>, cellId: TSpatialCellId): ReadonlyArray<TActorWrapperAsync> {
+  function getAllInCellByCellId(tree: RBush<TSpatialCell>, cellId: TSpatialCellId): ReadonlyArray<TActorWrapperAsync> {
     // const cells: ReadonlyArray<TSpatialCell> = tree.all().filter((cell) => cell.id === cellId);
     const { x, z } = getCoordsFromGridId(cellId);
-    return getObjectsInSpatialCell(tree, x, z);
+    return getAllInCell(tree, x, z);
   }
 
-  function removeFromSpatialCell(actorW: TActorWrapperAsync): void {
+  function removeFromCell(actorW: TActorWrapperAsync): void {
     const cell: TSpatialCell | undefined = actorW.getSpatialCell();
     if (isDefined(cell)) {
       const index: number = cell.objects.indexOf(actorW);
@@ -113,23 +107,23 @@ export function SpatialGridService(): TSpatialGridService {
     }
   }
 
-  const removeAllFromGrid = (tree: RBush<TSpatialCell>): RBush<TSpatialCell> => tree.clear();
+  const clearGrid = (tree: RBush<TSpatialCell>): RBush<TSpatialCell> => tree.clear();
 
-  function moveToNewSpatialCell(x: number, y: number, tree: RBush<TSpatialCell>, actorW: TActorWrapperAsync): void {
-    removeFromSpatialCell(actorW);
-    addToSpatialCell(x, y, actorW, tree);
+  function moveToNewCell(x: number, y: number, tree: RBush<TSpatialCell>, actorW: TActorWrapperAsync): void {
+    removeFromCell(actorW);
+    addToCell(x, y, actorW, tree);
   }
 
-  function updateActorsSpatialCells(actorsW: ReadonlyArray<TActorWrapperAsync>, tree: RBush<TSpatialCell>): void {
+  function updateActorsCells(actorsW: ReadonlyArray<TActorWrapperAsync>, tree: RBush<TSpatialCell>): void {
     // eslint-disable-next-line functional/no-loop-statements
     for (const actorW of actorsW) {
       const { x, y } = actorW.getPosition().getCoords();
       const cell: TSpatialCell = tree.search({ minX: x, minY: y, maxX: x, maxY: y })[0];
-      if (!cell || cell !== actorW.getSpatialCell()) moveToNewSpatialCell(x, y, tree, actorW);
+      if (!cell || cell !== actorW.getSpatialCell()) moveToNewCell(x, y, tree, actorW);
     }
   }
 
-  function createSpatialGrid(mapWidth: number, mapHeight: number, cellSize: number, centerX: number, centerZ: number): RBush<TSpatialCell> {
+  function createGrid(mapWidth: number, mapHeight: number, cellSize: number, centerX: number, centerZ: number): RBush<TSpatialCell> {
     const startX: number = centerX - Math.floor(mapWidth / cellSize / 2) * cellSize;
     const startZ: number = centerZ - Math.floor(mapHeight / cellSize / 2) * cellSize;
 
@@ -156,17 +150,17 @@ export function SpatialGridService(): TSpatialGridService {
   }
 
   return {
-    createSpatialGrid,
-    addToSpatialCell,
-    addToSpatialGridBulk,
-    getAllItemsFromSpatialGrid,
-    getObjectsInSpatialCell,
-    getObjectsInSpatialCellById,
-    removeFromSpatialCell,
-    removeAllFromGrid,
-    moveToNewSpatialCell,
-    updateActorsSpatialCells,
-    _debugVisualizeSpatialCells,
-    _debugHighlightCellObjects
+    createGrid,
+    addToCell,
+    addToGridBulk,
+    getAllItems,
+    getAllInCell,
+    getAllInCellByCellId,
+    removeFromCell,
+    clearGrid,
+    moveToNewCell,
+    updateActorsCells,
+    _debugVisualizeCells,
+    _debugHighlightObjects
   };
 }

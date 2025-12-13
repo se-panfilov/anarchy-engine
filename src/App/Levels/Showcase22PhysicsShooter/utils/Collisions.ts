@@ -8,16 +8,16 @@ export function enableCollisions(scene: TSceneWrapper, cameraW: TCameraWrapper, 
   // TODO (S.Panfilov) CWP 4. make sure raycasting is working inside the grid only
   // TODO (S.Panfilov) CWP 5. make bullets and actors can travel among grids
 
-  const spatialGrid = collisionsService.createSpatialGrid(200, 200, 10, 0, 0);
+  const spatialGrid = collisionsService.grid.createGrid(200, 200, 10, 0, 0);
 
   // mouseLineIntersectionsWatcher.value$.subscribe((value) => {
   //   console.log(value.point);
   //   //collisionsService._debugHighlightCellObjects(new Vector2(value.point.x, value.point.z), cameraW, scene, spatialGrid);
   // });
 
-  collisionsService._debugVisualizeSpatialCells(spatialGrid, scene);
+  collisionsService.grid._debugVisualizeCells(spatialGrid, scene);
   setTimeout(() => {
-    collisionsService._debugHighlightCellObjects(new Vector2(5, 16), cameraW, scene, spatialGrid);
+    collisionsService.grid._debugHighlightObjects(new Vector2(5, 16), cameraW, scene, spatialGrid);
   }, 1500);
 
   // scene.entity.traverse((object: Object3D): void => {
