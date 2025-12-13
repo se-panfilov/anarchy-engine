@@ -19,12 +19,15 @@ function DestroyableMixin<F extends IFactory>(factory: F): IDestroyableFactory<F
 }
 
 type IFromConfigMixin<C, T> = Readonly<{ fromConfig: (config: C) => T }>;
-type IFromConfigFactory<F extends IFactory> = F & IFromConfigMixin<ExtractFactoryParams<F>, ExtractFactoryReturn<F>>;
+type IFromConfigFactory<F extends IFactory, C> = F & IFromConfigMixin<C, ExtractFactoryReturn<F>>;
 
-function FromConfigMixin<F extends IFactory>(factory: F): IFromConfigFactory<F> {
+function FromConfigMixin<F extends IFactory, C>(factory: F): IFromConfigFactory<F, C> {
   return {
     ...factory,
-    fromConfig: (config: ExtractFactoryParams<F>) => ({ ...factory, config, createdFromConfig: true } as ExtractFactoryReturn<F>)
+    fromConfig: (config: C): ExtractFactoryReturn<F> => {
+      console.log(config);
+      return { test: 'whatever' } as ExtractFactoryReturn<F>;
+    }
   };
 }
 
@@ -118,7 +121,7 @@ console.log(cat20.name, cat22.meow());
 const factory3: IFactory<ICatParams, ICat> = Factory('cat_factory', catCreate);
 const dynamicFactory3: IDynamicFactory<IFactory<ICatParams, ICat>> = DynamicMixin(factory3);
 const dynamicRegistrableFactory3: IRegistrableFactory<IFactory<ICatParams, ICat>> = RegistrableMixin(dynamicFactory3);
-const dynamicRegistrableFromConfigFactory3: IFromConfigFactory<IFactory<ICatParams, ICat>> = FromConfigMixin(dynamicRegistrableFactory3);
+const dynamicRegistrableFromConfigFactory3: IFromConfigFactory<IFactory<ICatParams, ICat>, ICatConfig> = FromConfigMixin(dynamicRegistrableFactory3);
 const dynamicRegistrableFromConfigDestroyableFactory3: IDestroyableFactory<IFactory<ICatParams, ICat>> = DestroyableMixin(dynamicRegistrableFromConfigFactory3);
 const dynamicRegistrableFromConfigDestroyableCatFactory3: ICatFactory = CatFactoryMixin(dynamicRegistrableFromConfigDestroyableFactory3);
 
@@ -131,10 +134,10 @@ console.log(cat30.name, cat33.meow());
 const factory4: IFactory<ICatParams, ICat> = Factory('cat_factory', catCreate);
 const dynamicFactory4: IDynamicFactory<IFactory<ICatParams, ICat>> = DynamicMixin(factory4);
 const dynamicRegistrableFactory4: IRegistrableFactory<IDynamicFactory<IFactory<ICatParams, ICat>>> = RegistrableMixin(dynamicFactory4);
-const dynamicRegistrableFromConfigFactory4: IFromConfigFactory<IRegistrableFactory<IDynamicFactory<IFactory<ICatParams, ICat>>>> = FromConfigMixin(dynamicRegistrableFactory4);
-const dynamicRegistrableFromConfigDestroyableFactory4: IDestroyableFactory<IFromConfigFactory<IRegistrableFactory<IDynamicFactory<IFactory<ICatParams, ICat>>>>> =
+const dynamicRegistrableFromConfigFactory4: IFromConfigFactory<IRegistrableFactory<IDynamicFactory<IFactory<ICatParams, ICat>>>, ICatConfig> = FromConfigMixin(dynamicRegistrableFactory4);
+const dynamicRegistrableFromConfigDestroyableFactory4: IDestroyableFactory<IFromConfigFactory<IRegistrableFactory<IDynamicFactory<IFactory<ICatParams, ICat>>>, ICatConfig>> =
   DestroyableMixin(dynamicRegistrableFromConfigFactory4);
-const dynamicRegistrableFromConfigDestroyableCatFactory4: ICatFactory = CatFactoryMixin(dynamicRegistrableFromConfigDestroyableFactory4);
+const dynamicRegistrableFromConfigDestroyableCatFactory4: ICatFactory = CatFactoryMixin(dynamicRegistrableFromConfigDestroyableFactory4); //type error
 
 const cat40 = dynamicRegistrableFromConfigDestroyableCatFactory4.create(12323); // error
 const cat44: ICat = dynamicRegistrableFromConfigDestroyableCatFactory4.create({ name: 'Tom' }); //nice!
@@ -145,7 +148,7 @@ console.log(cat40.name, cat44.meow());
 const factory5: IFactory<ICatParams, ICat> = Factory('cat_factory', catCreate);
 const dynamicFactory5: IDynamicFactory<IFactory> = DynamicMixin(factory5);
 const dynamicRegistrableFactory5: IRegistrableFactory<IFactory> = RegistrableMixin(dynamicFactory5);
-const dynamicRegistrableFromConfigFactory5: IFromConfigFactory<IFactory> = FromConfigMixin(dynamicRegistrableFactory5);
+const dynamicRegistrableFromConfigFactory5: IFromConfigFactory<IFactory, ICatConfig> = FromConfigMixin(dynamicRegistrableFactory5);
 const dynamicRegistrableFromConfigDestroyableFactory5: IDestroyableFactory<IFactory> = DestroyableMixin(dynamicRegistrableFromConfigFactory5);
 const dynamicRegistrableFromConfigDestroyableCatFactory5: ICatFactory = CatFactoryMixin(dynamicRegistrableFromConfigDestroyableFactory5);
 
@@ -182,3 +185,17 @@ const cat70 = pipe(Factory('cat_factory', catCreate), DynamicMixin, RegistrableM
 const cat77: ICat = pipe(Factory('cat_factory', catCreate), DynamicMixin, RegistrableMixin, FromConfigMixin, DestroyableMixin, CatFactoryMixin);
 
 console.log(cat70.name, cat77.meow());
+
+//types test 8: Alt types via mixins verbose
+const factory8: IFactory<ICatParams, ICat> = Factory('cat_factory', catCreate);
+const dynamicFactory8: IFactory<ICatParams, ICat> & IDynamicMixin = DynamicMixin(factory8);
+const dynamicRegistrableFactory8: IFactory<ICatParams, ICat> & IDynamicMixin & IRegistrableMixin = RegistrableMixin(dynamicFactory8);
+const dynamicRegistrableFromConfigFactory8: IFactory<ICatParams, ICat> & IDynamicMixin & IRegistrableMixin & IFromConfigMixin<ICatConfig, ICat> = FromConfigMixin(dynamicRegistrableFactory8);
+const dynamicRegistrableFromConfigDestroyableFactory8: IFactory<ICatParams, ICat> & IDynamicMixin & IRegistrableMixin & IFromConfigMixin<ICatConfig, ICat> & IDestroyableMixin =
+  DestroyableMixin(dynamicRegistrableFromConfigFactory8);
+const dynamicRegistrableFromConfigDestroyableCatFactory8: ICatFactory = CatFactoryMixin(dynamicRegistrableFromConfigDestroyableFactory8);
+
+const cat80 = dynamicRegistrableFromConfigDestroyableCatFactory8.create(12323); // error
+const cat88: ICat = dynamicRegistrableFromConfigDestroyableCatFactory8.create({ name: 'Tom' }); //nice!
+
+console.log(cat80.name, cat88.meow());
