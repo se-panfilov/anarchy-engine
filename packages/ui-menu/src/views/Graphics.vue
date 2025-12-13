@@ -53,4 +53,4 @@ const options = computed((): ReadonlyArray<TDropdownOption<{ width: number; heig
   </View>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss"></style>

@@ -57,6 +57,7 @@ withDefaults(
     border-radius: 6px;
     min-height: 42px;
     width: 100%;
+    cursor: pointer;
   }
 }
 </style>

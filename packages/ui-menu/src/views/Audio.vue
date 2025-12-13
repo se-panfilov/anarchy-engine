@@ -28,7 +28,7 @@ function save(payload: TAudioSettings): void {
 
 <template>
   <View class="audio" title="Audio">
-    <form name="audio" @submit.prevent="save(state)">
+    <form name="audio" class="audio__view-form" @submit.prevent="save(state)">
       <SettingsGroup title="Main Audio Settings">
         <Range v-model="state.masterVolume" :min="0" :max="100" class="audio__setting -masterVolume" label="Master Volume" />
       </SettingsGroup>
@@ -38,4 +38,4 @@ function save(payload: TAudioSettings): void {
   </View>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss"></style>

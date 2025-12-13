@@ -22,4 +22,4 @@ const [modelValue] = defineModel<number>({ set: Number });
   </label>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss"></style>

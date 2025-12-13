@@ -16,5 +16,6 @@ defineProps<{
   font-size: 42px;
   line-height: 44px;
   text-transform: uppercase;
+  text-align: center;
 }
 </style>

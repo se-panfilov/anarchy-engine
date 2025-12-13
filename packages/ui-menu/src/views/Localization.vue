@@ -45,4 +45,4 @@ const options = computed((): ReadonlyArray<TDropdownOption<Languages>> => {
   </View>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss"></style>

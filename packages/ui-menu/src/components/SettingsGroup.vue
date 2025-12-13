@@ -4,9 +4,22 @@ defineProps<{ title: string }>();
 
 <template>
   <div class="settings-group">
-    <div class="settings-group__title">{{ title }}</div>
+    <div v-if="title" class="settings-group__title">{{ title }}</div>
     <slot name="default" />
   </div>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+.settings-group {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  &__title {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    margin-bottom: 8px;
+  }
+}
+</style>
