@@ -5,4 +5,5 @@ export type TWithBaseAccessorsRegistry<T> = {
   getRegistryCopy: () => Map<string, T>;
   getLength: () => number;
   isEmpty: () => boolean;
+  clear: () => void;
 };
