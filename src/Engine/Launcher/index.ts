@@ -29,6 +29,13 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
     scene.addActor(actor);
   });
 
+  // TODO (S.Panfilov) CWP
+  // make actor config a part of actor params
+  // actor should be added to registry on creation (new Map())
+  // the he should watch if he was added to the scene,
+  // then apply position (or maybe it's not necessary, an we could apply values immediatelly
+  // check if the adding to a scene must go before setting position and etc
+
   combineLatest([cameraFactory.latest$, sceneFactory.latest$]).subscribe(([camera, scene]) => {
     if (isNotDefined(scene) || isNotDefined(camera)) return;
     scene.addCamera(camera);
