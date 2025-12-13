@@ -17,7 +17,7 @@ export function createDomElement(selector: string, tagName: string): HTMLElement
   const appContainer: TAppGlobalContainer = ambientContext.container.getAppContainer();
   const element: HTMLElement = appContainer.document.createElement(tagName);
   element.setAttribute('id', selector.replace('#', ''));
-  appContainer.document.appendChild(element);
+  appContainer.document.body.appendChild(element);
 
   return element;
 }
