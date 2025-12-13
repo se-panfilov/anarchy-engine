@@ -42,7 +42,7 @@ export function start(): void {
     console.log('Cleaning up...');
     spaceAlpha.destroy$.next();
 
-    setTimeout(() => console.log('Alive subscriptions after destroy (without untracked):', tracked.size - untrackedSubscriptionsCount), 1000);
+    setTimeout(() => console.log(`Alive subscriptions after destroy (without (${untrackedSubscriptionsCount}) untracked): ${tracked.size - untrackedSubscriptionsCount}`), 1000);
     setTimeout(() => console.log(tracked), 1000);
   });
 
