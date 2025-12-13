@@ -1,2 +1,3 @@
 - 1.0.0 Initial
 - 1.1.0 Upload sourcemaps to Sentry
+- 1.2.0 Support of Electron-desktop apps (main and preload)
