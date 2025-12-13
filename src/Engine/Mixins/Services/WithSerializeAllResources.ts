@@ -1,11 +1,11 @@
-import type { TAbstractResourceAsyncRegistry } from '@/Engine/Abstract';
+import type { TAbstractResourceAsyncRegistry, TAbstractResourceConfig, TAbstractSerializeDependencies } from '@/Engine/Abstract';
 import type { TWithSerializeAllResources } from '@/Engine/Mixins/Services/Models';
 
-export function withSerializeAllResources<C extends Record<string, any>, D extends Record<string, any> | undefined>(
+export function withSerializeAllResources<C extends TAbstractResourceConfig, D extends TAbstractSerializeDependencies<C>>(
   registry: TAbstractResourceAsyncRegistry<any>,
-  dependencies?: D
+  dependencies: D
 ): TWithSerializeAllResources<C> {
   return {
-    serializeAllResources: (): ReadonlyArray<C> => registry.serialize(dependencies) as ReadonlyArray<C>
+    serializeAllResources: (): ReadonlyArray<C> => registry.serialize(dependencies)
   };
 }

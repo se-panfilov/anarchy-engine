@@ -7,7 +7,7 @@ import type { TRegistrable } from '@/Engine/Mixins';
 
 import { AbstractResourceAsyncRegistry } from './AbstractResourceAsyncRegistry';
 
-describe('AbstractSimpleAsyncRegistry', () => {
+describe('AbstractResourceAsyncRegistry', () => {
   const registry: TAbstractResourceAsyncRegistry<TRegistrable> = AbstractResourceAsyncRegistry('MockSimpleAsyncRegistry' as RegistryType);
   describe('Make sure that the registry operates with original object, not copies ', () => {
     validateSimpleAsyncRegistryReturnsOriginalObjects<TRegistrable>(registry, createMockEntity);

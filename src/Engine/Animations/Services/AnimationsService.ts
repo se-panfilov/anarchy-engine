@@ -13,6 +13,7 @@ import type {
   TAnimationsMetaInfoRegistry,
   TAnimationsResourceAsyncRegistry,
   TAnimationsResourceConfig,
+  TAnimationsSerializeResourcesDependencies,
   TAnimationsService,
   TModel3dAnimations
 } from '@/Engine/Animations/Models';
@@ -69,7 +70,7 @@ export function AnimationsService(resourcesRegistry: TAnimationsResourceAsyncReg
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withSerializeAllResources<TAnimationsResourceConfig, undefined>(resourcesRegistry), {
+  return Object.assign(abstractService, withSerializeAllResources<TAnimationsResourceConfig, TAnimationsSerializeResourcesDependencies>(resourcesRegistry, { metaInfoRegistry }), {
     createActions,
     added$: added$.asObservable(),
     startAutoUpdateMixer,

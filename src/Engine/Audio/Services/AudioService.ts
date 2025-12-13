@@ -8,7 +8,6 @@ import { AudioLoader } from '@/Engine/Audio/Loader';
 import type {
   TAnyAudioConfig,
   TAnyAudioWrapper,
-  TAudioConfigToParamsDependencies,
   TAudioFactory,
   TAudioListenersRegistry,
   TAudioLoader,
@@ -16,6 +15,7 @@ import type {
   TAudioRegistry,
   TAudioResourceAsyncRegistry,
   TAudioResourceConfig,
+  TAudioSerializeResourcesDependencies,
   TAudioService,
   TAudioServiceDependencies,
   TAudioServiceWithCreate,
@@ -33,11 +33,11 @@ export function AudioService(
   registry: TAudioRegistry,
   audioResourceAsyncRegistry: TAudioResourceAsyncRegistry,
   audioListenersRegistry: TAudioListenersRegistry,
-  audioMetaInfoRegistry: TAudioMetaInfoRegistry,
+  metaInfoRegistry: TAudioMetaInfoRegistry,
   dependencies: TAudioServiceDependencies,
   { audioLoop }: TSpaceLoops
 ): TAudioService {
-  const audioLoader: TAudioLoader = AudioLoader(audioResourceAsyncRegistry, audioMetaInfoRegistry);
+  const audioLoader: TAudioLoader = AudioLoader(audioResourceAsyncRegistry, metaInfoRegistry);
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TAnyAudioWrapper): void => registry.add(wrapper));
 
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, audioResourceAsyncRegistry, audioListenersRegistry, factorySub$, audioLoader];
@@ -61,11 +61,11 @@ export function AudioService(
     withCreateFromConfigService,
     withFactory,
     withRegistry,
-    withSerializeAllResources<TAudioResourceConfig, TAudioConfigToParamsDependencies>(audioResourceAsyncRegistry, { audioResourceAsyncRegistry, audioListenersRegistry }),
+    withSerializeAllResources<TAudioResourceConfig, TAudioSerializeResourcesDependencies>(audioResourceAsyncRegistry, { audioResourceAsyncRegistry, audioListenersRegistry, metaInfoRegistry }),
     withSerializeAllEntities<TAnyAudioConfig, undefined>(registry),
     {
       getResourceRegistry: (): TAudioResourceAsyncRegistry => audioResourceAsyncRegistry,
-      getMetaInfoRegistry: (): TAudioMetaInfoRegistry => audioMetaInfoRegistry,
+      getMetaInfoRegistry: (): TAudioMetaInfoRegistry => metaInfoRegistry,
       getListenersRegistry: (): TAudioListenersRegistry => audioListenersRegistry,
       getMainListener: (): AudioListener | undefined => audioListenersRegistry.findByKey(Listeners.Main),
       loadAsync: audioLoader.loadAsync,
