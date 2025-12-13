@@ -22,6 +22,7 @@ import { emitDefineJson } from '../../packages/anarchy-shared/src/Plugins/EmitDe
 import csp from 'vite-plugin-csp-guard';
 import { PROD_CSP } from '../../configs/Security/Csp/CspConfig';
 
+// TODO DESKTOP: Make sure we can load legal files in production (with and without CSP)
 export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
   const root: string = process.cwd();
   const env: ImportMetaEnv = loadEnv(mode, root) as ImportMetaEnv;
