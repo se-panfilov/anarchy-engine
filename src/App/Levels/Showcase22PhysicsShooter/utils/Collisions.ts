@@ -24,7 +24,7 @@ export async function enableCollisions(sceneW: TSceneWrapper, actorService: TAct
 
   mouseLineIntersectionsWatcher.value$.subscribe((value) => {
     const objects = collisionsService.grid.getAllInCell(tree, value.point.x, value.point.z);
-    // TODO (S.Panfilov) CWP get moving actors and highlight them
+    // TODO (S.Panfilov) CWP Actor's position should be observable. When actors move, check if need to update grid
     console.log(objects.map((actorW: TActorWrapperAsync) => actorW.name));
     collisionsService.grid._debugHighlightObjects(tree, sceneW, value.point.x, value.point.z);
   });
