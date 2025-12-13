@@ -10,6 +10,5 @@ export * from './TMaterials';
 export * from './TMaterialService';
 export * from './TMaterialTexturePack';
 export * from './TMaterialWrapper';
-export * from './TTexturePackParams';
 export * from './TWithMaterial';
 export * from './TWithMaterialType';
