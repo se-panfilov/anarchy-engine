@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron';
-import { TShowcaseGameSettings, TShowcasesDesktopApi } from 'showcases_shared';
-import { platformApiChannel, platformApiName } from '@ShowcasesShared/Constants/PlatformMessages';
+import type { TShowcaseGameSettings, TShowcasesDesktopApi } from '@ShowcasesShared';
+import { platformApiChannel, platformApiName } from '@ShowcasesShared';
 import { PlatformActions } from './src/Constants';
 
 const { SaveAppSettings, LoadAppSettings } = PlatformActions;
