@@ -23,7 +23,7 @@ export function CameraWrapper(params: TCameraParams, { container, transformDrive
   const accessors: TCameraAccessors = getAccessors(entity);
   accessors.setAspect(width / height);
 
-  const wrapper: TAbstractWrapper<TCamera> = AbstractWrapper(entity, WrapperType.Camera, { name: params.name });
+  const wrapper: TAbstractWrapper<TCamera> = AbstractWrapper(entity, WrapperType.Camera, { name: params.name, tags: params.tags });
   const drive: TCameraTransformDrive = CameraTransformDrive(params, { transformDriveService }, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 

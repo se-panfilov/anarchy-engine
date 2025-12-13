@@ -50,7 +50,7 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
     result.setTarget(position);
   }
 
-  const result = Object.assign(AbstractWrapper(entity, WrapperType.Controls, { name: params.name }), {
+  const result = Object.assign(AbstractWrapper(entity, WrapperType.Controls, { name: params.name, tags: params.tags }), {
     update,
     enable,
     disable,

@@ -27,7 +27,7 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
 
   if (isDefined(params.background)) setBackground(params.background);
 
-  const wrapper: TAbstractWrapper<Scene> = AbstractWrapper(entity, WrapperType.Scene, { name: params.name });
+  const wrapper: TAbstractWrapper<Scene> = AbstractWrapper(entity, WrapperType.Scene, { name: params.name, tags: params.tags });
 
   const add = (obj: TSceneObject): void => void entity.add(obj);
   const addCamera = (camera: TCameraWrapper): void => add(camera.entity);

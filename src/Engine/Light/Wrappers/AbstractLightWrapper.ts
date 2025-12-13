@@ -13,7 +13,7 @@ import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import { applyObject3dParams } from '@/Engine/Utils';
 
 export function AbstractLightWrapper<T extends TLight>(entity: T, params: TLightParams, dependencies: TLightServiceDependencies): TAbstractLightWrapper<T> {
-  const wrapper: TAbstractWrapper<T> = AbstractWrapper(entity, getWrapperType(entity), { name: params.name });
+  const wrapper: TAbstractWrapper<T> = AbstractWrapper(entity, getWrapperType(entity), { name: params.name, tags: params.tags });
   const drive: TLightTransformDrive = LightTransformDrive(params, dependencies, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 

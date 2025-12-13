@@ -1,6 +1,6 @@
 import type { AudioListener, Vector3Like } from 'three';
 
-import type { TWithName } from '@/Engine/Mixins';
+import type { TWithName, TWithTags } from '@/Engine/Mixins';
 import type { TWithTransformAgentParam } from '@/Engine/TransformDrive';
 
 import type { TAudioPerformanceOptions } from './TAudioPerformanceOptions';
@@ -22,4 +22,5 @@ export type TAudioParams = Readonly<{
   performance?: TAudioPerformanceOptions;
 }> &
   TWithTransformAgentParam &
-  TWithName;
+  TWithName &
+  TWithTags;

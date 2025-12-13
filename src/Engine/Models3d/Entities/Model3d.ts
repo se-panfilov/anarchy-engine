@@ -12,7 +12,7 @@ import { destroyModel3dAnimationEntities, disposeGltf, isDefined } from '@/Engin
 export function Model3d(params: TModel3dParams, { animationsService, model3dRawToModel3dConnectionRegistry }: TModel3dDependencies): TModel3d {
   const shouldForceClone: boolean = params.forceClone ?? isModel3dAlreadyInUse(params.model3dSource, model3dRawToModel3dConnectionRegistry);
   let entities: TModel3dEntities = createModels3dEntities({ ...params, forceClone: shouldForceClone }, animationsService);
-  const abstract: TAbstractEntity<TWithModel3dEntities> = AbstractEntity(withModel3dEntities(entities), EntityType.Model3d, { name: params.name });
+  const abstract: TAbstractEntity<TWithModel3dEntities> = AbstractEntity(withModel3dEntities(entities), EntityType.Model3d, { name: params.name, tags: params.tags });
 
   const getParams = (): TModel3dParams => ({ ...params });
 

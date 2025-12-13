@@ -73,7 +73,7 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
     entity.geometry = new PlaneGeometry(newGeometryWidth, newGeometryHeight);
   }
 
-  const wrapper: TAbstractWrapper<Mesh> = AbstractWrapper(entity, getWrapperTypeByTextType(type), { name: params.name });
+  const wrapper: TAbstractWrapper<Mesh> = AbstractWrapper(entity, getWrapperTypeByTextType(type), { name: params.name, tags: params.tags });
   const drive: TTextTransformDrive = TextTransformDrive(params, dependencies, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 

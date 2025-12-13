@@ -56,7 +56,7 @@ export function RendererWrapper(params: TRendererParams, { container }: TRendere
       setValues(entity, rect, container.getRatio());
     });
 
-  const wrapper: TAbstractWrapper<WebGLRenderer> = AbstractWrapper(entity, WrapperType.Renderer, { name: params.name });
+  const wrapper: TAbstractWrapper<WebGLRenderer> = AbstractWrapper(entity, WrapperType.Renderer, { name: params.name, tags: params.tags });
 
   const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
     entity.dispose();
