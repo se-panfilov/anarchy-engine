@@ -4,6 +4,7 @@ import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels
 import { asRecord, isNotDefined, spaceService } from '@Engine';
 import { distinctUntilChanged, filter, Subject } from 'rxjs';
 
+import { openMainMenu } from '@/Levels/Showcase28Menu/MainMenuService';
 import type { TAppSettings } from '@/Models';
 import { addGizmo } from '@/Utils';
 
@@ -45,7 +46,7 @@ export function showcase(space: TSpace): void {
   mouseService.clickLeftRelease$.pipe(filter((): boolean => isMouseOverMenuCube)).subscribe((): void => openMenu$.next(true));
 
   openMenu$.pipe(distinctUntilChanged()).subscribe((): void => {
-    console.log('TODO: Open menu');
+    openMainMenu();
   });
 
   space.start$.next(true);
