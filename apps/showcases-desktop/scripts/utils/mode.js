@@ -9,24 +9,26 @@ export function parseModeArg(argv = []) {
   return undefined;
 }
 
-// Normalizes common synonyms to canonical values.
+// Normalizes common synonyms to canonical values and classifies composite modes.
 // dev -> development, prod -> production
+// development.* -> development, production.* -> production
 export function normalizeMode(input) {
   if (!input) return 'production';
   const s = String(input).trim().toLowerCase();
-  if (s === 'prod' || s === 'production') return 'production';
-  if (s === 'dev' || s === 'development') return 'development';
+  if (s === 'prod' || s === 'production' || s.startsWith('production.')) return 'production';
+  if (s === 'dev' || s === 'development' || s.startsWith('development.')) return 'development';
   return s;
 }
 
-// Resolves the effective mode from argv and environment.
+// Resolves the effective mode from argv and environment WITHOUT normalizing,
+// so Vite receives the full composite value (e.g., production.mac.arm64).
 // Priority: argv -> MODE -> npm_config_mode -> NODE_ENV -> default
 export function resolveMode(argv = [], env = process.env) {
   const argMode = parseModeArg(argv);
   const envMode = env.MODE;
   const npmMode = env.npm_config_mode;
   const nodeEnv = env.NODE_ENV;
-  return normalizeMode(argMode || envMode || npmMode || nodeEnv || 'production');
+  return argMode || envMode || npmMode || nodeEnv || 'production';
 }
 
 // Detects a dry-run flag in argv.

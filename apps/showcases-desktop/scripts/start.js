@@ -1,7 +1,7 @@
 import { execSync, spawn } from 'node:child_process';
 import path from 'node:path';
 import fs from 'node:fs';
-import { resolveDryRun, resolveMode } from './utils/mode.js';
+import { normalizeMode, resolveDryRun, resolveMode } from './utils/mode.js';
 
 const argv = process.argv.slice(2);
 const mode = resolveMode(argv);
@@ -9,7 +9,7 @@ const dryRun = resolveDryRun(argv);
 
 // Ensure children see MODE and NODE_ENV aligned with the chosen mode
 process.env.MODE = mode;
-process.env.NODE_ENV = mode;
+process.env.NODE_ENV = normalizeMode(mode);
 if (dryRun) process.env.DRY_RUN = '1';
 
 const run = (cmd) => {
