@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { vueTranslationService } from '@Showcases/i18n';
 import { NavDirection, NavStyle } from '@Showcases/Menu/components/Navigation/constants';
 import Navigation from '@Showcases/Menu/components/Navigation/Navigation.vue';
 import PageTitle from '@Showcases/Menu/components/PageTitle.vue';
 import { Routes } from '@Showcases/Menu/constants';
 import type { TVueNavOption } from '@Showcases/Menu/models';
-import { eventsService, vueTranslationService } from '@Showcases/Menu/services';
+import { eventsService } from '@Showcases/Menu/services';
 import { useMenuOptionsStore } from '@Showcases/Menu/stores/MenuOptionsStore';
 import { useRouterStore } from '@Showcases/Menu/stores/RouterStore';
 import type { ShallowRef } from 'vue';

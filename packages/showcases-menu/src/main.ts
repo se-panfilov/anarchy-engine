@@ -1,5 +1,6 @@
 import { isDefined } from '@Anarchy/Shared/Utils';
-import { eventsService, vueTranslationService } from '@Showcases/Menu/services';
+import { vueTranslationService } from '@Showcases/i18n';
+import { eventsService } from '@Showcases/Menu/services';
 import { useMenuOptionsStore } from '@Showcases/Menu/stores/MenuOptionsStore';
 import type { TFromMenuEvent, TMenuOptions, TToMenuEvent } from '@Showcases/Shared';
 import { createPinia } from 'pinia';

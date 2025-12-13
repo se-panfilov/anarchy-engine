@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { TWriteable } from '@Anarchy/Shared/Utils';
+import { vueTranslationService } from '@Showcases/i18n';
 import Navigation from '@Showcases/Menu/components/Navigation/Navigation.vue';
 import Range from '@Showcases/Menu/components/Range.vue';
 import SettingsGroup from '@Showcases/Menu/components/SettingsGroup.vue';
 import View from '@Showcases/Menu/components/View.vue';
 import ViewActions from '@Showcases/Menu/components/ViewActions.vue';
 import ViewForm from '@Showcases/Menu/components/ViewForm.vue';
-import { vueTranslationService } from '@Showcases/Menu/services';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
 import type { TAudioSettings } from '@Showcases/Shared';
 import type { ShallowRef } from 'vue';
