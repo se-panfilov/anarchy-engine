@@ -2,7 +2,7 @@ import { Vector4 } from 'three';
 
 import type { TPhysicsPresetConfig, TPhysicsPresetParams } from '@/Engine/Physics/Models';
 
-import { withCoordsToVector } from './PhysicsAdapterUtils';
+import { withCoordsToVector } from './Utils';
 
 export function configToParamsPreset(config: TPhysicsPresetConfig): TPhysicsPresetParams {
   const { position, rotation, ...rest } = config;

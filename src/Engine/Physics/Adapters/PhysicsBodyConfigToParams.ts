@@ -4,7 +4,7 @@ import type { TPhysicsBodyConfig, TPhysicsBodyParams } from '@/Engine/Physics/Mo
 import { isPhysicsBodyParamsComplete } from '@/Engine/Physics/Utils';
 import type { TOptional } from '@/Engine/Utils';
 
-import { withCoordsToVector } from './PhysicsAdapterUtils';
+import { withCoordsToVector } from './Utils';
 
 export function configToParamsBody(config: TPhysicsBodyConfig): TPhysicsBodyParams | never {
   const { position, rotation, ...rest } = config;
