@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, map, merge, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, filter, map, merge, ReplaySubject } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
 import type { TDestroyable } from '@/Engine/Mixins';
@@ -88,12 +88,12 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   scale$.subscribe(scaleRep$);
   activeAgent$.subscribe((agent: TAbstractTransformAgent): void => activeAgentRep$.next(ProtectedTransformAgentFacade(agent)));
 
+  // TODO 8.0.0. MODELS: Make sure we have no performance issue here, cause "filter" might be really highloaded
   // Update values of the active agent when drive.position$.next() is called from an external code
-  // TODO CWP
-  // TODO 8.0.0. MODELS: when we push this value, max call stack exceeded (all agents). Maybe we don't need this, but use onActivated hook?
-  // positionRep$.subscribe(activeAgent$.value.position$);
-  // rotationRep$.subscribe(activeAgent$.value.rotation$);
-  // scaleRep$.subscribe(activeAgent$.value.scale$);
+  // TODO CWP: Looks like "physics agent" is doesn't work like this. Have to fix. Maybe disable->setPosition->enable?
+  positionRep$.pipe(filter((value: Vector3): boolean => value !== activeAgent$.value.position$.value)).subscribe((value: Vector3): void => activeAgent$.value.position$.next(value));
+  rotationRep$.pipe(filter((value: Euler): boolean => value !== activeAgent$.value.rotation$.value)).subscribe((value: Euler): void => activeAgent$.value.rotation$.next(value));
+  scaleRep$.pipe(filter((value: Vector3): boolean => value !== activeAgent$.value.scale$.value)).subscribe((value: Vector3): void => activeAgent$.value.scale$.next(value));
 
   const destroyable: TDestroyable = destroyableMixin();
 

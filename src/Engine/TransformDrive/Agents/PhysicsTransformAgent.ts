@@ -109,6 +109,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
       //Get the latest transform data from the physics body every physical tick
       map((): TRigidBodyTransformData => getPhysicalBodyTransform(agent)),
       //Collect previous and current transform data to compare values later do nothing on the same data (distinctUntilChanged is not working great here)
+      // TODO 8.0.0. MODELS: Check how these optimizations really affect performance.
       scan(
         (prev: TAccumulatedRigidBodyTransformData, curr: TRigidBodyTransformData): TAccumulatedRigidBodyTransformData => {
           return {
@@ -130,6 +131,11 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
       if (shouldUpdatePosition(prevPosition, currPosition, noiseThreshold)) agent.position$.next(new Vector3(currPosition.x, currPosition.y, currPosition.z));
       if (shouldUpdateRotation(prevRotation, currRotation, noiseThreshold)) rotationQuaternion$.next(new Quaternion(currRotation.x, currRotation.y, currRotation.z, currRotation.w));
     });
+  // )
+  // .subscribe(({ position, rotation }: TRigidBodyTransformData): void => {
+  //   if (isDefined(position)) agent.position$.next(new Vector3(position.x, position.y, position.z));
+  //   if (isDefined(rotation)) rotationQuaternion$.next(new Quaternion(rotation.x, rotation.y, rotation.z, rotation.w));
+  // });
 
   return agent;
 }
