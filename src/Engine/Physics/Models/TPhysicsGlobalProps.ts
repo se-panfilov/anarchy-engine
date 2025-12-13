@@ -1,7 +1,3 @@
-import type { TWithCoordsXYZ } from '@/Engine/Mixins';
+import type { TPhysicsWorldParams } from './TPhysicsWorldParams';
 
-export type TPhysicsGlobalProps = Readonly<{
-  gravity: TWithCoordsXYZ;
-  timeStep?: number;
-  enableCCD?: boolean;
-}>;
+export type TPhysicsGlobalProps = TPhysicsWorldParams;
