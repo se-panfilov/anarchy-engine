@@ -1,3 +1,3 @@
-export enum ControlsType {
+export enum IControlsType {
   OrbitControls = 'OrbitControls'
 }

@@ -1,6 +1,6 @@
 import type { IControlsConfig } from '@Engine/Launcher/Models';
 import type { IAppCanvas, IControlsParams } from '@Engine/Models';
-import { ControlsType } from '@Engine/Models';
+import { IControlsType } from '@Engine/Models';
 import type { ICameraRegistry } from '@Engine/Registries';
 import { isNotDefined } from '@Engine/Utils';
 import type { ICameraWrapper } from '@Engine/Wrappers';
@@ -12,7 +12,7 @@ export function controlsAdapter(
 ): IControlsParams {
   const { type, cameraTag, tags } = config;
 
-  if (type !== ControlsType.OrbitControls)
+  if (type !== IControlsType.OrbitControls)
     throw new Error(`Cannot create controls of unknown type "${type as string}"`);
   if (isNotDefined(cameraTag)) throw new Error(`Cannot attach controls ("${type}") to undefined camera tag`);
 
