@@ -6,8 +6,9 @@ import { withKinematic } from '@/Engine/Kinematic';
 import type { TWithMaterial } from '@/Engine/Material';
 import { withMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
+import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
 import { withReactivePosition, withReactiveRotation } from '@/Engine/Spatial';
-import { withSpatialCell } from '@/Engine/Spatial/Mixins';
+import { withSpatial } from '@/Engine/Spatial/Mixins/WithSpatial';
 import { withTextures } from '@/Engine/Texture';
 import type { TMesh } from '@/Engine/ThreeLib';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
@@ -41,7 +42,7 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
     ...withMaterialEntity,
     ...withTextures(withMaterialEntity, materialTextureService),
     ...withKinematic(params),
-    ...withSpatialCell(),
+    ...withSpatial(params),
     position$: position$.asObservable(),
     rotation$: rotation$.asObservable(),
     entity
@@ -53,7 +54,7 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
     actorW.doKinematicRotation(delta);
   });
 
-  const spatialSub$: Subscription = spatialLoopService.tick$.subscribe(({ delta, priority }): void => {
+  const spatialSub$: Subscription = spatialLoopService.tick$.subscribe(({ priority }: TSpatialLoopServiceValue): void => {
     if (!actorW.spatial.isAutoUpdate()) return;
     updatePosition(priority);
     updateRotation(priority);

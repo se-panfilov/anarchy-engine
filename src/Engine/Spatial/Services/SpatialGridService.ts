@@ -62,7 +62,7 @@ export function SpatialGridService(): TSpatialGridService {
       if (isNotDefined(cell.objects.find((aw: TActorWrapperAsync): boolean => aw.id === actorW.id))) {
         // eslint-disable-next-line functional/immutable-data
         cell.objects.push(actorW);
-        actorW.setSpatialCell(cell);
+        actorW.spatial.setSpatialCell(cell);
       }
     }
   }
@@ -92,14 +92,14 @@ export function SpatialGridService(): TSpatialGridService {
   }
 
   function removeFromGrid(actorW: TActorWrapperAsync): void | never {
-    const cell: TSpatialCell | undefined = actorW.getSpatialCell();
+    const cell: TSpatialCell | undefined = actorW.spatial.getSpatialCell();
     if (isNotDefined(cell)) throw new Error(`Cannot remove actor (id: "${actorW.id}") from spatial grid, such actor is not in the grid`);
     const index: number = cell.objects.indexOf(actorW);
     if (index === -1) throw new Error(`Cannot remove actor (id: "${actorW.id}") from spatial grid, such actor is not in the grid`);
 
     // eslint-disable-next-line functional/immutable-data
     cell.objects.splice(index, 1);
-    actorW.resetSpatialCell();
+    actorW.spatial.resetSpatialCell();
   }
 
   const clearGrid = (tree: RBush<TSpatialCell>): RBush<TSpatialCell> => tree.clear();
