@@ -3,12 +3,12 @@ import type { TAppGlobalContainer } from '@/Engine/Global';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function findDomElement(canvasSelector: string): HTMLElement | null {
-  const appContainer: TAppGlobalContainer = ambientContext.container.getAppContainer();
+  const appContainer: TAppGlobalContainer = ambientContext.globalContainer.getAppContainer();
   return appContainer.document.querySelector(canvasSelector);
 }
 
 export function createDomElement(tagName: string, parent?: HTMLElement | undefined, classes?: ReadonlyArray<string>, id?: string, style?: string): HTMLElement {
-  const appContainer: TAppGlobalContainer = ambientContext.container.getAppContainer();
+  const appContainer: TAppGlobalContainer = ambientContext.globalContainer.getAppContainer();
   const element: HTMLElement = appContainer.document.createElement(tagName);
 
   if (isDefined(id)) element.setAttribute('id', id);
@@ -52,4 +52,11 @@ function getIdFromSelector(selector: string): string {
   const id: string | undefined = selector.match(/#([a-zA-Z0-9\-_]+)/)?.[1];
   if (isNotDefined(id)) throw new Error(`Canvas selector must contain id: "${selector}"`);
   return id;
+}
+
+export function getWindowFromDomElement(element: HTMLElement | Window): TAppGlobalContainer | null {
+  //SSR
+  if (typeof window === 'undefined') return null;
+  if (element === window) return window;
+  return (element as Element).ownerDocument.defaultView;
 }

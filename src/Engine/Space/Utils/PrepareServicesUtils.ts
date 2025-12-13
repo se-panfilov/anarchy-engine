@@ -8,7 +8,6 @@ import type { TCameraService } from '@/Engine/Camera';
 import { CameraFactory, CameraRegistry, CameraService } from '@/Engine/Camera';
 import type { TCollisionsService } from '@/Engine/Collisions';
 import { CollisionsService } from '@/Engine/Collisions';
-import { ambientContext } from '@/Engine/Context';
 import { ControlService, ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
 import { EnvMapFactory, EnvMapRegistry, EnvMapService, EnvMapTextureAsyncRegistry } from '@/Engine/EnvMap';
 import { FogFactory, FogRegistry, FogService } from '@/Engine/Fog';
@@ -16,6 +15,7 @@ import type { TFsmService } from '@/Engine/Fsm';
 import { FsmInstanceFactory, FsmInstanceRegistry, FsmSourceRegistry } from '@/Engine/Fsm';
 import { FsmSourceFactory } from '@/Engine/Fsm/Factories/FsmSourceFactory';
 import { FsmService } from '@/Engine/Fsm/Services/FsmService';
+import type { TContainerDecorator } from '@/Engine/Global';
 import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry, IntersectionsWatcherService } from '@/Engine/Intersections';
 import { KeyboardService } from '@/Engine/Keyboard';
 import { LightFactory, LightRegistry, LightService } from '@/Engine/Light';
@@ -50,7 +50,13 @@ export function buildBaseServices(): TSpaceBaseServices {
   return { loopService, scenesService, screenService };
 }
 
-export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TSpaceCanvas, loops: TSpaceLoops, { loopService, scenesService, screenService }: TSpaceBaseServices): TSpaceServices {
+export function buildEntitiesServices(
+  sceneW: TSceneWrapper,
+  canvas: TSpaceCanvas,
+  container: TContainerDecorator,
+  loops: TSpaceLoops,
+  { loopService, scenesService, screenService }: TSpaceBaseServices
+): TSpaceServices {
   const textureService: TTextureService = TextureService(TextureAsyncRegistry());
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry(), { textureService });
   const physicsPresetService: TPhysicsPresetsService = PhysicsPresetsService(PhysicsPresetRegistry());
@@ -101,7 +107,7 @@ export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TSpaceCanva
     materialService,
     models3dService,
     animationsService,
-    mouseService: MouseService(ambientContext.container, MouseClickWatcherFactory(), MouseClickWatcherRegistry(), MousePositionWatcherFactory(), MousePositionWatcherRegistry(), loops),
+    mouseService: MouseService(container, MouseClickWatcherFactory(), MouseClickWatcherRegistry(), MousePositionWatcherFactory(), MousePositionWatcherRegistry(), loops),
     particlesService: ParticlesService(ParticlesFactory(), ParticlesRegistry(), materialService, sceneW),
     physicsBodyService,
     physicsWorldService,

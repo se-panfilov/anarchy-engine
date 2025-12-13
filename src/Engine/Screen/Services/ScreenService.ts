@@ -23,11 +23,11 @@ export function ScreenService(factory: TScreenSizeWatcherFactory, registry: TScr
       canvas = undefined;
     },
     goFullScreen: (): Promise<void> => goFullScreen(canvas),
-    exitFullScreen: (): Promise<void> => exitFullScreen(ambientContext.container.getAppContainer()),
+    exitFullScreen: (): Promise<void> => exitFullScreen(ambientContext.globalContainer.getAppContainer()),
     toggleFullScreen: (): Promise<void> => {
-      const container: TAppGlobalContainer = ambientContext.container.getAppContainer();
+      const container: TAppGlobalContainer = ambientContext.globalContainer.getAppContainer();
       return isFullScreen(container) ? exitFullScreen(container) : goFullScreen(canvas);
     },
-    isFullScreen: (): boolean => isFullScreen(ambientContext.container.getAppContainer())
+    isFullScreen: (): boolean => isFullScreen(ambientContext.globalContainer.getAppContainer())
   });
 }

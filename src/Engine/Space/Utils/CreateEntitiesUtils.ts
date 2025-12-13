@@ -1,17 +1,16 @@
-import { ambientContext } from '@/Engine/Context';
 import type { TAppGlobalContainer, TContainerDecorator } from '@/Engine/Global';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
 import type { TSpaceConfigEntities, TSpaceParamsEntities, TSpaceServices } from '@/Engine/Space/Models';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function createEntities(entities: TSpaceConfigEntities | TSpaceParamsEntities, services: TSpaceServices, strategy: CreateEntitiesStrategy): void | never {
+export function createEntities(entities: TSpaceConfigEntities | TSpaceParamsEntities, services: TSpaceServices, container: TContainerDecorator, strategy: CreateEntitiesStrategy): void | never {
   switch (strategy) {
     case CreateEntitiesStrategy.Config:
-      createEntitiesFromConfigs(entities as TSpaceConfigEntities, services);
+      createEntitiesFromConfigs(entities as TSpaceConfigEntities, services, container);
       break;
     case CreateEntitiesStrategy.Params:
-      createEntitiesFromParams(entities as TSpaceParamsEntities, services);
+      createEntitiesFromParams(entities as TSpaceParamsEntities, services, container);
       break;
     default:
       throw new Error(`Space: Unknown entities creation strategy: ${strategy}`);
@@ -19,7 +18,7 @@ export function createEntities(entities: TSpaceConfigEntities | TSpaceParamsEnti
 }
 
 // TODO a lot of code duplication here, but doesn't worth to refactor right now
-export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, services: TSpaceServices): void {
+export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, services: TSpaceServices, container: TContainerDecorator): void {
   const { actors, audio, cameras, spatialGrids, controls, intersections, lights, models3d, envMaps, fogs, fsm, texts, physics, particles } = entities;
 
   const {
@@ -43,7 +42,6 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
     textService
   } = services;
 
-  const container: TContainerDecorator = ambientContext.container;
   const appContainer: TAppGlobalContainer = container.getAppContainer();
 
   const screenSizeWatcher: TScreenSizeWatcher | undefined = screenService.watchers.default$.value;
@@ -76,7 +74,7 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
   intersectionsWatcherService.createFromConfig(intersections, mouseService, cameraService, actorService, loopService);
 }
 
-export function createEntitiesFromParams(entities: TSpaceParamsEntities, services: TSpaceServices): void {
+export function createEntitiesFromParams(entities: TSpaceParamsEntities, services: TSpaceServices, container: TContainerDecorator): void {
   const { actors, audio, cameras, spatialGrids, controls, intersections, lights, models3d, envMaps, fogs, fsm, texts, physics, particles } = entities;
 
   const {
@@ -98,7 +96,6 @@ export function createEntitiesFromParams(entities: TSpaceParamsEntities, service
     textService
   } = services;
 
-  const container: TContainerDecorator = ambientContext.container;
   const appContainer: TAppGlobalContainer = container.getAppContainer();
 
   const screenSizeWatcher: TScreenSizeWatcher | undefined = screenService.watchers.default$.value;

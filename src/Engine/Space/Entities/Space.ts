@@ -3,8 +3,8 @@ import { BehaviorSubject, distinctUntilChanged, filter, skip } from 'rxjs';
 
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
-import { ambientContext } from '@/Engine/Context';
 import type { TContainerDecorator } from '@/Engine/Global';
+import { ContainerDecorator } from '@/Engine/Global';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TLoop } from '@/Engine/Loop';
 import { RendererModes } from '@/Engine/Renderer';
@@ -22,15 +22,16 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   const start$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   const canvas: TSpaceCanvas = getOrCreateCanvasFromSelector(canvasSelector);
+  const container: TContainerDecorator = getContainer();
 
-  const { services, loops } = initSpaceServices(canvas, params);
+  const { services, loops } = initSpaceServices(canvas, container, params);
   hooks?.afterAllServicesInitialized?.(canvas, services, loops, params);
 
   services.rendererService.create({ canvas, mode: RendererModes.WebGL2, isActive: true });
 
   if (isDefined(params.entities) && Object.values(params.entities).length > 0) {
     hooks?.beforeEntitiesCreated?.(params, services, loops);
-    createEntities(params.entities, services, CreateEntitiesStrategy.Params);
+    createEntities(params.entities, services, container, CreateEntitiesStrategy.Params);
     hooks?.afterEntitiesCreated?.(params, services, loops);
 
     // TODO 14-0-0: Find a better place for this
@@ -46,14 +47,20 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
     start$
   };
 
-  const getCanvasElement = (): TSpaceCanvas | never => {
+  function getCanvasElement(): TSpaceCanvas | never {
     const result: HTMLElement | TSpaceCanvas | null = findDomElement(canvasSelector);
     if (isNotDefined(result)) throw new Error(`Space: Can't find canvas element: ${result}`);
     if (!isCanvasElement(result)) throw new Error(`Space: Element (${result}) is found, but it isn't a canvas`);
     return result;
-  };
+  }
 
-  const space: TSpace = Object.assign(AbstractEntity(parts, EntityType.Space, { version, name, tags }), { getCanvasElement });
+  function getContainer(): TContainerDecorator | never {
+    const parent: HTMLElement | null = canvas.parentElement;
+    if (isNotDefined(parent)) throw new Error(`Space: Can't find canvas' parent element`);
+    return ContainerDecorator(parent);
+  }
+
+  const space: TSpace = Object.assign(AbstractEntity(parts, EntityType.Space, { version, name, tags }), { getCanvasElement, getContainer });
 
   start$.pipe(skip(1), distinctUntilChanged()).subscribe((value: boolean): void => {
     if (value) return Object.values(space.loops).forEach((loop: TLoop): void => loop.start());
@@ -93,11 +100,10 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   return result;
 }
 
-function initSpaceServices(canvas: TSpaceCanvas, params: TSpaceParams, hooks?: TSpaceHooks): { services: TSpaceServices; loops: TSpaceLoops } {
+function initSpaceServices(canvas: TSpaceCanvas, container: TContainerDecorator, params: TSpaceParams, hooks?: TSpaceHooks): { services: TSpaceServices; loops: TSpaceLoops } {
   hooks?.beforeBaseServicesBuilt?.(canvas, params);
   const baseServices: TSpaceBaseServices = buildBaseServices();
   baseServices.screenService.setCanvas(canvas);
-  const container: TContainerDecorator = ambientContext.container;
   const screenSizeWatcher: TScreenSizeWatcher = baseServices.screenService.watchers.create({ container });
 
   screenSizeWatcher.start$.next();
@@ -110,7 +116,7 @@ function initSpaceServices(canvas: TSpaceCanvas, params: TSpaceParams, hooks?: T
   const loops: TSpaceLoops = createLoops(baseServices.loopService);
 
   hooks?.beforeEntitiesServicesBuilt?.(canvas, params);
-  const services: TSpaceServices = buildEntitiesServices(sceneW, canvas, loops, baseServices);
+  const services: TSpaceServices = buildEntitiesServices(sceneW, canvas, container, loops, baseServices);
 
   return { services, loops };
 }

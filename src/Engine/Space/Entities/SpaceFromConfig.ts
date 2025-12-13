@@ -26,7 +26,7 @@ export function SpaceFromConfig(params: TSpaceParams, config: TSpaceConfig, hook
     )
     .subscribe((): void => {
       hooks?.beforeEntitiesCreated?.(config, space.services, space.loops);
-      createEntities(config.entities, space.services, CreateEntitiesStrategy.Config);
+      createEntities(config.entities, space.services, space.getContainer(), CreateEntitiesStrategy.Config);
       hooks?.afterEntitiesCreated?.(config, space.services, space.loops);
 
       builtFromConfig$.next(space);

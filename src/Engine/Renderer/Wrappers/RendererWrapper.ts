@@ -32,6 +32,9 @@ export function RendererWrapper(params: TRendererParams, { screenService }: TRen
   if (isWebGL2) {
     const context: WebGL2RenderingContext | null = (options.canvas as HTMLCanvasElement).getContext(RendererModes.WebGL2);
     if (isNotDefined(context)) throw new Error(`WebGL2 context is not defined, however mode is set to ${RendererModes.WebGL2}`);
+
+    // TODO 14-0-0: what's the different here? WHy screen white/black?
+    // options = Object.assign(options, context);
     options = { ...options, context };
   }
 
@@ -47,17 +50,17 @@ export function RendererWrapper(params: TRendererParams, { screenService }: TRen
     accessors.setPixelRatio(ratio, maxPixelRatio);
   }
 
-  // TODO 14-0-0: do we still need this initial setup?
-  //init with the values which came before the start of the subscription
-  // setValues(entity, screenSizeWatcher.getValue() ?? { width: 0, height: 0, ratio: 1 });
-
   // TODO 9.2.0 ACTIVE: This could be done only in active$ renderer and applied in onActive hook
   const screenSizeSub$: Subscription = screenService.watchers.default$
     .pipe(
       switchMap((screenSizeWatcher: TScreenSizeWatcher | undefined): Observable<TScreenSizeValues> => (isDefined(screenSizeWatcher) ? screenSizeWatcher.value$ : EMPTY)),
       distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height)
     )
-    .subscribe((params: TScreenSizeValues): void => setValues(entity, params));
+    .subscribe((params: TScreenSizeValues): void => {
+      const width: number = (options.canvas as HTMLCanvasElement).parentElement?.clientWidth ?? params.width;
+      const height: number = (options.canvas as HTMLCanvasElement).parentElement?.clientHeight ?? params.width;
+      setValues(entity, { ...params, width, height });
+    });
 
   const screenSizeWatcherSubscription: Subscription = screenService.watchers.default$
     .pipe(switchMap((screenSizeWatcher: TScreenSizeWatcher | undefined): Observable<void> => (isDefined(screenSizeWatcher) ? screenSizeWatcher.destroy$ : EMPTY)))
