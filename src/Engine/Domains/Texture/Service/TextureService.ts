@@ -1,9 +1,9 @@
+import { ReplaySubject } from 'rxjs';
 import { LinearFilter, NearestFilter, SRGBColorSpace, TextureLoader } from 'three';
 
 import type { ITextureService } from '@/Engine/Domains/Texture/Models';
 import type { IWriteable } from '@/Engine/Utils';
 import type { ITexture } from '@/Engine/Wrappers';
-import { ReplaySubject } from 'rxjs';
 
 export function TextureService(): ITextureService {
   const textureLoader: TextureLoader = new TextureLoader();
