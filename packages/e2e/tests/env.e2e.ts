@@ -4,7 +4,7 @@ import * as dotenv from 'dotenv';
 import * as path from 'path';
 import { parse } from 'valibot';
 
-import { nodeSchema } from '../shared/env-schema';
+import { nodeSchema } from '../../shared/env-schema';
 
 function loadEnvFile(file: string): void {
   const filePath = path.resolve(process.cwd(), file);
