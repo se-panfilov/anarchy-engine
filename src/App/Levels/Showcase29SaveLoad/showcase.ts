@@ -4,19 +4,19 @@ import type { Subscription } from 'rxjs';
 
 import { addDropdown } from '@/App/Levels/Utils';
 import type { TModel3d, TRegistryPack, TSpace, TSpaceConfig, TSpaceRegistry } from '@/Engine';
-import { createDomElement, isNotDefined, spaceService } from '@/Engine';
+import { isNotDefined, spaceService } from '@/Engine';
 
 import space from './space.json';
 import spaceCustomModels from './spaceCustomModels.json';
 import spaceTexts from './spaceTexts.json';
+import type { TSpacesData } from './utils';
+import { createContainersDivs, setContainerVisibility } from './utils';
 
 const spaceBasicConfig: TSpaceConfig = space as TSpaceConfig;
 const spaceCustomModelsConfig: TSpaceConfig = spaceCustomModels as TSpaceConfig;
 const spaceTextsConfig: TSpaceConfig = spaceTexts as TSpaceConfig;
 
 const getContainer = (canvasSelector: string): string => canvasSelector.split('#')[1].trim();
-
-type TSpacesData = Readonly<{ name: string; config: TSpaceConfig; container: string; init?: (space: TSpace) => void; onUnload?: (space: TSpace) => void }>;
 
 const subscriptions: Record<string, Subscription> = {};
 
@@ -34,7 +34,7 @@ const spacesData: ReadonlyArray<TSpacesData> = [
       // eslint-disable-next-line functional/immutable-data
       subscriptions[spaceCustomModelsConfig.name] = sub$;
     },
-    onUnload: (space: TSpace): void => {
+    onUnload: (): void => {
       subscriptions[spaceCustomModelsConfig.name].unsubscribe();
     }
   },
@@ -43,21 +43,8 @@ const spacesData: ReadonlyArray<TSpacesData> = [
 
 let currentSpaceName: string | undefined;
 
-function createContainersDivs(): void {
-  spacesData.forEach(({ container }): HTMLElement => createDomElement('div', undefined, ['container'], container));
-}
-
-function setContainerVisibility(name: string, isVisible: boolean): void {
-  const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
-  if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
-  const containerElement: HTMLElement | null = document.querySelector(`#${spaceData.container}`);
-  if (isNotDefined(containerElement)) throw new Error(`[Showcase]: Cannot find the container element for showcase "${name}"`);
-  // eslint-disable-next-line functional/immutable-data
-  containerElement.style.display = isVisible ? 'block' : 'none';
-}
-
 export function start(): void {
-  createContainersDivs();
+  createContainersDivs(spacesData);
 
   createForm(
     undefined,
@@ -80,36 +67,19 @@ function loadSpace(name: string): void {
   currentSpaceName = space.name;
   spaceData.init?.(space);
   space.start$.next(true);
-  setContainerVisibility(name, true);
+  setContainerVisibility(name, true, spacesData);
 }
 
 function unloadSpace(name: string | undefined, spaceRegistry: TSpaceRegistry): void {
   if (isNotDefined(name)) return;
   const space: TSpace | undefined = spaceRegistry.findByName(name);
   if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot destroy the space "${name}"`);
-  setContainerVisibility(name, false);
+  setContainerVisibility(name, false, spacesData);
 
   const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
   spaceData.onUnload?.(space);
   space.drop();
-}
-
-function download(space: TSpace): void {
-  const serialized: TSpaceConfig = space.serialize() as TSpaceConfig;
-
-  const blob: Blob = new Blob([JSON.stringify(serialized, undefined, 2)], { type: 'application/json' });
-  const url: string = URL.createObjectURL(blob);
-  const a: HTMLAnchorElement = document.createElement('a');
-  // eslint-disable-next-line functional/immutable-data
-  a.href = url;
-  const date = new Date();
-  const dateStr: string = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}_${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
-  // eslint-disable-next-line functional/immutable-data
-  a.download = `${space.name}_${dateStr}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
-  a.remove();
 }
 
 export function createForm(containerId: string | undefined, isTop: boolean, isRight: boolean, options: ReadonlyArray<string>): void {
