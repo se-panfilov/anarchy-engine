@@ -1,3 +1,4 @@
+import type { TGameKey } from '@Anarchy/Engine';
 import { KeyCode, KeysExtra, MouseButtonValue } from '@Anarchy/Engine';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import { GuiBottomButtons } from '@Showcases/GUI/constants';
@@ -31,14 +32,14 @@ export const useGuiButtonStore = defineStore('guiButtonsStore', () => {
     state[buttonName].isActive = isActive;
   }
 
-  function setActiveButtonByKey(key: KeyCode | KeysExtra | MouseButtonValue, isActive: boolean): void {
+  function setActiveButtonByKey(key: TGameKey | MouseButtonValue, isActive: boolean): void | never {
     const buttonEntry = Object.entries(state).find(([, buttonState]): boolean => buttonState.key === key);
-    if (isNotDefined(buttonEntry)) return;
+    if (isNotDefined(buttonEntry)) throw new Error(`[GuiButtonsStore]: Can't set active button: button for key "${key}" is not found`);
     const [buttonName] = buttonEntry;
     setActiveButton(buttonName as GuiBottomButtons, isActive);
   }
 
-  function bindButtonKey(buttonName: GuiBottomButtons, key: KeyCode | KeysExtra | MouseButtonValue): void | never {
+  function bindButtonKey(buttonName: GuiBottomButtons, key: TGameKey | MouseButtonValue): void | never {
     if (isNotDefined(state[buttonName])) throw new Error(`Invalid GUI button: "${buttonName}"`);
     state[buttonName].key = key;
   }

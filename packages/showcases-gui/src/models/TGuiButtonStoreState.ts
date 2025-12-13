@@ -1,4 +1,4 @@
-import type { KeyCode, KeysExtra, MouseButtonValue } from '@Anarchy/Engine';
+import type { MouseButtonValue, TGameKey } from '@Anarchy/Engine';
 import type { GuiBottomButtons } from '@Showcases/GUI/constants';
 import type { FunctionalComponent } from 'vue';
 
@@ -11,6 +11,6 @@ export type TGuiButtonState = {
   isVisible: boolean;
   isActive: boolean;
   i18n: string;
-  key: KeyCode | KeysExtra | MouseButtonValue | undefined;
+  key: TGameKey | MouseButtonValue | undefined;
   icon: FunctionalComponent;
 };

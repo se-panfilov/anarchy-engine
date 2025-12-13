@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { KeyCode, KeysExtra, MouseButtonValue } from '@Anarchy/Engine';
+import type { MouseButtonValue, TGameKey } from '@Anarchy/Engine';
 import { isDefined } from '@Anarchy/Shared/Utils';
 
 defineProps<{
   title: string;
-  dataKey?: KeyCode | KeysExtra | MouseButtonValue | undefined;
+  dataKey?: TGameKey | MouseButtonValue | undefined;
   isActive?: boolean;
 }>();
 </script>
