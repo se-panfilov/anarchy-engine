@@ -15,7 +15,7 @@
       { "name": "surface_material", "type": "phong", "options": { "color": "#CBCBCB", "depthWrite": false } },
       { "name": "sphere_material", "type": "standard", "options": { "color": "#E91E63" } }
     ],
-    "models3d": [{ "name": "solder_model", "url": "/Showcase/Models/Mutant/Mutant.glb" }],
+    "models3d": [{ "name": "mutant_model", "url": "/Showcase/Models/Mutant/Mutant.glb" }],
     "animations": []
   },
   "entities": {
@@ -46,8 +46,8 @@
         "rotation": { "x": -1.57, "y": 0, "z": 0 }
       },
       {
-        "name": "solder_model_entity_1",
-        "model3dSource": "solder_model",
+        "name": "mutant_model_entity_1",
+        "model3dSource": "mutant_model",
         "position": { "x": 0, "y": 0, "z": 0 },
         "castShadow": true
       }
@@ -62,8 +62,8 @@
         "spatial": { "grid": "main_grid", "isAutoUpdate": true }
       },
       {
-        "name": "solder_actor_1",
-        "model3dSource": "solder_model_entity_1",
+        "name": "mutant_actor_1",
+        "model3dSource": "mutant_model_entity_1",
         "agent": "default",
         "position": { "x": 0, "y": 0, "z": 0 },
         "rotation": { "x": 0, "y": 3.14, "z": 0 },

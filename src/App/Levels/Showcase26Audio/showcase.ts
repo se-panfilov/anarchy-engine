@@ -15,7 +15,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
     const fadeDuration = 0.3;
 
-    initSolder1('solder_actor_1', fadeDuration, space.services);
+    initMutant1('mutant_actor_1', fadeDuration, space.services);
   }
 
   function start(): void {
@@ -26,14 +26,13 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   return { start, space };
 }
 
-function initSolder1(actorName: string, fadeDuration: number, { animationsService, actorService }: TSpaceServices): void {
+function initMutant1(actorName: string, fadeDuration: number, { animationsService, actorService }: TSpaceServices): void {
   const actor: TActor | undefined = actorService.getRegistry().findByName(actorName);
   if (isNotDefined(actor)) throw new Error(`Actor "${actorName}" is not found`);
 
   const model3d: TModel3d = actor.model3d;
   const actions = animationsService.startAutoUpdateMixer(model3d).actions;
 
-  console.log('XXX actions', actions);
   const danceAction: AnimationAction = actions['Armature|mixamo.com|Layer0'];
   danceAction.reset().fadeIn(fadeDuration).play();
 }
