@@ -14,6 +14,7 @@ import type {
   TEngine,
   TIntersectionEvent,
   TIntersectionsWatcher,
+  TModel3d,
   TRadians,
   TSceneWrapper,
   TSpace,
@@ -73,8 +74,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const maxBulletsSameTime: number = 150;
     const bullets: ReadonlyArray<TBullet> = await Promise.all(getBulletsPool(maxBulletsSameTime, actorService, models3dService, materialService, spatialGridService));
     const sceneW: TSceneWrapper = actorService.getScene();
-    sceneW.entity.add(...bullets.map((b: TBullet) => b.model.getRawModel3d()));
-    bullets.forEach((b: TBullet) => {
+    sceneW.entity.add(...bullets.map((b: TBullet): TModel3d => b.model3d.model3d));
+    bullets.forEach((b: TBullet): void => {
       b.hit$.subscribe((hit: TCollisionCheckResult): void => {
         console.log('hit');
         createHitEffect(hit.collisionPoint, sceneW, lightService);
@@ -136,7 +137,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
       // TODO this should be updated only if coords or angle are changed
       if (isDefined(mouseLineIntersections.point)) {
-        const heroCoords: Vector3 = heroW.getPosition();
+        const heroCoords: Vector3 = heroW.drive.getPosition();
         const azimuth3d = get3DAzimuthRad(heroCoords, mouseLineIntersections.point);
         // eslint-disable-next-line functional/immutable-data
         fromHeroAngles.azimuth = azimuth3d.azimuth;

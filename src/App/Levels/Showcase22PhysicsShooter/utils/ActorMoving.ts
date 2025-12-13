@@ -1,8 +1,7 @@
 import { BehaviorSubject, combineLatest, map, Subject } from 'rxjs';
-import type { Vector3 } from 'three';
 
 import type { TActor, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService, TRadians } from '@/Engine';
-import { getAzimuthRadFromDirection, getElevationRadFromDirection, KeyCode } from '@/Engine';
+import { getMouseAzimuthAndElevation, KeyCode } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 type TMoveKeysState = { Forward: boolean; Left: boolean; Right: boolean; Backward: boolean };
@@ -32,14 +31,6 @@ export function startMoveActorWithKeyboard(actor: TActor, keyboardService: TKeyb
     // actor.drive.kinematic.setAngularSpeed(5);
     // actor.drive.kinematic.setAngularAzimuthRad(baseAzimuthRad);
   });
-}
-
-function getMouseAzimuthAndElevation(mousePosition: Vector3, playerPosition: Vector3): Readonly<{ azimuth: TRadians; elevation: TRadians }> {
-  const direction: Vector3 = mousePosition.clone().sub(playerPosition).normalize();
-  const azimuth: number = getAzimuthRadFromDirection(direction);
-  const elevation: number = getElevationRadFromDirection(direction);
-
-  return { azimuth, elevation };
 }
 
 function getActorMoveSpeed(keyStates: TMoveKeysState, forwardSpeed: number, sideWalkSpeed: number, backwardSped: number): number {
