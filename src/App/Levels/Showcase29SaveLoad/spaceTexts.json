@@ -23,15 +23,7 @@
         }
       }
     ],
-    "controls": [
-      {
-        "name": "orbit_controls",
-        "cameraName": "main",
-        "enableDamping": true,
-        "isActive": true,
-        "type": "OrbitControls"
-      }
-    ],
+    "controls": [],
     "envMaps": [],
     "fogs": [],
     "fsm": [],
@@ -117,7 +109,7 @@
         "cssProps": {
           "color": "#000000",
           "fontFamily": "\"RubikDoodleTriangles\", sans-serif",
-          "fontSize": "16rem"
+          "fontSize": "18rem"
         },
         "position": {
           "x": 0,
