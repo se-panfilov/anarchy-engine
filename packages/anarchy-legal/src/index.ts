@@ -9,6 +9,7 @@ export * from './Services';
 // TODO DESKTOP: LEGAL: Include legal docs in the build (desktop)
 // TODO DESKTOP: LEGAL: Include legal docs in the npm packages
 // TODO DESKTOP: LEGAL: Display EULA/License, etc via menu
+// TODO DESKTOP: LEGAL: Make template for LICENSE (and update the text)
 
 // TODO DESKTOP: LEGAL: make sure we're matching the following:
 //  - GDPR/UK-GDPR
