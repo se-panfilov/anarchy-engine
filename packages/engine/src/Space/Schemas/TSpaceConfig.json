@@ -21,6 +21,9 @@
     "version": {
       "$ref": "#/definitions/SpaceSchemaVersion"
     },
+    "settings": {
+      "$ref": "#/definitions/TSpaceSettings"
+    },
     "name": {
       "type": "string"
     },
@@ -8443,6 +8446,88 @@
     "SpaceSchemaVersion": {
       "type": "string",
       "enum": ["1.0.0", "2.0.0"]
+    },
+    "TSpaceSettings": {
+      "type": "object",
+      "properties": {
+        "loopsSettings": {
+          "$ref": "#/definitions/TOptional%3CTLoopsSettings%3E"
+        }
+      },
+      "required": ["loopsSettings"],
+      "additionalProperties": false
+    },
+    "TOptional<TLoopsSettings>": {
+      "type": "object",
+      "properties": {
+        "audioLoopStep": {
+          "type": "number"
+        },
+        "collisionsLoopStep": {
+          "type": "number"
+        },
+        "controlsLoopStep": {
+          "type": "number"
+        },
+        "intersectionsLoopStep": {
+          "type": "number"
+        },
+        "keyboardLoopStep": {
+          "type": "number"
+        },
+        "kinematicLoopStep": {
+          "type": "number"
+        },
+        "mouseLoopStep": {
+          "type": "number"
+        },
+        "physicsLoopStep": {
+          "type": "number"
+        },
+        "spatialLoopStep": {
+          "type": "number"
+        },
+        "textLoopStep": {
+          "type": "number"
+        },
+        "transformLoopStep": {
+          "type": "number"
+        },
+        "isAudioParallel": {
+          "type": "boolean"
+        },
+        "isCollisionsParallel": {
+          "type": "boolean"
+        },
+        "isControlsParallel": {
+          "type": "boolean"
+        },
+        "isIntersectionsParallel": {
+          "type": "boolean"
+        },
+        "isKeyboardParallel": {
+          "type": "boolean"
+        },
+        "isKinematicParallel": {
+          "type": "boolean"
+        },
+        "isMouseParallel": {
+          "type": "boolean"
+        },
+        "isPhysicsParallel": {
+          "type": "boolean"
+        },
+        "isSpatialParallel": {
+          "type": "boolean"
+        },
+        "isTextParallel": {
+          "type": "boolean"
+        },
+        "isTransformParallel": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
     }
   }
 }
