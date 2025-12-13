@@ -19,8 +19,8 @@ Roadmap:
 - 14.1.x GUI
 - 15.3.x Registries refactoring (explicitly register/not register entities)
 - 16.4.x Logging
-- 17.0.x Deletion (memory management)
-- 18.0.0 Multiple scenes full support (unload/load scenes)
+- 17.0.x Deletion and resource dispose (memory management)
+- 18.0.0 Multiple scenes full support (unload/load scenes one after another)
 - 19.0.x Split apps and engine (and add config for an app to setup engine)
 - 20.0.x Building app (desktop/mobile) (might be not a part of an engine)
 - 20.1.x Performance improvements (make sure actors, materials and env maps are async)
@@ -30,8 +30,6 @@ Roadmap:
 
 Global Refactoring:
 - feels like env map is not async at all (check for extra "await", and compare with vanilla env map loading)
-- "tags" should be optional everywhere
-- Simplify positions and rotations (and scale), should be Vector3 when possible, not a wrapper probably
 - Check if it makes sense to replace Rapier with Havok
 
 Bugs and issues:
