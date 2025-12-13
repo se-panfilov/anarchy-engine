@@ -6,7 +6,7 @@ import { ambientContext, buildLevelFromConfig, createCirclePathXZ, Easing, Euler
 
 import levelConfig from './showcase-7-text-2d.config.json';
 
-//Showcase 7: Fancy text
+//Showcase 7: Text 2d
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
   const { textFactory } = level.entities;
