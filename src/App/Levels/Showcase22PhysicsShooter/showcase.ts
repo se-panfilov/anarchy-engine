@@ -1,5 +1,5 @@
 import type { Intersection, Mesh, Object3D } from 'three';
-import { Box3, Vector3 } from 'three';
+import { Vector3 } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
 
 import type { TShowcase } from '@/App/Levels/Models';
@@ -21,13 +21,13 @@ import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
 import type { TBullet } from './utils';
-import { buildTower, cameraFollowingActor, createLine, getBulletsPool, initGridHelper, shoot, startMoveActorWithKeyboard, updateBullets } from './utils';
+import { buildTower, cameraFollowingActor, createLine, getBulletsPool, shoot, startMoveActorWithKeyboard, updateBullets } from './utils';
 
 export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { physicsLoopService, cameraService, actorService, loopService, mouseService, intersectionsWatcherService, physicsWorldService } = space.services;
+  const { physicsLoopService, cameraService, actorService, loopService, mouseService, intersectionsWatcherService } = space.services;
 
   async function init(): Promise<void> {
     // physicsWorldService.getDebugRenderer(loopService).start();
@@ -42,8 +42,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const surface: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('surface');
     if (isNotDefined(surface)) throw new Error(`Cannot find "surface" actor`);
 
-    const gridSize: Vector3 = new Box3().setFromObject(surface?.entity).getSize(new Vector3());
-    initGridHelper(actorService, gridSize.x, gridSize.z);
+    // const gridSize: Vector3 = new Box3().setFromObject(surface?.entity).getSize(new Vector3());
+    // initGridHelper(actorService, gridSize.x, gridSize.z);
 
     const blocks = await buildTower(actorService, { x: 0, z: 0 }, 10, 10, 20);
     // const blocks2 = await buildTower(actorService, { x: 20, z: 0 }, 5, 5, 15);
