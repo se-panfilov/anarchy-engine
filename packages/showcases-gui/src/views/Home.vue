@@ -23,7 +23,9 @@
     width: 100%;
     padding: 24px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    background-color: #ccc;
+    background-color: rgb(204 204 204 / 45%);
+    pointer-events: auto;
+    backdrop-filter: blur(2px);
 
     h1 {
       margin-bottom: 16px;
