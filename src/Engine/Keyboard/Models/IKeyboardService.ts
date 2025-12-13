@@ -9,4 +9,6 @@ export type IKeyboardService = {
   pauseKeyComboBinding: (combo: string) => void;
   resumeKeyBinding: (key: string) => void;
   resumeKeyComboBinding: (combo: string) => void;
+  isKeyPressed: (key: string) => boolean;
+  isKeyComboPressed: (combo: string) => boolean;
 };

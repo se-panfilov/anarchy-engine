@@ -1,4 +1,4 @@
-import { bindKey, bindKeyCombo, unbindKey, unbindKeyCombo } from '@rwh/keystrokes';
+import { bindKey, bindKeyCombo, checkKey, checkKeyCombo, unbindKey, unbindKeyCombo } from '@rwh/keystrokes';
 import { Subject } from 'rxjs';
 
 import type { IKeyboardRegistry, IKeyboardRegistryValues, IKeyboardService, IKeySubscription } from '@/Engine/Keyboard/Models';
@@ -76,6 +76,9 @@ export function KeyboardService(): IKeyboardService {
   const removeKeyBinding = (key: string): void => removeBinding(key, false);
   const removeKeyComboBinding = (key: string): void => removeBinding(key, true);
 
+  const isKeyPressed = (key: string): boolean => checkKey(key);
+  const isKeyComboPressed = (key: string): boolean => checkKeyCombo(key);
+
   return {
     onKey,
     onKeyCombo,
@@ -84,7 +87,9 @@ export function KeyboardService(): IKeyboardService {
     resumeKeyBinding,
     resumeKeyComboBinding,
     removeKeyBinding,
-    removeKeyComboBinding
+    removeKeyComboBinding,
+    isKeyPressed,
+    isKeyComboPressed
   };
 }
 
