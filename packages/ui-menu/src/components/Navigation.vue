@@ -20,7 +20,7 @@ withDefaults(
 
 <template>
   <div class="menu-navigation">
-    <ul class="menu-navigation__list flex flex-col gap-4 w-64">
+    <ul class="menu-navigation__list">
       <li v-for="option in options" :key="option.id" class="menu-navigation__list-item">
         <button type="button" class="menu-navigation__button" @click="option.action()">
           {{ option.label }}

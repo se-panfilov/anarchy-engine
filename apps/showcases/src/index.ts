@@ -1,5 +1,4 @@
 import '@/style.scss';
-import './tailwind.css';
 
 import { setBrowserSafeguards } from '@Engine';
 

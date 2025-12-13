@@ -33,11 +33,9 @@
     "rxjs": "7.8.2",
     "sanitize.css": "13.0.0",
     "stats.js": "0.17.0",
-    "tailwindcss": "4.1.11",
     "three-viewport-gizmo": "2.2.0"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "4.1.11",
     "@vitejs/plugin-vue": "6.0.1",
     "@vitejs/plugin-vue-jsx": "5.0.1",
     "sass-embedded": "1.89.2"

@@ -39,8 +39,8 @@ const navOptions: ReadonlyArray<TNavOption> = [
 </script>
 
 <template>
-  <div class="home flex flex-col items-center justify-center 10">
-    <h1 class="home__title text-5xl tracking-wider">Game title</h1>
+  <div class="home">
+    <h1 class="home__title">Game title</h1>
     <Navigation class="home__navigation" :options="navOptions" />
   </div>
 </template>
