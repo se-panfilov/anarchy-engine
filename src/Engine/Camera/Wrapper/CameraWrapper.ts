@@ -3,7 +3,7 @@ import { PerspectiveCamera, Vector3 } from 'three';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { ICameraAccessors, ICameraParams, ICameraWrapper, IPerspectiveCamera } from '@/Engine/Camera/Models';
 import { ambientContext } from '@/Engine/Context';
-import { adjustWthActive, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
+import { withActiveMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic';
 import type { IWriteable } from '@/Engine/Utils';
 import { applyObject3dParams, applyPosition, applyRotation, isDefined } from '@/Engine/Utils';
@@ -19,23 +19,23 @@ export function CameraWrapper(params: ICameraParams): ICameraWrapper {
   const { width, height } = ambientContext.screenSizeWatcher.latest$.value;
   accessors.setAspect(width / height);
 
-  const partialWrapper: Omit<ICameraWrapper, 'isActive' | '_setActive'> = {
+  const result = {
     ...AbstractWrapper(entity, WrapperType.Camera, params),
     ...accessors,
     entity,
     ...withMoveBy3dMixin(entity),
     ...withRotationByXyzMixin(entity),
     ...withObject3d(entity),
+    ...withActiveMixin,
     ...withTags(tags)
   };
 
-  const wrapper: ICameraWrapper = adjustWthActive(partialWrapper, params.isActive);
-
-  applyPosition(partialWrapper, params.position);
-  applyRotation(partialWrapper, params.rotation);
-  applyObject3dParams(partialWrapper, params);
+  applyPosition(result, params.position);
+  applyRotation(result, params.rotation);
+  applyObject3dParams(result, params);
+  result._setActive(params.isActive, true);
 
   if (isDefined(lookAt)) entity.lookAt(new Vector3(lookAt.entity.x, lookAt.entity.y, lookAt.entity.z));
 
-  return wrapper;
+  return result;
 }

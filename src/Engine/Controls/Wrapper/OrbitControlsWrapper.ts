@@ -4,7 +4,7 @@ import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { IOrbitControlsParams, IOrbitControlsWrapper } from '@/Engine/Controls/Models';
 import { getOrbitControlsAccessors } from '@/Engine/Controls/Wrapper/OrbitControlsAccessors';
 import { applyOrbitControlsParams } from '@/Engine/Controls/Wrapper/OrbitControlsWrapperHelper';
-import { adjustWthActive } from '@/Engine/Mixins';
+import { withActiveMixin } from '@/Engine/Mixins';
 import { isDefined } from '@/Engine/Utils';
 import type { IVector3Wrapper } from '@/Engine/Vector';
 import { Vector3Wrapper } from '@/Engine/Vector';
@@ -41,25 +41,25 @@ export function OrbitControlsWrapper(params: IOrbitControlsParams): IOrbitContro
     const z: number = currentDistance * Math.sin(currentPolarAngle) * Math.cos(currentAzimuthalAngle);
 
     params.camera.setPosition(Vector3Wrapper({ x: x + position.getX(), y: y + position.getY(), z: z + position.getZ() }));
-    wrapper.setTarget(position);
+    result.setTarget(position);
   }
 
-  const partialWrapper: Omit<IOrbitControlsWrapper, 'isActive' | '_setActive'> = {
+  const result = {
     ...AbstractWrapper(entity, WrapperType.Controls, params),
     update,
     enable,
     disable,
     isEnable,
     ...getOrbitControlsAccessors(entity),
+    ...withActiveMixin,
     moveToTargetSmoothly,
     entity
   };
 
-  const wrapper: IOrbitControlsWrapper = adjustWthActive(partialWrapper, params.isActive);
+  applyOrbitControlsParams(result, params);
+  result.enable();
+  result.update();
+  result._setActive(params.isActive, true);
 
-  applyOrbitControlsParams(wrapper, params);
-  partialWrapper.enable();
-  partialWrapper.update();
-
-  return wrapper;
+  return result;
 }

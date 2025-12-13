@@ -9,7 +9,7 @@ import { ColorWrapper } from '@/Engine/Color';
 import type { IDataTexture } from '@/Engine/EnvMap';
 import type { IFogWrapper } from '@/Engine/Fog';
 import type { IAbstractLightWrapper, ILight } from '@/Engine/Light';
-import { adjustWthActive, withObject3d } from '@/Engine/Mixins';
+import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
 import type { ISceneObject, ISceneParams, ISceneWrapper } from '@/Engine/Scene/Models';
 import type { ITextAnyWrapper } from '@/Engine/Text';
 import type { ICubeTexture, ITexture } from '@/Engine/Texture';
@@ -51,7 +51,7 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
 
   const getEnvironmentMap = (): ITexture | null => entity.environment;
 
-  const sceneWrapper: Omit<ISceneWrapper, 'isActive' | '_setActive'> = {
+  const result = {
     ...wrapper,
     addActor,
     addCamera,
@@ -63,8 +63,11 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
     setEnvironmentMap,
     getEnvironmentMap,
     ...withObject3d(entity),
+    ...withActiveMixin,
     entity
   };
 
-  return adjustWthActive(sceneWrapper, params.isActive);
+  result._setActive(params.isActive, true);
+
+  return result;
 }
