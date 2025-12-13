@@ -82,7 +82,7 @@
     "lights": [
       {
         "name": "ambient_light",
-        "color": "#ffffff",
+        "color": "#FFFFFF",
         "intensity": 0.5,
         "position": {
           "x": 0.25,
@@ -94,7 +94,7 @@
       {
         "name": "directional_light",
         "castShadow": true,
-        "color": "#ffffff",
+        "color": "#FFFFFF",
         "intensity": 1,
         "position": {
           "x": 0.25,

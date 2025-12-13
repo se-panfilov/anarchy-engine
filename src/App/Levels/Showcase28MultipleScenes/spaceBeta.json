@@ -63,7 +63,7 @@
     "lights": [
       {
         "name": "ambient_light",
-        "color": "#ffffff",
+        "color": "#FFFFFF",
         "intensity": 0.5,
         "position": {
           "x": 0.25,
@@ -159,7 +159,7 @@
       {
         "name": "some_3d_text",
         "cssProps": {
-          "color": "#ff0000",
+          "color": "#FF0000",
           "fontFamily": "\"Roboto\", sans-serif",
           "fontSize": "0.2rem"
         },
@@ -179,7 +179,7 @@
       {
         "name": "some_2d_text",
         "cssProps": {
-          "color": "#ff0000",
+          "color": "#FF0000",
           "fontFamily": "\"Roboto\", sans-serif",
           "fontSize": "1rem"
         },

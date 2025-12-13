@@ -106,7 +106,7 @@
     "lights": [
       {
         "name": "ambient_light",
-        "color": "#ffffff",
+        "color": "#FFFFFF",
         "intensity": 0.5,
         "position": {
           "x": 0.25,
@@ -118,7 +118,7 @@
       {
         "name": "directional_light",
         "castShadow": true,
-        "color": "#ffffff",
+        "color": "#FFFFFF",
         "intensity": 0.5,
         "position": {
           "x": 0.25,
@@ -150,21 +150,21 @@
       {
         "name": "red_material",
         "options": {
-          "color": "#ff0000"
+          "color": "#FF0000"
         },
         "type": "MeshStandardMaterial"
       },
       {
         "name": "green_material",
         "options": {
-          "color": "#00ff00"
+          "color": "#00FF00"
         },
         "type": "MeshStandardMaterial"
       },
       {
         "name": "blue_material",
         "options": {
-          "color": "#0000ff"
+          "color": "#0000FF"
         },
         "type": "MeshStandardMaterial"
       }
@@ -240,7 +240,7 @@
         "name": "plane_text",
         "agent": "connected",
         "cssProps": {
-          "color": "#ff0000",
+          "color": "#FF0000",
           "fontSize": "12px"
         },
         "position": {
@@ -261,7 +261,7 @@
         "name": "connected_text_1",
         "agent": "connected",
         "cssProps": {
-          "color": "#00ff00",
+          "color": "#00FF00",
           "fontSize": "12px"
         },
         "position": {
@@ -282,7 +282,7 @@
         "name": "connected_text_2",
         "agent": "connected",
         "cssProps": {
-          "color": "#0000ff",
+          "color": "#0000FF",
           "fontSize": "12px"
         },
         "position": {

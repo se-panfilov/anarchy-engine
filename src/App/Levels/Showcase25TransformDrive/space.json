@@ -124,7 +124,7 @@
     "lights": [
       {
         "name": "ambient_light",
-        "color": "#ffffff",
+        "color": "#FFFFFF",
         "intensity": 0.01,
         "position": {
           "x": 0.25,
@@ -135,7 +135,7 @@
       },
       {
         "castShadow": false,
-        "color": "#ff0000",
+        "color": "#FF0000",
         "decay": 1,
         "distance": 1,
         "intensity": 100,
@@ -150,7 +150,7 @@
       {
         "name": "directional_light",
         "castShadow": true,
-        "color": "#ffffff",
+        "color": "#FFFFFF",
         "intensity": 0.5,
         "position": {
           "x": 0.25,
@@ -310,7 +310,7 @@
     "texts": [
       {
         "cssProps": {
-          "color": "#ff0000",
+          "color": "#FF0000",
           "fontFamily": "\"Roboto\", sans-serif",
           "fontSize": "0.1rem"
         },

@@ -54,7 +54,7 @@
     "texts": [
       {
         "cssProps": {
-          "color": "#0000ff",
+          "color": "#0000FF",
           "fontFamily": "\"LongCang\", sans-serif",
           "fontSize": "4rem"
         },
@@ -74,7 +74,7 @@
       },
       {
         "cssProps": {
-          "color": "#00ff00",
+          "color": "#00FF00",
           "fontFamily": "\"RubikScribble\", sans-serif",
           "fontSize": "0.2rem"
         },

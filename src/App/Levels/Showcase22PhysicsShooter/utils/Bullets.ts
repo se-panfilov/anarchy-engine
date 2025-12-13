@@ -218,7 +218,7 @@ export function createHitEffect(position: Vector3, sceneW: TSceneWrapper, lightS
 
   const particleSystem = new Points(particles, material);
 
-  const lightW: TPointLightWrapper = createFlashLight(lightService, position, new Color('#ff0000'), 100, 50);
+  const lightW: TPointLightWrapper = createFlashLight(lightService, position, new Color('#FF0000'), 100, 50);
 
   sceneW.entity.add(particleSystem);
   // TODO setTimeout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)

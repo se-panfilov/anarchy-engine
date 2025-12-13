@@ -83,8 +83,8 @@
     "lights": [
       {
         "name": "hemisphere_light",
-        "color": "#9999ff",
-        "groundColor": "#ff007b",
+        "color": "#9999FF",
+        "groundColor": "#FF007B",
         "intensity": 1,
         "position": {
           "x": 0.25,

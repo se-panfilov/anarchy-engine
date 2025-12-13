@@ -436,7 +436,7 @@
       {
         "name": "directional_light",
         "castShadow": true,
-        "color": "#ffffff",
+        "color": "#FFFFFF",
         "intensity": 0,
         "position": {
           "x": -14,
@@ -459,8 +459,8 @@
       },
       {
         "name": "hemisphere_light",
-        "color": "#9999ff",
-        "groundColor": "#ff007b",
+        "color": "#9999FF",
+        "groundColor": "#FF007B",
         "intensity": 1,
         "position": {
           "x": 0.25,
@@ -472,7 +472,7 @@
       },
       {
         "name": "rect_area_light",
-        "color": "#0000ff",
+        "color": "#0000FF",
         "height": 3,
         "intensity": 0,
         "position": {
@@ -487,7 +487,7 @@
       {
         "name": "point_light",
         "castShadow": true,
-        "color": "#00ff00",
+        "color": "#00FF00",
         "decay": 4.5,
         "distance": 23,
         "intensity": 14,
@@ -513,7 +513,7 @@
         "name": "spot_light",
         "angle": 45,
         "castShadow": true,
-        "color": "#01dede",
+        "color": "#01DEDE",
         "decay": 2,
         "distance": 57,
         "intensity": 41,

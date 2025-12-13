@@ -104,7 +104,7 @@
     "lights": [
       {
         "name": "ambient_light",
-        "color": "#ffffff",
+        "color": "#FFFFFF",
         "groundColor": "#8D8D8D",
         "intensity": 3,
         "position": {

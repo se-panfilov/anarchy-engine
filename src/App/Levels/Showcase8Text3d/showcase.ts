@@ -48,7 +48,7 @@ export function showcase(space: TSpace): void {
     cssProps: {
       color: '#000000',
       fontSize: '0.2rem',
-      backgroundColor: '#ff0000',
+      backgroundColor: '#FF0000',
       fontFamily: '"RubikDoodleTriangles", sans-serif'
     }
   });
@@ -74,7 +74,7 @@ export function showcase(space: TSpace): void {
     position: new Vector3(-5, 12, 6),
     rotation: new Euler(-1.57, 0, 0),
     cssProps: {
-      color: '#ff0000',
+      color: '#FF0000',
       fontSize: '0.2rem',
       fontFamily: '"RubikScribble", sans-serif'
     }
@@ -88,7 +88,7 @@ export function showcase(space: TSpace): void {
     rotation: new Euler(-1.57, 0, 0),
     agent: TransformAgent.Connected,
     cssProps: {
-      color: '#ff0000',
+      color: '#FF0000',
       fontSize: '0.2rem',
       fontFamily: '"LongCang", sans-serif'
     }
@@ -102,7 +102,7 @@ export function showcase(space: TSpace): void {
     rotation: new Euler(-1.57, 0, 0),
     agent: TransformAgent.Connected,
     cssProps: {
-      color: '#ff0000',
+      color: '#FF0000',
       fontSize: '0.2rem',
       fontFamily: '"VarelaRound", sans-serif'
     }

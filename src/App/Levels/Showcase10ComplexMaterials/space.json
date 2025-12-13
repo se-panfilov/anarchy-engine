@@ -440,7 +440,7 @@
     "intersections": [],
     "lights": [
       {
-        "color": "#ffffff",
+        "color": "#FFFFFF",
         "intensity": 0.5,
         "name": "ambient_light",
         "position": {
@@ -452,7 +452,7 @@
       },
       {
         "castShadow": true,
-        "color": "#ffffff",
+        "color": "#FFFFFF",
         "intensity": 0.5,
         "name": "directional_light",
         "position": {

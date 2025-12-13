@@ -43,7 +43,7 @@
       {
         "name": "directional_light",
         "castShadow": true,
-        "color": "#ffffff",
+        "color": "#FFFFFF",
         "intensity": 1,
         "position": {
           "x": 0.25,
