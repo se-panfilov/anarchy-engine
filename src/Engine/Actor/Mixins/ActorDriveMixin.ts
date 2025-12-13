@@ -14,7 +14,7 @@ import type { TPhysicsActorDriver } from '@/Engine/Physics';
 import { PhysicsActorDriver } from '@/Engine/Physics';
 
 export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: Pick<TActorDependencies, 'kinematicLoopService'>): TActorDriveMixin {
-  //We don't want to use BehaviorSubject here, because it's vulnerable to external changes without .next()
+  //We don't want to expose these BehaviorSubjects, because they're vulnerable to external changes without .next()
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
   const positionRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
   const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(params.rotation);
@@ -34,19 +34,22 @@ export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: 
   const destroyable: TDestroyable = destroyableMixin();
   const availableDrives: TActorActiveDrivers = { [ActorDriver.Kinematic]: kinematicDriver, [ActorDriver.Physical]: physicsDriver };
 
+  const delay: number = params.driveUpdateDelay ?? 16; // 60 FPS
+  const threshold: number = params.driveCoordsThreshold ?? 0.001;
+
   const positionSub$: Subscription = driver$
     .pipe(
       switchMap((drive: ActorDriver): Observable<Vector3> => availableDrives[drive as keyof TActorActiveDrivers].position$),
-      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilar(prev, curr, coordsTreshold)),
-      sampleTime(updateDelay)
+      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilar(prev, curr, threshold)),
+      sampleTime(delay)
     )
     .subscribe(position$);
 
   const rotationSub$: Subscription = driver$
     .pipe(
       switchMap((drive: ActorDriver): Observable<Euler> => availableDrives[drive as keyof TActorActiveDrivers].rotation$),
-      distinctUntilChanged((prev: Euler, curr: Euler): boolean => isEqualOrSimilar(prev, curr, coordsTreshold)),
-      sampleTime(updateDelay)
+      distinctUntilChanged((prev: Euler, curr: Euler): boolean => isEqualOrSimilar(prev, curr, threshold)),
+      sampleTime(delay)
     )
     .subscribe(rotation$);
 
@@ -54,8 +57,8 @@ export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: 
     .pipe(
       switchMap((drive: ActorDriver): Observable<Vector3 | undefined> => availableDrives[drive as keyof TActorActiveDrivers].scale$),
       filter((value: Vector3 | undefined): value is Vector3 => value !== undefined),
-      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilar(prev, curr, coordsTreshold)),
-      sampleTime(updateDelay)
+      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilar(prev, curr, threshold)),
+      sampleTime(delay)
     )
     .subscribe(scale$);
 
