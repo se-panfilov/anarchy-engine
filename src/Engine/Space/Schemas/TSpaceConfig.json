@@ -207,7 +207,9 @@
         },
         "fsm": {
           "type": "array",
-          "items": {}
+          "items": {
+            "$ref": "#/definitions/TFsmConfig"
+          }
         },
         "texts": {
           "type": "array",
@@ -2245,6 +2247,56 @@
         }
       },
       "required": ["color"]
+    },
+    "TFsmConfig": {
+      "$ref": "#/definitions/TFsmParams"
+    },
+    "TFsmParams": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "initial": {
+          "$ref": "#/definitions/TFsmStates"
+        },
+        "transitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "0": {
+                "$ref": "#/definitions/TFsmStates"
+              },
+              "1": {
+                "$ref": "#/definitions/TFsmEvents"
+              },
+              "2": {
+                "$ref": "#/definitions/TFsmStates"
+              }
+            },
+            "required": ["0", "1", "2"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["initial", "transitions", "type"]
+    },
+    "TFsmStates": {
+      "type": ["string", "number"]
+    },
+    "TFsmEvents": {
+      "type": ["string", "number"]
     },
     "TTextConfig": {
       "type": "object",

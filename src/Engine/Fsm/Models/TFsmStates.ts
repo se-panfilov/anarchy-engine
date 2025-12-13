@@ -1,1 +1,1 @@
-export type TFsmStates = string | number | symbol;
+export type TFsmStates = string | number;
