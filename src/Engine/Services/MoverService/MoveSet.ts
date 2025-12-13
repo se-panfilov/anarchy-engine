@@ -22,6 +22,7 @@ export const byPathMove: IMoveByPathFn = ({ actor, path, animationParams, comple
     keyframes: path,
     ...defaultAnimationParams,
     ...animationParams,
+    complete,
     easing: Easing.Linear,
     autoplay: false
   });
@@ -31,7 +32,6 @@ export const byPathMove: IMoveByPathFn = ({ actor, path, animationParams, comple
     progress: [0, 100],
     easing: animationParams.easing,
     duration: animationParams.duration,
-    complete,
     update: () => baseAnimation.seek(baseAnimation.duration * (baseAnimation.progress / 100))
   });
 };
