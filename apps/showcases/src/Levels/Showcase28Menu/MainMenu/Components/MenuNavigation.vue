@@ -3,6 +3,8 @@ import { useMenuRouterStore } from '@/Levels/Showcase28Menu/MainMenu/Stores/Menu
 import { MenuRoutes } from '@/Levels/Showcase28Menu/MainMenu/Constants';
 import { closeMainMenu } from '@/Levels/Showcase28Menu/MainMenuService';
 
+// TODO DESKTOP: test i18n (for desktop also)
+
 const menuRouterStore = useMenuRouterStore();
 </script>
 

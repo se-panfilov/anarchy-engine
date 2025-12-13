@@ -1,9 +1,3 @@
-<script setup lang="ts">
-console.log('Home view');
-</script>
-
 <template>
-  <div>Home View</div>
+  <div class="main-menu-home">...</div>
 </template>
-
-<style scoped></style>

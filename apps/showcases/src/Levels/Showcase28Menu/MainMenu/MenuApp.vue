@@ -4,6 +4,8 @@ import MenuNavigation from '@/Levels/Showcase28Menu/MainMenu/Components/MenuNavi
 </script>
 
 <template>
-  <MenuNavigation />
-  <MenuRouterView />
+  <div class="main-menu">
+    <MenuNavigation class="main-menu__navigation" />
+    <MenuRouterView class="main-menu__view" />
+  </div>
 </template>
