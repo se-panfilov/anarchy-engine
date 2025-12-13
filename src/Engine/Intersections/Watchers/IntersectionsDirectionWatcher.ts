@@ -7,6 +7,7 @@ import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import { Vector3 } from 'three/src/math/Vector3';
 
 import type { TActor } from '@/Engine/Actor';
+import type { TContainerDecorator } from '@/Engine/Global';
 import type { TAbstractIntersectionsWatcher, TIntersectionEvent, TIntersectionsDirectionWatcher, TIntersectionsDirectionWatcherParams } from '@/Engine/Intersections/Models';
 import { getChangedOriginAndDirection } from '@/Engine/Intersections/Utils';
 import { AbstractIntersectionsWatcher } from '@/Engine/Intersections/Watchers/AbstractIntersectionsWatcher';
@@ -68,7 +69,7 @@ export function IntersectionsDirectionWatcher(params: TIntersectionsDirectionWat
     return new Vector3(target.x - origin.x, target.y - origin.y, target.z - origin.z).normalize();
   }
 
-  function _debugGetRayVisualizationLine(length: number = 100, color: ColorRepresentation = 0xff0000, lineWidth: number = 1): Line2 {
+  function _debugGetRayVisualizationLine(container: TContainerDecorator, length: number = 100, color: ColorRepresentation = 0xff0000, lineWidth: number = 1): Line2 {
     const points: Array<number> = [
       origin$.value.x,
       origin$.value.y,
@@ -83,12 +84,12 @@ export function IntersectionsDirectionWatcher(params: TIntersectionsDirectionWat
 
     const material = new LineMaterial({
       color,
-      linewidth: lineWidth, // in world units
+      linewidth: lineWidth,
       dashed: false,
       transparent: true
     });
 
-    material.resolution.set(window.innerWidth, window.innerHeight); // VERY important
+    material.resolution.set(container.getWidth(), container.getHeight());
 
     const line = new Line2(geometry, material);
     line.computeLineDistances();
