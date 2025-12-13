@@ -8,6 +8,7 @@ interface ViteTypeOptions {
 
 interface ImportMetaEnv {
   VITE_SENTRY_DSN: string | undefined;
+  VITE_RELEASE_NAME_PREFIX: string;
 }
 
 interface ImportMeta {
