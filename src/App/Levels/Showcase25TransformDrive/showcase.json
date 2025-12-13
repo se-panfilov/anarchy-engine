@@ -61,13 +61,28 @@
         "rotation": { "x": -1.57, "y": 0, "z": 0 }
       },
       {
-        "name": "box_model",
+        "name": "box_model_1",
         "model3dSource": "cube",
         "materialSource": "surface_material",
         "options": {
           "width": 20,
           "height": 20,
           "depth": 2,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": true,
+        "receiveShadow": true,
+        "position": { "x": 0, "y": 0, "z": -20 }
+      },
+      {
+        "name": "box_model_2",
+        "model3dSource": "cube",
+        "materialSource": "surface_material",
+        "options": {
+          "width": 2,
+          "height": 2,
+          "depth": 40,
           "widthSegments": 1,
           "heightSegments": 1
         },
@@ -94,8 +109,8 @@
         "spatial": { "grid": "main_grid", "isAutoUpdate": true }
       },
       {
-        "name": "box_actor",
-        "model3dSource": "box_model",
+        "name": "box_actor_1",
+        "model3dSource": "box_model_1",
         "agent": "physical",
         "physics": {
           "presetName": "wall_physics",
@@ -106,6 +121,22 @@
           }
         },
         "position": { "x": 0, "y": 1, "z": -20 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true }
+      },
+      {
+        "name": "box_actor_2",
+        "model3dSource": "box_model_2",
+        "agent": "physical",
+        "physics": {
+          "presetName": "wall_physics",
+          "shapeParams": {
+            "hx": 1,
+            "hy": 1,
+            "hz": 20
+          }
+        },
+        "position": { "x": 20, "y": 20, "z": -10 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": true }
       }

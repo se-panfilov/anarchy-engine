@@ -109,11 +109,13 @@ export function startIntersections({ actorService, cameraService, intersectionsW
   const camera: TCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(camera)) throw new Error('Camera is not defined');
   const surfaceActor: TActor | undefined = actorService.getRegistry().findByName('surface_actor');
-  if (isNotDefined(surfaceActor)) throw new Error('Actor is not defined');
-  const boxActor: TActor | undefined = actorService.getRegistry().findByName('box_actor');
-  if (isNotDefined(boxActor)) throw new Error('Actor is not defined');
+  if (isNotDefined(surfaceActor)) throw new Error('Actor "surface_actor" is not defined');
+  const boxActor1: TActor | undefined = actorService.getRegistry().findByName('box_actor_1');
+  if (isNotDefined(boxActor1)) throw new Error('Actor "box_actor_1" is not defined');
+  const boxActor2: TActor | undefined = actorService.getRegistry().findByName('box_actor_2');
+  if (isNotDefined(boxActor2)) throw new Error('Actor "box_actor_2" is not defined');
 
-  return intersectionsWatcherService.create({ actors: [surfaceActor, boxActor], camera, isAutoStart: true, position$: mouseService.position$ });
+  return intersectionsWatcherService.create({ actors: [surfaceActor, boxActor1, boxActor2], camera, isAutoStart: true, position$: mouseService.position$ });
 }
 
 export function changeActorActiveAgent(actor: TActor, key: KeyCode | KeysExtra, keyboardService: TKeyboardService): Subscription {
