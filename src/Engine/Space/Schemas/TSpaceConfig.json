@@ -298,6 +298,9 @@
         "physics": {
           "$ref": "#/definitions/TWithPresetNamePhysicsBodyConfig"
         },
+        "kinematic": {
+          "$ref": "#/definitions/TKinematicConfig"
+        },
         "spatial": {
           "$ref": "#/definitions/TSpatialDataConfig"
         },
@@ -1015,6 +1018,106 @@
       },
       "required": ["halfHeight", "radius", "borderRadius"],
       "additionalProperties": false
+    },
+    "TKinematicConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "isAutoUpdate": {
+          "type": "boolean"
+        },
+        "state": {
+          "$ref": "#/definitions/TKinematicConfigState"
+        },
+        "target": {
+          "$ref": "#/definitions/TKinematicConfigTarget"
+        }
+      },
+      "required": ["isAutoUpdate"]
+    },
+    "TKinematicConfigState": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "linearDirection": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "angularDirection": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "linearSpeed": {
+          "$ref": "#/definitions/TMetersPerSecond"
+        },
+        "radius": {
+          "$ref": "#/definitions/TMeters"
+        },
+        "angularSpeed": {
+          "$ref": "#/definitions/TRadiansPerSecond"
+        },
+        "forwardAxis": {
+          "$ref": "#/definitions/ForwardAxis"
+        },
+        "isInfiniteRotation": {
+          "type": "boolean"
+        }
+      },
+      "required": ["angularDirection", "angularSpeed", "forwardAxis", "isInfiniteRotation", "linearDirection", "linearSpeed", "radius"]
+    },
+    "TMetersPerSecond": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number",
+          "const": 0
+        }
+      ]
+    },
+    "TMeters": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number",
+          "const": 0
+        }
+      ]
+    },
+    "TRadiansPerSecond": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number",
+          "const": 0
+        }
+      ]
+    },
+    "ForwardAxis": {
+      "type": "string",
+      "enum": ["X", "Z"]
+    },
+    "TKinematicConfigTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "position": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "rotation": {
+          "$ref": "#/definitions/QuaternionLike"
+        },
+        "positionThreshold": {
+          "type": "number"
+        },
+        "rotationThreshold": {
+          "type": "number"
+        }
+      },
+      "required": ["positionThreshold", "rotationThreshold"]
     },
     "TSpatialDataConfig": {
       "type": "object",
@@ -2013,17 +2116,6 @@
       },
       "additionalProperties": false
     },
-    "TMeters": {
-      "anyOf": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "number",
-          "const": 0
-        }
-      ]
-    },
     "Layers": {
       "type": "object",
       "properties": {
@@ -2534,95 +2626,6 @@
         }
       },
       "required": ["name", "position", "text", "type"]
-    },
-    "TKinematicConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "isAutoUpdate": {
-          "type": "boolean"
-        },
-        "state": {
-          "$ref": "#/definitions/TKinematicConfigState"
-        },
-        "target": {
-          "$ref": "#/definitions/TKinematicConfigTarget"
-        }
-      },
-      "required": ["isAutoUpdate"]
-    },
-    "TKinematicConfigState": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "linearDirection": {
-          "$ref": "#/definitions/Vector3Like"
-        },
-        "angularDirection": {
-          "$ref": "#/definitions/Vector3Like"
-        },
-        "linearSpeed": {
-          "$ref": "#/definitions/TMetersPerSecond"
-        },
-        "radius": {
-          "$ref": "#/definitions/TMeters"
-        },
-        "angularSpeed": {
-          "$ref": "#/definitions/TRadiansPerSecond"
-        },
-        "forwardAxis": {
-          "$ref": "#/definitions/ForwardAxis"
-        },
-        "isInfiniteRotation": {
-          "type": "boolean"
-        }
-      },
-      "required": ["angularDirection", "angularSpeed", "forwardAxis", "isInfiniteRotation", "linearDirection", "linearSpeed", "radius"]
-    },
-    "TMetersPerSecond": {
-      "anyOf": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "number",
-          "const": 0
-        }
-      ]
-    },
-    "TRadiansPerSecond": {
-      "anyOf": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "number",
-          "const": 0
-        }
-      ]
-    },
-    "ForwardAxis": {
-      "type": "string",
-      "enum": ["X", "Z"]
-    },
-    "TKinematicConfigTarget": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "position": {
-          "$ref": "#/definitions/Vector3Like"
-        },
-        "rotation": {
-          "$ref": "#/definitions/QuaternionLike"
-        },
-        "positionThreshold": {
-          "type": "number"
-        },
-        "rotationThreshold": {
-          "type": "number"
-        }
-      },
-      "required": ["positionThreshold", "rotationThreshold"]
     },
     "TextType": {
       "type": "string",
