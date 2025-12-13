@@ -1,10 +1,12 @@
 import Ajv from 'ajv';
 
+import type { TAbstractResourceConfig } from '@/Engine/Abstract';
 import type { TActorConfig } from '@/Engine/Actor';
 import type { TCameraConfig } from '@/Engine/Camera';
 import type { TControlsConfig } from '@/Engine/Controls';
 import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
-import type { TModel3dConfig } from '@/Engine/Models3d';
+import type { TModel3dResourceConfig } from '@/Engine/Models3d';
+import { isPrimitiveModel3dResourceConfig } from '@/Engine/Models3d';
 import type { TPhysicsPresetConfig, TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
 import type { TSceneConfig } from '@/Engine/Scene/Models';
 import { SpaceSchemaVersion } from '@/Engine/Space/Constants';
@@ -32,8 +34,7 @@ function validateJsonSchema(config: TSpaceConfig): TSchemaValidationResult {
 }
 
 function validateData({ name, version, scenes, resources, entities, tags }: TSpaceConfig): TSchemaValidationResult {
-  const { models3d } = resources;
-  // TODO 9.0.0. RESOURCES: Where is the validation of material and envConfig? No? Implement!
+  const { models3d, envMaps, materials, textures } = resources;
   const { actors, cameras, spatialGrids, controls, intersections, lights, fogs, texts, physics } = entities;
 
   let errors: ReadonlyArray<string> = [];
@@ -85,9 +86,14 @@ function validateData({ name, version, scenes, resources, entities, tags }: TSpa
   const isEveryTextTagsValid: boolean = validateTagsForEveryEntity(texts);
   const isEveryControlsTagsValid: boolean = validateTagsForEveryEntity(controls);
   const isEveryModels3dTagsValid: boolean = validateTagsForEveryEntity(models3d);
+  const isEveryMaterialTagsValid: boolean = validateTagsForEveryEntity(materials);
+  const isEveryEnvMapsTagsValid: boolean = validateTagsForEveryEntity(envMaps);
+  const isEveryTextureTagsValid: boolean = validateTagsForEveryEntity(textures);
 
   //urls
-  const isEveryModels3dUrlValid: boolean = validateFileUrls(models3d);
+  const isEveryModels3dUrlValid: boolean = validateModel3dFileUrls(models3d);
+  const isEveryEnvMapsUrlValid: boolean = validateFileUrls(envMaps);
+  const isEveryTextureUrlValid: boolean = validateFileUrls(textures);
 
   //Adding errors
   if (isSupportedVersion) errors = [...errors, `Unsupported schema's version(${version}). Supported version is: ${SpaceSchemaVersion.V2}`];
@@ -126,9 +132,14 @@ function validateData({ name, version, scenes, resources, entities, tags }: TSpa
   if (!isEveryTextTagsValid) errors = [...errors, 'Text tags must contain only letters, numbers and underscores'];
   if (!isEveryControlsTagsValid) errors = [...errors, 'Controls tags must contain only letters, numbers and underscores'];
   if (!isEveryModels3dTagsValid) errors = [...errors, 'Models3d tags must contain only letters, numbers and underscores'];
+  if (!isEveryMaterialTagsValid) errors = [...errors, 'Materials tags must contain only letters, numbers and underscores'];
+  if (!isEveryEnvMapsTagsValid) errors = [...errors, 'EnvMaps tags must contain only letters, numbers and underscores'];
+  if (!isEveryTextureTagsValid) errors = [...errors, 'Textures tags must contain only letters, numbers and underscores'];
 
   //urls
   if (!isEveryModels3dUrlValid) errors = [...errors, 'Models3d urls must contain only valid characters (a normal path to a file)'];
+  if (!isEveryEnvMapsUrlValid) errors = [...errors, 'EnvMaps urls must contain only valid characters (a normal path to a file)'];
+  if (!isEveryTextureUrlValid) errors = [...errors, 'Textures urls must contain only valid characters (a normal path to a file)'];
 
   //presets
   if (!isAllActorsHasPhysicsPreset) errors = [...errors, 'Not every actor has a defined physics preset (check actors presetName against physics presets names)'];
@@ -172,11 +183,15 @@ function validateAllActorsHasPhysicsPreset(actors: ReadonlyArray<TActorConfig>, 
   });
 }
 
-function validateFileUrls(models3d: ReadonlyArray<TModel3dConfig>): boolean {
-  return models3d.every((model3d: TModel3dConfig): boolean => {
-    if (isPrimitive(model3d)) return true;
-    return validateFileUrl(model3d.url);
+function validateModel3dFileUrls(configs: ReadonlyArray<TModel3dResourceConfig>): boolean {
+  return configs.every((config: TModel3dResourceConfig): boolean => {
+    if (isPrimitiveModel3dResourceConfig(config)) return true;
+    return validateFileUrl(config.url);
   });
+}
+
+function validateFileUrls(configs: ReadonlyArray<TAbstractResourceConfig>): boolean {
+  return configs.every(({ url }: TAbstractResourceConfig): boolean => validateFileUrl(url));
 }
 
 function validateFileUrl(url: string): boolean {

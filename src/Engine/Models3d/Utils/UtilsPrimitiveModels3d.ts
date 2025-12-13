@@ -4,8 +4,7 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TMaterials, TMaterialWrapper } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
-import type { TModel3dConfig, TModel3dParams } from '@/Engine/Models3d';
-import { PrimitiveModel3dType } from '@/Engine/Models3d';
+import type { PrimitiveModel3dType, TModel3dConfig, TModel3dParams, TModel3dResourceConfig } from '@/Engine/Models3d';
 import type { TBoxGeometryProps, TPlaneGeometryProps, TSphereGeometryProps } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -41,6 +40,7 @@ function createCube({ width, height, depth, widthSegments, heightSegments, depth
   return new Mesh(new BoxGeometry(w, h, d, widthSegments, heightSegments, depthSegments), material);
 }
 
+export const isPrimitiveModel3dResourceConfig = (params: TModel3dResourceConfig): boolean => isPrimitiveModel3dSource(params.url);
 export const isPrimitiveModel3dData = (params: TModel3dConfig | TModel3dParams): boolean => isPrimitiveModel3dSource(params.model3dSource);
 export const isPrimitiveModel3dSource = (model3dSource: Group | Mesh | Object3D | GLTF | PrimitiveModel3dType | string): model3dSource is PrimitiveModel3dType =>
   [...Object.values(PrimitiveModel3dType)].includes(model3dSource as PrimitiveModel3dType);
