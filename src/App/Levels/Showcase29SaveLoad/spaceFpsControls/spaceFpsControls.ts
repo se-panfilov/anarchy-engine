@@ -10,7 +10,7 @@ import spaceConfig from './spaceFpsControls.json';
 
 const config: TSpaceConfig = spaceConfig as TSpaceConfig;
 
-export const SpaceFpsControlsData: TSpacesData = {
+export const spaceFpsControlsData: TSpacesData = {
   name: config.name,
   config: config,
   container: getContainer(config.canvasSelector),

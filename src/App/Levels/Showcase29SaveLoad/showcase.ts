@@ -6,10 +6,10 @@ import type { Subscription } from 'rxjs';
 import { spaceBasicData } from '@/App/Levels/Showcase29SaveLoad/spaceBasic/spaceBasic';
 import { spaceCameraData } from '@/App/Levels/Showcase29SaveLoad/spaceCamera';
 import { spaceCustomModelsData } from '@/App/Levels/Showcase29SaveLoad/spaceCustomModels';
-import { SpaceFpsControlsData } from '@/App/Levels/Showcase29SaveLoad/spaceFpsControls';
+import { spaceFpsControlsData } from '@/App/Levels/Showcase29SaveLoad/spaceFpsControls';
 import { spaceLightData } from '@/App/Levels/Showcase29SaveLoad/spaceLight/spaceLight';
 import { spaceMaterialsData } from '@/App/Levels/Showcase29SaveLoad/spaceMaterials';
-import { SpaceOrbitControlsData } from '@/App/Levels/Showcase29SaveLoad/spaceOrbitControls';
+import { spaceOrbitControlsData } from '@/App/Levels/Showcase29SaveLoad/spaceOrbitControls';
 import { spaceTextData } from '@/App/Levels/Showcase29SaveLoad/spaceTexts';
 import { addBtn, addDropdown } from '@/App/Levels/Utils';
 import type { TSpace, TSpaceConfig, TSpaceRegistry } from '@/Engine';
@@ -39,8 +39,8 @@ const spacesData: ReadonlyArray<TSpacesData> = [
   spaceCameraData,
   spaceLightData,
   spaceMaterialsData,
-  SpaceOrbitControlsData,
-  SpaceFpsControlsData
+  spaceOrbitControlsData,
+  spaceFpsControlsData
 ];
 
 const spacesInMemoryData: Array<TSpacesData> = [];
