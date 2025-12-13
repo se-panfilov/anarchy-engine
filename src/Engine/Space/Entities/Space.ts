@@ -9,13 +9,15 @@ import type { TSceneWrapper } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
 import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
 import type { TSpace, TSpaceBaseServices, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceServices } from '@/Engine/Space/Models';
-import { buildBaseServices, buildEntitiesServices, createEntities, getActiveScene } from '@/Engine/Space/Utils';
+import { buildBaseServices, buildEntitiesServices, createEntities } from '@/Engine/Space/Utils';
 import { createLoops } from '@/Engine/Space/Utils/CreateLoopsUtils';
-import { isDefined, isDestroyable } from '@/Engine/Utils';
+import { isDefined, isDestroyable, isNotDefined } from '@/Engine/Utils';
 
-export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
+export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace | never {
   const { canvas, version, name, tags } = params;
   const built$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  screenService.setCanvas(params.canvas);
 
   const { services, loops } = initSpaceServices(params);
   hooks?.afterAllServicesInitialized?.(canvas, services, loops, params);
@@ -57,12 +59,17 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
 
 // TODO 13-0-0: Find a better place for this function
 function initSpaceServices(params: TSpaceParams, hooks?: TSpaceHooks): { services: TSpaceServices; loops: TSpaceLoops } {
-  screenService.setCanvas(params.canvas);
   hooks?.beforeBaseServicesBuilt?.(params.canvas, params);
   const baseServices: TSpaceBaseServices = buildBaseServices();
-  const sceneW: TSceneWrapper = getActiveScene(params.name, baseServices.scenesService);
+
+  baseServices.scenesService.createFromList(params.scenes);
+  const sceneW: TSceneWrapper | undefined = baseServices.scenesService.findActive();
+  if (isNotDefined(sceneW)) throw new Error(`Cannot find an active scene for space "${params.name}" during space's services initialization.`);
+
+  // TODO create loops only from config
   hooks?.beforeLoopsCreated?.(params);
   const loops: TSpaceLoops = createLoops(baseServices.loopService);
+
   hooks?.beforeEntitiesServicesBuilt?.(params.canvas, params);
   const services: TSpaceServices = buildEntitiesServices(sceneW, params.canvas, loops, baseServices);
 

@@ -30,7 +30,7 @@ import { ParticlesFactory, ParticlesRegistry, ParticlesService } from '@/Engine/
 import type { TPhysicsBodyService, TPhysicsPresetsService, TPhysicsWorldService } from '@/Engine/Physics';
 import { PhysicsBodyFactory, PhysicsBodyRegistry, PhysicsBodyService, PhysicsPresetRegistry, PhysicsPresetsService, PhysicsWorldService } from '@/Engine/Physics';
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
-import type { TSceneConfig, TScenesService, TSceneWrapper } from '@/Engine/Scene';
+import type { TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
 import type { TSpaceBaseServices, TSpaceLoops, TSpaceServices } from '@/Engine/Space/Models';
 import type { TSpatialGridService } from '@/Engine/Spatial';
@@ -39,23 +39,6 @@ import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererR
 import type { TTextureService } from '@/Engine/Texture';
 import { TextureService } from '@/Engine/Texture';
 import { TextureAsyncRegistry } from '@/Engine/Texture/Registries/TextureAsyncRegistry';
-import { isNotDefined } from '@/Engine/Utils';
-
-export function getActiveSceneFromConfig(spaceName: string, scenes: ReadonlyArray<TSceneConfig>, scenesService: TScenesService): TSceneWrapper {
-  scenesService.createFromConfig(scenes);
-  return getActiveScene(spaceName, scenesService);
-}
-
-export function getActiveScene(spaceName: string, scenesService: TScenesService): TSceneWrapper {
-  const sceneW: TSceneWrapper | undefined = scenesService.findActive();
-  if (isNotDefined(sceneW)) throw new Error(`Cannot find an active scene for space "${spaceName}" during space's services initialization.`);
-  const activeSceneW: TSceneWrapper = sceneW;
-
-  // TODO debug (window as any).sceneW
-  // (window as any).sceneW = sceneW;
-
-  return activeSceneW;
-}
 
 export function buildBaseServices(): TSpaceBaseServices {
   const scenesService: TScenesService = ScenesService(SceneFactory(), SceneRegistry());
