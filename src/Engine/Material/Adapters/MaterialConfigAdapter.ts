@@ -49,7 +49,6 @@ export function configToParams(config: TMaterialConfig, { textureService }: TMat
     });
   }
 
-  // TODO 9.0.0. RESOURCES: add name to texture's userData
   return {
     ...config,
     textures,
