@@ -1,8 +1,8 @@
 import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, CameraTag, getRotationByCos, getRotationBySin, isDefined, isNotDefined } from '@/Engine';
+import type { IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
+import { ambientContext, buildLevelFromConfig, CameraTag, getRotationByCos, getRotationBySin, isNotDefined } from '@/Engine';
 
 import levelConfig from './showcase-3-camera-flying.config.json';
 
@@ -29,8 +29,9 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       camera.setY(yRatio * 10);
       camera.setZ(yRotation);
 
-      const actor = actorRegistry.getUniqByTag('central_actor');
-      if (isDefined(actor)) camera.lookAt(actor.getPosition());
+      void actorRegistry.getUniqByTagAsync('central_actor').then((actor: IActorWrapper): void => {
+        camera.lookAt(actor.getPosition());
+      });
     });
   }
 

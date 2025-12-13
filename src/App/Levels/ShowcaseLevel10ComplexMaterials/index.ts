@@ -23,8 +23,9 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const currentMaterial$: Subject<string> = new Subject();
   const currentActor$: Subject<IActorWrapper> = new Subject();
   currentMaterialIndex$.subscribe((index: number): void => currentMaterial$.next(materials[index]));
-  currentMaterial$.subscribe((material: string): void => {
-    const actor = actorRegistry.getUniqByTagAsync(material);
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  currentMaterial$.subscribe(async (material: string): Promise<void> => {
+    const actor = await actorRegistry.getUniqByTagAsync(material);
     if (isNotDefined(actor)) throw new Error(`Actor with tag "${material}" is not found`);
     currentActor$.next(actor);
   });
@@ -67,11 +68,11 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   function start(): void {
     level.start();
 
-    const actor = actorRegistry.getUniqByTagAsync('standard');
+    // const actor = actorRegistry.getUniqByTagAsync('standard');
     // console.log('111', actor);
     // console.log('standard', actor);
     // console.log('standard entity', actor?.entity);
-    console.log('standard entity', actor?.entity.material);
+    // console.log('standard entity', actor?.entity.material);
     // setTimeout(() => {
     //   console.log('standard entity material', actor?.entity.material);
     //   gui.add(actor.entity.material, 'metalness').min(0).max(1).step(0.0001)

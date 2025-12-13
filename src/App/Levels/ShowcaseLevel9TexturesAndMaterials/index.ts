@@ -16,15 +16,19 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   //   material: MaterialType.Basic
   // };
 
-  function start(): void {
-    level.start();
+  async function init(): Promise<void> {
     const { actorRegistry } = level.entities;
-    const actor: IActorWrapper | undefined = actorRegistry.getUniqByTag('central_actor');
+    const actor: IActorWrapper | undefined = await actorRegistry.getUniqByTagAsync('central_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not found');
 
     //apply textures async, without blocking the main thread (game might be started before textures are loaded)
     // void actor.loadAndApplyMaterialTexturePack(pack);
     initCameraRotation(level, actor);
+  }
+
+  function start(): void {
+    level.start();
+    void init();
   }
 
   return { start, level };
