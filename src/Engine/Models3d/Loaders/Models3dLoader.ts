@@ -1,9 +1,6 @@
-import type { Object3D } from 'three';
-import { Skeleton } from 'three';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils';
 
 import type { TAbstractLoader } from '@/Engine/Abstract';
 import { AbstractLoader, LoaderType } from '@/Engine/Abstract';
@@ -33,66 +30,7 @@ export function Models3dLoader(registry: TModel3dResourceAsyncRegistry): TModels
     return loaded;
   }
 
-  function cloneResource(resource: GLTF, name: string, shouldAddToRegistry: boolean = true): GLTF {
-    // const cloned: Object3D = SkeletonUtils.clone(resource.scene);
-    const cloned: Object3D = resource.scene.clone(true);
-    // const cloned = resource.scene.clone();
-    if (shouldAddToRegistry) registry.add(name, cloned);
-
-    return {
-      ...resource,
-      scene: cloned
-    };
-  }
-
-  // function cloneResource(resource: GLTF, name: string, shouldAddToRegistry: boolean = true): GLTF {
-  //   const cloned = {
-  //     animations: resource.animations,
-  //     scene: resource.scene.clone(true)
-  //   };
-  //
-  //   const skinnedMeshes = {};
-  //
-  //   resource.scene.traverse((node) => {
-  //     if (node.isSkinnedMesh) {
-  //       skinnedMeshes[node.name] = node;
-  //     }
-  //   });
-  //
-  //   const cloneBones = {};
-  //   const cloneSkinnedMeshes = {};
-  //
-  //   cloned.scene.traverse((node) => {
-  //     if (node.isBone) {
-  //       cloneBones[node.name] = node;
-  //     }
-  //
-  //     if (node.isSkinnedMesh) {
-  //       cloneSkinnedMeshes[node.name] = node;
-  //     }
-  //   });
-  //
-  //   for (const name in skinnedMeshes) {
-  //     const skinnedMesh = skinnedMeshes[name];
-  //     const skeleton = skinnedMesh.skeleton;
-  //     const cloneSkinnedMesh = cloneSkinnedMeshes[name];
-  //
-  //     const orderedCloneBones = [];
-  //
-  //     for (let i = 0; i < skeleton.bones.length; ++i) {
-  //       const cloneBone = cloneBones[skeleton.bones[i].name];
-  //       orderedCloneBones.push(cloneBone);
-  //     }
-  //
-  //     cloneSkinnedMesh.bind(new Skeleton(orderedCloneBones, skeleton.boneInverses), cloneSkinnedMesh.matrixWorld);
-  //   }
-  //
-  //   if (shouldAddToRegistry) registry.add(name, cloned);
-  //
-  //   return cloned;
-  // }
-
   loader.setOnLoadedFn(applyParamsOnLoaded);
 
-  return { ...loader, cloneResource };
+  return loader;
 }
