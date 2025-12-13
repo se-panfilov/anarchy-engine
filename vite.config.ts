@@ -15,11 +15,6 @@ export default defineConfig({
   build: {
     sourcemap: true
   },
-  // optimizeDeps: {
-  //   exclude: [
-  //     "@dimforge/rapier3d"
-  //   ]
-  // },
   test: {
     globals: true,
     environment: 'jsdom',
