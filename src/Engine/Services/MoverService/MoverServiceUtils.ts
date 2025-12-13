@@ -2,7 +2,7 @@ import anime from 'animejs';
 import type { Subscription } from 'rxjs';
 import type { Vector3 } from 'three';
 
-import type { TLoopService, TLoopTimes } from '@/Engine/Loop';
+import type { TDelta, TLoopService } from '@/Engine/Loop';
 import type {
   TAnimationParams,
   TFullKeyframeDestination,
@@ -22,13 +22,13 @@ export function performMove(moveFn: TMoveFn | TMoveByPathFn, loopService: TLoopS
   const { promise, resolve } = createDeferredPromise();
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const move = moveFn({ ...params, complete: resolve } as any);
-  const tickSubscription: Subscription = loopService.tick$.subscribe(({ frameTime }: TLoopTimes): void => move.tick(frameTime));
+  const tickSubscription: Subscription = loopService.tick$.subscribe(({ frameTime }: TDelta): void => move.tick(frameTime));
   return promise.then((): void => tickSubscription.unsubscribe());
 }
 
 export function performMoveUntil<F extends (params: P) => TMoveableByTick, P>(moveFn: F, loopService: TLoopService, params: P): TStopMoveCb {
   let move: TMoveableByTick | undefined = moveFn(params);
-  const tickSubscription: Subscription = loopService.tick$.subscribe(({ frameTime }: TLoopTimes): void => move?.tick(frameTime));
+  const tickSubscription: Subscription = loopService.tick$.subscribe(({ frameTime }: TDelta): void => move?.tick(frameTime));
 
   return (): void => {
     tickSubscription.unsubscribe();

@@ -5,7 +5,7 @@ import { AnimationMixer } from 'three';
 
 import { AnimationsLoader } from '@/Engine/Animations/Loader';
 import type { TAnimationActions, TAnimationActionsPack, TAnimationsLoader, TAnimationsResourceAsyncRegistry, TAnimationsService, TModel3dAnimations } from '@/Engine/Animations/Models';
-import type { TLoopService, TLoopTimes } from '@/Engine/Loop';
+import type { TDelta, TLoopService } from '@/Engine/Loop';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TModel3d, TRawModel3d } from '@/Engine/Models3d';
@@ -26,11 +26,11 @@ export function AnimationsService(loopService: TLoopService, resourcesRegistry: 
     return { model, mixer, actions };
   }
 
-  function startAutoUpdateMixer(model3d: TModel3d, updateTick$: Observable<TLoopTimes> = loopService.tick$): TAnimationActionsPack | never {
+  function startAutoUpdateMixer(model3d: TModel3d, updateTick$: Observable<TDelta> = loopService.tick$): TAnimationActionsPack | never {
     const mixer = model3d.getMixer();
     if (isNotDefined(mixer)) throw new Error(`Mixer is not defined for model3d (name: ${model3d.getName()}, id: ${model3d.id}})`);
 
-    const subs$: Subscription = updateTick$.subscribe(({ delta }) => mixer.update(delta));
+    const subs$: Subscription = updateTick$.subscribe((delta) => mixer.update(delta));
     if (isDefined(subscriptions.get(mixer)))
       throw new Error(`AnimationsService: Cannot auto-update mixer twice: subscribe is already exist. Mixer relates to the mode3d (name: ${model3d.getName()}, id: ${model3d.id}})`);
 

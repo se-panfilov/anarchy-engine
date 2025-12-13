@@ -3,7 +3,7 @@ import { filter, map, Subject } from 'rxjs';
 
 import type { TGameKey, TKeyboardRegistry, TKeyboardRegistryValues, TKeyboardService, TKeyCombo, TKeySubscription } from '@/Engine/Keyboard/Models';
 import { KeyboardRegistry } from '@/Engine/Keyboard/Registries';
-import type { TLoopService, TLoopTimes } from '@/Engine/Loop';
+import type { TDelta, TLoopService } from '@/Engine/Loop';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function KeyboardService(loopService: TLoopService): TKeyboardService {
@@ -13,7 +13,7 @@ export function KeyboardService(loopService: TLoopService): TKeyboardService {
     const subscriptions: TKeyboardRegistryValues | undefined = keyboardRegistry.findByKey(key);
     if (!subscriptions) {
       const pressed$: Subject<TGameKey | TKeyCombo> = new Subject();
-      const pressing$: Subject<Readonly<{ key: TGameKey | TKeyCombo; delta: TLoopTimes }>> = new Subject();
+      const pressing$: Subject<Readonly<{ key: TGameKey | TKeyCombo; delta: TDelta }>> = new Subject();
       const released$: Subject<TGameKey | TKeyCombo> = new Subject();
 
       keyboardRegistry.add(key, { pressed$, pressing$, released$ });
@@ -43,9 +43,9 @@ export function KeyboardService(loopService: TLoopService): TKeyboardService {
     loopService.tick$
       .pipe(
         filter((): boolean => isDefined(pressedKey)),
-        map((v: TLoopTimes): [TLoopTimes, TGameKey | TKeyCombo] => [v, pressedKey as TGameKey | TKeyCombo])
+        map((v: TDelta): [TDelta, TGameKey | TKeyCombo] => [v, pressedKey as TGameKey | TKeyCombo])
       )
-      .subscribe(([delta, pressedKey]: [TLoopTimes, TGameKey | TKeyCombo]): void => pressing$.next({ key: pressedKey, delta }));
+      .subscribe(([delta, pressedKey]: [TDelta, TGameKey | TKeyCombo]): void => pressing$.next({ key: pressedKey, delta }));
 
     if (isCombo) {
       bindKeyCombo(key, {

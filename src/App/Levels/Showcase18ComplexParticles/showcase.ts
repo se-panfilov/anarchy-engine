@@ -112,7 +112,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     return { positions, colors };
   }
 
-  loopService.tick$.subscribe(({ delta }) => {
+  loopService.tick$.subscribe((delta) => {
     if (isDefined(particles)) {
       particles.drive.default.adjustRotationByY(delta * 0.018);
     }

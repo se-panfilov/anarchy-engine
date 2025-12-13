@@ -5,10 +5,10 @@ import type {
   TActorRegistry,
   TAppCanvas,
   TCameraWrapper,
+  TDelta,
   TEngine,
   TIntersectionEvent,
   TIntersectionsWatcher,
-  TLoopTimes,
   TModel3d,
   TModel3dRegistry,
   TSceneWrapper,
@@ -43,7 +43,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     watchIntersections([actor]);
 
-    loopService.tick$.subscribe(({ elapsedTime }: TLoopTimes): void => {
+    loopService.tick$.subscribe(({ elapsedTime }: TDelta): void => {
       actor.drive.default.setX(Math.sin(elapsedTime) * 8);
       actor.drive.default.setZ(Math.cos(elapsedTime) * 8);
       // actor.drive.position$.next(new Vector3(Math.sin(elapsedTime) * 8, actor.drive.position$.value.y, Math.cos(elapsedTime) * 8));

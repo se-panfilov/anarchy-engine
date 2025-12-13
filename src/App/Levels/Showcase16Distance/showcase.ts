@@ -64,7 +64,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     });
 
     //Move by click once
-    loopService.tick$.subscribe(({ delta }): void => {
+    loopService.tick$.subscribe((delta): void => {
       if (isMove && !isTimerStarted) {
         isTimerStarted = true;
         console.time('move');
