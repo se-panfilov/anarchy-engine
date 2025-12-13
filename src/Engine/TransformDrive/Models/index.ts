@@ -18,6 +18,7 @@ export type * from './TTransformAgents';
 export type * from './TTransformDrive';
 export type * from './TTransformDriveParams';
 export type * from './TTransformDrivePerformanceOptions';
+export type * from './TTransformLoop';
 export type * from './TWithConnectedProtectedAgent';
 export type * from './TWithDefaultProtectedAgent';
 export type * from './TWithKinematicProtectedAgent';

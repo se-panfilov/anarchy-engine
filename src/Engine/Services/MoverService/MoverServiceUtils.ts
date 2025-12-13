@@ -2,7 +2,7 @@ import anime from 'animejs';
 import type { Subscription } from 'rxjs';
 import type { Vector3 } from 'three';
 
-import type { TDelta, TLoopService } from '@/Engine/Loop';
+import type { TDelta } from '@/Engine/Loop';
 import type {
   TAnimationParams,
   TFullKeyframeDestination,
@@ -15,20 +15,25 @@ import type {
   TMoveFnParams,
   TStopMoveCb
 } from '@/Engine/Services/MoverService/Models';
-import type { TWithConnectedTransformAgent, TWithTransformDrive } from '@/Engine/TransformDrive';
+import type { TTransformLoop, TWithConnectedTransformAgent, TWithTransformDrive } from '@/Engine/TransformDrive';
 import { createDeferredPromise } from '@/Engine/Utils';
 
-export function performMove(moveFn: TMoveFn | TMoveByPathFn, loopService: TLoopService, params: Omit<TMoveFnParams, 'complete'> | Omit<TMoveByPathFnParams, 'complete'>): Promise<void> {
+export function performMove(moveFn: TMoveFn | TMoveByPathFn, transformLoop: TTransformLoop, params: Omit<TMoveFnParams, 'complete'> | Omit<TMoveByPathFnParams, 'complete'>): Promise<void> {
   const { promise, resolve } = createDeferredPromise();
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const move = moveFn({ ...params, complete: resolve } as any);
-  const tickSubscription: Subscription = loopService.tick$.subscribe(({ frameTime }: TDelta): void => move.tick(frameTime));
+  // TODO 10.0.0. LOOPS: (debug) is it frameTime or delta?
+  // const tickSubscription: Subscription = transformLoop.tick$.subscribe(({ frameTime }: TDelta): void => move.tick(frameTime));
+  const tickSubscription: Subscription = transformLoop.tick$.subscribe((delta: TDelta): void => move.tick(delta));
+
   return promise.then((): void => tickSubscription.unsubscribe());
 }
 
-export function performMoveUntil<F extends (params: P) => TMoveableByTick, P>(moveFn: F, loopService: TLoopService, params: P): TStopMoveCb {
+export function performMoveUntil<F extends (params: P) => TMoveableByTick, P>(moveFn: F, transformLoop: TTransformLoop, params: P): TStopMoveCb {
   let move: TMoveableByTick | undefined = moveFn(params);
-  const tickSubscription: Subscription = loopService.tick$.subscribe(({ frameTime }: TDelta): void => move?.tick(frameTime));
+  // TODO 10.0.0. LOOPS: (debug) is it frameTime or delta?
+  // const tickSubscription: Subscription = transformLoop.tick$.subscribe(({ frameTime }: TDelta): void => move?.tick(frameTime));
+  const tickSubscription: Subscription = transformLoop.tick$.subscribe((delta: TDelta): void => move?.tick(delta));
 
   return (): void => {
     tickSubscription.unsubscribe();

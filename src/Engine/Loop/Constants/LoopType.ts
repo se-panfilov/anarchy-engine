@@ -10,5 +10,5 @@ export enum LoopType {
   Render = 'render',
   Spatial = 'spatial',
   Text = 'text',
-  Transforms = 'transforms'
+  Transform = 'transform'
 }
