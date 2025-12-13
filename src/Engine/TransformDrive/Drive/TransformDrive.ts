@@ -1,10 +1,10 @@
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, map, Observable, ReplaySubject, sampleTime, switchMap } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, ReplaySubject, sampleTime, switchMap } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
-import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
+import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import { ProtectedTransformAgentFacade } from '@/Engine/TransformDrive/Facades';
 import type { TAbstractTransformAgent, TProtectedTransformAgentFacade, TProtectedTransformAgents, TTransformAgents, TTransformDrive, TTransformDriveParams } from '@/Engine/TransformDrive/Models';
@@ -24,17 +24,20 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
 
   const agentSub$: Subscription = agent$.subscribe((agent: TransformAgent): void => activeAgent$.next(agents[agent]));
 
-  //We don't expose these BehaviorSubjects, because they're vulnerable to external changes without .next() (e.g. "position.value = ...")
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(activeAgent$.value.position$.value);
-  const positionRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
   const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(activeAgent$.value.rotation$.value);
-  const rotationRep$: ReplaySubject<Euler> = new ReplaySubject<Euler>(1);
   const scale$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(activeAgent$.value.scale$.value);
+
+  //We don't expose these BehaviorSubjects, because they're vulnerable to external changes without .next() (e.g. "position.value = ...")
+  const positionRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
+  const rotationRep$: ReplaySubject<Euler> = new ReplaySubject<Euler>(1);
   const scaleRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
+  const activeAgentRep$: ReplaySubject<TAbstractTransformAgent> = new ReplaySubject(1);
 
   position$.subscribe(positionRep$);
   rotation$.subscribe(rotationRep$);
   scale$.subscribe(scaleRep$);
+  activeAgent$.subscribe(activeAgentRep$);
 
   const destroyable: TDestroyable = destroyableMixin();
 
@@ -69,6 +72,7 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
   const result: TTransformDrive = {
     ...destroyable,
     agent$,
+    activeAgent$: activeAgentRep$,
     position$: positionRep$,
     getPosition: (): Vector3 => position$.value.clone(),
     rotation$: rotationRep$,
@@ -92,6 +96,8 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
     rotation$.unsubscribe();
     scale$.complete();
     scale$.unsubscribe();
+    activeAgent$.complete();
+    activeAgent$.unsubscribe();
 
     Object.values(agents).forEach((agent: TProtectedTransformAgentFacade<TAbstractTransformAgent>): void => agent.destroy$.next());
   });

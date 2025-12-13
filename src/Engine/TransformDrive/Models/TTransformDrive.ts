@@ -4,6 +4,7 @@ import type { Euler, Vector3 } from 'three';
 import type { TDestroyable } from '@/Engine/Mixins';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 
+import type { TAbstractTransformAgent } from './TAbstractTransformAgent';
 import type { TWithConnectedProtectedAgent } from './TWithConnectedProtectedAgent';
 import type { TWithDefaultProtectedAgent } from './TWithDefaultProtectedAgent';
 import type { TWithKinematicProtectedAgent } from './TWithKinematicProtectedAgent';
@@ -11,6 +12,7 @@ import type { TWithPhysicsProtectedAgent } from './TWithPhysicsProtectedAgent';
 
 export type TTransformDrive = Readonly<{
   agent$: BehaviorSubject<TransformAgent>;
+  activeAgent$: ReplaySubject<TAbstractTransformAgent>;
   position$: ReplaySubject<Vector3>;
   getPosition: () => Vector3;
   rotation$: ReplaySubject<Euler>;
