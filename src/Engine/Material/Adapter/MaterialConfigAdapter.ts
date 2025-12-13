@@ -1,6 +1,15 @@
-import { BlendingSrcFactorMap } from 'src/Engine/Material/Constants/BlendingSrcFactorName';
-
-import { BlendEquationMap, BlendingDstFactorMap, BlendingMap, CombineMap, DepthPackingStrategiesMap, NormalMapTypesMap, PixelFormatMap, SideMap, StencilOpMap } from '@/Engine/Material/Constants';
+import {
+  BlendEquationMap,
+  BlendingDstFactorMap,
+  BlendingMap,
+  BlendingSrcFactorMap,
+  CombineMap,
+  DepthPackingStrategiesMap,
+  NormalMapTypesMap,
+  PixelFormatMap,
+  SideMap,
+  StencilOpMap
+} from '@/Engine/Material/Constants';
 import { StencilFuncMap } from '@/Engine/Material/Constants/StencilFuncName';
 import type { IMaterialConfig, IMaterialParams } from '@/Engine/Material/Models';
 import { isDefined } from '@/Engine/Utils';
