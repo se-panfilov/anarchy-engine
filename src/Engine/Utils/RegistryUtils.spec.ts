@@ -171,7 +171,7 @@ describe('RegistryUtils', () => {
 
   describe('setActiveWrappedEntity', () => {
     it('should set "isActive" to "true" for an entity', () => {
-      const mockObj: TSceneWrapper = SceneWrapper({ name: 'mock-scene', isActive: false, tags: [], position: new Vector3(), rotation: new Euler() });
+      const mockObj: TSceneWrapper = SceneWrapper({ name: 'mock-scene', isActive: false, tags: [] });
       const registry: TSceneRegistry = SceneRegistry();
       registry.add(mockObj);
       setActiveWrappedEntity(registry, mockObj.id);
@@ -188,9 +188,9 @@ describe('RegistryUtils', () => {
     });
 
     it('should set "isActive" to "false" for all entities in a registry but the target entity', () => {
-      const mockObj1: TSceneWrapper = SceneWrapper({ name: 'mock-scene-1', isActive: true, tags: [], position: new Vector3(), rotation: new Euler() });
-      const mockObj2: TSceneWrapper = SceneWrapper({ name: 'mock-scene-2', isActive: false, tags: [], position: new Vector3(), rotation: new Euler() });
-      const mockObjTarget: TSceneWrapper = SceneWrapper({ name: 'mock-scene-target', isActive: false, tags: [], position: new Vector3(), rotation: new Euler() });
+      const mockObj1: TSceneWrapper = SceneWrapper({ name: 'mock-scene-1', isActive: true, tags: [] });
+      const mockObj2: TSceneWrapper = SceneWrapper({ name: 'mock-scene-2', isActive: false, tags: [] });
+      const mockObjTarget: TSceneWrapper = SceneWrapper({ name: 'mock-scene-target', isActive: false, tags: [] });
       const registry: TSceneRegistry = SceneRegistry();
       registry.add(mockObj1);
       registry.add(mockObjTarget);
@@ -202,8 +202,8 @@ describe('RegistryUtils', () => {
     });
 
     it('should change "isActive" status of entities', () => {
-      const mockObj1: TSceneWrapper = SceneWrapper({ name: 'mock-scene-1', isActive: true, tags: [], position: new Vector3(), rotation: new Euler() });
-      const mockObjTarget: TSceneWrapper = SceneWrapper({ name: 'mock-scene-target', isActive: false, tags: [], position: new Vector3(), rotation: new Euler() });
+      const mockObj1: TSceneWrapper = SceneWrapper({ name: 'mock-scene-1', isActive: true, tags: [] });
+      const mockObjTarget: TSceneWrapper = SceneWrapper({ name: 'mock-scene-target', isActive: false, tags: [] });
       const registry: TSceneRegistry = SceneRegistry();
       registry.add(mockObj1);
       registry.add(mockObjTarget);
@@ -213,9 +213,9 @@ describe('RegistryUtils', () => {
     });
 
     it('should return an active entity', () => {
-      const mockObj1: TSceneWrapper = SceneWrapper({ name: 'mock-scene-1', isActive: false, tags: [], position: new Vector3(), rotation: new Euler() });
-      const mockObj2: TSceneWrapper = SceneWrapper({ name: 'mock-scene-2', isActive: false, tags: [], position: new Vector3(), rotation: new Euler() });
-      const mockObj3: TSceneWrapper = SceneWrapper({ name: 'mock-scene-3', isActive: false, tags: [], position: new Vector3(), rotation: new Euler() });
+      const mockObj1: TSceneWrapper = SceneWrapper({ name: 'mock-scene-1', isActive: false, tags: [] });
+      const mockObj2: TSceneWrapper = SceneWrapper({ name: 'mock-scene-2', isActive: false, tags: [] });
+      const mockObj3: TSceneWrapper = SceneWrapper({ name: 'mock-scene-3', isActive: false, tags: [] });
       const registry: TSceneRegistry = SceneRegistry();
       registry.add(mockObj1);
       registry.add(mockObj2);
@@ -225,7 +225,7 @@ describe('RegistryUtils', () => {
     });
 
     it('should throw an error if no entity with such id', () => {
-      const mockObj1: TSceneWrapper = SceneWrapper({ name: 'mock-scene-1', isActive: false, tags: [], position: new Vector3(), rotation: new Euler() });
+      const mockObj1: TSceneWrapper = SceneWrapper({ name: 'mock-scene-1', isActive: false, tags: [] });
       const registry: TSceneRegistry = SceneRegistry();
       registry.add(mockObj1);
       expect(() => setActiveWrappedEntity(registry, 'whatever-id')).toThrow();
