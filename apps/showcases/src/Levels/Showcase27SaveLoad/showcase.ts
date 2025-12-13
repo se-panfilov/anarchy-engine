@@ -1,4 +1,4 @@
-import '@Public/Showcase/fonts.css';
+import '@Public/resources/fonts.css';
 import './style.css';
 
 import type { TSpace, TSpaceConfig, TSpaceRegistry } from '@Engine';

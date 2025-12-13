@@ -1,4 +1,4 @@
-import '@Public/Showcase/fonts.css';
+import '@Public/resources/fonts.css';
 
 import type { TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@Engine';
 import { asRecord, isNotDefined, spaceService, TextType, TransformAgent } from '@Engine';

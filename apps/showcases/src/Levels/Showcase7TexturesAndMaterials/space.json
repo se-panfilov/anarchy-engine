@@ -126,15 +126,15 @@
     "textures": [
       {
         "name": "door_ao_texture",
-        "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg"
+        "url": "/resources/Door_Wood/Door_Wood_001_ambientOcclusion.jpg"
       },
       {
         "name": "door_base_texture",
-        "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg"
+        "url": "/resources/Door_Wood/Door_Wood_001_basecolor.jpg"
       },
       {
         "name": "door_opacity_texture",
-        "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg"
+        "url": "/resources/Door_Wood/Door_Wood_001_opacity.jpg"
       }
     ]
   },

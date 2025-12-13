@@ -124,7 +124,7 @@
     "models3d": [
       {
         "name": "fox_glb",
-        "url": "/Showcase/Models/Fox/Fox.glb"
+        "url": "/resources/Models/Fox/Fox.glb"
       }
     ],
     "textures": []

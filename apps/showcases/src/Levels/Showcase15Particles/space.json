@@ -244,27 +244,27 @@
     "textures": [
       {
         "name": "textile_ao_map_texture",
-        "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg"
+        "url": "/resources/Dirty_Carpet/dirty_carpet_ao_1k.jpg"
       },
       {
         "name": "textile_map_texture",
-        "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg"
+        "url": "/resources/Dirty_Carpet/dirty_carpet_diff_1k.jpg"
       },
       {
         "name": "textile_normal_map_texture",
-        "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg"
+        "url": "/resources/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg"
       },
       {
         "name": "textile_displacement_map_texture",
-        "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png"
+        "url": "/resources/Dirty_Carpet/dirty_carpet_disp_1k.png"
       },
       {
         "name": "textile_roughness_map_texture",
-        "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg"
+        "url": "/resources/Dirty_Carpet/dirty_carpet_rough_1k.jpg"
       },
       {
         "name": "particles_alpha_map_texture",
-        "url": "/Showcase/particles/2.png"
+        "url": "/resources/particles/2.png"
       }
     ]
   },

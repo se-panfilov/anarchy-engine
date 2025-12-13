@@ -369,7 +369,7 @@
     "textures": [
       {
         "name": "particles_alpha_map_texture",
-        "url": "/Showcase/particles/2.png"
+        "url": "/resources/particles/2.png"
       }
     ]
   },

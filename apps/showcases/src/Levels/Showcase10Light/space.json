@@ -1370,92 +1370,92 @@
       {
         "name": "metal_steel_brushed_bump_map",
         "tags": ["bumpMap", "metal"],
-        "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png"
+        "url": "/resources/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png"
       },
       {
         "name": "metal_steel_brushed_map",
         "tags": ["map", "metal"],
-        "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png"
+        "url": "/resources/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png"
       },
       {
         "name": "metal_steel_brushed_normal_map",
         "tags": ["normalMap", "metal"],
-        "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png"
+        "url": "/resources/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png"
       },
       {
         "name": "metal_steel_brushed_displacement_map",
         "tags": ["displacementMap", "metal"],
-        "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png"
+        "url": "/resources/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png"
       },
       {
         "name": "metal_steel_brushed_metalness_map",
         "tags": ["metalnessMap", "metal"],
-        "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP16_1K_METALNESS.png"
+        "url": "/resources/Brushed_Metal/MetalSteelBrushed001_BUMP16_1K_METALNESS.png"
       },
       {
         "name": "metal_steel_brushed_roughness_map",
         "tags": ["roughnessMap", "metal"],
-        "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png"
+        "url": "/resources/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png"
       },
       {
         "name": "wood_ao_map",
         "tags": ["aoMap", "wood"],
-        "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg"
+        "url": "/resources/Door_Wood/Door_Wood_001_ambientOcclusion.jpg"
       },
       {
         "name": "wood_map",
         "tags": ["map", "wood"],
-        "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg"
+        "url": "/resources/Door_Wood/Door_Wood_001_basecolor.jpg"
       },
       {
         "name": "wood_normal_map",
         "tags": ["normalMap", "wood"],
-        "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg"
+        "url": "/resources/Door_Wood/Door_Wood_001_normal.jpg"
       },
       {
         "name": "wood_displacement_map",
         "tags": ["displacementMap", "wood"],
-        "url": "/Showcase/Door_Wood/Door_Wood_001_height.png"
+        "url": "/resources/Door_Wood/Door_Wood_001_height.png"
       },
       {
         "name": "wood_alpha_map",
         "tags": ["alphaMap", "wood"],
-        "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg"
+        "url": "/resources/Door_Wood/Door_Wood_001_opacity.jpg"
       },
       {
         "name": "wood_metalness_map",
         "tags": ["metalnessMap", "wood"],
-        "url": "/Showcase/Door_Wood/Door_Wood_001_metallic.jpg"
+        "url": "/resources/Door_Wood/Door_Wood_001_metallic.jpg"
       },
       {
         "name": "wood_roughness_map",
         "tags": ["roughnessMap", "wood"],
-        "url": "/Showcase/Door_Wood/Door_Wood_001_roughness.jpg"
+        "url": "/resources/Door_Wood/Door_Wood_001_roughness.jpg"
       },
       {
         "name": "carpet_ao_map",
         "tags": ["carpet", "aoMap"],
-        "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg"
+        "url": "/resources/Dirty_Carpet/dirty_carpet_ao_1k.jpg"
       },
       {
         "name": "carpet_map",
         "tags": ["carpet", "map"],
-        "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg"
+        "url": "/resources/Dirty_Carpet/dirty_carpet_diff_1k.jpg"
       },
       {
         "name": "carpet_normal_map",
         "tags": ["carpet", "normalMap"],
-        "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg"
+        "url": "/resources/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg"
       },
       {
         "name": "carpet_displacement_map",
         "tags": ["carpet", "displacementMap"],
-        "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png"
+        "url": "/resources/Dirty_Carpet/dirty_carpet_disp_1k.png"
       },
       {
         "name": "carpet_roughness_map",
         "tags": ["carpet", "roughnessMap"],
-        "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg"
+        "url": "/resources/Dirty_Carpet/dirty_carpet_rough_1k.jpg"
       }
     ]
   },
