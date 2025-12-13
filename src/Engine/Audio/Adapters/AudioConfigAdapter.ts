@@ -6,15 +6,12 @@ import { isAudio3dConfig } from '@/Engine/Audio/Utils';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-// TODO 11.0.0: Connect listener to the camera (test 3d sound, also warn if listener is not connected to anything)
 export function configToParams(config: TAnyAudioConfig, { audioResourceAsyncRegistry, audioListenersRegistry }: TAudioConfigToParamsDependencies): TAnyAudioParams {
   const { position, ...rest } = config as TAudio3dConfig;
 
   const result: TAnyAudioParams = {
     ...rest,
     listener: audioListenersRegistry.findByKey(config.listener ?? Listeners.Main),
-    // TODO 11.0.0: do we need rotation and scale (actually no, but transform drive might need it)
-    // ...configToParamsObject3d({ position }),
     audioSource: getAudio(config, audioResourceAsyncRegistry)
   };
 

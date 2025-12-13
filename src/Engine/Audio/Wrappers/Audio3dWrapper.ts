@@ -21,8 +21,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
   const listener$: BehaviorSubject<AudioListener | undefined> = new BehaviorSubject<AudioListener | undefined>(params.listener);
 
   const updatePriority: LoopUpdatePriority = performance?.updatePriority ?? LoopUpdatePriority.LOW;
-  // TODO 11.0.0: maybe the default threshold should be higher?
-  const noiseThreshold: TMeters = performance?.noiseThreshold ?? meters(0.000001);
+  const noiseThreshold: TMeters = performance?.noiseThreshold ?? meters(0.01);
 
   const sourcePositionUpdate$: Observable<TReadonlyVector3> = onPositionUpdate(position$, noiseThreshold);
 
