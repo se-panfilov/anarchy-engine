@@ -11,7 +11,7 @@ type TStrategyType = typeof concatMap | typeof exhaustMap | typeof switchMap | t
 
 export function FsmWrapper(params: TFsmParams): TFsmWrapper {
   const changed$: BehaviorSubject<TFsmStates> = new BehaviorSubject<TFsmStates>(params.currentState ?? params.initial);
-  // eslint-disable-next-line @Enginetypescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { name, ...machineParams } = params;
 
   const onChange = (val: TFsmStates): void => changed$.next(val);

@@ -13,7 +13,7 @@ export function getDuration(minutes: number, locale: string, unit: 'long' | 'sho
   return formatterList.format([hours ? formatterHours(hours) : (null as any), mins ? formatterMinutes(mins) : null].filter((v: unknown): boolean => v !== null));
 }
 
-// eslint-disable-next-line @Enginetypescript-eslint/explicit-function-return-type
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 function timeUnitFormatter(locale: string, unit: 'hour' | 'minute', unitDisplay: 'long' | 'short' | 'narrow') {
   return Intl.NumberFormat(locale, { style: 'unit', unit, unitDisplay }).format;
 }

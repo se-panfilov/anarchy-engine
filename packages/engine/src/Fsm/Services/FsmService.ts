@@ -47,7 +47,7 @@ export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: 
   }
 
   function isParamsEqualsToSource(params: TFsmParams, source: TFsmSource): boolean {
-    // eslint-disable-next-line @Enginetypescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id, tags, ...sourceParams } = source;
     return isEqual(params, sourceParams);
   }
