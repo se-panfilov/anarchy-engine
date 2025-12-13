@@ -9,7 +9,7 @@ import type {
   SceneParams
 } from '@Engine/Models';
 import { ActorFactory, CameraFactory, LightFactory, RendererFactory, SceneFactory } from '@Engine/Factories';
-import { actorAdapter, lightAdapter } from '@Engine/Launcher/ConfigToParamAdapters';
+import { actorAdapter, cameraAdapter, lightAdapter } from '@Engine/Launcher/ConfigToParamAdapters';
 import { ActorRegistry, CameraRegistry, LightRegistry } from '@Engine/Registries';
 import { createDeferredPromise, isNotDefined } from '@Engine/Utils';
 import type { IActorWrapper, ICameraWrapper, ILightWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
@@ -21,7 +21,6 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
 
   // TODO (S.Panfilov) CWP
   // make actor config a part of actor params (do same for camera and light)
-  // then the actor should watch if he was added to the scene,ZZ
   // then apply position (or maybe it's not necessary, an we could apply values immediately
   // check if the adding to a scene must go before setting position and etc
 
@@ -59,7 +58,7 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   //Dynamic create entities
   sceneFactory.add$.next({ name });
   actors.forEach((config: ActorConfig) => actorFactory.add$.next(actorAdapter(config)));
-  cameras.forEach((config: CameraConfig) => cameraFactory.add$.next(config.params));
+  cameras.forEach((config: CameraConfig) => cameraFactory.add$.next(cameraAdapter(config)));
   lights.forEach((config: LightConfig) => lightFactory.add$.next(lightAdapter(config)));
 
   // TODO (S.Panfilov) canvas (or something else) should come from settings
