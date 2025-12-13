@@ -5,7 +5,7 @@ import type { Page } from 'playwright';
 
 const VIEWPORT = { width: 800, height: 600 };
 
-const GAME_URL = `http://localhost:${process.env.PORT}/save-load`;
+const GAME_URL: string = `http://localhost:${process.env.PORT}?path=saveLoad`;
 
 test.use({ viewport: VIEWPORT, deviceScaleFactor: 1 });
 
