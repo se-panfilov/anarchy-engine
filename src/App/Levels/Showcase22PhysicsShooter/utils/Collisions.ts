@@ -30,7 +30,8 @@ export async function enableCollisions(
   const boxActor4W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static4');
   const boxActor5W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static5');
   const boxActor6W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static6');
-  if (isNotDefined(boxActor1W) || isNotDefined(boxActor2W) || isNotDefined(boxActor3W) || isNotDefined(boxActor4W) || isNotDefined(boxActor5W) || isNotDefined(boxActor6W))
+  const boxActor7W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static7');
+  if (isNotDefined(boxActor1W) || isNotDefined(boxActor2W) || isNotDefined(boxActor3W) || isNotDefined(boxActor4W) || isNotDefined(boxActor5W) || isNotDefined(boxActor6W) || isNotDefined(boxActor7W))
     throw new Error(`Cannot find "box_static" actors`);
   grid.addActor(boxActor1W);
   grid.addActor(boxActor2W);
@@ -38,6 +39,14 @@ export async function enableCollisions(
   grid.addActor(boxActor4W);
   grid.addActor(boxActor5W);
   grid.addActor(boxActor6W);
+  grid.addActor(boxActor7W);
+
+  mouseLineIntersectionsWatcher.addActor(boxActor1W);
+  mouseLineIntersectionsWatcher.addActor(boxActor2W);
+  mouseLineIntersectionsWatcher.addActor(boxActor3W);
+  mouseLineIntersectionsWatcher.addActor(boxActor4W);
+  mouseLineIntersectionsWatcher.addActor(boxActor5W);
+  mouseLineIntersectionsWatcher.addActor(boxActor6W);
 
   mouseLineIntersectionsWatcher.value$.subscribe((value) => {
     const objects = grid.getAllInCell(value.point.x, value.point.z);
