@@ -21,33 +21,44 @@
   ],
   "actors": [
     {
-      "width": 60,
-      "height": 40,
-      "widthSegments": 10,
-      "heightSegments": 10,
-      "material": { "type": "standard", "params": { "color": "#5EDCAE" } },
       "model3d": {
-        "url": "plane"
+        "model3dName": "sphere_model"
       },
-      "position": { "x": 0, "y": 2, "z": 0 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "castShadow": false,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "model3d": {
-        "url": "sphere"
-      },
-      "radius": 1,
-      "material": { "type": "standard", "params": { "color": "#E91E63" } },
       "position": { "x": 0, "y": 2, "z": 0 },
       "castShadow": true,
       "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": ["intersectable"]
     }
   ],
-  "models3d": [],
+  "models3d": [
+    {
+      "name": "surface_model",
+      "primitive": {
+        "type": "plane",
+        "width": 100,
+        "height": 100,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "material": { "type": "standard", "params": { "color": "#5EDCAE" } }
+      },
+      "castShadow": false,
+      "receiveShadow": true,
+      "position": { "x": 0, "y": 2, "z": 0 },
+      "rotation": { "x": -1.57, "y": 0, "z": 0 },
+      "options": {
+        "shouldAddToScene": true,
+        "shouldAddToRegistry": true
+      }
+    },
+    {
+      "name": "sphere_model",
+      "primitive": {
+        "type": "sphere",
+        "radius": 1,
+        "material": { "type": "standard", "params": { "color": "#E91E63" } }
+      }
+    }
+  ],
   "intersections": [],
   "physics": {},
   "texts": [],

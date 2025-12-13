@@ -40,8 +40,6 @@
         "heightSegments": 1,
         "material": { "type": "phong", "params": { "color": "#CBCBCB", "depthWrite": false } }
       },
-      "position": { "x": 0, "y": 0, "z": 0 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "castShadow": false,
       "receiveShadow": true,
       "options": {

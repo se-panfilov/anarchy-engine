@@ -164,7 +164,7 @@ function validateAllActorsHasPhysicsPreset(actors: ReadonlyArray<TActorConfig>, 
 }
 
 function validateFileUrls(models3d: ReadonlyArray<TModel3dComplexConfig>): boolean {
-  return models3d.every((model3d: TModel3dComplexConfig): boolean => validateFileUrl(model3d.url));
+  return models3d.every((model3d: TModel3dComplexConfig): boolean => isNotDefined(model3d.url) || validateFileUrl(model3d.url));
 }
 
 function validateFileUrl(url: string): boolean {
