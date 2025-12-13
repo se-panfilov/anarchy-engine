@@ -10,7 +10,7 @@ export function configToParamsObject3d(config: Partial<TObject3DPropConfig>): TO
   // TODO layers are not supported at the moment
   if (isDefined(config.layers)) result = { ...result, layers: undefined };
   // TODO animations are not supported at the moment
-  if (isDefined(config.animations)) result = { ...result, animations: [] };
+  // if (isDefined(config.animations)) result = { ...result, animations: config.animations };
 
   if (isDefined(position)) result = { ...result, position: Vector3Wrapper(position) };
   if (isDefined(rotation)) result = { ...result, rotation: EulerWrapper(rotation) };

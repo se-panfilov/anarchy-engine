@@ -44,3 +44,4 @@ Also:
 - Screenshot testing is interesting, but it's a part of an app, not engine
 - Maybe split space config into "resources" (such as models, materials), and "entities" (such as actors, lights, cameras)?
 Might be separate or a single file (splitted by sections)
+- Actors might have to be just an entity by itself, not a wrapper around a 3d model

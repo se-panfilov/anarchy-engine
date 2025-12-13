@@ -21,22 +21,34 @@
   "actors": [
     {
       "name": "surface",
-      "width": 100,
-      "height": 100,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "phong", "params": { "color": "#CBCBCB", "depthWrite": false } },
       "model3d": {
-        "url": "plane"
+        "model3dName": "surface_model"
+      },
+      "position": { "x": 0, "y": 0, "z": 0 },
+      "rotation": { "x": -1.57, "y": 0, "z": 0 },
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+    }
+  ],
+  "models3d": [
+    {
+      "name": "surface_model",
+      "primitive": {
+        "type": "plane",
+        "width": 100,
+        "height": 100,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "material": { "type": "phong", "params": { "color": "#CBCBCB", "depthWrite": false } }
       },
       "position": { "x": 0, "y": 0, "z": 0 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "castShadow": false,
       "receiveShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false }
-    }
-  ],
-  "models3d": [
+      "options": {
+        "shouldAddToScene": false,
+        "shouldAddToRegistry": true
+      }
+    },
     {
       "name": "solder_model",
       "url": "/Showcase/Models/Solder/Solder.glb",

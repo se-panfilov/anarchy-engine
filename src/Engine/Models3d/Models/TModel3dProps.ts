@@ -1,15 +1,15 @@
-import type { TEulerWrapper } from '@/Engine/Euler';
-import type { TVector3Wrapper } from '@/Engine/Vector';
+import type { TMaterialPackParams, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
+import type { TObject3DParams, TObject3DProps } from '@/Engine/ThreeLib';
 
 import type { TModel3dLoadOptions } from './TModel3dLoadOptions';
 
 export type TModel3dProps = Readonly<{
   url: string;
-  castShadow?: boolean;
   options: TModel3dLoadOptions;
+  // TODO (S.Panfilov) CWP override model's material is this field is set
+  material?: TMaterialPackParams<TMaterialTexturePack>;
 }> &
-  Readonly<{
-    position?: TVector3Wrapper;
-    rotation?: TEulerWrapper;
-    scale?: TVector3Wrapper;
-  }>;
+  // TODO (S.Panfilov) CWP apply all TObject3DProps
+  // We're not ready to add animations like this, so omit them for now
+  Omit<TObject3DProps, 'animations'> &
+  Pick<TObject3DParams, 'position' | 'scale' | 'rotation'>;

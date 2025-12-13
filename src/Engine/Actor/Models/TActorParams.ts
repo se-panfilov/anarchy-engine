@@ -9,7 +9,7 @@ import type { TObject3DParams } from '@/Engine/ThreeLib';
 import type { TActorProps } from './TActorProps';
 
 export type TActorParams = TActorProps &
-  TObject3DParams &
+  Pick<TObject3DParams, 'position' | 'rotation' | 'scale'> &
   Readonly<{
     model3d: TModel3dFacade;
   }> &

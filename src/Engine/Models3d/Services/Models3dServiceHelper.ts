@@ -1,7 +1,7 @@
 import type { Group, Mesh, Object3D, Object3DEventMap } from 'three';
 
 import type { TEulerWrapper } from '@/Engine/Euler';
-import type { TModel3dConfig, TModel3dParams } from '@/Engine/Models3d/Models';
+import type { TModel3dConfig, TModel3dParams, TModel3dPrimitiveConfig, TModel3dPrimitiveParams } from '@/Engine/Models3d/Models';
 import { isDefined } from '@/Engine/Utils';
 import type { TVector3Wrapper } from '@/Engine/Vector';
 
@@ -17,4 +17,5 @@ export function applyCastShadow(model: Group | Mesh | Object3D, castShadow: bool
   });
 }
 
-export const isPrimitive = (model: TModel3dConfig | TModel3dParams): boolean => isDefined(model.primitiveType);
+export const isPrimitive = (model: TModel3dConfig | TModel3dParams | TModel3dPrimitiveConfig | TModel3dPrimitiveParams): model is TModel3dPrimitiveConfig | TModel3dPrimitiveParams =>
+  isDefined((model as TModel3dPrimitiveParams).primitive);

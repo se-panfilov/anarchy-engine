@@ -1,4 +1,4 @@
-import type { AnimationClip, Layers } from 'three';
+import type { Layers } from 'three';
 
 import type { TWithCoordsXYZ } from '@/Engine/Mixins';
 
@@ -12,5 +12,6 @@ export type TObject3DProps = Readonly<{
   layers?: Layers;
   frustumCulled?: boolean;
   renderOrder?: number;
-  animations?: ReadonlyArray<AnimationClip>;
+  // TODO not supported at the moment
+  // animations?: ReadonlyArray<AnimationClip>;
 }>;

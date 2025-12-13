@@ -7,7 +7,7 @@ import type { TAnimationsService } from '@/Engine/Animations';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { model3dConfigToParams } from '@/Engine/Models3d/Adapters';
-import type { TModel3dConfig, TModel3dFacade, TModel3dPack, TModel3dParams, TModels3dAsyncRegistry, TModels3dService, TPerformLoadResult } from '@/Engine/Models3d/Models';
+import type { TModel3dConfig, TModel3dFacade, TModel3dPack, TModel3dParams, TModel3dPrimitiveParams, TModels3dAsyncRegistry, TModels3dService, TPerformLoadResult } from '@/Engine/Models3d/Models';
 import { isPrimitive } from '@/Engine/Models3d/Services/Models3dServiceHelper';
 import { Model3dFacade } from '@/Engine/Models3d/Wrappers';
 import { createPrimitiveModel3dPack } from '@/Engine/Models3d/Wrappers/PrimitiveModels3dUtils';
@@ -53,9 +53,9 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
   }
 
   const loadFromConfigAsync = (config: ReadonlyArray<TModel3dConfig>): ReadonlyArray<Promise<TModel3dFacade>> => {
-    let primitiveModels3d: ReadonlyArray<TModel3dParams> = [];
+    let primitiveModels3d: ReadonlyArray<TModel3dPrimitiveParams> = [];
     let models3d: ReadonlyArray<TModel3dParams> = [];
-    config.map(model3dConfigToParams).forEach((m: TModel3dParams): void => {
+    config.map(model3dConfigToParams).forEach((m: TModel3dParams | TModel3dPrimitiveParams): void => {
       if (isPrimitive(m)) primitiveModels3d = [...primitiveModels3d, m];
       else models3d = [...models3d, m];
     });
@@ -84,8 +84,8 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     return cloned;
   }
 
-  function createPrimitiveAsync(params: ReadonlyArray<TModel3dParams>): ReadonlyArray<Promise<TModel3dFacade>> {
-    return params.map((p: TModel3dParams): Promise<TModel3dFacade> => Promise.resolve(createFromPack(createPrimitiveModel3dPack(p))));
+  function createPrimitiveAsync(params: ReadonlyArray<TModel3dPrimitiveParams>): ReadonlyArray<Promise<TModel3dFacade>> {
+    return params.map((p: TModel3dPrimitiveParams): Promise<TModel3dFacade> => Promise.resolve(createFromPack(createPrimitiveModel3dPack(p))));
   }
 
   const destroyable: TDestroyable = destroyableMixin();
