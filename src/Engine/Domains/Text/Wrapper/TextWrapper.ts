@@ -4,7 +4,7 @@ import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
 import { AbstractWrapper } from '@/Engine/Domains/Abstract';
-import { RelatedEntityAttribute, TextType } from '@/Engine/Domains/Text/Constants';
+import { RelatedEntityAttribute, TextCssClass, TextType } from '@/Engine/Domains/Text/Constants';
 import type { ITextParams, ITextWrapper } from '@/Engine/Domains/Text/Models';
 import { getCssAccessors } from '@/Engine/Domains/Text/Wrapper/Accessors';
 import { applyHtmlElementParams, getWrapperTypeByTextType } from '@/Engine/Domains/Text/Wrapper/TextWrapperHelper';
@@ -37,7 +37,7 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: I
   document.body.appendChild(element);
 
   result.setText(params.text);
-  if (isDefined(params.cssProps)) applyHtmlElementParams(result, params.cssProps);
+  if (isDefined(params.cssProps)) applyHtmlElementParams(result, params.cssProps, type === TextType.Text2d ? TextCssClass.Text2d : TextCssClass.Text3d);
   applyObject3dParams(result, params);
   applyPosition(result, params.position);
   if (type === TextType.Text2d) applyCenter(entity as CSS2DObject, params.center);

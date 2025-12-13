@@ -1,15 +1,16 @@
 import { WrapperType } from '@/Engine/Domains/Abstract';
-import { TextCssClass, TextType } from '@/Engine/Domains/Text/Constants';
+import type { TextCssClass } from '@/Engine/Domains/Text/Constants';
+import { TextType } from '@/Engine/Domains/Text/Constants';
 import type { IElementWithCssAccessors, ITextCssProps } from '@/Engine/Domains/Text/Models';
 import type { IValueOf } from '@/Engine/Utils';
 import { isDefined, isString } from '@/Engine/Utils';
 
-export function applyHtmlElementParams(wrapper: IElementWithCssAccessors, cssProps: ITextCssProps): void {
+export function applyHtmlElementParams(wrapper: IElementWithCssAccessors, cssProps: ITextCssProps, className: TextCssClass): void {
   Object.keys(cssProps).forEach((paramName: string): void => {
     const value: IValueOf<ITextCssProps> = cssProps[paramName as keyof ITextCssProps];
     if (isDefined(value) && isString(value)) wrapper.setCssProperty(paramName, value);
   });
-  wrapper.appendClassName(TextCssClass.Text2d);
+  wrapper.appendClassName(className);
 }
 
 export function getWrapperTypeByTextType(type: TextType): WrapperType {
