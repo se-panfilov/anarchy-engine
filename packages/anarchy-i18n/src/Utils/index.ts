@@ -1,1 +1,1 @@
-export * from './Locales';
+export * from './LocalesUtils';

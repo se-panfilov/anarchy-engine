@@ -1,9 +1,9 @@
 import type { TLocaleId } from '@Anarchy/i18n';
 import { describe, expect, it } from 'vitest';
 
-import { getPreferLocaleId } from './Locales';
+import { getPreferLocaleId } from './LocalesUtils';
 
-describe('Locales', (): void => {
+describe('LocalesUtils', (): void => {
   const enUS: TLocaleId = 'en-US';
   const enCA: TLocaleId = 'en-CA';
   const enGB: TLocaleId = 'en-GB';
