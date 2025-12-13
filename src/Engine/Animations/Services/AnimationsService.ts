@@ -1,5 +1,6 @@
 import { Subject } from 'rxjs';
-import type { AnimationClip } from 'three';
+import type { AnimationClip, Group, Mesh } from 'three';
+import { AnimationMixer } from 'three';
 
 import type { TAnimationsAsyncRegistry, TAnimationsPack, TAnimationsService, TModel3dAnimations } from '@/Engine/Animations/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
@@ -30,6 +31,12 @@ export function AnimationsService(registry: TAnimationsAsyncRegistry): TAnimatio
     added$.next(modelAnimations);
   }
 
+  const createAnimationMixer = (model: Mesh | Group, animations: TAnimationsPack = {}): AnimationMixer => {
+    const mixer = new AnimationMixer(model);
+    Object.values(animations).forEach((clip: AnimationClip): void => void mixer.clipAction(clip));
+    return mixer;
+  };
+
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     registry.destroy();
@@ -39,6 +46,7 @@ export function AnimationsService(registry: TAnimationsAsyncRegistry): TAnimatio
 
   return {
     add,
+    createAnimationMixer,
     added$: added$.asObservable(),
     gltfAnimationsToPack,
     getRegistry: (): TAnimationsAsyncRegistry => registry,
