@@ -1,5 +1,5 @@
 {
-  "canvasSelector": "#app",
+  "canvasSelector": "#custom_models_container #app",
   "entities": {
     "renderers": [{ "name": "main", "mode": "webgl2", "isActive": true, "alpha": true }],
     "actors": [],

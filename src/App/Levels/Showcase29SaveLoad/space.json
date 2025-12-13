@@ -1,5 +1,5 @@
 {
-  "canvasSelector": "#app",
+  "canvasSelector": "#basic_container #app",
   "entities": {
     "actors": [
       {
@@ -145,7 +145,7 @@
     ],
     "texts": []
   },
-  "name": "showcase",
+  "name": "SpaceBasic",
   "resources": {
     "animations": [],
     "audio": [],

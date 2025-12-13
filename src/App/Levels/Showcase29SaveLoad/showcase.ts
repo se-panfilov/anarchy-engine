@@ -1,6 +1,8 @@
+import './style.css';
+
 import { addBtn, addDropdown } from '@/App/Levels/Utils';
 import type { TSpace, TSpaceConfig, TSpaceRegistry } from '@/Engine';
-import { asRecord, isNotDefined, spaceService } from '@/Engine';
+import { asRecord, createDomElement, isNotDefined, spaceService } from '@/Engine';
 
 import space from './space.json';
 import spaceCustomModels from './spaceCustomModels.json';
@@ -10,13 +12,28 @@ const spaceBasicConfig: TSpaceConfig = space as TSpaceConfig;
 const spaceCustomModelsConfig: TSpaceConfig = spaceCustomModels as TSpaceConfig;
 const spaceTextsConfig: TSpaceConfig = spaceTexts as TSpaceConfig;
 
+const getContainer = (canvasSelector: string): string => canvasSelector.split('#')[1].trim();
+
+type TSpacesData = Readonly<{ name: string; config: TSpaceConfig; container: string }>;
+
+const spaces: ReadonlyArray<TSpacesData> = [
+  { name: spaceBasicConfig.name, config: spaceBasicConfig, container: getContainer(spaceBasicConfig.canvasSelector) },
+  { name: spaceCustomModelsConfig.name, config: spaceCustomModelsConfig, container: getContainer(spaceCustomModelsConfig.canvasSelector) },
+  { name: spaceTextsConfig.name, config: spaceTextsConfig, container: getContainer(spaceTextsConfig.canvasSelector) }
+];
+
 let currentSpaceName: string | undefined;
 
+function createContainersDivs(): void {
+  spaces.forEach(({ container }) => createDomElement('div', undefined, ['container'], container));
+}
+
 export function start(): void {
+  createContainersDivs();
   const list: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceBasicConfig, spaceCustomModelsConfig, spaceTextsConfig]);
   const spaces: Record<string, TSpace> = asRecord('name', list);
   const space: TSpace = spaces[spaceBasicConfig.name];
-  if (isNotDefined(space)) throw new Error(`Showcase: Space "${spaceBasicConfig.name}" is not defined`);
+  if (isNotDefined(space)) throw new Error(`[Showcase]: Space "${spaceBasicConfig.name}" is not defined`);
 
   createForm(undefined, space, true, true, list);
 
