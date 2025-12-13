@@ -93,7 +93,7 @@
         "castShadow": true,
         "position": { "x": 0.25, "y": 15, "z": 2.25 },
         "shadow": {
-          "mapSize": { "x": 1024, "y": 1024 },
+          "mapSize": { "x": 4096, "y": 4096 },
           "normalBias": 0.05,
           "camera": {
             "top": 50,

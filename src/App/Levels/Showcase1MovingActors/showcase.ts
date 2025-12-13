@@ -1,8 +1,20 @@
-import { Vector3 } from 'three';
-
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TActorRegistry, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TModel3d, TModel3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import type {
+  TActor,
+  TActorRegistry,
+  TAppCanvas,
+  TCameraWrapper,
+  TEngine,
+  TIntersectionEvent,
+  TIntersectionsWatcher,
+  TLoopTimes,
+  TModel3d,
+  TModel3dRegistry,
+  TSceneWrapper,
+  TSpace,
+  TSpaceConfig
+} from '@/Engine';
 import { Engine, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -31,9 +43,10 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     watchIntersections([actor]);
 
-    //Better to move actors via kinematic (or physics), but for a simple example we can just set coords
-    loopService.tick$.subscribe(({ elapsedTime }) => {
-      actor.drive.position$.next(new Vector3(Math.sin(elapsedTime) * 8, actor.drive.getPosition().y, Math.cos(elapsedTime) * 8));
+    loopService.tick$.subscribe(({ elapsedTime }: TLoopTimes): void => {
+      actor.drive.default.setX(Math.sin(elapsedTime) * 8);
+      actor.drive.default.setZ(Math.cos(elapsedTime) * 8);
+      // actor.drive.position$.next(new Vector3(Math.sin(elapsedTime) * 8, actor.drive.getPosition().y, Math.cos(elapsedTime) * 8));
     });
   }
 

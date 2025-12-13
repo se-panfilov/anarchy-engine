@@ -31,6 +31,7 @@ export function Actor(
   // TODO 8.0.0. MODELS: In showcase check spatial and collisions
 
   // TODO 8.0.0. MODELS: close all issues (todoes) with tag 8.0.0
+  // TODO 8.0.0. MODELS: Looks like screen ratio update is broken (when resize window, objects should be scaled properly)
 
   const entities: TActorEntities = {
     drive,
