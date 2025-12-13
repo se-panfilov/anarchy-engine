@@ -19,6 +19,7 @@ const desktopAppSettings: TDesktopAppConfig = {
 // TODO DESKTOP: Add canvas.requestPointerLock(); on a Space level
 // TODO DESKTOP: Steam integration (manifest, cloud_sync.vdf, cloud saves, achievements, layer, etc.)
 // TODO DESKTOP: Other integrations (epic, gog, etc.)
+// TODO DESKTOP: Main menu texts are broken in desktop dev mode
 
 const filesService: TFilesService = FilesService(app);
 const desktopAppService: TDesktopAppService = DesktopAppService(app, { filesService });
