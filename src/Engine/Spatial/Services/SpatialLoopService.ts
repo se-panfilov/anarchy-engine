@@ -2,11 +2,11 @@ import { Subject } from 'rxjs';
 
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import type { TSpatialLoopService } from '@/Engine/Spatial/Models';
+import type { TSpatialLoopService, TSpatialLoopServiceValue } from '@/Engine/Spatial/Models';
 
 export function SpatialLoopService(): TSpatialLoopService {
   let _isAutoUpdate: boolean = true;
-  const tick$: Subject<number> = new Subject<number>();
+  const tick$: Subject<TSpatialLoopServiceValue> = new Subject<TSpatialLoopServiceValue>();
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe((): void => {

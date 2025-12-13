@@ -21,8 +21,8 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
 
   const withMaterialEntity: TWithMaterial = withMaterial(entity);
 
-  const { value$: position$, update: updatePosition, stop: positionWatchStop } = withReactivePosition(entity);
-  const { value$: rotation$, update: updateRotation, stop: rotationWatchStop } = withReactiveRotation(entity);
+  const { value$: position$, update: updatePosition } = withReactivePosition(entity);
+  const { value$: rotation$, update: updateRotation } = withReactiveRotation(entity);
 
   // TODO (S.Panfilov) debug
   //WIP: position subject
@@ -41,6 +41,8 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
     ...withTextures(withMaterialEntity, materialTextureService),
     ...withKinematic(params),
     ...withSpatialCell(),
+    position$: position$.asObservable(),
+    rotation$: rotation$.asObservable(),
     entity
   };
 
@@ -59,8 +61,10 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
   actorW.destroyed$.subscribe(() => {
     kinematicSub$.unsubscribe();
     spatialSub$.unsubscribe();
-    positionWatchStop();
-    rotationWatchStop();
+    position$.unsubscribe();
+    position$.complete();
+    rotation$.unsubscribe();
+    rotation$.complete();
   });
 
   applyPosition(actorW, params.position);

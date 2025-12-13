@@ -1,4 +1,4 @@
-import type { Intersection, Mesh, Object3D } from 'three';
+import type { Intersection } from 'three';
 import { Vector3 } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
 

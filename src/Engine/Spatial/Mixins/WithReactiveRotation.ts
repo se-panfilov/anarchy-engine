@@ -18,5 +18,5 @@ export function withReactiveRotation(entity: Mesh): TWithReactiveRotation {
     prevRotation = newRotation;
   }
 
-  return { value$: rotation$.asObservable(), update };
+  return { value$: rotation$, update };
 }

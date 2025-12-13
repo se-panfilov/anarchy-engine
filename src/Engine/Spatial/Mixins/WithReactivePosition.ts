@@ -18,5 +18,5 @@ export function withReactivePosition(entity: Mesh): TWithReactivePosition {
     prevPosition = newPosition;
   }
 
-  return { value$: position$.asObservable(), update };
+  return { value$: position$, update };
 }
