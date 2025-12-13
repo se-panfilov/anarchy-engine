@@ -1,20 +1,31 @@
 <script setup lang="ts">
 import ActionButton from '@Showcases/GUI/components/ActionButton.vue';
 import ValueBar from '@Showcases/GUI/components/ValueBar.vue';
+import { vueTranslationService } from '@Showcases/i18n';
+import type { ShallowRef } from 'vue';
+
+const { $t } = vueTranslationService;
+const valueEnergyTitle: ShallowRef<string> = $t('gui.bottom.bar.energy.title');
+const valueHealthTitle: ShallowRef<string> = $t('gui.bottom.bar.health.title');
+const buttonAttackTitle: ShallowRef<string> = $t('gui.bottom.button.attack.title');
+const buttonDefendTitle: ShallowRef<string> = $t('gui.bottom.button.defend.title');
+const buttonInventoryTitle: ShallowRef<string> = $t('gui.bottom.button.inventory.title');
+const buttonMapTitle: ShallowRef<string> = $t('gui.bottom.button.map.title');
+const buttonSettingsTitle: ShallowRef<string> = $t('gui.bottom.button.settings.title');
 </script>
 
 <template>
   <div class="bottom">
     <div class="panel -bottom">
       <div class="game-hud">
-        <ValueBar title="Energy" :current="75" :max="100" color="blue">
+        <ValueBar :title="valueEnergyTitle" :current="75" :max="100" color="blue">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
           </svg>
         </ValueBar>
 
         <div class="action-buttons">
-          <ActionButton title="Attack" data-key="LMB">
+          <ActionButton :title="buttonAttackTitle" data-key="LMB">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5" />
               <line x1="13" x2="19" y1="19" y2="13" />
@@ -23,13 +34,13 @@ import ValueBar from '@Showcases/GUI/components/ValueBar.vue';
             </svg>
           </ActionButton>
 
-          <ActionButton title="Defend" data-key="RMB">
+          <ActionButton :title="buttonDefendTitle" data-key="RMB">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
             </svg>
           </ActionButton>
 
-          <ActionButton title="Inventory" data-key="I">
+          <ActionButton :title="buttonInventoryTitle" data-key="I">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20 7h-9" />
               <path d="M14 17H5" />
@@ -38,7 +49,7 @@ import ValueBar from '@Showcases/GUI/components/ValueBar.vue';
             </svg>
           </ActionButton>
 
-          <ActionButton title="Map" data-key="M">
+          <ActionButton :title="buttonMapTitle" data-key="M">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21" />
               <line x1="9" x2="9" y1="3" y2="18" />
@@ -46,7 +57,7 @@ import ValueBar from '@Showcases/GUI/components/ValueBar.vue';
             </svg>
           </ActionButton>
 
-          <ActionButton title="Settings" data-key="Esc">
+          <ActionButton :title="buttonSettingsTitle" data-key="Esc">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path
                 d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
@@ -56,7 +67,7 @@ import ValueBar from '@Showcases/GUI/components/ValueBar.vue';
           </ActionButton>
         </div>
 
-        <ValueBar title="Health" :current="85" :max="100" color="red" />
+        <ValueBar :title="valueHealthTitle" :current="85" :max="100" color="red" />
       </div>
     </div>
   </div>
@@ -102,13 +113,11 @@ import ValueBar from '@Showcases/GUI/components/ValueBar.vue';
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    pointer-events: auto;
 
     .action-buttons {
       display: flex;
       gap: 0.75rem;
       padding-bottom: 0.5rem;
-      pointer-events: auto;
     }
   }
 }
