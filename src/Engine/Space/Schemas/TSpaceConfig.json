@@ -1113,9 +1113,13 @@
           },
           "description": "Array with matrix values.",
           "default": [1, 0, 0, 0, 1, 0, 0, 0, 1]
+        },
+        "isMatrix3": {
+          "type": "boolean",
+          "const": true
         }
       },
-      "required": ["elements"],
+      "required": ["elements", "isMatrix3"],
       "additionalProperties": false,
       "description": "( class Matrix3 implements Matrix<Matrix3> )"
     },
