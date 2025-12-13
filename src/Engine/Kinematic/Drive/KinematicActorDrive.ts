@@ -5,14 +5,14 @@ import { degToRad } from 'three/src/math/MathUtils';
 
 import type { TActorParams } from '@/Engine/Actor';
 import { ActorDrive } from '@/Engine/Actor';
-import type { TKinematicACtorDrive, TKinematicData, TKinematicLoopService } from '@/Engine/Kinematic/Models';
+import type { TKinematicActorDrive, TKinematicData, TKinematicLoopService } from '@/Engine/Kinematic/Models';
 import type { TDegrees, TRadians } from '@/Engine/Math';
 import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TWriteable } from '@/Engine/Utils';
 
-export function KinematicActorDrive(params: TActorParams, kinematicLoopService: TKinematicLoopService, drive$: BehaviorSubject<ActorDrive>): TKinematicACtorDrive {
+export function KinematicActorDrive(params: TActorParams, kinematicLoopService: TKinematicLoopService, drive$: BehaviorSubject<ActorDrive>): TKinematicActorDrive {
   let _isAutoUpdate: boolean = (params.kinematic?.isAutoUpdate && drive$.value === ActorDrive.Kinematic) ?? false;
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
   const rotation$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(new Quaternion().setFromEuler(params.rotation));
