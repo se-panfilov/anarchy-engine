@@ -13,7 +13,7 @@ import type {
   TSpaceConfig,
   TSpatialGridWrapper
 } from '@Anarchy/Engine';
-import { KeysExtra, metersPerSecond, milliseconds, spaceService } from '@Anarchy/Engine';
+import { KeyCode, metersPerSecond, milliseconds, spaceService } from '@Anarchy/Engine';
 import { radians } from '@Anarchy/Engine/Measurements/Utils';
 import { asRecord, isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Intersection } from 'three';
@@ -190,7 +190,7 @@ export function showcase(space: TSpace): void {
   });
 
   prepareShooting(hero, mouseService, mouseLineIntersectionsWatcher, shootingParams, bullets);
-  keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicsLoop.enabled$.next(!physicsLoop.enabled$.value));
+  keyboardService.onKey(KeyCode.Space).pressed$.subscribe((): void => physicsLoop.enabled$.next(!physicsLoop.enabled$.value));
 
   space.start$.next(true);
 }

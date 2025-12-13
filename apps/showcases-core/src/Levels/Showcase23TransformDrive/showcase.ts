@@ -32,7 +32,7 @@ import {
   getMouseAzimuthAndElevation,
   getPushCoordsFrom3dAzimuth,
   isOrbitControls,
-  KeysExtra,
+  KeyCode,
   meters,
   metersPerSecond,
   radians,
@@ -217,7 +217,7 @@ export async function showcase(space: TSpace): Promise<void> {
     )
   );
 
-  changeActorActiveAgent(sphereActor, KeysExtra.Space, keyboardService);
+  changeActorActiveAgent(sphereActor, KeyCode.Space, keyboardService);
 
   console.log('Memory usage:', getMemoryUsage());
 

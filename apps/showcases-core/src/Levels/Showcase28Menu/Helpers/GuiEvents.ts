@@ -1,5 +1,5 @@
 import type { TKeyboardService, TMouseService } from '@Anarchy/Engine';
-import { KeyCode, KeysExtra } from '@Anarchy/Engine';
+import { KeyCode } from '@Anarchy/Engine';
 import type { TToGuiEvent } from '@Showcases/Shared';
 import type { Subject } from 'rxjs';
 import { GuiActionType } from 'showcases-gui/src/constants';
@@ -21,8 +21,8 @@ export function initGuiEvents(keyboardService: TKeyboardService, mouseService: T
   onKey(KeyCode.I).released$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Inventory, false)));
   onKey(KeyCode.M).pressed$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(MiniMap, true)));
   onKey(KeyCode.M).released$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(MiniMap, false)));
-  onKey(KeysExtra.Escape).pressed$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Settings, true)));
-  onKey(KeysExtra.Escape).released$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Settings, false)));
+  onKey(KeyCode.Escape).pressed$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Settings, true)));
+  onKey(KeyCode.Escape).released$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Settings, false)));
 
   // TODO DESKTOP: a bug: if pressed$ and released$ subscriptions are both present, pressed$ fires twice. Fix
   onKey(KeyCode.X).pressed$.subscribe((v): void => {

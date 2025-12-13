@@ -10,7 +10,7 @@ export function KeyComboWatcher({ tags }: TKeyComboWatcherParams, { keyPressWatc
 
   function onPress(event: KeyboardEvent): void {
     if (combo.has(event.code)) return;
-
+    console.log('XXX3', event);
     combo.add(event.code);
     watcher.value$.next(combo);
   }

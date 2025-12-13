@@ -1,5 +1,5 @@
 import type { TActor, TActorRegistry, TMetersPerSecond, TMilliseconds, TReadonlyVector3, TSpace, TSpaceConfig } from '@Anarchy/Engine';
-import { KeysExtra, meters, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@Anarchy/Engine';
+import { KeyCode, meters, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import GUI from 'lil-gui';
 import { Vector3 } from 'three';
@@ -49,7 +49,7 @@ export function showcase(space: TSpace): void {
   gui.add(sphereCoords, 'y').listen();
   gui.add(sphereCoords, 'z').listen();
 
-  onKey(KeysExtra.Enter).released$.subscribe((): void => {
+  onKey(KeyCode.Enter).released$.subscribe((): void => {
     if (!mode.isKinematic) {
       if (sphere.drive.getActiveAgent().type !== TransformAgent.Default) sphere.drive.agent$.next(TransformAgent.Default);
       if (!isMove) isMove = true;

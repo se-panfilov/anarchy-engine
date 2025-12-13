@@ -1,6 +1,5 @@
 import type {
   KeyCode,
-  KeysExtra,
   TActor,
   TAnyCameraWrapper,
   TAnyMaterialWrapper,
@@ -110,7 +109,7 @@ export function startIntersections({ actorService, cameraService, intersectionsW
   }) as TIntersectionsCameraWatcher;
 }
 
-export function changeActorActiveAgent(actor: TActor, key: KeyCode | KeysExtra, keyboardService: TKeyboardService): Subscription {
+export function changeActorActiveAgent(actor: TActor, key: KeyCode | KeyCode, keyboardService: TKeyboardService): Subscription {
   return keyboardService.onKey(key).pressed$.subscribe((): void => {
     const agents: ReadonlyArray<TransformAgent> = Object.values(TransformAgent);
     const index: number = agents.findIndex((agent: TransformAgent): boolean => agent === actor.drive.agent$.value);
