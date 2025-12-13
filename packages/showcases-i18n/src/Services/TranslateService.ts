@@ -4,10 +4,9 @@ import type { FormatDateOptions } from '@formatjs/intl/src/types';
 import { isDefined, omitInArray } from '@Shared/Utils';
 import { BehaviorSubject, concatMap, distinctUntilChanged, from, map } from 'rxjs';
 
-export type TLocale = 'en' | 'nl';
-export type TMessages = Readonly<Record<string, string>>;
+export type TMessages = Record<string, string>;
 
-export type TTranslateService = Readonly<{
+export type TTranslateService<TLocale extends string> = Readonly<{
   translate: (id: string, params?: Record<string, string>) => string | never;
   formatDate: (value: Date | number, options?: FormatDateOptions) => string;
   formatNumber: (value: number, options?: FormatNumberOptions) => string;
@@ -15,9 +14,9 @@ export type TTranslateService = Readonly<{
   ready$: BehaviorSubject<boolean>;
 }>;
 
-export type TLocaleLoaders = Readonly<Record<TLocale, () => Promise<TMessages>>>;
+export type TLocaleLoaders<L extends string> = Record<L, () => Promise<TMessages>>;
 
-export function TranslateService(initialLocale: TLocale, defaultLocale: TLocale, locales: TLocaleLoaders): TTranslateService {
+export function TranslateService<TLocale extends string>(initialLocale: TLocale, defaultLocale: TLocale, locales: TLocaleLoaders<TLocale>): TTranslateService<TLocale> {
   const cache: IntlCache = createIntlCache();
   const ready$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   const locale$: BehaviorSubject<TLocale> = new BehaviorSubject<TLocale>(initialLocale);
