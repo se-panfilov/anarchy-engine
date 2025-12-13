@@ -7,6 +7,7 @@ export type IRendererParams = ITreeJsRendererParams &
   Readonly<{
     canvas: HTMLElement;
     mode: RendererModes;
+    isShadowMapEnabled?: boolean;
     maxPixelRatio?: number;
   }> &
   IWithReadonlyTags<RendererTag>;

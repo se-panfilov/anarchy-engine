@@ -13,11 +13,12 @@
       "height": 40,
       "widthSegments": 10,
       "heightSegments": 10,
-      "material": { "type": "toon", "params": { "color": "#5EDCAE" } },
+      "material": { "type": "toon", "params": { "color": "#FFFFFF" } },
       "type": "plane",
       "position": { "x": 0, "y": 0, "z": 0 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "castShadow": false,
+      "receiveShadow": true,
       "tags": ["surface"]
     },
     {
@@ -691,18 +692,18 @@
     {
       "type": "Spot",
       "color": "#01dede",
-      "intensity": 45,
-      "distance": 45,
-      "angle": 37,
-      "penumbra": 35,
-      "decay": 3,
+      "intensity": 41,
+      "distance": 57,
+      "angle": 45,
+      "penumbra": 40,
+      "decay": 2,
       "castShadow": true,
       "shadow": {
         "mapSize": { "x": 1024, "y": 1024 },
         "camera": { "far": 15 },
         "normalBias": 0.05
       },
-      "position": { "x": 8, "y": 4, "z": 2.25 },
+      "position": { "x": 4, "y": 4, "z": 2.25 },
       "tags": ["spot"]
     }
   ],

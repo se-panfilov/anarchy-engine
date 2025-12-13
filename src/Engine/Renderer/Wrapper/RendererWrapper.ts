@@ -5,7 +5,7 @@ import { PCFShadowMap, WebGLRenderer } from 'three';
 import type { IWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import { RendererModes } from '@/Engine/Renderer/Constants';
-import type { IRendererParams, IRendererWrapper } from '@/Engine/Renderer/Models';
+import type { IRendererAccessors, IRendererParams, IRendererWrapper } from '@/Engine/Renderer/Models';
 import type { IScreenSizeValues, IScreenSizeWatcher } from '@/Engine/Screen';
 import type { IWriteable } from '@/Engine/Utils';
 import { isNotDefined, isWebGL2Available, isWebGLAvailable } from '@/Engine/Utils';
@@ -34,9 +34,9 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
   }
 
   const entity: WebGLRenderer = new WebGLRenderer(options);
-  const accessors = getAccessors(entity);
+  const accessors: IRendererAccessors = getAccessors(entity);
 
-  accessors.setShadowMapEnabled(true);
+  accessors.setShadowMapEnabled(params.isShadowMapEnabled ?? true);
   accessors.setShadowMapType(PCFShadowMap);
 
   // eslint-disable-next-line functional/prefer-immutable-types
