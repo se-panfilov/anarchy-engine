@@ -24,8 +24,14 @@ export function Model3d(params: TModel3dParams, { animationsService, model3dRawT
   if (isDefined(params.position)) applyPositionToModel3d(abstract.getRawModel3d(), params.position);
   applyObject3dParamsToModel3d(abstract.getRawModel3d(), params);
 
+  model3dRawToModel3dConnectionRegistry.addModel3d(abstract.getRawModel3d(), abstract as TModel3d);
+
+  const preResult = withObject3d(abstract.getRawModel3d());
+  // eslint-disable-next-line functional/immutable-data
+  const result: TModel3d = Object.assign(preResult, abstract, { getParams, _clone });
+
   abstract.destroy$.subscribe((): void => {
-    model3dRawToModel3dConnectionRegistry.removeByModel3d(abstract.getRawModel3d());
+    model3dRawToModel3dConnectionRegistry.removeByModel3d(result.getRawModel3d(), true);
 
     destroyModel3dAnimationEntities(abstract);
 
@@ -34,9 +40,5 @@ export function Model3d(params: TModel3dParams, { animationsService, model3dRawT
     entities = null as any;
   });
 
-  model3dRawToModel3dConnectionRegistry.addModel3d(abstract.getRawModel3d(), abstract as TModel3d);
-
-  const preResult = withObject3d(abstract.getRawModel3d());
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(preResult, abstract, { getParams, _clone });
+  return result;
 }

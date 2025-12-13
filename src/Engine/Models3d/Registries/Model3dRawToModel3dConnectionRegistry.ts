@@ -15,6 +15,12 @@ registry.findByModel3d = (model3dRaw: TRawModel3d): string | undefined => regist
 // eslint-disable-next-line functional/immutable-data
 registry.setByModel3d = (model3dRaw: TRawModel3d, model3d: TModel3d): void => registry.add(model3dRaw.uuid, model3d.id);
 // eslint-disable-next-line functional/immutable-data
-registry.removeByModel3d = (model3dRaw: TRawModel3d): void => registry.remove(model3dRaw.uuid);
+registry.removeByModel3d = (model3dRaw: TRawModel3d, shouldIgnoreRemoved: boolean): void => {
+  if (shouldIgnoreRemoved) {
+    if (registry.findByModel3d(model3dRaw)) return registry.remove(model3dRaw.uuid);
+    return undefined;
+  }
+  return registry.remove(model3dRaw.uuid);
+};
 
 export const Model3dRawToModel3dConnectionRegistry = (): TModel3dRawToModel3dConnectionRegistry => registry;
