@@ -1,34 +1,46 @@
 import { TextureLoader } from 'three';
 
+import type { MaterialType } from '@/Engine/Domains/Material';
 import type {
   IBasicMaterialTexturePack,
+  IBasicMaterialTextureUploaded,
   IBasicMaterialTextureUploadPromises,
   IDepthMaterialTexturePack,
+  IDepthMaterialTextureUploaded,
   IDepthMaterialTextureUploadPromises,
   IDistanceMaterialTexturePack,
+  IDistanceMaterialTextureUploaded,
   IDistanceMaterialTextureUploadPromises,
   ILamberMaterialTexturePack,
+  ILamberMaterialTextureUploaded,
   ILamberMaterialTextureUploadPromises,
   IMatcapMaterialTexturePack,
+  IMatcapMaterialTextureUploaded,
   IMatcapMaterialTextureUploadPromises,
   IMaterialPackKeys,
   IMaterialTexturePack,
   IMaterialTextureUploaded,
   IMaterialTextureUploadPromises,
   INormalMaterialTexturePack,
+  INormalMaterialTextureUploaded,
   INormalMaterialTextureUploadPromises,
   IPhongMaterialTexturePack,
+  IPhongMaterialTextureUploaded,
   IPhongMaterialTextureUploadPromises,
   IPhysicalMaterialTexturePack,
+  IPhysicalMaterialTextureUploaded,
   IPhysicalMaterialTextureUploadPromises,
   IStandardMaterialTexturePack,
+  IStandardMaterialTextureUploaded,
   IStandardMaterialTextureUploadPromises,
   ITexture,
+  ITexturePackParams,
   ITextureService,
   IToonMaterialTexturePack,
+  IToonMaterialTextureUploaded,
   IToonMaterialTextureUploadPromises
 } from '@/Engine/Domains/Texture/Models';
-import { applyColorSpace, applyFilters, applyTextureParams } from '@/Engine/Domains/Texture/Service/TextureServiceHelper';
+import { applyColorSpace, applyFilters, applyTextureParams, isMaterialType } from '@/Engine/Domains/Texture/Service/TextureServiceHelper';
 import type { IWriteable } from '@/Engine/Utils';
 
 export function TextureService(): ITextureService {
@@ -47,7 +59,10 @@ export function TextureService(): ITextureService {
   function load(pack: IMaterialTexturePack): IMaterialTextureUploadPromises {
     let promises: Omit<IMaterialTextureUploadPromises, 'all'> = {};
 
-    Object.entries(pack).forEach(([key, { url, params }]): void => {
+    Object.entries(pack).forEach(([key, packParams]: [string, ITexturePackParams | MaterialType]): void => {
+      if (isMaterialType(packParams)) return;
+
+      const { url, params }: ITexturePackParams = packParams;
       const p: Promise<ITexture> = textureLoader.loadAsync(url).then((texture: IWriteable<ITexture>): ITexture => {
         applyTextureParams(texture, params);
         applyColorSpace(key as IMaterialPackKeys, texture, params);
@@ -57,12 +72,23 @@ export function TextureService(): ITextureService {
       promises = { ...promises, [key]: p };
     });
 
-    const all: () => Promise<IMaterialTextureUploaded> = () =>
-      Promise.all(Object.values(promises)).then((textures: ReadonlyArray<ITexture>): IMaterialTextureUploaded => {
+    function all(): Promise<IBasicMaterialTextureUploaded>;
+    function all(): Promise<IDepthMaterialTextureUploaded>;
+    function all(): Promise<IDistanceMaterialTextureUploaded>;
+    function all(): Promise<INormalMaterialTextureUploaded>;
+    function all(): Promise<IMatcapMaterialTextureUploaded>;
+    function all(): Promise<ILamberMaterialTextureUploaded>;
+    function all(): Promise<IPhongMaterialTextureUploaded>;
+    function all(): Promise<IPhysicalMaterialTextureUploaded>;
+    function all(): Promise<IToonMaterialTextureUploaded>;
+    function all(): Promise<IStandardMaterialTextureUploaded>;
+    function all(): Promise<IMaterialTextureUploaded> {
+      return Promise.all(Object.values(promises)).then((textures) => {
         let uploaded: IMaterialTextureUploaded = {};
         Object.keys(pack).forEach((key: string, index: number): void => void (uploaded = { ...uploaded, [key]: textures[index] }));
         return uploaded;
       });
+    }
 
     return { ...promises, all };
   }

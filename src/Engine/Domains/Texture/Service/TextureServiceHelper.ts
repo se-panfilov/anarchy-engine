@@ -1,7 +1,8 @@
 import type { ColorSpace, MagnificationTextureFilter, MinificationTextureFilter } from 'three';
 import { LinearFilter, NearestFilter, SRGBColorSpace } from 'three';
 
-import type { IMaterialPackKeys, ITexture, ITextureParams } from '@/Engine/Domains/Texture/Models';
+import { MaterialType } from '@/Engine/Domains/Material';
+import type { IMaterialPackKeys, ITexture, ITexturePackParams, ITextureParams } from '@/Engine/Domains/Texture/Models';
 import type { IWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -49,3 +50,5 @@ export function applyTextureParams(texture: IWriteable<ITexture>, params?: IText
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(params.type)) texture.type = params.type;
 }
+
+export const isMaterialType = (value: ITexturePackParams | MaterialType): value is MaterialType => Object.values(MaterialType).includes(value as MaterialType);
