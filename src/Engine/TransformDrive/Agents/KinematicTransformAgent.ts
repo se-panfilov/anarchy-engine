@@ -1,4 +1,4 @@
-import type { Observable, Subscription } from 'rxjs';
+import type { Subject, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, filter, map, switchMap } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad } from 'three/src/math/MathUtils';
@@ -208,7 +208,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     .pipe(
       //Do not update if agent is disabled or autoUpdate is turned off
       filter(([isEnabled, isAutoUpdate]: ReadonlyArray<boolean>): boolean => isEnabled && isAutoUpdate),
-      switchMap((): Observable<number> => kinematicLoopService.tick$)
+      switchMap((): Subject<number> => kinematicLoopService.tick$)
     )
     .subscribe((delta: number): void => {
       doKinematicRotation(delta);

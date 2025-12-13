@@ -1,5 +1,10 @@
-import type { Observable } from 'rxjs';
+import type { Observable, Subject } from 'rxjs';
 
 export type TAbstractLoopService<T> = Readonly<{
-  tick$: Observable<T>;
+  tick$: Subject<T>;
 }>;
+
+export type TAbstractReadonlyLoopServiceWith<T> = Omit<TAbstractLoopService<T>, 'tick$'> &
+  Readonly<{
+    tick$: Observable<T>;
+  }>;

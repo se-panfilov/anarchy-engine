@@ -1,5 +1,5 @@
 import type { RigidBody, Rotation, Vector } from '@dimforge/rapier3d';
-import type { Observable, Subscription } from 'rxjs';
+import type { Subject, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, filter, map, switchMap } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
 
@@ -23,6 +23,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
 
   let physicsSub$: Subscription | undefined = undefined;
 
+  // TODO CWP test all os this anc add a showcase
   // TODO 8.0.0. MODELS: PhysicsTransformAgent should do nothing if actor has no "physics" field.
   // TODO 8.0.0. MODELS: Make sure we can work with presets
   // TODO 8.0.0. MODELS: Add physics config to text (and to adapter)
@@ -45,7 +46,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
   physicsSub$ = combineLatest([agent.enabled$, physicsLoopService.autoUpdate$])
     .pipe(
       filter(([isEnabled, isAutoUpdate]: ReadonlyArray<boolean>): boolean => isEnabled && isAutoUpdate),
-      switchMap((): Observable<void> => physicsLoopService.tick$)
+      switchMap((): Subject<void> => physicsLoopService.tick$)
     )
     .subscribe((): void => {
       const { position, rotation } = getPhysicalBodyTransform(agent);

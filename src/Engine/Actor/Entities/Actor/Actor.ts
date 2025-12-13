@@ -45,7 +45,7 @@ export function Actor(
 
   const actor: TActor = AbstractEntity(entities, EntityType.Actor, params);
 
-  actor.destroy$.subscribe(() => {
+  actor.destroy$.subscribe((): void => {
     //Remove model3d registration
     model3dToActorConnectionRegistry.removeByModel3d(model3d);
 

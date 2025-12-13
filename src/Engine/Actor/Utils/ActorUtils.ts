@@ -1,12 +1,8 @@
-import type { TActor, TActorDependencies, TActorParams, TActorWithPhysics, TActorWithPhysicsDependencies } from '@/Engine/Actor/Models';
+import type { TActor, TActorParams, TActorWithPhysics } from '@/Engine/Actor/Models';
 import type { TSpatialGridService, TSpatialGridWrapper } from '@/Engine/Spatial';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export const isActorHasPhysicsBody = (actor: TActor | TActorWithPhysics): actor is TActorWithPhysics => isDefined(actor.physicsBody);
-
-export function isBodyServiceDependency(dependencies: TActorDependencies | TActorWithPhysicsDependencies): dependencies is TActorWithPhysicsDependencies {
-  return isDefined((dependencies as TActorWithPhysicsDependencies).physicsBodyService);
-}
 
 export function applySpatialGrid(params: TActorParams, actor: TActor, spatialGridService: TSpatialGridService): void {
   if (isNotDefined(params.spatial.grid)) return;

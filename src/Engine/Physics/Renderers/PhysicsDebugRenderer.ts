@@ -2,13 +2,13 @@ import type { World } from '@dimforge/rapier3d';
 import type { Subscription } from 'rxjs';
 import { BufferAttribute, BufferGeometry, LineBasicMaterial, LineSegments } from 'three';
 
-import type { TAbstractLoopService } from '@/Engine/Abstract';
+import type { TAbstractLoopService, TAbstractReadonlyLoopServiceWith } from '@/Engine/Abstract';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TPhysicsDebugRenderer } from '@/Engine/Physics/Models';
 import type { TSceneWrapper } from '@/Engine/Scene/Models';
 
-export function PhysicsDebugRenderer(sceneW: TSceneWrapper, world: World, loopService: TAbstractLoopService<unknown>): TPhysicsDebugRenderer {
+export function PhysicsDebugRenderer(sceneW: TSceneWrapper, world: World, loopService: TAbstractLoopService<unknown> | TAbstractReadonlyLoopServiceWith<unknown>): TPhysicsDebugRenderer {
   const mesh = new LineSegments(new BufferGeometry(), new LineBasicMaterial({ color: 0xffffff, vertexColors: true }));
   // eslint-disable-next-line functional/immutable-data
   mesh.frustumCulled = false;

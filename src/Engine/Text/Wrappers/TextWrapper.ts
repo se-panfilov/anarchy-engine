@@ -14,13 +14,13 @@ import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import { applyCenter, applyObject3dParams, isDefined } from '@/Engine/Utils';
 
-export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: TTextParams, type: TextType, { kinematicLoopService }: TTextDependencies): TTextWrapper<T> {
+export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: TTextParams, type: TextType, dependencies: TTextDependencies): TTextWrapper<T> {
   const element: HTMLElement = document.createElement(params.elementType || 'div');
   // eslint-disable-next-line functional/immutable-data
   element.textContent = params.text;
   const entity: T = createText(type, element) as T;
 
-  const drive: TTextTransformDrive = TextTransformDrive(params, kinematicLoopService);
+  const drive: TTextTransformDrive = TextTransformDrive(params, dependencies);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
   const result: TTextWrapper<T> = {

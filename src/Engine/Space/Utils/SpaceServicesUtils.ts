@@ -124,7 +124,20 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
     rendererService: RendererService(RendererFactory(), RendererRegistry()),
     spatialLoopService,
     spatialGridService,
-    textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), Text3dTextureRegistry(), Text2dRendererRegistry(), Text3dRendererRegistry(), { kinematicLoopService }, sceneW),
+    textService: TextService(
+      TextFactory(),
+      Text2dRegistry(),
+      Text3dRegistry(),
+      Text3dTextureRegistry(),
+      Text2dRendererRegistry(),
+      Text3dRendererRegistry(),
+      {
+        kinematicLoopService,
+        physicsBodyService,
+        physicsLoopService
+      },
+      sceneW
+    ),
     textureService
   };
 }
