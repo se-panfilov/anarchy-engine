@@ -10,8 +10,6 @@ export function createPrimitiveModel3dPack(params: TModel3dParams): TModel3dPack
   const { primitive, material } = params;
   if (!isDefined(primitive)) throw new Error(`Primitive model type is not defined`);
 
-  console.log('material', material);
-
   const pre: Omit<TModel3dPack, 'model'> = {
     ...params,
     primitive,

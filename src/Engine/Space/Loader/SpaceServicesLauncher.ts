@@ -66,7 +66,6 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
       ActorFactory(),
       ActorRegistry(),
       {
-        materialTextureService,
         models3dService,
         physicsBodyService,
         physicsLoopService,

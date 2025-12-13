@@ -12,13 +12,9 @@ import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin 
 import type { TModel3dFacade } from '@/Engine/Models3d';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
 import { withReactivePosition, withReactiveRotation, withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
-import { withTextures } from '@/Engine/Texture';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
-export function ActorWrapper(
-  params: TActorParams,
-  { materialTextureService, kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService }: TActorDependencies
-): TActorWrapper {
+export function ActorWrapper(params: TActorParams, { kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService }: TActorDependencies): TActorWrapper {
   const facade: TModel3dFacade = params.model3d;
   const entity: Group | Mesh | Object3D = facade.getModel();
 
@@ -40,8 +36,6 @@ export function ActorWrapper(
     ...scalableMixin(entity),
     ...withObject3d(entity),
     ...withMaterialEntity,
-    // TODO 8.0.0. MODELS: MATERIAL MIXIN: check if this works and decide: keep it mere, or move to TModel3dFacade
-    ...withTextures(withMaterialEntity, materialTextureService),
     ...withKinematic(params),
     ...withSpatial(params),
     ...withCollisions(params, collisionsService, collisionsLoopService),

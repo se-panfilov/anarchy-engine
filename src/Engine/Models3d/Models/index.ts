@@ -2,6 +2,7 @@ export * from './TModel3dConfig';
 export * from './TModel3dConfigToParamsDependencies';
 export * from './TModel3dEntities';
 export * from './TModel3dFacade';
+export * from './TModel3dFacadeDependencies';
 export * from './TModel3dFacadeParams';
 export * from './TModel3dOptions';
 export * from './TModel3dPack';
