@@ -15,6 +15,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   function init(): void {
     const scene: ISceneWrapper | undefined = scenesRegistry.getUniqByTag('current');
     if (isNotDefined(scene)) throw new Error('Scene not found');
+    if (isNotDefined(scene.entity.fog)) throw new Error("Scene's fog not found");
 
     gui.addColor(scene.entity.fog, 'color');
     gui.add(scene.entity.fog, 'near').min(0).max(1).step(0.1);
