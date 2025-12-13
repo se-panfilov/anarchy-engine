@@ -36,6 +36,7 @@
   "cameras": [
     {
       "fov": 45,
+      "name": "main",
       "near": 1,
       "far": 10000,
       "position": { "x": 3, "y": 20, "z": 35 },
@@ -70,6 +71,7 @@
   "controls": [
     {
       "type": "OrbitControls",
+      "relatedCameraName": "main",
       "enableDamping": true,
       "tags": [],
       "isActive": true

@@ -31,6 +31,7 @@
   "cameras": [
     {
       "fov": 45,
+      "name": "main",
       "near": 1,
       "far": 10000,
       "position": { "x": 0, "y": 0, "z": 3 },

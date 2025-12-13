@@ -1,7 +1,7 @@
 import { filter } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ISpace, ISpaceConfig } from '@/Engine';
+import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ISpace, ISpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase-1-moving-actors.config.json';
@@ -9,8 +9,8 @@ import spaceConfig from './showcase-1-moving-actors.config.json';
 //Showcase 1: Moving actor with intersections & reading data from config
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { actorRegistry } = space.registries;
-  const { cameraService, intersectionsService, loopService } = space.services;
+  const { actorService, cameraService, intersectionsService, loopService } = space.services;
+  const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
 
   async function init(): Promise<void> {
     const actor: IActorWrapperAsync = await actorRegistry.findByTagAsync('intersectable');
