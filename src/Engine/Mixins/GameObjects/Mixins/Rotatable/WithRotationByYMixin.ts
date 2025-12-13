@@ -5,7 +5,7 @@ import { withRotationMixin } from './WithRotationMixin';
 export function withRotationByYMixin(entity: TWithRotationProperty): TRotatableY {
   const setRotationY = (y: number): void => void entity.rotation.set(y, entity.rotation.y, entity.rotation.z);
   const getRotationY = (): number => entity.rotation.y;
-  const adjustRotationByY = (y: number): void => void entity.rotation.set(entity.rotation.y + y, entity.rotation.y, entity.rotation.z);
+  const adjustRotationByY = (y: number): void => void entity.rotation.set(entity.rotation.x, entity.rotation.y + y, entity.rotation.z);
 
   return {
     ...withRotationMixin(entity),

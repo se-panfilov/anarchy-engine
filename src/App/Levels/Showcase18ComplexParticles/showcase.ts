@@ -9,8 +9,10 @@ import { configToParams as particlesConfigToParams } from '@/Engine/Particles/Ad
 import spaceConfig from './showcase.json';
 
 export function showcase(canvas: TAppCanvas): TShowcase {
+  const gui: GUI = new GUI();
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
+  const { loopService } = engine.services;
   const { particlesService } = space.services;
 
   const particlesName: string = 'stars';
@@ -108,8 +110,13 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     return { positions, colors };
   }
 
-  function init(): void {
-    const gui: GUI = new GUI();
+  loopService.tick$.subscribe(({ delta }) => {
+    if (isDefined(particles)) {
+      particles.adjustRotationByY(delta * 0.018);
+    }
+  });
+
+  async function init(): Promise<void> {
     gui.add(parameters, 'count').min(1000).max(1000000).step(1000).onFinishChange(createGalaxy);
     gui.add(parameters, 'size').min(0.001).max(1).step(0.001).onFinishChange(createGalaxy);
     gui.add(parameters, 'radius').min(0.01).max(20).step(0.01).onFinishChange(createGalaxy);
@@ -120,7 +127,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     gui.addColor(parameters, 'insideColor').onChange(createGalaxy);
     gui.addColor(parameters, 'outsideColor').onChange(createGalaxy);
 
-    void createGalaxy();
+    await createGalaxy();
   }
 
   function start(): void {
