@@ -6,10 +6,16 @@ import type { FormatDateOptions } from '@formatjs/intl/src/types';
 import { BehaviorSubject, concatMap, distinctUntilChanged, from, map } from 'rxjs';
 
 export function TranslateService<TLocale extends string>(initialLocale: TLocale, defaultLocale: TLocale, locales: TLocalesMapping<TLocale>): TTranslateService<TLocale> {
+  const loaded: Map<TLocale, TMessages> = new Map<TLocale, TMessages>();
+  const loadingLocale$: BehaviorSubject<ReadonlyArray<TLocale>> = new BehaviorSubject<ReadonlyArray<TLocale>>([initialLocale, defaultLocale]);
+
+  //Preload the locales (without waiting the result)
+  void Promise.all([loadLocale(defaultLocale), loadLocale(initialLocale)]);
+
   const cache: IntlCache = createIntlCache();
   const ready$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   const locale$: BehaviorSubject<TLocale> = new BehaviorSubject<TLocale>(initialLocale);
-  const loaded: Map<TLocale, TMessages> = new Map<TLocale, TMessages>();
+
   const intlMap: Map<TLocale, IntlShape<string>> = new Map<TLocale, IntlShape<string>>();
   const intl$: BehaviorSubject<IntlShape<string> | undefined> = new BehaviorSubject<IntlShape<string> | undefined>(undefined);
 
@@ -26,8 +32,6 @@ export function TranslateService<TLocale extends string>(initialLocale: TLocale,
     return intl;
   }
 
-  const loadingLocale$: BehaviorSubject<ReadonlyArray<TLocale>> = new BehaviorSubject<ReadonlyArray<TLocale>>([initialLocale, defaultLocale]);
-
   async function loadLocale(locale: TLocale): Promise<void> {
     loadingLocale$.next([...loadingLocale$.value, locale]);
     if (!loaded.has(locale)) loaded.set(locale, await locales[locale]());
@@ -43,9 +47,6 @@ export function TranslateService<TLocale extends string>(initialLocale: TLocale,
       distinctUntilChanged()
     )
     .subscribe((v: boolean): void => void ready$.next(v));
-
-  //Preload the default locale
-  void loadLocale(defaultLocale);
 
   locale$
     .pipe(
