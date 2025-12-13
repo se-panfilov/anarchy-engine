@@ -8,22 +8,33 @@ import { createDeferredPromise, isDefined } from '@/Engine/Utils';
 export function getUniqEntityWithTagsAsync<T extends IRegistrable>(
   tags: ReadonlyArray<string>,
   registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>,
-  strategy: LookUpStrategy
+  strategy: LookUpStrategy,
+  // TODO (S.Panfilov) should be set from default config
+  waitingTime: number = 3000
 ): Promise<T | undefined> {
-  return getValueAsync<T>(registry, (entity: T): boolean => {
-    const entityTags: ReadonlyArray<string> = entity.getTags();
-    return entityTags.length > 0 && entityTags[strategy]((tag: string) => tags.includes(tag));
-  });
+  return getValueAsync<T>(
+    registry,
+    (entity: T): boolean => {
+      const entityTags: ReadonlyArray<string> = entity.getTags();
+      return entityTags.length > 0 && entityTags[strategy]((tag: string) => tags.includes(tag));
+    },
+    undefined,
+    waitingTime
+  );
+}
+
+// TODO (S.Panfilov) should be set from default config
+export function getAsyncUniqEntityWithTag<T extends IRegistrable>(tag: string, registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>, waitingTime: number = 3000): Promise<T | undefined> {
+  return getValueAsync<T>(registry, (entity: T): boolean => entity.hasTag(tag), undefined, waitingTime);
 }
 
 // TODO (S.Panfilov) add unit tests
-export function getAsyncUniqEntityWithTag<T extends IRegistrable>(tag: string, registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>): Promise<T | undefined> {
-  return getValueAsync<T>(registry, (entity: T): boolean => entity.hasTag(tag));
-}
-
-// TODO (S.Panfilov) add unit tests
-export function getAsyncUniqEntityByNameAsync<T extends IRegistrable>(name: string, registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>): Promise<T | undefined> {
-  return getValueAsync<T>(registry, (entity: T): boolean => entity && entity.name === name);
+export function getAsyncUniqEntityByNameAsync<T extends IRegistrable>(
+  name: string,
+  registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>,
+  waitingTime: number = 3000
+): Promise<T | undefined> {
+  return getValueAsync<T>(registry, (entity: T): boolean => entity && entity.name === name, undefined, waitingTime);
 }
 
 // TODO (S.Panfilov) add unit tests
