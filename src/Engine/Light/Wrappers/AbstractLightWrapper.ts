@@ -23,7 +23,7 @@ export function AbstractLightWrapper<T extends TLight>(entity: T, params: TLight
     driveToTargetConnector,
     ...withObject3d(entity),
     entity,
-    serialize: (): TAbstractLightConfig<T> => lightToConfig(result)
+    serialize: (): TAbstractLightConfig<T> => lightToConfig(result) as TAbstractLightConfig<T>
   });
 
   const destroySub$: Subscription = result.destroy$.subscribe((): void => {
@@ -35,10 +35,6 @@ export function AbstractLightWrapper<T extends TLight>(entity: T, params: TLight
 
   applyShadowParams(params, result.entity);
   applyObject3dParams(result, params);
-
-  setTimeout((): void => {
-    result.serialize();
-  }, 1000);
 
   return result;
 }
