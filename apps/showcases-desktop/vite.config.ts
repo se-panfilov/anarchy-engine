@@ -13,9 +13,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      ...sharedAliases,
       '@Desktop': path.resolve(__dirname, './src'),
-      '@ShowcasesShared': path.resolve(__dirname, '../../packages/showcases-shared/src'),
-      ...sharedAliases
+      '@ShowcasesShared': path.resolve(__dirname, '../../packages/showcases-shared/src')
     }
   },
   build: {
