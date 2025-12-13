@@ -39,6 +39,7 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
 
   const tmpPosition = new Float32Array(2);
   const prevPosition = new Float32Array(2);
+  let isPrevValueUndefined: boolean = true;
 
   const enabledSub$: Subscription = abstractIntersectionsWatcher.enabled$
     .pipe(
@@ -60,7 +61,13 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
       }
 
       const intersection: TIntersectionEvent | undefined = getIntersection(position as Vector2, camera, abstractIntersectionsWatcher.getModelsFromActors());
-      if (isDefined(intersection)) abstractIntersectionsWatcher.value$.next(intersection);
+      if (isDefined(intersection)) {
+        abstractIntersectionsWatcher.value$.next(intersection);
+        isPrevValueUndefined = false;
+      } else if (params.triggerNoIntersections && !isPrevValueUndefined) {
+        abstractIntersectionsWatcher.value$.next(undefined);
+        isPrevValueUndefined = true;
+      }
     });
 
   function getIntersection(coords: Vector2, cameraWrapper: Readonly<TAnyCameraWrapper>, list: Array<TSceneObject>): TIntersectionEvent | undefined | never {

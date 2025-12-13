@@ -957,6 +957,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "triggerNoIntersections": {
+          "type": "boolean"
         }
       },
       "required": ["actorNames", "cameraName", "isAutoStart", "name"]

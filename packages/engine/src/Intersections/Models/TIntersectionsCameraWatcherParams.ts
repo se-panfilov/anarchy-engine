@@ -8,4 +8,6 @@ export type TIntersectionsCameraWatcherParams = TAbstractIntersectionsWatcherPar
   Readonly<{
     position$: Observable<Vector2Like>;
     camera: TAnyCameraWrapper;
+    // Fire "undefined" when no intersections (e.g., mouse is just left the object), default is false
+    triggerNoIntersections?: boolean;
   }>;
