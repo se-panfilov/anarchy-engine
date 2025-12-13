@@ -22,7 +22,9 @@
   "actors": [
     {
       "name": "surface",
-      "type": "plane",
+      "model3d": {
+        "url": "plane"
+      },
       "width": 20,
       "height": 20,
       "widthSegments": 1,
@@ -68,7 +70,9 @@
     },
     {
       "name": "wall_left",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "height": 2.5,
       "width": 1,
       "depth": 20,
@@ -115,7 +119,9 @@
     },
     {
       "name": "wall_right",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "height": 2.5,
       "width": 1,
       "depth": 20,
@@ -162,7 +168,9 @@
     },
     {
       "name": "wall_front",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "height": 2.5,
       "width": 1,
       "depth": 22,
@@ -209,7 +217,9 @@
     },
     {
       "name": "wall_back",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "height": 2.5,
       "width": 1,
       "depth": 22,
@@ -256,7 +266,9 @@
     },
     {
       "name": "ball",
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "radius": 1,
       "material": {
         "type": "physical",
@@ -295,7 +307,9 @@
     },
     {
       "name": "obstacle_1",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "height": 4,
       "width": 1,
       "depth": 1,
@@ -342,7 +356,9 @@
     },
     {
       "name": "obstacle_2",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "height": 4,
       "width": 1,
       "depth": 1,
@@ -381,7 +397,9 @@
     },
     {
       "name": "obstacle_3",
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "radius": 1,
       "material": {
         "type": "physical",
@@ -412,7 +430,9 @@
     },
     {
       "name": "obstacle_4",
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "radius": 1,
       "material": {
         "type": "physical",

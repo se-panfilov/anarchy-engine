@@ -18,7 +18,7 @@ import type {
   TSpatialGridWrapper,
   TWithCoordsXYZ
 } from '@/Engine';
-import { ActorType, EulerWrapper, isDefined, isNotDefined, MaterialType, mpsSpeed, SpatialUpdatePriority, Vector3Wrapper } from '@/Engine';
+import { EulerWrapper, isDefined, isNotDefined, MaterialType, Model3dType, mpsSpeed, SpatialUpdatePriority, Vector3Wrapper } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 export const BULLET_TAG = 'bullet';
@@ -47,7 +47,7 @@ export function getBulletsPool(count: number, actorService: TActorService, spati
       BulletAsync(
         {
           name: `bullet_${i}_${nanoid()}`,
-          type: ActorType.Cube,
+          model3d: { url: Model3dType.Cube },
           width: 0.3,
           height: 0.3,
           depth: 0.5,

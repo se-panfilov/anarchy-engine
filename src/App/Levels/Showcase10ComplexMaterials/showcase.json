@@ -21,7 +21,9 @@
   ],
   "actors": [
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -47,7 +49,9 @@
       "tags": ["standard", "metal"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -82,7 +86,9 @@
       "tags": ["physical", "metal"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -100,7 +106,9 @@
       "tags": ["basic", "metal"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -124,7 +132,9 @@
       "tags": ["phong", "metal"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -148,7 +158,9 @@
       "tags": ["lambert", "metal"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -172,7 +184,9 @@
       "tags": ["toon", "metal"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -196,7 +210,9 @@
       "tags": ["matcap", "metal"]
     },
     {
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 1,
       "height": 1,
       "position": { "x": 0, "y": 0, "z": 0 },
@@ -222,7 +238,9 @@
       "tags": ["standard", "wood"]
     },
     {
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 1,
       "height": 1,
       "position": { "x": 2, "y": 0, "z": 0 },
@@ -248,7 +266,9 @@
       "tags": ["physical", "wood"]
     },
     {
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 1,
       "height": 1,
       "position": { "x": 4, "y": 0, "z": 0 },
@@ -267,7 +287,9 @@
       "tags": ["basic", "wood"]
     },
     {
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 1,
       "height": 1,
       "position": { "x": 6, "y": 0, "z": 0 },
@@ -291,7 +313,9 @@
       "tags": ["phong", "wood"]
     },
     {
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 1,
       "height": 1,
       "position": { "x": 8, "y": 0, "z": 0 },
@@ -315,7 +339,9 @@
       "tags": ["lambert", "wood"]
     },
     {
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 1,
       "height": 1,
       "position": { "x": 10, "y": 0, "z": 0 },
@@ -339,7 +365,9 @@
       "tags": ["toon", "wood"]
     },
     {
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 1,
       "height": 1,
       "position": { "x": 12, "y": 0, "z": 0 },
@@ -362,7 +390,9 @@
       "tags": ["matcap", "wood"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -381,7 +411,9 @@
       "tags": ["standard", "glass"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -408,7 +440,9 @@
       "tags": ["physical", "glass"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -423,7 +457,9 @@
       "tags": ["basic", "glass"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -441,7 +477,9 @@
       "tags": ["phong", "glass"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -459,7 +497,9 @@
       "tags": ["lambert", "glass"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -477,7 +517,9 @@
       "tags": ["toon", "glass"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -495,7 +537,9 @@
       "tags": ["matcap", "glass"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -520,7 +564,9 @@
       "tags": ["standard", "textile"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -545,7 +591,9 @@
       "tags": ["physical", "textile"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -564,7 +612,9 @@
       "tags": ["basic", "textile"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -588,7 +638,9 @@
       "tags": ["phong", "textile"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -612,7 +664,9 @@
       "tags": ["lambert", "textile"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,
@@ -636,7 +690,9 @@
       "tags": ["toon", "textile"]
     },
     {
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "radius": 0.7,

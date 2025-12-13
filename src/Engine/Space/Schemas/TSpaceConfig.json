@@ -274,7 +274,7 @@
           "$ref": "#/definitions/TMaterialPackConfig%3CTMaterialTexturePack%3E"
         },
         "type": {
-          "$ref": "#/definitions/ActorType"
+          "$ref": "#/definitions/Model3dType"
         },
         "width": {
           "type": "number"
@@ -2017,7 +2017,7 @@
       },
       "additionalProperties": false
     },
-    "ActorType": {
+    "Model3dType": {
       "type": "string",
       "enum": ["cube", "plane", "sphere"]
     },

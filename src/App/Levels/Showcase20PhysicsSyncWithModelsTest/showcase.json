@@ -22,7 +22,9 @@
   "actors": [
     {
       "name": "actor_1",
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "radius": 1,
       "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
       "physics": {
@@ -39,7 +41,9 @@
     },
     {
       "name": "actor_2",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "height": 4,
       "width": 1,
       "depth": 1,
@@ -64,7 +68,9 @@
     },
     {
       "name": "actor_3",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "height": 4,
       "width": 1,
       "depth": 1,

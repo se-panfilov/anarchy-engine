@@ -1,6 +1,6 @@
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorAsyncRegistry, TActorParams, TActorWrapperAsync, TAppCanvas, TEngine, TMoverService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
-import { ActorType, buildSpaceFromConfig, defaultMoverServiceConfig, Engine, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, TextType, Vector3Wrapper } from '@/Engine';
+import { buildSpaceFromConfig, defaultMoverServiceConfig, Engine, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, Model3dType, TextType, Vector3Wrapper } from '@/Engine';
 import type { TAnimationParams } from '@/Engine/Services';
 import { Easing } from '@/Engine/Services';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
@@ -27,7 +27,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
 
     const actorTemplate: TActorParams = {
-      type: ActorType.Cube,
+      model3d: { url: Model3dType.Cube },
       width: 1,
       height: 1,
       position: Vector3Wrapper({ x: -20, y: 2, z: -2 }),

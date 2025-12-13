@@ -1,8 +1,7 @@
-import type { TModels3dService } from 'src/Engine/Models3D';
-
 import type { TCollisionsLoopService, TCollisionsService } from '@/Engine/Collisions';
 import type { TKinematicLoopService } from '@/Engine/Kinematic';
 import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack/Models';
+import type { TModels3dService } from '@/Engine/Models3d';
 import type { TPhysicsBodyService, TPhysicsLoopService } from '@/Engine/Physics';
 import type { TSpatialGridService, TSpatialLoopService } from '@/Engine/Spatial';
 

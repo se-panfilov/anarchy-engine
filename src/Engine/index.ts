@@ -23,6 +23,7 @@ export * from './MaterialTexturePack';
 export * from './Math';
 export * from './Measurements';
 export * from './Mixins';
+export * from './Models3d';
 export * from './Mouse';
 export * from './Particles';
 export * from './Physics';

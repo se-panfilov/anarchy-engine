@@ -1,5 +1,5 @@
 import type { TActorParams, TActorService, TActorWrapperWithPhysicsAsync, TSpatialGridWrapper, TWithCoordsXZ } from '@/Engine';
-import { ActorType, CollisionShape, MaterialType, RigidBodyTypesNames, Vector3Wrapper } from '@/Engine';
+import { CollisionShape, MaterialType, Model3dType, RigidBodyTypesNames, Vector3Wrapper } from '@/Engine';
 
 export type TBuidingBlock = Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>;
 
@@ -18,7 +18,7 @@ export async function buildTower(
   const result = blocks.map((block: TBuidingBlock): Promise<TActorWrapperWithPhysicsAsync> => {
     return actorService.createAsync({
       name: `block_${block.position.getX()}_${block.position.getY()}_${block.position.getZ()}`,
-      type: ActorType.Cube,
+      model3d: { url: Model3dType.Cube },
       width: block.width,
       height: block.height,
       depth: block.depth,

@@ -1,9 +1,9 @@
 import { BoxGeometry, Mesh, PlaneGeometry, SphereGeometry } from 'three';
 
-import { ActorType } from '@/Engine/Actor/Constants';
 import type { TActorDependencies, TActorParams } from '@/Engine/Actor/Models';
 import type { TMaterials, TMaterialWrapper } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
+import { Model3dType } from '@/Engine/Models3d';
 import type { TMesh } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
 
@@ -11,10 +11,9 @@ export async function createActorMesh(params: TActorParams, { materialTextureSer
   // TODO AWAIT: could speed up by not awaiting material loading (return promise of an actor)
   const materialWrapper: TMaterialWrapper = await materialTextureService.createAsync(params.material);
 
-  if (params.type === ActorType.Plane) return createPlane(params, materialWrapper.entity);
-  if (params.type === ActorType.Sphere) return createSphere(params, materialWrapper.entity);
-  if (params.type === ActorType.Cube) return createCube(params, materialWrapper.entity);
-  if (params.type === ActorType.Custom) return models3dService.createModel(params, materialWrapper.entity);
+  if (params.model3d.url === Model3dType.Plane) return createPlane(params, materialWrapper.entity);
+  if (params.model3d.url === Model3dType.Sphere) return createSphere(params, materialWrapper.entity);
+  if (params.model3d.url === Model3dType.Cube) return createCube(params, materialWrapper.entity);
 
   throw new Error('Cannot create Actor: unknown actor type');
 }

@@ -21,7 +21,9 @@
   ],
   "actors": [
     {
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 1,
       "height": 1,
       "position": { "x": 0, "y": 0, "z": 0 },

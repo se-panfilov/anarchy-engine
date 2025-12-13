@@ -27,7 +27,9 @@
       "widthSegments": 1,
       "heightSegments": 1,
       "material": { "type": "toon", "params": { "color": "#5EDCAE" } },
-      "type": "plane",
+      "model3d": {
+        "url": "plane"
+      },
       "position": { "x": 0, "y": 2, "z": 0 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "castShadow": false,
@@ -36,7 +38,9 @@
     },
     {
       "name": "car",
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "width": 1,
       "height": 1,
       "widthSegments": 6,

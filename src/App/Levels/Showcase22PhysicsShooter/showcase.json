@@ -22,7 +22,9 @@
   "actors": [
     {
       "name": "surface",
-      "type": "plane",
+      "model3d": {
+        "url": "plane"
+      },
       "width": 200,
       "height": 200,
       "widthSegments": 1,
@@ -47,7 +49,9 @@
     },
     {
       "name": "hero",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "height": 1.9,
       "width": 0.2,
       "depth": 0.5,
@@ -62,7 +66,9 @@
     },
     {
       "name": "sphere",
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "radius": 3,
       "material": { "type": "standard", "params": { "color": "#E91E63" } },
       "position": { "x": 6, "y": 2, "z": 12 },
@@ -72,7 +78,9 @@
     },
     {
       "name": "box_static_1",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 2,
       "height": 4,
       "depth": 2,
@@ -86,7 +94,9 @@
     },
     {
       "name": "box_static_2",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 1,
       "height": 2,
       "depth": 1,
@@ -100,7 +110,9 @@
     },
     {
       "name": "box_static_3",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 1,
       "height": 2,
       "depth": 1,
@@ -114,7 +126,9 @@
     },
     {
       "name": "box_static_4",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 0.3,
       "height": 2,
       "depth": 0.3,
@@ -128,7 +142,9 @@
     },
     {
       "name": "box_static_5",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 0.3,
       "height": 2,
       "depth": 0.3,
@@ -142,7 +158,9 @@
     },
     {
       "name": "box_static_6",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 3,
       "height": 2,
       "depth": 9,
@@ -156,7 +174,9 @@
     },
     {
       "name": "box_static_7",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 5,
       "height": 2,
       "depth": 8,
@@ -171,7 +191,9 @@
     },
     {
       "name": "target_1",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 0.5,
       "height": 4,
       "depth": 2,
@@ -186,7 +208,9 @@
     },
     {
       "name": "target_2",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 0.5,
       "height": 4,
       "depth": 2,
@@ -201,7 +225,9 @@
     },
     {
       "name": "target_3",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 0.5,
       "height": 4,
       "depth": 2,
@@ -216,7 +242,9 @@
     },
     {
       "name": "map_center",
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 0.3,
       "height": 100,
       "depth": 0.3,

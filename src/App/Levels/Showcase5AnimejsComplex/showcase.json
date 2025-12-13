@@ -26,7 +26,9 @@
       "widthSegments": 10,
       "heightSegments": 10,
       "material": { "type": "standard", "params": { "color": "#5ddc9a" } },
-      "type": "plane",
+      "model3d": {
+        "url": "plane"
+      },
       "position": { "x": 0, "y": 0, "z": 0 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "castShadow": false,
@@ -34,7 +36,9 @@
       "tags": []
     },
     {
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 1,
       "height": 1,
       "position": { "x": -20, "y": 2, "z": 2 },
@@ -44,7 +48,9 @@
       "tags": ["actor", "red"]
     },
     {
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 1,
       "height": 1,
       "position": { "x": -20, "y": 2, "z": 4 },
@@ -54,7 +60,9 @@
       "tags": ["actor", "green"]
     },
     {
-      "type": "cube",
+      "model3d": {
+        "url": "cube"
+      },
       "width": 1,
       "height": 1,
       "position": { "x": -20, "y": 2, "z": 6 },

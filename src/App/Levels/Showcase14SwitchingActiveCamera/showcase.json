@@ -26,7 +26,9 @@
       "widthSegments": 10,
       "heightSegments": 10,
       "material": { "type": "standard", "params": { "color": "#5EDCAE" } },
-      "type": "plane",
+      "model3d": {
+        "url": "plane"
+      },
       "position": { "x": 0, "y": 2, "z": 0 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "castShadow": false,
@@ -35,7 +37,9 @@
     },
     {
       "name": "ball",
-      "type": "sphere",
+      "model3d": {
+        "url": "sphere"
+      },
       "radius": 1,
       "material": { "type": "standard", "params": { "color": "#E91E63" } },
       "position": { "x": 0, "y": 2, "z": 0 },
