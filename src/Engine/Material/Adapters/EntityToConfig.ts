@@ -28,6 +28,7 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TAllMaterialConfigOpt
       blendDst: entity.blendDst,
       blendEquation: entity.blendEquation,
       blendSrc: entity.blendSrc,
+      color: `#${(entity as any).color.getHexString()}`,
       side: entity.side,
       format: (entity as any).format,
       stencilFunc: entity.stencilFunc,
