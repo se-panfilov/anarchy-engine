@@ -16,10 +16,16 @@ export function Driver(): TPlatformDriver {
   }
 
   // TODO DESKTOP: make sure this method is working
-  const loadLegalDocs = (options: TLoadDocPayload): Promise<TLegalDoc> => {
-    console.log('XXX [WEB]', 'loadLegalDocs', options);
-    return Promise.resolve({} as any);
-  };
+  async function loadLegalDocs({ name }: TLoadDocPayload): Promise<TLegalDoc> {
+    const legalFolder: string = `${import.meta.env.BASE_URL}public/legal/`;
+    const originBase: string = `${window.location.origin}${legalFolder}`;
+    const res: Response = await fetch(`${originBase}${name}.md`);
+
+    if (!res.ok) throw new Error(`Failed to load legal doc "${name}" from ${res.url}: ${res.status} ${res.statusText}`);
+    const result: string = await res.text();
+    // TODO DESKTOP: sanitize result here
+    return { name, content: result };
+  }
 
   function getNodeVersion(): string {
     console.log('XXX [WEB]', 'getNodeVersion');
