@@ -16,9 +16,12 @@ const isOpenDevTools: boolean = true;
 // TODO DESKTOP: Steam integration (manifest, cloud_sync.vdf, cloud saves, achievements, layer, etc.)
 // TODO DESKTOP: Other integrations (epic, gog, etc.)
 // TODO DESKTOP: Error forwarding to a file (with versions)
-// TODO DESKTOP: Can we avoid copying of dist-desktop to dist-app? (check paths in asar)
 // TODO DESKTOP: Add canvas.requestPointerLock(); on a Space level
 // TODO DESKTOP: Fix Electron Security Warning (Insecure Content-Security-Policy) https://www.electronjs.org/docs/latest/tutorial/security
+// TODO DESKTOP: TS check, lint, prettier, etc.?
+// TODO DESKTOP: npm scripts, like clean reinstall, etc?
+// TODO DESKTOP: Maybe move desktop app to the apps/showcases level?
+// TODO DESKTOP: Can we avoid copying of dist-desktop to dist-app? (check paths in asar)
 
 function getIndexHtmlPath(): string {
   const path: string = app.isPackaged ? join(app.getAppPath(), 'dist-app', 'index.html') : join(__dirname, '..', 'dist-app', 'index.html');
@@ -39,7 +42,7 @@ function createWindow(width: number, height: number): BrowserWindow {
     height,
     // TODO DESKTOP: Is Fullscreen or not should depend on the app settings
     // TODO DESKTOP: Change default fullscreen mode to "true"
-    fullscreen: true,
+    fullscreen: false,
     autoHideMenuBar: true,
     useContentSize: true,
     hiddenInMissionControl: true,
