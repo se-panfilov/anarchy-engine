@@ -1,7 +1,7 @@
 import GUI from 'lil-gui';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAppCanvas, ILevel, ILevelConfig, ISceneWrapper } from '@/Engine';
+import { IAppCanvas, ILevel, ILevelConfig, ISceneWrapper, RendererTag } from '@/Engine';
 import { buildLevelFromConfig, isNotDefined } from '@/Engine';
 
 import levelConfig from './showcase-13-fog.json';
@@ -10,12 +10,14 @@ import levelConfig from './showcase-13-fog.json';
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
-  const { scenesRegistry } = level.entities;
+  const { scenesRegistry, rendererRegistry } = level.entities;
 
   function init(): void {
     const scene: ISceneWrapper | undefined = scenesRegistry.getUniqByTag('current');
     if (isNotDefined(scene)) throw new Error('Scene not found');
     if (isNotDefined(scene.entity.fog)) throw new Error("Scene's fog not found");
+
+    rendererRegistry.getUniqByTag(RendererTag.Main)?.entity.setClearColor(scene.entity.fog.color);
 
     gui.addColor(scene.entity.fog, 'color');
     gui.add(scene.entity.fog, 'near').min(0).max(1).step(0.1);
