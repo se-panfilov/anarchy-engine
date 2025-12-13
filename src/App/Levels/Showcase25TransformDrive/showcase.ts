@@ -20,7 +20,6 @@ import type {
   TRadians,
   TReadonlyQuaternion,
   TReadonlyVector3,
-  TRendererWrapper,
   TSceneWrapper,
   TSpace,
   TSpaceConfig,
@@ -85,20 +84,8 @@ export function start(): void {
 // - Also: with every mode you can do position$.next() to "teleport" the object to the new position
 export async function showcase(space: TSpace): Promise<void> {
   const gui: GUI = new GUI();
-  const {
-    cameraService,
-    controlsService,
-    keyboardService,
-    lightService,
-    models3dService,
-    mouseService,
-    particlesService,
-    physicsWorldService,
-    rendererService,
-    scenesService,
-    spatialGridService,
-    textService
-  } = space.services;
+  const { cameraService, controlsService, keyboardService, lightService, models3dService, mouseService, particlesService, physicsWorldService, scenesService, spatialGridService, textService } =
+    space.services;
   const { physicalLoop } = space.loops;
   const { clickLeftRelease$ } = mouseService;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
@@ -141,9 +128,6 @@ export async function showcase(space: TSpace): Promise<void> {
 
   const sphereText: TText3dWrapper | undefined = textService.getRegistries().text3dRegistry.findByName('sphere_text');
   if (isNotDefined(sphereText)) throw new Error('Text is not defined');
-
-  const renderer: TRendererWrapper | undefined = rendererService.findActive();
-  if (isNotDefined(renderer)) throw new Error('Renderer is not defined');
 
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 
@@ -198,17 +182,27 @@ export async function showcase(space: TSpace): Promise<void> {
     rotation: new Euler(-1.57, 0, 0)
   });
 
-  const azimuth$: BehaviorSubject<{ azimuth: TDegrees; elevation: TDegrees }> = new BehaviorSubject<{ azimuth: TDegrees; elevation: TDegrees }>({ azimuth: degrees(0), elevation: degrees(0) });
+  const azimuth$: BehaviorSubject<{ azimuth: TDegrees; elevation: TDegrees }> = new BehaviorSubject<{
+    azimuth: TDegrees;
+    elevation: TDegrees;
+  }>({ azimuth: degrees(0), elevation: degrees(0) });
 
-  azimuth$
-    .pipe(withLatestFrom(sphereActor.drive.agent$, intersectionsWatcher.value$))
-    .subscribe(([{ azimuth, elevation }, agent, { point }]: [{ azimuth: TDegrees; elevation: TDegrees }, TransformAgent, TIntersectionEvent]): void => {
+  azimuth$.pipe(withLatestFrom(sphereActor.drive.agent$, intersectionsWatcher.value$)).subscribe(
+    ([{ azimuth, elevation }, agent, { point }]: [
+      {
+        azimuth: TDegrees;
+        elevation: TDegrees;
+      },
+      TransformAgent,
+      TIntersectionEvent
+    ]): void => {
       azimuthText.setText(`Azimuth: ${azimuth.toFixed(2)}, Elevation: ${elevation.toFixed(2)}`);
 
       //rotation is for a "default" agent, for "kinematic" agent we will use target position (vector) to look at
       const rotation: Quaternion = new Quaternion().setFromEuler(new Euler(degToRad(elevation * -1), degToRad(azimuth), 0, 'YXZ'));
       rotateActorTo(sphereActor, point, rotation, agent);
-    });
+    }
+  );
 
   intersectionsWatcher.value$.pipe(withLatestFrom(sphereActor.drive.position$)).subscribe(([v, actorPosition]: [TIntersectionEvent, TReadonlyVector3]): void => {
     const elevation: TRadians = getElevation(actorPosition.x, actorPosition.y, actorPosition.z, v.point);
