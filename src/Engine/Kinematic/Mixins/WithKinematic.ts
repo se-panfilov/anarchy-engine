@@ -35,7 +35,7 @@ export function withKinematic(params: TActorParams): TWithKinematic {
         })
       );
     },
-    isKinematicAutoUpdate: params.isKinematicAutoUpdate ?? true,
+    isKinematicAutoUpdate: params.isKinematicAutoUpdate ?? false,
     doKinematicRotation(delta: number): void {
       if (isNotDefined(this.kinematic.angularVelocity)) return;
       // TODO (S.Panfilov) set or add values?

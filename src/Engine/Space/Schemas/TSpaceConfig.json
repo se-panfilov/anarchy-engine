@@ -230,6 +230,12 @@
         "physics": {
           "$ref": "#/definitions/TWithPresetNamePhysicsBodyConfig"
         },
+        "kinematic": {
+          "$ref": "#/definitions/TKinematicData"
+        },
+        "isKinematicAutoUpdate": {
+          "type": "boolean"
+        },
         "width": {
           "type": "number"
         },
@@ -1592,6 +1598,12 @@
         "collisionGroups": {
           "type": "number"
         },
+        "shouldUpdateKinematic": {
+          "type": "boolean"
+        },
+        "isSleep": {
+          "type": "boolean"
+        },
         "tags": {
           "type": "array",
           "items": {
@@ -2263,6 +2275,21 @@
         }
       },
       "required": ["halfHeight", "radius", "borderRadius"],
+      "additionalProperties": false
+    },
+    "TKinematicData": {
+      "type": "object",
+      "properties": {
+        "linearVelocity": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "angularVelocity": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "principalInertia": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        }
+      },
       "additionalProperties": false
     },
     "TCameraConfig": {
@@ -3080,6 +3107,12 @@
         },
         "collisionGroups": {
           "type": "number"
+        },
+        "shouldUpdateKinematic": {
+          "type": "boolean"
+        },
+        "isSleep": {
+          "type": "boolean"
         },
         "tags": {
           "type": "array",

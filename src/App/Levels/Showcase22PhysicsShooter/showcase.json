@@ -40,6 +40,7 @@
       "depth": 0.5,
       "widthSegments": 1,
       "heightSegments": 1,
+      "isKinematicAutoUpdate": true,
       "material": { "type": "standard", "params": { "color": "#8EFEFE" } },
       "position": { "x": 20, "y": 1, "z": 10 },
       "castShadow": true,
