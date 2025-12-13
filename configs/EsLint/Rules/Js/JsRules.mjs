@@ -183,6 +183,7 @@ export const JsRules = {
         'stderr',
         'stdout',
         'str',
+        'textarea',
         'tho',
         'threejs',
         'toon',
