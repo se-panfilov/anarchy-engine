@@ -1,3 +1,0 @@
-| Department  | Related to           | Name    | License period | Material not material | License type | Link                                             | Remote version | Installed version | Defined version | Author        |
-| :---------- | :------------------- | :------ | :------------- | :-------------------- | :----------- | :----------------------------------------------- | :------------- | :---------------- | :-------------- | :------------ |
-| Game Engine | Runtime dependencies | valibot | perpetual      | material              | MIT          | git+https://github.com/fabian-hiller/valibot.git | 1.1.0          | 1.1.0             | 1.1.0           | Fabian Hiller |

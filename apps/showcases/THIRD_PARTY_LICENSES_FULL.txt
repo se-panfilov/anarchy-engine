@@ -2399,7 +2399,7 @@ SOFTWARE.
 
 -----
 
-The following software may be included in this product: anarchy_engine, anarchy_engine_shared, anarchy_engine_showcases, workspace-aggregator-9176de6f-f818-4e0e-be54-3262500bca4a. This software contains the following license and notice below:
+The following software may be included in this product: anarchy_engine, anarchy_engine_shared, anarchy_engine_showcases, workspace-aggregator-2608a283-9194-42be-94ab-cc63663b0b56. This software contains the following license and notice below:
 
 MIT License
 

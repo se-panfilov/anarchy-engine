@@ -2399,7 +2399,7 @@ SOFTWARE.
 
 -----
 
-The following software may be included in this product: anarchy_engine, anarchy_engine_shared, anarchy_engine_showcases, workspace-aggregator-e18985c7-7532-4d9a-a9ff-7378834e77d1. This software contains the following license and notice below:
+The following software may be included in this product: anarchy_engine, anarchy_engine_shared, anarchy_engine_showcases, workspace-aggregator-06262267-96a6-4a73-bafa-718054ecf14e. This software contains the following license and notice below:
 
 MIT License
 
@@ -5250,7 +5250,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -----
 
-The following software may be included in this product: eslint-visitor-keys. A copy of the source code may be downloaded from https://github.com/eslint/eslint-visitor-keys.git. This software contains the following license and notice below:
+The following software may be included in this product: eslint-visitor-keys. A copy of the source code may be downloaded from https://github.com/eslint/js.git. This software contains the following license and notice below:
 
 Apache License
                            Version 2.0, January 2004
