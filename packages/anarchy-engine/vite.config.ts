@@ -118,12 +118,13 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       emptyOutDir: true
     },
     dedupe: ['three', 'three-mesh-bvh', 'lodash', '@rwh/keystrokes', 'lodash-es', 'rxjs', 'nanoid', 'rbush', 'ts-key-enum', 'typescript-fsm', 'ajv', 'date-fns', '@dimforge/rapier3d'],
+    // ssr: { noExternal: ['@dimforge/rapier3d-compat'] },
     test: {
       globals: true,
       environment: 'jsdom', // TODO try "node", could be faster.
       alias: {
         //Since we cannot use wasm version of @dimforge/rapier3d in vitest
-        '@dimforge/rapier3d': path.resolve(__dirname, '../../node_modules/@dimforge/rapier3d-compat/rapier.es.js')
+        '@dimforge/rapier3d': '@dimforge/rapier3d-compat'
       },
       setupFiles: './vitest.setup.js',
       reporters: ['default', 'html'],
