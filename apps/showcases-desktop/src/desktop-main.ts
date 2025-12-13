@@ -20,6 +20,8 @@ const desktopAppSettings: TDesktopAppConfig = {
 // TODO DESKTOP: Add .env files for different platforms (macos, windows, linux).
 // TODO DESKTOP: 3d texts doesn't work in Safari
 // TODO DESKTOP: Build every platform-version on any machine (use docker or something)
+// TODO DESKTOP: Windows: make sure we can build the project
+// TODO DESKTOP: Linux: make sure we can build the project
 
 const filesService: TFilesService = FilesService(app);
 const desktopAppService: TDesktopAppService = DesktopAppService(app, { filesService });
