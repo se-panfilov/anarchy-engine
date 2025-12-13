@@ -15,6 +15,7 @@
       { "name": "surface_material", "type": "toon", "options": { "color": "#5EDCAE" } },
       { "name": "sphere_material", "type": "toon", "options": { "color": "#E91E63" } }
     ],
+    "animations": [],
     "models3d": []
   },
   "entities": {

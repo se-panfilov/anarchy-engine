@@ -18,7 +18,8 @@
     "models3d": [
       { "name": "solder_model_1", "url": "/Showcase/Models/Solder/Solder.glb" },
       { "name": "solder_model_2", "url": "/Showcase/Models/Solder/Solder.glb" }
-    ]
+    ],
+    "animations": []
   },
   "entities": {
     "spatialGrids": [

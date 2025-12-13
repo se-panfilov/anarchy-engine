@@ -29,6 +29,7 @@
         }
       }
     ],
+    "animations": [],
     "models3d": []
   },
   "entities": {
@@ -43,6 +44,7 @@
         "tags": []
       }
     ],
+    "animations": [],
     "models3d": [],
     "actors": [],
     "intersections": [],

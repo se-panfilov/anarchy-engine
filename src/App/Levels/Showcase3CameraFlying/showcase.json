@@ -12,6 +12,7 @@
     "textures": [],
     "envMaps": [],
     "materials": [{ "name": "cube_material", "type": "standard", "options": { "color": "#5177ff" } }],
+    "animations": [],
     "models3d": []
   },
   "entities": {

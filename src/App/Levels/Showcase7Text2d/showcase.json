@@ -12,6 +12,7 @@
     "textures": [],
     "envMaps": [],
     "materials": [{ "name": "surface_material", "type": "standard", "options": { "color": "#5EDCAE" } }],
+    "animations": [],
     "models3d": []
   },
   "entities": {

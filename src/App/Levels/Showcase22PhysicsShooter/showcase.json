@@ -26,6 +26,7 @@
       { "name": "target_2_material", "type": "standard", "options": { "color": "#FF00FF" } },
       { "name": "target_3_material", "type": "standard", "options": { "color": "#FFF000" } }
     ],
+    "animations": [],
     "models3d": []
   },
   "entities": {

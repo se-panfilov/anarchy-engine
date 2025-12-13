@@ -20,6 +20,7 @@
       { "name": "box_6_material", "type": "standard", "options": { "color": "#E91E63" } },
       { "name": "box_7_material", "type": "standard", "options": { "color": "#8EFF8E" } }
     ],
+    "animations": [],
     "models3d": []
   },
   "entities": {

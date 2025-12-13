@@ -17,6 +17,7 @@
       { "name": "green_material", "type": "standard", "options": { "color": "#00ff00" } },
       { "name": "blue_material", "type": "standard", "options": { "color": "#0000ff" } }
     ],
+    "animations": [],
     "models3d": []
   },
   "entities": {

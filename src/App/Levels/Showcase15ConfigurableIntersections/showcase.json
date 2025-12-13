@@ -18,6 +18,7 @@
       { "name": "cube_blue_1_material", "type": "standard", "options": { "color": "#6a35de" } },
       { "name": "cube_blue_2_material", "type": "standard", "options": { "color": "#4013a4" } }
     ],
+    "animations": [],
     "models3d": []
   },
   "entities": {

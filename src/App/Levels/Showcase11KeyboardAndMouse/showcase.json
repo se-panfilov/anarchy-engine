@@ -17,6 +17,7 @@
       { "name": "sphere_mouse_material", "type": "toon", "options": { "color": "#E91ED8" } },
       { "name": "keys_material", "type": "toon", "options": { "color": "#373739" } }
     ],
+    "animations": [],
     "models3d": []
   },
   "entities": {
