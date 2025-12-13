@@ -42,9 +42,25 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const greenPath: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, radius - 2, { x: 0, z: 0 });
     const bluePath: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, radius - 4, { x: 0, z: 0 });
 
-    standardMoverService.followTarget(redText, redActor, { x: 1 });
-    standardMoverService.followTarget(blueText, blueActor, { x: 1 });
-    standardMoverService.followTarget(greenText, greenActor, { x: 1 });
+    let followersCb: Record<string, (() => void) | undefined> = {
+      red: undefined,
+      green: undefined,
+      blue: undefined
+    };
+
+    function follow(): void {
+      if (isNotDefined(redText) || isNotDefined(blueText) || isNotDefined(greenText)) throw new Error('Texts are not defined');
+      if (isNotDefined(redActor) || isNotDefined(blueActor) || isNotDefined(greenActor)) throw new Error('Actors are not defined');
+      followersCb = { ...followersCb, red: standardMoverService.followTarget(redText, redActor, { x: 1 }) };
+      followersCb = { ...followersCb, red: standardMoverService.followTarget(blueText, blueActor, { x: 1 }) };
+      followersCb = { ...followersCb, red: standardMoverService.followTarget(greenText, greenActor, { x: 1 }) };
+    }
+
+    function stopFollowing(): void {
+      followersCb.red?.();
+      followersCb.green?.();
+      followersCb.blue?.();
+    }
 
     const notification: ITextWrapper = textFactory.create({
       text: 'Click is blocked',
@@ -63,12 +79,16 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
         return;
       }
       isClickBlocked = true;
+      follow();
 
       void Promise.all([
         standardMoverService.goByPath(redActor, redPath, { ...animationParams, easing: Easing.Linear }).then(() => console.log('red done')),
         standardMoverService.goByPath(greenActor, greenPath, { ...animationParams, easing: Easing.EaseInCirc }).then(() => console.log('green done')),
         standardMoverService.goByPath(blueActor, bluePath, { ...animationParams, easing: Easing.EaseInBack }).then(() => console.log('blue done'))
-      ]).then(() => (isClickBlocked = false));
+      ]).then(() => {
+        isClickBlocked = false;
+        stopFollowing();
+      });
     });
   }
 
