@@ -1,6 +1,6 @@
 import { PCFShadowMap, WebGL1Renderer } from 'three';
-import { deviceSize$ } from '../Store/DeviceSize';
-import { isNotDefined, isWebGLAvailable } from '../Utils';
+import { deviceSize$ } from '@/Store/DeviceSize';
+import { isNotDefined, isWebGLAvailable } from '@/Utils';
 import { Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
 import { WrappedRenderer } from './Models/WrappedRenderer';
