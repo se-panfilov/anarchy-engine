@@ -22,6 +22,7 @@ export function createLoops({ create }: TLoopService): TSpaceLoops {
   // TODO 16-0-0: CONFIG: A fake config, unless we have a way to load this from space config or something
   const config: Record<string, any> = {};
 
+  // TODO 18-0-0: MONO: VITE_SHOW_DEBUG_INFO should come from the app config, not from the env/engine
   const showDebugInfo: boolean = config.showDebugInfo ?? runtimeEnv.VITE_SHOW_DEBUG_INFO;
 
   //steps
