@@ -39,7 +39,7 @@ export function start(): void {
   space.built$.subscribe(showcase);
 }
 
-export function showcase(space: TSpace): void {
+export async function showcase(space: TSpace): Promise<void> {
   console.log('Press keys 1..3 to play animations of related models');
 
   const originalName: string = 'fox_gltf_original';
