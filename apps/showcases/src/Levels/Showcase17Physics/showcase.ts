@@ -83,8 +83,8 @@ export function showcase(space: TSpace): void {
   });
 
   let mouseLineIntersectionsCoords: Vector3 | undefined = undefined;
-  mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent) => {
-    mouseLineIntersectionsCoords = intersection.point;
+  mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent): void => {
+    mouseLineIntersectionsCoords = intersection?.point;
   });
 
   physicsLoop.tick$.subscribe(() => {

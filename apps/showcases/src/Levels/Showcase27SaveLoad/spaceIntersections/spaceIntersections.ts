@@ -1,4 +1,5 @@
 import type { TActor, TIntersectionEvent, TIntersectionsCameraWatcher, TIntersectionsDirectionWatcher, TSpace, TSpaceConfig } from '@Engine';
+import { isNotDefined } from '@Engine';
 import { BehaviorSubject, skip } from 'rxjs';
 import type { Mesh, MeshStandardMaterial } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
@@ -22,11 +23,13 @@ export const spaceIntersectionsData: TSpacesData = {
     space.services.scenesService.getActive().entity.add(line);
 
     cameraWatcherRed.value$.pipe(skip(1)).subscribe((value: TIntersectionEvent): void => {
+      if (isNotDefined(value)) throw new Error('Intersection not defined');
       // console.log('redWatcher', new Date().getMilliseconds(), value.object.name);
       ((value.object as Mesh).material as MeshStandardMaterial).color.set('yellow');
     });
 
     directionWatcherBlue.value$.subscribe((value: TIntersectionEvent): void => {
+      if (isNotDefined(value)) throw new Error('Intersection not defined');
       // console.log('blueWatcher', new Date().getMilliseconds(), value.object.name);
       ((value.object as Mesh).material as MeshStandardMaterial).color.set('green');
     });

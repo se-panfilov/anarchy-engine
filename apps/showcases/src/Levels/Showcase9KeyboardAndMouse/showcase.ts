@@ -75,6 +75,7 @@ export function showcase(space: TSpace): void {
   gui.add(coordsUI, 'z').listen();
 
   intersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent): void => {
+    if (isNotDefined(intersection)) return;
     // eslint-disable-next-line functional/immutable-data
     coordsUI.x = intersection.point.x;
     // eslint-disable-next-line functional/immutable-data
@@ -85,6 +86,7 @@ export function showcase(space: TSpace): void {
     mouseService;
 
   clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [TMouseWatcherEvent, TIntersectionEvent]): void => {
+    if (isNotDefined(intersection)) throw new Error('Intersection not defined');
     const position: Vector3 = intersection.point.clone().add(new Vector3(0, 1.5, 0));
     actorMouse.drive.kinematic.moveTo(position, metersPerSecond(15));
   });

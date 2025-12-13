@@ -170,6 +170,7 @@ export function prepareShooting(
 ): void {
   let idx: ReturnType<typeof setTimeout> | number = 0;
   mouseService.clickLeftPress$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [TMouseWatcherEvent, TIntersectionEvent]): void => {
+    if (isNotDefined(intersection)) throw new Error('Intersection not defined');
     shoot(actor.drive.position$.value, intersection.point, shootingParams.speed, bullets);
     // TODO setTimeout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
     idx = setInterval((): void => {

@@ -1,4 +1,5 @@
 import type { TActor, TActorService, TIntersectionEvent, TIntersectionsCameraWatcher, TSpatialGridService, TSpatialGridWrapper } from '@Engine';
+import { isNotDefined } from '@Engine';
 import GUI from 'lil-gui';
 
 export function initGui(
@@ -23,7 +24,8 @@ export function initGui(
   const cell: Record<string, string> = { name: '', actors: '' };
   const actor: Record<string, string> = { name: '' };
 
-  mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent) => {
+  mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent): void => {
+    if (isNotDefined(intersection)) return;
     // eslint-disable-next-line functional/immutable-data
     mouse.x = intersection.point.x;
     // eslint-disable-next-line functional/immutable-data

@@ -18,7 +18,7 @@ import type {
   TWithConnectedTransformAgent,
   TWithTransformDrive
 } from '@Engine';
-import { ForwardAxis, isDefined, MaterialType, metersPerSecond, TransformAgent } from '@Engine';
+import { ForwardAxis, isDefined, isNotDefined, MaterialType, metersPerSecond, TransformAgent } from '@Engine';
 import { meters } from '@Engine/Measurements/Utils';
 import type GUI from 'lil-gui';
 import type { Subscription } from 'rxjs';
@@ -244,7 +244,8 @@ export function addKinematicActorFolderGui(gui: GUI, actor: TActor): void {
 export function addSpatialGuiFolder(gui: GUI, grid: TSpatialGridWrapper, mouseLineIntersectionsWatcher: TIntersectionsCameraWatcher): void {
   const cell: Record<string, string> = { name: '', actors: '' };
 
-  mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent) => {
+  mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent): void => {
+    if (isNotDefined(intersection)) throw new Error('Intersection not defined');
     // eslint-disable-next-line functional/immutable-data
     cell.name = grid.findCellsForPoint(intersection.point.x, intersection.point.z)[0]?.name;
     // eslint-disable-next-line functional/immutable-data
@@ -299,6 +300,7 @@ export function createReactiveLineFromActor(
   const line: Line2 = createLine(color, 0.1);
 
   const sub$: Subscription = combineLatest([intersectionsWatcher.value$, actor.drive.position$]).subscribe(([intersection, position]: [TIntersectionEvent, TReadonlyVector3]): void => {
+    if (isNotDefined(intersection)) throw new Error('Intersection not defined');
     line.geometry.setPositions([position.x, position.y, position.z, intersection.point.x, intersection.point.y, intersection.point.z]);
     line.computeLineDistances();
   });

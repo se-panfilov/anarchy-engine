@@ -1,5 +1,5 @@
 import type { TActor, TActorRegistry, TAnyCameraWrapper, TAudio3dWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TMouseWatcherEvent, TSceneWrapper, TSpace } from '@Engine';
-import { DebugAudioRenderer, metersPerSecond } from '@Engine';
+import { DebugAudioRenderer, isNotDefined, metersPerSecond } from '@Engine';
 import { withLatestFrom } from 'rxjs';
 import { Clock, Vector3 } from 'three';
 
@@ -70,6 +70,7 @@ function initKinematic(space: TSpace): void {
   scenesService.getActive().entity.add(line);
 
   clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [TMouseWatcherEvent, TIntersectionEvent]): void => {
+    if (isNotDefined(intersection)) throw new Error('Intersection not defined');
     const position: Vector3 = intersection.point.clone().add(new Vector3(0, 1.5, 0));
     actorMouse.drive.kinematic.moveTo(position, metersPerSecond(15));
   });

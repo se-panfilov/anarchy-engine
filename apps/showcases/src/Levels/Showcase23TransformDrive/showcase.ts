@@ -178,7 +178,7 @@ export async function showcase(space: TSpace): Promise<void> {
   }>({ azimuth: degrees(0), elevation: degrees(0) });
 
   azimuth$.pipe(withLatestFrom(sphereActor.drive.agent$, intersectionsWatcher.value$)).subscribe(
-    ([{ azimuth, elevation }, agent, { point }]: [
+    ([{ azimuth, elevation }, agent, intersection]: [
       {
         azimuth: TDegrees;
         elevation: TDegrees;
@@ -190,22 +190,33 @@ export async function showcase(space: TSpace): Promise<void> {
 
       //rotation is for a "default" agent, for "kinematic" agent we will use target position (vector) to look at
       const rotation: Quaternion = new Quaternion().setFromEuler(new Euler(degToRad(elevation * -1), degToRad(azimuth), 0, 'YXZ'));
-      rotateActorTo(sphereActor, point, rotation, agent);
+      if (isNotDefined(intersection)) throw new Error('Intersection not defined');
+      rotateActorTo(sphereActor, intersection.point, rotation, agent);
     }
   );
 
   intersectionsWatcher.value$.pipe(withLatestFrom(sphereActor.drive.position$)).subscribe(([v, actorPosition]: [TIntersectionEvent, TReadonlyVector3]): void => {
+    if (isNotDefined(v)) throw new Error('Intersection not defined');
     const elevation: TRadians = getElevation(actorPosition.x, actorPosition.y, actorPosition.z, v.point);
     const azimuth: TRadians = getHorizontalAzimuth(actorPosition.x, actorPosition.z, v.point, ForwardAxis.Z);
     azimuth$.next({ azimuth: degrees(radToDeg(azimuth)), elevation: degrees(radToDeg(elevation)) });
   });
 
   clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$, sphereActor.drive.agent$)).subscribe(([, intersection, agent]: [TMouseWatcherEvent, TIntersectionEvent, TransformAgent]): void => {
+    if (isNotDefined(intersection)) throw new Error('Intersection not defined');
     const adjustedPoint: Vector3 = intersection.point.clone().add(new Vector3(0, 0, 0));
     moveActorTo(sphereActor, adjustedPoint, agent, mode.isTeleportationMode);
   });
 
-  attachConnectorPositionToSubj(sphereActor, intersectionsWatcher.value$.pipe(map((v: TIntersectionEvent): Vector3 => v.point.add(new Vector3(0, actorsOffsetY, 0)))));
+  attachConnectorPositionToSubj(
+    sphereActor,
+    intersectionsWatcher.value$.pipe(
+      map((v: TIntersectionEvent): Vector3 => {
+        if (isNotDefined(v)) throw new Error('Intersection not defined');
+        return v.point.add(new Vector3(0, actorsOffsetY, 0));
+      })
+    )
+  );
 
   changeActorActiveAgent(sphereActor, KeysExtra.Space, keyboardService);
 

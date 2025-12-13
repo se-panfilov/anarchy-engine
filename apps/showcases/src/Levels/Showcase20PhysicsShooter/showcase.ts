@@ -180,7 +180,7 @@ export function showcase(space: TSpace): void {
   transformLoop.tick$.subscribe((delta: TMilliseconds): void => {
     updateBullets(bullets, delta);
     // TODO this should be updated only if coords or angle are changed
-    if (isDefined(mouseLineIntersections.point)) {
+    if (isDefined(mouseLineIntersections?.point)) {
       const heroCoords: TReadonlyVector3 = hero.drive.position$.value;
       // TODO could make some use of mouseLineIntersectionsWatcher.latest$ instead of mouseLineIntersections
       line.geometry.setPositions([heroCoords.x, heroCoords.y, heroCoords.z, mouseLineIntersections.point.x, mouseLineIntersections.point.y, mouseLineIntersections.point.z]);

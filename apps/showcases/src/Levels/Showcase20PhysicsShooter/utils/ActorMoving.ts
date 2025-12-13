@@ -1,5 +1,16 @@
-import type { TActor, TIntersectionEvent, TIntersectionsCameraWatcher, TKeyboardService, TMetersPerSecond, TMilliseconds, TRadians } from '@Engine';
-import { getMouseAzimuthAndElevation, KeyCode, metersPerSecond } from '@Engine';
+import {
+  getMouseAzimuthAndElevation,
+  isNotDefined,
+  KeyCode,
+  metersPerSecond,
+  TActor,
+  TIntersectionEvent,
+  TIntersectionsCameraWatcher,
+  TKeyboardService,
+  TMetersPerSecond,
+  TMilliseconds,
+  TRadians
+} from '@Engine';
 import { radians } from '@Engine/Measurements/Utils';
 import { BehaviorSubject, combineLatest, map, Subject } from 'rxjs';
 import { degToRad } from 'three/src/math/MathUtils';
@@ -24,7 +35,12 @@ export function startMoveActorWithKeyboard(actor: TActor, keyboardService: TKeyb
   onKey(KeyCode.D).released$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Right: false }));
 
   mouseLineIntersectionsWatcher.value$
-    .pipe(map((intersection: TIntersectionEvent) => getMouseAzimuthAndElevation(intersection.point, actor.drive.position$.value)))
+    .pipe(
+      map((intersection: TIntersectionEvent) => {
+        if (isNotDefined(intersection)) throw new Error('Intersection not defined');
+        return getMouseAzimuthAndElevation(intersection.point, actor.drive.position$.value);
+      })
+    )
     .subscribe((dir: TIntersectionDirection) => intersectionDirection$.next(dir));
 
   combineLatest([keyStates$, intersectionDirection$]).subscribe(([keyStates, { azimuth }]: [TMoveKeysState, TIntersectionDirection]): void => {
