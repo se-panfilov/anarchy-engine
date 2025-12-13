@@ -1,4 +1,4 @@
-import { getAllEntitiesWithEveryTag } from './RegistryUtils';
+import { getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag } from './RegistryUtils';
 
 interface MyObj {
   readonly name: string;
@@ -29,7 +29,7 @@ describe('RegistryUtils', () => {
   registry.set('obj6', obj6);
   registry.set('obj7', obj7);
 
-  describe('getAllByTags', () => {
+  describe('getAllEntitiesWithEveryTag', () => {
     it('should return all object that contains multiple tags', () => {
       expect(getAllEntitiesWithEveryTag([tag2, tag5], registry)).toEqual([obj4, obj6, obj7]);
     });
@@ -44,6 +44,24 @@ describe('RegistryUtils', () => {
 
     it('should return an empty array if the registry is empty', () => {
       expect(getAllEntitiesWithEveryTag([tag2, tag5], new Map())).toEqual([]);
+    });
+  });
+
+  describe('getAllEntitiesWithSomeTag', () => {
+    it('should return all object that contains multiple tags', () => {
+      expect(getAllEntitiesWithSomeTag([tag2, tag5], registry)).toEqual([obj1, obj2, obj4, obj6, obj7]);
+    });
+
+    it('should return all object that contains a single tag', () => {
+      expect(getAllEntitiesWithSomeTag([tag2], registry)).toEqual([obj1, obj2, obj4, obj6, obj7]);
+    });
+
+    it('should return an empty array if no tagList is provided', () => {
+      expect(getAllEntitiesWithSomeTag([], registry)).toEqual([]);
+    });
+
+    it('should return an empty array if the registry is empty', () => {
+      expect(getAllEntitiesWithSomeTag([tag2, tag5], new Map())).toEqual([]);
     });
   });
 });
