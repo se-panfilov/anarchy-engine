@@ -5,6 +5,14 @@
   "version": "18.0.0",
   "type": "module",
   "license": "MIT",
+  "files": [
+    "DISCLAIMER.md",
+    "LICENSE",
+    "README.md",
+    "THIRD_PARTY_LICENSES.md",
+    "THIRD_PARTY_LICENSES_FULL.txt",
+    "dist/"
+  ],
   "scripts": {
     "build": "rimraf ./dist tsc && vite build",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run check:ts-morph && npm run lint && npm run unit:coverage && npm run e2e:with-clean",
