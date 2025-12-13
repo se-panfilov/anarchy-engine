@@ -1,9 +1,9 @@
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 
-import MenuApp from './MenuApp.vue';
+import App from './App.vue';
 
-const menuApp = createApp(MenuApp);
+const menuApp = createApp(App);
 
 menuApp.use(createPinia());
 
