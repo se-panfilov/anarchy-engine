@@ -1,5 +1,6 @@
 import type { Group, Object3D } from 'three';
 import { BoxGeometry, Mesh, PlaneGeometry, SphereGeometry } from 'three';
+import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TMaterials, TMaterialWrapper } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
@@ -41,5 +42,5 @@ function createCube({ width, height, depth, widthSegments, heightSegments, depth
 }
 
 export const isPrimitiveModel3dData = (params: TModel3dConfig | TModel3dParams): boolean => isPrimitiveModel3dSource(params.model3dSource);
-export const isPrimitiveModel3dSource = (model3dSource: Group | Mesh | Object3D | PrimitiveModel3dType | string): model3dSource is PrimitiveModel3dType =>
+export const isPrimitiveModel3dSource = (model3dSource: Group | Mesh | Object3D | GLTF | PrimitiveModel3dType | string): model3dSource is PrimitiveModel3dType =>
   [...Object.values(PrimitiveModel3dType)].includes(model3dSource as PrimitiveModel3dType);
