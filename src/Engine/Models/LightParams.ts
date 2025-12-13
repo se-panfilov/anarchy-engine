@@ -6,8 +6,8 @@ export interface LightParams {
   readonly color: Color;
   readonly intensity?: number;
   readonly position: Vector3;
-  readonly castShadow: true;
-  readonly shadow: LightShadowParams;
+  readonly castShadow: boolean;
+  readonly shadow?: LightShadowParams;
 }
 
 export interface LightShadowParams {

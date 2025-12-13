@@ -6,8 +6,8 @@ export interface LightConfig extends Omit<LightParams, 'color' | 'position' | 's
   readonly type: LightType;
   readonly color: string;
   readonly intensity: number;
-  readonly castShadow: true;
-  readonly shadow: LightShadowConfig;
+  readonly castShadow: boolean;
+  readonly shadow?: LightShadowConfig;
   readonly position: Vector3dConfig;
 }
 

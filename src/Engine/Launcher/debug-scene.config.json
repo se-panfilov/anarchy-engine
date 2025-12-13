@@ -2,35 +2,29 @@
   "name": "Test scene 01",
   "actors": [
     {
-      "params": {
-        "width": 60,
-        "height": 40,
-        "widthSegments": 10,
-        "heightSegments": 10,
-        "materialParams": { "color": "#5EDCAE" },
-        "type": "plane"
-      },
+      "width": 60,
+      "height": 40,
+      "widthSegments": 10,
+      "heightSegments": 10,
+      "materialParams": { "color": "#5EDCAE" },
+      "type": "plane",
       "position": { "x": 0, "y": 2, "z": 0 },
       "castShadow": false
     },
     {
-      "params": {
-        "type": "sphere",
-        "width": 32,
-        "height": 32,
-        "materialParams": { "color": "#E91E63" }
-      },
+      "type": "sphere",
+      "width": 32,
+      "height": 32,
+      "materialParams": { "color": "#E91E63" },
       "position": { "x": 0, "y": 2, "z": 0 },
       "castShadow": true
     }
   ],
   "cameras": [
     {
-      "params": {
-        "fov": 45,
-        "near": 1,
-        "far": 10000
-      },
+      "fov": 45,
+      "near": 1,
+      "far": 10000,
       "position": { "x": 3, "y": 20, "z": 35 },
       "lookAt": { "x": 0, "y": 0, "z": 0 }
     }
@@ -39,7 +33,9 @@
     {
       "type": "ambient",
       "color": "ffffff",
-      "intensity": 0.5
+      "intensity": 0.5,
+      "castShadow": false,
+      "position": { "x": 0.25, "y": 2, "z": 2.25 }
     },
     {
       "type": "directional",
