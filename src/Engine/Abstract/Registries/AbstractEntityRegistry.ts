@@ -7,7 +7,7 @@ import { withBaseAccessorsRegistry } from '@/Engine/Abstract/Registries/Mixin';
 import { withReactiveRegistry } from '@/Engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
 import type { TDestroyable, TMultitonRegistrable, TRegistrable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { findInMap, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, isNotDefined } from '@/Engine/Utils';
+import { findInMap, getAllEntitiesWithNames, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, isNotDefined } from '@/Engine/Utils';
 
 export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistrable>(type: RegistryType): TAbstractEntityRegistry<T> {
   const id: string = type + '_registry_' + nanoid();
@@ -37,6 +37,7 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
 
   const findById = (id: string): T | undefined => registry.get(id);
   const findByName = (name: string): T | undefined => findInMap(registry, (value: T): boolean => value.name === name);
+  const findAllWithNames = (names: ReadonlyArray<string>): ReadonlyArray<T> => getAllEntitiesWithNames(names, registry);
 
   function remove(id: string): void | never {
     const entity: T | undefined = registry.get(id);
@@ -60,6 +61,7 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
     findAllByTags: findAllByTags,
     findById,
     findByName,
+    findAllWithNames,
     findByTag: findByTag,
     findByTags: findByTags,
     forEach,

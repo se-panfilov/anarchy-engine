@@ -10,6 +10,7 @@ export type TAbstractEntityRegistry<T extends TRegistrable> = Omit<TAbstractSimp
     findAllByTag: (tag: string) => ReadonlyArray<T>;
     findAllByTags: (tags: ReadonlyArray<string>, strategy: LookUpStrategy) => ReadonlyArray<T>;
     findById: (id: string) => T | undefined;
+    findAllWithNames: (names: ReadonlyArray<string>) => ReadonlyArray<T>;
     findByName: (name: string) => T | undefined;
     findByTag: (tag: string) => T | undefined | never;
     findByTags: (tags: ReadonlyArray<string>, strategy: LookUpStrategy) => T | undefined | never;

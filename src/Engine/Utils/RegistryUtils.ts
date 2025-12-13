@@ -33,6 +33,16 @@ export function getAllEntitiesWithTag<T extends TRegistrable>(tag: string, regis
   return result;
 }
 
+export function getAllEntitiesWithNames<T extends TRegistrable>(names: ReadonlyArray<string>, registry: ReadonlyMap<string, T>): ReadonlyArray<T> {
+  return registry
+    .values()
+    .filter((entity: T): boolean => {
+      if (isNotDefined(entity.name)) return false;
+      return names.includes(entity.name);
+    })
+    .toArray();
+}
+
 export function getUniqEntityWithTags<T extends TRegistrable>(tagList: ReadonlyArray<string>, registry: ReadonlyMap<string, T>, strategy: LookUpStrategy): T | undefined {
   // eslint-disable-next-line functional/no-loop-statements
   for (const entity of registry.values()) {
