@@ -4,10 +4,11 @@ import { spawnSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import * as dotenv from 'dotenv';
 
-/* Minimal Sentry sourcemaps uploader for Vite builds.
+/* Minimal Sentry sourcemaps uploader for Vite/Electron builds.
  * Features:
  *  - release: from --release | $RELEASE | "<VITE_RELEASE_NAME_PREFIX>@$npm_package_version"
- *  - dist dir: from --dist | positional | "dist"
+ *  - build dir: from --dist | positional | "dist"
+ *  - sentry dist-name: --dist-name | --sentry-dist | $DIST (e.g., "darwin-arm64", "web")
  *  - urlPrefix: --url-prefix | auto from Vite "base" | "~/" fallback
  *  - dev-guard (ON by default): blocks upload unless mode=production; can disable via --no-dev-guard
  *  - org/project overrides: --org, --project (otherwise read from .sentryclirc)
@@ -23,50 +24,50 @@ function loadEnvFromCwd(mode) {
   const cwd = process.cwd();
   const list = [join(cwd, '.env'), join(cwd, '.env.local'), join(cwd, `.env.${mode}`), join(cwd, `.env.${mode}.local`)];
   console.log('Reading env files:', list.join(', \n'));
-  const candidates = list;
-  for (const p of candidates) {
-    if (existsSync(p)) {
-      dotenv.config({ path: p });
-    }
+  for (const p of list) {
+    if (existsSync(p)) dotenv.config({ path: p });
   }
 }
 
 function printHelp() {
   console.log(`
 Usage:
-  anarchy-upload-sourcemaps [--dist ./dist] [--release app-name@1.2.3] [--org ORG] [--project PROJECT]
-                            [--url-prefix PREFIX] [--mode production]
-                            [--no-dev-guard] [--no-detect-base] [--dry-run]
+  node UploadSourcemaps.js [--dist ./dist] [--release app@1.2.3] [--org ORG] [--project PROJECT]
+                           [--url-prefix PREFIX] [--dist-name NAME]
+                           [--mode production] [--no-dev-guard] [--no-detect-base] [--dry-run]
 
 Args:
-  --dist <path>           Directory with build output (default: "dist" or first positional arg).
+  --dist <path>           Build output directory (default: "dist" or first positional arg).
   --release <name>        Release name. Defaults to $RELEASE or "<VITE_RELEASE_NAME_PREFIX>@$npm_package_version".
-  --org <slug>            Override Sentry org (else use .sentryclirc).
-  --project <slug>        Override Sentry project (else use .sentryclirc).
-  --url-prefix <prefix>   Explicit urlPrefix for upload-sourcemaps (e.g., "~/" or "~/assets").
-  --mode <name>           Build mode hint (e.g., production). If omitted, checks $MODE or $NODE_ENV.
+  --org <slug>            Override Sentry org (else .sentryclirc).
+  --project <slug>        Override Sentry project (else .sentryclirc).
+  --url-prefix <prefix>   upload-sourcemaps urlPrefix (e.g., "~/" or "app:///dist").
+  --dist-name <name>      Sentry "dist" value (e.g., "darwin-arm64", "win32-x64", "web"). Also read from $DIST.
+  --sentry-dist <name>    Alias of --dist-name.
+  --mode <name>           Build mode (e.g., production). If omitted, checks $MODE or $NODE_ENV.
   --no-dev-guard          Disable protection that blocks upload when mode != "production".
-  --no-detect-base        Do not try to read Vite "base" from vite.config.*; always use "~/".
-  --dry-run               Print planned commands without executing them.
+  --no-detect-base        Do not read Vite "base"; always use "~/" when --url-prefix is not provided.
+  --dry-run               Print planned commands instead of executing.
   -h, --help              Show this help.
 
 Notes:
-  * Requires SENTRY_AUTH_TOKEN in env with "project:releases" and "org:read" scopes.
+  * Requires SENTRY_AUTH_TOKEN with "project:releases" scope (and "org:read" if you use info commands).
   * urlPrefix defaults:
-      - if --url-prefix given: use it as-is.
-      - else if detect-base enabled and Vite base starts with "/": use "~/<base>" (ensure trailing slash).
-      - else: "~/" (safe default for Vite).
-  * Dev-guard (enabled by default) blocks upload when mode is not "production" and if no .map files found.
+      - if --url-prefix given → used as is
+      - else if detect-base and Vite base starts with "/" → "~/<base>/"
+      - else "~/" (safe default for typical Vite web assets)
+  * For Electron main/preload with rewrite to app:///, use: --url-prefix "app:///dist" or similar.
 `);
 }
 
 function parseArgs(argv) {
   const out = {
-    dist: undefined,
+    dist: undefined, // build dir path
     release: undefined,
     org: undefined,
     project: undefined,
     urlPrefix: undefined,
+    distName: undefined, // Sentry dist value
     mode: undefined,
     devGuard: true,
     detectBase: true,
@@ -117,6 +118,10 @@ function parseArgs(argv) {
       out.mode = args[++i];
       continue;
     }
+    if (a === '--dist-name' || a === '--sentry-dist') {
+      out.distName = args[++i];
+      continue;
+    }
     if (a.startsWith('--')) {
       console.error(`Unknown option: ${a}`);
       out.help = true;
@@ -139,7 +144,6 @@ function findViteConfig(cwd) {
 function detectViteBase(configPath) {
   try {
     const src = readFileSync(configPath, 'utf8');
-    // naive but readable: base: '...'
     const m = src.match(/base\s*:\s*['"`]([^'"`]+)['"`]/);
     if (m && m[1]) return m[1];
   } catch {
@@ -167,8 +171,7 @@ function runSentryCli(args, env, dryRun) {
   const cmd = ['-y', 'sentry-cli', ...args];
   console.log(`$ npx ${cmd.join(' ')}`);
   if (dryRun) return { status: 0 };
-  const res = spawnSync('npx', cmd, { stdio: 'inherit', env });
-  return res;
+  return spawnSync('npx', cmd, { stdio: 'inherit', env });
 }
 
 (function main() {
@@ -178,20 +181,26 @@ function runSentryCli(args, env, dryRun) {
     process.exit(0);
   }
 
-  const cwd = process.cwd();
   const mode = (argv.mode || process.env.MODE || process.env.NODE_ENV || '').toLowerCase();
   loadEnvFromCwd(mode);
 
-  // Resolve dist
-  const dist = argv.dist || argv.positional[0] || 'dist';
-  const distAbs = resolve(cwd, dist);
+  // Resolve build dir (kept as --dist for backward compat)
+  const distDir = argv.dist || argv.positional[0] || 'dist';
+  const distAbs = resolve(process.cwd(), distDir);
 
   // Resolve release
-  const release = argv.release || process.env.RELEASE || `${process.env.VITE_RELEASE_NAME_PREFIX}@${process.env.npm_package_version}`;
+  const release =
+    argv.release ||
+    process.env.RELEASE ||
+    (process.env.VITE_RELEASE_NAME_PREFIX && process.env.npm_package_version ? `${process.env.VITE_RELEASE_NAME_PREFIX}@${process.env.npm_package_version}` : undefined);
+
   if (!release) {
     console.error('ERROR: release is required. Provide --release or set $RELEASE or ensure npm_package_version is present.');
     process.exit(1);
   }
+
+  // Resolve Sentry dist (optional but recommended for multi-platform builds)
+  const distName = argv.distName || process.env.DIST || undefined;
 
   // Dev-guard (default ON)
   if (argv.devGuard) {
@@ -210,14 +219,10 @@ function runSentryCli(args, env, dryRun) {
   let urlPrefix = argv.urlPrefix;
   if (!urlPrefix) {
     if (argv.detectBase) {
-      const cfg = findViteConfig(cwd);
+      const cfg = findViteConfig(process.cwd());
       const base = cfg ? detectViteBase(cfg) : null;
-      if (base && base.startsWith('/')) {
-        // ensure leading "~" and trailing slash
-        urlPrefix = `~${base.endsWith('/') ? base : base + '/'}`;
-      } else {
-        urlPrefix = '~/'; // safe fallback
-      }
+      if (base && base.startsWith('/')) urlPrefix = `~${base.endsWith('/') ? base : base + '/'}`;
+      else urlPrefix = '~/'; // safe fallback
       console.log(`auto-detected urlPrefix from Vite base: ${urlPrefix}`);
     } else {
       urlPrefix = '~/';
@@ -227,20 +232,21 @@ function runSentryCli(args, env, dryRun) {
   // Env with token
   const env = { ...process.env };
   if (!env.SENTRY_AUTH_TOKEN) {
-    console.error('ERROR: SENTRY_AUTH_TOKEN is not set. Put it in your local env (e.g., .env.local) before running.');
+    console.error('ERROR: SENTRY_AUTH_TOKEN is not set. Put it in your local env (e.g., .env.local).');
     process.exit(4);
   }
 
-  // Informative header
+  // Info
   console.log(`\nSentry sourcemaps upload
   release    : ${release}
-  dist       : ${distAbs}
+  build dir   : ${distAbs}
+  sentry dist : ${distName || '(none)'}
   mode       : ${mode || '(not set)'}
   urlPrefix  : ${urlPrefix}
   org        : ${argv.org || '(from .sentryclirc)'}
   project    : ${argv.project || '(from .sentryclirc)'}
-  dev-guard  : ${argv.devGuard ? 'ON' : 'OFF'}
-  dry-run    : ${argv.dryRun ? 'YES' : 'NO'}\n`);
+  dev-guard  : ${argv.devGuard}
+  dry-run    : ${argv.dryRun}\n`);
 
   // Build base args with optional org/project overrides
   const baseArgs = [];
@@ -251,14 +257,14 @@ function runSentryCli(args, env, dryRun) {
   let res = runSentryCli(['releases', 'new', release, ...baseArgs], env, argv.dryRun);
   if (res.status !== 0) process.exit(res.status);
 
-  // 2) Upload files
-  // СТАЛО: современная команда
+  // 2) Upload sourcemaps (modern command)
   const uploadArgs = ['sourcemaps', 'upload', distAbs, '--release', release, '--url-prefix', urlPrefix, '--ext', 'js', '--ext', 'mjs', '--ext', 'map', '--rewrite', '--validate', ...baseArgs];
+  if (distName) uploadArgs.push('--dist', distName);
 
   res = runSentryCli(uploadArgs, env, argv.dryRun);
   if (res.status !== 0) process.exit(res.status);
 
-  // 3) Finalize
+  // 3) Finalize release (global to release; dist is per-upload)
   res = runSentryCli(['releases', 'finalize', release, ...baseArgs], env, argv.dryRun);
   if (res.status !== 0) process.exit(res.status);
 
