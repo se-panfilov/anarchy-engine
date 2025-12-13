@@ -24,13 +24,13 @@ export default defineConfig({
       ext: '.gz',
       algorithm: 'gzip',
       deleteOriginFile: false,
-      filter: /\.(js|mjs|json|css|map|html|glb|gltf|bin|wasm|txt|svg|csv|xml|shader|material)$/i
+      filter: /\.(js|mjs|json|css|map|html|glb|gltf|bin|wasm|txt|svg|csv|xml|shader|material|ttf|otf)$/i
     }),
     compression({
       ext: '.br',
       algorithm: 'brotliCompress',
       deleteOriginFile: false,
-      filter: /\.(js|mjs|json|css|map|html|glb|gltf|bin|wasm|txt|svg|csv|xml|shader|material)$/i
+      filter: /\.(js|mjs|json|css|map|html|glb|gltf|bin|wasm|txt|svg|csv|xml|shader|material|ttf|otf)$/i
     })
   ],
   worker: {
