@@ -1,7 +1,8 @@
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, takeWhile } from 'rxjs';
 
+import { isDefined } from '@/Engine';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine/ThreeLib';
@@ -18,10 +19,20 @@ export function AbstractTransformAgent(params: TTransformAgentParams, type: Tran
   const onActivated$: Subject<TReadonlyTransform> = new Subject<TReadonlyTransform>();
   const onDeactivated$: Subject<TReadonlyTransform> = new Subject<TReadonlyTransform>();
 
+  const onDeactivated$Sub: Subscription = onDeactivated$.pipe(takeWhile((): boolean => isDefined(params.onDeactivated))).subscribe((transform: TReadonlyTransform): void => {
+    if (isDefined(params.onDeactivated)) params.onDeactivated(transform);
+  });
+
+  const onActivated$Sub: Subscription = onActivated$.pipe(takeWhile((): boolean => isDefined(params.onActivated))).subscribe(({ position, rotation, scale }: TReadonlyTransform): void => {
+    if (isDefined(params.onActivated)) params.onActivated({ position, rotation, scale });
+  });
+
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
     //Stop subscriptions
     destroySub$.unsubscribe();
+    onDeactivated$Sub?.unsubscribe();
+    onActivated$Sub?.unsubscribe();
 
     //Complete subjects
     position$.complete();

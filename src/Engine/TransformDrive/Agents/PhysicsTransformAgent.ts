@@ -1,6 +1,6 @@
 import type { RigidBody, Rotation, Vector } from '@dimforge/rapier3d';
 import type { Subject, Subscription } from 'rxjs';
-import { BehaviorSubject, combineLatest, distinctUntilChanged, filter, map, switchMap, withLatestFrom } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinctUntilChanged, filter, map, switchMap, takeWhile, withLatestFrom } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
 
 import type { TPhysicsBody, TPhysicsBodyService, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
@@ -26,17 +26,17 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
   const adaptedParams: TPhysicsTransformAgentInternalParams = { ...params, rotation: new Quaternion().setFromEuler(params.rotation) };
   const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Physical);
 
-  const onDeactivated$Sub: Subscription = abstractTransformAgent.onDeactivated$.subscribe((transform: TReadonlyTransform): void => {
-    isDefined(params.onDeactivated)
-      ? params.onDeactivated(transform)
-      : console.warn(
-          'PhysicsTransformAgent: onDeactivated is not defined. The physics body remains at the position it was the moment of deactivation. Please handle this (remove, move to a safe place), cause if left it as is could produce unexpected behavior.'
-        );
+  const onDeactivated$Sub: Subscription = abstractTransformAgent.onDeactivated$.pipe(takeWhile((): boolean => isNotDefined(params.onDeactivated))).subscribe((): void => {
+    if (isNotDefined(params.onDeactivated)) {
+      console.warn(
+        'PhysicsTransformAgent: onDeactivated is not defined. The physics body remains at the position it was the moment of deactivation. Please handle this (remove, move to a safe place), cause if left it as is could produce unexpected behavior.'
+      );
+    }
   });
 
   //apply the latest position/rotation to the physics body on activation
-  const onActivated$Sub: Subscription = abstractTransformAgent.onActivated$.subscribe(({ position, rotation, scale }: TReadonlyTransform): void => {
-    isDefined(params.onActivated) ? params.onActivated({ position, rotation, scale }) : applyLatestTransform(physicsBody$.value?.getRigidBody(), position, rotation);
+  const onActivated$Sub: Subscription = abstractTransformAgent.onActivated$.subscribe(({ position, rotation }: TReadonlyTransform): void => {
+    applyLatestTransform(physicsBody$.value?.getRigidBody(), position, rotation);
   });
 
   const rotationQuaternion$: BehaviorSubject<TReadonlyQuaternion> = new BehaviorSubject<TReadonlyQuaternion>(
@@ -84,8 +84,8 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
     physicsSub$?.unsubscribe();
     enabledSub$.unsubscribe();
     prevBodyTypeSub.unsubscribe();
-    onDeactivated$Sub.unsubscribe();
-    onActivated$Sub.unsubscribe();
+    onDeactivated$Sub?.unsubscribe();
+    onActivated$Sub?.unsubscribe();
 
     abstractTransformAgent.destroy$.next();
     physicsBody$.complete();
