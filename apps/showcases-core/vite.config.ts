@@ -10,6 +10,7 @@ import wasm from 'vite-plugin-wasm';
 import vue from '@vitejs/plugin-vue';
 // @ts-expect-error: no type declarations
 import vueJsx from '@vitejs/plugin-vue-jsx';
+import license from 'rollup-plugin-license';
 
 export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
   const root: string = process.cwd();
@@ -63,7 +64,20 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
               filter: /\.(js|mjs|json|css|map|html|glb|gltf|bin|wasm|txt|svg|csv|xml|shader|material|ttf|otf)$/i
             })
           ]
-        : [])
+        : []),
+      license({
+        sourcemap: true,
+        cwd: process.cwd(),
+        thirdParty: {
+          // includePrivate: true, // Default is false.
+          // includeSelf: true, // Default is false.
+          // multipleVersions: true, // Default is false.
+          output: {
+            file: path.join(__dirname, 'THIRD_PARTY_LICENSES.md'),
+            encoding: 'utf-8'
+          }
+        }
+      })
     ],
     worker: {
       format: 'es',

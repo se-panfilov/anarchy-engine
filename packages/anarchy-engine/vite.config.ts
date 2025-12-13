@@ -8,6 +8,7 @@ import path from 'path';
 import wasm from 'vite-plugin-wasm';
 import { sharedAliases } from '../../vite.alias';
 import { visualizer } from 'rollup-plugin-visualizer';
+import license from 'rollup-plugin-license';
 
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   const root: string = process.cwd();
@@ -46,7 +47,20 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
               filter: /\.(js|mjs|json|css|map|html|glb|gltf|bin|wasm|txt|svg|csv|xml|shader|material|ttf|otf)$/i
             })
           ]
-        : [])
+        : []),
+      license({
+        sourcemap: true,
+        cwd: process.cwd(),
+        thirdParty: {
+          // includePrivate: true, // Default is false.
+          // includeSelf: true, // Default is false.
+          // multipleVersions: true, // Default is false.
+          output: {
+            file: path.join(__dirname, 'THIRD_PARTY_LICENSES.md'),
+            encoding: 'utf-8'
+          }
+        }
+      })
     ],
     worker: {
       format: 'es',

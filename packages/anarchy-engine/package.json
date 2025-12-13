@@ -15,7 +15,7 @@
     "dist/"
   ],
   "scripts": {
-    "before:release": "npm run before:release:check && npm run generate:license-report && npm run generate:all-licenses-list",
+    "before:release": "npm run before:release:check && npm run generate:third-party-list",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run check:ts-morph && npm run lint && npm run unit:coverage && npm run e2e:with-clean && npm run check:minified-assets",
     "build": "rimraf ./dist && vite build",
     "check:minified-assets": "../anarchy-shared/ScriptUtils/CheckMinify.sh dist/anarchy-engine.es.js dist/anarchy-engine.es.js.map",
@@ -23,9 +23,8 @@
     "check:no-spread-brand": "node ../../configs/TsMorph/check-no-spread-brand.js",
     "check:ts-morph": "npm run check:no-spread-brand",
     "check:ts-morph:fix": "npm run check:no-spread-brand -- --fix",
-    "generate:all-licenses-list": "yarn licenses generate-disclaimer --production > THIRD_PARTY_LICENSES_FULL.txt",
     "generate:dependency-graph": "npx madge src/index.ts --extensions ts --image graph.svg",
-    "generate:license-report": "npm install -g license-report && license-report --only=prod --output=markdown --department.value='Game Engine' --relatedTo.value='Runtime dependencies' --exclude=anarchy-shared > THIRD_PARTY_LICENSES.md",
+    "generate:third-party-list": "npm install -g license-report && license-report --only=prod --output=markdown --department.value='Game Engine' --relatedTo.value='Runtime dependencies' --exclude=anarchy-shared > THIRD_PARTY_LIST.md",
     "generate:schemas": "node ./utils/JsonUtils.js",
     "generate:schemas:minify": "node ./utils/JsonUtils.js --minify",
     "lint": "eslint ./src",
