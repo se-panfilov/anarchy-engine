@@ -32,7 +32,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
       const actor: TActor | undefined = actorRegistry.findByName('central_actor');
       if (isNotDefined(actor)) throw new Error('Actor not found');
-      camera.lookAt(actor.getPosition());
+      camera.lookAt(actor.position$.value);
     });
   }
 

@@ -23,7 +23,7 @@ export function startMoveActorWithKeyboard(actor: TActor, keyboardService: TKeyb
   keyboardService.onKey(KeyCode.D).released$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Right: false }));
 
   mouseLineIntersectionsWatcher.value$
-    .pipe(map((intersection: TIntersectionEvent) => getMouseAzimuthAndElevation(intersection.point, actor.getPosition())))
+    .pipe(map((intersection: TIntersectionEvent) => getMouseAzimuthAndElevation(intersection.point, actor.position$.value)))
     .subscribe((value: TIntersectionDirection): void => intersectionDirection$.next(value));
 
   combineLatest([keyStates$, intersectionDirection$]).subscribe(([keyStates, { azimuth }]: [TMoveKeysState, TIntersectionDirection]): void => {

@@ -49,9 +49,9 @@ export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: 
   const result = {
     ...destroyable,
     driver$,
-    position$,
-    rotation$,
-    scale$,
+    position$: ProtectedClonableehaviorSubject(position$),
+    rotation$: ProtectedClonableehaviorSubject(rotation$),
+    scale$: ProtectedClonableehaviorSubject(scale$),
     // TODO 8.0.0. MODELS: implement "ProtectedDriveFacade" to hide position$/rotation$/scale$ from external modifications (make them observable?)
     [ActorDriver.Kinematic]: ProtectedDriverFacade(kinematicDriver),
     [ActorDriver.Physical]: ProtectedDriverFacade(physicsDriver)

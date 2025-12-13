@@ -1,4 +1,4 @@
-import type { Observable } from 'rxjs';
+import type { BehaviorSubject } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
 import type { TEntity } from '@/Engine/Abstract';
@@ -7,7 +7,7 @@ import type { TActorEntities } from './TActorEntities';
 
 export type TActor = TEntity<TActorEntities> &
   Readonly<{
-    position$: Observable<Vector3>;
-    rotation$: Observable<Euler>;
-    scale$: Observable<Vector3 | undefined>;
+    position$: BehaviorSubject<Vector3>;
+    rotation$: BehaviorSubject<Euler>;
+    scale$: BehaviorSubject<Vector3 | undefined>;
   }>;
