@@ -16,7 +16,7 @@ export default [
       PRODUCT_TERM: 'Software', //E.g. 'Software', 'Product', 'Game', etc.
 
       //B2B
-      LIABILITY_CAP_AMOUNT: 'the total fees paid by that Business User to the Licensor for the Game in the 12 months immediately preceding the event giving rise to the claim',
+      LIABILITY_CAP_AMOUNT: 'the total fees paid by that Business User to the Licensor for the Software in the 12 months immediately preceding the event giving rise to the claim',
 
       // REGIONS
       REGION_CN: true,

@@ -29,7 +29,7 @@ Also distributed under the following technical identifiers: {{PACKAGE_NAME}}.
 
 ## Defined Terms
 
-**“Distribution Channels”** means any store, marketplace, platform, launcher, website, installer, physical media, or other mechanism used now or in the future to distribute {{PACKAGE_NAME}}, regardless of provider.
+**“Distribution Channels”** means any store, marketplace, platform, launcher, website, installer, physical media, or other mechanism used now or in the future to distribute the {{PRODUCT_TERM}}, regardless of provider.
 
 **“Consumer”** means an individual acting wholly or mainly outside their trade, business, craft or profession.
 
@@ -41,7 +41,7 @@ If any term (including any limitation or exclusion of liability) is found invali
 
 ## 1. License Grant
 
-Subject to this EULA, Licensor grants you a personal, non-exclusive, revocable license to install and use {{PACKAGE_NAME}} (the “{{PRODUCT_TERM}}”) on devices you own or control for {{USAGE_SCOPE}} purposes, and—subject to Section 3—to make and distribute copies as permitted therein.
+Subject to this EULA, Licensor grants you a personal, non-exclusive, revocable license to install and use the {{PRODUCT_TERM}} on devices you own or control for {{USAGE_SCOPE}} purposes, and—subject to Section 3—to make and distribute copies as permitted therein.
 
 ## 2. Ownership
 
@@ -65,7 +65,7 @@ You must **not**:
 
 {{#IS_GAME}}
 
-- create, market, distribute or use **cheats, hacks, bots, aimbots, trainers, exploits** or other tools intended to gain an unfair advantage, disrupt {{PRODUCT_TERM}}play, bypass anti-cheat, or compromise the integrity or security of the {{PRODUCT_TERM}} or others’ systems;
+- create, market, distribute or use **cheats, hacks, bots, aimbots, trainers, exploits** or other tools intended to gain an unfair advantage, disrupt operation or user experience, bypass anti-cheat, or compromise the integrity or security of the {{PRODUCT_TERM}} or others’ systems;
   {{/IS_GAME}}
 - develop, embed or distribute **malware** or use the {{PRODUCT_TERM}} as a vehicle for malicious code, phishing, or fraud;
 - **impersonate** us or **mislead** users by presenting your builds as “official”, using confusingly similar names, or implying sponsorship, endorsement, or partnership without our prior written permission;
@@ -132,6 +132,7 @@ To the fullest extent permitted by law, Licensor shall **not** be liable for any
 ## 11A. Liability Cap (Business Users Only)
 
 This clause applies **only** to Business Users. To the extent permitted by applicable law, the Licensor’s aggregate liability for all claims relating to the {{PRODUCT_TERM}} shall not exceed **{{LIABILITY_CAP_AMOUNT}}**.
+
 Nothing in this clause applies to Consumers, nor does it limit liability where such limitation is unlawful (including for death or personal injury caused by negligence, fraud or wilful misconduct).
 
 ## 12. Export Controls & Sanctions
