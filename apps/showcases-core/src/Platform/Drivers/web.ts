@@ -10,7 +10,6 @@ import type { TPlatformDriver } from '@/Models';
 import { settingsWebDbService } from '@/Services';
 
 // TODO DESKTOP: Make sure ALL these methods are working correctly
-// TODO DESKTOP: Implement the web driver
 export function Driver(): TPlatformDriver {
   function closeApp(): void {
     throw new Error('[WEB] closeApp is not supported on this platform');
@@ -20,10 +19,7 @@ export function Driver(): TPlatformDriver {
 
   const getPlatformVersion = (): string => 'N/A';
 
-  function getWrappedAppVersion(): Promise<string> {
-    console.log('XXX [WEB]', 'getWrappedAppVersion');
-    return Promise.resolve('XXX [WEB] mocked wrapped app version');
-  }
+  const getWrappedAppVersion = (): Promise<string> => Promise.resolve('N/A');
 
   async function getAppSettings(): Promise<TShowcaseGameSettings> {
     const settings: TShowcaseGameSettings | undefined = await settingsWebDbService.findSettings();
