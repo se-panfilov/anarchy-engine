@@ -1,11 +1,11 @@
 export enum RegistryType {
   Light = 'light',
-  Loop = 'loop',
   Camera = 'camera',
   Actor = 'actor',
   Controls = 'controls',
   Scene = 'scene',
   Text = 'text',
+  Texture = 'texture',
   Renderer = 'renderer',
   MouseClickWatcher = 'mouse_click_watcher',
   ScreenSizeWatcher = 'screen_size_watcher',

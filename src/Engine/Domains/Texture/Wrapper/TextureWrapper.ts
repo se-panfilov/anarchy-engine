@@ -1,23 +1,12 @@
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import { textureService } from '@/Engine/Domains/Texture';
-import type { ITextureParams, ITextureWrapper } from '@/Engine/Domains/Texture/Models';
-import type { ITexture } from '@/Engine/Domains/ThreeLib';
+import type { ITexture, ITextureParams, ITextureWrapper } from '@/Engine/Domains/Texture/Models';
 
-export function TextureWrapper({ url }: ITextureParams): ITextureWrapper {
-  const entity: ITexture = textureService.getLoader().load(
-    url,
-    (): void => textureService.message(`Texture "${url}" is loaded`),
-    undefined,
-    (error) => {
-      textureService.message(`Texture "${url}" is failed to load`);
-      console.log(`Texture "${url}" is failed to load`, error);
-      throw error;
-    }
-  );
+export function TextureWrapper(params: ITextureParams): ITextureWrapper {
+  const entity: ITexture = textureService.load(params);
 
-  const result = {
-    ...AbstractWrapper(entity, WrapperType.Texture, params)
+  return {
+    ...AbstractWrapper(entity, WrapperType.Texture, params),
+    entity
   };
-
-  return result;
 }

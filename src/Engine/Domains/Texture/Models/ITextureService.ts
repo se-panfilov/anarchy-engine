@@ -1,8 +1,10 @@
 import type { ReplaySubject } from 'rxjs';
-import type { TextureLoader } from 'three';
+
+import type { ITexture } from './ITexture';
+import type { ITextureParams } from './ITextureParams';
 
 export type ITextureService = {
-  getLoader: () => TextureLoader;
+  load: (params: ITextureParams) => ITexture;
   sendMessage: (message: string) => void;
   messages$: ReplaySubject<string>;
 };

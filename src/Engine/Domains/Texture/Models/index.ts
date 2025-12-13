@@ -1,3 +1,4 @@
+export * from './ITexture';
 export * from './ITextureFactory';
 export * from './ITextureParams';
 export * from './ITextureProps';

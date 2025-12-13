@@ -1,64 +1,32 @@
 import { ReplaySubject } from 'rxjs';
-import { LinearFilter, NearestFilter, SRGBColorSpace, TextureLoader } from 'three';
+import { TextureLoader } from 'three';
 
-import type { ITextureService } from '@/Engine/Domains/Texture/Models';
+import { TextureRegistry } from '@/Engine/Domains/Texture';
+import type { ITexture, ITextureParams, ITextureRegistry, ITextureService } from '@/Engine/Domains/Texture/Models';
+import { applyColorSpace, applyFilters, applyTextureParams, loadTexture } from '@/Engine/Domains/Texture/Service/TextureServiceHelper';
 import type { IWriteable } from '@/Engine/Utils';
-import type { ITexture } from '@/Engine/Wrappers';
 
 export function TextureService(): ITextureService {
   const textureLoader: TextureLoader = new TextureLoader();
   const messages$: ReplaySubject<string> = new ReplaySubject<string>();
+  const textureRegistry: ITextureRegistry = TextureRegistry();
 
-  function getLoader(): TextureLoader {
-    return textureLoader;
+  const sendMessage = (message: string): void => messages$.next(message);
+
+  function load(params: ITextureParams): ITexture {
+    const texture: IWriteable<ITexture> = loadTexture(params.url, textureLoader, messages$);
+    applyTextureParams(texture, params);
+    applyColorSpace(texture, params.colorSpace);
+    applyFilters(texture, params.magFilter, params.minFilter);
+
+    // TODO (S.Panfilov) CWP Texture service vs Factory?
+    // Where we should add texture to registry?
+    textureRegistry.add(texture);
+
+    return texture;
   }
 
-  function sendMessage(message: string): void {
-    messages$.next(message);
-  }
-
-  // TODO (S.Panfilov) remove
-  function load(urlsObj: Record<string, string>): Record<string, ITexture> {
-    const result: Record<string, ITexture> = {};
-
-    Object.entries(urlsObj).forEach(([name, url]: ReadonlyArray<string>): void => {
-      const texture: IWriteable<ITexture> = textureLoader.load(
-        url,
-        (): void => messages$.next(`Texture "${url}" is loaded`),
-        undefined,
-        (error) => {
-          messages$.next(`Texture "${url}" is failed to load`);
-          console.log(`Texture "${url}" is failed to load`, error);
-          throw error;
-        }
-      );
-
-      // eslint-disable-next-line functional/immutable-data
-      texture.colorSpace = SRGBColorSpace;
-
-      // texture.minFilter = NearestFilter;
-      // texture.minFilter = NearestMipMapLinearFilter;
-      // texture.minFilter = NearestMipMapNearestFilter;
-      // texture.minFilter = LinearMipMapNearestFilter;
-      // texture.minFilter = LinearMipMapLinearFilter;
-      // texture.minFilter = LinearFilter;
-
-      // eslint-disable-next-line functional/immutable-data
-      if (texture.minFilter === NearestFilter) texture.generateMipmaps = false;
-
-      // eslint-disable-next-line functional/immutable-data
-      texture.magFilter = LinearFilter; //default
-      // texture.magFilter = NearestFilter; //cheaper
-
-      if (result[name]) throw new Error(`Texture "${name}" is already loaded`);
-      // eslint-disable-next-line functional/immutable-data
-      result[name] = texture;
-    });
-
-    return result;
-  }
-
-  return { getLoader, sendMessage, messages$ };
+  return { load, sendMessage, messages$ };
 }
 
 export const textureService: ITextureService = TextureService();
