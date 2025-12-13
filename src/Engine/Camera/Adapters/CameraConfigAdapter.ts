@@ -3,11 +3,16 @@ import { Vector3 } from 'three';
 
 import type { TCameraConfig, TCameraParams, TCameraServiceDependencies } from '@/Engine/Camera/Models';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function configToParams(config: TCameraConfig, { audioService }: TCameraServiceDependencies): TCameraParams {
+export function configToParams(config: TCameraConfig, { audioService }: TCameraServiceDependencies): TCameraParams | never {
   const { position, rotation, scale, layers, lookAt, audioListener, ...rest } = config;
 
-  const listener: AudioListener | undefined = audioListener ? audioService.getListenersRegistry().findByKey(audioListener) : undefined;
+  let listener: AudioListener | undefined;
+  if (isDefined(audioListener)) {
+    listener = audioService.getListenersRegistry().findByKey(audioListener);
+    if (isNotDefined(listener)) throw new Error(`Camera: cannot create camera from config: listener ("${audioListener}") is not found`);
+  }
 
   return {
     ...rest,
