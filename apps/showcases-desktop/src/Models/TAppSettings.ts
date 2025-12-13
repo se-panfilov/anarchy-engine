@@ -1,7 +1,7 @@
 // TODO DESKTOP: should extend (or being replaced by) TAppSettings from apps' layer
 export type TAppSettings = Readonly<{
   graphics: TGraphicsSettings;
-  audio: TAudioOptions;
+  audio: TAudioSettings;
   localization: TLocalizationSettings;
   // controls: TControlsSettings;
   // accessibility: TAccessibilitySettings;
@@ -21,7 +21,7 @@ export type TGraphicsSettings = Readonly<{
   // contrast: number;
 }>;
 
-export type TAudioOptions = Readonly<{
+export type TAudioSettings = Readonly<{
   masterVolume: number;
   // musicVolume: number;
   // sfxVolume: number;
