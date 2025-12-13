@@ -1,6 +1,6 @@
 import type { Vector2 } from 'three';
 
-import type { TKinematicDataParams } from '@/Engine/Kinematic';
+import type { TKinematicParams } from '@/Engine/Kinematic';
 import type { TWithNameOptional } from '@/Engine/Mixins';
 import type { TextType } from '@/Engine/Text/Constants';
 import type { TWithTransformAgentParam } from '@/Engine/TransformDrive';
@@ -13,7 +13,7 @@ export type TTextProps = Readonly<{
   cssProps?: TTextCssProps;
   center?: Vector2;
   elementType?: string;
-  kinematic?: TKinematicDataParams;
+  kinematic?: TKinematicParams;
 }> &
   TWithTransformAgentParam &
   TWithNameOptional;

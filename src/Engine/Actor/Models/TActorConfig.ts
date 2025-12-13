@@ -1,5 +1,5 @@
 import type { TCollisionsDataConfig } from '@/Engine/Collisions';
-import type { TKinematicDataConfig } from '@/Engine/Kinematic';
+import type { TKinematicConfig } from '@/Engine/Kinematic';
 import type { TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
 import type { TSpatialDataConfig } from '@/Engine/Spatial';
 import type { TObject3DPropConfig } from '@/Engine/ThreeLib';
@@ -11,7 +11,7 @@ export type TActorConfig = TActorProps &
     // TODO 8.0.0. MODELS: check name match model's in config
     model3dSource: string;
     physics?: TWithPresetNamePhysicsBodyConfig;
-    kinematic?: TKinematicDataConfig;
+    kinematic?: TKinematicConfig;
     spatial: TSpatialDataConfig;
     collisions?: TCollisionsDataConfig;
   }> &

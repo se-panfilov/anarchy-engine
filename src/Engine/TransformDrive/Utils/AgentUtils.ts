@@ -1,6 +1,6 @@
 import { Vector3 } from 'three';
 
-import type { TKinematicData, TKinematicDataParams } from '@/Engine/Kinematic/Models';
+import type { TKinematicData, TKinematicParams } from '@/Engine/Kinematic/Models';
 import type { TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
 import { KinematicTransformAgent, PhysicsTransformAgent } from '@/Engine/TransformDrive/Agents';
 import type {
@@ -14,14 +14,14 @@ import type {
 } from '@/Engine/TransformDrive/Models';
 import { omitInObjectWithoutMutation } from '@/Engine/Utils';
 
-export function getKinematicTransformAgent(params: TTransformAgentParams, kinematic: TKinematicDataParams | undefined, dependencies: TKinematicAgentDependencies): TKinematicTransformAgent {
+export function getKinematicTransformAgent(params: TTransformAgentParams, kinematic: TKinematicParams | undefined, dependencies: TKinematicAgentDependencies): TKinematicTransformAgent {
   const agentParams: TTransformAgentParams = { position: params.position, rotation: params.rotation, scale: params.scale ?? new Vector3(1, 1, 1) };
   const kinematicData: TKinematicData = getKinematicWithDefaults(kinematic);
   const kinematicAgentParams: TKinematicTransformAgentParams = { ...agentParams, ...kinematicData, isAutoUpdate: kinematic?.isAutoUpdate ?? true };
   return KinematicTransformAgent(kinematicAgentParams, dependencies);
 }
 
-export function getKinematicWithDefaults(kinematic: TKinematicDataParams | undefined): TKinematicData {
+export function getKinematicWithDefaults(kinematic: TKinematicParams | undefined): TKinematicData {
   return {
     linearSpeed: kinematic?.linearSpeed ?? 0,
     linearDirection: kinematic?.linearDirection ?? new Vector3(),

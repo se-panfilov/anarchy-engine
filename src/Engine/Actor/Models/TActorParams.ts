@@ -1,5 +1,5 @@
 import type { TCollisionsDataParams } from '@/Engine/Collisions';
-import type { TKinematicDataParams } from '@/Engine/Kinematic';
+import type { TKinematicParams } from '@/Engine/Kinematic';
 import type { TModel3d } from '@/Engine/Models3d';
 import type { TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
 import type { TSpatialDataParams } from '@/Engine/Spatial';
@@ -11,7 +11,7 @@ export type TActorParams = TActorProps &
   Readonly<{
     model3dSource: TModel3d;
     physics?: TWithPresetNamePhysicsBodyParams;
-    kinematic?: TKinematicDataParams;
+    kinematic?: TKinematicParams;
     spatial: TSpatialDataParams;
     collisions?: TCollisionsDataParams;
   }> &
