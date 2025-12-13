@@ -2,7 +2,7 @@ import GUI from 'lil-gui';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IAppCanvas, IDirectionalLightWrapper, IHemisphereLightWrapper, ILevel, ILevelConfig, IRectAreaLightWrapper } from '@/Engine';
-import { buildLevelFromConfig, envMapService, isNotDefined } from '@/Engine';
+import { buildLevelFromConfig, isNotDefined } from '@/Engine';
 
 import levelConfig from './showcase-12-light.json';
 
