@@ -7,8 +7,6 @@ import type { TSpacesData } from '../ShowcaseTypes';
 import { getContainer } from '../utils';
 import spaceConfig from './spaceLight.json';
 
-export type * from './spaceLight';
-
 const config: TSpaceConfig = spaceConfig as TSpaceConfig;
 
 export const spaceLightData: TSpacesData = {
