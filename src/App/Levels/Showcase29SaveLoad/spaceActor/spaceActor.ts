@@ -46,6 +46,8 @@ export const spaceActorData: TSpacesData = {
         case Idle:
           tPoseAction.fadeOut(fadeDuration);
           idleAction.reset().fadeIn(fadeDuration).play();
+          // eslint-disable-next-line functional/immutable-data
+          idleAction.paused = true;
           break;
         case TPose:
           idleAction.fadeOut(fadeDuration);
