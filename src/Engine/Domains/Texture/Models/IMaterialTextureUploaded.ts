@@ -22,7 +22,7 @@ import type {
   IWithPhysicalMaterialProperty,
   IWithStandardMaterialProperty,
   IWithToonMaterialProperty
-} from './IWithMaterialProperty';
+} from '@/Engine/Domains/Material';
 
 export type IBasicMaterialTextureUploaded = Readonly<{ [key in IBasicMaterialPackKeys]?: ITexture } & IWithBasicMaterialProperty>;
 export type IDepthMaterialTextureUploaded = Readonly<{ [key in IDepthMaterialPackKeys]?: ITexture }> & IWithDepthMaterialProperty;

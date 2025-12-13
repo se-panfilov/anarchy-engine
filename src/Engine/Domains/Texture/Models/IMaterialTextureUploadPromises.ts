@@ -34,7 +34,7 @@ import type {
   IWithPhysicalMaterialProperty,
   IWithStandardMaterialProperty,
   IWithToonMaterialProperty
-} from './IWithMaterialProperty';
+} from '@/Engine/Domains/Material';
 
 export type IGetAllTextures<T> = Readonly<{ all: () => Promise<T> }>;
 
