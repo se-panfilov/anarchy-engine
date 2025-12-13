@@ -1,10 +1,10 @@
-//    | typeof ZeroStencilOp
-//     | typeof KeepStencilOp
-//     | typeof ReplaceStencilOp
-//     | typeof IncrementStencilOp
-//     | typeof DecrementStencilOp
-//     | typeof IncrementWrapStencilOp
-//     | typeof DecrementWrapStencilOp
-//     | typeof InvertStencilOp;
-
-export enum StencilFailName {}
+export enum StencilFailName {
+  ZeroStencilOp = 'ZeroStencilOp',
+  KeepStencilOp = 'KeepStencilOp',
+  ReplaceStencilOp = 'ReplaceStencilOp',
+  IncrementStencilOp = 'IncrementStencilOp',
+  DecrementStencilOp = 'DecrementStencilOp',
+  IncrementWrapStencilOp = 'IncrementWrapStencilOp',
+  DecrementWrapStencilOp = 'DecrementWrapStencilOp',
+  InvertStencilOp = 'InvertStencilOp'
+}
