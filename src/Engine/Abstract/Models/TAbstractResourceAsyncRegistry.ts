@@ -8,8 +8,9 @@ import type { TAbstractSimpleRegistry } from './TAbstractSimpleRegistry';
 
 export type TAbstractResourceAsyncRegistry<T> = Omit<TAbstractSimpleRegistry<T>, 'serialize'> &
   Readonly<{
-    findByKeyAsync: (name: string) => Promise<T | undefined>;
     findByKey$: (name: string) => Observable<T>;
+    findByKeyAsync: (name: string) => Promise<T | undefined>;
+    getByKeyAsync: (name: string) => Promise<T | never>;
     serialize: <C extends TAbstractResourceConfig>(dependencies: TAbstractSerializeDependencies<C>) => ReadonlyArray<C>;
   }> &
   TDestroyable;

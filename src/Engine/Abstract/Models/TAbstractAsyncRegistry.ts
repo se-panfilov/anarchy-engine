@@ -13,5 +13,7 @@ export type TAbstractAsyncRegistry<T extends TRegistrable> = TAbstractEntityRegi
     findByTagAsync: (tag: string) => Promise<T | undefined>;
     findByTags$: (tags: ReadonlyArray<string>, strategy: LookUpStrategy) => Observable<T>;
     findByTagsAsync: (tags: ReadonlyArray<string>, strategy: LookUpStrategy) => Promise<T | undefined>;
+    getByNameAsync: (name: string) => Promise<T | never>;
+    getByTagAsync: (tag: string) => Promise<T | never>;
   }> &
   TDestroyable;
