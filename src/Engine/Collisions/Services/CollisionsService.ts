@@ -80,20 +80,20 @@ export function CollisionsService(): TCollisionsService {
     const stepVector = currentPosition.clone().sub(previousPosition).divideScalar(steps);
     const interpolatedPosition = new Vector3();
     const nextInterpolatedPosition = new Vector3();
+    const raycaster = new Raycaster();
+    raycaster.firstHitOnly = true;
 
     // eslint-disable-next-line functional/no-loop-statements
     for (let i = 0; i < steps; i++) {
       interpolatedPosition.copy(previousPosition).add(stepVector.clone().multiplyScalar(i));
       nextInterpolatedPosition.copy(previousPosition).add(stepVector.clone().multiplyScalar(i + 1));
 
+      const capsule: TCapsule = createCapsule(interpolatedPosition, nextInterpolatedPosition, radius);
+
       // eslint-disable-next-line functional/no-loop-statements
       for (const object of actorsToCheck) {
         if (object.id !== actorW.id) {
-          const raycaster: Raycaster = new Raycaster();
-          raycaster.firstHitOnly = true;
           raycaster.set(interpolatedPosition, actorW.kinematic.getLinearDirection());
-
-          const capsule: TCapsule = createCapsule(interpolatedPosition, nextInterpolatedPosition, radius);
           const intersects: Array<Intersection> = [];
           bvhService.raycastWithBvh(object, raycaster, intersects);
 
