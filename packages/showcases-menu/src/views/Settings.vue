@@ -2,9 +2,9 @@
 import Navigation from '@Showcases/Menu/components/Navigation.vue';
 import PageTitle from '@Showcases/Menu/components/PageTitle.vue';
 import { Routes } from '@Showcases/Menu/constants';
+import type { TVueNavOption } from '@Showcases/Menu/models';
 import { vueTranslationService } from '@Showcases/Menu/services';
 import { useRouterStore } from '@Showcases/Menu/stores/RouterStore';
-import type { TNavOption } from '@Showcases/Shared';
 import type { ShallowRef } from 'vue';
 
 const { $t } = vueTranslationService;
@@ -12,20 +12,22 @@ const menuRouterStore = useRouterStore();
 
 const viewTitleText: ShallowRef<string> = $t('main-menu.settings.view.title');
 
-// TODO DESKTOP: replace stings with $t refs
-const navOptions: ReadonlyArray<TNavOption> = [
+const navOptions: ReadonlyArray<TVueNavOption> = [
   {
     id: 0,
+    name: 'graphics',
     label: 'Graphics',
     action: () => menuRouterStore.go(Routes.Graphics)
   },
   {
     id: 1,
+    name: 'audio',
     label: 'Audio',
     action: () => menuRouterStore.go(Routes.Audio)
   },
   {
     id: 2,
+    name: 'controls',
     label: 'Localization',
     action: () => menuRouterStore.go(Routes.Localization)
   }

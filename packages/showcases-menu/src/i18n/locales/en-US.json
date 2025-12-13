@@ -10,5 +10,11 @@
   "main-menu.settings.localization.group.main-localization-settings.title": "Main localization settings",
   "main-menu.settings.localization.language.label": "Language",
   "main-menu.settings.localization.view.title": "Localization Settings",
-  "main-menu.settings.view.title": "Settings"
+  "main-menu.settings.view.title": "Settings",
+  "main-menu.navigation.back-button.text": "Back",
+  "main-menu.home.button.continue-game.text": "Continue",
+  "main-menu.home.button.new-game.text": "New Game",
+  "main-menu.home.button.load-game.text": "Load Game",
+  "main-menu.home.button.settings.text": "Settings",
+  "main-menu.home.button.close-menu.text": "Close Menu"
 }

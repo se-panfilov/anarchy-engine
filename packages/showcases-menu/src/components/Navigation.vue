@@ -1,14 +1,17 @@
 <script setup lang="ts">
+import type { TVueNavOption } from '@Showcases/Menu/models';
+import { vueTranslationService } from '@Showcases/Menu/services';
 import { useRouterStore } from '@Showcases/Menu/stores/RouterStore';
-import type { TNavOption } from '@Showcases/Shared';
+import type { ShallowRef } from 'vue';
 
-// TODO DESKTOP: test i18n (for desktop also)
+const { $t } = vueTranslationService;
+
 // TODO DESKTOP: add version to html body
 // TODO DESKTOP: add init event with version and platform
 
 withDefaults(
   defineProps<{
-    options?: ReadonlyArray<TNavOption>;
+    options?: ReadonlyArray<TVueNavOption>;
     backBtn?: boolean;
   }>(),
   {
@@ -16,18 +19,20 @@ withDefaults(
     backBtn: false
   }
 );
+
+const backButtonText: ShallowRef<string> = $t('main-menu.navigation.back-button.text');
 </script>
 
 <template>
   <div class="navigation">
     <ul class="navigation__list">
-      <li v-for="option in options" :key="option.id" class="navigation__list-item">
+      <li v-for="option in options" :key="option.id" :class="`navigation__list-item --${option.name}`">
         <button type="button" class="navigation__button" :disabled="option.disabled" @click="option.action()">
           {{ option.label }}
         </button>
       </li>
       <li v-if="backBtn" class="navigation__list-item -back">
-        <button type="button" class="navigation__button" @click="useRouterStore().goBack()">Back</button>
+        <button type="button" class="navigation__button" @click="useRouterStore().goBack()">{{ backButtonText }}</button>
       </li>
     </ul>
   </div>

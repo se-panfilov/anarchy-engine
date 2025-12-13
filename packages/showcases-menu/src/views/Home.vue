@@ -2,43 +2,53 @@
 import Navigation from '@Showcases/Menu/components/Navigation.vue';
 import PageTitle from '@Showcases/Menu/components/PageTitle.vue';
 import { Routes } from '@Showcases/Menu/constants';
+import type { TVueNavOption } from '@Showcases/Menu/models';
 import { eventsService, vueTranslationService } from '@Showcases/Menu/services';
 import { useMenuOptionsStore } from '@Showcases/Menu/stores/MenuOptionsStore';
 import { useRouterStore } from '@Showcases/Menu/stores/RouterStore';
-import type { TNavOption } from '@Showcases/Shared';
 import type { ShallowRef } from 'vue';
 
 const { $t } = vueTranslationService;
 const menuRouterStore = useRouterStore();
 
 const viewTitleText: ShallowRef<string> = $t('main-menu.home.game-title');
+const continueGameButtonText: ShallowRef<string> = $t('main-menu.home.button.continue-game.text');
+const newGameButtonText: ShallowRef<string> = $t('main-menu.home.button.new-game.text');
+const loadGameButtonText: ShallowRef<string> = $t('main-menu.home.button.load-game.text');
+const settingsButtonText: ShallowRef<string> = $t('main-menu.home.button.settings.text');
+const closeMenuButtonText: ShallowRef<string> = $t('main-menu.home.button.close-menu.text');
 
 // TODO DESKTOP: replace stings with $t refs
-const navOptions: ReadonlyArray<TNavOption> = [
+const navOptions: ReadonlyArray<TVueNavOption> = [
   {
     id: 0,
-    label: 'Continue',
+    name: 'continue-game',
+    label: continueGameButtonText,
     action: () => eventsService.emitContinueGame()
   },
   {
     id: 1,
-    label: 'New game',
+    name: 'new-game',
+    label: newGameButtonText,
     disabled: true,
     action: () => eventsService.emitStartNewGame()
   },
   {
     id: 2,
-    label: 'Load game',
+    name: 'load-game',
+    label: loadGameButtonText,
     action: () => eventsService.emitLoadGame()
   },
   {
     id: 3,
-    label: 'Settings',
+    name: 'settings',
+    label: settingsButtonText,
     action: () => menuRouterStore.go(Routes.Settings)
   },
   {
     id: 4,
-    label: 'Close menu',
+    name: 'credits',
+    label: closeMenuButtonText,
     condition: useMenuOptionsStore().showExitBtn,
     action: () => eventsService.emitCloseMenu()
   }

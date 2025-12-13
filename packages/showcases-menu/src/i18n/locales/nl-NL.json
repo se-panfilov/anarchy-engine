@@ -10,5 +10,11 @@
   "main-menu.settings.localization.group.main-localization-settings.title": "Hoofd taalinstellingen",
   "main-menu.settings.localization.language.label": "Taal",
   "main-menu.settings.localization.view.title": "Taalinstellingen",
-  "main-menu.settings.view.title": "Instellingen"
+  "main-menu.settings.view.title": "Instellingen",
+  "main-menu.navigation.back-button.text": "Terug",
+  "main-menu.home.button.continue-game.text": "Doorgaan",
+  "main-menu.home.button.new-game.text": "Nieuw Spel",
+  "main-menu.home.button.load-game.text": "Laad Spel",
+  "main-menu.home.button.settings.text": "Instellingen",
+  "main-menu.home.button.close-menu.text": "Sluit Menu"
 }
