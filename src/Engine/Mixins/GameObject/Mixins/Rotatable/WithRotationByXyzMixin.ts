@@ -1,7 +1,8 @@
 import type { IRotatable, IWithRotationProperty } from '@/Engine/Mixins/GameObject/Models';
-import { withRotationByXMixin } from '@/Engine/Mixins/GameObject/WithRotationByXMixin';
-import { withRotationByYMixin } from '@/Engine/Mixins/GameObject/WithRotationByYMixin';
-import { withRotationByZMixin } from '@/Engine/Mixins/GameObject/WithRotationByZMixin';
+
+import { withRotationByXMixin } from './WithRotationByXMixin';
+import { withRotationByYMixin } from './WithRotationByYMixin';
+import { withRotationByZMixin } from './WithRotationByZMixin';
 
 export function withRotationByXyzMixin(entity: IWithRotationProperty): IRotatable {
   return {

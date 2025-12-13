@@ -1,4 +1,4 @@
-import type { IWithPosition } from './IWithPosition';
+import type { IWithPosition } from '@/Engine/Mixins/GameObject/Models/Position';
 
 export type IMovableZ = IWithPosition &
   Readonly<{
