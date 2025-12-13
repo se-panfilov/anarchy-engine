@@ -21,7 +21,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     keyboardService.onKey(KeysExtra.Space).released$.subscribe((): void => physicsLoopService.shouldAutoUpdate(false));
 
     //always running non-physical actor
-    loopService.tick$.subscribe(({ elapsedTime }) => {
+    loopService.tick$.subscribe(({ elapsedTime }): void => {
       actor.setX(Math.sin(elapsedTime) * 4);
       actor.setZ(Math.cos(elapsedTime) * 4);
     });
