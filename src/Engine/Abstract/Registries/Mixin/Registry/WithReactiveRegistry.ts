@@ -12,8 +12,11 @@ export function withReactiveRegistry<T>(destroyable: TDestroyable): TWithReactiv
 
   destroyable.destroy$.subscribe((): void => {
     added$.complete();
+    added$.unsubscribe();
     replaced$.complete();
+    replaced$.unsubscribe();
     removed$.complete();
+    removed$.unsubscribe();
     registry.forEach((obj: T): void => {
       if (isDestroyable(obj)) obj.destroy$.next();
     });

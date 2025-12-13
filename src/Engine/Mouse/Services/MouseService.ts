@@ -106,35 +106,61 @@ export function MouseService(container: TGlobalContainerDecorator, { loopService
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroy$.subscribe((): void => {
     clickPress$.complete();
+    clickPress$.unsubscribe();
     clickLeftPress$.complete();
+    clickLeftPress$.unsubscribe();
     clickRightPress$.complete();
+    clickRightPress$.unsubscribe();
     clickMiddlePress$.complete();
+    clickMiddlePress$.unsubscribe();
     clickBackPress$.complete();
+    clickBackPress$.unsubscribe();
     clickForwardPress$.complete();
+    clickForwardPress$.unsubscribe();
     clickExtraPress$.complete();
+    clickExtraPress$.unsubscribe();
 
     clickRelease$.complete();
+    clickRelease$.unsubscribe();
     clickLeftRelease$.complete();
+    clickLeftRelease$.unsubscribe();
     clickRightRelease$.complete();
+    clickRightRelease$.unsubscribe();
     clickMiddleRelease$.complete();
+    clickMiddleRelease$.unsubscribe();
     clickBackRelease$.complete();
+    clickBackRelease$.unsubscribe();
     clickForwardRelease$.complete();
+    clickForwardRelease$.unsubscribe();
     clickExtraRelease$.complete();
+    clickExtraRelease$.unsubscribe();
 
     isLeftPressed$.complete();
+    isLeftPressed$.unsubscribe();
     isRightPressed$.complete();
+    isRightPressed$.unsubscribe();
     isMiddlePressed$.complete();
+    isMiddlePressed$.unsubscribe();
     isBackPressed$.complete();
+    isBackPressed$.unsubscribe();
     isForwardPressed$.complete();
+    isForwardPressed$.unsubscribe();
     isExtraPressed$.complete();
+    isExtraPressed$.unsubscribe();
 
     doubleClick$.complete();
+    doubleClick$.unsubscribe();
     doubleLeftClick$.complete();
+    doubleLeftClick$.unsubscribe();
     doubleRightClick$.complete();
+    doubleRightClick$.unsubscribe();
 
     wheel$.complete();
+    wheel$.unsubscribe();
     wheelUp$.complete();
+    wheelUp$.unsubscribe();
     wheelDown$.complete();
+    wheelDown$.unsubscribe();
   });
 
   return {

@@ -9,6 +9,7 @@ export function withBuiltMixin(): TWithBuilt {
   built$.subscribe((): void => {
     isBuilt = true;
     built$.complete();
+    built$.unsubscribe();
   });
 
   return {

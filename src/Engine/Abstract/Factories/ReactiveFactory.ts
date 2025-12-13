@@ -20,7 +20,10 @@ export function ReactiveFactoryWithDependencies<T, P, D>(type: FactoryType | str
   }
 
   const destroyable = destroyableMixin();
-  destroyable.destroy$.subscribe(() => entityCreated$.complete());
+  destroyable.destroy$.subscribe(() => {
+    entityCreated$.complete();
+    entityCreated$.unsubscribe();
+  });
 
   return {
     ...AbstractFactory(type),

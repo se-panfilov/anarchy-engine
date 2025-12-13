@@ -11,6 +11,7 @@ export function KinematicLoopService(): TKinematicLoopService {
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroy$.subscribe((): void => {
     tick$.complete();
+    tick$.unsubscribe();
   });
 
   return {

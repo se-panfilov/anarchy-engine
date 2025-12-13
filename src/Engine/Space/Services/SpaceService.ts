@@ -35,6 +35,7 @@ export function SpaceService(): TSpaceService {
 
     destroyable.destroy$.subscribe((): void => {
       builtMixin.built$.complete();
+      builtMixin.built$.unsubscribe();
       Object.values(services).forEach((service): void => void (isDestroyable(service) && service.destroy$.next()));
     });
 

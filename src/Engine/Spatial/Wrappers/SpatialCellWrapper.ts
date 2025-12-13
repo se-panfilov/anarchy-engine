@@ -25,6 +25,7 @@ export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrap
     entity.objects = [];
     sub$.unsubscribe();
     update$.complete();
+    update$.unsubscribe();
   });
 
   const findObject = (id: string): TActor | undefined => entity.objects.find((o: TActor): boolean => o.id === id);

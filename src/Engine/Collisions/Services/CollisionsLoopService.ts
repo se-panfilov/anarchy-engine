@@ -11,6 +11,7 @@ export function CollisionsLoopService(): TCollisionsLoopService {
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroy$.subscribe((): void => {
     tick$.complete();
+    tick$.unsubscribe();
   });
 
   return {

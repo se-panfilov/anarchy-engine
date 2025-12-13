@@ -67,6 +67,7 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
       },
       destroy: (): void => {
         value$.complete();
+        value$.unsubscribe();
         collisionsLoopServiceSub$.unsubscribe();
       },
       value$: value$.asObservable()

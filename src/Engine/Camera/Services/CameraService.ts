@@ -17,12 +17,12 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
   });
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TCameraWrapper): void => registry.add(wrapper));
 
-  let screenSize$: Subscription | undefined = undefined;
+  let screenSizeSub$: Subscription | undefined = undefined;
 
   const findActive = withActive.findActive;
 
   function startUpdatingCamerasAspect(shouldUpdateOnlyActiveCamera: boolean = false): void {
-    screenSize$ = ambientContext.screenSizeWatcher.value$.subscribe((params: TScreenSizeValues): void => {
+    screenSizeSub$ = ambientContext.screenSizeWatcher.value$.subscribe((params: TScreenSizeValues): void => {
       if (shouldUpdateOnlyActiveCamera) {
         const activeCamera: TCameraWrapper | undefined = findActive();
         if (isNotDefined(activeCamera)) throw new Error('Cannot find an active camera during the aspect update.');
@@ -36,7 +36,7 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
   if (isUpdateCamerasAspect) startUpdatingCamerasAspect(false);
 
   const screenSizeDestroy$: Subscription = ambientContext.screenSizeWatcher.destroy$.subscribe(() => {
-    screenSize$?.unsubscribe();
+    screenSizeSub$?.unsubscribe();
     screenSizeDestroy$.unsubscribe();
   });
 
@@ -54,8 +54,7 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
     withActive.active$.complete();
     withActive.active$.unsubscribe();
 
-    screenSize$?.unsubscribe();
-    screenSizeDestroy$.unsubscribe();
+    ambientContext.screenSizeWatcher.destroy$.next();
   });
 
   return {
