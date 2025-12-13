@@ -2137,35 +2137,50 @@
     "TRendererConfig": {
       "type": "object",
       "properties": {
-        "precision": {
-          "type": "string"
-        },
         "alpha": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "default is false."
         },
         "premultipliedAlpha": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "default is true."
         },
         "antialias": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "default is false."
         },
         "stencil": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "default is false."
         },
         "preserveDrawingBuffer": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "default is false."
         },
         "powerPreference": {
-          "type": "string"
+          "type": "string",
+          "enum": ["default", "high-performance", "low-power"],
+          "description": "Can be \"high-performance\", \"low-power\" or \"default\""
         },
         "depth": {
-          "type": "boolean"
-        },
-        "logarithmicDepthBuffer": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "default is true."
         },
         "failIfMajorPerformanceCaveat": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "default is false."
+        },
+        "precision": {
+          "type": "string",
+          "description": "shader precision. Can be \"highp\", \"mediump\" or \"lowp\"."
+        },
+        "logarithmicDepthBuffer": {
+          "type": "boolean",
+          "description": "default is false."
+        },
+        "reverseDepthBuffer": {
+          "type": "boolean",
+          "description": "default is false."
         },
         "mode": {
           "$ref": "#/definitions/RendererModes"

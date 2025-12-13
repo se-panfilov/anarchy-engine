@@ -177,7 +177,7 @@
     "intersections": [],
     "lights": [
       {
-        "name": "dir_light",
+        "name": "directional_light",
         "castShadow": true,
         "color": "#ffffff",
         "intensity": 3,

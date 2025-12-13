@@ -125,7 +125,7 @@
         "castShadow": true,
         "color": "#ffffff",
         "intensity": 3,
-        "name": "dir_light",
+        "name": "directional_light",
         "position": {
           "x": -3,
           "y": 10,

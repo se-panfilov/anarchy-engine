@@ -22,6 +22,7 @@
         }
       },
       {
+        "name": "cube_actor_red",
         "agent": "connected",
         "model3dSource": "cube_red_model",
         "position": {
@@ -36,6 +37,7 @@
         "tags": ["actor", "red"]
       },
       {
+        "name": "cube_actor_green",
         "agent": "connected",
         "model3dSource": "cube_green_model",
         "position": {
@@ -50,6 +52,7 @@
         "tags": ["actor", "green"]
       },
       {
+        "name": "cube_actor_blue",
         "agent": "connected",
         "model3dSource": "cube_blue_model",
         "position": {
@@ -221,6 +224,7 @@
         "type": "text_2d"
       },
       {
+        "name": "connected_text_1",
         "agent": "connected",
         "cssProps": {
           "color": "#00ff00",
@@ -241,6 +245,7 @@
         "type": "text_2d"
       },
       {
+        "name": "connected_text_2",
         "agent": "connected",
         "cssProps": {
           "color": "#0000ff",
