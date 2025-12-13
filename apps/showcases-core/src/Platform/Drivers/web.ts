@@ -19,7 +19,7 @@ export function Driver(): TPlatformDriver {
   // TODO DESKTOP: fix return type of "loadLegalDocs"
   const loadLegalDocs = (): Promise<string> => {
     console.log('XXX [WEB]', 'loadLegalDocs');
-    return window[platformApiName].loadLegalDocs();
+    return Promise.resolve({} as any);
   };
 
   function getNodeVersion(): string {
