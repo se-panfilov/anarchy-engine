@@ -17,12 +17,12 @@ export function CollisionsService(): TCollisionsService {
   function checkCollisions(actorW: TActorWrapperAsync, radius: number, actorsToCheck: ReadonlyArray<TActorWrapperAsync>): TCollisionCheckResult | undefined {
     const actorBox: Box3 = new Box3().setFromObject(actorW.entity);
     const queryBox = {
-      minX: actorBox.min.x - radius,
-      minY: actorBox.min.y - radius,
-      minZ: actorBox.min.z - radius,
-      maxX: actorBox.max.x + radius,
-      maxY: actorBox.max.y + radius,
-      maxZ: actorBox.max.z + radius
+      minX: actorBox.min.x, // - radius,
+      minY: actorBox.min.y, // - radius,
+      minZ: actorBox.min.z, // - radius,
+      maxX: actorBox.max.x, // + radius,
+      maxY: actorBox.max.y, // + radius,
+      maxZ: actorBox.max.z // + radius
     };
 
     // TODO debug (window as any).sceneW
@@ -32,22 +32,11 @@ export function CollisionsService(): TCollisionsService {
 
     // eslint-disable-next-line functional/no-loop-statements
     for (const object of actorsToCheck) {
-      // if (object.id !== actorW.id) {
-      //   const intersection: Intersection = bvhService.raycastWithBvh(object.entity, actorW.entity);
-      //   if (intersection.distance < radius) {
-      //     return {
-      //       object: object.entity,
-      //       distance: intersection.distance,
-      //       collisionPoint: intersection.point,
-      //       bulletPosition: actorW.entity.position.clone()
-      //     };
-      //   }
-      // }
-      ////
       if (object.id !== actorW.id) {
         const raycaster: Raycaster = new Raycaster();
+        // eslint-disable-next-line functional/immutable-data
+        raycaster.firstHitOnly = true;
 
-        // raycaster.set(actorW.entity.position, actorW.kinematic.getAzimuth());
         raycaster.set(actorW.entity.position, actorW.kinematic.getLinearDirection());
 
         const intersects: Array<Intersection> = [];
@@ -55,15 +44,16 @@ export function CollisionsService(): TCollisionsService {
 
         if (intersects.length > 0) {
           const intersect = intersects[0];
-          return {
-            object: object.entity,
-            distance: intersect.distance,
-            collisionPoint: intersect.point,
-            bulletPosition: actorW.entity.position.clone()
-          };
+          if (intersect.distance < radius) {
+            return {
+              object: object.entity,
+              distance: intersect.distance,
+              collisionPoint: intersect.point,
+              bulletPosition: actorW.entity.position.clone()
+            };
+          }
         }
       }
-      ////
     }
 
     return undefined;
