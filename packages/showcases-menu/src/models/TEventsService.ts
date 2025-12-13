@@ -7,6 +7,7 @@ export type TEventsService = Readonly<{
   emitCloseMenu: () => void | never;
   emitSaveMenuSettings: (settings: TShowcaseGameSettings) => void | never;
   emitLoadMenuSettings: () => void | never;
+  emitLoadLegalDocs: () => void | never;
   emitStartNewGame: () => void | never;
   emitContinueGame: () => void | never;
   emitLoadGame: () => void | never;

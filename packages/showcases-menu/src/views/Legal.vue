@@ -3,8 +3,9 @@ import Navigation from '@Showcases/Menu/components/Navigation/Navigation.vue';
 import SettingsGroup from '@Showcases/Menu/components/SettingsGroup.vue';
 import View from '@Showcases/Menu/components/View.vue';
 import ViewForm from '@Showcases/Menu/components/ViewForm.vue';
-import { vueTranslationService } from '@Showcases/Menu/services';
+import { eventsService, vueTranslationService } from '@Showcases/Menu/services';
 import type { ShallowRef } from 'vue';
+import { onMounted } from 'vue';
 
 // TODO DESKTOP: LEGAL: Display legal info (based on platform) in the menu.
 // The Plan:
@@ -16,6 +17,10 @@ import type { ShallowRef } from 'vue';
 // Via platform service provide the possibility to lazy-load the docs (params: "name", "lang")
 // Add possibility to menu to receive that lazy-loaded content
 // Render .md files in a scrollable view
+
+onMounted(() => {
+  eventsService.emitLoadMenuSettings();
+});
 
 const { $t } = vueTranslationService;
 

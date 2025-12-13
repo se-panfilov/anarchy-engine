@@ -33,6 +33,12 @@ function EventsService(): TEventsService {
     fromMenuBus$.next({ type: FromMenuEvents.LoadSettings });
   }
 
+  function emitLoadLegalDocs(): void | never {
+    if (isNotDefined(fromMenuBus$)) throw new Error(noBusError);
+    console.log('[EventsService]: emitLoadLegalDocs');
+    fromMenuBus$.next({ type: FromMenuEvents.LoadLegalDocs });
+  }
+
   function emitStartNewGame(): void | never {
     if (isNotDefined(fromMenuBus$)) throw new Error(noBusError);
     console.log('[EventsService]: emitStartNewGame');
@@ -71,7 +77,19 @@ function EventsService(): TEventsService {
     }
   }
 
-  return { setFromMenuBus, setToMenuBus, emitCloseMenu, emitSaveMenuSettings, emitLoadMenuSettings, emitStartNewGame, emitContinueGame, emitLoadGame, startListeningAppEvents, toMenuBus$ };
+  return {
+    setFromMenuBus,
+    setToMenuBus,
+    emitCloseMenu,
+    emitSaveMenuSettings,
+    emitLoadMenuSettings,
+    emitLoadLegalDocs,
+    emitStartNewGame,
+    emitContinueGame,
+    emitLoadGame,
+    startListeningAppEvents,
+    toMenuBus$
+  };
 }
 
 export const eventsService: TEventsService = EventsService();
