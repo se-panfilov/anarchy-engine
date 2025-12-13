@@ -61,7 +61,7 @@ export function SpatialGridService(): TSpatialGridService {
     const cells: ReadonlyArray<TSpatialCell> = tree.search({ minX: x, minY: z, maxX: x, maxY: z });
     // eslint-disable-next-line functional/no-loop-statements
     for (const cell of cells) {
-      if (isNotDefined(cell.objects.find((o: TActorWrapperAsync): boolean => o.id === actorW.id))) {
+      if (isNotDefined(cell.objects.find((aw: TActorWrapperAsync): boolean => aw.id === actorW.id))) {
         // eslint-disable-next-line functional/immutable-data
         cell.objects.push(actorW);
         actorW.setSpatialCell(cell);
@@ -106,19 +106,9 @@ export function SpatialGridService(): TSpatialGridService {
 
   const clearGrid = (tree: RBush<TSpatialCell>): RBush<TSpatialCell> => tree.clear();
 
-  function moveToNewCell(x: number, y: number, tree: RBush<TSpatialCell>, actorW: TActorWrapperAsync): void {
+  function updateActorCell(tree: RBush<TSpatialCell>, actorW: TActorWrapperAsync): void {
     removeFromGrid(actorW);
-    addActorToCell(x, y, actorW, tree);
-    // addActorToGrid(tree, actorW);
-  }
-
-  function updateActorsCells(actorsW: ReadonlyArray<TActorWrapperAsync>, tree: RBush<TSpatialCell>): void {
-    // eslint-disable-next-line functional/no-loop-statements
-    for (const actorW of actorsW) {
-      const { x, y } = actorW.getPosition().getCoords();
-      const cell: TSpatialCell = tree.search({ minX: x, minY: y, maxX: x, maxY: y })[0];
-      if (!cell || cell !== actorW.getSpatialCell()) moveToNewCell(x, y, tree, actorW);
-    }
+    addActorToGrid(tree, actorW);
   }
 
   function createGrid(mapWidth: number, mapHeight: number, cellSize: number, centerX: number, centerZ: number): RBush<TSpatialCell> {
@@ -157,8 +147,7 @@ export function SpatialGridService(): TSpatialGridService {
     getAllInCellByCellId,
     removeFromGrid,
     clearGrid,
-    moveToNewCell,
-    updateActorsCells,
+    updateActorCell,
     _debugVisualizeCells,
     _debugHighlightObjects
   };
