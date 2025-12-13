@@ -65,8 +65,10 @@
       "text": "EaseInBack",
       "position": { "x": -20, "y": 2, "z": 0 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "color": "#00ff00",
-      "fontSize": "12px",
+      "cssProps": {
+        "color": "#00ff00",
+        "fontSize": "12px"
+      },
       "tags": ["actor", "green", "EaseInBack"]
     },
     {
@@ -74,8 +76,10 @@
       "text": "EaseInCirc",
       "position": { "x": -20, "y": 2, "z": -2 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "color": "#0000ff",
-      "fontSize": "12px",
+      "cssProps": {
+        "color": "#0000ff",
+        "fontSize": "12px"
+      },
       "tags": ["actor", "blue", "easeInCirc"]
     }
   ],
