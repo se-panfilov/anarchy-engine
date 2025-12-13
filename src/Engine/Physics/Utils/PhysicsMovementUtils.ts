@@ -9,12 +9,12 @@ import { VelocityType } from '@/Engine/Physics/Constants';
 import type { TPhysicsBody } from '@/Engine/Physics/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function getPushCoordsFrom3dAzimuth(azimuth: TRadians, elevation: TRadians, force: number): Vector {
-  const z: number = force * Math.cos(elevation) * Math.cos(azimuth);
-  const y: number = force * Math.sin(elevation);
-  const x: number = force * Math.cos(elevation) * Math.sin(azimuth);
+export function getPushCoordsFrom3dAzimuth(azimuth: TRadians, elevation: TRadians, force: number): Vector3 {
+  const x = force * Math.cos(elevation) * Math.sin(azimuth);
+  const y = force * Math.sin(elevation);
+  const z = force * Math.cos(elevation) * Math.cos(azimuth);
 
-  return { x, y, z };
+  return new Vector3(x, y, z);
 }
 
 export function movePhysicsDynamicObjectByVelocity(rigidBody: RigidBody, type: VelocityType, vector3: Vector3 | Vector, shouldWakeUp: boolean = true): void | never {
