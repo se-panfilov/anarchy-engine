@@ -39,7 +39,7 @@ import type {
   IToonMaterialTextureUploaded,
   IToonMaterialTextureUploadPromises
 } from '@/Engine/Domains/Texture/Models';
-import { applyColorSpace, applyFilters, applyTextureParams, isMaterialType } from '@/Engine/Domains/Texture/Service/TextureServiceHelper';
+import { applyColorSpace, applyFilters, applyTextureParams, isMaterialType } from '@/Engine/Domains/Texture/Services/TextureServiceHelper';
 import type { IWriteable } from '@/Engine/Utils';
 
 export function TextureService(): ITextureService {

@@ -2,7 +2,7 @@ import { describe, it } from 'vitest';
 
 import { MaterialType } from '@/Engine/Domains/Material';
 import type { ITexturePackParams } from '@/Engine/Domains/Texture/Models';
-import { isMaterialType } from '@/Engine/Domains/Texture/Service/TextureServiceHelper';
+import { isMaterialType } from '@/Engine/Domains/Texture/Services/TextureServiceHelper';
 
 describe('TextureServiceHelper', () => {
   describe('isMaterialType', () => {
