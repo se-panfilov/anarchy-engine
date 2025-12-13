@@ -36,11 +36,12 @@ Done:
 - 18.0.x Monorepo: Split apps and engine
 
 Roadmap:
-- 19.0.x npm package and a repo for the engine
-- 20.0.x Building app (desktop/mobile) (might be not a part of an engine, but at least POC level)
-- 21.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
-- 22.x.x Postprocessing
-- 23.0.x Shaders
+- 19.0.x Reduce package size
+- 20.0.x npm package and a repo for the engine
+- 21.0.x Building app (desktop/mobile) (might be not a part of an engine, but at least POC level)
+- 22.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
+- 23.x.x Postprocessing
+- 24.0.x Shaders
 
 Thoughts:
 - Maybe: Replace all arrays (with no allowed duplicates) with Maps (for performance)?;
