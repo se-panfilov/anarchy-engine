@@ -49,7 +49,7 @@ function DynamicMixin<F extends IFactory>(factory: F): F & IDynamicMixin {
   };
 }
 
-function Factory<P, T>(type: string, createFn: (params: P) => T): IFactory {
+function Factory<P, T>(type: string, createFn: (params: P) => T): IFactory<P, T> {
   return { type, create: (params: P): T => createFn(params) };
 }
 
@@ -86,12 +86,12 @@ function CatFactoryMixin<F extends IFactory>(factory: F): F & ICatMixin {
   };
 }
 
-const factory: IFactory = Factory('cat_factory', catCreate);
+const factory = Factory('cat_factory', catCreate);
 const dynamicFactory = DynamicMixin(factory);
 const dynamicRegistrableFactory = RegistrableMixin(dynamicFactory);
 const dynamicRegistrableFromConfigFactory = FromConfigMixin(dynamicRegistrableFactory);
 const dynamicRegistrableFromConfigDestroyableFactory = DestroyableMixin(dynamicRegistrableFromConfigFactory);
 const dynamicRegistrableFromConfigDestroyableCatFactory = CatFactoryMixin(dynamicRegistrableFromConfigDestroyableFactory);
 
-dynamicRegistrableFromConfigDestroyableCatFactory.create(12323); // error
-dynamicRegistrableFromConfigDestroyableCatFactory.create({ name: 'Tom' }); //nice!
+const cat = dynamicRegistrableFromConfigDestroyableCatFactory.create(12323); // error
+const cat2: ICat = dynamicRegistrableFromConfigDestroyableCatFactory.create({ name: 'Tom' }); //nice!
