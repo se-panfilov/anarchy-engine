@@ -14,7 +14,6 @@ export * from './IHemisphereLightParams';
 export * from './IHemisphereLightProps';
 export * from './IHemisphereLightWrapper';
 export * from './ILight';
-export * from './ILightAccessors';
 export * from './ILightConfig';
 export * from './ILightFactory';
 export * from './ILightParams';

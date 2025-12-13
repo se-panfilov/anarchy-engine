@@ -4,12 +4,9 @@ import { getWrapperType } from '@/Engine/Light/Utils';
 import { withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import { applyObject3dParams, applyPosition, applyRotation } from '@/Engine/Utils';
 
-import { getAccessors } from './Accessors';
-
 export function AbstractLightWrapper<T extends ILight>(entity: T, params: ILightParams): IAbstractLightWrapper<T> {
   const result: IAbstractLightWrapper<T> = {
     ...AbstractWrapper(entity, getWrapperType(entity), params),
-    ...getAccessors(entity),
     ...withMoveBy3dMixin(entity),
     ...withRotationByXyzMixin(entity),
     ...withObject3d(entity),
