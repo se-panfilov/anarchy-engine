@@ -9,12 +9,12 @@ export function kinematicToConfig(entity: TKinematicTransformAgent): TKinematicC
 
   let target: TKinematicConfigTarget | undefined = undefined;
   if (isDefined(entity.data.target)) {
-    target = {
+    target = filterOutEmptyFields({
       position: isDefined(entity.data.target.position) ? vector3ToXyz(entity.data.target.position) : undefined,
       rotation: isDefined(entity.data.target.rotation) ? quaternionToXyzw(entity.data.target.rotation) : undefined,
       positionThreshold: entity.data.target.positionThreshold,
       rotationThreshold: entity.data.target.rotationThreshold
-    };
+    });
   }
 
   return filterOutEmptyFields({
