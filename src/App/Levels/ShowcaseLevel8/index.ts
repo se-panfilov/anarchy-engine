@@ -14,7 +14,6 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     level.start();
     const { actorRegistry } = level.entities;
     const actor = actorRegistry.getUniqByTag('central_actor');
-
     initCameraRotation(level, actor);
   }
 
