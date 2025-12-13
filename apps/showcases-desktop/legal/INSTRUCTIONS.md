@@ -124,7 +124,7 @@ All legal documents are provided **offline** in this folder (canonical filenames
 - **Primary License** — `LICENSE`
 - **EU Declaration of Conformity** — `EU_DECLARATION_OF_CONFORMITY.pdf`
 - **CE mark image** — `ce-mark.png`
-- **Software Bill of Materials** — `sbom/`
+- **Software Bill of Materials** — `../compliance/sbom/`
 
 > External links are avoided where possible so that required information remains available offline within the distribution.
 

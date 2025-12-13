@@ -4,9 +4,9 @@ This distribution of **{{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}** may includ
 
 Full attributions and license texts are provided **offline** at:
 
-- `./legal/NOTICE` ← canonical third-party notices
-- `./legal/THIRD_PARTY_LICENSES` (if present): bundled license texts
-- `{{SBOM_LOCATION}}` (if present): Software Bill of Materials
+- `./legal/NOTICE`: ← canonical third-party notices
+- `./legal/THIRD_PARTY_LICENSES`: bundled license texts
+- `{{SBOM_LOCATION}}`: Software Bill of Materials
 
 Nothing in this pointer modifies third-party licenses. If there is any conflict between this note and a third-party license, the third-party license controls.
 

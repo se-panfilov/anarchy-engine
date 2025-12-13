@@ -35,7 +35,7 @@
 
 ## 6. Third-Party Components
 
-- Track dependencies via **SBOM** (**CycloneDX JSON at `./legal/sbom/`**).
+- Track dependencies via **SBOM** (**CycloneDX JSON at `./sbom/`**).
 - For vulnerable dependencies, assess exposure; upgrade, patch, or apply compensating controls. Note any OSS license constraints.
 
 ## 7. Communication

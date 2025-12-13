@@ -1,5 +1,7 @@
 import base from './anarchy-legal.base.config.js';
 
+const legalFolderConfig = { relativeOutput: './legal' };
+
 //Non-Commercial configuration preset for legal docs
 export default {
   ...base,
@@ -17,8 +19,8 @@ export default {
   NOTICE: { template: 'NOTICE_SLIM_NON_COMMERCIAL_TEMPLATE' },
 
   //LEGAL folder (include in a package/binary)
-  DISCLAIMER: { template: 'DISCLAIMER_TEMPLATE', relativeOutput: './legal' },
-  EULA: { template: 'EULA_NON_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
-  PRIVACY: { template: 'PRIVACY_NON_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
-  SECURITY: { template: 'SECURITY_NON_COMMERCIAL_TEMPLATE', relativeOutput: './legal' }
+  DISCLAIMER: { ...legalFolderConfig, template: 'DISCLAIMER_TEMPLATE' },
+  EULA: { ...legalFolderConfig, template: 'EULA_NON_COMMERCIAL_TEMPLATE' },
+  PRIVACY: { ...legalFolderConfig, template: 'PRIVACY_NON_COMMERCIAL_TEMPLATE' },
+  SECURITY: { ...legalFolderConfig, template: 'SECURITY_NON_COMMERCIAL_TEMPLATE' }
 };
