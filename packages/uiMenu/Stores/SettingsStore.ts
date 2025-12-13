@@ -1,10 +1,10 @@
-import type { TDeepWriteable } from '@Engine';
+import type { TDeepWriteable } from 'anarchy_engine/src';
 import type { TResolution } from 'anarchy_engine_showcases_desktop/src/Models';
 import { defineStore } from 'pinia';
 import { reactive } from 'vue';
 
-import { Languages } from '@/Levels/Showcase28Menu/MainMenu/Constants';
-import type { TGameSettings } from '@/Levels/Showcase28Menu/Models';
+import { Languages } from 'packages/MainMenu/Constants';
+import type { TGameSettings } from 'anarchy_engine_showcases/src/Levels/Showcase28Menu/Models';
 
 export const useSettingsStore = defineStore('settingsStore', () => {
   const state: TDeepWriteable<TGameSettings> = reactive({

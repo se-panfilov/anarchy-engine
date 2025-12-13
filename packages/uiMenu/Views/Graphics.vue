@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { TWriteable } from '@Engine';
+import type { TWriteable } from 'anarchy_engine/src';
 import { computed, reactive } from 'vue';
 
-import MenuSettingsGroup from '@/Levels/Showcase28Menu/MainMenu/Components/MenuSettingsGroup.vue';
-import MenuView from '@/Levels/Showcase28Menu/MainMenu/Components/MenuView.vue';
-import MenuViewActions from '@/Levels/Showcase28Menu/MainMenu/Components/MenuViewActions.vue';
-import SettingsCheckboxComponent from '@/Levels/Showcase28Menu/MainMenu/Components/SettingsCheckboxComponent.vue';
-import SettingsDropdownComponent from '@/Levels/Showcase28Menu/MainMenu/Components/SettingsDropdownComponent.vue';
-import type { TDropdownOption } from '@/Levels/Showcase28Menu/MainMenu/Models';
-import { useSettingsStore } from '@/Levels/Showcase28Menu/MainMenu/Stores/SettingsStore';
-import type { TGraphicsSettings } from '@/Levels/Showcase28Menu/Models';
+import MenuSettingsGroup from 'packages/MainMenu/Components/MenuSettingsGroup.vue';
+import MenuView from 'packages/MainMenu/Components/MenuView.vue';
+import MenuViewActions from 'packages/MainMenu/Components/MenuViewActions.vue';
+import SettingsCheckboxComponent from 'packages/MainMenu/Components/SettingsCheckboxComponent.vue';
+import SettingsDropdownComponent from 'packages/MainMenu/Components/SettingsDropdownComponent.vue';
+import type { TDropdownOption } from 'packages/MainMenu/Models';
+import { useSettingsStore } from 'packages/MainMenu/Stores/SettingsStore';
+import type { TGraphicsSettings } from 'anarchy_engine_showcases/src/Levels/Showcase28Menu/Models';
 
 const emit = defineEmits(['cancel', 'save']);
 
