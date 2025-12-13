@@ -1,0 +1,10 @@
+import { AbstractWrapper } from '@Engine/Domains/Abstract';
+import { Texture } from 'three';
+
+import type { ITexture, ITextureParams, ITextureWrapper } from './Models';
+
+export function TextureWrapper({ image, format, colorSpace, mapping, magFilter, minFilter, type, wrapT, wrapS, anisotropy }: ITextureParams): ITextureWrapper {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  const entity: ITexture = new Texture(image, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy, colorSpace);
+  return { ...AbstractWrapper(entity), entity };
+}
