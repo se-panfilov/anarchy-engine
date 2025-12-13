@@ -2,6 +2,8 @@ import type { TTrackingService } from '@Anarchy/Tracking';
 import { DesktopTrackingService } from '@Anarchy/Tracking';
 import type { TElectronErrorTrackingService } from '@Showcases/Desktop/Models';
 
+// TODO DESKTOP: Add source maps upload for desktop releases
+// TODO DESKTOP: Should we "flush" on app quit?
 export function ElectronErrorTrackingService(): TElectronErrorTrackingService {
   function start(packagesVersions: Record<string, string>): TTrackingService | undefined {
     if (!import.meta.env.VITE_SENTRY_DSN) return undefined;
