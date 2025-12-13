@@ -10,13 +10,12 @@ Done:
 Roadmap:
 - 8.x.x Actors with models & animations
 - 8.1.x Lines domain
-- 8.2.x Refactor Vector/TVectorWrapper (should be Vector everywhere)
+- 8.2.x Refactor Vector/TVectorWrapper, Euler/TEulerWrapper (should be Vector/Euler everywhere)
 - 9.0.x Sounds/Music
-- 9.1.x Tags should be optional
-- 9.2.x GUI
-- 9.3.x Pausing (timers)
-- 9.4.x Registries refactoring (explicitly register/not register entities)
-- 9.5.x Logging
+- 9.1.x GUI
+- 9.2.x Pausing (timers)
+- 9.3.x Registries refactoring (explicitly register/not register entities)
+- 9.4.x Logging
 - 10.0.x Deletion (memory management)
 - 11.0.0 Multiple scenes full support (unload/load scenes)
 - 11.1.x Building app (desktop/mobile) (might be not a part of an engine)
