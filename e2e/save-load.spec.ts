@@ -19,6 +19,7 @@ const scenes: ReadonlyArray<string> = [
   'SpaceAnimations',
   'SpaceAudio',
   'SpaceBasic',
+  'SpaceCamera',
   'SpaceCustomModels',
   'SpaceFog',
   'SpaceFpsControls',
