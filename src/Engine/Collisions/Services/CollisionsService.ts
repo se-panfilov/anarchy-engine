@@ -4,11 +4,11 @@ import { Box3, Raycaster } from 'three';
 import type { TActorWrapperAsync } from '@/Engine/Actor/Models';
 import type { TBvhService, TCollisionCheckResult, TCollisionsService, TSpatialGridService } from '@/Engine/Collisions/Models';
 
-import { BvhService } from './BvhService';
+import { RaycastBvhService } from './RaycastBvhService';
 import { SpatialGridService } from './SpatialGridService';
 
 export function CollisionsService(): TCollisionsService {
-  const bvhService: TBvhService = BvhService();
+  const bvhService: TBvhService = RaycastBvhService();
   const spatialGridService: TSpatialGridService = SpatialGridService();
   const spatialGrid = spatialGridService.getSpatialGrid();
 
@@ -33,7 +33,7 @@ export function CollisionsService(): TCollisionsService {
         raycaster.set(actorW.entity.position, actorW.kinematic.getLinearDirection());
 
         const intersects: Array<Intersection> = [];
-        bvhService.raycastWithBVH(candidate.object as Mesh, raycaster, intersects);
+        bvhService.raycastWithBvh(candidate.object as Mesh, raycaster, intersects);
 
         if (intersects.length > 0) {
           const intersect = intersects[0];

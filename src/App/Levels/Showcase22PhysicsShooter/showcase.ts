@@ -70,13 +70,13 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     //enable collisions
     actorService.getScene().entity.traverse((object: Object3D): void => {
       if ((object as Mesh).isMesh) {
-        collisionsService.initializeBVH(object as Mesh);
+        collisionsService.initializeRaycastBvh(object as Mesh);
         collisionsService.addObjectToGrid(object);
         collisionsService.visualizeBVH(object as Mesh, actorService.getScene().entity);
       }
     });
 
-    collisionsService.visualizeRBush(collisionsService.getSpatialGrid(), actorService.getScene().entity);
+    // collisionsService.visualizeRBush(collisionsService.getSpatialGrid(), actorService.getScene().entity);
 
     let mouseLineIntersections: TIntersectionEvent = { point: new Vector3(), distance: 0 } as Intersection;
     mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent): void => void (mouseLineIntersections = intersection));

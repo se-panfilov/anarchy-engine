@@ -1,3 +1,3 @@
-export * from './BvhService';
 export * from './CollisionsService';
+export * from './RaycastBvhService';
 export * from './SpatialGridService';
