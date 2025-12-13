@@ -43,9 +43,11 @@ const settings: TAppSettings = {
   }
 };
 
-// TODO Desktop: debug
-console.log('XXX platformAPI', window.platformAPI.ping);
+// TODO DESKTOP: Implement save/load via platformAPI
+// TODO DESKTOP: debug
+console.log('XXX platformAPI', window.platformAPI);
 window.platformAPI.ping(101);
+window.platformAPI.desktopAppVersion();
 
 setBrowserSafeguards(window);
 
