@@ -74,11 +74,13 @@ export function Driver(): TPlatformDriver {
   }
 
   const getReleaseName = (): Promise<string> => Promise.resolve(`${import.meta.env.VITE_RELEASE_NAME_PREFIX}@${import.meta.env.__APP_VERSION__}`);
+  const getDistName = (): Promise<string> => Promise.resolve(`web`);
 
   return {
     closeApp,
     getAppSettings,
     getBrowserInfo,
+    getDistName,
     getLegalDocs,
     getNodeVersion,
     getPackagesVersions,

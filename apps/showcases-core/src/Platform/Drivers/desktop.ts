@@ -9,6 +9,7 @@ export function Driver(): TPlatformDriver {
   const closeApp = (): void => window[platformApiName].closeApp();
   const getAppSettings = (): Promise<TShowcaseGameSettings> => window[platformApiName].getAppSettings();
   const getBrowserInfo = (): TBrowserInfo => window[platformApiName].getBrowserInfo();
+  const getDistName = (): Promise<string> => window[platformApiName].getDistName();
   const getLegalDocs = (options: TLoadDocPayload): Promise<TLegalDoc> => window[platformApiName].getLegalDocs(options);
   const getNodeVersion = (): string => window[platformApiName].node();
   const getPackagesVersions = (): Promise<Record<string, string>> => window[platformApiName].getPackagesVersions();
@@ -24,6 +25,7 @@ export function Driver(): TPlatformDriver {
     closeApp,
     getAppSettings,
     getBrowserInfo,
+    getDistName,
     getLegalDocs,
     getNodeVersion,
     getPackagesVersions,

@@ -15,6 +15,7 @@ const mapping: TShowcasesDesktopApi = {
   electron: (): string => process.versions.electron,
   getAppSettings: (): Promise<TShowcaseGameSettings> => ipcRenderer.invoke(platformApiChannel, GetAppSettings),
   getBrowserInfo,
+  getDistName: async (): Promise<string> => `${process.platform}-${process.arch}`,
   getLegalDocs: (options: TLoadDocPayload): Promise<TLegalDoc> => ipcRenderer.invoke(platformApiChannel, GetLegalDocs, options),
   getPackagesVersions: async (): Promise<Record<string, string>> => ipcRenderer.invoke(platformApiChannel, GetPackagesVersions),
   getPreferredLocales: (): Promise<ReadonlyArray<TLocaleId>> => ipcRenderer.invoke(platformApiChannel, GetPreferredLocales),

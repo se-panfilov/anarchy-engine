@@ -10,6 +10,7 @@ export type TShowcasesDesktopApi = Readonly<{
   electron: () => string;
   getAppSettings: () => Promise<TShowcaseGameSettings>;
   getBrowserInfo: () => TBrowserInfo;
+  getDistName: () => Promise<string>;
   getLegalDocs: (options: TLoadDocPayload) => Promise<TLegalDoc>;
   getPackagesVersions: () => Promise<Record<string, string>>;
   getPreferredLocales: () => Promise<ReadonlyArray<TLocaleId>>;

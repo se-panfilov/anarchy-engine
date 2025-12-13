@@ -12,62 +12,67 @@ export function Driver(): TPlatformDriver {
   }
 
   function getBrowserInfo(): TBrowserInfo {
-    console.log('XXX [MOBILE]', 'getBrowserInfo');
+    console.log('TODO [MOBILE]', 'getBrowserInfo');
     return {} as TBrowserInfo;
   }
 
+  function getDistName(): Promise<string> {
+    console.log('TODO [MOBILE]', 'getDistName');
+    return Promise.resolve('TODO [MOBILE] mocked dist name');
+  }
+
   function getNodeVersion(): string {
-    console.log('XXX [MOBILE]', 'getNodeVersion');
-    return 'XXX [MOBILE] mocked node version';
+    console.log('TODO [MOBILE]', 'getNodeVersion');
+    return 'TODO [MOBILE] mocked node version';
   }
 
   function getPlatformVersion(): string {
-    console.log('XXX [MOBILE]', 'getPlatformVersion');
-    return 'XXX [MOBILE] mocked platform version';
+    console.log('TODO [MOBILE]', 'getPlatformVersion');
+    return 'TODO [MOBILE] mocked platform version';
   }
 
   function getWrappedAppVersion(): Promise<string> {
-    console.log('XXX [MOBILE]', 'getWrappedAppVersion');
-    return Promise.resolve('XXX [MOBILE] mocked wrapped app version');
+    console.log('TODO [MOBILE]', 'getWrappedAppVersion');
+    return Promise.resolve('TODO [MOBILE] mocked wrapped app version');
   }
 
   function getAppSettings(): Promise<TShowcaseGameSettings> {
-    console.log('XXX [MOBILE]', 'getAppSettings');
+    console.log('TODO [MOBILE]', 'getAppSettings');
     return Promise.resolve({} as any);
   }
 
   const getLegalDocs = (options: TLoadDocPayload): Promise<TLegalDoc> => {
     // TODO MOBILE: sanitize result here
-    console.log('XXX [MOBILE]', 'getLegalDocs', options);
+    console.log('TODO [MOBILE]', 'getLegalDocs', options);
     return Promise.resolve({} as any);
   };
 
   function restartApp(): void {
-    console.log('XXX [MOBILE]', 'restartApp');
+    console.log('TODO [MOBILE]', 'restartApp');
   }
 
   function setFirstRun(isFirstRun: boolean): Promise<void> {
-    console.log('XXX [MOBILE]', 'setFirstRun', isFirstRun);
+    console.log('TODO [MOBILE]', 'setFirstRun', isFirstRun);
     return Promise.resolve();
   }
 
   function setAppSettings(settings: TShowcaseGameSettings): Promise<void> {
-    console.log('XXX [MOBILE]', 'setAppSettings', settings);
+    console.log('TODO [MOBILE]', 'setAppSettings', settings);
     return Promise.resolve();
   }
 
   function getPreferredLocales(): Promise<ReadonlyArray<TLocaleId>> {
-    console.log('XXX [MOBILE]', 'getPreferredLocales');
+    console.log('TODO [MOBILE]', 'getPreferredLocales');
     return Promise.resolve({} as any);
   }
 
   function getReleaseName(): Promise<string> {
-    console.log('XXX [MOBILE]', 'getReleaseName');
+    console.log('TODO [MOBILE]', 'getReleaseName');
     return Promise.resolve('getReleaseName');
   }
 
   function getPackagesVersions(): Promise<Record<string, string>> {
-    console.log('XXX [MOBILE]', 'getPackagesVersions');
+    console.log('TODO [MOBILE]', 'getPackagesVersions');
     return Promise.resolve({} as any);
   }
 
@@ -75,6 +80,7 @@ export function Driver(): TPlatformDriver {
     closeApp,
     getAppSettings,
     getBrowserInfo,
+    getDistName,
     getLegalDocs,
     getNodeVersion,
     getPackagesVersions,
