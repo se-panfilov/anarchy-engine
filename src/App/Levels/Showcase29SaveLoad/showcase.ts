@@ -2,7 +2,7 @@ import '@public/Showcase/fonts.css';
 import './style.css';
 
 import type { Subscription } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 
 import { spaceActorData } from '@/App/Levels/Showcase29SaveLoad/spaceActor';
 import { spaceAnimationsData } from '@/App/Levels/Showcase29SaveLoad/spaceAnimations';
@@ -22,7 +22,7 @@ import { isNotDefined, spaceService } from '@/Engine';
 import type { TSpacesData } from './ShowcaseTypes';
 import { createContainersDivs, setContainerVisibility } from './utils';
 
-const subscriptions: Record<string, Subscription> = {};
+let subscriptions: Record<string, Subscription> = {};
 
 // TODO 15-0-0: E2E: TransformDrive (default, connected, physics, kinematic)
 // TODO 15-0-0: E2E: Particles
@@ -48,11 +48,16 @@ const spacesData: ReadonlyArray<TSpacesData> = [
   spaceTransformDriveData
 ];
 
-const initialSpaceDataName: string = spaceTransformDriveData.name;
+const initialSpaceDataName: string = spaceBasicData.name;
 
 const spacesInMemoryData: Array<TSpacesData> = [];
 
 let currentSpaceName: string | undefined;
+
+//Flags for E2E tests
+const activeAsyncTasksCounter$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+// eslint-disable-next-line functional/immutable-data
+(window as any)._isReady = false;
 
 export function start(): void {
   createContainersDivs(spacesData);
@@ -90,13 +95,16 @@ function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>)
   subscriptions[`start$_${space.name}`] = space.start$.subscribe((isStarted: boolean): void => setSpaceReady(isStarted));
 
   // eslint-disable-next-line functional/immutable-data
-  subscriptions[`awaits$_${space.name}`] = spaceData.awaits$
-    .pipe(
-      map((s): boolean => s.size !== 0), // "true" means all awaits are done
-      distinctUntilChanged()
-    )
-    // eslint-disable-next-line functional/prefer-tacit
-    .subscribe((isAwaiting: boolean): void => setAwaiting(isAwaiting));
+  subscriptions[`activeAsyncTasksCounter$_${space.name}`] = activeAsyncTasksCounter$.subscribe((value: number): void => {
+    // eslint-disable-next-line functional/immutable-data
+    (window as any)._isReady = value <= 0;
+  });
+
+  // eslint-disable-next-line functional/immutable-data
+  subscriptions[`awaits$_${space.name}`] = spaceData.awaits$.pipe(map((s): boolean => s.size === 0)).subscribe((isReady: boolean): void => {
+    const count: number = isReady ? activeAsyncTasksCounter$.value - 1 : activeAsyncTasksCounter$.value + 1;
+    activeAsyncTasksCounter$.next(count > 0 ? count : 0);
+  });
 
   currentSpaceName = space.name;
   space.start$.next(true);
@@ -115,6 +123,7 @@ function unloadSpace(name: string | undefined, spaceRegistry: TSpaceRegistry): v
   spaceData.onUnload?.(space, subscriptions);
   spaceData.awaits$.complete();
   setSpaceReady(false);
+  subscriptions = {};
   space.drop();
 }
 
@@ -185,10 +194,6 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
 
 function setSpaceReady(isReady: boolean): void | never {
   toggleClass(isReady, 'ready');
-}
-
-function setAwaiting(isAwaiting: boolean): void | never {
-  toggleClass(isAwaiting, 'await');
 }
 
 function toggleClass(isSet: boolean, className: string, selector: string = 'body'): void | never {
