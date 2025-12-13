@@ -13,7 +13,7 @@ defineEmits(['reset']);
 .view-actions {
   display: flex;
   justify-content: space-between;
-  margin-top: 28px;
+  margin-top: 8px;
   gap: 8px;
 
   &__btn {

@@ -12,4 +12,10 @@ defineProps<{
   </form>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.view-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+</style>
