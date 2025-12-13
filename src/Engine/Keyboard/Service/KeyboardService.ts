@@ -1,5 +1,5 @@
 import { bindKey, bindKeyCombo, checkKey, checkKeyCombo, unbindKey, unbindKeyCombo } from '@rwh/keystrokes';
-import { Subject } from 'rxjs';
+import { interval, merge, Subject, switchMap, takeUntil, tap } from 'rxjs';
 
 import type { IGameKey, IKeyboardRegistry, IKeyboardRegistryValues, IKeyboardService, IKeyCombo, IKeySubscription } from '@/Engine/Keyboard/Models';
 import { KeyboardRegistry } from '@/Engine/Keyboard/Registry';
@@ -35,16 +35,35 @@ export function KeyboardService(): IKeyboardService {
     const subjects: IKeyboardRegistryValues | undefined = keyboardRegistry.getByKey(key);
     if (isNotDefined(subjects)) throw new Error(`Key ${key} is not found in registry`);
     const { pressed$, pressing$, released$ } = subjects;
+
+    // merge(
+    //   pressed$
+    //     .pipe(
+    //       switchMap(() => interval(100).pipe(
+    //         tap(() => pressing$.next()),
+    //         takeUntil(released$))
+    //       )
+    //     ),
+    //   released$
+    // ).subscribe();
+
+    loopS;
+
+    pressing$.next(key);
+
     if (isCombo) {
       bindKeyCombo(key, {
         onPressed: () => pressed$.next(key),
-        onPressedWithRepeat: () => pressing$.next(key),
+        // onPressedWithRepeat: () => pressing$.next(key),
         onReleased: () => released$.next(key)
       });
     } else {
       bindKey(key, {
         onPressed: () => pressed$.next(key),
-        onPressedWithRepeat: () => pressing$.next(key),
+        // onPressedWithRepeat: () => {
+        //   console.log(key);
+        //   pressing$.next(key)
+        // },
         onReleased: () => released$.next(key)
       });
     }

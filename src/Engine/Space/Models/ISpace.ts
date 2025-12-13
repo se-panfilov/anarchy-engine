@@ -8,8 +8,6 @@ export type ISpace = IDestroyable &
   IWithTagsMixin &
   Readonly<{
     name: string;
-    start: () => void;
-    stop: () => void;
     services: ISpaceServices;
     built$: Observable<void>;
     isBuilt: () => boolean;

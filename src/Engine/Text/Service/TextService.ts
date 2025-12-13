@@ -1,12 +1,34 @@
 import { merge } from 'rxjs';
 
+import type { IAppGlobalContainer } from '@/Engine/Global';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { ISceneWrapper } from '@/Engine/Scene';
-import type { IText2dRegistry, IText3dRegistry, ITextAnyWrapper, ITextConfig, ITextFactory, ITextParams, ITextService } from '@/Engine/Text/Models';
+import type { IScreenSizeWatcher } from '@/Engine/Screen';
+import type {
+  IText2dRegistry,
+  IText2dRenderer,
+  IText2dRendererRegistry,
+  IText3dRegistry,
+  IText3dRenderer,
+  IText3dRendererRegistry,
+  ITextAnyWrapper,
+  ITextConfig,
+  ITextFactory,
+  ITextParams,
+  ITextService
+} from '@/Engine/Text/Models';
+import { initText2dRenderer, initText3dRenderer } from '@/Engine/Text/Renderer';
 import { isText2dWrapper, isText3dWrapper } from '@/Engine/Text/Utils';
 
-export function TextService(factory: ITextFactory, text2dRegistry: IText2dRegistry, text3dRegistry: IText3dRegistry, scene: ISceneWrapper): ITextService {
+export function TextService(
+  factory: ITextFactory,
+  text2dRegistry: IText2dRegistry,
+  text3dRegistry: IText3dRegistry,
+  text2dRendererRegistry: IText2dRendererRegistry,
+  text3dRendererRegistry: IText3dRendererRegistry,
+  scene: ISceneWrapper
+): ITextService {
   merge(text2dRegistry.added$, text3dRegistry.added$).subscribe((text: ITextAnyWrapper) => scene.addText(text));
   factory.entityCreated$.subscribe((text: ITextAnyWrapper): void => {
     if (isText2dWrapper(text)) text2dRegistry.add(text);
@@ -17,17 +39,33 @@ export function TextService(factory: ITextFactory, text2dRegistry: IText2dRegist
   const createFromConfig = (texts: ReadonlyArray<ITextConfig>): void => texts.forEach((text: ITextConfig): ITextAnyWrapper => factory.create(factory.configToParams(text)));
 
   const destroyable: IDestroyable = destroyableMixin();
-  destroyable.destroyed$.subscribe(() => {
+  destroyable.destroyed$.subscribe((): void => {
     factory.destroy();
     text2dRegistry.destroy();
     text3dRegistry.destroy();
+    text2dRendererRegistry.destroy();
+    text3dRendererRegistry.destroy();
   });
+
+  function createText2dRenderer(container: IAppGlobalContainer, screenSizeWatcher: Readonly<IScreenSizeWatcher>): IText2dRenderer {
+    const renderer: IText2dRenderer = initText2dRenderer(container, screenSizeWatcher);
+    text2dRendererRegistry.add(renderer.id, renderer);
+    return renderer;
+  }
+
+  function createText3dRenderer(container: IAppGlobalContainer, screenSizeWatcher: Readonly<IScreenSizeWatcher>): IText3dRenderer {
+    const renderer: IText3dRenderer = initText3dRenderer(container, screenSizeWatcher);
+    text3dRendererRegistry.add(renderer.id, renderer);
+    return renderer;
+  }
 
   return {
     create,
     createFromConfig,
     getFactory: (): ITextFactory => factory,
     getScene: (): ISceneWrapper => scene,
+    createText2dRenderer,
+    createText3dRenderer,
     getRegistries: () => ({ text2dRegistry, text3dRegistry }),
     ...destroyable
   };

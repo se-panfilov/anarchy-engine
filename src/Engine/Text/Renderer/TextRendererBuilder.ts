@@ -5,17 +5,18 @@ import type { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
 import type { IAppGlobalContainer } from '@/Engine/Global';
 import type { IScreenSizeValues, IScreenSizeWatcher } from '@/Engine/Screen';
-import type { TextCssClass } from '@/Engine/Text/Constants';
+import type { TextCssClass, TextRendererType } from '@/Engine/Text/Constants';
 import { RelatedEntityAttribute } from '@/Engine/Text/Constants';
 import type { ITextRenderer } from '@/Engine/Text/Models';
 
 export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
   renderer: T,
   cssClass: TextCssClass,
+  type: TextRendererType,
   container: IAppGlobalContainer,
   screenSizeWatcher: Readonly<IScreenSizeWatcher>
 ): ITextRenderer<T> {
-  const id: string = nanoid();
+  const id: string = 'text_renderer_' + nanoid();
   renderer.setSize(container.innerWidth, container.innerHeight);
   // eslint-disable-next-line functional/immutable-data
   renderer.domElement.style.position = 'absolute';
@@ -40,5 +41,5 @@ export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
     renderer.domElement.remove();
   }
 
-  return { renderer, destroy, updateSize };
+  return { id, type, renderer, destroy, updateSize };
 }

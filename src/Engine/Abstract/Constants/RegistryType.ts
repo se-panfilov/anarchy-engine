@@ -12,5 +12,6 @@ export enum RegistryType {
   Scene = 'scene',
   ScreenSizeWatcher = 'screen_size_watcher',
   Text = 'text',
+  TextRenderer = 'text_renderer',
   Texture = 'texture'
 }

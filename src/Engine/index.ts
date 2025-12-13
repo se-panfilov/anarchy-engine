@@ -13,6 +13,7 @@ export * from './Intersections';
 export * from './Keyboard';
 export * from './Light';
 export * from './Loop';
+export * from './main';
 export * from './Material';
 export * from './Mixins';
 export * from './Mouse';
