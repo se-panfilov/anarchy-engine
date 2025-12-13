@@ -65,7 +65,7 @@ export function Actor(
     ...withUpdateSpatialCell()
   };
 
-  const abstract: TEntity<TActorEntities> = AbstractEntity(entities, EntityType.Actor, params);
+  const actor: TEntity<TActorEntities> = AbstractEntity(entities, EntityType.Actor, params);
 
   const spatialSub$: Subscription = spatialLoopService.tick$.subscribe(({ priority }: TSpatialLoopServiceValue): void => {
     if (!entities.spatial.isAutoUpdate()) return;
@@ -75,7 +75,7 @@ export function Actor(
     }
   });
 
-  abstract.destroy$.subscribe(() => {
+  actor.destroy$.subscribe(() => {
     //Remove model3d registration
     model3dToActorConnectionRegistry.removeByModel3d(model3d);
 
@@ -98,7 +98,7 @@ export function Actor(
   model3dToActorConnectionRegistry.addModel3d(model3d, entities);
 
   return {
-    ...abstract,
+    ...actor,
     position$: drive.position$,
     rotation$: drive.rotation$,
     scale$: drive.scale$

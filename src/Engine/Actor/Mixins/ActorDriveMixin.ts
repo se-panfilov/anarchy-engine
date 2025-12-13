@@ -1,5 +1,5 @@
-import type { Subscription } from 'rxjs';
-import { BehaviorSubject, EMPTY, switchMap } from 'rxjs';
+import type { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, switchMap } from 'rxjs';
 import type { Euler } from 'three';
 import { Vector3 } from 'three';
 
@@ -10,6 +10,13 @@ import { withKinematicDrive } from '@/Engine/Kinematic';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 
+// TODO 8.0.0. MODELS: extract to separate file
+type TAvailableDrives = Readonly<{
+  [ActorDrive.Kinematic]: TWithKinematic;
+  // TODO 8.0.0. MODELS: implement physics drive
+  // [ActorDrive.Physical]: TWithPhysics;
+}>;
+
 export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: Pick<TActorDependencies, 'kinematicLoopService'>): TActorDriveMixin {
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
   const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(params.rotation);
@@ -17,69 +24,17 @@ export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: 
   const drive$: BehaviorSubject<ActorDrive> = new BehaviorSubject<ActorDrive>(params.drive);
 
   const kinematicDrive: TWithKinematic = withKinematicDrive(params, kinematicLoopService, drive$);
-  // TODO 8.0.0. MODELS: implement physics drive mixin
+  // TODO 8.0.0. MODELS: implement physics drive
   // const physicsDrive: TWithPhysics = withPhysicsDrive(params, physicsLoopService, drive$);
 
   const destroyable: TDestroyable = destroyableMixin();
+  // TODO 8.0.0. MODELS: implement physics drive
 
-  // TODO 8.0.0. MODELS: should I replace EMPTY in subscriptions with some default scale value?
+  const availableDrives: TAvailableDrives = { [ActorDrive.Kinematic]: kinematicDrive /*, [ActorDrive.Physical]: physicsDrive */ };
 
-  const positionSub$: Subscription = drive$
-    .pipe(
-      switchMap((drive: ActorDrive) => {
-        switch (drive) {
-          case ActorDrive.Kinematic:
-            return kinematicDrive.kinematic.position$;
-          case ActorDrive.Physical:
-          // TODO 8.0.0. MODELS: implement physics drive mixin
-          // return physicsDrive.physics.position$;
-          case ActorDrive.None:
-            return EMPTY;
-          default:
-            throw new Error(`ActorDriveMixin: drive ${drive} is not supported`);
-        }
-      })
-    )
-    .subscribe(position$);
-
-  const rotationSub$: Subscription = drive$
-    .pipe(
-      switchMap((drive: ActorDrive) => {
-        switch (drive) {
-          case ActorDrive.Kinematic:
-            return kinematicDrive.kinematic.rotationEuler$;
-          case ActorDrive.Physical:
-          // TODO 8.0.0. MODELS: implement physics drive mixin
-          // return physicsDrive.physics.rotationEuler$;
-          case ActorDrive.None:
-            return EMPTY;
-          default:
-            throw new Error(`ActorDriveMixin: drive ${drive} is not supported`);
-        }
-      })
-    )
-    .subscribe(rotation$);
-
-  const scaleSub$: Subscription = drive$
-    .pipe(
-      switchMap((drive: ActorDrive) => {
-        switch (drive) {
-          case ActorDrive.Kinematic:
-            return EMPTY;
-          //   return kinematicDrive.kinematic.scale$;
-          case ActorDrive.Physical:
-          // TODO 8.0.0. MODELS: implement physics drive mixin
-          // return physicsDrive.physics.scale$;
-          case ActorDrive.None:
-            return EMPTY;
-          default:
-            throw new Error(`ActorDriveMixin: drive ${drive} is not supported`);
-        }
-      })
-    )
-    .subscribe(scale$);
-
-  let subscriptions: ReadonlyArray<Subscription> = [positionSub$, rotationSub$, scaleSub$];
+  const positionSub$: Subscription = drive$.pipe(switchMap((drive: ActorDrive): Observable<Vector3> => availableDrives[drive as keyof TAvailableDrives].position$)).subscribe(position$);
+  const rotationSub$: Subscription = drive$.pipe(switchMap((drive: ActorDrive): Observable<Euler> => availableDrives[drive as keyof TAvailableDrives].rotation$)).subscribe(rotation$);
+  const scaleSub$: Subscription = drive$.pipe(switchMap((drive: ActorDrive): Observable<Vector3 | undefined> => availableDrives[drive as keyof TAvailableDrives].scale$)).subscribe(scale$);
 
   const entities = {
     drive$,
@@ -87,20 +42,17 @@ export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: 
     rotation$: rotation$.asObservable(),
     scale$: scale$.asObservable(),
     ...destroyable,
-    ...kinematicDrive
-    // TODO 8.0.0. MODELS: implement physics drive mixin
-    // ...physicsDrive
+    // TODO 8.0.0. MODELS: implement "ProtectedDriveFacade" to hide position$/rotation$/scale$ from external modifications (make them observable?)
+    kinematic: ProtectedDriveFacade(kinematicDrive)
+    // TODO 8.0.0. MODELS: implement physics drive
+    // physics: ProtectedDriveFacade(physicsDrive)
   };
 
   destroyable.destroy$.subscribe(() => {
     // Stop subscriptions
-    subscriptions.forEach((subscription: Subscription): void => subscription.unsubscribe());
-    subscriptions = [];
-
-    // TODO 8.0.0. MODELS: implement physics drive mixin
-    // physicsDrivePositionSub$.unsubscribe();
-    // physicsDriveRotationSub$.unsubscribe();
-    // physicsDriveScaleSub$.unsubscribe();
+    positionSub$.unsubscribe();
+    rotationSub$.unsubscribe();
+    scaleSub$.unsubscribe();
 
     //Stop subjects
     position$.complete();
