@@ -1,6 +1,6 @@
 export enum KeysExtra {
   PauseBreak = 'PauseBreak', //19
-  Space = 'Space', //32
+  Space = '@Space', //32
 
   ArrowLeft = 'ArrowLeft', //37
   ArrowUp = 'ArrowUp', //38

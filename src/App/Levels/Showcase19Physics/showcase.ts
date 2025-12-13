@@ -15,6 +15,7 @@ import {
   isDefined,
   isNotDefined,
   KeyCode,
+  KeysExtra,
   mouseService,
   PhysicsDebugRenderer,
   STANDARD_GRAVITY,
@@ -69,7 +70,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     rigidBody.setLinvel(getPushCoordsFrom3dAzimuth(azimuth, 0, 5), true);
   });
 
-  keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => {
+  keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => {
     const linvel = rigidBody.linvel();
     rigidBody.setLinvel({ x: linvel.x, y: linvel.y + 5, z: linvel.z }, true);
   });
