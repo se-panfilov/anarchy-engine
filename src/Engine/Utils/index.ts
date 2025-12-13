@@ -1,5 +1,5 @@
 export * from './ArrayUtils';
-export * from './AsyncRegistryUtils';
+export * from './RegistryAsyncUtils';
 export * from './AsyncUtils';
 export * from './CheckUtils';
 export * from './CoordsUtils';

@@ -5,12 +5,12 @@ import type { IAbstractAsyncRegistry, IAbstractEntityRegistry } from '@/Engine/A
 import type { LookUpStrategy } from '@/Engine/Abstract/Registry/Constants';
 import type { IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
 import {
-  getAsyncUniqEntityByName,
+  getAsyncUniqEntityByNameAsync,
   getAsyncUniqEntityWithTag,
-  getAsyncUniqEntityWithTags,
   getUniqEntityByName,
   getUniqEntityWithTag$,
   getUniqEntityWithTags$,
+  getUniqEntityWithTagsAsync,
   omitInObjectWithoutMutation
 } from '@/Engine/Utils';
 
@@ -19,11 +19,11 @@ import { AbstractEntityRegistry } from './AbstractEntityRegistry';
 export function AbstractAsyncRegistry<T extends IRegistrable | IMultitonRegistrable>(type: RegistryType): IAbstractAsyncRegistry<T> {
   const abstractRegistry: IAbstractEntityRegistry<T> = AbstractEntityRegistry<T>(type);
 
-  const findByTagsAsync = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): Promise<T | undefined> => getAsyncUniqEntityWithTags<T>(tags, strategy, abstractRegistry);
+  const findByTagsAsync = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): Promise<T | undefined> => getUniqEntityWithTagsAsync<T>(tags, abstractRegistry, strategy);
   const findByTagAsync = (tag: string): Promise<T | undefined> => getAsyncUniqEntityWithTag(tag, abstractRegistry);
-  const findByNameAsync = (name: string): Promise<T | undefined> => getAsyncUniqEntityByName(name, abstractRegistry);
+  const findByNameAsync = (name: string): Promise<T | undefined> => getAsyncUniqEntityByNameAsync(name, abstractRegistry);
 
-  const findByTags$ = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): Observable<T> => getUniqEntityWithTags$<T>(tags, strategy, abstractRegistry);
+  const findByTags$ = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): Observable<T> => getUniqEntityWithTags$<T>(tags, abstractRegistry, strategy);
   const findByTag$ = (tag: string): Observable<T> => getUniqEntityWithTag$(tag, abstractRegistry);
   const findByName$ = (name: string): Observable<T> => getUniqEntityByName(name, abstractRegistry);
 

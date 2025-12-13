@@ -118,7 +118,7 @@ describe('RegistryUtils', () => {
         expect(getUniqEntityWithTags([tagUniq2, tagC], registry, LookUpStrategy.Every)).toEqual(obj9Uniq2);
       });
 
-      it('should return an uniq object that contains  a single tag', () => {
+      it('should return an uniq object that contains a single tag', () => {
         expect(getUniqEntityWithTags([tagUniq1], registry, LookUpStrategy.Every)).toEqual(obj8Uniq1);
       });
 

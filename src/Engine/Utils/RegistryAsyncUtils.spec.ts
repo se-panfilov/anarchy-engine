@@ -2,10 +2,11 @@ import { firstValueFrom } from 'rxjs';
 import { expect } from 'vitest';
 
 import type { IAbstractAsyncRegistry, RegistryType } from '@/Engine/Abstract';
-import { AbstractAsyncRegistry } from '@/Engine/Abstract';
+import { AbstractAsyncRegistry, LookUpStrategy } from '@/Engine/Abstract';
 import type { IRegistrable } from '@/Engine/Mixins';
+import { withTagsMixin } from '@/Engine/Mixins';
 
-import { getValueAsync, subscribeToValue$ } from './AsyncRegistryUtils';
+import { getUniqEntityWithTagsAsync, getValueAsync, subscribeToValue$ } from './RegistryAsyncUtils';
 
 const mockEntity1: IRegistrable = { id: 'mockEntityId1', name: 'mockEntity1' } as unknown as IRegistrable;
 const mockEntity2: IRegistrable = { id: 'mockEntityId2', name: 'mockEntity2' } as unknown as IRegistrable;
@@ -14,10 +15,80 @@ const mockEntity4: IRegistrable = { id: 'mockEntityId4', name: 'mockEntity4' } a
 const mockEntity5: IRegistrable = { id: 'mockEntityId5', name: 'mockEntity5' } as unknown as IRegistrable;
 const mockEntity6: IRegistrable = { id: 'mockEntityId6', name: 'mockEntity6' } as unknown as IRegistrable;
 
-describe('AsyncRegistryUtils', () => {
-  const waitingTime: number = 500;
+describe('RegistryAsyncUtils', () => {
+  const tagA: string = 'tagA';
+  const tagB: string = 'tagB';
+  const tagC: string = 'tagC';
+  const tagD: string = 'tagD';
+  const tagE: string = 'tagE';
+  const tagUniq1: string = 'tagUniq1';
+  const tagUniq2: string = 'tagUniq2';
+
+  const obj1AB: IRegistrable = { id: 'obj1AB', ...withTagsMixin([tagA, tagB]) };
+  const obj2B: IRegistrable = { id: 'obj2B', ...withTagsMixin([tagB]) };
+  const obj3CD: IRegistrable = { id: 'obj3CD', ...withTagsMixin([tagC, tagD]) };
+  const obj4BE: IRegistrable = { id: 'obj4BE', ...withTagsMixin([tagB, tagE]) };
+  const obj5None: IRegistrable = { id: 'obj5None', ...withTagsMixin([]) };
+  const obj6ABE: IRegistrable = { id: 'obj6ABE', ...withTagsMixin([tagA, tagB, tagE]) };
+  const obj7EB: IRegistrable = { id: 'obj7EB', ...withTagsMixin([tagE, tagB]) };
+  const obj8Uniq1: IRegistrable = { id: 'obj8Uniq1', ...withTagsMixin([tagUniq1]) };
+  const obj9Uniq2: IRegistrable = { id: 'obj9Uniq2', ...withTagsMixin([tagD, tagUniq2, tagC, tagE]) };
+
+  const registry: IAbstractAsyncRegistry<IRegistrable> = AbstractAsyncRegistry<IRegistrable>('mockEntity' as RegistryType);
+  registry.add(obj1AB);
+  registry.add(obj2B);
+  registry.add(obj3CD);
+  registry.add(obj4BE);
+  registry.add(obj5None);
+  registry.add(obj6ABE);
+  registry.add(obj7EB);
+  registry.add(obj8Uniq1);
+  registry.add(obj9Uniq2);
+
+  describe('getUniqEntityWithTagsAsync', () => {
+    describe('LookUpStrategy "every"', () => {
+      it('should return an uniq object that contains multiple tags', async () => {
+        const result: IRegistrable | undefined = await getUniqEntityWithTagsAsync([tagUniq2, tagC], registry, LookUpStrategy.Every);
+        expect(result).toEqual(obj9Uniq2);
+      }, 3500);
+
+      it('should return an uniq object that contains a single tag', async () => {
+        const result: IRegistrable | undefined = await getUniqEntityWithTagsAsync([tagUniq1], registry, LookUpStrategy.Every);
+        expect(result).toEqual(obj8Uniq1);
+      }, 1000);
+
+      it('should return "undefined" if the entity is not in the registry', async () => {
+        const registry: IAbstractAsyncRegistry<IRegistrable> = AbstractAsyncRegistry<IRegistrable>('mockEntity' as RegistryType);
+        registry.add(obj3CD);
+        const result: IRegistrable | undefined = await getUniqEntityWithTagsAsync([tagB], registry, LookUpStrategy.Every);
+        expect(result).toBeUndefined();
+      }, 3500);
+
+      it('should return "undefined" if the entity is not in the registry and the entity in the registry has an empty tags list', async () => {
+        const registry: IAbstractAsyncRegistry<IRegistrable> = AbstractAsyncRegistry<IRegistrable>('mockEntity' as RegistryType);
+        registry.add(obj5None);
+        const result: IRegistrable | undefined = await getUniqEntityWithTagsAsync([tagB], registry, LookUpStrategy.Every);
+        expect(result).toBeUndefined();
+      }, 3500);
+
+      it('should return an empty array if the registry is empty', async () => {
+        const result: IRegistrable | undefined = await getUniqEntityWithTagsAsync([tagB], AbstractAsyncRegistry<IRegistrable>('mockEntity' as RegistryType), LookUpStrategy.Every);
+        expect(result).toBeUndefined();
+      }, 3500);
+    });
+
+    describe('LookUpStrategy "some"', () => {
+      it('should return an uniq object that contains at least one tag tag', async () => {
+        const result: IRegistrable | undefined = await getUniqEntityWithTagsAsync([tagUniq2, 'asdsd', 'eeee'], registry, LookUpStrategy.Some);
+        expect(result).toEqual(obj9Uniq2);
+      }),
+        1000;
+    });
+  });
 
   describe('getValueAsync', () => {
+    const waitingTime: number = 500;
+
     it('should return an entity that was added sync before getting the value', async () => {
       const registry: IAbstractAsyncRegistry<IRegistrable> = AbstractAsyncRegistry<IRegistrable>('mockEntity' as RegistryType);
       registry.add(mockEntity1);

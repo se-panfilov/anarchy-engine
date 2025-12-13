@@ -5,11 +5,10 @@ import type { IAbstractAsyncRegistry, IAbstractEntityRegistry, LookUpStrategy } 
 import type { IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
 import { createDeferredPromise, isDefined } from '@/Engine/Utils';
 
-// TODO (S.Panfilov) add unit tests
-export function getAsyncUniqEntityWithTags<T extends IRegistrable>(
+export function getUniqEntityWithTagsAsync<T extends IRegistrable>(
   tags: ReadonlyArray<string>,
-  strategy: LookUpStrategy,
-  registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>
+  registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>,
+  strategy: LookUpStrategy
 ): Promise<T | undefined> {
   return getValueAsync<T>(registry, (entity: T): boolean => {
     const entityTags: ReadonlyArray<string> = entity.getTags();
@@ -23,12 +22,12 @@ export function getAsyncUniqEntityWithTag<T extends IRegistrable>(tag: string, r
 }
 
 // TODO (S.Panfilov) add unit tests
-export function getAsyncUniqEntityByName<T extends IRegistrable>(name: string, registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>): Promise<T | undefined> {
+export function getAsyncUniqEntityByNameAsync<T extends IRegistrable>(name: string, registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>): Promise<T | undefined> {
   return getValueAsync<T>(registry, (entity: T): boolean => entity && entity.name === name);
 }
 
 // TODO (S.Panfilov) add unit tests
-export function getUniqEntityWithTags$<T extends IRegistrable>(tags: ReadonlyArray<string>, strategy: LookUpStrategy, registry: IAbstractEntityRegistry<T>): Observable<T> {
+export function getUniqEntityWithTags$<T extends IRegistrable>(tags: ReadonlyArray<string>, registry: IAbstractEntityRegistry<T>, strategy: LookUpStrategy): Observable<T> {
   const result: T | undefined = registry.findByTags(tags, strategy);
   if (isDefined(result)) new BehaviorSubject(result).asObservable();
   return subscribeToValue$<T>(registry, (entity: T): boolean => entity.getTags()[strategy]((tag: string) => tags.includes(tag)));
