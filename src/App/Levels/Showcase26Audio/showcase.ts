@@ -10,18 +10,11 @@ import spaceConfig from './showcase.json';
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
-  const { audioService } = space.services;
   const gui: GUI = new GUI();
-  const bgMusicFolder: GUI = gui.addFolder('Background music');
 
   function init(): void {
-    const fadeDuration = 0.3;
-
-    initMutant1('mutant_actor_1', fadeDuration, space.services);
-
-    const bgMusic: TAudioWrapper | undefined = audioService.getRegistry().findByName('bg_music');
-    if (isNotDefined(bgMusic)) throw new Error('Background music is not found');
-    initBgMusic(bgMusic, bgMusicFolder);
+    initMutant('mutant_actor_1', space.services);
+    initMusicWithControls('bg_music', 'Background music', gui, space.services);
   }
 
   function start(): void {
@@ -32,23 +25,28 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   return { start, space };
 }
 
-function initMutant1(actorName: string, fadeDuration: number, { animationsService, actorService }: TSpaceServices): void {
+function initMutant(actorName: string, { animationsService, actorService }: TSpaceServices): void {
   const actor: TActor | undefined = actorService.getRegistry().findByName(actorName);
   if (isNotDefined(actor)) throw new Error(`Actor "${actorName}" is not found`);
 
   const model3d: TModel3d = actor.model3d;
+  const fadeDuration = 0.3;
   const actions = animationsService.startAutoUpdateMixer(model3d).actions;
 
   const danceAction: AnimationAction = actions['Armature|mixamo.com|Layer0'];
   danceAction.reset().fadeIn(fadeDuration).play();
 }
 
-function initBgMusic(bgMusic: TAudioWrapper, folder: GUI): void {
+function initMusicWithControls(name: string, folderName: string, gui: GUI, { audioService }: TSpaceServices): void {
+  const folder: GUI = gui.addFolder(folderName);
+  const bgMusic: TAudioWrapper | undefined = audioService.getRegistry().findByName(name);
+  if (isNotDefined(bgMusic)) throw new Error('Background music is not found');
+
   const state = {
-    playBgMusic: (): void => bgMusic.play$.next(true),
-    pauseBgMusic: (): void => bgMusic.pause$.next(true),
-    resumeBgMusic: (): void => bgMusic.pause$.next(false),
-    stopBgMusic: (): void => bgMusic.play$.next(false),
+    playMusic: (): void => bgMusic.play$.next(true),
+    pauseMusic: (): void => bgMusic.pause$.next(true),
+    resumeMusic: (): void => bgMusic.pause$.next(false),
+    stopMusic: (): void => bgMusic.play$.next(false),
     seekPlus: (): void => {
       const currentTime: number = bgMusic.seek$.getValue();
       bgMusic.seek$.next(currentTime + 10);
@@ -65,10 +63,10 @@ function initBgMusic(bgMusic: TAudioWrapper, folder: GUI): void {
     progress: 0
   };
 
-  folder.add(state, 'playBgMusic').name('Play background music');
-  folder.add(state, 'pauseBgMusic').name('Pause background music');
-  folder.add(state, 'resumeBgMusic').name('Resume background music');
-  folder.add(state, 'stopBgMusic').name('Stop background music');
+  folder.add(state, 'playMusic').name('Play background music');
+  folder.add(state, 'pauseMusic').name('Pause background music');
+  folder.add(state, 'resumeMusic').name('Resume background music');
+  folder.add(state, 'stopMusic').name('Stop background music');
   folder.add(state, 'seekPlus').name('Seek +10s');
   folder.add(state, 'seekMinus').name('Seek -10s');
   folder.add(state, 'loop').name('loop');
