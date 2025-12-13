@@ -1,22 +1,19 @@
-import { BufferAttribute } from 'three';
+import { BufferAttribute, BufferGeometry, Points } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TColor } from '@/Engine/Color';
 import type { TWithMaterial } from '@/Engine/Material';
 import { isPointsMaterial, withMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
-import type { TParticlesDependencies, TParticlesParams, TParticlesWrapperAsync } from '@/Engine/Particles/Models';
-import { withTextures } from '@/Engine/Texture';
-import type { TPoints } from '@/Engine/ThreeLib';
+import type { TParticlesParams, TParticlesWrapper } from '@/Engine/Particles/Models';
+import type { TBufferGeometry, TPoints } from '@/Engine/ThreeLib';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
-import { createParticles } from './ParticlesUtils';
+export function ParticlesWrapper(params: TParticlesParams): TParticlesWrapper {
+  const geometry: TBufferGeometry = new BufferGeometry();
+  const entity: TPoints = new Points(geometry, params.material.entity);
 
-export async function ParticlesWrapperAsync(params: TParticlesParams, { materialTextureService }: TParticlesDependencies): Promise<TParticlesWrapperAsync> {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const entity: TPoints = await createParticles(params, materialTextureService);
-
-  const { material, geometry } = entity;
+  const { material } = entity;
   if (!isPointsMaterial(material)) throw new Error('Material is not PointsMaterial or not defined');
 
   const withMaterialEntity: TWithMaterial = withMaterial(entity);
@@ -36,8 +33,6 @@ export async function ParticlesWrapperAsync(params: TParticlesParams, { material
     ...scalableMixin(entity),
     ...withObject3d(entity),
     ...withMaterialEntity,
-    // TODO 9.0.0. RESOURCES: Check if withTextures is still suitable here
-    ...withTextures(withMaterialEntity, materialTextureService),
     setMaterialColor,
     getMaterialColor,
     setIndividualMaterialColors,

@@ -1,5 +1,5 @@
-import type { TMaterialService } from '@/Engine/Material';
+import type { TMaterialRegistry } from '@/Engine/Material';
 
 export type TParticlesConfigToParamsDependencies = Readonly<{
-  materialService: TMaterialService;
+  materialRegistry: TMaterialRegistry;
 }>;

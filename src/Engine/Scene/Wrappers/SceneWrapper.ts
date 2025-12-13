@@ -11,7 +11,7 @@ import type { TEnvMapTexture } from '@/Engine/EnvMap';
 import type { TFogWrapper } from '@/Engine/Fog';
 import type { TAbstractLightWrapper, TLight } from '@/Engine/Light';
 import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
-import type { TParticlesWrapperAsync } from '@/Engine/Particles';
+import type { TParticlesWrapper } from '@/Engine/Particles';
 import type { TSceneObject, TSceneParams, TSceneWrapper } from '@/Engine/Scene/Models';
 import type { TTextAnyWrapper } from '@/Engine/Text';
 import type { TTexture } from '@/Engine/Texture';
@@ -29,7 +29,7 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
   const addCamera = (camera: Readonly<TCameraWrapper>): void => add(camera.entity);
   const addActor = (actor: Readonly<TActorWrapper>): void => add(actor.entity);
   const addLight = <T extends TLight>(light: Readonly<TAbstractLightWrapper<T>>): void => add(light.entity);
-  const addParticles = (particles: Readonly<TParticlesWrapperAsync>): void => add(particles.entity);
+  const addParticles = (particles: Readonly<TParticlesWrapper>): void => add(particles.entity);
   const addModel = add;
 
   const addText = (text: Readonly<TTextAnyWrapper>): void => add(text.entity);

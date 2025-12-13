@@ -1,3 +1,4 @@
+export { configToParams as particlesConfigToParams } from './Adapters';
 export * from './Factories';
 export * from './Models';
 export * from './Registries';

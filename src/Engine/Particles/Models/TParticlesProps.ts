@@ -1,7 +1,3 @@
-import type { TMaterialWrapper } from '@/Engine/Material';
-import type { TWithName } from '@/Engine/Mixins';
+import type { TWithNameRequired } from '@/Engine/Mixins';
 
-export type TParticlesProps = Readonly<{
-  material: TMaterialWrapper;
-}> &
-  TWithName;
+export type TParticlesProps = TWithNameRequired;

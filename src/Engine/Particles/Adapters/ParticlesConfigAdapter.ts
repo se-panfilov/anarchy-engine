@@ -3,15 +3,15 @@ import type { TParticlesConfig, TParticlesConfigToParamsDependencies, TParticles
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function configToParams(config: TParticlesConfig, { materialService }: TParticlesConfigToParamsDependencies): TParticlesParams | never {
-  const { position, rotation, layers, scale, material: materialConfig, ...rest } = config;
+export function configToParams(config: TParticlesConfig, { materialRegistry }: TParticlesConfigToParamsDependencies): TParticlesParams | never {
+  const { position, rotation, layers, scale, ...rest } = config;
 
-  const material: TMaterialWrapper | undefined = materialService.getMaterialWithOverrides(materialConfig);
-  if (isNotDefined(material)) throw new Error('Failed to create a particle: material is not defined');
+  const material: TMaterialWrapper | undefined = materialRegistry.findByName(config.material);
+  if (isNotDefined(material)) throw new Error(`Failed to create a particle: material "${config.material}" is not defined`);
 
   return {
     ...rest,
-    material,
-    ...configToParamsObject3d({ position, rotation, scale, layers })
+    ...configToParamsObject3d({ position, rotation, scale, layers }),
+    material
   };
 }

@@ -1,1 +1,1 @@
-export * from './ParticlesWrapperAsync';
+export * from './ParticlesWrapper';

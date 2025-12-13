@@ -1,1 +1,1 @@
-export * from './ParticlesAsyncRegistry';
+export * from './ParticlesRegistry';

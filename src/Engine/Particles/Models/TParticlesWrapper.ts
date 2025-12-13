@@ -2,16 +2,14 @@ import type { TWrapper } from '@/Engine/Abstract';
 import type { TColor } from '@/Engine/Color';
 import type { TWithMaterial } from '@/Engine/Material';
 import type { TMovable3dXYZ, TRotatable, TScalable, TWithObject3d, TWithTagsMixin } from '@/Engine/Mixins';
-import type { TWithTextures } from '@/Engine/Texture';
 import type { TPoints } from '@/Engine/ThreeLib';
 
-export type TParticlesWrapperAsync = TWrapper<TPoints> &
+export type TParticlesWrapper = TWrapper<TPoints> &
   TMovable3dXYZ &
   TRotatable &
   TScalable &
   TWithObject3d &
   TWithMaterial &
-  TWithTextures &
   TWithTagsMixin &
   Readonly<{
     setMaterialColor: (colors: TColor) => void;

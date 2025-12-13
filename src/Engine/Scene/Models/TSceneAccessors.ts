@@ -6,7 +6,7 @@ import type { TColor } from '@/Engine/Color';
 import type { TEnvMapTexture } from '@/Engine/EnvMap';
 import type { TFogWrapper } from '@/Engine/Fog';
 import type { TAbstractLightWrapper, TLight } from '@/Engine/Light';
-import type { TParticlesWrapperAsync } from '@/Engine/Particles';
+import type { TParticlesWrapper } from '@/Engine/Particles';
 import type { TTextAnyWrapper } from '@/Engine/Text';
 import type { TTexture } from '@/Engine/Texture';
 
@@ -17,7 +17,7 @@ export type TSceneAccessors = Readonly<{
   setFog: (fog: Readonly<TFogWrapper>) => void;
   addText: (text: Readonly<TTextAnyWrapper>) => void;
   addModel: (mesh: Group | Mesh | Object3D) => void;
-  addParticles: (text: Readonly<TParticlesWrapperAsync>) => void;
+  addParticles: (text: Readonly<TParticlesWrapper>) => void;
   setBackground: (color: string | TColor | TTexture | CubeTexture | TEnvMapTexture) => void;
   getBackground: () => string | TColor | TTexture | CubeTexture | TEnvMapTexture | null;
   setEnvironmentMap: (envMap: TEnvMapTexture | TTexture) => void;

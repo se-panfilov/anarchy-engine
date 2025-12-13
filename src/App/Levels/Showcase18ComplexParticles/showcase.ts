@@ -2,7 +2,7 @@ import GUI from 'lil-gui';
 import { BufferGeometry, Color, PointsMaterial } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAppCanvas, TEngine, TParticlesConfig, TParticlesParams, TParticlesWrapperAsync, TPointsMaterialProps, TSpace, TSpaceConfig } from '@/Engine';
+import type { TAppCanvas, TEngine, TParticlesConfig, TParticlesParams, TParticlesWrapper, TPointsMaterialProps, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isDefined, isNotDefined } from '@/Engine';
 import { configToParams as particlesConfigToParams } from '@/Engine/Particles/Adapters';
 
@@ -20,7 +20,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   if (isNotDefined(particlesConfig)) throw new Error(`Particles "${particlesName}" not found`);
   const particlesDefaultParams: TParticlesParams = particlesConfigToParams(particlesConfig);
 
-  let particles: TParticlesWrapperAsync | undefined;
+  let particles: TParticlesWrapper | undefined;
 
   type TGalaxyParams = { count: number; size: number; radius: number; branches: number; spin: number; randomness: number; randomnessPower: number; insideColor: string; outsideColor: string };
 
@@ -59,7 +59,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       size: parameters.size
     });
 
-    particles = await particlesService.getRegistry().findByNameAsync(particlesName);
+    particles = particlesService.getRegistry().findByName(particlesName);
     if (isNotDefined(particles)) throw new Error(`Particles "${particlesName}" not found`);
 
     particles.setIndividualPositions(positions);

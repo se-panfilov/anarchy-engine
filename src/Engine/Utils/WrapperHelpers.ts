@@ -17,7 +17,6 @@ import type {
   TToonMaterialTexturePack
 } from '@/Engine/MaterialTexturePack';
 import type { TMovable3dXYZ, TRotatable, TScalable, TWithObject3d } from '@/Engine/Mixins';
-import type { TWithTextures } from '@/Engine/Texture';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils/index';
 import type { TVector2Wrapper, TVector3Wrapper } from '@/Engine/Vector';

@@ -1,15 +1,15 @@
 import type { TDestroyable } from '@/Engine/Mixins';
-import type { TWithCreateAsyncService, TWithCreateFromConfigAsyncService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
 
-import type { TParticlesAsyncRegistry } from './TParticlesAsyncRegistry';
 import type { TParticlesConfig } from './TParticlesConfig';
 import type { TParticlesFactory } from './TParticlesFactory';
 import type { TParticlesParams } from './TParticlesParams';
-import type { TParticlesWrapperAsync } from './TParticlesWrapperAsync';
+import type { TParticlesRegistry } from './TParticlesRegistry';
+import type { TParticlesWrapper } from './TParticlesWrapper';
 
-export type TParticlesService = TWithCreateAsyncService<TParticlesWrapperAsync, TParticlesParams> &
-  TWithCreateFromConfigAsyncService<TParticlesConfig, ReadonlyArray<TParticlesWrapperAsync>> &
+export type TParticlesService = TWithCreateService<TParticlesWrapper, TParticlesParams> &
+  TWithCreateFromConfigService<TParticlesConfig> &
   TWithFactoryService<TParticlesFactory> &
-  TWithRegistryService<TParticlesAsyncRegistry> &
+  TWithRegistryService<TParticlesRegistry> &
   TWithSceneGetterService &
   TDestroyable;

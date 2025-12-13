@@ -22,7 +22,7 @@ import { MaterialTextureService } from '@/Engine/MaterialTexturePack';
 import type { TModels3dService } from '@/Engine/Models3d';
 import { Models3dAsyncRegistry, Models3dService } from '@/Engine/Models3d';
 import { MouseService } from '@/Engine/Mouse';
-import { ParticlesAsyncRegistry, ParticlesFactory, ParticlesService } from '@/Engine/Particles';
+import { ParticlesFactory, ParticlesRegistry, ParticlesService } from '@/Engine/Particles';
 import type { TPhysicsBodyService, TPhysicsLoopService, TPhysicsPresetsService, TPhysicsWorldService } from '@/Engine/Physics';
 import { PhysicsBodyFactory, PhysicsBodyRegistry, PhysicsBodyService, PhysicsLoopService, PhysicsPresetRegistry, PhysicsPresetsService, PhysicsWorldService } from '@/Engine/Physics';
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
@@ -93,7 +93,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
     models3dService,
     animationsService,
     mouseService: MouseService(ambientContext.container, { loopService }),
-    particlesService: ParticlesService(ParticlesFactory(), ParticlesAsyncRegistry(), materialTextureService, sceneW),
+    particlesService: ParticlesService(ParticlesFactory(), ParticlesRegistry(), materialTextureService, sceneW),
     physicsBodyService,
     physicsWorldService,
     physicsPresetService,
