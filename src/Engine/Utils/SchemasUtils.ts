@@ -28,7 +28,7 @@ function validateJsonSchema(config: ISpaceConfig): SchemaValidationResult {
   return { isValid, errors: validate.errors };
 }
 
-function validateData({ name, actors, cameras, scenes, controls, lights, fogs, texts, tags }: ISpaceConfig): SchemaValidationResult {
+function validateData({ name, actors, cameras, scenes, controls, intersections, lights, fogs, texts, tags }: ISpaceConfig): SchemaValidationResult {
   let errors: ReadonlyArray<string> = [];
 
   //must be defined
@@ -49,6 +49,7 @@ function validateData({ name, actors, cameras, scenes, controls, lights, fogs, t
   const isEverySceneNameValid: boolean = validateNames(scenes);
   const isEveryActorNameValid: boolean = validateNames(actors);
   const isEveryCameraNameValid: boolean = validateNames(cameras);
+  const isEveryIntersectionNameValid: boolean = validateNames(intersections);
   const isEveryLightNameValid: boolean = validateNames(lights);
   const isEveryFogNameValid: boolean = validateNames(fogs);
   const isEveryTextNameValid: boolean = validateNames(texts);
@@ -58,6 +59,7 @@ function validateData({ name, actors, cameras, scenes, controls, lights, fogs, t
   const isEverySceneTagsValid: boolean = validateTagsForEveryEntity(scenes);
   const isEveryActorTagsValid: boolean = validateTagsForEveryEntity(actors);
   const isEveryCameraTagsValid: boolean = validateTagsForEveryEntity(cameras);
+  const isEveryIntersectionsTagsValid: boolean = validateTagsForEveryEntity(intersections);
   const isEveryLightTagsValid: boolean = validateTagsForEveryEntity(lights);
   const isEveryFogTagsValid: boolean = validateTagsForEveryEntity(fogs);
   const isEveryTextTagsValid: boolean = validateTagsForEveryEntity(texts);
@@ -76,6 +78,7 @@ function validateData({ name, actors, cameras, scenes, controls, lights, fogs, t
   if (!isEverySceneNameValid) errors = [...errors, 'Scene names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryActorNameValid) errors = [...errors, 'Actor names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryCameraNameValid) errors = [...errors, 'Camera names must be defined and contain only letters, numbers and underscores'];
+  if (!isEveryIntersectionNameValid) errors = [...errors, 'Intersection names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryLightNameValid) errors = [...errors, 'Light names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryFogNameValid) errors = [...errors, 'Fog names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryTextNameValid) errors = [...errors, 'Text names must be defined and contain only letters, numbers and underscores'];
@@ -85,6 +88,7 @@ function validateData({ name, actors, cameras, scenes, controls, lights, fogs, t
   if (!isEverySceneTagsValid) errors = [...errors, 'Scene tags must contain only letters, numbers and underscores'];
   if (!isEveryActorTagsValid) errors = [...errors, 'Actor tags must contain only letters, numbers and underscores'];
   if (!isEveryCameraTagsValid) errors = [...errors, 'Camera tags must contain only letters, numbers and underscores'];
+  if (!isEveryIntersectionsTagsValid) errors = [...errors, 'Intersection tags must contain only letters, numbers and underscores'];
   if (!isEveryLightTagsValid) errors = [...errors, 'Light tags must contain only letters, numbers and underscores'];
   if (!isEveryFogTagsValid) errors = [...errors, 'Fog tags must contain only letters, numbers and underscores'];
   if (!isEveryTextTagsValid) errors = [...errors, 'Text tags must contain only letters, numbers and underscores'];
