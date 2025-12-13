@@ -1,12 +1,13 @@
 import type { TActor, TActorConfig, TActorConfigToParamsDependencies } from '@/Engine/Actor/Models';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TModel3d, TModels3dRegistry } from '@/Engine/Models3d';
+import type { TSpatialDataConfig } from '@/Engine/Spatial';
 import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: (finish 14-0-0 tasks)
 
 // TODO 15-0-0: validate result
-export function actorToConfig(entity: TActor, { fsmService, models3dService, spatialGridRegistry }: TActorConfigToParamsDependencies): TActorConfig {
+export function actorToConfig(entity: TActor, { fsmService, models3dService }: TActorConfigToParamsDependencies): TActorConfig {
   const { drive } = entity;
   console.log('XXX entity', entity);
   console.log('XXX models3dRegistry', models3dService.getRegistry().asObject());
@@ -26,7 +27,7 @@ export function actorToConfig(entity: TActor, { fsmService, models3dService, spa
     model3dSource,
     // physics?: TWithPresetNamePhysicsBodyConfig,
     // kinematic?: TKinematicConfig,
-    // spatial: TSpatialDataConfig,
+    ...getSpatial(entity),
     // collisions?: TCollisionsDataConfig,
     // model3dSettings?: TActorModel3dSettingsConfig,
 
@@ -35,4 +36,10 @@ export function actorToConfig(entity: TActor, { fsmService, models3dService, spa
     ...extractSerializableRegistrableFields(entity),
     ...drive.serialize()
   });
+}
+
+function getSpatial(entity: TActor): TSpatialDataConfig {
+  const { grid, updatePriority } = entity.spatial.data;
+  if (isNotDefined(grid)) throw new Error(`[Serialization] Actor: spatial grid not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
+  return { isAutoUpdate: entity.spatial.autoUpdate$.value, grid: grid.name, updatePriority };
 }
