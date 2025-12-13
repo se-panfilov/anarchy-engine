@@ -1,4 +1,3 @@
-export type * from './Coordinates';
 export type * from './Movable';
 export type * from './Position';
 export type * from './Rotatable';
