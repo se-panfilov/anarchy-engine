@@ -180,7 +180,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       rotation: new Euler(-1.57, 0, 0)
     });
 
-    const azimuth$: BehaviorSubject<TDegrees> = new BehaviorSubject<TDegrees>(0);
+    const azimuth$: BehaviorSubject<TDegrees> = new BehaviorSubject<TDegrees>(degrees(0));
 
     azimuth$.pipe(withLatestFrom(sphereActor.drive.agent$)).subscribe(([degrees, agent]: [TDegrees, TransformAgent]): void => {
       azimuthText.setText(`Azimuth: ${degrees.toFixed(2)}`);
@@ -215,7 +215,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   return { start, space };
 }
 
-// TODO 8.0.0. MODELS: would be nice to implement rotation and scale as well
 function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, isTeleportationMode: boolean): void | never {
   if (isTeleportationMode) return actor.drive.position$.next(position);
 
@@ -254,6 +253,7 @@ function rotateActorTo(actor: TActor, rotation: Euler, agent: TransformAgent): v
       return actor.drive.kinematic.setAngularSpeed(meters(5));
     case TransformAgent.Connected:
       // TODO what should we do here?
+      // TODO 8.0.0. MODELS: check repeaterActor's rotation (not sure if here or in an other place)
       return undefined;
     case TransformAgent.Physical:
       // Should not do anything here, cause physical agent should read values from physical body

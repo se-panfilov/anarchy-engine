@@ -28,6 +28,7 @@ export function Actor(
 
   // TODO CWP:
   // TODO 8.0.0. MODELS: Make sure, rotations are working (adjust showcase)
+  // TODO 8.0.0. MODELS: Perhaps models need to have an offset (rotation, position). That offset should adjust rotation of the model (maybe in DriveToTargetConnector)
   // TODO 8.0.0. MODELS: Rigid body immediately created (should be created only when physics drive is initialized, maybe in hook)
   // TODO 8.0.0. MODELS: Fix Physics agent: should respect external change of position, rotation, scale
 
