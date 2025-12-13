@@ -1,3 +1,4 @@
+import type { CubeTexture } from 'three';
 import { Scene } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
@@ -13,7 +14,7 @@ import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
 import type { TParticlesWrapperAsync } from '@/Engine/Particles';
 import type { TSceneObject, TSceneParams, TSceneWrapper } from '@/Engine/Scene/Models';
 import type { TTextAnyWrapper } from '@/Engine/Text';
-import type { TCubeTexture, TTexture } from '@/Engine/Texture';
+import type { TTexture } from '@/Engine/Texture';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined, isString } from '@/Engine/Utils';
 
@@ -36,8 +37,8 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
   // eslint-disable-next-line functional/immutable-data
   const setFog = (fog: Readonly<TFogWrapper>): void => void (entity.fog = fog.entity);
 
-  function setBackground(color: string | TColor | TTexture | TCubeTexture | TEnvMapTexture): void {
-    let background: string | TColor | TTexture | TCubeTexture | null = null;
+  function setBackground(color: string | TColor | TTexture | CubeTexture | TEnvMapTexture): void {
+    let background: string | TColor | TTexture | CubeTexture | null = null;
     if (isString(color)) background = ColorWrapper(color).entity;
     else background = color;
     if (isNotDefined(background)) throw new Error('Invalid background');
@@ -45,7 +46,7 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
     entity.background = background;
   }
 
-  const getBackground = (): TColor | TTexture | TCubeTexture | null => entity.background;
+  const getBackground = (): TColor | TTexture | CubeTexture | null => entity.background;
 
   // eslint-disable-next-line functional/immutable-data
   const setEnvironmentMap = (texture: TEnvMapTexture | TTexture): void => void (entity.environment = texture);

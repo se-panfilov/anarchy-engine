@@ -1,45 +1,85 @@
 import type {
+  TBasicMaterialPackKeys,
   TBasicMaterialTexturePack,
+  TDepthMaterialPackKeys,
   TDepthMaterialTexturePack,
+  TDistanceMaterialPackKeys,
   TDistanceMaterialTexturePack,
+  TLambertMaterialPackKeys,
   TLambertMaterialTexturePack,
+  TMatcapMaterialPackKeys,
   TMatcapMaterialTexturePack,
   TMaterialPackParams,
   TMaterialTexturePack,
+  TNormalMaterialPackKeys,
   TNormalMaterialTexturePack,
+  TPhongMaterialPackKeys,
   TPhongMaterialTexturePack,
+  TPhysicalMaterialPackKeys,
   TPhysicalMaterialTexturePack,
+  TPointsMaterialPackKeys,
+  TStandardMaterialPackKeys,
   TStandardMaterialTexturePack,
+  TToonMaterialPackKeys,
   TToonMaterialTexturePack
 } from '@/Engine/MaterialTexturePack';
-import type {
-  TBasicTextureUploaded,
-  TBasicTextureUploadPromises,
-  TDepthTextureUploaded,
-  TDepthTextureUploadPromises,
-  TDistanceTextureUploaded,
-  TDistanceTextureUploadPromises,
-  TLambertTextureUploaded,
-  TLambertTextureUploadPromises,
-  TMatcapTextureUploaded,
-  TMatcapTextureUploadPromises,
-  TNormalTextureUploaded,
-  TNormalTextureUploadPromises,
-  TPhongTextureUploaded,
-  TPhongTextureUploadPromises,
-  TPhysicalTextureUploaded,
-  TPhysicalTextureUploadPromises,
-  TStandardTextureUploaded,
-  TStandardTextureUploadPromises,
-  TTextureAsyncRegistry,
-  TTextureLoadedPack,
-  TTexturePackParams,
-  TTextureUploaded,
-  TTextureUploadPromises,
-  TToonTextureUploaded,
-  TToonTextureUploadPromises
-} from '@/Engine/Texture/Models';
+import type { TTexture, TTextureAsyncRegistry } from '@/Engine/Texture/Models';
 import { isNotDefined } from '@/Engine/Utils';
+
+export type TTextureLoadedPack = Readonly<{
+  url: string;
+  texture: TTexture;
+}>;
+
+export type TBasicTextureUploaded = Readonly<{ [key in TBasicMaterialPackKeys]?: TTexture }>;
+export type TDepthTextureUploaded = Readonly<{ [key in TDepthMaterialPackKeys]?: TTexture }>;
+export type TDistanceTextureUploaded = Readonly<{ [key in TDistanceMaterialPackKeys]?: TTexture }>;
+export type TNormalTextureUploaded = Readonly<{ [key in TNormalMaterialPackKeys]?: TTexture }>;
+export type TMatcapTextureUploaded = Readonly<{ [key in TMatcapMaterialPackKeys]?: TTexture }>;
+export type TLambertTextureUploaded = Readonly<{ [key in TLambertMaterialPackKeys]?: TTexture }>;
+export type TPhongTextureUploaded = Readonly<{ [key in TPhongMaterialPackKeys]?: TTexture }>;
+export type TPhysicalTextureUploaded = Readonly<{ [key in TPhysicalMaterialPackKeys]?: TTexture }>;
+export type TToonTextureUploaded = Readonly<{ [key in TToonMaterialPackKeys]?: TTexture }>;
+export type TStandardTextureUploaded = Readonly<{ [key in TStandardMaterialPackKeys]?: TTexture }>;
+export type TPointsTextureUploaded = Readonly<{ [key in TPointsMaterialPackKeys]?: TTexture }>;
+
+export type TTextureUploaded =
+  | TBasicTextureUploaded
+  | TDepthTextureUploaded
+  | TDistanceTextureUploaded
+  | TNormalTextureUploaded
+  | TMatcapTextureUploaded
+  | TLambertTextureUploaded
+  | TPhongTextureUploaded
+  | TPhysicalTextureUploaded
+  | TToonTextureUploaded
+  | TStandardTextureUploaded
+  | TPointsTextureUploaded;
+
+export type TGetAllTextures<T> = Readonly<{ all: () => Promise<T> }>;
+
+export type TBasicTextureUploadPromises = Readonly<{ [key in TBasicMaterialPackKeys]?: Promise<TTexture> } & TGetAllTextures<TBasicTextureUploaded>>;
+export type TDepthTextureUploadPromises = Readonly<{ [key in TDepthMaterialPackKeys]?: Promise<TTexture> } & TGetAllTextures<TDepthTextureUploaded>>;
+export type TDistanceTextureUploadPromises = Readonly<{ [key in TDistanceMaterialPackKeys]?: Promise<TTexture> } & TGetAllTextures<TDistanceTextureUploaded>>;
+export type TNormalTextureUploadPromises = Readonly<{ [key in TNormalMaterialPackKeys]?: Promise<TTexture> } & TGetAllTextures<TNormalTextureUploaded>>;
+export type TMatcapTextureUploadPromises = Readonly<{ [key in TMatcapMaterialPackKeys]?: Promise<TTexture> } & TGetAllTextures<TMatcapTextureUploaded>>;
+export type TLambertTextureUploadPromises = Readonly<{ [key in TLambertMaterialPackKeys]?: Promise<TTexture> } & TGetAllTextures<TLambertTextureUploaded>>;
+export type TPhongTextureUploadPromises = Readonly<{ [key in TPhongMaterialPackKeys]?: Promise<TTexture> } & TGetAllTextures<TPhongTextureUploaded>>;
+export type TPhysicalTextureUploadPromises = Readonly<{ [key in TPhysicalMaterialPackKeys]?: Promise<TTexture> } & TGetAllTextures<TPhysicalTextureUploaded>>;
+export type TToonTextureUploadPromises = Readonly<{ [key in TToonMaterialPackKeys]?: Promise<TTexture> } & TGetAllTextures<TToonTextureUploaded>>;
+export type TStandardTextureUploadPromises = Readonly<{ [key in TStandardMaterialPackKeys]?: Promise<TTexture> } & TGetAllTextures<TStandardTextureUploaded>>;
+
+export type TTextureUploadPromises =
+  | TBasicTextureUploadPromises
+  | TDepthTextureUploadPromises
+  | TDistanceTextureUploadPromises
+  | TNormalTextureUploadPromises
+  | TMatcapTextureUploadPromises
+  | TLambertTextureUploadPromises
+  | TPhongTextureUploadPromises
+  | TPhysicalTextureUploadPromises
+  | TToonTextureUploadPromises
+  | TStandardTextureUploadPromises;
 
 // TODO 9.0.0. RESOURCES: This "TextureServiceLoaderUtils" utils should be killed
 export function TextureServiceLoaderUtils(registry: TTextureAsyncRegistry): void {

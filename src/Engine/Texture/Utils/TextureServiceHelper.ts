@@ -1,9 +1,8 @@
 import type { ColorSpace, MagnificationTextureFilter, MinificationTextureFilter } from 'three';
 import { LinearFilter, NearestFilter, SRGBColorSpace } from 'three';
 
-import { MaterialType } from '@/Engine/Material';
-import type { TMaterialPackKeys, TMaterialPackParams, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
-import type { TTexture, TTextureOptions, TTexturePackParams } from '@/Engine/Texture/Models';
+import type { TMaterialPackKeys } from '@/Engine/MaterialTexturePack';
+import type { TTexture, TTextureOptions } from '@/Engine/Texture/Models';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -51,7 +50,3 @@ export function applyTextureParams(texture: TWriteable<TTexture>, options?: TTex
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(options.type)) texture.type = options.type;
 }
-
-export const isMaterialType = (value: TTexturePackParams | MaterialType): value is MaterialType => Object.values(MaterialType).includes(value as MaterialType);
-export const isMaterialProps = (value: TTexturePackParams | TMaterialPackParams<TMaterialTexturePack>): value is TMaterialPackParams<TMaterialTexturePack> =>
-  (value as TMaterialPackParams<TMaterialTexturePack>).type !== undefined && isMaterialType((value as TMaterialPackParams<TMaterialTexturePack>).type);

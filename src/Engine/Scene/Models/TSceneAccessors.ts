@@ -1,4 +1,4 @@
-import type { Group, Mesh, Object3D } from 'three';
+import type { CubeTexture, Group, Mesh, Object3D } from 'three';
 
 import type { TActorWrapper } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
@@ -8,7 +8,7 @@ import type { TFogWrapper } from '@/Engine/Fog';
 import type { TAbstractLightWrapper, TLight } from '@/Engine/Light';
 import type { TParticlesWrapperAsync } from '@/Engine/Particles';
 import type { TTextAnyWrapper } from '@/Engine/Text';
-import type { TCubeTexture, TTexture } from '@/Engine/Texture';
+import type { TTexture } from '@/Engine/Texture';
 
 export type TSceneAccessors = Readonly<{
   addActor: (actor: Readonly<TActorWrapper>) => void;
@@ -18,8 +18,8 @@ export type TSceneAccessors = Readonly<{
   addText: (text: Readonly<TTextAnyWrapper>) => void;
   addModel: (mesh: Group | Mesh | Object3D) => void;
   addParticles: (text: Readonly<TParticlesWrapperAsync>) => void;
-  setBackground: (color: string | TColor | TTexture | TCubeTexture | TEnvMapTexture) => void;
-  getBackground: () => string | TColor | TTexture | TCubeTexture | TEnvMapTexture | null;
+  setBackground: (color: string | TColor | TTexture | CubeTexture | TEnvMapTexture) => void;
+  getBackground: () => string | TColor | TTexture | CubeTexture | TEnvMapTexture | null;
   setEnvironmentMap: (envMap: TEnvMapTexture | TTexture) => void;
   getEnvironmentMap: () => TTexture | null;
 }>;

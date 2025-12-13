@@ -1,9 +1,11 @@
+import type { CubeTexture } from 'three';
+
 import type { TColor } from '@/Engine/Color';
 import type { TActive, TWithName } from '@/Engine/Mixins';
-import type { TCubeTexture, TTexture } from '@/Engine/Texture';
+import type { TTexture } from '@/Engine/Texture';
 
 export type TSceneProps = Readonly<{
-  background?: string | TColor | TTexture | TCubeTexture;
+  background?: string | TColor | TTexture | CubeTexture;
 }> &
   TWithName &
   TActive;
