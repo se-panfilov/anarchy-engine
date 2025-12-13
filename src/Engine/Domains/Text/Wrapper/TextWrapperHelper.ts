@@ -9,11 +9,7 @@ export function applyElement2dParams(
   element.setText(text);
   element.setClassName(TEXT_CSS_CLASS.CSS_2D_CLASS);
 
-  if (isDefined(backgroundColor)) {
-    element.setBackgroundColor(backgroundColor);
-  } else {
-    element.setBackgroundColor('transparent');
-  }
+  if (isDefined(backgroundColor)) element.setBackgroundColor(backgroundColor);
   if (isDefined(className)) element.appendClassName(className);
   if (isDefined(fontSize)) element.setFontSize(fontSize);
   if (isDefined(color)) element.setColor(color);

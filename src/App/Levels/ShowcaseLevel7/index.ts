@@ -1,3 +1,5 @@
+import './fonts.css';
+
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IAnimationParams, IAppCanvas, ILevel, ILevelConfig, ITextWrapper, IWithCoordsXZ } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, standardMoverService, Vector3Wrapper } from '@/Engine';
@@ -10,12 +12,12 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const { textFactory } = level.entities;
 
   textFactory.create({
-    text: 'RubikDoodleTriangles',
+    text: '2D text (RubikDoodleTriangles)',
     position: Vector3Wrapper({ x: -4, y: 8, z: 0 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
-    color: '#ff0000',
-    fontSize: '14px',
-    font: './ShowcaseLevel7/font/RubikDoodleTriangles-Regular.ttf',
+    color: '#000000',
+    fontSize: '4rem',
+    fontFamily: '"RubikDoodleTriangles", sans-serif',
     tags: []
   });
 
@@ -24,8 +26,8 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     position: Vector3Wrapper({ x: -5, y: 12, z: 6 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
     color: '#ff0000',
-    fontSize: '14px',
-    font: './ShowcaseLevel7/font/RubikScribble-Regular.ttf',
+    fontSize: '4rem',
+    fontFamily: './ShowcaseLevel7/font/RubikScribble-Regular.ttf',
     tags: []
   });
 
@@ -34,8 +36,8 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     position: Vector3Wrapper({ x: -10, y: 8, z: -8 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
     color: '#ff0000',
-    fontSize: '14px',
-    font: './ShowcaseLevel7/font/LongCang-Regular.ttf',
+    fontSize: '4rem',
+    fontFamily: './ShowcaseLevel7/font/LongCang-Regular.ttf',
     tags: []
   });
 
@@ -44,8 +46,8 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     position: Vector3Wrapper({ x: -15, y: 6, z: -14 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
     color: '#ff0000',
-    fontSize: '14px',
-    font: './ShowcaseLevel7/font/VarelaRound-Regular.ttf',
+    fontSize: '4rem',
+    fontFamily: './ShowcaseLevel7/font/VarelaRound-Regular.ttf',
     tags: []
   });
 

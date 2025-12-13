@@ -1,3 +1,5 @@
+import '@/Engine/Domains/Text/Styles/font-elements.css';
+
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
@@ -24,15 +26,17 @@ export function Text2dWrapper(params: ITextParams): ITextWrapper {
     getElement: () => element
   };
 
+  element.setAttribute('data-ref', result.id.toString());
+
+  // TODO (S.Panfilov) we should remove such elements on destroy/dispose
+  document.body.appendChild(element);
+
   applyElement2dParams(result, params);
   applyObject3dParams(result, params);
   applyPosition(result, params.position);
   applyCenter(entity, params.center);
   applyRotation(result, params.rotation);
   if (isDefined(params.scale)) applyScale(result, params.scale);
-
-  console.log('111 element', result.getElement());
-  console.log('111 entity', result.entity);
 
   return result;
 }
