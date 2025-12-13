@@ -77,7 +77,7 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
   position$.subscribe((newPosition: Vector3): void => {
     // if (actorW.getName() === 'sphere') console.log(`Position changed to: x=${newPosition.x}, y=${newPosition.y}, z=${newPosition.z}`);
     // TODO (S.Panfilov) debug if
-    if (actorW.getName() === 'sphere') actorW.updateSpatialCell(newPosition, actorW.spatial.getGrid());
+    // if (actorW.getName() === 'sphere') actorW.updateSpatialCell(newPosition, actorW.spatial.getGrid());
   });
   //END WIP: position subject
 

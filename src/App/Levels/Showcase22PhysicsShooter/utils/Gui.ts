@@ -1,6 +1,6 @@
 import GUI from 'lil-gui';
 
-import type { TActorService, TIntersectionEvent, TIntersectionsWatcher, TSpatialGridService, TSpatialGridWrapper } from '@/Engine';
+import type { TActorService, TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TSpatialGridService, TSpatialGridWrapper } from '@/Engine';
 import { isNotDefined } from '@/Engine';
 
 export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher, spatialGridService: TSpatialGridService, actorService: TActorService): void {
@@ -18,7 +18,7 @@ export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher, sp
     objectName: ''
   };
 
-  const cell: Record<string, string> = { id: '' };
+  const cell: Record<string, string> = { id: '', actors: '' };
   const actor: Record<string, string> = { name: '' };
 
   mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent) => {
@@ -40,6 +40,11 @@ export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher, sp
     cell.id = grid.findCells(intersection.point.x, intersection.point.z)[0]?.id;
     // eslint-disable-next-line functional/immutable-data
     actor.name = actorService.getRegistry().findById(mouse.wrapperId)?.name ?? '';
+    // eslint-disable-next-line functional/immutable-data
+    cell.actors = grid
+      .getAllInCell(intersection.point.x, intersection.point.z)
+      .map((actorW: TActorWrapperAsync) => actorW.name)
+      .join(', ');
   });
 
   const mouseFolderGui: GUI = gui.addFolder('Mouse');
@@ -53,6 +58,7 @@ export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher, sp
 
   const gridFolderGui: GUI = gui.addFolder('Grid');
   gridFolderGui.add(cell, 'id').listen();
+  gridFolderGui.add(cell, 'actors').listen();
 
   const actorFolderGui: GUI = gui.addFolder('Actor');
   actorFolderGui.add(actor, 'name').listen();
