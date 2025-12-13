@@ -34,7 +34,30 @@
     }
   ],
   "envMaps": [],
-  "particles": [],
+  "particles": [
+    {
+      "name": "bubbles",
+      "position": { "x": 0, "y": 2, "z": 0 },
+      "material": {
+        "type": "points",
+        "params": {
+          "color": "#E91E63",
+          "size": 0.5,
+          "sizeAttenuation": true,
+          "transparent": true,
+          "alphaTest": 0.01,
+          "depthTest": false,
+          "depthWrite": false,
+          "blending": "AdditiveBlending",
+          "vertexColors": true
+        },
+        "textures": {
+          "alphaMap": { "url": "/Showcase/particles/2.png" }
+        }
+      },
+      "tags": []
+    }
+  ],
   "fogs": [],
   "tags": []
 }
