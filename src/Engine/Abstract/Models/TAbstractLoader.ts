@@ -8,6 +8,7 @@ export type TAbstractLoader<T, C extends TAbstractResourceConfig> = Readonly<{
   id: string;
   type: LoaderType;
   loadAsync: (config: C, onLoaded?: (r: TWriteable<T>, params?: Record<string, any>) => T) => Promise<T>;
+  loadListAsync: (packs: ReadonlyArray<C>) => ReadonlyArray<Promise<T>>;
   loadFromConfigAsync: (configs: ReadonlyArray<C>) => Promise<ReadonlyArray<T>>;
   loaded$: Observable<T>;
 }> &
