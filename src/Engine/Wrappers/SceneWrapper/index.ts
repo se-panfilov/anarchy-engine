@@ -1,5 +1,5 @@
 import { Scene } from 'three';
-import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
+import { AbstractWrapper } from '@Engine/Wrappers';
 import { getSceneUtils } from './utils';
 import type { SceneParams } from '@Engine/Models/SceneParams';
 

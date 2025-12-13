@@ -1,5 +1,5 @@
 import { AbstractFactory } from '@Engine/Factories/AbstractFactory';
-import { RendererWrapper } from '@Engine/Wrappers/RendererWrapper';
+import { RendererWrapper } from '@Engine/Wrappers';
 import type { Factory, RendererParams } from '@Engine/Models';
 
 const create = (params: RendererParams): ReturnType<typeof RendererWrapper> => RendererWrapper(params);

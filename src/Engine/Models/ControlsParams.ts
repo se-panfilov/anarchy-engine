@@ -1,4 +1,4 @@
-import type { CameraWrapper } from '@Engine/Wrappers/CameraWrapper';
+import type { CameraWrapper } from '@Engine/Wrappers';
 
 export interface ControlsParams {
   readonly camera: ReturnType<typeof CameraWrapper>;

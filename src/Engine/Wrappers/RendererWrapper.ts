@@ -1,6 +1,6 @@
 import { PCFShadowMap, WebGL1Renderer } from 'three';
 import { isNotDefined, isWebGLAvailable } from '@Engine/Utils';
-import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
+import { AbstractWrapper } from '@Engine/Wrappers';
 import type { RendererParams } from '@Engine/Models';
 
 // TODO (S.Panfilov) DI deviceWatcher

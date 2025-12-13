@@ -1,5 +1,5 @@
 import { BehaviorSubject, Subject } from 'rxjs';
-import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
+import { AbstractWrapper } from '@Engine/Wrappers';
 import type { MousePosition } from '@Engine/Models';
 
 // TODO (S.Panfilov) any

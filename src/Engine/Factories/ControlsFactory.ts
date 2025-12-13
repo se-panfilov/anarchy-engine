@@ -1,4 +1,4 @@
-import { ControlsWrapper } from '@Engine/Wrappers/ControlsWrapper';
+import { ControlsWrapper } from '@Engine/Wrappers';
 import { AbstractFactory } from '@Engine/Factories/AbstractFactory';
 import type { ControlsParams, Factory } from '@Engine/Models';
 

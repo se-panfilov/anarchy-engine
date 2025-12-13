@@ -1,6 +1,4 @@
-import { CameraWrapper } from '@Engine/Wrappers/CameraWrapper';
-import { ActorWrapper } from '@Engine/Wrappers/ActorWrapper';
-import { LightWrapper } from '@Engine/Wrappers/LightWrapper';
+import type { ActorWrapper, CameraWrapper, LightWrapper } from '@Engine/Wrappers';
 import { Scene } from 'three';
 
 export interface SceneUtils {

@@ -1,9 +1,8 @@
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Raycaster, Vector3 } from 'three';
 import { Object3D } from 'three/src/core/Object3D';
-import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
-import type { CameraWrapper } from '@Engine/Wrappers/CameraWrapper';
-import type { MousePointerWrapper } from '@Engine/Wrappers/MousePointerWrapper';
+import { AbstractWrapper } from '@Engine/Wrappers';
+import type { CameraWrapper, MousePointerWrapper } from '@Engine/Wrappers';
 import { getNormalizedMousePosition } from '@Engine/Utils/lib/Mouse';
 import type { MousePosition } from '@Engine/Models';
 

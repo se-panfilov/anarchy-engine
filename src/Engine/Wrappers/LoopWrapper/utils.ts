@@ -1,7 +1,5 @@
-import type { RendererWrapper } from '@Engine/Wrappers/RendererWrapper';
-import type { SceneWrapper } from '@Engine/Wrappers/SceneWrapper';
-import type { CameraWrapper } from '@Engine/Wrappers/CameraWrapper';
-import type { LoopFn } from '@Engine/Wrappers/LoopWrapper/Models/LoopFn';
+import type { CameraWrapper, RendererWrapper, SceneWrapper } from '@Engine/Wrappers';
+import type { LoopFn } from './Models/LoopFn';
 
 export interface LoopUtils {
   readonly start: (

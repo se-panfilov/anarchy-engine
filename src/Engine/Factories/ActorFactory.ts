@@ -1,6 +1,6 @@
-import { ActorWrapper } from '@Engine/Wrappers/ActorWrapper';
-import { AbstractFactory } from '@Engine/Factories/AbstractFactory';
 import type { ActorParams, Factory } from '@Engine/Models';
+import { AbstractFactory } from '@Engine/Factories/AbstractFactory';
+import { ActorWrapper } from '@Engine/Wrappers';
 
 const create = (params: ActorParams): ReturnType<typeof ActorWrapper> => ActorWrapper(params);
 

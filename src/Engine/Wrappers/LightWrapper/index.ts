@@ -1,8 +1,8 @@
+import { AbstractWrapper } from '@Engine/Wrappers';
 import { AmbientLight, DirectionalLight } from 'three';
-import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
-import type { LightParams } from '@Engine/Models';
-import { getLight } from '@Engine/Wrappers/LightWrapper/utils';
 import { getAccessors } from './Accessors';
+import { getLight } from './utils';
+import type { LightParams } from '@Engine/Models';
 
 type ILightWrapper = ReturnType<typeof AbstractWrapper<AmbientLight | DirectionalLight>> &
   ReturnType<typeof getAccessors>;

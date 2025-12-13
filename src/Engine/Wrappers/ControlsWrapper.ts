@@ -1,5 +1,5 @@
+import { AbstractWrapper } from '@Engine/Wrappers';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
 import type { ControlsParams } from '@Engine/Models';
 
 type IControlsWrapper = ReturnType<typeof AbstractWrapper<OrbitControls>>;
