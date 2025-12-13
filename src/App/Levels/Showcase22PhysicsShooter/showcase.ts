@@ -16,6 +16,7 @@ import type {
   TIntersectionEvent,
   TIntersectionsWatcher,
   TMetersPerSecond,
+  TMilliseconds,
   TRawModel3d,
   TSceneWrapper,
   TSpace,
@@ -132,7 +133,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     cameraFollowingActor(cameraW, hero);
 
-    transformLoop.tick$.subscribe((delta): void => {
+    transformLoop.tick$.subscribe((delta: TMilliseconds): void => {
       updateBullets(bullets, delta);
       // TODO this should be updated only if coords or angle are changed
       if (isDefined(mouseLineIntersections.point)) {
