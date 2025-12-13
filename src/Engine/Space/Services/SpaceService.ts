@@ -39,12 +39,6 @@ export function SpaceService(factory: TSpaceFactory, registry: TSpaceRegistry): 
   const withFactory: TSpaceServiceWithFactory = withFactoryService(factory);
   const withRegistry: TSpaceServiceWithRegistry = withRegistryService(registry);
 
-  registry.added$.subscribe(({ value }): void => {
-    // setTimeout(() => {
-    console.log('XXX', value.serialize());
-    // }, 1500);
-  });
-
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, withCreateService, withFactory, withRegistry, withSerializeAllEntities<TSpaceConfig, undefined>(registry), { createFromConfig });
 }
