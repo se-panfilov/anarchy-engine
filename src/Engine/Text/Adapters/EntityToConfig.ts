@@ -2,12 +2,9 @@ import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TText2dWrapper, TTextAnyWrapper, TTextConfig } from '@/Engine/Text/Models';
 import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 
+// TODO 15-0-0: validate result
 export function textToConfig(entity: TTextAnyWrapper): TTextConfig {
   const { drive } = entity;
-  // TODO 15-0-0: implement 2d
-  // TODO 15-0-0: implement 3d
-  // TODO 15-0-0: implement texture
-  // TODO 15-0-0: Check if we need distinct adapters for each type of text
 
   return filterOutEmptyFields({
     text: entity.getText(),
@@ -37,5 +34,6 @@ function extractInlineStyles(element: HTMLElement | undefined): Record<string, s
     // eslint-disable-next-line functional/immutable-data
     result[prop] = element.style.getPropertyValue(prop);
   }
+  if (Object.keys(result).length === 0) return undefined;
   return result;
 }
