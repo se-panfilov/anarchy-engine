@@ -140,8 +140,9 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
   function assertNoCycles(graph: ReadonlyMap<string, ReadonlySet<string>>, start: string): void {
     const temp: Set<string> = new Set<string>();
     const perm: Set<string> = new Set<string>();
-    const pathStack: string[] = [];
+    let pathStack: ReadonlyArray<string> = [];
 
+    // eslint-disable-next-line spellcheck/spell-checker
     const dfs = (u: string): void => {
       if (perm.has(u)) return;
       if (temp.has(u)) {
@@ -150,13 +151,15 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
         throw new Error(`Cycle detected between workspaces (prod deps): ${cyclePath}`);
       }
       temp.add(u);
-      pathStack.push(u);
-      (graph.get(u) ?? new Set<string>()).forEach((v) => dfs(v));
-      pathStack.pop();
+      pathStack = [...pathStack];
+      // eslint-disable-next-line spellcheck/spell-checker
+      (graph.get(u) ?? new Set<string>()).forEach(dfs);
+      pathStack = pathStack.slice(0, pathStack.length - 1);
       temp.delete(u);
       perm.add(u);
     };
 
+    // eslint-disable-next-line spellcheck/spell-checker
     dfs(start);
   }
 
@@ -166,7 +169,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     const visit = (u: string): void => {
       if (visited.has(u)) return;
       visited.add(u);
-      (graph.get(u) ?? new Set<string>()).forEach((v) => visit(v));
+      (graph.get(u) ?? new Set<string>()).forEach(visit);
     };
 
     visit(start);
@@ -182,10 +185,9 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
       let err: string = '';
       child.stdout.on('data', (d) => (out += String(d)));
       child.stderr.on('data', (d) => (err += String(d)));
-      child.on('close', (code: number | null) => {
-        if (code !== 0 && !out) {
-          return reject(new Error(`npm ls failed (code ${code}): ${err || 'unknown error'}`));
-        }
+      child.on('close', (code: number | null): void => {
+        if (code !== 0 && !out) return reject(new Error(`npm ls failed (code ${code}): ${err || 'unknown error'}`));
+
         try {
           const json = JSON.parse(out) as any;
           const normPath = (o: any): string | undefined =>
@@ -210,9 +212,9 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
             dependencies: json?.dependencies ? Object.fromEntries(Object.entries(json.dependencies).map(([k, v]) => [k, toNode(k, v)])) : undefined
           };
           debugLog(isDebug, 'npm ls parsed root:', rootNode.name, rootNode.version);
-          resolve(rootNode);
+          return resolve(rootNode);
         } catch (e) {
-          reject(new Error(`Failed to parse npm ls JSON: ${(e as Error).message}\nRaw: ${out.slice(0, 2000)}`));
+          return reject(new Error(`Failed to parse npm ls JSON: ${(e as Error).message}\nRaw: ${out.slice(0, 2000)}`));
         }
       });
     });
@@ -406,6 +408,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     const entries = await Promise.all(
       filtered
         .map((name: string) => wsMap.get(name))
+        // eslint-disable-next-line functional/prefer-tacit
         .filter((info: TWorkspaceInfo | undefined): info is TWorkspaceInfo => Boolean(info))
         .map(async (info) => {
           const version: string = info.pkg.version ?? '0.0.0';
