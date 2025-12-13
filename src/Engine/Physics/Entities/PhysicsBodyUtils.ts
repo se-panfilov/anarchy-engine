@@ -29,14 +29,7 @@ export function createPhysicsBodyEntities(params: TPhysicsBodyParams, world: Wor
     const colliderDesc: ColliderDesc = getColliderDesc(params);
     if (isDefined(params.position)) colliderDesc.setTranslation(params.position.x, params.position.y, params.position.z);
     if (isDefined(params.rotation)) colliderDesc.setRotation(params.rotation);
-    if (isDefined(params.collisionGroups)) colliderDesc.setCollisionGroups(params.collisionGroups);
-    if (isDefined(params.friction)) colliderDesc.setFriction(params.friction);
-    if (isDefined(params.restitution)) colliderDesc.setRestitution(params.restitution);
-    if (isDefined(params.isSensor)) colliderDesc.setSensor(params.isSensor);
-    if (isDefined(params.density)) colliderDesc.setDensity(params.density);
-    if (isDefined(params.mass)) colliderDesc.setMass(params.mass);
-    if (isDefined(params.solverGroups)) colliderDesc.setSolverGroups(params.solverGroups);
-
+    setupColliderDesc(colliderDesc, params);
     const collider: Collider = world.createCollider(colliderDesc);
     return { rigidBody: undefined, rigidBodyDesc: undefined, colliderDesc, collider };
   } else {
@@ -52,17 +45,21 @@ export function createPhysicsBodyEntities(params: TPhysicsBodyParams, world: Wor
     const rigidBody: RigidBody = world.createRigidBody(rigidBodyDesc);
 
     const colliderDesc: ColliderDesc = getColliderDesc(params);
-    if (isDefined(params.collisionGroups)) colliderDesc.setCollisionGroups(params.collisionGroups);
-    if (isDefined(params.friction)) colliderDesc.setFriction(params.friction);
-    if (isDefined(params.restitution)) colliderDesc.setRestitution(params.restitution);
-    if (isDefined(params.isSensor)) colliderDesc.setSensor(params.isSensor);
-    if (isDefined(params.density)) colliderDesc.setDensity(params.density);
-    if (isDefined(params.mass)) colliderDesc.setMass(params.mass);
-    if (isDefined(params.solverGroups)) colliderDesc.setSolverGroups(params.solverGroups);
+    setupColliderDesc(colliderDesc, params);
 
     const collider: Collider = world.createCollider(colliderDesc, rigidBody);
     return { rigidBody, rigidBodyDesc, colliderDesc, collider };
   }
+}
+
+function setupColliderDesc(colliderDesc: ColliderDesc, params: TPhysicsBodyParams): void {
+  if (isDefined(params.collisionGroups)) colliderDesc.setCollisionGroups(params.collisionGroups);
+  if (isDefined(params.friction)) colliderDesc.setFriction(params.friction);
+  if (isDefined(params.restitution)) colliderDesc.setRestitution(params.restitution);
+  if (isDefined(params.isSensor)) colliderDesc.setSensor(params.isSensor);
+  if (isDefined(params.density)) colliderDesc.setDensity(params.density);
+  if (isDefined(params.mass)) colliderDesc.setMass(params.mass);
+  if (isDefined(params.solverGroups)) colliderDesc.setSolverGroups(params.solverGroups);
 }
 
 // TODO add unit tests
