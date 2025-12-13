@@ -7,7 +7,7 @@ import type { IVector3Wrapper } from '@/Engine/Wrappers';
 
 export type IOrbitControlsWrapper = IWrapper<OrbitControls> &
   Readonly<{
-    update: () => void;
+    update: () => boolean;
     setDamping: (isEnabled: boolean) => void;
     setAutoRotate: (isEnabled: boolean) => void;
     setTarget: (position: IVector3Wrapper) => void;

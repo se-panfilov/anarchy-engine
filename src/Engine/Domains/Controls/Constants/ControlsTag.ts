@@ -1,3 +1,4 @@
 export enum ControlsTag {
-  Initial = 'initial'
+  Initial = 'initial',
+  Orbit = 'orbit'
 }

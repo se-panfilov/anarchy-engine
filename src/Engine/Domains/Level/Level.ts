@@ -8,7 +8,7 @@ import { ActorFactory, ActorRegistry, ActorTag } from '@/Engine/Domains/Actor';
 import type { IAppCanvas } from '@/Engine/Domains/App';
 import type { ICameraConfig, ICameraFactory, ICameraRegistry, ICameraWrapper } from '@/Engine/Domains/Camera';
 import { CameraFactory, CameraRegistry, CameraTag } from '@/Engine/Domains/Camera';
-import type { IControlsConfig, IControlsFactory, IControlsRegistry, IOrbitControlsWrapper } from '@/Engine/Domains/Controls';
+import type { IControlsFactory, IControlsRegistry, IOrbitControlsConfig, IOrbitControlsWrapper } from '@/Engine/Domains/Controls';
 import { ControlsFactory, ControlsRegistry } from '@/Engine/Domains/Controls';
 import type { IDataTexture } from '@/Engine/Domains/EnvMap';
 import { envMapService } from '@/Engine/Domains/EnvMap';
@@ -86,7 +86,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const controlsRegistry: IControlsRegistry = ControlsRegistry();
   const controlsEntityCreatedSubscription: Subscription = controlsFactory.entityCreated$.subscribe((controls: IOrbitControlsWrapper): void => controlsRegistry.add(controls));
   controls.forEach(
-    (control: IControlsConfig): IOrbitControlsWrapper =>
+    (control: IOrbitControlsConfig): IOrbitControlsWrapper =>
       controlsFactory.create(controlsFactory.configToParams({ ...control, tags: [...control.tags, CommonTag.FromConfig] }, { cameraRegistry, canvas }))
   );
   messages$.next(`Controls (${controls.length}) created`);

@@ -1,6 +1,6 @@
 import type { IActorConfig } from '@/Engine/Domains/Actor';
 import type { ICameraConfig } from '@/Engine/Domains/Camera';
-import type { IControlsConfig } from '@/Engine/Domains/Controls';
+import type { IOrbitControlsConfig } from '@/Engine/Domains/Controls';
 import type { LevelTag } from '@/Engine/Domains/Level/Constants';
 import type { ILightConfig } from '@/Engine/Domains/Light';
 import type { ISceneConfig } from '@/Engine/Domains/Scene';
@@ -16,7 +16,7 @@ export type ILevelConfig = Readonly<{
   cameras: ReadonlyArray<ICameraConfig>;
   lights: ReadonlyArray<ILightConfig>;
   texts: ReadonlyArray<ITextConfig>;
-  controls: ReadonlyArray<IControlsConfig>;
+  controls: ReadonlyArray<IOrbitControlsConfig>;
   envMaps: ReadonlyArray<string>;
 }> &
   IWithReadonlyTags<LevelTag>;

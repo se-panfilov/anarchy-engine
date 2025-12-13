@@ -12,20 +12,14 @@ export function OrbitControlsWrapper(params: IOrbitControlsParams): IOrbitContro
     entity.update();
   }
 
+  // eslint-disable-next-line functional/immutable-data
+  const setDamping = (isEnabled: boolean): void => void (entity.enableDamping = isEnabled);
+
   if (params.enableDamping) setDamping(params.enableDamping);
 
-  function update(): void {
-    entity.update();
-  }
+  const update = (): boolean => entity.update();
 
-  function setDamping(isEnabled: boolean): void {
-    // eslint-disable-next-line functional/immutable-data
-    entity.enableDamping = isEnabled;
-  }
-
-  function getDampingState(): boolean {
-    return entity.enableDamping;
-  }
+  const getDampingState = (): boolean => entity.enableDamping;
 
   function enable(): void {
     // eslint-disable-next-line functional/immutable-data
@@ -33,22 +27,18 @@ export function OrbitControlsWrapper(params: IOrbitControlsParams): IOrbitContro
     entity.update();
   }
 
-  function disable(): void {
-    // eslint-disable-next-line functional/immutable-data
-    entity.enabled = false;
-  }
+  // eslint-disable-next-line functional/immutable-data
+  const disable = (): void => void (entity.enabled = false);
 
   function setTarget(position: IVector3Wrapper): void {
     entity.target.set(position.getX(), position.getY(), position.getZ());
     entity.update();
   }
 
-  function setAutoRotate(isEnabled: boolean): void {
-    // eslint-disable-next-line functional/immutable-data
-    entity.autoRotate = isEnabled;
-  }
+  // eslint-disable-next-line functional/immutable-data
+  const setAutoRotate = (isEnabled: boolean): void => void (entity.autoRotate = isEnabled);
 
   // eslint-disable-next-line functional/immutable-data
-  if (isDefined(params.damping)) entity.enableDamping = params.damping;
+  if (isDefined(params.enableDamping)) entity.enableDamping = params.enableDamping;
   return { ...AbstractWrapper(entity, WrapperType.Controls, params), update, setDamping, getDampingState, enable, disable, setTarget, setAutoRotate, entity };
 }

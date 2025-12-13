@@ -1,10 +1,13 @@
 import type { IGetParamsFn } from '@/Engine/Domains/Abstract';
 import type { ICameraWrapper } from '@/Engine/Domains/Camera';
-import type { IAdditionalControlsConfigParams, IControlsConfig, IControlsParams } from '@/Engine/Domains/Controls/Models';
+import type { IAdditionalControlsConfigParams, IOrbitControlsConfig, IOrbitControlsParams } from '@/Engine/Domains/Controls/Models';
 import { IControlsType } from '@/Engine/Domains/Controls/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
-export const configToParams: IGetParamsFn<IControlsParams, IControlsConfig> = (config: IControlsConfig, { cameraRegistry, canvas }: IAdditionalControlsConfigParams): IControlsParams => {
+export const configToParams: IGetParamsFn<IOrbitControlsParams, IOrbitControlsConfig> = (
+  config: IOrbitControlsConfig,
+  { cameraRegistry, canvas }: IAdditionalControlsConfigParams
+): IOrbitControlsParams => {
   const { type, cameraTag, tags } = config;
 
   if (type !== IControlsType.OrbitControls) throw new Error(`Cannot create controls of unknown type "${type as string}"`);

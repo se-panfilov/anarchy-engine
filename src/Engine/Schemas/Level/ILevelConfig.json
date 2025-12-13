@@ -58,7 +58,7 @@
     "controls": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/IControlsConfig"
+        "$ref": "#/definitions/IOrbitControlsConfig"
       }
     },
     "envMaps": {
@@ -2458,7 +2458,7 @@
       "type": "string",
       "enum": ["normal", "bold"]
     },
-    "IControlsConfig": {
+    "IOrbitControlsConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -2561,7 +2561,7 @@
     },
     "ControlsTag": {
       "type": "string",
-      "const": "initial"
+      "enum": ["initial", "orbit"]
     },
     "IControlsType": {
       "type": "string",

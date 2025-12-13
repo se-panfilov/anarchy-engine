@@ -1,6 +1,6 @@
 import type { IVector3 } from '@/Engine/Wrappers';
 
-export type IControlsProps = Readonly<{
+export type IOrbitControlsProps = Readonly<{
   enabled?: boolean;
   target?: IVector3;
   cursor?: IVector3;

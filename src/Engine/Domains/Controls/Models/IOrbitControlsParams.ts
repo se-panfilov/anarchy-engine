@@ -1,10 +1,13 @@
-import type { IVector3 } from '@/Engine/Wrappers';
+import type { IAppCanvas } from '@/Engine/Domains/App';
+import type { ICameraWrapper } from '@/Engine/Domains/Camera';
+import type { ControlsTag } from '@/Engine/Domains/Controls/Constants';
+import type { IWithReadonlyTags } from '@/Engine/Mixins';
 
-import type { IControlsParams } from './IControlsParams';
+import type { IOrbitControlsProps } from './IOrbitControlsProps';
 
-export type IOrbitControlsParams = IControlsParams &
+export type IOrbitControlsParams = IOrbitControlsProps &
   Readonly<{
-    target?: IVector3;
-    damping?: boolean;
-    autoRotate?: boolean;
-  }>;
+    camera: ICameraWrapper;
+    canvas: IAppCanvas;
+  }> &
+  IWithReadonlyTags<ControlsTag>;
