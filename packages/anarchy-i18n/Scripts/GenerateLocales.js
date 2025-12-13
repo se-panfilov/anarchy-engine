@@ -1,17 +1,10 @@
-#!/usr/bin/env node
-/* Generates i18n/locales.gen.ts from i18n/locales.config.ts
- * Usage:  tsx tools/generate-locales.ts
- * Output: i18n/locales.gen.ts  (ALL_LOCALES)
- */
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
 
-// Resolve project root
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 
-// Load config (ESM import)
 const { Locales } = await import(path.join(ROOT, 'Scripts', 'locales.config.js'));
 
 const isScript = (sub) => /^[A-Z][a-z]{3}$/.test(sub); // Latn, Cyrl, Hans, Hant...
@@ -131,7 +124,17 @@ const toTs = (l) => {
   return json;
 };
 
-const body = `export const ALL_LOCALES = [\n${locales.map((l) => '  ' + toTs(l)).join(',\n')}\n];\n\n`;
+function kebabToCamel(input) {
+  if (!input.includes('-')) return input;
+
+  return input
+    .toLowerCase()
+    .split('-')
+    .map((part, index) => (index === 0 ? part : part.charAt(0).toUpperCase() + part.slice(1)))
+    .join('');
+}
+
+const body = `${locales.map((l) => `export const ${kebabToCamel(l.id)} =  ` + toTs(l)).join(';\n\n')};\n\n`;
 
 await fs.mkdir(path.dirname(outPath), { recursive: true });
 await fs.writeFile(outPath, header + body, 'utf8');
