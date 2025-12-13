@@ -27,6 +27,7 @@ Roadmap:
 - 21.4.x npm package and a repo
 - 22.0.x Shaders
 - 23.x.x Save/Load
+- 24.x.x Postprocessing
 
 Global Refactoring:
 - feels like env map is not async at all (check for extra "await", and compare with vanilla env map loading)
