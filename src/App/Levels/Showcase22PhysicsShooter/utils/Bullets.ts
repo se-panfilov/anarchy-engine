@@ -1,7 +1,7 @@
 import { MathUtils, Vector3 } from 'three';
 
 import type { TActorParams, TActorService, TActorWrapperAsync, TWithCoordsXYZ } from '@/Engine';
-import { ActorType, isDefined, MaterialType, mpsSpeed, Vector3Wrapper } from '@/Engine';
+import { ActorType, collisionsService, isDefined, MaterialType, mpsSpeed, Vector3Wrapper } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 export type TBullet = TActorWrapperAsync &
@@ -18,6 +18,7 @@ export type TBullet = TActorWrapperAsync &
     isActive: () => boolean;
     setSpeed: (speed: number) => void;
     getSpeed: () => number;
+    reset: () => void;
     update: (delta: number) => void;
   }>;
 
@@ -78,6 +79,16 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
   const setSpeed = (s: number): void => void (speed = s);
   const getSpeed = (): number => speed;
 
+  function reset(): void {
+    actor.setPosition(Vector3Wrapper({ x: 0, y: 0, z: 0 }));
+    setDirection(0);
+    setElevation(0);
+    setDistanceTraveled(0);
+    setActive(false);
+    actor.entity.visible = false;
+    collisionsService.updateObjectInGrid(actor.entity);
+  }
+
   function update(delta: number): void {
     if (isActive()) {
       const azimuthRadians: number = MathUtils.degToRad(getDirection());
@@ -92,13 +103,14 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
 
       setDistanceTraveled(getDistanceTraveled() + mpsSpeed(speed, delta));
 
-      // const collision = checkCollision(bullet);
-      // if (collision) {
-      //   console.log('Hit detected', collision);
-      //   resetBullet(bullet);
-      // } else if (bullet.distanceTraveled > maxDistance) {
-      //   resetBullet(bullet);
-      // }
+      const collisionCheckRadius: number = meters(5);
+      const collision = collisionsService.checkCollision(actor.entity, collisionCheckRadius);
+      if (collision) {
+        console.log('Hit detected', collision);
+        // reset(actor);
+        // } else if (actor.position.distanceTo(actor.startPosition) > maxDistance) {
+        //   resetBullet(actor);
+      }
     }
   }
 
@@ -116,6 +128,7 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
     isActive,
     setSpeed,
     getSpeed,
+    reset,
     update
   };
 }
