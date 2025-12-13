@@ -1,8 +1,8 @@
 import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import { getRotationByCos, getRotationBySin, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, CameraTag, isDefined, isNotDefined } from '@/Engine';
+import type { IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
+import { ambientContext, buildLevelFromConfig, CameraTag, getRotationByCos, getRotationBySin, isDefined, isNotDefined } from '@/Engine';
 
 import levelConfig from './showcase-level-3.config.json';
 
