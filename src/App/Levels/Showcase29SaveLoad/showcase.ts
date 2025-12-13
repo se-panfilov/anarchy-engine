@@ -66,7 +66,7 @@ function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>)
   // eslint-disable-next-line functional/immutable-data
   subscriptions[`serializationInProgress$_${space.name}`] = space.serializationInProgress$.subscribe((isInProgress: boolean): void => setSpaceReady(!isInProgress));
 
-  // eslint-disable-next-line functional/immutable-data
+  // eslint-disable-next-line functional/immutable-data, functional/prefer-tacit
   subscriptions[`start$_${space.name}`] = space.start$.subscribe((isStarted: boolean): void => setSpaceReady(isStarted));
 
   currentSpaceName = space.name;
