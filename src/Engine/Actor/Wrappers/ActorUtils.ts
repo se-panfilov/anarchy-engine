@@ -3,11 +3,14 @@ import { BoxGeometry, Mesh, PlaneGeometry, SphereGeometry } from 'three';
 import type { TActorDependencies, TActorParams } from '@/Engine/Actor/Models';
 import type { TMaterials, TMaterialWrapper } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
-import type { TModel3dPack } from '@/Engine/Models3d';
-import { Model3dType } from '@/Engine/Models3d';
+import type { TModel3dFacade, TModel3dPack } from '@/Engine/Models3d';
+import { Model3dFacade, Model3dType } from '@/Engine/Models3d';
 import { isDefined } from '@/Engine/Utils';
 
-export async function createActorModel3d(params: TActorParams, { materialTextureService }: Pick<TActorDependencies, 'materialTextureService'>): Promise<TModel3dPack> | never {
+export async function createActorModel3d(
+  params: TActorParams,
+  { materialTextureService, models3dService }: Pick<TActorDependencies, 'materialTextureService' | 'models3dService'>
+): Promise<TModel3dFacade> | never {
   // TODO AWAIT: could speed up by not awaiting material loading (return promise of an actor)
   const materialWrapper: TMaterialWrapper = await materialTextureService.createAsync(params.material);
 
@@ -22,7 +25,7 @@ export async function createActorModel3d(params: TActorParams, { materialTexture
   if ((params.model3d.url as Model3dType) === Model3dType.Plane) result = { ...result, model: createPlane(params, materialWrapper.entity) };
   else if ((params.model3d.url as Model3dType) === Model3dType.Sphere) result = { ...result, model: createSphere(params, materialWrapper.entity) };
   else if ((params.model3d.url as Model3dType) === Model3dType.Cube) result = { ...result, model: createCube(params, materialWrapper.entity) };
-  return result;
+  return Model3dFacade(result, models3dService.getAnimationService());
 }
 
 function createPlane({ width, height, widthSegments, heightSegments }: TActorParams, material: TMaterials): Mesh {

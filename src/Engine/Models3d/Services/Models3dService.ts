@@ -38,7 +38,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     }
 
     return models3dLoader.loadAsync(url).then((gltf: GLTF): TPerformLoadResult => {
-      return { result: Model3dFacade({ url, options, model: gltf.scene, animations: animationsService.gltfAnimationsToPack(gltf.animations) }), isExisting: false };
+      return { result: Model3dFacade({ url, options, model: gltf.scene, animations: animationsService.gltfAnimationsToPack(gltf.animations) }, animationsService), isExisting: false };
     });
   }
 
@@ -79,6 +79,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     added$: added$.asObservable(),
     getRegistry: (): TModels3dAsyncRegistry => registry,
     getScene: (): TSceneWrapper => sceneW,
+    getAnimationService: (): TAnimationsService => animationsService,
     ...destroyable
   };
 }
