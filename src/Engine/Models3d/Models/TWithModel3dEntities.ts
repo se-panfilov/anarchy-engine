@@ -1,9 +1,11 @@
-import type { AnimationClip, AnimationMixer, Group, Mesh, Object3D } from 'three';
+import type { AnimationClip, AnimationMixer } from 'three';
 
 import type { TAnimationActions } from '@/Engine/Animations/Models';
 
+import type { TRawModel } from './TRawModel';
+
 export type TWithModel3dEntities = Readonly<{
-  getRawModel3d: () => Group | Mesh | Object3D;
+  getRawModel3d: () => TRawModel;
   getAnimations: () => ReadonlyArray<AnimationClip>;
   getMixer: () => AnimationMixer;
   getActions: () => TAnimationActions;

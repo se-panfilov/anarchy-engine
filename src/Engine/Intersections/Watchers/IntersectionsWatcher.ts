@@ -7,11 +7,12 @@ import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TIntersectionEvent, TIntersectionsWatcher, TIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
+import type { TRawModel } from '@/Engine/Models3d';
 import type { TMousePosition } from '@/Engine/Mouse';
 import { getNormalizedMousePosition } from '@/Engine/Mouse';
 import type { TSceneObject } from '@/Engine/Scene';
 import type { TWriteable } from '@/Engine/Utils';
-import { isDefined, isNotDefined, unWrapEntities } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...rest }: TIntersectionsWatcherParams): TIntersectionsWatcher {
   const abstractWatcher: TAbstractWatcher<TIntersectionEvent> = AbstractWatcher(WatcherType.IntersectionWatcher, name, tags);
@@ -36,7 +37,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
       const intersection: TIntersectionEvent | undefined = getIntersection(
         new Vector2(position.coords.x, position.coords.y),
         camera,
-        unWrapEntities(actors).map((e) => e.getRawModel3d())
+        actors.map((a: TActor): TRawModel => a.model3d.model3d.getRawModel3d())
       );
       if (isDefined(intersection)) abstractWatcher.value$.next(intersection);
     });

@@ -14,5 +14,6 @@ export * from './TModels3dFactory';
 export * from './TModels3dLoader';
 export * from './TModels3dService';
 export * from './TModels3dServiceDependencies';
+export * from './TRawModel';
 export * from './TWithModel3d';
 export * from './TWithModel3dEntities';

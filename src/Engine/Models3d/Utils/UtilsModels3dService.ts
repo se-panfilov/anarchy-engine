@@ -1,6 +1,7 @@
 import type { Euler, Group, Mesh, Object3D, Object3DEventMap } from 'three';
 import type { Vector3 } from 'three/src/math/Vector3';
 
+import type { TRawModel } from '@/Engine/Models3d/Models';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
 
@@ -16,11 +17,9 @@ export function applyObject3dParamsToModel3d(model3d: Group | Mesh | Object3D, {
   if (isDefined(renderOrder)) applyWithTraverseToModel3d(model3d, 'renderOrder', renderOrder);
 }
 
-type TModelOrGroup = Group | Mesh | Object3D;
-
 type TValueType<T, K extends keyof T> = K extends keyof T ? T[K] : never;
 
-function applyWithTraverseToModel3d<K extends keyof TModelOrGroup>(model: TModelOrGroup, name: K, value: TValueType<TModelOrGroup, K>): void {
+function applyWithTraverseToModel3d<K extends keyof TRawModel>(model: TRawModel, name: K, value: TValueType<TRawModel, K>): void {
   model.traverse((object: Mesh | Group | Object3D<Object3DEventMap>) => {
     // eslint-disable-next-line functional/immutable-data
     if (isDefined(object[name])) object[name] = value;
