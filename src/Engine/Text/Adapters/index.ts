@@ -1,1 +1,1 @@
-export * from './TextConfigAdapter';
+export * from './ConfigToParams';
