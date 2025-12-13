@@ -1,17 +1,17 @@
 import type { BehaviorSubject } from 'rxjs';
 
-import type { TAbstractResourceConfig } from '@/Engine/Abstract';
+import type { TAbstractHooks, TAbstractResourceConfig } from '@/Engine/Abstract';
 import type { TWithCreateAsync } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 
-export type TWithCreateService<W, P> = Readonly<{
-  create: (params: P) => W;
+export type TWithCreateService<W, P, H extends TAbstractHooks = undefined> = Readonly<{
+  create: (params: P, hooks?: H) => W;
 }>;
 
 export type TWithCreateAsyncService<W, P, D> = TWithCreateAsync<W, P, D>;
 
-export type TWithCreateFromConfigService<C, T> = Readonly<{
-  createFromConfig: (config: ReadonlyArray<C>) => ReadonlyArray<T>;
+export type TWithCreateFromConfigService<C, T, H extends TAbstractHooks = undefined> = Readonly<{
+  createFromConfig: (config: ReadonlyArray<C>, hooks?: H) => ReadonlyArray<T>;
 }>;
 
 export type TWithCreateFromConfigAsyncService<C, R> = Readonly<{
