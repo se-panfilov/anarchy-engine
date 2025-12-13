@@ -94,6 +94,7 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
     actorW.setPosition(Vector3Wrapper({ x: 0, y: 0, z: 0 }));
     actorW.kinematic.setLinearAzimuthRad(0);
     actorW.kinematic.setLinearElevationRad(0);
+    actorW.kinematic.setLinearSpeed(0);
     setDistanceTraveled(0);
     setActive(false);
     // eslint-disable-next-line functional/immutable-data
