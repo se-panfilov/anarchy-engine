@@ -7,7 +7,8 @@
         "model3dSource": "sphere_1_model",
         "name": "actor_1",
         "physics": {
-          "presetName": "ball_physics",
+          "collisionShape": "ball",
+          "type": "dynamic",
           "shapeParams": {
             "radius": 1
           }
@@ -27,7 +28,8 @@
         "model3dSource": "cube_1_model",
         "name": "actor_2",
         "physics": {
-          "presetName": "box_physics",
+          "collisionShape": "cuboid",
+          "type": "dynamic",
           "shapeParams": {
             "hx": 0.5,
             "hy": 2,
@@ -54,7 +56,8 @@
         "model3dSource": "cube_2_model",
         "name": "actor_3",
         "physics": {
-          "presetName": "box_physics",
+          "collisionShape": "cuboid",
+          "type": "dynamic",
           "shapeParams": {
             "hx": 0.5,
             "hy": 2,
@@ -182,19 +185,7 @@
           "y": -9.81,
           "z": 0
         }
-      },
-      "presets": [
-        {
-          "collisionShape": "ball",
-          "name": "ball_physics",
-          "type": "dynamic"
-        },
-        {
-          "collisionShape": "cuboid",
-          "name": "box_physics",
-          "type": "dynamic"
-        }
-      ]
+      }
     },
     "renderers": [
       {

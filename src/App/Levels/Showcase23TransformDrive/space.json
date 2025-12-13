@@ -7,12 +7,13 @@
         "model3dSource": "surface_model",
         "name": "surface_actor",
         "physics": {
-          "presetName": "wall_physics",
+          "collisionShape": "cuboid",
           "shapeParams": {
             "hx": 50,
             "hy": 50,
             "hz": 0.025
-          }
+          },
+          "type": "fixed"
         },
         "position": {
           "x": 0,
@@ -34,12 +35,13 @@
         "model3dSource": "box_model_1",
         "name": "box_actor_1",
         "physics": {
-          "presetName": "wall_physics",
+          "collisionShape": "cuboid",
           "shapeParams": {
             "hx": 10,
             "hy": 10,
             "hz": 1
-          }
+          },
+          "type": "fixed"
         },
         "position": {
           "x": 0,
@@ -61,12 +63,13 @@
         "model3dSource": "box_model_2",
         "name": "box_actor_2",
         "physics": {
-          "presetName": "wall_physics",
+          "collisionShape": "cuboid",
           "shapeParams": {
             "hx": 1,
             "hy": 1,
             "hz": 20
-          }
+          },
+          "type": "fixed"
         },
         "position": {
           "x": 20,
@@ -276,25 +279,7 @@
           "y": -9.81,
           "z": 0
         }
-      },
-      "presets": [
-        {
-          "collisionShape": "cuboid",
-          "name": "wall_physics",
-          "type": "fixed"
-        },
-        {
-          "collisionShape": "ball",
-          "name": "ball_physics",
-          "type": "dynamic"
-        },
-        {
-          "collisionShape": "cuboid",
-          "name": "box_physics",
-          "restitution": 0.1,
-          "type": "dynamic"
-        }
-      ]
+      }
     },
     "renderers": [
       {

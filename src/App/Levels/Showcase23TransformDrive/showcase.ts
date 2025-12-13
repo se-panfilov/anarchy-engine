@@ -30,6 +30,7 @@ import type {
 } from '@/Engine';
 import {
   asRecord,
+  CollisionShape,
   ControlsType,
   degrees,
   ForwardAxis,
@@ -44,6 +45,7 @@ import {
   meters,
   metersPerSecond,
   radians,
+  RigidBodyTypesNames,
   spaceService,
   TextType,
   TransformAgent
@@ -125,7 +127,8 @@ export async function showcase(space: TSpace): Promise<void> {
 
   const actorCoords = new Vector3(0, actorsOffsetY, 0);
   const sphereActorPhysics: TWithPresetNamePhysicsBodyParams = {
-    presetName: 'ball_physics',
+    collisionShape: CollisionShape.Ball,
+    type: RigidBodyTypesNames.Dynamic,
     shapeParams: {
       radius: 0.7
     },

@@ -33,12 +33,13 @@
         "model3dSource": "cube_1_model",
         "name": "actor_2",
         "physics": {
-          "presetName": "box_physics",
+          "collisionShape": "cuboid",
           "shapeParams": {
             "hx": 0.5,
             "hy": 2,
             "hz": 0.5
-          }
+          },
+          "type": "dynamic"
         },
         "position": {
           "x": -4,
@@ -182,14 +183,7 @@
           "y": -1,
           "z": 0
         }
-      },
-      "presets": [
-        {
-          "collisionShape": "cuboid",
-          "name": "box_physics",
-          "type": "dynamic"
-        }
-      ]
+      }
     },
     "renderers": [
       {

@@ -7,12 +7,16 @@
         "model3dSource": "surface_model",
         "name": "surface",
         "physics": {
-          "presetName": "box_physics",
+          "collisionShape": "cuboid",
+          "friction": 0.5,
+          "mass": 1,
+          "restitution": 0,
           "shapeParams": {
             "hx": 100,
             "hy": 100,
             "hz": 0.025
-          }
+          },
+          "type": "fixed"
         },
         "position": {
           "x": 0,
@@ -609,17 +613,7 @@
           "y": -9.81,
           "z": 0
         }
-      },
-      "presets": [
-        {
-          "collisionShape": "cuboid",
-          "friction": 0.5,
-          "mass": 1,
-          "name": "box_physics",
-          "restitution": 0,
-          "type": "fixed"
-        }
-      ]
+      }
     },
     "renderers": [
       {
