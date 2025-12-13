@@ -17,8 +17,8 @@ export function SettingsService(app: App, { filesService, windowService }: TSett
   const getAppSettings = async (): Promise<TShowcaseGameSettings> => {
     try {
       return await filesService.readFileAsJson(appSettingsFileName, userDataFolder, isSettings);
-    } catch {
-      console.log(`[DESKTOP] Settings file ("${appSettingsFileName}") not found in : ${userDataFolder}. Applying default settings.`);
+    } catch (e) {
+      console.warn(`[DESKTOP] Cannot read settings file ("${appSettingsFileName}") from : ${userDataFolder}. Damaged or not existed. Applying default settings. Error: ${(e as Error).message}`);
       const settings: TShowcaseGameSettings = buildDefaultSettings();
       await setAppSettings(settings);
       return settings;

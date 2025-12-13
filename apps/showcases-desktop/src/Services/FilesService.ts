@@ -1,6 +1,7 @@
 import { mkdir, open, readFile, rename, rm } from 'node:fs/promises';
 import * as path from 'node:path';
 
+import { validateJson } from '@Anarchy/Shared/Utils';
 import type { AllowedSystemFolders } from '@Showcases/Desktop/Constants';
 import { AllowedAppFolders } from '@Showcases/Desktop/Constants';
 import type { TFilesService } from '@Showcases/Desktop/Models';
@@ -51,6 +52,7 @@ export function FilesService(app: App): TFilesService {
   // TODO DESKTOP: add basic sanitize/validation
   async function readFileAsJson<T>(fileName: string, dir: AllowedSystemFolders | AllowedAppFolders, validator?: (v: unknown) => v is T): Promise<T> | never {
     const content: string = await readTextFile(fileName, dir);
+    validateJson(content);
     const parsed = JSON.parse(content);
 
     if (validator && !validator(parsed)) throw new Error(`[DESKTOP] Invalid JSON structure in "${fileName}"`);
