@@ -1,5 +1,5 @@
 import type { ActorType } from '@/Engine/Actor/Constants';
-import type { IMaterialTexturePack } from '@/Engine/Texture';
+import type { IMaterialProps } from '@/Engine/Material';
 
 export type IActorProps = Readonly<{
   type: ActorType;
@@ -11,5 +11,5 @@ export type IActorProps = Readonly<{
   heightSegments?: number;
   depthSegments?: number;
   castShadow: boolean;
-  textures: IMaterialTexturePack;
+  material: IMaterialProps;
 }>;
