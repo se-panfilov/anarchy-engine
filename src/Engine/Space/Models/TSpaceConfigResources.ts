@@ -2,7 +2,7 @@ import type { TAbstractResourceConfig } from '@/Engine/Abstract';
 import type { TEnvMapResourceConfig } from '@/Engine/EnvMap';
 import type { TMaterialConfig } from '@/Engine/Material';
 import type { TModel3dConfig } from '@/Engine/Models3d';
-import type { TTexturePackConfig } from '@/Engine/Texture';
+import type { TTextureResourceConfig } from '@/Engine/Texture';
 
 export type TSpaceConfigResources = Readonly<{
   envMapTextures: ReadonlyArray<TEnvMapResourceConfig>;
@@ -10,5 +10,5 @@ export type TSpaceConfigResources = Readonly<{
   materials: ReadonlyArray<TMaterialConfig>;
   models3d: ReadonlyArray<TModel3dConfig>;
   particlesTextures: ReadonlyArray<TAbstractResourceConfig>;
-  textures: ReadonlyArray<TTexturePackConfig>;
+  textures: ReadonlyArray<TTextureResourceConfig>;
 }>;

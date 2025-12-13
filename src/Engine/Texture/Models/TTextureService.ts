@@ -13,7 +13,7 @@ import type {
 } from '@/Engine/MaterialTexturePack/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithLoadResourcesAsyncService, TWithRegistryService } from '@/Engine/Space';
-import type { TTextureLoadedPack, TTexturePackConfig, TTexturePackParams } from '@/Engine/Texture';
+import type { TTextureLoadedPack, TTexturePackParams, TTextureResourceConfig } from '@/Engine/Texture';
 
 import type { TTextureAsyncRegistry } from './TTextureAsyncRegistry';
 import type { TTextureFactory } from './TTextureFactory';
@@ -54,12 +54,12 @@ export type TStandardMaterialTextureService = TWithStandardMaterialTextureLoader
 
 // TODO 9.0.0. RESOURCES: Guess instead of "TTextureLoadedPack" should be a wrapper?
 export type TTextureService = TWithCreateService<TTextureLoadedPack, TTexturePackParams> &
-  TWithCreateFromConfigService<TTexturePackConfig> &
+  TWithCreateFromConfigService<TTextureResourceConfig> &
   TWithFactoryService<TTextureFactory> &
   TWithRegistryService<TTextureAsyncRegistry> &
   // TODO 9.0.0. RESOURCES: do we need resources registry?
   // TWithResourcesRegistryService<TTextureAsyncRegistry> &
-  TWithLoadResourcesAsyncService<TTexturePackConfig, TTextureLoadedPack> &
+  TWithLoadResourcesAsyncService<TTextureResourceConfig, TTextureLoadedPack> &
   TDestroyable &
   (
     | TBasicMaterialTextureService

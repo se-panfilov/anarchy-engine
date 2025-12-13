@@ -1,5 +1,5 @@
-import type { TTexturePackConfig, TTexturePackParams } from '@/Engine/Texture/Models';
+import type { TTexturePackParams, TTextureResourceConfig } from '@/Engine/Texture/Models';
 
-export function configToParams(config: TTexturePackConfig): TTexturePackParams {
+export function configToParams(config: TTextureResourceConfig): TTexturePackParams {
   return { ...config };
 }
