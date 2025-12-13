@@ -19,11 +19,11 @@ export default defineConfig({
     alias: {
       ...sharedAliases,
       '@Desktop': path.resolve(__dirname, './src'),
-      showcases_shared: path.resolve(__dirname, '../../packages/showcases-shared/src')
+      '@ShowcasesShared': path.resolve(__dirname, '../../packages/showcases-shared/src')
     }
   },
   build: {
-    emptyOutDir: false, // Do not empty outDir, we build electron-main.ts first there
+    emptyOutDir: false, // Do not empty outDir, we build desktop-main.ts first there
     lib: {
       entry: './preload.ts',
       formats: ['cjs'], //prebuild.ts must be CommonJs module in the current electron version (otherwise we can get rid of Vite here)

@@ -4,7 +4,7 @@ import path from 'path';
 import { sharedAliases } from '../../vite.alias';
 import { version } from './package.json';
 
-// Frankly, we can build electron-main.ts without Vite (just with tsc).
+// Frankly, we can build desktop-main.ts without Vite (just with tsc).
 // But imports are such a pain, so it's easier to use a bundler.
 export default defineConfig({
   define: {
@@ -21,9 +21,9 @@ export default defineConfig({
   build: {
     emptyOutDir: false, // Do not empty outDir, we build app there first
     lib: {
-      entry: './src/electron-main.ts',
+      entry: './src/desktop-main.ts',
       formats: ['es'],
-      fileName: (): string => 'electron-main.js'
+      fileName: (): string => 'desktop-main.js'
     },
     minify: false,
     outDir: 'dist',
