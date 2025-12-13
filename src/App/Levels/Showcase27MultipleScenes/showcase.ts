@@ -24,9 +24,11 @@ export function start(): void {
 
   addBtn('Start Alpha', (): void => spaceAlpha.start$.next(true));
   addBtn('Stop Alpha', (): void => spaceAlpha.start$.next(false));
+  addBtn('Destroy Alpha', (): void => spaceAlpha.destroy$.next());
 
   addBtn('Start Beta', (): void => spaceBeta.start$.next(true));
   addBtn('Stop Beta', (): void => spaceBeta.start$.next(false));
+  addBtn('Destroy Beta', (): void => spaceBeta.destroy$.next());
 }
 
 let currentSpaceId: string | undefined = undefined;
