@@ -55,6 +55,8 @@ function validateCommonRegistryBehavior<T extends TRegistrable>(registry: TAbstr
     });
     expect(isFound).toBe(true);
   });
+
+  validateModificationApplies(registry, getEntity, addFn);
 }
 
 export function validateEntityRegistryReturnsOriginalObjects<T extends TRegistrable>(registry: TAbstractEntityRegistry<T>, createEntity: () => T): void {
@@ -283,6 +285,60 @@ export function validateEntityAsyncRegistryReturnsOriginalObjects<T extends TReg
     });
 
     validateCommonRegistryBehavior(registry as any, createEntity, (r: TAbstractAsyncRegistry<T>, e: T): void => r.add(e));
+  });
+}
+
+function validateModificationApplies<T extends TRegistrable & { fieldA?: string; fieldB?: string }>(
+  registry: TAbstractSimpleRegistry<T>,
+  getEntity: () => T,
+  addFn: (registry: any, entity: T) => void
+): void {
+  let entity: T;
+
+  beforeEach(() => {
+    entity = getEntity();
+    addFn(registry, entity);
+  });
+
+  afterEach(() => registry.clear());
+
+  it('should modify the original in registry map', () => {
+    // setup
+    const fieldAValue: string = 'modified_A_' + nanoid();
+    const fieldBValue: string = 'modified_B_' + nanoid();
+
+    const found: T | undefined = registry.find((e: T): boolean => e.id === entity.id);
+    expect(found).not.toBeUndefined();
+    expectSame(found, entity);
+
+    // execute
+    // eslint-disable-next-line functional/immutable-data
+    (entity as T).fieldA = fieldAValue;
+
+    // check (1)
+    expect(found?.fieldA).not.toBeUndefined();
+    expect(found?.fieldA).toBe(fieldAValue);
+    expect(found?.fieldA).toBe((entity as T).fieldA);
+
+    // check (2)
+    const found2: T | undefined = registry.find((e: T): boolean => e.id === entity.id);
+    expect(found2).not.toBeUndefined();
+    expectSame(found2, entity);
+    expect(found2?.fieldA).not.toBeUndefined();
+    expect(found2?.fieldA).toBe(fieldAValue);
+    expect(found2?.fieldA).toBe((entity as T).fieldA);
+
+    // execute
+    // eslint-disable-next-line functional/immutable-data
+    (found as T).fieldB = fieldBValue;
+
+    // check (3)
+    expect(found?.fieldB).not.toBeUndefined();
+    expect(found?.fieldB).toBe(fieldBValue);
+    expect(found?.fieldB).toBe((entity as T).fieldB);
+    expect(found2?.fieldB).not.toBeUndefined();
+    expect(found2?.fieldB).toBe(fieldBValue);
+    expect(found2?.fieldB).toBe((entity as T).fieldB);
   });
 }
 
