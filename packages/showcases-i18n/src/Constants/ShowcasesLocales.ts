@@ -10,7 +10,7 @@ const font: string = getFontFamily('Noto Sans');
 // Full list of locales is based on packages/anarchy-i18n/src/Constants/Locales.gen.ts
 export const ShowcasesLocales: TShowcaseLocales = {
   // IMPORTANT!!!: NL uses a special font only for dev purposes.
-  // Remove it in production and clean up the code packages/showcases-shared/src/assets/_fonts.scss
+  // Remove it in production and clean up the code packages/showcases-i18n/src/assets/_fonts.scss
   'nl-NL': { ...nlNl, font: getFontFamily('LongCang') },
 
   // ===== UNIVERSAL LATIN + GREEK + CYRILLIC + VIETNAMESE =====

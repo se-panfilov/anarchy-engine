@@ -1,6 +1,6 @@
 # Third-Party Notices (Pointer)
 
-This distribution of **showcases-shared** may include **third-party components**.
+This distribution of **showcases-i18n** may include **third-party components**.
 
 Full attributions and license texts are provided **offline** at:
 

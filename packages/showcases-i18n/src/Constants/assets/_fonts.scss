@@ -17,7 +17,7 @@
 
 // IMPORTANT!!!: This font-face (LongCang) is used only for dev purposes (to see if font change actually works), no need on the real production.
 // Remove it (and the font file) when not needed.
-// Also remove it from fonts definition for the NL lang in packages/showcases-shared/src/Constants/ShowcasesLocales.ts
+// Also remove it from fonts definition for the NL lang in packages/showcases-i18n/src/Constants/ShowcasesLocales.ts
 @include font-face('LongCang', 'LongCang-Regular');
 
 // ===== UNIVERSAL LATIN + GREEK + CYRILLIC + VIETNAMESE =====
