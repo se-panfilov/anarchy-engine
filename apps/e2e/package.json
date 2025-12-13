@@ -9,7 +9,7 @@
     "before:release": "npm run before:release:check",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint && npm run e2e:with-clean",
     "e2e": "playwright test",
-    "e2e:clean-metadate": "node ../../packages/shared/ScriptUtils/PostprocessScreenshots.js",
+    "e2e:clean-metadate": "node ../../packages/anarchy-shared/ScriptUtils/PostprocessScreenshots.js",
     "e2e:debug": "PWDEBUG=1 npx playwright test",
     "e2e:debug:ui": "npx playwright test --ui",
     "e2e:headed": "npm run e2e -- --headed",
@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "anarchy-engine": "*",
-    "anarchy_engine_shared": "*",
+    "anarchy-shared": "*",
     "playwright": "1.53.1"
   },
   "devDependencies": {
