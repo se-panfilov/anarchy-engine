@@ -2,7 +2,7 @@ import type { RigidBody } from '@dimforge/rapier3d';
 import type { Vector } from '@dimforge/rapier3d/math';
 import { Euler, Quaternion, Vector3 } from 'three';
 
-import type { TKinematicData } from '@/Engine/Kinematic';
+import type { TKinematicState } from '@/Engine/Kinematic';
 import type { TRadians } from '@/Engine/Math';
 import { getDirectionFromAngularVelocity, getDirectionFromLinearVelocity, getSpeedFromAngularVelocity, getSpeedFromLinearVelocity } from '@/Engine/Math';
 import { VelocityType } from '@/Engine/Physics/Constants';
@@ -31,7 +31,7 @@ export function movePhysicsDynamicObjectByVelocity(rigidBody: RigidBody, type: V
   }
 }
 
-export function getKinematicDataFromPhysics(body: TPhysicsBody): TKinematicData {
+export function getKinematicDataFromPhysics(body: TPhysicsBody): TKinematicState {
   const rigidBody: RigidBody | undefined = body.getRigidBody();
   if (isNotDefined(rigidBody)) throw new Error('Cannot get movement info: rigid body is not defined');
   const linVel: Vector = rigidBody.linvel();

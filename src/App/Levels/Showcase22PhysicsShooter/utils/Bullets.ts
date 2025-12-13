@@ -85,7 +85,9 @@ export function getBulletsPool(
           spatial: { grid, isAutoUpdate: true, updatePriority: SpatialUpdatePriority.ASAP },
           collisions: { isAutoUpdate: true },
           kinematic: {
-            linearSpeed: metersPerSecond(5),
+            state: {
+              linearSpeed: metersPerSecond(5)
+            },
             isAutoUpdate: true
           },
           tags: [BULLET_TAG]

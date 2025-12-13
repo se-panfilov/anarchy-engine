@@ -1,4 +1,4 @@
-import type { TKinematicData } from '@/Engine/Kinematic';
+import type { TKinematicState } from '@/Engine/Kinematic';
 import type { TDestroyable } from '@/Engine/Mixins';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
 import type { TOptional } from '@/Engine/Utils';
@@ -18,5 +18,5 @@ export type TPhysicsBodyService = TWithCreateService<TPhysicsBody, TPhysicsBodyP
   Readonly<{
     createWithPreset: (params: TOptional<TPhysicsBodyParams>, preset: TPhysicsPresetParams) => TPhysicsBody | never;
     createWithPresetName: (params: TOptional<TPhysicsBodyParams>, presetName: string) => TPhysicsBody | never;
-    getKinematicDataFromPhysics: (body: TPhysicsBody) => TKinematicData;
+    getKinematicDataFromPhysics: (body: TPhysicsBody) => TKinematicState;
   }>;

@@ -24,10 +24,12 @@ export function getKinematicTransformAgent(params: TTransformAgentParams, kinema
 
 export function getKinematicWithDefaults(kinematic: TKinematicParams | undefined): TKinematicData {
   return {
-    linearSpeed: metersPerSecond(kinematic?.linearSpeed ?? 0),
-    linearDirection: kinematic?.linearDirection ?? new Vector3(),
-    angularSpeed: metersPerSecond(kinematic?.angularSpeed ?? 0),
-    angularDirection: kinematic?.angularDirection ?? new Quaternion()
+    state: {
+      linearSpeed: metersPerSecond(kinematic?.state?.linearSpeed ?? 0),
+      linearDirection: kinematic?.state?.linearDirection ?? new Vector3(),
+      angularSpeed: metersPerSecond(kinematic?.state?.angularSpeed ?? 0),
+      angularDirection: kinematic?.state?.angularDirection ?? new Quaternion()
+    }
   };
 }
 

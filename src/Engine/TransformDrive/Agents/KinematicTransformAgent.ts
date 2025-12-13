@@ -4,13 +4,14 @@ import type { QuaternionLike } from 'three';
 import { Euler, Quaternion, Vector3 } from 'three';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
-import type { TKinematicData } from '@/Engine/Kinematic/Models';
+import type { TKinematicData, TKinematicState, TKinematicTarget, TKinematicWritableData } from '@/Engine/Kinematic/Models';
 import type { TMeters, TMetersPerSecond, TMilliseconds, TRadians } from '@/Engine/Math';
-import { getAzimutFromQuaternionDirection, getAzimuthRadFromDirection, getElevationFromDirection, getElevationFromQuaternionDirection } from '@/Engine/Math';
+import { getAzimuthFromDirection, getElevationFromDirection } from '@/Engine/Math';
+import { radians } from '@/Engine/Measurements';
 import type { TReadonlyEuler, TReadonlyQuaternion } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TKinematicAgentDependencies, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
-import type { TWriteable } from '@/Engine/Utils';
+import { isDefined, isNotDefined, isQuaternionLike } from '@/Engine/Utils';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
 
@@ -18,7 +19,10 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
   const autoUpdate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.isAutoUpdate ?? false);
   const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Kinematic);
 
-  const rotationQuaternion$: BehaviorSubject<TReadonlyQuaternion> = new BehaviorSubject<TReadonlyQuaternion>(new Quaternion().setFromEuler(params.rotation));
+  const rotationQuaternion$: BehaviorSubject<TReadonlyQuaternion> = new BehaviorSubject<TReadonlyQuaternion>(
+    isQuaternionLike(params.rotation) ? new Quaternion().copy(params.rotation) : new Quaternion().setFromEuler(params.rotation)
+  );
+  // TODO 8.0.0. MODELS: Refactor abstractTransformAgent to use quaternions, so no need in this subscription
   const rotationQuaternionSub$: Subscription = rotationQuaternion$.pipe(map((q: TReadonlyQuaternion): TReadonlyEuler => new Euler().setFromQuaternion(q))).subscribe(abstractTransformAgent.rotation$);
 
   let kinematicSub$: Subscription | undefined = undefined;
@@ -36,24 +40,46 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     abstractTransformAgent.destroy$.next();
   });
 
-  const agent: Omit<TKinematicTransformAgent, 'data'> & Readonly<{ data: TWriteable<TKinematicData> }> = {
+  const agent: Omit<TKinematicTransformAgent, 'data'> & Readonly<{ data: TKinematicWritableData }> = {
     ...abstractTransformAgent,
     rotationQuaternion$,
     data: {
-      linearSpeed: params.linearSpeed ?? 0,
-      linearDirection: params.linearDirection?.clone() ?? new Vector3(),
-      angularSpeed: params.angularSpeed ?? 0,
-      angularDirection: params.angularDirection?.clone() ?? new Quaternion()
+      state: {
+        linearSpeed: params.state.linearSpeed ?? 0,
+        linearDirection: params.state.linearDirection?.clone() ?? new Vector3(),
+        angularSpeed: params.state.angularSpeed ?? 0,
+        angularDirection: params.state.angularDirection?.clone() ?? new Quaternion()
+      },
+      target: {
+        positionThreshold: 0.01,
+        position: undefined,
+        rotationThreshold: 0.0001,
+        rotation: undefined
+      }
     },
-    setData({ linearSpeed, linearDirection, angularSpeed, angularDirection }: TKinematicData): void {
+    setData({ state, target }: TKinematicData): void {
+      const { linearSpeed, linearDirection, angularSpeed, angularDirection } = state;
+      const { positionThreshold, position, rotationThreshold, rotation } = target ?? {};
+
       // eslint-disable-next-line functional/immutable-data
-      agent.data.linearSpeed = linearSpeed;
+      agent.data.state.linearSpeed = linearSpeed;
       // eslint-disable-next-line functional/immutable-data
-      agent.data.linearDirection.copy(linearDirection);
+      agent.data.state.linearDirection.copy(linearDirection);
       // eslint-disable-next-line functional/immutable-data
-      agent.data.angularSpeed = angularSpeed;
+      agent.data.state.angularSpeed = angularSpeed;
       // eslint-disable-next-line functional/immutable-data
-      agent.data.angularDirection.copy(angularDirection);
+      agent.data.state.angularDirection.copy(angularDirection);
+
+      if (isNotDefined(target)) return;
+
+      // eslint-disable-next-line functional/immutable-data
+      if (isDefined(positionThreshold)) agent.data.target.positionThreshold = positionThreshold;
+      // eslint-disable-next-line functional/immutable-data
+      agent.data.target.position = position;
+      // eslint-disable-next-line functional/immutable-data
+      if (isDefined(rotationThreshold)) agent.data.target.rotationThreshold = rotationThreshold;
+      // eslint-disable-next-line functional/immutable-data
+      agent.data.target.rotation = rotation;
     },
     getData(): TKinematicData {
       return agent.data;
@@ -62,70 +88,54 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     // TODO 8.0.0. MODELS: Refactor this code. It's working, but it's a mess atm.
     // TODO 8.0.0. MODELS: with showcase multiple "moveTo" in the same direction increases the speed, while opposite directions stopped the model
     moveTo(targetPosition: Vector3, speed: TMetersPerSecond): void {
-      const epsilon = 0.01;
+      if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
+      if (speed === 0) return agent.setLinearSpeed(0);
+
+      // eslint-disable-next-line functional/immutable-data
+      agent.data.target.position = targetPosition;
 
       // If the agent is already at the target, do not move
-      if (targetPosition.equals(abstractTransformAgent.position$.value)) {
-        agent.setLinearSpeed(0);
-        return;
-      }
+      if (targetPosition.equals(abstractTransformAgent.position$.value)) return agent.setLinearSpeed(0);
 
-      const direction: Vector3 = new Vector3();
-      const vectorToTarget = new Vector3();
-
-      direction.copy(targetPosition).sub(abstractTransformAgent.position$.value).normalize();
-      agent.setLinearDirection(direction);
+      agent.setLinearDirection(targetPosition.clone().sub(abstractTransformAgent.position$.value).normalize());
       agent.setLinearSpeed(speed);
 
-      // TODO 8.0.0. MODELS: Refactor this subscription.
-      const subscription = kinematicLoopService.tick$.subscribe((deltaTime: TMilliseconds) => {
-        // If the agent is already at the target, do not move
-        if (agent.getLinearSpeed() === 0) {
-          subscription.unsubscribe();
-          return;
-        }
-
-        const currentPosition = abstractTransformAgent.position$.value;
-        vectorToTarget.copy(targetPosition).sub(currentPosition);
-
-        const distanceSquared = vectorToTarget.lengthSq();
-
-        // If the agent is close enough to the target, stop the agent
-        if (distanceSquared < epsilon * epsilon) {
-          agent.setLinearSpeed(0);
-          subscription.unsubscribe();
-          return;
-        }
-
-        const dotProduct = vectorToTarget.dot(agent.getLinearDirection());
-        // If the agent has passed the target, stop the agent
-        if (dotProduct < 0) {
-          agent.setLinearSpeed(0);
-          subscription.unsubscribe();
-          return;
-        }
-
-        const displacement = agent
-          .getLinearDirection()
-          .clone()
-          .multiplyScalar(speed * deltaTime);
-        const newPosition = currentPosition.clone().add(displacement);
-
-        // If the agent has crossed the target (e.g. in a single frame), stop the agent
-        const crossedTarget = vectorToTarget.dot(direction) < 0;
-        if (crossedTarget) {
-          agent.setLinearSpeed(0);
-          subscription.unsubscribe();
-          return;
-        }
-
-        // Update the agent's position
-        abstractTransformAgent.position$.next(newPosition);
-      });
+      // const vectorToTarget = new Vector3();
+      //
+      // // TODO 8.0.0. MODELS: Refactor this subscription.
+      // const subscription = kinematicLoopService.tick$.subscribe((): void => {
+      //   // If the agent is already at the target, do not move
+      //   if (agent.getLinearSpeed() === 0) return subscription.unsubscribe();
+      //
+      //   const currentPosition = abstractTransformAgent.position$.value;
+      //   vectorToTarget.copy(targetPosition).sub(currentPosition);
+      //
+      //   const distanceSquared = vectorToTarget.lengthSq();
+      //
+      //   // If the agent is close enough to the target, stop the agent
+      //   if (distanceSquared < epsilon * epsilon) {
+      //     agent.setLinearSpeed(0);
+      //     return subscription.unsubscribe();
+      //   }
+      //
+      //   const dotProduct = vectorToTarget.dot(agent.getLinearDirection());
+      //   // If the agent has passed the target, stop the agent
+      //   if (dotProduct < 0) {
+      //     agent.setLinearSpeed(0);
+      //     return subscription.unsubscribe();
+      //   }
+      //
+      //   // If the agent has crossed the target (e.g. in a single frame), stop the agent
+      //   const crossedTarget = vectorToTarget.dot(direction) < 0;
+      //   if (crossedTarget) {
+      //     agent.setLinearSpeed(0);
+      //     return subscription.unsubscribe();
+      //   }
+      // });
     },
     // TODO 8.0.0. MODELS: Refactor this code. It's working, but it's a mess atm.
     rotateTo(targetRotation: Quaternion, speed: TMetersPerSecond, radius: TMeters): void | never {
-      const epsilon = 0.1;
+      const epsilon = 0.0001;
       if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
       if (speed === 0) return agent.setAngularSpeed(0);
       if (radius <= 0) throw new Error('Radius must be greater than 0 to calculate angular speed.');
@@ -139,7 +149,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       agent.setAngularDirection(targetRotation);
       agent.setAngularSpeed(angularSpeed);
 
-      // TODO 8.0.0. MODELS: Refactor this subscription.
+      // TODO 8.0.0. MODELS: Refactor this subscription. Most of these things could be done in doKinematicRotation
       const subscription: Subscription = kinematicLoopService.tick$.subscribe((deltaTime: TMilliseconds): void => {
         // If the speed is 0, do nothing
         if (agent.getAngularSpeed() === 0) return subscription.unsubscribe();
@@ -153,7 +163,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
         }
 
         const rotationStep: number = angularSpeed * deltaTime;
-        const stepRotation: Quaternion = new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), rotationStep);
+        const stepRotation: Quaternion = new Quaternion().setFromAxisAngle(agent.data.state.angularDirection, rotationStep);
         const newRotation: Quaternion = new Quaternion().multiplyQuaternions(rotationQuaternion$.value, stepRotation).normalize();
 
         // Recalculate angle after applying step rotation
@@ -165,8 +175,6 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
           agent.setAngularSpeed(0);
           return subscription.unsubscribe();
         }
-
-        rotationQuaternion$.next(newRotation);
       });
     },
     adjustDataByLinearVelocity(linearVelocity: Quaternion): void {
@@ -184,24 +192,24 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       agent.setAngularDirection(angularVelocity.clone().normalize());
     },
     getLinearSpeed(): TMetersPerSecond {
-      return agent.data.linearSpeed;
+      return agent.data.state.linearSpeed;
     },
     setLinearSpeed(speed: TMetersPerSecond): void {
       // eslint-disable-next-line functional/immutable-data
-      agent.data.linearSpeed = speed;
+      agent.data.state.linearSpeed = speed;
     },
     getLinearDirection(): Vector3 {
-      return agent.data.linearDirection;
+      return agent.data.state.linearDirection;
     },
     setLinearDirection(direction: Vector3Like): void {
-      agent.data.linearDirection.copy(direction);
+      agent.data.state.linearDirection.copy(direction);
     },
     setLinearDirectionFromParams(azimuthRad: TRadians, elevationRad: TRadians): void {
       agent.setLinearAzimuth(azimuthRad);
       agent.setLinearElevation(elevationRad);
     },
     getLinearAzimuth(): TRadians {
-      return getAzimuthRadFromDirection(agent.data.linearDirection);
+      return getAzimuthFromDirection(agent.data.state.linearDirection);
     },
     setLinearAzimuth(azimuthRad: TRadians): void {
       const elevation = agent.getLinearElevation();
@@ -209,7 +217,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       agent.setLinearDirection(quaternion);
     },
     getLinearElevation(): TRadians {
-      return getElevationFromDirection(agent.data.linearDirection);
+      return getElevationFromDirection(agent.data.state.linearDirection);
     },
     setLinearElevation(elevationRad: TRadians): void {
       const azimuth = this.getLinearAzimuth(); // Get current azimuth
@@ -217,44 +225,48 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       agent.setLinearDirection(quaternion);
     },
     getAngularSpeed(): TMetersPerSecond {
-      return agent.data.angularSpeed;
+      return agent.data.state.angularSpeed;
     },
     setAngularSpeed(speed: TMetersPerSecond): void {
       // eslint-disable-next-line functional/immutable-data
-      agent.data.angularSpeed = speed;
+      agent.data.state.angularSpeed = speed;
     },
     getAngularDirection(): Quaternion {
-      return agent.data.angularDirection.clone();
+      return agent.data.state.angularDirection.clone();
     },
     setAngularDirection(direction: QuaternionLike): void {
-      agent.data.angularDirection.copy(direction);
+      agent.data.state.angularDirection.copy(direction);
     },
     setAngularDirectionFromParams(azimuthRad: TRadians, elevationRad: TRadians): void {
       const quaternion = new Quaternion().setFromEuler(new Euler(elevationRad, azimuthRad, 0, 'ZYX')); // Convert azimuth and elevation to Quaternion
       agent.setAngularDirection(quaternion);
     },
     getAngularAzimuth(): TRadians {
-      return getAzimutFromQuaternionDirection(agent.data.angularDirection);
+      // TODO debug
+      // return getAzimutFromQuaternionDirection(agent.data.state.angularDirection);
+      return getAzimuthFromDirection(new Euler().setFromQuaternion(agent.data.state.angularDirection));
     },
     setAngularAzimuth(azimuthRad: TRadians): void {
       // const elevation = agent.getAngularElevation();
       // const quaternion = new Quaternion().setFromEuler(new Euler(elevation, azimuthRad, 0, 'ZYX'));
-      // agent.data.angularDirection.copy(quaternion);
+      // agent.data.state.angularDirection.copy(quaternion);
 
-      const lengthXZ: number = Math.sqrt(agent.data.angularDirection.x ** 2 + agent.data.angularDirection.z ** 2) || 1;
-      const quaternion = new Quaternion().setFromEuler(new Euler(Math.cos(azimuthRad) * lengthXZ, agent.data.angularDirection.y, Math.sin(azimuthRad) * lengthXZ));
+      const lengthXZ: number = Math.sqrt(agent.data.state.angularDirection.x ** 2 + agent.data.state.angularDirection.z ** 2) || 1;
+      const quaternion = new Quaternion().setFromEuler(new Euler(Math.cos(azimuthRad) * lengthXZ, agent.data.state.angularDirection.y, Math.sin(azimuthRad) * lengthXZ));
 
-      // console.log('XXX2', radToDeg(new Euler().setFromQuaternion(agent.data.angularDirection).z));
+      // console.log('XXX2', radToDeg(new Euler().setFromQuaternion(agent.data.state.angularDirection).z));
 
-      agent.data.angularDirection.copy(quaternion);
+      agent.data.state.angularDirection.copy(quaternion);
     },
     getAngularElevation(): TRadians {
-      return getElevationFromQuaternionDirection(agent.data.angularDirection);
+      // TODO debug
+      // return getElevationFromQuaternionDirection(agent.data.state.angularDirection);
+      return getElevationFromDirection(agent.data.state.angularDirection);
     },
     setAngularElevation(elevationRad: TRadians): void {
       // const azimuth: TRadians = agent.getAngularAzimuth();
       // const quaternion: Quaternion = new Quaternion().setFromEuler(new Euler(elevationRad, azimuth, 0, 'ZYX'));
-      // agent.data.angularDirection.copy(quaternion);
+      // agent.data.state.angularDirection.copy(quaternion);
       // This approach could lead to bugs, if the quaternion is not normalized
       // const azimuth: TRadians = agent.getAngularAzimuth();
       //
@@ -264,7 +276,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       // const sinAzimuth: TRadians = Math.sin(azimuth) as TRadians;
       // const cosAzimuth: TRadians = Math.cos(azimuth) as TRadians;
       //
-      // agent.data.angularDirection
+      // agent.data.state.angularDirection
       //   .set(
       //     cosElevation * cosAzimuth, // x
       //     sinElevation, // y
@@ -285,22 +297,27 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
   const displacement = new Vector3();
 
   function doKinematicMove(delta: TMilliseconds): void {
-    if (agent.data.linearSpeed <= 0) return;
+    if (agent.data.state.linearSpeed <= 0) return;
 
-    linearDirection.copy(agent.data.linearDirection).normalize();
-    displacement.copy(linearDirection).multiplyScalar(agent.data.linearSpeed * delta);
+    if (isPointReached(agent.data.target, abstractTransformAgent.position$.value, agent.data.state)) return;
+
+    linearDirection.copy(agent.data.state.linearDirection).normalize();
+    displacement.copy(linearDirection).multiplyScalar(agent.data.state.linearSpeed * delta);
 
     abstractTransformAgent.position$.next(abstractTransformAgent.position$.value.clone().add(displacement));
   }
 
   // TODO 8.0.0. MODELS: Destroy subscriptions tempQuaternion on agent destroy
   const tempQuaternion: Quaternion = new Quaternion();
+  const angleThreshold: TRadians = radians(0.0001);
 
   function doKinematicRotation(delta: TMilliseconds): void {
-    if (agent.data.angularSpeed <= 0) return;
+    if (agent.data.state.angularSpeed <= 0) return;
 
-    const angle: TRadians = (agent.data.angularSpeed * delta) as TRadians;
-    const quaternion: TReadonlyQuaternion = tempQuaternion.setFromAxisAngle(agent.data.angularDirection, angle);
+    const angle: TRadians = (agent.data.state.angularSpeed * delta) as TRadians;
+    if (angle < angleThreshold) return;
+
+    const quaternion: TReadonlyQuaternion = tempQuaternion.setFromAxisAngle(agent.data.state.angularDirection, angle);
     rotationQuaternion$.next(rotationQuaternion$.value.clone().multiply(quaternion));
   }
 
@@ -315,4 +332,27 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     });
 
   return agent;
+}
+
+function isPointReached(target: TKinematicTarget | undefined, position: Vector3, state: TKinematicState): boolean {
+  if (isNotDefined(target)) return false;
+  const { position: targetPosition, positionThreshold } = target;
+  if (isNotDefined(targetPosition)) return false;
+
+  const { linearSpeed, linearDirection } = state;
+
+  // If the agent is already at the target, do not move
+  if (linearSpeed === 0) return true;
+
+  const vectorToTarget: Vector3 = targetPosition.clone().sub(position);
+  const distanceSquared: TMeters = vectorToTarget.lengthSq() as TMeters;
+
+  // If the agent is close enough to the target, stop
+  if (distanceSquared < positionThreshold * positionThreshold) return true;
+
+  const crossedTarget: boolean = vectorToTarget.dot(linearDirection) < 0;
+  // If the agent has passed the target, stop
+  if (crossedTarget) return true;
+
+  return false;
 }

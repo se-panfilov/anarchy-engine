@@ -1,10 +1,19 @@
-import type { Quaternion, Vector3 } from 'three';
+import type { TOptional, TWriteable } from '@/Engine/Utils';
 
-import type { TMetersPerSecond } from '@/Engine/Math/Types';
+import type { TKinematicState } from './TKinematicState';
+import type { TKinematicTarget } from './TKinematicTarget';
 
 export type TKinematicData = Readonly<{
-  linearSpeed: TMetersPerSecond;
-  linearDirection: Vector3;
-  angularSpeed: TMetersPerSecond;
-  angularDirection: Quaternion;
+  state: TKinematicState;
+  target?: TKinematicTarget;
 }>;
+
+export type TKinematicOptionalData = Readonly<{
+  state: TOptional<TKinematicState>;
+  target?: TOptional<TKinematicTarget>;
+}>;
+
+export type TKinematicWritableData = {
+  state: TWriteable<TKinematicState>;
+  target: TWriteable<TKinematicTarget>;
+};

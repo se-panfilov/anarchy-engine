@@ -1,9 +1,9 @@
-import type { Vector3Like } from 'three/src/math/Vector3';
-
 import type { TKinematicData } from './TKinematicData';
+import type { TKinematicConfigState } from './TKinematicState';
+import type { TKinematicConfigTarget } from './TKinematicTarget';
 
-export type TKinematicDataConfig = Omit<TKinematicData, 'linearDirection' | 'angularDirection'> &
+export type TKinematicDataConfig = Omit<TKinematicData, 'state' | 'target'> &
   Readonly<{
-    linearDirection: Vector3Like;
-    angularDirection: Vector3Like;
+    state: TKinematicConfigState;
+    target?: TKinematicConfigTarget;
   }>;

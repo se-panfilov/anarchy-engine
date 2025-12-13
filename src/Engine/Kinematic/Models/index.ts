@@ -4,3 +4,5 @@ export type * from './TKinematicDataConfig';
 export type * from './TKinematicLoopService';
 export type * from './TKinematicMethods';
 export type * from './TKinematicParams';
+export type * from './TKinematicState';
+export type * from './TKinematicTarget';

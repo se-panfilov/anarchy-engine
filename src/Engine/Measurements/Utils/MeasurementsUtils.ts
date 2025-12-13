@@ -9,6 +9,7 @@ export const meters = (meters: number): TMeters => (meters * METER) as TMeters;
 export const centimetersToMeters = (cm: number): TMeters => ((cm / 100) * METER) as TMeters;
 export const kilometersToMeters = (km: number): TMeters => (km * 1000 * METER) as TMeters;
 
+// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 export const secondsToMS = (seconds: number | TSeconds): TMilliseconds => (seconds * SECOND) as TMilliseconds;
 export const minutesToMS = (minutes: number): TMilliseconds => (minutes * MINUTE) as TMilliseconds;
 export const hoursToMS = (hours: number): TMilliseconds => (hours * HOUR) as TMilliseconds;

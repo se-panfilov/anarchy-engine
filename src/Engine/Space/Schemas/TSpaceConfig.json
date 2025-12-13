@@ -975,23 +975,63 @@
         "isAutoUpdate": {
           "type": "boolean"
         },
-        "linearSpeed": {
-          "$ref": "#/definitions/TMetersPerSecond"
+        "state": {
+          "$ref": "#/definitions/TKinematicConfigState"
         },
-        "angularSpeed": {
-          "$ref": "#/definitions/TMetersPerSecond"
-        },
+        "target": {
+          "$ref": "#/definitions/TKinematicConfigTarget"
+        }
+      },
+      "required": ["isAutoUpdate"]
+    },
+    "TKinematicConfigState": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
         "linearDirection": {
           "$ref": "#/definitions/Vector3Like"
         },
         "angularDirection": {
           "$ref": "#/definitions/Vector3Like"
+        },
+        "linearSpeed": {
+          "$ref": "#/definitions/TMetersPerSecond"
+        },
+        "angularSpeed": {
+          "$ref": "#/definitions/TMetersPerSecond"
         }
       },
-      "required": ["isAutoUpdate"]
+      "required": ["angularDirection", "angularSpeed", "linearDirection", "linearSpeed"]
     },
     "TMetersPerSecond": {
-      "type": "number"
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number",
+          "const": 0
+        }
+      ]
+    },
+    "TKinematicConfigTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "position": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "rotation": {
+          "$ref": "#/definitions/QuaternionLike"
+        },
+        "positionThreshold": {
+          "type": "number"
+        },
+        "rotationThreshold": {
+          "type": "number"
+        }
+      },
+      "required": ["positionThreshold", "rotationThreshold"]
     },
     "TSpatialDataConfig": {
       "type": "object",
@@ -1750,7 +1790,15 @@
       "additionalProperties": false
     },
     "TMeters": {
-      "type": "number"
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number",
+          "const": 0
+        }
+      ]
     },
     "Layers": {
       "type": "object",
