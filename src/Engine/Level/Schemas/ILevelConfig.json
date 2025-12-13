@@ -2877,7 +2877,7 @@
     },
     "LightType": {
       "type": "string",
-      "enum": ["Ambient", "Directional", "Point"]
+      "enum": ["Ambient", "Directional", "Point", "Hemisphere"]
     },
     "ITextConfig": {
       "type": "object",
