@@ -1,3 +1,4 @@
+import { extractRegistrableFields } from '@/Engine/Mixins';
 import type { TPhysicsBody, TPhysicsBodyConfig } from '@/Engine/Physics/Models';
 
 export function physicsToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
@@ -6,5 +7,7 @@ export function physicsToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
   // TODO 15-0-0: Add adapters for Physics World, and Physics presets
 
   // TODO 15-0-0: fix any
-  return {} as any;
+  return {
+    ...extractRegistrableFields(entity)
+  } as any;
 }

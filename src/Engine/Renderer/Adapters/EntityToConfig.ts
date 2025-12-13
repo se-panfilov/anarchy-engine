@@ -1,3 +1,4 @@
+import { extractRegistrableFields } from '@/Engine/Mixins';
 import type { TRendererConfig, TRendererWrapper } from '@/Engine/Renderer/Models';
 
 export function rendererToConfig(entity: TRendererWrapper): TRendererConfig {
@@ -5,5 +6,7 @@ export function rendererToConfig(entity: TRendererWrapper): TRendererConfig {
   console.log('XXX entity', entity);
 
   // TODO 15-0-0: fix any
-  return {} as any;
+  return {
+    ...extractRegistrableFields(entity)
+  } as any;
 }

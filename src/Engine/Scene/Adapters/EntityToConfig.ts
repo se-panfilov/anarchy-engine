@@ -1,3 +1,4 @@
+import { extractRegistrableFields } from '@/Engine/Mixins';
 import type { TSceneConfig, TSceneWrapper } from '@/Engine/Scene/Models';
 
 export function sceneToConfig(entity: TSceneWrapper): TSceneConfig {
@@ -5,5 +6,7 @@ export function sceneToConfig(entity: TSceneWrapper): TSceneConfig {
   console.log('XXX entity', entity);
 
   // TODO 15-0-0: fix any
-  return {} as any;
+  return {
+    ...extractRegistrableFields(entity)
+  } as any;
 }

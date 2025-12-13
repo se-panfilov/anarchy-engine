@@ -1,4 +1,5 @@
 import type { TKinematicConfig, TKinematicParams } from '@/Engine/Kinematic/Models';
+import { extractRegistrableFields } from '@/Engine/Mixins';
 import type { TOptional } from '@/Engine/Utils';
 
 export function kinematicToConfig<T extends Readonly<{ kinematic?: TOptional<TKinematicParams> }>>(entity: T): TKinematicConfig {
@@ -6,5 +7,7 @@ export function kinematicToConfig<T extends Readonly<{ kinematic?: TOptional<TKi
   console.log('XXX entity', entity);
 
   // TODO 15-0-0: fix any
-  return {} as any;
+  return {
+    ...extractRegistrableFields(entity)
+  } as any;
 }

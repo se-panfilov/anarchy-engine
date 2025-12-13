@@ -1,4 +1,5 @@
 import type { TCameraConfig, TCameraWrapper } from '@/Engine/Camera/Models';
+import { extractRegistrableFields } from '@/Engine/Mixins';
 
 export function cameraToConfig(entity: TCameraWrapper): TCameraConfig {
   const { drive } = entity;
@@ -13,6 +14,7 @@ export function cameraToConfig(entity: TCameraWrapper): TCameraConfig {
     //   name: string;
     //   isActive: boolean
     //   tags
+    ...extractRegistrableFields(entity),
     ...drive.serialize()
     // TODO 15-0-0: fix any
   } as any;

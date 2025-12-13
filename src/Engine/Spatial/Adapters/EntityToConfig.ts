@@ -1,18 +1,13 @@
 import type { TActor } from '@/Engine/Actor';
+import { extractRegistrableFields } from '@/Engine/Mixins';
 import type { TSpatialCellId, TSpatialCellSerializedData, TSpatialCellWrapper, TSpatialGridConfig, TSpatialGridWrapper } from '@/Engine/Spatial/Models';
 
 export function entityToConfigSpatialGrid(entity: TSpatialGridWrapper): TSpatialGridConfig {
-  const {
-    name,
-    tags
-    // mapWidth, mapHeight, cellSize, centerX, centerZ
-  } = entity;
+  // const { mapWidth, mapHeight, cellSize, centerX, centerZ} = entity;
   // TODO 15-0-0: implement
-  console.log('XXX entity', entity);
 
   return {
-    name,
-    tags
+    ...extractRegistrableFields(entity)
     // mapWidth, mapHeight, cellSize, centerX, centerZ
     // TODO 15-0-0: fix any
   } as any;

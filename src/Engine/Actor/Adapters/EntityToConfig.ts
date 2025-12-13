@@ -1,14 +1,13 @@
 import type { TActor, TActorConfig } from '@/Engine/Actor/Models';
+import { extractRegistrableFields } from '@/Engine/Mixins';
 
 // TODO 15-0-0: (finish 14-0-0 tasks)
 
 export function actorToConfig(entity: TActor): TActorConfig {
-  const { name, tags, drive } = entity;
+  const { tags, drive } = entity;
   // TODO 15-0-0: implement
 
   return {
-    name,
-
     // driveUpdateDelay //needs a getter (maybe at TransformDrive)
     //   driveCoordsThreshold?: number;  //needs a getter (maybe at TransformDrive)
 
@@ -23,6 +22,7 @@ export function actorToConfig(entity: TActor): TActorConfig {
 
     // states?: TActorStatesConfig //Can we have a generic serialization for FSM?
 
+    ...extractRegistrableFields(entity),
     ...drive.serialize(),
     tags
     // TODO 15-0-0: fix any
