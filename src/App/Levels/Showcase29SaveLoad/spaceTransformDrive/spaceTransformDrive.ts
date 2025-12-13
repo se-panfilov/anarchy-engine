@@ -64,7 +64,7 @@ async function performNormalSaveLoadTest(space: TSpace): Promise<void> {
 }
 
 async function performContinuousMoveSaveLoadTest(space: TSpace): Promise<void> {
-  const { defaultActor, kinematicActor } = getShowcaseActors(space);
+  const { defaultActor, kinematicText, kinematicActor } = getShowcaseActors(space);
 
   // The first step: move kinematic actors (50 ticks), then Save, Load and click again...
   if (continuousStepCounter === 0) {
@@ -73,6 +73,7 @@ async function performContinuousMoveSaveLoadTest(space: TSpace): Promise<void> {
     defaultActor.drive.default.addZ(4);
     kinematicActor.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.05));
     kinematicActor.drive.kinematic.lookAt(new Vector3(0, 2, 0), metersPerSecond(0.00001));
+    kinematicText.drive.kinematic.moveTo(new Vector3(2, 2, 2.5), metersPerSecond(0.05));
     await doKinematicSteps(space, 50, 10);
   }
 
