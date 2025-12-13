@@ -1,10 +1,12 @@
 import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@Anarchy/Engine';
 import { spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
+import { initGuiApp } from '@Showcases/GUI/main';
 import { showcasesTranslationService } from '@Showcases/i18n';
+import { initMenuApp } from '@Showcases/Menu/main';
+import type { TFromGuiEvent } from '@Showcases/Shared';
 import { filter, Subject } from 'rxjs';
-import { initGuiApp } from 'showcases-gui/src/main';
-import { initMenuApp } from 'showcases-menu/src/main';
+import type { TFromGuiActionEvent } from 'showcases-gui/src/models/TFromGuiActionEvent';
 
 import { runtimeEnv } from '@/env';
 import { fromGuiEventsBus$, fromMenuEventsBus$, toGuiEventsBus$, toMenuEventsBus$ } from '@/Levels/Showcase28Menu/EventsBus';
@@ -41,7 +43,7 @@ export function showcase(space: TSpace): void {
   sceneW.addModel3d(planeModel3d);
 
   const mainMenuService: TMainMenuService = MainMenuService();
-  const guiService: TGuiService = GuiService();
+  const guiService: TGuiService = GuiService(mainMenuService);
   const appService: TAppService = AppService();
   const settingsService: TSettingsService = SettingsService();
   settingsService.isFirstRun().then((isFirstRun: boolean): void => {
@@ -59,6 +61,8 @@ export function showcase(space: TSpace): void {
 
   // Init the gui app.
   initGuiApp('#gui', fromGuiEventsBus$, toGuiEventsBus$.asObservable());
+
+  fromGuiEventsBus$.subscribe((event: TFromGuiEvent | TFromGuiActionEvent): void => guiService.onGuiEvents(event));
 
   const watcherMenuCube: TIntersectionsCameraWatcher = intersectionsWatcherService.getCameraWatcher('watcher_menu_cube');
 

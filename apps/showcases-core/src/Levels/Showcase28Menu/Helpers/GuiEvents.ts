@@ -3,7 +3,7 @@ import { KeyCode, KeysExtra } from '@Anarchy/Engine';
 import type { TToGuiEvent } from '@Showcases/Shared';
 import type { Subject } from 'rxjs';
 import { GuiActionType } from 'showcases-gui/src/constants';
-import { ToGuiActionEvent } from 'showcases-gui/src/events';
+import { createToGuiActionEvent } from 'showcases-gui/src/events';
 
 export function initGuiEvents(keyboardService: TKeyboardService, mouseService: TMouseService, toGuiEventsBus$: Subject<TToGuiEvent>): void {
   const { clickLeftRelease$, clickLeftPress$, clickRightPress$, clickRightRelease$ } = mouseService;
@@ -11,16 +11,20 @@ export function initGuiEvents(keyboardService: TKeyboardService, mouseService: T
 
   const { Attack, Defense, Map, Inventory, Settings } = GuiActionType;
 
-  clickLeftPress$.subscribe((): void => toGuiEventsBus$.next(ToGuiActionEvent(Attack, true)));
-  clickLeftRelease$.subscribe((): void => toGuiEventsBus$.next(ToGuiActionEvent(Attack, false)));
+  clickLeftPress$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Attack, true)));
+  clickLeftRelease$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Attack, false)));
 
-  clickRightPress$.subscribe((): void => toGuiEventsBus$.next(ToGuiActionEvent(Defense, true)));
-  clickRightRelease$.subscribe((): void => toGuiEventsBus$.next(ToGuiActionEvent(Defense, false)));
+  clickRightPress$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Defense, true)));
+  clickRightRelease$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Defense, false)));
 
-  onKey(KeyCode.I).pressed$.subscribe((): void => toGuiEventsBus$.next(ToGuiActionEvent(Inventory, true)));
-  onKey(KeyCode.I).released$.subscribe((): void => toGuiEventsBus$.next(ToGuiActionEvent(Inventory, false)));
-  onKey(KeyCode.M).pressed$.subscribe((): void => toGuiEventsBus$.next(ToGuiActionEvent(Map, true)));
-  onKey(KeyCode.M).released$.subscribe((): void => toGuiEventsBus$.next(ToGuiActionEvent(Map, false)));
-  onKey(KeysExtra.Escape).pressed$.subscribe((): void => toGuiEventsBus$.next(ToGuiActionEvent(Settings, true)));
-  onKey(KeysExtra.Escape).released$.subscribe((): void => toGuiEventsBus$.next(ToGuiActionEvent(Settings, false)));
+  onKey(KeyCode.I).pressed$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Inventory, true)));
+  onKey(KeyCode.I).released$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Inventory, false)));
+  onKey(KeyCode.M).pressed$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Map, true)));
+  onKey(KeyCode.M).released$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Map, false)));
+  // TODO DESKTOP: a bug: if pressed$ and released$ subscriptions are both present, pressed$ fires twice. Fix
+  onKey(KeysExtra.Escape).pressed$.subscribe((v): void => {
+    console.log('XXX0', v, true);
+    return toGuiEventsBus$.next(createToGuiActionEvent(Settings, true));
+  });
+  onKey(KeysExtra.Escape).released$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Settings, false)));
 }

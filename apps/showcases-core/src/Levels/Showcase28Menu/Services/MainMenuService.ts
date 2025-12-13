@@ -4,15 +4,21 @@ import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcas
 import type { TMainMenuService } from '@/Levels/Showcase28Menu/Models';
 import { platformApiService } from '@/Services';
 
-export function MainMenuService(): TMainMenuService {
+export function MainMenuService(menuSelector: string = '#menu'): TMainMenuService {
+  function isMenuActive(): boolean {
+    const mainMenuElement: HTMLElement | null = document.querySelector(menuSelector);
+    if (isNotDefined(mainMenuElement)) throw new Error(`[APP] No main menu element found`);
+    return mainMenuElement.classList.contains('-active');
+  }
+
   function openMainMenu(): void | never {
-    const mainMenuElement: HTMLElement | null = document.querySelector('#menu');
+    const mainMenuElement: HTMLElement | null = document.querySelector(menuSelector);
     if (isNotDefined(mainMenuElement)) throw new Error(`[APP] No main menu element found`);
     mainMenuElement.classList.add('-active');
   }
 
   function closeMainMenu(): void | never {
-    const mainMenuElement: HTMLElement | null = document.querySelector('#menu');
+    const mainMenuElement: HTMLElement | null = document.querySelector(menuSelector);
     if (isNotDefined(mainMenuElement)) throw new Error(`[APP] No main menu element found`);
     mainMenuElement.classList.remove('-active');
   }
@@ -31,6 +37,7 @@ export function MainMenuService(): TMainMenuService {
     closeMainMenu,
     getLegalDocs,
     getSettings,
+    isMenuActive,
     openMainMenu,
     restartApp,
     setSettings

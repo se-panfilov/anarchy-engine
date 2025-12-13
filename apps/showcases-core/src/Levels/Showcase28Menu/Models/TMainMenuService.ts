@@ -5,6 +5,7 @@ export type TMainMenuService = Readonly<{
   closeMainMenu: () => void | never;
   getLegalDocs: (options: TLoadDocPayload) => Promise<TLegalDoc>;
   getSettings: () => Promise<TShowcaseGameSettings>;
+  isMenuActive: () => boolean;
   openMainMenu: () => void | never;
   restartApp: () => void;
   setSettings: (settings: TShowcaseGameSettings) => Promise<void>;
