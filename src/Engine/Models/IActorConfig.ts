@@ -7,11 +7,11 @@ export type IActorConfig = Omit<IActorParams, 'materialParams' | 'position'> &
     type: IActorType;
     width: number;
     height: number;
-    materialParams: ActorMaterialConfig;
+    materialParams: IActorMaterialConfig;
     position: IVector3dConfig;
     castShadow: boolean;
   }>;
 
-export type ActorMaterialConfig = Readonly<{
+export type IActorMaterialConfig = Readonly<{
   color: string;
 }>;

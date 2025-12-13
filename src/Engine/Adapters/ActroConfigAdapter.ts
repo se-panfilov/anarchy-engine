@@ -1,4 +1,4 @@
-import type { ActorMaterialConfig, IActorConfig, IActorParams } from '@Engine/Models';
+import type { IActorConfig, IActorMaterialConfig, IActorParams } from '@Engine/Models';
 import { isDefined } from '@Engine/Utils';
 import type { MeshToonMaterialParameters } from 'three';
 import { Color, Vector3 } from 'three';
@@ -12,7 +12,7 @@ export function actorAdapter(config: IActorConfig): IActorParams {
   };
 }
 
-function getAdaptedMaterialParams(materialParams: ActorMaterialConfig): {
+function getAdaptedMaterialParams(materialParams: IActorMaterialConfig): {
   materialParams: MeshToonMaterialParameters | undefined;
 } {
   const hasColor: boolean = isDefined(materialParams?.color);
