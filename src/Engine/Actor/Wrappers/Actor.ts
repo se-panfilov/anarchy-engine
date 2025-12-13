@@ -13,7 +13,7 @@ import { withReactivePosition, withReactiveRotation, withSpatial, withUpdateSpat
 import { applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 // TODO 8.0.0. MODELS: shall we refactor TActorWrapper to TActorFacade?
-export function ActorWrapper(
+export function Actor(
   params: TActorParams,
   { kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService, models3dService, model3dFacadeToActorConnectionRegistry }: TActorDependencies
 ): TActorWrapper {

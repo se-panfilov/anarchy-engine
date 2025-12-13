@@ -1,2 +1,2 @@
-export * from './ActorWrapper';
+export * from './Actor';
 export * from './ActorWrapperWithPhysics';

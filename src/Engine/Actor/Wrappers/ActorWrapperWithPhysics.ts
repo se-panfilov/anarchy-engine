@@ -8,7 +8,7 @@ import type { TPhysicsBodyFacade, TPhysicsBodyService, TWithPresetNamePhysicsBod
 import { makeWrapperWithPhysicsBody, RigidBodyTypesNames } from '@/Engine/Physics';
 import { isNotDefined } from '@/Engine/Utils';
 
-import { ActorWrapper } from './ActorWrapper';
+import { Actor } from './Actor';
 
 export function ActorWrapperWithPhysics(
   params: TActorParams,
@@ -17,7 +17,7 @@ export function ActorWrapperWithPhysics(
   additionalParams?: Record<string, any>
 ): TActorWrapperWithPhysics | never {
   if (isNotDefined(params.physics)) throw new Error('Cannot create Actor with Physics: physics params are missing');
-  const actorW: TActorWrapper = ActorWrapper(params, deps);
+  const actorW: TActorWrapper = Actor(params, deps);
   const actorPhysicalW: TActorWrapperWithPhysics = makeWrapperWithPhysicsBody(actorW, params.physics, deps.physicsBodyService, customCreatePhysicsBodyFn, additionalParams);
 
   const sub$: Subscription = deps.physicsLoopService.tick$.subscribe((): void => {
