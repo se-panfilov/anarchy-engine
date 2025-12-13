@@ -45,7 +45,7 @@
 
 Below is the CE mark included with this package for electronic placement in accompanying materials:
 
-![CE Mark](./legal/ce-mark.png 'CE')
+![CE Mark](./images/ce-mark.png 'CE')
 
 - The CE mark indicates conformity of the Software with applicable EU legislation (including cybersecurity/product-safety rules where relevant).
 - The CE mark may also **appear inside the product** (for example, in an “About / Legal” view, installer screen, splash, or other compliance section) **depending on build and language**.

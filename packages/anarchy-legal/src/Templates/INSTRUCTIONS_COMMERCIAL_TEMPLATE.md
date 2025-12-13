@@ -4,7 +4,7 @@
 **Publisher/Developer:** {{LEGAL_ENTITY_NAME}}
 **Support contact:** {{SUPPORT_EMAIL}}
 
-> This document provides basic use, safety, and compliance information for **{{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}** (the “{{PRODUCT_TERM}}”). It does **not** create service levels, warranties, or contractual obligations. For license terms, see **EULA** shipped in `./legal/EULA.*`. For privacy, see **Privacy Policy** in `./legal/PRIVACY.*`. For security and updates, see **Security Policy** in `./legal/SECURITY.*`.
+> This document provides basic use, safety, and compliance information for **{{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}** (the “{{PRODUCT_TERM}}”). It does **not** create service levels, warranties, or contractual obligations. For license terms, see **EULA** shipped in `{{LEGAL_FOLDER}}EULA.*`. For privacy, see **Privacy Policy** in `{{LEGAL_FOLDER}}PRIVACY.*`. For security and updates, see **Security Policy** in `{{LEGAL_FOLDER}}SECURITY.*`.
 
 ---
 
@@ -34,14 +34,14 @@
 - We may provide **updates** (patches, bug fixes, content changes). Updates can be delivered through the same channels you used to obtain the {{PRODUCT_TERM}} or as replacement files in the package.
 - Some updates may be required to continue using certain features.
 - Release notes / advisories may be included within the product, inside the update package, or provided via the distribution channel (no fixed location/cadence guaranteed).
-- Security maintenance periods are described in the **Security Policy** (in `./legal/`).
+- Security maintenance periods are described in the **Security Policy** (in `{{LEGAL_FOLDER}}`).
 
 ---
 
 ## 4) Safety & Acceptable Use (summary)
 
 - Do **not** use the {{PRODUCT_TERM}} for unlawful purposes or to distribute malware, cheats, or tools that degrade others’ experience or security.
-- Avoid use in **safety-critical** contexts where failure could cause injury, environmental, or property damage. See the **Disclaimer** in `./legal/DISCLAIMER.*`.
+- Avoid use in **safety-critical** contexts where failure could cause injury, environmental, or property damage. See the **Disclaimer** in `{{LEGAL_FOLDER}}DISCLAIMER.*`.
 
 ---
 
@@ -49,11 +49,11 @@
 
 Below is the CE mark included with this package for electronic placement in accompanying materials:
 
-![CE Mark](./legal/ce-mark.png 'CE')
+![CE Mark]({{PATH_TO_CE_MARK}} 'CE')
 
 - The CE mark indicates conformity of the {{PRODUCT_TERM}} with applicable EU legislation (including cybersecurity/product-safety rules where relevant).
 - The CE mark may also **appear inside the product** (for example, in an “About / Legal” view, installer screen, splash, or other compliance section) **depending on build and language**.
-- The **EU Declaration of Conformity** is provided in this package at: `./legal/EU_DECLARATION_OF_CONFORMITY.pdf`.
+- The **EU Declaration of Conformity** is provided in this package at: `{{LEGAL_FOLDER}}EU_DECLARATION_OF_CONFORMITY.pdf`.
 
 > Placement of the mark within UI may vary across versions and locales; electronic display in these instructions satisfies the electronic marking modality.
 
@@ -63,7 +63,7 @@ Below is the CE mark included with this package for electronic placement in acco
 
 - The {{PRODUCT_TERM}} does **not** collect personal data during offline use.
 - Optional online features (if any) are **opt-in**.
-- Details, including any optional crash reporting, are described in `./legal/PRIVACY.*`.
+- Details, including any optional crash reporting, are described in `{{LEGAL_FOLDER}}PRIVACY.*`.
 
 ---
 
@@ -94,7 +94,7 @@ Below is the CE mark included with this package for electronic placement in acco
 
 ## 10) Legal & Compliance (where to find)
 
-All legal documents are provided **offline** with this package in `./legal/`:
+All legal documents are provided **offline** with this package in `{{LEGAL_FOLDER}}`:
 
 - **EULA** — license terms for end users
 - **Privacy Policy** — data protection information
@@ -110,7 +110,7 @@ All legal documents are provided **offline** with this package in `./legal/`:
 
 ## 11) Export Controls (summary)
 
-Use, export, and re-export must comply with applicable **export-control** and **sanctions** laws. See the **Disclaimer** / **EULA** in `./legal/` for details.
+Use, export, and re-export must comply with applicable **export-control** and **sanctions** laws. See the **Disclaimer** / **EULA** in `{{LEGAL_FOLDER}}` for details.
 
 ---
 

@@ -17,6 +17,8 @@ export default {
       TRADEMARK_SYMBOL: '', //Empty by default. Possible '™' (no obligations, just an indication it's a trademark) or '®' (registered trademark, which requires registration in the country of use).
       PRODUCT_TERM: 'Software', //E.g. 'Software', 'Product', 'Game', etc.
       STORE_DISCLOSURES: true,
+      LEGAL_FOLDER: './legal/',
+      PATH_TO_CE_MARK: './images/ce-mark.png',
 
       //DATA COLLECTION
       CRASH_OPT_IN: false,
