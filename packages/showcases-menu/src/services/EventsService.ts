@@ -1,5 +1,6 @@
 import { isNotDefined } from '@Engine';
-import type { TEventsService, TMenuEvent } from '@Menu/models';
+import type { TEventsService } from '@Menu/models';
+import type { TMenuEvent } from '@ShowcasesShared';
 import { MenuEvents } from '@ShowcasesShared';
 import type { Subject } from 'rxjs';
 

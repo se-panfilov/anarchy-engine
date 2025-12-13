@@ -1,5 +1,5 @@
+import type { TMenuEvent } from '@ShowcasesShared';
 import type { Subject } from 'rxjs';
-import type { TMenuEvent } from 'ShowcasesShared';
 
 export type TEventsService = Readonly<{
   setBus: (bus: Subject<TMenuEvent>) => void;

@@ -1,2 +1,2 @@
-export * from './Models';
 export * from './Constants';
+export type * from './Models';
