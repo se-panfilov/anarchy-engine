@@ -9,6 +9,7 @@ export * from './Distance';
 export * from './Engine';
 export * from './EnvMap';
 export * from './Euler';
+export * from './Files';
 export * from './Fog';
 export * from './Global';
 export * from './Intersections';
