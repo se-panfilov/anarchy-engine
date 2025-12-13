@@ -267,7 +267,7 @@
       "castShadow": true,
       "shadow": {
         "mapSize": { "x": 512, "y": 512 },
-        "camera": { "far": 100 },
+        "camera": { "far": 100, "left": -50 },
         "normalBias": 0.05
       },
       "position": { "x": 40, "y": 4, "z": 40 },

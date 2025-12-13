@@ -9,6 +9,7 @@ export * from './TAnyLightProps';
 export * from './TDirectionalLight';
 export * from './TDirectionalLightParams';
 export * from './TDirectionalLightProps';
+export * from './TDirectionalLightShadowParams';
 export * from './TDirectionalLightWrapper';
 export * from './THemisphereLight';
 export * from './THemisphereLightParams';

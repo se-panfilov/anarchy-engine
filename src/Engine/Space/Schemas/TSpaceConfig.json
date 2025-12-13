@@ -2683,9 +2683,6 @@
       "required": ["color", "groundColor", "position", "tags", "type"]
     },
     "TDirectionalLightConfig": {
-      "$ref": "#/definitions/TAbstractLightConfig%3CTDirectionalLightProps%3E"
-    },
-    "TAbstractLightConfig<TDirectionalLightProps>": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -2732,7 +2729,7 @@
           "type": "string"
         },
         "shadow": {
-          "$ref": "#/definitions/TLightShadowConfig"
+          "$ref": "#/definitions/TDirectionalLightShadowConfig"
         },
         "type": {
           "$ref": "#/definitions/LightType"
@@ -2745,6 +2742,41 @@
         }
       },
       "required": ["color", "position", "tags", "type"]
+    },
+    "TDirectionalLightShadowConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mapSize": {
+          "$ref": "#/definitions/TWithCoordsXY"
+        },
+        "camera": {
+          "type": "object",
+          "properties": {
+            "far": {
+              "type": "number"
+            },
+            "left": {
+              "type": "number"
+            },
+            "right": {
+              "type": "number"
+            },
+            "top": {
+              "type": "number"
+            },
+            "bottom": {
+              "type": "number"
+            }
+          },
+          "required": ["far"],
+          "additionalProperties": false
+        },
+        "normalBias": {
+          "type": "number"
+        }
+      },
+      "required": ["camera", "mapSize", "normalBias"]
     },
     "TPointLightConfig": {
       "$ref": "#/definitions/TAbstractLightConfig%3CTPointLightProps%3E"

@@ -5,6 +5,7 @@ import type { TObject3DPropConfig } from '@/Engine/ThreeLib';
 
 import type { TAmbientLightProps } from './TAmbientLightProps';
 import type { TDirectionalLightProps } from './TDirectionalLightProps';
+import type { TDirectionalLightShadowParams } from './TDirectionalLightShadowParams';
 import type { THemisphereLightProps } from './THemisphereLightProps';
 import type { TLightShadowParams } from './TLightShadowParams';
 import type { TPointLightProps } from './TPointLightProps';
@@ -19,9 +20,16 @@ export type TAbstractLightConfig<T extends Readonly<{ color: Color; shadow?: TLi
   TObject3DPropConfig &
   TWithReadonlyTags;
 
+export type TDirectionalLightConfig = Omit<TDirectionalLightProps, 'color' | 'shadow'> &
+  Readonly<{
+    color: string;
+    shadow?: TDirectionalLightShadowConfig;
+  }> &
+  TObject3DPropConfig &
+  TWithReadonlyTags;
+
 export type TAmbientLightConfig = TAbstractLightConfig<TAmbientLightProps>;
 export type THemisphereLightConfig = Omit<TAbstractLightConfig<THemisphereLightProps>, 'groundColor'> & Readonly<{ groundColor: string }>;
-export type TDirectionalLightConfig = TAbstractLightConfig<TDirectionalLightProps>;
 export type TPointLightConfig = TAbstractLightConfig<TPointLightProps>;
 export type TRectAreaLightConfig = TAbstractLightConfig<TRectAreaLightProps>;
 export type TSpotLightConfig = TAbstractLightConfig<TSpotLightProps>;
@@ -32,5 +40,12 @@ export type TLightShadowConfig = Omit<TLightShadowParams, 'mapSize'> &
   Readonly<{
     mapSize: TWithCoordsXY;
     camera: { far: number };
+    normalBias: number;
+  }>;
+
+export type TDirectionalLightShadowConfig = Omit<TDirectionalLightShadowParams, 'mapSize'> &
+  Readonly<{
+    mapSize: TWithCoordsXY;
+    camera: { far: number; left?: number; right?: number; top?: number; bottom?: number };
     normalBias: number;
   }>;
