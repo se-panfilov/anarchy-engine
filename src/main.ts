@@ -1,21 +1,21 @@
 import './style.css';
 import { Color, Mesh, MeshToonMaterial, Scene, SphereGeometry, Vector3 } from 'three';
 import { IntersectionPointer, MousePointer } from './Pointer';
-import { renderer } from './renderer';
-import { CameraWrapped } from './CameraWrapped';
+import { RendererWrapper } from './RendererWrapper';
+import { CameraWrapper } from './CameraWrapper';
 import { ambientLight, directionalLight } from './lights';
 import { sphere } from './sphere';
 import { plane } from './planne';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { fpsGraph } from './DeveloperPanel';
-import { startWatchResize } from './DeviceWatcher/Resize';
+import { startWatchResize } from './Watcherd/Device/ResizeWatcher';
 import { deviceSize$ } from './Store/DeviceSize';
 
 const scene = new Scene();
 scene.add(sphere);
 scene.add(plane);
 
-const { camera } = CameraWrapped(window.innerWidth, window.innerHeight);
+const { camera } = CameraWrapper(window.innerWidth, window.innerHeight);
 camera.position.set(3, 2, 15);
 camera.lookAt(0, 0, 0);
 scene.add(camera);
@@ -31,7 +31,7 @@ deviceSize$.next({
   height: window.innerHeight,
   devicePixelRatio: 2
 });
-
+const { renderer } = RendererWrapper('#app');
 const controls = new OrbitControls(camera, renderer.domElement);
 // new OrbitControls(directionalLight as any, renderer.domElement);
 controls.enableDamping = true;

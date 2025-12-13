@@ -1,4 +1,4 @@
-import { deviceSize$ } from '../Store/DeviceSize';
+import { deviceSize$ } from '../../Store/DeviceSize';
 
 function onResize(): void {
   deviceSize$.next({
