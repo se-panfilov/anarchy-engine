@@ -1,7 +1,7 @@
 import anime from 'animejs';
 import type { Subscription } from 'rxjs';
 
-import type { ILoopService, ILoopTimes } from '@/Engine/Domains/Loop';
+import type { ILoopService, ILoopTimes } from '@/Engine/Loop';
 import type { IMovable3dXYZ } from '@/Engine/Mixins';
 import type {
   IAnimationParams,

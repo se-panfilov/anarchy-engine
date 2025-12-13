@@ -1,6 +1,6 @@
 import anime from 'animejs';
 
-import type { ILoopService } from '@/Engine/Domains/Loop';
+import type { ILoopService } from '@/Engine/Loop';
 import type { IWithCoordsXYZ, IWithPosition3d } from '@/Engine/Mixins';
 import { defaultMoverServiceConfig } from '@/Engine/Services/MoverService/Constants';
 import type { IAnimationParams, IFollowTargetParams, IKeyframeDestination, IMovableEntityWrapper, IMoverServiceConfig, IStopMoveCb } from '@/Engine/Services/MoverService/Models';

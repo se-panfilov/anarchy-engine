@@ -1,5 +1,5 @@
-import type { IEulerWrapper } from '@/Engine/Domains/Euler';
-import { EulerWrapper } from '@/Engine/Domains/Euler';
+import type { IEulerWrapper } from '@/Engine/Euler';
+import { EulerWrapper } from '@/Engine/Euler';
 import type { IScalable, IWithScale } from '@/Engine/Mixins/GameObject/Models';
 
 export function scalableMixin(entity: IWithScale): IScalable {

@@ -1,6 +1,6 @@
-import type { IMousePosition } from '@/Engine/Domains/Mouse';
-import type { IVector2, IVector3 } from '@/Engine/Domains/Vector';
-import { Vector2Wrapper } from '@/Engine/Domains/Vector';
+import type { IMousePosition } from '@/Engine/Mouse';
+import type { IVector2, IVector3 } from '@/Engine/Vector';
+import { Vector2Wrapper } from '@/Engine/Vector';
 
 // TODO (S.Panfilov) I don't like this being a distinct function, also don't really get why I might need that normalization
 export function getNormalizedMousePosition(position: IMousePosition | IVector3 | IVector2): IVector2 {

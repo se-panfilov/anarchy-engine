@@ -1,4 +1,4 @@
-import { standardLoopService } from '@/Engine/Domains/Loop';
+import { standardLoopService } from '@/Engine/Loop';
 import type { IMoverService } from '@/Engine/Services/MoverService/Models';
 
 import { defaultMoverServiceConfig } from './Constants';

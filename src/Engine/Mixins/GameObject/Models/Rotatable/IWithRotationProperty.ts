@@ -1,4 +1,4 @@
-import type { IEuler } from '@/Engine/Domains/Euler';
+import type { IEuler } from '@/Engine/Euler';
 
 export type IWithRotationProperty = {
   rotation: {

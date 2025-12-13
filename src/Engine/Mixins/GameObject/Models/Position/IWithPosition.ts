@@ -1,4 +1,4 @@
-import type { IVector2Wrapper, IVector3Wrapper, IVector4Wrapper } from '@/Engine/Domains/Vector';
+import type { IVector2Wrapper, IVector3Wrapper, IVector4Wrapper } from '@/Engine/Vector';
 
 export type IWithPosition2d = Readonly<{
   setPosition: (position: IVector2Wrapper) => IVector2Wrapper;

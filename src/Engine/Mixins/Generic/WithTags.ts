@@ -1,4 +1,4 @@
-import type { CommonTag } from '@/Engine/Domains/Abstract';
+import type { CommonTag } from '@/Engine/Abstract';
 import type { IWithTags } from '@/Engine/Mixins/Generic/Models';
 import { omitInArray } from '@/Engine/Utils';
 

@@ -1,0 +1,8 @@
+import type { IAbstractRegistry, IProtectedRegistry } from '@/Engine/Abstract';
+import type { IRegistrable } from '@/Engine/Mixins';
+
+export function RegistryFacade<T extends IRegistrable>(abstractRegistry: IAbstractRegistry<T>): IProtectedRegistry<T, IAbstractRegistry<T>> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { registry, ...rest } = abstractRegistry;
+  return rest;
+}

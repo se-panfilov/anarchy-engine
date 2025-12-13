@@ -1,17 +1,10 @@
-import { WatcherTag } from '@/Engine/Domains/Abstract';
-import type { IGlobalContainerDecorator } from '@/Engine/Domains/Global';
-import { ContainerDecorator } from '@/Engine/Domains/Global';
-import type {
-  IMouseClickWatcher,
-  IMouseClickWatcherFactory,
-  IMouseClickWatcherRegistry,
-  IMousePositionWatcher,
-  IMousePositionWatcherFactory,
-  IMousePositionWatcherRegistry
-} from '@/Engine/Domains/Mouse';
-import { MouseClickWatcherFactory, MouseClickWatcherRegistry, MousePositionWatcherFactory, MousePositionWatcherRegistry } from '@/Engine/Domains/Mouse';
-import type { IScreenSizeWatcher, IScreenSizeWatcherFactory, IScreenSizeWatcherRegistry } from '@/Engine/Domains/Screen';
-import { ScreenSizeWatcherFactory, ScreenSizeWatcherRegistry } from '@/Engine/Domains/Screen';
+import { WatcherTag } from '@/Engine/Abstract';
+import type { IGlobalContainerDecorator } from '@/Engine/Global';
+import { ContainerDecorator } from '@/Engine/Global';
+import type { IMouseClickWatcher, IMouseClickWatcherFactory, IMouseClickWatcherRegistry, IMousePositionWatcher, IMousePositionWatcherFactory, IMousePositionWatcherRegistry } from '@/Engine/Mouse';
+import { MouseClickWatcherFactory, MouseClickWatcherRegistry, MousePositionWatcherFactory, MousePositionWatcherRegistry } from '@/Engine/Mouse';
+import type { IScreenSizeWatcher, IScreenSizeWatcherFactory, IScreenSizeWatcherRegistry } from '@/Engine/Screen';
+import { ScreenSizeWatcherFactory, ScreenSizeWatcherRegistry } from '@/Engine/Screen';
 
 import type { IAmbientContext } from './Models';
 

@@ -1,4 +1,4 @@
-import type { CommonTag } from '@/Engine/Domains/Abstract';
+import type { CommonTag } from '@/Engine/Abstract';
 
 export type IWithTags<T> = Readonly<{
   setTags: (tagsList: ReadonlyArray<T | CommonTag | string>) => void;

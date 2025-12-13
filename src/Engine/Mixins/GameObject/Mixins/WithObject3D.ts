@@ -1,7 +1,7 @@
 import type { AnimationClip, Layers } from 'three';
 
-import type { IObject3D } from '@/Engine/Domains/ThreeLib';
 import type { IWithObject3d } from '@/Engine/Mixins/GameObject/Models';
+import type { IObject3D } from '@/Engine/ThreeLib';
 import type { IWriteable } from '@/Engine/Utils';
 
 export function withObject3d<T extends IObject3D>(entity: T): IWithObject3d {

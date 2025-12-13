@@ -1,10 +1,10 @@
 import anime from 'animejs';
 
-import type { IVector2Wrapper, IVector3Wrapper } from '@/Engine/Domains/Vector';
 import { defaultAnimationParams, Easing } from '@/Engine/Services/MoverService/Constants';
 import type { followTargetFn, IFollowTargetParams, IMoveableByTick, IMoveByPathFn, IMoveByPathFnParams, IMoveFn, IMoveFnParams } from '@/Engine/Services/MoverService/Models';
 import { getAnimationWrapperForComplexPathAnimation } from '@/Engine/Services/MoverService/MoverServiceUtils';
 import { isVector3Wrapper } from '@/Engine/Utils';
+import type { IVector2Wrapper, IVector3Wrapper } from '@/Engine/Vector';
 
 export const goStraightMove: IMoveFn = ({ obj, destination, animationParams, complete }: IMoveFnParams): anime.AnimeInstance => {
   return anime({

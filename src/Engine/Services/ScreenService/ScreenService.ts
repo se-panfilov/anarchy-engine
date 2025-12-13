@@ -1,6 +1,6 @@
+import type { IAppCanvas } from '@/Engine/App';
 import { ambientContext } from '@/Engine/Context';
-import type { IAppCanvas } from '@/Engine/Domains/App';
-import type { IAppGlobalContainer } from '@/Engine/Domains/Global';
+import type { IAppGlobalContainer } from '@/Engine/Global';
 import type { IScreenService } from '@/Engine/Services/ScreenService/Models';
 import { isNotDefined } from '@/Engine/Utils';
 

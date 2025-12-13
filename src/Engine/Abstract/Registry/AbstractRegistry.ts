@@ -1,0 +1,102 @@
+import { nanoid } from 'nanoid';
+import { Subject } from 'rxjs';
+
+import type { RegistryType } from '@/Engine/Abstract/Constants';
+import type { IAbstractRegistry } from '@/Engine/Abstract/Models';
+import type { IDestroyable, IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
+import { destroyableMixin } from '@/Engine/Mixins';
+import { getAll, getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag, isDestroyable, isNotDefined } from '@/Engine/Utils';
+
+export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(type: RegistryType): IAbstractRegistry<T> {
+  const id: string = type + '_registry_' + nanoid();
+  const registry: Map<string, T> = new Map();
+  const added$: Subject<T> = new Subject<T>();
+  const replaced$: Subject<T> = new Subject<T>();
+  const removed$: Subject<T> = new Subject<T>();
+
+  function add(entity: T): void | never {
+    if (registry.has(entity.id)) throw new Error(`Cannot add an entity with id "${entity.id}" to registry ${id}: already exist`);
+    if (isMultitonEntity(entity)) {
+      registry.forEach((v: T): void => {
+        if ((v as IMultitonRegistrable).key === entity.key)
+          throw new Error(`Cannot add an entity with key "${entity.key}" to multiton registry ${id}: already added. Only one instance per key is allowed.`);
+      });
+    }
+    registry.set(entity.id, entity);
+    added$.next(entity);
+  }
+
+  function replace(entity: T): void | never {
+    if (registry.has(entity.id)) throw new Error(`Cannot replace an entity with id "${entity.id}" in registry ${id}: not exist`);
+    registry.set(entity.id, entity);
+    replaced$.next(entity);
+  }
+
+  function getById(id: string): T | undefined {
+    return registry.get(id);
+  }
+
+  function remove(id: string): void | never {
+    const entity: T | undefined = registry.get(id);
+    if (isNotDefined(entity)) throw new Error(`Cannot remove an entity with id "${id}" from registry ${id}: not exist`);
+    registry.delete(id);
+    removed$.next(entity);
+  }
+
+  const destroyable: IDestroyable = destroyableMixin();
+
+  destroyable.destroyed$.subscribe((): void => {
+    added$.complete();
+    replaced$.complete();
+    removed$.complete();
+    registry.forEach((obj: T): void => {
+      if (isDestroyable(obj)) obj.destroy();
+    });
+    registry.clear();
+  });
+
+  function getUniqWithSomeTag(tags: ReadonlyArray<string>): T | undefined | never {
+    const result: ReadonlyArray<T> = getAllEntitiesWithSomeTag(tags, registry);
+    if (result.length > 1) throw new Error(`Entity with tags "${tags.toString()}" is not uniq in "${type}"`);
+    return result[0];
+  }
+
+  function getUniqWithEveryTag(tags: ReadonlyArray<string>): T | undefined | never {
+    const result: ReadonlyArray<T> = getAllEntitiesWithEveryTag(tags, registry);
+    if (result.length > 1) throw new Error(`Entity with tags "${tags.toString()}" is not uniq in "${type}"`);
+    return result[0];
+  }
+
+  function isEmpty(): boolean {
+    return registry.size === 0;
+  }
+
+  function getUniqByTag(tag: string): T | undefined | never {
+    return getUniqWithSomeTag([tag]);
+  }
+
+  return {
+    id,
+    type,
+    added$: added$.asObservable(),
+    replaced$: replaced$.asObservable(),
+    removed$: removed$.asObservable(),
+    add,
+    replace,
+    getById,
+    getAll: () => getAll(registry),
+    getAllWithEveryTag: (tags: ReadonlyArray<string>): ReadonlyArray<T> => getAllEntitiesWithEveryTag(tags, registry),
+    getAllWithSomeTag: (tags: ReadonlyArray<string>): ReadonlyArray<T> => getAllEntitiesWithSomeTag(tags, registry),
+    getUniqWithSomeTag,
+    getUniqWithEveryTag,
+    getUniqByTag,
+    isEmpty,
+    registry,
+    remove,
+    ...destroyable
+  };
+}
+
+function isMultitonEntity(entity: IRegistrable | IMultitonRegistrable): entity is IMultitonRegistrable {
+  return !!(entity as IMultitonRegistrable).key;
+}

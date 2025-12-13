@@ -1,4 +1,4 @@
-import type { IEulerWrapper } from '@/Engine/Domains/Euler';
+import type { IEulerWrapper } from '@/Engine/Euler';
 
 export type IScalable = Readonly<{
   setScale: (x: number, y: number, z: number) => IEulerWrapper;

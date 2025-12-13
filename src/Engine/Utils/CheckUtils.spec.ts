@@ -1,9 +1,9 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Vector2, Vector3, Vector4 } from 'three';
 
-import { ColorWrapper } from '@/Engine/Domains/Color';
-import { Vector2Wrapper, Vector3Wrapper, Vector4Wrapper } from '@/Engine/Domains/Vector';
+import { ColorWrapper } from '@/Engine/Color';
 import type { IDestroyable, IRegistrable, IWithPosition2dProperty, IWithPosition3dProperty, IWithPosition4dProperty } from '@/Engine/Mixins';
+import { Vector2Wrapper, Vector3Wrapper, Vector4Wrapper } from '@/Engine/Vector';
 
 import {
   isColorWrapper,

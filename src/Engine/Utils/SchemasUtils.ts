@@ -1,7 +1,7 @@
 import Ajv from 'ajv';
 
-import type { ILevelConfig } from '@/Engine/Domains/Level';
-import ILevelConfigSchema from '@/Engine/Domains/Level/Schemas/ILevelConfig.json';
+import type { ILevelConfig } from '@/Engine/Level';
+import ILevelConfigSchema from '@/Engine/Level/Schemas/ILevelConfig.json';
 
 const ajv: Ajv = new Ajv();
 
