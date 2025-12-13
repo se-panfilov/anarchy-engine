@@ -1,3 +1,4 @@
+import type { Vector } from '@dimforge/rapier3d';
 import { ColliderDesc, RigidBodyDesc, World } from '@dimforge/rapier3d';
 import type { Scene } from 'three';
 import { BufferAttribute, BufferGeometry, LineBasicMaterial, LineSegments } from 'three';
@@ -17,10 +18,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const gravity = { x: 0.0, y: -9.81, z: 0.0 };
   const world = new World(gravity);
 
-  // const { vertices, colors } = world.debugRender()
-
-  const scene = actorService.getScene();
-  const rapierDebugRenderer = new RapierDebugRenderer(scene.entity, world);
+  const sceneWrapper = actorService.getScene();
+  const rapierDebugRenderer = new RapierDebugRenderer(sceneWrapper.entity, world);
 
   // Create the ground
   const groundColliderDesc = ColliderDesc.cuboid(10.0, 0.1, 10.0);
@@ -34,26 +33,16 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const colliderDesc = ColliderDesc.cuboid(0.5, 0.5, 0.5);
   const collider = world.createCollider(colliderDesc, rigidBody);
 
-  // Game loop. Replace by your own game loop system.
-  const gameLoop = () => {
+  loopService.tick$.subscribe(({ delta }) => {
     // Ste the simulation forward.
     world.step();
 
     // Get and print the rigid-body's position.
-    const position = rigidBody.translation();
+    const position: Vector = rigidBody.translation();
     console.log('Rigid-body position: ', position.x, position.y, position.z);
 
     rapierDebugRenderer.update();
-    setTimeout(gameLoop, 16);
-  };
-
-  gameLoop();
-
-  // initRapier.then((rapier) => {
-  //   console.log(rapier);
-  // });
-
-  loopService.tick$.subscribe(({ delta }) => {});
+  });
 
   async function init(): Promise<void> {
     // TODO (S.Panfilov)
