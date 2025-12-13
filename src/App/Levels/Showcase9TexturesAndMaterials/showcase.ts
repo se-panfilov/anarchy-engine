@@ -11,13 +11,13 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
 
   const { models3dService, mouseService, scenesService } = space.services;
-  const model3dRegistry: TModel3dRegistry = models3dService.getRegistry();
+  const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
 
   function init(): void {
     const sceneW: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
-    const modelF: TModel3dFacade | undefined = model3dRegistry.findByName('wood_cube_model');
+    const modelF: TModel3dFacade | undefined = models3dRegistry.findByName('wood_cube_model');
     if (isNotDefined(modelF)) throw new Error('Model is not found');
 
     sceneW.addModel3d(modelF.getModel());

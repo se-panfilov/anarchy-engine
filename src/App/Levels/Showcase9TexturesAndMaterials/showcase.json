@@ -23,23 +23,13 @@
           "aoMap": "door_ao_texture",
           "map": "door_base_texture",
           "alphaMap": "door_opacity_texture"
-        }
+        },
+        "options": { "color": "#5EDCAE" }
       }
     ],
     "models3d": []
   },
   "entities": {
-    "spatialGrids": [
-      {
-        "name": "main_grid",
-        "mapWidth": 10,
-        "mapHeight": 10,
-        "cellSize": 10,
-        "centerX": 0,
-        "centerZ": 0,
-        "tags": []
-      }
-    ],
     "models3d": [
       {
         "name": "wood_cube_model",
@@ -54,6 +44,17 @@
         "castShadow": true,
         "receiveShadow": true,
         "position": { "x": 0, "y": 0, "z": 0 }
+      }
+    ],
+    "spatialGrids": [
+      {
+        "name": "main_grid",
+        "mapWidth": 10,
+        "mapHeight": 10,
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "tags": []
       }
     ],
     "actors": [],
