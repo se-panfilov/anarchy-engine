@@ -2,18 +2,18 @@ import type { Subscription } from 'rxjs';
 
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
-import type { TDisposable, TWithFactoryService } from '@/Engine/Mixins';
+import type { TDisposable } from '@/Engine/Mixins';
 import { withCreateServiceMixin } from '@/Engine/Mixins';
 import { withCreateFromConfigServiceMixin } from '@/Engine/Mixins/Services/WithCreateFromConfigService';
 import { withFactoryService } from '@/Engine/Mixins/Services/WithFactoryService';
 import { withRegistryService } from '@/Engine/Mixins/Services/WithRegistryService';
 import type {
   TSpatialGridFactory,
-  TSpatialGridParams,
   TSpatialGridRegistry,
   TSpatialGridService,
   TSpatialGridServiceWithCreate,
   TSpatialGridServiceWithCreateFromConfig,
+  TSpatialGridServiceWithFactory,
   TSpatialGridServiceWithRegistry,
   TSpatialGridWrapper
 } from '@/Engine/Spatial/Models';
@@ -25,7 +25,7 @@ export function SpatialGridService(factory: TSpatialGridFactory, registry: TSpat
 
   const withCreateService: TSpatialGridServiceWithCreate = withCreateServiceMixin(factory, undefined);
   const withCreateFromConfigService: TSpatialGridServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams);
-  const withFactory: TWithFactoryService<TSpatialGridWrapper, TSpatialGridParams, undefined, any, undefined> = withFactoryService(factory);
+  const withFactory: TSpatialGridServiceWithFactory = withFactoryService(factory);
   const withRegistry: TSpatialGridServiceWithRegistry = withRegistryService(registry);
 
   // eslint-disable-next-line functional/immutable-data

@@ -3,9 +3,20 @@ import type { Subscription } from 'rxjs';
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import { EnvMapLoader } from '@/Engine/EnvMap/Loader';
-import type { TEnvMapConfig, TEnvMapFactory, TEnvMapLoader, TEnvMapParams, TEnvMapRegistry, TEnvMapService, TEnvMapTextureAsyncRegistry, TEnvMapWrapper } from '@/Engine/EnvMap/Models';
+import type {
+  TEnvMapFactory,
+  TEnvMapLoader,
+  TEnvMapRegistry,
+  TEnvMapService,
+  TEnvMapServiceWithCreate,
+  TEnvMapServiceWithCreateFromConfig,
+  TEnvMapServiceWithFactory,
+  TEnvMapServiceWithRegistry,
+  TEnvMapTextureAsyncRegistry,
+  TEnvMapWrapper
+} from '@/Engine/EnvMap/Models';
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
-import { withActiveEntityServiceMixin } from '@/Engine/Mixins';
+import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isDefined } from '@/Engine/Utils';
 
@@ -21,9 +32,10 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
   const withActive: TWithActiveMixinResult<TEnvMapWrapper> = withActiveEntityServiceMixin<TEnvMapWrapper>(registry);
   const envMapLoader: TEnvMapLoader = EnvMapLoader(resourcesRegistry);
 
-  const create = (params: TEnvMapParams): TEnvMapWrapper => factory.create(params);
-  const createFromConfig = (envMaps: ReadonlyArray<TEnvMapConfig>): ReadonlyArray<TEnvMapWrapper> =>
-    envMaps.map((config: TEnvMapConfig): TEnvMapWrapper => create(factory.configToParams(config, { resourcesRegistry })));
+  const withCreateService: TEnvMapServiceWithCreate = withCreateServiceMixin(factory, undefined);
+  const withCreateFromConfigService: TEnvMapServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, { resourcesRegistry });
+  const withFactory: TEnvMapServiceWithFactory = withFactoryService(factory);
+  const withRegistry: TEnvMapServiceWithRegistry = withRegistryService(registry);
 
   withActive.active$.subscribe((wrapper: TEnvMapWrapper | undefined): void => {
     if (isDefined(wrapper)) {
@@ -42,16 +54,12 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, {
-    create,
-    createFromConfig,
+  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, {
     loadAsync: envMapLoader.loadAsync,
     loadFromConfigAsync: envMapLoader.loadFromConfigAsync,
     setActive: withActive.setActive,
     findActive,
     active$: withActive.active$,
-    getFactory: (): TEnvMapFactory => factory,
-    getRegistry: (): TEnvMapRegistry => registry,
     getResourceRegistry: (): TEnvMapTextureAsyncRegistry => resourcesRegistry,
     getScene: (): TSceneWrapper => sceneW
   });

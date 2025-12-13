@@ -5,9 +5,19 @@ import { AbstractService } from '@/Engine/Abstract';
 import type { TAppCanvas } from '@/Engine/App';
 import type { TCameraRegistry, TCameraWrapper } from '@/Engine/Camera';
 import { controlsLoopEffect } from '@/Engine/Controls/Loop';
-import type { TControlsConfig, TControlsFactory, TControlsParams, TControlsRegistry, TControlsService, TControlsWrapper } from '@/Engine/Controls/Models';
-import type { TDisposable, TSpaceLoops, TWithActiveMixinResult } from '@/Engine/Mixins';
-import { withActiveEntityServiceMixin } from '@/Engine/Mixins';
+import type {
+  TControlsConfig,
+  TControlsFactory,
+  TControlsParams,
+  TControlsRegistry,
+  TControlsService,
+  TControlsServiceWithFactory,
+  TControlsServiceWithRegistry,
+  TControlsWrapper
+} from '@/Engine/Controls/Models';
+import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
+import { withActiveEntityServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
+import type { TSpaceLoops } from '@/Engine/Space';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function ControlService(factory: TControlsFactory, registry: TControlsRegistry, { controlsLoop }: TSpaceLoops, canvas: TAppCanvas): TControlsService {
@@ -20,6 +30,7 @@ export function ControlService(factory: TControlsFactory, registry: TControlsReg
   const abstractService: TAbstractService = AbstractService(disposable);
 
   const create = (params: TControlsParams): TControlsWrapper => factory.create(params);
+  const createFromList = (list: ReadonlyArray<TControlsParams>): ReadonlyArray<TControlsWrapper> => list.map((params: TControlsParams): TControlsWrapper => create(params));
   const createFromConfig = (controls: ReadonlyArray<TControlsConfig>, camerasRegistry: TCameraRegistry): void => {
     controls.forEach((control: TControlsConfig): TControlsWrapper => {
       const camera: TCameraWrapper | undefined = camerasRegistry.find((camera: TCameraWrapper): boolean => camera.getName() === control.cameraName);
@@ -27,6 +38,9 @@ export function ControlService(factory: TControlsFactory, registry: TControlsReg
       return create(factory.configToParams(control, { camera, canvas }));
     });
   };
+
+  const withFactory: TControlsServiceWithFactory = withFactoryService(factory);
+  const withRegistry: TControlsServiceWithRegistry = withRegistryService(registry);
 
   const loopSub$: Subscription = controlsLoopEffect(controlsLoop, registry);
 
@@ -40,13 +54,12 @@ export function ControlService(factory: TControlsFactory, registry: TControlsReg
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, {
+  return Object.assign(abstractService, withFactory, withRegistry, {
     create,
+    createFromList,
     createFromConfig,
     setActive: withActive.setActive,
     findActive: withActive.findActive,
-    active$: withActive.active$,
-    getFactory: (): TControlsFactory => factory,
-    getRegistry: (): TControlsRegistry => registry
+    active$: withActive.active$
   });
 }

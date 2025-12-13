@@ -4,9 +4,11 @@ import { BehaviorSubject, merge } from 'rxjs';
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TAppGlobalContainer } from '@/Engine/Global';
-import type { TDisposable, TSpaceLoops } from '@/Engine/Mixins';
+import type { TDisposable } from '@/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
+import type { TSpaceLoops } from '@/Engine/Space';
 import { textLoopEffect } from '@/Engine/Text/Loop';
 import type {
   TText2dRegistry,
@@ -17,11 +19,12 @@ import type {
   TText3dRendererRegistry,
   TText3dTextureRegistry,
   TTextAnyWrapper,
-  TTextConfig,
   TTextDependencies,
   TTextFactory,
-  TTextParams,
-  TTextService
+  TTextService,
+  TTextServiceWithCreate,
+  TTextServiceWithCreateFromConfig,
+  TTextServiceWithFactory
 } from '@/Engine/Text/Models';
 import { initText2dRenderer, initText3dRenderer } from '@/Engine/Text/Renderers';
 import { isText2dWrapper, isText3dTextureWrapper, isText3dWrapper } from '@/Engine/Text/Utils';
@@ -48,8 +51,9 @@ export function TextService(
   const disposable: ReadonlyArray<TDisposable> = [text2dRegistry, text3dRegistry, text3dTextureRegistry, text2dRendererRegistry, text3dRendererRegistry, factory, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
-  const create = (params: TTextParams): TTextAnyWrapper => factory.create(params, dependencies);
-  const createFromConfig = (texts: ReadonlyArray<TTextConfig>): ReadonlyArray<TTextAnyWrapper> => texts.map((text: TTextConfig): TTextAnyWrapper => create(factory.configToParams(text)));
+  const withCreateService: TTextServiceWithCreate = withCreateServiceMixin(factory, undefined);
+  const withCreateFromConfigService: TTextServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams);
+  const withFactory: TTextServiceWithFactory = withFactoryService(factory);
 
   const activeText2dRenderer: BehaviorSubject<TText2dRenderer | undefined> = new BehaviorSubject<TText2dRenderer | undefined>(undefined);
 
@@ -77,10 +81,7 @@ export function TextService(
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, {
-    create,
-    createFromConfig,
-    getFactory: (): TTextFactory => factory,
+  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, {
     getScene: (): TSceneWrapper => scene,
     createText2dRenderer,
     createText3dRenderer,

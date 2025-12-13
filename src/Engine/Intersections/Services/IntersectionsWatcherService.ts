@@ -10,10 +10,13 @@ import type {
   TIntersectionsWatcherFactory,
   TIntersectionsWatcherParams,
   TIntersectionsWatcherRegistry,
-  TIntersectionsWatcherService
+  TIntersectionsWatcherService,
+  TIntersectionsWatcherServiceWithFactory,
+  TIntersectionsWatcherServiceWithRegistry
 } from '@/Engine/Intersections/Models';
 import type { TLoopService } from '@/Engine/Loop';
 import type { TDisposable } from '@/Engine/Mixins';
+import { withFactoryService, withRegistryService } from '@/Engine/Mixins';
 import type { TMouseService } from '@/Engine/Mouse';
 
 export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactory, registry: TIntersectionsWatcherRegistry): TIntersectionsWatcherService {
@@ -22,6 +25,8 @@ export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactor
   const abstractService: TAbstractService = AbstractService(disposable);
 
   const create = (params: TIntersectionsWatcherParams): TIntersectionsWatcher => factory.create(params);
+  const createFromList = (list: ReadonlyArray<TIntersectionsWatcherParams>): ReadonlyArray<TIntersectionsWatcher> =>
+    list.map((params: TIntersectionsWatcherParams): TIntersectionsWatcher => create(params));
   const createFromConfig = (
     configs: ReadonlyArray<TIntersectionsWatcherConfig>,
     mouseService: TMouseService,
@@ -31,11 +36,13 @@ export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactor
   ): ReadonlyArray<TIntersectionsWatcher> =>
     configs.map((config: TIntersectionsWatcherConfig): TIntersectionsWatcher => create(factory.configToParams(config, mouseService, cameraService, actorService, loopService)));
 
+  const withFactory: TIntersectionsWatcherServiceWithFactory = withFactoryService(factory);
+  const withRegistry: TIntersectionsWatcherServiceWithRegistry = withRegistryService(registry);
+
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, {
+  return Object.assign(abstractService, withFactory, withRegistry, {
     create,
-    createFromConfig,
-    getFactory: (): TIntersectionsWatcherFactory => factory,
-    getRegistry: (): TIntersectionsWatcherRegistry => registry
+    createFromList,
+    createFromConfig
   });
 }

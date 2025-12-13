@@ -3,9 +3,18 @@ import type { Subscription } from 'rxjs';
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
-import { withActiveEntityServiceMixin } from '@/Engine/Mixins';
+import { withActiveEntityServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
 import { renderLoopEffect } from '@/Engine/Renderer/Loop';
-import type { TRendererFactory, TRendererParams, TRendererRegistry, TRendererService, TRendererServiceDependencies, TRendererWrapper } from '@/Engine/Renderer/Models';
+import type {
+  TRendererFactory,
+  TRendererRegistry,
+  TRendererService,
+  TRendererServiceDependencies,
+  TRendererServiceWithCreate,
+  TRendererServiceWithFactory,
+  TRendererServiceWithRegistry,
+  TRendererWrapper
+} from '@/Engine/Renderer/Models';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpaceLoops } from '@/Engine/Space';
 
@@ -26,7 +35,9 @@ export function RendererService(
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$, registrySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
-  const create = (params: TRendererParams): TRendererWrapper => factory.create(params);
+  const withCreateService: TRendererServiceWithCreate = withCreateServiceMixin(factory, undefined);
+  const withFactory: TRendererServiceWithFactory = withFactoryService(factory);
+  const withRegistry: TRendererServiceWithRegistry = withRegistryService(registry);
 
   const loopSub$: Subscription = renderLoopEffect(renderLoop, withActive.active$, cameraService, scene);
 
@@ -39,12 +50,9 @@ export function RendererService(
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, {
-    create,
+  return Object.assign(abstractService, withCreateService, withFactory, withRegistry, {
     setActive: withActive.setActive,
     findActive: withActive.findActive,
-    active$: withActive.active$,
-    getFactory: (): TRendererFactory => factory,
-    getRegistry: (): TRendererRegistry => registry
+    active$: withActive.active$
   });
 }

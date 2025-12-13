@@ -6,17 +6,20 @@ import { AbstractService } from '@/Engine/Abstract';
 import { Listeners } from '@/Engine/Audio/Constants';
 import { AudioLoader } from '@/Engine/Audio/Loader';
 import type {
-  TAnyAudioConfig,
-  TAnyAudioParams,
   TAnyAudioWrapper,
   TAudioFactory,
   TAudioListenersRegistry,
   TAudioLoader,
   TAudioRegistry,
   TAudioResourceAsyncRegistry,
-  TAudioService
+  TAudioService,
+  TAudioServiceWithCreate,
+  TAudioServiceWithCreateFromConfig,
+  TAudioServiceWithFactory,
+  TAudioServiceWithRegistry
 } from '@/Engine/Audio/Models';
 import type { TDisposable } from '@/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
 import type { TSpaceLoops } from '@/Engine/Space';
 
 // TODO Audio: Maybe implement "Sound Perception Manager" for NPCs to react to a sound (if they are in a radius)
@@ -36,19 +39,19 @@ export function AudioService(
   // Currently we have only one listener, but more could be added in the future
   audioListenersRegistry.add(Listeners.Main, new AudioListener());
 
-  const create = (params: TAnyAudioParams): TAnyAudioWrapper => factory.create(params, { audioLoop });
-  const createFromConfig = (models3d: ReadonlyArray<TAnyAudioConfig>): ReadonlyArray<TAnyAudioWrapper> =>
-    models3d.map((config: TAnyAudioConfig): TAnyAudioWrapper => create(factory.configToParams(config, { audioResourceAsyncRegistry, audioListenersRegistry })));
+  const withCreateService: TAudioServiceWithCreate = withCreateServiceMixin(factory, { audioLoop });
+  const withCreateFromConfigService: TAudioServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, {
+    audioResourceAsyncRegistry,
+    audioListenersRegistry
+  });
+  const withFactory: TAudioServiceWithFactory = withFactoryService(factory);
+  const withRegistry: TAudioServiceWithRegistry = withRegistryService(registry);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, {
-    getFactory: (): TAudioFactory => factory,
-    getRegistry: (): TAudioRegistry => registry,
+  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, {
     getResourceRegistry: (): TAudioResourceAsyncRegistry => audioResourceAsyncRegistry,
     getListenersRegistry: (): TAudioListenersRegistry => audioListenersRegistry,
     getMainListener: (): AudioListener | undefined => audioListenersRegistry.findByKey(Listeners.Main),
-    create,
-    createFromConfig,
     loadAsync: audioLoader.loadAsync,
     loadFromConfigAsync: audioLoader.loadFromConfigAsync
   });

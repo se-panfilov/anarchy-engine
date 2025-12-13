@@ -8,12 +8,17 @@ import type { TControlsParams } from './TControlsParams';
 import type { TControlsRegistry } from './TControlsRegistry';
 import type { TControlsWrapper } from './TControlsWrapper';
 
+export type TControlsServiceWithCreate = TWithCreateService<TControlsWrapper, TControlsParams>;
+export type TControlsServiceWithCreateFromConfig = Omit<TWithCreateFromConfigService<TControlsConfig, TControlsWrapper>, 'createFromConfig'>;
+export type TControlsServiceWithFactory = TWithFactoryService<TControlsWrapper, TControlsParams, undefined, TControlsFactory, undefined>;
+export type TControlsServiceWithRegistry = TWithRegistryService<TControlsRegistry>;
+
 export type TControlsService = TAbstractService &
-  TWithCreateService<TControlsWrapper, TControlsParams> &
-  Omit<TWithCreateFromConfigService<TControlsConfig, TControlsWrapper>, 'createFromConfig'> &
+  TControlsServiceWithCreate &
+  TControlsServiceWithCreateFromConfig &
   Readonly<{
     createFromConfig: (controls: ReadonlyArray<TControlsConfig>, camerasRegistry: TCameraRegistry) => void;
   }> &
   TWithActiveAccessorsService<TControlsWrapper> &
-  TWithFactoryService<TControlsFactory> &
-  TWithRegistryService<TControlsRegistry>;
+  TControlsServiceWithFactory &
+  TControlsServiceWithRegistry;

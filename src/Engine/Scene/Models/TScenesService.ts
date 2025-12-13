@@ -7,14 +7,14 @@ import type { TSceneParams } from './TSceneParams';
 import type { TSceneRegistry } from './TSceneRegistry';
 import type { TSceneWrapper } from './TSceneWrapper';
 
-export type TSceneServiceWithCreate = TWithCreateService<TSceneWrapper, TSceneParams>;
-export type TSceneServiceWithCreateFromConfig = TWithCreateFromConfigService<TSceneConfig, TSceneWrapper>;
-export type TSceneServiceWithFactory = TWithFactoryService<TSceneWrapper, TSceneParams, undefined, TSceneFactory, undefined>;
-export type TSceneServiceWithRegistry = TWithRegistryService<TSceneRegistry>;
+export type TScenesServiceWithCreate = TWithCreateService<TSceneWrapper, TSceneParams>;
+export type TScenesServiceWithCreateFromConfig = TWithCreateFromConfigService<TSceneConfig, TSceneWrapper>;
+export type TScenesServiceWithFactory = TWithFactoryService<TSceneWrapper, TSceneParams, undefined, TSceneFactory, undefined>;
+export type TScenesServiceWithRegistry = TWithRegistryService<TSceneRegistry>;
 
 export type TScenesService = TAbstractService &
-  TSceneServiceWithCreate &
-  TSceneServiceWithCreateFromConfig &
-  TSceneServiceWithFactory &
-  TSceneServiceWithRegistry &
+  TScenesServiceWithCreate &
+  TScenesServiceWithCreateFromConfig &
+  TScenesServiceWithFactory &
+  TScenesServiceWithRegistry &
   TWithActiveAccessorsService<TSceneWrapper>;

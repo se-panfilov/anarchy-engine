@@ -2,8 +2,19 @@ import type { Subscription } from 'rxjs';
 
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
-import type { TActor, TActorConfig, TActorFactory, TActorParams, TActorRegistry, TActorService, TActorServiceDependencies } from '@/Engine/Actor/Models';
+import type {
+  TActor,
+  TActorConfig,
+  TActorFactory,
+  TActorParams,
+  TActorRegistry,
+  TActorService,
+  TActorServiceDependencies,
+  TActorServiceWithFactory,
+  TActorServiceWithRegistry
+} from '@/Engine/Actor/Models';
 import type { TDisposable } from '@/Engine/Mixins';
+import { withFactoryService, withRegistryService } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpatialGridRegistry } from '@/Engine/Spatial';
 
@@ -14,6 +25,7 @@ export function ActorService(factory: TActorFactory, registry: TActorRegistry, a
   const abstractService: TAbstractService = AbstractService(disposable);
 
   const create = (params: TActorParams): TActor => factory.create(params, actorServiceDependencies);
+  const createFromList = (list: ReadonlyArray<TActorParams>): ReadonlyArray<TActor> => list.map((params: TActorParams): TActor => create(params));
   const createFromConfig = (actors: ReadonlyArray<TActorConfig>): ReadonlyArray<TActor> => {
     const spatialGridRegistry: TSpatialGridRegistry = actorServiceDependencies.spatialGridService.getRegistry();
     return actors.map(
@@ -22,12 +34,14 @@ export function ActorService(factory: TActorFactory, registry: TActorRegistry, a
     );
   };
 
+  const withFactory: TActorServiceWithFactory = withFactoryService(factory);
+  const withRegistry: TActorServiceWithRegistry = withRegistryService(registry);
+
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, {
+  return Object.assign(abstractService, withFactory, withRegistry, {
     create,
+    createFromList,
     createFromConfig,
-    getFactory: (): TActorFactory => factory,
-    getRegistry: (): TActorRegistry => registry,
     getScene: (): TSceneWrapper => scene
   });
 }

@@ -4,7 +4,17 @@ import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TMaterialRegistry, TMaterialService } from '@/Engine/Material';
 import type { TDisposable } from '@/Engine/Mixins';
-import type { TParticlesConfig, TParticlesFactory, TParticlesParams, TParticlesRegistry, TParticlesService, TParticlesWrapper } from '@/Engine/Particles/Models';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
+import type {
+  TParticlesFactory,
+  TParticlesRegistry,
+  TParticlesService,
+  TParticlesServiceWithCreate,
+  TParticlesServiceWithCreateFromConfig,
+  TParticlesServiceWithFactory,
+  TParticlesServiceWithRegistry,
+  TParticlesWrapper
+} from '@/Engine/Particles/Models';
 import type { TSceneWrapper } from '@/Engine/Scene';
 
 export function ParticlesService(factory: TParticlesFactory, registry: TParticlesRegistry, materialService: TMaterialService, scene: TSceneWrapper): TParticlesService {
@@ -15,16 +25,13 @@ export function ParticlesService(factory: TParticlesFactory, registry: TParticle
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, registrySub$, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
-  const create = (params: TParticlesParams): TParticlesWrapper => factory.create(params);
-  const createFromConfig = (particles: ReadonlyArray<TParticlesConfig>): ReadonlyArray<TParticlesWrapper> =>
-    particles.map((config: TParticlesConfig): TParticlesWrapper => create(factory.configToParams(config, { materialRegistry })));
+  const withCreateService: TParticlesServiceWithCreate = withCreateServiceMixin(factory, undefined);
+  const withCreateFromConfigService: TParticlesServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, { materialRegistry });
+  const withFactory: TParticlesServiceWithFactory = withFactoryService(factory);
+  const withRegistry: TParticlesServiceWithRegistry = withRegistryService(registry);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, {
-    create,
-    createFromConfig,
-    getFactory: (): TParticlesFactory => factory,
-    getRegistry: (): TParticlesRegistry => registry,
+  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, {
     getScene: (): TSceneWrapper => scene
   });
 }

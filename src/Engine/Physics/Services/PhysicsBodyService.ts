@@ -4,12 +4,15 @@ import type { Subscription } from 'rxjs';
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TDisposable } from '@/Engine/Mixins';
+import { withFactoryService, withRegistryService } from '@/Engine/Mixins';
 import type {
   TPhysicsBody,
   TPhysicsBodyFactory,
   TPhysicsBodyParams,
   TPhysicsBodyRegistry,
   TPhysicsBodyService,
+  TPhysicsBodyServiceWithFactory,
+  TPhysicsBodyServiceWithRegistry,
   TPhysicsPresetParams,
   TPhysicsPresetsService,
   TPhysicsWorldService,
@@ -35,6 +38,8 @@ export function PhysicsBodyService(
     return factory.create(params, { world });
   };
 
+  const createFromList = (list: ReadonlyArray<TPhysicsBodyParams>): ReadonlyArray<TPhysicsBody> => list.map((params: TPhysicsBodyParams): TPhysicsBody => create(params));
+
   const createWithPreset = (params: TOptional<TPhysicsBodyParams>, preset: TPhysicsPresetParams): TPhysicsBody | never => {
     const fullParams: TPhysicsBodyParams | TOptional<TPhysicsBodyParams> = { ...preset, ...params };
     if (!isPhysicsBodyParamsComplete(fullParams)) throw new Error('Cannot create physics body: params are lacking of mandatory fields');
@@ -54,14 +59,16 @@ export function PhysicsBodyService(
     });
   };
 
+  const withFactory: TPhysicsBodyServiceWithFactory = withFactoryService(factory);
+  const withRegistry: TPhysicsBodyServiceWithRegistry = withRegistryService(registry);
+
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, {
+  return Object.assign(abstractService, withFactory, withRegistry, {
     create,
+    createFromList,
     createWithPreset,
     createWithPresetName,
     createFromConfig,
-    getFactory: (): TPhysicsBodyFactory => factory,
-    getRegistry: (): TPhysicsBodyRegistry => registry,
     getKinematicDataFromPhysics
   });
 }

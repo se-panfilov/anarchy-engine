@@ -7,9 +7,9 @@ import type { TFsmSource } from './TFsmSource';
 import type { TFsmSourceFactory } from './TFsmSourceFactory';
 import type { TFsmSourceRegistry } from './TFsmSourceRegistry';
 
-export type TFsmServiceWithCreate = TWithCreateService<TFsmSource, TFsmParams>;
-export type TFsmServiceWithCreateFromConfig = TWithCreateFromConfigService<TFsmConfig, TFsmSource>;
-export type TFsmServiceWithFactory = TWithFactoryService<TFsmSource, TFsmParams, undefined, TFsmSourceFactory, undefined>;
-export type TFsmServiceWithRegistry = TWithRegistryService<TFsmSourceRegistry>;
+export type TFsmSourceServiceWithCreate = TWithCreateService<TFsmSource, TFsmParams>;
+export type TFsmSourceServiceWithCreateFromConfig = TWithCreateFromConfigService<TFsmConfig, TFsmSource>;
+export type TFsmSourceServiceWithFactory = TWithFactoryService<TFsmSource, TFsmParams, undefined, TFsmSourceFactory, undefined>;
+export type TFsmSourceServiceWithRegistry = TWithRegistryService<TFsmSourceRegistry>;
 
-export type TFsmSourceService = TAbstractService & TFsmServiceWithCreate & TFsmServiceWithCreateFromConfig & TFsmServiceWithFactory & TFsmServiceWithRegistry;
+export type TFsmSourceService = TAbstractService & TFsmSourceServiceWithCreate & TFsmSourceServiceWithCreateFromConfig & TFsmSourceServiceWithFactory & TFsmSourceServiceWithRegistry;

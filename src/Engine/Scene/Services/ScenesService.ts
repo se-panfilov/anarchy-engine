@@ -3,8 +3,17 @@ import type { Subscription } from 'rxjs';
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
-import { withActiveEntityServiceMixin } from '@/Engine/Mixins';
-import type { TSceneConfig, TSceneFactory, TSceneParams, TSceneRegistry, TScenesService, TSceneWrapper } from '@/Engine/Scene';
+import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
+import type {
+  TSceneFactory,
+  TSceneRegistry,
+  TScenesService,
+  TScenesServiceWithCreate,
+  TScenesServiceWithCreateFromConfig,
+  TScenesServiceWithFactory,
+  TScenesServiceWithRegistry,
+  TSceneWrapper
+} from '@/Engine/Scene';
 
 export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry): TScenesService {
   const withActive: TWithActiveMixinResult<TSceneWrapper> = withActiveEntityServiceMixin<TSceneWrapper>(registry);
@@ -17,8 +26,10 @@ export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry):
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, registrySub$, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
-  const create = (params: TSceneParams): TSceneWrapper => factory.create(params);
-  const createFromConfig = (scenes: ReadonlyArray<TSceneConfig>): ReadonlyArray<TSceneWrapper> => scenes.map((config: TSceneConfig): TSceneWrapper => create(factory.configToParams(config)));
+  const withCreateService: TScenesServiceWithCreate = withCreateServiceMixin(factory, undefined);
+  const withCreateFromConfigService: TScenesServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams);
+  const withFactory: TScenesServiceWithFactory = withFactoryService(factory);
+  const withRegistry: TScenesServiceWithRegistry = withRegistryService(registry);
 
   const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
@@ -28,13 +39,9 @@ export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry):
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, {
-    create,
-    createFromConfig,
+  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, {
     setActive: withActive.setActive,
     findActive: withActive.findActive,
-    active$: withActive.active$,
-    getFactory: (): TSceneFactory => factory,
-    getRegistry: (): TSceneRegistry => registry
+    active$: withActive.active$
   });
 }

@@ -5,11 +5,15 @@ import { AbstractService } from '@/Engine/Abstract';
 import type { TAnimationsResourceAsyncRegistry, TAnimationsService } from '@/Engine/Animations';
 import type { TMaterialRegistry, TMaterialService } from '@/Engine/Material';
 import type { TDisposable } from '@/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
 import { Models3dLoader } from '@/Engine/Models3d/Loaders';
 import type {
   TModel3d,
-  TModel3dConfig,
   TModel3dParams,
+  TModel3dServiceWithCreate,
+  TModel3dServiceWithCreateFromConfig,
+  TModel3dServiceWithFactory,
+  TModel3dServiceWithRegistry,
   TModels3dFactory,
   TModels3dLoader,
   TModels3dRegistry,
@@ -32,9 +36,14 @@ export function Models3dService(
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, resourcesRegistry, factorySub$, model3dLoader];
   const abstractService: TAbstractService = AbstractService(disposable);
 
-  const create = (params: TModel3dParams): TModel3d => factory.create(params, { animationsService, model3dRawToModel3dConnectionRegistry });
-  const createFromConfig = (models3d: ReadonlyArray<TModel3dConfig>): ReadonlyArray<TModel3d> =>
-    models3d.map((config: TModel3dConfig): TModel3d => create(factory.configToParams(config, { animationsResourceAsyncRegistry, materialRegistry, model3dResourceAsyncRegistry: resourcesRegistry })));
+  const withCreateService: TModel3dServiceWithCreate = withCreateServiceMixin(factory, { animationsService, model3dRawToModel3dConnectionRegistry });
+  const withCreateFromConfigService: TModel3dServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, {
+    animationsResourceAsyncRegistry,
+    materialRegistry,
+    model3dResourceAsyncRegistry: resourcesRegistry
+  });
+  const withFactory: TModel3dServiceWithFactory = withFactoryService(factory);
+  const withRegistry: TModel3dServiceWithRegistry = withRegistryService(registry);
 
   function clone(model3d: TModel3d, overrides?: TOptional<TModel3dParams>): TModel3d {
     const cloned: TModel3d = model3d._clone(overrides);
@@ -43,13 +52,9 @@ export function Models3dService(
   }
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, {
-    create,
-    createFromConfig,
+  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, {
     loadAsync: model3dLoader.loadAsync,
     loadFromConfigAsync: model3dLoader.loadFromConfigAsync,
-    getFactory: (): TModels3dFactory => factory,
-    getRegistry: (): TModels3dRegistry => registry,
     getResourceRegistry: (): TModels3dResourceAsyncRegistry => resourcesRegistry,
     getAnimationsService: (): TAnimationsService => animationsService,
     getMaterialService: (): TMaterialService => materialService,

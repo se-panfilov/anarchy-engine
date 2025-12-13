@@ -9,9 +9,10 @@ import type { TIntersectionsLoop } from '@/Engine/Intersections';
 import type { TKeyboardLoop } from '@/Engine/Keyboard';
 import type { TKinematicLoop } from '@/Engine/Kinematic';
 import { LoopType } from '@/Engine/Loop/Constants';
-import type { TLoop, TLoopFactory, TLoopParams, TLoopRegistry, TLoopService } from '@/Engine/Loop/Models';
+import type { TLoop, TLoopFactory, TLoopRegistry, TLoopService, TLoopServiceWithCreate, TLoopServiceWithFactory, TLoopServiceWithRegistry } from '@/Engine/Loop/Models';
 import { getMainLoopNameByType } from '@/Engine/Loop/Utils';
 import type { TDisposable } from '@/Engine/Mixins';
+import { withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
 import type { TMouseLoop } from '@/Engine/Mouse';
 import type { TPhysicalLoop } from '@/Engine/Physics';
 import type { TRenderLoop } from '@/Engine/Space';
@@ -26,7 +27,9 @@ export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLo
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
-  const create = (params: TLoopParams): TLoop => factory.create(params);
+  const withCreateService: TLoopServiceWithCreate = withCreateServiceMixin(factory, undefined);
+  const withFactory: TLoopServiceWithFactory = withFactoryService(factory);
+  const withRegistry: TLoopServiceWithRegistry = withRegistryService(registry);
 
   const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     debugInfoSub$?.unsubscribe();
@@ -44,8 +47,7 @@ export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLo
   }
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, {
-    create,
+  return Object.assign(abstractService, withCreateService, withFactory, withRegistry, {
     getLoop,
     getRenderLoop: (name?: string): TRenderLoop | never => getLoop(name, LoopType.Render) as TRenderLoop,
     getAudioLoop: (name?: string): TAudioLoop | never => getLoop(name, LoopType.Audio) as TAudioLoop,
@@ -58,8 +60,6 @@ export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLo
     getKeyboardLoop: (name?: string): TKeyboardLoop | never => getLoop(name, LoopType.Keyboard) as TKeyboardLoop,
     getMouseLoop: (name?: string): TMouseLoop | never => getLoop(name, LoopType.Mouse) as TMouseLoop,
     getIntersectionsLoop: (name?: string): TIntersectionsLoop | never => getLoop(name, LoopType.Intersections) as TIntersectionsLoop,
-    getControlsLoop: (name?: string): TControlsLoop | never => getLoop(name, LoopType.Controls) as TControlsLoop,
-    getFactory: (): TLoopFactory => factory,
-    getRegistry: (): TLoopRegistry => registry
+    getControlsLoop: (name?: string): TControlsLoop | never => getLoop(name, LoopType.Controls) as TControlsLoop
   });
 }

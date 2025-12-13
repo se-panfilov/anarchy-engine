@@ -2,8 +2,19 @@ import type { Subscription } from 'rxjs';
 
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
-import type { TAbstractLightWrapper, TAnyLightConfig, TLight, TLightFactory, TLightParams, TLightRegistry, TLightService } from '@/Engine/Light/Models';
+import type {
+  TAbstractLightWrapper,
+  TLight,
+  TLightFactory,
+  TLightRegistry,
+  TLightService,
+  TLightServiceWithCreate,
+  TLightServiceWithCreateFromConfig,
+  TLightServiceWithFactory,
+  TLightServiceWithRegistry
+} from '@/Engine/Light/Models';
 import type { TDisposable } from '@/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 
 export function LightService(factory: TLightFactory, registry: TLightRegistry, scene: TSceneWrapper): TLightService {
@@ -12,16 +23,13 @@ export function LightService(factory: TLightFactory, registry: TLightRegistry, s
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, registrySub$, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
-  const create = (params: TLightParams): TAbstractLightWrapper<TLight> => factory.create(params);
-  const createFromConfig = (lights: ReadonlyArray<TAnyLightConfig>): ReadonlyArray<TAbstractLightWrapper<TLight>> =>
-    lights.map((config: TAnyLightConfig): TAbstractLightWrapper<TLight> => create(factory.configToParams(config)));
+  const withCreateService: TLightServiceWithCreate = withCreateServiceMixin(factory, undefined);
+  const withCreateFromConfigService: TLightServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams);
+  const withFactory: TLightServiceWithFactory = withFactoryService(factory);
+  const withRegistry: TLightServiceWithRegistry = withRegistryService(registry);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, {
-    create,
-    createFromConfig,
-    getFactory: (): TLightFactory => factory,
-    getRegistry: (): TLightRegistry => registry,
+  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, {
     getScene: (): TSceneWrapper => scene
   });
 }

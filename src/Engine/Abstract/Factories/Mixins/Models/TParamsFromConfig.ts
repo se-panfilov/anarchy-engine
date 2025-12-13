@@ -1,5 +1,7 @@
+export type TConfigToParamsWithDependenciesFn<C, P, D = undefined> = (config: C, dependencies?: D) => P;
+
 export type TParamsFromConfigWithDependencies<C, P, D> = Readonly<{
-  configToParams: (config: C, dependencies: D) => P;
+  configToParams: TConfigToParamsWithDependenciesFn<C, P, D>;
 }>;
 
 export type TConfigToParamsFn<C, P> = (config: C) => P;
