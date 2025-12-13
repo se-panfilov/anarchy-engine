@@ -70,10 +70,11 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   // TODO (S.Panfilov) we need a normal logging from services (which service with which id do what)
   // TODO (S.Panfilov) add validation for intersections config (names, uniq, patterns, etc)
   // TODO (S.Panfilov) stop watching actors after all the intersections are ready
+  void intersectionsWatcherService.createFromConfigAsync(intersections, mouseService, cameraService, actorService);
 
-  // TODO (S.Panfilov) intersections should be added and launched async, as they depend on actors which are also async
-  // TODO (S.Panfilov) debug line, should be a part of Space's services
-  intersectionsWatcherService.createFromConfigAsync(intersections, mouseService, cameraService, actorService);
+  intersectionsWatcherService.getRegistry().added$.subscribe((watcher: IIntersectionsWatcher): void => {
+    if (watcher.isAutoStart && !watcher.isStarted) watcher.start();
+  });
 
   let camera: ICameraWrapper | undefined;
   cameraService.active$.subscribe((wrapper: ICameraWrapper | undefined): void => void (camera = wrapper));
@@ -94,10 +95,6 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   return {
     name,
     start(): void {
-      intersectionsWatcherService.getRegistry().forEach((watcher: IIntersectionsWatcher): void => {
-        if (watcher.isAutoStart && !watcher.isStarted) watcher.start();
-      });
-
       loopService.start();
     },
     stop(): void {

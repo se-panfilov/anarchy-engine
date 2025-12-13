@@ -9,7 +9,7 @@ import spaceConfig from './showcase-1.json';
 //Showcase 1: Moving actor with intersections & reading data from config
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { actorService, cameraService, intersectionsService, loopService } = space.services;
+  const { actorService, cameraService, intersectionsWatcherService, loopService } = space.services;
   const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
 
   async function init(): Promise<void> {
@@ -26,7 +26,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     const camera: ICameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
     // const actors: ReadonlyArray<IActorWrapperAsync> = actorRegistry.findAllByTags(['intersectable'], LookUpStrategy.Every);
-    const intersectionsWatcher: IIntersectionsWatcher = intersectionsService.buildWatcher(camera);
+    const intersectionsWatcher: IIntersectionsWatcher = intersectionsWatcherService.create(camera);
 
     actorRegistry.added$.pipe(filter((a: IActorWrapperAsync) => a.hasTag('intersectable'))).subscribe((actor: IActorWrapperAsync): void => intersectionsWatcher.addActor(actor));
 

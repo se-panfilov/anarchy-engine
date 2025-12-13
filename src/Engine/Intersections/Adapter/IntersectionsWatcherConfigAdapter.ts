@@ -4,7 +4,7 @@ import type { IIntersectionsWatcherConfig, IIntersectionsWatcherParams } from '@
 import type { IMouseService } from '@/Engine/Mouse';
 import { isNotDefined } from '@/Engine/Utils';
 
-export async function configToParams(
+export async function configToParamsAsync(
   config: IIntersectionsWatcherConfig,
   mouseService: IMouseService,
   cameraService: ICameraService,

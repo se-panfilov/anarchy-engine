@@ -5,10 +5,10 @@ import type { IMouseService } from '@/Engine/Mouse';
 import type { IWithCreateFromConfigAsyncService, IWithCreateService, IWithFactoryService, IWithRegistryService } from '@/Engine/Space';
 
 import type { IIntersectionsWatcher } from './IIntersectionsWatcher';
+import type { IIntersectionsWatcherAsyncRegistry } from './IIntersectionsWatcherAsyncRegistry';
 import type { IIntersectionsWatcherConfig } from './IIntersectionsWatcherConfig';
 import type { IIntersectionsWatcherFactory } from './IIntersectionsWatcherFactory';
 import type { IIntersectionsWatcherParams } from './IIntersectionsWatcherParams';
-import type { IIntersectionsWatcherRegistry } from './IIntersectionsWatcherRegistry';
 
 export type IIntersectionsWatcherService = IWithCreateService<IIntersectionsWatcher, IIntersectionsWatcherParams> &
   Omit<IWithCreateFromConfigAsyncService<IIntersectionsWatcherConfig>, 'createFromConfigAsync'> &
@@ -21,5 +21,5 @@ export type IIntersectionsWatcherService = IWithCreateService<IIntersectionsWatc
     ) => Promise<ReadonlyArray<IIntersectionsWatcher>>;
   }> &
   IWithFactoryService<IIntersectionsWatcherFactory> &
-  IWithRegistryService<IIntersectionsWatcherRegistry> &
+  IWithRegistryService<IIntersectionsWatcherAsyncRegistry> &
   IDestroyable;

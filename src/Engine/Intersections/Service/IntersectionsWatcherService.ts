@@ -2,17 +2,17 @@ import type { IActorService } from '@/Engine/Actor';
 import type { ICameraService } from '@/Engine/Camera';
 import type {
   IIntersectionsWatcher,
+  IIntersectionsWatcherAsyncRegistry,
   IIntersectionsWatcherConfig,
   IIntersectionsWatcherFactory,
   IIntersectionsWatcherParams,
-  IIntersectionsWatcherRegistry,
   IIntersectionsWatcherService
 } from '@/Engine/Intersections/Models';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { IMouseService } from '@/Engine/Mouse';
 
-export function IntersectionsWatcherService(factory: IIntersectionsWatcherFactory, registry: IIntersectionsWatcherRegistry): IIntersectionsWatcherService {
+export function IntersectionsWatcherService(factory: IIntersectionsWatcherFactory, registry: IIntersectionsWatcherAsyncRegistry): IIntersectionsWatcherService {
   factory.entityCreated$.subscribe((watcher: IIntersectionsWatcher): void => registry.add(watcher));
 
   const create = (params: IIntersectionsWatcherParams): IIntersectionsWatcher => factory.create(params);
@@ -37,7 +37,7 @@ export function IntersectionsWatcherService(factory: IIntersectionsWatcherFactor
     create,
     createFromConfigAsync,
     getFactory: (): IIntersectionsWatcherFactory => factory,
-    getRegistry: (): IIntersectionsWatcherRegistry => registry,
+    getRegistry: (): IIntersectionsWatcherAsyncRegistry => registry,
     ...destroyable
   };
 }
