@@ -1,8 +1,8 @@
 import type { TAbstractResourceConfig } from '@/Engine/Abstract';
 
-import type { TTextureOptions } from './TTextureOptions';
+import type { TModel3dOptions } from './TModel3dOptions';
 
 export type TModel3dResourceConfig = Omit<TAbstractResourceConfig, 'options'> &
   Readonly<{
-    options?: TTextureOptions;
+    options?: TModel3dOptions;
   }>;
