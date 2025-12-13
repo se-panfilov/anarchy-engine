@@ -1,4 +1,4 @@
-import type { TAbstractService } from '@/Engine/Abstract';
+import type { TEntitiesService } from '@/Engine/Abstract';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 
 import type { TMaterialConfig } from './TMaterialConfig';
@@ -12,4 +12,4 @@ export type TMaterialServiceWithCreateFromConfig = TWithCreateFromConfigService<
 export type TMaterialServiceWithFactory = TWithFactoryService<TMaterialWrapper, TMaterialParams, undefined, TMaterialFactory>;
 export type TMaterialServiceWithRegistry = TWithRegistryService<TMaterialRegistry>;
 
-export type TMaterialService = TAbstractService & TMaterialServiceWithCreate & TMaterialServiceWithCreateFromConfig & TMaterialServiceWithFactory & TMaterialServiceWithRegistry;
+export type TMaterialService = TEntitiesService & TMaterialServiceWithCreate & TMaterialServiceWithCreateFromConfig & TMaterialServiceWithFactory & TMaterialServiceWithRegistry;

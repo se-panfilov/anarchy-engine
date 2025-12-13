@@ -1,4 +1,4 @@
-import type { TAbstractService } from '@/Engine/Abstract';
+import type { TEntitiesService } from '@/Engine/Abstract';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Mixins';
 
 import type { TActor } from './TActor';
@@ -13,4 +13,4 @@ export type TActorServiceWithCreateFromConfig = TWithCreateFromConfigService<TAc
 export type TActorServiceWithFactory = TWithFactoryService<TActor, TActorParams, TActorServiceDependencies, TActorFactory>;
 export type TActorServiceWithRegistry = TWithRegistryService<TActorRegistry>;
 
-export type TActorService = TAbstractService & TActorServiceWithCreate & TActorServiceWithCreateFromConfig & TActorServiceWithFactory & TActorServiceWithRegistry & TWithSceneGetterService;
+export type TActorService = TEntitiesService & TActorServiceWithCreate & TActorServiceWithCreateFromConfig & TActorServiceWithFactory & TActorServiceWithRegistry & TWithSceneGetterService;

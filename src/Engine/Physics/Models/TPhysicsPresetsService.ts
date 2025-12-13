@@ -1,4 +1,4 @@
-import type { TAbstractService } from '@/Engine/Abstract';
+import type { TEntitiesService } from '@/Engine/Abstract';
 import type { TWithRegistryService } from '@/Engine/Mixins';
 
 import type { TPhysicsBodyFactory } from './TPhysicsBodyFactory';
@@ -10,7 +10,7 @@ import type { TWithPresetNamePhysicsBodyConfig } from './TWithPresetNamePhysicsB
 
 export type TPhysicsPresetRServiceWithRegistry = TWithRegistryService<TPhysicsPresetRegistry>;
 
-export type TPhysicsPresetsService = TAbstractService &
+export type TPhysicsPresetsService = TEntitiesService &
   TPhysicsPresetRServiceWithRegistry &
   Readonly<{
     addPresets: (presets: ReadonlyArray<TPhysicsPresetParams>) => void;

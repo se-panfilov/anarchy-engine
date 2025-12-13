@@ -1,4 +1,4 @@
-import type { TAbstractService } from '@/Engine/Abstract';
+import type { TEntitiesService } from '@/Engine/Abstract';
 import type { TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TOptional } from '@/Engine/Utils';
@@ -27,7 +27,7 @@ export type TTransformDriveServiceWithCreate = TWithCreateTransformDriveService<
 export type TTransformDriveServiceWithFactory = TWithFactoryService<TTransformDrive<TTransformDriveCompatibleEntity>, TTransformDriveFactoryParams, undefined, TTransformDriveFactory>;
 export type TTransformDriveServiceWithRegistry = TWithRegistryService<TTransformDriveRegistry>;
 
-export type TTransformDriveService = TAbstractService &
+export type TTransformDriveService = TEntitiesService &
   TTransformDriveServiceWithCreate &
   TTransformDriveServiceWithFactory &
   TTransformDriveServiceWithRegistry &

@@ -1,7 +1,7 @@
 import type { Observable } from 'rxjs';
 import type { AnimationClip, AnimationMixer } from 'three';
 
-import type { TAbstractService } from '@/Engine/Abstract';
+import type { TEntitiesService } from '@/Engine/Abstract';
 import type { TDelta } from '@/Engine/Loop';
 import type { TWithLoadResourcesAsyncService, TWithResourcesRegistryService } from '@/Engine/Mixins';
 import type { TModel3d, TRawModel3d } from '@/Engine/Models3d';
@@ -12,7 +12,7 @@ import type { TAnimationsResourceAsyncRegistry } from './TAnimationsResourceAsyn
 import type { TAnimationsResourceConfig } from './TAnimationsResourceConfig';
 import type { TModel3dAnimations } from './TModel3dAnimations';
 
-export type TAnimationsService = TAbstractService &
+export type TAnimationsService = TEntitiesService &
   Readonly<{
     createActions: (model: TRawModel3d, animations?: ReadonlyArray<AnimationClip>, mixer?: AnimationMixer) => TAnimationActionsPack;
     added$: Observable<TModel3dAnimations>;

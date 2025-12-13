@@ -1,4 +1,4 @@
-import type { TAbstractService } from '@/Engine/Abstract';
+import type { TEntitiesService } from '@/Engine/Abstract';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 
 import type { TFsmConfig } from './TFsmConfig';
@@ -12,4 +12,4 @@ export type TFsmSourceServiceWithCreateFromConfig = TWithCreateFromConfigService
 export type TFsmSourceServiceWithFactory = TWithFactoryService<TFsmSource, TFsmParams, undefined, TFsmSourceFactory>;
 export type TFsmSourceServiceWithRegistry = TWithRegistryService<TFsmSourceRegistry>;
 
-export type TFsmSourceService = TAbstractService & TFsmSourceServiceWithCreate & TFsmSourceServiceWithCreateFromConfig & TFsmSourceServiceWithFactory & TFsmSourceServiceWithRegistry;
+export type TFsmSourceService = TEntitiesService & TFsmSourceServiceWithCreate & TFsmSourceServiceWithCreateFromConfig & TFsmSourceServiceWithFactory & TFsmSourceServiceWithRegistry;

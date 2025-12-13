@@ -15,6 +15,7 @@ export type * from './TAbstractWatcherRegistry';
 export type * from './TAbstractWatcherWithState';
 export type * from './TAbstractWrapper';
 export type * from './TCreateEntityFactoryFn';
+export type * from './TEntitiesService';
 export type * from './TEntity';
 export type * from './TEntityParams';
 export type * from './TFactory';

@@ -1,4 +1,4 @@
-import type { TAbstractService } from '@/Engine/Abstract';
+import type { TEntitiesService } from '@/Engine/Abstract';
 import type { TKinematicState } from '@/Engine/Kinematic';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 import type { TOptional } from '@/Engine/Utils';
@@ -16,7 +16,7 @@ export type TPhysicsBodyServiceWithCreateFromConfig = TWithCreateFromConfigServi
 export type TPhysicsBodyServiceWithFactory = TWithFactoryService<TPhysicsBody, TPhysicsBodyParams, TPhysicsDependencies, TPhysicsBodyFactory>;
 export type TPhysicsBodyServiceWithRegistry = TWithRegistryService<TPhysicsBodyRegistry>;
 
-export type TPhysicsBodyService = TAbstractService &
+export type TPhysicsBodyService = TEntitiesService &
   TPhysicsBodyServiceWithCreate &
   TPhysicsBodyServiceWithCreateFromConfig &
   TPhysicsBodyServiceWithFactory &

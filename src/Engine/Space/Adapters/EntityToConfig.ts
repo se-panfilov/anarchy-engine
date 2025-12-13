@@ -24,7 +24,7 @@ export function spaceToConfig(entity: TSpace, { actorService }: TSpaceServices):
     //   texts: ReadonlyArray<TTextConfig>;
     //   controls: ReadonlyArray<TControlsConfig>;
 
-    actors: actorService.getRegistry().serializeAll()
+    actors: actorService.serializeAllEntities()
 
     // TODO 15-0-0: fix any
     // ...entity.entities.reduce((acc: TSpaceConfigEntities, entity): TSpaceConfigEntities => {

@@ -1,7 +1,7 @@
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, skip } from 'rxjs';
 
-import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
+import type { TEntitiesService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import type { TContainerDecorator } from '@/Engine/Global';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
@@ -90,7 +90,7 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
 
     built$.complete();
     start$.complete();
-    Object.values(services).forEach((service: TAbstractService): void => void (isDestroyable(service) && service.destroy$.next()));
+    Object.values(services).forEach((service: TEntitiesService): void => void (isDestroyable(service) && service.destroy$.next()));
     Object.values(loops).forEach((loop: TLoop): void => void (isDestroyable(loop) && loop.destroy$.next()));
   });
 

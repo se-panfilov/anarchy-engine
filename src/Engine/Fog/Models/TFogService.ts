@@ -1,4 +1,4 @@
-import type { TAbstractService } from '@/Engine/Abstract';
+import type { TEntitiesService } from '@/Engine/Abstract';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Mixins';
 
 import type { TFogConfig } from './TFogConfig';
@@ -12,4 +12,4 @@ export type TFogServiceWithCreateFromConfig = TWithCreateFromConfigService<TFogC
 export type TFogServiceWithFactory = TWithFactoryService<TFogWrapper, TFogParams, undefined, TFogFactory>;
 export type TFogServiceWithRegistry = TWithRegistryService<TFogRegistry>;
 
-export type TFogService = TAbstractService & TFogServiceWithCreate & TFogServiceWithCreateFromConfig & TFogServiceWithFactory & TFogServiceWithRegistry & TWithSceneGetterService;
+export type TFogService = TEntitiesService & TFogServiceWithCreate & TFogServiceWithCreateFromConfig & TFogServiceWithFactory & TFogServiceWithRegistry & TWithSceneGetterService;

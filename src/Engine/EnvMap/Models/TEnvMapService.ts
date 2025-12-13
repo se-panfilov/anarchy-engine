@@ -1,4 +1,4 @@
-import type { TAbstractService } from '@/Engine/Abstract';
+import type { TEntitiesService } from '@/Engine/Abstract';
 import type { TEnvMapConfig, TEnvMapFactory, TEnvMapParams, TEnvMapRegistry, TEnvMapResourceConfig, TEnvMapTexture, TEnvMapTextureAsyncRegistry, TEnvMapWrapper } from '@/Engine/EnvMap/Models';
 import type {
   TWithActiveAccessorsService,
@@ -16,7 +16,7 @@ export type TEnvMapServiceWithCreateFromConfig = TWithCreateFromConfigService<TE
 export type TEnvMapServiceWithFactory = TWithFactoryService<TEnvMapWrapper, TEnvMapParams, undefined, TEnvMapFactory>;
 export type TEnvMapServiceWithRegistry = TWithRegistryService<TEnvMapRegistry>;
 
-export type TEnvMapService = TAbstractService &
+export type TEnvMapService = TEntitiesService &
   TEnvMapServiceWithCreate &
   TEnvMapServiceWithCreateFromConfig &
   TWithActiveAccessorsService<TEnvMapWrapper> &

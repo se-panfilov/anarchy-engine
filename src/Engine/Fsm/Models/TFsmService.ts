@@ -1,4 +1,4 @@
-import type { TAbstractService } from '@/Engine/Abstract';
+import type { TEntitiesService } from '@/Engine/Abstract';
 import type { FsmEventsStrategy } from '@/Engine/Fsm/Constants';
 import type { TFsmConfig, TFsmInstanceRegistry, TFsmParams, TFsmSource, TFsmStates, TFsmWrapper } from '@/Engine/Fsm/Models';
 import type { TWithFactoryService } from '@/Engine/Mixins';
@@ -8,7 +8,7 @@ import type { TFsmSourceRegistry } from './TFsmSourceRegistry';
 
 export type TFsmServiceWithFactory = TWithFactoryService<TFsmWrapper, TFsmParams, undefined, TFsmInstanceFactory>;
 
-export type TFsmService = TAbstractService &
+export type TFsmService = TEntitiesService &
   TFsmServiceWithFactory &
   Readonly<{
     create: (params: TFsmParams, force?: boolean) => TFsmWrapper | never;

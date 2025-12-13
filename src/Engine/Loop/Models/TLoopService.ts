@@ -1,4 +1,4 @@
-import type { TAbstractService } from '@/Engine/Abstract';
+import type { TEntitiesService } from '@/Engine/Abstract';
 import type { TAudioLoop } from '@/Engine/Audio';
 import type { TCollisionsLoop } from '@/Engine/Collisions';
 import type { TControlsLoop } from '@/Engine/Controls';
@@ -23,7 +23,7 @@ export type TLoopServiceWithCreate = TWithCreateService<TLoop, TLoopParams>;
 export type TLoopServiceWithFactory = TWithFactoryService<TLoop, TLoopParams, undefined, TLoopFactory>;
 export type TLoopServiceWithRegistry = TWithRegistryService<TLoopRegistry>;
 
-export type TLoopService = TAbstractService &
+export type TLoopService = TEntitiesService &
   Readonly<{
     getRenderLoop: (name?: string) => TRenderLoop | never;
     getAudioLoop: (name?: string) => TAudioLoop | never;
