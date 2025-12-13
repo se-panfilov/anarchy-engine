@@ -21,6 +21,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
   const { audioSource, volume, position, performance } = params;
   const entity: PositionalAudio = createPositionalAudion(audioSource, params);
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(position);
+  const listener$: BehaviorSubject<AudioListener> = new BehaviorSubject<AudioListener>(params.listener);
 
   const pause$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.pause ?? false);
   const fade$: Subject<TAudioFadeParams> = new Subject<TAudioFadeParams>();
@@ -75,7 +76,8 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
 
     position$.complete();
     position$.unsubscribe();
-
+    listener$.complete();
+    listener$.unsubscribe();
     pause$.complete();
     pause$.unsubscribe();
     fade$.complete();
@@ -89,7 +91,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
     volume$.complete();
     volume$.unsubscribe();
 
-    // TODO 11.0.0: do we need to do unload here?
+    // TODO 11.0.0: guess we need to dispose PositionalAudio
   });
 
   return {
@@ -105,7 +107,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
     getDuration: (): number | undefined => entity.duration,
     stop: (): void => void entity.stop(),
     volume$,
-    getListener: (): AudioListener => entity.listener,
+    listener$,
     position$,
     ...destroyable
   };
