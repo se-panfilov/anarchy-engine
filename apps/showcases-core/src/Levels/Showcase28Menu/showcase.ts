@@ -67,8 +67,3 @@ export function showcase(space: TSpace): void {
 
   space.start$.next(true);
 }
-
-// TODO DEBUG
-setTimeout(() => {
-  throw new Error('[DEBUG] test: uncaughtException');
-}, 1000);
