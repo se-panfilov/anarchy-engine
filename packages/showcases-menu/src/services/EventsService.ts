@@ -7,6 +7,8 @@ import { FromMenuEvents, isLoadDoc, isSettings, ToMenuEvents } from '@Showcases/
 import type { Observable, Subject, Subscription } from 'rxjs';
 import { toRaw } from 'vue';
 
+const { CloseMenu, ContinueGame, ExitApp, GetLegalDocs, GetSettings, LoadGame, SetSettings, StartNewGame } = FromMenuEvents;
+
 function EventsService(): TEventsService {
   let fromMenuBus$: Subject<TFromMenuEvent> | undefined;
   let toMenuBus$: Observable<TToMenuEvent> | undefined;
@@ -19,49 +21,49 @@ function EventsService(): TEventsService {
   function emitCloseMenu(): void | never {
     if (isNotDefined(fromMenuBus$)) throw new Error(noBusError);
     console.log('[EventsService]: emitCloseMenu');
-    fromMenuBus$.next({ type: FromMenuEvents.CloseMenu });
+    fromMenuBus$.next({ type: CloseMenu });
   }
 
   function emitSetMenuSettings(settings: TShowcaseGameSettings): void | never {
     if (isNotDefined(fromMenuBus$)) throw new Error(noBusError);
     console.log('[EventsService]: emitSetMenuSettings');
-    fromMenuBus$.next({ type: FromMenuEvents.SetSettings, payload: toRaw(settings) });
+    fromMenuBus$.next({ type: SetSettings, payload: toRaw(settings) });
   }
 
   function emitGetMenuSettings(): void | never {
     if (isNotDefined(fromMenuBus$)) throw new Error(noBusError);
     console.log('[EventsService]: emitGetMenuSettings');
-    fromMenuBus$.next({ type: FromMenuEvents.GetSettings });
+    fromMenuBus$.next({ type: GetSettings });
   }
 
   function emitGetLegalDocs(payload: TLoadDocPayload): void | never {
     if (isNotDefined(fromMenuBus$)) throw new Error(noBusError);
     console.log('[EventsService]: emitGetLegalDocs');
-    fromMenuBus$.next({ type: FromMenuEvents.GetLegalDocs, payload: toRaw(payload) });
+    fromMenuBus$.next({ type: GetLegalDocs, payload: toRaw(payload) });
   }
 
   function emitStartNewGame(): void | never {
     if (isNotDefined(fromMenuBus$)) throw new Error(noBusError);
     console.log('[EventsService]: emitStartNewGame');
-    fromMenuBus$.next({ type: FromMenuEvents.StartNewGame });
+    fromMenuBus$.next({ type: StartNewGame });
   }
 
   function emitContinueGame(): void | never {
     if (isNotDefined(fromMenuBus$)) throw new Error(noBusError);
     console.log('[EventsService]: emitContinueGame');
-    fromMenuBus$.next({ type: FromMenuEvents.ContinueGame });
+    fromMenuBus$.next({ type: ContinueGame });
   }
 
   function emitLoadGame(): void | never {
     if (isNotDefined(fromMenuBus$)) throw new Error(noBusError);
     console.log('[EventsService]: emitLoadGame');
-    fromMenuBus$.next({ type: FromMenuEvents.LoadGame });
+    fromMenuBus$.next({ type: LoadGame });
   }
 
   function emitExitApp(): void | never {
     if (isNotDefined(fromMenuBus$)) throw new Error(noBusError);
     console.log('[EventsService]: emitExitApp');
-    fromMenuBus$.next({ type: FromMenuEvents.ExitApp });
+    fromMenuBus$.next({ type: ExitApp });
   }
 
   function startListeningAppEvents(): Subscription {
