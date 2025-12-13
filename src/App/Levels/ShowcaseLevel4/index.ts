@@ -1,6 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, CameraTag, isDefined } from '@/Engine';
+import { buildLevelFromConfig, CameraTag } from '@/Engine';
 
 import levelConfig from './showcase-level-4.config.json';
 
@@ -13,13 +13,19 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const { actorRegistry, cameraRegistry } = level.entities;
 
     const camera = cameraRegistry.getUniqByTag(CameraTag.Active);
+    console.log(actorRegistry.getAll());
+    const actor = actorRegistry.getUniqByTag('central_actor');
 
-    const { mousePositionWatcher, screenSizeWatcher } = ambientContext;
-    const actor = actorRegistry.getAll()[0];
+    // actor.goTo({ x: 0, y: 0, z: 0 }, 1000, 'easeInOutQuad');
+    let direction: number = 1;
+    setInterval(() => {
+      if (actor?.getX() > 5) direction = -1;
+      if (actor?.getX() < -5) direction = 1;
+      actor?.setX(actor?.getX() + 0.1 * direction);
+      camera.lookAt(actor.getPosition());
+    }, 30);
 
-    actor.goTo({ x: 0, y: 0, z: 0 }, 1000, 'easeInOutQuad');
-
-    // if (isDefined(actor)) camera.lookAt(actor.getPosition());
+    // goToPosition(actor, { x: 5, y: 0, z: 0 }, 1000, 'easeInOutQuad');
   }
 
   return { start, level };
