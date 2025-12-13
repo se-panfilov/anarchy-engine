@@ -19,8 +19,10 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
 
   let screenSizeSub$: Subscription | undefined = undefined;
 
+  // TODO 9.2.0 ACTIVE: Rework ACTIVE mixin to active$ (add hooks to apply ratio). Do the same for all entities with active
   const findActive = withActive.findActive;
 
+  // TODO 9.2.0 ACTIVE: This could be moved in active$ camera and applied in onActive hook
   function startUpdatingCamerasAspect(shouldUpdateOnlyActiveCamera: boolean = false): void {
     screenSizeSub$ = ambientContext.screenSizeWatcher.value$.subscribe((params: TScreenSizeValues): void => {
       if (shouldUpdateOnlyActiveCamera) {

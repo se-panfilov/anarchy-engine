@@ -58,6 +58,7 @@ export function Actor(
     entities.collisions?.destroy$.next();
   });
 
+  // TODO 8.0.0. MODELS: should optimize this (maybe use "distinctUntilChanged" or "throttleTime")
   // TODO 8.0.0. MODELS: This might not be triggered if vectors aren't cloned (considered as the same, due to the same reference)
   const positionSub$: Subscription = drive.position$.subscribe((position: Vector3): void => {
     // TODO 8.0.0. MODELS: not sure if "updateSpatialCells()" should happen on rotation$ and scale$ changes

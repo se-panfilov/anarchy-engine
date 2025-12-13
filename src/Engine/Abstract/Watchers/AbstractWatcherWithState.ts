@@ -8,11 +8,10 @@ import { AbstractWatcher } from './AbstractWatcher';
 
 export function AbstractWatcherWithState<T>(type: WatcherType | string, initialValue: T, tags: ReadonlyArray<string> = []): TAbstractWatcherWithState<T> {
   const abstractWatcher: TAbstractWatcher<T> = AbstractWatcher(type, undefined, tags);
+  // TODO Do we really need latest$?
   const latest$: BehaviorSubject<T> = new BehaviorSubject<T>(initialValue);
 
-  abstractWatcher.value$.subscribe((val: T): void => {
-    latest$.next(val);
-  });
+  abstractWatcher.value$.subscribe(latest$);
 
   const abstractWatcherSubscription$: Subscription = abstractWatcher.destroy$.subscribe((): void => {
     latest$.complete();

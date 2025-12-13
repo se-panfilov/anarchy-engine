@@ -51,7 +51,16 @@ export function RendererWrapper(params: TRendererParams, screenSizeWatcher: Read
   //init with the values which came before the start of the subscription
   setValues(entity, screenSizeWatcher.latest$.value);
 
-  const screenSize$: Subscription = screenSizeWatcher.value$.subscribe((params: TScreenSizeValues): void => setValues(entity, params));
+  // TODO 9.2.0 ACTIVE: This could be done only in active$ renderer and applied in onActive hook
+  const screenSize$: Subscription = screenSizeWatcher.value$
+    // .pipe(
+    //   throttleTime(4)
+    // distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height)
+    // )
+    .subscribe((params: TScreenSizeValues): void => {
+      // console.log('XXX', params);
+      setValues(entity, params);
+    });
 
   const screenSizeWatcherSubscription: Subscription = screenSizeWatcher.destroy$.subscribe(() => {
     screenSize$.unsubscribe();
