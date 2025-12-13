@@ -14,6 +14,7 @@ const desktopAppSettings: TDesktopAppConfig = {
 
 // TODO CWP
 // TODO DESKTOP: TEST SENTRY WITH DIFFERENT PLATFORMS/RELEASES
+// TODO DESKTOP: Add architecture (x64, arm64, etc.) to the Sentry tags
 
 // TODO DESKTOP: Add .env files for different platforms (macos, windows, linux).
 // TODO DESKTOP: We need e2e eventually
