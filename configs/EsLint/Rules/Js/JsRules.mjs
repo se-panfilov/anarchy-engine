@@ -32,6 +32,7 @@ export const JsRules = {
         'Dst',
         'Equirectangular',
         'Func',
+        'Ipc',
         'Kerning',
         'Linecap',
         'Linejoin',
