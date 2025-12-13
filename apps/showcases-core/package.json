@@ -27,13 +27,13 @@
   },
   "dependencies": {
     "anarchy-engine": "*",
-    "anarchy-shared": "*",
-    "showcases-menu": "*",
-    "showcases-shared": "*",
     "anarchy-i18n": "*",
+    "anarchy-shared": "*",
     "lil-gui": "0.20.0",
     "rxjs": "7.8.2",
     "sanitize.css": "13.0.0",
+    "showcases-menu": "*",
+    "showcases-shared": "*",
     "stats.js": "0.17.0",
     "three-viewport-gizmo": "2.2.0"
   },
