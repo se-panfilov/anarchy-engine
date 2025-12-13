@@ -9,7 +9,7 @@ export abstract class AbstractManager<T extends Entity> implements Manager<T> {
   public list$ = new BehaviorSubject<ReadonlyArray<T>>([]);
   public destroyed$ = new Subject<void>();
 
-  public abstract create(params?: any): T;
+  public abstract create(...params: any): T;
 
   public setCurrent(actor: T): void {
     this.current$.next(actor);

@@ -9,8 +9,14 @@ import { ActorManager } from '@Engine/Managers/ActorManager';
 import { ControlManager } from '@Engine/Managers/ControlManager';
 import { DeviceWatcher } from '@Engine/Watchers/DeviceWatcher';
 import type { CameraParams } from '@Engine/Wrappers/CameraWrapper';
+import { ActorParams } from '@Engine/Wrappers/ActorWrapper';
+import { isNotDefined } from '@Engine/Utils';
 
-const deviceWatcher = new DeviceWatcher({ width: window.innerWidth, height: window.innerHeight, ratio: 2 });
+const deviceWatcher = new DeviceWatcher({
+  width: window.innerWidth,
+  height: window.innerHeight,
+  ratio: window.devicePixelRatio || 1
+});
 
 const actorManager = new ActorManager();
 const cameraManager = new CameraManager();
@@ -29,8 +35,16 @@ sceneManager.setCurrent(scene);
 // sceneManager.attachManagerToScene(lightManager, scene);
 // sceneManager.attachManagerToScene(inputManager, scene);
 
-actorManager.create('sphere');
-actorManager.create('plane');
+const actorParams: Partial<ActorParams> = {
+  width: 1,
+  height: 32,
+  heightSegments: 32,
+  materialParams: { color: new Color('#5EDCAE') }
+};
+const sphereParams: ActorParams = { ...actorParams, type: 'sphere' };
+const planeParams: ActorParams = { ...actorParams, type: 'plane' };
+actorManager.create(sphereParams);
+actorManager.create(planeParams);
 
 const params: CameraParams = {
   width: deviceWatcher.size$.value.width,
@@ -44,6 +58,8 @@ cameraManager.setCurrent(wrappedCamera);
 wrappedCamera.setPosition(3, 2, 15);
 wrappedCamera.lookAt(0, 0, 0);
 
+if (isNotDefined(cameraManager.current$.value)) throw new Error('Camera is not ready');
+if (isNotDefined(rendererManager.current$.value)) throw new Error('Renderer is not ready');
 const wrappedControl = controlManager.create(cameraManager.current$.value, rendererManager.current$.value);
 wrappedControl.entity.wrappedCamera.setControls('OrbitControls');
 

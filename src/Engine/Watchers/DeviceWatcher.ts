@@ -24,7 +24,7 @@ export class DeviceWatcher extends AbstractWatcher {
 
   // TODO (S.Panfilov) global?
   public onResize = (): void =>
-    this.size$.next({ width: window.innerWidth, height: window.innerHeight, ratio: this.size$.value.ratio });
+    this.size$.next({ width: window.innerWidth, height: window.innerHeight, ratio: window.devicePixelRatio || 1 });
 
   // TODO (S.Panfilov) global?
   public start = (): void => window.addEventListener('resize', this.onResize);
