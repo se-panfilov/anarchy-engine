@@ -2,7 +2,6 @@ import anime from 'animejs';
 import type { Subscription } from 'rxjs';
 import type { Vector3 } from 'three';
 
-import type { TDelta } from '@/Engine/Loop';
 import type {
   TAnimationParams,
   TFullKeyframeDestination,
@@ -22,18 +21,14 @@ export function performMove(moveFn: TMoveFn | TMoveByPathFn, transformLoop: TTra
   const { promise, resolve } = createDeferredPromise();
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const move = moveFn({ ...params, complete: resolve } as any);
-  // TODO 10.0.0. LOOPS: (debug) is it frameTime or delta?
-  // const tickSubscription: Subscription = transformLoop.tick$.subscribe(({ frameTime }: TDelta): void => move.tick(frameTime));
-  const tickSubscription: Subscription = transformLoop.tick$.subscribe((delta: TDelta): void => move.tick(delta));
+  const tickSubscription: Subscription = transformLoop.tick$.subscribe((): void => move.tick(performance.now()));
 
   return promise.then((): void => tickSubscription.unsubscribe());
 }
 
 export function performMoveUntil<F extends (params: P) => TMoveableByTick, P>(moveFn: F, transformLoop: TTransformLoop, params: P): TStopMoveCb {
   let move: TMoveableByTick | undefined = moveFn(params);
-  // TODO 10.0.0. LOOPS: (debug) is it frameTime or delta?
-  // const tickSubscription: Subscription = transformLoop.tick$.subscribe(({ frameTime }: TDelta): void => move?.tick(frameTime));
-  const tickSubscription: Subscription = transformLoop.tick$.subscribe((delta: TDelta): void => move?.tick(delta));
+  const tickSubscription: Subscription = transformLoop.tick$.subscribe((): void => move?.tick(performance.now()));
 
   return (): void => {
     tickSubscription.unsubscribe();

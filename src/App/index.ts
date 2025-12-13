@@ -12,21 +12,17 @@ import '@/App/style.css';
 // import { showcase } from '@/App/Levels/Showcase9TexturesAndMaterials';
 // import { showcase } from '@/App/Levels/Showcase10ComplexMaterials';
 // TODO 10.0.0. LOOPS: fix
-// import { showcase } from '@/App/Levels/Showcase11KeyboardAndMouse';
+import { showcase } from '@/App/Levels/Showcase11KeyboardAndMouse';
 // import { showcase } from '@/App/Levels/Showcase12Light';
 // import { showcase } from '@/App/Levels/Showcase13Fog';
 // import { showcase } from '@/App/Levels/Showcase14SwitchingActiveCamera';
 // import { showcase } from '@/App/Levels/Showcase15ConfigurableIntersections';
-// TODO 10.0.0. LOOPS: fix
 // import { showcase } from '@/App/Levels/Showcase16Distance';
 // import { showcase } from '@/App/Levels/Showcase17Particles';
 // import { showcase } from '@/App/Levels/Showcase18ComplexParticles';
 // import { showcase } from '@/App/Levels/Showcase19Physics';
-// TODO 10.0.0. LOOPS: fix
 // import { showcase } from '@/App/Levels/Showcase20PhysicsSyncWithModelsTest';
-// TODO 10.0.0. LOOPS: fix manual step
-import { showcase } from '@/App/Levels/Showcase21PhysicsManualStep';
-// TODO 10.0.0. LOOPS: fix manual step
+// import { showcase } from '@/App/Levels/Showcase21PhysicsManualStep';
 // import { showcase } from '@/App/Levels/Showcase22PhysicsShooter';
 // import { showcase } from '@/App/Levels/Showcase23CustomModels';
 // import { showcase } from '@/App/Levels/Showcase24ActorsWithModels';
