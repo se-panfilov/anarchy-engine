@@ -9,4 +9,5 @@ export * from './TEnvMapResourceConfig';
 export * from './TEnvMapService';
 export * from './TEnvMapTexture';
 export * from './TEnvMapTextureAsyncRegistry';
+export * from './TEnvMapTextureParams';
 export * from './TEnvMapWrapper';
