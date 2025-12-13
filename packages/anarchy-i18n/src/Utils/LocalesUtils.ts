@@ -21,3 +21,10 @@ export function getLocaleByLocaleId(localeId: TLocaleId, availableLocales: Reado
   if (isNotDefined(result)) throw new Error(`[LOCALE] Cannot find locale. Locale id is not defined`);
   return result;
 }
+
+export function stringToLocaleId(str: string | TLocaleId): TLocaleId {
+  if (isNotDefined(str)) throw new Error(`[LOCALE] Cannot convert string "${str}" to LocaleId: not defined`);
+  const clean = String(str).trim().replace(/_/g, '-');
+  const [canon] = Intl.getCanonicalLocales(clean);
+  return canon as TLocaleId;
+}
