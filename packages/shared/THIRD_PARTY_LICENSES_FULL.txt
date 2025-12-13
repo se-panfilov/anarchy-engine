@@ -3086,7 +3086,7 @@ SOFTWARE.
 
 -----
 
-The following software may be included in this product: anarchy_engine_shared, anarchy_engine_showcases, anarchy-engine, anarchy-i18n, showcases-desktop, showcases-menu, showcases-shared, workspace-aggregator-4f357948-d3d2-42e8-8336-ccee2c47da40. This software contains the following license and notice below:
+The following software may be included in this product: anarchy_engine_shared, anarchy_engine_showcases, anarchy-engine, anarchy-i18n, showcases-desktop, showcases-menu, showcases-shared, workspace-aggregator-d52b86a9-ab79-4cc9-9622-273f74d7f474. This software contains the following license and notice below:
 
 MIT License
 
