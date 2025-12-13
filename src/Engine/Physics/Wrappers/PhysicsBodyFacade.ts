@@ -9,8 +9,7 @@ export function PhysicsBodyFacade(params: TPhysicsBodyParams, { world }: TPhysic
   const entities: TPhysicsBodyFacadeEntities = createPhysicsBody(params, world);
 
   const result = {
-    ...AbstractFacade(entities, FacadeType.PhysicsBody, params),
-    ...withPhysicsBodyFacadeEntities(entities)
+    ...AbstractFacade(withPhysicsBodyFacadeEntities(entities), FacadeType.PhysicsBody, params)
   };
 
   return result;
