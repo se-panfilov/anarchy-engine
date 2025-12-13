@@ -50,6 +50,7 @@
     "generate:legal:notice:showcases-e2e": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace apps/showcases-e2e --source ../../apps/showcases-e2e/legal/THIRD_PARTY_LICENSES.md --out ../../apps/showcases-e2e/legal/NOTICE.md",
     "generate:legal:notice:showcases-menu": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace packages/showcases-menu --source ../../packages/showcases-menu/legal/THIRD_PARTY_LICENSES.md --out ../../packages/showcases-menu/legal/NOTICE.md",
     "generate:legal:notice:showcases-shared": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace packages/showcases-shared --source ../../packages/showcases-shared/legal/THIRD_PARTY_LICENSES.md --out ../../packages/showcases-shared/legal/NOTICE.md",
+    "generate:legal:sbom:all": "npm run --workspaces  --if-present generate:legal:sbom",
     "gitleaks:ci": "gitleaks detect --config=.gitleaks.toml --source=. --no-git --redact --report-format=json --report-path=reports/gitleaks-ci.json --verbose",
     "gitleaks:scan:files": "gitleaks detect --config=.gitleaks.toml --no-git --verbose --source=.",
     "gitleaks:scan:history": "gitleaks detect --config=.gitleaks.toml --report-format=table --verbose --source=.",
