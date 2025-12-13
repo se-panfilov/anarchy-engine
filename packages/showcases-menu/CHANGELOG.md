@@ -1,8 +1,7 @@
-Done:
-
 - 1.0.0 Created a separate package for the UI menu
 - 1.1.0 Added tailwind
 - 1.2.0 Removed tailwind
 - 1.3.0 Interactions with platform API
 - 1.4.0 Load settings
 - 1.5.0 i18n
+- 1.6.0 Legal screen
