@@ -8,7 +8,7 @@ import type { IAbstractAsyncRegistry } from '@/Engine/Abstract/Models';
 import type { IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
 import { isDefined, omitInObjectWithoutMutation } from '@/Engine/Utils';
 
-import { subscribeToValue, subscribeToValue$ } from './AbstractAsyncRegistryHelper';
+import { getValueAsync, subscribeToValue$ } from './AbstractAsyncRegistryHelper';
 
 export function AbstractAsyncRegistry<T extends IRegistrable | IMultitonRegistrable>(type: RegistryType): IAbstractAsyncRegistry<T> {
   const abstractRegistry: IAbstractEntityRegistry<T> = AbstractEntityRegistry<T>(type);
@@ -16,13 +16,13 @@ export function AbstractAsyncRegistry<T extends IRegistrable | IMultitonRegistra
   function getUniqByTagsAsync(tags: ReadonlyArray<string>, strategy: LookUpStrategy): Promise<T> {
     const result: T | undefined = abstractRegistry.getUniqByTags(tags, strategy);
     if (isDefined(result)) return Promise.resolve(result);
-    return subscribeToValue<T>(abstractRegistry, (entity: T) => entity.getTags()[strategy]((tag: string) => tags.includes(tag)));
+    return getValueAsync<T>(abstractRegistry, (entity: T) => entity.getTags()[strategy]((tag: string) => tags.includes(tag)));
   }
 
   function getUniqByTagAsync(tag: string): Promise<T> {
     const result: T | undefined = abstractRegistry.getUniqByTag(tag);
     if (isDefined(result)) return Promise.resolve(result);
-    return subscribeToValue<T>(abstractRegistry, (entity: T) => entity.hasTag(tag));
+    return getValueAsync<T>(abstractRegistry, (entity: T) => entity.hasTag(tag));
   }
 
   function getUniqByTags$(tags: ReadonlyArray<string>, strategy: LookUpStrategy): Observable<T> {
