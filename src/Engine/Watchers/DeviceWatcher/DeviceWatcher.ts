@@ -15,7 +15,10 @@ export function DeviceWatcher(): IDeviceWatcher {
     });
 
   // TODO (S.Panfilov) window should be global?
-  const start = (): void => window.addEventListener('resize', onResize);
+  const start = (): void => {
+    setTimeout(() => onResize());
+    window.addEventListener('resize', onResize);
+  };
 
   // TODO (S.Panfilov) window should be global?
   const stop = (): void => window.removeEventListener('resize', onResize);
