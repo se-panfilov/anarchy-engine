@@ -43,7 +43,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     onKey(KeyCode.W).pressing$.subscribe((): void => {
       if (isKeyPressed(KeysExtra.Shift)) {
         if (runAction.isRunning()) return;
-        runAction?.play();
+        runAction.play();
         walkAction.stop();
       } else {
         if (walkAction.isRunning()) return;
@@ -53,9 +53,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     });
 
     onKey(KeyCode.W).released$.subscribe((): void => {
-      walkAction.stop();
-      runAction.stop();
       idleAction.play();
+      if (walkAction.isRunning()) walkAction.stop();
+      if (runAction.isRunning()) runAction.stop();
     });
   }
 
