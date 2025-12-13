@@ -7,7 +7,7 @@ export function configToParams(config: IActorConfig): IActorParams {
 
   return {
     ...rest,
-    material: materialConfigToParams(material),
+    material: materialConfigToParams({ ...material.params, type: material.type }),
     ...configToParamsObject3d({ position, rotation, scale, layers, animations })
   };
 }
