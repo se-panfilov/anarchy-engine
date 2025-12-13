@@ -1,6 +1,6 @@
-import { CameraHelper, DirectionalLightHelper, Vector2 } from 'three';
+import { CameraHelper, DirectionalLightHelper, Euler, Vector2 } from 'three';
 import type { Color } from 'three/src/math/Color';
-import type { Vector3 } from 'three/src/math/Vector3';
+import { Vector3 } from 'three/src/math/Vector3';
 
 import type { TDirectionalLightWrapper, TLightService, TPointLightWrapper } from '@/Engine';
 import { isNotDefined, LightType } from '@/Engine';
@@ -28,6 +28,8 @@ export function createFlashLight(lightService: TLightService, position: Vector3,
       mapSize: new Vector2(16, 16),
       camera: { near: 0.1, far: 100 }
     },
+    position: new Vector3(0, 0, 0),
+    rotation: new Euler(0, 0, 0),
     tags: ['flashlight']
   }) as TPointLightWrapper;
 

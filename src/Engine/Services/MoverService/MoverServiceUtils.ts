@@ -39,13 +39,10 @@ export function performMoveUntil<F extends (params: P) => TMoveableByTick, P>(mo
 }
 
 // Do not use this function for complex paths (with more than 1 point), it might not work as expected when partial coords are provided.
-export function addMissingCoords<T extends TKeyframeDestination | TMoveDestination>(
-  destination: T,
-  actor: TMovableEntityWrapper | TMovableWithModel3dFacade
-): TKeyframeDestination | Required<TMoveDestination> {
-  const x: number = destination.x ?? (isMovableEntityWrapper(actor) ? actor.getX() : actor.entity.getModel3d().position.x);
-  const y: number = destination.y ?? (isMovableEntityWrapper(actor) ? actor.getY() : actor.entity.getModel3d().position.y);
-  const z: number = destination.z ?? (isMovableEntityWrapper(actor) ? actor.getZ() : actor.entity.getModel3d().position.z);
+export function addMissingCoords<T extends TKeyframeDestination | TMoveDestination>(destination: T, obj: TMovable3dXYZ): TKeyframeDestination | Required<TMoveDestination> {
+  const x: number = destination.x ?? obj.getX();
+  const y: number = destination.y ?? obj.getY();
+  const z: number = destination.z ?? obj.getZ();
 
   return { ...destination, x, y, z };
 }
@@ -64,11 +61,11 @@ export function getAccumulatedKeyframes(path: ReadonlyArray<TKeyframeDestination
   }, []);
 }
 
-export function prepareDestination(destination: TMoveDestination, obj: TMovableEntityWrapper | TMovableWithModel3dFacade): Required<TMoveDestination> {
+export function prepareDestination(destination: TMoveDestination, obj: TMovable3dXYZ): Required<TMoveDestination> {
   return addMissingCoords(destination, obj) as Required<TMoveDestination>;
 }
 
-export function preparePathList(list: ReadonlyArray<TKeyframeDestination>, obj: TMovableEntityWrapper | TMovableWithModel3dFacade): ReadonlyArray<TFullKeyframeDestination> {
+export function preparePathList(list: ReadonlyArray<TKeyframeDestination>, obj: TMovable3dXYZ): ReadonlyArray<TFullKeyframeDestination> {
   return list.map((destination: TKeyframeDestination) => addMissingCoords(destination, obj) as TFullKeyframeDestination);
 }
 

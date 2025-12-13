@@ -10,7 +10,6 @@ import type { TIntersectionEvent, TIntersectionsWatcher, TIntersectionsWatcherPa
 import type { TMousePosition } from '@/Engine/Mouse';
 import { getNormalizedMousePosition } from '@/Engine/Mouse';
 import type { TSceneObject } from '@/Engine/Scene';
-import type { TMesh } from '@/Engine/ThreeLib';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined, unWrapEntities } from '@/Engine/Utils';
 
@@ -34,7 +33,11 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
   function start(): TIntersectionsWatcher {
     mousePos$ = position$.subscribe((position: TMousePosition): void => {
       if (isNotDefined(camera)) throw new Error('Intersections service: cannot start: a camera is not defined');
-      const intersection: TIntersectionEvent | undefined = getIntersection(new Vector2(position.coords.x, position.coords.y), camera, unWrapEntities(actors) as Array<TMesh>);
+      const intersection: TIntersectionEvent | undefined = getIntersection(
+        new Vector2(position.coords.x, position.coords.y),
+        camera,
+        unWrapEntities(actors).map((e) => e.getModel3d())
+      );
       if (isDefined(intersection)) abstractWatcher.value$.next(intersection);
     });
     // eslint-disable-next-line functional/immutable-data
