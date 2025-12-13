@@ -36,9 +36,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     sceneW?.addModel3d(planeModel3dF.getModel());
 
-    const actor: TActorWrapper | undefined = actorRegistry.findByTag('intersectable');
+    const actor: TActorWrapper | undefined = actorRegistry.findByName('sphere_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not defined');
-    actor.setY(2);
 
     loopService.tick$.subscribe(({ elapsedTime }) => {
       actor.setX(Math.sin(elapsedTime) * 8);
