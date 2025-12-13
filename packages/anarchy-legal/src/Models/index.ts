@@ -13,6 +13,7 @@ export type * from './TRepoUtilsService';
 export type * from './TRootInfo';
 export type * from './TTemplateGeneratorOptions';
 export type * from './TTemplateMessages.ts';
+export type * from './TTemplateParsedEntry';
 export type * from './TThirdPartyGeneratorArgs';
 export type * from './TThirdPartyLicensesService';
 export type * from './TWorkspaceInfo';

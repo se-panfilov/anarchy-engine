@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import type { TNoticeService, TRepoUtilsService } from '@Anarchy/Legal/Models';
+import type { TNoticeService, TRepoUtilsService, TTemplateParsedEntry } from '@Anarchy/Legal/Models';
 // eslint-disable-next-line spellcheck/spell-checker
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
@@ -14,20 +14,6 @@ export function NoticeService(): TNoticeService {
   const repoUtilsService: TRepoUtilsService = RepoUtilsService();
 
   const { debugLog, findMonorepoRoot, isExist, loadWorkspaces, resolveWorkspaceFromArg } = repoUtilsService;
-
-  type TParsedEntry = Readonly<{
-    id: string; // name@version
-    name: string;
-    version: string;
-    licenses: ReadonlyArray<string>;
-    repository?: string;
-    url?: string;
-    publisher?: string;
-    path?: string;
-    licenseText?: string; // raw license text if present
-    inferredCopyright?: string; // extracted from licenseText or publisher
-    upstreamNotice?: string; // filled only if --include-upstream-notices
-  }>;
 
   // split by '---' fences produced by our generator; keep chunks with any heading
   function splitEntriesFromMarkdown(md: string): ReadonlyArray<string> {
@@ -48,7 +34,7 @@ export function NoticeService(): TNoticeService {
     return { name, version };
   }
 
-  function parseOneEntry(chunk: string): TParsedEntry | undefined {
+  function parseOneEntry(chunk: string): TTemplateParsedEntry | undefined {
     const header = parseHeaderLine(chunk);
     if (!header) return undefined;
     const { name, version } = header;
@@ -114,7 +100,7 @@ export function NoticeService(): TNoticeService {
     };
   }
 
-  function parseThirdPartyMarkdown(md: string): ReadonlyArray<TParsedEntry> {
+  function parseThirdPartyMarkdown(md: string): ReadonlyArray<TTemplateParsedEntry> {
     const chunks = splitEntriesFromMarkdown(md);
     const entries = chunks.flatMap((ch) => {
       const e = parseOneEntry(ch);
@@ -162,7 +148,7 @@ export function NoticeService(): TNoticeService {
     }
   }
 
-  function renderNotice(wsName: string, entries: ReadonlyArray<TParsedEntry>, includeUpstream: boolean): string {
+  function renderNotice(wsName: string, entries: ReadonlyArray<TTemplateParsedEntry>, includeUpstream: boolean): string {
     const header: string = `# NOTICE
 
 ## Application: ${wsName}
@@ -173,7 +159,7 @@ Components listed: ${entries.length}
 
     const note: string = entries.length === 0 ? `**Note:** No third-party components were detected.` : '';
 
-    const blocks: ReadonlyArray<ReadonlyArray<string>> = entries.map((v: TParsedEntry): ReadonlyArray<string> => {
+    const blocks: ReadonlyArray<ReadonlyArray<string>> = entries.map((v: TTemplateParsedEntry): ReadonlyArray<string> => {
       const licenses: string = v.licenses.length ? v.licenses.join(', ') + '\n' : 'UNKNOWN';
       const repository: string = v.repository ? `**Repository:** ${v.repository}\n\n` : '';
       const url: string = v.url ? `**URL:** ${v.url}\n\n` : '';
@@ -257,7 +243,7 @@ ${repository}${url}${inferredCopyright}`;
     debugLog(isDebug, 'parsed entries:', entries.length);
 
     // Optional upstream NOTICE load
-    const finalEntries: ReadonlyArray<TParsedEntry> = await (async (): Promise<ReadonlyArray<TParsedEntry>> => {
+    const finalEntries: ReadonlyArray<TTemplateParsedEntry> = await (async (): Promise<ReadonlyArray<TTemplateParsedEntry>> => {
       if (!argv['include-upstream-notices']) return entries;
       const maxBytes = Math.max(1, Math.floor(Number(argv['max-upstream-notice-kb']) || 128)) * 1024;
       const withUpstream = await Promise.all(
