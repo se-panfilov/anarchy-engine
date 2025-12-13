@@ -129,6 +129,10 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     gui.add(mode, 'isTeleportationMode').name('Teleportation mode');
     addActorFolderGui(gui, sphereActor);
 
+    sphereActor.drive.position$.subscribe((v: Vector3): void => {
+      sphereText.setText(`x: ${v.x.toFixed(2)} y: ${v.y.toFixed(2)} z: ${v.z.toFixed(2)}`);
+    });
+
     createRepeaterActor(sphereActor, { x: 0, y: 0, z: 4 }, grid, gui, space.services);
 
     const intersectionsWatcher: TIntersectionsWatcher = startIntersections(space.services);
