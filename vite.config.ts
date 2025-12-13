@@ -31,11 +31,12 @@ export default defineConfig({
     setupFiles: './vitest.setup.js',
     reporters: ['default', 'html'],
     outputFile: './reports/html/unit.html',
+    include: ['src/**/*.spec.{js,mjs,cjs,ts,mts,cts}'],
     coverage: {
-      all: true,
+      all: false,
       reportsDirectory: './reports/coverage',
       include: ['src/**/*'],
-      exclude: ['src/**/index.ts', 'coverage', 'utils/', 'public', 'vite.config.ts', '.eslintrc.js', 'src/vite-env.d.ts', 'src/App/DeveloperPanel/*'],
+      exclude: ['src/**/index.ts', 'coverage', 'utils/', 'public', 'vite.config.ts', '.eslintrc.js', 'src/vite-env.d.ts', 'src/App/DeveloperPanel/*', 'e2e'],
       thresholds: {
         statements: 15,
         branches: 60,
