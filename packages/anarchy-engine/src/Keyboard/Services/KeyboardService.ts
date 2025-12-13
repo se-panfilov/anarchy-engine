@@ -22,7 +22,7 @@ export function KeyboardService(container: TContainerDecorator, keyWatcherFactor
   const abstractService: TAbstractService = AbstractService([keyWatcherFactory, keyWatcherRegistry]);
 
   keyComboWatcher.value$.pipe().subscribe((v) => {
-    console.log('XXX2', v);
+    console.log('XXX2', v, keyComboWatcher.getValue());
   });
 
   // TODO:

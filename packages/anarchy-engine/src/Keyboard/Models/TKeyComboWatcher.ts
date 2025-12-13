@@ -1,3 +1,3 @@
-import type { TAbstractWatcher } from '@Anarchy/Engine/Abstract';
+import type { TAbstractWatcherWithState } from '@Anarchy/Engine/Abstract';
 
-export type TKeyComboWatcher = TAbstractWatcher<Set<string>>;
+export type TKeyComboWatcher = TAbstractWatcherWithState<Set<string>>;

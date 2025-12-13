@@ -1,13 +1,12 @@
 import type { TAbstractWatcher } from '@Anarchy/Engine/Abstract';
-import { AbstractWatcher, WatcherType } from '@Anarchy/Engine/Abstract';
+import { AbstractWatcherWithState, WatcherType } from '@Anarchy/Engine/Abstract';
 import type { TKeyComboWatcher, TKeyComboWatcherDependencies, TKeyComboWatcherParams } from '@Anarchy/Engine/Keyboard';
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs';
 
 export function KeyComboWatcher({ tags }: TKeyComboWatcherParams, { keyPressWatcher, keyReleaseWatcher }: TKeyComboWatcherDependencies): TKeyComboWatcher {
-  const watcher: TAbstractWatcher<Set<string>> = AbstractWatcher(WatcherType.KeyPressWatcher, 'key_combo_watcher', tags);
-
   const combo: Set<string> = new Set<string>();
+  const watcher: TAbstractWatcher<Set<string>> = AbstractWatcherWithState(WatcherType.KeyPressWatcher, 'key_combo_watcher', combo, tags);
 
   function onPress(event: KeyboardEvent): void {
     if (combo.has(event.key)) return;
@@ -34,6 +33,11 @@ export function KeyComboWatcher({ tags }: TKeyComboWatcherParams, { keyPressWatc
       pressSub$?.unsubscribe();
       releaseSub$?.unsubscribe();
     }
+  });
+
+  const destroySub$: Subscription = watcher.destroy$.subscribe((): void => {
+    combo.clear();
+    destroySub$.unsubscribe();
   });
 
   return watcher;
