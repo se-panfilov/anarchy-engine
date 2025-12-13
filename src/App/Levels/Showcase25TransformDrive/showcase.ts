@@ -2,7 +2,7 @@ import GUI from 'lil-gui';
 import { BehaviorSubject, combineLatest, map, withLatestFrom } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-import { degToRad, radToDeg } from 'three/src/math/MathUtils';
+import { radToDeg } from 'three/src/math/MathUtils';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo, getMemoryUsage } from '@/App/Levels/Utils';
@@ -35,7 +35,8 @@ import {
   degrees,
   Engine,
   getDistancePrecisely,
-  getHorizontalAzimuthDeg,
+  getElevation,
+  getHorizontalAzimuth,
   getMouseAzimuthAndElevation,
   getPushCoordsFrom3dAzimuth,
   isNotDefined,
@@ -183,16 +184,22 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       rotation: new Euler(-1.57, 0, 0)
     });
 
-    const azimuth$: BehaviorSubject<TDegrees> = new BehaviorSubject<TDegrees>(degrees(0));
+    const azimuth$: BehaviorSubject<{ azimuth: TDegrees; elevation: TDegrees }> = new BehaviorSubject<{ azimuth: TDegrees; elevation: TDegrees }>({ azimuth: degrees(0), elevation: degrees(0) });
 
-    azimuth$.pipe(withLatestFrom(sphereActor.drive.agent$)).subscribe(([degrees, agent]: [TDegrees, TransformAgent]): void => {
-      azimuthText.setText(`Azimuth: ${degrees.toFixed(2)}`);
-      rotateActorTo(sphereActor, new Quaternion().setFromEuler(new Euler(0, degToRad(degrees), 0, 'YXZ')), agent);
-    });
+    azimuth$
+      .pipe(withLatestFrom(sphereActor.drive.agent$, intersectionsWatcher.value$))
+      .subscribe(([{ azimuth, elevation }, agent, { point }]: [{ azimuth: TDegrees; elevation: TDegrees }, TransformAgent, TIntersectionEvent]): void => {
+        azimuthText.setText(`Azimuth: ${azimuth.toFixed(2)}, Elevation: ${elevation.toFixed(2)}`);
+
+        //rotation is for a "default" agent, for "kinematic" agent we will use target position (vector) to look at
+        const rotation: Quaternion = new Quaternion().setFromEuler(new Euler(0, azimuth, 0, 'YXZ'));
+        rotateActorTo(sphereActor, point, rotation, agent);
+      });
 
     intersectionsWatcher.value$.pipe(withLatestFrom(sphereActor.drive.position$)).subscribe(([v, actorPosition]: [TIntersectionEvent, Vector3]): void => {
-      const azimuth: TDegrees = getHorizontalAzimuthDeg(actorPosition.x, actorPosition.z, v.point);
-      azimuth$.next(azimuth);
+      const elevation: TRadians = getElevation(actorPosition.x, actorPosition.y, actorPosition.z, v.point);
+      const azimuth: TRadians = getHorizontalAzimuth(actorPosition.x, actorPosition.z, v.point);
+      azimuth$.next({ azimuth: degrees(radToDeg(azimuth)), elevation: degrees(radToDeg(elevation)) });
     });
 
     clickLeftRelease$
@@ -242,12 +249,13 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
   }
 }
 
-function rotateActorTo(actor: TActor, rotation: Quaternion, agent: TransformAgent): void {
+function rotateActorTo(actor: TActor, lookToTarget: Vector3, rotation: Quaternion, agent: TransformAgent): void {
   switch (agent) {
     case TransformAgent.Default:
       return actor.drive.default.setRotation(rotation);
     case TransformAgent.Kinematic:
-      return actor.drive.kinematic.rotateTo(rotation, metersPerSecond(5), meters(1));
+      return actor.drive.kinematic.lookAt(lookToTarget, metersPerSecond(5), meters(1));
+    // return actor.drive.kinematic.rotateTo(rotation, metersPerSecond(5), meters(1));
     case TransformAgent.Connected:
       // no need to do anything here, cause already connected
       return undefined;
