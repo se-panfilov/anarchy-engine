@@ -15,13 +15,15 @@ export function PhysicsBody(params: TPhysicsBodyParams, { world }: TPhysicsDepen
   const { isSleep = false } = params;
   if (isSleep) entities.rigidBody?.sleep();
 
+  const abstract = AbstractEntity(withPhysicsBodyEntities(entities), EntityType.PhysicsBody, params);
+
   return {
-    ...AbstractEntity(withPhysicsBodyEntities(entities), EntityType.PhysicsBody, params),
+    ...abstract,
     setPhysicsBodyType: (type: RigidBodyTypesNames, wakeUp: boolean): void => {
-      entities.rigidBody?.setBodyType(RigidBodyTypesMap[type], wakeUp);
+      abstract.getRigidBody()?.setBodyType(RigidBodyTypesMap[type], wakeUp);
     },
     getPhysicsBodyType: (): RigidBodyTypesNames | never => {
-      const bodyType: RigidBodyType | undefined = entities.rigidBody?.bodyType();
+      const bodyType: RigidBodyType | undefined = abstract.getRigidBody()?.bodyType();
       if (isNotDefined(bodyType)) return params.type;
       const match = Object.entries(RigidBodyTypesMap).find(([, value]): boolean => value === bodyType);
       const result: RigidBodyTypesNames | undefined = match?.[0] as RigidBodyTypesNames | undefined;
