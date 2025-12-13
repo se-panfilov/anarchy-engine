@@ -26,7 +26,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   // TODO CWP 2. Implement "actors with models" feature (and showcase 24)
   // TODO CWP 3. Finalize all the todoes "// TODO 8.0.0."
 
-  const scale: TWithCoordsXYZ = { x: 0.025, y: 0.025, z: 0.025 };
   const originalName: string = 'fox_gltf_original';
   const cloneName: string = 'fox_gltf_clone_1';
   const originalCompressedName: string = 'fox_glb_config_original';
@@ -54,6 +53,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
 
   async function init(): Promise<void> {
+    const scale: TWithCoordsXYZ = { x: 0.025, y: 0.025, z: 0.025 };
     const { keyboardService } = engine.services;
     const { animationsService, models3dService, scenesService } = space.services;
     const sceneW: TSceneWrapper | undefined = scenesService.findActive();
