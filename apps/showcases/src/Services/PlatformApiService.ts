@@ -1,4 +1,4 @@
-import type { TGameSettings } from '@ShowcasesShared';
+import type { TShowcaseGameSettings } from '@ShowcasesShared';
 import { Driver } from 'platform:api';
 
 import type { TPlatformApiService, TPlatformDriver } from '@/Models';
@@ -6,11 +6,11 @@ import type { TPlatformApiService, TPlatformDriver } from '@/Models';
 export function PlatformApiService(): TPlatformApiService {
   const driver: TPlatformDriver = Driver();
 
-  function saveAppSettings(settings: TGameSettings): Promise<void> {
+  function saveAppSettings(settings: TShowcaseGameSettings): Promise<void> {
     return driver.saveAppSettings(settings);
   }
 
-  function loadAppSettings(): Promise<TGameSettings> {
+  function loadAppSettings(): Promise<TShowcaseGameSettings> {
     return driver.loadAppSettings();
   }
 

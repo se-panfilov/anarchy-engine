@@ -1,8 +1,8 @@
-import type { TGameSettings } from '@ShowcasesShared';
+import type { TShowcaseGameSettings } from '@ShowcasesShared';
 
 export type TPlatformDriver = Readonly<{
-  saveAppSettings: (settings: TGameSettings) => Promise<void>;
-  loadAppSettings: () => Promise<TGameSettings>;
+  saveAppSettings: (settings: TShowcaseGameSettings) => Promise<void>;
+  loadAppSettings: () => Promise<TShowcaseGameSettings>;
   getNodeVersion: () => string;
   getChromeVersion: () => string;
   getPlatformVersion: () => string;

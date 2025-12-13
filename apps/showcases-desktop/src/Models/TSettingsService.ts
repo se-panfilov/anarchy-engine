@@ -1,6 +1,6 @@
-import type { TGameSettings } from '@ShowcasesShared';
+import type { TShowcaseGameSettings } from '@ShowcasesShared';
 
 export type TSettingsService = Readonly<{
-  loadAppSettings: () => TGameSettings | undefined;
-  saveAppSettings: (settings: TGameSettings) => void;
+  loadAppSettings: () => TShowcaseGameSettings | undefined;
+  saveAppSettings: (settings: TShowcaseGameSettings) => void;
 }>;

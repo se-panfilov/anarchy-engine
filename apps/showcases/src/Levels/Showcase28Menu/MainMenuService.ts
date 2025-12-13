@@ -1,5 +1,5 @@
 import { isNotDefined } from '@Engine';
-import type { TGameSettings } from '@ShowcasesShared';
+import type { TShowcaseGameSettings } from '@ShowcasesShared';
 
 import { platformApiService } from '@/Services';
 
@@ -15,10 +15,10 @@ export function closeMainMenu(): void | never {
   mainMenuElement.classList.remove('-active');
 }
 
-export async function saveSettings(settings: TGameSettings): Promise<void> {
+export async function saveSettings(settings: TShowcaseGameSettings): Promise<void> {
   return platformApiService.saveAppSettings(settings);
 }
 
-export async function loadSettings(): Promise<TGameSettings> {
+export async function loadSettings(): Promise<TShowcaseGameSettings> {
   return platformApiService.loadAppSettings();
 }

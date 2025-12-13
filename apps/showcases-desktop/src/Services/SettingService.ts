@@ -2,7 +2,7 @@ import * as fs from 'node:fs';
 
 import { AllowedFolders } from '@Desktop/Constants';
 import type { TSettingsService } from '@Desktop/Models';
-import type { TGameSettings } from '@ShowcasesShared';
+import type { TShowcaseGameSettings } from '@ShowcasesShared';
 import type { App } from 'electron';
 import { join } from 'path';
 
@@ -10,7 +10,7 @@ const userDataFolder: AllowedFolders = AllowedFolders.UserData;
 const appSettingsFileName: string = 'user-config.json';
 
 export function SettingsService(app: App): TSettingsService {
-  function loadAppSettings(): TGameSettings | undefined {
+  function loadAppSettings(): TShowcaseGameSettings | undefined {
     try {
       const settingsFile: string = join(app.getPath(userDataFolder), appSettingsFileName);
       const raw: string = fs.readFileSync(settingsFile, 'utf-8');
@@ -21,7 +21,7 @@ export function SettingsService(app: App): TSettingsService {
     }
   }
 
-  function saveAppSettings(settings: TGameSettings): void {
+  function saveAppSettings(settings: TShowcaseGameSettings): void {
     const settingsFile: string = join(app.getPath(userDataFolder), appSettingsFileName);
     fs.writeFileSync(settingsFile, JSON.stringify(settings, null, 2), 'utf-8');
   }

@@ -1,11 +1,11 @@
 import type { TDeepWriteable } from '@Engine';
 import { Languages } from '@Menu/constants';
-import type { TAudioSettings, TDebugSettings, TGameSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TResolution } from '@ShowcasesShared';
+import type { TAudioSettings, TDebugSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TResolution, TShowcaseGameSettings } from '@ShowcasesShared';
 import { defineStore } from 'pinia';
 import { computed, reactive } from 'vue';
 
 export const useSettingsStore = defineStore('settingsStore', () => {
-  const state: TDeepWriteable<TGameSettings> = reactive({
+  const state: TDeepWriteable<TShowcaseGameSettings> = reactive({
     graphics: {
       isFullScreen: false,
       // TODO DESKTOP: resolution should come from .env (desktop/mobile/web) or should be set by platform (detect default resolution)

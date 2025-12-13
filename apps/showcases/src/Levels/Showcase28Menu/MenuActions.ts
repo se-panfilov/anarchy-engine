@@ -1,5 +1,5 @@
 import { isNotDefined } from '@Engine';
-import type { TGameSettings, TMenuEvent } from '@ShowcasesShared';
+import type { TMenuEvent, TShowcaseGameSettings } from '@ShowcasesShared';
 import { MenuEvents } from '@ShowcasesShared';
 import type { Observable } from 'rxjs';
 
@@ -16,7 +16,7 @@ export function handleMenuEvents(menuEventsBus$: Observable<TMenuEvent>): void {
         if (isNotDefined(event.payload)) throw new Error(`[Showcase]: No settings provided for saving`);
         //Better to validate the payload type here
         // TODO DESKTOP: this code is async, hmm... What should we do with the UI?
-        saveSettings(event.payload as TGameSettings);
+        saveSettings(event.payload as TShowcaseGameSettings);
         break;
       }
       default: {

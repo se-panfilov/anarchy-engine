@@ -1,14 +1,14 @@
-import type { TGameSettings } from '@ShowcasesShared';
+import type { TShowcaseGameSettings } from '@ShowcasesShared';
 
 import type { TPlatformDriver } from '@/Models';
 
 export function Driver(): TPlatformDriver {
-  function saveAppSettings(settings: TGameSettings): Promise<void> {
+  function saveAppSettings(settings: TShowcaseGameSettings): Promise<void> {
     console.log('XXX [DESKTOP]', 'saveAppSettings', settings);
     return Promise.resolve();
   }
 
-  function loadAppSettings(): Promise<TGameSettings> {
+  function loadAppSettings(): Promise<TShowcaseGameSettings> {
     console.log('XXX [DESKTOP]', 'loadAppSettings');
     return Promise.resolve({} as any);
   }
