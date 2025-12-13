@@ -64,7 +64,7 @@ export default {
 
       //CRA (commercial)
       HAS_NOTIFIED_BODY: false, //only for critical software, e.g. medical devices, automotive, etc.
-      CE_MARK_PLACEMENT: 'in-product Legal/About screen and documentation; on physical media/packaging where used',
+      CE_MARK_PLACEMENT: '**in-product (Legal/About) and in these instructions; on physical media/packaging where used**',
       CONFORMITY_ASSESSMENT_ROUTE: 'internal control',
       IR_RECORD_RETENTION_MONTH: 24,
       PRODUCT_SHORT_PURPOSE: 'interactive entertainment software and its platform-specific client applications, intended for personal use in non-safety-critical environments',

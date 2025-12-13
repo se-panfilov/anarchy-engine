@@ -1,5 +1,7 @@
 # EU Declaration of Conformity — {{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}
 
+**Declaration No.:** DoC-{{PACKAGE_NAME}}-{{CONFORMITY_SERIES}}
+
 **Manufacturer (Legal Entity):** {{LEGAL_ENTITY_NAME}}
 {{#LEGAL_ENTITY_ADDRESS}}
 **Address:** {{LEGAL_ENTITY_ADDRESS}}
@@ -61,8 +63,6 @@ The {{PRODUCT_TERM}} has been assessed for conformity with the **EU Cyber Resili
 ## CE Marking
 
 The manufacturer declares that the {{PRODUCT_TERM}} conforms to the applicable requirements. The **CE marking** is affixed {{CE_MARK_PLACEMENT}}.
-
-> Examples: “in-product Legal/About screen and documentation”; “on physical media/packaging where used”.
 
 ## Technical Documentation
 
