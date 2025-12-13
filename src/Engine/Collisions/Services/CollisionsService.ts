@@ -8,7 +8,7 @@ import { createBoundingBox } from '@/Engine/Spatial/Services/SpatialHelper';
 import { BvhService } from './BvhService';
 
 export function CollisionsService(): TCollisionsService {
-  const raycastBvhService: TBvhService = BvhService();
+  const bvhService: TBvhService = BvhService();
 
   // TODO debug box
   let box: any;
@@ -33,7 +33,7 @@ export function CollisionsService(): TCollisionsService {
     // eslint-disable-next-line functional/no-loop-statements
     for (const object of actorsToCheck) {
       // if (object.id !== actorW.id) {
-      //   const intersection: Intersection = raycastBvhService.raycastWithBvh(object.entity, actorW.entity);
+      //   const intersection: Intersection = bvhService.raycastWithBvh(object.entity, actorW.entity);
       //   if (intersection.distance < radius) {
       //     return {
       //       object: object.entity,
@@ -51,7 +51,7 @@ export function CollisionsService(): TCollisionsService {
         raycaster.set(actorW.entity.position, actorW.kinematic.getLinearDirection());
 
         const intersects: Array<Intersection> = [];
-        raycastBvhService.raycastWithBvh(object, raycaster, intersects);
+        bvhService.raycastWithBvh(object, raycaster, intersects);
 
         if (intersects.length > 0) {
           const intersect = intersects[0];
@@ -71,6 +71,6 @@ export function CollisionsService(): TCollisionsService {
 
   return {
     checkCollisions,
-    raycast: raycastBvhService
+    bvh: bvhService
   };
 }

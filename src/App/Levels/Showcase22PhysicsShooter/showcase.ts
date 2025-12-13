@@ -47,7 +47,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const sphereActorW: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('sphere');
     if (isNotDefined(sphereActorW)) throw new Error(`Cannot find "sphere" actor`);
 
-    collisionsService.raycast._debugVisualizeBvh(sphereActorW, actorService.getScene());
+    collisionsService.bvh._debugVisualizeBvh(sphereActorW, actorService.getScene());
 
     const blocks = await buildTower(actorService, { x: 10, z: 0 }, 10, 10, 20);
     // const blocks2 = await buildTower(actorService, { x: 20, z: 0 }, 5, 5, 15);

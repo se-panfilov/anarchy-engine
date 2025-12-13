@@ -5,5 +5,5 @@ import type { TCollisionCheckResult } from './TCollisionCheckResult';
 
 export type TCollisionsService = Readonly<{
   checkCollisions: (actorW: TActorWrapperAsync, radius: number, actorsToCheck: ReadonlyArray<TActorWrapperAsync>) => TCollisionCheckResult | undefined;
-  raycast: TBvhService;
+  bvh: TBvhService;
 }>;
