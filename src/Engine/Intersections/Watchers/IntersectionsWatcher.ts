@@ -8,7 +8,7 @@ import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor';
 import type { TAnyCameraWrapper } from '@/Engine/Camera';
 import { intersectionsToConfig } from '@/Engine/Intersections/Adapters';
-import type { TIntersectionEvent, TIntersectionsWatcher, TIntersectionsWatcherConfig, TIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
+import type { TIntersectionEvent, TIntersectionsLoop, TIntersectionsWatcher, TIntersectionsWatcherConfig, TIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
 import type { TRawModel3d } from '@/Engine/Models3d';
 import type { TSceneObject } from '@/Engine/Scene';
 import type { TWriteable } from '@/Engine/Utils';
@@ -27,7 +27,12 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
   const removeActor = (actorId: string): void => void (actors = actors.filter((actor: TActor): boolean => actorId !== actor.id));
 
   const setCamera = (c: TAnyCameraWrapper): void => void (camera = c);
-  const getCamera = (): TAnyCameraWrapper | undefined => camera;
+  const findCamera = (): TAnyCameraWrapper | undefined => camera;
+  const getCamera = (): TAnyCameraWrapper | never => {
+    if (isNotDefined(camera)) throw new Error('[IntersectionsWatcher]: Cannot get camera: not defined');
+    return camera;
+  };
+  const getIntersectionsLoop = (): TIntersectionsLoop => intersectionsLoop;
 
   let positionSub$: Subscription | undefined;
 
@@ -87,16 +92,18 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
 
   // eslint-disable-next-line functional/immutable-data
   const result: TWriteable<TIntersectionsWatcher> = Object.assign(abstractWatcher, {
-    addActors,
     addActor,
+    addActors,
+    findCamera,
     getActors,
-    setCamera,
     getCamera,
-    removeActors,
-    removeActor,
-    isStarted: false,
+    getIntersectionsLoop,
     isAutoStart,
-    serialize: (): TIntersectionsWatcherConfig => intersectionsToConfig(result)
+    isStarted: false,
+    removeActor,
+    removeActors,
+    serialize: (): TIntersectionsWatcherConfig => intersectionsToConfig(result),
+    setCamera
   });
 
   setCamera(rest.camera);

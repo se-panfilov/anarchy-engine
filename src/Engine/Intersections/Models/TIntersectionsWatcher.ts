@@ -3,16 +3,19 @@ import type { TActor } from '@/Engine/Actor';
 import type { TAnyCameraWrapper } from '@/Engine/Camera';
 
 import type { TIntersectionEvent } from './TIntersectionEvent';
+import type { TIntersectionsLoop } from './TIntersectionsLoop';
 
 export type TIntersectionsWatcher = TWatcher<TIntersectionEvent> &
   Readonly<{
-    addActors: (actors: ReadonlyArray<TActor>) => void;
     addActor: (actor: TActor) => void;
+    addActors: (actors: ReadonlyArray<TActor>) => void;
+    findCamera: () => TAnyCameraWrapper | undefined;
     getActors: () => ReadonlyArray<TActor>;
-    removeActors: (actorIds: ReadonlyArray<string>) => void;
-    removeActor: (actorId: string) => void;
-    setCamera: (cam: TAnyCameraWrapper) => void;
-    getCamera: () => TAnyCameraWrapper | undefined;
-    isStarted: boolean;
+    getCamera: () => TAnyCameraWrapper | never;
+    getIntersectionsLoop: () => TIntersectionsLoop;
     isAutoStart: boolean;
+    isStarted: boolean;
+    removeActor: (actorId: string) => void;
+    removeActors: (actorIds: ReadonlyArray<string>) => void;
+    setCamera: (cam: TAnyCameraWrapper) => void;
   }>;

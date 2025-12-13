@@ -3,11 +3,11 @@ import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields } from '@/Engine/Utils';
 
 export function intersectionsToConfig(entity: TIntersectionsWatcher): TIntersectionsWatcherConfig {
-  // TODO 15-0-0: implement
-  console.log('XXX entity', entity);
-
-  // TODO 15-0-0: fix any
   return filterOutEmptyFields({
+    cameraName: entity.getCamera().name,
+    actorNames: entity.getActors().map((actor) => actor.name),
+    isAutoStart: entity.isAutoStart,
+    intersectionsLoop: entity.getIntersectionsLoop()?.name,
     ...extractSerializableRegistrableFields(entity)
-  }) as any;
+  });
 }
