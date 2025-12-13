@@ -9,7 +9,6 @@ import type { TActor } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TIntersectionEvent, TIntersectionsWatcher, TIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
 import type { TRawModel3d } from '@/Engine/Models3d';
-import type { TMousePosition } from '@/Engine/Mouse';
 import { getNormalizedMousePosition } from '@/Engine/Mouse';
 import type { TSceneObject } from '@/Engine/Scene';
 import type { TWriteable } from '@/Engine/Utils';
@@ -38,13 +37,13 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
   function start(): TIntersectionsWatcher {
     mousePos$ = position$
       .pipe(
-        distinctUntilChanged(({ coords: prevCoords }: TMousePosition, { coords: currCoords }: TMousePosition): boolean => isEqualOrSimilarVector2Like(prevCoords, currCoords, threshold)),
+        distinctUntilChanged((prev: Vector2Like, curr: Vector2Like): boolean => isEqualOrSimilarVector2Like(prev, curr, threshold)),
         sampleTime(delay)
       )
-      .subscribe((position: TMousePosition): void => {
+      .subscribe((position: Vector2Like): void => {
         if (isNotDefined(camera)) throw new Error('Intersections service: cannot start: a camera is not defined');
         const intersection: TIntersectionEvent | undefined = getIntersection(
-          new Vector2(position.coords.x, position.coords.y),
+          new Vector2(position.x, position.y),
           camera,
           actors.map((a: TActor): TRawModel3d => a.model3d.getRawModel3d())
         );

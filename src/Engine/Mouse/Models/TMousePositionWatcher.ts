@@ -1,5 +1,9 @@
+import type { Observable } from 'rxjs';
+import type { Vector2Like } from 'three';
+
 import type { TMultitonWatcher } from '@/Engine/Abstract';
 
-import type { TMousePosition } from './TMousePosition';
-
-export type TMousePositionWatcher = TMultitonWatcher<TMousePosition>;
+export type TMousePositionWatcher = TMultitonWatcher<Vector2Like> &
+  Readonly<{
+    valueNormalized$: Observable<Vector2Like>;
+  }>;

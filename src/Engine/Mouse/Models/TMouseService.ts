@@ -1,8 +1,8 @@
 import type { Observable } from 'rxjs';
+import type { Vector2Like } from 'three';
 
 import type { TDestroyable } from '@/Engine/Mixins';
 
-import type { TMousePosition } from './TMousePosition';
 import type { TMouseWatcherEvent } from './TMouseWatcherEvent';
 
 export type TMouseService = Readonly<{
@@ -37,6 +37,6 @@ export type TMouseService = Readonly<{
   wheelUp$: Observable<TMouseWatcherEvent>;
   wheelDown$: Observable<TMouseWatcherEvent>;
 
-  position$: Observable<TMousePosition>;
+  position$: Observable<Vector2Like>;
 }> &
   TDestroyable;

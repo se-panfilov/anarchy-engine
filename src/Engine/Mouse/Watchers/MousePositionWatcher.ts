@@ -1,19 +1,19 @@
-import { distinctUntilChanged, sampleTime, tap } from 'rxjs';
+import { distinctUntilChanged, map, sampleTime, tap } from 'rxjs';
+import type { Vector2Like } from 'three';
 
 import type { TAbstractWatcher } from '@/Engine/Abstract';
 import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
 import type { TLoopService } from '@/Engine/Loop';
-import type { TMouseEvent, TMousePosition, TMousePositionWatcher, TMousePositionWatcherParams } from '@/Engine/Mouse/Models';
+import type { TMouseEvent, TMousePositionWatcher, TMousePositionWatcherParams } from '@/Engine/Mouse/Models';
 import { getNormalizedMousePosition } from '@/Engine/Mouse/Utils';
 import { isEqualOrSimilarVector2Like } from '@/Engine/Utils';
 
 export function MousePositionWatcher({ container, tags, performance }: TMousePositionWatcherParams, loopService: TLoopService): TMousePositionWatcher {
   const containerIdTag: string = `container_id_${container.id}`;
-  const abstractWatcher: TAbstractWatcher<TMousePosition> = AbstractWatcher(WatcherType.MousePositionWatcher, 'global_mouse_position_watcher', tags);
-  let prevPosition: TMousePosition = { coords: { x: 0, y: 0 }, normalizedCoords: { x: 0, y: 0 } };
-  // TODO COORDS: Do we really need normalizedCoords?
-  let position: TMousePosition = { coords: { x: 0, y: 0 }, normalizedCoords: { x: 0, y: 0 } };
-  const onMouseMoveListener = ({ clientX: x, clientY: y }: TMouseEvent): void => void (position = { coords: { x, y }, normalizedCoords: getNormalizedMousePosition({ x, y }) });
+  const abstractWatcher: TAbstractWatcher<Vector2Like> = AbstractWatcher(WatcherType.MousePositionWatcher, 'global_mouse_position_watcher', tags);
+  let prevPosition: Vector2Like = { x: 0, y: 0 };
+  let position: Vector2Like = { x: 0, y: 0 };
+  const onMouseMoveListener = ({ clientX: x, clientY: y }: TMouseEvent): void => void (position = { x, y });
 
   // TODO ENV: limited fps, perhaps should be configurable
   const updateDelay: number = performance?.updateDelay ?? 2; // 480 FPS (when 16 is 60 FPS)
@@ -22,7 +22,7 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
   // TODO Instead of loopService.tick$, mouse should have own loop (with configurable tick speed)
   loopService.tick$
     .pipe(
-      distinctUntilChanged((): boolean => isEqualOrSimilarVector2Like(prevPosition.coords, position.coords, threshold)),
+      distinctUntilChanged((): boolean => isEqualOrSimilarVector2Like(prevPosition, position, threshold)),
       tap((): void => void (prevPosition = position)),
       sampleTime(updateDelay)
     )
@@ -45,6 +45,7 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
   const result: TMousePositionWatcher = {
     ...abstractWatcher,
     value$: abstractWatcher.value$.asObservable(),
+    valueNormalized$: abstractWatcher.value$.pipe(map((v: Vector2Like): Vector2Like => getNormalizedMousePosition(v))),
     key: containerIdTag,
     start,
     stop
