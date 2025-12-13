@@ -8,7 +8,7 @@ const GAME_URL: string = `http://localhost:${process.env.PORT}?path=saveLoad`;
 test.use({ viewport: VIEWPORT, deviceScaleFactor: 1 });
 
 test.beforeEach(async ({ page }): Promise<void> => {
-  await page.goto(GAME_URL + '?e2eName=continuous-move');
+  await page.goto(GAME_URL + '&e2eName=continuous-move');
   await waitUntilReady('GO_TO_PAGE', page);
 });
 
