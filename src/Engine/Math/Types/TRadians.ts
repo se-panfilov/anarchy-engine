@@ -1,1 +1,1 @@
-export type TRadians = number & { __brand: 'radians' };
+export type TRadians = (number & { __brand: 'radians' }) | 0;

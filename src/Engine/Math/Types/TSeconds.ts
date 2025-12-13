@@ -1,1 +1,1 @@
-export type TSeconds = number & { __brand: 'seconds' };
+export type TSeconds = (number & { __brand: 'seconds' }) | 0;

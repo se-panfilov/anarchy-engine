@@ -1,1 +1,1 @@
-export type TKilometersPerHour = number & { __brand: 'kmh' };
+export type TKilometersPerHour = (number & { __brand: 'kmh' }) | 0;
