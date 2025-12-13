@@ -21,5 +21,7 @@
   "main-menu.settings.localization.group.main-localization-settings.title": "Main localization settings",
   "main-menu.settings.localization.language.label": "Language",
   "main-menu.settings.localization.view.title": "Localization Settings",
-  "main-menu.settings.view.title": "Settings"
+  "main-menu.settings.view.title": "Settings",
+  "view-actions.button.text.reset": "Reset",
+  "view-actions.button.text.save": "Save"
 }

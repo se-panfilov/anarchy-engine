@@ -21,5 +21,7 @@
   "main-menu.settings.localization.group.main-localization-settings.title": "Hoofd taalinstellingen",
   "main-menu.settings.localization.language.label": "Taal",
   "main-menu.settings.localization.view.title": "Taalinstellingen",
-  "main-menu.settings.view.title": "Instellingen"
+  "main-menu.settings.view.title": "Instellingen",
+  "view-actions.button.text.reset": "Resetten",
+  "view-actions.button.text.save": "Opslaan"
 }
