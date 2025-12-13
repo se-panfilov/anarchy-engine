@@ -7,6 +7,7 @@ export enum RegistryType {
   Light = 'light',
   Material = 'material',
   Fog = 'fog',
+  EnvMap = 'env_map',
   Particles = 'particles',
   MouseClickWatcher = 'mouse_click_watcher',
   MousePositionWatcher = 'mouse_position_watcher',
