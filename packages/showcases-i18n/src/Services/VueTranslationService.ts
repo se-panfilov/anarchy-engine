@@ -43,8 +43,8 @@ export function VueTranslationService(): TVueTranslationService {
   function connectVueI18n(i18n: I18n): void {
     const sub: Subscription = showcasesTranslationService.locale$.subscribe(({ id: localeId }: TLocale): void => {
       // eslint-disable-next-line functional/immutable-data
-      i18n.global.locale.value = localeId;
-      import(`./locales/${localeId}.json`).then((messages) => {
+      i18n.global.locale = localeId;
+      import(`../i18n/locales/${localeId}.json`).then((messages): void => {
         i18n.global.setLocaleMessage(localeId, messages.default);
       });
     });
