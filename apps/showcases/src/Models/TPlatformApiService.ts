@@ -1,10 +1,3 @@
-import type { TGameSettings } from '@ShowcasesShared';
+import type { TPlatformDriver } from './TPlatformDriver';
 
-export type TPlatformApiService = Readonly<{
-  saveAppSettings: (settings: TGameSettings) => Promise<void>;
-  loadAppSettings: () => Promise<TGameSettings>;
-  getNodeVersion: () => string;
-  getChromeVersion: () => string;
-  getPlatformVersion: () => string;
-  getWrappedAppVersion: () => Promise<string>;
-}>;
+export type TPlatformApiService = TPlatformDriver;
