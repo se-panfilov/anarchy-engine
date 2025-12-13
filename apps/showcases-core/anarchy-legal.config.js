@@ -13,12 +13,12 @@ export default {
     }
   },
   DISCLAIMER: { template: 'DISCLAIMER_TEMPLATE' },
-  EULA: { template: 'EULA_COMMERCIAL_TEMPLATE' },
-  EU_DECLARATION_OF_CONFORMITY: { template: 'EU_DECLARATION_OF_CONFORMITY_COMMERCIAL_TEMPLATE' },
-  INSTRUCTIONS: { template: 'INSTRUCTIONS_TEMPLATE' },
-  PRIVACY: { template: 'PRIVACY_COMMERCIAL_TEMPLATE' },
-  SECURITY: { template: 'SECURITY_COMMERCIAL_TEMPLATE' },
-  SUPPORT: { template: 'SUPPORT_COMMERCIAL_TEMPLATE' },
+  EULA: { template: 'EULA_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
+  EU_DECLARATION_OF_CONFORMITY: { template: 'EU_DECLARATION_OF_CONFORMITY_COMMERCIAL_TEMPLATE', relativeOutput: './compliance' },
+  INSTRUCTIONS: { template: 'INSTRUCTIONS_TEMPLATE', relativeOutput: './legal' },
+  PRIVACY: { template: 'PRIVACY_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
+  SECURITY: { template: 'SECURITY_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
+  SUPPORT: { template: 'SUPPORT_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
   TECHNICAL_DOCUMENTATION: { template: 'TECHNICAL_DOCUMENTATION_COMMERCIAL_TEMPLATE' },
   VULN_HANDLING: { template: 'VULN_HANDLING_COMMERCIAL_TEMPLATE' }
 };
