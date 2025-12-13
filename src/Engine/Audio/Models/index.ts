@@ -11,6 +11,7 @@ export type * from './TAudio3dTransformDrive';
 export type * from './TAudio3dWrapper';
 export type * from './TAudioConfig';
 export type * from './TAudioConfigToParamsDependencies';
+export type * from './TAudioCreateFn';
 export type * from './TAudioFactory';
 export type * from './TAudioListenersRegistry';
 export type * from './TAudioLoader';

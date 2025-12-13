@@ -2,7 +2,7 @@ import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, sample, tap } from 'rxjs';
 import type { AudioListener, PositionalAudio } from 'three';
 
-import type { TAbstractAudioWrapper, TAudio3dParams, TAudio3dTransformDrive, TAudio3dWrapper, TAudioWrapperDependencies } from '@/Engine/Audio/Models';
+import type { TAbstractAudioWrapper, TAudio3dParams, TAudio3dTransformDrive, TAudio3dWrapper, TAudioCreateFn, TAudioWrapperDependencies } from '@/Engine/Audio/Models';
 import { Audio3dTransformDrive } from '@/Engine/Audio/TransformDrive';
 import { createPositionalAudio } from '@/Engine/Audio/Utils';
 import { AbstractAudioWrapper } from '@/Engine/Audio/Wrappers/AbstractAudioWrapper';
@@ -16,7 +16,7 @@ import { isEqualOrSimilarByXyzCoords } from '@/Engine/Utils';
 
 export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrapperDependencies): TAudio3dWrapper {
   const { position, performance } = params;
-  const wrapper: TAbstractAudioWrapper<PositionalAudio> = AbstractAudioWrapper(params, createPositionalAudio);
+  const wrapper: TAbstractAudioWrapper<PositionalAudio> = AbstractAudioWrapper(params, createPositionalAudio as TAudioCreateFn<PositionalAudio>);
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(position);
   const listener$: BehaviorSubject<AudioListener | undefined> = new BehaviorSubject<AudioListener | undefined>(params.listener);
 

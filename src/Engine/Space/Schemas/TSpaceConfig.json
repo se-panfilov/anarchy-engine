@@ -163,7 +163,7 @@
         "audio": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/TAudioConfig"
+            "$ref": "#/definitions/TAnyAudioConfig"
           }
         },
         "cameras": {
@@ -1188,13 +1188,13 @@
       "type": "string",
       "enum": ["default", "kinematic", "physical", "connected"]
     },
-    "TAudioConfig": {
+    "TAnyAudioConfig": {
       "anyOf": [
         {
           "$ref": "#/definitions/TAudio3dConfig"
         },
         {
-          "$ref": "#/definitions/TAudioBasicConfig"
+          "$ref": "#/definitions/TAudioConfig"
         }
       ]
     },
@@ -1229,9 +1229,6 @@
         "pause": {
           "type": "boolean"
         },
-        "mute": {
-          "type": "boolean"
-        },
         "refDistance": {
           "type": "number"
         },
@@ -1262,14 +1259,11 @@
       "properties": {
         "updatePriority": {
           "$ref": "#/definitions/LoopUpdatePriority"
-        },
-        "noiseThreshold": {
-          "$ref": "#/definitions/TMeters"
         }
       },
       "additionalProperties": false
     },
-    "TAudioBasicConfig": {
+    "TAudioConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -1295,9 +1289,6 @@
           "type": "number"
         },
         "pause": {
-          "type": "boolean"
-        },
-        "mute": {
           "type": "boolean"
         },
         "refDistance": {
