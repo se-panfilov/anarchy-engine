@@ -2,6 +2,7 @@
   background: transparent;
   user-select: none;
   position: absolute;
+  pointer-events: none;
   z-index: 1;
 }
 
@@ -16,6 +17,7 @@
   background: transparent;
   user-select: none;
   position: absolute;
+  pointer-events: none;
   z-index: 1;
 }
 

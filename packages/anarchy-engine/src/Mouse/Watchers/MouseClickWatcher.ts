@@ -3,14 +3,33 @@ import { AbstractWatcher, WatcherType } from '@Anarchy/Engine/Abstract';
 import { MouseEventType } from '@Anarchy/Engine/Mouse/Constants';
 import type { TMouseClickWatcher, TMouseClickWatcherParams, TMouseWatcherEvent } from '@Anarchy/Engine/Mouse/Models';
 import { getMouseWatcherEvent } from '@Anarchy/Engine/Mouse/Utils';
+import { TextCssClass } from '@Anarchy/Engine/Text/Constants';
 import { distinctUntilChanged, takeUntil } from 'rxjs';
+
+const textCssClasses = [TextCssClass.RendererText2d, TextCssClass.RendererText3d, TextCssClass.Text2d, TextCssClass.Text3d];
+const textCssClassesRegexp = new RegExp(`(?:^|\\s)(?:${textCssClasses.join('|')})(?:\\s|$)`);
 
 export function MouseClickWatcher({ container, tags }: TMouseClickWatcherParams): TMouseClickWatcher {
   const containerIdTag: string = `container_id_${container.id}`;
   const abstractWatcher: TAbstractWatcher<TMouseWatcherEvent> = AbstractWatcher<TMouseWatcherEvent>(WatcherType.MouseClickWatcher, 'mouse_click_watcher', tags);
+
+  const isGameLayerTarget = (event: MouseEvent | WheelEvent): boolean => {
+    const target: Element | null = event.target as Element | null;
+    if (!target) return false;
+    if (target === container.canvas$.value) return true;
+
+    const classes: DOMTokenList | undefined = target?.classList;
+    if (!classes || classes.length === 0) return false;
+    else return textCssClassesRegexp.test(classes.value);
+  };
+
   const onMouseListener = (event: MouseEvent | WheelEvent): void => {
-    //Must do "event.target === container.canvas$.value" to make sure we are not catching events from other elements (UI, etc.), outside of canvas
-    if ((event.type as MouseEventType) !== MouseEventType.Wheel && event.cancelable && event.target === container.canvas$.value) event.preventDefault();
+    //Must make sure, that targeting a game layer (canvas, text renderer), to not catch events from other elements (UI, etc.)
+    if ((event.type as MouseEventType) !== MouseEventType.Wheel && event.cancelable && !isGameLayerTarget(event)) {
+      // if (event.cancelable) event.preventDefault();
+      return;
+    }
+
     const e: TMouseWatcherEvent = getMouseWatcherEvent(event);
     abstractWatcher.value$.next(e);
   };

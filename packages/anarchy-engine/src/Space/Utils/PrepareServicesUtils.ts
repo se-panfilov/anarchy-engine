@@ -116,7 +116,6 @@ export function buildEntitiesServices(
     materialService,
     models3dService,
     animationsService,
-    // TODO CWP  USE canvas instead of a global container (window, document, etc.) to handle mouse events (otherwise we can't prevent click through UI elements)
     mouseService: MouseService(container, MouseClickWatcherFactory(), MouseClickWatcherRegistry(), MousePositionWatcherFactory(), MousePositionWatcherRegistry(), loops),
     particlesService: ParticlesService(ParticlesFactory(), ParticlesRegistry(), { transformDriveService, materialService }, sceneW),
     physicsBodyService,
