@@ -4,6 +4,10 @@
 **Publisher/Developer (Licensor):** {{LEGAL_ENTITY_NAME}}
 **Support/Legal Contact:** {{SUPPORT_EMAIL}} / {{LEGAL_EMAIL}}
 
+## Defined Terms
+
+**“Distribution Channels”** means any store, marketplace, platform, launcher, website, installer, physical media, or other mechanism used now or in the future to distribute {{PACKAGE_NAME}}, regardless of provider.
+
 ## 1. License Grant
 
 Subject to this EULA, Licensor grants you a **personal, non-exclusive, non-transferable, revocable** license to install and use **{{PACKAGE_NAME}}** on devices linked to your **{{STORE_ACCOUNT}}** for **{{USAGE_SCOPE}}** purposes.
@@ -25,11 +29,13 @@ You **may not**:
 
 ## 4. Updates
 
-The Game may update via **{{STORE_PLATFORM}}**. Some updates may be required to continue use. Release notes: **{{STORE_NEWS_URL}}**. Security updates policy is described in `SECURITY.md` (incl. **{{SECURITY_SUPPORT_PERIOD}}**).
+The Game may receive updates, patches, bug fixes, or content changes (“Updates”). Updates may be delivered through any Distribution Channels in use from time to time, including automatic updates where supported, or by including updated files in the distribution package. Some Updates may be required to continue use.
+
+Where we provide release notes or advisories, they may be delivered within the product, in the update package, or via the applicable Distribution Channel. No specific location or publication cadence is guaranteed.
 
 ## 5. Third-Party Services
 
-Purchases/downloads/accounts are provided by **{{STORE_PLATFORM}}** under its own terms and privacy policy. Online features (if any) may rely on third-party services subject to their terms.
+Purchasing, downloading, installation, account, or entitlement functions may be provided by your chosen Distribution Channels and are subject to their own terms and privacy policies. Any online features of the Game (if offered) may rely on third-party services under their respective terms.
 
 ## 6. User-Generated Content (if applicable)
 

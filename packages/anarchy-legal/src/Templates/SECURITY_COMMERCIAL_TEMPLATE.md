@@ -22,8 +22,8 @@ Where required by law, we will **notify competent authorities and/or users withi
 
 ## Security Updates & Delivery
 
-- **Update channel:** **{{STORE_AUTO_UPDATES}}**.
-- **Advisories / release notes:** **{{RELEASE_NOTES_URL}}**.
+- **Delivery:** through applicable Distribution Channels in use from time to time, which may include automatic updates where available, or by providing updated files in the distribution package.
+- **Advisories / release notes:** may be provided within the product or the update package, or via the applicable Distribution Channel. No specific location is guaranteed.
 - **Security support period:** {{SECURITY_SUPPORT_PERIOD}} (counted from the initial commercial release of the relevant major version), unless a longer period is required by applicable law.
 
 ## In/Out of Scope

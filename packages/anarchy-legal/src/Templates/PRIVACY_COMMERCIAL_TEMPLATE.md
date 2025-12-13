@@ -5,7 +5,7 @@
 
 ## 1. Summary
 
-We do **not** collect personal data through the **offline** game client. Store platforms (e.g., **{{STORES_EXAMPLE_DATA_PROCESSOR}}**) process your data under their own privacy policies.
+We do **not** collect personal data through the **offline** game client. Purchasing, downloading, installation, account, or entitlement functions (if any) are handled by the Distribution Channels you use and are subject to their own terms and privacy policies, which we do not control.
 
 ## 2. Game Client
 
@@ -16,9 +16,9 @@ We do **not** collect personal data through the **offline** game client. Store p
   {{/CRASH_OPT_IN}}
 - The game runs offline. Any optional online features will be **opt-in** and documented here.
 
-## 3. Store Platforms
+## 3. Distribution Channels
 
-Purchases, downloads, and account data are processed by **{{STORES_PURCHASES_PLATFORM}}**, acting under its own terms and privacy policy. We may receive minimal information (e.g., fulfillment status) necessary to provide access.
+Your chosen Distribution Channels may process personal data necessary to provide their services (e.g., account or entitlement management). We receive only the minimal information needed to enable access to the Game (if applicable). For details on their processing, consult the terms and privacy documentation of the relevant provider.
 
 ## 4. Customer Support
 
