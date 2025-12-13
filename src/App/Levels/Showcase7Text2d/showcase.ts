@@ -2,13 +2,13 @@ import './fonts.css';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TAnimationParams, TAppCanvas, TEngine, TMoverService, TSpace, TSpaceConfig, TTextAnyWrapper, TWithCoordsXZ } from '@/Engine';
-import { buildSpaceFromConfig, createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, EulerWrapper, generateAnglesForCircle, TextType, Vector3Wrapper } from '@/Engine';
+import { createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, EulerWrapper, generateAnglesForCircle, spaceService, TextType, Vector3Wrapper } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
 
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
-  const space: TSpace = await buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { textService, loopService, mouseService } = space.services;
 

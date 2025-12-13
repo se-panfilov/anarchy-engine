@@ -20,7 +20,7 @@ import type {
   TSpatialGridWrapper,
   TWithCoordsXYZ
 } from '@/Engine';
-import { buildSpaceFromConfig, Engine, get3DAzimuthRad, isDefined, isNotDefined, KeysExtra } from '@/Engine';
+import { Engine, get3DAzimuthRad, isDefined, isNotDefined, KeysExtra, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 import type { TBullet } from './utils';
@@ -39,7 +39,7 @@ import {
 } from './utils';
 
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
-  const space: TSpace = await buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
   const { physicsLoopService, cameraService, actorService, lightService, loopService, mouseService, intersectionsWatcherService, spatialGridService } = space.services;

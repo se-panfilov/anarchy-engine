@@ -3,14 +3,14 @@ import { BufferGeometry, Color, PointsMaterial } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TAppCanvas, TEngine, TParticlesConfig, TParticlesParams, TParticlesWrapper, TPointsMaterialProps, TSpace, TSpaceConfig } from '@/Engine';
-import { buildSpaceFromConfig, Engine, isDefined, isNotDefined } from '@/Engine';
+import { Engine, isDefined, isNotDefined, spaceService } from '@/Engine';
 import { configToParams as particlesConfigToParams } from '@/Engine/Particles/Adapters';
 
 import spaceConfig from './showcase.json';
 
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const gui: GUI = new GUI();
-  const space: TSpace = await buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { particlesService, loopService } = space.services;
 

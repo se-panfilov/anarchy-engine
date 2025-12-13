@@ -2,12 +2,12 @@ import { filter } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorRegistry, TActorWrapper, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
-import { buildSpaceFromConfig, Engine, isNotDefined } from '@/Engine';
+import { Engine, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
-  const space: TSpace = await buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
 
   const { actorService, cameraService, intersectionsWatcherService, loopService, mouseService } = space.services;

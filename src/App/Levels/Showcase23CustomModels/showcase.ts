@@ -1,13 +1,13 @@
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TAppCanvas, TEngine, TModel3dFacade, TModel3dLoadOptions, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
-import { buildSpaceFromConfig, Engine, isNotDefined, KeyCode, Vector3Wrapper } from '@/Engine';
+import { Engine, isNotDefined, KeyCode, spaceService, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   console.log('Press keys 1..4 to play animations of related models');
 
-  const space: TSpace = await buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
   const { animationsService, models3dService } = space.services;

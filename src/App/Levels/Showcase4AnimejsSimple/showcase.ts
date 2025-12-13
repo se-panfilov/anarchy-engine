@@ -1,6 +1,6 @@
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorParams, TActorRegistry, TActorWrapper, TAppCanvas, TEngine, TMoverService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
-import { buildSpaceFromConfig, defaultMoverServiceConfig, Engine, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, PrimitiveModel3dType, TextType, Vector3Wrapper } from '@/Engine';
+import { defaultMoverServiceConfig, Engine, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, PrimitiveModel3dType, spaceService, TextType, Vector3Wrapper } from '@/Engine';
 import type { TAnimationParams } from '@/Engine/Services';
 import { Easing } from '@/Engine/Services';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
@@ -8,7 +8,7 @@ import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 import spaceConfig from './showcase.json';
 
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
-  const space: TSpace = await buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
 
   function start(): void {

@@ -1,11 +1,11 @@
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorWrapper, TActorWrapperWithPhysics, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
-import { buildSpaceFromConfig, Engine, isNotDefined, Vector3Wrapper } from '@/Engine';
+import { Engine, isNotDefined, spaceService, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
-  const space: TSpace = await buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { actorService, cameraService, loopService, physicsWorldService } = space.services;
 

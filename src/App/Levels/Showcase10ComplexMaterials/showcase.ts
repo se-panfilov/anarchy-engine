@@ -5,14 +5,14 @@ import type { Mesh, MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorRegistry, TActorWrapper, TAppCanvas, TControlsRegistry, TEngine, TOrbitControlsWrapper, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
-import { buildSpaceFromConfig, Engine, EulerWrapper, isDefined, isNotDefined, KeyCode, LookUpStrategy, TextType, Vector3Wrapper } from '@/Engine';
+import { Engine, EulerWrapper, isDefined, isNotDefined, KeyCode, LookUpStrategy, spaceService, TextType, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const gui: GUI = new GUI();
 
-  const space: TSpace = await buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const { textService } = space.services;
 
   const engine: TEngine = Engine(space);
