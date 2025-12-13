@@ -1,5 +1,6 @@
-// We need vite only for preload.ts, cause in the current version of electron it could be  CommonJS module only (no ESM)
-// And hardly support imports (or node modules such as path, fs, etc.).
+// We need vite for preload.ts, when we want to use imports.
+// In the current version of electron, preload.ts can be CommonJS only (not ESM).
+// And it hardly supports imports (and node modules such as path, fs, etc.).
 // So the recommended way is to use a bundler for preload.ts.
 
 import { resolve } from 'path';
