@@ -13,7 +13,6 @@ export type * from './TTextAnyRenderer';
 export type * from './TTextAnyWrapper';
 export type * from './TTextConfig';
 export type * from './TTextCssProps';
-export type * from './TTextCssPropsValue';
 export type * from './TTextDependencies';
 export type * from './TTextFactory';
 export type * from './TTextParams';
