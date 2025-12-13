@@ -23,15 +23,13 @@ export function PhysicsBodyService(factory: TPhysicsBodyFactory, registry: TPhys
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
-  const withCreateService: TPhysicsBodyServiceWithCreate = withCreateServiceMixin(factory, { world: physicsWorldService.getWorld() });
+  const withCreateService: TPhysicsBodyServiceWithCreate = withCreateServiceMixin(factory, { physicsWorldService });
   const withCreateFromConfigService: TPhysicsBodyServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, undefined);
   const withFactory: TPhysicsBodyServiceWithFactory = withFactoryService(factory);
   const withRegistry: TPhysicsBodyServiceWithRegistry = withRegistryService(registry);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withFactory, withRegistry, withSerializeAllEntities<TPhysicsBodyConfig, undefined>(registry), {
-    withCreateService,
-    withCreateFromConfigService,
+  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TPhysicsBodyConfig, undefined>(registry), {
     getKinematicDataFromPhysics
   });
 }

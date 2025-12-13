@@ -1,4 +1,4 @@
-import type { RigidBodyType } from '@dimforge/rapier3d';
+import type { RigidBodyType, World } from '@dimforge/rapier3d';
 import type { Subscription } from 'rxjs';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
@@ -12,7 +12,8 @@ import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { createPhysicsBodyEntities } from './PhysicsBodyUtils';
 
-export function PhysicsBody(params: TPhysicsBodyParams, { world }: TPhysicsDependencies): TPhysicsBody {
+export function PhysicsBody(params: TPhysicsBodyParams, { physicsWorldService }: TPhysicsDependencies): TPhysicsBody {
+  const world: World = physicsWorldService.getWorld();
   const entities: TPhysicsBodyEntities = createPhysicsBodyEntities(params, world);
 
   const { isSleep = false } = params;

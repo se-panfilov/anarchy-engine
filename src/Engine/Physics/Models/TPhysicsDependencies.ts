@@ -1,5 +1,5 @@
-import type { World } from '@dimforge/rapier3d';
+import type { TPhysicsWorldService } from './TPhysicsWorldService';
 
 export type TPhysicsDependencies = Readonly<{
-  world: World;
+  physicsWorldService: TPhysicsWorldService;
 }>;
