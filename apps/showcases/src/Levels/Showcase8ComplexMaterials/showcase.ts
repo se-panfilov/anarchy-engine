@@ -37,7 +37,7 @@ import spaceConfigJson from './space.json';
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
 export function start(settings: TAppSettings): void {
-  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig]));
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], settings.spaceSettings));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
   if (settings.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);

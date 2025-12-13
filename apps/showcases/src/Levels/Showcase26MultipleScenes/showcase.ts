@@ -2,6 +2,8 @@ import type { TSpace, TSpaceConfig } from '@Engine';
 import { asRecord, isNotDefined, spaceService } from '@Engine';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 
+import type { TAppSettings } from '@/Models';
+
 import type { TSubscriptionsData } from './Helpers';
 import { runAlpha, runBeta, runDelta, runGamma } from './Helpers';
 import { createButtons, createContainersDivs } from './Helpers/Utils';
@@ -22,10 +24,10 @@ const spaceBetaConfig: TSpaceConfig = spaceBetaConfigJson as TSpaceConfig;
 const spaceGammaConfig: TSpaceConfig = spaceGammaConfigJson as TSpaceConfig;
 const spaceDeltaConfig: TSpaceConfig = spaceDeltaConfigJson as TSpaceConfig;
 
-export function start(): void {
+export function start(settings: TAppSettings): void {
   createContainersDivs();
 
-  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig, spaceBetaConfig, spaceGammaConfig, spaceDeltaConfig]));
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig, spaceBetaConfig, spaceGammaConfig, spaceDeltaConfig], settings.spaceSettings));
   const spaceAlpha: TSpace = spaces[spaceAlphaConfig.name];
   const spaceBeta: TSpace = spaces[spaceBetaConfig.name];
   const spaceGamma: TSpace = spaces[spaceGammaConfig.name];

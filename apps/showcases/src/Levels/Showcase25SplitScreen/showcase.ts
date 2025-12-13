@@ -3,6 +3,7 @@ import { asRecord, createDomElement, isNotDefined, KeyCode, metersPerSecond, mps
 import { combineLatest } from 'rxjs';
 import { Clock } from 'three';
 
+import type { TAppSettings } from '@/Models';
 import { moveByCircle } from '@/Utils/MoveUtils';
 
 import spaceAlphaConfigJson from './spaceAlpha.json';
@@ -16,9 +17,9 @@ function createContainersDivs(): void {
   createDomElement('div', undefined, undefined, 'right_container', 'position: fixed; left: calc(50% + 2px); right: 0; top: 0; bottom: 0; outline: none; background: oklab(0.89 -0.08 -0.05);');
 }
 
-export function start(): void {
+export function start(settings: TAppSettings): void {
   createContainersDivs();
-  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig, spaceBetaConfig]));
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig, spaceBetaConfig], settings.spaceSettings));
   const spaceAlpha: TSpace = spaces[spaceAlphaConfig.name];
   const spaceBeta: TSpace = spaces[spaceBetaConfig.name];
   if (isNotDefined(spaceAlpha)) throw new Error(`[Showcase]: Space "${spaceAlphaConfig.name}" is not defined`);
