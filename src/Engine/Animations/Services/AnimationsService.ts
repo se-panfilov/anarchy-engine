@@ -1,36 +1,54 @@
+import type { Observable, Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 import type { AnimationClip, Group, Mesh, Object3D } from 'three';
 import { AnimationMixer } from 'three';
 
 import type { TAnimationActions, TAnimationActionsPack, TAnimationsService, TModel3dAnimations } from '@/Engine/Animations/Models';
+import type { TLoopService, TLoopTimes } from '@/Engine/Loop';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
+import type { TModel3dFacade } from '@/Engine/Models3d';
 import type { TWriteable } from '@/Engine/Utils';
+import { isNotDefined } from '@/Engine/Utils';
 
-export function AnimationsService(): TAnimationsService {
+export function AnimationsService(loopService: TLoopService): TAnimationsService {
   const added$: Subject<TModel3dAnimations> = new Subject<TModel3dAnimations>();
+  const subscriptions: Map<AnimationMixer, Subscription> = new Map<AnimationMixer, Subscription>();
 
-  // TODO (S.Panfilov) 6.5 CWP make sure animations works
-  // TODO (S.Panfilov) 8. CWP implement models load via actor (merge branch and create a new one before doing this)
   function createActions(model: Group | Mesh | Object3D, animations: ReadonlyArray<AnimationClip> = []): TAnimationActionsPack {
     const mixer = new AnimationMixer(model);
     const actions: TWriteable<TAnimationActions> = {};
-    animations.forEach((clip: AnimationClip): void => {
-      // eslint-disable-next-line functional/immutable-data
-      actions[clip.name] = mixer.clipAction(clip);
-    });
+    // eslint-disable-next-line functional/immutable-data
+    animations.forEach((clip: AnimationClip): void => void (actions[clip.name] = mixer.clipAction(clip)));
     return { model, mixer, actions };
+  }
+
+  function startAutoUpdateMixer(modelF: TModel3dFacade, updateTick$: Observable<TLoopTimes> = loopService.tick$): TAnimationActionsPack {
+    const mixer = modelF.getMixer();
+    const subs$: Subscription = updateTick$.subscribe(({ delta }) => mixer.update(delta));
+    subscriptions.set(mixer, subs$);
+    return { model: modelF.getModel(), mixer, actions: modelF.getActions() };
+  }
+
+  function stopAutoUpdateMixer(mixer: AnimationMixer): void {
+    const subs$ = subscriptions.get(mixer);
+    if (isNotDefined(subs$)) throw new Error('Mixer is not defined');
+    subs$.unsubscribe();
+    subscriptions.delete(mixer);
   }
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     added$.complete();
     added$.unsubscribe();
+    subscriptions.forEach((subs$) => subs$.unsubscribe());
   });
 
   return {
     createActions,
     added$: added$.asObservable(),
+    startAutoUpdateMixer,
+    stopAutoUpdateMixer,
     ...destroyable
   };
 }
