@@ -3,7 +3,6 @@ import type { THandleRequestDependencies } from '@Desktop/Models';
 import { isPlatformAction } from '@Desktop/Utils';
 import type { IpcMainInvokeEvent } from 'electron';
 
-// TODO DESKTOP: fix handling of the events
 // TODO DESKTOP: any
 export function handleAppRequest({ settingsService }: THandleRequestDependencies, _event: IpcMainInvokeEvent, args: [PlatformActions | string, unknown]): Promise<any> | any {
   const type: PlatformActions | string = args[0];

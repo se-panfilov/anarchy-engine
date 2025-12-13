@@ -23,7 +23,6 @@
       "@Menu": ["packages/showcases-menu/src/index.ts"]
     },
     "resolveJsonModule": true,
-    // TODO DESKTOP: Why global "skipLibCheck"?,
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,

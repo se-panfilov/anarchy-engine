@@ -18,15 +18,6 @@ const settings: TAppSettings = {
   }
 };
 
-// TODO DESKTOP: Implement generic platformApiService for desktop and mobile
-// TODO DESKTOP: Implement save/load via platformApi
-// TODO DESKTOP: debug
-// console.log('XXX platformApi', window.platformApi);
-// console.log('chrome', window.platformApi.chrome());
-// console.log('node', window.platformApi.node());
-// console.log('electron', window.platformApi.electron());
-// window.platformApi.desktopAppVersion().then(console.log);
-
 setBrowserSafeguards(window);
 
 void route(settings).then((): void => {

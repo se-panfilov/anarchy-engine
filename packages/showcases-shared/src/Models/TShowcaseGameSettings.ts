@@ -1,4 +1,3 @@
-// TODO DESKTOP: this is a copy of TAppSettings from apps/showcases-desktop/src/Models/TAppSettings.ts
 export type TShowcaseGameSettings = Readonly<{
   graphics: TGraphicsSettings;
   audio: TAudioSettings;
