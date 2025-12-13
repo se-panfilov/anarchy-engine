@@ -7,7 +7,7 @@ import * as dotenv from 'dotenv';
 /* Minimal Sentry sourcemaps uploader for Vite/Electron builds.
  * Features:
  *  - release: from --release | $RELEASE | "<VITE_RELEASE_NAME_PREFIX>@$npm_package_version"
- *  - build dir: from --dist | positional | "dist"
+ *  - build dir: from --dist | "dist"
  *  - sentry dist-name: --dist-name | --sentry-dist | VITE_DIST_NAME (e.g., "darwin-arm64", "web-web")
  *  - urlPrefix: --url-prefix | auto from Vite "base" | "~/" fallback
  *  - dev-guard (ON by default): blocks upload unless mode=production; can disable via --no-dev-guard
@@ -37,7 +37,7 @@ Usage:
                            [--mode production] [--no-dev-guard] [--no-detect-base] [--dry-run]
 
 Args:
-  --dist <path>           Build output directory (default: "dist" or first positional arg).
+  --dist <path>           Build output directory (default: "dist").
   --release <name>        Release name. Defaults to $RELEASE or "<VITE_RELEASE_NAME_PREFIX>@$npm_package_version".
   --org <slug>            Override Sentry org (else .sentryclirc).
   --project <slug>        Override Sentry project (else .sentryclirc).
@@ -72,63 +72,28 @@ function parseArgs(argv) {
     devGuard: true,
     detectBase: true,
     dryRun: false,
-    help: false,
-    positional: []
+    help: false
   };
   const args = argv.slice(2);
-  for (let i = 0; i < args.length; i++) {
-    const a = args[i];
-    if (a === '-h' || a === '--help') {
-      out.help = true;
-      continue;
-    }
-    if (a === '--dry-run') {
-      out.dryRun = true;
-      continue;
-    }
-    if (a === '--no-dev-guard') {
-      out.devGuard = false;
-      continue;
-    }
-    if (a === '--no-detect-base') {
-      out.detectBase = false;
-      continue;
-    }
-    if (a === '--dist') {
-      out.dist = args[++i];
-      continue;
-    }
-    if (a === '--release') {
-      out.release = args[++i];
-      continue;
-    }
-    if (a === '--org') {
-      out.org = args[++i];
-      continue;
-    }
-    if (a === '--project') {
-      out.project = args[++i];
-      continue;
-    }
-    if (a === '--url-prefix') {
-      out.urlPrefix = args[++i];
-      continue;
-    }
-    if (a === '--mode') {
-      out.mode = args[++i];
-      continue;
-    }
-    if (a === '--dist-name' || a === '--sentry-dist') {
-      out.distName = args[++i];
-      continue;
-    }
-    if (a.startsWith('--')) {
+
+  args.forEach((a, i) => {
+    if (a === '-h' || a === '--help') out.help = true;
+    else if (a === '--dry-run') out.dryRun = true;
+    else if (a === '--no-dev-guard') out.devGuard = false;
+    else if (a === '--no-detect-base') out.detectBase = false;
+    else if (a === '--dist') out.dist = args[i + 1];
+    else if (a === '--release') out.release = args[i + 1];
+    else if (a === '--org') out.org = args[i + 1];
+    else if (a === '--project') out.project = args[i + 1];
+    else if (a === '--url-prefix') out.urlPrefix = args[i + 1];
+    else if (a === '--mode') out.mode = args[i + 1];
+    else if (a === '--dist-name' || a === '--sentry-dist') out.distName = args[i + 1];
+    else if (a.startsWith('--')) {
       console.error(`Unknown option: ${a}`);
       out.help = true;
-      continue;
     }
-    out.positional.push(a);
-  }
+  });
+
   return out;
 }
 
@@ -185,7 +150,7 @@ function runSentryCli(args, env, dryRun) {
   loadEnvFromCwd(mode);
 
   // Resolve build dir (kept as --dist for backward compat)
-  const distDir = argv.dist || argv.positional[0] || 'dist';
+  const distDir = argv.dist || 'dist';
   const distAbs = resolve(process.cwd(), distDir);
 
   // Resolve release
