@@ -8,6 +8,7 @@ import { isDefined, isNotDefined } from '@/Engine/Utils';
 export const getMagFilter = (magFilter?: MagnificationTextureFilter): MagnificationTextureFilter => (isDefined(magFilter) ? magFilter : LinearFilter);
 export const getMinFilter = (minFilter?: MinificationTextureFilter): MinificationTextureFilter => (isDefined(minFilter) ? minFilter : NearestFilter);
 
+// TODO 9.0.0. RESOURCES: Applying of colorSpace is turned off for now (find out how to work with it properly. Can we add it toTTextureParams?)
 // export const applyColorSpace = (name: TMaterialPackKeys, texture: TWriteable<TTexture>, options?: TTextureOptions): void => {
 //   let defaultColorSpace: ColorSpace;
 //
