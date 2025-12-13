@@ -179,7 +179,7 @@
           "depth": 8,
           "height": 4,
           "heightSegments": 1,
-          "width": 4,
+          "width": 2,
           "widthSegments": 1
         }
       },
@@ -192,7 +192,7 @@
           "depth": 8,
           "height": 4,
           "heightSegments": 1,
-          "width": 4,
+          "width": 1.6,
           "widthSegments": 1
         }
       }
@@ -235,7 +235,7 @@
             "z": 0
           },
           "shapeParams": {
-            "hx": 2,
+            "hx": 1,
             "hy": 2,
             "hz": 4
           },
@@ -256,7 +256,7 @@
             "z": 0
           },
           "shapeParams": {
-            "hx": 2,
+            "hx": 0.8,
             "hy": 2,
             "hz": 4
           },

@@ -1,7 +1,7 @@
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { SpaceSchemaVersion } from '@/Engine/Space/Constants';
 import type { TSpace, TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources, TSpaceServices } from '@/Engine/Space/Models';
-import { filterOutEmptyFields } from '@/Engine/Utils';
+import { filterOutEmptyFields, isDefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: Space can be created in a runtime, so "entities" field could contain something (when create from config, it's empty)
 export function spaceToConfig(
@@ -42,10 +42,12 @@ export function spaceToConfig(
     materials: materialService.serializeAllEntities(),
     models3d: models3dService.serializeAllEntities(),
     particles: particlesService.serializeAllEntities(),
-    physics: {
-      world: physicsWorldService.serializeWorld(),
-      bodies: physicsBodyService.serializeAllEntities()
-    },
+    physics: isDefined(entity.services.physicsWorldService.findWorld())
+      ? {
+          world: physicsWorldService.serializeWorld(),
+          bodies: physicsBodyService.serializeAllEntities()
+        }
+      : {},
     renderers: rendererService.serializeAllEntities(),
     spatialGrids: spatialGridService.serializeAllEntities(),
     texts: textService.serializeAllEntities()
