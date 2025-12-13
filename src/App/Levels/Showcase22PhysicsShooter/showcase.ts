@@ -30,8 +30,6 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const surface: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('surface');
     if (isNotDefined(surface)) throw new Error(`Cannot find "surface" actor`);
 
-    startMoveActorWithKeyboard(heroW, keyboardService);
-
     // const gridSize: Vector3 = new Box3().setFromObject(surface?.entity).getSize(new Vector3());
     // initGridHelper(actorService, gridSize.x, gridSize.z);
 
@@ -54,6 +52,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       position$: mouseService.position$,
       tags: []
     });
+
+    startMoveActorWithKeyboard(heroW, keyboardService, mouseLineIntersectionsWatcher);
 
     //enable collisions
     actorService.getScene().entity.traverse((object: Object3D): void => {

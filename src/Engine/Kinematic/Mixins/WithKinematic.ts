@@ -66,9 +66,21 @@ export function withKinematic(params: TActorParams): TWithKinematic {
       // eslint-disable-next-line functional/immutable-data
       (this.kinematic as TWriteable<TKinematicData>).linearVelocity = getLinearVelocity(this.getKinematicSpeed(), this.getKinematicAzimuth(), elevation);
     },
-    setKinematicLinearVelocity(speed: number, azimuth: number, elevation: number): void {
+    setKinematicLinearVelocityFromParams(speed: number, azimuth: number, elevation: number): void {
       // eslint-disable-next-line functional/immutable-data
       (this.kinematic as TWriteable<TKinematicData>).linearVelocity = getLinearVelocity(speed, azimuth, elevation);
+    },
+    setKinematicLinearVelocity(linearVelocity: Vector3): void {
+      // eslint-disable-next-line functional/immutable-data
+      (this.kinematic as TWriteable<TKinematicData>).linearVelocity = linearVelocity;
+    },
+    setKinematicAngularVelocity(angularVelocity: Vector3): void {
+      // eslint-disable-next-line functional/immutable-data
+      (this.kinematic as TWriteable<TKinematicData>).angularVelocity = angularVelocity;
+    },
+    setKinematicPrincipalInertia(principalInertia: Vector3): void {
+      // eslint-disable-next-line functional/immutable-data
+      (this.kinematic as TWriteable<TKinematicData>).principalInertia = principalInertia;
     }
   };
 }
