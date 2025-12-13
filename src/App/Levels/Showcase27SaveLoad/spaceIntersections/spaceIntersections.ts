@@ -42,6 +42,10 @@ export const spaceIntersectionsData: TSpacesData = {
     const directionWatcherBlue: TIntersectionsDirectionWatcher = space.services.intersectionsWatcherService.getDirectionWatcher('watcher_blue');
     const cube1BlueActor: TActor = space.services.actorService.getRegistry().getByName('cube_blue_1_actor');
     const sphereRed2Actor: TActor = space.services.actorService.getRegistry().getByName('sphere_red_2_actor');
+
+    cameraWatcherRed.setFar(10);
+    directionWatcherBlue.setFar(5);
+
     // TODO 15-0-0: Prevent adding actors multiple times (same id, same name)
     cameraWatcherRed.addActor(sphereRed2Actor);
     directionWatcherBlue.addActor(cube1BlueActor);

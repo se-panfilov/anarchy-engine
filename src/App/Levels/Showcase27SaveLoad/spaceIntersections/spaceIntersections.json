@@ -126,18 +126,18 @@
       },
       {
         "actorNames": ["cube_blue_2_actor"],
-        "origin": {
-          "x": -12,
-          "y": 1,
-          "z": 8
-        },
         "direction": {
           "x": 1,
           "y": 0,
           "z": 0
         },
         "isAutoStart": true,
-        "name": "watcher_blue"
+        "name": "watcher_blue",
+        "origin": {
+          "x": -12,
+          "y": 1,
+          "z": 8
+        }
       }
     ],
     "lights": [
