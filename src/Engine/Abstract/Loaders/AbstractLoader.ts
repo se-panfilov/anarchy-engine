@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import type { Loader } from 'three';
 
 import type { LoaderType } from '@/Engine/Abstract/Constants';
-import type { TAbstractLoader, TAbstractResourceConfig, TAbstractSimpleAsyncRegistry, TProtectedRegistry } from '@/Engine/Abstract/Models';
+import type { TAbstractLoader, TAbstractOnLoadFunction, TAbstractResourceConfig, TAbstractSimpleAsyncRegistry, TProtectedRegistry } from '@/Engine/Abstract/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TWriteable } from '@/Engine/Utils';
@@ -16,17 +16,18 @@ export function AbstractLoader<L extends Loader<any>, R extends TProtectedRegist
 ): TAbstractLoader<T, C> {
   const loaded$: Subject<T> = new Subject<T>();
   const id: string = type + '_' + nanoid();
+  let onLoadedFn: TAbstractOnLoadFunction<T> | undefined = undefined;
 
   const loadFromConfigAsync = (configs: ReadonlyArray<C>): Promise<ReadonlyArray<T>> => Promise.all(configs.map((config: C): Promise<T> => loadAsync(config)));
 
-  function loadAsync({ url, isForce, name, options }: C, onLoaded?: (r: TWriteable<T>, params?: Record<string, any>) => T): Promise<T> {
+  function loadAsync({ url, isForce, name, options }: C): Promise<T> {
     if (!isForce) {
       const resource: T | undefined = registry.findByKey(name);
       if (isDefined(resource)) return Promise.resolve(resource);
     }
 
     return loader.loadAsync(url).then((loaded: TWriteable<T>): T => {
-      const res: T = isDefined(onLoaded) ? onLoaded(loaded, options) : loaded;
+      const res: T = isDefined(onLoadedFn) ? onLoadedFn(loaded, options) : loaded;
       registry.add(name, res);
       loaded$.next(res);
       return res;
@@ -34,6 +35,8 @@ export function AbstractLoader<L extends Loader<any>, R extends TProtectedRegist
   }
 
   const loadListAsync = (packs: ReadonlyArray<C>): Promise<ReadonlyArray<T>> => Promise.all(packs.map((pack: C): Promise<T> => loadAsync(pack)));
+
+  const setOnLoadedFn = (onLoaded: TAbstractOnLoadFunction<T>): void => void (onLoadedFn = onLoaded);
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
@@ -46,6 +49,7 @@ export function AbstractLoader<L extends Loader<any>, R extends TProtectedRegist
     loadAsync,
     loadListAsync,
     loadFromConfigAsync,
+    setOnLoadedFn,
     loaded$,
     ...destroyable
   };

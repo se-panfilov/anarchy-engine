@@ -20,8 +20,7 @@ export function TexturesLoader(registry: TTextureAsyncRegistry): TTexturesLoader
     return loaded;
   }
 
-  return {
-    ...loader,
-    loadAsync: (config: TTextureResourceConfig): Promise<TTexture> => loader.loadAsync(config, applyParamsOnLoaded)
-  };
+  loader.setOnLoadedFn(applyParamsOnLoaded);
+
+  return loader;
 }

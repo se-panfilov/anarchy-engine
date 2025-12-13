@@ -24,8 +24,7 @@ export function Models3dLoader(registry: TModel3dResourceAsyncRegistry): TModels
     return loaded;
   }
 
-  return {
-    ...loader,
-    loadAsync: (config: TModel3dResourceConfig): Promise<Group | Mesh | Object3D> => loader.loadAsync(config, applyParamsOnLoaded)
-  };
+  loader.setOnLoadedFn(applyParamsOnLoaded);
+
+  return loader;
 }

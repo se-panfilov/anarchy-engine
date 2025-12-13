@@ -6,7 +6,7 @@ import { AbstractLoader, LoaderType } from '@/Engine/Abstract';
 import { EnvMapMappingTypesMap, EnvMapMappingTypesName } from '@/Engine/EnvMap/Constants';
 import type { TEnvMapLoader, TEnvMapResourceConfig, TEnvMapTexture, TEnvMapTextureAsyncRegistry, TEnvMapTextureOptions } from '@/Engine/EnvMap/Models';
 import type { TWriteable } from '@/Engine/Utils';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { isDefined } from '@/Engine/Utils';
 
 // TODO 9.0.0. RESOURCES: add loaders folder for textures, materials, models3d
 export function EnvMapLoader(registry: TEnvMapTextureAsyncRegistry): TEnvMapLoader {
@@ -14,16 +14,13 @@ export function EnvMapLoader(registry: TEnvMapTextureAsyncRegistry): TEnvMapLoad
   const loader: TAbstractLoader<TEnvMapTexture, TEnvMapResourceConfig> = AbstractLoader(envMapLoader, registry, LoaderType.EnvMap);
 
   function applyParamsOnLoaded(loaded: TWriteable<TEnvMapTexture>, options?: TEnvMapTextureOptions): TEnvMapTexture {
-    if (isNotDefined(options)) return loaded;
-    const { mapping } = options;
-
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,functional/immutable-data
-    loaded.mapping = isDefined(mapping) ? EnvMapMappingTypesMap[EnvMapMappingTypesName[mapping]] : EquirectangularReflectionMapping;
+    loaded.mapping = isDefined(options?.mapping) ? EnvMapMappingTypesMap[EnvMapMappingTypesName[options.mapping]] : EquirectangularReflectionMapping;
+
     return loaded;
   }
 
-  return {
-    ...loader,
-    loadAsync: (config: TEnvMapResourceConfig): Promise<TEnvMapTexture> => loader.loadAsync(config, applyParamsOnLoaded)
-  };
+  loader.setOnLoadedFn(applyParamsOnLoaded);
+
+  return loader;
 }
