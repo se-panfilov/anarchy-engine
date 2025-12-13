@@ -1,7 +1,9 @@
 import type { TAbstractService } from '@/Engine/Abstract';
-import type { TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
+import type { TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
+import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TOptional } from '@/Engine/Utils';
 
+import type { TAbstractTransformAgent } from './TAbstractTransformAgent';
 import type { TGetTransformAgentsOptions, TGetTransformAgentsParams } from './TGetTransformAgentsParams';
 import type { TTransformAgents } from './TTransformAgents';
 import type { TTransformDrive, TTransformDriveCompatibleEntity } from './TTransformDrive';
@@ -10,7 +12,18 @@ import type { TTransformDriveFactoryParams } from './TTransformDriveFactoryParam
 import type { TTransformDriveParams } from './TTransformDriveParams';
 import type { TTransformDriveRegistry } from './TTransformDriveRegistry';
 
-export type TTransformDriveServiceWithCreate = TWithCreateService<TTransformDrive<TTransformDriveCompatibleEntity>, TTransformDriveParams>;
+export type TCreateFromServiceTransformDriveFn<T, P1, P2> = (params: P1, agents: P2) => T;
+
+export type TWithCreateTransformDriveService<T, P1, P2> = Readonly<{
+  create: TCreateFromServiceTransformDriveFn<T, P1, P2>;
+  createFromList: (paramsList: ReadonlyArray<P1>, agentsList: ReadonlyArray<P2>) => ReadonlyArray<T>;
+}>;
+
+export type TTransformDriveServiceWithCreate = TWithCreateTransformDriveService<
+  TTransformDrive<TTransformDriveCompatibleEntity>,
+  TTransformDriveParams,
+  Partial<Record<TransformAgent, TAbstractTransformAgent>>
+>;
 export type TTransformDriveServiceWithFactory = TWithFactoryService<TTransformDrive<TTransformDriveCompatibleEntity>, TTransformDriveFactoryParams, undefined, TTransformDriveFactory>;
 export type TTransformDriveServiceWithRegistry = TWithRegistryService<TTransformDriveRegistry>;
 
