@@ -6,35 +6,20 @@ import type { TPlatformApiService, TPlatformDriver } from '@/Models';
 export function PlatformApiService(): TPlatformApiService {
   const driver: TPlatformDriver = Driver();
 
-  function saveAppSettings(settings: TShowcaseGameSettings): Promise<void> {
-    return driver.saveAppSettings(settings);
-  }
-
-  function loadAppSettings(): Promise<TShowcaseGameSettings> {
-    return driver.loadAppSettings();
-  }
-
-  function getNodeVersion(): string {
-    return driver.getNodeVersion();
-  }
-
-  function getChromeVersion(): string {
-    return driver.getChromeVersion();
-  }
-
-  function getPlatformVersion(): string {
-    return driver.getPlatformVersion();
-  }
-
-  function getWrappedAppVersion(): Promise<string> {
-    return driver.getWrappedAppVersion();
-  }
-
+  const saveAppSettings = (settings: TShowcaseGameSettings): Promise<void> => driver.saveAppSettings(settings);
+  const loadAppSettings = (): Promise<TShowcaseGameSettings> => driver.loadAppSettings();
+  // TODO DESKTOP: fix return type of "loadLegalDocs"
+  const loadLegalDocs = (): Promise<string> => driver.loadLegalDocs();
+  const getNodeVersion = (): string => driver.getNodeVersion();
+  const getChromeVersion = (): string => driver.getChromeVersion();
+  const getPlatformVersion = (): string => driver.getPlatformVersion();
+  const getWrappedAppVersion = (): Promise<string> => driver.getWrappedAppVersion();
   const getDriver = (): TPlatformDriver => driver;
 
   return {
     saveAppSettings,
     loadAppSettings,
+    loadLegalDocs,
     getNodeVersion,
     getChromeVersion,
     getPlatformVersion,

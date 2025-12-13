@@ -3,11 +3,12 @@ import type { TFromMenuEvent, TShowcaseGameSettings, TToMenuEvent } from '@Showc
 import { FromMenuEvents, ToMenuEvents } from '@Showcases/Shared';
 import type { Observable, Subject } from 'rxjs';
 
-import { closeMainMenu, loadSettings, saveSettings } from '@/Levels/Showcase28Menu/MainMenuService';
+import { closeMainMenu, loadLegalDocs, loadSettings, saveSettings } from '@/Levels/Showcase28Menu/MainMenuService';
 
 // TODO DESKTOP: App should react on save or load settings: E.g. language change should apply immediately (in the game).
 export function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEvent>, toMenuEventsBus$: Subject<TToMenuEvent>): void {
   let settings: TShowcaseGameSettings | undefined;
+  let legalDocs: string | undefined;
 
   fromMenuEventsBus$.subscribe(async (event: TFromMenuEvent): Promise<void> => {
     switch (event.type) {
@@ -24,7 +25,6 @@ export function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEve
       }
       case FromMenuEvents.LoadSettings: {
         // TODO DESKTOP: this code is async, hmm... What should we do with the UI?
-        // TODO DESKTOP: should pass the settings  to the menu level to use them as defaults
         try {
           settings = await loadSettings();
         } catch (error) {
@@ -35,6 +35,21 @@ export function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEve
         toMenuEventsBus$.next({
           type: ToMenuEvents.SettingsLoaded,
           payload: settings
+        });
+        break;
+      }
+      case FromMenuEvents.LoadLegalDocs: {
+        // TODO DESKTOP: this code is async, hmm... What should we do with the UI?
+        try {
+          legalDocs = await loadLegalDocs();
+        } catch (error) {
+          throw new Error(`[Showcase]: Failed to load legal docs: ${error}`);
+        }
+        if (isNotDefined(legalDocs)) throw new Error(`[Showcase]: Failed to load  legal docs: ${legalDocs}`);
+
+        toMenuEventsBus$.next({
+          type: ToMenuEvents.SettingsLoaded,
+          payload: legalDocs
         });
         break;
       }
