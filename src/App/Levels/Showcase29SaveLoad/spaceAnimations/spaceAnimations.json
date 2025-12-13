@@ -26,9 +26,9 @@
         "model3dSource": "solder_model_entity_1",
         "name": "solder_actor_1",
         "position": {
-          "x": 0,
+          "x": -0.5,
           "y": 0,
-          "z": 0
+          "z": 0.3
         },
         "rotation": {
           "x": 0,
@@ -38,11 +38,6 @@
         "spatial": {
           "grid": "main_grid",
           "isAutoUpdate": true
-        },
-        "states": {
-          "animationsFsm": {
-            "name": "solder_anim_fsm"
-          }
         }
       }
     ],
@@ -62,17 +57,7 @@
     "controls": [],
     "envMaps": [],
     "fogs": [],
-    "fsm": [
-      {
-        "initial": "Idle",
-        "name": "solder_anim_fsm",
-        "transitions": [
-          ["Idle", "Run", "Run"],
-          ["Run", "Idle", "Idle"]
-        ],
-        "type": "animation"
-      }
-    ],
+    "fsm": [],
     "intersections": [],
     "lights": [
       {
