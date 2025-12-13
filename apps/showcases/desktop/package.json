@@ -11,7 +11,8 @@
     "start": "electron .",
     "build": "tsc",
     "build:preload": "tsc -p tsconfig.preload.json",
-    "build:all": "rimraf dist && npm run build && npm run build:preload && electron-builder"
+    "build:all": "rimraf dist && rimraf game-dist && npm run copy:game-dist && npm run build && npm run build:preload && electron-builder",
+    "copy:game-dist": "node ../../../packages/shared/ScriptUtils/CopyDir.js -- from=../dist to=game-dist"
   },
   "devDependencies": {
     "electron": "37.2.1",

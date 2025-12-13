@@ -11,5 +11,6 @@
     "resolveJsonModule": true,
     "lib": ["ES2020", "DOM"]
   },
-  "include": ["electron-main.ts", "preload.ts"]
+  "include": ["electron-main.ts", "preload.ts"],
+  "exclude": ["dist", "game-dist", "node_modules"]
 }

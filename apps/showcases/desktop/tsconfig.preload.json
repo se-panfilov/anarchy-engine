@@ -3,5 +3,6 @@
   "compilerOptions": {
     "module": "CommonJS"
   },
-  "include": ["preload.ts"]
+  "include": ["preload.ts"],
+  "exclude": ["dist", "game-dist", "node_modules"]
 }
