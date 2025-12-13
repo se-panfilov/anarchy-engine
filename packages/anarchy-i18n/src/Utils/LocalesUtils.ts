@@ -1,5 +1,5 @@
-import type { TLocaleId } from '@Anarchy/i18n/Models';
-import { isDefined, removeDuplicatesStr } from '@Anarchy/Shared/Utils';
+import type { TLocale, TLocaleId } from '@Anarchy/i18n/Models';
+import { isDefined, isNotDefined, removeDuplicatesStr } from '@Anarchy/Shared/Utils';
 
 export const getLangFromLocaleId = (localeId: TLocaleId): string => localeId.split('-')[0].toLowerCase();
 
@@ -14,4 +14,10 @@ export function getPreferLocaleId(preferredLocaleIds: ReadonlyArray<TLocaleId>, 
   if (isDefined(langMatch)) return langMatch;
 
   return fallBackLocaleId;
+}
+
+export function getLocaleByLocaleId(localeId: TLocaleId, availableLocales: ReadonlyArray<TLocale>): TLocale | never {
+  const result: TLocale | undefined = availableLocales.find((locale: TLocale): boolean => locale.id === localeId);
+  if (isNotDefined(result)) throw new Error(`[LOCALE] Cannot find locale. Locale id is not defined`);
+  return result;
 }
