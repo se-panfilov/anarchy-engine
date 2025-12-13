@@ -1,9 +1,11 @@
 import type { ActorConfig, CameraConfig, LightConfig, SceneConfig } from '@Engine/Launcher/Models';
-import type { ActorParams, LightParams } from '@Engine/Models';
+import type { ActorParams, LightParams, Registry } from '@Engine/Models';
 import { ActorFactory, CameraFactory, LightFactory, RendererFactory, SceneFactory } from '@Engine/Factories';
 import { createDeferredPromise, isNotDefined } from '@Engine/Utils';
 import { actorAdapter, lightAdapter } from '@Engine/Launcher/ConfigToParamAdapters';
 import { combineLatest } from 'rxjs';
+import { ActorRegistry, CameraRegistry, LightRegistry } from '@Engine/Registries';
+import type { IActorWrapper, ICameraWrapper, ILightWrapper } from '@Engine/Wrappers';
 
 export async function launch(sceneConfig: SceneConfig): Promise<void> {
   const { name, actors, cameras, lights } = sceneConfig;
@@ -19,25 +21,32 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   const lightFactory = LightFactory();
   const rendererFactory = RendererFactory();
 
+  const actorRegistry: Registry<IActorWrapper> = ActorRegistry();
+  const cameraRegistry: Registry<ICameraWrapper> = CameraRegistry();
+  const lightRegistry: Registry<ILightWrapper> = LightRegistry();
+
   combineLatest([actorFactory.latest$, sceneFactory.latest$]).subscribe(([actor, scene]) => {
     if (isNotDefined(scene) || isNotDefined(actor)) return;
+    actorRegistry.add$.next(actor);
     scene.addActor(actor);
   });
 
   // TODO (S.Panfilov) CWP
-  // make actor config a part of actor params
-  // actor should be added to registry on creation (new Map())
-  // the he should watch if he was added to the scene,
-  // then apply position (or maybe it's not necessary, an we could apply values immediatelly
+  // make actor config a part of actor params (do same for camera and light)
+  // actor should be added to registry on creation (done!!!)
+  // then the actor should watch if he was added to the scene,
+  // then apply position (or maybe it's not necessary, an we could apply values immediately
   // check if the adding to a scene must go before setting position and etc
 
   combineLatest([cameraFactory.latest$, sceneFactory.latest$]).subscribe(([camera, scene]) => {
     if (isNotDefined(scene) || isNotDefined(camera)) return;
+    cameraRegistry.add$.next(camera);
     scene.addCamera(camera);
   });
 
   combineLatest([lightFactory.latest$, sceneFactory.latest$]).subscribe(([light, scene]) => {
     if (isNotDefined(scene) || isNotDefined(light)) return;
+    lightRegistry.add$.next(light);
     scene.addLight(light);
   });
 

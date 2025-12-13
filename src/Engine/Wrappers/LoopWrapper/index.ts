@@ -4,7 +4,7 @@ import { getUtils } from './utils';
 import type { LoopFn } from './Models/LoopFn';
 import type { LoopParams } from '@Engine/Models';
 
-type ILoopWrapper = ReturnType<typeof AbstractWrapper<LoopFn>> & ReturnType<typeof getUtils>;
+export type ILoopWrapper = ReturnType<typeof AbstractWrapper<LoopFn>> & ReturnType<typeof getUtils>;
 
 export function LoopWrapper(params: LoopParams): ILoopWrapper {
   const entity: LoopFn = (

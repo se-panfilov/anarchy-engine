@@ -3,7 +3,7 @@ import { AbstractWrapper } from '@Engine/Wrappers';
 import { getSceneUtils } from './utils';
 import type { SceneParams } from '@Engine/Models/SceneParams';
 
-type ISceneWrapper = ReturnType<typeof AbstractWrapper<Scene>> & ReturnType<typeof getSceneUtils>;
+export type ISceneWrapper = ReturnType<typeof AbstractWrapper<Scene>> & ReturnType<typeof getSceneUtils>;
 
 export function SceneWrapper({ name }: SceneParams): ISceneWrapper {
   const entity: Scene = new Scene();

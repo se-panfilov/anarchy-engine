@@ -4,7 +4,7 @@ import { createActor } from './ActorUtils';
 import { getAccessors } from './Accessors';
 import type { Mesh } from 'three';
 
-type IActorWrapper = ReturnType<typeof AbstractWrapper<Mesh>> & ReturnType<typeof getAccessors>;
+export type IActorWrapper = ReturnType<typeof AbstractWrapper<Mesh>> & ReturnType<typeof getAccessors>;
 
 export function ActorWrapper(params: ActorParams): IActorWrapper {
   const entity: Mesh = createActor(params);

@@ -1,7 +1,7 @@
 import { AbstractWrapper } from '@Engine/Wrappers';
 import type { InputParams } from '@Engine/Models';
 
-type IInputWrapper = ReturnType<typeof AbstractWrapper<MOCK_INPUT_TYPE>>;
+export type IInputWrapper = ReturnType<typeof AbstractWrapper<MOCK_INPUT_TYPE>>;
 
 type MOCK_INPUT_TYPE = unknown;
 

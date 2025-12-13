@@ -4,7 +4,7 @@ import { getAccessors } from './Accessors';
 import { getLight } from './utils';
 import type { LightParams } from '@Engine/Models';
 
-type ILightWrapper = ReturnType<typeof AbstractWrapper<AmbientLight | DirectionalLight>> &
+export type ILightWrapper = ReturnType<typeof AbstractWrapper<AmbientLight | DirectionalLight>> &
   ReturnType<typeof getAccessors>;
 
 export function LightWrapper(params: LightParams): ILightWrapper {
