@@ -1,5 +1,5 @@
-import type { TPhysicalLoop } from '@/Engine/Physics';
+import type { TPhysicsLoop } from '@/Engine/Physics';
 
 export type TPhysicsAgentDependencies = Readonly<{
-  physicalLoop: TPhysicalLoop;
+  physicsLoop: TPhysicsLoop;
 }>;

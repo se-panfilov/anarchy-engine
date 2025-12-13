@@ -33,7 +33,7 @@
           "grid": "main_grid",
           "isAutoUpdate": true
         },
-        "tags": ["physical", "glass"]
+        "tags": ["physics", "glass"]
       }
     ],
     "audio": [],
@@ -116,7 +116,7 @@
           "thickness": 0.5,
           "transmission": 0.77
         },
-        "type": "MeshPhysicalMaterial"
+        "type": "MeshphysicsMaterial"
       }
     ],
     "models3d": [

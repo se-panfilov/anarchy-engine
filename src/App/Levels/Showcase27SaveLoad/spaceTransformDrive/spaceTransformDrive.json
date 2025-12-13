@@ -3,7 +3,7 @@
   "entities": {
     "actors": [
       {
-        "agent": "physical",
+        "agent": "physics",
         "model3dSource": "surface_model",
         "name": "surface_actor",
         "physicBodyName": "surface_actor_physics",
@@ -80,7 +80,7 @@
         }
       },
       {
-        "agent": "physical",
+        "agent": "physics",
         "model3dSource": "cube_physics_model",
         "name": "cube_physics_actor",
         "physicBodyName": "cube_physics_physics",
@@ -205,7 +205,7 @@
         "type": "MeshStandardMaterial"
       },
       {
-        "name": "cube_physical_material",
+        "name": "cube_physics_material",
         "options": {
           "color": "#FF9800"
         },
@@ -274,9 +274,9 @@
       },
       {
         "castShadow": true,
-        "material": "cube_physical_material",
+        "material": "cube_physics_material",
         "model3dSource": "cube",
-        "name": "cube_physical_model",
+        "name": "cube_physics_model",
         "options": {
           "depth": 4,
           "height": 1,

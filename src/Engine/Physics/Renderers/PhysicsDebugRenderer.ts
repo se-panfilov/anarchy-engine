@@ -4,10 +4,10 @@ import { BufferAttribute, BufferGeometry, LineBasicMaterial, LineSegments } from
 
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import type { TPhysicalLoop, TPhysicsDebugRenderer } from '@/Engine/Physics/Models';
+import type { TPhysicsDebugRenderer, TPhysicsLoop } from '@/Engine/Physics/Models';
 import type { TSceneWrapper } from '@/Engine/Scene/Models';
 
-export function PhysicsDebugRenderer(sceneW: TSceneWrapper, world: World, loop: TPhysicalLoop): TPhysicsDebugRenderer {
+export function PhysicsDebugRenderer(sceneW: TSceneWrapper, world: World, loop: TPhysicsLoop): TPhysicsDebugRenderer {
   let mesh = new LineSegments(new BufferGeometry(), new LineBasicMaterial({ color: 0xffffff, vertexColors: true }));
   // eslint-disable-next-line functional/immutable-data
   mesh.frustumCulled = false;

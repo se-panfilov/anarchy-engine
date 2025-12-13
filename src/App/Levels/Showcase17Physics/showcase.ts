@@ -22,12 +22,12 @@ export function start(): void {
 
 export function showcase(space: TSpace): void {
   const { actorService, cameraService, intersectionsWatcherService, keyboardService, mouseService, textService, physicsWorldService } = space.services;
-  const { physicalLoop, intersectionsLoop } = space.loops;
+  const { physicsLoop, intersectionsLoop } = space.loops;
 
   const actorAsyncRegistry = actorService.getRegistry();
   const sceneWrapper: TSceneWrapper = actorService.getScene();
 
-  physicsWorldService.getDebugRenderer(physicalLoop).start();
+  physicsWorldService.getDebugRenderer(physicsLoop).start();
 
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 
@@ -46,11 +46,11 @@ export function showcase(space: TSpace): void {
   const cameraW: TAnyCameraWrapper = cameraService.getActive();
 
   mouseService.clickLeftRelease$.subscribe(() => {
-    ballActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, radians(0), forcePower * 10.5, ForwardAxis.X), true);
+    ballActor.drive.physics.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, radians(0), forcePower * 10.5, ForwardAxis.X), true);
   });
 
   keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => {
-    ballActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse({ x: 0, y: 20, z: 0 }, true);
+    ballActor.drive.physics.physicsBody$.value?.getRigidBody()?.applyImpulse({ x: 0, y: 20, z: 0 }, true);
   });
 
   const mouseLineIntersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({
@@ -85,7 +85,7 @@ export function showcase(space: TSpace): void {
     mouseLineIntersectionsCoords = intersection.point;
   });
 
-  physicalLoop.tick$.subscribe(() => {
+  physicsLoop.tick$.subscribe(() => {
     if (isDefined(mouseLineIntersectionsCoords)) {
       const ballCoords: TReadonlyVector3 = ballActor.drive.position$.value;
       azimuth = getHorizontalAzimuth(ballCoords.x, ballCoords.z, mouseLineIntersectionsCoords, ForwardAxis.Z);

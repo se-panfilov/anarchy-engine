@@ -3,7 +3,7 @@
   "entities": {
     "actors": [
       {
-        "agent": "physical",
+        "agent": "physics",
         "model3dSource": "surface_model",
         "name": "surface",
         "physicBodyName": "surface_physics",

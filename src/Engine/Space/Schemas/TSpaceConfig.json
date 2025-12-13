@@ -540,7 +540,7 @@
     },
     "TransformAgent": {
       "type": "string",
-      "enum": ["default", "kinematic", "physical", "connected"]
+      "enum": ["default", "kinematic", "physics", "connected"]
     },
     "TAnyAudioConfig": {
       "anyOf": [

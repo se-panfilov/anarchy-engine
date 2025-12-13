@@ -3,7 +3,7 @@
   "entities": {
     "actors": [
       {
-        "agent": "physical",
+        "agent": "physics",
         "model3dSource": "surface_model",
         "name": "surface_actor",
         "physics": {
@@ -32,7 +32,7 @@
         }
       },
       {
-        "agent": "physical",
+        "agent": "physics",
         "model3dSource": "box_model_1",
         "name": "box_actor_1",
         "physics": {
@@ -61,7 +61,7 @@
         }
       },
       {
-        "agent": "physical",
+        "agent": "physics",
         "model3dSource": "box_model_2",
         "name": "box_actor_2",
         "physics": {

@@ -15,18 +15,18 @@ import type {
   TReadonlyTransform,
   TRigidBodyTransformData
 } from '@/Engine/TransformDrive/Models';
-import { applyLatestTransform, getPhysicalBodyTransform } from '@/Engine/TransformDrive/Utils';
+import { applyLatestTransform, getPhysicsBodyTransform } from '@/Engine/TransformDrive/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
 
-// Physical bodies doesn't play well with manual set of position/rotation (e.g. position$.next(), rotation$.next() from any external sources).
+// Physics bodies doesn't play well with manual set of position/rotation (e.g. position$.next(), rotation$.next() from any external sources).
 // In principle, it's better to avoid manual setting of position/rotation for physics objects.
-// But if you have to, first change active agent to "Default", then set position/rotation, and then switch back to "Physical" agent.
-export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { physicalLoop }: TPhysicsAgentDependencies): TPhysicsTransformAgent {
+// But if you have to, first change active agent to "Default", then set position/rotation, and then switch back to "Physics" agent.
+export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { physicsLoop }: TPhysicsAgentDependencies): TPhysicsTransformAgent {
   const positionNoiseThreshold: TMeters = params.performance?.positionNoiseThreshold ?? meters(0.0000001);
   const rotationNoiseThreshold: TRadians = params.performance?.rotationNoiseThreshold ?? radians(0.0000001);
-  const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Physical);
+  const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Physics);
 
   const onDeactivated$Sub: Subscription = abstractTransformAgent.onDeactivated$.pipe(takeWhile((): boolean => isNotDefined(params.onDeactivated))).subscribe((): void => {
     if (isNotDefined(params.onDeactivated)) {
@@ -99,14 +99,14 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
   physicsSub$ = agent.enabled$
     .pipe(
       distinctUntilChanged(),
-      switchMap((isEnabled: boolean) => (isEnabled ? physicalLoop.tick$ : EMPTY)),
+      switchMap((isEnabled: boolean) => (isEnabled ? physicsLoop.tick$ : EMPTY)),
       filter((): boolean => {
         const body: TPhysicsBody | undefined = physicsBody$.value;
         return isDefined(body) && body.getPhysicsBodyType() !== RigidBodyTypesNames.Fixed;
       }),
-      //Get the latest transform data from the physics body every physical tick
+      //Get the latest transform data from the physics body every physics tick
       map((): TRigidBodyTransformData | undefined =>
-        getPhysicalBodyTransform(physicsBody$.value?.getRigidBody(), prevPosition, prevRotation, tmpPosition, tmpRotation, positionNoiseThreshold, rotationNoiseThreshold)
+        getPhysicsBodyTransform(physicsBody$.value?.getRigidBody(), prevPosition, prevRotation, tmpPosition, tmpRotation, positionNoiseThreshold, rotationNoiseThreshold)
       ),
       filter(isDefined)
     )

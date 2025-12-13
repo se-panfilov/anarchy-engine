@@ -29,7 +29,7 @@
         }
       },
       {
-        "agent": "physical",
+        "agent": "physics",
         "model3dSource": "cube_1_model",
         "name": "actor_2",
         "physics": {

@@ -9,16 +9,16 @@ import type { TLoopService } from '@/Engine/Loop';
 import { getMainLoopNameByType, LoopType, LoopUpdatePriority } from '@/Engine/Loop';
 import { milliseconds } from '@/Engine/Measurements';
 import type { TMouseLoop } from '@/Engine/Mouse';
-import type { TPhysicalLoop } from '@/Engine/Physics';
+import type { TPhysicsLoop } from '@/Engine/Physics';
 import type { TRenderLoop, TSpaceLoops } from '@/Engine/Space/Models';
 import type { TSpatialLoop } from '@/Engine/Spatial';
 import type { TTextLoop } from '@/Engine/Text';
 import type { TTransformLoop } from '@/Engine/TransformDrive';
 
 export function createLoops({ create }: TLoopService): TSpaceLoops {
-  const { Audio, Render, Intersections, Spatial, Mouse, Text, Kinematic, Collisions, Controls, Transform, Keyboard, Physical } = LoopType;
+  const { Audio, Render, Intersections, Spatial, Mouse, Text, Kinematic, Collisions, Controls, Transform, Keyboard, Physics } = LoopType;
 
-  // TODO 16-0-0: CONFIG: configs are comming from dotenv files, should be possible to override in runtime (via space config or something)
+  // TODO 16-0-0: CONFIG: configs are coming from dotenv files, should be possible to override in runtime (via space config or something)
   // TODO 16-0-0: CONFIG: A fake config, unless we have a way to load this from space config or something
   const config: Record<string, any> = {};
 
@@ -26,7 +26,7 @@ export function createLoops({ create }: TLoopService): TSpaceLoops {
 
   //steps
   const audioLoopStep: number = config.audioLoopStep ?? runtimeEnv.VITE_AUDIO_LOOP_STEP;
-  const physicalLoopStep: number = config.physicalLoopStep ?? runtimeEnv.VITE_PHYSICAL_LOOP_STEP;
+  const physicsLoopStep: number = config.physicsLoopStep ?? runtimeEnv.VITE_PHYSICS_LOOP_STEP;
   const collisionsLoopStep: number = config.collisionsLoopStep ?? runtimeEnv.VITE_COLLISIONS_LOOP_STEP;
   const kinematicLoopStep: number = config.kinematicLoopStep ?? runtimeEnv.VITE_KINEMATIC_LOOP_STEP;
   const spatialLoopStep: number = config.spatialLoopStep ?? runtimeEnv.VITE_SPATIAL_LOOP_STEP;
@@ -39,7 +39,7 @@ export function createLoops({ create }: TLoopService): TSpaceLoops {
 
   // Parallel mode
   const isAudioParallel: boolean = config.isAudioParallel ?? runtimeEnv.VITE_AUDIO_LOOP_IS_PARALLEL;
-  const isPhysicalParallel: boolean = config.isPhysicalParallel ?? runtimeEnv.VITE_PHYSICAL_LOOP_IS_PARALLEL;
+  const isPhysicsParallel: boolean = config.isPhysicsParallel ?? runtimeEnv.VITE_PHYSICS_LOOP_IS_PARALLEL;
   const isCollisionsParallel: boolean = config.isCollisionsParallel ?? runtimeEnv.VITE_COLLISIONS_LOOP_IS_PARALLEL;
   const isKinematicParallel: boolean = config.isKinematicParallel ?? runtimeEnv.VITE_KINEMATIC_LOOP_IS_PARALLEL;
   const isSpatialParallel: boolean = config.isSpatialParallel ?? runtimeEnv.VITE_SPATIAL_LOOP_IS_PARALLEL;
@@ -64,12 +64,12 @@ export function createLoops({ create }: TLoopService): TSpaceLoops {
       maxPriority: LoopUpdatePriority.ASAP
     }) as TAudioLoop,
 
-    physicalLoop: create({
-      name: getMainLoopNameByType(Physical),
-      type: Physical,
-      trigger: milliseconds(physicalLoopStep),
-      isParallelMode: isPhysicalParallel
-    }) as TPhysicalLoop,
+    physicsLoop: create({
+      name: getMainLoopNameByType(Physics),
+      type: Physics,
+      trigger: milliseconds(physicsLoopStep),
+      isParallelMode: isPhysicsParallel
+    }) as TPhysicsLoop,
 
     collisionsLoop: create({
       name: getMainLoopNameByType(Collisions),

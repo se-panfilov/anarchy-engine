@@ -3,7 +3,7 @@
   "entities": {
     "actors": [
       {
-        "agent": "physical",
+        "agent": "physics",
         "model3dSource": "surface_model",
         "name": "surface_actor",
         "physicBodyName": "surface_physics",
@@ -23,7 +23,7 @@
         }
       },
       {
-        "agent": "physical",
+        "agent": "physics",
         "model3dSource": "wall_left_model",
         "name": "wall_left_actor",
         "physicBodyName": "wall_left_actor_physics",
@@ -43,7 +43,7 @@
         }
       },
       {
-        "agent": "physical",
+        "agent": "physics",
         "model3dSource": "wall_right_model",
         "name": "wall_right_actor",
         "physicBodyName": "wall_right_actor_physics",
@@ -63,7 +63,7 @@
         }
       },
       {
-        "agent": "physical",
+        "agent": "physics",
         "model3dSource": "wall_front_model",
         "name": "wall_front_actor",
         "physicBodyName": "wall_front_actor_physics",
@@ -83,7 +83,7 @@
         }
       },
       {
-        "agent": "physical",
+        "agent": "physics",
         "model3dSource": "wall_back_model",
         "name": "wall_back_actor",
         "physicBodyName": "wall_back_actor_physics",
@@ -103,7 +103,7 @@
         }
       },
       {
-        "agent": "physical",
+        "agent": "physics",
         "model3dSource": "sphere_model",
         "name": "sphere_actor",
         "physicBodyName": "sphere_actor_physics",
@@ -118,7 +118,7 @@
         }
       },
       {
-        "agent": "physical",
+        "agent": "physics",
         "model3dSource": "obstacle_1_model",
         "name": "obstacle_1_actor",
         "physicBodyName": "obstacle_1_actor_physics",
@@ -138,7 +138,7 @@
         }
       },
       {
-        "agent": "physical",
+        "agent": "physics",
         "model3dSource": "obstacle_2_model",
         "name": "obstacle_2_actor",
         "physicBodyName": "obstacle_2_actor_physics",
@@ -158,7 +158,7 @@
         }
       },
       {
-        "agent": "physical",
+        "agent": "physics",
         "model3dSource": "obstacle_3_model",
         "name": "obstacle_3_actor",
         "physicBodyName": "obstacle_3_actor_physics",
@@ -178,7 +178,7 @@
         }
       },
       {
-        "agent": "physical",
+        "agent": "physics",
         "model3dSource": "obstacle_4_model",
         "name": "obstacle_4_actor",
         "physicBodyName": "obstacle_4_actor_physics",

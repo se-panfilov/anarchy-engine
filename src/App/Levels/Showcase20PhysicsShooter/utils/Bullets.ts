@@ -227,7 +227,7 @@ export function createHitEffect(position: Vector3, sceneW: TSceneWrapper, lightS
 }
 
 export function applyExplosionImpulse(actor: TActor, collisionPoint: Vector3, explosionForce: number): void {
-  const body: RigidBody | undefined = actor.drive.physical?.physicsBody$.value?.getRigidBody();
+  const body: RigidBody | undefined = actor.drive.physics?.physicsBody$.value?.getRigidBody();
   if (isNotDefined(body)) return;
 
   const bodyPosition = new Vector3(body.translation().x, body.translation().y, body.translation().z);

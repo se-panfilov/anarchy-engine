@@ -18,20 +18,20 @@ export function start(): void {
 
 export function showcase(space: TSpace): void {
   const { actorService, keyboardService, physicsWorldService } = space.services;
-  const { physicalLoop, transformLoop } = space.loops;
+  const { physicsLoop, transformLoop } = space.loops;
 
-  physicsWorldService.getDebugRenderer(physicalLoop).start();
-  physicalLoop.enabled$.next(false);
+  physicsWorldService.getDebugRenderer(physicsLoop).start();
+  physicsLoop.enabled$.next(false);
 
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 
   //run/stop physics loop
-  keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicalLoop.enabled$.next(true));
-  keyboardService.onKey(KeysExtra.Space).released$.subscribe((): void => physicalLoop.enabled$.next(false));
+  keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicsLoop.enabled$.next(true));
+  keyboardService.onKey(KeysExtra.Space).released$.subscribe((): void => physicsLoop.enabled$.next(false));
 
   const actor: TActor = actorService.getRegistry().getByName('sphere_4_actor');
 
-  //always running non-physical actor
+  //always running non-physics actor
   const clock: Clock = new Clock();
   transformLoop.tick$.subscribe((): void => {
     const elapsedTime: TMilliseconds = clock.getElapsedTime() as TMilliseconds;

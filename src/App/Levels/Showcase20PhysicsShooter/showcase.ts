@@ -63,9 +63,9 @@ export function showcase(space: TSpace): void {
     intersectionsWatcherService,
     spatialGridService
   } = space.services;
-  const { physicalLoop, transformLoop, intersectionsLoop } = space.loops;
+  const { physicsLoop, transformLoop, intersectionsLoop } = space.loops;
 
-  physicsWorldService.getDebugRenderer(physicalLoop).start();
+  physicsWorldService.getDebugRenderer(physicsLoop).start();
 
   // (window as any).space = space;
 
@@ -147,7 +147,7 @@ export function showcase(space: TSpace): void {
   });
 
   prepareShooting(hero, mouseService, mouseLineIntersectionsWatcher, shootingParams, bullets);
-  keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicalLoop.enabled$.next(!physicalLoop.enabled$.value));
+  keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicsLoop.enabled$.next(!physicsLoop.enabled$.value));
 
   space.start$.next(true);
 }

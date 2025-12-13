@@ -8,7 +8,7 @@ import type { TKinematicLoop } from '@/Engine/Kinematic';
 import type { LoopType } from '@/Engine/Loop/Constants';
 import type { TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 import type { TMouseLoop } from '@/Engine/Mouse';
-import type { TPhysicalLoop } from '@/Engine/Physics';
+import type { TPhysicsLoop } from '@/Engine/Physics';
 import type { TRenderLoop } from '@/Engine/Space';
 import type { TSpatialLoop } from '@/Engine/Spatial';
 import type { TTextLoop } from '@/Engine/Text';
@@ -27,7 +27,7 @@ export type TLoopService = TAbstractService &
   Readonly<{
     getRenderLoop: (name?: string) => TRenderLoop;
     getAudioLoop: (name?: string) => TAudioLoop;
-    getPhysicalLoop: (name?: string) => TPhysicalLoop;
+    getPhysicsLoop: (name?: string) => TPhysicsLoop;
     getCollisionsLoop: (name?: string) => TCollisionsLoop;
     getKinematicLoop: (name?: string) => TKinematicLoop;
     getSpatialLoop: (name?: string) => TSpatialLoop;

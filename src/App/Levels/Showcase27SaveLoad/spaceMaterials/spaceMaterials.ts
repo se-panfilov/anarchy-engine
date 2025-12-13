@@ -32,7 +32,7 @@ export const spaceMaterialsData: TSpacesData = {
 
     adjustMaterial(space, 'standard_metal', { displacementScale: 0.2 });
 
-    adjustMaterial(space, 'physical_metal', {
+    adjustMaterial(space, 'physics_metal', {
       clearcoat: 1.1,
       clearcoatRoughness: 0.13,
       displacementScale: 0.2,
@@ -53,7 +53,7 @@ export const spaceMaterialsData: TSpacesData = {
     adjustMaterial(space, 'toon_metal', { displacementScale: 0.2 });
     adjustMaterial(space, 'matcap_metal', { displacementScale: 0.2 });
     adjustMaterial(space, 'standard_wood', { displacementScale: 0.2 });
-    adjustMaterial(space, 'physical_wood', { displacementScale: 0.2 });
+    adjustMaterial(space, 'physics_wood', { displacementScale: 0.2 });
     adjustMaterial(space, 'basic_wood', {});
     adjustMaterial(space, 'phong_wood', { displacementScale: 0.2 });
     adjustMaterial(space, 'lambert_wood', { displacementScale: 0.2 });
@@ -64,7 +64,7 @@ export const spaceMaterialsData: TSpacesData = {
       roughness: 0.5
     });
 
-    adjustMaterial(space, 'physical_glass', {
+    adjustMaterial(space, 'physics_glass', {
       clearcoat: 0.8,
       clearcoatRoughness: 0.09,
       displacementScale: 0.2,
@@ -83,7 +83,7 @@ export const spaceMaterialsData: TSpacesData = {
     adjustMaterial(space, 'toon_glass', { displacementScale: 0.2 });
     adjustMaterial(space, 'matcap_glass', { displacementScale: 0.2 });
     adjustMaterial(space, 'standard_textile', { displacementScale: 0.2 });
-    adjustMaterial(space, 'physical_textile', { displacementScale: 0.2 });
+    adjustMaterial(space, 'physics_textile', { displacementScale: 0.2 });
     adjustMaterial(space, 'basic_textile', {});
     adjustMaterial(space, 'phong_textile', { displacementScale: 0.2 });
     adjustMaterial(space, 'lambert_textile', { displacementScale: 0.2 });

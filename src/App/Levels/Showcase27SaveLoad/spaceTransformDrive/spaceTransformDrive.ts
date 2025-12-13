@@ -25,7 +25,7 @@ export const spaceTransformDriveData: TSpacesData = {
 
     addAwait('onCreate', spaceTransformDriveData.awaits$);
     space.loops.kinematicLoop.stop();
-    space.loops.physicalLoop.stop();
+    space.loops.physicsLoop.stop();
 
     const { defaultActor, kinematicActor, connectedActor, connectedLight, connectedText } = getShowcaseActors(space);
 
@@ -60,10 +60,10 @@ async function performNormalSaveLoadTest(space: TSpace): Promise<ReadonlyArray<v
     kinematicActor.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.05));
     kinematicActor.drive.kinematic.lookAt(new Vector3(0, 2, 0), metersPerSecond(0.00003));
     kinematicText.drive.kinematic.moveTo(new Vector3(2, 2, 2.5), metersPerSecond(0.05));
-    physicsActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(radians(degToRad(degrees(90))), radians(0), 30, ForwardAxis.Z), true);
+    physicsActor.drive.physics.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(radians(degToRad(degrees(90))), radians(0), 30, ForwardAxis.Z), true);
   }
 
-  return Promise.all([doLoopSteps(space.loops.kinematicLoop, 100, 15), doLoopSteps(space.loops.physicalLoop, 100, 15)]);
+  return Promise.all([doLoopSteps(space.loops.kinematicLoop, 100, 15), doLoopSteps(space.loops.physicsLoop, 100, 15)]);
 }
 
 async function performContinuousMoveSaveLoadTest(space: TSpace): Promise<void> {
@@ -77,15 +77,15 @@ async function performContinuousMoveSaveLoadTest(space: TSpace): Promise<void> {
     kinematicActor.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.05));
     kinematicActor.drive.kinematic.lookAt(new Vector3(0, 2, 0), metersPerSecond(0.00001));
     kinematicText.drive.kinematic.moveTo(new Vector3(2, 2, 2.5), metersPerSecond(0.05));
-    physicsActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(radians(degToRad(degrees(90))), radians(0), 30, ForwardAxis.Z), true);
+    physicsActor.drive.physics.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(radians(degToRad(degrees(90))), radians(0), 30, ForwardAxis.Z), true);
 
-    await Promise.all([doLoopSteps(space.loops.kinematicLoop, 50, 10), doLoopSteps(space.loops.physicalLoop, 50, 10)]);
+    await Promise.all([doLoopSteps(space.loops.kinematicLoop, 50, 10), doLoopSteps(space.loops.physicsLoop, 50, 10)]);
   }
 
   //The second step: ...click after loaded the space. Actors should continue to move (120 ticks more)
   if (continuousStepCounter === 1) {
     addAwait('continuous_move_1', spaceTransformDriveData.awaits$);
-    await Promise.all([doLoopSteps(space.loops.physicalLoop, 110, 10), doLoopSteps(space.loops.kinematicLoop, 110, 10)]);
+    await Promise.all([doLoopSteps(space.loops.physicsLoop, 110, 10), doLoopSteps(space.loops.kinematicLoop, 110, 10)]);
     setTimeout((): void => {
       removeAwait('continuous_move_1', spaceTransformDriveData.awaits$);
     }, 500);

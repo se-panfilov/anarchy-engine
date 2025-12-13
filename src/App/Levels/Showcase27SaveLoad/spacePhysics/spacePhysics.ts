@@ -16,7 +16,7 @@ export const spacePhysicsData: TSpacesData = {
   container: getContainer(config.canvasSelector),
   awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
   onCreate: (space: TSpace): void | never => {
-    space.services.physicsWorldService.getDebugRenderer(space.loops.physicalLoop).start();
+    space.services.physicsWorldService.getDebugRenderer(space.loops.physicsLoop).start();
   },
   onChange: (space: TSpace): void => {
     addAwait('onChange', spacePhysicsData.awaits$);

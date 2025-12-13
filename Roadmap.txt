@@ -14,7 +14,7 @@ Done:
 - 9.x.x Split resources and entities load from config (among others: extracted materials, models, etc from actors)
 - 9.1.x Refactor Vector/TVectorWrapper, Euler/TEulerWrapper (should be Vector/Euler everywhere)
 - 9.2.x Transform drive
-- 10.0.x Refactor loops (physical, collision and etc) loops should be based on milliseconds, not frames. Only rendering loop should be based on frames
+- 10.0.x Refactor loops (physics, collision and etc) loops should be based on milliseconds, not frames. Only rendering loop should be based on frames
 - 11.0.x Sounds/Music
 - 12.0.x Fix Registries (should always return the same object)
 - 12.1.x Fixed production build (removed topLevelAsync vite plugin)
@@ -41,7 +41,6 @@ Roadmap:
 - 23.0.x Shaders
 
 Thoughts:
-- TASK: fix usage of physics-related terms in the code (physics, physic, physical, etc.);
 - Maybe: Try to replace spread operator with Object.assign everywhere (for performance and make sure that we are not creating new objects)? Check with AbstractEntity first;
 - Maybe: Add domain for timers (based on web workers);
 - Maybe: Add domain for lines;

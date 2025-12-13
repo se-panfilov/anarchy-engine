@@ -8,13 +8,13 @@ import { AbstractService } from '@/Engine/Abstract';
 import { withSceneGetterService } from '@/Engine/Mixins';
 import { physicWorldToConfig } from '@/Engine/Physics';
 import { STANDARD_GRAVITY } from '@/Engine/Physics/Constants';
-import type { TPhysicalLoop, TPhysicsDebugRenderer, TPhysicsWorldConfig, TPhysicsWorldParams, TPhysicsWorldService } from '@/Engine/Physics/Models';
+import type { TPhysicsDebugRenderer, TPhysicsLoop, TPhysicsWorldConfig, TPhysicsWorldParams, TPhysicsWorldService } from '@/Engine/Physics/Models';
 import { PhysicsDebugRenderer } from '@/Engine/Physics/Renderers';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpaceLoops } from '@/Engine/Space';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TSpaceLoops): TPhysicsWorldService {
+export function PhysicsWorldService(scene: TSceneWrapper, { physicsLoop }: TSpaceLoops): TPhysicsWorldService {
   const abstractService: TAbstractService = AbstractService();
   let world: World | undefined;
 
@@ -25,12 +25,12 @@ export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TSpa
     return world;
   }
 
-  // Auto-update world on every tick of the physical loop
-  physicalLoop.tick$.pipe(takeUntil(abstractService.destroy$)).subscribe((): void => world?.step());
+  // Auto-update world on every tick of the physics loop
+  physicsLoop.tick$.pipe(takeUntil(abstractService.destroy$)).subscribe((): void => world?.step());
 
   const debugRenderersList: Array<TPhysicsDebugRenderer> = [];
 
-  const getDebugRenderer = (loop: TPhysicalLoop): TPhysicsDebugRenderer => {
+  const getDebugRenderer = (loop: TPhysicsLoop): TPhysicsDebugRenderer => {
     if (isNotDefined(world)) throw new Error('Cannot get debug renderer: world is not defined');
     const res: TPhysicsDebugRenderer = PhysicsDebugRenderer(scene, world, loop);
     // eslint-disable-next-line functional/immutable-data

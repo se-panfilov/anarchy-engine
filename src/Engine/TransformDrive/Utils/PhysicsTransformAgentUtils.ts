@@ -7,7 +7,7 @@ import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TRigidBodyTransformData } from '@/Engine/TransformDrive/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function getPhysicalBodyTransform(
+export function getPhysicsBodyTransform(
   body: RigidBody | undefined,
   prevPosition: Float32Array,
   prevRotation: Float32Array,

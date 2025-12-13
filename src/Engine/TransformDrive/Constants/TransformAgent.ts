@@ -1,6 +1,6 @@
 export enum TransformAgent {
   Default = 'default',
   Kinematic = 'kinematic',
-  Physical = 'physical',
+  Physics = 'physics',
   Connected = 'connected'
 }

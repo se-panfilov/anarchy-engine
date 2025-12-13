@@ -14,7 +14,7 @@ import { getMainLoopNameByType } from '@/Engine/Loop/Utils';
 import type { TDisposable } from '@/Engine/Mixins';
 import { withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
 import type { TMouseLoop } from '@/Engine/Mouse';
-import type { TPhysicalLoop } from '@/Engine/Physics';
+import type { TPhysicsLoop } from '@/Engine/Physics';
 import type { TRenderLoop } from '@/Engine/Space';
 import type { TSpatialLoop } from '@/Engine/Spatial';
 import type { TTextLoop } from '@/Engine/Text';
@@ -41,7 +41,7 @@ export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLo
     getLoop,
     getRenderLoop: (name?: string): TRenderLoop => getLoop(name, LoopType.Render) as TRenderLoop,
     getAudioLoop: (name?: string): TAudioLoop => getLoop(name, LoopType.Audio) as TAudioLoop,
-    getPhysicalLoop: (name?: string): TPhysicalLoop => getLoop(name, LoopType.Physical) as TPhysicalLoop,
+    getPhysicsLoop: (name?: string): TPhysicsLoop => getLoop(name, LoopType.Physics) as TPhysicsLoop,
     getCollisionsLoop: (name?: string): TCollisionsLoop => getLoop(name, LoopType.Collisions) as TCollisionsLoop,
     getKinematicLoop: (name?: string): TKinematicLoop => getLoop(name, LoopType.Kinematic) as TKinematicLoop,
     getSpatialLoop: (name?: string): TSpatialLoop => getLoop(name, LoopType.Spatial) as TSpatialLoop,

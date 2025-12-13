@@ -80,14 +80,14 @@ export function start(): void {
 // We have different "agents" (modes) which can be switched in runtime
 // - Connected agent is expose mutable position/rotation/scale objects and follow the changes of them. Useful to work with 3rd party libs (e.g. animejs). But recommended to avoid.
 // - Kinematic agent is a mode that moves actor by angular velocity and linear velocity (vectors). Useful when you need to know the direction (e.g. bullet, car) of the object. Recommended way for NPCs.
-// - Physical agent is a mode when model3d reads values from a physical body. Requires setup of physics. Recommended for environmental objects (e.g. physical bricks in a wall).
+// - Physics agent is a mode when model3d reads values from a physical body. Requires setup of physics. Recommended for environmental objects (e.g. physical bricks in a wall).
 // - Default agent is providing almost nothing, but setters. Recommended for static objects.
 // - Also: with every mode you can do position$.next() to "teleport" the object to the new position
 export async function showcase(space: TSpace): Promise<void> {
   const gui: GUI = new GUI();
   const { cameraService, controlsService, keyboardService, lightService, models3dService, mouseService, particlesService, physicsWorldService, scenesService, spatialGridService, textService } =
     space.services;
-  const { physicalLoop } = space.loops;
+  const { physicsLoop } = space.loops;
   const { clickLeftRelease$ } = mouseService;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
 
@@ -95,7 +95,7 @@ export async function showcase(space: TSpace): Promise<void> {
 
   const actorsOffsetY: number = 2;
 
-  physicsWorldService.getDebugRenderer(physicalLoop).start();
+  physicsWorldService.getDebugRenderer(physicsLoop).start();
 
   const foxModelName: string = 'fox_model';
 
@@ -233,9 +233,9 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
     case TransformAgent.Connected:
       // no need to do anything here, cause already connected
       return undefined;
-    case TransformAgent.Physical:
+    case TransformAgent.Physics:
       forcePower = getDistance(actor.drive.position$.value, position);
-      actor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, radians(0), forcePower * 1.5, ForwardAxis.Z), true);
+      actor.drive.physics.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, radians(0), forcePower * 1.5, ForwardAxis.Z), true);
       return undefined;
     default:
       throw new Error(`Unknown agent: ${agent}`);
@@ -255,8 +255,8 @@ function rotateActorTo(actor: TActor, lookToTarget: Vector3, rotation: Quaternio
     case TransformAgent.Connected:
       // no need to do anything here, cause already connected
       return undefined;
-    case TransformAgent.Physical:
-      // Should not do anything here, cause physical agent should read values from physical body
+    case TransformAgent.Physics:
+      // Should not do anything here, cause physics agent should read values from physical body
       return undefined;
     default:
       throw new Error(`Unknown agent: ${agent}`);

@@ -79,7 +79,7 @@ export function buildTower(
     return actorService.create({
       name: `block_${block.position.x}_${block.position.y}_${block.position.z}_actor`,
       model3dSource: model3d,
-      agent: TransformAgent.Physical,
+      agent: TransformAgent.Physics,
       physicBody,
       position: block.position,
       rotation: new Euler(),

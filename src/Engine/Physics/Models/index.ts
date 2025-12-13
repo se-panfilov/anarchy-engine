@@ -1,4 +1,3 @@
-export type * from './TPhysicalLoop';
 export type * from './TPhysicsBody';
 export type * from './TPhysicsBodyConfig';
 export type * from './TPhysicsBodyEntities';
@@ -10,6 +9,7 @@ export type * from './TPhysicsConfig';
 export type * from './TPhysicsDebugRenderer';
 export type * from './TPhysicsDependencies';
 export type * from './TPhysicsIntegrationParameters';
+export type * from './TPhysicsLoop';
 export type * from './TPhysicsParams';
 export type * from './TPhysicsShapeParams';
 export type * from './TPhysicsWorldConfig';
