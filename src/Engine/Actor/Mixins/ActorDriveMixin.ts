@@ -1,9 +1,9 @@
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, EMPTY, switchMap } from 'rxjs';
 import type { Euler } from 'three';
 import { Vector3 } from 'three';
 
-import type { ActorDrive } from '@/Engine/Actor/Constants';
+import { ActorDrive } from '@/Engine/Actor/Constants';
 import type { TActorDependencies, TActorDriveMixin, TActorParams } from '@/Engine/Actor/Models';
 import type { TWithKinematic } from '@/Engine/Kinematic';
 import { withKinematicDrive } from '@/Engine/Kinematic';
@@ -16,17 +16,70 @@ export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: 
   const scale$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.scale ?? new Vector3());
   const drive$: BehaviorSubject<ActorDrive> = new BehaviorSubject<ActorDrive>(params.drive);
 
-  const destroyable: TDestroyable = destroyableMixin();
-
   const kinematicDrive: TWithKinematic = withKinematicDrive(params, kinematicLoopService, drive$);
-  const kinematicDrivePositionSub$: Subscription = kinematicDrive.kinematic.position$.subscribe(position$);
-  const kinematicDriveRotationSub$: Subscription = kinematicDrive.kinematic.rotationEuler$.subscribe(rotation$);
-
   // TODO 8.0.0. MODELS: implement physics drive mixin
   // const physicsDrive: TWithPhysics = withPhysicsDrive(params, physicsLoopService, drive$);
-  // const physicsDrivePositionSub$: Subscription = physicsDrive.physicsBody.position$.subscribe(position$);
-  // const physicsDriveRotationSub$: Subscription = physicsDrive.physicsBody.rotation.subscribe(rotation$);
-  // const physicsDriveScaleSub$: Subscription = physicsDrive.physicsBody.scale$.subscribe(scale$);
+
+  const destroyable: TDestroyable = destroyableMixin();
+
+  // TODO 8.0.0. MODELS: should I replace EMPTY in subscriptions with some default scale value?
+
+  const positionSub$: Subscription = drive$
+    .pipe(
+      switchMap((drive: ActorDrive) => {
+        switch (drive) {
+          case ActorDrive.Kinematic:
+            return kinematicDrive.kinematic.position$;
+          case ActorDrive.Physical:
+          // TODO 8.0.0. MODELS: implement physics drive mixin
+          // return physicsLoopService.physicsBody.position$;
+          case ActorDrive.None:
+            return EMPTY;
+          default:
+            throw new Error(`ActorDriveMixin: drive ${drive} is not supported`);
+        }
+      })
+    )
+    .subscribe(position$);
+
+  const rotationSub$: Subscription = drive$
+    .pipe(
+      switchMap((drive: ActorDrive) => {
+        switch (drive) {
+          case ActorDrive.Kinematic:
+            return kinematicDrive.kinematic.rotationEuler$;
+          case ActorDrive.Physical:
+          // TODO 8.0.0. MODELS: implement physics drive mixin
+          // return physicsLoopService.physicsBody.rotationEuler$;
+          case ActorDrive.None:
+            return EMPTY;
+          default:
+            throw new Error(`ActorDriveMixin: drive ${drive} is not supported`);
+        }
+      })
+    )
+    .subscribe(rotation$);
+
+  const scaleSub$: Subscription = drive$
+    .pipe(
+      switchMap((drive: ActorDrive) => {
+        switch (drive) {
+          case ActorDrive.Kinematic:
+            return EMPTY;
+          //   return kinematicDrive.kinematic.scale$;
+          case ActorDrive.Physical:
+          // TODO 8.0.0. MODELS: implement physics drive mixin
+          // return physicsLoopService.physicsBody.scale$;
+          case ActorDrive.None:
+            return EMPTY;
+          default:
+            throw new Error(`ActorDriveMixin: drive ${drive} is not supported`);
+        }
+      })
+    )
+    .subscribe(scale$);
+
+  let subscriptions: ReadonlyArray<Subscription> = [positionSub$, rotationSub$, scaleSub$];
 
   const entities = {
     drive$,
@@ -41,8 +94,9 @@ export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: 
 
   destroyable.destroy$.subscribe(() => {
     // Stop subscriptions
-    kinematicDrivePositionSub$.unsubscribe();
-    kinematicDriveRotationSub$.unsubscribe();
+    subscriptions.forEach((subscription: Subscription): void => subscription.unsubscribe());
+    subscriptions = [];
+
     // TODO 8.0.0. MODELS: implement physics drive mixin
     // physicsDrivePositionSub$.unsubscribe();
     // physicsDriveRotationSub$.unsubscribe();
