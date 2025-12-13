@@ -256,6 +256,7 @@ export const JsRules = {
         '[S-s]igil[s]?',
         '[S-s]plitscreen[s]?',
         '[S-s]vg[s]?',
+        '[T-t]ouchpad',
         '[T-t]ritanopia',
         '[U-u]nmount[ed]?',
         '[U-u]nobserve[d]?',
