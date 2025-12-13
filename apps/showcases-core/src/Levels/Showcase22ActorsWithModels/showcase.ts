@@ -1,6 +1,5 @@
-import type { TFsmStates, TFsmWrapper, TModels3dResourceAsyncRegistry, TRegistryPack, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceServices } from '@Anarchy/Engine';
+import type { TFsmStates, TFsmWrapper, TKeysEvent, TModels3dResourceAsyncRegistry, TRegistryPack, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceServices } from '@Anarchy/Engine';
 import { KeyCode, SpaceEvents, spaceService } from '@Anarchy/Engine';
-import type { TKeysState } from '@Anarchy/Engine/Keyboard/Models/TKeysState';
 import { isKeyPressed } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import { distinctUntilChanged } from 'rxjs';
@@ -50,17 +49,17 @@ export function showcase(space: TSpace): void {
 
   solder1AnimFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: TFsmStates): void => {
     if (state === idle) {
-      solder2AnimFsm.send$.next(walk);
+      solder2AnimFsm.send$.next(idle);
     } else {
       solder2AnimFsm.send$.next(dance);
     }
   });
 
-  keys$.subscribe((keys: TKeysState): void => {
+  keys$.subscribe(({ keys }: TKeysEvent): void => {
     const isWalk: boolean = isKeyPressed(KeyCode.W, keys);
     const isRun: boolean = isWalk && isKeyPressed(KeyCode.ShiftLeft, keys);
     const action = isRun ? run : isWalk ? walk : idle;
-    solder1AnimFsm.send$.next(action);
+    if (solder1AnimFsm.getState() !== action) solder1AnimFsm.send$.next(action);
   });
 
   space.start$.next(true);
