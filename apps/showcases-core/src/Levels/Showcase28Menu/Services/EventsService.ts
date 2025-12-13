@@ -7,7 +7,6 @@ import type { TEventsService, TEventsServiceDependencies } from '@/Levels/Showca
 
 const { CloseMenu, ExitApp, GetLegalDocs, GetSettings, SetSettings } = FromMenuEvents;
 
-// TODO DESKTOP: Async events here should trigger a global loader (we need to implement one)
 export function EventsService({ mainMenuService, appService, settingsService }: TEventsServiceDependencies): TEventsService {
   function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEvent>, toMenuEventsBus$: Subject<TToMenuEvent>): void {
     let settings: TShowcaseGameSettings | undefined;

@@ -13,7 +13,6 @@ export function SettingsService(app: App, { filesService, windowService }: TSett
   const userDataFolder: AllowedSystemFolders = AllowedSystemFolders.UserData;
   const appSettingsFileName: string = 'app-settings.json';
 
-  // TODO DESKTOP: Would be nice to have a schema validation for the settings file
   const getAppSettings = async (): Promise<TShowcaseGameSettings> => {
     try {
       return await filesService.readFileAsJson(appSettingsFileName, userDataFolder, isSettings);

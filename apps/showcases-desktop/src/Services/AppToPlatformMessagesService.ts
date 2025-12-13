@@ -16,8 +16,6 @@ export async function handleAppRequest(
 
   switch (type) {
     case PlatformActions.SetAppSettings:
-      // TODO DESKTOP: Async events here should trigger a global loader (we need to implement one)
-      // TODO DESKTOP: Should we let menu (and the app) know that the save is done?
       if (!isSettings(payload)) throw new Error(`[DESKTOP] Failed to save settings: Invalid payload`);
       await settingsService.setAppSettings(payload);
       isRestartNeeded = settingsService.applyPlatformSettings(payload);
