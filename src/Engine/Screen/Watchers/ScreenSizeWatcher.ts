@@ -1,4 +1,4 @@
-import type { TAbstractWatcherWithState } from '@/Engine/Abstract';
+import type { TAbstractWatcher, TAbstractWatcherWithState } from '@/Engine/Abstract';
 import { AbstractWatcherWithState, WatcherType } from '@/Engine/Abstract';
 import { ProtectedWatcher } from '@/Engine/Abstract/Watchers/ProtectedWatcher';
 import type { TScreenSizeValues, TScreenSizeWatcher, TScreenSizeWatcherParams } from '@/Engine/Screen/Models';
@@ -27,7 +27,7 @@ export function ScreenSizeWatcher({ container, tags = [] }: TScreenSizeWatcherPa
     return result;
   }
 
-  const result: TScreenSizeWatcher = Object.assign(ProtectedWatcher(abstractWatcher), {
+  const result: TScreenSizeWatcher = Object.assign(ProtectedWatcher<TAbstractWatcher<TScreenSizeValues>, TScreenSizeValues>(abstractWatcher), {
     getValue: (): TScreenSizeValues => ({ ...abstractWatcher.value$.value }),
     key: containerIdTag,
     start,
