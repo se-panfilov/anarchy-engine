@@ -1,7 +1,6 @@
 import type { Subscription } from 'rxjs';
 import { ReplaySubject } from 'rxjs';
 
-import type { IActorWrapperAsync } from '@/Engine/Actor';
 import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraWrapper } from '@/Engine/Camera';
 import type { IOrbitControlsWrapper } from '@/Engine/Controls';
@@ -46,7 +45,6 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   const isRendererInit: boolean = getBoolValue('isRendererInit', initSpace);
   const isLoopInit: boolean = getBoolValue('isLoopInit', initSpace);
 
-  // TODO (S.Panfilov) move somewhere?
   screenService.setCanvas(canvas);
 
   let subscriptions: ISpaceSubscriptions = {};
@@ -66,13 +64,10 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   if (isActorsInit) {
     if (isNotDefined(scene)) throw new Error('Scene should be initialized for actors initialization');
 
-    const actorsMessage$: ReplaySubject<IActorWrapperAsync> = new ReplaySubject<IActorWrapperAsync>();
-    const { actorAdded$, actorCreated$, actorFactory, actorRegistry } = initActorsEntityPipe(scene, actors, actorsMessage$);
+    const { actorAdded$, actorCreated$, actorFactory, actorRegistry } = initActorsEntityPipe(scene, actors);
     entities = { ...entities, actorFactory, actorRegistry };
     subscriptions = { ...subscriptions, actorAdded$, actorCreated$ };
-    // TODO (S.Panfilov) implement:
-    //when actorsMessage$ length === actors.length, then actors are ready
-    //messages$.next(`Actors (${actors.length}) created`);
+    messages$.next(`Actors (${actors.length}) created (async))`);
   }
 
   //build texts

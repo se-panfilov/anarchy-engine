@@ -1,4 +1,4 @@
-import type { Subject, Subscription } from 'rxjs';
+import type { Subscription } from 'rxjs';
 
 import { CommonTag } from '@/Engine/Abstract';
 import type { IActorAsyncRegistry, IActorConfig, IActorFactory, IActorParams, IActorWrapperAsync } from '@/Engine/Actor';
@@ -7,8 +7,7 @@ import type { ISceneWrapper } from '@/Engine/Scene';
 
 export function initActorsEntityPipe(
   scene: ISceneWrapper,
-  actors: ReadonlyArray<IActorConfig>,
-  feedbackMessage: Subject<IActorWrapperAsync>
+  actors: ReadonlyArray<IActorConfig>
 ): {
   actorAdded$: Subscription;
   actorCreated$: Subscription;
@@ -24,10 +23,7 @@ export function initActorsEntityPipe(
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   actors.forEach((config: IActorConfig): Promise<IActorWrapperAsync> => {
     const params: IActorParams = actorFactory.configToParams({ ...config, tags: [...config.tags, CommonTag.FromConfig] });
-    return actorFactory.createAsync(params).then((wrapper: IActorWrapperAsync) => {
-      feedbackMessage.next(wrapper);
-      return wrapper;
-    });
+    return actorFactory.createAsync(params);
   });
 
   return { actorAdded$, actorCreated$, actorFactory, actorRegistry };
