@@ -6,12 +6,12 @@ import { RendererModes } from '@/Engine/Renderer';
 import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixins';
 import type { TSpace, TSpaceConfig, TWithBuilt } from '@/Engine/Space/Models';
+import { validateConfig } from '@/Engine/Space/Validators';
 import { isDestroyable } from '@/Engine/Utils';
 
-import { validateConfig } from './SpaceConfigValidator';
-import { createEntities } from './SpaceEntitiesCreator';
-import { loadResources } from './SpaceResourceLoader';
-import { prepareServices } from './SpaceServicesPrepare';
+import { createEntities } from './CreateEntities';
+import { loadResources } from './LoadResources';
+import { prepareServices } from './SpaceServicesLauncher';
 
 // TODO SPACE: we need a space service, and factory, to create from config, and to create from the code.
 // TODO LOGGER: add a logger globally (not only for errors, but I'd like to know, which service with which id did what).

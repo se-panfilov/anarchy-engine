@@ -24,7 +24,7 @@ import { ParticlesFactory, ParticlesRegistry, ParticlesService } from '@/Engine/
 import type { TPhysicsBodyService, TPhysicsLoopService, TPhysicsPresetsService, TPhysicsWorldService } from '@/Engine/Physics';
 import { PhysicsBodyFactory, PhysicsBodyRegistry, PhysicsBodyService, PhysicsLoopService, PhysicsPresetRegistry, PhysicsPresetsService, PhysicsWorldService } from '@/Engine/Physics';
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
-import type { TSceneFactory, TSceneRegistry, TScenesService, TSceneWrapper } from '@/Engine/Scene';
+import type { TSceneConfig, TSceneFactory, TSceneRegistry, TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
 import type { TSpaceServices } from '@/Engine/Space/Models';
 import type { TSpatialGridService, TSpatialLoopService } from '@/Engine/Spatial';
@@ -34,6 +34,26 @@ import type { TTextureService } from '@/Engine/Texture';
 import { TextureService } from '@/Engine/Texture';
 import { TextureAsyncRegistry } from '@/Engine/Texture/Registries/TextureAsyncRegistry';
 import { isNotDefined } from '@/Engine/Utils';
+
+export async function prepareServices(spaceName: string, canvas: TAppCanvas, scenes: ReadonlyArray<TSceneConfig>): Promise<Readonly<{ services: TSpaceServices; activeSceneW: TSceneWrapper }>> {
+  let activeSceneW: TSceneWrapper;
+  const p = new Promise<{ services: TSpaceServices; activeSceneW: TSceneWrapper }>((resolve) => {
+    const services: TSpaceServices = initServices(canvas, (scenesService: TScenesService): TSceneWrapper | never => {
+      scenesService.createFromConfig(scenes);
+      const sceneW: TSceneWrapper | undefined = scenesService.findActive();
+      if (isNotDefined(sceneW)) throw new Error(`Cannot find an active scene for space "${spaceName}" during space's services initialization.`);
+      activeSceneW = sceneW;
+
+      // TODO debug (window as any).sceneW
+      // (window as any).sceneW = sceneW;
+
+      resolve({ services, activeSceneW });
+      return activeSceneW;
+    });
+  });
+
+  return p;
+}
 
 export function initSceneService(): TScenesService {
   const sceneFactory: TSceneFactory = SceneFactory();
