@@ -1,3 +1,4 @@
+import GUI from 'lil-gui';
 import { BehaviorSubject } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
@@ -10,6 +11,8 @@ const { mouseClickWatcher } = ambientContext;
 
 //Showcase 10: Complex Materials
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
+  const gui = new GUI();
+
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
   const { textFactory, actorRegistry, cameraRegistry, controlsRegistry } = level.entities;
   const camera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Active);
@@ -65,6 +68,16 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
   function start(): void {
     level.start();
+
+    const actor = actorRegistry.getUniqByTag('standard');
+    // console.log('standard', actor);
+    // console.log('standard entity', actor?.entity);
+    console.log('standard entity', actor?.entity.material);
+    // setTimeout(() => {
+    //   console.log('standard entity material', actor?.entity.material);
+    //   gui.add(actor.entity.material, 'metalness').min(0).max(1).step(0.0001)
+    //   // gui.add(material, 'roughness').min(0).max(1).step(0.0001)
+    // }, 1000)
   }
 
   return { start, level };

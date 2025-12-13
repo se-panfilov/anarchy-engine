@@ -9,12 +9,7 @@ export type IActorConfig = Omit<IActorProps, 'materialParams'> &
     type: ActorType;
     width: number;
     height: number;
-    materialParams: IActorMaterialConfig;
     castShadow: boolean;
   }> &
   IObject3DPropConfig &
   IWithReadonlyTags<ActorTag>;
-
-export type IActorMaterialConfig = Readonly<{
-  color: string;
-}>;

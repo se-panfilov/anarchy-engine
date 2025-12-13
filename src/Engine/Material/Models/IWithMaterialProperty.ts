@@ -1,15 +1,15 @@
-import type { MaterialType } from '@/Engine/Material';
+import type { IMaterialProps } from './IMaterialProps';
 
-export type IWithBasicMaterialProperty = Readonly<{ material: MaterialType }>; // Readonly<{ material: MaterialType.Basic }>;
-export type IWithDepthMaterialProperty = Readonly<{ material: MaterialType }>; // Readonly<{ material: MaterialType.Depth }>;
-export type IWithDistanceMaterialProperty = Readonly<{ material: MaterialType }>; // Readonly<{ material: MaterialType.Distance }>;
-export type IWithNormalMaterialProperty = Readonly<{ material: MaterialType }>; // Readonly<{ material: MaterialType.Normal }>;
-export type IWithMatcapMaterialProperty = Readonly<{ material: MaterialType }>; // Readonly<{ material: MaterialType.Matcap }>;
-export type IWithLambertMaterialProperty = Readonly<{ material: MaterialType }>; // Readonly<{ material: MaterialType.Lambert }>;
-export type IWithPhongMaterialProperty = Readonly<{ material: MaterialType }>; // Readonly<{ material: MaterialType.Phong }>;
-export type IWithPhysicalMaterialProperty = Readonly<{ material: MaterialType }>; // Readonly<{ material: MaterialType.Physical }>;
-export type IWithToonMaterialProperty = Readonly<{ material: MaterialType }>; // Readonly<{ material: MaterialType.Toon }>;
-export type IWithStandardMaterialProperty = Readonly<{ material: MaterialType }>; // Readonly<{ material: MaterialType.Standard }>;
+export type IWithBasicMaterialProperty = Readonly<{ material: IMaterialProps }>; //MaterialType.Basic
+export type IWithDepthMaterialProperty = Readonly<{ material: IMaterialProps }>; //MaterialType.Depth
+export type IWithDistanceMaterialProperty = Readonly<{ material: IMaterialProps }>; //MaterialType.Distance
+export type IWithNormalMaterialProperty = Readonly<{ material: IMaterialProps }>; //MaterialType.Normal
+export type IWithMatcapMaterialProperty = Readonly<{ material: IMaterialProps }>; //MaterialType.Matcap
+export type IWithLambertMaterialProperty = Readonly<{ material: IMaterialProps }>; //MaterialType.Lambert
+export type IWithPhongMaterialProperty = Readonly<{ material: IMaterialProps }>; //MaterialType.Phong
+export type IWithPhysicalMaterialProperty = Readonly<{ material: IMaterialProps }>; //MaterialType.Physical
+export type IWithToonMaterialProperty = Readonly<{ material: IMaterialProps }>; //MaterialType.Toon
+export type IWithStandardMaterialProperty = Readonly<{ material: IMaterialProps }>; //MaterialType.Standard
 
 export type IWitMaterialProperty =
   | IWithBasicMaterialProperty

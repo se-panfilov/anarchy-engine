@@ -5,9 +5,10 @@ import type { IWithMaterialActor } from '@/Engine/Material/Models';
 import type { IWriteable } from '@/Engine/Utils';
 
 export function withMaterialActor<T extends IWriteable<IMesh>>(entity: T): IWithMaterialActor {
-  function useMaterial(material: Material): void {
+  function useMaterial(material: Material): Material {
     // eslint-disable-next-line functional/immutable-data
     entity.material = material;
+    return material;
   }
 
   return {

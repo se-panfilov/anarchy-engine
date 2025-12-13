@@ -1,6 +1,6 @@
 import { TextureLoader } from 'three';
 
-import type { IMaterialPackKeys, MaterialType } from '@/Engine/Material';
+import type { IMaterialPackKeys, IMaterialProps } from '@/Engine/Material';
 import type {
   IBasicMaterialTexturePack,
   IBasicMaterialTextureUploaded,
@@ -39,7 +39,7 @@ import type {
   IToonMaterialTextureUploaded,
   IToonMaterialTextureUploadPromises
 } from '@/Engine/Texture/Models';
-import { applyColorSpace, applyFilters, applyTextureParams, isMaterialType } from '@/Engine/Texture/Services/TextureServiceHelper';
+import { applyColorSpace, applyFilters, applyTextureParams, isIMaterialProps } from '@/Engine/Texture/Services/TextureServiceHelper';
 import type { IWriteable } from '@/Engine/Utils';
 
 export function TextureService(): ITextureService {
@@ -57,11 +57,11 @@ export function TextureService(): ITextureService {
   function load(pack: IStandardMaterialTexturePack): IStandardMaterialTextureUploadPromises;
   function load(pack: IMaterialTexturePack): IMaterialTextureUploadPromises {
     let promises: Omit<IMaterialTextureUploadPromises, 'all' | 'material'> = {};
-    const material: MaterialType = pack.material;
+    const material: IMaterialProps = pack.material;
 
-    Object.entries(pack).forEach(([key, packParams]: [string, ITexturePackParams | MaterialType]): void => {
-      // TODO (S.Panfilov) CWP do not load texture if already loaded
-      if (!isMaterialType(packParams)) {
+    Object.entries(pack).forEach(([key, packParams]: [string, ITexturePackParams | IMaterialProps]): void => {
+      // TODO (S.Panfilov) do not load texture if already loaded
+      if (!isIMaterialProps(packParams)) {
         const { url, params }: ITexturePackParams = packParams;
         const p: Promise<ITexture> = textureLoader.loadAsync(url).then((texture: IWriteable<ITexture>): ITexture => {
           applyTextureParams(texture, params);

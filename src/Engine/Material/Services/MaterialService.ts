@@ -43,8 +43,8 @@ export function MaterialService(): IMaterialService {
   function buildMaterial(mt: IStandardMaterialTextureUploaded): MeshStandardMaterial;
   function buildMaterial(mt: IMaterialTextureUploaded): Material {
     const params: Omit<IMaterialTextureUploaded, 'material'> = omitInObjectWithoutMutation(mt, 'material');
-    const MaterialConstructor: ITypeOfMaterials = MaterialMap[mt.material];
-    if (isNotDefined(MaterialConstructor)) throw new Error(`Unsupported material type: ${mt.material}`);
+    const MaterialConstructor: ITypeOfMaterials = MaterialMap[mt.material.type];
+    if (isNotDefined(MaterialConstructor)) throw new Error(`Unsupported material type: ${mt.material.type}`);
     return new MaterialConstructor(params);
   }
 

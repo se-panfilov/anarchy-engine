@@ -266,7 +266,7 @@
         "depthSegments": {
           "type": "number"
         },
-        "texturePack": {
+        "textures": {
           "$ref": "#/definitions/IMaterialTexturePack"
         }
       },

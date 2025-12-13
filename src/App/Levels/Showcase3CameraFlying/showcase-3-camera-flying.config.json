@@ -14,7 +14,7 @@
       "height": 1,
       "position": { "x": 0, "y": 0, "z": 0 },
       "castShadow": true,
-      "materialParams": { "color": "#5177ff" },
+      "material": { "type": "standard", "params": { "color": "#5177ff" } },
       "tags": ["central_actor"]
     }
   ],
