@@ -26,7 +26,7 @@ export function RendererWrapper(params: TRendererParams, { screenService }: TRen
     alpha: params.alpha ?? false, //until we have a reason to use it (off for a better performance)
     antialias: params.antialias ?? true,
     stencil: params.stencil ?? false, //until we have a reason to use it (off for a better performance)
-    depth: params.depth ?? false //until we have a reason to use it (off for a better performance)
+    depth: params.depth ?? true
   };
 
   if (isWebGL2) {
