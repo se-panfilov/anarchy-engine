@@ -24,10 +24,10 @@ export function Actor(
 
   // Init TransformDrive
   const drive: TActorTransformDrive = ActorTransformDrive(params, { kinematicLoopService, physicsBodyService, physicsLoopService }, id);
-  const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d());
+  const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d(), params.model3dSettings);
 
   // TODO CWP:
-  // TODO 8.0.0. MODELS: Perhaps models need to have an offset (rotation, position). That offset should adjust rotation of the model (maybe in DriveToTargetConnector)
+  // TODO 8.0.0. MODELS: Check if azimuth working good, or broken (cause it's something has to be fixed: either azimut calculation, usage of the cords, or rotation of agents)
 
   // TODO 8.0.0. MODELS: Make sure, that collisions are working
   // TODO 8.0.0. MODELS: In showcase check spatial and collisions

@@ -1,7 +1,7 @@
 import Decimal from 'decimal.js';
-import type { QuaternionLike } from 'three';
+import type { EulerOrder, QuaternionLike } from 'three';
 import { Euler, Quaternion, Vector3 } from 'three';
-import { degToRad, radToDeg } from 'three/src/math/MathUtils';
+import { degToRad, euclideanModulo, radToDeg } from 'three/src/math/MathUtils';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
 import type { TDegrees, TRadians } from '@/Engine/Math';
@@ -130,4 +130,12 @@ export function quaternionToDegrees(quaternion: QuaternionLike): Vector3 {
   const euler: Euler = new Euler().setFromQuaternion(q, 'XYZ');
 
   return new Vector3(radToDeg(euler.x), radToDeg(euler.y), radToDeg(euler.z));
+}
+
+export function applyRotationOffsetWithReorder(target: Euler, source: Euler, offset: Euler, order: EulerOrder = 'XYZ'): void {
+  source.reorder(order);
+
+  target.set(source.x + offset.x, source.y + offset.y, source.z + offset.z, order);
+
+  target.set(euclideanModulo(target.x + Math.PI, Math.PI * 2) - Math.PI, euclideanModulo(target.y + Math.PI, Math.PI * 2) - Math.PI, euclideanModulo(target.z + Math.PI, Math.PI * 2) - Math.PI);
 }
