@@ -34,11 +34,11 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
   };
 
   const findMonorepoRoot = async (startDir: string): Promise<string> => {
-    let dir = path.resolve(startDir);
-    debugLog(isDebug, 'findMonorepoRoot: start at', dir);
+    const start = path.resolve(startDir);
+    debugLog(isDebug, 'findMonorepoRoot: start at', start);
 
-    // eslint-disable-next-line functional/no-loop-statements
-    for (let i = 0; i < 50; i++) {
+    const searchUp = async (dir: string, depth: number): Promise<string | undefined> => {
+      if (depth > 50) return undefined;
       const pkgPath = path.join(dir, 'package.json');
       debugLog(isDebug, '  check', pkgPath);
       if (await exists(pkgPath)) {
@@ -53,10 +53,13 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
         }
       }
       const parent = path.dirname(dir);
-      if (parent === dir) break;
-      dir = parent;
-    }
-    throw new Error(`Monorepo root not found starting from "${startDir}". Provide --root explicitly pointing to a package.json with "workspaces".`);
+      if (parent === dir) return undefined;
+      return searchUp(parent, depth + 1);
+    };
+
+    const found = await searchUp(start, 0);
+    if (!found) throw new Error(`Monorepo root not found starting from "${startDir}". Provide --root explicitly pointing to a package.json with "workspaces".`);
+    return found;
   };
 
   // ---------- Load root + workspaces ----------
@@ -90,24 +93,26 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
 
     debugLog(isDebug, 'workspace dirs found:', dirs.length);
 
-    const entries: Array<[string, TWorkspaceInfo]> = [];
-    // eslint-disable-next-line functional/no-loop-statements
-    for (const dir of dirs) {
-      const pkgPath = path.join(dir, 'package.json');
-      if (!(await exists(pkgPath))) continue;
-      const pkg = await readJson<TWorkspaceInfo['pkg']>(pkgPath);
-      if (!pkg.name) continue;
-      // eslint-disable-next-line functional/immutable-data
-      entries.push([
-        pkg.name,
-        {
-          name: pkg.name,
-          dir,
-          pkgPath,
-          pkg
-        }
-      ]);
-    }
+    const entries: Array<[string, TWorkspaceInfo]> = (
+      await Promise.all(
+        dirs.map(async (dir): Promise<[string, TWorkspaceInfo] | undefined> => {
+          const pkgPath = path.join(dir, 'package.json');
+          if (!(await exists(pkgPath))) return undefined;
+          const pkg = await readJson<TWorkspaceInfo['pkg']>(pkgPath);
+          if (!pkg.name) return undefined;
+          return [
+            pkg.name,
+            {
+              name: pkg.name,
+              dir,
+              pkgPath,
+              pkg
+            }
+          ];
+        })
+      )
+    ).filter(Boolean) as Array<[string, TWorkspaceInfo]>;
+
     debugLog(isDebug, 'workspace packages loaded:', entries.length);
 
     if (entries.length === 0) throw new Error(`No workspace package.json files found by patterns: ${patterns.join(', ')}`);
@@ -124,21 +129,16 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
 
   const buildWsGraph = (ws: ReadonlyMap<string, TWorkspaceInfo>): ReadonlyMap<string, ReadonlySet<string>> => {
     const names = new Set(ws.keys());
-    const graph = new Map<string, ReadonlySet<string>>();
-    // eslint-disable-next-line functional/no-loop-statements
-    for (const [name, info] of ws) {
+    const graph = Array.from(ws.entries()).reduce((acc, [name, info]) => {
       const deps = info.pkg.dependencies ?? {};
-      const edges = new Set<string>();
-      // eslint-disable-next-line functional/no-loop-statements
-      for (const dependencyName of Object.keys(deps)) {
-        if (names.has(dependencyName)) edges.add(dependencyName);
-      }
-      graph.set(name, edges);
-    }
+      const edges = new Set<string>(Object.keys(deps).filter((dependencyName) => names.has(dependencyName)));
+      acc.set(name, edges);
+      return acc;
+    }, new Map<string, ReadonlySet<string>>());
+
     if (isDebug) {
       console.log('[debug] workspace graph:');
-      // eslint-disable-next-line functional/no-loop-statements
-      for (const [k, v] of graph) console.log('  ', k, '->', [...v].join(', ') || '∅');
+      graph.forEach((v, k) => console.log('  ', k, '->', [...v].join(', ') || '∅'));
     }
     return graph;
   };
@@ -157,7 +157,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
       }
       temp.add(u);
       pathStack.push(u);
-      for (const v of graph.get(u) ?? []) dfs(v);
+      (graph.get(u) ?? new Set<string>()).forEach((v) => dfs(v));
       pathStack.pop();
       temp.delete(u);
       perm.add(u);
@@ -170,19 +170,14 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
 
   const collectWorkspaceClosure = (graph: ReadonlyMap<string, ReadonlySet<string>>, start: string): ReadonlySet<string> => {
     const visited: Set<string> = new Set<string>();
-    const stack: Array<string> = [start];
-    // eslint-disable-next-line functional/no-loop-statements
-    while (stack.length) {
-      // eslint-disable-next-line functional/immutable-data
-      const u = stack.pop()!;
-      if (visited.has(u)) continue;
+
+    const visit = (u: string): void => {
+      if (visited.has(u)) return;
       visited.add(u);
-      // eslint-disable-next-line functional/no-loop-statements
-      for (const v of graph.get(u) ?? []) {
-        // eslint-disable-next-line functional/immutable-data
-        stack.push(v);
-      }
-    }
+      (graph.get(u) ?? new Set<string>()).forEach((v) => visit(v));
+    };
+
+    visit(start);
     return visited;
   };
 
@@ -236,14 +231,14 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
 
   const collectExternalSeedNames = (closure: ReadonlySet<string>, wsMap: ReadonlyMap<string, TWorkspaceInfo>, wsNames: ReadonlySet<string>): ReadonlySet<string> => {
     const seeds = new Set<string>();
-    for (const wsName of closure) {
+    [...closure].forEach((wsName) => {
       const info = wsMap.get(wsName);
-      if (!info) continue;
+      if (!info) return;
       const deps = info.pkg.dependencies ?? {};
-      for (const dependencyName of Object.keys(deps)) {
+      Object.keys(deps).forEach((dependencyName) => {
         if (!wsNames.has(dependencyName)) seeds.add(dependencyName);
-      }
-    }
+      });
+    });
     return seeds;
   };
 
@@ -265,12 +260,10 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
         if (!prev) acc.set(id, { id, name: node.name, version: node.version, installPath });
         else if (!prev.installPath && installPath) acc.set(id, { ...prev, installPath });
       }
-      // eslint-disable-next-line functional/no-loop-statements
-      if (node.dependencies) for (const child of Object.values(node.dependencies)) visit(child, nowInside);
+      if (node.dependencies) Object.values(node.dependencies).forEach((child) => visit(child, nowInside));
     };
 
-    // eslint-disable-next-line functional/no-loop-statements
-    for (const child of Object.values(root.dependencies)) visit(child, false);
+    Object.values(root.dependencies).forEach((child) => visit(child, false));
 
     debugLog(isDebug, 'third-party collected (seed-filtered):', acc.size);
     return acc;
@@ -290,8 +283,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
 
   const fillMissingInstallPaths = (collected: Map<string, TCollected>, wsDir: string, rootDir: string): void => {
     let filled = 0;
-    // eslint-disable-next-line functional/no-loop-statements
-    for (const [id, item] of collected) {
+    Array.from(collected.entries()).forEach(([id, item]) => {
       if (!item.installPath) {
         const p = resolvePackageDir(item.name, wsDir) ?? resolvePackageDir(item.name, rootDir);
         if (p) {
@@ -299,7 +291,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
           filled++;
         }
       }
-    }
+    });
     debugLog(isDebug, 'install paths filled via resolver:', filled);
   };
 
@@ -390,105 +382,97 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
   };
 
   const buildLicenseEntries = async (collected: ReadonlyMap<string, TCollected>): Promise<ReadonlyArray<TLicenseEntry>> => {
-    const out: TLicenseEntry[] = [];
-    // eslint-disable-next-line functional/no-loop-statements
-    for (const { id, name, version, installPath } of collected.values()) {
-      let licenseText: string | undefined;
-      let licenseType: string | string[] | undefined = 'UNKNOWN';
-      let repository: string | undefined;
-      let publisher: string | undefined;
-      let email: string | undefined;
-      let url: string | undefined;
+    const list = await Promise.all(
+      Array.from(collected.values()).map(async ({ id, name, version, installPath }) => {
+        let licenseText: string | undefined;
+        let licenseType: string | string[] | undefined = 'UNKNOWN';
+        let repository: string | undefined;
+        let publisher: string | undefined;
+        let email: string | undefined;
+        let url: string | undefined;
 
-      if (installPath) {
-        const meta = await readPackageMeta(installPath);
-        licenseType = normalizeLicenseValue(meta.licenseField);
-        repository = meta.repository;
-        publisher = meta.publisher;
-        email = meta.email;
-        url = meta.url;
+        if (installPath) {
+          const meta = await readPackageMeta(installPath);
+          licenseType = normalizeLicenseValue(meta.licenseField);
+          repository = meta.repository;
+          publisher = meta.publisher;
+          email = meta.email;
+          url = meta.url;
 
-        licenseText = await tryReadLicenseText(installPath, meta.licenseField);
-      }
+          licenseText = await tryReadLicenseText(installPath, meta.licenseField);
+        }
 
-      // eslint-disable-next-line functional/immutable-data
-      out.push({
-        id,
-        name,
-        version,
-        licenses: licenseType as any,
-        licenseText,
-        repository,
-        publisher,
-        email,
-        url,
-        path: installPath
-      });
-    }
+        return {
+          id,
+          name,
+          version,
+          licenses: licenseType as any,
+          licenseText,
+          repository,
+          publisher,
+          email,
+          url,
+          path: installPath
+        } satisfies TLicenseEntry;
+      })
+    );
 
-    // eslint-disable-next-line functional/immutable-data
-    out.sort((a, b): number => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
-    return out;
+    return list.sort((a, b): number => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
   };
 
   // ---------- Workspace license entries ----------
 
   const buildWorkspaceLicenseEntries = async (names: ReadonlySet<string>, wsMap: ReadonlyMap<string, TWorkspaceInfo>, excludeName?: string): Promise<ReadonlyArray<TLicenseEntry>> => {
-    const entries: TLicenseEntry[] = [];
-    for (const name of names) {
-      if (excludeName && name === excludeName) continue;
-      const info = wsMap.get(name);
-      if (!info) continue;
-      const version = info.pkg.version ?? '0.0.0';
-      const meta = await readPackageMeta(info.dir);
-      const licenseType = normalizeLicenseValue(meta.licenseField);
-      const licenseText = await tryReadLicenseText(info.dir, meta.licenseField);
-      entries.push({
-        id: `${name}@${version}`,
-        name,
-        version,
-        licenses: licenseType,
-        licenseText,
-        repository: meta.repository,
-        publisher: meta.publisher,
-        email: meta.email,
-        url: meta.url,
-        path: info.dir
-      });
-    }
-    entries.sort((a, b) => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
-    return entries;
+    const filtered = [...names].filter((name) => !(excludeName && name === excludeName));
+    const entries = await Promise.all(
+      filtered
+        .map((name) => wsMap.get(name))
+        .filter((info): info is TWorkspaceInfo => Boolean(info))
+        .map(async (info) => {
+          const version = info.pkg.version ?? '0.0.0';
+          const meta = await readPackageMeta(info.dir);
+          const licenseType = normalizeLicenseValue(meta.licenseField);
+          const licenseText = await tryReadLicenseText(info.dir, meta.licenseField);
+          return {
+            id: `${info.name}@${version}`,
+            name: info.name,
+            version,
+            licenses: licenseType,
+            licenseText,
+            repository: meta.repository,
+            publisher: meta.publisher,
+            email: meta.email,
+            url: meta.url,
+            path: info.dir
+          } satisfies TLicenseEntry;
+        })
+    );
+    return entries.sort((a, b) => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
   };
 
   // ---------- Markdown ----------
 
   const renderMarkdown = (workspaceLabel: string, items: ReadonlyArray<TLicenseEntry>, emptyNote?: string): string => {
-    const lines: string[] = [];
-    lines.push(`# Third-Party Licenses
-## Application: ${workspaceLabel}
-Production dependencies (including transition dependencies): ${items.length}
-`);
+    const header = [`# Third-Party Licenses`, `## Application: ${workspaceLabel}`, `Production dependencies (including transition dependencies): ${items.length}`, ``];
+    const note = items.length === 0 && emptyNote ? [`**Note:** ${emptyNote}`, ``] : [];
 
-    if (items.length === 0 && emptyNote) {
-      lines.push(`**Note:** ${emptyNote}`, ``);
-    }
-
-    for (const it of items) {
+    const body = items.flatMap((it) => {
       const licenseStr = Array.isArray(it.licenses) ? it.licenses.join(', ') : String(it.licenses ?? 'UNKNOWN');
-      lines.push(`---`, ``);
-      lines.push(`## ${it.name}@${it.version}`);
-      lines.push(`**License:** ${licenseStr}\n`);
-      if (it.repository) lines.push(`**Repository:** ${it.repository}\n`);
-      if (it.url) lines.push(`**URL:** ${it.url}\n`);
-      if (it.publisher) lines.push(`**Publisher:** ${it.publisher}${it.email ? ` <${it.email}>` : ''}\n`);
-      lines.push(``);
-      if (it.licenseText) {
-        lines.push(it.licenseText.trim(), ``);
-      } else {
-        lines.push(`_No license text file found; relying on package metadata._`, ``);
-      }
-    }
-    return lines.join('\n');
+      const fields = [
+        `---`,
+        ``,
+        `## ${it.name}@${it.version}`,
+        `**License:** ${licenseStr}\n`,
+        ...(it.repository ? [`**Repository:** ${it.repository}\n`] : []),
+        ...(it.url ? [`**URL:** ${it.url}\n`] : []),
+        ...(it.publisher ? [`**Publisher:** ${it.publisher}${it.email ? ` <${it.email}>` : ''}\n`] : []),
+        ``,
+        ...(it.licenseText ? [it.licenseText.trim(), ``] : [`_No license text file found; relying on package metadata._`, ``])
+      ];
+      return fields;
+    });
+
+    return [...header, ...note, ...body].join('\n');
   };
 
   // ---------- Resolve workspace from arg ----------
@@ -498,9 +482,8 @@ Production dependencies (including transition dependencies): ${items.length}
     if (info) return { wsName: info.name, wsDir: info.dir };
     const asPath = path.isAbsolute(arg) ? arg : path.join(rootDir, arg);
     const normalized = path.resolve(asPath);
-    for (const w of workspaces.values()) {
-      if (path.resolve(w.dir) === normalized) return { wsName: w.name, wsDir: w.dir };
-    }
+    const found = [...workspaces.values()].find((w) => path.resolve(w.dir) === normalized);
+    if (found) return { wsName: found.name, wsDir: found.dir };
     throw new Error(`Workspace "${arg}" not found. Use a workspace *name* (package.json:name) or a *path* to its directory (relative to monorepo root).`);
   };
 

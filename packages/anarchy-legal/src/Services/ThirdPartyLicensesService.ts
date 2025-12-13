@@ -76,18 +76,18 @@ export function ThirdPartyLicensesService(): TThirdPartyLicensesService {
     debugLog(isDebug, 'start candidates:', startCandidates);
 
     // 2) Find monorepo root
-    let monorepoRoot: string | undefined;
-    // eslint-disable-next-line functional/no-loop-statements
-    for (const c of startCandidates) {
+    const monorepoRoot: string | undefined = await startCandidates.reduce<Promise<string | undefined>>(async (prev, c) => {
+      const acc = await prev;
+      if (acc) return acc;
       try {
         const found = await findMonorepoRoot(c);
-        monorepoRoot = found;
         debugLog(isDebug, 'monorepo root picked:', found, '(from', c + ')');
-        break;
+        return found;
       } catch (e) {
         debugLog(isDebug, 'no root from', c, ':', (e as Error).message);
+        return undefined;
       }
-    }
+    }, Promise.resolve<string | undefined>(undefined));
     if (!monorepoRoot) {
       throw new Error(`Failed to locate monorepo root from candidates: ${startCandidates.join(', ')}`);
     }
