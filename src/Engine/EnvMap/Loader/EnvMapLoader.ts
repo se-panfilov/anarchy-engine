@@ -7,6 +7,7 @@ import type { TEnvMapLoader, TEnvMapResourceConfig, TEnvMapTexture, TEnvMapTextu
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
+// TODO CWP !!!
 // TODO 9.0.0. RESOURCES: add loaders folder for textures, materials, models3d
 export function EnvMapLoader(registry: TEnvMapTextureAsyncRegistry): TEnvMapLoader {
   const envMapLoader: RGBELoader = new RGBELoader();
