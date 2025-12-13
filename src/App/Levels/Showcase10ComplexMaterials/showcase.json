@@ -34,7 +34,7 @@
       {
         "name": "standard_metal",
         "type": "standard",
-        "params": { "displacementScale": 0 },
+        "options": { "displacementScale": 0 },
         "textures": {
           "bumpMap": "metal_steel_brushed_bump_map",
           "map": "metal_steel_brushed_map",
@@ -48,7 +48,7 @@
       {
         "name": "physical_metal",
         "type": "physical",
-        "params": {
+        "options": {
           "clearcoat": 1,
           "clearcoatRoughness": 0.12,
           "displacementScale": 0,
@@ -81,7 +81,7 @@
       {
         "name": "phong_metal",
         "type": "phong",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "textures": {
           "bumpMap": "metal_steel_brushed_bump_map",
           "map": "metal_steel_brushed_map",
@@ -93,7 +93,7 @@
       {
         "name": "lambert_metal",
         "type": "lambert",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "textures": {
           "bumpMap": "metal_steel_brushed_bump_map",
           "map": "metal_steel_brushed_map",
@@ -105,7 +105,7 @@
       {
         "name": "toon_metal",
         "type": "toon",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "textures": {
           "bumpMap": "metal_steel_brushed_bump_map",
           "map": "metal_steel_brushed_map",
@@ -117,7 +117,7 @@
       {
         "name": "matcap_metal",
         "type": "matcap",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "textures": {
           "bumpMap": "metal_steel_brushed_bump_map",
           "map": "metal_steel_brushed_map",
@@ -129,7 +129,7 @@
       {
         "name": "standard_wood",
         "type": "standard",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "textures": {
           "aoMap": "wood_ao_map",
           "map": "wood_map",
@@ -144,7 +144,7 @@
       {
         "name": "physical_wood",
         "type": "physical",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "textures": {
           "aoMap": "wood_ao_map",
           "map": "wood_map",
@@ -169,7 +169,7 @@
       {
         "name": "phong_wood",
         "type": "phong",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "textures": {
           "aoMap": "wood_ao_map",
           "map": "wood_map",
@@ -182,7 +182,7 @@
       {
         "name": "lambert_wood",
         "type": "lambert",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "textures": {
           "aoMap": "wood_ao_map",
           "map": "wood_map",
@@ -195,7 +195,7 @@
       {
         "name": "toon_wood",
         "type": "toon",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "textures": {
           "aoMap": "wood_ao_map",
           "map": "wood_map",
@@ -208,7 +208,7 @@
       {
         "name": "matcap_wood",
         "type": "matcap",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "textures": {
           "map": "wood_map",
           "normalMap": "wood_normal_map",
@@ -220,7 +220,7 @@
       {
         "name": "standard_glass",
         "type": "standard",
-        "params": {
+        "options": {
           "metalness": 0,
           "roughness": 0
         },
@@ -229,7 +229,7 @@
       {
         "name": "physical_glass",
         "type": "physical",
-        "params": {
+        "options": {
           "clearcoat": 0.8,
           "clearcoatRoughness": 0.09,
           "displacementScale": 0.1,
@@ -251,31 +251,31 @@
       {
         "name": "phong_glass",
         "type": "phong",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "tags": ["phong", "glass"]
       },
       {
         "name": "lambert_glass",
         "type": "lambert",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "tags": ["lambert", "glass"]
       },
       {
         "name": "toon_glass",
         "type": "toon",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "tags": ["toon", "glass"]
       },
       {
         "name": "matcap_glass",
         "type": "matcap",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "tags": ["matcap", "glass"]
       },
       {
         "name": "standard_textile",
         "type": "standard",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "textures": {
           "aoMap": "carpet_ao_map",
           "map": "carpet_map",
@@ -288,7 +288,7 @@
       {
         "name": "physical_textile",
         "type": "physical",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "textures": {
           "aoMap": "carpet_ao_map",
           "map": "carpet_map",
@@ -310,7 +310,7 @@
       {
         "name": "phong_textile",
         "type": "phong",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "textures": {
           "aoMap": "carpet_ao_map",
           "map": "carpet_map",
@@ -322,7 +322,7 @@
       {
         "name": "lambert_textile",
         "type": "lambert",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "textures": {
           "aoMap": "carpet_ao_map",
           "map": "carpet_map",
@@ -334,7 +334,7 @@
       {
         "name": "toon_textile",
         "type": "toon",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "textures": {
           "aoMap": "carpet_ao_map",
           "map": "carpet_map",
@@ -346,7 +346,7 @@
       {
         "name": "matcap_textile",
         "type": "matcap",
-        "params": { "displacementScale": 0.1 },
+        "options": { "displacementScale": 0.1 },
         "textures": {
           "map": "carpet_map",
           "normalMap": "carpet_normal_map",

@@ -12,8 +12,8 @@
     "textures": [],
     "envMaps": [],
     "materials": [
-      { "name": "sphere_material", "type": "standard", "params": { "color": "#5EDCAE" } },
-      { "name": "surface_material", "type": "standard", "params": { "color": "#E91E63" } }
+      { "name": "surface_material", "type": "standard", "options": { "color": "#5EDCAE" } },
+      { "name": "sphere_material", "type": "standard", "options": { "color": "#E91E63" } }
     ],
     "models3d": []
   },

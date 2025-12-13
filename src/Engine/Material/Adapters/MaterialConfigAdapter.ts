@@ -11,30 +11,32 @@ import {
   StencilOpMap
 } from '@/Engine/Material/Constants';
 import { StencilFuncMap } from '@/Engine/Material/Constants/StencilFuncName';
-import type { TMaterialConfig, TMaterialParams } from '@/Engine/Material/Models';
+import type { TMaterialConfig, TMaterialParams, TMaterialParamsOptions } from '@/Engine/Material/Models';
 import { isDefined } from '@/Engine/Utils';
 
 export function configToParams(config: TMaterialConfig): TMaterialParams {
-  const { blending, blendDst, blendEquation, blendSrc, side, format, stencilFunc, stencilFail, stencilZFail, stencilZPass, combine, depthPacking, normalMapType, ...rest } = config;
+  let options: TMaterialParamsOptions = {} as TMaterialParamsOptions;
 
-  let params: TMaterialParams = {} as TMaterialParams;
+  if (isDefined(config.options)) {
+    const { blending, blendDst, blendEquation, blendSrc, side, format, stencilFunc, stencilFail, stencilZFail, stencilZPass, combine, depthPacking, normalMapType } = config.options;
 
-  if (isDefined(blending)) params = { ...params, blending: BlendingMap[blending] };
-  if (isDefined(blendDst)) params = { ...params, blendDst: BlendingDstFactorMap[blendDst] };
-  if (isDefined(blendEquation)) params = { ...params, blendEquation: BlendEquationMap[blendEquation] };
-  if (isDefined(blendSrc)) params = { ...params, blendSrc: { ...BlendingSrcFactorMap, ...BlendingDstFactorMap }[blendSrc] };
-  if (isDefined(side)) params = { ...params, side: SideMap[side] };
-  if (isDefined(format)) params = { ...params, format: PixelFormatMap[format] };
-  if (isDefined(stencilFunc)) params = { ...params, stencilFunc: StencilFuncMap[stencilFunc] };
-  if (isDefined(stencilFail)) params = { ...params, stencilFail: StencilOpMap[stencilFail] };
-  if (isDefined(stencilZFail)) params = { ...params, stencilZFail: StencilOpMap[stencilZFail] };
-  if (isDefined(stencilZPass)) params = { ...params, stencilZPass: StencilOpMap[stencilZPass] };
-  if (isDefined(combine)) params = { ...params, combine: CombineMap[combine] };
-  if (isDefined(depthPacking)) params = { ...params, depthPacking: DepthPackingStrategiesMap[depthPacking] };
-  if (isDefined(normalMapType)) params = { ...params, normalMapType: NormalMapTypesMap[normalMapType] };
+    if (isDefined(blending)) options = { ...options, blending: BlendingMap[blending] };
+    if (isDefined(blendDst)) options = { ...options, blendDst: BlendingDstFactorMap[blendDst] };
+    if (isDefined(blendEquation)) options = { ...options, blendEquation: BlendEquationMap[blendEquation] };
+    if (isDefined(blendSrc)) options = { ...options, blendSrc: { ...BlendingSrcFactorMap, ...BlendingDstFactorMap }[blendSrc] };
+    if (isDefined(side)) options = { ...options, side: SideMap[side] };
+    if (isDefined(format)) options = { ...options, format: PixelFormatMap[format] };
+    if (isDefined(stencilFunc)) options = { ...options, stencilFunc: StencilFuncMap[stencilFunc] };
+    if (isDefined(stencilFail)) options = { ...options, stencilFail: StencilOpMap[stencilFail] };
+    if (isDefined(stencilZFail)) options = { ...options, stencilZFail: StencilOpMap[stencilZFail] };
+    if (isDefined(stencilZPass)) options = { ...options, stencilZPass: StencilOpMap[stencilZPass] };
+    if (isDefined(combine)) options = { ...options, combine: CombineMap[combine] };
+    if (isDefined(depthPacking)) options = { ...options, depthPacking: DepthPackingStrategiesMap[depthPacking] };
+    if (isDefined(normalMapType)) options = { ...options, normalMapType: NormalMapTypesMap[normalMapType] };
+  }
 
   return {
-    ...params,
-    ...rest
+    ...config,
+    options
   };
 }

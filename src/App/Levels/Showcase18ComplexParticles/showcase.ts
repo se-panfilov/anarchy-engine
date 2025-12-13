@@ -2,7 +2,7 @@ import GUI from 'lil-gui';
 import { BufferGeometry, Color, PointsMaterial } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAppCanvas, TEngine, TParticlesConfig, TParticlesParams, TParticlesWrapper, TPointsMaterialProps, TSpace, TSpaceConfig } from '@/Engine';
+import type { TAppCanvas, TEngine, TParticlesConfig, TParticlesParams, TParticlesWrapper, TPointsMaterialPropsOptions, TSpace, TSpaceConfig } from '@/Engine';
 import { Engine, isDefined, isNotDefined, spaceService } from '@/Engine';
 import { configToParams as particlesConfigToParams } from '@/Engine/Particles/Adapters';
 
@@ -26,7 +26,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   const parameters: TGalaxyParams = {
     count: 42000,
-    size: (particlesDefaultParams.material.params as TPointsMaterialProps).size ?? 0.01,
+    size: (particlesDefaultParams.material.params as TPointsMaterialPropsOptions).size ?? 0.01,
     radius: 7.2,
     branches: 3,
     spin: 1,

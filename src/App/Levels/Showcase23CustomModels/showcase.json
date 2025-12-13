@@ -11,7 +11,7 @@
   "resources": {
     "textures": [],
     "envMaps": [],
-    "materials": [{ "name": "surface_material", "type": "standard", "params": { "color": "#E91E63" } }],
+    "materials": [{ "name": "surface_material", "type": "standard", "options": { "color": "#E91E63" } }],
     "models3d": [{ "name": "fox_glb", "url": "/Showcase/Models/Fox/Fox.glb" }]
   },
   "entities": {
