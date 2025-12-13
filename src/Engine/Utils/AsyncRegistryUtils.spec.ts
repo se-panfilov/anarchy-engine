@@ -3,8 +3,9 @@ import { expect } from 'vitest';
 
 import type { IAbstractAsyncRegistry, RegistryType } from '@/Engine/Abstract';
 import { AbstractAsyncRegistry } from '@/Engine/Abstract';
-import { getValueAsync, subscribeToValue$ } from '@/Engine/Abstract/Registry/AbstractAsyncRegistryHelper';
 import type { IRegistrable } from '@/Engine/Mixins';
+
+import { getValueAsync, subscribeToValue$ } from './AsyncRegistryUtils';
 
 const mockEntity1: IRegistrable = { id: 'mockEntityId1', name: 'mockEntity1' } as unknown as IRegistrable;
 const mockEntity2: IRegistrable = { id: 'mockEntityId2', name: 'mockEntity2' } as unknown as IRegistrable;
@@ -13,7 +14,7 @@ const mockEntity4: IRegistrable = { id: 'mockEntityId4', name: 'mockEntity4' } a
 const mockEntity5: IRegistrable = { id: 'mockEntityId5', name: 'mockEntity5' } as unknown as IRegistrable;
 const mockEntity6: IRegistrable = { id: 'mockEntityId6', name: 'mockEntity6' } as unknown as IRegistrable;
 
-describe('AbstractAsyncRegistryHelper', () => {
+describe('AsyncRegistryUtils', () => {
   const waitingTime: number = 500;
 
   describe('getValueAsync', () => {
