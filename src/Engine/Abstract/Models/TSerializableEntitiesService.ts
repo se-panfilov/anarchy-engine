@@ -1,5 +1,5 @@
-import type { TWithSerializeAllEntities } from '@/Engine/Mixins';
+import type { TSerializable, TWithSerializableEntities } from '@/Engine/Mixins';
 
 import type { TAbstractService } from './TAbstractService';
 
-export type TSerializableEntitiesService<C> = TAbstractService & TWithSerializeAllEntities<C>;
+export type TSerializableEntitiesService<E extends TSerializable<any>, C extends Record<string, any>> = TAbstractService & TWithSerializableEntities<E, C>;

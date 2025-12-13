@@ -9,6 +9,5 @@ export type * from './TWithRegistryService';
 export type * from './TWithResourcesMetaInfoRegistryService';
 export type * from './TWithResourcesRegistryService';
 export type * from './TWithSceneGetterService';
-export type * from './TWithSerializeAllEntities';
+export type * from './TWithSerializableEntities';
 export type * from './TWithSerializeAllResources';
-export type * from './TWithSerializeEntity';

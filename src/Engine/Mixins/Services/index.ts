@@ -5,5 +5,5 @@ export * from './WithCreateService';
 export * from './WithFactoryService';
 export * from './WithRegistryService';
 export * from './WithSceneGetterService';
-export * from './WithSerializeAllEntities';
+export * from './WithSerializableEntities';
 export * from './WithSerializeAllResources';
