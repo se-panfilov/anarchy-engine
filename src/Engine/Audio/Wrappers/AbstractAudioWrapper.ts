@@ -2,9 +2,10 @@ import type { Subscription } from 'rxjs';
 import { BehaviorSubject, skipWhile, Subject, takeUntil } from 'rxjs';
 import type { AudioListener } from 'three';
 
-import type { TWrapper } from '@/Engine/Abstract';
+import type { TAbstractWrapper, TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TAbstractAudioWrapper, TAnyAudio, TAnyAudioParams, TAudioCreateFn } from '@/Engine/Audio/Models';
+import { entityToConfig } from '@/Engine/Audio/Adapters';
+import type { TAbstractAudioWrapper, TAnyAudio, TAnyAudioConfig, TAnyAudioParams, TAudioCreateFn } from '@/Engine/Audio/Models';
 import { disposeAudio, seekAudio } from '@/Engine/Audio/Utils';
 import { destroyAudio } from '@/Engine/Utils';
 
@@ -20,7 +21,7 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
   const loop$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.loop ?? false);
   const volume$: BehaviorSubject<number> = new BehaviorSubject<number>(volume ?? 1);
 
-  const wrapper: TWrapper<T> = AbstractWrapper(entity, WrapperType.Audio, params);
+  const wrapper: TAbstractWrapper<T> = AbstractWrapper(entity, WrapperType.Audio, params);
 
   play$.pipe(takeUntil(wrapper.destroy$)).subscribe((shouldPlay: boolean): void => {
     if (shouldPlay && !entity.isPlaying) return void entity.play();
@@ -101,7 +102,7 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(wrapper, {
+  const result = Object.assign(wrapper, {
     play$,
     pause$,
     speed$,
@@ -110,6 +111,9 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
     isPlaying: (): boolean => entity.isPlaying,
     getDuration: (): number | undefined => entity.buffer?.duration,
     volume$,
-    listener$
+    listener$,
+    serialize: (): TAnyAudioConfig => entityToConfig(result)
   });
+
+  return result;
 }

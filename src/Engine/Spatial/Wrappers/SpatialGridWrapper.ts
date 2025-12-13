@@ -6,11 +6,12 @@ import { Box3, Vector3 } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
 import type { ColorRepresentation } from 'three/src/math/Color';
 
-import type { TWrapper } from '@/Engine/Abstract';
+import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor';
 import type { TSceneWrapper } from '@/Engine/Scene';
-import type { TSpatialCellId, TSpatialCellParams, TSpatialCellWrapper, TSpatialGrid, TSpatialGridParams, TSpatialGridWrapper } from '@/Engine/Spatial/Models';
+import { entityToConfig } from '@/Engine/Spatial/Adapters/EntityToConfig';
+import type { TSpatialCellId, TSpatialCellParams, TSpatialCellWrapper, TSpatialGrid, TSpatialGridConfig, TSpatialGridParams, TSpatialGridWrapper } from '@/Engine/Spatial/Models';
 import { createBoundingBox, createOutline } from '@/Engine/Spatial/Services/SpatialHelper';
 import { SpatialCellWrapper } from '@/Engine/Spatial/Wrappers/SpatialCellWrapper';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
@@ -40,7 +41,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     return grid;
   }
 
-  const wrapper: TWrapper<TSpatialGrid> = AbstractWrapper(entity, WrapperType.SpatialGrid, params);
+  const wrapper: TAbstractWrapper<TSpatialGrid> = AbstractWrapper(entity, WrapperType.SpatialGrid, params);
 
   function getBoundingBox(mesh: Mesh | Group | Object3D): Box3 {
     const box: Box3 = new Box3();
@@ -120,8 +121,17 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
   const findCellsForPoint = (x: number, z: number): ReadonlyArray<TSpatialCellWrapper> => entity.search({ minX: x, minY: z, maxX: x, maxY: z });
 
-  const findCellsForBox = ({ minX, minZ, maxX, maxZ }: Readonly<{ minX: number; minZ: number; maxX: number; maxZ: number }>): ReadonlyArray<TSpatialCellWrapper> =>
-    entity.search({ minX, minY: minZ, maxX, maxY: maxZ });
+  const findCellsForBox = ({
+    minX,
+    minZ,
+    maxX,
+    maxZ
+  }: Readonly<{
+    minX: number;
+    minZ: number;
+    maxX: number;
+    maxZ: number;
+  }>): ReadonlyArray<TSpatialCellWrapper> => entity.search({ minX, minY: minZ, maxX, maxY: maxZ });
 
   // TODO test this function
   function findCellsByActorBox(actor: TActor): ReadonlyArray<TSpatialCellWrapper> {
@@ -175,7 +185,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
   }
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(wrapper, {
+  const result = Object.assign(wrapper, {
     entity,
     addActor,
     getAllCells,
@@ -190,6 +200,9 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     _debugVisualizeCells,
     _debugHighlightObjects,
     updateActorCell,
-    update$: update$.asObservable()
+    update$: update$.asObservable(),
+    serialize: (): TSpatialGridConfig => entityToConfig(result)
   });
+
+  return result;
 }

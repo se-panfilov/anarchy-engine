@@ -20,14 +20,10 @@ export function entityToConfig(entity: TActor): TActorConfig {
     // spatial: TSpatialDataConfig,
     // collisions?: TCollisionsDataConfig,
     // model3dSettings?: TActorModel3dSettingsConfig,
-    // states?: TActorStatesConfig
+
+    // states?: TActorStatesConfig //Can we have a generic serialization for FSM?
 
     ...drive.serialize(),
-    // position: drive.position$.value,
-    // rotation: drive.rotation$.value,
-    // scale: drive.scale$.value,
-    // agent: drive.agent$.value,
-
     tags
   };
 }
