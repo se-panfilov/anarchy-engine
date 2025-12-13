@@ -3,11 +3,17 @@
   "entities": {
     "actors": [
       {
-        "model3dSource": "sphere_model",
-        "name": "sphere_actor",
+        "agent": "default",
+        "model3dSource": "surface_model",
+        "name": "surface_actor",
         "position": {
           "x": 0,
-          "y": 2,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
           "z": 0
         },
         "spatial": {
@@ -45,7 +51,7 @@
     "lights": [
       {
         "color": "#FFFFFF",
-        "intensity": 0.5,
+        "intensity": 5,
         "name": "ambient_light",
         "position": {
           "x": 0.25,
@@ -53,48 +59,13 @@
           "z": 2.25
         },
         "type": "AmbientLight"
-      },
-      {
-        "castShadow": true,
-        "color": "#FFFFFF",
-        "intensity": 1.5,
-        "name": "directional_light",
-        "position": {
-          "x": 0.25,
-          "y": 15,
-          "z": 2.25
-        },
-        "shadow": {
-          "camera": {
-            "bottom": -50,
-            "far": 40,
-            "left": -50,
-            "near": 0.1,
-            "right": 50,
-            "top": 50,
-            "type": "OrthographicCamera"
-          },
-          "mapSize": {
-            "x": 4096,
-            "y": 4096
-          },
-          "normalBias": 0.05
-        },
-        "type": "DirectionalLight"
       }
     ],
     "materials": [
       {
         "name": "surface_material",
         "options": {
-          "color": "#5EDCAE"
-        },
-        "type": "MeshStandardMaterial"
-      },
-      {
-        "name": "sphere_material",
-        "options": {
-          "color": "#E91E63"
+          "color": "#21252B"
         },
         "type": "MeshStandardMaterial"
       }
@@ -121,15 +92,6 @@
           "x": -1.57,
           "y": 0,
           "z": 0
-        }
-      },
-      {
-        "castShadow": true,
-        "material": "sphere_material",
-        "model3dSource": "sphere",
-        "name": "sphere_model",
-        "options": {
-          "radius": 0.7
         }
       }
     ],
