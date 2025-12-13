@@ -3,24 +3,22 @@ import { DefaultBannedInJsonKeys, JsonSpecialCharactersAscii, JsonSpecialCharact
 const { TAB, DEL, LF, CR, MAX_CONTROL } = JsonSpecialCharactersAscii;
 const { BOM, QUOTE, LINE_SEPARATOR, PARAGRAPH_SEPARATOR, BACKSLASH } = JsonSpecialCharactersUnicode;
 
-export function validateJson<T = unknown>(raw: string, dangerousKeys: ReadonlyArray<string> = DefaultBannedInJsonKeys, options: Readonly<{ maxBytes?: number; maxDepth?: number }> = {}): T {
-  if (typeof raw !== 'string' || raw.length === 0) throw new Error('Invalid input: JSON must be a non-empty string');
+export function validateJson<T = unknown>(json: string, dangerousKeys: ReadonlyArray<string> = DefaultBannedInJsonKeys, options: Readonly<{ maxBytes?: number; maxDepth?: number }> = {}): T {
+  if (typeof json !== 'string' || json.length === 0) throw new Error('[JSON] Invalid input: JSON must be a non-empty string');
 
   const maxBytes: number = options.maxBytes ?? 5 * 1024 * 1024;
   const maxDepth: number = options.maxDepth ?? 200;
 
-  const byteSize: number = Buffer.byteLength(raw, 'utf8');
-  if (byteSize > maxBytes) {
-    throw new Error(`JSON too large: ${byteSize} bytes (limit ${maxBytes})`);
-  }
+  const byteSize: number = Buffer.byteLength(json, 'utf8');
+  if (byteSize > maxBytes) throw new Error(`[JSON] The size is too large: ${byteSize} bytes (limit ${maxBytes})`);
 
-  scanText(raw);
+  scanText(json);
 
   let parsedData: unknown;
   try {
-    parsedData = JSON.parse(raw);
+    parsedData = JSON.parse(json);
   } catch (error) {
-    throw new Error(`JSON parse failed: ${(error as Error).message}`);
+    throw new Error(`[JSON] Parse failed: ${(error as Error).message}`);
   }
 
   assertTree(parsedData, maxDepth, dangerousKeys);
@@ -47,34 +45,25 @@ function validateCharacterOutsideString(charCode: number, index: number, text: s
   // Check for invalid control characters outside strings
   if (isControlCharacter(charCode) && !isAllowedControlCharacter(charCode)) {
     const hexCode: string = charCode.toString(16).padStart(4, '0').toUpperCase();
-    throw new Error(`Invalid control outside string at index ${index} (U+${hexCode}).\n${getContext(text, index)}`);
+    throw new Error(`[JSON] Invalid control outside string at index ${index} (U+${hexCode}).\n${getContext(text, index)}`);
   }
 
   // Check for line/paragraph separators outside strings (JS embedding hazard)
   if (charCode === LINE_SEPARATOR || charCode === PARAGRAPH_SEPARATOR) {
     const hexCode: string = charCode.toString(16).toUpperCase();
-    throw new Error(`Disallowed U+${hexCode} outside string at index ${index}.\n${getContext(text, index)}`);
+    throw new Error(`[JSON] Disallowed U+${hexCode} outside string at index ${index}.\n${getContext(text, index)}`);
   }
 }
 
 function validateCharacterInsideString(charCode: number, index: number, text: string): void {
   if (isControlCharacter(charCode)) {
     const hexCode: string = charCode.toString(16).padStart(4, '0').toUpperCase();
-    throw new Error(`Unescaped control in string at index ${index} (U+${hexCode}).\n` + `Controls must be escaped as \\n, \\t, \\r or \\u00XX.\n${getContext(text, index)}`);
+    throw new Error(`[JSON] Unescaped control in string at index ${index} (U+${hexCode}).\n` + `Controls must be escaped as \\n, \\t, \\r or \\u00XX.\n${getContext(text, index)}`);
   }
 }
 
-// Scan raw JSON text for basic textual hazards.
-// - BOM at start is not allowed.
-// - Unescaped ASCII controls (0x00..0x1F, 0x7F) inside strings are forbidden.
-// - Outside strings only TAB(0x09), LF(0x0A), CR(0x0D) are allowed among ASCII controls.
-// - U+2028/U+2029 outside strings are disallowed (JS embedding hazard).
 function scanText(raw: string): void {
-  // Check for BOM at start
-  if (raw.charCodeAt(0) === BOM) {
-    throw new Error(`Invalid JSON text: BOM U+FEFF at start.\n${getContext(raw, 0)}`);
-  }
-
+  if (raw.charCodeAt(0) === BOM) throw new Error(`[JSON] Invalid JSON text: BOM U+FEFF at start.\n${getContext(raw, 0)}`);
   let inString: boolean = false;
   let isEscaped: boolean = false;
 
@@ -114,12 +103,10 @@ function scanText(raw: string): void {
 function assertTree(value: unknown, maxDepth: number, dangerousKeys: ReadonlyArray<string>, path: string = '', depth: number = 0): void {
   if (depth > maxDepth) {
     const location: string = path || '<root>';
-    throw new Error(`Max depth exceeded at ${location} (> ${maxDepth})`);
+    throw new Error(`[JSON] Max depth exceeded at ${location} (> ${maxDepth})`);
   }
 
-  if (value === null || typeof value !== 'object') {
-    return;
-  }
+  if (value === null || typeof value !== 'object') return;
 
   if (Array.isArray(value)) {
     value.forEach((item, index: number): void => {
@@ -133,7 +120,7 @@ function assertTree(value: unknown, maxDepth: number, dangerousKeys: ReadonlyArr
   Object.keys(obj).forEach((key: string): void => {
     if (dangerousKeys.includes(key)) {
       const keyPath: string = path ? `${path}.${key}` : key;
-      throw new Error(`Dangerous key "${key}" at ${keyPath}`);
+      throw new Error(`[JSON] Dangerous key "${key}" at ${keyPath}`);
     }
 
     const keyPath = path ? `${path}.${key}` : key;
