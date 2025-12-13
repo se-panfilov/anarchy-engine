@@ -41,10 +41,7 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
     .pipe(
       distinctUntilChanged(),
       switchMap((isEnabled: boolean): Observable<TMilliseconds | never> => (isEnabled ? intersectionsLoop.tick$ : EMPTY)),
-      map((): Readonly<{ position: TReadonlyVector2 }> | undefined =>
-        // TODO 15-0-0: implement a support of shouldUseDistinct and test it
-        shouldUseDistinct ? getChangedPosition(tmpPosition, prevPosition, position, threshold) : { position }
-      ),
+      map((): Readonly<{ position: TReadonlyVector2 }> | undefined => (shouldUseDistinct ? getChangedPosition(tmpPosition, prevPosition, position, threshold) : { position })),
       filter(isDefined)
     )
     .subscribe(({ position }: Readonly<{ position: TReadonlyVector2 }>): void => {
