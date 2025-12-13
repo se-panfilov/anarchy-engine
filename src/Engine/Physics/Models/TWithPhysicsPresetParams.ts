@@ -4,5 +4,5 @@ import type { TPhysicsPresetParams } from './TPhysicsPresetParams';
 
 export type TWithPhysicsPresetParams = TOptional<TPhysicsPresetParams> &
   Readonly<{
-    preset?: string;
+    presetName?: string;
   }>;

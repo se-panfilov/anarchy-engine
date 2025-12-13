@@ -40,7 +40,7 @@
         }
       },
       "physics": {
-        "preset": "wall_physics",
+        "presetName": "wall_physics",
         "shapeParams": {
           "hx": 20,
           "hy": 20,
@@ -86,7 +86,7 @@
         }
       },
       "physics": {
-        "preset": "wall_physics",
+        "presetName": "wall_physics",
         "shapeParams": {
           "width": 20,
           "height": 1,
@@ -132,7 +132,7 @@
         }
       },
       "physics": {
-        "preset": "wall_physics",
+        "presetName": "wall_physics",
         "shapeParams": {
           "hx": 20,
           "hy": 1,
@@ -178,7 +178,7 @@
         }
       },
       "physics": {
-        "preset": "wall_physics",
+        "presetName": "wall_physics",
         "shapeParams": {
           "hx": 22,
           "hy": 1,
@@ -224,7 +224,7 @@
         }
       },
       "physics": {
-        "preset": "wall_physics",
+        "presetName": "wall_physics",
         "shapeParams": {
           "hx": 22,
           "hy": 1,
@@ -258,7 +258,7 @@
         }
       },
       "physics": {
-        "preset": "ball_physics",
+        "presetName": "ball_physics",
         "shapeParams": {
           "radius": 1
         },
@@ -300,7 +300,7 @@
         }
       },
       "physics": {
-        "preset": "box_physics",
+        "presetName": "box_physics",
         "shapeParams": {
           "width": 4,
           "height": 1,
@@ -338,7 +338,7 @@
         }
       },
       "physics": {
-        "preset": "box_physics",
+        "presetName": "box_physics",
         "shapeParams": {
           "width": 4,
           "height": 1,
@@ -372,7 +372,7 @@
         }
       },
       "physics": {
-        "preset": "ball_physics",
+        "presetName": "ball_physics",
         "radius": 1,
         "position": { "x": 1, "y": 8, "z": -4 }
       },
@@ -408,7 +408,7 @@
         }
       },
       "physics": {
-        "preset": "ball_physics",
+        "presetName": "ball_physics",
         "radius": 1,
         "position": { "x": 2, "y": 12, "z": -4 }
       },
