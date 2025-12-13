@@ -1,25 +1,14 @@
 import { bindKey, unbindKey } from '@rwh/keystrokes';
-import type { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
+
 import { isNotDefined } from '@/Engine/Utils';
-
-type IWatchResult = {
-  pressed$: Observable<string>;
-  pressing$: Observable<string>;
-  released$: Observable<string>;
-};
-
-type IKeyboardRegistryValues = {
-  pressed$: Subject<string>;
-  pressing$: Subject<string>;
-  released$: Subject<string>;
-};
+import type { IKeyboardRegistryValues, IKeySubscription } from '@/Engine/Keyboard/Models';
 
 export function KeyboardService() {
   const registry: Map<string, IKeyboardRegistryValues> = new Map();
 
   // TODO (S.Panfilov) combo
-  function onKey(key: string): IWatchResult {
+  function onKey(key: string): IKeySubscription {
     if (!registry.has(key)) {
       const pressed$: Subject<string> = new Subject();
       const pressing$: Subject<string> = new Subject();
@@ -31,7 +20,7 @@ export function KeyboardService() {
     return bind(key);
   }
 
-  function bind(key: string): IWatchResult {
+  function bind(key: string): IKeySubscription {
     const subjects = registry.get(key);
     if (isNotDefined(subjects)) throw new Error(`Key ${key} is not found in registry`);
     const { pressed$, pressing$, released$ } = subjects;
