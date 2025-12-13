@@ -1,7 +1,7 @@
 import type { TLocale, TLocaleId } from '@Anarchy/i18n';
 import type { TDeepWriteable } from '@Anarchy/Shared/Utils';
 import { vueTranslationService } from '@Showcases/Menu/services';
-import type { TAudioSettings, TDebugSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TResolution, TShowcaseGameSettings, TShowcaseLocaleIds } from '@Showcases/Shared';
+import type { TAudioSettings, TDebugSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TShowcaseGameSettings, TShowcaseLocaleIds } from '@Showcases/Shared';
 import { DefaultShowcaseGameSettings, ShowcasesLocales } from '@Showcases/Shared';
 import { defineStore } from 'pinia';
 import type { ComputedRef } from 'vue';
@@ -24,15 +24,6 @@ export const useSettingsStore = defineStore('settingsStore', () => {
       // immediate: true // Execute immediately on first run
     }
   );
-
-  // TODO DESKTOP: available resolutions depends on platform (detect by platform and add options).
-  function getAvailableResolutions(): ReadonlyArray<TResolution> {
-    return [
-      { width: 1920, height: 1080 },
-      { width: 1280, height: 720 },
-      { width: 800, height: 600 }
-    ];
-  }
 
   const graphics: ComputedRef<TGraphicsSettings> = computed((): TGraphicsSettings => state.graphics);
   const audio: ComputedRef<TAudioSettings> = computed((): TAudioSettings => state.audio);
@@ -68,7 +59,6 @@ export const useSettingsStore = defineStore('settingsStore', () => {
     debug,
     setDebug,
     internal,
-    setInternal,
-    getAvailableResolutions
+    setInternal
   };
 });
