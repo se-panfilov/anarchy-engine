@@ -24,7 +24,6 @@ const getContainer = (canvasSelector: string): string => canvasSelector.split('#
 
 const subscriptions: Record<string, Subscription> = {};
 
-// TODO 15-0-0: E2E: Camera
 // TODO 15-0-0: E2E: OrbitControls
 // TODO 15-0-0: E2E: FpsControls
 // TODO 15-0-0: E2E: FpsControls
@@ -99,6 +98,9 @@ const spacesData: ReadonlyArray<TSpacesData> = [
     onChange: (space: TSpace): void => {
       const camera: TCameraWrapper | undefined = space.services.cameraService.findActive();
       if (isNotDefined(camera)) throw new Error(`[Showcase]: Camera is not found`);
+
+      camera.setFov(100);
+
       const rotation: Euler = new Euler(-2.879975303042544, 0.8041367970357067, 2.951086186540901);
       camera.drive.rotation$.next(new Quaternion().setFromEuler(rotation));
       camera.drive.position$.next(new Vector3(28.672614163776107, 6.92408866503931, -27.63943185331239));
@@ -121,7 +123,8 @@ export function start(): void {
   );
 
   //Initial space
-  loadSpace(spaceBasicConfig.name);
+  // loadSpace(spaceBasicConfig.name);
+  loadSpace(spaceCameraConfig.name);
 }
 
 function loadSpace(name: string): void {
