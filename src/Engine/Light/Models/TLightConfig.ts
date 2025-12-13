@@ -38,5 +38,5 @@ export type TAnyLightConfig = TAmbientLightConfig | THemisphereLightConfig | TDi
 export type TLightShadowConfig = Omit<TLightShadowParams, 'mapSize' | 'camera'> &
   Readonly<{
     mapSize: Vector2Like;
-    camera: Omit<TAnyCameraConfig, 'audioListener'>;
+    camera: Omit<TAnyCameraConfig, 'audioListener' | 'position' | 'rotation' | 'name' | 'isActive'>;
   }>;

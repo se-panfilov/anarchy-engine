@@ -1,7 +1,9 @@
-import type { Layers, Object3DJSONObject, Vector2Like } from 'three';
+import type { Object3DJSONObject, Vector2Like } from 'three';
 import { Vector2 } from 'three';
 
-import type { TCommonCameraParams } from '@/Engine/Camera';
+import type { TAnyCameraParams, TCommonCameraConfig, TCommonCameraParams, TPerspectiveCameraConfig } from '@/Engine/Camera';
+import { getCommonCameraConfig, getOrthographicCameraOnlyConfig, getPerspectiveCameraOnlyConfig, isOrthographicCameraParams, isPerspectiveCameraParams } from '@/Engine/Camera';
+import type { TOrthographicCameraConfig } from '@/Engine/Camera/Models/TOrthographicCameraConfig';
 import { serializeColor } from '@/Engine/Color';
 import { LightType } from '@/Engine/Light/Constants';
 import type {
@@ -24,6 +26,7 @@ import type {
   TSpotLightWrapper
 } from '@/Engine/Light/Models';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
+import type { TWriteable } from '@/Engine/Utils';
 import { filterOutEmptyFields, isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function lightToConfig<T extends TAnyLight>(entity: TAbstractLightWrapper<T>): TDirectionalLightConfig | THemisphereLightConfig | TRectAreaLightConfig | TAmbientLightConfig | TSpotLightConfig {
@@ -106,9 +109,9 @@ export function onlyLightShadowToConfig<T extends TAnyLight>(
   const lightConfig = json as unknown as TDirectionalLightParams | TAbstractLightParams;
   const shadow: TLightShadowParams | undefined = lightConfig.shadow;
   if (isNotDefined(shadow)) return {};
-  const camera = shadow.camera as TLightShadowConfig['camera'] | undefined;
+  const camera: TAnyCameraParams = shadow.camera;
 
-  const result: Readonly<{ shadow?: TLightShadowConfig }> = filterOutEmptyFields({
+  const result: Readonly<{ shadow: TWriteable<TLightShadowConfig> }> = filterOutEmptyFields({
     shadow: {
       ...shadow,
       mapSize: getMapSize(shadow),
@@ -117,22 +120,18 @@ export function onlyLightShadowToConfig<T extends TAnyLight>(
   });
 
   if (isNotDefined(camera)) return result;
-  const { far, left, right, top, bottom, near, type, up: upRaw, zoom, layers } = camera;
-  const up = isDefined(upRaw) ? { x: (upRaw as any)[0], y: (upRaw as any)[1], z: (upRaw as any)[2] } : undefined;
+
+  const cameraConfig: Omit<TCommonCameraConfig & (TPerspectiveCameraConfig | TOrthographicCameraConfig), 'name' | 'isActive' | 'position' | 'rotation' | 'audioListener'> = Object.assign(
+    getCommonCameraConfig(camera),
+    { type: camera.type }
+  );
+  // eslint-disable-next-line functional/immutable-data
+  if (isPerspectiveCameraParams(camera)) Object.assign(cameraConfig, getPerspectiveCameraOnlyConfig(camera));
+  // eslint-disable-next-line functional/immutable-data
+  if (isOrthographicCameraParams(camera)) Object.assign(cameraConfig, getOrthographicCameraOnlyConfig(camera));
 
   // eslint-disable-next-line functional/immutable-data
-  result.shadow.camera = {
-    far,
-    left,
-    right,
-    top,
-    bottom,
-    layers: layers as unknown as Layers | number,
-    near,
-    type,
-    up: up as TLightShadowConfig['camera']['up'],
-    zoom
-  };
+  result.shadow.camera = cameraConfig;
 
   return result;
 }
