@@ -21,7 +21,9 @@ export function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEve
         if (!isSettings(event.payload)) throw new Error('[Showcase]: Attempted to save invalid app settings');
         //Better to validate the payload type here
         // TODO DESKTOP: this code is async, hmm... What should we do with the UI?
+        // TODO DESKTOP: implement apply of the settings in the app (language change, etc.)
         await saveSettings(event.payload as TShowcaseGameSettings);
+        //Important: apply new App-level settings here (and apply play-level settings in a platform code)
         break;
       }
       case FromMenuEvents.LoadSettings: {
