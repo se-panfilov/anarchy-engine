@@ -8,7 +8,7 @@ import { filterOutEmptyFields, isDefined } from '@/Engine/Utils';
 export function sceneToConfig(entity: TSceneWrapper): TSceneConfig {
   const background: TColor | undefined = entity.getBackground() as TColor | undefined;
   // TODO we cannot serialize other backgrounds than Color at the moment
-  const hexString: string | undefined = isDefined(background) ? serializeColor(background) : undefined;
+  const hexString: string | undefined = isDefined(background) && background.isColor ? serializeColor(background) : undefined;
 
   return filterOutEmptyFields({
     background: hexString,
