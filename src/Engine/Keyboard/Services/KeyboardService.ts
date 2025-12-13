@@ -10,7 +10,7 @@ export function KeyboardService(loopService: TLoopService): TKeyboardService {
   const keyboardRegistry: TKeyboardRegistry = KeyboardRegistry();
 
   function createKeySubscriptions(key: TGameKey | TKeyCombo): TKeySubscription {
-    const subscriptions: TKeyboardRegistryValues | undefined = keyboardRegistry.getByKey(key);
+    const subscriptions: TKeyboardRegistryValues | undefined = keyboardRegistry.findByKey(key);
     if (!subscriptions) {
       const pressed$: Subject<TGameKey | TKeyCombo> = new Subject();
       const pressing$: Subject<Readonly<{ key: TGameKey | TKeyCombo; delta: TLoopTimes }>> = new Subject();
@@ -34,7 +34,7 @@ export function KeyboardService(loopService: TLoopService): TKeyboardService {
   }
 
   function bind(key: TGameKey | TKeyCombo, isCombo: boolean): TKeySubscription {
-    const subjects: TKeyboardRegistryValues | undefined = keyboardRegistry.getByKey(key);
+    const subjects: TKeyboardRegistryValues | undefined = keyboardRegistry.findByKey(key);
     if (isNotDefined(subjects)) throw new Error(`Key ${key} is not found in registry`);
     const { pressed$, pressing$, released$ } = subjects;
 
@@ -83,7 +83,7 @@ export function KeyboardService(loopService: TLoopService): TKeyboardService {
       unbindKey(key);
     }
 
-    const subjects: TKeyboardRegistryValues | undefined = keyboardRegistry.getByKey(key);
+    const subjects: TKeyboardRegistryValues | undefined = keyboardRegistry.findByKey(key);
     if (isNotDefined(subjects)) throw new Error(`Cannot remove key "${key}": it's not in the registry`);
     subjects.pressed$.complete();
     subjects.pressing$.complete();

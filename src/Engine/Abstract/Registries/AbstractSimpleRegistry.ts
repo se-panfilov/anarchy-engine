@@ -28,7 +28,7 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRe
     replaced$.next(value);
   }
 
-  const getByKey = (key: string): T | undefined => registry.get(key);
+  const findByKey = (key: string): T | undefined => registry.get(key);
 
   function remove(key: string): void | never {
     const value: T | undefined = registry.get(key);
@@ -45,7 +45,7 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRe
     removed$: removed$.asObservable(),
     add,
     replace,
-    getByKey,
+    findByKey,
     findAll,
     isEmpty,
     registry,
