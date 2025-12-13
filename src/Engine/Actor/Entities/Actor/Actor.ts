@@ -6,7 +6,7 @@ import type { Vector3, Vector3Like } from 'three';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import { actorToConfig } from '@/Engine/Actor/Adapters';
 import { withActorStates } from '@/Engine/Actor/Mixins';
-import type { TActor, TActorConfig, TActorConfigToParamsDependencies, TActorDependencies, TActorEntities, TActorParams, TActorTransformDrive } from '@/Engine/Actor/Models';
+import type { TActor, TActorConfig, TActorDependencies, TActorEntities, TActorEntityToConfigDependencies, TActorParams, TActorTransformDrive } from '@/Engine/Actor/Models';
 import { ActorTransformDrive } from '@/Engine/Actor/TransformDrive';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
 import { withCollisions } from '@/Engine/Collisions';
@@ -45,7 +45,7 @@ export function Actor(
   );
 
   const actor: TActor = Object.assign(AbstractEntity(entities, EntityType.Actor, { name: params.name, id }), {
-    serialize: (dependencies: TActorConfigToParamsDependencies): TActorConfig => actorToConfig(actor, dependencies)
+    serialize: (dependencies: TActorEntityToConfigDependencies): TActorConfig => actorToConfig(actor, dependencies)
   });
 
   const spatialLoop: TSpatialLoop = loopService.getSpatialLoop();

@@ -3,6 +3,7 @@ export type * from './TActorConfig';
 export type * from './TActorConfigToParamsDependencies';
 export type * from './TActorDependencies';
 export type * from './TActorEntities';
+export type * from './TActorEntityToConfigDependencies';
 export type * from './TActorFactory';
 export type * from './TActorModel3dSettings';
 export type * from './TActorModel3dSettingsConfig';
