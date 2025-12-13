@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { menuRouteMap } from '@Menu/constants';
-import { useRouterStore } from '@Menu/stores/RouterStore';
+import { menuRouteMap } from '@Showcases/Menu/constants';
+import { useRouterStore } from '@Showcases/Menu/stores/RouterStore';
 import { computed } from 'vue';
 
 const routerStore = useRouterStore();

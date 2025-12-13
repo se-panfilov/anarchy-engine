@@ -11,8 +11,8 @@
       "@AnarchyI18n": ["packages/anarchy-i18n/src/index.ts"],
       "@Showcases/Shared/*": ["packages/showcases-shared/src/*"],
       "@Showcases/Shared": ["packages/showcases-shared/src/index.ts"],
-      "@Menu/*": ["packages/showcases-menu/src/*"],
-      "@Menu": ["packages/showcases-menu/src/index.ts"]
+      "@Showcases/Menu/*": ["packages/showcases-menu/src/*"],
+      "@Showcases/Menu": ["packages/showcases-menu/src/index.ts"]
     },
     "typeRoots": ["./node_modules/@types", "./node_modules", "../../node_modules/@types", "../../node_modules", "./src/Engine/Types", "./types"]
   },

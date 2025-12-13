@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import Navigation from '@Menu/components/Navigation.vue';
-import Range from '@Menu/components/Range.vue';
-import SettingsGroup from '@Menu/components/SettingsGroup.vue';
-import View from '@Menu/components/View.vue';
-import ViewActions from '@Menu/components/ViewActions.vue';
-import ViewForm from '@Menu/components/ViewForm.vue';
-import { useSettingsStore } from '@Menu/stores/SettingsStore';
+import Navigation from '@Showcases/Menu/components/Navigation.vue';
+import Range from '@Showcases/Menu/components/Range.vue';
+import SettingsGroup from '@Showcases/Menu/components/SettingsGroup.vue';
+import View from '@Showcases/Menu/components/View.vue';
+import ViewActions from '@Showcases/Menu/components/ViewActions.vue';
+import ViewForm from '@Showcases/Menu/components/ViewForm.vue';
+import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
 import type { TWriteable } from '@Anarchy/Shared/Utils';
 import type { TAudioSettings } from '@Showcases/Shared';
 import { reactive } from 'vue';

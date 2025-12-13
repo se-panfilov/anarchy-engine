@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRouterStore } from '@Menu/stores/RouterStore';
+import { useRouterStore } from '@Showcases/Menu/stores/RouterStore';
 import type { TNavOption } from '@Showcases/Shared';
 
 // TODO DESKTOP: test i18n (for desktop also)

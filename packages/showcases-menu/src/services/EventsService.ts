@@ -1,5 +1,5 @@
-import type { TEventsService } from '@Menu/models';
-import { useSettingsStore } from '@Menu/stores/SettingsStore';
+import type { TEventsService } from '@Showcases/Menu/models';
+import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { TFromMenuEvent, TShowcaseGameSettings, TToMenuEvent } from '@Showcases/Shared';
 import { FromMenuEvents, isSettings, ToMenuEvents } from '@Showcases/Shared';

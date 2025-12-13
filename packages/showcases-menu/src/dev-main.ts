@@ -1,4 +1,4 @@
-import { initMenuApp } from '@Menu/main';
+import { initMenuApp } from '@Showcases/Menu/main';
 import type { TFromMenuEvent, TToMenuEvent } from '@Showcases/Shared';
 import { Subject } from 'rxjs';
 

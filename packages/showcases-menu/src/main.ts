@@ -1,5 +1,5 @@
-import { eventsService } from '@Menu/services';
-import { useMenuOptionsStore } from '@Menu/stores/MenuOptionsStore';
+import { eventsService } from '@Showcases/Menu/services';
+import { useMenuOptionsStore } from '@Showcases/Menu/stores/MenuOptionsStore';
 import { isDefined } from '@Anarchy/Shared/Utils';
 import type { TFromMenuEvent, TMenuOptions, TToMenuEvent } from '@Showcases/Shared';
 import { createPinia } from 'pinia';

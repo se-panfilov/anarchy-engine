@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Navigation from '@Menu/components/Navigation.vue';
-import PageTitle from '@Menu/components/PageTitle.vue';
-import { Routes } from '@Menu/constants';
-import { eventsService } from '@Menu/services';
-import { useMenuOptionsStore } from '@Menu/stores/MenuOptionsStore';
-import { useRouterStore } from '@Menu/stores/RouterStore';
+import Navigation from '@Showcases/Menu/components/Navigation.vue';
+import PageTitle from '@Showcases/Menu/components/PageTitle.vue';
+import { Routes } from '@Showcases/Menu/constants';
+import { eventsService } from '@Showcases/Menu/services';
+import { useMenuOptionsStore } from '@Showcases/Menu/stores/MenuOptionsStore';
+import { useRouterStore } from '@Showcases/Menu/stores/RouterStore';
 import type { TNavOption } from '@Showcases/Shared';
 
 const menuRouterStore = useRouterStore();

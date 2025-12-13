@@ -3,9 +3,9 @@ import './assets/style.scss';
 
 import type { TLocalesMapping, TMessages } from '@AnarchyI18n';
 import { TranslateService } from '@AnarchyI18n';
-import RouterView from '@Menu/components/RouterView.vue';
-import { eventsService } from '@Menu/services';
-import { useSettingsStore } from '@Menu/stores/SettingsStore';
+import RouterView from '@Showcases/Menu/components/RouterView.vue';
+import { eventsService } from '@Showcases/Menu/services';
+import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
 import type { Subscription } from 'rxjs';
 import { filter } from 'rxjs';
 import { onMounted, onUnmounted } from 'vue';

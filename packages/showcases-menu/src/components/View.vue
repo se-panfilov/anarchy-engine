@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PageTitle from '@Menu/components/PageTitle.vue';
+import PageTitle from '@Showcases/Menu/components/PageTitle.vue';
 
 defineProps<{ title: string }>();
 </script>

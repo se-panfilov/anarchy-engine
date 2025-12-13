@@ -1,8 +1,8 @@
-import Audio from '@Menu/views/Audio.vue';
-import Graphics from '@Menu/views/Graphics.vue';
-import Home from '@Menu/views/Home.vue';
-import Localization from '@Menu/views/Localization.vue';
-import Settings from '@Menu/views/Settings.vue';
+import Audio from '@Showcases/Menu/views/Audio.vue';
+import Graphics from '@Showcases/Menu/views/Graphics.vue';
+import Home from '@Showcases/Menu/views/Home.vue';
+import Localization from '@Showcases/Menu/views/Localization.vue';
+import Settings from '@Showcases/Menu/views/Settings.vue';
 
 export enum Routes {
   Home = '/',
