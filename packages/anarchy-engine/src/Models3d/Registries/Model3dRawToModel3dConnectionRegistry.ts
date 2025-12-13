@@ -1,7 +1,7 @@
 import type { TAbstractSimpleRegistry } from '@Anarchy/Engine/Abstract';
 import { AbstractSimpleRegistry, RegistryType } from '@Anarchy/Engine/Abstract';
-import type { TRawModel3d } from '@Anarchy/Engine/Models3d';
 import type { TModel3d, TModel3dRawToModel3dConnectionRegistry, TModel3dRawToModel3dConnectionRegistryExtension } from '@Anarchy/Engine/Models3d/Models';
+import type { TRawModel3d } from '@Anarchy/Engine/Models3d/Models/TRawModel3d';
 import type { TWriteable } from '@Anarchy/Shared/Utils';
 
 export const Model3dRawToModel3dConnectionRegistry = (): TModel3dRawToModel3dConnectionRegistry => {
