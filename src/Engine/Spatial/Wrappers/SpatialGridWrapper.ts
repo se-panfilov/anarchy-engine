@@ -42,7 +42,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
   const wrapper: TWrapper<TSpatialGrid> = AbstractWrapper(entity, WrapperType.SpatialGrid, params);
 
-  function getBoundingBox(mesh: Mesh | Group): Box3 {
+  function getBoundingBox(mesh: Mesh | Group | Object3D): Box3 {
     const box: Box3 = new Box3();
     box.setFromObject(mesh);
     return box;

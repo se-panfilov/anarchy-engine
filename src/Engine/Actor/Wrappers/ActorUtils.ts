@@ -5,6 +5,7 @@ import type { TMaterials, TMaterialWrapper } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
 import type { TModel3dFacade, TModel3dPack } from '@/Engine/Models3d';
 import { Model3dType } from '@/Engine/Models3d';
+import type { TOptional } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
 export async function createActorModel3d(
@@ -16,16 +17,16 @@ export async function createActorModel3d(
 
   if (!Object.values(Model3dType).includes(params.model3d.url as Model3dType)) throw new Error('Cannot create Actor: unknown actor type');
 
-  let result: TModel3dPack = {
+  let result: TOptional<TModel3dPack> = {
     url: params.model3d.url,
     animations: [],
     model: undefined,
     options: { shouldAddToScene: false, shouldAddToRegistry: true, isForce: false }
-  } as unknown as TModel3dPack;
+  };
   if ((params.model3d.url as Model3dType) === Model3dType.Plane) result = { ...result, model: createPlane(params, materialWrapper.entity) };
   else if ((params.model3d.url as Model3dType) === Model3dType.Sphere) result = { ...result, model: createSphere(params, materialWrapper.entity) };
   else if ((params.model3d.url as Model3dType) === Model3dType.Cube) result = { ...result, model: createCube(params, materialWrapper.entity) };
-  return models3dService.createFromPack(result);
+  return models3dService.createFromPack(result as TModel3dPack);
 }
 
 function createPlane({ width, height, widthSegments, heightSegments }: TActorParams, material: TMaterials): Mesh {

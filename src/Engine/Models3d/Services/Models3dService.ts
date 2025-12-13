@@ -48,7 +48,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     }
 
     return models3dLoader.loadAsync(url).then((gltf: GLTF): TPerformLoadResult => {
-      return { result: Model3dFacade({ ...params, model: gltf.scene, animations: animationsService.gltfAnimationsToPack(gltf.animations) }, animationsService), isExisting: false };
+      return { result: Model3dFacade({ ...params, model: gltf.scene, animations: gltf.animations }, animationsService), isExisting: false };
     });
   }
 

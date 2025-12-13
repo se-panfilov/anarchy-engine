@@ -1,4 +1,4 @@
-import type { BufferGeometry, Group, Intersection, Mesh, Raycaster } from 'three';
+import type { BufferGeometry, Group, Intersection, Mesh, Object3D, Raycaster } from 'three';
 import type { MeshBVH } from 'three-mesh-bvh';
 import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree, MeshBVHHelper } from 'three-mesh-bvh';
 
@@ -47,9 +47,9 @@ export function BvhService(): TBvhService {
   };
 }
 
-function processEntity(entity: Mesh | Group, callback: (mesh: Mesh) => void): void {
+function processEntity(entity: Group | Mesh | Object3D, callback: (mesh: Mesh) => void): void {
   if ((entity as Mesh).isMesh) return callback(entity as Mesh);
-  if ((entity as Group).isGroup) {
+  if ((entity as Group).isGroup || (entity as Object3D).isObject3D) {
     return entity.traverse((object: unknown) => {
       if ((object as Mesh).isMesh) {
         callback(object as Mesh);

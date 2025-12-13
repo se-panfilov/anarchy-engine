@@ -5,7 +5,7 @@ import type { TWithMaterial } from '@/Engine/Material/Models';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
-export function withMaterial<T extends TWriteable<Mesh | Group | Points>>(entity: T): TWithMaterial {
+export function withMaterial<T extends TWriteable<Group | Mesh | Object3D | Points>>(entity: T): TWithMaterial {
   function useMaterial(material: Material): Material {
     if ((entity as Group).isGroup) {
       entity.traverse((object) => hasMaterial(object) && applyMaterial(object, material));

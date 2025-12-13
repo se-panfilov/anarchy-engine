@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import type { Group, Mesh, Vector3 } from 'three';
+import type { Group, Mesh, Object3D, Vector3 } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActorDependencies, TActorParams, TActorWrapperAsync } from '@/Engine/Actor/Models';
@@ -36,7 +36,7 @@ export async function ActorWrapperAsync(
   if (model3dLoadResultList.length === 0) throw new Error(`Model3d not loaded: ${params.model3d.url}`);
   if (model3dLoadResultList.length > 1) throw new Error(`Model3d loaded more than one model: ${params.model3d.url}`);
   const model3dLoadResult: TModel3dFacade = await model3dLoadResultList[0];
-  const entity: Mesh | Group = model3dLoadResult.getModel();
+  const entity: Group | Mesh | Object3D = model3dLoadResult.getModel();
 
   const withMaterialEntity: TWithMaterial = withMaterial(entity);
 

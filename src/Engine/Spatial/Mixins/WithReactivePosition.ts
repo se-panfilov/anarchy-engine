@@ -1,10 +1,10 @@
 import { Subject } from 'rxjs';
-import type { Group, Mesh } from 'three';
+import type { Group, Mesh, Object3D } from 'three';
 import { Vector3 } from 'three';
 
 import type { TWithReactivePosition } from '@/Engine/Spatial/Models';
 
-export function withReactivePosition(entity: Mesh | Group): TWithReactivePosition {
+export function withReactivePosition(entity: Mesh | Group | Object3D): TWithReactivePosition {
   const position$: Subject<Vector3> = new Subject<Vector3>();
   let prevPosition: Vector3 = new Vector3();
 

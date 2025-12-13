@@ -1,6 +1,6 @@
-import type { TAnimationsPack } from './TAnimationsPack';
+import type { AnimationClip } from 'three';
 
 export type TModel3dAnimations = Readonly<{
   url: string;
-  pack: TAnimationsPack;
+  pack: ReadonlyArray<AnimationClip>;
 }>;
