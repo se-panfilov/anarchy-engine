@@ -8,10 +8,12 @@ interface Position {
   z: number;
 }
 
-type EasingType = 'linear' | 'easeIn' | 'easeOut' | 'easeInOut'; // Modify this to include the actual easing types
+// TODO (S.Panfilov) CWP what about delta time?
+// Now the value change depends on a frame rate
 
 export function goToPosition(actor: IMesh, position: Position, duration: number, easing: EasingOptions = 'linear'): Promise<void> {
-  anime({
+  const timeline = anime.timeline();
+  timeline.add({
     targets: actor.position,
     x: position.x,
     y: position.y,
@@ -28,5 +30,5 @@ export function goToPosition(actor: IMesh, position: Position, duration: number,
     }
   });
 
-  return Promise.resolve();
+  return timeline.finished;
 }

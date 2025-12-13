@@ -1,6 +1,5 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import { ambientContext, IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
-import { buildLevelFromConfig, CameraTag, isNotDefined } from '@/Engine';
+import { ambientContext, buildLevelFromConfig, IActorWrapper, IAppCanvas, ILevel, ILevelConfig, isNotDefined } from '@/Engine';
 import { goToPosition } from '@/Engine/Utils/MoveUtils';
 
 import levelConfig from './showcase-level-4.config.json';
@@ -16,12 +15,13 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const topActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('top_actor');
     const centralActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('central_actor');
     const bottomActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('bottom_actor');
+    if (isNotDefined(topActor) || isNotDefined(centralActor) || isNotDefined(bottomActor)) throw new Error('Actors are not defined');
 
-    ambientContext.mouseClickWatcher.value$.subscribe((event) => {
+    ambientContext.mouseClickWatcher.value$.subscribe(() => {
       console.log(cameraRegistry.getAll()[0].getRotation());
-      if (isNotDefined(topActor) || isNotDefined(centralActor) || isNotDefined(bottomActor)) throw new Error('Actors are not defined');
+
       goToPosition(topActor.entity, { x: 13, y: topActor.getY(), z: topActor.getZ() }, 1500, 'easeInCirc').then(() => {
-        console.log('topActor is done');
+        topActor.entity.material.color.setHex('0xFF0000');
       });
       goToPosition(centralActor.entity, { x: 13, y: centralActor.getY(), z: centralActor.getZ() }, 1500, 'linear');
       goToPosition(bottomActor.entity, { x: 13, y: bottomActor.getY(), z: bottomActor.getZ() }, 1500, 'easeInOutQuad');
