@@ -6,7 +6,6 @@ export default {
     messages: {
       // CONFIGS
       HAS_DPO: false,
-      HAS_OSS_SIBLING: true,
       PROHIBIT_HIGH_RISK_USE: true,
       SBOM_AVAILABLE: false,
       MOD_HOSTING: false,

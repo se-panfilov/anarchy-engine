@@ -16,17 +16,17 @@ This repository is a **project** and **is not, by itself, a product placed on an
 
 If **you** place a product on the market using the Software, **you** are responsible for compliance (e.g., product safety/cybersecurity such as the EU **CRA**, privacy/data protection such as **GDPR/UK-GDPR, CPRA, LGPD, PIPEDA, Australia Privacy Act, PIPL**, consumer protection, export/sanctions).
 
-Where Sergei Aleksandrovich Panfilov distributes **commercial binaries**, obligations (incl. security support and vulnerability handling) are addressed in the accompanying documents: see `SECURITY` and `SUPPORT`.
+Where Sergei Aleksandrovich Panfilov distributes **commercial binaries**, obligations (including security support and vulnerability handling) are addressed in the accompanying documents: see `SECURITY` and `SUPPORT`.
 
 ## Export Controls and Sanctions
 
-The Software may be subject to **export control, re-export, and sanctions** laws and regulations (including those of the **EU**, **US**, **UK**, and other jurisdictions). You agree to comply with all applicable restrictions and **not** to use, export, re-export, or transfer the Software **(i)** to any **sanctioned or restricted** person, entity, or destination, or **(ii)** for any prohibited end use under applicable law.
+The Software may be subject to **export control, re-export, and sanctions** laws and regulations (including those of the **EU**, **US**, **UK**, and other jurisdictions). You are responsible for complying with all applicable restrictions and for **not** using, exporting, re-exporting, or transferring the Software **(i)** to any **sanctioned or restricted** person, entity, or destination, or **(ii)** for any prohibited end use under applicable law.
 
 ## Not for Safety-Critical Use
 
 **High-Risk Use Prohibition.** The Software **must not** be used in safety-critical contexts (including medical, aviation, nuclear, military, or critical infrastructure) where failure could lead to death, personal injury, or severe environmental or property damage. Any such use is **strictly prohibited**.
 
-## Third-Party Components (OSS Precedence)
+## Third-Party Components (License Precedence)
 
 The Software may include or interface with **third-party open-source components**. Such components are licensed under their **own** terms. **If there is a conflict between this disclaimer/EULA and an OSS license for a specific component, the OSS license controls for that component.** See `NOTICE` / `THIRD_PARTY_LICENSES`.
 

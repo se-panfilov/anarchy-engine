@@ -18,7 +18,7 @@ Operates **offline** by default; any online features, if offered, are **opt-in**
 
 **Supported platforms (indicative):** Windows 10/11 (64-bit), macOS 12+ (Intel/Apple Silicon), and mainstream Linux x86_64 distributions (e.g., Ubuntu 20.04+), subject to GPU/driver support for WebGL 2 / hardware acceleration.
 
-> **Indicative requirements**. Performance and compatibility depend on device, GPU/driver, OS updates, and browser/runtime. Some older/integrated GPUs or blocked drivers may not support all effects. Where WebGL 2 is unavailable, limited fallback may run with reduced visuals (not guaranteed).
+> **Indicative requirements**. Performance and compatibility depend on device, GPU/driver, OS updates, and runtime. Some older/integrated GPUs or blocked drivers may not support all effects.
 
 **Minimum system requirements (indicative):**
 

@@ -49,7 +49,7 @@
 ## F. SBOM
 
 - **Location & format:** **`./sbom/` (CycloneDX JSON)**.
-- **Generation:** Generated automatically at release time in CI as **CycloneDX JSON**. Scope: runtime dependencies of the shipped artifact based on lockfiles/bundle manifests; **excludes** dev/test/build tools and OS/platform components not bundled with the release. **If** a release bundles native or non-JavaScript components (e.g., Electron/Android/iOS wrappers), we **may complement** the BOM with a lightweight file-level scan of the final package; otherwise the JS runtime BOM is the authoritative inventory. Stored under `./sbom/`; **SHA-256** recorded; retained ≥10 years; available on request.
+- **Generation:** Generated automatically at release time in CI as **CycloneDX JSON**. **Scope:** runtime dependencies of the shipped artifact based on lockfiles/bundle manifests; **excludes** dev/test/build tools and OS/platform components not bundled with the release. **If** a release bundles **native or platform-specific components**, we **may complement** the BOM with a lightweight file-level scan of the final package; otherwise the **primary runtime BOM** is the authoritative inventory. Stored under `./sbom/`; **SHA-256** recorded; retained ≥10 years; available on request.
 - **Availability:** available on request from TBD until market release / TBD until market release
 
 ## G. Labels, notices & marking

@@ -24,8 +24,8 @@
 ## 4. Remediation
 
 - Prioritize fixes by severity and user impact.
-- Validate fix; run minimal smoke tests.
-- Prepare release notes/advisories; provide mitigations if полный фикс не готов.
+- Validate the fix; run minimal smoke tests.
+- Prepare release notes/advisories; provide mitigations if a full fix is not immediately available.
 
 ## 5. Notifications (Legal/Regulatory)
 
@@ -35,13 +35,13 @@
 
 ## 6. Third-Party Components
 
-- Track dependencies via **SBOM** (**{{SBOM_FORMAT}} at `{{SBOM_LOCATION}}`**); if not packaged with the build, available on request).
-- For vulnerable dependencies, assess exposure; upgrade, patch, or apply compensating controls. Note any OSS license constraints.
+- Track dependencies via **SBOM** (**{{SBOM_FORMAT}} at `{{SBOM_LOCATION}}`**; if not packaged with the build, available on request).
+- For vulnerable dependencies, assess exposure; upgrade, patch, or apply compensating controls. Note any third-party license constraints.
 
 ## 7. Communication
 
 - **Advisories / release notes:** publish in the update package and/or in-product legal/notice screen; no fixed location/cadence guaranteed.
-- Provide clear, минимальные шаги для обновления/миграции.
+- Provide clear, minimal steps for users to update or mitigate.
 
 ## 8. Record-Keeping
 
@@ -55,4 +55,4 @@
 ## 10. Boundaries
 
 - No bug bounty unless explicitly stated.
-- Plan **does not** create contractual SLAs or guarantees.
+- This plan **does not** create contractual SLAs or guarantees.

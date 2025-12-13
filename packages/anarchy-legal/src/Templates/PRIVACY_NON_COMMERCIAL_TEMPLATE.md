@@ -13,7 +13,7 @@
 If you open issues, pull requests, or discussions, the content you submit (including your profile/handle and attachments) becomes **public** on the code-hosting platform(s) where the repository is published and is processed under the applicable platform’s privacy policy. We may process this **public** information to operate, maintain, and improve the project.
 Copies of public content may also appear in mirrors, forks, caches, archival copies, package registries, or on physical media distributed by others; we do not control those third-party copies, and requests regarding them should be directed to the respective distributor or platform.
 
-**Legal basis:** our **legitimate interests** in running the OSS project.
+**Legal basis:** our **legitimate interests** in running the project.
 
 **Retention:** issue/PR/discussion history is retained as part of the **public project record**. Edits/deletions are handled via the platform’s features; historical records (e.g., git history) may persist.
 
@@ -43,9 +43,9 @@ This project is intended for developers and is **not** directed to children.
 
 {{#STORE_DISCLOSURES}}
 
-## 7. App-Store Disclosures (if an OSS build is listed)
+## 7. App-Store Disclosures (if a build is listed)
 
-If an OSS build is listed in an app store, our store listing reflects the data-collection status for that build/version (typically _“No data collected”_). Store-specific summaries are provided in the listing and may vary by version.
+If a build is listed in an app store, our store listing reflects the data-collection status for that build/version (typically _“No data collected”_). Store-specific summaries are provided in the listing and may vary by version.
 {{/STORE_DISCLOSURES}}
 
 ## {{#STORE_DISCLOSURES}}8{{/STORE_DISCLOSURES}}{{^STORE_DISCLOSURES}}7{{/STORE_DISCLOSURES}}. Changes

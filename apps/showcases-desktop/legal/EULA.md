@@ -14,8 +14,6 @@ This EULA applies to **TBD until market release** (the “Software”).
 
 Also distributed under the following technical identifiers: `showcases-desktop`.
 
-**Open-source repository.** The codebase related to this Software (if any) is governed by its license (see `LICENSE` in that repository) and is **not** governed by this EULA.
-
 ## Defined Terms
 
 “**Distribution Channels**” means any store, marketplace, platform, launcher, website, installer, physical media, or other mechanism used now or in the future to distribute the Software, regardless of provider.
@@ -34,7 +32,7 @@ Subject to this EULA, Licensor grants you a personal, non-exclusive, revocable l
 
 ## 2. Ownership
 
-The Software is licensed, not sold. Sergei Aleksandrovich Panfilov and its licensors retain all title and IP rights. **Open-source components** are licensed under their respective terms.
+The Software is licensed, not sold. Sergei Aleksandrovich Panfilov and its licensors retain all title and IP rights. **Third-party components** are licensed under their respective terms.
 
 ## 3. Permitted Use, Sharing & Reverse Engineering
 
@@ -97,7 +95,7 @@ Where required by applicable law (e.g., the **EU Accessibility Act**), we aim to
 
 ## 10. Term & Termination
 
-This EULA is effective until terminated. It terminates automatically if you materially breach it. Upon termination, cease use and uninstall the Software. Sections intended to survive (Ownership, OSS, Disclaimers, Liability, Governing Law) shall survive.
+This EULA is effective until terminated. It terminates automatically if you materially breach it. Upon termination, cease use and uninstall the Software. Sections intended to survive (Ownership, Third-Party Components, Disclaimers, Liability, Governing Law) shall survive.
 
 ## 11. Disclaimer of Warranties
 
@@ -119,9 +117,9 @@ This clause does not apply to Consumers and does not limit liability where such 
 
 You must comply with applicable **export, re-export, and sanctions** laws. You may not use or transfer the Software to restricted persons, entities, destinations, or for prohibited end uses.
 
-## 14. Open-Source Components (OSS Precedence)
+## 14. Third-Party Components (License Precedence)
 
-The Software includes **open-source software**. **To the extent of any conflict between this EULA and the license terms of an OSS component, the OSS license controls for that component.** Third-party notices and licenses are provided in the distribution package (see `NOTICE` and `THIRD_PARTY_LICENSES`).
+The Software includes **third-party components**. **To the extent of any conflict between this EULA and the license terms of a third-party component, the third-party license controls for that component.** Third-party notices and licenses are provided in the distribution package (see `NOTICE` and `THIRD_PARTY_LICENSES`).
 
 ## 15. Governing Law & Consumer Rights
 

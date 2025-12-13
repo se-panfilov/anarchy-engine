@@ -1,10 +1,10 @@
 # Third-Party Notices (Pointer)
 
-This distribution of **TBD until market release** may include third-party open-source components.
+This distribution of **TBD until market release** may include **third-party components**.
 
 Full attributions and license texts are provided **offline** at:
 
-- `./legal/NOTICE`: ← canonical third-party notices
+- `./legal/NOTICE`: canonical third-party notices
 - `./legal/THIRD_PARTY_LICENSES`: bundled license texts
 - `./compliance/sbom/`: Software Bill of Materials; if not packaged with the build, available on request
 

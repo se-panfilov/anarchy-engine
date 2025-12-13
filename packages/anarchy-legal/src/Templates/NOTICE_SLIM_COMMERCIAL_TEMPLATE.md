@@ -1,10 +1,10 @@
 # Third-Party Notices (Pointer)
 
-This distribution of **{{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}** may include third-party open-source components.
+This distribution of **{{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}** may include **third-party components**.
 
 Full attributions and license texts are provided **offline** at:
 
-- `./legal/NOTICE`: ← canonical third-party notices
+- `./legal/NOTICE`: canonical third-party notices
 - `./legal/THIRD_PARTY_LICENSES`: bundled license texts
 - `{{SBOM_LOCATION}}`: Software Bill of Materials; if not packaged with the build, available on request
 

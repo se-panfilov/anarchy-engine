@@ -32,7 +32,7 @@ Operates **offline** by default; any online features, if offered, are **opt-in**
 {{/SUPPORTED_PLATFORMS}}
 {{#MIN_SYSTEM_REQUIREMENTS}}
 
-> **Indicative requirements**. Performance and compatibility depend on device, GPU/driver, OS updates, and browser/runtime. Some older/integrated GPUs or blocked drivers may not support all effects. Where WebGL 2 is unavailable, limited fallback may run with reduced visuals (not guaranteed).
+> **Indicative requirements**. Performance and compatibility depend on device, GPU/driver, OS updates, and runtime. Some older/integrated GPUs or blocked drivers may not support all effects.
 
 **Minimum system requirements (indicative):**
 {{MIN_SYSTEM_REQUIREMENTS}}
