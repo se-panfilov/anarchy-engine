@@ -14,6 +14,11 @@ export function ScreenService(): TScreenService {
   return Object.assign(abstractService, {
     setCanvas: (appCanvas: TAppCanvas): void => void (canvas = appCanvas),
     getCanvas: (): TAppCanvas | undefined => canvas,
+    destroyCanvas: (): void => {
+      (canvas as HTMLCanvasElement).remove();
+      if (canvas?.parentNode) canvas.parentNode.removeChild(canvas);
+      canvas = undefined;
+    },
     goFullScreen: (): Promise<void> => goFullScreen(canvas),
     exitFullScreen: (): Promise<void> => exitFullScreen(ambientContext.container.getAppContainer()),
     toggleFullScreen: (): Promise<void> => {

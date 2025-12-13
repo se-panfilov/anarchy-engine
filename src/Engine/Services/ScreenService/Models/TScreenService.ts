@@ -5,6 +5,7 @@ export type TScreenService = TAbstractService &
   Readonly<{
     setCanvas: (canvas: TAppCanvas) => void;
     getCanvas: () => TAppCanvas | undefined;
+    destroyCanvas: () => void;
     goFullScreen: () => Promise<void>;
     exitFullScreen: () => Promise<void>;
     toggleFullScreen: () => Promise<void>;
