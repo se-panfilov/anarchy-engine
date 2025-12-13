@@ -1,4 +1,4 @@
-import { IWatcherRegistry } from '@/Engine';
+import { IProtectedRegistry } from '@/Engine';
 import type { IMousePositionWatcher } from '@/Engine/Watchers';
 
-export type IMousePositionWatcherRegistry = IWatcherRegistry<IMousePositionWatcher>;
+export type IMousePositionWatcherRegistry = IProtectedRegistry<IMousePositionWatcher>;

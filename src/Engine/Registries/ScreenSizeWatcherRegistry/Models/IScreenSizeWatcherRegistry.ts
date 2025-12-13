@@ -1,3 +1,3 @@
-import { IScreenSizeWatcher, IWatcherRegistry } from '@/Engine';
+import { IProtectedRegistry, IScreenSizeWatcher } from '@/Engine';
 
-export type IScreenSizeWatcherRegistry = IWatcherRegistry<IScreenSizeWatcher>;
+export type IScreenSizeWatcherRegistry = IProtectedRegistry<IScreenSizeWatcher>;
