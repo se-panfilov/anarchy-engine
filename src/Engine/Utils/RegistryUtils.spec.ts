@@ -8,7 +8,7 @@ import { withTagsMixin } from '@/Engine/Mixins/Generic/WithTagsMixin';
 import type { ISceneRegistry, ISceneWrapper } from '@/Engine/Scene';
 import { SceneRegistry, SceneWrapper } from '@/Engine/Scene';
 
-import { getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, setActiveWrappedEntity } from './RegistryUtils';
+import { getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, setActiveWrappedEntity, shouldHaveTags } from './RegistryUtils';
 
 describe('RegistryUtils', () => {
   const tagA: string = 'tagA';
@@ -227,6 +227,56 @@ describe('RegistryUtils', () => {
       const registry: ISceneRegistry = SceneRegistry();
       registry.add(mockObj1);
       expect(() => setActiveWrappedEntity(registry, 'whatever-id')).toThrow();
+    });
+  });
+
+  describe('shouldHaveTags every', () => {
+    describe('LookUpStrategy "every"', () => {
+      it('should return "true" if object contains multiple tags', () => {
+        expect(shouldHaveTags(obj4BE, [tagB, tagE], LookUpStrategy.Every)).toBe(true);
+      });
+
+      it('should return "true" if object contains a single tags', () => {
+        expect(shouldHaveTags(obj4BE, [tagB], LookUpStrategy.Every)).toBe(true);
+      });
+
+      it('should return "false" if object contains NO tags', () => {
+        expect(shouldHaveTags(obj4BE, [tagA, tagD], LookUpStrategy.Every)).toBe(false);
+      });
+
+      it('should return "false" if the entity has no such tags', () => {
+        const registry: Map<string, IRegistrable> = new Map();
+        registry.set('obj5None', obj5None);
+        expect(shouldHaveTags(obj5None, [tagB], LookUpStrategy.Every)).toEqual(false);
+      });
+
+      it('should return "false" if NO tagList is provided', () => {
+        expect(shouldHaveTags(obj4BE, [], LookUpStrategy.Every)).toEqual(false);
+      });
+    });
+
+    describe('LookUpStrategy "some"', () => {
+      it('should return "true" if object contains multiple tags', () => {
+        expect(shouldHaveTags(obj4BE, [tagB, tagE], LookUpStrategy.Some)).toBe(true);
+      });
+
+      it('should return "true" if object contains a single tags', () => {
+        expect(shouldHaveTags(obj4BE, [tagB], LookUpStrategy.Some)).toBe(true);
+      });
+
+      it('should return "false" if object contains NO tags', () => {
+        expect(shouldHaveTags(obj4BE, [tagA, tagD], LookUpStrategy.Some)).toBe(false);
+      });
+
+      it('should return "false" if the entity has no such tags', () => {
+        const registry: Map<string, IRegistrable> = new Map();
+        registry.set('obj5None', obj5None);
+        expect(shouldHaveTags(obj5None, [tagB], LookUpStrategy.Some)).toEqual(false);
+      });
+
+      it('should return "false" if NO tagList is provided', () => {
+        expect(shouldHaveTags(obj4BE, [], LookUpStrategy.Some)).toEqual(false);
+      });
     });
   });
 });

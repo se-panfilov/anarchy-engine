@@ -37,5 +37,4 @@ export function setActiveWrappedEntity<E extends IWithActiveMixin & IRegistrable
   return result;
 }
 
-// TODO (S.Panfilov) add unit tests
 export const shouldHaveTags = <T extends IRegistrable>(obj: T, tagList: ReadonlyArray<string>, strategy: LookUpStrategy): boolean => tagList[strategy]((tag: string) => obj.hasTag(tag));
