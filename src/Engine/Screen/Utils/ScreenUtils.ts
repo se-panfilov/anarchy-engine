@@ -1,5 +1,5 @@
-import type { TAppCanvas } from '@/Engine/App';
 import type { TAppGlobalContainer } from '@/Engine/Global';
+import type { TSpaceCanvas } from '@/Engine/Space';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function isFullScreen(container: TAppGlobalContainer | undefined): boolean {
@@ -9,7 +9,7 @@ export function isFullScreen(container: TAppGlobalContainer | undefined): boolea
   return Boolean(container.document.fullscreenElement || (container.document as any).webkitFullscreenElement);
 }
 
-export function goFullScreen(canvas: TAppCanvas | undefined): Promise<void | never> {
+export function goFullScreen(canvas: TSpaceCanvas | undefined): Promise<void | never> {
   if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
   if (canvas.requestFullscreen) return canvas.requestFullscreen();
   if ((canvas as any).webkitRequestFullscreen) return (canvas as any).webkitRequestFullscreen();

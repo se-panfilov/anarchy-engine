@@ -1,7 +1,7 @@
-import type { TAppCanvas, TWriteable } from '@/Engine';
+import type { TSpaceCanvas, TWriteable } from '@/Engine';
 
-export function getMockCanvas(): TAppCanvas {
-  const canvas: TWriteable<TAppCanvas> = document.createElement('canvas');
+export function getMockCanvas(): TSpaceCanvas {
+  const canvas: TWriteable<TSpaceCanvas> = document.createElement('canvas');
   // eslint-disable-next-line functional/immutable-data
   HTMLCanvasElement.prototype.getContext = vi.fn(() => {
     return {

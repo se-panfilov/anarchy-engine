@@ -2,7 +2,6 @@ import type { Subscription } from 'rxjs';
 
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
-import type { TAppCanvas } from '@/Engine/App';
 import type { TCameraRegistry, TCameraWrapper } from '@/Engine/Camera';
 import { controlsLoopEffect } from '@/Engine/Controls/Loop';
 import type {
@@ -17,10 +16,10 @@ import type {
 } from '@/Engine/Controls/Models';
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { withActiveEntityServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
-import type { TSpaceLoops } from '@/Engine/Space';
+import type { TSpaceCanvas, TSpaceLoops } from '@/Engine/Space';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function ControlService(factory: TControlsFactory, registry: TControlsRegistry, { controlsLoop }: TSpaceLoops, canvas: TAppCanvas): TControlsService {
+export function ControlService(factory: TControlsFactory, registry: TControlsRegistry, { controlsLoop }: TSpaceLoops, canvas: TSpaceCanvas): TControlsService {
   const withActive: TWithActiveMixinResult<TControlsWrapper> = withActiveEntityServiceMixin<TControlsWrapper>(registry);
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TControlsWrapper>): void => {
     if (value.isActive()) withActive.active$.next(value);

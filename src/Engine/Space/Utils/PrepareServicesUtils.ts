@@ -2,7 +2,6 @@ import type { TModel3dToActorConnectionRegistry } from '@/Engine/Actor';
 import { ActorFactory, ActorRegistry, ActorService, Model3dToActorConnectionRegistry } from '@/Engine/Actor';
 import type { TAnimationsService } from '@/Engine/Animations';
 import { AnimationsResourceAsyncRegistry, AnimationsService } from '@/Engine/Animations';
-import type { TAppCanvas } from '@/Engine/App';
 import type { TAudioService } from '@/Engine/Audio';
 import { AudioFactory, AudioListenersRegistry, AudioRegistry, AudioResourceAsyncRegistry, AudioService } from '@/Engine/Audio';
 import type { TCameraService } from '@/Engine/Camera';
@@ -35,6 +34,7 @@ import type { TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
 import type { TScreenService } from '@/Engine/Screen';
 import { ScreenService, ScreenSizeWatcherFactory, ScreenSizeWatcherRegistry } from '@/Engine/Screen';
+import type { TSpaceCanvas } from '@/Engine/Space';
 import type { TSpaceBaseServices, TSpaceLoops, TSpaceServices } from '@/Engine/Space/Models';
 import type { TSpatialGridService } from '@/Engine/Spatial';
 import { SpatialGridFactory, SpatialGridRegistry, SpatialGridService } from '@/Engine/Spatial';
@@ -50,7 +50,7 @@ export function buildBaseServices(): TSpaceBaseServices {
   return { loopService, scenesService, screenService };
 }
 
-export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas, loops: TSpaceLoops, { loopService, scenesService, screenService }: TSpaceBaseServices): TSpaceServices {
+export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TSpaceCanvas, loops: TSpaceLoops, { loopService, scenesService, screenService }: TSpaceBaseServices): TSpaceServices {
   const textureService: TTextureService = TextureService(TextureAsyncRegistry());
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry(), { textureService });
   const physicsPresetService: TPhysicsPresetsService = PhysicsPresetsService(PhysicsPresetRegistry());

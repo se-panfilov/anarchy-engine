@@ -1,5 +1,5 @@
-import type { TAppCanvas } from '@/Engine/App';
 import type { TActive, TWithName, TWithTags } from '@/Engine/Mixins';
+import type { TSpaceCanvas } from '@/Engine/Space';
 
 import type { TBaseControlsParams } from './TBaseControlsParams';
 
@@ -18,7 +18,7 @@ export type TFpsControlsParams = TBaseControlsParams &
     verticalMin?: number;
     verticalMax?: number;
     mouseDragOn?: boolean;
-    canvas: TAppCanvas;
+    canvas: TSpaceCanvas;
   }> &
   TWithName &
   TActive &

@@ -1,6 +1,7 @@
 export type * from './TRenderLoop';
 export type * from './TSpace';
 export type * from './TSpaceBaseServices';
+export type * from './TSpaceCanvas';
 export type * from './TSpaceConfig';
 export type * from './TSpaceConfigEntities';
 export type * from './TSpaceConfigResources';

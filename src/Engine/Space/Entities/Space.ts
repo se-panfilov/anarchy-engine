@@ -3,7 +3,6 @@ import { BehaviorSubject, distinctUntilChanged, filter, skip } from 'rxjs';
 
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
-import type { TAppCanvas } from '@/Engine/App';
 import { ambientContext } from '@/Engine/Context';
 import type { TGlobalContainerDecorator } from '@/Engine/Global';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
@@ -12,7 +11,7 @@ import { RendererModes } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
-import type { TSpace, TSpaceBaseServices, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceServices } from '@/Engine/Space/Models';
+import type { TSpace, TSpaceBaseServices, TSpaceCanvas, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceServices } from '@/Engine/Space/Models';
 import { buildBaseServices, buildEntitiesServices, createEntities } from '@/Engine/Space/Utils';
 import { createLoops } from '@/Engine/Space/Utils/CreateLoopsUtils';
 import { isDefined, isDestroyable, isNotDefined } from '@/Engine/Utils';
@@ -45,7 +44,9 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
     start$
   };
 
-  const space: TSpace = AbstractEntity(parts, EntityType.Space, { version, name, tags });
+  const getCanvasElement = (selector: string): TSpaceCanvas | null => container.document.querySelector(selector);
+
+  const space: TSpace = Object.assign(AbstractEntity(parts, EntityType.Space, { version, name, tags }), { getCanvasElement });
 
   start$.pipe(skip(1), distinctUntilChanged()).subscribe((value: boolean): void => {
     if (value) return Object.values(space.loops).forEach((loop: TLoop): void => loop.start());
@@ -85,7 +86,7 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   return result;
 }
 
-function initSpaceServices(canvas: TAppCanvas, params: TSpaceParams, hooks?: TSpaceHooks): { services: TSpaceServices; loops: TSpaceLoops } {
+function initSpaceServices(canvas: TSpaceCanvas, params: TSpaceParams, hooks?: TSpaceHooks): { services: TSpaceServices; loops: TSpaceLoops } {
   hooks?.beforeBaseServicesBuilt?.(params.canvas, params);
   const baseServices: TSpaceBaseServices = buildBaseServices();
   baseServices.screenService.setCanvas(canvas);

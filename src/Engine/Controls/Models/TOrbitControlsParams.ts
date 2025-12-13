@@ -1,7 +1,7 @@
 import type { Vector3 } from 'three';
 
-import type { TAppCanvas } from '@/Engine/App';
 import type { TActive, TWithName, TWithTags } from '@/Engine/Mixins';
+import type { TSpaceCanvas } from '@/Engine/Space';
 
 import type { TBaseControlsParams } from './TBaseControlsParams';
 
@@ -31,7 +31,7 @@ export type TOrbitControlsParams = TBaseControlsParams &
     keyPanSpeed?: number;
     autoRotate?: boolean;
     autoRotateSpeed?: number;
-    canvas: TAppCanvas;
+    canvas: TSpaceCanvas;
     target?: Vector3;
     cursor?: Vector3;
   }> &
