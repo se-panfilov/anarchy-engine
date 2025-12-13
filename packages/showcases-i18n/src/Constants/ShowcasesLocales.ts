@@ -1,8 +1,9 @@
 /* eslint-disable spellcheck/spell-checker */
 import { enUs, nlNl } from '@Anarchy/i18n';
+import { FallBackFonts } from '@Anarchy/Shared/Constants';
 import type { TLocaleWithFont, TShowcaseLocales } from '@Showcases/i18n/Models';
 
-const getFontFamily = (font: string): string => `"${font}", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif`;
+const getFontFamily = (font: string): string => `"${font}", ${FallBackFonts}`;
 
 // Default font for most of the supported languages
 const font: string = getFontFamily('Noto Sans');
