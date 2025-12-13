@@ -82,6 +82,7 @@
     "audio": [],
     "cameras": [
       {
+        "agent": "default",
         "far": 10000,
         "fov": 45,
         "isActive": true,

@@ -2,7 +2,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Vector3 } from 'three/src/math/Vector3';
 
 import { attachConnectorPositionToSubj, attachConnectorRotationToSubj } from '@/App/Levels/Utils';
-import type { TActor, TLightWrapper, TSpace, TSpaceConfig, TText3dTextureWrapper, TText3dWrapper } from '@/Engine';
+import type { TActor, TCameraWrapper, TLightWrapper, TSpace, TSpaceConfig, TText3dTextureWrapper, TText3dWrapper } from '@/Engine';
 import { getQueryParams, isDefined, isNotDefined, metersPerSecond } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
@@ -14,7 +14,7 @@ const config: TSpaceConfig = spaceConfig as TSpaceConfig;
 let isOriginalSceneLoaded: boolean = true;
 let continuousStepCounter: number = 0;
 
-// TODO 15-0-0: Check other entities TD (light, text, camera, particles, audio3d with debug renderer)
+// TODO 15-0-0: Check other entities TD (particles, audio3d with debug renderer)
 // TODO 15-0-0: Add physical TD check after serialization physics will be done
 export const spaceTransformDriveData: TSpacesData = {
   name: config.name,
@@ -50,10 +50,11 @@ export const spaceTransformDriveData: TSpacesData = {
 };
 
 async function performNormalSaveLoadTest(space: TSpace): Promise<void> {
-  const { defaultActor, kinematicActor, kinematicText } = getShowcaseActors(space);
+  const { defaultActor, kinematicActor, kinematicText, camera } = getShowcaseActors(space);
 
   if (isOriginalSceneLoaded) {
     defaultActor.drive.default.addZ(4);
+    camera.drive.default.addZ(-0.1);
     kinematicActor.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.05));
     kinematicActor.drive.kinematic.lookAt(new Vector3(0, 2, 0), metersPerSecond(0.00003));
     kinematicText.drive.kinematic.moveTo(new Vector3(2, 2, 2.5), metersPerSecond(0.05));
@@ -103,6 +104,7 @@ function getShowcaseActors({ services }: TSpace): {
   kinematicText: TText3dTextureWrapper;
   connectedText: TText3dWrapper;
   connectedLight: TLightWrapper;
+  camera: TCameraWrapper<any>;
 } {
   const defaultActor: TActor | undefined = services.actorService.getRegistry().findByName('cube_default_actor');
   if (isNotDefined(defaultActor)) throw new Error('[Showcase]: Actor "cube_default_actor" not found');
@@ -120,7 +122,10 @@ function getShowcaseActors({ services }: TSpace): {
   if (isNotDefined(connectedText)) throw new Error('[Showcase]: Text "connected_text" not found');
 
   const connectedLight: TLightWrapper | undefined = services.lightService.getRegistry().findByName('connected_light') as TLightWrapper;
-  if (isNotDefined(connectedLight)) throw new Error('[Showcase]: Actor "connected_light" not found');
+  if (isNotDefined(connectedLight)) throw new Error('[Showcase]: Light "connected_light" not found');
 
-  return { defaultActor, kinematicActor, connectedActor, kinematicText, connectedLight, connectedText };
+  const camera: TCameraWrapper<any> | undefined = services.cameraService.findActive();
+  if (isNotDefined(camera)) throw new Error('[Showcase]: Active camera not found');
+
+  return { defaultActor, kinematicActor, connectedActor, kinematicText, connectedLight, connectedText, camera };
 }
