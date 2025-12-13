@@ -4,7 +4,7 @@ import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree, MeshBVHHelper
 
 import type { TBvhOptions, TBvhService } from '@/Engine/Collisions/Models';
 
-function BvhService(): TBvhService {
+export function BvhService(): TBvhService {
   const computeBVHBoundsTree = (geometry: BufferGeometry, options?: TBvhOptions): MeshBVH => computeBoundsTree.call(geometry, options);
 
   const disposeBVHBoundsTree = (geometry: BufferGeometry): void => disposeBoundsTree.call(geometry);
@@ -28,5 +28,3 @@ function BvhService(): TBvhService {
     visualizeBVH
   };
 }
-
-export const bvhService: TBvhService = BvhService();
