@@ -51,8 +51,11 @@ export const BASE_CSP: TCspRulles = {
   'child-src': ["'none'"],
   'object-src': ["'none'"],
   'base-uri': ["'self'"],
-  'form-action': ["'self'"],
-  'frame-ancestors': ["'none'"]
+  'form-action': ["'self'"]
+
+  // Must be set via server headers
+  // 'frame-ancestors': ["'none'"]
+
   // "upgrade-insecure-requests": [] //If needed in the web version
 };
 

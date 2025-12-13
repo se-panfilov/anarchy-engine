@@ -31,8 +31,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
     throw new Error('[BUILD] Build must be run with a target(desktop/mobile/web). So, VITE_BUILD_PLATFORM mast be specified in .env file, but it is not.');
 
   const toBool = (v: string): boolean => v === 'true';
-  // TODO DESKTOP: DEBUG!!!!
-  const buildCompression: boolean = false; //toBool(VITE_BUILD_COMPRESSION);
+  const buildCompression: boolean = toBool(VITE_BUILD_COMPRESSION);
   const minify: boolean = toBool(VITE_BUILD_MINIFIED);
   const sourcemap: boolean = toBool(VITE_BUILD_SOURCEMAPS);
 
@@ -71,13 +70,9 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       vueJsx(),
       //END: FOR GUI only///////
 
-      // TODO DESKTOP: CSP plugin generates too many inline-script's hashes. Fix it or replace a plugin.
       //Issue: CSP plugin doesn't add <Meta> tag in dev mode
       csp({
-        dev: {
-          run: true,
-          outlierSupport: ['sass']
-        },
+        dev: { run: true, outlierSupport: ['sass'] },
         policy: PROD_CSP,
         build: { sri: true }
       }),
