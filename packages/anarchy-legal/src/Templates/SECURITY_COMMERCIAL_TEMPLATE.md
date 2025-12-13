@@ -1,6 +1,7 @@
 # Security Policy — {{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}
 
 **Effective date:** {{EFFECTIVE_DATE}}
+
 **Security Contact:** {{SECURITY_EMAIL}}
 
 ## Scope
@@ -15,7 +16,7 @@ This policy applies to commercial builds of **{{PRODUCT_DISPLAY_NAME}}{{TRADEMAR
 
 ## Handling
 
-We will make a **good-faith effort** to triage and prioritize reports. We **do not** promise specific response times or remediation timelines. Availability may be reduced during weekends, holidays, or maintainer absences. There is **no bug bounty** unless explicitly announced.
+We will make a **good-faith effort** to triage and prioritize reports **without undue delay**. Where a vulnerability is confirmed, we will develop and deploy a **fix or mitigation in a timely manner**, prioritizing by severity and user impact. No specific remediation timelines are promised unless required by law.
 
 ### Research Guidelines (please follow)
 
@@ -26,8 +27,12 @@ We will make a **good-faith effort** to triage and prioritize reports. We **do n
 
 ## Regulatory Notifications
 
-Where required by law, we will **notify competent authorities and/or users within the legally mandated timelines** for actively exploited vulnerabilities or other reportable events. This may include obligations under EU law when applicable. No additional contractual commitments are created by this section.
+Where required by law, we will **notify competent authorities and/or users within the legally mandated timelines** for actively exploited vulnerabilities or other reportable events (including, where applicable in the EU, notification via competent CSIRTs/ENISA under Union law). No additional contractual commitments are created by this section.
 
+{{#REGION_CN}}{{#HAS_CHINA_REP}}
+**China (PIPL).** We will notify the **Cyberspace Administration of China (CAC)** and affected individuals of data security incidents in accordance with the PIPL and its implementing regulations, where applicable.
+
+{{/HAS_CHINA_REP}}{{/REGION_CN}}
 **US CIRCIA.** If we are a **covered entity** under the U.S. Cyber Incident Reporting for Critical Infrastructure Act, we will submit reports to **CISA** within the timelines mandated by law for covered cyber incidents or ransom payments.
 
 ## Security Updates & Delivery

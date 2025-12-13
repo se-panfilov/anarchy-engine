@@ -99,6 +99,8 @@ Where provided, release notes/advisories may be delivered within the product, in
 
 We do **not** commit to service levels, availability targets, or ongoing support unless expressly agreed in a separate written agreement.
 
+**Security support period.** The security support period for the {{PRODUCT_TERM}} is defined in the **Support Period Policy** included with the product (`SUPPORT.md`).
+
 ## 6. Third-Party Services
 
 Purchasing, downloading, installation, account, or entitlement functions may be provided by your chosen Distribution Channels and are subject to their own terms and privacy policies. Any online features of the {{PRODUCT_TERM}} (if offered) may rely on third-party services under their respective terms.

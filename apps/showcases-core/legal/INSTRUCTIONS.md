@@ -57,7 +57,7 @@ Operates **offline** by default; any online features, if offered, are **opt-in**
 - We may provide **updates** (patches, bug fixes, content changes). Updates can be delivered through the same channels you used to obtain the Software or as replacement files in the package.
 - Some updates may be required to continue using certain features.
 - Release notes / advisories may be included within the product, inside the update package, or provided via the distribution channel (**no fixed location/cadence guaranteed**).
-- Security maintenance periods are described in the **Security Policy**.
+- Security maintenance periods are described in the **Support Period Policy** (`SUPPORT.md`) and the **Security Policy** (`SECURITY.*`).
 
 ---
 

@@ -1,6 +1,7 @@
 # Incident Response & Vulnerability Handling Plan — TBD until market release
 
 **Contacts:** Security TBD until market release · Legal TBD until market release · Support TBD until market release
+
 **Scope:** This plan applies to the Software and its officially published artifacts. It complements the public `SECURITY` policy and is designed to meet CRA vulnerability-handling expectations while remaining feasible for a solo indie developer.
 
 ## 1. Intake

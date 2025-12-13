@@ -1,6 +1,7 @@
 # Incident Response & Vulnerability Handling Plan — {{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}
 
 **Contacts:** Security {{SECURITY_EMAIL}} · Legal {{LEGAL_EMAIL}} · Support {{SUPPORT_EMAIL}}
+
 **Scope:** This plan applies to the {{PRODUCT_TERM}} and its officially published artifacts. It complements the public `SECURITY` policy and is designed to meet CRA vulnerability-handling expectations while remaining feasible for a solo indie developer.
 
 ## 1. Intake

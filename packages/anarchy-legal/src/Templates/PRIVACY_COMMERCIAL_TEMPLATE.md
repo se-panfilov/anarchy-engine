@@ -11,7 +11,7 @@ We do **not** collect personal data through the {{PRODUCT_TERM}} by default. Pur
 
 **Optional diagnostics (crash reports).** The {{PRODUCT_TERM}} **may offer** an **opt-in** crash/diagnostics reporting feature. If you enable it, the app may send **anonymous technical diagnostics** (e.g., error codes, stack traces without content payloads, OS/runtime versions, device model class, timestamps). These diagnostics contain **no direct identifiers** and are used **solely** to investigate and fix issues. Reports are **encrypted in transit**, retained only for the period necessary to analyze and address the issue (**{{CRASH_RETENTION_DAYS}} days**, unless law requires longer), then deleted or **irreversibly anonymized**. You can **withdraw consent** at any time via an in-product option (where available) or by contacting us. **Legal basis (GDPR/UK-GDPR/LGPD/PIPL):** your **consent**.
 
-**CPRA (California):** we **do not sell or share** personal information for cross-context behavioral advertising and we do **not** process **sensitive personal information**.
+**CPRA (California):** we **do not sell or share** personal information for cross-context behavioral advertising and we **do not collect or use sensitive personal information to infer characteristics**.
 
 ## 2. The {{PRODUCT_TERM}}
 
@@ -27,7 +27,7 @@ Your chosen distribution channels may process personal data necessary to provide
 
 If you contact us at **{{SUPPORT_EMAIL}}**, we process your **email address**, **message content**, and any information you provide to respond.
 
-**Legal basis:** our **legitimate interests** in responding to inquiries (or your consent where applicable).
+**Legal basis:** our **legitimate interests** in responding to inquiries (or your consent where applicable). **LGPD:** legitimate interest of the controller (Art. 7, IX).
 
 **Retention:** **{{SUPPORT_EMAILS_RETAIN_PERIOD_MONTH}} months** from the date of our last interaction in the support thread (or ticket closure), then deletion or **irreversible anonymization**, unless longer retention is required by law or to establish, exercise or defend legal claims.
 
@@ -38,6 +38,11 @@ We may use service providers (e.g., email hosting) as **processors** bound by da
 ## 6. International Transfers
 
 Where data is transferred outside your jurisdiction, we rely on applicable transfer mechanisms (e.g., **Standard Contractual Clauses** or other lawful safeguards), where required.
+
+{{#REGION_CN}}{{#HAS_CHINA_REP}}
+**China (PIPL).** For transfers of personal information of PRC residents outside China, we will use mechanisms permitted by the PIPL (e.g., CAC Standard Contract or other lawful mechanisms) and obtain separate consent where required by law.
+
+{{/HAS_CHINA_REP}}{{/REGION_CN}}
 
 ## 7. Your Rights
 
@@ -60,7 +65,7 @@ We apply appropriate technical and organizational measures proportionate to the 
 
 ## 10. App-Store Disclosures (platform listings)
 
-Where required by app-store programs (e.g., **privacy nutrition labels** / **data safety**), our listing reflects this policy.
+We **endeavor** to accurately represent our data-collection practices in platform disclosure forms (e.g., **privacy nutrition labels** / **data safety**). Final presentation and categorization are determined by the platform and may change.
 
 - **Default state:** _“No data collected.”_
 - **If you enable optional crash reports:** disclosed as **Diagnostics / Crash logs**, **not linked to you**, **not used for tracking/advertising**, **collection is optional** (user-controlled), and **for app functionality / app performance** only. Store-specific summaries are provided in the listing and may vary by version.
