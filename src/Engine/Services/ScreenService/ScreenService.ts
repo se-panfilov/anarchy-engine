@@ -27,7 +27,7 @@ export function isFullScreen(container: TAppGlobalContainer | undefined): boolea
   return Boolean(container.document.fullscreenElement || (container.document as any).webkitFullscreenElement);
 }
 
-export function goFullScreen(canvas: TAppCanvas | undefined): Promise<void> | never {
+export function goFullScreen(canvas: TAppCanvas | undefined): Promise<void | never> {
   if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
   if (canvas.requestFullscreen) return canvas.requestFullscreen();
   if ((canvas as any).webkitRequestFullscreen) return (canvas as any).webkitRequestFullscreen();
@@ -35,7 +35,7 @@ export function goFullScreen(canvas: TAppCanvas | undefined): Promise<void> | ne
   throw new Error('Fullscreen is not supported');
 }
 
-export function exitFullScreen(container: TAppGlobalContainer | undefined): Promise<void> | never {
+export function exitFullScreen(container: TAppGlobalContainer | undefined): Promise<void | never> {
   if (isNotDefined(container)) throw new Error('Container (window?) is not defined');
   if (isNotDefined(container.document)) throw new Error('Container (document?) is not defined');
   return container.document.exitFullscreen();
