@@ -27,7 +27,7 @@ export function actorToConfig(entity: TActor, { fsmService, models3dService }: T
     model3dSource,
     // physics?: TWithPresetNamePhysicsBodyConfig,
     // kinematic?: TKinematicConfig,
-    ...getSpatial(entity),
+    spatial: getSpatial(entity),
     // collisions?: TCollisionsDataConfig,
     // model3dSettings?: TActorModel3dSettingsConfig,
 
