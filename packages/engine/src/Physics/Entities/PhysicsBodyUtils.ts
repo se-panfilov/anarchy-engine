@@ -1,3 +1,5 @@
+import type { Collider, RigidBody, TriMeshFlags, World } from '@dimforge/rapier3d';
+import { ColliderDesc, RigidBodyDesc } from '@dimforge/rapier3d';
 import { coordsXYZToMeters, meters } from '@Engine/Measurements/Utils';
 import { CollisionShape, RigidBodyTypesNames } from '@Engine/Physics/Constants';
 import type {
@@ -18,8 +20,6 @@ import type {
 } from '@Engine/Physics/Models';
 import type { TOptional } from '@Engine/Utils';
 import { isDefined, isNotDefined } from '@Engine/Utils';
-import type { Collider, RigidBody, TriMeshFlags, World } from '@Enginedimforge/rapier3d';
-import { ColliderDesc, RigidBodyDesc } from '@Enginedimforge/rapier3d';
 import type { Vector3 } from 'three';
 
 export function createPhysicsBodyEntities(params: TPhysicsBodyParams, world: World): TPhysicsBodyEntities {

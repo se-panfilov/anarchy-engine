@@ -1,3 +1,4 @@
+import type { RigidBodyType, World } from '@dimforge/rapier3d';
 import { AbstractEntity, EntityType } from '@Engine/Abstract';
 import { physicsBodyToConfig } from '@Engine/Physics/Adapters';
 import type { CollisionShape, RigidBodyTypesNames } from '@Engine/Physics/Constants';
@@ -6,7 +7,6 @@ import { withPhysicsBodyEntities } from '@Engine/Physics/Mixins';
 import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsBodyEntities, TPhysicsBodyParams, TPhysicsDependencies, TPhysicsShapeParams } from '@Engine/Physics/Models';
 import type { TWriteable } from '@Engine/Utils';
 import { isDefined, isNotDefined } from '@Engine/Utils';
-import type { RigidBodyType, World } from '@Enginedimforge/rapier3d';
 import type { Subscription } from 'rxjs';
 
 import { createPhysicsBodyEntities } from './PhysicsBodyUtils';

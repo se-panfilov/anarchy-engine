@@ -4,7 +4,7 @@ import type { TGameKey, TKeyboardLoop, TKeyboardPressingEvent, TKeyboardRegistry
 import { KeyboardRegistry } from '@Engine/Keyboard/Registries';
 import type { TDelta } from '@Engine/Loop';
 import { isDefined, isNotDefined } from '@Engine/Utils';
-import { bindKey, bindKeyCombo, checkKey, checkKeyCombo, unbindKey, unbindKeyCombo } from '@Enginerwh/keystrokes';
+import { bindKey, bindKeyCombo, checkKey, checkKeyCombo, unbindKey, unbindKeyCombo } from '@rwh/keystrokes';
 import type { Subscription } from 'rxjs';
 import { filter, map, Subject } from 'rxjs';
 

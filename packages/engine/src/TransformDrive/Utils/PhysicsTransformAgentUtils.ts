@@ -1,10 +1,10 @@
+import type { RigidBody, Rotation, Vector } from '@dimforge/rapier3d';
 import type { TMeters, TRadians } from '@Engine/Math';
 import type { TPhysicsBody, TPhysicsBodyParams, TPhysicsBodyService } from '@Engine/Physics';
 import { isPhysicsBodyParamsComplete } from '@Engine/Physics';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Engine/ThreeLib';
 import type { TRigidBodyTransformData } from '@Engine/TransformDrive/Models';
 import { isNotDefined } from '@Engine/Utils';
-import type { RigidBody, Rotation, Vector } from '@Enginedimforge/rapier3d';
 
 export function getPhysicsBodyTransform(
   body: RigidBody | undefined,

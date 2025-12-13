@@ -1,3 +1,4 @@
+import { World } from '@dimforge/rapier3d';
 import type { TAbstractService } from '@Engine/Abstract';
 import { AbstractService } from '@Engine/Abstract';
 import { withSceneGetterService } from '@Engine/Mixins';
@@ -8,7 +9,6 @@ import { PhysicsDebugRenderer } from '@Engine/Physics/Renderers';
 import type { TSceneWrapper } from '@Engine/Scene';
 import type { TSpaceLoops } from '@Engine/Space';
 import { isNotDefined, mergeAll } from '@Engine/Utils';
-import { World } from '@Enginedimforge/rapier3d';
 import type { Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs';
 import type { Vector3 } from 'three';
