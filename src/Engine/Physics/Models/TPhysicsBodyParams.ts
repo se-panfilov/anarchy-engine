@@ -1,13 +1,21 @@
 import type { Quaternion, Vector3 } from 'three';
 
-import type { TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { CollisionShape, RigidBodyTypesNames } from '@/Engine/Physics/Constants';
 
-import type { TPhysicsBodyProps } from './TPhysicsBodyProps';
+import type { TPhysicsShapeParams } from './TPhysicsShapeParams';
 
-export type TPhysicsBodyParams = TPhysicsBodyProps &
-  Readonly<{
-    position?: Vector3;
-    rotation?: Quaternion;
-    isSleep?: boolean;
-  }> &
+export type TPhysicsBodyParams = Readonly<{
+  type: RigidBodyTypesNames;
+  collisionShape: CollisionShape;
+  shapeParams: TPhysicsShapeParams;
+  mass?: number;
+  restitution?: number;
+  friction?: number;
+  collisionGroups?: number;
+  position?: Vector3;
+  rotation?: Quaternion;
+  isSleep?: boolean;
+}> &
+  TWithName &
   TWithReadonlyTags;

@@ -2429,9 +2429,6 @@
         "collisionGroups": {
           "type": "number"
         },
-        "name": {
-          "type": "string"
-        },
         "position": {
           "$ref": "#/definitions/Vector3"
         },
@@ -2440,6 +2437,9 @@
         },
         "isSleep": {
           "type": "boolean"
+        },
+        "name": {
+          "type": "string"
         },
         "tags": {
           "type": "array",
