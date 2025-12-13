@@ -21,7 +21,7 @@
     "dist/"
   ],
   "scripts": {
-    "before:release": "npm run before:release:check",
+    "before:release": "npm run before:release:check && npm run generate:legal",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint && npm run e2e:with-clean",
     "e2e": "playwright test",
     "e2e:clean-metadate": "node ../../packages/anarchy-shared/ScriptUtils/PostprocessScreenshots.js",
@@ -31,6 +31,11 @@
     "e2e:show-report": "playwright show-report reports/e2e/playwright-report",
     "e2e:update": "npm run e2e -- --update-snapshots",
     "e2e:with-clean": "playwright test && npm run e2e:clean-metadate",
+    "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
+    "generate:legal:3rd-party-licenses": "npm run -w anarchy-legal generate:licenses -- --workspace apps/showcases-e2e --out ../../apps/showcases-e2e/legal/THIRD_PARTY_LICENSES.md",
+    "generate:legal:files": "npm run -w anarchy-legal generate:files -- --workspace apps/showcases-e2e --out ../../apps/showcases-e2e",
+    "generate:legal:notice": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace apps/showcases-e2e --source ../../apps/showcases-e2e/legal/THIRD_PARTY_LICENSES.md --out ../../apps/showcases-e2e/legal/NOTICE.md",
+    "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "prettier --write .",

@@ -27,7 +27,7 @@
     "dist/"
   ],
   "scripts": {
-    "before:release": "npm run before:release:check",
+    "before:release": "npm run before:release:check && npm run generate:legal",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run check:ts-morph && npm run lint && npm run unit:coverage && npm run e2e:with-clean && npm run check:minified-assets",
     "build": "rimraf ./dist && vite build",
     "check:minified-assets": "../anarchy-shared/ScriptUtils/CheckMinify.sh dist/anarchy-engine.es.js dist/anarchy-engine.es.js.map",
@@ -38,6 +38,11 @@
     "generate:dependency-graph": "npx madge src/index.ts --extensions ts --image graph.svg",
     "generate:schemas": "node ./utils/JsonUtils.js",
     "generate:schemas:minify": "node ./utils/JsonUtils.js --minify",
+    "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
+    "generate:legal:3rd-party-licenses": "npm run -w anarchy-legal generate:licenses -- --workspace packages/anarchy-engine --out ../../packages/anarchy-engine/legal/THIRD_PARTY_LICENSES.md",
+    "generate:legal:files": "npm run -w anarchy-legal generate:files -- --workspace packages/anarchy-engine --out ../../packages/anarchy-engine",
+    "generate:legal:notice": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace packages/anarchy-engine --source ../../packages/anarchy-engine/legal/THIRD_PARTY_LICENSES.md --out ../../packages/anarchy-engine/legal/NOTICE.md",
+    "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "prettier --write .",

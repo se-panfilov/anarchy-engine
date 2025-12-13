@@ -45,7 +45,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-shared@1.1.1
+## anarchy-shared@1.1.2
 
 **License(s):** MIT
 

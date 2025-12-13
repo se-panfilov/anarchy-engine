@@ -284,7 +284,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-engine@20.3.2
+## anarchy-engine@20.3.3
 
 **License:** MIT
 
@@ -314,7 +314,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-shared@1.1.1
+## anarchy-shared@1.1.2
 
 **License:** MIT
 
