@@ -179,6 +179,7 @@ export const JsRules = {
         '[D-d]iv[s]?',
         '[D-d]om',
         '[D-d]otenv',
+        '[D-d]ropdown',
         '[E-e]num[s]?',
         '[F-f]ormatter[s]?',
         '[F-f]sm',
