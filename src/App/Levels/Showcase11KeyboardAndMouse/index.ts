@@ -5,9 +5,11 @@ import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent
 import { buildLevelFromConfig, Easing, intersectionsService, isNotDefined, keyboardService, KeyCode, mouseService, standardMoverService } from '@/Engine';
 
 import levelConfig from './showcase-11-keyboard-and-mouse.json';
+import GUI from 'lil-gui';
 
 //Showcase 11: Keyboard and Mouse
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
+  const gui: GUI = new GUI();
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
   const { actorRegistry, cameraRegistry } = level.entities;
 
@@ -21,6 +23,18 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     keyboardService.onKey(KeyCode.D).pressing$.subscribe((): void => void actorKeyboard.addX(0.3));
 
     const intersectionsWatcher: IIntersectionsWatcher = await startIntersections();
+
+    const coordsUI: { x: number; z: number } = { x: 0, z: 0 };
+
+    gui.add(coordsUI, 'x').listen();
+    gui.add(coordsUI, 'z').listen();
+
+    intersectionsWatcher.value$.subscribe((intersection: IIntersectionEvent): void => {
+      // eslint-disable-next-line functional/immutable-data
+      coordsUI.x = intersection.point.x;
+      // eslint-disable-next-line functional/immutable-data
+      coordsUI.z = intersection.point.z;
+    });
 
     mouseService.clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [IMouseWatcherEvent, IIntersectionEvent]): void => {
       void standardMoverService.goToPosition(actorMouse, { x: intersection.point.x, z: intersection.point.z }, { duration: 1000, easing: Easing.EaseInCubic });
