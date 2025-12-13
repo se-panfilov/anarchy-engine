@@ -4,19 +4,19 @@ import { createDeferredPromise, isNotDefined } from '@Engine/Utils';
 import { actorAdapter, lightAdapter } from '@Engine/Launcher/ConfigToParamAdapters';
 import type { ActorParams } from '@Engine/Models/ActorParams';
 import { SceneFactory } from '@Engine/Managers/SceneFactory';
-import type { SceneWrapper } from '@Engine/Wrappers/SceneWrapper';
 import { CameraFactory } from '@Engine/Managers/CameraFactory';
 import { RendererFactory } from '@Engine/Managers/RendererFactory';
 import { LightFactory } from '@Engine/Managers/LightFactory';
 import type { LightParams } from '@Engine/Models/LightParams';
+import { combineLatest } from 'rxjs';
 
 export async function launch(sceneConfig: SceneConfig): Promise<void> {
   const { name, actors, cameras, lights } = sceneConfig;
   const { promise, resolve } = createDeferredPromise<void>();
 
   // create scene/////////////////////
-  const sceneManager = new SceneFactory();
-  const scene: SceneWrapper = sceneManager.create(name);
+  const sceneFactory = SceneFactory();
+  sceneFactory.add$.next({ name });
   ////////////////////////////////////
 
   const actorFactory = ActorFactory();
@@ -24,9 +24,20 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   const lightFactory = LightFactory();
   const rendererFactory = RendererFactory();
 
-  actorFactory.latest$.subscribe(scene.addActor);
-  cameraFactory.latest$.subscribe(scene.addCamera);
-  lightFactory.latest$.subscribe(scene.addLight);
+  combineLatest([actorFactory.latest$, sceneFactory.latest$]).subscribe(([actor, scene]) => {
+    if (isNotDefined(scene) || isNotDefined(actor)) return;
+    scene.addActor(actor);
+  });
+
+  combineLatest([cameraFactory.latest$, sceneFactory.latest$]).subscribe(([camera, scene]) => {
+    if (isNotDefined(scene) || isNotDefined(camera)) return;
+    scene.addCamera(camera);
+  });
+
+  combineLatest([lightFactory.latest$, sceneFactory.latest$]).subscribe(([light, scene]) => {
+    if (isNotDefined(scene) || isNotDefined(light)) return;
+    scene.addLight(light);
+  });
 
   // create actors/////////////////////
   actors.forEach((config: ActorConfig) => {
