@@ -5,10 +5,11 @@ import type { TActorConfig } from '@/Engine/Actor';
 import type { TAnyAudioConfig, TAudioResourceConfig } from '@/Engine/Audio';
 import type { TCameraConfig } from '@/Engine/Camera';
 import type { TControlsConfig } from '@/Engine/Controls';
-import type { TWithNameOptional, TWithTags } from '@/Engine/Mixins';
+import type { TIntersectionsWatcherConfig } from '@/Engine/Intersections';
+import type { TActive, TWithName, TWithNameOptional, TWithTags } from '@/Engine/Mixins';
 import type { TModel3dConfig, TModel3dResourceConfig } from '@/Engine/Models3d';
 import { isPrimitiveModel3dResourceConfig, isPrimitiveModel3dSource } from '@/Engine/Models3d';
-import type { TPhysicsPresetConfig, TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
+import type { TPhysicsConfig, TPhysicsPresetConfig, TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
 import type { TSceneConfig } from '@/Engine/Scene/Models';
 import { SpaceSchemaVersion } from '@/Engine/Space/Constants';
 import type { TSpaceConfig } from '@/Engine/Space/Models';
@@ -34,154 +35,187 @@ function validateJsonSchema(config: TSpaceConfig): TSchemaValidationResult {
   return { isValid, errors: validate.errors };
 }
 
-// TODO This is the worst piece of the code (not generic, hard to support, etc). Refactor.
-//  Maybe split resource and entities validation
-//  Also extract utils functions to a separate file
 function validateData({ name, version, scenes, resources, entities, canvasSelector, tags }: TSpaceConfig): TSchemaValidationResult {
   const { models3d: models3dResources, audio: audioResources, envMaps, materials, textures } = resources;
   const { actors, audio, cameras, spatialGrids, controls, intersections, lights, models3d: models3dEntities, fogs, texts, physics } = entities;
 
-  let errors: ReadonlyArray<string> = [];
+  const basicErrors: ReadonlyArray<string> = validateConfigBasics(name, version, scenes, canvasSelector, tags);
+  const activeErrors: ReadonlyArray<string> = validateActiveEntities({ cameras, scenes, controls });
+  const relationsErrors: ReadonlyArray<string> = validateRelations(controls, cameras, actors, physics, models3dEntities, models3dResources, audioResources, audio, intersections);
+  const namesErrors: ReadonlyArray<string> = validateEntityNames({
+    scenes,
+    spatialGrids,
+    actors,
+    cameras,
+    intersections,
+    lights,
+    fogs,
+    texts,
+    controls,
+    models3dResources,
+    materials,
+    envMaps,
+    textures
+  });
+  const tagsErrors: ReadonlyArray<string> = validateEntityTags({
+    scenes,
+    spatialGrids,
+    actors,
+    cameras,
+    intersections,
+    lights,
+    fogs,
+    texts,
+    controls,
+    models3dResources,
+    materials,
+    envMaps,
+    textures
+  });
+  const urlsErrors: ReadonlyArray<string> = validateUrls({ models3dResources }, { envMaps, textures });
 
-  //validate supported schema's version
-  const isSupportedVersion: boolean = version === SpaceSchemaVersion.V2;
-
-  //Must be defined
-  const isNoScenesDefined: boolean = scenes.length === 0;
-
-  //Selectors
-  const isCanvasSelectorValid: boolean = /^[a-zA-Z0-9\s.#\-_>[\]='"*^$~|(),:]+$/.test(canvasSelector);
-
-  //Check active entities
-  const isMultipleActiveCameras: boolean = cameras.filter((camera: TCameraConfig): boolean => camera.isActive).length > 1;
-  const isMultipleActiveScenes: boolean = scenes.filter((scene: TSceneConfig): boolean => scene.isActive).length > 1;
-  const isMultipleActiveControls: boolean = controls.filter((control: TControlsConfig): boolean => control.isActive).length > 1;
-
-  //Check relations
-  const isControlsWithoutCamera: boolean = controls.length > 0 && cameras.length === 0;
-  const isEveryControlsHasCamera: boolean = controls.every((control: TControlsConfig): boolean => cameras.some((camera: TCameraConfig): boolean => camera.name === control.cameraName));
-
-  //Check actors' physics presets
-  const isAllActorsHasPhysicsPreset = validateAllActorsHasPhysicsPreset(actors, physics.presets);
-
-  //Regexp checks (ts-json schema does not support regexp patterns atm)
-  //Names
-  const isConfigNameValid: boolean = validate(name);
-  const isEverySceneNameValid: boolean = validateNames(scenes);
-  const isEveryActorNameValid: boolean = validateNames(actors);
-  const isEveryCameraNameValid: boolean = validateNames(cameras);
-  const isEveryIntersectionNameValid: boolean = validateNames(intersections);
-  const isEveryIntersectionCameraNameValid: boolean = validateCameraNames(intersections);
-  const isEveryIntersectionActorNamesValid: boolean = validateActorNamesForEveryEntity(intersections);
-  const isEveryLightNameValid: boolean = validateNames(lights);
-  const isEveryFogNameValid: boolean = validateNames(fogs);
-  const isEveryTextNameValid: boolean = validateNames(texts);
-  const isEveryControlsNameValid: boolean = validateNames(controls);
-  const isEveryPhysicsPresetNameValid: boolean = validateNames(physics.presets ?? []);
-  const isEveryActorsPhysicsPresetNameValid: boolean = validatePresetNames(actors);
-  const isEverySpatialGridNameValid: boolean = validateNames(spatialGrids);
-
-  //Tags
-  const isConfigTagsValid: boolean = validateTags(tags);
-  const isEverySceneTagsValid: boolean = validateTagsForEveryEntity(scenes);
-  const isEverySpatialGridsTagsValid: boolean = validateTagsForEveryEntity(spatialGrids);
-  const isEveryActorTagsValid: boolean = validateTagsForEveryEntity(actors);
-  const isEveryCameraTagsValid: boolean = validateTagsForEveryEntity(cameras);
-  const isEveryIntersectionsTagsValid: boolean = validateTagsForEveryEntity(intersections);
-  const isEveryLightTagsValid: boolean = validateTagsForEveryEntity(lights);
-  const isEveryFogTagsValid: boolean = validateTagsForEveryEntity(fogs);
-  const isEveryTextTagsValid: boolean = validateTagsForEveryEntity(texts);
-  const isEveryControlsTagsValid: boolean = validateTagsForEveryEntity(controls);
-  const isEveryModels3dTagsValid: boolean = validateTagsForEveryEntity(models3dResources);
-  const isEveryMaterialTagsValid: boolean = validateTagsForEveryEntity(materials);
-  const isEveryEnvMapsTagsValid: boolean = validateTagsForEveryEntity(envMaps);
-  const isEveryTextureTagsValid: boolean = validateTagsForEveryEntity(textures);
-
-  //urls
-  const isEveryModels3dUrlValid: boolean = validateModel3dFileUrls(models3dResources);
-  const isEveryEnvMapsUrlValid: boolean = validateFileUrls(envMaps);
-  const isEveryTextureUrlValid: boolean = validateFileUrls(textures);
-
-  //Resources
-  const isAllActorsHasModel3d: boolean = validateAllActorsHasModel3d(actors, models3dEntities);
-  const isAllModel3dEntityHasValidResource: boolean = validateAllModel3dEntityHasValidResource(models3dEntities, models3dResources);
-  const isAllAudioEntityHasValidResource: boolean = validateAllAudioEntityHasValidResource(audio, audioResources);
-
-  //Adding errors
-  if (isSupportedVersion) errors = [...errors, `Unsupported schema's version(${version}). Supported version is: ${SpaceSchemaVersion.V2}`];
-  if (isNoScenesDefined) errors = [...errors, 'No scenes are defined'];
-  if (isMultipleActiveCameras) errors = [...errors, 'Can be only one active camera, but multiple set as active'];
-  if (isMultipleActiveScenes) errors = [...errors, 'Can be only one active scene, but multiple set as active'];
-  if (isMultipleActiveControls) errors = [...errors, 'Can be only one active control, but multiple set as active'];
-  if (isControlsWithoutCamera) errors = [...errors, 'Controls cannot be defined without at least one camera, but there are no cameras'];
-  if (!isEveryControlsHasCamera) errors = [...errors, 'Not every control has a camera'];
-
-  //Selectors
-  if (!isCanvasSelectorValid) errors = [...errors, 'Canvas selector must be defined and contain only allowed characters (a normal css selector)'];
-
-  //Names
-  if (!isConfigNameValid) errors = [...errors, 'Space config name must be defined and contain only letters, numbers and underscores'];
-  if (!isEverySceneNameValid) errors = [...errors, 'Scene names must be defined and contain only letters, numbers and underscores'];
-  if (!isEverySpatialGridNameValid) errors = [...errors, 'SpatialGrids names must be defined and contain only letters, numbers and underscores'];
-  if (!isEveryActorNameValid) errors = [...errors, 'Actor names must be defined and contain only letters, numbers and underscores'];
-  if (!isEveryCameraNameValid) errors = [...errors, 'Camera names must be defined and contain only letters, numbers and underscores'];
-  if (!isEveryIntersectionNameValid) errors = [...errors, 'Intersection names must be defined and contain only letters, numbers and underscores'];
-  if (!isEveryIntersectionCameraNameValid) errors = [...errors, 'Intersections "cameraName" must be defined and contain only letters, numbers and underscores'];
-  if (!isEveryIntersectionActorNamesValid) errors = [...errors, 'Intersections "actorNames" must be an array of strings that contain only letters, numbers and underscores'];
-  if (!isEveryLightNameValid) errors = [...errors, 'Light names must be defined and contain only letters, numbers and underscores'];
-  if (!isEveryFogNameValid) errors = [...errors, 'Fog names must be defined and contain only letters, numbers and underscores'];
-  if (!isEveryTextNameValid) errors = [...errors, 'Text names must be defined and contain only letters, numbers and underscores'];
-  if (!isEveryControlsNameValid) errors = [...errors, 'Controls names must be defined and contain only letters, numbers and underscores'];
-  if (!isEveryPhysicsPresetNameValid) errors = [...errors, 'Physics presets names must be defined and contain only letters, numbers and underscores'];
-  if (!isEveryActorsPhysicsPresetNameValid) errors = [...errors, 'Actors physics preset names must be defined and contain only letters, numbers and underscores'];
-
-  //Tags
-  if (!isConfigTagsValid) errors = [...errors, 'Space config tags must contain only letters, numbers and underscores'];
-  if (!isEverySceneTagsValid) errors = [...errors, 'Scene tags must contain only letters, numbers and underscores'];
-  if (!isEverySpatialGridsTagsValid) errors = [...errors, 'SpatialGrids tags must contain only letters, numbers and underscores'];
-  if (!isEveryActorTagsValid) errors = [...errors, 'Actor tags must contain only letters, numbers and underscores'];
-  if (!isEveryCameraTagsValid) errors = [...errors, 'Camera tags must contain only letters, numbers and underscores'];
-  if (!isEveryIntersectionsTagsValid) errors = [...errors, 'Intersection tags must contain only letters, numbers and underscores'];
-  if (!isEveryLightTagsValid) errors = [...errors, 'Light tags must contain only letters, numbers and underscores'];
-  if (!isEveryFogTagsValid) errors = [...errors, 'Fog tags must contain only letters, numbers and underscores'];
-  if (!isEveryTextTagsValid) errors = [...errors, 'Text tags must contain only letters, numbers and underscores'];
-  if (!isEveryControlsTagsValid) errors = [...errors, 'Controls tags must contain only letters, numbers and underscores'];
-  if (!isEveryModels3dTagsValid) errors = [...errors, 'Models3d tags must contain only letters, numbers and underscores'];
-  if (!isEveryMaterialTagsValid) errors = [...errors, 'Materials tags must contain only letters, numbers and underscores'];
-  if (!isEveryEnvMapsTagsValid) errors = [...errors, 'EnvMaps tags must contain only letters, numbers and underscores'];
-  if (!isEveryTextureTagsValid) errors = [...errors, 'Textures tags must contain only letters, numbers and underscores'];
-
-  //Urls
-  if (!isEveryModels3dUrlValid) errors = [...errors, 'Models3d urls must contain only valid characters (a normal path to a file)'];
-  if (!isEveryEnvMapsUrlValid) errors = [...errors, 'EnvMaps urls must contain only valid characters (a normal path to a file)'];
-  if (!isEveryTextureUrlValid) errors = [...errors, 'Textures urls must contain only valid characters (a normal path to a file)'];
-
-  //Presets
-  if (!isAllActorsHasPhysicsPreset) errors = [...errors, 'Not every actor has a defined physics preset (check actors presetName against physics presets names)'];
-
-  //Resources
-  if (!isAllActorsHasModel3d) errors = [...errors, 'Not every actor has a defined model3dSource (check actors model3dSource against models3d entities)'];
-  if (!isAllModel3dEntityHasValidResource) errors = [...errors, 'Not every model3d entity has a valid resource (must be a primitive or an url)'];
-  if (!isAllAudioEntityHasValidResource) errors = [...errors, 'Not every audio entity has a valid resource (must be a primitive or an url)'];
+  const errors: ReadonlyArray<string> = [...basicErrors, ...activeErrors, ...relationsErrors, ...namesErrors, ...tagsErrors, ...urlsErrors];
 
   return { isValid: errors.length === 0, errors };
 }
 
+function validateConfigBasics(name: string, version: SpaceSchemaVersion, scenes: ReadonlyArray<TSceneConfig>, canvasSelector: string, tags?: ReadonlyArray<string>): ReadonlyArray<string> {
+  let errors: ReadonlyArray<string> = [];
+
+  if (version !== SpaceSchemaVersion.V1) errors = [...errors, `Unsupported schema's version(${version}). Supported version is: ${SpaceSchemaVersion.V2}`];
+  if (scenes.length === 0) errors = [...errors, 'No scenes are defined'];
+  if (!/^[a-zA-Z0-9\s.#\-_>[\]='"*^$~|(),:]+$/.test(canvasSelector)) errors = [...errors, 'Canvas selector must be defined and contain only allowed characters (a normal css selector)'];
+  if (!validateTags(tags)) errors = [...errors, 'Space config tags must contain only letters, numbers and underscores'];
+  if (!validate(name)) errors = [...errors, 'Space config name must be defined and contain only letters, numbers and underscores'];
+
+  return errors;
+}
+
+function validateActiveEntities(entities: Record<string, ReadonlyArray<TActive>>): ReadonlyArray<string> {
+  let errors: ReadonlyArray<string> = [];
+
+  Object.entries(entities).forEach((list): void => {
+    const [, key] = Object.entries(list)[0];
+    const [, value] = Object.entries(list)[1];
+
+    if ((value as ReadonlyArray<TActive>).filter((v: TActive): boolean => v.isActive).length > 1) errors = [...errors, `Must be only one active entity of "${key}", but multiple are active`];
+  });
+
+  return errors;
+}
+
+function validateRelations(
+  controls: ReadonlyArray<TControlsConfig>,
+  cameras: ReadonlyArray<TCameraConfig>,
+  actors: ReadonlyArray<TActorConfig>,
+  physics: TPhysicsConfig,
+  models3dEntities: ReadonlyArray<TModel3dConfig>,
+  models3dResources: ReadonlyArray<TModel3dResourceConfig>,
+  audioResources: ReadonlyArray<TAudioResourceConfig>,
+  audio: ReadonlyArray<TAnyAudioConfig>,
+  intersections: ReadonlyArray<TIntersectionsWatcherConfig>
+): ReadonlyArray<string> {
+  let errors: ReadonlyArray<string> = [];
+
+  if (controls.length > 0 && cameras.length === 0) errors = [...errors, 'Controls cannot be defined without at least one camera, but there are no cameras'];
+  if (!controls.every((control: TControlsConfig): boolean => cameras.some((camera: TCameraConfig): boolean => camera.name === control.cameraName)))
+    errors = [...errors, 'Not every control has a camera'];
+  if (!validateAllActorsHasPhysicsPreset(actors, physics.presets)) errors = [...errors, 'Not every actor has a defined physics preset (check actors presetName against physics presets names)'];
+  if (!validateAllActorsHasModel3d(actors, models3dEntities)) errors = [...errors, 'Not every actor has a defined model3dSource (check actors model3dSource against models3d entities)'];
+  if (!validateAllModel3dEntityHasValidResource(models3dEntities, models3dResources)) errors = [...errors, 'Not every model3d entity has a valid resource (must be a primitive or an url)'];
+  if (!validateAllAudioEntityHasValidResource(audio, audioResources)) errors = [...errors, 'Not every audio entity has a valid resource (must be a primitive or an url)'];
+  if (!validateCameraNames(intersections)) errors = [...errors, 'Not every intersection camera name is valid'];
+  if (!validateActorNamesForEveryEntity(intersections)) errors = [...errors, 'Not every intersection actor name is valid'];
+  if (!validatePresetNames(actors)) errors = [...errors, 'Not every actor has a valid physics preset name'];
+
+  return errors;
+}
+
+function validateEntityNames(entities: Record<string, ReadonlyArray<TWithNameOptional | TWithName>>): ReadonlyArray<string> {
+  let errors: ReadonlyArray<string> = [];
+
+  Object.entries(entities).forEach((list): void => {
+    const [, key] = Object.entries(list)[0];
+    const [, value] = Object.entries(list)[1];
+
+    const isValid: boolean = validateNames(value as ReadonlyArray<TWithNameOptional | TWithName>);
+    if (!isValid) errors = [...errors, `Entity ("${key}") names must be defined and contain only letters, numbers and underscores`];
+  });
+
+  return errors;
+}
+
+function validateEntityTags(entities: Record<string, ReadonlyArray<TWithTags>>): ReadonlyArray<string> {
+  let errors: ReadonlyArray<string> = [];
+
+  Object.entries(entities).forEach((list): void => {
+    const [, key] = Object.entries(list)[0];
+    const [, value] = Object.entries(list)[1];
+
+    const isValid: boolean = validateTagsForEveryEntity(value as ReadonlyArray<Record<string, TWithTags>>);
+    if (!isValid) errors = [...errors, `Entity ("${key}") tags must contain only letters, numbers and underscores`];
+  });
+
+  return errors;
+}
+
+function validateUrls(models3dResources: Record<string, ReadonlyArray<TModel3dResourceConfig>>, withFileUrls: Record<string, ReadonlyArray<TAbstractResourceConfig>>): ReadonlyArray<string> {
+  let errors: ReadonlyArray<string> = [];
+
+  Object.entries(models3dResources).forEach((configs): void => {
+    const [, key] = Object.entries(configs)[0];
+    const [, value] = Object.entries(configs)[1];
+    const isValid: boolean = validateModel3dFileUrls(value as ReadonlyArray<TModel3dResourceConfig>);
+    if (!isValid) errors = [...errors, `Entity ("${key}") tags must contain only letters, numbers and underscores`];
+  });
+
+  Object.entries(withFileUrls).forEach((configs): void => {
+    const [, key] = Object.entries(configs)[0];
+    const [, value] = Object.entries(configs)[1];
+    const isValid: boolean = validateFileUrls(value as ReadonlyArray<TAbstractResourceConfig>);
+    if (!isValid) errors = [...errors, `Entity ("${key}") tags must contain only letters, numbers and underscores`];
+  });
+
+  return errors;
+}
+
 const validateNames = (entities: ReadonlyArray<TWithNameOptional>): boolean => entities.every(validateName);
 const validateName = (entity: TWithNameOptional): boolean => validateField(entity, 'name');
-const validateCameraNames = (entities: ReadonlyArray<Readonly<{ cameraName: string }>>): boolean => entities.every(validateCameraName);
+const validateCameraNames = (
+  entities: ReadonlyArray<
+    Readonly<{
+      cameraName: string;
+    }>
+  >
+): boolean => entities.every(validateCameraName);
 const validateCameraName = (entity: Readonly<{ cameraName: string }>): boolean => validateField(entity, 'cameraName');
 const validatePresetName = (entity: Readonly<{ presetName: string }>): boolean => validateField(entity, 'presetName');
 
-function validatePresetNames(entities: ReadonlyArray<Readonly<{ physics?: TWithPresetNamePhysicsBodyConfig }>>): boolean {
+function validatePresetNames(
+  entities: ReadonlyArray<
+    Readonly<{
+      physics?: TWithPresetNamePhysicsBodyConfig;
+    }>
+  >
+): boolean {
   return entities
     .map((entity) => entity.physics)
     .filter(isDefined)
     .every((physics) => isNotDefined(physics.presetName) || validatePresetName(physics as any));
 }
 
-const validateActorNamesForEveryEntity = (entities: ReadonlyArray<Readonly<{ actorNames: ReadonlyArray<string> }>>): boolean => entities.every(validateActorNames);
-const validateActorNames = (entity: Readonly<{ actorNames: ReadonlyArray<string> }>): boolean => validateArrayField(entity, 'actorNames');
+const validateActorNamesForEveryEntity = (
+  entities: ReadonlyArray<
+    Readonly<{
+      actorNames: ReadonlyArray<string>;
+    }>
+  >
+): boolean => entities.every(validateActorNames);
+const validateActorNames = (
+  entity: Readonly<{
+    actorNames: ReadonlyArray<string>;
+  }>
+): boolean => validateArrayField(entity, 'actorNames');
 
 const validateTagsForEveryEntity = (entities: ReadonlyArray<TWithTags>): boolean => entities.every((e: TWithTags): boolean => validateTags(e.tags));
 const validateTags = (tags: ReadonlyArray<string> | undefined): boolean => (tags ? tags.every(validate) : true);
