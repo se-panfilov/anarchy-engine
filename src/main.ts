@@ -9,6 +9,7 @@ import { plane } from './planne';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { fpsGraph } from './DeveloperPanel';
 import { startWatchResize } from './DeviceWatcher/Resize';
+import { deviceSize$ } from './Store/DeviceSize';
 
 const scene = new Scene();
 scene.add(sphere);
@@ -23,6 +24,13 @@ startWatchResize();
 
 scene.add(ambientLight);
 scene.add(directionalLight);
+
+//init screen
+deviceSize$.next({
+  width: window.innerWidth,
+  height: window.innerHeight,
+  devicePixelRatio: 2
+});
 
 const controls = new OrbitControls(camera, renderer.domElement);
 // new OrbitControls(directionalLight as any, renderer.domElement);

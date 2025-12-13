@@ -1,7 +1,6 @@
 import { deviceSize$ } from '../Store/DeviceSize';
 
 function onResize(): void {
-  console.log('resize');
   deviceSize$.next({
     // TODO (S.Panfilov) global?
     width: window.innerWidth,
