@@ -1,5 +1,5 @@
 export * from './Factory';
 export * from './Models';
 export * from './Registry';
-export * from './Services';
+export * from './Service';
 export * from './Wrapper';

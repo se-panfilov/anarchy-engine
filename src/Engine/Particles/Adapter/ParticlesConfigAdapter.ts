@@ -1,16 +1,11 @@
-import { Color } from 'three';
-
 import type { IParticlesConfig, IParticlesParams } from '@/Engine/Particles/Models';
+import { configToParamsObject3d } from '@/Engine/ThreeLib';
 
 export function configToParams(config: IParticlesConfig): IParticlesParams {
-  const { color, ...rest } = config;
+  const { position, rotation, layers, animations, scale, ...rest } = config;
 
   return {
     ...rest,
-    ...getColorParams(color)
+    ...configToParamsObject3d({ position, rotation, scale, layers, animations })
   };
-}
-
-function getColorParams(colorStr: string): Readonly<{ color: Color }> {
-  return { color: new Color(colorStr) };
 }
