@@ -3,9 +3,11 @@ import { isNotDefined, isWebGLAvailable } from '@Engine/Utils';
 import { AbstractWrapper } from '@Engine/Wrappers';
 import type { RendererParams } from '@Engine/Models';
 
+export type IRendererWrapper = ReturnType<typeof AbstractWrapper<WebGL1Renderer>>;
+
 // TODO (S.Panfilov) DI deviceWatcher
 // TODO (S.Panfilov) Should we provide delta here?
-export function RendererWrapper({ canvas }: RendererParams): ReturnType<typeof AbstractWrapper<WebGL1Renderer>> {
+export function RendererWrapper({ canvas }: RendererParams): IRendererWrapper {
   if (isNotDefined(canvas)) throw new Error(`Canvas is not defined`);
   if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');
 
