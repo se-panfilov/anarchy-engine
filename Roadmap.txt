@@ -34,6 +34,7 @@ Done:
 - 17.5.0 Intersections watchers split to camera-mouse based and origin-direction based
 - 17.5.1 Replaced Object.assign with mergeAll (a fix for a broken TS types merging)
 - 18.0.x Monorepo: Split apps and engine
+- 18.1.x Configurable Space (added options)
 
 Roadmap:
 - 19.0.x Reduce package size
