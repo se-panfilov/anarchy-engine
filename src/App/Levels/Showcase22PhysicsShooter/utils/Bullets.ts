@@ -11,6 +11,10 @@ import type {
   TActorWrapper,
   TCollisionCheckResult,
   TLightService,
+  TMaterialService,
+  TMaterialWrapper,
+  TModel3dFacade,
+  TModels3dService,
   TMouseService,
   TRadians,
   TSceneWrapper,
@@ -34,27 +38,46 @@ export type TBullet = TActorWrapper &
     hit$: Observable<TCollisionCheckResult>;
   }>;
 
-export function getBulletsPool(count: number, actorService: TActorService, spatialGridService: TSpatialGridService): ReadonlyArray<TBullet> {
+export function getBulletsPool(
+  count: number,
+  actorService: TActorService,
+  models3dService: TModels3dService,
+  materialService: TMaterialService,
+  spatialGridService: TSpatialGridService
+): ReadonlyArray<TBullet> {
   let bullets: ReadonlyArray<TBullet> = [];
   const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
   if (isNotDefined(grid)) throw new Error(`Failed to create bullet: Cannot find "main_grid" spatial grid`);
 
+  const materialW: TMaterialWrapper = materialService.create({ name: 'bullet_material', type: MaterialType.Standard, options: { color: '#FF0000' } });
+
   // eslint-disable-next-line functional/no-loop-statements
   for (let i: number = 0; i < count; i++) {
+    const id: string = nanoid();
+
+    const model3dF: TModel3dFacade = models3dService.create({
+      name: `bullet_${i}_${id}_model3d`,
+      model3dSource: PrimitiveModel3dType.Cube,
+      animationsSource: [],
+      materialSource: materialW,
+      options: {
+        width: 0.3,
+        height: 0.3,
+        depth: 0.5
+      },
+      castShadow: true,
+      receiveShadow: false
+    });
+
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     bullets = [
       ...bullets,
       BulletAsync(
         {
-          name: `bullet_${i}_${nanoid()}`,
-          model3d: { url: PrimitiveModel3dType.Cube },
-          width: 0.3,
-          height: 0.3,
-          depth: 0.5,
-          material: { type: MaterialType.Standard, params: { color: '#FF0000' } },
+          name: `bullet_${i}_${id}_actor`,
+          model3dSource: model3dF,
           position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
           rotation: EulerWrapper({ x: 0, y: 1.57, z: 0 }),
-          castShadow: true,
           spatial: { grid, isAutoUpdate: true, updatePriority: SpatialUpdatePriority.ASAP },
           collisions: { isAutoUpdate: true },
           kinematic: {

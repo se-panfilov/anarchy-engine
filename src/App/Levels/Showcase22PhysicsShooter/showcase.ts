@@ -42,7 +42,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { physicsLoopService, cameraService, actorService, lightService, loopService, mouseService, intersectionsWatcherService, spatialGridService } = space.services;
+  const { physicsLoopService, cameraService, actorService, lightService, loopService, models3dService, materialService, mouseService, intersectionsWatcherService, spatialGridService } =
+    space.services;
 
   async function init(): Promise<void> {
     // physicsWorldService.getDebugRenderer(loopService).start();
@@ -65,12 +66,12 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const spatialGrid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
     if (isNotDefined(spatialGrid)) throw new Error(`Cannot find "main_grid" spatial grid`);
 
-    const blocks = await buildTower(actorService, { x: 10, z: 0 }, 10, 10, 20, spatialGrid);
-    const blocks2 = await buildTower(actorService, { x: 45, z: 7 }, 6, 7, 18, spatialGrid);
-    const blocks3 = await buildTower(actorService, { x: -15, z: -15 }, 10, 7, 15, spatialGrid);
+    const blocks = await buildTower(actorService, models3dService, materialService, { x: 10, z: 0 }, 10, 10, 20, spatialGrid);
+    const blocks2 = await buildTower(actorService, models3dService, materialService, { x: 45, z: 7 }, 6, 7, 18, spatialGrid);
+    const blocks3 = await buildTower(actorService, models3dService, materialService, { x: -15, z: -15 }, 10, 7, 15, spatialGrid);
 
     const maxBulletsSameTime: number = 150;
-    const bullets: ReadonlyArray<TBullet> = await Promise.all(getBulletsPool(maxBulletsSameTime, actorService, spatialGridService));
+    const bullets: ReadonlyArray<TBullet> = await Promise.all(getBulletsPool(maxBulletsSameTime, actorService, models3dService, materialService, spatialGridService));
     const sceneW = actorService.getScene();
     sceneW.entity.add(...bullets.map((b: TBullet) => b.entity));
     bullets.forEach((b: TBullet) => {

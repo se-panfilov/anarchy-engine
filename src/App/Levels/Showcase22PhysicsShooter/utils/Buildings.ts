@@ -1,10 +1,12 @@
-import type { TActorParams, TActorService, TActorWrapperWithPhysics, TSpatialGridWrapper, TWithCoordsXZ } from '@/Engine';
+import type { TActorService, TActorWrapperWithPhysics, TBoxGeometryProps, TMaterialService, TModel3dFacade, TModels3dService, TObject3DParams, TSpatialGridWrapper, TWithCoordsXZ } from '@/Engine';
 import { CollisionShape, MaterialType, PrimitiveModel3dType, RigidBodyTypesNames, Vector3Wrapper } from '@/Engine';
 
-export type TBuidingBlock = Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>;
+export type TBuidingBlock = Required<Pick<TBoxGeometryProps, 'height' | 'width' | 'depth'>> & Required<Pick<TObject3DParams, 'position'>>;
 
 export async function buildTower(
   actorService: TActorService,
+  models3dService: TModels3dService,
+  materialService: TMaterialService,
   startCoords: TWithCoordsXZ,
   rows: number,
   cols: number,
@@ -14,15 +16,28 @@ export async function buildTower(
   const blocks: ReadonlyArray<TBuidingBlock> = getBlocks(startCoords, rows, cols, levels);
 
   console.log('number of blocks:', blocks.length);
+  const materialW = materialService.create({ name: 'building_block_material', type: MaterialType.Standard, options: { color: '#8FAA8F' } });
 
-  const result = blocks.map((block: TBuidingBlock): TActorWrapperWithPhysics => {
+  const result: ReadonlyArray<TActorWrapperWithPhysics> = blocks.map((block: TBuidingBlock): TActorWrapperWithPhysics => {
+    const model3dF: TModel3dFacade = models3dService.create({
+      name: `block_${block.position.getX()}_${block.position.getY()}_${block.position.getZ()}_model3d`,
+      model3dSource: PrimitiveModel3dType.Cube,
+      animationsSource: [],
+      materialSource: materialW,
+      options: {
+        width: block.width,
+        height: block.height,
+        depth: block.depth,
+        widthSegments: 1,
+        heightSegments: 1
+      },
+      castShadow: true,
+      receiveShadow: true
+    });
+
     return actorService.create({
-      name: `block_${block.position.getX()}_${block.position.getY()}_${block.position.getZ()}`,
-      model3d: { url: PrimitiveModel3dType.Cube },
-      width: block.width,
-      height: block.height,
-      depth: block.depth,
-      material: { type: MaterialType.Standard, params: { color: '#8FAA8F' } },
+      name: `block_${block.position.getX()}_${block.position.getY()}_${block.position.getZ()}_actor`,
+      model3dSource: model3dF,
       physics: {
         type: RigidBodyTypesNames.Dynamic,
         collisionShape: CollisionShape.Cuboid,
