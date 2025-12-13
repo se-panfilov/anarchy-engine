@@ -3,6 +3,7 @@ import { ActorFactory, ActorRegistry, ActorService, Model3dToActorConnectionRegi
 import type { TAnimationsService } from '@/Engine/Animations';
 import { AnimationsResourceAsyncRegistry, AnimationsService } from '@/Engine/Animations';
 import type { TAppCanvas } from '@/Engine/App';
+import { AudioFactory, AudioRegistry, AudioResourceAsyncRegistry, AudioService } from '@/Engine/Audio';
 import type { TCameraService } from '@/Engine/Camera';
 import { CameraFactory, CameraRegistry, CameraService } from '@/Engine/Camera';
 import type { TCollisionsService } from '@/Engine/Collisions';
@@ -92,6 +93,7 @@ export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas,
       },
       sceneW
     ),
+    audioService: AudioService(AudioFactory(), AudioRegistry(), AudioResourceAsyncRegistry()),
     cameraService,
     controlsService: ControlService(ControlsFactory(), ControlsRegistry(), loops, canvas),
     collisionsService,

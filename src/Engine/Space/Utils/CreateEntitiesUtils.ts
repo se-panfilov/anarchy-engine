@@ -6,10 +6,11 @@ import { isDefined } from '@/Engine/Utils';
 
 // TODO SPACE: Maybe we need a space service, and factory, to create from config, and to create from the code.
 export function createEntities(entities: TSpaceConfigEntities, services: TSpaceServices): void {
-  const { actors, cameras, spatialGrids, controls, intersections, lights, models3d, envMaps, fogs, fsm, texts, physics, particles } = entities;
+  const { actors, audio, cameras, spatialGrids, controls, intersections, lights, models3d, envMaps, fogs, fsm, texts, physics, particles } = entities;
 
   const {
     actorService,
+    audioService,
     cameraService,
     controlsService,
     envMapService,
@@ -35,6 +36,7 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
   fogService.createFromConfig(fogs);
   envMapService.createFromConfig(envMaps);
   models3dService.createFromConfig(models3d);
+  audioService.createFromConfig(audio);
 
   if (isDefined(physics.global)) physicsWorldService.createWorld(physics.global);
   if (isDefined(physics.presets)) physicsPresetService.addPresetsFromConfig(physics.presets);
