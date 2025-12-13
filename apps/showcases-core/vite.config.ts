@@ -20,45 +20,7 @@ import { version as showcasesMenuVersion } from '../../packages/showcases-menu/p
 import { version as showcasesSharedVersion } from '../../packages/showcases-shared/package.json';
 import { emitDefineJson } from '../../packages/anarchy-shared/src/Plugins/EmitDefineVitePlugin';
 import csp from 'vite-plugin-csp-guard';
-
-const BASE_CSP: Record<string, string[]> = {
-  'default-src': ["'self'"],
-
-  //No unsave-eval, no inline scripts/styles
-  'script-src': ["'self'"],
-  'script-src-elem': ["'self'"],
-
-  'style-src': ["'self'"],
-
-  // A compromise for libs with inline styles
-  'style-src-elem': ["'self'", "'unsafe-inline'"],
-  'img-src': ["'self'", 'data:', 'blob:'],
-  'font-src': ["'self'"],
-  'connect-src': ["'self'"],
-  'media-src': ["'self'", 'blob:'],
-
-  // Required for WebWorker/three.js/wasm
-  'worker-src': ["'self'", 'blob:'],
-
-  'child-src': ["'none'"],
-  'object-src': ["'none'"],
-  'base-uri': ["'self'"],
-  'form-action': ["'self'"],
-  'frame-ancestors': ["'none'"]
-  // "upgrade-insecure-requests": [] //If needed in the web version
-};
-
-const DEV_CSP: Record<string, string[]> = {
-  ...BASE_CSP,
-  // TODO DESKTOP: Can we have ports from config (or env)?
-  'connect-src': [...BASE_CSP['connect-src'], 'http://localhost:5173', 'ws://localhost:5173']
-};
-
-const PROD_CSP = {
-  ...BASE_CSP,
-  'connect-src': ["'self'"]
-  // maybe add 'upgrade-insecure-requests' as a separate plugin directive, if it supports
-};
+import { PROD_CSP } from '../../configs/Security/Csp/CspConfig';
 
 export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
   const root: string = process.cwd();
@@ -69,7 +31,8 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
     throw new Error('[BUILD] Build must be run with a target(desktop/mobile/web). So, VITE_BUILD_PLATFORM mast be specified in .env file, but it is not.');
 
   const toBool = (v: string): boolean => v === 'true';
-  const buildCompression: boolean = toBool(VITE_BUILD_COMPRESSION);
+  // TODO DESKTOP: DEBUG!!!!
+  const buildCompression: boolean = false; //toBool(VITE_BUILD_COMPRESSION);
   const minify: boolean = toBool(VITE_BUILD_MINIFIED);
   const sourcemap: boolean = toBool(VITE_BUILD_SOURCEMAPS);
 
@@ -114,7 +77,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
           run: true,
           outlierSupport: ['sass']
         },
-        // policy: PROD_CSP,
+        policy: PROD_CSP,
         build: { sri: true }
       }),
 
