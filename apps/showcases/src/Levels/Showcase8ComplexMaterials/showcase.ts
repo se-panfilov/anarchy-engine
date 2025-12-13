@@ -8,17 +8,16 @@ import type {
   TSpace,
   TSpaceConfig,
   TWithAoIntensity,
+  TWithClearcoatRoughness,
   TWithDisplacementScale,
   TWithIOR,
-  TWithIridescence,
   TWithIridescenceIOR,
   TWithMetalness,
   TWithRoughness,
   TWithSheen,
   TWithSheenColor,
   TWithSheenRoughness,
-  TWithThickness,
-  TWithTransmission
+  TWithThickness
 } from '@Engine';
 import { asRecord, ControlsType, getTags, isDefined, isNotDefined, isOrbitControls, KeyCode, LookUpStrategy, spaceService, TextType } from '@Engine';
 import type { Controller } from 'lil-gui';
@@ -133,9 +132,12 @@ export function showcase(space: TSpace): void {
     const isDisplacementMap: boolean = isDefined((model3d.material as MeshStandardMaterial).displacementMap);
     const isNormalMap: boolean = isDefined((model3d.material as MeshStandardMaterial).normalMap);
     // const isClearCoat: boolean = isDefined((model3d.material as MeshPhysicalMaterial).clearcoat);
+    const isClearcoatRoughness: boolean = isDefined((model3d.material as MeshPhysicalMaterial).clearcoatRoughness);
     const isSheen: boolean = isDefined((model3d.material as MeshPhysicalMaterial).sheen);
-    const isIridescence: boolean = isDefined((model3d.material as MeshPhysicalMaterial).iridescence);
-    const isTransmission: boolean = isDefined((model3d.material as MeshPhysicalMaterial).transmission);
+    const isIridescenceIOR: boolean = isDefined((model3d.material as MeshPhysicalMaterial).iridescenceIOR);
+    // const isTransmission: boolean = isDefined((model3d.material as MeshPhysicalMaterial).transmission);
+    const isIor: boolean = isDefined((model3d.material as MeshPhysicalMaterial).ior);
+    const isThickness: boolean = isDefined((model3d.material as MeshPhysicalMaterial).thickness);
 
     if (isMetalness)
       controllers = [
@@ -196,15 +198,18 @@ export function showcase(space: TSpace): void {
     //     .max(1)
     //     .step(0.0001)
     // ];
-    // controllers = [
-    //   ...controllers,
-    //   gui
-    //     .add(model3d.material as TWithClearcoatRoughness, 'clearcoatRoughness')
-    //     .min(0)
-    //     .max(1)
-    //     .step(0.0001)
-    // ];
     // }
+
+    if (isClearcoatRoughness) {
+      controllers = [
+        ...controllers,
+        gui
+          .add(model3d.material as TWithClearcoatRoughness, 'clearcoatRoughness')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
+    }
 
     if (isSheen) {
       controllers = [
@@ -226,15 +231,15 @@ export function showcase(space: TSpace): void {
       controllers = [...controllers, gui.addColor(model3d.material as TWithSheenColor, 'sheenColor')];
     }
 
-    if (isIridescence) {
-      controllers = [
-        ...controllers,
-        gui
-          .add(model3d.material as TWithIridescence, 'iridescence')
-          .min(0)
-          .max(1)
-          .step(0.0001)
-      ];
+    if (isIridescenceIOR) {
+      // controllers = [
+      //   ...controllers,
+      //   gui
+      //     .add(model3d.material as TWithIridescence, 'iridescence')
+      //     .min(0)
+      //     .max(1)
+      //     .step(0.0001)
+      // ];
       controllers = [
         ...controllers,
         gui
@@ -261,15 +266,18 @@ export function showcase(space: TSpace): void {
       ];
     }
 
-    if (isTransmission) {
-      controllers = [
-        ...controllers,
-        gui
-          .add(model3d.material as TWithTransmission, 'transmission')
-          .min(0)
-          .max(1)
-          .step(0.0001)
-      ];
+    // if (isTransmission) {
+    //   controllers = [
+    //     ...controllers,
+    //     gui
+    //       .add(model3d.material as TWithTransmission, 'transmission')
+    //       .min(0)
+    //       .max(1)
+    //       .step(0.0001)
+    //   ];
+    // }
+
+    if (isIor) {
       controllers = [
         ...controllers,
         gui
@@ -278,6 +286,9 @@ export function showcase(space: TSpace): void {
           .max(10)
           .step(0.0001)
       ]; //diamond ior 2.417, water 1.333, glass 1.5, air 1.0003
+    }
+
+    if (isThickness) {
       controllers = [
         ...controllers,
         gui

@@ -306,12 +306,10 @@
         "options": {
           "displacementScale": 0,
           "ior": 2.3,
-          "iridescence": 0.655,
           "iridescenceIOR": 1.86,
           "metalness": 0.97,
           "roughness": 0.8,
-          "thickness": 0,
-          "transmission": 0
+          "thickness": 0
         },
         "tags": ["physical", "metal"],
         "textures": {
@@ -345,12 +343,10 @@
         "options": {
           "displacementScale": 0,
           "ior": 2.3,
-          "iridescence": 0.655,
           "iridescenceIOR": 1.86,
           "metalness": 0.97,
           "roughness": 0.8,
-          "thickness": 0,
-          "transmission": 0
+          "thickness": 0
         },
         "tags": ["physical", "metal"],
         "textures": {
@@ -439,12 +435,10 @@
         "options": {
           "displacementScale": 0.1,
           "ior": 1.26,
-          "iridescence": 0,
           "iridescenceIOR": 1.38,
           "metalness": 0,
           "roughness": 0,
-          "thickness": 0.5,
-          "transmission": 0.77
+          "thickness": 0.5
         },
         "tags": ["physical", "glass"],
         "type": "MeshPhysicalMaterial"
