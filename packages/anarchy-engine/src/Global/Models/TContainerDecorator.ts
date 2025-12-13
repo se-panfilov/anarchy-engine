@@ -1,7 +1,8 @@
-import type { TAppGlobalContainer } from '@Anarchy/Engine/Global';
 import type { TDestroyable, TNoSpread, TWithId } from '@Anarchy/Engine/Mixins';
 import type { TSpaceCanvas } from '@Anarchy/Engine/Space';
 import type { BehaviorSubject, Observable } from 'rxjs';
+
+import type { TAppGlobalContainer } from './TAppGlobalContainer';
 
 export type TContainerDecorator = Readonly<{
   getWidth: () => number;

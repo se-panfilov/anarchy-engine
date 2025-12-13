@@ -1,6 +1,6 @@
 import { metersPerSecond, radiansPerSecond } from '@Anarchy/Engine/Distance';
 import { ForwardAxis } from '@Anarchy/Engine/Kinematic/Constants';
-import type { TDegrees, TMetersPerSecond, TRadians, TRadiansPerSecond } from '@Anarchy/Engine/Math';
+import type { TDegrees, TMetersPerSecond, TRadians, TRadiansPerSecond } from '@Anarchy/Engine/Math/Types';
 import type { TEulerLike } from '@Anarchy/Engine/ThreeLib';
 import { isEulerLike, isQuaternionLike } from '@Anarchy/Engine/Utils/CheckUtils';
 import type { EulerOrder, QuaternionLike, Vector3Like } from 'three';

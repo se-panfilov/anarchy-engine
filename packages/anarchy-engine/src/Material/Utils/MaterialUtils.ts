@@ -1,5 +1,5 @@
-import type { TMaterialParams, TMaterialParamsOptions, TMaterials, TTypeOfMaterials } from '@Anarchy/Engine/Material';
 import { MaterialMap, MaterialType } from '@Anarchy/Engine/Material/Constants';
+import type { TMaterialParams, TMaterialParamsOptions, TMaterials, TTypeOfMaterials } from '@Anarchy/Engine/Material/Models';
 import type { TEulerLike, TEulerString } from '@Anarchy/Engine/ThreeLib';
 import { eulerToXyz, vector2ToXy, vector3ToXyz } from '@Anarchy/Engine/Utils';
 import type { TWithoutNull } from '@Anarchy/Shared/Utils';
