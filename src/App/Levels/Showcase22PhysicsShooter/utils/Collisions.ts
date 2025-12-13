@@ -25,7 +25,7 @@ export async function enableCollisions(scene: TSceneWrapper, actorService: TActo
   mouseLineIntersectionsWatcher.value$.subscribe((value) => {
     // console.log(value.point);
     const objects = collisionsService.grid.getAllInCell(grid, value.point.x, value.point.z);
-    console.log(objects.map((o) => o.name));
+    console.log(objects.map((actorW: TActorWrapperAsync) => actorW.name));
     //collisionsService._debugHighlightCellObjects(new Vector2(value.point.x, value.point.z), cameraW, scene, grid);
   });
 
