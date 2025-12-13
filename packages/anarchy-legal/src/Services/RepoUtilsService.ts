@@ -62,23 +62,19 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
 
   async function loadRoot(rootDir: string): Promise<TRootInfo> {
     const rootPkgPath: string = path.join(rootDir, 'package.json');
-    if (!(await exists(rootPkgPath))) {
-      throw new Error(`Root package.json not found at: ${rootPkgPath}`);
-    }
+    if (!(await exists(rootPkgPath))) throw new Error(`Root package.json not found at: ${rootPkgPath}`);
+
     const rootPkg: TRootInfo['rootPkg'] = await readJson<TRootInfo['rootPkg']>(rootPkgPath);
     const wsField = rootPkg.workspaces;
-    if (!wsField) {
-      throw new Error(`"workspaces" not found in root package.json at ${rootPkgPath}`);
-    }
+    if (!wsField) throw new Error(`"workspaces" not found in root package.json at ${rootPkgPath}`);
+
     const patterns: ReadonlyArray<string> = Array.isArray(wsField) ? wsField : ((wsField as any).packages ?? []);
-    if (patterns.length === 0) {
-      throw new Error(`"workspaces" has no packages in ${rootPkgPath}`);
-    }
+    if (patterns.length === 0) throw new Error(`"workspaces" has no packages in ${rootPkgPath}`);
 
     debugLog(isDebug, 'workspaces patterns:', patterns);
 
     // eslint-disable-next-line spellcheck/spell-checker
-    const dirs: ReadonlyArray<string> = await globby(patterns as string[], {
+    const dirs: ReadonlyArray<string> = await globby(patterns, {
       cwd: rootDir,
       onlyDirectories: true,
       absolute: true,
@@ -328,7 +324,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
 
   const safeString = (v: unknown): string | undefined => (typeof v === 'string' ? v : undefined);
 
-  function normalizeLicenseValue(licenseField: unknown): string | string[] {
+  function normalizeLicenseValue(licenseField: unknown): string | ReadonlyArray<string> {
     if (!licenseField) return 'UNKNOWN';
     if (typeof licenseField === 'string') return licenseField;
     if (Array.isArray(licenseField)) {
@@ -368,7 +364,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     const list = await Promise.all(
       Array.from(collected.values()).map(async ({ id, name, version, installPath }) => {
         let licenseText: string | undefined;
-        let licenseType: string | string[] | undefined = 'UNKNOWN';
+        let licenseType: string | ReadonlyArray<string> | undefined = 'UNKNOWN';
         let repository: string | undefined;
         let publisher: string | undefined;
         let email: string | undefined;
@@ -413,7 +409,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
         .map(async (info) => {
           const version: string = info.pkg.version ?? '0.0.0';
           const meta = await readPackageMeta(info.dir);
-          const licenseType: string | string[] = normalizeLicenseValue(meta.licenseField);
+          const licenseType: string | ReadonlyArray<string> = normalizeLicenseValue(meta.licenseField);
           const licenseText: string | undefined = await tryReadLicenseText(info.dir, meta.licenseField);
           return {
             id: `${info.name}@${version}`,
@@ -433,10 +429,10 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
   }
 
   function renderMarkdown(workspaceLabel: string, items: ReadonlyArray<TLicenseEntry>, emptyNote?: string): string {
-    const header: string[] = [`# Third-Party Licenses`, `## Application: ${workspaceLabel}`, `Production dependencies (including transition dependencies): ${items.length}`, ``];
-    const note: string[] = items.length === 0 && emptyNote ? [`**Note:** ${emptyNote}`, ``] : [];
+    const header: ReadonlyArray<string> = [`# Third-Party Licenses`, `## Application: ${workspaceLabel}`, `Production dependencies (including transition dependencies): ${items.length}`, ``];
+    const note: ReadonlyArray<string> = items.length === 0 && emptyNote ? [`**Note:** ${emptyNote}`, ``] : [];
 
-    const body: string[] = items.flatMap((it) => {
+    const body: ReadonlyArray<string> = items.flatMap((it) => {
       const licenseStr: string = Array.isArray(it.licenses) ? it.licenses.join(', ') : String(it.licenses ?? 'UNKNOWN');
       return [
         `---`,
