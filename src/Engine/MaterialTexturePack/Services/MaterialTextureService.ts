@@ -1,9 +1,9 @@
 import type { TMaterialParams, TMaterialProps, TMaterialService, TMaterialWrapper } from '@/Engine/Material';
-import type { TMaterialPackConfig, TMaterialPackParams, TMaterialTexturePack, TMaterialTextureService } from '@/Engine/MaterialTexturePack';
-import type { TTextureService, TTextureUploaded } from '@/Engine/Texture';
+import type { TMaterialPackConfig, TMaterialPackParams, TMaterialTexturePack, TMaterialTextureService, TMaterialTextureServiceDependencies } from '@/Engine/MaterialTexturePack';
+import type { TTextureUploaded } from '@/Engine/Texture';
 
-// TODO 9.0.0. RESOURCES: add dependencies object
-export function MaterialTextureService(materialService: TMaterialService, textureService: TTextureService): TMaterialTextureService {
+// TODO 9.0.0. RESOURCES: adjust return type to match destroyable/factory/etc interfaces
+export function MaterialTextureService(materialService: TMaterialService, { textureService }: TMaterialTextureServiceDependencies): TMaterialTextureService {
   const createAsync = (pack: TMaterialPackParams<TMaterialTexturePack>): Promise<TMaterialWrapper> => {
     return textureService
       .load(pack)
