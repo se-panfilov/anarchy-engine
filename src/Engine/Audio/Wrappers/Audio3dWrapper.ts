@@ -22,6 +22,7 @@ export function Audio3dWrapper({ sound, volume, position, name, performance }: T
   const volume$: BehaviorSubject<number> = new BehaviorSubject<number>(volume);
 
   const updatePriority: LoopUpdatePriority = performance?.updatePriority ?? LoopUpdatePriority.LOW;
+  // TODO 11.0.0: maybe the default threshold should be higher?
   const noiseThreshold: TMeters = performance?.noiseThreshold ?? meters(0.000001);
 
   // TODO 11.0.0: should use decibels instead of number?
@@ -36,7 +37,7 @@ export function Audio3dWrapper({ sound, volume, position, name, performance }: T
     .pipe(
       sample(audioLoop.tick$),
       // TODO 11.0.0: check filter logic
-      filter((): boolean => updatePriority < audioLoop.priority$.value)
+      filter((): boolean => updatePriority >= audioLoop.priority$.value)
     )
     .subscribe(([sourcePosition, listenerPos]: [TReadonlyVector3, TReadonlyVector3]): void => {
       volume$.next(calculateVolume(sourcePosition, listenerPos));
@@ -46,11 +47,11 @@ export function Audio3dWrapper({ sound, volume, position, name, performance }: T
 
   // TODO 11.0.0: should use decibels instead of number?
   function calculateVolume(sourcePosition: TReadonlyVector3, listenerPos: TReadonlyVector3): number {
-    // const distance: TMeters = getDistance(sourcePosition, listenerPos);
     const distance: TMeters = sourcePosition.distanceTo(listenerPos) as TMeters;
 
     // then farther, the quieter
-    return Math.max(0, 1 - distance / 20);
+    const refDistance = 1;
+    return Math.max(0, 1 / (1 + Math.pow(distance / refDistance, 2)));
   }
 
   const destroyable: TDestroyable = destroyableMixin();
