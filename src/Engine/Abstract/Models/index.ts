@@ -1,5 +1,4 @@
 export * from './IAbstractAsyncRegistry';
-export * from './IAbstractEntityWithWrapperId';
 export * from './IAbstractPool';
 export * from './IAbstractRegistry';
 export * from './IAbstractWatcher';
@@ -14,4 +13,5 @@ export * from './IReactiveFactory';
 export * from './IWatcher';
 export * from './IWatcherWithState';
 export * from './IWithWrapperId';
+export * from './IWithWrapperIdEntity';
 export * from './IWrapper';

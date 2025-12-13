@@ -1,7 +1,6 @@
 import type { IWatcher } from '@/Engine/Abstract';
 import type { IActorWrapperAsync } from '@/Engine/Actor';
 import type { ICameraWrapper } from '@/Engine/Camera';
-import type { IVector3 } from '@/Engine/Vector';
 
 import type { IIntersectionEvent } from './IIntersectionEvent';
 

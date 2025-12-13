@@ -1,4 +1,4 @@
-import type { IActorWrapper } from '@/Engine/Actor';
+import type { IActorWrapperAsync } from '@/Engine/Actor';
 import type { ICameraWrapper } from '@/Engine/Camera';
 import type { IColor } from '@/Engine/Color';
 import type { IDataTexture } from '@/Engine/EnvMap';
