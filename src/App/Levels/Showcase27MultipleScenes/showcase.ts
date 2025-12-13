@@ -2,8 +2,8 @@ import type { Subscription } from 'rxjs';
 import { combineLatest } from 'rxjs';
 import { Clock } from 'three';
 
-import type { TActor, TActorRegistry, TActorService, TMilliseconds, TSpace, TSpaceConfig, TTransformLoop } from '@/Engine';
-import { asRecord, createDomElement, isNotDefined, spaceService } from '@/Engine';
+import type { TActor, TActorRegistry, TActorService, TKeyboardPressingEvent, TMilliseconds, TSpace, TSpaceConfig, TSpaceServices, TTransformLoop } from '@/Engine';
+import { asRecord, createDomElement, isNotDefined, KeyCode, metersPerSecond, mpsSpeed, spaceService } from '@/Engine';
 
 import spaceAlphaConfigJson from './spaceAlpha.json';
 import spaceBetaConfigJson from './spaceBeta.json';
@@ -40,11 +40,13 @@ export function start(): void {
 
 export function runAlpha(space: TSpace): void {
   moveCircle('sphere_actor', space.services.actorService, space.loops.transformLoop, new Clock());
+  driveByKeyboard('move_actor_left', space.services);
   space.start$.next(true);
 }
 
 export function runBeta(space: TSpace): void {
   moveCircle('box_actor', space.services.actorService, space.loops.transformLoop, new Clock());
+  driveByKeyboard('move_actor_right', space.services);
   space.start$.next(true);
 }
 
@@ -87,4 +89,17 @@ function addBtn(text: string, cb: (...rest: ReadonlyArray<any>) => void): void {
 
   button.addEventListener('click', cb);
   container.appendChild(button);
+}
+
+function driveByKeyboard(actorName: string, { actorService, keyboardService }: TSpaceServices): void {
+  const actorRegistry: TActorRegistry = actorService.getRegistry();
+  const actor: TActor | undefined = actorRegistry.findByName(actorName);
+  if (isNotDefined(actor)) throw new Error(`Actor "${actorName}" is not defined`);
+
+  const { onKey } = keyboardService;
+
+  onKey(KeyCode.W).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actor.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta)));
+  onKey(KeyCode.A).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actor.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta)));
+  onKey(KeyCode.S).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actor.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta)));
+  onKey(KeyCode.D).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actor.drive.default.addX(mpsSpeed(metersPerSecond(10), delta)));
 }

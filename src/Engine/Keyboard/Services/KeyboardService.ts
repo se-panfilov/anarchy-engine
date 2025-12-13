@@ -3,7 +3,7 @@ import { filter, map, Subject } from 'rxjs';
 
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
-import type { TGameKey, TKeyboardLoop, TKeyboardRegistry, TKeyboardRegistryValues, TKeyboardService, TKeyCombo, TKeySubscription } from '@/Engine/Keyboard/Models';
+import type { TGameKey, TKeyboardLoop, TKeyboardPressingEvent, TKeyboardRegistry, TKeyboardRegistryValues, TKeyboardService, TKeyCombo, TKeySubscription } from '@/Engine/Keyboard/Models';
 import { KeyboardRegistry } from '@/Engine/Keyboard/Registries';
 import type { TDelta } from '@/Engine/Loop';
 import type { TDisposable } from '@/Engine/Mixins';
@@ -18,7 +18,7 @@ export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
     const subscriptions: TKeyboardRegistryValues | undefined = keyboardRegistry.findByKey(key);
     if (!subscriptions) {
       const pressed$: Subject<TGameKey | TKeyCombo> = new Subject();
-      const pressing$: Subject<Readonly<{ key: TGameKey | TKeyCombo; delta: TDelta }>> = new Subject();
+      const pressing$: Subject<TKeyboardPressingEvent> = new Subject();
       const released$: Subject<TGameKey | TKeyCombo> = new Subject();
 
       keyboardRegistry.add(key, { pressed$, pressing$, released$ });
