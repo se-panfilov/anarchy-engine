@@ -2,16 +2,14 @@ import { World } from '@dimforge/rapier3d';
 
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { configToParams } from '@/Engine/Physics/Adapters';
 import type {
   TPhysicsBodyFacade,
-  TPhysicsBodyFactory,
-  TPhysicsBodyRegistry,
+  TPhysicsBodyFacadeConfig,
+  TPhysicsBodyFacadeFactory,
+  TPhysicsBodyFacadeParams,
+  TPhysicsBodyFacadeRegistry,
+  TPhysicsBodyFacadeService,
   TPhysicsDebugRenderer,
-  TPhysicsPresetConfig,
-  TPhysicsPresetParams,
-  TPhysicsPresetRegistry,
-  TPhysicsService,
   TPhysicsWorldParams
 } from '@/Engine/Physics/Models';
 import { PhysicsDebugRenderer } from '@/Engine/Physics/Utils';
@@ -19,13 +17,13 @@ import type { TSceneWrapper } from '@/Engine/Scene';
 import { isNotDefined } from '@/Engine/Utils';
 import type { TVector3Wrapper } from '@/Engine/Vector';
 
-export function PhysicsService(factory: TPhysicsBodyFactory, registry: TPhysicsBodyRegistry, physicsPresetRegistry: TPhysicsPresetRegistry, scene: TSceneWrapper): TPhysicsService {
+export function PhysicsBodyFacadeService(factory: TPhysicsBodyFacadeFactory, registry: TPhysicsBodyFacadeRegistry, scene: TSceneWrapper): TPhysicsBodyFacadeService {
   let world: World | undefined;
   factory.entityCreated$.subscribe((coordinator: TPhysicsBodyFacade): void => registry.add(coordinator));
 
-  const create = (params: TPhysicsPresetParams): TPhysicsBodyFacade => factory.create(params);
-  const createFromConfig = (physics: ReadonlyArray<TPhysicsPresetConfig>): void => {
-    physics.forEach((config: TPhysicsPresetConfig): TPhysicsBodyFacade => factory.create(factory.configToParams(config)));
+  const create = (params: TPhysicsBodyFacadeParams): TPhysicsBodyFacade => factory.create(params);
+  const createFromConfig = (physics: ReadonlyArray<TPhysicsBodyFacadeConfig>): void => {
+    physics.forEach((config: TPhysicsBodyFacadeConfig): TPhysicsBodyFacade => factory.create(factory.configToParams(config)));
   };
 
   function createWorld({
@@ -73,14 +71,10 @@ export function PhysicsService(factory: TPhysicsBodyFactory, registry: TPhysicsB
     world.gravity = vector.getCoords();
   }
 
-  const addPresets = (presets: ReadonlyArray<TPhysicsPresetParams>): void => presets.forEach((preset: TPhysicsPresetParams) => physicsPresetRegistry.add(preset.name, preset));
-  const addPresetsFromConfig = (presets: ReadonlyArray<TPhysicsPresetConfig>): void => addPresets(presets.map(configToParams));
-
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     factory.destroy();
     registry.destroy();
-    physicsPresetRegistry.destroy();
     world?.free();
   });
 
@@ -88,14 +82,11 @@ export function PhysicsService(factory: TPhysicsBodyFactory, registry: TPhysicsB
     create,
     createFromConfig,
     createWorld,
-    addPresets,
-    addPresetsFromConfig,
     getDebugRenderer,
     getWorld: (): World | undefined => world,
     setGravity,
-    getFactory: (): TPhysicsBodyFactory => factory,
-    getRegistry: (): TPhysicsBodyRegistry => registry,
-    getPresetRegistry: (): TPhysicsPresetRegistry => physicsPresetRegistry,
+    getFactory: (): TPhysicsBodyFacadeFactory => factory,
+    getRegistry: (): TPhysicsBodyFacadeRegistry => registry,
     getScene: (): TSceneWrapper => scene,
     ...destroyable
   };

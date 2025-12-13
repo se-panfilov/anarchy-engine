@@ -1,1 +1,2 @@
-export * from './PhysicsBodyFactory';
+export * from './PhysicsBodyFacadeFactory';
+export * from './PhysicsPresetFactory';

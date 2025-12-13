@@ -8,7 +8,7 @@ import type { TLightService } from '@/Engine/Light';
 import type { TMaterialService } from '@/Engine/Material';
 import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import type { TParticlesService } from '@/Engine/Particles';
-import type { TPhysicsService } from '@/Engine/Physics';
+import type { TPhysicsBodyFacadeService, TPhysicsPresetsService } from '@/Engine/Physics';
 import type { TRendererService } from '@/Engine/Renderer';
 import type { TScenesService } from '@/Engine/Scene';
 import type { TTextService } from '@/Engine/Text';
@@ -20,7 +20,8 @@ export type TSpaceServices = Readonly<{
   intersectionsWatcherService: TIntersectionsWatcherService;
   lightService: TLightService;
   particlesService: TParticlesService;
-  physicsService: TPhysicsService;
+  physicsPresetService: TPhysicsPresetsService;
+  physicsBodyFacadeService: TPhysicsBodyFacadeService;
   fogService: TFogService;
   controlsService: TControlsService;
   materialService: TMaterialService;

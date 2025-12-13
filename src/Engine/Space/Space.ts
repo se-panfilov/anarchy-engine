@@ -38,11 +38,23 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     return activeScene;
   });
 
-  const { actorService, cameraService, controlsService, lightService, fogService, envMapService, textService, rendererService, intersectionsWatcherService, particlesService, physicsService } =
-    services;
+  const {
+    actorService,
+    cameraService,
+    controlsService,
+    lightService,
+    fogService,
+    envMapService,
+    textService,
+    rendererService,
+    intersectionsWatcherService,
+    particlesService,
+    physicsPresetService,
+    physicsBodyFacadeService
+  } = services;
 
-  if (isDefined(physics.global)) physicsService.createWorld(physics.global);
-  if (isDefined(physics.presets)) physicsService.addPresetsFromConfig(physics.presets);
+  if (isDefined(physics.global)) physicsBodyFacadeService.createWorld(physics.global);
+  if (isDefined(physics.presets)) physicsPresetService.addPresetsFromConfig(physics.presets);
 
   cameraService.createFromConfig(cameras);
   actorService.createFromConfig(actors);

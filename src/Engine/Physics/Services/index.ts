@@ -1,1 +1,2 @@
-export * from './PhysicsService';
+export * from './PhysicsBodyFacadeService';
+export * from './PhysicsPresetsService';

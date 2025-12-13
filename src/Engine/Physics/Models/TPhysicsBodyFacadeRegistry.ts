@@ -2,4 +2,4 @@ import type { TAbstractEntityRegistry, TProtectedRegistry } from '@/Engine/Abstr
 
 import type { TPhysicsBodyFacade } from './TPhysicsBodyFacade';
 
-export type TPhysicsBodyRegistry = TProtectedRegistry<TAbstractEntityRegistry<TPhysicsBodyFacade>>;
+export type TPhysicsBodyFacadeRegistry = TProtectedRegistry<TAbstractEntityRegistry<TPhysicsBodyFacade>>;

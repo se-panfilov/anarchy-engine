@@ -37,11 +37,14 @@ function createCube({ width, height, depth, widthSegments, heightSegments, depth
   return new Mesh(new BoxGeometry(w, h, d, widthSegments, heightSegments, depthSegments), material);
 }
 
-export function createPhysicsBody(physics: TWithPhysicsPresetParams, { physicsService }: Pick<TActorDependencies, 'physicsService'>): TPhysicsBodyFacade {
+export function createPhysicsBody(
+  physics: TWithPhysicsPresetParams,
+  { physicsBodyFacadeService, physicsPresetService }: Pick<TActorDependencies, 'physicsBodyFacadeService' | 'physicsPresetService'>
+): TPhysicsBodyFacade {
   const { preset, ...rest } = physics;
   let presetFromRegistry: TPhysicsPresetParams | undefined;
   if (isDefined(preset)) {
-    const physicsPresetRegistry: TPhysicsPresetRegistry = physicsService.getPresetRegistry();
+    const physicsPresetRegistry: TPhysicsPresetRegistry = physicsPresetService.getRegistry();
     // TODO (S.Panfilov) findByKey?
     presetFromRegistry = physicsPresetRegistry.findByKey(preset);
     if (isNotDefined(presetFromRegistry)) throw new Error(`Physics preset not found: ${preset}`);
@@ -53,6 +56,6 @@ export function createPhysicsBody(physics: TWithPhysicsPresetParams, { physicsSe
   // TODO (S.Panfilov) CWP here we build somehow (we need a factory and a registry),
   //  next we have to attach it to the actor and put to physics objects registry
   //  (and so to add to world, and use to update)
-  const physicsObject = physicsService.create(fullParams);
+  const physicsObject = physicsBodyFacadeService.create(fullParams);
   return physicsObject;
 }
