@@ -22,7 +22,9 @@ import {
   isVector3Wrapper,
   isVector4,
   isVector4Wrapper,
-  isWithWrapperId
+  isWithUserData,
+  isWithWrapperId,
+  IWithWrapperIdAccessors
 } from './CheckUtils';
 
 describe('CheckUtils', () => {
@@ -230,6 +232,27 @@ describe('CheckUtils', () => {
 
     it('should return "false" if it is a string', () => {
       expect(isColorWrapper('#FF0000')).toBe(false);
+    });
+  });
+
+  describe('isWithUserData', () => {
+    it('should return "true" an object has userData', () => {
+      expect(isWithUserData({ userData: {} })).toBe(true);
+      expect(isWithUserData({ userData: { wrapperId: 'some' } })).toBe(true);
+    });
+
+    it('should return "false" an object has NO wrapperId', () => {
+      expect(isWithUserData({})).toBe(false);
+    });
+  });
+
+  describe('IWithWrapperIdAccessors', () => {
+    it('should return "true" an object has accessors', () => {
+      expect(IWithWrapperIdAccessors({ setWrapperId: vi.fn(), getWrapperId: vi.fn() })).toBe(true);
+    });
+
+    it('should return "false" an object has NO accessors', () => {
+      expect(IWithWrapperIdAccessors({})).toBe(false);
     });
   });
 

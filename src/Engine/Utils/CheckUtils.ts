@@ -31,10 +31,8 @@ export function isColorWrapper(obj: unknown): obj is IColorWrapper {
   return isDefined((obj as IColorWrapper).entity) && (obj as IColorWrapper).entity instanceof Color;
 }
 
-// TODO (S.Panfilov) add unit tests
 export const isWithUserData = (entity: any): entity is IWithUserData => isDefined((entity as IWithUserData).userData);
 
-// TODO (S.Panfilov) add unit tests
 export const IWithWrapperIdAccessors = (entity: any): entity is IWithWrapperId => isDefined((entity as IWithWrapperId).setWrapperId) && isDefined((entity as IWithWrapperId).getWrapperId);
 
 export function isWithWrapperId<T extends IWithUserData>(obj: unknown): obj is IWithWrapperIdEntity<T> {
