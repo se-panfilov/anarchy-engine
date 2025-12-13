@@ -22,7 +22,7 @@
   "actors": [
     {
       "model3d": {
-        "model3dName": "sphere_model"
+        "presetName": "sphere_model"
       },
       "position": { "x": 0, "y": 2, "z": 0 },
       "castShadow": true,
