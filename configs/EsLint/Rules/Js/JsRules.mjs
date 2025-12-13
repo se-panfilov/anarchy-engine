@@ -176,6 +176,7 @@ export const JsRules = {
         '[D-d]estroyable',
         '[D-d]iv[s]?',
         '[D-d]om',
+        '[D-d]otenv',
         '[E-e]num[s]?',
         '[F-f]ormatter[s]?',
         '[F-f]sm',
