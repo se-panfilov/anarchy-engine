@@ -25,8 +25,7 @@ export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactor
   const abstractService: TAbstractService = AbstractService(disposable);
 
   const create = (params: TIntersectionsWatcherParams): TIntersectionsWatcher => factory.create(params, undefined);
-  const createFromList = (list: ReadonlyArray<TIntersectionsWatcherParams>): ReadonlyArray<TIntersectionsWatcher> =>
-    list.map((params: TIntersectionsWatcherParams): TIntersectionsWatcher => create(params));
+  const createFromList = (list: ReadonlyArray<TIntersectionsWatcherParams>): ReadonlyArray<TIntersectionsWatcher> => list.map(create);
   const createFromConfig = (
     configs: ReadonlyArray<TIntersectionsWatcherConfig>,
     mouseService: TMouseService,

@@ -1,6 +1,5 @@
 import type { TAppCanvas } from '@/Engine/App';
 import { ambientContext } from '@/Engine/Context';
-import type { TSceneConfig, TSceneParams } from '@/Engine/Scene';
 import { configToParams as sceneConfigAdapter } from '@/Engine/Scene/Adapters';
 import type { TSpaceConfig, TSpaceParams } from '@/Engine/Space/Models';
 import { isNotDefined } from '@/Engine/Utils';
@@ -13,7 +12,7 @@ export function configToParams(config: TSpaceConfig): TSpaceParams | never {
 
   return {
     ...rest,
-    scenes: scenes.map((scene: TSceneConfig): TSceneParams => sceneConfigAdapter(scene)),
+    scenes: scenes.map(sceneConfigAdapter),
     //we can't get entities here, services must be initialized first
     entities: undefined,
     canvas

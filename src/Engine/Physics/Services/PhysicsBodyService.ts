@@ -38,7 +38,7 @@ export function PhysicsBodyService(
     return factory.create(params, { world });
   };
 
-  const createFromList = (list: ReadonlyArray<TPhysicsBodyParams>): ReadonlyArray<TPhysicsBody> => list.map((params: TPhysicsBodyParams): TPhysicsBody => create(params));
+  const createFromList = (list: ReadonlyArray<TPhysicsBodyParams>): ReadonlyArray<TPhysicsBody> => list.map(create);
 
   const createWithPreset = (params: TOptional<TPhysicsBodyParams>, preset: TPhysicsPresetParams): TPhysicsBody | never => {
     const fullParams: TPhysicsBodyParams | TOptional<TPhysicsBodyParams> = { ...preset, ...params };

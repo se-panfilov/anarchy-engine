@@ -30,7 +30,7 @@ export function ControlService(factory: TControlsFactory, registry: TControlsReg
   const abstractService: TAbstractService = AbstractService(disposable);
 
   const create = (params: TControlsParams): TControlsWrapper => factory.create(params, undefined);
-  const createFromList = (list: ReadonlyArray<TControlsParams>): ReadonlyArray<TControlsWrapper> => list.map((params: TControlsParams): TControlsWrapper => create(params));
+  const createFromList = (list: ReadonlyArray<TControlsParams>): ReadonlyArray<TControlsWrapper> => list.map(create);
   const createFromConfig = (controls: ReadonlyArray<TControlsConfig>, camerasRegistry: TCameraRegistry): void => {
     controls.forEach((control: TControlsConfig): TControlsWrapper => {
       const camera: TCameraWrapper | undefined = camerasRegistry.find((camera: TCameraWrapper): boolean => camera.getName() === control.cameraName);
