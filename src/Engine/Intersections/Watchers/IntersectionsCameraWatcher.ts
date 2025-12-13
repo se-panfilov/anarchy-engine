@@ -3,7 +3,6 @@ import { distinctUntilChanged, EMPTY, filter, map, switchMap } from 'rxjs';
 import type { Vector2Like } from 'three';
 import { Vector2 } from 'three';
 
-import type { TActor } from '@/Engine/Actor';
 import type { TAnyCameraWrapper } from '@/Engine/Camera';
 import type {
   TAbstractIntersectionsWatcher,
@@ -15,7 +14,6 @@ import type {
 import { getChangedPosition } from '@/Engine/Intersections/Utils';
 import { AbstractIntersectionsWatcher } from '@/Engine/Intersections/Watchers/AbstractIntersectionsWatcher';
 import type { TMilliseconds } from '@/Engine/Math';
-import type { TRawModel3d } from '@/Engine/Models3d';
 import type { TSceneObject } from '@/Engine/Scene';
 import type { TReadonlyVector2 } from '@/Engine/ThreeLib';
 import type { TWriteable } from '@/Engine/Utils';
@@ -62,11 +60,8 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
         throw new Error('[IntersectionsWatcher]: Cannot start: camera is not defined');
       }
 
-      const intersection: TIntersectionEvent | undefined = getIntersection(
-        position as Vector2,
-        camera,
-        abstractIntersectionsWatcher.getActors().map((a: TActor): TRawModel3d => a.model3d.getRawModel3d())
-      );
+      const intersection: TIntersectionEvent | undefined = getIntersection(position as Vector2, camera, abstractIntersectionsWatcher.getModelsFromActors());
+      console.log('XXX intersection', intersection);
       if (isDefined(intersection)) abstractIntersectionsWatcher.value$.next(intersection);
     });
 

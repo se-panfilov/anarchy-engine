@@ -6,7 +6,6 @@ import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import { Vector3 } from 'three/src/math/Vector3';
 
-import type { TActor } from '@/Engine/Actor';
 import type { TContainerDecorator } from '@/Engine/Global';
 import type {
   TAbstractIntersectionsWatcher,
@@ -18,7 +17,6 @@ import type {
 import { getChangedOriginAndDirection } from '@/Engine/Intersections/Utils';
 import { AbstractIntersectionsWatcher } from '@/Engine/Intersections/Watchers/AbstractIntersectionsWatcher';
 import type { TMilliseconds } from '@/Engine/Math';
-import type { TRawModel3d } from '@/Engine/Models3d';
 import type { TSceneObject } from '@/Engine/Scene';
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
@@ -53,11 +51,7 @@ export function IntersectionsDirectionWatcher(params: TIntersectionsDirectionWat
       filter(isDefined)
     )
     .subscribe(({ origin, direction }: Readonly<{ origin: TReadonlyVector3; direction: TReadonlyVector3 }>): void => {
-      const intersection: TIntersectionEvent | undefined = getIntersection(
-        origin as Vector3,
-        direction as Vector3,
-        abstractIntersectionsWatcher.getActors().map((a: TActor): TRawModel3d => a.model3d.getRawModel3d())
-      );
+      const intersection: TIntersectionEvent | undefined = getIntersection(origin as Vector3, direction as Vector3, abstractIntersectionsWatcher.getModelsFromActors());
       if (isDefined(intersection)) abstractIntersectionsWatcher.value$.next(intersection);
     });
 

@@ -31,7 +31,7 @@ export function intersectionsToConfig(entity: TAnyIntersectionsWatcher): TAnyInt
 
 export function intersectionsAbstractToConfig(entity: TIntersectionsWatcher): TIntersectionsWatcherConfig {
   return filterOutEmptyFields({
-    actorNames: entity.getActors().map((actor: TActor): string => actor.name),
+    actorNames: Array.from(entity.getActors().values(), (actor: TActor): string => actor.name),
     isAutoStart: entity.isAutoStart,
     intersectionsLoop: entity.getIntersectionsLoop()?.name,
     far: entity.raycaster?.far,
