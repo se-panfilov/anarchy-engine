@@ -7,6 +7,7 @@ import type { IControlsParams } from '@Engine/Models';
 import type { IControlsWrapper } from '@Engine/Wrappers';
 
 const create: ICreateControlsFn = (params: IControlsParams): IControlsWrapper => ControlsWrapper(params);
+
 export const ControlsFactory = ({ canvas, cameraRegistry }: IControlsFactoryParams): IControlsFactory => {
   return AbstractFactory('controls', create, (config: IControlsConfig) =>
     controlsAdapter(config, cameraRegistry, canvas)

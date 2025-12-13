@@ -6,11 +6,12 @@ import type { ISceneConfig } from '@Engine/Launcher/Models';
 import { isNotDefined } from '@Engine/Utils';
 
 // TODO (S.Panfilov) canvas (or something else) should come from settings or ambient context
-const canvas: HTMLElement | null = document.querySelector('#app');
+const canvas: HTMLCanvasElement | null = document.querySelector('#app');
 if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
 
 // TODO (S.Panfilov) for a production we need a runtime validation for the json (against a schema or type)
-launch(sceneConfig as unknown as ISceneConfig, canvas);
+const isLaunched: boolean = await launch(sceneConfig as unknown as ISceneConfig, canvas);
+console.log('Launched', isLaunched);
 
 //Ambient Context
 startAmbientContext(ambientContext);

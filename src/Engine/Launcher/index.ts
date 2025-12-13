@@ -39,9 +39,9 @@ import type {
 import { combineLatest } from 'rxjs';
 import { MouseClicksWatcher, MousePositionWatcher } from '@Engine/Watchers';
 
-export async function launch(sceneConfig: ISceneConfig, canvas: IAppCanvas): Promise<void> {
+export async function launch(sceneConfig: ISceneConfig, canvas: IAppCanvas): Promise<boolean> {
   const { name, actors, cameras, lights, controls } = sceneConfig;
-  const { promise, resolve } = createDeferredPromise<void>();
+  const { promise, resolve } = createDeferredPromise<boolean>();
 
   //Watchers
   const mouseClicksWatcher: IWatcher<void> = MouseClicksWatcher();
@@ -135,7 +135,7 @@ export async function launch(sceneConfig: ISceneConfig, canvas: IAppCanvas): Pro
   loopFactory.create$.next({} as any);
   ////////////////////////////////////
 
-  resolve();
+  resolve(true);
 
   return promise;
 }
