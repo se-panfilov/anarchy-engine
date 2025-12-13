@@ -14,6 +14,24 @@
           "grid": "main_grid",
           "isAutoUpdate": true
         }
+      },
+      {
+        "model3dSource": "surface_model",
+        "name": "surface_actor",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        }
       }
     ],
     "audio": [],
@@ -36,15 +54,7 @@
         }
       }
     ],
-    "controls": [
-      {
-        "cameraName": "main",
-        "enableDamping": true,
-        "isActive": true,
-        "name": "orbit_controls",
-        "type": "OrbitControls"
-      }
-    ],
+    "controls": [],
     "envMaps": [],
     "fogs": [],
     "fsm": [],
@@ -124,7 +134,7 @@
         },
         "receiveShadow": true,
         "rotation": {
-          "x": -1.57,
+          "x": 0,
           "y": 0,
           "z": 0
         }

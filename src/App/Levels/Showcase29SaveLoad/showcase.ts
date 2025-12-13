@@ -2,12 +2,14 @@ import '@public/Showcase/fonts.css';
 import './style.css';
 
 import type { Subscription } from 'rxjs';
+import { Euler, Quaternion, Vector3 } from 'three';
 
 import { addBtn, addDropdown } from '@/App/Levels/Utils';
-import type { TModel3d, TRegistryPack, TSpace, TSpaceConfig, TSpaceRegistry } from '@/Engine';
+import type { TCameraWrapper, TModel3d, TRegistryPack, TSpace, TSpaceConfig, TSpaceRegistry } from '@/Engine';
 import { isNotDefined, spaceService } from '@/Engine';
 
 import space from './spaceBasic.json';
+import spaceCamera from './spaceCamera.json';
 import spaceCustomModels from './spaceCustomModels.json';
 import spaceTexts from './spaceTexts.json';
 import type { TSpacesData } from './utils';
@@ -16,6 +18,7 @@ import { changeText, createContainersDivs, setContainerVisibility } from './util
 const spaceBasicConfig: TSpaceConfig = space as TSpaceConfig;
 const spaceCustomModelsConfig: TSpaceConfig = spaceCustomModels as TSpaceConfig;
 const spaceTextsConfig: TSpaceConfig = spaceTexts as TSpaceConfig;
+const spaceCameraConfig: TSpaceConfig = spaceCamera as TSpaceConfig;
 
 const getContainer = (canvasSelector: string): string => canvasSelector.split('#')[1].trim();
 
@@ -87,6 +90,18 @@ const spacesData: ReadonlyArray<TSpacesData> = [
       changeText('text_2d', text2dRegistry);
       changeText('text_3d_1', text3dRegistry);
       changeText('text_3d_2', text3dTextureRegistry);
+    }
+  },
+  {
+    name: spaceCameraConfig.name,
+    config: spaceCameraConfig,
+    container: getContainer(spaceCameraConfig.canvasSelector),
+    onChange: (space: TSpace): void => {
+      const camera: TCameraWrapper | undefined = space.services.cameraService.findActive();
+      if (isNotDefined(camera)) throw new Error(`[Showcase]: Camera is not found`);
+      const rotation: Euler = new Euler(-2.879975303042544, 0.8041367970357067, 2.951086186540901);
+      camera.drive.rotation$.next(new Quaternion().setFromEuler(rotation));
+      camera.drive.position$.next(new Vector3(28.672614163776107, 6.92408866503931, -27.63943185331239));
     }
   }
 ];
