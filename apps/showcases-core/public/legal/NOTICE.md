@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 223
+Components listed: 214
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -997,18 +997,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/compiler-core@3.5.22
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/compiler-core#readme
-
-**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
-
----
-
 ## @vue/compiler-core@3.5.24
 
 **License(s):** MIT
@@ -1016,18 +1004,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** git+https://github.com/vuejs/core.git
 
 **URL:** https://github.com/vuejs/core/tree/main/packages/compiler-core#readme
-
-**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
-
----
-
-## @vue/compiler-dom@3.5.22
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/compiler-dom#readme
 
 **Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
 
@@ -1045,18 +1021,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/compiler-sfc@3.5.22
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/compiler-sfc#readme
-
-**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
-
----
-
 ## @vue/compiler-sfc@3.5.24
 
 **License(s):** MIT
@@ -1064,18 +1028,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** git+https://github.com/vuejs/core.git
 
 **URL:** https://github.com/vuejs/core/tree/main/packages/compiler-sfc#readme
-
-**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
-
----
-
-## @vue/compiler-ssr@3.5.22
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/compiler-ssr#readme
 
 **Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
 
@@ -1123,18 +1075,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/reactivity@3.5.22
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/reactivity#readme
-
-**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
-
----
-
 ## @vue/reactivity@3.5.24
 
 **License(s):** MIT
@@ -1142,18 +1082,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** git+https://github.com/vuejs/core.git
 
 **URL:** https://github.com/vuejs/core/tree/main/packages/reactivity#readme
-
-**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
-
----
-
-## @vue/runtime-core@3.5.22
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/runtime-core#readme
 
 **Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
 
@@ -1171,18 +1099,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/runtime-dom@3.5.22
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/runtime-dom#readme
-
-**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
-
----
-
 ## @vue/runtime-dom@3.5.24
 
 **License(s):** MIT
@@ -1195,18 +1111,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/server-renderer@3.5.22
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/server-renderer#readme
-
-**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
-
----
-
 ## @vue/server-renderer@3.5.24
 
 **License(s):** MIT
@@ -1214,18 +1118,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** git+https://github.com/vuejs/core.git
 
 **URL:** https://github.com/vuejs/core/tree/main/packages/server-renderer#readme
-
-**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
-
----
-
-## @vue/shared@3.5.22
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/shared#readme
 
 **Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
 
@@ -1771,7 +1663,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## marked@16.4.1
+## marked@17.0.0
 
 **License(s):** MIT
 
@@ -1947,7 +1839,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## pinia@3.0.3
+## pinia@3.0.4
 
 **License(s):** MIT
 
@@ -2289,6 +2181,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## three@0.181.1
+
+**License(s):** MIT
+
+**Repository:** https://github.com/mrdoob/three.js
+
+**URL:** https://threejs.org/
+
+**Attribution:** Copyright © 2010-2025 three.js authors
+
+---
+
 ## three-mesh-bvh@0.9.1
 
 **License(s):** MIT
@@ -2416,18 +2320,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://undici.nodejs.org
 
 **Attribution:** Copyright (c) Matteo Collina and Undici contributors
-
----
-
-## vue@3.5.22
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/vue#readme
-
-**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
 
 ---
 

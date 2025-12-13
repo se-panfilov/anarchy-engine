@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 16
+Components listed: 17
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -132,6 +132,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 ---
 
 ## three@0.180.0
+
+**License(s):** MIT
+
+**Repository:** https://github.com/mrdoob/three.js
+
+**URL:** https://threejs.org/
+
+**Attribution:** Copyright © 2010-2025 three.js authors
+
+---
+
+## three@0.181.1
 
 **License(s):** MIT
 
