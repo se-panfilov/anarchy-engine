@@ -1,7 +1,7 @@
 import type { TEnvMapTexture } from '@/Engine/EnvMap/Models';
 import type { TSpaceConfigResources, TSpaceServices } from '@/Engine/Space/Models';
 
-export async function loadResources(
+export async function loadResourcesFromConfig(
   resources: TSpaceConfigResources,
   { animationsService, audioService, models3dService, envMapService, materialService, textureService }: TSpaceServices
 ): Promise<void> {

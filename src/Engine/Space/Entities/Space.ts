@@ -1,61 +1,74 @@
 import type { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import type { TAbstractService, TEntity } from '@/Engine/Abstract';
-import { AbstractService } from '@/Engine/Abstract';
-import type { TAppCanvas } from '@/Engine/App';
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
+import { AbstractEntity, EntityType } from '@/Engine/Abstract';
+import type { TLoop } from '@/Engine/Loop';
 import { RendererModes } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
-import { withBuiltMixin } from '@/Engine/Space/Mixins';
-import type { TSpace, TSpaceBaseServices, TSpaceConfig, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceService, TWithBuilt } from '@/Engine/Space/Models';
-import { buildBaseServices, buildEntitiesServices, createEntities, getActiveScene, loadResources } from '@/Engine/Space/Utils';
+import type { TSpace, TSpaceBaseServices, TSpaceEntities, TSpaceLoops, TSpaceParams, TSpaceServices } from '@/Engine/Space/Models';
+import { buildBaseServices, buildEntitiesServices, createEntitiesFromConfig, getActiveScene, loadResourcesFromConfig } from '@/Engine/Space/Utils';
 import { createLoops } from '@/Engine/Space/Utils/CreateLoopsUtils';
-import { validateConfig } from '@/Engine/Space/Validators';
+import type { TWriteable } from '@/Engine/Utils';
 import { isDestroyable } from '@/Engine/Utils';
 
 export function Space(params: TSpaceParams): TEntity<TSpace> {
-  const { canvas, hooks } = params;
+  const { canvas, hooks, version, name, tags } = params;
+  const built$: Subject<void> = new Subject<void>();
 
-  hooks?.beforeConfigValidation?.(config);
-  validateConfig(config);
-  screenService.setCanvas(canvas);
-  hooks?.beforeBaseServicesBuilt?.(canvas, config);
-  const baseServices: TSpaceBaseServices = buildBaseServices();
-  const sceneW: TSceneWrapper = getActiveScene(config.name, config.scenes, baseServices.scenesService);
-  hooks?.beforeLoopsCreated?.(config);
-  const loops: TSpaceLoops = createLoops(baseServices.loopService);
-  hooks?.beforeEntitiesServicesBuilt?.(canvas, config);
-  const services = buildEntitiesServices(sceneW, canvas, loops, baseServices);
+  const { services, loops } = initSpaceServices(params);
 
-  hooks?.beforeResourcesLoaded?.(config, services, loops);
-  await loadResources(config.resources, services);
+  hooks?.beforeResourcesLoaded?.(params, services, loops);
+  await loadResourcesFromConfig(config.resources, services);
   services.rendererService.create({ canvas, mode: RendererModes.WebGL2, isActive: true });
-  hooks?.beforeEntitiesCreated?.(config, services, loops);
-  createEntities(config.entities, services);
-  hooks?.afterEntitiesCreated?.(config, services, loops);
+  hooks?.beforeEntitiesCreatedFromConfig?.(params, services, loops);
+  createEntitiesFromConfig(config.entities, services);
+  hooks?.afterEntitiesCreatedFromConfig?.(params, services, loops);
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const builtMixin: TWithBuilt = withBuiltMixin();
-
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
-    destroySub$.unsubscribe();
-
-    builtMixin.built$.complete();
-    builtMixin.built$.unsubscribe();
-    Object.values(services).forEach((service): void => void (isDestroyable(service) && service.destroy$.next()));
-  });
-
-  builtMixin.build();
-
-  return {
-    name: config.name,
+  const entities: TSpaceEntities = {
     services,
     loops,
-    ...builtMixin,
-    built$: builtMixin.built$.asObservable(),
-    ...destroyable,
-    tags: config.tags
+    ready: false,
+    built$: built$.asObservable()
   };
+
+  built$.subscribe((): void => {
+    // eslint-disable-next-line functional/immutable-data
+    (entities as TWriteable<TSpaceEntities>).ready = true;
+    built$.next();
+    built$.complete();
+  });
+
+  const space: TSpace = AbstractEntity(entities, EntityType.Space, { version, name, tags });
+
+  const destroySub$: Subscription = space.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
+    built$.complete();
+    built$.unsubscribe();
+    Object.values(services).forEach((service: TAbstractService): void => void (isDestroyable(service) && service.destroy$.next()));
+    Object.values(loops).forEach((service: TLoop): void => void (isDestroyable(service) && service.destroy$.next()));
+  });
+
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(space, entities);
+}
+
+function initSpaceServices(params: TSpaceParams): { services: TSpaceServices; loops: TSpaceLoops } {
+  const { canvas, hooks } = params;
+
+  // TODO 13-0-0: remove?
+  // hooks?.beforeConfigValidation?.(params);
+  // validateConfig(config);
+  screenService.setCanvas(canvas);
+  hooks?.beforeBaseServicesBuilt?.(canvas, params);
+  const baseServices: TSpaceBaseServices = buildBaseServices();
+  const sceneW: TSceneWrapper = getActiveScene(params.name, params.scenes, baseServices.scenesService);
+  hooks?.beforeLoopsCreated?.(params);
+  const loops: TSpaceLoops = createLoops(baseServices.loopService);
+  hooks?.beforeEntitiesServicesBuilt?.(canvas, params);
+  const services: TSpaceServices = buildEntitiesServices(sceneW, canvas, loops, baseServices);
+
+  return { services, loops };
 }

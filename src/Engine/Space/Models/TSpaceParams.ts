@@ -1,6 +1,6 @@
 import type { TAppCanvas } from '@/Engine/App';
 import type { TWithName, TWithTags } from '@/Engine/Mixins';
-import type { TSceneConfig } from '@/Engine/Scene';
+import type { TSceneParams } from '@/Engine/Scene';
 import type { SpaceSchemaVersion } from '@/Engine/Space/Constants';
 
 import type { TSpaceHooks } from './TSpaceHooks';
@@ -13,7 +13,7 @@ export type TSpaceParams = Readonly<{
   hooks?: TSpaceHooks;
   entities: TSpaceParamsEntities;
   resources: TSpaceParamsResources;
-  scenes: ReadonlyArray<TSceneConfig>;
+  scenes: ReadonlyArray<TSceneParams>;
 }> &
   TWithName &
   TWithTags;

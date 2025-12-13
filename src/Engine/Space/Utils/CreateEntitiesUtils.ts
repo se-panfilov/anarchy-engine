@@ -4,8 +4,7 @@ import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TSpaceConfigEntities, TSpaceServices } from '@/Engine/Space/Models';
 import { isDefined } from '@/Engine/Utils';
 
-// TODO SPACE: Maybe we need a space service, and factory, to create from config, and to create from the code.
-export function createEntities(entities: TSpaceConfigEntities, services: TSpaceServices): void {
+export function createEntitiesFromConfig(entities: TSpaceConfigEntities, services: TSpaceServices): void {
   const { actors, audio, cameras, spatialGrids, controls, intersections, lights, models3d, envMaps, fogs, fsm, texts, physics, particles } = entities;
 
   const {
