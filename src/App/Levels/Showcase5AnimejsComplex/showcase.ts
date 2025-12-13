@@ -84,7 +84,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     mouseService.clickLeftRelease$.subscribe(() => {
       if (isClickBlocked) {
-        redActor.entity.setVisible(false);
+        redActor.model3d.model3d.setVisible(false);
         notification.setVisible(true);
         // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
         setTimeout(() => notification.setVisible(false), 1000);
@@ -94,9 +94,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       follow();
 
       void Promise.all([
-        moverService.goByPath(redActor, redPath, { ...animationParams, easing: Easing.Linear }).then(() => console.log('red done')),
-        moverService.goByPath(greenActor, greenPath, { ...animationParams, easing: Easing.EaseInCirc }).then(() => console.log('green done')),
-        moverService.goByPath(blueActor, bluePath, { ...animationParams, easing: Easing.EaseInBack }).then(() => console.log('blue done'))
+        moverService.goByPath(redActor.drive.instant.positionConnector, redPath, { ...animationParams, easing: Easing.Linear }).then(() => console.log('red done')),
+        moverService.goByPath(greenActor.drive.instant.positionConnector, greenPath, { ...animationParams, easing: Easing.EaseInCirc }).then(() => console.log('green done')),
+        moverService.goByPath(blueActor.drive.instant.positionConnector, bluePath, { ...animationParams, easing: Easing.EaseInBack }).then(() => console.log('blue done'))
       ]).then(() => {
         isClickBlocked = false;
         stopFollowing();

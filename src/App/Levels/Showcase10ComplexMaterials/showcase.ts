@@ -85,7 +85,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   };
 
   function moveCameraToActor(actor: TActor): void {
-    state.controllers.forEach((controller: GUI | Controller): void => controller.destroy$.next());
+    state.controllers.forEach((controller: GUI | Controller): void => controller.destroy());
     // eslint-disable-next-line functional/immutable-data
     state.controllers = addGuiToActor(actor);
     const position: Vector3 = actor.drive.getPosition();

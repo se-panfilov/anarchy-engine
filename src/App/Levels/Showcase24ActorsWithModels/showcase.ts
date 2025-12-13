@@ -18,7 +18,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     models3dRegistry.added$.subscribe(({ key, value: model3dSource }: TRegistryPack<TModel3d>): void => {
       console.log(`Model "${model3dSource.name}" is created (${key})`, model3dSource);
-      sceneW.addModel3d(model3dSource.getRawModel3d());
+      sceneW.addModel3d(model3dSource);
     });
   }
 

@@ -1,3 +1,4 @@
+import GUI from 'lil-gui';
 import { Euler, Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
@@ -11,6 +12,7 @@ import type {
   TMaterialWrapper,
   TModel3d,
   TModel3dRegistry,
+  TransformAgent,
   TSceneWrapper,
   TSpace,
   TSpaceConfig,
@@ -21,6 +23,7 @@ import { Engine, isNotDefined, MaterialType, PrimitiveModel3dType, spaceService 
 import spaceConfig from './showcase.json';
 
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
+  const gui: GUI = new GUI();
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
 
@@ -57,13 +60,33 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       model3dSource: sphereModel,
       position: new Vector3(0, 2, 0),
       rotation: new Euler(0, 0, 0),
-      spatial: { grid, isAutoUpdate: true },
-      tags: []
+      spatial: { grid, isAutoUpdate: true }
     });
 
-    sceneW.addActor(sphereActor);
+    sphereActor.drive.agent$.subscribe((agent: TransformAgent): void => {
+      // TODO output to GUI
+      console.log('sphereActor agent', agent);
+    });
 
-    watchIntersections([sphereActor]);
+    const guiDriveObj = { drive: sphereActor.drive.agent$.value, a: 'Small' };
+    const proxyGuiDriveObj = new Proxy(guiDriveObj, {
+      set: (target: Record<string, unknown>, prop: string, value: TransformAgent): boolean => {
+        // eslint-disable-next-line functional/immutable-data
+        target.drive = value;
+        if (prop === 'drive') {
+          sphereActor.drive.agent$.next(value);
+        }
+        return true;
+      }
+    });
+
+    // gui.add(proxyGuiDriveObj, 'a', ['Small', 'Medium', 'Large']);
+    // gui.add(proxyGuiDriveObj, 'drive', Object.values(TransformAgent));
+
+    // TODO intersections with plane actor
+    // watchIntersections([sphereActor]);
+
+    // TODO implement 1,2,3,4 to switch between agents (kinematic, physics, instant set, instant connector)
   }
 
   function watchIntersections(actors: ReadonlyArray<TActor>): TIntersectionsWatcher {

@@ -21,7 +21,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const model3d: TModel3d | undefined = models3dRegistry.findByName('wood_cube_model');
     if (isNotDefined(model3d)) throw new Error('Model is not found');
 
-    sceneW.addModel3d(model3d.getRawModel3d());
+    sceneW.addModel3d(model3d);
 
     initCameraRotation(space, model3d, mouseService);
   }

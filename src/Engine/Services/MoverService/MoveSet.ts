@@ -1,11 +1,10 @@
 import anime from 'animejs';
-import type { Vector2 } from 'three';
-import type { Vector3 } from 'three/src/math/Vector3';
 
+import type { TWithCoordsXYZ } from '@/Engine/Mixins';
 import { defaultAnimationParams, Easing } from '@/Engine/Services/MoverService/Constants';
 import type { TFollowTargetFn, TFollowTargetParams, TMoveableByTick, TMoveByPathFn, TMoveByPathFnParams, TMoveFn, TMoveFnParams } from '@/Engine/Services/MoverService/Models';
 import { getAnimationWrapperForComplexPathAnimation } from '@/Engine/Services/MoverService/MoverServiceUtils';
-import { isVector3 } from '@/Engine/Utils';
+import { isDefined } from '@/Engine/Utils';
 
 export const goStraightMove: TMoveFn = ({ obj, destination, animationParams, complete }: TMoveFnParams): anime.AnimeInstance => {
   return anime({
@@ -39,13 +38,13 @@ export const byPathMove: TMoveByPathFn = ({ obj, path, animationParams, complete
 export const followTarget: TFollowTargetFn = ({ obj, target, offset }: TFollowTargetParams): TMoveableByTick => {
   return {
     tick: (): void => {
-      const position: Vector3 | Vector2 = target.getPosition();
+      const position: TWithCoordsXYZ = { ...target };
       // eslint-disable-next-line functional/immutable-data
       obj.x = position.x + (offset?.x ?? 0);
       // eslint-disable-next-line functional/immutable-data
       obj.y = position.y + (offset?.y ?? 0);
       // eslint-disable-next-line functional/immutable-data
-      if (isVector3(position)) obj.z = position.z + (offset?.z ?? 0);
+      if (isDefined(position.z)) obj.z = position.z + (offset?.z ?? 0);
     }
   };
 };

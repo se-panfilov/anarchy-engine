@@ -36,7 +36,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   const sceneW: TSceneWrapper | undefined = scenesService.findActive();
   if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
-  sceneW.addModel3d(planeModel3dF.getRawModel3d());
+  sceneW.addModel3d(planeModel3dF);
 
   function init(): void {
     const scene: TSceneWrapper | undefined = scenesService.findActive();

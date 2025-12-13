@@ -1,3 +1,5 @@
+import { Vector3 } from 'three';
+
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActor, TActorRegistry, TAppCanvas, TEngine, TModel3d, TModel3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import { Engine, isNotDefined, screenService, spaceService } from '@/Engine';
@@ -19,11 +21,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const planeModel3dF: TModel3d | undefined = models3dRegistry.findByName('surface_model');
     if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');
 
-    sceneW.addModel3d(planeModel3dF.getRawModel3d());
+    sceneW.addModel3d(planeModel3dF);
 
     const actor: TActor | undefined = actorRegistry.findByName('sphere_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not found');
-    actor.setY(2);
+    actor.drive.instant.setY(2);
 
     mouseService.clickLeftRelease$.subscribe(() => {
       void screenService.toggleFullScreen();
@@ -31,8 +33,10 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     //Better to move actors via kinematic (or physics), but for a simple example we can just set coords
     loopService.tick$.subscribe(({ elapsedTime }) => {
-      actor.setX(Math.sin(elapsedTime) * 8);
-      actor.setZ(Math.cos(elapsedTime) * 8);
+      // TODO 8.0.0. MODELS: These should work
+      actor.drive.instant.setX(Math.sin(elapsedTime) * 8);
+      actor.drive.instant.setZ(Math.cos(elapsedTime) * 8);
+      // actor.drive.position$.next(new Vector3(Math.sin(elapsedTime) * 8, actor.drive.getPosition().y, Math.cos(elapsedTime) * 8));
     });
   }
 
