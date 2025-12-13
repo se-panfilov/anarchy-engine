@@ -36,6 +36,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
 
   function start(): TIntersectionsWatcher {
     const prevValue: Float32Array = new Float32Array([0, 0]);
+    // TODO 10.0.0. LOOPS: Intersections could have an own loop independent from frame rate (driven by time)
     mousePos$ = position$
       .pipe(
         distinctUntilChanged((_prev: Vector2Like, curr: Vector2Like): boolean => isEqualOrSimilarByXyCoords(prevValue[0], prevValue[1], curr.x, curr.y, threshold)),

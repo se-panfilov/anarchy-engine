@@ -29,6 +29,7 @@ export function spaceLoop(
   spatialLoopService: TSpatialLoopService,
   collisionsLoopService: TCollisionsLoopService
 ): void {
+  // TODO 10.0.0. LOOPS: We need independent loops for physics, kinematic, spatial, collisions, mouse, intersection and transforms. Those loops should be driven by time, not by frame rate
   const isAutoUpdatePhysicalWorld: boolean = physicsLoopService.autoUpdate$.value;
   if (isAutoUpdatePhysicalWorld) physicsLoopService.step();
 

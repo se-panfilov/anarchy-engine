@@ -108,9 +108,10 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
     scaleNoiseThreshold: params.performance?.scaleNoiseThreshold ?? 0.0000001
   };
 
-  const positionSub$: Subscription = updateFromActiveAgent<Vector3>(activeAgent$, 'position$', { delay: performance.updatePositionDelay, threshold: performance.positionNoiseThreshold }).subscribe(
-    position$
-  );
+  // TODO 10.0.0. LOOPS: TransformDrive should have an Transform loop independent from frame rate (driven by time)
+  const positionSub$: Subscription = updateFromActiveAgent<Vector3>(activeAgent$, 'position$', { delay: performance.updatePositionDelay, threshold: performance.positionNoiseThreshold })
+    // TODO 8.0.0. MODELS: get rid of .subscribe(val$), use subscribe(() => val$.next()) instead due to potential "this" context issue (replace that everywhere)
+    .subscribe(position$);
   const rotationSub$: Subscription = updateFromActiveAgent<Euler>(activeAgent$, 'rotation$', { delay: performance.updateRotationDelay, threshold: performance.rotationNoiseThreshold }).subscribe(
     rotation$
   );

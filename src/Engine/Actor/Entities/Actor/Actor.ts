@@ -66,6 +66,7 @@ export function Actor(
   const spatialUpdateDelay: number = params.spatial.performance?.updateDelay ?? 4;
   const spatialNoiseThreshold: number = params.spatial.performance?.noiseThreshold ?? 0.0000001;
   const prevValue: Float32Array = new Float32Array([0, 0, 0]);
+  // TODO 10.0.0. LOOPS: Position/rotations/scale should have an own loop independent from frame rate (driven by time)
   const positionSub$: Subscription = drive.position$
     .pipe(
       // TODO 8.0.0. MODELS: These performance tweaks actually make performance even worse. Fix or remove (check all th other places with suc optimisations, e.g. intersections or mouse)
