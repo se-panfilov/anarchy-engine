@@ -3,7 +3,7 @@ import type { TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins'
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TOptional } from '@/Engine/Utils';
 
-import type { TTransformDriveSerializedData } from '.';
+import type { TTransformDriveSerializedData } from './index';
 import type { TAbstractTransformAgent } from './TAbstractTransformAgent';
 import type { TGetTransformAgentsOptions, TGetTransformAgentsParams } from './TGetTransformAgentsParams';
 import type { TTransformAgents } from './TTransformAgents';
