@@ -22,7 +22,12 @@
       { "name": "WoodDisplacementMap", "url": "/Showcase/Door_Wood/Door_Wood_001_height.png", "tags": ["displacementMap", "wood"] },
       { "name": "WoodAlphaMap", "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg", "tags": ["alphaMap", "wood"] },
       { "name": "WoodMetalnessMap", "url": "/Showcase/Door_Wood/Door_Wood_001_metallic.jpg", "tags": ["metalnessMap", "wood"] },
-      { "name": "WoodRoughnessMap", "url": "/Showcase/Door_Wood/Door_Wood_001_roughness.jpg", "tags": ["roughnessMap", "wood"] }
+      { "name": "WoodRoughnessMap", "url": "/Showcase/Door_Wood/Door_Wood_001_roughness.jpg", "tags": ["roughnessMap", "wood"] },
+      { "name": "CarpetAoMap", "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg", "tags": ["carpet", "aoMap"] },
+      { "name": "CarpetMap", "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg", "tags": ["carpet", "map"] },
+      { "name": "CarpetNormalMap", "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg", "tags": ["carpet", "normalMap"] },
+      { "name": "CarpetDisplacementMap", "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png", "tags": ["carpet", "displacementMap"] },
+      { "name": "CarpetRoughnessMap", "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg", "tags": ["carpet", "roughnessMap"] }
     ],
     "envMapTextures": [],
     "materials": [],
@@ -574,11 +579,11 @@
             "displacementScale": 0.1
           },
           "textures": {
-            "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
-            "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
-            "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
-            "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" },
-            "roughnessMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg" }
+            "aoMap": "CarpetAoMap",
+            "map": "CarpetMap",
+            "normalMap": "CarpetNormalMap",
+            "displacementMap": "CarpetDisplacementMap",
+            "roughnessMap": "CarpetRoughnessMap"
           }
         },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
@@ -601,11 +606,11 @@
             "displacementScale": 0.1
           },
           "textures": {
-            "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
-            "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
-            "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
-            "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" },
-            "roughnessMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg" }
+            "aoMap": "CarpetAoMap",
+            "map": "CarpetMap",
+            "normalMap": "CarpetNormalMap",
+            "displacementMap": "CarpetDisplacementMap",
+            "roughnessMap": "CarpetRoughnessMap"
           }
         },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
@@ -625,8 +630,8 @@
         "material": {
           "type": "basic",
           "textures": {
-            "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
-            "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" }
+            "aoMap": "CarpetAoMap",
+            "map": "CarpetMap"
           }
         },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
@@ -649,10 +654,10 @@
             "displacementScale": 0.1
           },
           "textures": {
-            "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
-            "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
-            "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
-            "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" }
+            "aoMap": "CarpetAoMap",
+            "map": "CarpetMap",
+            "normalMap": "CarpetNormalMap",
+            "displacementMap": "CarpetDisplacementMap"
           }
         },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
@@ -675,10 +680,10 @@
             "displacementScale": 0.1
           },
           "textures": {
-            "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
-            "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
-            "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
-            "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" }
+            "aoMap": "CarpetAoMap",
+            "map": "CarpetMap",
+            "normalMap": "CarpetNormalMap",
+            "displacementMap": "CarpetDisplacementMap"
           }
         },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
@@ -701,10 +706,10 @@
             "displacementScale": 0.1
           },
           "textures": {
-            "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
-            "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
-            "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
-            "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" }
+            "aoMap": "CarpetAoMap",
+            "map": "CarpetMap",
+            "normalMap": "CarpetNormalMap",
+            "displacementMap": "CarpetDisplacementMap"
           }
         },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
@@ -727,9 +732,9 @@
             "displacementScale": 0.1
           },
           "textures": {
-            "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
-            "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
-            "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" }
+            "map": "CarpetMap",
+            "normalMap": "CarpetNormalMap",
+            "displacementMap": "CarpetDisplacementMap"
           }
         },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
