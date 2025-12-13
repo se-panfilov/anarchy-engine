@@ -1,8 +1,21 @@
 import base from '../../anarchy-legal-base.config.js.js';
 
+const baseGenerics = base.find(({ type }) => type === 'GENERIC');
+const newWithoutGenerics = [...base.filter(({ type }) => type !== 'GENERIC')];
+
 //Commercial configuration for legal docs
 export default [
-  ...base,
+  ...newWithoutGenerics,
+  {
+    ...baseGenerics,
+    messages: {
+      ...baseGenerics.messages,
+
+      //The brand name of the product (registered trademark)
+      PRODUCT_DISPLAY_NAME: 'TBD until market release',
+      SHOW_TECH_IDENTIFIERS: true
+    }
+  },
   {
     type: 'DISCLAIMER'
   },

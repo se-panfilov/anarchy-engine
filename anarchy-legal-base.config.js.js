@@ -4,12 +4,15 @@ export default [
     messages: {
       // CONFIGS
       HAS_DPO: false,
+      HAS_OSS_SIBLING: true,
       PROHIBIT_HIGH_RISK_USE: true,
       SBOM_AVAILABLE: false,
       MOD_HOSTING: false,
       ALLOW_PERSONAL_SHARING: true,
       ALLOW_COMMERCIAL_RESALE: true,
       IS_CHILD_DIRECTED: false,
+      SHOW_TECH_IDENTIFIERS: true,
+      TRADEMARK_SYMBOL: '', //Empty by default. Possible '™' (no obligations, just an indication it's a trademark) or '®' (registered trademark, which requires registration in the country of use).
 
       //B2B
       LIABILITY_CAP_AMOUNT: 'the total fees paid by that Business User to the Licensor for the Game in the 12 months immediately preceding the event giving rise to the claim',
