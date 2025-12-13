@@ -16,7 +16,7 @@ export type TBullet = TActorWrapperAsync &
     getFallSpeed: () => number;
     setActive: (act: boolean) => void;
     isActive: () => boolean;
-    setSpeed: (s: number) => void;
+    setSpeed: (speed: number) => void;
     getSpeed: () => number;
     update: (delta: number) => void;
   }>;
@@ -82,8 +82,14 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
     if (isActive()) {
       const azimuthRadians: number = MathUtils.degToRad(getDirection());
       const elevationRadians: number = MathUtils.degToRad(getElevation());
-      const vectorDirection: Vector3 = new Vector3(Math.cos(azimuthRadians), elevationRadians, Math.sin(azimuthRadians));
+      const vectorDirection: Vector3 = new Vector3(Math.cos(elevationRadians) * Math.cos(azimuthRadians), Math.sin(elevationRadians), Math.cos(elevationRadians) * Math.sin(azimuthRadians));
+      // const vectorDirection: Vector3 = new Vector3(Math.cos(azimuthRadians), elevationRadians, Math.sin(azimuthRadians));
       actor.entity.position.add(vectorDirection.clone().multiplyScalar(mpsSpeed(speed, delta)));
+
+      // TODO (S.Panfilov) this is a very naive implementation of gravity (a real bullet flying in more complex half parabola)
+      // eslint-disable-next-line functional/immutable-data
+      actor.entity.position.y = actor.entity.position.y - mpsSpeed(fallSpeed, delta);
+
       setDistanceTraveled(getDistanceTraveled() + mpsSpeed(speed, delta));
 
       // const collision = checkCollision(bullet);
@@ -114,15 +120,15 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
   };
 }
 
-export function shoot(actorPosition: TWithCoordsXYZ, toAngle: number, elevation: number, fallSpeed: number, bullets: ReadonlyArray<TBullet>): void {
+export function shoot(actorPosition: TWithCoordsXYZ, toAngle: number, elevation: number, speedMeters: number, fallSpeedMeters: number, bullets: ReadonlyArray<TBullet>): void {
   const bullet: TBullet | undefined = bullets.find((b: TBullet) => !b.isActive());
   if (isDefined(bullet)) {
     bullet.setPosition(Vector3Wrapper(actorPosition));
     bullet.setDirection(toAngle);
     bullet.setElevation(elevation);
     bullet.setDistanceTraveled(0);
-    bullet.setFallSpeed(fallSpeed);
-    bullet.setSpeed(meters(10));
+    bullet.setFallSpeed(meters(fallSpeedMeters));
+    bullet.setSpeed(meters(speedMeters));
     bullet.setActive(true);
   }
 }

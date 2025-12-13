@@ -5,6 +5,7 @@ import type { Line2 } from 'three/examples/jsm/lines/Line2';
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorWrapperAsync, TActorWrapperWithPhysicsAsync, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSpace, TSpaceConfig, TWithCoordsXYZ } from '@/Engine';
 import { buildSpaceFromConfig, Engine, get3DAzimuth, isDefined, isNotDefined, KeysExtra, mouseService } from '@/Engine';
+import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
 import type { TBullet } from './utils';
@@ -81,7 +82,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     mouseService.clickLeftRelease$.subscribe((): void => {
       if (isNotDefined(heroW)) throw new Error(`Cannot find "hero" actor`);
-      shoot(heroW.getPosition().getCoords(), fromHeroAngles.azimuth, fromHeroAngles.elevation, 10, bullets);
+      shoot(heroW.getPosition().getCoords(), fromHeroAngles.azimuth, fromHeroAngles.elevation, meters(10), meters(1), bullets);
     });
 
     physicsLoopService.shouldAutoUpdate(true);
