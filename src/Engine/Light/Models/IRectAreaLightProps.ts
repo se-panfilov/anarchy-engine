@@ -2,9 +2,10 @@ import type { Color } from 'three/src/math/Color';
 
 import type { IAbstractLightProps } from './IAbstractLightProps';
 
-export type IHemisphereLightProps = Omit<IAbstractLightProps, 'color'> &
+export type IRectAreaLightProps = IAbstractLightProps &
   Readonly<{
-    skyColor: Color;
-    groundColor: Color;
+    color: Color;
     intensity?: number;
+    width: number;
+    height: number;
   }>;

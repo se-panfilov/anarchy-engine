@@ -2,5 +2,6 @@ import type { IAmbientLight } from './IAmbientLight';
 import type { IDirectionalLight } from './IDirectionalLight';
 import type { IHemisphereLight } from './IHemisphereLight';
 import type { IPointLight } from './IPointLight';
+import type { IRectAreaLight } from './IRectAreaLight';
 
-export type ILight = IAmbientLight | IDirectionalLight | IPointLight | IHemisphereLight;
+export type ILight = IAmbientLight | IDirectionalLight | IPointLight | IHemisphereLight | IRectAreaLight;
