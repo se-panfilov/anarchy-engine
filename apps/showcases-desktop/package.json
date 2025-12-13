@@ -2,7 +2,7 @@
   "name": "showcases-desktop",
   "author": "S. Panfilov",
   "private": true,
-  "version": "2.10.2",
+  "version": "2.10.3",
   "description": "Anarchy Desktop Showcases  – a desktop wrapper-application for showcases-core.",
   "keywords": [
     "anarchy",
@@ -82,9 +82,9 @@
     "start:prod:linux": "node ./scripts/start.js --mode=production.linux",
     "start:prod:mac": "node ./scripts/start.js --mode=production.mac",
     "start:prod:win": "node ./scripts/start.js --mode=production.win",
-    "tracking:sourcemaps:dev": "node ../../packages/anarchy-tracking/ScriptUtils/UploadSourcemaps.js ./dist --url-prefix app:///dist/ --mode dev --no-dev-guard",
-    "tracking:sourcemaps:prod": "node ../../packages/anarchy-tracking/ScriptUtils/UploadSourcemaps.js ./dist --url-prefix app:///dist/ --mode production",
-    "tracking:sourcemaps:prod:dry": "node ../../packages/anarchy-tracking/ScriptUtils/UploadSourcemaps.js ./dist --url-prefix app:///dist/ --mode production --dry-run",
+    "tracking:sourcemaps:dev": "node ../../packages/anarchy-tracking/ScriptUtils/UploadSourcemaps.js --dist ./dist --url-prefix app:///dist/ --mode dev --no-dev-guard",
+    "tracking:sourcemaps:prod": "node ../../packages/anarchy-tracking/ScriptUtils/UploadSourcemaps.js --dist ./dist --url-prefix app:///dist/ --mode production",
+    "tracking:sourcemaps:prod:dry": "node ../../packages/anarchy-tracking/ScriptUtils/UploadSourcemaps.js --dist ./dist --url-prefix app:///dist/ --mode production --dry-run",
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit"
   },
