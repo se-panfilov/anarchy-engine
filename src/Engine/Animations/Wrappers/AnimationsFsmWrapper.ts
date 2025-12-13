@@ -1,10 +1,10 @@
 import type { Subscription } from 'rxjs';
-import type { Actor as ActorFsm, ActorLogic as ActorFsmLogic } from 'xstate';
+import type { ActorLogic as ActorFsmLogic } from 'xstate';
 import { createActor, createMachine } from 'xstate';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TAnimationsFsmParams, TAnimationsFsmWrapper } from '@/Engine/Animations/Models';
+import type { TAnimationsFsmActor, TAnimationsFsmParams, TAnimationsFsmWrapper } from '@/Engine/Animations/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { omitInArray } from '@/Engine/Utils';
@@ -18,8 +18,7 @@ export function AnimationsFsmWrapper(params: TAnimationsFsmParams): TAnimationsF
   const unRegisterInstance = (id: string): void => void (instances = omitInArray(instances, id));
   const getInstances = (): ReadonlyArray<string> => [...instances];
 
-  // TODO 9.3.0 STATE: fix any
-  function createActorFsm(): ActorFsm<ActorFsmLogic<any, any>> {
+  function createActorFsm(): TAnimationsFsmActor {
     const result = createActor(entity).start();
     registerInstance(result.id);
     return result;
