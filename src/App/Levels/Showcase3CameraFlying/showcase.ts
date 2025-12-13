@@ -17,15 +17,12 @@ export function start(): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { actorService, cameraService, mouseService, screenService } = space.services;
+  const { actorService, cameraService, mouseService } = space.services;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
 
   const camera: TCameraWrapper | undefined = cameraService.findActive();
 
-  const screenSizeWatcher = screenService.watchers.default$.value;
-  if (isNotDefined(screenSizeWatcher)) throw new Error('ScreenSizeWatcher is not defined');
-
-  combineLatest([mouseService.position$, screenSizeWatcher.value$]).subscribe(([coords, { width, height }]): void => {
+  combineLatest([mouseService.position$, space.container.resize$]).subscribe(([coords, { width, height }]): void => {
     if (isNotDefined(camera)) return;
     const xRatio: number = coords.x / width - 0.5;
     const yRatio: number = -(coords.y / height - 0.5);

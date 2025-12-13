@@ -21,7 +21,7 @@ export function start(): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { textService, mouseService, models3dService, scenesService, screenService } = space.services;
+  const { textService, mouseService, models3dService, scenesService } = space.services;
   const { transformLoop } = space.loops;
 
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
@@ -29,7 +29,7 @@ export function showcase(space: TSpace): void {
   const sceneW: TSceneWrapper | undefined = scenesService.findActive();
   if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
-  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 
   const planeModel3d: TModel3d | undefined = models3dRegistry.findByName('surface_model');
   if (isNotDefined(planeModel3d)) throw new Error('Plane model is not defined');

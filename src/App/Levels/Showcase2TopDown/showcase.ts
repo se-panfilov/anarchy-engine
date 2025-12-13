@@ -1,7 +1,7 @@
 import { combineLatest } from 'rxjs';
 import { Euler, Vector3 } from 'three';
 
-import type { TActorParams, TCameraWrapper, TMaterialWrapper, TModel3d, TModels3dService, TScreenSizeWatcher, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
+import type { TActorParams, TCameraWrapper, TMaterialWrapper, TModel3d, TModels3dService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
 import { asRecord, isNotDefined, MaterialType, meters, PrimitiveModel3dType, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
@@ -17,7 +17,7 @@ export function start(): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { actorService, spatialGridService, cameraService, materialService, models3dService, mouseService, screenService } = space.services;
+  const { actorService, spatialGridService, cameraService, materialService, models3dService, mouseService } = space.services;
   const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
   if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" grid`);
 
@@ -29,11 +29,36 @@ export function showcase(space: TSpace): void {
     spatial: { grid, isAutoUpdate: false }
   };
 
-  const actorParams1: TActorParams = { ...actorDefaultParams, name: 'actor_1', model3dSource: createCube(models3dService, 'cube1', materialW), position: new Vector3(2, 2, 0) };
-  const actorParams2: TActorParams = { ...actorDefaultParams, name: 'actor_2', model3dSource: createCube(models3dService, 'cube2', materialW), position: new Vector3(-2, 0, 0) };
-  const actorParams3: TActorParams = { ...actorDefaultParams, name: 'actor_3', model3dSource: createCube(models3dService, 'cube3', materialW), position: new Vector3(0, 1, 0) };
-  const actorParams4: TActorParams = { ...actorDefaultParams, name: 'actor_4', model3dSource: createCube(models3dService, 'cube4', materialW), position: new Vector3(-2, 2, 0) };
-  const actorParams5: TActorParams = { ...actorDefaultParams, name: 'actor_5', model3dSource: createCube(models3dService, 'cube5', materialW), position: new Vector3(2, 0, 0) };
+  const actorParams1: TActorParams = {
+    ...actorDefaultParams,
+    name: 'actor_1',
+    model3dSource: createCube(models3dService, 'cube1', materialW),
+    position: new Vector3(2, 2, 0)
+  };
+  const actorParams2: TActorParams = {
+    ...actorDefaultParams,
+    name: 'actor_2',
+    model3dSource: createCube(models3dService, 'cube2', materialW),
+    position: new Vector3(-2, 0, 0)
+  };
+  const actorParams3: TActorParams = {
+    ...actorDefaultParams,
+    name: 'actor_3',
+    model3dSource: createCube(models3dService, 'cube3', materialW),
+    position: new Vector3(0, 1, 0)
+  };
+  const actorParams4: TActorParams = {
+    ...actorDefaultParams,
+    name: 'actor_4',
+    model3dSource: createCube(models3dService, 'cube4', materialW),
+    position: new Vector3(-2, 2, 0)
+  };
+  const actorParams5: TActorParams = {
+    ...actorDefaultParams,
+    name: 'actor_5',
+    model3dSource: createCube(models3dService, 'cube5', materialW),
+    position: new Vector3(2, 0, 0)
+  };
 
   [actorParams1, actorParams2, actorParams3, actorParams4, actorParams5].forEach((actor: TActorParams) => actorService.create(actor));
 
@@ -44,10 +69,7 @@ export function showcase(space: TSpace): void {
     isActive: true
   });
 
-  const screenSizeWatcher: TScreenSizeWatcher | undefined = screenService.watchers.default$.value;
-  if (isNotDefined(screenSizeWatcher)) throw new Error('Cannot find default screen size watcher');
-
-  combineLatest([mouseService.position$, screenSizeWatcher.value$]).subscribe(([coords, { width, height }]): void => {
+  combineLatest([mouseService.position$, space.container.resize$]).subscribe(([coords, { width, height }]): void => {
     if (isNotDefined(camera)) return;
     const xRatio: number = coords.x / width - 0.5;
     const yRatio: number = -(coords.y / height - 0.5);

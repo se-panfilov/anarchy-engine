@@ -25,7 +25,7 @@ export function showcase(space: TSpace): void {
 
   const { keyboardService } = space.services;
 
-  const { actorService, cameraService, intersectionsWatcherService, mouseService, scenesService, screenService } = space.services;
+  const { actorService, cameraService, intersectionsWatcherService, mouseService, scenesService } = space.services;
   const { transformLoop, intersectionsLoop } = space.loops;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
   const { findByName, findByTags } = actorRegistry;
@@ -34,7 +34,7 @@ export function showcase(space: TSpace): void {
   const camera: TCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(camera)) throw new Error('Camera is not defined');
 
-  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 
   const actorKeyboard: TActor | undefined = findByName('sphere_keyboard_actor');
   const actorMouse: TActor | undefined = findByName('sphere_mouse_actor');

@@ -20,7 +20,7 @@ export function start(): void {
 
 export function showcase(space: TSpace): void {
   const gui: GUI = new GUI();
-  const { particlesService, textureService, screenService } = space.services;
+  const { particlesService, textureService } = space.services;
   const { transformLoop } = space.loops;
 
   const particlesName: string = 'stars';
@@ -126,7 +126,7 @@ export function showcase(space: TSpace): void {
     }
   });
 
-  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
   gui.add(parameters, 'count').min(1000).max(1000000).step(1000).onFinishChange(createGalaxy);
   gui.add(parameters, 'size').min(0.001).max(1).step(0.001).onFinishChange(createGalaxy);
   gui.add(parameters, 'radius').min(0.01).max(20).step(0.01).onFinishChange(createGalaxy);

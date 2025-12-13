@@ -1,16 +1,15 @@
 import type { GizmoOptions } from 'three-viewport-gizmo';
 import { ViewportGizmo } from 'three-viewport-gizmo';
 
-import type { TCameraWrapper, TControlsWrapper, TOrbitControlsWrapper, TRendererWrapper, TScreenSizeWatcher, TSpaceLoops, TSpaceServices } from '@/Engine';
+import type { TCameraWrapper, TContainerDecorator, TControlsWrapper, TOrbitControlsWrapper, TRendererWrapper, TSpaceLoops, TSpaceServices } from '@/Engine';
 import { ControlsType, isNotDefined } from '@/Engine';
 
 export function addGizmo(
   { cameraService, rendererService, controlsService }: Pick<TSpaceServices, 'cameraService' | 'rendererService' | 'controlsService' | 'loopService'>,
-  screenSizeWatcher: TScreenSizeWatcher | undefined,
+  container: TContainerDecorator,
   { renderLoop }: TSpaceLoops,
   options?: GizmoOptions
 ): void | never {
-  if (isNotDefined(screenSizeWatcher)) throw Error('ScreenSizeWatcher is not defined');
   const camera: TCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(camera)) throw new Error('Gizmo: Camera is not defined');
 
@@ -26,7 +25,7 @@ export function addGizmo(
   const gizmo = new ViewportGizmo(camera.entity, renderer.entity, { placement: options?.placement ?? 'bottom-left' });
   gizmo.attachControls((controls as TOrbitControlsWrapper).entity);
 
-  screenSizeWatcher.value$.subscribe((): ViewportGizmo => gizmo.update());
+  container.resize$.subscribe((): ViewportGizmo => gizmo.update());
 
   renderLoop.tick$.subscribe(() => gizmo.render());
 }

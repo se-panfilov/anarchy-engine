@@ -46,7 +46,7 @@ export async function showcase(space: TSpace): Promise<void> {
   const cloneName: string = 'fox_gltf_clone_1';
   const originalCompressedName: string = 'fox_glb_config_original';
 
-  addGizmo(space.services, space.services.screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 
   const scale: Vector3 = new Vector3(0.025, 0.025, 0.025);
   const { animationsService, keyboardService, models3dService, scenesService } = space.services;

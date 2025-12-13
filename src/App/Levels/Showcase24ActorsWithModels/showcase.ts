@@ -28,10 +28,10 @@ export function start(): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { keyboardService, screenService } = space.services;
+  const { keyboardService } = space.services;
   const { onKey, isKeyPressed } = keyboardService;
 
-  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
   const fadeDuration = 0.3;
 
   const solder1AnimFsm: TFsmWrapper = initSolder1('solder_actor_1', fadeDuration, space.services);

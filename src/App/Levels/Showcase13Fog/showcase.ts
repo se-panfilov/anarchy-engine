@@ -20,13 +20,13 @@ export function start(): void {
 export function showcase(space: TSpace): void {
   const gui: GUI = new GUI();
 
-  const { rendererService, scenesService, screenService } = space.services;
+  const { rendererService, scenesService } = space.services;
 
   const scene: TSceneWrapper | undefined = scenesService.findActive();
   if (isNotDefined(scene)) throw new Error('Scene not found');
   if (isNotDefined(scene.entity.fog)) throw new Error("Scene's fog not found");
 
-  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 
   rendererService.findActive()?.entity.setClearColor(scene.entity.fog.color);
 

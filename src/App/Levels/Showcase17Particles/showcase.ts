@@ -15,7 +15,7 @@ export function start(): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { particlesService, screenService } = space.services;
+  const { particlesService } = space.services;
 
   const count: number = 50000;
   const positions: Float32Array = new Float32Array(count * 3);
@@ -34,7 +34,7 @@ export function showcase(space: TSpace): void {
   if (isNotDefined(particles)) throw new Error(`Particles "${particlesName}" not found`);
   particles.setIndividualPositions(positions);
 
-  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 
   space.start$.next(true);
 }

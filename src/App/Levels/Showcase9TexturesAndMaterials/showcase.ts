@@ -1,7 +1,7 @@
 import { combineLatest, distinctUntilChanged, tap } from 'rxjs';
 import type { Vector2Like, Vector3 } from 'three';
 
-import type { TCameraWrapper, TModel3d, TModels3dRegistry, TMouseService, TSceneWrapper, TScreenSizeValues, TSpace, TSpaceConfig } from '@/Engine';
+import type { TCameraWrapper, TModel3d, TModels3dRegistry, TMouseService, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import { asRecord, getRotationByCos, getRotationBySin, isDefined, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
@@ -35,20 +35,17 @@ export function showcase(space: TSpace): void {
 
 // This is mostly a copy of Showcase 3 (camera rotation)
 function initCameraRotation(space: TSpace, model3d: TModel3d | undefined, mouseService: TMouseService): void {
-  const { cameraService, screenService } = space.services;
+  const { cameraService } = space.services;
 
   const camera: TCameraWrapper | undefined = cameraService.findActive();
 
-  const screenSizeWatcher = screenService.watchers.default$.value;
-  if (isNotDefined(screenSizeWatcher)) throw new Error('ScreenSizeWatcher is not defined');
-
   const prevValue: Float32Array = new Float32Array([0, 0, 0, 0]); // [x, y, wight, height]
-  combineLatest([mouseService.position$, screenSizeWatcher.value$])
+  combineLatest([mouseService.position$, space.container.resize$])
     .pipe(
-      distinctUntilChanged((_previous: [Vector2Like, TScreenSizeValues], [currPosition, currScreenSize]: [Vector2Like, TScreenSizeValues]): boolean => {
+      distinctUntilChanged((_previous: [Vector2Like, DOMRect], [currPosition, currScreenSize]: [Vector2Like, DOMRect]): boolean => {
         return prevValue[0] === currPosition.x && prevValue[1] === currPosition.y && prevValue[2] === currScreenSize.width && prevValue[3] === currScreenSize.height;
       }),
-      tap(([position, screenSize]: [Vector2Like, TScreenSizeValues]): void => {
+      tap(([position, screenSize]: [Vector2Like, DOMRect]): void => {
         // eslint-disable-next-line functional/immutable-data
         prevValue[0] = position.x;
         // eslint-disable-next-line functional/immutable-data
@@ -59,7 +56,7 @@ function initCameraRotation(space: TSpace, model3d: TModel3d | undefined, mouseS
         prevValue[3] = screenSize.height;
       })
     )
-    .subscribe(([coords, { width, height }]: [Vector2Like, TScreenSizeValues]): void => {
+    .subscribe(([coords, { width, height }]: [Vector2Like, DOMRect]): void => {
       if (isNotDefined(camera)) return;
       const xRatio: number = coords.x / width - 0.5;
       const yRatio: number = -(coords.y / height - 0.5);

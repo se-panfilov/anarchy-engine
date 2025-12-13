@@ -17,13 +17,13 @@ export function start(): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { actorService, keyboardService, physicsWorldService, screenService } = space.services;
+  const { actorService, keyboardService, physicsWorldService } = space.services;
   const { physicalLoop, transformLoop } = space.loops;
 
   physicsWorldService.getDebugRenderer(physicalLoop).start();
   physicalLoop.enabled$.next(false);
 
-  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 
   //run/stop physics loop
   keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicalLoop.enabled$.next(true));
