@@ -1,8 +1,10 @@
+import type { TLocale, TLocaleId } from '@Anarchy/i18n';
 import type { TDeepWriteable } from '@Anarchy/Shared/Utils';
+import { vueTranslationService } from '@Showcases/Menu/services';
 import type { TAudioSettings, TDebugSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TResolution, TShowcaseGameSettings, TShowcaseLocaleIds } from '@Showcases/Shared';
 import { ShowcasesLocales } from '@Showcases/Shared';
 import { defineStore } from 'pinia';
-import { computed, reactive } from 'vue';
+import { computed, reactive, watch } from 'vue';
 
 export const useSettingsStore = defineStore('settingsStore', () => {
   const state: TDeepWriteable<TShowcaseGameSettings> = reactive({
@@ -27,6 +29,22 @@ export const useSettingsStore = defineStore('settingsStore', () => {
       isFirstRun: true
     }
   });
+
+  const onLocaleChanged = (nextLocale: TLocale): void => {
+    console.log('XXX111', nextLocale.id);
+    vueTranslationService.locale$.next(nextLocale);
+  };
+
+  watch(
+    () => state.localization.locale.id,
+    (_nextId: TLocaleId): void => {
+      onLocaleChanged(state.localization.locale);
+    },
+    {
+      flush: 'post' // Effect after commit of reactive events
+      // immediate: true // Execute immediately on first run
+    }
+  );
 
   // TODO DESKTOP: available resolutions depends on platform. Should be set by platform or from .env
   function getAvailableResolutions(): ReadonlyArray<TResolution> {
