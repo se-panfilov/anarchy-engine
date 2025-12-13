@@ -13,6 +13,7 @@ export type TAbstractSimpleRegistry<T> = TWithBaseAccessorsRegistry<T> &
     add: (key: string, value: T) => void;
     added$: Observable<TRegistryPack<T>>;
     findByKey: (key: string) => T | undefined;
+    // TODO 12-0-0: rename getAll() to asArray()
     getAll: () => ReadonlyArray<T>;
     getRegistryCopy: () => Map<string, T>;
     registry: Map<string, T>;
