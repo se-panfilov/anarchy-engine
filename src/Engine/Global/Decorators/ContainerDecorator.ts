@@ -14,7 +14,7 @@ export function ContainerDecorator(container: TAppGlobalContainer | HTMLElement)
   const fullScreen$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   //If App launched in a div (not fullscreen), we need to get relative coords for mouse position, so we need this rect.
-  const viewportRect$: BehaviorSubject<DOMRect | undefined> = new BehaviorSubject<DOMRect | undefined>(getViewportRect());
+  const viewportRect$: BehaviorSubject<DOMRect> = new BehaviorSubject<DOMRect>(getViewportRect());
 
   function getAppContainer(): TAppGlobalContainer | never {
     const globalContainer: Readonly<Window> | null = getWindowFromDomElement(container);
@@ -24,8 +24,19 @@ export function ContainerDecorator(container: TAppGlobalContainer | HTMLElement)
 
   const observeContainerRectSub: Subscription = observeContainerRect(container).subscribe((rect: DOMRect): void => resize$.next(rect));
 
-  function getViewportRect(): DOMRect | undefined {
-    return isDefined((container as HTMLElement).getBoundingClientRect) ? (container as HTMLElement).getBoundingClientRect() : undefined;
+  function getViewportRect(): DOMRect {
+    return isDefined((container as HTMLElement).getBoundingClientRect)
+      ? (container as HTMLElement).getBoundingClientRect()
+      : ({
+          x: 0,
+          y: 0,
+          width: window.innerWidth,
+          height: window.innerHeight,
+          top: 0,
+          left: 0,
+          bottom: window.innerHeight,
+          right: window.innerWidth
+        } as DOMRect);
   }
 
   const screenSizeRectSub$: Subscription = resize$.subscribe((): void => viewportRect$.next(getViewportRect()));
