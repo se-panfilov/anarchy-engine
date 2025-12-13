@@ -21,6 +21,8 @@ import type {
   TParticlesWrapper,
   TPointLightWrapper,
   TRadians,
+  TReadonlyQuaternion,
+  TReadonlyVector3,
   TRendererWrapper,
   TSceneWrapper,
   TSpace,
@@ -153,7 +155,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     addActorFolderGui(gui, sphereActor);
     addKinematicActorFolderGui(gui, sphereActor);
 
-    combineLatest([sphereActor.drive.position$, sphereActor.drive.rotation$]).subscribe(([p, r]: [Vector3, Quaternion]): void => {
+    combineLatest([sphereActor.drive.position$, sphereActor.drive.rotation$]).subscribe(([p, r]: [TReadonlyVector3, TReadonlyQuaternion]): void => {
       sphereText.setText(`x: ${p.x.toFixed(2)} y: ${p.y.toFixed(2)} z: ${p.z.toFixed(2)}, Rotation: ${radToDeg(r.y).toFixed(2)}`);
     });
 
@@ -191,7 +193,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         rotateActorTo(sphereActor, point, rotation, agent);
       });
 
-    intersectionsWatcher.value$.pipe(withLatestFrom(sphereActor.drive.position$)).subscribe(([v, actorPosition]: [TIntersectionEvent, Vector3]): void => {
+    intersectionsWatcher.value$.pipe(withLatestFrom(sphereActor.drive.position$)).subscribe(([v, actorPosition]: [TIntersectionEvent, TReadonlyVector3]): void => {
       const elevation: TRadians = getElevation(actorPosition.x, actorPosition.y, actorPosition.z, v.point);
       const azimuth: TRadians = getHorizontalAzimuth(actorPosition.x, actorPosition.z, v.point, ForwardAxis.Z);
       azimuth$.next({ azimuth: degrees(radToDeg(azimuth)), elevation: degrees(radToDeg(elevation)) });

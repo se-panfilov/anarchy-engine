@@ -1,13 +1,12 @@
-import type { Vector3 } from 'three';
-
 import type { TActor } from '@/Engine/Actor';
 import type { TSpatialCell, TSpatialCellWrapper, TSpatialGridWrapper, TWithUpdateSpatialCell } from '@/Engine/Spatial/Models';
+import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function withUpdateSpatialCell(): TWithUpdateSpatialCell {
   let prevCells: ReadonlyArray<Pick<TSpatialCell, 'maxX' | 'maxY' | 'minX' | 'minY'>> = [];
 
-  function updateSpatialCells(this: TActor, newPosition: Vector3): void | never {
+  function updateSpatialCells(this: TActor, newPosition: TReadonlyVector3): void | never {
     const grid: TSpatialGridWrapper | undefined = this.spatial.getGrid();
     if (isNotDefined(grid)) throw new Error(`Grid is not defined for Actor name: "${this.name}", id: "${this.id}"`);
     const cells: ReadonlyArray<TSpatialCellWrapper> = this.spatial.getSpatialCells();
@@ -18,7 +17,7 @@ export function withUpdateSpatialCell(): TWithUpdateSpatialCell {
       return;
     }
 
-    const isOutside = ({ minX, minY, maxX, maxY }: Pick<TSpatialCell, 'maxX' | 'maxY' | 'minX' | 'minY'>, newPosition: Vector3): boolean => {
+    const isOutside = ({ minX, minY, maxX, maxY }: Pick<TSpatialCell, 'maxX' | 'maxY' | 'minX' | 'minY'>, newPosition: TReadonlyVector3): boolean => {
       return newPosition.x < minX || newPosition.x > maxX || newPosition.z < minY || newPosition.z > maxY;
     };
 

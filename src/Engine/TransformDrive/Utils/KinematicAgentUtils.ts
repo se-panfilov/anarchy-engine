@@ -2,6 +2,7 @@ import { Quaternion, Vector3 } from 'three';
 
 import type { TKinematicState, TKinematicTarget } from '@/Engine/Kinematic/Models';
 import type { TMeters, TRadians } from '@/Engine/Math';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { KinematicSpeed } from '@/Engine/TransformDrive/Constants';
 import type { TKinematicSpeed, TKinematicTransformAgent } from '@/Engine/TransformDrive/Models';
 import type { TWriteable } from '@/Engine/Utils';
@@ -59,7 +60,7 @@ export function getStepRotation(agent: TKinematicTransformAgent, rotationStep: T
   return stepAngle !== 0 ? new Quaternion().setFromAxisAngle(relativeAxis, stepAngle) : undefined;
 }
 
-export function isPointReached(target: TKinematicTarget | undefined, position: Vector3, state: TKinematicState): boolean {
+export function isPointReached(target: TKinematicTarget | undefined, position: TReadonlyVector3, state: TKinematicState): boolean {
   if (isNotDefined(target)) return false;
   const { position: targetPosition, positionThreshold } = target;
   if (isNotDefined(targetPosition)) return false;
@@ -82,7 +83,7 @@ export function isPointReached(target: TKinematicTarget | undefined, position: V
   return false;
 }
 
-export function isRotationReached(target: TKinematicTarget | undefined, rotation: Quaternion, state: TKinematicState): boolean {
+export function isRotationReached(target: TKinematicTarget | undefined, rotation: TReadonlyQuaternion, state: TKinematicState): boolean {
   if (isNotDefined(target)) return false;
   const { rotation: targetRotation, rotationThreshold } = target;
 

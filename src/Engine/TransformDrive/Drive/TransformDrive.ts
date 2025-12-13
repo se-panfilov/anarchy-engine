@@ -1,7 +1,6 @@
 import { nanoid } from 'nanoid';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, map, merge, ReplaySubject } from 'rxjs';
-import type { Quaternion, Vector3 } from 'three';
 
 import { meters, radians } from '@/Engine/Measurements';
 import type { TDestroyable } from '@/Engine/Mixins';
@@ -85,9 +84,11 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   activeAgent$.subscribe((agent: TAbstractTransformAgent): void => activeAgentRep$.next(ProtectedTransformAgentFacade(agent)));
 
   // Update values of the active agent when drive.position$.next() is called from an external code
-  position$.pipe(filter((value: Vector3): boolean => value !== activeAgent$.value.position$.value)).subscribe((value: Vector3): void => activeAgent$.value.position$.next(value));
-  rotation$.pipe(filter((value: Quaternion): boolean => value !== activeAgent$.value.rotation$.value)).subscribe((value: Quaternion): void => activeAgent$.value.rotation$.next(value));
-  scale$.pipe(filter((value: Vector3): boolean => value !== activeAgent$.value.scale$.value)).subscribe((value: Vector3): void => activeAgent$.value.scale$.next(value));
+  position$.pipe(filter((value: TReadonlyVector3): boolean => value !== activeAgent$.value.position$.value)).subscribe((value: TReadonlyVector3): void => activeAgent$.value.position$.next(value));
+  rotation$
+    .pipe(filter((value: TReadonlyQuaternion): boolean => value !== activeAgent$.value.rotation$.value))
+    .subscribe((value: TReadonlyQuaternion): void => activeAgent$.value.rotation$.next(value));
+  scale$.pipe(filter((value: TReadonlyVector3): boolean => value !== activeAgent$.value.scale$.value)).subscribe((value: TReadonlyVector3): void => activeAgent$.value.scale$.next(value));
 
   const destroyable: TDestroyable = destroyableMixin();
 

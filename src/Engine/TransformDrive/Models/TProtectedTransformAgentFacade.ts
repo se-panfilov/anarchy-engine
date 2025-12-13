@@ -1,11 +1,12 @@
 import type { Observable } from 'rxjs';
-import type { Quaternion, Vector3 } from 'three';
+
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 
 import type { TAbstractTransformAgent } from './TAbstractTransformAgent';
 
 export type TProtectedTransformAgentFacade<T extends TAbstractTransformAgent> = Omit<T, 'position$' | 'rotation$' | 'scale$'> &
   Readonly<{
-    position$: Observable<Vector3>;
-    rotation$: Observable<Quaternion>;
-    scale$: Observable<Vector3>;
+    position$: Observable<TReadonlyVector3>;
+    rotation$: Observable<TReadonlyQuaternion>;
+    scale$: Observable<TReadonlyVector3>;
   }>;
