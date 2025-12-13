@@ -50,8 +50,8 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): IAbstractSimpleRe
   const isEmpty = (): boolean => registry.size === 0;
 
   const getLength = (): number => registry.size;
-  const forEach = (callback: (entity: T) => void): void => registry.forEach(callback);
-  const find = (callback: (entity: T) => boolean): T | undefined => findInMap(registry, callback);
+  const forEach = (callback: (value: T) => void): void => registry.forEach(callback);
+  const find = (callback: (value: T) => boolean): T | undefined => findInMap(registry, callback);
 
   return {
     id,
