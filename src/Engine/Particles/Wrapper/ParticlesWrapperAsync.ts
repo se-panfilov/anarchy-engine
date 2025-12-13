@@ -2,7 +2,8 @@ import { BufferAttribute } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { IColor } from '@/Engine/Color';
-import { isPointsMaterial } from '@/Engine/Material';
+import type { IWithMaterial } from '@/Engine/Material';
+import { isPointsMaterial, withMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import type { IParticlesParams, IParticlesWrapperAsync } from '@/Engine/Particles/Models';
 import type { IPoints } from '@/Engine/ThreeLib';
@@ -16,7 +17,7 @@ export async function ParticlesWrapperAsync(params: IParticlesParams): Promise<I
   const { material, geometry } = entity;
   if (!isPointsMaterial(material)) throw new Error('Material is not defined');
 
-  // const withMaterialEntity: IWithMaterial = withMaterial(entity);
+  const withMaterialEntity: IWithMaterial = withMaterial(entity);
 
   // eslint-disable-next-line functional/immutable-data
   const setMaterialColor = (color: IColor): void => void (material.color = color);
@@ -34,7 +35,7 @@ export async function ParticlesWrapperAsync(params: IParticlesParams): Promise<I
     ...withRotationByXyzMixin(entity),
     ...scalableMixin(entity),
     ...withObject3d(entity),
-    // ...withMaterialEntity,
+    ...withMaterialEntity,
     // ...withTextures(withMaterialEntity),
     setMaterialColor,
     getMaterialColor,

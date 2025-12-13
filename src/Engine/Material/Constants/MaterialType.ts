@@ -8,5 +8,6 @@ export enum MaterialType {
   Phong = 'phong',
   Physical = 'physical',
   Toon = 'toon',
-  Standard = 'standard'
+  Standard = 'standard',
+  Points = 'points'
 }

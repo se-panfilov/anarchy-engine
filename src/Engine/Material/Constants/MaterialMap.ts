@@ -8,7 +8,8 @@ import {
   MeshPhongMaterial,
   MeshPhysicalMaterial,
   MeshStandardMaterial,
-  MeshToonMaterial
+  MeshToonMaterial,
+  PointsMaterial
 } from 'three';
 
 import type { ITypeOfMaterials } from '@/Engine/Material/Models';
@@ -25,5 +26,6 @@ export const MaterialMap: Readonly<Record<MaterialType, ITypeOfMaterials>> = {
   [MaterialType.Phong]: MeshPhongMaterial,
   [MaterialType.Physical]: MeshPhysicalMaterial,
   [MaterialType.Toon]: MeshToonMaterial,
-  [MaterialType.Standard]: MeshStandardMaterial
+  [MaterialType.Standard]: MeshStandardMaterial,
+  [MaterialType.Points]: PointsMaterial
 };
