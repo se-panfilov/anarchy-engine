@@ -16,7 +16,7 @@ export function LoopService(): TLoopService {
   };
 
   let beforeTick: ((times: TLoopTimes) => void) | undefined = undefined;
-  const setBeforeTick = (fn: (times: TLoopTimes) => void): void => void (beforeTick = fn);
+  const setBeforeEveryTick = (fn: (times: TLoopTimes) => void): void => void (beforeTick = fn);
 
   beforeTick$
     .pipe(
@@ -25,8 +25,6 @@ export function LoopService(): TLoopService {
       })
     )
     .subscribe((times: TLoopTimes): void => {
-      // console.log('beforeTick$: "LoopService"');
-      // if (isDefined(beforeTick)) beforeTick(times);
       tick$.next(times);
     });
 
@@ -53,7 +51,7 @@ export function LoopService(): TLoopService {
   return {
     start,
     stop,
-    setBeforeTick,
+    setBeforeEveryTick,
     tick$: tick$.asObservable(),
     getIsLooping: (): boolean => state.isLooping,
     ...destroyable

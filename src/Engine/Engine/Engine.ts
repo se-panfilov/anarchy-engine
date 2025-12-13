@@ -31,16 +31,17 @@ export function Engine(space: TSpace): TEngine {
   let camera: TCameraWrapper | undefined;
 
   function start(): void {
-    if (isNotDefined(activeScene)) throw new Error('Cannot find an active scene');
-    if (isNotDefined(text2dRenderer)) throw new Error('Cannot find an active text2d renderer');
-    if (isNotDefined(text3dRenderer)) throw new Error('Cannot find an active text3d renderer');
-    if (isNotDefined(renderer)) throw new Error('Cannot find an active renderer');
+    if (isNotDefined(activeScene)) throw new Error('Engine: Cannot find an active scene');
+    if (isNotDefined(text2dRenderer)) throw new Error('Engine: Cannot find an active text2d renderer');
+    if (isNotDefined(text3dRenderer)) throw new Error('Engine: Cannot find an active text3d renderer');
+    if (isNotDefined(renderer)) throw new Error('Engine: Cannot find an active renderer');
 
     cameraService.active$.subscribe((wrapper: TCameraWrapper | undefined): void => void (camera = wrapper));
     const world: World | undefined = physicsBodyService.getWorld();
-    space.services.loopService.tick$.subscribe(({ delta }: TLoopTimes): void =>
-      spaceLoop(delta, camera, renderer, activeScene, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer, controlsRegistry, world)
-    );
+
+    space.services.loopService.setBeforeEveryTick(({ delta }: TLoopTimes): void => {
+      spaceLoop(delta, camera, renderer, activeScene, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer, controlsRegistry, world);
+    });
     space.services.loopService.start();
   }
 

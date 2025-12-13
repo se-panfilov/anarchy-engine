@@ -19,9 +19,6 @@ export function spaceLoop(
   controlsRegistry: TControlsRegistry,
   physicsWorld: World | undefined
 ): void {
-  // TODO (S.Panfilov) CWP make beforeEveryTick from engine out of this.
-  //  Try to move the debug renderer above (where it was before) and see if everything works fine (it's just a test).
-  //  remove all the console.log's
   if (isDefined(physicsWorld)) physicsWorld.step();
 
   if (isDefined(activeCamera)) {

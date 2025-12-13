@@ -7,7 +7,7 @@ import type { TLoopTimes } from './TLoopTimes';
 export type TLoopService = Readonly<{
   start: () => void;
   stop: () => void;
-  setBeforeTick: (fn: (times: TLoopTimes) => void) => void;
+  setBeforeEveryTick: (fn: (times: TLoopTimes) => void) => void;
   tick$: Observable<TLoopTimes>;
   getIsLooping: () => boolean;
 }> &
