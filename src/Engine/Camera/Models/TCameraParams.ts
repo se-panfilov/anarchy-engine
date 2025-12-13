@@ -1,19 +1,26 @@
 import type { AudioListener, Vector3 } from 'three';
 
+import type { CameraType } from '@/Engine/Camera/Constants';
 import type { TActive, TWithName, TWithTags } from '@/Engine/Mixins';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 import type { TWithTransformAgentParam } from '@/Engine/TransformDrive';
 
 export type TCameraParams = Readonly<{
-  fov?: number;
-  near?: number;
+  audioListener?: AudioListener;
+  bottom?: number;
   far?: number;
-  lookAt?: Vector3;
   filmGauge?: number;
   filmOffset?: number;
   focus?: number;
+  fov?: number;
+  left?: number;
+  lookAt?: Vector3;
+  near?: number;
+  right?: number;
+  top?: number;
+  type?: CameraType;
+  up?: Vector3;
   zoom?: number;
-  audioListener?: AudioListener;
 }> &
   TWithTransformAgentParam &
   TWithName &

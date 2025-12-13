@@ -1,33 +1,56 @@
 import type { Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs';
-import { PerspectiveCamera, Vector3 } from 'three';
+import { Vector3 } from 'three';
 
 import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import { cameraToConfig } from '@/Engine/Camera/Adapters';
-import type { TCamera, TCameraAccessors, TCameraConfig, TCameraParams, TCameraTransformDrive, TCameraWrapper, TCameraWrapperDependencies, TPerspectiveCamera } from '@/Engine/Camera/Models';
+import type {
+  TCamera,
+  TCameraConfig,
+  TCameraParams,
+  TCameraTransformDrive,
+  TCameraWrapper,
+  TCameraWrapperDependencies,
+  TCommonCameraAccessors,
+  TOrthographicCamera,
+  TPerspectiveCamera,
+  TPerspectiveCameraAccessors
+} from '@/Engine/Camera/Models';
 import { CameraTransformDrive } from '@/Engine/Camera/TransformDrive';
+import { applyOrthographicCameraParams, applyPerspectiveCameraParams, createCamera, isOrthographicCamera, isPerspectiveCamera } from '@/Engine/Camera/Utils';
 import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import type { TOptional, TWriteable } from '@/Engine/Utils';
 import { applyObject3dParams, isDefined } from '@/Engine/Utils';
 
-import { getAccessors } from './Accessors';
+import { getCommonCameraAccessors, getOrthographicCameraAccessors, getPerspectiveCameraAccessors } from './Accessors';
 
 export function CameraWrapper(params: TCameraParams, { container, transformDriveService, audioService }: TCameraWrapperDependencies): TCameraWrapper {
-  const { fov = 45, near = 1, far = 10000, lookAt, filmGauge, filmOffset, audioListener }: TCameraParams = params;
+  const { fov = 45, near = 1, far = 10000, lookAt, audioListener }: TCameraParams = params;
   const { width, height }: TOptional<DOMRect> = container.viewportRect$.value ?? { width: 0, height: 0 };
-  const entity: TWriteable<TPerspectiveCamera> = new PerspectiveCamera(fov, container.getRatio(), near, far);
 
-  const accessors: TCameraAccessors = getAccessors(entity);
-  accessors.setAspect(width / height);
+  const entity: TWriteable<TPerspectiveCamera | TOrthographicCamera> = createCamera({ ...params, fov, near, far }, container);
+
+  const accessors: TCommonCameraAccessors = getCommonCameraAccessors(entity);
+  if (isPerspectiveCamera(entity)) {
+    // eslint-disable-next-line functional/immutable-data
+    Object.assign(accessors, getPerspectiveCameraAccessors(entity));
+    (accessors as unknown as TPerspectiveCameraAccessors).setAspect(width / height);
+  }
+  // eslint-disable-next-line functional/immutable-data
+  if (isOrthographicCamera(entity)) Object.assign(accessors, getOrthographicCameraAccessors(entity));
 
   const wrapper: TAbstractWrapper<TCamera> = AbstractWrapper(entity, WrapperType.Camera, { name: params.name, tags: params.tags });
   const drive: TCameraTransformDrive = CameraTransformDrive(params, { transformDriveService }, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
-  container.resize$.pipe(takeUntil(wrapper.destroy$)).subscribe(({ width, height }: DOMRect): void => accessors.setAspect(width / height));
+  if (isPerspectiveCamera(entity)) {
+    container.resize$.pipe(takeUntil(wrapper.destroy$)).subscribe(({ width, height }: DOMRect): void => {
+      (accessors as unknown as TPerspectiveCameraAccessors).setAspect(width / height);
+    });
+  }
 
   // eslint-disable-next-line functional/immutable-data
   const result = Object.assign(wrapper, accessors, {
@@ -48,15 +71,16 @@ export function CameraWrapper(params: TCameraParams, { container, transformDrive
   });
 
   if (isDefined(lookAt)) accessors.lookAt(new Vector3(lookAt.x, lookAt.y, lookAt.z));
-  // eslint-disable-next-line functional/immutable-data
-  if (isDefined(filmGauge)) entity.filmGauge = filmGauge;
-  // eslint-disable-next-line functional/immutable-data
-  if (isDefined(filmOffset)) entity.filmOffset = filmOffset;
-  // eslint-disable-next-line functional/immutable-data
-  if (isDefined(params.focus)) entity.focus = params.focus;
+  if (isDefined(params.up)) entity.up.set(params.up.x, params.up.y, params.up.z);
+  if (isDefined(audioListener)) accessors.addListener(audioListener);
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(params.zoom)) entity.zoom = params.zoom;
-  if (isDefined(audioListener)) accessors.addListener(audioListener);
+  // eslint-disable-next-line functional/immutable-data
+  if (isDefined(params.near)) entity.near = params.near;
+
+  if (isPerspectiveCamera(entity)) applyPerspectiveCameraParams(entity, params);
+  else if (isOrthographicCamera(entity)) applyOrthographicCameraParams(entity, params);
+  else throw new Error(`[Camera]: Unsupported camera type: ${params.type}`);
 
   return result;
 }

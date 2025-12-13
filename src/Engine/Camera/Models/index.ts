@@ -1,6 +1,5 @@
 export type * from './TAbstractCameraRegistry';
 export type * from './TCamera';
-export type * from './TCameraAccessors';
 export type * from './TCameraConfig';
 export type * from './TCameraFactory';
 export type * from './TCameraParams';
@@ -11,5 +10,6 @@ export type * from './TCameraTransformAgents';
 export type * from './TCameraTransformDrive';
 export type * from './TCameraWrapper';
 export type * from './TCameraWrapperDependencies';
+export type * from './TCommonCameraAccessors';
 export type * from './TOrthographicCamera';
 export type * from './TPerspectiveCamera';
