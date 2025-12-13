@@ -28,6 +28,7 @@ SOFTWARE.
 
 ## Legal
 
-See local files `LICENSE`, `CHANGELOG`, `NOTICE` (short), and files in `./legal` folder: `DISCLAIMER`, `EULA`, `PRIVACY`, `SECURITY`, `NOTICE` (full), `THIRD_PARTY_LICENSES`.
+See local files `LICENSE`, `CHANGELOG`, `NOTICE` (pointer), and files in `./legal`:
+`DISCLAIMER`, `EULA`, `PRIVACY`, `SECURITY`, `NOTICE` (full), `THIRD_PARTY_LICENSES`.
 
 Contacts — Privacy: {{PRIVACY_EMAIL}}, Security: {{SECURITY_EMAIL}}.
