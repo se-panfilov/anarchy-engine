@@ -23,17 +23,17 @@
   "scripts": {
     "before:release": "npm run before:release:check && npm run generate:legal",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",
+    "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
+    "generate:legal:3rd-party-licenses": "npm run -w anarchy-legal generate:licenses -- --workspace packages/anarchy-shared --out ../../packages/anarchy-shared/legal/THIRD_PARTY_LICENSES.md",
+    "generate:legal:files": "npm run -w anarchy-legal generate:files -- --workspace packages/anarchy-shared --out ../../packages/anarchy-shared",
+    "generate:legal:notice": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace packages/anarchy-shared --source ../../packages/anarchy-shared/legal/THIRD_PARTY_LICENSES.md --out ../../packages/anarchy-shared/legal/NOTICE.md",
+    "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "ts:check": "tsc --noEmit",
-    "ts:check:watch": "tsc --watch --noEmit",
-    "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
-    "generate:legal:3rd-party-licenses": "npm run -w anarchy-legal generate:licenses -- --workspace packages/anarchy-shared --out ../../packages/anarchy-shared/legal/THIRD_PARTY_LICENSES.md",
-    "generate:legal:files": "npm run -w anarchy-legal generate:files -- --workspace packages/anarchy-shared --out ../../packages/anarchy-shared",
-    "generate:legal:notice": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace packages/anarchy-shared --source ../../packages/anarchy-shared/legal/THIRD_PARTY_LICENSES.md --out ../../packages/anarchy-shared/legal/NOTICE.md",
-    "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json"
+    "ts:check:watch": "tsc --watch --noEmit"
   },
   "dependencies": {},
   "devDependencies": {
