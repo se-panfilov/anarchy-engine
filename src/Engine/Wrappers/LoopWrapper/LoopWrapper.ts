@@ -1,18 +1,12 @@
-import type { CameraWrapper, RendererWrapper, SceneWrapper } from '@Engine/Wrappers';
+import type { ICameraWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
 import { AbstractWrapper } from '@Engine/Wrappers';
 import { getUtils } from './utils';
-import type { ILoopWrapper } from './Models';
 import type { LoopFn } from './Models/LoopFn';
 import type { ILoopParams } from '@Engine/Models';
+import type { ILoopWrapper } from './Models';
 
-// TODO (S.Panfilov) params is not needed here, remove
 export function LoopWrapper(params: ILoopParams): ILoopWrapper {
-  console.log(params);
-  const entity: LoopFn = (
-    renderer: ReturnType<typeof RendererWrapper>,
-    scene: ReturnType<typeof SceneWrapper>,
-    camera: ReturnType<typeof CameraWrapper>
-  ): void => {
+  const entity: LoopFn = (renderer: IRendererWrapper, scene: ISceneWrapper, camera: ICameraWrapper): void => {
     renderer.entity.render(scene.entity, camera.entity);
   };
 

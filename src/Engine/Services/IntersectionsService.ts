@@ -1,13 +1,13 @@
 import { getNormalizedMousePosition, isNotDefined } from '@Engine/Utils';
 import { Raycaster, Vector3 } from 'three';
-import type { CameraWrapper } from '@Engine/Wrappers';
+import type { ICameraWrapper } from '@Engine/Wrappers';
 import type { IMousePosition } from '@Engine/Models';
 import { Object3D } from 'three/src/core/Object3D';
 
 export interface IntersectionsService {
   readonly getIntersection: (
     position: IMousePosition,
-    cameraWrapper: ReturnType<typeof CameraWrapper>,
+    cameraWrapper: ICameraWrapper,
     obj: ReadonlyArray<Object3D>
   ) => Vector3 | undefined | never;
   readonly destroy: () => void;
@@ -18,7 +18,7 @@ export function IntersectionsService(): IntersectionsService {
 
   function getIntersection(
     position: IMousePosition,
-    cameraWrapper: ReturnType<typeof CameraWrapper>,
+    cameraWrapper: ICameraWrapper,
     obj: ReadonlyArray<Object3D>
   ): Vector3 | undefined | never {
     if (isNotDefined(raycaster))

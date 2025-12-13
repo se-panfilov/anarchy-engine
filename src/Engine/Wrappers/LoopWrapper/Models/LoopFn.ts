@@ -1,7 +1,3 @@
-import type { CameraWrapper, RendererWrapper, SceneWrapper } from '@Engine/Wrappers';
+import type { ICameraWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
 
-export type LoopFn = (
-  renderer: ReturnType<typeof RendererWrapper>,
-  scene: ReturnType<typeof SceneWrapper>,
-  camera: ReturnType<typeof CameraWrapper>
-) => void;
+export type LoopFn = (renderer: IRendererWrapper, scene: ISceneWrapper, camera: ICameraWrapper) => void;

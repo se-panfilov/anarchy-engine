@@ -1,5 +1,5 @@
 import type { ICreateFN } from '@Engine/Factories';
-import type { CameraWrapper } from '@Engine/Wrappers';
 import type { ICameraParams } from '@Engine/Models';
+import type { ICameraWrapper } from '@Engine/Wrappers';
 
-export type ICreateCameraFn = ICreateFN<ReturnType<typeof CameraWrapper>, ICameraParams>;
+export type ICreateCameraFn = ICreateFN<ICameraWrapper, ICameraParams>;
