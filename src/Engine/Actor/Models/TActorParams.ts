@@ -10,6 +10,6 @@ export type TActorParams = TActorProps &
     physics?: TWithPresetNamePhysicsBodyParams;
   }> &
   Readonly<{
-    kinematic: TKinematicInfo;
+    kinematic?: TKinematicInfo;
   }> &
   TWithReadonlyTags;

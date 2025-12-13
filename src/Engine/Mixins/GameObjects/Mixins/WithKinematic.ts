@@ -5,7 +5,8 @@ import type { TKinematicInfo } from '@/Engine/Physics/Models';
 
 export function withKinematic(params: TActorParams): TWithKinematic {
   return {
-    setKinematicInfo: function (kinematic: TKinematicInfo): void {
+    setKinematicInfo(kinematic: TKinematicInfo): void {
+      // eslint-disable-next-line functional/immutable-data
       this.kinematic = kinematic;
     },
     getKinematicInfo: function (): TKinematicInfo {

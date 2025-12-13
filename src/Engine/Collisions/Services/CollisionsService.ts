@@ -1,5 +1,5 @@
 import type { Intersection, Mesh } from 'three';
-import { Box3, Raycaster } from 'three';
+import { Box3, Raycaster, Vector3 } from 'three';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor/Models';
 import type { TBvhService, TCollisionCheckResult, TCollisionsService, TSpatialGridService } from '@/Engine/Collisions/Models';
@@ -28,8 +28,10 @@ export function CollisionsService(): TCollisionsService {
     for (const candidate of candidates) {
       if (candidate.object !== actorW.entity) {
         const raycaster: Raycaster = new Raycaster();
-        // TODO (S.Panfilov) should be not any actor, but actor with direction
-        raycaster.set(actorW.entity.position, actorW.direction);
+
+        // TODO (S.Panfilov) is linearVelocity is the same as direction here?
+        // raycaster.set(actorW.entity.position, actorW.kinematic.getAzimuth());
+        raycaster.set(actorW.entity.position, new Vector3(actorW.kinematic.linearVelocity.x, actorW.kinematic.linearVelocity.y, actorW.kinematic.linearVelocity.z));
 
         const intersects: Array<Intersection> = [];
         bvhService.raycastWithBVH(candidate.object as Mesh, raycaster, intersects);
