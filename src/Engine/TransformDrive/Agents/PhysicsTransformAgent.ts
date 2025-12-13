@@ -1,6 +1,6 @@
 import type { RigidBody, Rotation, Vector } from '@dimforge/rapier3d';
 import type { Subject, Subscription } from 'rxjs';
-import { BehaviorSubject, combineLatest, filter, map, switchMap, withLatestFrom } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinctUntilChanged, filter, map, switchMap, withLatestFrom } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
 
 import type { TPhysicsBody, TPhysicsBodyService, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
@@ -47,6 +47,16 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
     if (!isEnabled) physicsBody.setPhysicsBodyType(RigidBodyTypesNames.KinematicPositionBased, false);
     else physicsBody?.setPhysicsBodyType(previousPhysicsBodyType, false);
   });
+
+  // TODO 8.0.0. MODELS: apply rotation!!!
+  // abstractTransformAgent.position$
+  //   // .pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr)))
+  //   .subscribe((position: Vector3): void => {
+  //     console.log('XXX received position', position);
+  //     const coords = physicsBody$.value?.getRigidBody()?.translation();
+  //     // if (position.x === coords?.x && position.y === coords?.y && position.z === coords?.z) return;
+  //     physicsBody$.value.getRigidBody().setNextKinematicTranslation(position);
+  //   });
 
   const destroySub$: Subscription = abstractTransformAgent.destroy$.subscribe((): void => {
     //Stop subscriptions
