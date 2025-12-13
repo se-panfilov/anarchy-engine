@@ -78,7 +78,7 @@
         "spatial": { "grid": "main_grid", "isAutoUpdate": true }
       },
       {
-        "name": "solder_model_entity_2",
+        "name": "solder_actor_2",
         "model3dSource": "solder_model_entity_1",
         "states": {
           "animationsFsmSource": "dance_anim_fsm"
