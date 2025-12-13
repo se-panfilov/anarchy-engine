@@ -1,3 +1,1 @@
-import type { Vector3 } from 'three';
-
-export type TMoveDestination = Partial<Vector3>;
+export type TMoveDestination = Partial<{ x: number; y: number; z: number }>;
