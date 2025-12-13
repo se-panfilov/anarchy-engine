@@ -5,7 +5,7 @@ import type { IAnimationParams, IAppCanvas, IMoverService, ISpace, ISpaceConfig,
 import { buildSpaceFromConfig, createCirclePathXZ, defaultMoverServiceConfig, Easing, EulerWrapper, generateAnglesForCircle, mouseService, TextType, Vector3Wrapper } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
-import spaceConfig from './showcase-8-text-3d.config.json';
+import spaceConfig from './showcase-8.json';
 
 //Showcase 8: Text 3d
 export function showcase(canvas: IAppCanvas): IShowcase {

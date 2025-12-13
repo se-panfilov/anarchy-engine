@@ -17,7 +17,7 @@ import type {
 } from '@/Engine';
 import { buildSpaceFromConfig, isNotDefined } from '@/Engine';
 
-import spaceConfig from './showcase-12-light.json';
+import spaceConfig from './showcase-12.json';
 
 //Showcase 12: Light
 export function showcase(canvas: IAppCanvas): IShowcase {

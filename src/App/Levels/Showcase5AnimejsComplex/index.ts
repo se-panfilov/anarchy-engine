@@ -16,7 +16,7 @@ import type {
 import { buildSpaceFromConfig, createCirclePathXZ, defaultMoverServiceConfig, Easing, EulerWrapper, generateAnglesForCircle, isNotDefined, mouseService, TextType, Vector3Wrapper } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
-import spaceConfig from './showcase-5-animejs-complex.config.json';
+import spaceConfig from './showcase-5.json';
 
 //Showcase 5: Anime.js animation with complex path and easing
 export function showcase(canvas: IAppCanvas): IShowcase {

@@ -4,7 +4,7 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ICameraWrapper, ISpace, ISpaceConfig } from '@/Engine';
 import { ambientContext, buildSpaceFromConfig, getRotationByCos, getRotationBySin, isNotDefined, mouseService } from '@/Engine';
 
-import spaceConfig from './showcase-3-camera-flying.config.json';
+import spaceConfig from './showcase-3.json';
 
 //Showcase 3: Camera flying around the central actor
 export function showcase(canvas: IAppCanvas): IShowcase {

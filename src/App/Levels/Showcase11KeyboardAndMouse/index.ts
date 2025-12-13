@@ -18,7 +18,7 @@ import type {
 import { buildSpaceFromConfig, defaultMoverServiceConfig, Easing, isNotDefined, keyboardService, KeyCode, LookUpStrategy, mouseService } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
-import spaceConfig from './showcase-11-keyboard-and-mouse.json';
+import spaceConfig from './showcase-11.json';
 
 //Showcase 11: Keyboard and Mouse
 export function showcase(canvas: IAppCanvas): IShowcase {

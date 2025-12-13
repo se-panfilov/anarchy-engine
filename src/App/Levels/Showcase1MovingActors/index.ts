@@ -4,7 +4,7 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ISpace, ISpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, isNotDefined, mouseService } from '@/Engine';
 
-import spaceConfig from './showcase-1-moving-actors.config.json';
+import spaceConfig from './showcase-1.json';
 
 //Showcase 1: Moving actor with intersections & reading data from config
 export function showcase(canvas: IAppCanvas): IShowcase {

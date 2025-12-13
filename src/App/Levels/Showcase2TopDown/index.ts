@@ -4,7 +4,7 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorParams, IAppCanvas, ICameraWrapper, ISpace, ISpaceConfig } from '@/Engine';
 import { ActorType, ambientContext, buildSpaceFromConfig, EulerWrapper, isNotDefined, MaterialType, mouseService, Vector3Wrapper } from '@/Engine';
 
-import spaceConfig from './showcase-2-top-down.config.json';
+import spaceConfig from './showcase-.json';
 
 //Showcase 2: Top-down controls with dynamic actors and camera creation
 export function showcase(canvas: IAppCanvas): IShowcase {

@@ -4,7 +4,7 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type { IAppCanvas, ISceneWrapper, ISpace, ISpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, isNotDefined } from '@/Engine';
 
-import spaceConfig from './showcase-13-fog.json';
+import spaceConfig from './showcase-13.json';
 
 //Showcase 13: Fog
 export function showcase(canvas: IAppCanvas): IShowcase {

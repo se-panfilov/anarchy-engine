@@ -2,7 +2,7 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ISpace, ISpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, mouseService, screenService } from '@/Engine';
 
-import spaceConfig from './showcase-7-fullscreen.config.json';
+import spaceConfig from './showcase-6.json';
 
 //Showcase 6: Go fullscreen
 export function showcase(canvas: IAppCanvas): IShowcase {

@@ -7,7 +7,7 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, IControlsRegistry, IOrbitControlsWrapper, ISpace, ISpaceConfig, IVector3Wrapper } from '@/Engine';
 import { buildSpaceFromConfig, EulerWrapper, isDefined, isNotDefined, keyboardService, KeyCode, LookUpStrategy, TextType, Vector3Wrapper } from '@/Engine';
 
-import spaceConfig from './showcase-10-complex-materials.config.json';
+import spaceConfig from './showcase-10.json';
 
 //Showcase 10: Complex Materials
 export function showcase(canvas: IAppCanvas): IShowcase {
