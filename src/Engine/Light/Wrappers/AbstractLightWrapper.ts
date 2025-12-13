@@ -3,7 +3,7 @@ import type { TAbstractLightWrapper, TLight, TLightParams, TLightTransformDrive 
 import { LightTransformDrive } from '@/Engine/Light/TransformDrive';
 import { getWrapperType } from '@/Engine/Light/Utils';
 import { applyShadowParams } from '@/Engine/Light/Wrappers/LightWrapperHelper';
-import { withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
+import { withObject3d } from '@/Engine/Mixins';
 import { applyObject3dParams } from '@/Engine/Utils';
 
 export function AbstractLightWrapper<T extends TLight>(entity: T, params: TLightParams): TAbstractLightWrapper<T> {
@@ -12,8 +12,6 @@ export function AbstractLightWrapper<T extends TLight>(entity: T, params: TLight
   const result: TAbstractLightWrapper<T> = {
     ...AbstractWrapper(entity, getWrapperType(entity), params),
     drive,
-    ...withMoveBy3dMixin(entity),
-    ...withRotationByXyzMixin(entity),
     ...withObject3d(entity),
     entity
   };
