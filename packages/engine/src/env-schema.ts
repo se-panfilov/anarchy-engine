@@ -1,14 +1,7 @@
-import { object, pipe, string, transform } from 'valibot';
+import { toBool, toInt } from '@Shared/Utils';
+import { object } from 'valibot';
 
-const toBool = pipe(
-  string(),
-  transform((v: string): boolean => v === 'true')
-);
-const toInt = pipe(
-  string(),
-  transform((v: string): number => parseInt(v, 10))
-);
-
+// TODO 18-0-0 remove all these variables (except CI), adjust env-schema. Params should pe a part of Space options (Space.options.loops)
 export const runtimeSchema = object({
   VITE_SHOW_DEBUG_INFO: toBool,
   VITE_AUDIO_LOOP_STEP: toInt,
@@ -35,7 +28,6 @@ export const runtimeSchema = object({
   VITE_CONTROLS_LOOP_IS_PARALLEL: toBool
 });
 
-export const nodeSchema = object({
-  CI: toBool,
-  PORT: toInt
-});
+// export const nodeSchema = object({
+// CI: toBool,
+// });

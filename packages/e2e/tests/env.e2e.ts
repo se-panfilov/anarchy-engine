@@ -4,16 +4,16 @@ import * as dotenv from 'dotenv';
 import * as path from 'path';
 import { parse } from 'valibot';
 
-import { nodeSchema } from '../../shared/env-schema';
+import { nodeSchema } from '../env-schema';
 
 function loadEnvFile(file: string): void {
-  const filePath = path.resolve(process.cwd(), file);
+  const filePath: string = path.resolve(process.cwd(), file);
   if (fs.existsSync(filePath)) {
     dotenv.config({ path: filePath, override: false });
   }
 }
 
 loadEnvFile('.env'); // base
-loadEnvFile('.env.e2e');
+// loadEnvFile('.env.ci');
 
 export const nodeEnv = parse(nodeSchema, process.env);
