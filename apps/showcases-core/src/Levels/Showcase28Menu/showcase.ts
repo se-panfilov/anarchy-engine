@@ -1,6 +1,7 @@
-import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig, TText3dWrapper } from '@Anarchy/Engine';
+import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig, TText3dTextureWrapper } from '@Anarchy/Engine';
 import { spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
+import { showcasesTranslationService } from '@Showcases/i18n';
 import { filter, Subject } from 'rxjs';
 import { initMenuApp } from 'showcases-menu/src/main';
 
@@ -34,10 +35,8 @@ export function showcase(space: TSpace): void {
 
   const planeModel3d: TModel3d = models3dRegistry.getByName('surface_model');
 
-  const text3d: TText3dWrapper = textService.getRegistries().text3dRegistry.getByName('text_3d_1');
-
+  const text3dTexture: TText3dTextureWrapper = textService.getRegistries().text3dTextureRegistry.getByName('text_3d_2');
   sceneW.addModel3d(planeModel3d);
-  sceneW.addText(text3d);
 
   const mainMenuService: TMainMenuService = MainMenuService();
   const appService: TAppService = AppService();
@@ -60,8 +59,10 @@ export function showcase(space: TSpace): void {
     isMouseOverMenuCube = !!value;
   });
 
-  // TODO DESKTOP: this initialization has to be the same as in the menu (and UI), so we need a storage layer
-  // const translationService: TTranslationService = TranslationService(ShowcasesLocales['en-US'], ShowcasesFallbackLocale, locales);
+  showcasesTranslationService.t$('main-menu.home.button.new-game.text').subscribe((v: string): void => {
+    // text3dTexture.setText(v);
+    console.log('XXX text', v);
+  });
 
   mouseService.clickLeftRelease$.pipe(filter((): boolean => isMouseOverMenuCube)).subscribe((): void => openMenu$.next(true));
 
