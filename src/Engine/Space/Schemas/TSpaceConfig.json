@@ -205,6 +205,10 @@
             "$ref": "#/definitions/TFogConfig"
           }
         },
+        "fsm": {
+          "type": "array",
+          "items": {}
+        },
         "texts": {
           "type": "array",
           "items": {
@@ -218,7 +222,7 @@
           }
         }
       },
-      "required": ["spatialGrids", "actors", "cameras", "envMaps", "intersections", "lights", "models3d", "particles", "physics", "fogs", "texts", "controls"],
+      "required": ["spatialGrids", "actors", "cameras", "envMaps", "intersections", "lights", "models3d", "particles", "physics", "fogs", "fsm", "texts", "controls"],
       "additionalProperties": false
     },
     "TSpatialGridConfig": {
@@ -289,6 +293,9 @@
         },
         "model3dSettings": {
           "$ref": "#/definitions/TActorModel3dSettingsConfig"
+        },
+        "states": {
+          "$ref": "#/definitions/TActorStatesConfig"
         },
         "driveUpdateDelay": {
           "type": "number"
@@ -1158,6 +1165,15 @@
         },
         "scaleOffset": {
           "$ref": "#/definitions/Vector3Like"
+        }
+      }
+    },
+    "TActorStatesConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "animationsFsmSource": {
+          "type": "string"
         }
       }
     },
