@@ -19,10 +19,14 @@ export function withBaseAccessorsRegistry<T>(registry: Map<string, T>): TWithBas
       if (isDefined((value as any).toString)) {
         const result = (value as any).toString().trim();
         if (result === {}.toString()) {
-          throw new Error(`[REGISTRY]: Value "${value}" has no .serialize() or .toString() methods. Standard .toString() returned '[object Object]' which seems to be an error`);
+          throw new Error(
+            `[REGISTRY]: Value "${value}" has no .serialize() or .toString() methods. Standard .toString() returned '[object Object]' which seems to be an error. Details: id: "${(value as any).id}", name: "${(value as any).name}"`
+          );
         }
         if (result === [].toString() || result === '') {
-          throw new Error(`[REGISTRY]: Value "${value}" has no .serialize() or .toString() methods. Standard .toString() returned an empty string which seems to be an error`);
+          throw new Error(
+            `[REGISTRY]: Value "${value}" has no .serialize() or .toString() methods. Standard .toString() returned an empty string which seems to be an error. Details: id: "${(value as any).id}", name: "${(value as any).name}"`
+          );
         }
 
         return result as unknown as S;
