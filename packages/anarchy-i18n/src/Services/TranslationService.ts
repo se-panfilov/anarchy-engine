@@ -35,7 +35,7 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
     return intl;
   }
 
-  async function loadLocale(locale: TLocale): Promise<void> {
+  async function loadLocale(locale: TLocale): Promise<void> | never {
     try {
       loadingLocale$.next(new Set([...loadingLocale$.value, locale]));
       const loadFn = locales[locale.id];
@@ -65,7 +65,10 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
       distinctUntilChanged(),
       concatMap((locale: TLocale) => from(loadLocale(locale)).pipe(map((): IntlShape<string> => getIntl(locale))))
     )
-    .subscribe((intl: IntlShape<string>): void => void intl$.next(intl));
+    .subscribe((intl: IntlShape<string>): void => {
+      document?.documentElement?.setAttribute?.('lang', intl.locale);
+      return void intl$.next(intl);
+    });
 
   const destroySub$: Subscription = destroy$.subscribe(() => {
     destroySub$.unsubscribe();
