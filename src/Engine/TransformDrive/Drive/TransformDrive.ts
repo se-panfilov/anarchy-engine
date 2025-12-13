@@ -32,7 +32,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
 
   const agent$: BehaviorSubject<TransformAgent> = new BehaviorSubject<TransformAgent>(params.activeAgent ?? TransformAgent.Default);
 
-  const activeAgent: TAbstractTransformAgent | undefined = agents[agent$.value];
+  let activeAgent: TAbstractTransformAgent | undefined = agents[agent$.value];
   if (isNotDefined(activeAgent)) throw new Error(`TransformDrive: Can't set an active agent. Agent "${agent$.value}" is not defined`);
   const activeAgent$: BehaviorSubject<TAbstractTransformAgent> = new BehaviorSubject(activeAgent);
 
@@ -112,7 +112,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
     ...getDynamicAgents(agents)
   };
 
-  destroyable.destroy$.subscribe(() => {
+  destroyable.destroy$.subscribe((): void => {
     // Stop subscriptions
     positionSub$.unsubscribe();
     rotationSub$.unsubscribe();
@@ -124,6 +124,10 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
     //Stop subjects
     agent$.complete();
     agent$.unsubscribe();
+    activeAgent$.complete();
+    activeAgent$.unsubscribe();
+    activeAgentRep$.complete();
+    activeAgentRep$.unsubscribe();
     position$.complete();
     position$.unsubscribe();
     rotation$.complete();
@@ -131,6 +135,8 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
     scale$.complete();
     scale$.unsubscribe();
 
+    activeAgent = null as any;
+    prevAgent = null as any;
     Object.values(agents).forEach((agent: TAbstractTransformAgent): void => agent.destroy$.next());
   });
 
