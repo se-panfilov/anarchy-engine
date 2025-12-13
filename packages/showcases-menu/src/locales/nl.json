@@ -1,0 +1,7 @@
+{
+  "menu.start": "Starten",
+  "menu.quit": "Afsluiten",
+  "hud.fps": "FPS: {count}",
+  "wallet.money": "{val, number, ::currency/USD}",
+  "date.today": "{ts, date, medium}"
+}
