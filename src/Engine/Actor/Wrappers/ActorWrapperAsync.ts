@@ -21,6 +21,7 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
 
   const withMaterialEntity: TWithMaterial = withMaterial(entity);
 
+  // TODO (S.Panfilov) CWP fix provided entity (type) into mixins and add "spatial" param as an optional param of Actor
   const { value$: position$, update: updatePosition } = withReactivePosition(entity);
   const { value$: rotation$, update: updateRotation } = withReactiveRotation(entity);
 
