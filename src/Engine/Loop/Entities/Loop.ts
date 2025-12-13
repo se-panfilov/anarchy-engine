@@ -1,5 +1,5 @@
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, EMPTY, filter, Subject, switchMap } from 'rxjs';
+import { BehaviorSubject, EMPTY, Subject, switchMap } from 'rxjs';
 import { Clock } from 'three';
 
 import type { TDelta, TDeltaCalculator, TLoop } from '@/Engine/Loop/Models';
@@ -10,18 +10,23 @@ import { DeltaCalculator } from './DeltaCalculator';
 
 type TTriggerFn = ((cb: CallableFunction) => void) | ((cb: FrameRequestCallback) => number);
 
-export function Loop(triggerFn: TTriggerFn): TLoop {
+export function Loop(trigger: TTriggerFn | number): TLoop {
   const enabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   const tick$: Subject<TDelta> = new Subject<TDelta>();
 
+  // TODO 10.0.0. Does Clock is protected against the slowdown in background tabs? Replace if not.
   const deltaCalc: TDeltaCalculator = DeltaCalculator(new Clock());
+  const isTriggerFn: boolean = typeof trigger === 'function';
 
   // TODO 10.0.0. LOOPS: Add stats (for FPS)
   const tickSub$: Subscription = enabled$
-    .pipe(switchMap((isEnabled: boolean): Subject<TDelta> | Observable<never> => (isEnabled ? tick$ : EMPTY)))
-    .subscribe((): number | void => triggerFn((): void => tick$.next(deltaCalc.update())));
+    .pipe(switchMap((isEnabled: boolean): Subject<TDelta> | Observable<never> => (isEnabled && isTriggerFn ? tick$ : EMPTY)))
+    .subscribe((): number | void => (trigger as TTriggerFn)((): void => tick$.next(deltaCalc.update())));
 
-  const enableSub$: Subscription = enabled$.pipe(filter((isEnabled: boolean): boolean => isEnabled)).subscribe((): void => tick$.next(0));
+  const enableSub$: Subscription = enabled$.subscribe((isEnabled: boolean): void => {
+    if (isEnabled) tick$.next(0);
+    else deltaCalc.reset();
+  });
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {

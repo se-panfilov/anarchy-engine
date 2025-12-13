@@ -1,11 +1,7 @@
 import type { Clock } from 'three';
 
+import type { TDeltaCalculator } from '@/Engine/Loop/Models';
 import type { TMilliseconds } from '@/Engine/Math';
-
-type TDeltaCalculator = Readonly<{
-  lastElapsedTime: TMilliseconds;
-  update: () => TMilliseconds;
-}>;
 
 export function DeltaCalculator(clock: Clock): TDeltaCalculator {
   const result = {
@@ -17,6 +13,10 @@ export function DeltaCalculator(clock: Clock): TDeltaCalculator {
       result.lastElapsedTime = elapsedTime;
 
       return delta;
+    },
+    reset(): void {
+      // eslint-disable-next-line functional/immutable-data
+      result.lastElapsedTime = 0 as TMilliseconds;
     }
   };
 
