@@ -1,4 +1,4 @@
-export type TLoopsSettings = TLoopsSettingsSteps & TLoopsSettingsMode;
+export type TLoopsSettings = TLoopsSettingsSteps & TLoopsSettingsModes;
 
 export type TLoopsSettingsSteps = Readonly<{
   audioLoopStep: number;
@@ -14,7 +14,7 @@ export type TLoopsSettingsSteps = Readonly<{
   transformLoopStep: number;
 }>;
 
-export type TLoopsSettingsMode = Readonly<{
+export type TLoopsSettingsModes = Readonly<{
   isAudioParallel?: boolean;
   isCollisionsParallel?: boolean;
   isControlsParallel?: boolean;
