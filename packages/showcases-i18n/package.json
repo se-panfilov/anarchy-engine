@@ -2,7 +2,7 @@
   "name": "showcases-i18n",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.2.1",
+  "version": "1.3.0",
   "type": "module",
   "sideEffects": false,
   "license": "MIT",
@@ -22,7 +22,7 @@
     "dist/"
   ],
   "scripts": {
-    "before:release": "npm run before:release:check",
+    "before:release": "npm run sort:i18n && npm run before:release:check",
     "before:release:check": "npm run ts:check && npm run check:circular-dependencies && npm run lint",
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/index.ts",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
@@ -35,6 +35,7 @@
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "sanitize-assets": "node ../../packages/anarchy-shared/ScriptUtils/SanitizeAssets.js ./src/assets",
+    "sort:i18n": "sort-json src/i18n/locales/*.json",
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit",
     "unit": "vitest run",
@@ -45,7 +46,7 @@
   "dependencies": {
     "anarchy-engine": "*",
     "anarchy-i18n": "*",
-    "anarchy-shared": "*"
-  },
-  "devDependencies": {}
+    "anarchy-shared": "*",
+    "sort-json": "2.0.1"
+  }
 }
