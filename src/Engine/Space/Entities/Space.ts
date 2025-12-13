@@ -17,7 +17,7 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   const { canvas, version, name, tags } = params;
   const built$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  const { services, loops } = initSpaceServices(params, hooks);
+  const { services, loops } = initSpaceServices(params);
   hooks?.afterAllServicesInitialized?.(canvas, services, loops, params);
 
   services.rendererService.create({ canvas: params.canvas, mode: RendererModes.WebGL2, isActive: true });

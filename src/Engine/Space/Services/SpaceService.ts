@@ -28,7 +28,7 @@ export function SpaceService(factory: TSpaceFactory, registry: TSpaceRegistry): 
     return spaces.map((config: TSpaceConfig): TSpace => {
       hooks?.beforeConfigValidation?.(config);
       validateConfig(config);
-      return factory.create(factory.configToParams(config), config, hooks);
+      return factory.create(factory.configToParams(config), config);
     });
   };
 

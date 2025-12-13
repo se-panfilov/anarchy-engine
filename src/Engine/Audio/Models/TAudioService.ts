@@ -15,7 +15,7 @@ import type { TAudioWrapperDependencies } from './TAudioWrapperDependencies';
 
 export type TAudioServiceWithCreate = TWithCreateService<TAnyAudioWrapper, TAnyAudioParams>;
 export type TAudioServiceWithCreateFromConfig = TWithCreateFromConfigService<TAnyAudioConfig, TAnyAudioWrapper>;
-export type TAudioServiceWithFactory = TWithFactoryService<TAnyAudioWrapper, TAnyAudioParams, Pick<TAudioWrapperDependencies, 'audioLoop'>, TAudioFactory, undefined>;
+export type TAudioServiceWithFactory = TWithFactoryService<TAnyAudioWrapper, TAnyAudioParams, Pick<TAudioWrapperDependencies, 'audioLoop'>, TAudioFactory>;
 export type TAudioServiceWithRegistry = TWithRegistryService<TAudioRegistry>;
 
 export type TAudioService = TAbstractService &

@@ -1,7 +1,7 @@
 import type { TWithFactoryService } from '@/Engine/Mixins/Services/Models';
-import type { TExtractDeps, TExtractEntity, TExtractHooks, TExtractParams } from '@/Engine/Mixins/Services/Utils';
+import type { TExtractDeps, TExtractEntity, TExtractParams } from '@/Engine/Mixins/Services/Utils';
 
-export function withFactoryService<F extends { create: (...args: any[]) => any }>(factory: F): TWithFactoryService<TExtractEntity<F>, TExtractParams<F>, TExtractDeps<F>, any, TExtractHooks<F>> {
+export function withFactoryService<F extends { create: (...args: any[]) => any }>(factory: F): TWithFactoryService<TExtractEntity<F>, TExtractParams<F>, TExtractDeps<F>, any> {
   return {
     getFactory: (): F => factory
   };

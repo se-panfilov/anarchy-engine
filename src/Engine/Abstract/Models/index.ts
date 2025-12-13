@@ -1,6 +1,5 @@
 export type * from './TAbstractAsyncRegistry';
 export type * from './TAbstractEntityRegistry';
-export type * from './TAbstractHooks';
 export type * from './TAbstractLoadedResourcePack';
 export type * from './TAbstractLoader';
 export type * from './TAbstractLoop';
