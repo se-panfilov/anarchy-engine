@@ -7,7 +7,7 @@ import type { IFactoriesPool, IRegistriesPool } from '@Engine/Pool/Models';
 import { createDeferredPromise } from '@Engine/Utils';
 import type { ICameraWrapper, ILoopWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
 
-export async function launch(
+export async function launchScene(
   sceneConfig: ISceneConfig,
   canvas: IAppCanvas,
   factoriesPool: IFactoriesPool,

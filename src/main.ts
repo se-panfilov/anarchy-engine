@@ -1,6 +1,6 @@
 import './style.css';
 
-import { launch } from '@Engine/Launcher';
+import { launchScene } from '@Engine/Launcher';
 import sceneConfig from '@Engine/Launcher/debug-scene.config.json';
 import type { IAppCanvas } from '@Engine/Models';
 import { getFactoriesPool } from '@Engine/Pool/GetFactoriesPool';
@@ -15,5 +15,5 @@ if (!isValidSceneConfig(sceneConfig)) throw new Error('Failed to load a scene: i
 
 const registryPool: IRegistriesPool = getRegistryPool();
 const factoriesPool: IFactoriesPool = getFactoriesPool({ canvas, cameraRegistry: registryPool.cameraRegistry });
-const isLaunched: boolean = await launch(sceneConfig, canvas, factoriesPool, registryPool);
+const isLaunched: boolean = await launchScene(sceneConfig, canvas, factoriesPool, registryPool);
 console.log('Launched', isLaunched);
