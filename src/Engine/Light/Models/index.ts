@@ -18,6 +18,7 @@ export * from './ILightConfig';
 export * from './ILightFactory';
 export * from './ILightParams';
 export * from './ILightRegistry';
+export * from './ILightService';
 export * from './ILightShadowParams';
 export * from './ILightWrapper';
 export * from './IPointLight';

@@ -14,7 +14,7 @@ import type { IDataTexture, IEnvMapService } from '@/Engine/EnvMap';
 import { EnvMapService } from '@/Engine/EnvMap';
 import type { IFogConfig, IFogFactory, IFogRegistry, IFogService, IFogWrapper } from '@/Engine/Fog';
 import { FogFactory, FogRegistry, FogService } from '@/Engine/Fog';
-import type { IAbstractLightWrapper, ILight, ILightConfig, ILightFactory, ILightRegistry } from '@/Engine/Light';
+import { IAbstractLightWrapper, ILight, ILightConfig, ILightFactory, ILightRegistry, ILightService, LightService } from '@/Engine/Light';
 import { LightFactory, LightRegistry } from '@/Engine/Light';
 import type { ILoopTimes } from '@/Engine/Loop';
 import { standardLoopService } from '@/Engine/Loop';
@@ -157,13 +157,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     const lightRegistry: ILightRegistry = LightRegistry();
     const lightService: ILightService = LightService(lightFactory, lightRegistry, scene);
 
-    // TODO (S.Panfilov) move this into the service
-    lightRegistry.added$.subscribe((wrapper: IAbstractLightWrapper<ILight>) => scene.addLight(wrapper));
-    lightFactory.entityCreated$.subscribe((wrapper: IAbstractLightWrapper<ILight>): void => lightRegistry.add(wrapper));
-    ////
-
-    // TODO (S.Panfilov) use service
-    lights.forEach((config: ILightConfig): IAbstractLightWrapper<ILight> => lightFactory.create(lightFactory.configToParams({ ...config, tags: [...config.tags, CommonTag.FromConfig] })));
+    lightService.createFromConfig(lights);
 
     factories = { ...factories, lightFactory };
     registries = { ...registries, lightRegistry };
