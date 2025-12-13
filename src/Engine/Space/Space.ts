@@ -21,6 +21,7 @@ import type { ISpace, ISpaceConfig, ISpaceEntities, ISpaceSubscriptions, IWithBu
 import { isSpaceInitializationConfig, setInitialActiveCamera } from '@/Engine/Space/SpaceHelper';
 import { isDefined, isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
 import { initRenderersEntityPipe } from '@/Engine/Space/EntityPipes/RendererEntityPipe';
+import { IRendererWrapper } from '@/Engine';
 
 export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): ISpace {
   const { isValid, errors } = validLevelConfig(config);
@@ -34,7 +35,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   // TODO (S.Panfilov) CWP do not init space if the param set to false, or init namely what is set to true
   if (!initSpace) return; // TODO (S.Panfilov) guess not return, but do the bare minimum
   if (isSpaceInitializationConfig(initSpace)) {
-    const { isScenesInit, isActorsInit, isCamerasInit, isLightsInit, isFogsInit, isTextsInit, isControlsInit, isRendererInit, isEnvMapsInit } = initSpace;
+    const { isScenesInit, isActorsInit, isCamerasInit, isLightsInit, isFogsInit, isTextsInit, isControlsInit, isLoopInit, isRendererInit, isEnvMapsInit } = initSpace;
 
     // TODO (S.Panfilov) move somewhere?
     screenService.setCanvas(canvas);
@@ -131,27 +132,40 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     }
 
     //build renderer
+    let renderer: IRendererWrapper | undefined = undefined;
     if (isRendererInit) {
-      const { rendererCreated$, rendererFactory, rendererRegistry } = initRenderersEntityPipe(canvas);
+      const { renderer: currentRenderer, rendererCreated$, rendererFactory, rendererRegistry } = initRenderersEntityPipe(canvas);
       entities = { ...entities, rendererFactory, rendererRegistry };
       subscriptions = { ...subscriptions, rendererCreated$ };
+      renderer = currentRenderer;
       messages$.next(`Renderer created`);
     }
 
-    const loopTick$: Subscription = standardLoopService.tick$.subscribe(({ delta }: ILoopTimes): void => {
-      const activeCamera: ICameraWrapper | undefined = cameraRegistry.getActiveCamera();
-      if (isDefined(activeCamera)) {
-        renderer.entity.render(scene.entity, activeCamera.entity);
-        // TODO (S.Panfilov) update these text renderers only when there are any text (or maybe only when it's changed)
-        if (!text2dRegistry.isEmpty()) text2dRenderer.renderer.render(scene.entity, activeCamera.entity);
-        if (!text3dRegistry.isEmpty()) text3dRenderer.renderer.render(scene.entity, activeCamera.entity);
-      }
+    let loopTick$: Subscription | undefined;
+    if (isLoopInit) {
+      if (isNotDefined(scene)) throw new Error('Scene should be initialized for loop initialization');
+      if (isNotDefined(entities.cameraRegistry)) throw new Error('Cannot find camera registry for loop initialization');
+      if (isNotDefined(entities.rendererRegistry)) throw new Error('Cannot find renderer registry for loop initialization');
+      if (isNotDefined(renderer)) throw new Error('Cannot find renderer');
+      if (isNotDefined(entities.controlsRegistry)) throw new Error('Cannot find controls registry for loop initialization');
 
-      // just for control's damping
-      controlsRegistry.getAll().forEach((controls: IOrbitControlsWrapper): void => {
-        if (controls.entity.enableDamping) controls.entity.update(delta);
+      loopTick$ = standardLoopService.tick$.subscribe(({ delta }: ILoopTimes): void => {
+        const activeCamera: ICameraWrapper | undefined = entities.cameraRegistry?.getActiveCamera();
+        if (isDefined(activeCamera)) {
+          renderer.entity.render(scene.entity, activeCamera.entity);
+          // TODO (S.Panfilov) update these text renderers only when there are any text (or maybe only when it's changed)
+          if (isTextsInit) {
+            if (!entities.text2dRegistry?.isEmpty()) entities.text2dRenderer?.renderer.render(scene.entity, activeCamera.entity);
+            if (!entities.text3dRegistry?.isEmpty()) entities.text3dRenderer?.renderer.render(scene.entity, activeCamera.entity);
+          }
+        }
+
+        // just for control's damping
+        entities.controlsRegistry?.getAll().forEach((controls: IOrbitControlsWrapper): void => {
+          if (controls.entity.enableDamping) controls.entity.update(delta);
+        });
       });
-    });
+    }
 
     const destroyable: IDestroyable = destroyableMixin();
     const builtMixin: IWithBuilt = withBuiltMixin();
