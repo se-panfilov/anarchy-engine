@@ -10,42 +10,43 @@ import { SpatialGridService } from './SpatialGridService';
 export function CollisionsService(): TCollisionsService {
   const bvhService: TBvhService = RaycastBvhService();
   const spatialGridService: TSpatialGridService = SpatialGridService();
-  const spatialGrid = spatialGridService.getSpatialGrid();
+  // const spatialGrid = spatialGridService.createSpatialGrid();
 
   function checkCollision(actorW: TActorWrapperAsync, radius: number): TCollisionCheckResult | null {
-    const actorBox: Box3 = new Box3().setFromObject(actorW.entity);
-    const queryBox = {
-      minX: actorBox.min.x - radius,
-      minY: actorBox.min.y - radius,
-      minZ: actorBox.min.z - radius,
-      maxX: actorBox.max.x + radius,
-      maxY: actorBox.max.y + radius,
-      maxZ: actorBox.max.z + radius
-    };
-
-    const candidates = spatialGrid.search(queryBox);
-    // eslint-disable-next-line functional/no-loop-statements
-    for (const candidate of candidates) {
-      if (candidate.object !== actorW.entity) {
-        const raycaster: Raycaster = new Raycaster();
-
-        // raycaster.set(actorW.entity.position, actorW.kinematic.getAzimuth());
-        raycaster.set(actorW.entity.position, actorW.kinematic.getLinearDirection());
-
-        const intersects: Array<Intersection> = [];
-        bvhService.raycastWithBvh(candidate.object as Mesh, raycaster, intersects);
-
-        if (intersects.length > 0) {
-          const intersect = intersects[0];
-          return {
-            object: candidate.object,
-            distance: intersect.distance,
-            collisionPoint: intersect.point,
-            bulletPosition: actorW.entity.position.clone()
-          };
-        }
-      }
-    }
+    // TODO (S.Panfilov) DEBUG: turned off
+    // const actorBox: Box3 = new Box3().setFromObject(actorW.entity);
+    // const queryBox = {
+    //   minX: actorBox.min.x - radius,
+    //   minY: actorBox.min.y - radius,
+    //   minZ: actorBox.min.z - radius,
+    //   maxX: actorBox.max.x + radius,
+    //   maxY: actorBox.max.y + radius,
+    //   maxZ: actorBox.max.z + radius
+    // };
+    //
+    // const candidates = spatialGrid.search(queryBox);
+    // // eslint-disable-next-line functional/no-loop-statements
+    // for (const candidate of candidates) {
+    //   if (candidate.object !== actorW.entity) {
+    //     const raycaster: Raycaster = new Raycaster();
+    //
+    //     // raycaster.set(actorW.entity.position, actorW.kinematic.getAzimuth());
+    //     raycaster.set(actorW.entity.position, actorW.kinematic.getLinearDirection());
+    //
+    //     const intersects: Array<Intersection> = [];
+    //     bvhService.raycastWithBvh(candidate.object as Mesh, raycaster, intersects);
+    //
+    //     if (intersects.length > 0) {
+    //       const intersect = intersects[0];
+    //       return {
+    //         object: candidate.object,
+    //         distance: intersect.distance,
+    //         collisionPoint: intersect.point,
+    //         bulletPosition: actorW.entity.position.clone()
+    //       };
+    //     }
+    //   }
+    // }
     return null;
   }
 
