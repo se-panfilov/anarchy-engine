@@ -18,7 +18,7 @@
     "prettier:check": "prettier --check .",
     "preview": "vite preview",
     "sanitize-assets": "node ../../packages/shared/ScriptUtils/SanitizeAssets.js",
-    "start:dev": "vite --mode dev",
+    "start:dev": "vite --mode dev --port 5083",
     "test:unit": "vitest",
     "ts:check": "vue-tsc --noEmit"
   },
@@ -33,7 +33,6 @@
   },
   "devDependencies": {
     "@playwright/test": "1.54.1",
-    "@tailwindcss/vite": "4.1.11",
     "@types/node": "22.16.5",
     "@vitejs/plugin-vue": "6.0.1",
     "@vitejs/plugin-vue-jsx": "5.0.1",
