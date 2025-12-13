@@ -1,3 +1,4 @@
+import type { IAppCanvas } from '@Engine/Domains/App';
 import type { ICameraWrapper } from '@Engine/Domains/Camera';
 import { CameraTag } from '@Engine/Domains/Camera';
 import type { ILoopWrapper } from '@Engine/Domains/Loop';
@@ -6,7 +7,6 @@ import type { IRendererWrapper } from '@Engine/Domains/Renderer';
 import { RendererTag } from '@Engine/Domains/Renderer';
 import type { ISceneConfig, ISceneWrapper } from '@Engine/Domains/Scene';
 import type { ILaunchedScene, ISceneLauncher } from '@Engine/Launcher';
-import type { IAppCanvas } from '@Engine/Domains/App';
 import type { IDestroyableFactories, ILocalFactoryPool, IRegistryPool } from '@Engine/Pool';
 import { RegistryPool } from '@Engine/Pool';
 import { LocalFactoriesPool } from '@Engine/Pool/LocalFactoriesPool';

@@ -1,8 +1,6 @@
 import type { IAbstractConfig, IAbstractFactory, IAbstractRegistry, IWrapper } from '@Engine/Domains/Abstract';
-import type { IFromConfigFactory } from '@Engine/Domains/Mixins';
+import type { IFromConfigFactory, IProtectedRegistry } from '@Engine/Domains/Mixins';
 import { isDestroyedFactory } from '@Engine/Utils/DestroyableUtils';
-
-export type { IProtectedRegistry } from '@Engine/Domains/Mixins';
 
 export function getAllEntitiesWithEveryTag<T extends { tags: ReadonlyArray<string> }>(tagList: ReadonlyArray<string>, registry: ReadonlyMap<string, T>): ReadonlyArray<T> {
   return getEntitiesWithTag(tagList, registry, true);

@@ -1,5 +1,5 @@
-import type { ICameraRegistry, ICameraWrapper } from '@Engine/Domains/Camera';
 import type { IAppCanvas } from '@Engine/Domains/App';
+import type { ICameraRegistry, ICameraWrapper } from '@Engine/Domains/Camera';
 import { isNotDefined } from '@Engine/Utils';
 
 import type { IControlsConfig, IControlsParams } from '../Models';

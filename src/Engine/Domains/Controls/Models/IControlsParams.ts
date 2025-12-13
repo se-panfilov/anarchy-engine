@@ -1,5 +1,5 @@
-import type { ICameraWrapper } from '@Engine/Domains/Camera';
 import type { IAppCanvas } from '@Engine/Domains/App';
+import type { ICameraWrapper } from '@Engine/Domains/Camera';
 
 import type { ControlsTag } from '../Constants';
 
