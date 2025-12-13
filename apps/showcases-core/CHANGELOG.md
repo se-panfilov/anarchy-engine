@@ -14,6 +14,7 @@
 - 2.12.0 Build meta info (versions)
 - 2.13.0 Added CSP
 - 2.13.1 CSP fixes
+- 2.14.0 Initial error tracking (Sentry)
 
 Roadmap:
 
