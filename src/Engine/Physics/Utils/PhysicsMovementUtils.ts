@@ -21,7 +21,7 @@ export function getPushCoordsFrom3dAzimuth(azimuthDeg: number, elevationDeg: num
   return new Vector3(x.toNumber(), y.toNumber(), z.toNumber());
 }
 
-export function movePhysicsDynamicObjectByVelocity(rigidBody: RigidBody, type: VelocityType, vector3: Vector3, shouldWakeUp: boolean = true): void | never {
+export function movePhysicsDynamicObjectByVelocity(rigidBody: RigidBody, type: VelocityType, vector3: Vector3 | Vector, shouldWakeUp: boolean = true): void | never {
   if (!rigidBody.isDynamic()) throw new Error(`Cannot move physics object with velocity: rigid body is not dynamic`);
 
   const { x, y, z } = vector3;

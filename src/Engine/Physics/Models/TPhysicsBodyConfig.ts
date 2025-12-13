@@ -1,4 +1,4 @@
-import type { Vector3 } from 'three';
+import type { Vector3, Vector4 } from 'three';
 
 import type { RigidBodyTypesNames } from '@/Engine/Physics/Constants';
 import type { TOptional } from '@/Engine/Utils';
@@ -10,6 +10,6 @@ export type TPhysicsBodyConfig = Omit<TOptional<TPhysicsBodyParams>, 'type' | 'n
     Readonly<{
       type: RigidBodyTypesNames;
       position?: Vector3;
-      rotation?: TWithCoordsXYZW; //Vector4 or Quaternion?
+      rotation?: Vector4;
     }>
   >;

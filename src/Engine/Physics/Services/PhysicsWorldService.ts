@@ -56,7 +56,7 @@ export function PhysicsWorldService(scene: TSceneWrapper): TPhysicsWorldService 
   function setGravity(vector: Vector3): void {
     if (isNotDefined(world)) throw new Error('Cannot set gravity: world is not defined');
     // eslint-disable-next-line functional/immutable-data
-    world.gravity = vector.getCoords();
+    world.gravity = vector;
   }
 
   const destroyable: TDestroyable = destroyableMixin();
