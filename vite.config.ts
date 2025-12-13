@@ -25,7 +25,8 @@ export default defineConfig({
   },
   test: {
     globals: true,
-    environment: 'jsdom',
+    environment: 'jsdom', // TODO (S.Panfilov) try "node"
+    // setupFiles: './vitest.setup.js',
     reporters: ['default', 'html'],
     outputFile: './reports/html/unit.html',
     coverage: {
