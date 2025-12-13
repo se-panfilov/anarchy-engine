@@ -1,8 +1,8 @@
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import type { Vector3 } from 'three/src/math/Vector3';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import type { TWithActiveMixin, TWithTagsMixin } from '@/Engine/Mixins';
-import type { TVector3Wrapper } from '@/Engine/Vector';
 
 import type { TOrbitControlsAccessors } from './TOrbitControlsAccessors';
 
@@ -13,7 +13,7 @@ export type TOrbitControlsWrapper = TWrapper<OrbitControls> &
     enable: () => void;
     isEnable: () => boolean;
     disable: () => void;
-    moveToTargetSmoothly: (position: TVector3Wrapper) => void;
+    moveToTargetSmoothly: (position: Vector3) => void;
   }> &
   TWithActiveMixin &
   TWithTagsMixin;

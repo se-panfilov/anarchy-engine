@@ -27,13 +27,13 @@ export function createPhysicsBody(params: TPhysicsBodyParams, world: World): TPh
   //Fixed objects (e.g. "ground" or "walls") usually don't need a rigid body (they might, but might bugs might appear)
   if (params.type === RigidBodyTypesNames.Fixed) {
     const colliderDesc: ColliderDesc = getColliderDesc(params);
-    if (isDefined(params.position)) colliderDesc.setTranslation(params.position.getX(), params.position.getY(), params.position.getZ());
+    if (isDefined(params.position)) colliderDesc.setTranslation(params.position.x, params.position.y, params.position.getZ());
     if (isDefined(params.rotation)) colliderDesc.setRotation(params.rotation.getCoords());
     const collider: Collider = world.createCollider(colliderDesc);
     return { rigidBody: undefined, rigidBodyDesc: undefined, colliderDesc, collider };
   } else {
     const rigidBodyDesc: RigidBodyDesc = RigidBodyDesc[params.type]();
-    if (isDefined(params.position)) rigidBodyDesc.setTranslation(params.position.getX(), params.position.getY(), params.position.getZ());
+    if (isDefined(params.position)) rigidBodyDesc.setTranslation(params.position.x, params.position.y, params.position.getZ());
     if (isDefined(params.rotation)) rigidBodyDesc.setRotation(params.rotation.getCoords());
     const rigidBody: RigidBody = world.createRigidBody(rigidBodyDesc);
     const colliderDesc: ColliderDesc = getColliderDesc(params);

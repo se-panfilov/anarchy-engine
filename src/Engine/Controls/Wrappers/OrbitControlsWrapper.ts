@@ -1,4 +1,5 @@
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { Vector3 } from 'three/src/math/Vector3';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TOrbitControlsParams, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
@@ -6,13 +7,11 @@ import { getOrbitControlsAccessors } from '@/Engine/Controls/Wrappers/OrbitContr
 import { applyOrbitControlsParams } from '@/Engine/Controls/Wrappers/OrbitControlsWrapperHelper';
 import { withActiveMixin } from '@/Engine/Mixins';
 import { isDefined } from '@/Engine/Utils';
-import type { TVector3Wrapper } from '@/Engine/Vector';
-import { Vector3Wrapper } from '@/Engine/Vector';
 
 export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitControlsWrapper {
   const entity: OrbitControls = new OrbitControls(params.camera.entity, params.canvas);
   if (isDefined(params.target)) {
-    entity.target.set(params.target.getX(), params.target.getY(), params.target.getZ());
+    entity.target.set(params.target.x, params.target.y, params.target.z);
     entity.update();
   }
   const update = (): boolean => entity.update();
@@ -31,7 +30,7 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
 
   const isEnable = (): boolean => entity.enabled;
 
-  function moveToTargetSmoothly(position: TVector3Wrapper): void {
+  function moveToTargetSmoothly(position: Vector3): void {
     const currentPolarAngle: number = entity.getPolarAngle();
     const currentAzimuthalAngle: number = entity.getAzimuthalAngle();
     const currentDistance: number = entity.getDistance();
@@ -40,7 +39,7 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
     const y: number = currentDistance * Math.cos(currentPolarAngle);
     const z: number = currentDistance * Math.sin(currentPolarAngle) * Math.cos(currentAzimuthalAngle);
 
-    params.camera.setPosition(Vector3Wrapper({ x: x + position.getX(), y: y + position.getY(), z: z + position.getZ() }));
+    params.camera.setPosition(new Vector3(x + position.x, y + position.y, z + position.z));
     result.setTarget(position);
   }
 

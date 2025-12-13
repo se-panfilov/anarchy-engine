@@ -1,7 +1,8 @@
 import { CameraHelper, DirectionalLightHelper, Vector2 } from 'three';
 import type { Color } from 'three/src/math/Color';
+import type { Vector3 } from 'three/src/math/Vector3';
 
-import type { TDirectionalLightWrapper, TLightService, TPointLightWrapper, TVector3 } from '@/Engine';
+import type { TDirectionalLightWrapper, TLightService, TPointLightWrapper } from '@/Engine';
 import { isNotDefined, LightType, Vector3Wrapper } from '@/Engine';
 
 export function initLight(lightService: TLightService): void {
@@ -13,7 +14,7 @@ export function initLight(lightService: TLightService): void {
   lightService.getScene().entity.add(directionalLightCameraHelper);
 }
 
-export function createFlashLight(lightService: TLightService, position: TVector3, color: Color, intensity = 5, distance = 50): TPointLightWrapper {
+export function createFlashLight(lightService: TLightService, position: Vector3, color: Color, intensity = 5, distance = 50): TPointLightWrapper {
   // TODO this is too costly to create a light every time, but it's just a showcase, so whatever
   const light: TPointLightWrapper = lightService.create({
     type: LightType.Point,

@@ -1,10 +1,11 @@
+import type { Vector3 } from 'three/src/math/Vector3';
+
 import type { TActive, TWithName } from '@/Engine/Mixins';
-import type { TVector3 } from '@/Engine/Vector';
 
 export type TOrbitControlsProps = Readonly<{
   enabled?: boolean;
-  target?: TVector3;
-  cursor?: TVector3;
+  target?: Vector3;
+  cursor?: Vector3;
   minDistance?: number;
   maxDistance?: number;
   minZoom?: number;

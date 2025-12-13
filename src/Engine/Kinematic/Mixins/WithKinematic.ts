@@ -6,7 +6,6 @@ import type { TKinematicData, TWithKinematic } from '@/Engine/Kinematic/Models';
 import type { TDegrees, TRadians } from '@/Engine/Math';
 import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
 import type { TWriteable } from '@/Engine/Utils';
-import { Vector3Wrapper } from '@/Engine/Vector';
 
 export function withKinematic(params: TActorParams): TWithKinematic {
   let _isAutoUpdate: boolean = params.kinematic?.isAutoUpdate ?? false;

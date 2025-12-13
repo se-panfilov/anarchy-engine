@@ -1,16 +1,16 @@
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import type { Vector3 } from 'three/src/math/Vector3';
 
 import type { TOrbitControlsAccessors } from '@/Engine/Controls/Models';
 import type { TWriteable } from '@/Engine/Utils';
-import type { TVector3Wrapper } from '@/Engine/Vector';
 
 export function getOrbitControlsAccessors(entity: TWriteable<OrbitControls>): TOrbitControlsAccessors {
   // eslint-disable-next-line functional/immutable-data
   const setDamping = (isEnabled: boolean): void => void (entity.enableDamping = isEnabled);
   const getDamping = (): boolean => entity.enableDamping;
 
-  function setTarget(position: TVector3Wrapper): void {
-    entity.target.set(position.getX(), position.getY(), position.getZ());
+  function setTarget({ x, y, z }: Vector3): void {
+    entity.target.set(x, y, z);
     entity.update();
   }
 

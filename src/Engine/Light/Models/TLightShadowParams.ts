@@ -1,7 +1,7 @@
-import type { TVector2 } from '@/Engine/Vector';
+import type { Vector2 } from 'three';
 
 export type TLightShadowParams = Readonly<{
-  mapSize: TVector2;
+  mapSize: Vector2;
   camera: { far?: number; near?: number };
   normalBias: number;
 }>;

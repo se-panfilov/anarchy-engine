@@ -2,10 +2,12 @@ import type { Controller } from 'lil-gui';
 import GUI from 'lil-gui';
 import { BehaviorSubject, combineLatest, startWith, Subject } from 'rxjs';
 import type { Mesh, MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
+import { Euler } from 'three';
+import { Vector3 } from 'three/src/math/Vector3';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorRegistry, TActorWrapper, TAppCanvas, TControlsRegistry, TEngine, TOrbitControlsWrapper, TRegistryPack, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
-import { Engine, EulerWrapper, isDefined, isNotDefined, KeyCode, LookUpStrategy, spaceService, TextType, Vector3Wrapper } from '@/Engine';
+import type { TActorRegistry, TActorWrapper, TAppCanvas, TControlsRegistry, TEngine, TOrbitControlsWrapper, TRegistryPack, TSpace, TSpaceConfig } from '@/Engine';
+import { Engine, isDefined, isNotDefined, KeyCode, LookUpStrategy, spaceService, TextType } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -49,18 +51,16 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   function addTextToActor(pack: TRegistryPack<TActorWrapper>): void {
     const actor: TActorWrapper = pack.value;
-    const position: TVector3Wrapper = actor.getPosition();
-    const x: number = position.getX();
-    const y: number = position.getY();
-    const z: number = position.getZ();
+    const position: Vector3 = actor.getPosition();
+    const { x, y, z } = position;
 
     textService.create({
       type: TextType.Text3d,
       text: actor.getTags()[0],
       cssProps: { fontSize: '0.3px', color: 'red' },
       tags: [],
-      position: Vector3Wrapper({ x: x, y: y - 0.5, z: z + 1.2 }),
-      rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 })
+      position: new Vector3(x, y - 0.5, z + 1.2),
+      rotation: new Euler(-1.57, 0, 0)
     });
   }
 
@@ -88,7 +88,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     state.controllers.forEach((controller: GUI | Controller): void => controller.destroy());
     // eslint-disable-next-line functional/immutable-data
     state.controllers = addGuiToActor(actor);
-    const position: TVector3Wrapper = actor.getPosition();
+    const position: Vector3 = actor.getPosition();
     const orbitControls: TOrbitControlsWrapper | undefined = controlsRegistry.findByTag('orbit');
     if (isNotDefined(orbitControls)) throw new Error('Orbit controls are not found');
     orbitControls.setDamping(true);

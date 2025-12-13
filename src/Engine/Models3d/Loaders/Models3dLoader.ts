@@ -8,7 +8,6 @@ import type { TModel3dResourceAsyncRegistry, TModel3dResourceConfig, TModels3dLo
 import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyScaleToModel3d } from '@/Engine/Models3d';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
-import { Vector3Wrapper } from '@/Engine/Vector';
 
 export function Models3dLoader(registry: TModel3dResourceAsyncRegistry): TModels3dLoader {
   const models3dLoader = new GLTFLoader();

@@ -1,4 +1,5 @@
 import { World } from '@dimforge/rapier3d';
+import type { Vector3 } from 'three/src/math/Vector3';
 
 import type { TLoopService } from '@/Engine/Loop';
 import type { TDestroyable } from '@/Engine/Mixins';
@@ -8,7 +9,6 @@ import type { TPhysicsDebugRenderer, TPhysicsWorldParams, TPhysicsWorldService }
 import { PhysicsDebugRenderer } from '@/Engine/Physics/Renderers';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isNotDefined } from '@/Engine/Utils';
-import type { TVector3Wrapper } from '@/Engine/Vector';
 
 export function PhysicsWorldService(scene: TSceneWrapper): TPhysicsWorldService {
   let world: World | undefined;
@@ -53,7 +53,7 @@ export function PhysicsWorldService(scene: TSceneWrapper): TPhysicsWorldService 
     return PhysicsDebugRenderer(scene, world, loopService);
   };
 
-  function setGravity(vector: TVector3Wrapper): void {
+  function setGravity(vector: Vector3): void {
     if (isNotDefined(world)) throw new Error('Cannot set gravity: world is not defined');
     // eslint-disable-next-line functional/immutable-data
     world.gravity = vector.getCoords();

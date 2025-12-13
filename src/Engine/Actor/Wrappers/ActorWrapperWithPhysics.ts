@@ -5,7 +5,6 @@ import type { TActorParams, TActorWithPhysicsDependencies, TActorWrapper, TActor
 import type { TPhysicsBodyFacade, TPhysicsBodyService, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
 import { makeWrapperWithPhysicsBody, RigidBodyTypesNames } from '@/Engine/Physics';
 import { isNotDefined } from '@/Engine/Utils';
-import { Vector3Wrapper } from '@/Engine/Vector';
 
 import { ActorWrapper } from './ActorWrapper';
 

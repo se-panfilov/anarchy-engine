@@ -3,7 +3,6 @@ import { ControlsType } from '@/Engine/Controls/Constants';
 import type { TAdditionalControlsConfigParams, TControlsConfig, TControlsParams } from '@/Engine/Controls/Models';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
-import { Vector3Wrapper } from '@/Engine/Vector';
 
 export const configToParams: TGetParamsFn<TControlsParams, TControlsConfig> = (config: TControlsConfig, { camera, canvas }: TAdditionalControlsConfigParams): TControlsParams => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

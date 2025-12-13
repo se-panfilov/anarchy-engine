@@ -1,6 +1,8 @@
+import { Vector3 } from 'three/src/math/Vector3';
+
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorWrapper, TActorWrapperWithPhysics, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
-import { Engine, isNotDefined, spaceService, Vector3Wrapper } from '@/Engine';
+import type { TActorWrapper, TActorWrapperWithPhysics, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import { Engine, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -28,15 +30,15 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     actor2W.physicsBody?.getRigidBody()?.addTorque({ x: -0.5, y: -0.01, z: 0.05 }, true);
     actor3W.physicsBody?.getRigidBody()?.addTorque({ x: 0.01, y: 5, z: -0.05 }, true);
 
-    const actor1Position: TVector3Wrapper = actor1W.getPosition();
-    cameraW.lookAt(Vector3Wrapper(actor1Position.getCoords()));
-    cameraW.setY(actor1Position.getY());
+    const actor1Position: Vector3 = actor1W.getPosition();
+    cameraW.lookAt(new Vector3(actor1Position.x, actor1Position.y, actor1Position.z));
+    cameraW.setY(actor1Position.y);
 
     physicsWorldService.getDebugRenderer(loopService).start();
 
     loopService.tick$.subscribe(() => {
       actor3W.physicsBody?.getRigidBody()?.setAngvel({ x: 0, y: 3, z: 1 }, true);
-      cameraW.setY(actor1W.getPosition().getY());
+      cameraW.setY(actor1W.getPosition().y);
     });
   }
 

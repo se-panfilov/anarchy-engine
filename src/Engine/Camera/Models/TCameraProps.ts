@@ -1,11 +1,12 @@
+import type { Vector3 } from 'three/src/math/Vector3';
+
 import type { TActive, TWithName } from '@/Engine/Mixins';
-import type { TVector3Wrapper } from '@/Engine/Vector';
 
 export type TCameraProps = Readonly<{
   fov?: number;
   near?: number;
   far?: number;
-  lookAt?: TVector3Wrapper;
+  lookAt?: Vector3;
 }> &
   TWithName &
   TActive;

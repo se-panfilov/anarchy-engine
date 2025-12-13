@@ -1,21 +1,22 @@
-import type { TVector2, TVector2Wrapper, TVector3, TVector3Wrapper, TVector4, TVector4Wrapper } from '@/Engine/Vector';
+import type { Vector2, Vector4 } from 'three';
+import type { Vector3 } from 'three/src/math/Vector3';
 
 export type TWithPosition2d = Readonly<{
-  setPosition: (position: TVector2Wrapper) => TVector2;
-  addPosition: (position: TVector2Wrapper) => TVector2;
-  getPosition: () => TVector2Wrapper;
+  setPosition: (position: Vector2) => Vector2;
+  addPosition: (position: Vector2) => Vector2;
+  getPosition: () => Vector2;
 }>;
 
 export type TWithPosition3d = Readonly<{
-  setPosition: (position: TVector3Wrapper) => TVector3;
-  addPosition: (position: TVector3Wrapper) => TVector3;
-  getPosition: () => TVector3Wrapper;
+  setPosition: (position: Vector3) => Vector3;
+  addPosition: (position: Vector3) => Vector3;
+  getPosition: () => Vector3;
 }>;
 
 export type TWithPosition4d = Readonly<{
-  setPosition: (position: TVector4Wrapper) => TVector4;
-  addPosition: (position: TVector4Wrapper) => TVector4;
-  getPosition: () => TVector4Wrapper;
+  setPosition: (position: Vector4) => Vector4;
+  addPosition: (position: Vector4) => Vector4;
+  getPosition: () => Vector4;
 }>;
 
 export type TWithPosition = TWithPosition2d | TWithPosition3d | TWithPosition4d;

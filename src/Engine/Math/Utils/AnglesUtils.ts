@@ -2,9 +2,7 @@ import Decimal from 'decimal.js';
 import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad, radToDeg } from 'three/src/math/MathUtils';
 
-import type { TEuler } from '@/Engine/Euler';
 import type { TDegrees, TRadians } from '@/Engine/Math';
-import type { TWithCoordsXYZ, TWithCoordsXYZW, TWithCoordsXZ } from '@/Engine/Mixins';
 
 // TODO add unit tests
 export const degToRadPrecise = (degrees: TDegrees): Decimal => new Decimal(degrees).times(Math.PI).div(180);
@@ -121,7 +119,7 @@ export function degreesToQuaternion(degrees: TWithCoordsXYZ): TWithCoordsXYZW {
     z: degToRad(degrees.z)
   };
 
-  const euler: TEuler = new Euler(radians.x, radians.y, radians.z);
+  const euler: Euler = new Euler(radians.x, radians.y, radians.z);
   const quaternion: Quaternion = new Quaternion().setFromEuler(euler);
 
   return {

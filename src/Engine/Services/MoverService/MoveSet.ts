@@ -1,10 +1,11 @@
 import anime from 'animejs';
+import type { Vector2 } from 'three';
+import type { Vector3 } from 'three/src/math/Vector3';
 
 import { defaultAnimationParams, Easing } from '@/Engine/Services/MoverService/Constants';
 import type { TFollowTargetFn, TFollowTargetParams, TMoveableByTick, TMoveByPathFn, TMoveByPathFnParams, TMoveFn, TMoveFnParams } from '@/Engine/Services/MoverService/Models';
 import { getAnimationWrapperForComplexPathAnimation } from '@/Engine/Services/MoverService/MoverServiceUtils';
 import { isVector3Wrapper } from '@/Engine/Utils';
-import type { TVector2Wrapper, TVector3Wrapper } from '@/Engine/Vector';
 
 export const goStraightMove: TMoveFn = ({ obj, destination, animationParams, complete }: TMoveFnParams): anime.AnimeInstance => {
   return anime({
@@ -38,10 +39,10 @@ export const byPathMove: TMoveByPathFn = ({ obj, path, animationParams, complete
 export const followTarget: TFollowTargetFn = ({ obj, target, offset }: TFollowTargetParams): TMoveableByTick => {
   return {
     tick: (): void => {
-      const position: TVector3Wrapper | TVector2Wrapper = target.getPosition();
-      obj.setX(position.getX() + (offset?.x ?? 0));
-      obj.setY(position.getY() + (offset?.y ?? 0));
-      if (isVector3Wrapper(position)) obj.setZ(position.getZ() + (offset?.z ?? 0));
+      const position: Vector3 | Vector2 = target.getPosition();
+      obj.setX(position.x + (offset?.x ?? 0));
+      obj.setY(position.y + (offset?.y ?? 0));
+      if (isVector3Wrapper(position)) obj.setZ(position.z + (offset?.z ?? 0));
     }
   };
 };

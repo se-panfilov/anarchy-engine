@@ -20,7 +20,7 @@ export async function buildTower(
 
   const result: ReadonlyArray<TActorWrapperWithPhysics> = blocks.map((block: TBuidingBlock): TActorWrapperWithPhysics => {
     const model3dF: TModel3dFacade = models3dService.create({
-      name: `block_${block.position.getX()}_${block.position.getY()}_${block.position.getZ()}_model3d`,
+      name: `block_${block.position.x}_${block.position.y}_${block.position.z}_model3d`,
       model3dSource: PrimitiveModel3dType.Cube,
       animationsSource: [],
       materialSource: materialW,
@@ -36,7 +36,7 @@ export async function buildTower(
     });
 
     return actorService.create({
-      name: `block_${block.position.getX()}_${block.position.getY()}_${block.position.getZ()}_actor`,
+      name: `block_${block.position.x}_${block.position.y}_${block.position.z}_actor`,
       model3dSource: model3dF,
       physics: {
         type: RigidBodyTypesNames.Dynamic,

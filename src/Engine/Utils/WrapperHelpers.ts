@@ -1,10 +1,10 @@
+import type { Euler, Vector2 } from 'three';
 import type { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
+import type { Vector3 } from 'three/src/math/Vector3';
 
-import type { TEulerWrapper } from '@/Engine/Euler';
 import type { TMovable3dXYZ, TRotatable, TScalable, TWithObject3d } from '@/Engine/Mixins';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils/index';
-import type { TVector2Wrapper, TVector3Wrapper } from '@/Engine/Vector';
 
 export function applyObject3dParams(obj: TWithObject3d, { visible, castShadow, receiveShadow, frustumCulled, renderOrder }: Partial<TObject3DParams>): void {
   if (isDefined(visible)) obj.setVisible(visible);
@@ -14,18 +14,18 @@ export function applyObject3dParams(obj: TWithObject3d, { visible, castShadow, r
   if (isDefined(renderOrder)) obj.setRenderOrder(renderOrder);
 }
 
-export function applyPosition(obj: TMovable3dXYZ, position?: TVector3Wrapper): void {
+export function applyPosition(obj: TMovable3dXYZ, position?: Vector3): void {
   if (isDefined(position)) obj.setPosition(position);
 }
 
-export function applyCenter(obj: CSS2DObject, center?: TVector2Wrapper): void {
-  if (isDefined(center)) obj.center.set(center.getX(), center.getY());
+export function applyCenter(obj: CSS2DObject, center?: Vector2): void {
+  if (isDefined(center)) obj.center.set(center.x, center.y);
 }
 
-export function applyRotation(obj: TRotatable, rotation?: TEulerWrapper): void {
-  if (isDefined(rotation)) obj.setRotation(rotation.getRotationX(), rotation.getRotationY(), rotation.getRotationZ());
+export function applyRotation(obj: TRotatable, rotation?: Euler): void {
+  if (isDefined(rotation)) obj.setRotation(rotation.x, rotation.y, rotation.z);
 }
 
-export function applyScale(obj: TScalable, scale?: TVector3Wrapper): void {
-  if (isDefined(scale)) obj.setScale(scale.getX(), scale.getY(), scale.getZ());
+export function applyScale(obj: TScalable, scale?: Vector3): void {
+  if (isDefined(scale)) obj.setScale(scale.x, scale.y, scale.z);
 }

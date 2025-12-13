@@ -1,9 +1,9 @@
-import type { TVector3Wrapper } from '@/Engine/Vector';
+import type { Vector3 } from 'three/src/math/Vector3';
 
 export type TOrbitControlsAccessors = {
   setDamping: (isEnabled: boolean) => void;
   getDamping: () => boolean;
-  setTarget: (target: TVector3Wrapper) => void;
+  setTarget: (target: Vector3) => void;
   setAutoRotate: (isEnabled: boolean) => void;
   getAutoRotate: () => boolean;
   setMinDistance: (minDistance: number) => void;

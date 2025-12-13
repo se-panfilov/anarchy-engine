@@ -3,7 +3,6 @@ import { Vector2, Vector3, Vector4 } from 'three';
 
 import { ColorWrapper } from '@/Engine/Color';
 import type { TDestroyable, TRegistrable, TWithPosition2dProperty, TWithPosition3dProperty, TWithPosition4dProperty } from '@/Engine/Mixins';
-import { Vector2Wrapper, Vector3Wrapper, Vector4Wrapper } from '@/Engine/Vector';
 
 import {
   isAllDefined,
@@ -20,11 +19,8 @@ import {
   isRegistrable,
   isString,
   isVector2,
-  isVector2Wrapper,
   isVector3,
-  isVector3Wrapper,
   isVector4,
-  isVector4Wrapper,
   isWithUserData,
   isWithWrapperId,
   isWithWrapperIdAccessors
@@ -479,63 +475,6 @@ describe('CheckUtils', () => {
     it('should return "true" if it is a vector4 ', () => {
       expect(isVector4(new Vector4(0, 0, 0, 0))).toBe(true);
       expect(isVector4(new Vector4(10, 10, 10, 10))).toBe(true);
-    });
-  });
-
-  describe('isVector2Wrapper', () => {
-    it('should return "true" if it is a vector2 wrapper', () => {
-      expect(isVector2Wrapper(Vector2Wrapper({ x: 10, y: 10 }))).toBe(true);
-      expect(isVector2Wrapper(Vector2Wrapper({ x: 0, y: 0 }))).toBe(true);
-    });
-
-    it('should return "false" if it is a vector3 wrapper', () => {
-      expect(isVector2Wrapper(Vector3Wrapper({ x: 0, y: 0 }))).toBe(false);
-      expect(isVector2Wrapper(Vector3Wrapper({ x: 0, y: 0, z: 0 }))).toBe(false);
-      expect(isVector2Wrapper(Vector3Wrapper({ x: 10, y: 10 }))).toBe(false);
-      expect(isVector2Wrapper(Vector3Wrapper({ x: 10, y: 10, z: 10 }))).toBe(false);
-    });
-
-    it('should return "true" if it is a vector4 wrapper', () => {
-      expect(isVector2Wrapper(Vector4Wrapper({ x: 0, y: 0, z: 0, w: 0 }))).toBe(false);
-      expect(isVector2Wrapper(Vector4Wrapper({ x: 10, y: 10, z: 10, w: 10 }))).toBe(false);
-    });
-  });
-
-  describe('isVector3Wrapper', () => {
-    it('should return "false" if it is a vector2 wrapper', () => {
-      expect(isVector3Wrapper(Vector2Wrapper({ x: 0, y: 0 }))).toBe(false);
-      expect(isVector3Wrapper(Vector2Wrapper({ x: 10, y: 10 }))).toBe(false);
-    });
-
-    it('should return "true" if it is a vector3 wrapper', () => {
-      expect(isVector3Wrapper(Vector3Wrapper({ x: 0, y: 0 }))).toBe(true);
-      expect(isVector3Wrapper(Vector3Wrapper({ x: 0, y: 0, z: 0 }))).toBe(true);
-      expect(isVector3Wrapper(Vector3Wrapper({ x: 10, y: 10 }))).toBe(true);
-      expect(isVector3Wrapper(Vector3Wrapper({ x: 10, y: 10, z: 10 }))).toBe(true);
-    });
-
-    it('should return "false" if it is a vector4 wrapper', () => {
-      expect(isVector3Wrapper(Vector4Wrapper({ x: 0, y: 0, z: 0, w: 0 }))).toBe(false);
-      expect(isVector3Wrapper(Vector4Wrapper({ x: 10, y: 10, z: 10, w: 10 }))).toBe(false);
-    });
-  });
-
-  describe('isVector4Wrapper', () => {
-    it('should return "false" if it is a vector2 wrapper', () => {
-      expect(isVector4Wrapper(Vector2Wrapper({ x: 10, y: 10 }))).toBe(false);
-      expect(isVector4Wrapper(Vector2Wrapper({ x: 0, y: 0 }))).toBe(false);
-    });
-
-    it('should return "false" if it is a vector3 wrapper', () => {
-      expect(isVector4Wrapper(Vector3Wrapper({ x: 0, y: 0 }))).toBe(false);
-      expect(isVector4Wrapper(Vector3Wrapper({ x: 0, y: 0, z: 0 }))).toBe(false);
-      expect(isVector4Wrapper(Vector3Wrapper({ x: 10, y: 10 }))).toBe(false);
-      expect(isVector4Wrapper(Vector3Wrapper({ x: 10, y: 10, z: 10 }))).toBe(false);
-    });
-
-    it('should return "true" if it is a vector4 wrapper', () => {
-      expect(isVector4Wrapper(Vector4Wrapper({ x: 0, y: 0, z: 0, w: 0 }))).toBe(true);
-      expect(isVector4Wrapper(Vector4Wrapper({ x: 10, y: 10, z: 10, w: 10 }))).toBe(true);
     });
   });
 

@@ -1,3 +1,4 @@
+import type { Vector2 } from 'three';
 import type {
   Blending,
   BlendingDstFactor,
@@ -13,9 +14,9 @@ import type {
   StencilOp
 } from 'three/src/constants';
 import type { ColorRepresentation } from 'three/src/math/Color';
+import type { Vector3 } from 'three/src/math/Vector3';
 
 import type { TTexture } from '@/Engine/Texture/Models';
-import type { TVector2, TVector3 } from '@/Engine/Vector';
 
 export type TAbstractMaterialPropsOptions = Readonly<{
   alphaHash?: boolean;
@@ -96,14 +97,14 @@ export type TDistanceMaterialPropsOptions = TAbstractMaterialPropsOptions &
     displacementBias?: number;
     farDistance?: number;
     nearDistance?: number;
-    referencePosition?: TVector3;
+    referencePosition?: Vector3;
   }>;
 
 export type TNormalMaterialPropsOptions = TAbstractMaterialPropsOptions &
   Readonly<{
     bumpScale?: number;
     normalMapType?: NormalMapTypes;
-    normalScale?: TVector2;
+    normalScale?: Vector2;
     displacementScale?: number;
     displacementBias?: number;
     wireframe?: boolean;
@@ -132,7 +133,7 @@ export type TLambertMaterialPropsOptions = TAbstractMaterialPropsOptions &
     emissiveIntensity?: number;
     flatShading?: boolean;
     lightMapIntensity?: number;
-    normalScale?: TVector2;
+    normalScale?: Vector2;
     aoMapIntensity?: number;
     combine?: Combine;
     reflectivity?: number;
@@ -156,7 +157,7 @@ export type TPhongMaterialPropsOptions = TAbstractMaterialPropsOptions &
     emissiveIntensity?: number;
     bumpScale?: number;
     normalMapType?: NormalMapTypes;
-    normalScale?: TVector2;
+    normalScale?: Vector2;
     displacementScale?: number;
     displacementBias?: number;
     combine?: Combine;
@@ -180,7 +181,7 @@ export type TToonMaterialPropsOptions = TAbstractMaterialPropsOptions &
     emissiveIntensity?: number;
     bumpScale?: number;
     normalMapType?: NormalMapTypes;
-    normalScale?: TVector2;
+    normalScale?: Vector2;
     displacementScale?: number;
     displacementBias?: number;
     wireframe?: boolean;
@@ -201,7 +202,7 @@ export type TStandardMaterialPropsOptions = TAbstractMaterialPropsOptions &
     emissiveIntensity?: number;
     bumpScale?: number;
     normalMapType?: NormalMapTypes;
-    normalScale?: TVector2;
+    normalScale?: Vector2;
     displacementScale?: number;
     displacementBias?: number;
     envMapIntensity?: number;
@@ -215,7 +216,7 @@ export type TPhysicalMaterialPropsOptions = TStandardMaterialPropsOptions &
   Readonly<{
     clearcoat?: number;
     clearcoatRoughness?: number;
-    clearcoatNormalScale?: TVector2;
+    clearcoatNormalScale?: Vector2;
     reflectivity?: number;
     ior?: number;
     sheen?: number;

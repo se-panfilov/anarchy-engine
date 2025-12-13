@@ -1,8 +1,8 @@
-import type { TEulerWrapper } from '@/Engine/Euler';
+import type { Euler } from 'three';
 
 export type TScalable = Readonly<{
-  setScale: (x: number, y: number, z: number) => TEulerWrapper;
-  getScale: () => TEulerWrapper;
+  setScale: (x: number, y: number, z: number) => Euler;
+  getScale: () => Euler;
   setScaleX: (x: number) => void;
   getScaleX: () => number;
   setScaleY: (y: number) => void;

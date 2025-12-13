@@ -1,6 +1,6 @@
-import type { TEulerWrapper } from '@/Engine/Euler';
+import type { Euler } from 'three';
 
 export type TWithRotation = Readonly<{
-  setRotation: (x: number, y: number, z: number) => TEulerWrapper;
-  getRotation: () => TEulerWrapper;
+  setRotation: (x: number, y: number, z: number) => Euler;
+  getRotation: () => Euler;
 }>;

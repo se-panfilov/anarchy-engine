@@ -1,11 +1,11 @@
 import type { Layers } from 'three';
-
-import type { TWithCoordsXYZ } from '@/Engine/Mixins';
+import type { Euler } from 'three/src/math/Euler';
+import type { Vector3 } from 'three/src/math/Vector3';
 
 export type TObject3DProps = Readonly<{
-  position: TWithCoordsXYZ;
-  rotation: TWithCoordsXYZ;
-  scale?: TWithCoordsXYZ;
+  position: Vector3;
+  rotation: Euler;
+  scale?: Vector3;
   visible?: boolean;
   castShadow?: boolean;
   receiveShadow?: boolean;

@@ -1,13 +1,12 @@
-import type { Group, Mesh, Object3D, Object3DEventMap } from 'three';
+import type { Euler, Group, Mesh, Object3D, Object3DEventMap } from 'three';
+import type { Vector3 } from 'three/src/math/Vector3';
 
-import type { TEulerWrapper } from '@/Engine/Euler';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
-import type { TVector3Wrapper } from '@/Engine/Vector';
 
-export const applyScaleToModel3d = (model: Group | Mesh | Object3D, scale: TVector3Wrapper): void => void model.scale.copy(scale.entity);
-export const applyRotationToModel3d = (model: Group | Mesh | Object3D, rotation: TEulerWrapper): void => void model.rotation.copy(rotation.entity);
-export const applyPositionToModel3d = (model: Group | Mesh | Object3D, position: TVector3Wrapper): void => void model.position.copy(position.entity);
+export const applyScaleToModel3d = (model: Group | Mesh | Object3D, scale: Vector3): void => void model.scale.copy(scale.entity);
+export const applyRotationToModel3d = (model: Group | Mesh | Object3D, rotation: Euler): void => void model.rotation.copy(rotation.entity);
+export const applyPositionToModel3d = (model: Group | Mesh | Object3D, position: Vector3): void => void model.position.copy(position.entity);
 
 export function applyObject3dParamsToModel3d(model3d: Group | Mesh | Object3D, { visible, castShadow, receiveShadow, frustumCulled, renderOrder }: Partial<TObject3DParams>): void {
   if (isDefined(visible)) applyWithTraverseToModel3d(model3d, 'visible', visible);

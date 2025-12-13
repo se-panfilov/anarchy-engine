@@ -1,11 +1,10 @@
+import { Vector3 } from 'three/src/math/Vector3';
+
 import type { TWithPosition3d, TWithPosition3dProperty } from '@/Engine/Mixins/GameObjects/Models';
-import type { TVector3, TVector3Wrapper } from '@/Engine/Vector';
-import { Vector3Wrapper } from '@/Engine/Vector';
 
 export function withPosition3dMixin(entity: TWithPosition3dProperty): TWithPosition3d {
-  const setPosition = (position: TVector3Wrapper): TVector3 => entity.position.set(position.getX(), position.getY(), position.getZ());
-  const addPosition = (position: TVector3Wrapper): TVector3 =>
-    setPosition(Vector3Wrapper({ x: entity.position.x + position.getX(), y: entity.position.y + position.getY(), z: entity.position.z + position.getZ() }));
-  const getPosition = (): TVector3Wrapper => Vector3Wrapper(entity.position);
+  const setPosition = (position: Vector3): Vector3 => entity.position.set(position.x, position.y, position.z);
+  const addPosition = (position: Vector3): Vector3 => setPosition(new Vector3(entity.position.x + position.x, entity.position.y + position.y, entity.position.z + position.z));
+  const getPosition = (): Vector3 => new Vector3(entity.position.x, entity.position.y, entity.position.z);
   return { setPosition, addPosition, getPosition };
 }

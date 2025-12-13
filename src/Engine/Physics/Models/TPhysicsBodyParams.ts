@@ -1,12 +1,14 @@
+import type { Vector4 } from 'three';
+import type { Vector3 } from 'three/src/math/Vector3';
+
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
-import type { TVector3Wrapper, TVector4Wrapper } from '@/Engine/Vector';
 
 import type { TPhysicsBodyProps } from './TPhysicsBodyProps';
 
 export type TPhysicsBodyParams = TPhysicsBodyProps &
   Readonly<{
-    position?: TVector3Wrapper;
-    rotation?: TVector4Wrapper;
+    position?: Vector3;
+    rotation?: Vector4;
     shouldUpdateKinematic?: boolean;
     isSleep?: boolean;
   }> &
