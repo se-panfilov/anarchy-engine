@@ -1,4 +1,4 @@
-import { AbstractWrapper } from '@Engine/Domains/Abstract';
+import { AbstractWrapper, WrapperType } from '@Engine/Domains/Abstract';
 import type { ICameraWrapper } from '@Engine/Domains/Camera';
 import type { IRendererWrapper } from '@Engine/Domains/Renderer';
 import type { ISceneWrapper } from '@Engine/Domains/Scene';
@@ -22,7 +22,7 @@ export function LoopWrapper(params: ILoopParams): ILoopWrapper {
   };
 
   return {
-    ...AbstractWrapper(entity, params),
+    ...AbstractWrapper(entity, WrapperType.Loop, params),
     ...getUtils(entity),
     entity,
     tags: params.tags,

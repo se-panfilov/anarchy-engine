@@ -1,5 +1,5 @@
 import type { IWrapper } from '@Engine/Domains/Abstract';
-import { AbstractWrapper } from '@Engine/Domains/Abstract';
+import { AbstractWrapper, WrapperType } from '@Engine/Domains/Abstract';
 import type { IScreenSizeValues, IScreenSizeWatcher } from '@Engine/Domains/Screen';
 import type { IWriteable } from '@Engine/Utils';
 import { isNotDefined, isWebGL2Available, isWebGLAvailable } from '@Engine/Utils';
@@ -52,7 +52,7 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
     screenSizeWatcher.destroy$.unsubscribe();
   });
 
-  const wrapper: IWrapper<WebGLRenderer> = AbstractWrapper(entity, params);
+  const wrapper: IWrapper<WebGLRenderer> = AbstractWrapper(entity, WrapperType.Renderer, params);
 
   function destroy(): void {
     screenSizeWatcher.value$.unsubscribe();

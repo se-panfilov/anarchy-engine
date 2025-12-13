@@ -1,4 +1,4 @@
-import { AbstractWrapper } from '@Engine/Domains/Abstract';
+import { AbstractWrapper, WrapperType } from '@Engine/Domains/Abstract';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import { isDefined } from '@/Engine/Utils';
@@ -40,5 +40,5 @@ export function OrbitControlsWrapper(params: IOrbitControlsParams): IOrbitContro
 
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(params.damping)) entity.enableDamping = params.damping;
-  return { ...AbstractWrapper(entity, params), update, setDamping, getDampingState, enable, disable, entity };
+  return { ...AbstractWrapper(entity, WrapperType.Controls, params), update, setDamping, getDampingState, enable, disable, entity };
 }

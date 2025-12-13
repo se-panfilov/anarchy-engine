@@ -1,5 +1,5 @@
 import type { IWrapper } from '@Engine/Domains/Abstract';
-import { AbstractWrapper } from '@Engine/Domains/Abstract';
+import { AbstractWrapper, WrapperType } from '@Engine/Domains/Abstract';
 import type { IActorWrapper } from '@Engine/Domains/Actor';
 import type { ICameraWrapper } from '@Engine/Domains/Camera';
 import type { ILightWrapper } from '@Engine/Domains/Light';
@@ -19,7 +19,7 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
 
   if (isDefined(params.background)) setBackground(params.background);
 
-  const wrapper: IWrapper<Scene> = AbstractWrapper(entity, params);
+  const wrapper: IWrapper<Scene> = AbstractWrapper(entity, WrapperType.Scene, params);
 
   function add(obj: ISceneObject): void {
     entity.add(obj);

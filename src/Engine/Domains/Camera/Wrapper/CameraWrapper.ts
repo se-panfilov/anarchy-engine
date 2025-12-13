@@ -1,4 +1,4 @@
-import { AbstractWrapper } from '@Engine/Domains/Abstract';
+import { AbstractWrapper, WrapperType } from '@Engine/Domains/Abstract';
 import type { IScreenSizeValues, IScreenSizeWatcher } from '@Engine/Domains/Screen';
 import type { IWriteable } from '@Engine/Utils';
 import { isNotDefined } from '@Engine/Utils';
@@ -32,5 +32,5 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly
     screenSizeWatcher.destroy$.unsubscribe();
   });
 
-  return { ...AbstractWrapper(entity, params), ...getAccessors(entity), entity, tags };
+  return { ...AbstractWrapper(entity, WrapperType.Camera, params), ...getAccessors(entity), entity, tags };
 }
