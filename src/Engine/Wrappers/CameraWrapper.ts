@@ -1,23 +1,23 @@
 import { PerspectiveCamera } from 'three';
 import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
 import { isNotDefined } from '@Engine/Utils';
+import { DeviceWatcher } from '@Engine/Watchers/DeviceWatcher';
 
 export class CameraWrapper extends AbstractWrapper<PerspectiveCamera> {
   public entity: PerspectiveCamera;
 
-  constructor({ width, height, fov = 45, near = 1, far = 10000 }: CameraParams, deviceSizeManager: DeviceSizeManager) {
+  constructor({ width, height, fov = 45, near = 1, far = 10000 }: CameraParams, deviceWatcher: DeviceWatcher) {
     super();
     this.entity = new PerspectiveCamera(fov, width / height, near, far);
 
-    // TODO (S.Panfilov) should access through params or manager?
-    deviceSizeManager.deviceSize$.subscribe(({ width, height }) => {
+    deviceWatcher.size$.subscribe(({ width, height }) => {
       if (isNotDefined(this.entity)) return;
       this.entity.aspect = width / height;
       this.entity.updateProjectionMatrix();
     });
 
-    deviceSizeManager.destroyed$.subscribe(() => {
-      deviceSizeManager.deviceSize$.unsubscribe();
+    deviceWatcher.destroyed$.subscribe(() => {
+      deviceWatcher.size$.unsubscribe();
     });
   }
 

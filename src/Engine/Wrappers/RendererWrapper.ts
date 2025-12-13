@@ -1,12 +1,12 @@
 import { PCFShadowMap, WebGL1Renderer } from 'three';
-import { deviceSize$ } from '@Engine/Store/DeviceSize';
 import { isNotDefined, isWebGLAvailable } from '@Engine/Utils';
 import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
+import { DeviceWatcher } from '@Engine/Watchers/DeviceWatcher';
 
 export class RendererWrapper extends AbstractWrapper<WebGL1Renderer> {
   public entity: WebGL1Renderer;
 
-  constructor(elementId: string, deviceSizeManager: DeviceSizeManager, canvas: HTMLElement) {
+  constructor(elementId: string, deviceWatcher: DeviceWatcher, canvas: HTMLElement) {
     super();
 
     // let canvas: HTMLElement | null = document.querySelector(elementId);
@@ -18,19 +18,18 @@ export class RendererWrapper extends AbstractWrapper<WebGL1Renderer> {
     this.entity.shadowMap.type = PCFShadowMap;
     this.entity.physicallyCorrectLights = true;
 
-    deviceSizeManager.deviceSize$.subscribe(({ width, height, devicePixelRatio }) => {
+    deviceWatcher.size$.subscribe(({ width, height, ratio }) => {
       if (isNotDefined(this.entity)) return;
       this.entity.setSize(width, height);
-      this.entity.setPixelRatio(Math.min(devicePixelRatio, 2));
+      this.entity.setPixelRatio(Math.min(ratio, 2));
     });
 
-    deviceSizeManager.destroyed$.subscribe(() => {
-      deviceSizeManager.deviceSize$.unsubscribe();
+    deviceWatcher.destroyed$.subscribe(() => {
+      deviceWatcher.size$.unsubscribe();
     });
 
     this.destroyed$.subscribe(() => {
-      canvas = null as any;
-      deviceSize$.unsubscribe();
+      deviceWatcher.size$.unsubscribe();
     });
   }
 }

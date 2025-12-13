@@ -7,6 +7,10 @@ import { LightManager } from '@Engine/Managers/LightManager';
 import { InputManager } from '@Engine/Managers/InputManager';
 import { ActorManager } from '@Engine/Managers/ActorManager';
 import { ControlManager } from '@Engine/Managers/ControlManager';
+import { DeviceWatcher } from '@Engine/Watchers/DeviceWatcher';
+import type { CameraParams } from '@Engine/Wrappers/CameraWrapper';
+
+const deviceWatcher = new DeviceWatcher({ width: window.innerWidth, height: window.innerHeight, ratio: 2 });
 
 const actorManager = new ActorManager();
 const cameraManager = new CameraManager();
@@ -15,6 +19,7 @@ const controlManager = new ControlManager();
 const inputManager = new InputManager();
 const loopManager = new LoopManager();
 const sceneManager = new SceneManager();
+const rendererManager = new RendererManager();
 
 const scene = sceneManager.create();
 sceneManager.setCurrent(scene);
@@ -27,12 +32,19 @@ sceneManager.setCurrent(scene);
 actorManager.create('sphere');
 actorManager.create('plane');
 
-const wrappedCamera = cameraManager.create();
+const params: CameraParams = {
+  width: deviceWatcher.size$.value.width,
+  height: deviceWatcher.size$.value.height,
+  fov: 45,
+  near: 1,
+  far: 10000
+};
+const wrappedCamera = cameraManager.create(params);
 cameraManager.setCurrent(wrappedCamera);
 wrappedCamera.setPosition(3, 2, 15);
 wrappedCamera.lookAt(0, 0, 0);
 
-const wrappedControl = controlManager.create();
+const wrappedControl = controlManager.create(cameraManager.current$.value, rendererManager.current$.value);
 wrappedControl.entity.wrappedCamera.setControls('OrbitControls');
 
 lightManager.createAmbientLight({ type: 'ambient', color: 0xffffff, intensity: 0.5 });

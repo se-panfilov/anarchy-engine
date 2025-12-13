@@ -20,5 +20,9 @@ export abstract class AbstractManager<T extends Entity> implements Manager<T> {
     this.list$.complete();
     this.destroyed$.next();
     this.destroyed$.complete();
+    this.id = undefined as any;
+    this.current$ = undefined as any;
+    this.list$ = undefined as any;
+    this.destroyed$ = undefined as any;
   }
 }
