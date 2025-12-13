@@ -21,6 +21,8 @@ Done:
 - 13.0.x Deletion and resource dispose (memory management)
 - 13.1.x Refactored spaces and services (better destroy and re-create)
 - 14.0.0 Multiple scenes full support (unload/load scenes one after another and hard reset)
+- 14.0.2 Own canvas for each Space
+- 14.0.3 Configurable renderer
 
 Roadmap:
 - 15.x.x Save/Load configs (serialization)
