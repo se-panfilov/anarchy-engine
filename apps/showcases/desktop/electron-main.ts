@@ -13,6 +13,10 @@ const isOpenDevTools: boolean = true;
 // TODO CWP
 // TODO DESKTOP: Save/Load with files?
 // TODO DESKTOP: Can we avoid copying of dist-desktop to dist-app? (check paths in asar)
+// TODO DESKTOP: Save/Load app's settings (screen resolution, fullscreen mode, etc.)
+// TODO DESKTOP: Detect resolution and set window size accordingly
+// TODO DESKTOP: Add canvas.requestPointerLock(); on a Space level
+// TODO DESKTOP: Error forwarding to a file
 
 function getIndexHtmlPath(): string {
   const path: string = app.isPackaged ? join(app.getAppPath(), 'dist-app', 'index.html') : join(__dirname, '..', 'dist-app', 'index.html');
@@ -31,6 +35,10 @@ function createWindow(width: number, height: number): BrowserWindow {
   const win = new BrowserWindow({
     width,
     height,
+    fullscreen: false, //We set fullscreen later
+    autoHideMenuBar: true,
+    useContentSize: true,
+    hiddenInMissionControl: true,
     webPreferences: {
       contextIsolation: true,
       preload: join(__dirname, 'preload.js'),
@@ -95,4 +103,34 @@ app.whenReady().then((): void => {
   // win.webContents.on('will-prevent-unload', (event) => {
   // event.preventDefault(); // Prevent the default behavior of closing the window
   // });
+
+  // TODO DESKTOP: Is Fullscreen or not should depend on the app settings
+  // TODO DESKTOP: Change default fullscreen mode to "true"
+  //Fullscreen mode
+  setTimeout((): void => void (!win.isDestroyed() && win.setFullScreen(false)), 500);
+
+  // Hide the menu bar
+  win.setMenuBarVisibility(false);
+
+  // No zooming
+  win.webContents.setVisualZoomLevelLimits(1, 1).catch((err: any): void => {
+    console.log('[Main] Error setting zoom level limits:');
+    console.error(err);
+  });
+
+  // No new windows via window.open
+  win.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
+
+  // window.addEventListener('dragover', (e) => e.preventDefault());
+  // window.addEventListener('drop', (e) => e.preventDefault());
+  // window.addEventListener('contextmenu', (e) => e.preventDefault());
+
+  // * {
+  //     user-select: none;
+  //    // cursor: none;
+  //   }
+
+  //body {
+  //   -webkit-app-region: no-drag;
+  // }
 });
