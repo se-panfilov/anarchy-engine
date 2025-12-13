@@ -64,8 +64,7 @@ export function Actor(
     entities.collisions?.destroy$.next();
 
     //stop fsm
-    entities.states.animationsFsmActor?.stop();
-    // TODO 9-3-0 STATE: unsubscribe from ActorFsm's subscriptions
+    entities.states.animationsFsm?.destroy$.next();
   });
 
   const spatialNoiseThreshold: number = params.spatial.performance?.noiseThreshold ?? 0.0000001;
