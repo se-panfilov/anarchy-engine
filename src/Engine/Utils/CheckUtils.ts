@@ -2,7 +2,7 @@ import { Color } from 'three';
 
 import type { IAbstractEntityWithWrapperId } from '@/Engine/Domains/Abstract/Models';
 import type { IDestroyable, IRegistrable } from '@/Engine/Mixins';
-import type { IColorWrapper, IVector3Wrapper, IVector4Wrapper } from '@/Engine/Wrappers';
+import type { IColorWrapper, IVector2Wrapper, IVector3Wrapper, IVector4Wrapper } from '@/Engine/Wrappers';
 
 import { isObject } from './ObjectUtils';
 
@@ -34,6 +34,15 @@ export function isWithWrapperId(obj: unknown): obj is IAbstractEntityWithWrapper
   return isDefined(obj) && isObject(obj) && isDefined((obj as IAbstractEntityWithWrapperId).userData) && isDefined((obj as IAbstractEntityWithWrapperId).userData.wrapperId);
 }
 
+export function isVector2Wrapper(obj: unknown): obj is IVector2Wrapper {
+  return (
+    isDefined((obj as IVector2Wrapper).entity) &&
+    isDefined((obj as IVector2Wrapper).entity.x) &&
+    isDefined((obj as IVector2Wrapper).entity.y) &&
+    isNotDefined((obj as IVector3Wrapper).entity.z) &&
+    isNotDefined((obj as IVector4Wrapper).entity.w)
+  );
+}
 export function isVector3Wrapper(obj: unknown): obj is IVector3Wrapper {
   return (
     isDefined((obj as IVector3Wrapper).entity) &&
