@@ -1,11 +1,20 @@
 import type { AudioListener, OrthographicCameraJSONObject, PerspectiveCameraJSONObject, Vector3Like } from 'three';
 
 import type { TAudioService } from '@/Engine/Audio';
-import type { TAnyCameraConfig, TAnyCameraWrapper, TCameraWrapperDependencies, TCommonCameraConfig, TPerspectiveCameraOnlyConfig } from '@/Engine/Camera/Models';
+import type {
+  TAnyCameraConfig,
+  TAnyCameraWrapper,
+  TCameraWrapperDependencies,
+  TCommonCameraConfig,
+  TCommonCameraParams,
+  TOrthographicCameraParams,
+  TPerspectiveCameraOnlyConfig,
+  TPerspectiveCameraParams
+} from '@/Engine/Camera/Models';
 import type { TOrthographicCameraOnlyConfig } from '@/Engine/Camera/Models/TOrthographicCameraConfig';
 import { isOrthographicCameraWrapper, isPerspectiveCameraWrapper } from '@/Engine/Camera/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
-import { filterOutEmptyFields, isDefined } from '@/Engine/Utils';
+import { filterOutEmptyFields, isDefined, isVector3Like } from '@/Engine/Utils';
 
 // Sometimes Camera's "drive" might hold old values (position, rotation), cause controls might not update it (they are update values directly)
 export function cameraToConfig(entity: TAnyCameraWrapper, { audioService }: Pick<TCameraWrapperDependencies, 'audioService'>): TAnyCameraConfig {
@@ -29,31 +38,38 @@ export function getCameraOnlyConfig(entity: TAnyCameraWrapper): Omit<TCommonCame
   if (isOrthographicCameraWrapper(entity)) additionalConfig = getOrthographicCameraOnlyConfig(json as OrthographicCameraJSONObject);
 
   return filterOutEmptyFields({
-    ...getCommonCameraConfig(entity, json),
+    name: entity.name,
+    type: entity.getType(),
+    isActive: entity.isActive(),
+    ...getCommonCameraConfig(json),
     ...additionalConfig
   });
 }
 
-function getCommonCameraConfig(entity: TAnyCameraWrapper, json: PerspectiveCameraJSONObject | OrthographicCameraJSONObject): Omit<TCommonCameraConfig, 'position' | 'rotation' | 'audioListener'> {
-  const up: Vector3Like | undefined = isDefined(json.up) ? { x: (json.up as any)[0], y: (json.up as any)[1], z: (json.up as any)[2] } : undefined;
+function getCommonCameraConfig(
+  json: PerspectiveCameraJSONObject | OrthographicCameraJSONObject | TCommonCameraParams
+): Omit<TCommonCameraConfig, 'position' | 'rotation' | 'audioListener' | 'name' | 'type' | 'isActive'> {
+  let up: Vector3Like | undefined = undefined;
+  if (isDefined(json.up)) {
+    if (Array.isArray(json.up)) up = { x: (json.up as any)[0], y: (json.up as any)[1], z: (json.up as any)[2] };
+    else if (isVector3Like(json.up)) up = { x: json.up.x, y: json.up.y, z: json.up.z };
+    else throw new Error(`[Camera]: Cannot serialize: Invalid up vector provided in camera JSON: ${json.up}. Expected Vector3Like or array of numbers.`);
+  }
 
   return {
-    name: entity.name,
-    type: entity.getType(),
     near: json.near,
     far: json.far,
     up,
     layers: json.layers,
-    zoom: json.zoom,
-    isActive: entity.isActive()
+    zoom: json.zoom
   };
 }
 
-function getPerspectiveCameraOnlyConfig({ fov, filmGauge, filmOffset, focus }: PerspectiveCameraJSONObject): TPerspectiveCameraOnlyConfig {
+function getPerspectiveCameraOnlyConfig({ fov, filmGauge, filmOffset, focus }: PerspectiveCameraJSONObject | TPerspectiveCameraParams): TPerspectiveCameraOnlyConfig {
   return { fov, filmGauge, filmOffset, focus };
 }
 
-function getOrthographicCameraOnlyConfig({ left, right, top, bottom }: OrthographicCameraJSONObject): TOrthographicCameraOnlyConfig {
+function getOrthographicCameraOnlyConfig({ left, right, top, bottom }: OrthographicCameraJSONObject | TOrthographicCameraParams): TOrthographicCameraOnlyConfig {
   return { left, right, top, bottom };
 }
 
