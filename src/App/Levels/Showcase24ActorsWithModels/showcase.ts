@@ -135,20 +135,13 @@ function initSolder2(actorName: string, { animationsService, actorService }: TSp
   animationsFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: TFsmStates): void => {
     switch (state) {
       case 'Idle':
-        // walkAction.fadeOut(fadeDuration);
-        // runAction.fadeOut(fadeDuration);
+        // danceAction.fadeOut(fadeDuration);
         idleAction.reset().fadeIn(fadeDuration).play();
         break;
-      // case Walk:
-      //   idleAction.fadeOut(fadeDuration);
-      //   runAction.fadeOut(fadeDuration);
-      //   walkAction.reset().fadeIn(fadeDuration).play();
-      //   break;
-      // case Run:
-      //   idleAction.fadeOut(fadeDuration);
-      //   walkAction.fadeOut(fadeDuration);
-      //   runAction.reset().fadeIn(fadeDuration).play();
-      //   break;
+      case 'Dance':
+        idleAction.fadeOut(fadeDuration);
+        // danceAction.reset().fadeIn(fadeDuration).play();
+        break;
       default:
         throw new Error(`Unknown state: ${String(state)}`);
     }
