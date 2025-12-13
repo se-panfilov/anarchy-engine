@@ -1,4 +1,4 @@
-import type { TAnarchyLegalConfig, TCollected, TDependencyNode, TLicenseEntry, TRenderInput, TRootInfo, TTemplateGeneratorOptions, TWorkspaceInfo } from '@Anarchy/Legal/Models';
+import type { TAnarchyLegalConfig, TCollected, TDependencyNode, TLicenseEntry, TRenderInput, TRootInfo, TTemplateGeneratorOptions, TTemplateParsedEntry, TWorkspaceInfo } from '@Anarchy/Legal/Models';
 
 export type TRepoUtilsService = Readonly<{
   assertNoCycles: (graph: ReadonlyMap<string, ReadonlySet<string>>, start: string) => void;
@@ -20,4 +20,7 @@ export type TRepoUtilsService = Readonly<{
   renderMarkdown: (workspaceLabel: string, items: ReadonlyArray<TLicenseEntry>, emptyNote?: string) => string;
   resolveWorkspaceFromArg: (arg: string, workspaces: ReadonlyMap<string, TWorkspaceInfo>, rootDir: string) => TWorkspaceInfo;
   setDebugMode: (isDebug: boolean) => void;
+  collectAllHeadingIds: (md: string) => ReadonlySet<string>;
+  parseThirdPartyMarkdown: (md: string) => ReadonlyArray<TTemplateParsedEntry>;
+  loadUpstreamNotice: (dir: string, maxBytes: number) => Promise<string | undefined>;
 }>;
