@@ -32,7 +32,7 @@ export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: 
             return kinematicDrive.kinematic.position$;
           case ActorDrive.Physical:
           // TODO 8.0.0. MODELS: implement physics drive mixin
-          // return physicsLoopService.physicsBody.position$;
+          // return physicsDrive.physics.position$;
           case ActorDrive.None:
             return EMPTY;
           default:
@@ -50,7 +50,7 @@ export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: 
             return kinematicDrive.kinematic.rotationEuler$;
           case ActorDrive.Physical:
           // TODO 8.0.0. MODELS: implement physics drive mixin
-          // return physicsLoopService.physicsBody.rotationEuler$;
+          // return physicsDrive.physics.rotationEuler$;
           case ActorDrive.None:
             return EMPTY;
           default:
@@ -69,7 +69,7 @@ export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: 
           //   return kinematicDrive.kinematic.scale$;
           case ActorDrive.Physical:
           // TODO 8.0.0. MODELS: implement physics drive mixin
-          // return physicsLoopService.physicsBody.scale$;
+          // return physicsDrive.physics.scale$;
           case ActorDrive.None:
             return EMPTY;
           default:
