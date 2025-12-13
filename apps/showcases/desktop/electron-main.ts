@@ -1,4 +1,5 @@
-import { app, BrowserWindow, dialog, ipcMain, Menu } from 'electron';
+import type { Display, Size } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, Menu, screen } from 'electron';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { existsSync } from 'node:fs';
@@ -6,12 +7,9 @@ import { existsSync } from 'node:fs';
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = dirname(__filename);
 
-const windowHeight: number = 720;
-const windowWidth: number = 1280;
 const isOpenDevTools: boolean = true;
 
 // TODO CWP
-// TODO DESKTOP: Detect resolution and set window size accordingly
 // TODO DESKTOP: Save/Load with files?
 // TODO DESKTOP: Save/Load app's settings (screen resolution, fullscreen mode, etc.)
 // TODO DESKTOP: Steam integration (manifest, cloud_sync.vdf, cloud saves, achievements, layer, etc.)
@@ -71,7 +69,9 @@ ipcMain.handle('ping', async () => {
 });
 
 app.whenReady().then((): void => {
-  const win: BrowserWindow = createWindow(windowWidth, windowHeight);
+  // TODO DESKTOP: use "getDisplayInfo()" as default settings, prioritize saved user settings and use hardcoded fallback settings. Same for fullscreen mode
+  const { width, height } = getDisplayInfo();
+  const win: BrowserWindow = createWindow(width, height);
 
   app.on('window-all-closed', (): void => {
     //Quit the app when all windows are closed (even on macOS, which is a bit non-macOS style)
@@ -139,3 +139,13 @@ app.whenReady().then((): void => {
   //   // Could try to restart the window or something
   // });
 });
+
+function getDisplayInfo(display: Display = screen.getPrimaryDisplay()): Readonly<{ width: number; height: number; dpi: number }> {
+  const workArea: Size = display.workAreaSize;
+
+  return {
+    width: workArea.width,
+    height: workArea.height,
+    dpi: display.scaleFactor
+  };
+}
