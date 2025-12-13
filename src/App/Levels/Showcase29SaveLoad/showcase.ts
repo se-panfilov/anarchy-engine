@@ -2,7 +2,7 @@ import './style.css';
 
 import { addBtn, addDropdown } from '@/App/Levels/Utils';
 import type { TSpace, TSpaceConfig, TSpaceRegistry } from '@/Engine';
-import { asRecord, createDomElement, isNotDefined, spaceService } from '@/Engine';
+import { createDomElement, isNotDefined, spaceService } from '@/Engine';
 
 import space from './space.json';
 import spaceCustomModels from './spaceCustomModels.json';
@@ -16,7 +16,7 @@ const getContainer = (canvasSelector: string): string => canvasSelector.split('#
 
 type TSpacesData = Readonly<{ name: string; config: TSpaceConfig; container: string }>;
 
-const spaces: ReadonlyArray<TSpacesData> = [
+const spacesData: ReadonlyArray<TSpacesData> = [
   { name: spaceBasicConfig.name, config: spaceBasicConfig, container: getContainer(spaceBasicConfig.canvasSelector) },
   { name: spaceCustomModelsConfig.name, config: spaceCustomModelsConfig, container: getContainer(spaceCustomModelsConfig.canvasSelector) },
   { name: spaceTextsConfig.name, config: spaceTextsConfig, container: getContainer(spaceTextsConfig.canvasSelector) }
@@ -25,38 +25,41 @@ const spaces: ReadonlyArray<TSpacesData> = [
 let currentSpaceName: string | undefined;
 
 function createContainersDivs(): void {
-  spaces.forEach(({ container }) => createDomElement('div', undefined, ['container'], container));
+  spacesData.forEach(({ container }) => createDomElement('div', undefined, ['container'], container));
 }
 
 export function start(): void {
   createContainersDivs();
-  const list: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceBasicConfig, spaceCustomModelsConfig, spaceTextsConfig]);
-  const spaces: Record<string, TSpace> = asRecord('name', list);
-  const space: TSpace = spaces[spaceBasicConfig.name];
-  if (isNotDefined(space)) throw new Error(`[Showcase]: Space "${spaceBasicConfig.name}" is not defined`);
 
-  createForm(undefined, space, true, true, list);
+  createForm(
+    undefined,
+    true,
+    true,
+    spacesData.map((space: TSpacesData): string => space.name)
+  );
 
-  space.built$.subscribe(runSpace);
+  runSpace(spaceBasicConfig.name);
 }
 
-function runSpace(space: TSpace): void {
+function runSpace(name: string): void {
+  const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
+  if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
+
+  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceData.config]);
+  const space: TSpace = spaces.find((s: TSpace): boolean => s.name === name) as TSpace;
+  if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot create the space "${name}"`);
+
   currentSpaceName = space.name;
   space.start$.next(true);
 }
 
-function runSpaceByName(name: string, spaceRegistry: TSpaceRegistry): void {
-  const nextSpace: TSpace | undefined = spaceRegistry.findByName(name);
-  if (isNotDefined(nextSpace)) throw new Error(`[Showcase]: Cannot launch the next space "${name}"`);
-  runSpace(nextSpace);
-}
-
-function destroySpaceByName(name: string | undefined, spaceRegistry: TSpaceRegistry): void {
+function destroySpace(name: string | undefined, spaceRegistry: TSpaceRegistry): void {
   if (isNotDefined(name)) return;
-
+  console.log('XXX111', 111);
   const space: TSpace | undefined = spaceRegistry.findByName(name);
   if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot destroy the space "${name}"`);
   space.drop();
+  // space.destroy$.next();
 }
 
 function download(space: TSpace): void {
@@ -76,7 +79,7 @@ function download(space: TSpace): void {
   a.remove();
 }
 
-export function createForm(containerId: string | undefined, space: TSpace, isTop: boolean, isRight: boolean, options: ReadonlyArray<TSpace>): void {
+export function createForm(containerId: string | undefined, isTop: boolean, isRight: boolean, options: ReadonlyArray<string>): void {
   const top: string | undefined = isTop ? undefined : 'calc(50% + 14px)';
   const right: string | undefined = !isRight ? 'calc(50% + 14px)' : '4px';
   const spaceRegistry: TSpaceRegistry = spaceService.getRegistry();
@@ -85,12 +88,12 @@ export function createForm(containerId: string | undefined, space: TSpace, isTop
     'Spaces',
     containerId,
     (name: string): void => {
-      destroySpaceByName(currentSpaceName, spaceRegistry);
-      runSpaceByName(name, spaceRegistry);
+      destroySpace(currentSpaceName, spaceRegistry);
+      runSpace(name);
     },
-    options.map((space: TSpace): string => space.name),
+    options,
     { right, top }
   );
-  addBtn(`Download`, containerId, (): void => download(space), { right, top });
+  // addBtn(`Download`, containerId, (): void => download(space), { right, top });
   // addBtn(`Load`, containerId, (): void => space.start$.next(false));
 }
