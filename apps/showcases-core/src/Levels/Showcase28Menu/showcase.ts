@@ -30,6 +30,7 @@ export function start(settings: TAppSettings): void {
 
 export function showcase(space: TSpace): void {
   const { actorService, models3dService, keyboardService, scenesService, textService, intersectionsWatcherService, mouseService } = space.services;
+  const { kinematicLoop } = space.loops;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
   const { clickLeftRelease$ } = mouseService;
   const sceneW: TSceneWrapper = scenesService.getActive();
@@ -75,7 +76,7 @@ export function showcase(space: TSpace): void {
 
   openMenu$.pipe().subscribe(mainMenuService.openMainMenu);
 
-  initInputActors(actorService, keyboardService, mouseService, intersectionsWatcherService);
+  initInputActors(actorService, keyboardService, mouseService, intersectionsWatcherService, kinematicLoop);
 
   space.start$.next(true);
 }

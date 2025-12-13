@@ -1,6 +1,7 @@
-import type { TFsmStates, TFsmWrapper, TKeysPressingEvent, TModels3dResourceAsyncRegistry, TRegistryPack, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceServices } from '@Anarchy/Engine';
+import type { TFsmStates, TFsmWrapper, TModels3dResourceAsyncRegistry, TRegistryPack, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceServices } from '@Anarchy/Engine';
 import { KeyCode, SpaceEvents, spaceService } from '@Anarchy/Engine';
-import { isEventKey, isKeyPressed } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
+import type { TKeysState } from '@Anarchy/Engine/Keyboard/Models/TKeysState';
+import { isKeyPressed } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import { distinctUntilChanged } from 'rxjs';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -34,7 +35,12 @@ export function start(settings: TAppSettings): void {
 
 export function showcase(space: TSpace): void {
   const { keyboardService } = space.services;
-  const { pressing$, released$ } = keyboardService;
+  const { keys$ } = keyboardService;
+
+  const walk = 'Walk' as const;
+  const run = 'Run' as const;
+  const idle = 'Idle' as const;
+  const dance = 'Dance' as const;
 
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
   const fadeDuration: number = 0.3;
@@ -43,20 +49,18 @@ export function showcase(space: TSpace): void {
   const solder2AnimFsm: TFsmWrapper = initSolder2('solder_actor_2', fadeDuration, space.services);
 
   solder1AnimFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: TFsmStates): void => {
-    if (state === 'Idle') {
-      solder2AnimFsm.send$.next('Idle');
+    if (state === idle) {
+      solder2AnimFsm.send$.next(walk);
     } else {
-      solder2AnimFsm.send$.next('Dance');
+      solder2AnimFsm.send$.next(dance);
     }
   });
 
-  pressing$.subscribe(({ keys }: TKeysPressingEvent): void => {
-    const action: 'Run' | 'Walk' = isKeyPressed(KeyCode.ShiftLeft, keys) ? 'Run' : 'Walk';
-    if (solder1AnimFsm.getState() !== action) solder1AnimFsm.send$.next(action);
-  });
-
-  released$.subscribe((event: KeyboardEvent): void => {
-    if (isEventKey(KeyCode.W, event)) solder1AnimFsm.send$.next('Idle');
+  keys$.subscribe((keys: TKeysState): void => {
+    const isWalk: boolean = isKeyPressed(KeyCode.W, keys);
+    const isRun: boolean = isWalk && isKeyPressed(KeyCode.ShiftLeft, keys);
+    const action = isRun ? run : isWalk ? walk : idle;
+    solder1AnimFsm.send$.next(action);
   });
 
   space.start$.next(true);

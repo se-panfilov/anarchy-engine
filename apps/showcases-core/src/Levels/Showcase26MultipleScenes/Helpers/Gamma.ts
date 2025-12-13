@@ -1,6 +1,6 @@
 import type { TFsmStates, TFsmWrapper, TKeysPressingEvent, TSpace } from '@Anarchy/Engine';
 import { KeyCode } from '@Anarchy/Engine';
-import { isEventKey, isKeyPressed } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
+import { isKeyInEvent, isKeyPressed } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
 import { distinctUntilChanged } from 'rxjs';
 import { Clock } from 'three';
 
@@ -41,6 +41,6 @@ function addActors(space: TSpace): void {
   });
 
   released$.subscribe((event: KeyboardEvent): void => {
-    if (isEventKey(KeyCode.W, event)) solder1AnimFsm.send$.next('Idle');
+    if (isKeyInEvent(KeyCode.W, event)) solder1AnimFsm.send$.next('Idle');
   });
 }

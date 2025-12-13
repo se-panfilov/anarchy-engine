@@ -5,54 +5,57 @@ import type {
   TIntersectionsCameraWatcher,
   TIntersectionsWatcherService,
   TKeyboardService,
-  TKeysPressingEvent,
+  TKinematicLoop,
   TMouseService,
   TMouseWatcherEvent
 } from '@Anarchy/Engine';
 import { KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed } from '@Anarchy/Engine';
-import { isEventKey, isKeyPressed } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
+import type { TKeysEvent } from '@Anarchy/Engine/Keyboard/Models';
+import { isKeyInEvent, isKeyPressed } from '@Anarchy/Engine/Keyboard/Utils';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import { withLatestFrom } from 'rxjs';
 import { Vector3 } from 'three';
 
-export function initInputActors(actorService: TActorService, keyboardService: TKeyboardService, mouseService: TMouseService, intersectionsWatcherService: TIntersectionsWatcherService): void {
+const actionKeys = {
+  GoDown: KeyCode.S,
+  GoLeft: KeyCode.A,
+  GoRight: KeyCode.D,
+  GoUp: KeyCode.W
+};
+
+const { Every } = LookUpStrategy;
+const { GoDown, GoLeft, GoRight, GoUp } = actionKeys;
+
+export function initInputActors(
+  actorService: TActorService,
+  keyboardService: TKeyboardService,
+  mouseService: TMouseService,
+  intersectionsWatcherService: TIntersectionsWatcherService,
+  kinematicLoop: TKinematicLoop
+): void {
   const { getByName, getByTags } = actorService.getRegistry();
-  const { pressing$, pressed$, released$ } = keyboardService;
+  const { keys$ } = keyboardService;
 
   const actorKeyboard: TActor = getByName('sphere_keyboard_actor');
   const actorMouse: TActor = getByName('sphere_mouse_actor');
-  const actorKeyW: TActor = getByTags(['key', 'W'], LookUpStrategy.Every);
-  const actorKeyA: TActor = getByTags(['key', 'A'], LookUpStrategy.Every);
-  const actorKeyS: TActor = getByTags(['key', 'S'], LookUpStrategy.Every);
-  const actorKeyD: TActor = getByTags(['key', 'D'], LookUpStrategy.Every);
-  const actorMkeyLeft: TActor = getByTags(['mkey', 'Left'], LookUpStrategy.Every);
-  const actorMkeyRight: TActor = getByTags(['mkey', 'Right'], LookUpStrategy.Every);
-  const actorMkeyMiddle: TActor = getByTags(['mkey', 'Middle'], LookUpStrategy.Every);
+  const actorKeyW: TActor = getByTags(['key', 'W'], Every);
+  const actorKeyA: TActor = getByTags(['key', 'A'], Every);
+  const actorKeyS: TActor = getByTags(['key', 'S'], Every);
+  const actorKeyD: TActor = getByTags(['key', 'D'], Every);
+  const actorMkeyLeft: TActor = getByTags(['mkey', 'Left'], Every);
+  const actorMkeyRight: TActor = getByTags(['mkey', 'Right'], Every);
+  const actorMkeyMiddle: TActor = getByTags(['mkey', 'Middle'], Every);
 
-  const actionKeys = {
-    GoDown: KeyCode.S,
-    GoLeft: KeyCode.A,
-    GoRight: KeyCode.D,
-    GoUp: KeyCode.W
-  };
-
-  const { GoDown, GoLeft, GoRight, GoUp } = actionKeys;
-
-  pressed$.subscribe((event: KeyboardEvent): void => {
-    if (isEventKey(GoUp, event)) void actorKeyW.drive.default.addY(-0.2);
-    if (isEventKey(GoLeft, event)) void actorKeyA.drive.default.addY(-0.2);
-    if (isEventKey(GoDown, event)) void actorKeyS.drive.default.addY(-0.2);
-    if (isEventKey(GoRight, event)) void actorKeyD.drive.default.addY(-0.2);
+  keys$.subscribe(({ keys, event }: TKeysEvent): void => {
+    //true/false switches
+    if (isKeyInEvent(GoUp, event)) void actorKeyW.drive.default.addY(isKeyPressed(GoUp, keys) ? -0.2 : 0.2);
+    if (isKeyInEvent(GoLeft, event)) void actorKeyA.drive.default.addY(isKeyPressed(GoLeft, keys) ? -0.2 : 0.2);
+    if (isKeyInEvent(GoDown, event)) void actorKeyS.drive.default.addY(isKeyPressed(GoDown, keys) ? -0.2 : 0.2);
+    if (isKeyInEvent(GoRight, event)) void actorKeyD.drive.default.addY(isKeyPressed(GoRight, keys) ? -0.2 : 0.2);
   });
 
-  released$.subscribe((event: KeyboardEvent): void => {
-    if (isEventKey(GoUp, event)) void actorKeyW.drive.default.addY(0.2);
-    if (isEventKey(GoLeft, event)) void actorKeyA.drive.default.addY(0.2);
-    if (isEventKey(GoDown, event)) void actorKeyS.drive.default.addY(0.2);
-    if (isEventKey(GoRight, event)) void actorKeyD.drive.default.addY(0.2);
-  });
-
-  pressing$.subscribe(({ keys, delta }: TKeysPressingEvent): void => {
+  kinematicLoop.tick$.pipe(withLatestFrom(keys$)).subscribe(([delta, { keys }]) => {
+    //continues movement while key is pressed
     if (isKeyPressed(GoUp, keys)) actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta));
     if (isKeyPressed(GoLeft, keys)) actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta));
     if (isKeyPressed(GoDown, keys)) actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta));
