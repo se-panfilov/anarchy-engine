@@ -2,8 +2,6 @@
 import { Routes } from '@Menu/constants';
 import { eventsService } from '@Menu/services';
 import { useRouterStore } from '@Menu/stores/RouterStore';
-// TODO DESKTOP: extract to... shared?
-// import { closeMainMenu } from 'anarchy_engine_showcases/src/Levels/Showcase28Menu/MainMenuService';
 
 // TODO DESKTOP: test i18n (for desktop also)
 
