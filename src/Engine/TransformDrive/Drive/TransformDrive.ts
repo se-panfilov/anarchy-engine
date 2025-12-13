@@ -1,6 +1,7 @@
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, pairwise, ReplaySubject, sampleTime, switchMap } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, map, pairwise, ReplaySubject, sampleTime, scan, switchMap } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
+import { Vector3Like } from 'three/src/math/Vector3';
 
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -87,18 +88,26 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   const rotationThreshold: number = params.performance?.positionNoiseThreshold ?? 0.001;
   const scaleThreshold: number = params.performance?.positionNoiseThreshold ?? 0.001;
 
+  const prevPosition: Vector3 = position$.value.clone();
   const positionSub$: Subscription = activeAgent$
     .pipe(
       switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyVector3> => agent.position$),
-      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prev, curr, positionThreshold)),
+      // map((position: TReadonlyVector3): TReadonlyVector3 => position.clone()),
+      // distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prev, curr, positionThreshold)),
+      // use scan instead of distinctUntilChanged, to prevent of comparing objects by references
+      // scan((prev: TReadonlyVector3, curr: TReadonlyVector3): TReadonlyVector3 => (!isEqualOrSimilarVector3Like(prev, curr, positionThreshold) ? curr : prev), new Vector3()),
       sampleTime(positionDelay)
     )
+    // .subscribe(position$);
     .subscribe(position$);
 
   const rotationSub$: Subscription = activeAgent$
     .pipe(
       switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyEuler> => agent.rotation$),
-      distinctUntilChanged((prev: Euler, curr: Euler): boolean => isEqualOrSimilarVector3Like(prev, curr, rotationThreshold)),
+      // map((rotation: TReadonlyEuler): TReadonlyEuler => rotation.clone()),
+      // distinctUntilChanged((prev: Euler, curr: Euler): boolean => isEqualOrSimilarVector3Like(prev, curr, rotationThreshold)),
+      // use scan instead of distinctUntilChanged, to prevent of comparing objects by references
+      // scan((prev: TReadonlyEuler, curr: TReadonlyEuler): TReadonlyEuler => (!isEqualOrSimilarVector3Like(prev, curr, rotationThreshold) ? curr : prev), activeAgent$.value.rotation$.value),
       sampleTime(rotationDelay)
     )
     .subscribe(rotation$);
@@ -106,7 +115,10 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   const scaleSub$: Subscription = activeAgent$
     .pipe(
       switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyVector3> => agent.scale$),
-      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prev, curr, scaleThreshold)),
+      // map((scale: TReadonlyVector3): TReadonlyVector3 => scale.clone()),
+      // distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prev, curr, scaleThreshold)),
+      // use scan instead of distinctUntilChanged, to prevent of comparing objects by references
+      // scan((prev: TReadonlyVector3, curr: TReadonlyVector3): TReadonlyVector3 => (!isEqualOrSimilarVector3Like(prev, curr, scaleThreshold) ? curr : prev), activeAgent$.value.scale$.value),
       sampleTime(scaleDelay)
     )
     .subscribe(scale$);
