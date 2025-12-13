@@ -18,7 +18,7 @@ enum MockTags {
 function expectSame<T>(a: T | undefined, b: T | undefined): void {
   expect(Object.is(a, b)).toBe(true);
   expect(a).toBe(b);
-  expect(a).toEqual(b);
+  expect(a).toEqual(b as any);
 }
 
 // These suits validate that registries are returning original objects, not copies of them.

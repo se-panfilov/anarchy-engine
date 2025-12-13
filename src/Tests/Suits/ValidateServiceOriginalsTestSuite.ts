@@ -8,7 +8,7 @@ import type { TWriteable } from '@/Engine/Utils';
 function expectSame<T>(a: T | undefined, b: T | undefined): void {
   expect(Object.is(a, b)).toBe(true);
   expect(a).toBe(b);
-  expect(a).toEqual(b);
+  expect(a).toEqual(b as any);
 }
 
 type TAnyMockService<T, P> = TAbstractService & TWithCreateService<T, P> & TWithFactoryService<any, any, any, any> & TWithRegistryService<any>;
