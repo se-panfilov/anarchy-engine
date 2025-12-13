@@ -37,7 +37,6 @@ export function Actor(
   // TODO 8.0.0. MODELS: Make sure, that collisions are working
   // TODO 8.0.0. MODELS: In showcase check spatial and collisions
 
-  // TODO 8.0.0. MODELS: window resize still works wierdly (it's ok when you drag window, but not ok, when you do a big change at once, perhaps a throttle issue)
   // TODO 8.0.0. MODELS: close all issues (todoes) with tag 8.0.0
 
   const entities: TActorEntities = {
