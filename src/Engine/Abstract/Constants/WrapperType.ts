@@ -1,5 +1,6 @@
 export enum WrapperType {
   AmbientLight = 'ambient_light_wrapper',
+  Audio3d = 'audio_3d_wrapper',
   Camera = 'camera_wrapper',
   Color = 'color_wrapper',
   Controls = 'controls_wrapper',
