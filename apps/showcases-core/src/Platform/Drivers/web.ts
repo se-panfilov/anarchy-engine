@@ -3,8 +3,8 @@ import { getLocaleByLocaleId, getPreferLocaleId, stringToLocaleId } from '@Anarc
 import { buildPublicUrl, isDefined } from '@Anarchy/Shared/Utils';
 import { getBrowserInfo } from '@Anarchy/Shared/Utils/DetectUtils';
 import { ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/i18n';
-import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared';
-import { DefaultShowcaseGameSettings, sanitizeMarkDown } from '@Showcases/Shared';
+import type { TDistName, TLegalDoc, TLoadDocPayload, TReleaseName, TShowcaseGameSettings } from '@Showcases/Shared';
+import { DefaultShowcaseGameSettings, makeDistName, makeReleaseName, sanitizeMarkDown } from '@Showcases/Shared';
 
 import type { TPlatformDriver } from '@/Models';
 import { settingsWebDbService } from '@/Services/SettingsWebDbService';
@@ -73,8 +73,9 @@ export function Driver(): TPlatformDriver {
     return settingsWebDbService.setSettings(settings);
   }
 
-  const getReleaseName = (): Promise<string> => Promise.resolve(`${import.meta.env.VITE_RELEASE_NAME_PREFIX}@${import.meta.env.__APP_VERSION__}`);
-  const getDistName = (): Promise<string> => Promise.resolve(`web`);
+  const getReleaseName = (): Promise<TReleaseName> => Promise.resolve(makeReleaseName(import.meta.env.VITE_RELEASE_NAME_PREFIX, import.meta.env.__APP_VERSION__));
+
+  const getDistName = (): Promise<TDistName> => Promise.resolve(makeDistName('web', 'web'));
 
   return {
     closeApp,

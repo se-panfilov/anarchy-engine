@@ -1,7 +1,7 @@
 import { PlatformActions } from '@Showcases/Desktop/Constants';
 import type { THandleRequestDependencies } from '@Showcases/Desktop/Models';
 import { isPlatformAction } from '@Showcases/Desktop/Utils';
-import { isLoadDocPayload, isPartialSettings, isSettings } from '@Showcases/Shared';
+import { isLoadDocPayload, isPartialSettings, isSettings, makeReleaseName } from '@Showcases/Shared';
 import type { IpcMainInvokeEvent } from 'electron';
 
 export async function handleAppRequest(
@@ -28,7 +28,7 @@ export async function handleAppRequest(
     case PlatformActions.GetPackagesVersions:
       return { ...(await desktopAppService.getPackagesVersions()), desktop: __DESKTOP_APP_VERSION__ };
     case PlatformActions.GetReleaseName:
-      return `${import.meta.env.VITE_RELEASE_NAME_PREFIX}@${__DESKTOP_APP_VERSION__}`;
+      return makeReleaseName(import.meta.env.VITE_RELEASE_NAME_PREFIX, __DESKTOP_APP_VERSION__);
     case PlatformActions.GetPreferredLocales:
       return settingsService.getPreferredLocales();
     case PlatformActions.UpdateAppSettings:

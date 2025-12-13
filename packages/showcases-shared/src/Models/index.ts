@@ -1,3 +1,4 @@
+export type * from './TDistName';
 export type * from './TDropdownOption';
 export type * from './TLegalDoc';
 export type * from './TLoadDocPayload';
@@ -5,5 +6,6 @@ export type * from './TMenuEvent';
 export type * from './TMenuOptions';
 export type * from './TNavOption';
 export type * from './TPlatformApiName';
+export type * from './TReleaseName';
 export type * from './TShowcaseGameSettings';
 export type * from './TShowcasesDesktopApi';

@@ -1,6 +1,6 @@
 import type { TLocaleId } from '@Anarchy/i18n';
 import type { TBrowserInfo } from '@Anarchy/Shared/Models';
-import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared';
+import type { TDistName, TLegalDoc, TLoadDocPayload, TReleaseName, TShowcaseGameSettings } from '@Showcases/Shared';
 import { platformApiName } from '@Showcases/Shared';
 
 import type { TPlatformDriver } from '@/Models';
@@ -9,13 +9,13 @@ export function Driver(): TPlatformDriver {
   const closeApp = (): void => window[platformApiName].closeApp();
   const getAppSettings = (): Promise<TShowcaseGameSettings> => window[platformApiName].getAppSettings();
   const getBrowserInfo = (): TBrowserInfo => window[platformApiName].getBrowserInfo();
-  const getDistName = (): Promise<string> => window[platformApiName].getDistName();
+  const getDistName = (): Promise<TDistName> => window[platformApiName].getDistName();
   const getLegalDocs = (options: TLoadDocPayload): Promise<TLegalDoc> => window[platformApiName].getLegalDocs(options);
   const getNodeVersion = (): string => window[platformApiName].node();
   const getPackagesVersions = (): Promise<Record<string, string>> => window[platformApiName].getPackagesVersions();
   const getPlatformVersion = (): string => window[platformApiName].electron();
   const getPreferredLocales = (): Promise<ReadonlyArray<TLocaleId>> => window[platformApiName].getPreferredLocales();
-  const getReleaseName = (): Promise<string> => window[platformApiName].getReleaseName();
+  const getReleaseName = (): Promise<TReleaseName> => window[platformApiName].getReleaseName();
   const getWrappedAppVersion = (): Promise<string> => window[platformApiName].desktopAppVersion();
   const restartApp = (): void => window[platformApiName].restartApp();
   const setAppSettings = (settings: TShowcaseGameSettings): Promise<void> => window[platformApiName].setAppSettings(settings);

@@ -1,6 +1,7 @@
 import type { TLocaleId } from '@Anarchy/i18n';
 import type { TBrowserInfo } from '@Anarchy/Shared/Models';
-import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared';
+import type { TDistName, TLegalDoc, TLoadDocPayload, TReleaseName, TShowcaseGameSettings } from '@Showcases/Shared';
+import { makeDistName, makeReleaseName } from '@Showcases/Shared';
 
 import type { TPlatformDriver } from '@/Models';
 
@@ -16,9 +17,9 @@ export function Driver(): TPlatformDriver {
     return {} as TBrowserInfo;
   }
 
-  function getDistName(): Promise<string> {
+  function getDistName(): Promise<TDistName> {
     console.log('TODO [MOBILE]', 'getDistName');
-    return Promise.resolve('TODO [MOBILE] mocked dist name');
+    return Promise.resolve(makeDistName('mobile', 'todo'));
   }
 
   function getNodeVersion(): string {
@@ -66,9 +67,9 @@ export function Driver(): TPlatformDriver {
     return Promise.resolve({} as any);
   }
 
-  function getReleaseName(): Promise<string> {
+  function getReleaseName(): Promise<TReleaseName> {
     console.log('TODO [MOBILE]', 'getReleaseName');
-    return Promise.resolve('getReleaseName');
+    return Promise.resolve(makeReleaseName('showcases-mobile', 'todo'));
   }
 
   function getPackagesVersions(): Promise<Record<string, string>> {
