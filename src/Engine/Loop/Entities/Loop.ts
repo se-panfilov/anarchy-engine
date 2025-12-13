@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, EMPTY, Subject, switchMap, takeWhile } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, EMPTY, Subject, switchMap, takeUntil, takeWhile } from 'rxjs';
 
 import type { LoopUpdatePriority } from '@/Engine/Loop/Constants';
 import { LoopTrigger, LoopWorkerActions, MaxTicks } from '@/Engine/Loop/Constants';
@@ -28,6 +28,9 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
   const tick$: Subject<TDelta> = new Subject<TDelta>();
   let tickCounter: number = 0;
 
+  //We need an additional variable to make sure that the tick$ is not called after the destroy$
+  let isDestroyed: boolean = false;
+
   let worker: Worker | null = null;
   const isTriggerFn: boolean = typeof trigger === 'function';
   if (isParallelMode && isTriggerFn) throw new Error('Loop: Trigger function is not supported in parallel mode, only interval is supported');
@@ -51,9 +54,18 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
     return (tickCounter & (period - 1)) === 0;
   }
 
+  const destroyable: TDestroyable = destroyableMixin();
+
   const tickSub$: Subscription = enabled$
-    .pipe(switchMap((isEnabled: boolean): Subject<TDelta> | Observable<never> => (isEnabled && !isParallelMode && isTriggerFn ? tick$ : EMPTY)))
-    .subscribe((): number | void => (trigger as TLoopTriggerFn)((): void => tick$.next(deltaCalc!.update())));
+    .pipe(
+      switchMap((isEnabled: boolean): Subject<TDelta> | Observable<never> => (isEnabled && !isParallelMode && isTriggerFn ? tick$ : EMPTY)),
+      takeUntil(destroyable.destroy$)
+    )
+    .subscribe((): number | void => {
+      return (trigger as TLoopTriggerFn)((): void => {
+        if (!isDestroyed) tick$.next(deltaCalc!.update());
+      });
+    });
 
   const runInterval = (): number | never => {
     if (isParallelMode || isNotDefined(deltaCalc)) throw new Error('Loop: must not use "runInterval" in parallel mode (use worker instead)');
@@ -62,12 +74,17 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
 
   let intervalId: number | undefined;
 
-  const enableSub$: Subscription = enabled$.pipe(distinctUntilChanged()).subscribe((isEnabled: boolean): void => {
+  const enableSub$: Subscription = enabled$.pipe(distinctUntilChanged(), takeUntil(destroyable.destroy$)).subscribe((isEnabled: boolean): void => {
     if (isEnabled) {
       if (isTriggerFn) {
         tick$.next(0);
       } else {
-        if (isParallelMode && isDefined(worker)) worker.postMessage({ loopId: id, interval: trigger as number, action: LoopWorkerActions.Start } satisfies TLoopWorkerStartRequestData);
+        if (isParallelMode && isDefined(worker))
+          worker.postMessage({
+            loopId: id,
+            interval: trigger as number,
+            action: LoopWorkerActions.Start
+          } satisfies TLoopWorkerStartRequestData);
         if (!isParallelMode) intervalId = runInterval();
       }
     } else {
@@ -77,8 +94,8 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
     }
   });
 
-  const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    isDestroyed = true;
     destroySub$.unsubscribe();
     tickSub$.unsubscribe();
     enableSub$.unsubscribe();
@@ -103,18 +120,20 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
     tick$.unsubscribe();
   });
 
-  return {
-    id,
-    name,
-    tick$,
-    type,
-    triggerMode: isTriggerFn ? LoopTrigger.Function : LoopTrigger.Interval,
-    isParallelMode: isParallelMode ?? false,
-    trigger,
-    start: (): void => void enabled$.next(true),
-    stop: (): void => void enabled$.next(false),
-    enabled$,
-    shouldUpdateWithPriority,
-    ...destroyable
-  };
+  return Object.assign(
+    {
+      id,
+      name,
+      tick$,
+      type,
+      triggerMode: isTriggerFn ? LoopTrigger.Function : LoopTrigger.Interval,
+      isParallelMode: isParallelMode ?? false,
+      trigger,
+      start: (): void => void enabled$.next(true),
+      stop: (): void => void enabled$.next(false),
+      enabled$,
+      shouldUpdateWithPriority
+    },
+    destroyable
+  );
 }
