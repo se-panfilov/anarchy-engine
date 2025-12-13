@@ -1,14 +1,14 @@
 import type { TLocale, TLocaleId } from '@Anarchy/i18n';
 import { getLocaleByLocaleId, getPreferLocaleId } from '@Anarchy/i18n';
 import { AllowedSystemFolders } from '@Showcases/Desktop/Constants';
-import type { TFilesService, TSettingsService } from '@Showcases/Desktop/Models';
+import type { TSettingsService, TSettingsServiceDependencies } from '@Showcases/Desktop/Models';
 import { detectResolution } from '@Showcases/Desktop/Utils';
 import type { TShowcaseGameSettings } from '@Showcases/Shared';
 import { DefaultShowcaseGameSettings, isSettings, ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/Shared';
-import type { App } from 'electron';
+import type { App, BrowserWindow } from 'electron';
 
 // TODO DESKTOP: Add protection (allowed files list, name/extension checks, sanitization, etc)
-export function SettingsService(app: App, filesService: TFilesService): TSettingsService {
+export function SettingsService(app: App, { filesService, windowService }: TSettingsServiceDependencies): TSettingsService {
   const userDataFolder: AllowedSystemFolders = AllowedSystemFolders.UserData;
   const appSettingsFileName: string = 'user-config.json';
 
@@ -55,10 +55,20 @@ export function SettingsService(app: App, filesService: TFilesService): TSetting
     console.log(`[DESKTOP] Saved settings file ("${appSettingsFileName}") in : ${userDataFolder}`);
   }
 
-  function applyPlatformSettings(platformSettings: TShowcaseGameSettings): boolean {
-    console.log('[DESKTOP] (NOT IMPLEMENTED) Applying platform settings:', platformSettings);
-    // TODO DESKTOP: Apply platform-level settings (resolution, etc.)
-    // TODO DESKTOP: return true if app restart is needed
+  //Return true if app restart is needed
+  function applyPlatformSettings(settings: TShowcaseGameSettings): boolean {
+    console.log('[DESKTOP] Applying platform settings');
+    const window: BrowserWindow = windowService.getWindow();
+
+    console.log('XXX isFullScreenable', window.isFullScreenable());
+
+    const isFullScreen: boolean = window.isFullScreen() || window.isSimpleFullScreen();
+    if (isFullScreen !== Boolean(settings.graphics.isFullScreen)) {
+      // window.setFullScreen(Boolean(settings.graphics.isFullScreen));
+      window.setSimpleFullScreen(Boolean(settings.graphics.isFullScreen));
+    }
+
+    //Requires restart: app.disableHardwareAcceleration()
     return false;
   }
 

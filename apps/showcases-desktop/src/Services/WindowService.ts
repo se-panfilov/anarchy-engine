@@ -1,5 +1,6 @@
 import { existsSync } from 'node:fs';
 
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { TDesktopAppConfig, TWindowService } from '@Showcases/Desktop/Models';
 import { app, BrowserWindow, dialog } from 'electron';
 import { dirname, join } from 'path';
@@ -17,15 +18,16 @@ export const windowDefaultSettings: TDesktopAppConfig = {
 export function WindowService(): TWindowService {
   const __filename: string = fileURLToPath(import.meta.url);
   const __dirname: string = dirname(__filename);
+  let win: BrowserWindow | undefined;
 
   function getIndexHtmlPath(): string {
     const path: string = join(__dirname, 'dist-desktop', 'index.html');
 
     if (!existsSync(path)) {
       // TODO DESKTOP: can we log to the file?
-      const errMsg: string = `[DESKTOP][Window service]: index.html not found at: ${path}`;
+      const errMsg: string = `[DESKTOP] index.html not found at: ${path}`;
       console.error(errMsg);
-      dialog.showErrorBox('[DESKTOP][Window service]: Startup Error', errMsg);
+      dialog.showErrorBox('[DESKTOP] Startup Error', errMsg);
       app.quit();
     }
 
@@ -33,7 +35,7 @@ export function WindowService(): TWindowService {
   }
 
   function createWindow(width: number, height: number, { isOpenDevTools, showInstantly, isBorderless, isResizable, isFullScreenable, isFullScreen }: TDesktopAppConfig): BrowserWindow {
-    const win: BrowserWindow = new BrowserWindow({
+    win = new BrowserWindow({
       ...windowDefaultSettings,
       width,
       height,
@@ -65,5 +67,13 @@ export function WindowService(): TWindowService {
     return win;
   }
 
-  return { getIndexHtmlPath, createWindow };
+  return {
+    createWindow,
+    findWindow: (): BrowserWindow | undefined => win,
+    getIndexHtmlPath,
+    getWindow: (): BrowserWindow | never => {
+      if (isNotDefined(win)) throw new Error('[DESKTOP] Window is not defined');
+      return win;
+    }
+  };
 }

@@ -4,4 +4,5 @@ export type * from './TDocsService';
 export type * from './TFilesService';
 export type * from './THandleRequestDependencies';
 export type * from './TSettingsService';
+export type * from './TSettingsServiceDependencies';
 export type * from './TWindowService';
