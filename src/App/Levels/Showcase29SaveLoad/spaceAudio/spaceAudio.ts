@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 
-import type { TAudio3dWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import type { TAudio3dWrapper, TDebugAudioRenderer, TSpace, TSpaceConfig } from '@/Engine';
 import { DebugAudioRenderer } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
@@ -8,6 +8,9 @@ import { addModel3dToScene, getContainer } from '../utils';
 import spaceConfig from './spaceAudio.json';
 
 const config: TSpaceConfig = spaceConfig as TSpaceConfig;
+
+const soundName: string = 'gunshot_1';
+let renderer: TDebugAudioRenderer | undefined;
 
 // TODO 15-0-0: make sure that Camera saves audioListener and load it again
 export const spaceAudioData: TSpacesData = {
@@ -17,10 +20,17 @@ export const spaceAudioData: TSpacesData = {
   awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
   onCreate: (space: TSpace): void | never => {
     addModel3dToScene(space, 'surface_model');
-    const gunshot1: TAudio3dWrapper = space.services.audioService.getRegistry().getByName('gunshot_1') as TAudio3dWrapper;
-    DebugAudioRenderer(gunshot1, space.services.scenesService.getActive(), space.loops.audioLoop);
+    const sound: TAudio3dWrapper = space.services.audioService.getRegistry().getByName(soundName) as TAudio3dWrapper;
+    renderer = DebugAudioRenderer(sound, space.services.scenesService.getActive(), space.loops.audioLoop);
   },
   onChange: (space: TSpace): void => {
-    // space.services.actorService.getRegistry().getByName('sphere_actor').drive.default.setX(10);
+    const sound: TAudio3dWrapper = space.services.audioService.getRegistry().getByName(soundName) as TAudio3dWrapper;
+    sound.entity.setMaxDistance(15);
+    sound.seek$.next(sound.seek$.getValue() + 1);
+    sound.speed$.next(sound.speed$.getValue() + 1);
+    sound.volume$.next(sound.volume$.getValue() - 0.5);
+    renderer?.enabled$?.next(false);
+    renderer = DebugAudioRenderer(sound, space.services.scenesService.getActive(), space.loops.audioLoop);
+    sound.drive.default.setX(10);
   }
 };
