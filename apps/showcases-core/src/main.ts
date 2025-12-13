@@ -28,6 +28,9 @@ BrowserTrackingService({
   release: import.meta.env.__APP_VERSION__
 });
 
+// TODO DESKTOP: DEBUG ERROR
+(window as any).myUndefinedFunction();
+
 // TODO MOBILE: Detect user locale in mobile app and send it to the app settings (menu)
 
 setBrowserSafeguards(window);

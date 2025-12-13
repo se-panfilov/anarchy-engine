@@ -47,5 +47,3 @@ export function BrowserTrackingService(options?: BrowserOptions): TTrackingServi
     captureException
   };
 }
-
-(window as any).myUndefinedFunction();
