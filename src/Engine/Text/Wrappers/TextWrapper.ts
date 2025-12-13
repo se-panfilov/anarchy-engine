@@ -6,20 +6,25 @@ import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { AbstractWrapper } from '@/Engine/Abstract';
 import { withMoveBy3dMixin, withObject3d, withRotationByXyzMixin, withScaleMixin } from '@/Engine/Mixins';
 import { RelatedEntityAttribute, TextCssClass, TextType } from '@/Engine/Text/Constants';
-import type { TTextParams, TTextWrapper } from '@/Engine/Text/Models';
+import type { TTextDependencies, TTextParams, TTextWrapper } from '@/Engine/Text/Models';
+import { TextTransformDrive } from '@/Engine/Text/TransformDrive';
 import { getCssAccessors } from '@/Engine/Text/Wrappers/Accessors';
 import { applyHtmlElementParams, getWrapperTypeByTextType } from '@/Engine/Text/Wrappers/TextWrapperHelper';
-import { applyCenter, applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
+import type { TTransformDrive } from '@/Engine/TransformDrive';
+import { applyCenter, applyObject3dParams, isDefined } from '@/Engine/Utils';
 
-export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: TTextParams, type: TextType): TTextWrapper<T> {
+export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: TTextParams, type: TextType, { kinematicLoopService }: TTextDependencies): TTextWrapper<T> {
   const element: HTMLElement = document.createElement(params.elementType || 'div');
   // eslint-disable-next-line functional/immutable-data
   element.textContent = params.text;
   const entity: T = createText(type, element) as T;
 
+  const drive: TTransformDrive = TextTransformDrive(params, kinematicLoopService);
+
   const result: TTextWrapper<T> = {
-    type,
     ...AbstractWrapper(entity, getWrapperTypeByTextType(type), params),
+    type,
+    drive,
     ...getCssAccessors(element),
     ...withMoveBy3dMixin(entity),
     ...withRotationByXyzMixin(entity),
@@ -38,10 +43,7 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: T
   result.setText(params.text);
   if (isDefined(params.cssProps)) applyHtmlElementParams(result, params.cssProps, type === TextType.Text2d ? TextCssClass.Text2d : TextCssClass.Text3d);
   applyObject3dParams(result, params);
-  applyPosition(result, params.position);
   if (type === TextType.Text2d) applyCenter(entity as CSS2DObject, params.center);
-  applyRotation(result, params.rotation);
-  if (isDefined(params.scale)) applyScale(result, params.scale);
 
   return result;
 }

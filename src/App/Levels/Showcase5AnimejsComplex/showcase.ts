@@ -19,7 +19,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const { text2dRegistry } = textService.getRegistries();
 
     controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
-    cameraRegistry.getAll()[0]?.setPosition(new Vector3(6, 30, 0));
+    cameraRegistry.getAll()[0]?.drive.position$.next(new Vector3(6, 30, 0));
 
     const redActor: TActor | undefined = actorRegistry.findByTag('red');
     const blueActor: TActor | undefined = actorRegistry.findByTag('blue');

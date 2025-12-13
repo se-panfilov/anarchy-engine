@@ -35,6 +35,8 @@ export function Actor(
   // TODO 8.0.0. MODELS: In showcase validate also rotation and scale
   // TODO 8.0.0. MODELS: In showcase check spatial and collisions
 
+  // TODO 8.0.0. MODELS: Make sure text (all types of) can use kinematic agent
+
   // TODO 8.0.0. MODELS: Make sure that on creation of Actor we apply actor's position$/rotation$/scale$ to model3d
 
   const entities: TActorEntities = {

@@ -4,10 +4,12 @@ import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TColor } from '@/Engine/Color';
 import type { TWithMaterial } from '@/Engine/Material';
 import { isPointsMaterial, withMaterial } from '@/Engine/Material';
-import { withMoveBy3dMixin, withObject3d, withRotationByXyzMixin, withScaleMixin } from '@/Engine/Mixins';
+import { withObject3d } from '@/Engine/Mixins';
 import type { TParticlesParams, TParticlesWrapper } from '@/Engine/Particles/Models';
+import { ParticlesTransformDrive } from '@/Engine/Particles/TransformDrive';
 import type { TBufferGeometry, TPoints } from '@/Engine/ThreeLib';
-import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
+import type { TTransformDrive } from '@/Engine/TransformDrive';
+import { applyObject3dParams } from '@/Engine/Utils';
 
 export function ParticlesWrapper(params: TParticlesParams): TParticlesWrapper {
   const geometry: TBufferGeometry = new BufferGeometry();
@@ -26,11 +28,11 @@ export function ParticlesWrapper(params: TParticlesParams): TParticlesWrapper {
   const setIndividualPositions = (positions: Float32Array): void => void geometry.setAttribute('position', new BufferAttribute(positions, 3));
   const getIndividualPositions = (): Float32Array => geometry.getAttribute('position').array as Float32Array;
 
+  const drive: TTransformDrive = ParticlesTransformDrive(params);
+
   const result = {
     ...AbstractWrapper(entity, WrapperType.Particles, params),
-    ...withMoveBy3dMixin(entity),
-    ...withRotationByXyzMixin(entity),
-    ...withScaleMixin(entity),
+    drive,
     ...withObject3d(entity),
     ...withMaterialEntity,
     setMaterialColor,
@@ -42,9 +44,6 @@ export function ParticlesWrapper(params: TParticlesParams): TParticlesWrapper {
     entity
   };
 
-  applyPosition(result, params.position);
-  applyRotation(result, params.rotation);
-  if (isDefined(params.scale)) applyScale(result, params.scale);
   applyObject3dParams(result, params);
 
   return result;

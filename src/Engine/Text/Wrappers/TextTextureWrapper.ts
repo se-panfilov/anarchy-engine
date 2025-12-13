@@ -1,13 +1,15 @@
 import { LinearFilter, Mesh, MeshBasicMaterial, PlaneGeometry, Texture } from 'three';
 
 import { AbstractWrapper } from '@/Engine/Abstract';
-import { withMoveBy3dMixin, withObject3d, withRotationByXyzMixin, withScaleMixin } from '@/Engine/Mixins';
+import { withObject3d } from '@/Engine/Mixins';
 import type { TextType } from '@/Engine/Text/Constants';
-import type { TTextParams, TTextTextureWrapper } from '@/Engine/Text/Models';
+import type { TTextDependencies, TTextParams, TTextTextureWrapper } from '@/Engine/Text/Models';
+import { TextTransformDrive } from '@/Engine/Text/TransformDrive';
 import { getWrapperTypeByTextType } from '@/Engine/Text/Wrappers/TextWrapperHelper';
-import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined, isNotDefined } from '@/Engine/Utils';
+import type { TTransformDrive } from '@/Engine/TransformDrive';
+import { applyObject3dParams, isNotDefined } from '@/Engine/Utils';
 
-export function createTextTextureWrapper(params: TTextParams, type: TextType): TTextTextureWrapper<Mesh> {
+export function createTextTextureWrapper(params: TTextParams, type: TextType, { kinematicLoopService }: TTextDependencies): TTextTextureWrapper<Mesh> {
   const canvas: HTMLCanvasElement = document.createElement('canvas');
   const context: CanvasRenderingContext2D = canvas.getContext('2d')!;
 
@@ -65,12 +67,12 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType): T
     entity.geometry = new PlaneGeometry(newGeometryWidth, newGeometryHeight);
   }
 
+  const drive: TTransformDrive = TextTransformDrive(params, kinematicLoopService);
+
   const result: TTextTextureWrapper<Mesh> = {
-    type,
     ...AbstractWrapper(entity, getWrapperTypeByTextType(type), params),
-    ...withMoveBy3dMixin(entity),
-    ...withRotationByXyzMixin(entity),
-    ...withScaleMixin(entity),
+    type,
+    drive,
     ...withObject3d(entity),
     getElement: () => canvas,
     setText
@@ -78,9 +80,6 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType): T
 
   setText(params.text);
   applyObject3dParams(result, params);
-  applyPosition(result, params.position);
-  applyRotation(result, params.rotation);
-  if (isDefined(params.scale)) applyScale(result, params.scale);
 
   return result;
 }

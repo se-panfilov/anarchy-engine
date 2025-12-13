@@ -1,5 +1,5 @@
-import type { TParamsFromConfig, TReactiveFactory } from '@/Engine/Abstract';
+import type { TParamsFromConfig, TReactiveFactoryWithDependencies } from '@/Engine/Abstract';
 import type { TDestroyable } from '@/Engine/Mixins';
-import type { TTextAnyWrapper, TTextConfig, TTextParams } from '@/Engine/Text/Models';
+import type { TTextAnyWrapper, TTextConfig, TTextDependencies, TTextParams } from '@/Engine/Text/Models';
 
-export type TTextFactory = TReactiveFactory<TTextAnyWrapper, TTextParams> & TParamsFromConfig<TTextConfig, TTextParams> & TDestroyable;
+export type TTextFactory = TReactiveFactoryWithDependencies<TTextAnyWrapper, TTextParams, TTextDependencies> & TParamsFromConfig<TTextConfig, TTextParams> & TDestroyable;

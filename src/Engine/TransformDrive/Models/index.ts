@@ -18,3 +18,5 @@ export * from './TWithMutablePositionConnector';
 export * from './TWithMutableRotationConnector';
 export * from './TWithMutableScaleConnector';
 export * from './TWithPhysicsProtectedAgent';
+export * from './TWithTransformAgentParam';
+export * from './TWithTransformDrive';

@@ -1,8 +1,7 @@
-import type { Euler, Vector2 } from 'three';
+import type { Vector2 } from 'three';
 import type { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
-import type { Vector3 } from 'three/src/math/Vector3';
 
-import type { TMovableXYZ, TRotatable, TScaleMixin, TWithObject3d } from '@/Engine/Mixins';
+import type { TWithObject3d } from '@/Engine/Mixins';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils/index';
 
@@ -14,18 +13,6 @@ export function applyObject3dParams(obj: TWithObject3d, { visible, castShadow, r
   if (isDefined(renderOrder)) obj.setRenderOrder(renderOrder);
 }
 
-export function applyPosition(obj: TMovableXYZ, position?: Vector3): void {
-  if (isDefined(position)) obj.setPosition(position.clone());
-}
-
 export function applyCenter(obj: CSS2DObject, center?: Vector2): void {
   if (isDefined(center)) obj.center.set(center.x, center.y);
-}
-
-export function applyRotation(obj: TRotatable, rotation?: Euler): void {
-  if (isDefined(rotation)) obj.setRotation(rotation.x, rotation.y, rotation.z);
-}
-
-export function applyScale(obj: TScaleMixin, scale?: Vector3): void {
-  if (isDefined(scale)) obj.setScale(scale.x, scale.y, scale.z);
 }

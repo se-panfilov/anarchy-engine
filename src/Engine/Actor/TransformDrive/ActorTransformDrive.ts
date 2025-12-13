@@ -1,19 +1,18 @@
 import { Vector3 } from 'three';
 
 import type { TActorParams } from '@/Engine/Actor/Models';
-import type { TKinematicData, TKinematicDataParams, TKinematicLoopService } from '@/Engine/Kinematic';
+import type { TKinematicLoopService } from '@/Engine/Kinematic';
 import type {
   TConnectedTransformAgent,
   TDefaultTransformAgent,
   TKinematicTransformAgent,
-  TKinematicTransformAgentParams,
   TPhysicsTransformAgent,
   TTransformAgentParams,
   TTransformAgents,
   TTransformDrive,
   TTransformDriveParams
 } from '@/Engine/TransformDrive';
-import { ConnectedTransformAgent, DefaultTransformAgent, KinematicTransformAgent, PhysicsTransformAgent, TransformAgent, TransformDrive } from '@/Engine/TransformDrive';
+import { ConnectedTransformAgent, DefaultTransformAgent, getKinematicTransformAgent, PhysicsTransformAgent, TransformAgent, TransformDrive } from '@/Engine/TransformDrive';
 
 export function ActorTransformDrive(params: TActorParams, kinematicLoopService: TKinematicLoopService): TTransformDrive {
   const transformAgents: TTransformAgents = getTransformAgents(params, kinematicLoopService);
@@ -32,21 +31,5 @@ function getTransformAgents(params: TActorParams, kinematicLoopService: TKinemat
     [TransformAgent.Physical]: physicsTransformAgent,
     [TransformAgent.Connected]: connectedTransformAgent,
     [TransformAgent.Default]: defaultTransformAgent
-  };
-}
-
-function getKinematicTransformAgent(params: TTransformAgentParams, kinematic: TKinematicDataParams | undefined, kinematicLoopService: TKinematicLoopService): TKinematicTransformAgent {
-  const agentParams: TTransformAgentParams = { position: params.position, rotation: params.rotation, scale: params.scale ?? new Vector3(1, 1, 1) };
-  const kinematicData: TKinematicData = getKinematicWithDefaults(kinematic);
-  const kinematicAgentParams: TKinematicTransformAgentParams = { ...agentParams, ...kinematicData, isAutoUpdate: kinematic?.isAutoUpdate ?? true };
-  return KinematicTransformAgent(kinematicAgentParams, kinematicLoopService);
-}
-
-function getKinematicWithDefaults(kinematic: TKinematicDataParams | undefined): TKinematicData {
-  return {
-    linearSpeed: kinematic?.linearSpeed ?? 0,
-    linearDirection: kinematic?.linearDirection ?? new Vector3(),
-    angularSpeed: kinematic?.angularSpeed ?? 0,
-    angularDirection: kinematic?.angularDirection ?? new Vector3()
   };
 }

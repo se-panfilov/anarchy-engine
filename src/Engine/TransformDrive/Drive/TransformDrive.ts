@@ -7,7 +7,7 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import { ProtectedTransformAgentFacade } from '@/Engine/TransformDrive/Facades';
-import type { TAbstractTransformAgent, TProtectedTransformAgentFacade, TProtectedTransformAgents, TTransformAgents, TTransformDrive, TTransformDriveParams } from '@/Engine/TransformDrive/Models';
+import type { TAbstractTransformAgent, TProtectedTransformAgentFacade, TProtectedTransformAgents, TTransformDrive, TTransformDriveParams } from '@/Engine/TransformDrive/Models';
 import { isEqualOrSimilarVector3Like, isNotDefined } from '@/Engine/Utils';
 
 // TransformDrive is an entity to move/rotate/scale other entities
@@ -16,13 +16,20 @@ import { isEqualOrSimilarVector3Like, isNotDefined } from '@/Engine/Utils';
 // - Kinematic agent is a mode that moves actor by angular velocity and linear velocity (vectors). Useful when you need to know the direction (e.g. bullet, car) of the object. Recommended way for NPCs.
 // - Default agent is providing almost nothing, but setters. Recommended for static objects.
 // - Also: with every mode you can do position$.next() to "teleport" the object to the new position
-export function TransformDrive(params: TTransformDriveParams, agents: TTransformAgents): TTransformDrive | never {
+export function TransformDrive(params: TTransformDriveParams, agents: Partial<Record<TransformAgent, TAbstractTransformAgent>>): TTransformDrive | never {
   const agent$: BehaviorSubject<TransformAgent> = new BehaviorSubject<TransformAgent>(params.activeAgent ?? TransformAgent.Default);
-  const activeAgent$: BehaviorSubject<TAbstractTransformAgent> = new BehaviorSubject(agents[agent$.value]);
 
-  if (isNotDefined(activeAgent$.value)) throw new Error(`Agent "${activeAgent$.value}" is not defined`);
+  const activeAgent: TAbstractTransformAgent | undefined = agents[agent$.value];
+  if (isNotDefined(activeAgent)) throw new Error(`TransformDrive: Can't set an active agent. Agent "${agent$.value}" is not defined`);
+  const activeAgent$: BehaviorSubject<TAbstractTransformAgent> = new BehaviorSubject(activeAgent);
 
-  const agentSub$: Subscription = agent$.subscribe((agent: TransformAgent): void => activeAgent$.next(agents[agent]));
+  if (isNotDefined(activeAgent$.value)) throw new Error(`TransformDrive: Active agent ("${activeAgent$.value}") is not defined`);
+
+  const agentSub$: Subscription = agent$.subscribe((agent: TransformAgent): void => {
+    const newAgent: TAbstractTransformAgent | undefined = agents[agent];
+    if (isNotDefined(newAgent)) throw new Error(`TransformDrive: Can't change an active agent for "${agent}": not defined`);
+    activeAgent$.next(newAgent);
+  });
 
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(activeAgent$.value.position$.value);
   const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(activeAgent$.value.rotation$.value);
@@ -131,6 +138,6 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
   return result;
 }
 
-function getDynamicAgents(agents: TTransformAgents): TProtectedTransformAgents {
+function getDynamicAgents(agents: Partial<Record<TransformAgent, TAbstractTransformAgent>>): TProtectedTransformAgents {
   return Object.fromEntries(Object.entries(agents).map((v) => [v[0], ProtectedTransformAgentFacade(v[1])])) as TProtectedTransformAgents;
 }

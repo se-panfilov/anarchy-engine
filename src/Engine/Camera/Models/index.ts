@@ -7,6 +7,7 @@ export * from './TCameraParams';
 export * from './TCameraProps';
 export * from './TCameraRegistry';
 export * from './TCameraService';
+export * from './TCameraTransformAgents';
 export * from './TCameraWrapper';
 export * from './TOrthographicCamera';
 export * from './TPerspectiveCamera';

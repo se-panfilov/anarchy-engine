@@ -33,7 +33,7 @@ export function createFlashLight(lightService: TLightService, position: Vector3,
     tags: ['flashlight']
   }) as TPointLightWrapper;
 
-  light.setPosition(position);
+  light.drive.position$.next(position);
 
   return light;
 }

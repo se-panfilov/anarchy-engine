@@ -1,3 +1,4 @@
-import type { TMovableXYZ, TRotatable, TScaleMixin, TWithObject3d, TWithTagsMixin } from '@/Engine/Mixins';
+import type { TWithObject3d, TWithTagsMixin } from '@/Engine/Mixins';
+import type { TWithTransformDrive } from '@/Engine/TransformDrive';
 
-export type TAbstractTextWrapper = Readonly<{ getElement: () => HTMLElement }> & TMovableXYZ & TRotatable & TScaleMixin & TWithObject3d & TWithTagsMixin;
+export type TAbstractTextWrapper = Readonly<{ getElement: () => HTMLElement }> & TWithTransformDrive & TWithObject3d & TWithTagsMixin;

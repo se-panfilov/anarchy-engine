@@ -39,7 +39,7 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
     const y: number = currentDistance * Math.cos(currentPolarAngle);
     const z: number = currentDistance * Math.sin(currentPolarAngle) * Math.cos(currentAzimuthalAngle);
 
-    params.camera.setPosition(new Vector3(x + position.x, y + position.y, z + position.z));
+    params.camera.drive.position$.next(new Vector3(x + position.x, y + position.y, z + position.z));
     result.setTarget(position);
   }
 

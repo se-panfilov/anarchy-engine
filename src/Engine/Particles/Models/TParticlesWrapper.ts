@@ -1,13 +1,12 @@
 import type { TWrapper } from '@/Engine/Abstract';
 import type { TColor } from '@/Engine/Color';
 import type { TWithMaterial } from '@/Engine/Material';
-import type { TMovableXYZ, TRotatable, TScaleMixin, TWithObject3d } from '@/Engine/Mixins';
+import type { TWithObject3d } from '@/Engine/Mixins';
 import type { TPoints } from '@/Engine/ThreeLib';
+import type { TWithTransformDrive } from '@/Engine/TransformDrive';
 
 export type TParticlesWrapper = TWrapper<TPoints> &
-  TMovableXYZ &
-  TRotatable &
-  TScaleMixin &
+  TWithTransformDrive &
   TWithObject3d &
   TWithMaterial &
   Readonly<{

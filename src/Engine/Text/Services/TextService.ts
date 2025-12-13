@@ -17,6 +17,7 @@ import type {
   TText3dTextureRegistry,
   TTextAnyWrapper,
   TTextConfig,
+  TTextDependencies,
   TTextFactory,
   TTextParams,
   TTextService
@@ -31,6 +32,7 @@ export function TextService(
   text3dTextureRegistry: TText3dTextureRegistry,
   text2dRendererRegistry: TText2dRendererRegistry,
   text3dRendererRegistry: TText3dRendererRegistry,
+  dependencies: TTextDependencies,
   scene: TSceneWrapper
 ): TTextService {
   merge(text2dRegistry.added$, text3dRegistry.added$, text3dTextureRegistry.added$).subscribe(({ value }: TRegistryPack<TTextAnyWrapper>) => scene.addText(value));
@@ -42,7 +44,7 @@ export function TextService(
     else throw new Error(`TextService. EntityCreated: Unknown text type "${(text as any).type ? (text as any).type : ''}"`);
   });
 
-  const create = (params: TTextParams): TTextAnyWrapper => factory.create(params);
+  const create = (params: TTextParams): TTextAnyWrapper => factory.create(params, dependencies);
   const createFromConfig = (texts: ReadonlyArray<TTextConfig>): ReadonlyArray<TTextAnyWrapper> => texts.map((text: TTextConfig): TTextAnyWrapper => create(factory.configToParams(text)));
 
   const destroyable: TDestroyable = destroyableMixin();
