@@ -1,9 +1,10 @@
 import type { TVueTranslationService } from '@Showcases/i18n';
-import { showcasesTranslationService } from '@Showcases/i18n';
 import type { Observable, Subscription } from 'rxjs';
 import { filter } from 'rxjs';
 import type { ShallowRef } from 'vue';
 import { onBeforeUnmount, onMounted, shallowRef } from 'vue';
+
+import { showcasesTranslationService } from './ShowcasesTranslationService';
 
 export function VueTranslationService(): TVueTranslationService {
   const isReadyPromise: Promise<void> = new Promise<void>((resolve, reject): void => {
