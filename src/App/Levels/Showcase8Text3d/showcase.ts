@@ -21,13 +21,13 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
 
-  const planeModel3dF: TModel3d | undefined = models3dRegistry.findByName('surface_model');
-  if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');
-  const sphereModel3dF: TModel3d | undefined = models3dRegistry.findByName('sphere_model');
-  if (isNotDefined(sphereModel3dF)) throw new Error('Sphere model is not defined');
+  const planeModel3d: TModel3d | undefined = models3dRegistry.findByName('surface_model');
+  if (isNotDefined(planeModel3d)) throw new Error('Plane model is not defined');
+  const sphereModel3d: TModel3d | undefined = models3dRegistry.findByName('sphere_model');
+  if (isNotDefined(sphereModel3d)) throw new Error('Sphere model is not defined');
 
-  sceneW.addModel3d(planeModel3dF);
-  sceneW.addModel3d(sphereModel3dF);
+  sceneW.addModel3d(planeModel3d);
+  sceneW.addModel3d(sphereModel3d);
 
   textService.create({
     type: TextType.Text3d,

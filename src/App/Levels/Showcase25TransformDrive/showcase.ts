@@ -87,8 +87,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
     if (isNotDefined(grid)) throw new Error('Grid is not defined');
 
-    const planeModel3dF: TModel3d | undefined = models3dRegistry.findByName('surface_model');
-    if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');
+    const planeModel3d: TModel3d | undefined = models3dRegistry.findByName('surface_model');
+    if (isNotDefined(planeModel3d)) throw new Error('Plane model is not defined');
 
     const camera: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
@@ -115,7 +115,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     console.log('Click "space" to change actor movement mode ("agent")');
 
-    sceneW.addModel3d(planeModel3dF);
+    sceneW.addModel3d(planeModel3d);
 
     const actorCoords = new Vector3(0, actorsOffsetY, 0);
     const sphereActorPhysics: TWithPresetNamePhysicsBodyParams = {

@@ -32,12 +32,12 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const lightRegistry: TLightRegistry = lightService.getRegistry();
   const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
 
-  const planeModel3dF: TModel3d | undefined = models3dRegistry.findByName('surface_model');
-  if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');
+  const planeModel3d: TModel3d | undefined = models3dRegistry.findByName('surface_model');
+  if (isNotDefined(planeModel3d)) throw new Error('Plane model is not defined');
 
   const sceneW: TSceneWrapper | undefined = scenesService.findActive();
   if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
-  sceneW.addModel3d(planeModel3dF);
+  sceneW.addModel3d(planeModel3d);
 
   function init(): void {
     const scene: TSceneWrapper | undefined = scenesService.findActive();

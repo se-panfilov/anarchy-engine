@@ -21,7 +21,7 @@ export async function buildTower(
   const materialW = materialService.create({ name: 'building_block_material', type: MaterialType.Standard, options: { color: '#8FAA8F' } });
 
   const result: ReadonlyArray<TActorWithPhysics> = blocks.map((block: TBuidingBlock): TActorWithPhysics => {
-    const model3dF: TModel3d = models3dService.create({
+    const model3d: TModel3d = models3dService.create({
       name: `block_${block.position.x}_${block.position.y}_${block.position.z}_model3d`,
       model3dSource: PrimitiveModel3dType.Cube,
       animationsSource: [],
@@ -41,7 +41,7 @@ export async function buildTower(
 
     return actorService.create({
       name: `block_${block.position.x}_${block.position.y}_${block.position.z}_actor`,
-      model3dSource: model3dF,
+      model3dSource: model3d,
       physics: {
         type: RigidBodyTypesNames.Dynamic,
         collisionShape: CollisionShape.Cuboid,

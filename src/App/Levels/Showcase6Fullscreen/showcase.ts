@@ -19,10 +19,10 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
 
-    const planeModel3dF: TModel3d | undefined = models3dRegistry.findByName('surface_model');
-    if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');
+    const planeModel3d: TModel3d | undefined = models3dRegistry.findByName('surface_model');
+    if (isNotDefined(planeModel3d)) throw new Error('Plane model is not defined');
 
-    sceneW.addModel3d(planeModel3dF);
+    sceneW.addModel3d(planeModel3d);
 
     const actor: TActor | undefined = actorRegistry.findByName('sphere_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not found');

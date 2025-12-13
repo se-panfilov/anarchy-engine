@@ -54,7 +54,7 @@ export function getBulletsPool(
   for (let i: number = 0; i < count; i++) {
     const id: string = nanoid();
 
-    const model3dF: TModel3d = models3dService.create({
+    const model3d: TModel3d = models3dService.create({
       name: `bullet_${i}_${id}_model3d`,
       model3dSource: PrimitiveModel3dType.Cube,
       animationsSource: [],
@@ -76,7 +76,7 @@ export function getBulletsPool(
       BulletAsync(
         {
           name: `bullet_${i}_${id}_actor`,
-          model3dSource: model3dF,
+          model3dSource: model3d,
           position: new Vector3(),
           rotation: new Euler(0, 1.57, 0),
           spatial: { grid, isAutoUpdate: true, updatePriority: SpatialUpdatePriority.ASAP },
