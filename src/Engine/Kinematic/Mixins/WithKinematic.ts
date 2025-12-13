@@ -31,6 +31,7 @@ export function withKinematic(
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe((): void => {
     if (isDefined(kinematicSub$)) kinematicSub$.unsubscribe();
+    drive$.unsubscribe();
     position$.unsubscribe();
     position$.complete();
     rotation$.unsubscribe();
