@@ -75,38 +75,39 @@ export function CollisionsService(): TCollisionsService {
   // TODO should be possible to check collisions against another grid
   function checkCollisions(actorW: TActorWrapperAsync, radius: number, actorsToCheck: ReadonlyArray<TActorWrapperAsync>, steps: number = 10): TCollisionCheckResult | undefined {
     const previousPosition = actorW.entity.position.clone();
-    const currentPosition = previousPosition.clone().add(actorW.kinematic.getLinearDirection().multiplyScalar(radius));
+    const direction = actorW.kinematic.getLinearDirection().normalize();
+    const movementLength = direction.length() * radius;
+    const currentPosition = previousPosition.clone().addScaledVector(direction, movementLength);
+    const stepLength = movementLength / steps;
+    const stepVector = direction.clone().multiplyScalar(stepLength);
 
-    const stepVector = currentPosition.clone().sub(previousPosition).divideScalar(steps);
-    const interpolatedPosition = new Vector3();
-    const nextInterpolatedPosition = new Vector3();
     const raycaster = new Raycaster();
     raycaster.firstHitOnly = true;
+    const capsule = createCapsule(previousPosition, currentPosition, radius);
 
-    // eslint-disable-next-line functional/no-loop-statements
+    const tempRayOrigin = new Vector3();
+    const nextPosition = new Vector3();
+
     for (let i = 0; i < steps; i++) {
-      interpolatedPosition.copy(previousPosition).add(stepVector.clone().multiplyScalar(i));
-      nextInterpolatedPosition.copy(previousPosition).add(stepVector.clone().multiplyScalar(i + 1));
+      tempRayOrigin.copy(previousPosition).addScaledVector(stepVector, i);
+      nextPosition.copy(tempRayOrigin).add(stepVector);
+      raycaster.set(tempRayOrigin, direction);
 
-      const capsule: TCapsule = createCapsule(interpolatedPosition, nextInterpolatedPosition, radius);
-
-      // eslint-disable-next-line functional/no-loop-statements
       for (const object of actorsToCheck) {
-        if (object.id !== actorW.id) {
-          raycaster.set(interpolatedPosition, actorW.kinematic.getLinearDirection());
-          const intersects: Array<Intersection> = [];
-          bvhService.raycastWithBvh(object, raycaster, intersects);
+        if (object.id === actorW.id) continue;
 
-          // eslint-disable-next-line functional/no-loop-statements
-          for (const intersect of intersects) {
-            if (capsule.containsPoint(intersect.point)) {
-              return {
-                object,
-                distance: intersect.distance,
-                collisionPoint: intersect.point,
-                bulletPosition: nextInterpolatedPosition.clone()
-              };
-            }
+        const intersects: Array<Intersection> = [];
+        bvhService.raycastWithBvh(object, raycaster, intersects);
+
+        if (intersects.length > 0) {
+          const intersect = intersects[0];
+          if (capsule.containsPoint(intersect.point)) {
+            return {
+              object,
+              distance: intersect.distance,
+              collisionPoint: intersect.point,
+              bulletPosition: nextPosition.clone()
+            };
           }
         }
       }
