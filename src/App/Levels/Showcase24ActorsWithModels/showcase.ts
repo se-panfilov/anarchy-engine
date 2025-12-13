@@ -33,18 +33,29 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const solderModel3d: TModel3d | undefined = models3dService.getRegistry().findByName('solder_model_entity');
     if (isNotDefined(solderModel3d)) throw new Error(`Model "solder_model_entity" doesn't exist in the registry`);
     const actions = animationsService.startAutoUpdateMixer(solderModel3d).actions;
-    const runAction = actions['Run'];
-    const walkAction = actions['Walk'];
-    const idleAction = actions['Idle'];
+
+    enum AnimationActions {
+      Run = 'Run',
+      Walk = 'Walk',
+      Idle = 'Idle'
+      // TPose = 'TPose'
+    }
+
+    const runAction = actions[AnimationActions.Run];
+    const walkAction = actions[AnimationActions.Walk];
+    const idleAction = actions[AnimationActions.Idle];
     // const tPoseAction = actions['TPose'];
 
     const solderAnimFsm: TAnimationsFsmWrapper = animationsFsmService.create({
       id: 'solder_animation_fsm',
-      initial: 'idle',
+      initial: AnimationActions.Idle,
       states: {
-        idle: { on: { WALK: 'walk', RUN: 'run' } },
-        walk: { on: { IDLE: 'idle', RUN: 'run' } },
-        run: { on: { IDLE: 'idle', WALK: 'walk' } }
+        // Idle: { on: { Walk: 'Walk', Run: 'Run' } },
+        // Walk: { on: { Idle: 'Idle', Run: 'Run' } },
+        // Run: { on: { Idle: 'Idle', Walk: 'Walk' } }
+        [AnimationActions.Idle]: { on: { [AnimationActions.Walk]: AnimationActions.Walk, [AnimationActions.Run]: AnimationActions.Run } },
+        [AnimationActions.Walk]: { on: { [AnimationActions.Idle]: AnimationActions.Idle, [AnimationActions.Run]: AnimationActions.Run } },
+        [AnimationActions.Run]: { on: { [AnimationActions.Idle]: AnimationActions.Idle, [AnimationActions.Walk]: AnimationActions.Walk } }
       }
     });
 
@@ -59,16 +70,15 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       if (prev === state.value) return;
       prev = state.value;
 
-      console.log('XXX state', state.value);
-      if (state.matches('idle')) {
+      if (state.matches(AnimationActions.Idle)) {
         walkAction.fadeOut(fadeDuration);
         runAction.fadeOut(fadeDuration);
         idleAction.reset().fadeIn(fadeDuration).play();
-      } else if (state.matches('walk')) {
+      } else if (state.matches(AnimationActions.Walk)) {
         idleAction.fadeOut(fadeDuration);
         runAction.fadeOut(fadeDuration);
         walkAction.reset().fadeIn(fadeDuration).play();
-      } else if (state.matches('run')) {
+      } else if (state.matches(AnimationActions.Run)) {
         idleAction.fadeOut(fadeDuration);
         walkAction.fadeOut(fadeDuration);
         runAction.reset().fadeIn(fadeDuration).play();
@@ -78,10 +88,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     let isRunning: boolean = false;
 
     onKey(KeyCode.W).pressing$.subscribe((): void => {
-      // if (isKeyPressed(KeysExtra.Shift)) return;
-      const type = isRunning ? 'RUN' : 'WALK';
-      console.log('XXX', type);
-      if (solderActor.states.animationsFsm?.getSnapshot().value !== type.toLocaleLowerCase()) solderActor.states.animationsFsm?.send({ type });
+      const type = isRunning ? AnimationActions.Run : AnimationActions.Walk;
+      if (solderActor.states.animationsFsm?.getSnapshot().value !== type) solderActor.states.animationsFsm?.send({ type });
     });
 
     onKey(KeysExtra.Shift).pressed$.subscribe((): void => {
@@ -93,7 +101,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     });
 
     onKey(KeyCode.W).released$.subscribe((): void => {
-      solderActor.states.animationsFsm?.send({ type: 'IDLE' });
+      solderActor.states.animationsFsm?.send({ type: AnimationActions.Idle });
     });
   }
 
