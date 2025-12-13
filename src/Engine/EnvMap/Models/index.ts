@@ -5,6 +5,7 @@ export * from './TEnvMapLoader';
 export * from './TEnvMapParams';
 export * from './TEnvMapProps';
 export * from './TEnvMapRegistry';
+export * from './TEnvMapResourceConfig';
 export * from './TEnvMapService';
 export * from './TEnvMapTexture';
 export * from './TEnvMapTextureAsyncRegistry';

@@ -40,12 +40,12 @@ export type TWithSceneGetterService = Readonly<{
   getScene: () => TSceneWrapper;
 }>;
 
-export type TWithLoadResourcesService<T> = Readonly<{
-  load: (config: TAbstractResourceConfig, ...rest: any) => T;
-  loadFromConfig: (configs: ReadonlyArray<TAbstractResourceConfig>) => ReadonlyArray<T>;
+export type TWithLoadResourcesService<C extends TAbstractResourceConfig, T> = Readonly<{
+  load: (config: C, ...rest: any) => T;
+  loadFromConfig: (configs: ReadonlyArray<C>) => ReadonlyArray<T>;
 }>;
 
-export type TWithLoadResourcesAsyncService<T> = Readonly<{
-  loadAsync: (config: TAbstractResourceConfig, ...rest: any) => Promise<T>;
-  loadFromConfigAsync: (configs: ReadonlyArray<TAbstractResourceConfig>) => Promise<ReadonlyArray<T>>;
+export type TWithLoadResourcesAsyncService<C extends TAbstractResourceConfig, T> = Readonly<{
+  loadAsync: (config: C, ...rest: any) => Promise<T>;
+  loadFromConfigAsync: (configs: ReadonlyArray<C>) => Promise<ReadonlyArray<T>>;
 }>;

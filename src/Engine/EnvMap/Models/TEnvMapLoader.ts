@@ -1,11 +1,10 @@
 import type { Observable } from 'rxjs';
 
-import type { TAbstractResourceConfig } from '@/Engine/Abstract';
-
+import type { TEnvMapResourceConfig } from './TEnvMapResourceConfig';
 import type { TEnvMapTexture } from './TEnvMapTexture';
 
 export type TEnvMapLoader = Readonly<{
-  loadAsync: (config: TAbstractResourceConfig) => Promise<TEnvMapTexture>;
-  loadFromConfigAsync: (configs: ReadonlyArray<TAbstractResourceConfig>) => Promise<ReadonlyArray<TEnvMapTexture>>;
+  loadAsync: (config: TEnvMapResourceConfig) => Promise<TEnvMapTexture>;
+  loadFromConfigAsync: (configs: ReadonlyArray<TEnvMapResourceConfig>) => Promise<ReadonlyArray<TEnvMapTexture>>;
   loaded$: Observable<TEnvMapTexture>;
 }>;
