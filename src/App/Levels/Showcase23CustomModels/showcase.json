@@ -38,8 +38,21 @@
       "tags": []
     }
   ],
-  "intersections": [],
+  "models3d": [
+    {
+      "name": "Fox_from_config",
+      "url": "/Showcase/models/fox/Fox.gltf",
+      "scale": { "x": 0.025, "y": 0.025, "z": 0.025 },
+      "position": { "x": 0, "y": 0, "z": 0 },
+      "options": {
+        "shouldAddToScene": true,
+        "shouldSaveToRegistry": true,
+        "isForce": false
+      }
+    }
+  ],
   "physics": {},
+  "intersections": [],
   "texts": [],
   "cameras": [
     {

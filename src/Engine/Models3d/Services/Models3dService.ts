@@ -10,7 +10,7 @@ import type { TModel3dConfig, TModel3dLoadResult, TModel3dParams, TModels3dAnima
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isDefined } from '@/Engine/Utils';
 
-import { applyScale } from './Models3dServiceHelper';
+import { applyPosition, applyRotation, applyScale } from './Models3dServiceHelper';
 
 export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models3dAnimationsRegistry: TModels3dAnimationsAsyncRegistry, sceneW: TSceneWrapper): TModels3dService {
   const models3dLoader = new GLTFLoader();
@@ -56,6 +56,8 @@ export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models
       const p: Promise<TModel3dLoadResult> = performLoad(m).then((result: TModel3dLoadResult): TModel3dLoadResult => {
         //adjust model before adding to scene and registries
         if (isDefined(m.scale)) applyScale(result.model, m.scale);
+        if (isDefined(m.rotation)) applyRotation(result.model, m.rotation);
+        if (isDefined(m.position)) applyPosition(result.model, m.position);
 
         added$.next(result);
 

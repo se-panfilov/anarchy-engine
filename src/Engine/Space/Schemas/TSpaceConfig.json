@@ -39,6 +39,12 @@
         "$ref": "#/definitions/TCameraConfig"
       }
     },
+    "models3d": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TModel3dConfig"
+      }
+    },
     "intersections": {
       "type": "array",
       "items": {
@@ -85,7 +91,7 @@
       }
     }
   },
-  "required": ["actors", "cameras", "controls", "envMaps", "fogs", "intersections", "lights", "name", "particles", "physics", "scenes", "spatialGrids", "tags", "texts", "version"],
+  "required": ["actors", "cameras", "controls", "envMaps", "fogs", "intersections", "lights", "models3d", "name", "particles", "physics", "scenes", "spatialGrids", "tags", "texts", "version"],
   "definitions": {
     "SpaceSchemaVersion": {
       "type": "string",
@@ -2024,6 +2030,9 @@
         "options": {
           "$ref": "#/definitions/TOptional%3CTModel3dLoadOptions%3E"
         },
+        "name": {
+          "type": "string"
+        },
         "url": {
           "anyOf": [
             {
@@ -2033,6 +2042,54 @@
               "$ref": "#/definitions/Model3dType"
             }
           ]
+        },
+        "scale": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "z": {
+              "type": "number"
+            }
+          },
+          "required": ["x", "y", "z"],
+          "additionalProperties": false
+        },
+        "position": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "z": {
+              "type": "number"
+            }
+          },
+          "required": ["x", "y", "z"],
+          "additionalProperties": false
+        },
+        "rotation": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "z": {
+              "type": "number"
+            }
+          },
+          "required": ["x", "y", "z"],
+          "additionalProperties": false
         }
       },
       "required": ["url"]
@@ -2119,6 +2176,93 @@
         }
       },
       "required": ["isActive", "position", "tags"]
+    },
+    "TModel3dConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "scale": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "z": {
+              "type": "number"
+            }
+          },
+          "required": ["x", "y", "z"],
+          "additionalProperties": false
+        },
+        "position": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "z": {
+              "type": "number"
+            }
+          },
+          "required": ["x", "y", "z"],
+          "additionalProperties": false
+        },
+        "rotation": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "z": {
+              "type": "number"
+            }
+          },
+          "required": ["x", "y", "z"],
+          "additionalProperties": false
+        },
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/Model3dType"
+            }
+          ]
+        },
+        "options": {
+          "$ref": "#/definitions/TModel3dLoadOptions"
+        }
+      },
+      "required": ["options", "url"]
+    },
+    "TModel3dLoadOptions": {
+      "type": "object",
+      "properties": {
+        "shouldAddToScene": {
+          "type": "boolean"
+        },
+        "shouldSaveToRegistry": {
+          "type": "boolean"
+        },
+        "isForce": {
+          "type": "boolean"
+        }
+      },
+      "required": ["shouldAddToScene", "shouldSaveToRegistry"],
+      "additionalProperties": false
     },
     "TIntersectionsWatcherConfig": {
       "type": "object",

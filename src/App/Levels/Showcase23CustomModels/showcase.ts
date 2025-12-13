@@ -1,8 +1,8 @@
 import { Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAppCanvas, TEngine, TModel3dLoadOptions, TModel3dLoadResult, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
-import { buildSpaceFromConfig, Engine, isNotDefined } from '@/Engine';
+import type { TAppCanvas, TEngine, TModel3dLoadOptions, TModel3dLoadResult, TSceneWrapper, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
+import { buildSpaceFromConfig, Engine, isNotDefined, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -13,7 +13,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const activeScene: TSceneWrapper | undefined = scenesService.findActive();
 
   async function init(activeScene: TSceneWrapper): Promise<void> {
-    const scale: Vector3 = new Vector3(0.025, 0.025, 0.025);
+    const scale: TVector3Wrapper = Vector3Wrapper({ x: 0.025, y: 0.025, z: 0.025 });
     const options: TModel3dLoadOptions = { shouldSaveToRegistry: true, shouldAddToScene: true, isForce: false };
 
     await Promise.all(

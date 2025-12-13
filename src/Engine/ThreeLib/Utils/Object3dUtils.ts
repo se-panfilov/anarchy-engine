@@ -5,16 +5,16 @@ import { Vector3Wrapper } from '@/Engine/Vector';
 
 export function configToParamsObject3d(config: Partial<TObject3DPropConfig>): TObject3DParams {
   const { position, rotation, scale } = config;
-  return {
-    ...config,
-    // layers: config.layers ? (new Layers()).set(config.layers) : undefined,
-    layers: undefined,
+  let result = { ...config } as TObject3DParams;
 
-    // TODO wtf is animations?
-    animations: [],
+  // TODO layers are not supported at the moment
+  if (isDefined(config.layers)) result = { ...result, layers: undefined };
+  // TODO animations are not supported at the moment
+  if (isDefined(config.animations)) result = { ...result, animations: [] };
 
-    position: isDefined(position) ? Vector3Wrapper(position) : undefined,
-    rotation: isDefined(rotation) ? EulerWrapper(rotation) : undefined,
-    scale: isDefined(scale) ? Vector3Wrapper(scale) : undefined
-  };
+  if (isDefined(position)) result = { ...result, position: Vector3Wrapper(position) };
+  if (isDefined(rotation)) result = { ...result, rotation: EulerWrapper(rotation) };
+  if (isDefined(scale)) result = { ...result, scale: Vector3Wrapper(scale) };
+
+  return result;
 }

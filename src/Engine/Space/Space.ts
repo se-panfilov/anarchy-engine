@@ -27,7 +27,7 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     throw new Error('Failed to launch a space: invalid data format');
   }
 
-  const { name, actors, cameras, intersections, lights, fogs, texts, envMaps, controls, scenes, particles, physics, tags, spatialGrids } = config;
+  const { name, actors, cameras, intersections, lights, models3d, fogs, texts, envMaps, controls, scenes, particles, physics, tags, spatialGrids } = config;
 
   screenService.setCanvas(canvas);
 
@@ -52,6 +52,7 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     fogService,
     intersectionsWatcherService,
     lightService,
+    models3dService,
     mouseService,
     particlesService,
     physicsLoopService,
@@ -67,6 +68,8 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     physicsLoopService.shouldAutoUpdate((isDefined(world) && physics.isAutoUpdate) ?? true);
   }
   if (isDefined(physics.presets)) physicsPresetService.addPresetsFromConfig(physics.presets);
+
+  void models3dService.loadFromConfigAsync(models3d);
 
   cameraService.createFromConfig(cameras);
   actorService.createFromConfig(actors);
