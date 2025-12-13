@@ -761,7 +761,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-menu@1.7.3
+## showcases-menu@1.7.4
 
 **License(s):** MIT
 

@@ -3360,7 +3360,7 @@ SOFTWARE.
 
 ---
 
-## showcases-menu@1.7.3
+## showcases-menu@1.7.4
 
 **License:** MIT
 
