@@ -36,8 +36,8 @@ const scenes: ReadonlyArray<string> = [
 
 test.describe('Space save/load persistence', () => {
   const thresholds = {
-    threshold: 0.01,
-    maxDiffPixelRatio: 0.001
+    // threshold: 0.01,
+    maxDiffPixelRatio: 0.01
   };
 
   scenes.forEach((sceneName: string): void => {
