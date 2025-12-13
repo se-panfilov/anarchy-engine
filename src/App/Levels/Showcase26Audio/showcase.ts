@@ -64,13 +64,13 @@ function initMusicWithControls(name: string, folderName: string, gui: GUI, { aud
     progress: 0
   };
 
-  folder.add(state, 'playMusic').name('Play background music');
-  folder.add(state, 'pauseMusic').name('Pause background music');
-  folder.add(state, 'resumeMusic').name('Resume background music');
-  folder.add(state, 'stopMusic').name('Stop background music');
+  folder.add(state, 'playMusic').name('Play');
+  folder.add(state, 'pauseMusic').name('Pause');
+  folder.add(state, 'resumeMusic').name('Resume');
+  folder.add(state, 'stopMusic').name('Stop');
   folder.add(state, 'seekPlus').name('Seek +10s');
   folder.add(state, 'seekMinus').name('Seek -10s');
-  folder.add(state, 'loop').name('loop');
+  folder.add(state, 'loop').name('Loop');
   folder
     .add(state, 'volume', 0, 1)
     .name('Volume')
