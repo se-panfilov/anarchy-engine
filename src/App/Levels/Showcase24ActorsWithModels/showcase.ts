@@ -65,7 +65,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     if (isNotDefined(solderActor.states.animationsFsm)) throw new Error('Animations FSM is not defined');
 
-    let prev: any = '';
+    const prev: any = '';
     solderActor.states.animationsFsm.subscribe((state) => {
       if (prev === state.value) return;
       prev = state.value;
@@ -85,19 +85,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       }
     });
 
-    let isRunning: boolean = false;
-
     onKey(KeyCode.W).pressing$.subscribe((): void => {
-      const type = isRunning ? AnimationActions.Run : AnimationActions.Walk;
+      const type = isKeyPressed(KeysExtra.Shift) ? AnimationActions.Run : AnimationActions.Walk;
       if (solderActor.states.animationsFsm?.getSnapshot().value !== type) solderActor.states.animationsFsm?.send({ type });
-    });
-
-    onKey(KeysExtra.Shift).pressed$.subscribe((): void => {
-      isRunning = true;
-    });
-
-    onKey(KeysExtra.Shift).released$.subscribe((): void => {
-      isRunning = false;
     });
 
     onKey(KeyCode.W).released$.subscribe((): void => {

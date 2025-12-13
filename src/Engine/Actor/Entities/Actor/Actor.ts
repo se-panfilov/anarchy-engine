@@ -34,6 +34,8 @@ export function Actor(
   // TODO 8.0.0. MODELS: Take a look to todoes with tag ANIMATIONS (uploading animations separately from a model)
   // TODO 8.0.0. MODELS: Take a look to todoes with tag Layers
   // TODO 8.0.0. MODELS: GET RID OF PROPS (Use params as defaults, and configs as extended)
+  // TODO 9-3-0 STATE: Fix all ANYs in ActorFsm
+  // TODO 9-3-0 STATE: allow FSM from config
 
   const entities: TActorEntities = {
     // TODO ACTOR: state encapsulate AI (connection)
