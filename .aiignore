@@ -4,6 +4,8 @@
 
 # Ignore keys, tokens, secrets
 **/secret*.ts
+**/.env.*.local
+**/.local
 **/*.key
 **/*.pem
 **/config/credentials.json
