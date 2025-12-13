@@ -1,6 +1,8 @@
 import anime from 'animejs';
 import type { Vector3 } from 'three';
 
+import type { TAbstractService } from '@/Engine/Abstract';
+import { AbstractService } from '@/Engine/Abstract';
 import { defaultMoverServiceConfig } from '@/Engine/Services/MoverService/Constants';
 import type { TAnimationParams, TFollowTargetParams, TKeyframeDestination, TMoverServiceConfig, TStopMoveCb } from '@/Engine/Services/MoverService/Models';
 import type { TMoveDestination } from '@/Engine/Services/MoverService/Models/TMoveDestination';
@@ -11,10 +13,12 @@ import type { TTransformLoop, TWithConnectedTransformAgent, TWithTransformDrive 
 import { TransformAgent } from '@/Engine/TransformDrive';
 
 export function MoverService(transformLoop: TTransformLoop, { suspendWhenDocumentHidden }: TMoverServiceConfig = defaultMoverServiceConfig): TMoverService {
+  const abstractService: TAbstractService = AbstractService();
   // eslint-disable-next-line functional/immutable-data
   (anime as any).suspendWhenDocumentHidden = suspendWhenDocumentHidden;
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     goToPosition: (obj: TWithTransformDrive<TWithConnectedTransformAgent>, destination: TMoveDestination, animationParams: TAnimationParams): Promise<void> => {
       if (obj.drive.getActiveAgent()?.type !== TransformAgent.Connected) throw new Error('Mover Service: moving object must have an active agent of the "connected" type');
       return performMove(goStraightMove, transformLoop, { obj, destination: prepareDestination(destination, obj), animationParams });
@@ -27,5 +31,5 @@ export function MoverService(transformLoop: TTransformLoop, { suspendWhenDocumen
       if (obj.drive.getActiveAgent()?.type !== TransformAgent.Connected) throw new Error('Mover Service: moving object must have an active agent of the "connected" type');
       return performMoveUntil(followTarget, transformLoop, { obj, target, offset } satisfies TFollowTargetParams);
     }
-  };
+  });
 }

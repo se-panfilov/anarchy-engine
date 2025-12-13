@@ -3,6 +3,8 @@ import type { Subscription } from 'rxjs';
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TAppCanvas } from '@/Engine/App';
+import type { TDestroyable } from '@/Engine/Mixins';
+import { destroyableMixin } from '@/Engine/Mixins';
 import { RendererModes } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
@@ -36,9 +38,10 @@ export function SpaceService(): TSpaceService {
     createEntities(config.entities, services);
     hooks?.afterEntitiesCreated?.(config, services, loops);
 
+    const destroyable: TDestroyable = destroyableMixin();
     const builtMixin: TWithBuilt = withBuiltMixin();
 
-    const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
+    const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
       destroySub$.unsubscribe();
 
       builtMixin.built$.complete();
@@ -48,20 +51,21 @@ export function SpaceService(): TSpaceService {
 
     builtMixin.build();
 
-    // eslint-disable-next-line functional/immutable-data
-    return Object.assign(abstractService, {
+    return {
       name: config.name,
       services,
       loops,
       ...builtMixin,
       built$: builtMixin.built$.asObservable(),
+      ...destroyable,
       tags: config.tags
-    });
+    };
   }
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     buildSpaceFromConfig
-  };
+  });
 }
 
 export const spaceService: TSpaceService = SpaceService();

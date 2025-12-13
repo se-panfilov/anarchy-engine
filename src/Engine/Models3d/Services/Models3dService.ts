@@ -45,7 +45,7 @@ export function Models3dService(
     factorySub$.unsubscribe();
 
     registry.destroy$.next();
-    // TODO DESTROY: We need a way to unload models3d, tho
+    // TODO 13-0-0:  We need a way to unload models3d, tho
     resourcesRegistry.destroy$.next();
   });
 

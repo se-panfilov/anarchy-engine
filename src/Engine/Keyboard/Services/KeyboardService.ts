@@ -1,12 +1,15 @@
 import { bindKey, bindKeyCombo, checkKey, checkKeyCombo, unbindKey, unbindKeyCombo } from '@rwh/keystrokes';
 import { filter, map, Subject } from 'rxjs';
 
+import type { TAbstractService } from '@/Engine/Abstract';
+import { AbstractService } from '@/Engine/Abstract';
 import type { TGameKey, TKeyboardLoop, TKeyboardRegistry, TKeyboardRegistryValues, TKeyboardService, TKeyCombo, TKeySubscription } from '@/Engine/Keyboard/Models';
 import { KeyboardRegistry } from '@/Engine/Keyboard/Registries';
 import type { TDelta } from '@/Engine/Loop';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
+  const abstractService: TAbstractService = AbstractService();
   const keyboardRegistry: TKeyboardRegistry = KeyboardRegistry();
 
   function createKeySubscriptions(key: TGameKey | TKeyCombo): TKeySubscription {
@@ -100,9 +103,10 @@ export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
   const removeKeyBinding = (key: TGameKey): void => removeBinding(key, false);
   const removeKeyComboBinding = (key: TKeyCombo): void => removeBinding(key, true);
 
-  // TODO DESTROY: we need to destroy all bindings on destroy$
+  // TODO 13-0-0:  we need to destroy all bindings on destroy$
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     onKey,
     onKeyCombo,
     pauseKeyBinding,
@@ -113,5 +117,5 @@ export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
     removeKeyComboBinding,
     isKeyPressed: checkKey,
     isKeyComboPressed: checkKeyCombo
-  };
+  });
 }

@@ -12,7 +12,7 @@ export function TextureService(resourcesRegistry: TTextureAsyncRegistry): TTextu
   const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
-    // TODO DESTROY: We need a way to unload env maps, tho
+    // TODO 13-0-0:  We need a way to unload env maps, tho
     resourcesRegistry.destroy$.next();
   });
 

@@ -1,3 +1,5 @@
+import type { TAbstractService } from '@/Engine/Abstract';
+import { AbstractService } from '@/Engine/Abstract';
 import type { TAppCanvas } from '@/Engine/App';
 import { ambientContext } from '@/Engine/Context';
 import type { TAppGlobalContainer } from '@/Engine/Global';
@@ -5,9 +7,11 @@ import type { TScreenService } from '@/Engine/Services/ScreenService/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function ScreenService(): TScreenService {
+  const abstractService: TAbstractService = AbstractService();
   let canvas: TAppCanvas | undefined;
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     setCanvas: (appCanvas: TAppCanvas): void => void (canvas = appCanvas),
     getCanvas: (): TAppCanvas | undefined => canvas,
     goFullScreen: (): Promise<void> => goFullScreen(canvas),
@@ -17,7 +21,7 @@ export function ScreenService(): TScreenService {
       return isFullScreen(container) ? exitFullScreen(container) : goFullScreen(canvas);
     },
     isFullScreen: (): boolean => isFullScreen(ambientContext.container.getAppContainer())
-  };
+  });
 }
 
 export function isFullScreen(container: TAppGlobalContainer | undefined): boolean {
