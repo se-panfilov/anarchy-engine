@@ -1,5 +1,4 @@
-import { EntityType } from '@/Engine/Abstract';
-import { AbstractEntity } from '@/Engine/Abstract/Wrappers/AbstractEntity';
+import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import { withObject3d } from '@/Engine/Mixins';
 import { withModel3dFacadeEntities } from '@/Engine/Models3d/Mixins';
 import type { TModel3d, TModel3dEntities, TModel3dFacadeDependencies, TModel3dParams } from '@/Engine/Models3d/Models';
