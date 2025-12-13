@@ -4,7 +4,7 @@ import type { TPhysicsBody, TPhysicsBodyParams, TPhysicsBodyService } from '@Eng
 import { isPhysicsBodyParamsComplete } from '@Engine/Physics';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Engine/ThreeLib';
 import type { TRigidBodyTransformData } from '@Engine/TransformDrive/Models';
-import { isNotDefined } from '@Engine/Utils';
+import { isNotDefined } from '@Shared/Utils';
 
 export function getPhysicsBodyTransform(
   body: RigidBody | undefined,

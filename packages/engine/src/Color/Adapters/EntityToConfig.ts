@@ -1,5 +1,5 @@
 import type { TColorWrapper } from '@Engine/Color/Models';
-import { isNotDefined } from '@Engine/Utils';
+import { isNotDefined } from '@Shared/Utils';
 import type { Color, ColorRepresentation } from 'three';
 
 export function colorToConfig(entity: TColorWrapper): ColorRepresentation {

@@ -1,6 +1,6 @@
 import type { TAppGlobalContainer } from '@Engine/Global';
 import type { TSpaceCanvas } from '@Engine/Space';
-import { isNotDefined } from '@Engine/Utils/index';
+import { isNotDefined } from '@Shared/Utils';
 
 export function isFullScreen(container: TAppGlobalContainer | undefined): boolean {
   if (isNotDefined(container)) throw new Error('Container (window?) is not defined');

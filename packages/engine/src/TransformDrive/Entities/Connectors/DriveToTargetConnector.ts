@@ -1,7 +1,7 @@
 import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@Engine/ThreeLib';
 import type { TransformAgent } from '@Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TDriveToTargetConnector, TOffsets, TTransformDrive, TWithTransforms } from '@Engine/TransformDrive/Models';
-import { isNotDefined } from '@Engine/Utils';
+import { isNotDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { Euler } from 'three';
 

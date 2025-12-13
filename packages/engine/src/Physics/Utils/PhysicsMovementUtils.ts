@@ -7,7 +7,7 @@ import type { TMeters, TRadians } from '@Engine/Math';
 import { getDirectionFromAngularVelocity, getDirectionFromLinearVelocity, getSpeedFromAngularVelocity, getSpeedFromLinearVelocity } from '@Engine/Math';
 import { VelocityType } from '@Engine/Physics/Constants';
 import type { TPhysicsBody } from '@Engine/Physics/Models';
-import { isNotDefined } from '@Engine/Utils';
+import { isNotDefined } from '@Shared/Utils';
 import { Euler, Quaternion, Vector3 } from 'three';
 
 export function getPushCoordsFrom3dAzimuth(azimuth: TRadians, elevation: TRadians, force: number, forwardAxis: ForwardAxis): Vector3 | never {

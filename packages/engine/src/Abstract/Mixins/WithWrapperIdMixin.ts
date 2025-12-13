@@ -1,6 +1,6 @@
 import type { TWithUserData, TWithWrapperId } from '@Engine/Abstract/Models';
-import { isNotDefined } from '@Engine/Utils';
 import type { TWriteable } from '@Shared/Utils';
+import { isNotDefined } from '@Shared/Utils';
 
 export function withWrapperIdMixin<T extends TWriteable<TWithUserData>>(entity: T): TWithWrapperId {
   function setWrapperId(id: string): void {

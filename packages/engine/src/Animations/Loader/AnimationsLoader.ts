@@ -2,8 +2,8 @@ import { LoaderType } from '@Engine/Abstract';
 import type { TAnimations, TAnimationsLoader, TAnimationsMetaInfoRegistry, TAnimationsResourceAsyncRegistry, TAnimationsResourceConfig } from '@Engine/Animations/Models';
 import { Loader3dCore } from '@Engine/Models3d';
 import type { TDracoLoaderSettings } from '@Engine/ThreeLib';
-import { isNotDefined } from '@Engine/Utils';
 import type { TWriteable } from '@Shared/Utils';
+import { isNotDefined } from '@Shared/Utils';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 export function AnimationsLoader(registry: TAnimationsResourceAsyncRegistry, metaInfoRegistry: TAnimationsMetaInfoRegistry, settings: TDracoLoaderSettings = {}): TAnimationsLoader {

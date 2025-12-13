@@ -3,7 +3,7 @@ import type { TMilliseconds } from '@Engine/Math';
 import type { TRendererWrapper } from '@Engine/Renderer';
 import type { TSceneWrapper } from '@Engine/Scene';
 import type { TRenderLoop } from '@Engine/Space';
-import { isNotDefined } from '@Engine/Utils';
+import { isNotDefined } from '@Shared/Utils';
 import type { BehaviorSubject, Subscription } from 'rxjs';
 import { withLatestFrom } from 'rxjs';
 

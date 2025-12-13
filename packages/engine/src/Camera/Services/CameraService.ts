@@ -25,7 +25,8 @@ import {
   withSerializableEntities
 } from '@Engine/Mixins';
 import type { TSceneWrapper } from '@Engine/Scene';
-import { isNotDefined, mergeAll } from '@Engine/Utils';
+import { mergeAll } from '@Engine/Utils';
+import { isNotDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs';
 

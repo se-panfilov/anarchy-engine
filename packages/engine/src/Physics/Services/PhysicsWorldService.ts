@@ -8,7 +8,8 @@ import type { TPhysicsDebugRenderer, TPhysicsLoop, TPhysicsWorldConfig, TPhysics
 import { PhysicsDebugRenderer } from '@Engine/Physics/Renderers';
 import type { TSceneWrapper } from '@Engine/Scene';
 import type { TSpaceLoops } from '@Engine/Space';
-import { isNotDefined, mergeAll } from '@Engine/Utils';
+import { mergeAll } from '@Engine/Utils';
+import { isNotDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs';
 import type { Vector3 } from 'three';

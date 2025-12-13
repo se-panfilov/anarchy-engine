@@ -1,8 +1,9 @@
 import type { TMaterialParams, TMaterialParamsOptions, TMaterials, TTypeOfMaterials } from '@Engine/Material';
 import { MaterialMap, MaterialType } from '@Engine/Material/Constants';
 import type { TEulerLike, TEulerString } from '@Engine/ThreeLib';
-import { eulerToXyz, isNotDefined, vector2ToXy, vector3ToXyz } from '@Engine/Utils';
+import { eulerToXyz, vector2ToXy, vector3ToXyz } from '@Engine/Utils';
 import type { TWithoutNull } from '@Shared/Utils';
+import { isNotDefined } from '@Shared/Utils';
 import type {
   LineDashedMaterial,
   Material,

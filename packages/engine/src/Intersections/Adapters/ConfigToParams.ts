@@ -13,7 +13,7 @@ import type {
 import { isIntersectionsCameraWatcherConfig, isIntersectionsDirectionWatcherConfig } from '@Engine/Intersections/Utils';
 import type { TLoopService } from '@Engine/Loop';
 import type { TMouseService } from '@Engine/Mouse';
-import { isNotDefined } from '@Engine/Utils';
+import { isNotDefined } from '@Shared/Utils';
 import { Vector3 } from 'three';
 
 export function configToParams(

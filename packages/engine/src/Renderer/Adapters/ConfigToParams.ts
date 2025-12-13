@@ -1,6 +1,6 @@
 import type { TRendererConfig, TRendererParams, TRendererServiceDependencies } from '@Engine/Renderer/Models';
 import type { TSpaceCanvas } from '@Engine/Space';
-import { isNotDefined } from '@Engine/Utils';
+import { isNotDefined } from '@Shared/Utils';
 
 export function configToParams(config: TRendererConfig, { container }: TRendererServiceDependencies): TRendererParams | never {
   const { ...rest } = config;
