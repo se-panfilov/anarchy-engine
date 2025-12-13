@@ -15,6 +15,18 @@ export function CameraWrapper({ width, height, fov = 45, near = 1, far = 10000 }
     camera.updateProjectionMatrix();
   });
 
+  function setPosition(x: number, y: number, z: number): void {
+    camera.position.set(x, y, z);
+  }
+
+  function lookAt(x: number, y: number, z: number): void {
+    camera.lookAt(x, y, z);
+  }
+
+  function setControls(x: number, y: number, z: number): void {
+    camera.position.set(x, y, z);
+  }
+
   function destroy() {
     camera = undefined as any;
     deviceSize$.unsubscribe();
@@ -22,5 +34,5 @@ export function CameraWrapper({ width, height, fov = 45, near = 1, far = 10000 }
     destroyed$.complete();
   }
 
-  return { id: `camera_wrapper_${nanoid()}`, camera, destroy, destroyed$ };
+  return { id: `camera_wrapper_${nanoid()}`, camera, setPosition, lookAt, destroy, destroyed$ };
 }

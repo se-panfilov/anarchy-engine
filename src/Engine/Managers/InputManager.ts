@@ -1,8 +1,7 @@
 import { BehaviorSubject, Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
 import type { Manager } from './Models/Manager';
-import { MousePointerWrapper } from '@Engine/Pointer';
-import type { WrappedMousePointer } from '@Engine/Pointer/lib/models/WrappedMousePointer';
+import type { WrappedInput } from '@Engine/Input/Models/WrappedInput';
 
 export function InputManager(): Manager<WrappedInput> {
   const current$ = new BehaviorSubject<WrappedInput | undefined>(undefined);
@@ -10,12 +9,12 @@ export function InputManager(): Manager<WrappedInput> {
   const destroyed$ = new Subject<void>();
 
   function create(): WrappedInput {
-    const wrapper = MousePointerWrapper();
+    const wrapper = Input();
     list$.next([...list$.value, wrapper]);
     return wrapper;
   }
 
-  const setCurrent = (pointer: WrappedMousePointer): void => current$.next(pointer);
+  const setCurrent = (pointer: WrappedInput): void => current$.next(pointer);
 
   function destroy() {
     current$.complete();

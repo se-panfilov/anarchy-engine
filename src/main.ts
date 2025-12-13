@@ -6,10 +6,12 @@ import { CameraManager } from '@Engine/Managers/CameraManager';
 import { LightManager } from '@Engine/Managers/LightManager';
 import { InputManager } from '@Engine/Managers/InputManager';
 import { ActorManager } from '@Engine/Managers/ActorManager';
+import { ControlManager } from '@Engine/Managers/ControlManager';
 
 const actorManager = ActorManager();
 const cameraManager = CameraManager();
 const lightManager = LightManager();
+const controlManager = ControlManager();
 const inputManager = InputManager();
 const loopManager = LoopManager();
 const sceneManager = SceneManager();
@@ -27,7 +29,11 @@ actorManager.create('plane');
 
 const wrappedCamera = cameraManager.create();
 cameraManager.setCurrent(wrappedCamera);
-wrappedCamera.camera.setPosition(3, 2, 15).lookAt(0, 0, 0).setControls('OrbitControls');
+wrappedCamera.setPosition(3, 2, 15);
+wrappedCamera.lookAt(0, 0, 0);
+
+const wrappedControl = controlManager.create();
+wrappedControl.control.wrappedCamera.setControls('OrbitControls');
 
 lightManager.createAmbientLight({ type: 'ambient', color: 0xffffff, intensity: 0.5 });
 const wrappedDirectionalLight = lightManager.createDirectionalLight({

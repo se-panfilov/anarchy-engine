@@ -4,11 +4,6 @@ import type { Manager } from '@Engine/Managers/Models/Manager';
 import type { WrappedScene } from '@Engine/Scene/Models/WrappedScene';
 import { SceneWrapper } from '@Engine/Scene/SceneWrapper';
 
-// interface ISceneManager extends Manager<WrappedScene> {
-// readonly addCamera: (camera: WrappedCamera) => void;
-// readonly attachManagerToScene: <T extends Entity>(manager: Manager<T>, scene: WrappedScene) => void;
-// }
-
 export function SceneManager(): Manager<WrappedScene> {
   const current$ = new BehaviorSubject<WrappedScene | undefined>(undefined);
   const list$ = new BehaviorSubject<ReadonlyArray<WrappedScene>>([]);
