@@ -42,6 +42,11 @@ export function createPhysicsBodyEntities(params: TPhysicsBodyParams, world: Wor
     if (isDefined(params.friction)) colliderDesc.setFriction(params.friction);
     if (isDefined(params.mass)) colliderDesc.setMass(params.mass);
     if (isDefined(params.collisionGroups)) colliderDesc.setCollisionGroups(params.collisionGroups);
+    if (isDefined(params.angularVelocity)) rigidBodyDesc.setAngvel(params.angularVelocity);
+    if (isDefined(params.linearVelocity)) rigidBodyDesc.setLinvel(params.linearVelocity.x, params.linearVelocity.y, params.linearVelocity.z);
+    if (isDefined(params.gravityScale)) rigidBodyDesc.setGravityScale(params.gravityScale);
+    if (isDefined(params.isSensor)) colliderDesc.setSensor(params.isSensor);
+    if (isDefined(params.solverGroups)) colliderDesc.setSolverGroups(params.solverGroups);
 
     const collider: Collider = world.createCollider(colliderDesc, rigidBody);
     return { rigidBody, rigidBodyDesc, colliderDesc, collider };
