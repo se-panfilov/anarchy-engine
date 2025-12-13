@@ -20,9 +20,9 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
     throw new Error('[BUILD] Build must be run with a target(desktop/mobile/web). So, VITE_BUILD_TARGET_DIR mast be specified in .env file, but it is not.');
 
   const toBool = (v: string): boolean => v === 'true';
-  const buildCompression: boolean = toBool(VITE_BUILD_COMPRESSION as any);
-  const minify: boolean = toBool(VITE_BUILD_MINIFIED as any);
-  const sourcemap: boolean = toBool(VITE_BUILD_SOURCEMAPS as any);
+  const buildCompression: boolean = toBool(VITE_BUILD_COMPRESSION);
+  const minify: boolean = toBool(VITE_BUILD_MINIFIED);
+  const sourcemap: boolean = toBool(VITE_BUILD_SOURCEMAPS);
 
   return {
     base: './',
