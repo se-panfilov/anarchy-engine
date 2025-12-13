@@ -8,14 +8,12 @@ export function MousePositionWatcher(): IMousePositionWatcher {
 
   const onMouseMoveListener = ({ clientX: x, clientY: y }: MouseEvent): void => value$.next({ x, y });
 
-  // TODO (S.Panfilov) global?
-  const start = (): void => document.addEventListener('mousemove', onMouseMoveListener);
-
-  // TODO (S.Panfilov) global?
-  const stop = (): void => document.removeEventListener('mousemove', onMouseMoveListener);
-
   return {
-    ...AbstractWatcher('mouse_position', start, stop),
+    ...AbstractWatcher('mouse_position'),
+    // TODO (S.Panfilov) global?
+    start: (): void => document.addEventListener('mousemove', onMouseMoveListener),
+    // TODO (S.Panfilov) global?
+    stop: (): void => document.removeEventListener('mousemove', onMouseMoveListener),
     value$
   };
 }

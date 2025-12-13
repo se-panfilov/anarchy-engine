@@ -1,3 +1,3 @@
-import type { AbstractWatcher } from '@Engine/Watchers';
+import type { IWatcher } from '@Engine/Watchers';
 
-export type IMouseClicksWatcher = ReturnType<typeof AbstractWatcher<void>>;
+export type IMouseClicksWatcher = IWatcher<void>;

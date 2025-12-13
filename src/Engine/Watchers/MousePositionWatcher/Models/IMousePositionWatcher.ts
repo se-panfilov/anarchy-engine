@@ -1,4 +1,4 @@
-import type { AbstractWatcher } from '@Engine/Watchers';
 import type { IMousePosition } from '@Engine/Models';
+import type { IWatcher } from '@Engine/Watchers';
 
-export type IMousePositionWatcher = ReturnType<typeof AbstractWatcher<IMousePosition>>;
+export type IMousePositionWatcher = IWatcher<IMousePosition>;

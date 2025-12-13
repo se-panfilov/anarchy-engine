@@ -14,5 +14,4 @@ export * from './IRendererParams';
 export * from './ISceneObject';
 export * from './ISceneParams';
 export * from './IScreenParams';
-export * from './IWatcher';
 export * from './IWrapper';

@@ -1,5 +1,5 @@
 import type { IActorConfig, ISceneConfig } from '@Engine/Launcher/Models';
-import type { IAppCanvas, IMousePosition, IWatcher } from '@Engine/Models';
+import type { IAppCanvas, IMousePosition } from '@Engine/Models';
 import type {
   IActorFactory,
   ICameraFactory,
@@ -30,6 +30,7 @@ import type {
   ISceneWrapper
 } from '@Engine/Wrappers';
 import { MouseClicksWatcher, MousePositionWatcher } from '@Engine/Watchers';
+import type { IWatcher } from '@Engine/Watchers';
 import { CameraTag } from '@Engine/Constants';
 import { addToRegistry } from '@Engine/Launcher/AddToRegistry';
 
@@ -39,9 +40,9 @@ export async function launch(sceneConfig: ISceneConfig, canvas: IAppCanvas): Pro
 
   //Watchers
   const mouseClicksWatcher: IWatcher<void> = MouseClicksWatcher();
-  mouseClicksWatcher.start$.next();
+  mouseClicksWatcher.start();
   const mousePositionWatcher: IWatcher<IMousePosition> = MousePositionWatcher();
-  mousePositionWatcher.start$.next();
+  mousePositionWatcher.start();
 
   //Entities registries
   const actorRegistry: IActorRegistry = ActorRegistry();

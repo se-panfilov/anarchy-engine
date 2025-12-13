@@ -1,4 +1,4 @@
-import type { AbstractWatcher } from '@Engine/Watchers';
+import type { IWatcher } from '@Engine/Watchers';
 import type { IScreenParams } from '@Engine/Models';
 
-export type IScreenSizeWatcher = ReturnType<typeof AbstractWatcher<IScreenParams>>;
+export type IScreenSizeWatcher = IWatcher<IScreenParams>;

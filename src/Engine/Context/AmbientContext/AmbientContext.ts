@@ -1,7 +1,8 @@
-import type { IScreenParams, IWatcher } from '@Engine/Models';
+import type { IScreenParams } from '@Engine/Models';
+import type { IGlobalContainerDecorator } from '@Engine/Global';
 import { ContainerDecorator } from '@Engine/Global';
 import type { IAmbientContext } from './Models';
-import type { IGlobalContainerDecorator } from '@Engine/Global';
+import type { IWatcher } from '@Engine/Watchers';
 import { ScreenSizeWatcher } from '@Engine/Watchers';
 
 const container: IGlobalContainerDecorator = ContainerDecorator(window);
@@ -17,5 +18,5 @@ export const ambientContext: IAmbientContext = {
 };
 
 export function startAmbientContext(ambientContext: IAmbientContext): void {
-  ambientContext.screenSizeWatcher.start$.next();
+  ambientContext.screenSizeWatcher.start();
 }

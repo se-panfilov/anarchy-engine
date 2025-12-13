@@ -14,15 +14,13 @@ export function ScreenSizeWatcher(container: IGlobalContainerDecorator): IScreen
       ratio: container.ratio
     });
 
-  function start(): void {
-    onResize();
-    container.startWatch('resize', onResize);
-  }
-
-  const stop = (): void => container.stopWatch('resize', onResize);
-
   return {
-    ...AbstractWatcher('screen-size', start, stop),
+    ...AbstractWatcher('screen-size'),
+    start: (): void => {
+      onResize();
+      container.startWatch('resize', onResize);
+    },
+    stop: (): void => container.stopWatch('resize', onResize),
     value$
   };
 }

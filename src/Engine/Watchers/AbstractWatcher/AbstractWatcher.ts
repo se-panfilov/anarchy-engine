@@ -1,22 +1,13 @@
 import { Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
-import type { IWatcher } from '@Engine/Models';
+import type { IAbstractWatcher } from '../Models';
 
-export function AbstractWatcher<T>(type: string, start: () => void, stop: () => void): IWatcher<T> {
+export function AbstractWatcher<T>(type: string): IAbstractWatcher<T> {
   const id: string = type + '_watcher_' + nanoid();
   const value$: Subject<T> = new Subject<T>();
-  const start$: Subject<void> = new Subject<void>();
-  const stop$: Subject<void> = new Subject<void>();
   const destroy$: Subject<void> = new Subject<void>();
 
-  start$.subscribe(start);
-  stop$.subscribe(stop);
-
   destroy$.subscribe(() => {
-    start$.unsubscribe();
-    start$.complete();
-    stop$.unsubscribe();
-    stop$.complete();
     value$.complete();
     destroy$.unsubscribe();
     destroy$.complete();
@@ -31,12 +22,6 @@ export function AbstractWatcher<T>(type: string, start: () => void, stop: () => 
     },
     get value$(): Subject<T> {
       return value$;
-    },
-    get start$(): Subject<void> {
-      return start$;
-    },
-    get stop$(): Subject<void> {
-      return stop$;
     },
     get destroy$(): Subject<void> {
       return destroy$;
