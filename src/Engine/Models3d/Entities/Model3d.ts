@@ -1,3 +1,5 @@
+import type { Subscription } from 'rxjs';
+
 import type { TEntity } from '@/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import { withObject3d } from '@/Engine/Mixins';
@@ -30,7 +32,8 @@ export function Model3d(params: TModel3dParams, { animationsService, model3dRawT
   // eslint-disable-next-line functional/immutable-data
   const result: TModel3d = Object.assign(preResult, abstract, { getParams, _clone });
 
-  abstract.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = abstract.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
     model3dRawToModel3dConnectionRegistry.removeByModel3d(result.getRawModel3d(), true);
 
     destroyModel3dAnimationEntities(abstract);
