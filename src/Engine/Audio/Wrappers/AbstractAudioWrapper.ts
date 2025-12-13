@@ -112,7 +112,8 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
     getDuration: (): number | undefined => entity.buffer?.duration,
     volume$,
     listener$,
-    serialize: (): TAnyAudioConfig => audioToConfig(result)
+    // TODO 15-0-0: remove any
+    serialize: (): TAnyAudioConfig => audioToConfig(result as any)
   });
 
   return result;
