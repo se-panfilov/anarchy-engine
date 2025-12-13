@@ -8,6 +8,17 @@
       "isActive": true
     }
   ],
+  "spatialGrids": [
+    {
+      "name": "main_grid",
+      "mapWidth": 60,
+      "mapHeight": 40,
+      "cellSize": 10,
+      "centerX": 0,
+      "centerZ": 0,
+      "tags": []
+    }
+  ],
   "actors": [
     {
       "width": 60,

@@ -9,6 +9,17 @@
       "isActive": true
     }
   ],
+  "spatialGrids": [
+    {
+      "name": "main_grid",
+      "mapWidth": 10,
+      "mapHeight": 10,
+      "cellSize": 10,
+      "centerX": 0,
+      "centerZ": 0,
+      "tags": []
+    }
+  ],
   "actors": [],
   "intersections": [],
   "physics": {},

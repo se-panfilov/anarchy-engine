@@ -21,6 +21,12 @@
         "$ref": "#/definitions/TSceneConfig"
       }
     },
+    "spatialGrids": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TSpatialGridConfig"
+      }
+    },
     "actors": {
       "type": "array",
       "items": {
@@ -79,7 +85,7 @@
       }
     }
   },
-  "required": ["actors", "cameras", "controls", "envMaps", "fogs", "intersections", "lights", "name", "particles", "physics", "scenes", "tags", "texts", "version"],
+  "required": ["actors", "cameras", "controls", "envMaps", "fogs", "intersections", "lights", "name", "particles", "physics", "scenes", "spatialGrids", "tags", "texts", "version"],
   "definitions": {
     "SpaceSchemaVersion": {
       "type": "string",
@@ -177,6 +183,37 @@
         }
       },
       "required": ["x", "y", "z"]
+    },
+    "TSpatialGridConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "mapWidth": {
+          "type": "number"
+        },
+        "mapHeight": {
+          "type": "number"
+        },
+        "cellSize": {
+          "type": "number"
+        },
+        "centerX": {
+          "type": "number"
+        },
+        "centerZ": {
+          "type": "number"
+        }
+      },
+      "required": ["cellSize", "centerX", "centerZ", "mapHeight", "mapWidth", "tags"]
     },
     "TActorConfig": {
       "type": "object",
@@ -2326,16 +2363,16 @@
       "description": "3D vector.\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
     },
     "TSpatialDataConfig": {
-      "$ref": "#/definitions/TOptional%3Calias-731470504-73687-73835-731470504-0-215038%3Cdef-alias-282893435-125-243-282893435-0-244%2C%22cell%22%3E%3E"
-    },
-    "TOptional<alias-731470504-73687-73835-731470504-0-215038<def-alias-282893435-125-243-282893435-0-244,\"cell\">>": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
+        "gridName": {
+          "type": "string"
+        },
         "updatePriority": {
           "$ref": "#/definitions/SpatialUpdatePriority"
         }
-      },
-      "additionalProperties": false
+      }
     },
     "SpatialUpdatePriority": {
       "type": "number",

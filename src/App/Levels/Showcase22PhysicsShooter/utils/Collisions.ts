@@ -1,5 +1,5 @@
 import type { TActorService, TActorWrapperAsync, TIntersectionsWatcher, TSceneWrapper } from '@/Engine';
-import type { TSpatialGridService } from '@/Engine/Spatial';
+import type { TSpatialGridService, TSpatialGridWrapper } from '@/Engine/Spatial';
 import { isNotDefined } from '@/Engine/Utils';
 
 export async function enableCollisions(
@@ -13,7 +13,8 @@ export async function enableCollisions(
   // TODO (S.Panfilov) CWP 4. make sure raycasting is working inside the grid only
   // TODO (S.Panfilov) CWP 5. make bullets and actors can travel among grids
 
-  const grid = spatialGridService.create({ mapWidth: 200, mapHeight: 200, cellSize: 10, centerX: 0, centerZ: 0, tags: [] });
+  const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
+  if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" spatial grid`);
 
   // spatialGridService.grid.addToGridBulk(actorService.getRegistry().getAll());
   const sphereActorW: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('sphere');

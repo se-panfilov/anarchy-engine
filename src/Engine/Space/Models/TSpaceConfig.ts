@@ -9,12 +9,14 @@ import type { TParticlesConfig } from '@/Engine/Particles';
 import type { TPhysicsConfig } from '@/Engine/Physics';
 import type { TSceneConfig } from '@/Engine/Scene';
 import type { SpaceSchemaVersion } from '@/Engine/Space/Constants';
+import type { TSpatialGridConfig } from '@/Engine/Spatial';
 import type { TTextConfig } from '@/Engine/Text';
 
 export type TSpaceConfig = Readonly<{
   name: string;
   version: SpaceSchemaVersion;
   scenes: ReadonlyArray<TSceneConfig>;
+  spatialGrids: ReadonlyArray<TSpatialGridConfig>;
   actors: ReadonlyArray<TActorConfig>;
   cameras: ReadonlyArray<TCameraConfig>;
   intersections: ReadonlyArray<TIntersectionsWatcherConfig>;

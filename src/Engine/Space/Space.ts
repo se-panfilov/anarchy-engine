@@ -27,7 +27,7 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     throw new Error('Failed to launch a space: invalid data format');
   }
 
-  const { name, actors, cameras, intersections, lights, fogs, texts, envMaps, controls, scenes, particles, physics, tags } = config;
+  const { name, actors, cameras, intersections, lights, fogs, texts, envMaps, controls, scenes, particles, physics, tags, spatialGrids } = config;
 
   screenService.setCanvas(canvas);
 
@@ -54,6 +54,7 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     physicsPresetService,
     physicsWorldService,
     rendererService,
+    spatialGridService,
     textService
   } = services;
 
@@ -74,6 +75,7 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
   lightService.createFromConfig(lights);
 
   fogService.createFromConfig(fogs);
+  spatialGridService.createFromConfig(spatialGrids);
   particlesService.createFromConfig(particles);
 
   envMapService.added$.subscribe(({ texture }: TAddedTexturePack): void => {
