@@ -1,18 +1,19 @@
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, EMPTY, switchMap } from 'rxjs';
 import type { QuaternionLike, Vector3Like } from 'three';
-import { Euler, Object3D, Quaternion, Vector3 } from 'three';
+import { Object3D, Quaternion, Vector3 } from 'three';
 
 import { metersPerSecond } from '@/Engine/Distance';
+import { kinematicToConfig } from '@/Engine/Kinematic';
 import { ForwardAxis } from '@/Engine/Kinematic/Constants';
 import type { TKinematicConfig, TKinematicData, TKinematicWritableData } from '@/Engine/Kinematic/Models';
 import type { TMeters, TMetersPerSecond, TMilliseconds, TRadians, TRadiansPerSecond } from '@/Engine/Math';
 import { getAzimuthElevationFromVector, getElevationFromDirection } from '@/Engine/Math';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
-import { DEFAULT_RADIUS, TransformAgent } from '@/Engine/TransformDrive/Constants';
+import { DefaultKinematicState, DefaultKinematicTarget, TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TKinematicAgentDependencies, TKinematicSpeed, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
 import { getStepRotation, isInstant, isPointReached, isRotationReached, moveInstantly, rotateInstantly } from '@/Engine/TransformDrive/Utils';
-import { eulerToXyz, isDefined, isNotDefined, quaternionToXyzw, vector3ToXyz } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
 
@@ -43,19 +44,19 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
   const agent: Omit<TKinematicTransformAgent, 'data'> & Readonly<{ data: TKinematicWritableData }> = Object.assign(abstractTransformAgent, {
     data: {
       state: {
-        linearSpeed: params.state.linearSpeed ?? 0,
-        linearDirection: params.state.linearDirection?.clone() ?? new Vector3(),
-        angularSpeed: params.state.angularSpeed ?? 0,
-        radius: params.state.radius ?? DEFAULT_RADIUS,
-        angularDirection: params.state.angularDirection?.clone() ?? new Quaternion(),
-        forwardAxis: params.state.forwardAxis ?? ForwardAxis.X,
-        isInfiniteRotation: params.state.isInfiniteRotation ?? false
+        linearSpeed: params.state.linearSpeed ?? DefaultKinematicState.linearSpeed,
+        linearDirection: params.state.linearDirection?.clone() ?? DefaultKinematicState.linearDirection,
+        angularSpeed: params.state.angularSpeed ?? DefaultKinematicState.angularSpeed,
+        radius: params.state.radius ?? DefaultKinematicState.radius,
+        angularDirection: params.state.angularDirection?.clone() ?? DefaultKinematicState.angularDirection,
+        forwardAxis: params.state.forwardAxis ?? DefaultKinematicState.forwardAxis,
+        isInfiniteRotation: params.state.isInfiniteRotation ?? DefaultKinematicState.isInfiniteRotation
       },
       target: {
-        positionThreshold: params.target?.positionThreshold ?? 0.01,
-        position: params.target?.position?.clone() ?? undefined,
-        rotationThreshold: params.target?.rotationThreshold ?? 0.0001,
-        rotation: params.target?.rotation?.clone() ?? undefined
+        positionThreshold: params.target?.positionThreshold ?? DefaultKinematicTarget.positionThreshold,
+        position: params.target?.position?.clone() ?? DefaultKinematicTarget.position,
+        rotationThreshold: params.target?.rotationThreshold ?? DefaultKinematicTarget.rotationThreshold,
+        rotation: params.target?.rotation?.clone() ?? DefaultKinematicTarget.rotation
       }
     },
     setData({ state, target }: TKinematicData): void {
@@ -286,27 +287,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       if (resetDirection) agent.setAngularDirection(new Quaternion());
     },
     serialize(): TKinematicConfig {
-      const { position, positionThreshold, rotationThreshold, rotation } = agent.data.target;
-      const { linearSpeed, linearDirection, angularSpeed, angularDirection, radius, forwardAxis, isInfiniteRotation } = agent.data.state;
-
-      return {
-        isAutoUpdate: autoUpdate$.value,
-        target: {
-          position: isDefined(position) ? vector3ToXyz(position) : undefined,
-          rotation: isDefined(rotation) ? quaternionToXyzw(rotation) : undefined,
-          positionThreshold,
-          rotationThreshold
-        },
-        state: {
-          linearSpeed,
-          linearDirection: vector3ToXyz(linearDirection),
-          angularSpeed,
-          angularDirection: eulerToXyz(new Euler().setFromQuaternion(angularDirection)),
-          radius,
-          forwardAxis,
-          isInfiniteRotation
-        }
-      };
+      return kinematicToConfig(agent);
     },
     autoUpdate$
   });

@@ -1,3 +1,2 @@
-export * from './DefaultValues';
-export * from './KinematicMoveConstants';
+export * from './KinematicConstants';
 export * from './TransformAgent';

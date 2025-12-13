@@ -1,16 +1,34 @@
-import type { TKinematicConfig, TKinematicParams } from '@/Engine/Kinematic/Models';
-import type { TRegistrable } from '@/Engine/Mixins';
-import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
-import type { TOptional } from '@/Engine/Utils';
-import { filterOutEmptyFields } from '@/Engine/Utils';
+import { Euler } from 'three';
 
-export function kinematicToConfig<T extends Readonly<{ kinematic?: TOptional<TKinematicParams> } & TRegistrable>>(entity: T): TKinematicConfig {
-  // TODO 15-0-0: implement
-  // TODO 15-0-0: Add possibility to setup kinematic's state via params/config and serialize it
-  console.log('XXX entity', entity);
+import type { TKinematicConfig, TKinematicConfigTarget } from '@/Engine/Kinematic/Models';
+import type { TKinematicTransformAgent } from '@/Engine/TransformDrive';
+import { eulerToXyz, filterOutEmptyFields, isDefined, quaternionToXyzw, vector3ToXyz } from '@/Engine/Utils';
 
-  // TODO 15-0-0: fix any
+// TODO 15-0-0: validate
+export function kinematicToConfig(entity: TKinematicTransformAgent): TKinematicConfig {
+  const { linearSpeed, linearDirection, angularSpeed, angularDirection, radius, forwardAxis, isInfiniteRotation } = entity.data.state;
+
+  let target: TKinematicConfigTarget | undefined = undefined;
+  if (isDefined(entity.data.target)) {
+    target = {
+      position: isDefined(entity.data.target.position) ? vector3ToXyz(entity.data.target.position) : undefined,
+      rotation: isDefined(entity.data.target.rotation) ? quaternionToXyzw(entity.data.target.rotation) : undefined,
+      positionThreshold: entity.data.target.positionThreshold,
+      rotationThreshold: entity.data.target.rotationThreshold
+    };
+  }
+
   return filterOutEmptyFields({
-    ...extractSerializableRegistrableFields(entity)
-  }) as any;
+    isAutoUpdate: entity.autoUpdate$.value,
+    target,
+    state: {
+      linearSpeed,
+      linearDirection: vector3ToXyz(linearDirection),
+      angularSpeed,
+      angularDirection: eulerToXyz(new Euler().setFromQuaternion(angularDirection)),
+      radius,
+      forwardAxis,
+      isInfiniteRotation
+    }
+  });
 }
