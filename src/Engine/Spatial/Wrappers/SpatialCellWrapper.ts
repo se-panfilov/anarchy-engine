@@ -18,7 +18,7 @@ export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrap
     objects: []
   };
 
-  const wrapper: TAbstractWrapper<TSpatialCell> = AbstractWrapper(entity, WrapperType.SpatialCell);
+  const wrapper: TAbstractWrapper<TSpatialCell> = AbstractWrapper(entity, WrapperType.SpatialCell, params as any);
   const update$: Subject<TSpatialCell> = new Subject<TSpatialCell>();
 
   const sub$: Subscription = wrapper.destroy$.subscribe((): void => {

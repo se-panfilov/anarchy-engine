@@ -77,7 +77,7 @@ export function FpsControlsWrapper(params: TFpsControlsParams): TFpsControlsWrap
     entity.dispatchEvent({ type: 'end' } as never);
   }
 
-  const result = Object.assign(AbstractWrapper(entity, WrapperType.Controls, { name: params.name, tags: params.tags }), {
+  const result = Object.assign(AbstractWrapper(entity, WrapperType.Controls, params), {
     update,
     enable,
     disable,

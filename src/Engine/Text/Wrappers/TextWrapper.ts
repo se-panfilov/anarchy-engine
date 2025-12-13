@@ -23,7 +23,7 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: T
   element.textContent = params.text;
   const entity: T = createText(type, element) as T;
 
-  const wrapper: TAbstractWrapper<T> = AbstractWrapper(entity, getWrapperTypeByTextType(type), { name: params.name, tags: params.tags });
+  const wrapper: TAbstractWrapper<T> = AbstractWrapper(entity, getWrapperTypeByTextType(type), params);
   const drive: TTextTransformDrive = TextTransformDrive(params, dependencies, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 

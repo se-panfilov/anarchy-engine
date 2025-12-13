@@ -8,9 +8,8 @@ import { withActiveMixin } from '@/Engine/Mixins';
 export function EnvMapWrapper(params: TEnvMapParams): TEnvMapWrapper {
   const { texture, isActive } = params;
   const entity: TEnvMapTexture = texture;
-  const name: string = params.name;
 
-  const wrapper = Object.assign(AbstractWrapper(entity, WrapperType.EnvMap, { name }), {
+  const wrapper = Object.assign(AbstractWrapper(entity, WrapperType.EnvMap, params), {
     getName: (): string => params.name,
     ...withActiveMixin(),
     // TODO 15-0-0: Let all Services to have service-level .serialize(). Also add type TWithSerializableEntities

@@ -82,7 +82,7 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
     entity.dispatchEvent({ type: 'end' });
   }
 
-  const result = Object.assign(AbstractWrapper(entity, WrapperType.Controls, { name: params.name, tags: params.tags }), {
+  const result = Object.assign(AbstractWrapper(entity, WrapperType.Controls, params), {
     update,
     enable,
     disable,

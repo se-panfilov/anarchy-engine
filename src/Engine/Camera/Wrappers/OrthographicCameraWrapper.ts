@@ -36,7 +36,7 @@ export function OrthographicCameraWrapper(params: TOrthographicCameraParams, { c
   const accessors: TCommonCameraAccessors & TOrthographicCameraAccessors = Object.assign(getCommonCameraAccessors(entity), getOrthographicCameraAccessors(entity));
   accessors.setAspect(width, height);
 
-  const wrapper: TAbstractWrapper<TAnyCamera> = AbstractWrapper(entity, WrapperType.Camera, { name: params.name, tags: params.tags });
+  const wrapper: TAbstractWrapper<TAnyCamera> = AbstractWrapper(entity, WrapperType.Camera, params);
   const drive: TCameraTransformDrive = CameraTransformDrive(params, { transformDriveService }, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 

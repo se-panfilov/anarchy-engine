@@ -19,7 +19,6 @@ export function AbstractWrapper<T extends TWithUserData>(entity: T, type: Wrappe
   const destroyable: TDestroyable = destroyableMixin();
 
   const partialResult: TWithEntity<T> & TRegistrable & TWithName = {
-    ...params,
     id,
     entity,
     name: (entity as unknown as TWithName).name ?? params?.name,

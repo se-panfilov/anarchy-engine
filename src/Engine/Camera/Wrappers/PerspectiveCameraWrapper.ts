@@ -36,7 +36,7 @@ export function PerspectiveCameraWrapper(params: TPerspectiveCameraParams, { con
   const accessors: TCommonCameraAccessors & TPerspectiveCameraAccessors = Object.assign(getCommonCameraAccessors(entity), getPerspectiveCameraAccessors(entity));
   accessors.setAspect(width / height);
 
-  const wrapper: TAbstractWrapper<TAnyCamera> = AbstractWrapper(entity, WrapperType.Camera, { name: params.name, tags: params.tags });
+  const wrapper: TAbstractWrapper<TAnyCamera> = AbstractWrapper(entity, WrapperType.Camera, params);
   const drive: TCameraTransformDrive = CameraTransformDrive(params, { transformDriveService }, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 

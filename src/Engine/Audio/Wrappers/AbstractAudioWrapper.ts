@@ -21,7 +21,7 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
   const loop$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.loop ?? false);
   const volume$: BehaviorSubject<number> = new BehaviorSubject<number>(volume ?? 1);
 
-  const wrapper: TAbstractWrapper<T> = AbstractWrapper(entity, WrapperType.Audio, { name: params.name, tags: params.tags });
+  const wrapper: TAbstractWrapper<T> = AbstractWrapper(entity, WrapperType.Audio, params);
 
   play$.pipe(takeUntil(wrapper.destroy$)).subscribe((shouldPlay: boolean): void => {
     if (shouldPlay && !entity.isPlaying) return void entity.play();

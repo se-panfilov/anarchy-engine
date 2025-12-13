@@ -18,7 +18,7 @@ export function PhysicsBody(params: TPhysicsBodyParams, { world }: TPhysicsDepen
   const { isSleep = false } = params;
   if (isSleep) entities.rigidBody?.sleep();
 
-  const abstract = AbstractEntity(withPhysicsBodyEntities(entities), EntityType.PhysicsBody, { name: params.name, tags: params.tags });
+  const abstract = AbstractEntity(withPhysicsBodyEntities(entities), EntityType.PhysicsBody, params);
 
   const destroySub$: Subscription = abstract.destroy$.subscribe((): void => {
     if (isDefined(entities.rigidBody)) world.removeRigidBody(entities.rigidBody);

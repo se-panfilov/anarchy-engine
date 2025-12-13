@@ -33,7 +33,7 @@ export function ParticlesWrapper(params: TParticlesParams, dependencies: TPartic
   const setIndividualPositions = (positions: Float32Array): void => void geometry.setAttribute('position', new BufferAttribute(positions, 3));
   const getIndividualPositions = (): Float32Array => geometry.getAttribute('position').array as Float32Array;
 
-  const wrapper: TAbstractWrapper<TPoints> = AbstractWrapper(entity, WrapperType.Particles, { name: params.name, tags: params.tags });
+  const wrapper: TAbstractWrapper<TPoints> = AbstractWrapper(entity, WrapperType.Particles, params);
   const drive: TParticlesTransformDrive = ParticlesTransformDrive(params, dependencies, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
