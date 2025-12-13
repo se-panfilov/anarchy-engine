@@ -1,5 +1,8 @@
 @font-face {
   font-family: 'Noto Sans';
+  // TODO DESKTOP: convert fonts to woff2
+  // TODO DESKTOP: use proper 'Noto Sans' (subsets or smt)
+  // TODO DESKTOP: make presets for asian/arabic langs
   src:
     //url("/fonts/NotoSansSC-Regular.woff2") format("woff2"),
     url('NotoSans-Regular.ttf') format('truetype');
