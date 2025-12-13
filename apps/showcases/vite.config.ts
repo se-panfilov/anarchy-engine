@@ -12,7 +12,8 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
   const env: ImportMetaEnv = loadEnv(mode, root) as ImportMetaEnv;
   const { VITE_BUILD_COMPRESSION, VITE_BUILD_MINIFIED, VITE_BUILD_SOURCEMAPS, VITE_BUILD_TARGET_DIR } = env;
 
-  if (command === 'build' && !VITE_BUILD_TARGET_DIR) throw new Error('[BUILD] VITE_BUILD_TARGET_DIR mast be specified in .env file, but it is not.');
+  if (command === 'build' && !VITE_BUILD_TARGET_DIR)
+    throw new Error('[BUILD] Build must be run with a target(desktop/mobile/web). So, VITE_BUILD_TARGET_DIR mast be specified in .env file, but it is not.');
 
   const toBool = (v: string): boolean => v === 'true';
   const buildCompression: boolean = toBool(VITE_BUILD_COMPRESSION as any);
