@@ -11,10 +11,13 @@ export type TFsmService = TAbstractService &
   TFsmServiceWithFactory &
   Readonly<{
     create: (params: TFsmParams, force?: boolean) => TFsmWrapper | never;
+    createFromList: (params: ReadonlyArray<TFsmParams>, force?: boolean) => ReadonlyArray<TFsmWrapper>;
     createInstanceBySourceName: (sourceName: string) => TFsmWrapper | never;
     createSource: (source: TFsmParams) => TFsmSource;
+    createSourceFromList: (source: ReadonlyArray<TFsmParams>) => ReadonlyArray<TFsmSource>;
     createSourceFromConfig: (fsm: ReadonlyArray<TFsmConfig>) => ReadonlyArray<TFsmSource>;
     createInstance: (source: TFsmSource) => TFsmWrapper;
+    createInstanceFromList: (source: ReadonlyArray<TFsmSource>) => ReadonlyArray<TFsmWrapper>;
     getSourceRegistry: () => TFsmSourceRegistry;
     getInstanceRegistry: () => TFsmInstanceRegistry;
   }>;

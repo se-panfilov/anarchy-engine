@@ -40,6 +40,10 @@ export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: 
     return instanceFactory.create(source);
   }
 
+  function createFromList(paramsList: ReadonlyArray<TFsmParams>, force: boolean = false): ReadonlyArray<TFsmWrapper> {
+    return paramsList.map((params: TFsmParams): TFsmWrapper => create(params, force));
+  }
+
   function isParamsEqualsToSource(params: TFsmParams, source: TFsmSource): boolean {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id, tags, ...sourceParams } = source;
@@ -55,10 +59,13 @@ export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, {
     create,
+    createFromList,
     createInstanceBySourceName,
     createSource: sourceService.create,
+    createSourceFromList: sourceService.createFromList,
     createSourceFromConfig: sourceService.createFromConfig,
     createInstance: instanceService.create,
+    createInstanceFromList: instanceService.createFromList,
     getSourceRegistry: (): TFsmSourceRegistry => sourceRegistry,
     getInstanceRegistry: (): TFsmInstanceRegistry => instanceRegistry,
     getFactory: (): TFsmInstanceFactory => instanceFactory
