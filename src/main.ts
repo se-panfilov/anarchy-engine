@@ -5,7 +5,7 @@ import { RendererWrapper } from './Renderer/RendererWrapper';
 import { CameraWrapper } from './Camera/CameraWrapper';
 import { ambientLight, directionalLight } from './lights';
 import { sphere } from './sphere';
-import { plane } from './planne';
+import { plane } from './Scenes';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { fpsGraph } from './DeveloperPanel';
 import { startWatchResize } from './Watchers/Device/ResizeWatcher';
