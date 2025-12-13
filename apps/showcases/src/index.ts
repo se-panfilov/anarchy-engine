@@ -4,7 +4,7 @@ import { setBrowserSafeguards } from '@Engine';
 
 import { runtimeEnv } from '@/env';
 import type { TAppSettings } from '@/Models/TAppSettings';
-import { addNavigationPanel } from '@/Navigation/NavigationPanel';
+import { addNavigationPanel } from '@/Navigation';
 import { route } from '@/router';
 
 const settings: TAppSettings = {
