@@ -3,7 +3,7 @@ import { degToRad } from 'three/src/math/MathUtils';
 import { Vector3 } from 'three/src/math/Vector3';
 
 import { attachConnectorPositionToSubj, attachConnectorRotationToSubj } from '@/App/Levels/Utils';
-import type { TActor, TCameraWrapper, TLightWrapper, TSpace, TSpaceConfig, TText3dTextureWrapper, TText3dWrapper } from '@/Engine';
+import type { TActor, TCameraWrapper, TLightWrapper, TLoop, TSpace, TSpaceConfig, TText3dTextureWrapper, TText3dWrapper } from '@/Engine';
 import { degrees, ForwardAxis, getPushCoordsFrom3dAzimuth, getQueryParams, isDefined, metersPerSecond, radians } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
@@ -26,6 +26,7 @@ export const spaceTransformDriveData: TSpacesData = {
 
     addAwait('onCreate', spaceTransformDriveData.awaits$);
     space.loops.kinematicLoop.stop();
+    space.loops.physicalLoop.stop();
 
     const { defaultActor, kinematicActor, connectedActor, connectedLight, connectedText } = getShowcaseActors(space);
 
@@ -51,7 +52,7 @@ export const spaceTransformDriveData: TSpacesData = {
   }
 };
 
-async function performNormalSaveLoadTest(space: TSpace): Promise<void> {
+async function performNormalSaveLoadTest(space: TSpace): Promise<ReadonlyArray<void>> {
   const { camera, defaultActor, kinematicActor, kinematicText, physicsActor } = getShowcaseActors(space);
 
   if (isOriginalSceneLoaded) {
@@ -60,14 +61,14 @@ async function performNormalSaveLoadTest(space: TSpace): Promise<void> {
     kinematicActor.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.05));
     kinematicActor.drive.kinematic.lookAt(new Vector3(0, 2, 0), metersPerSecond(0.00003));
     kinematicText.drive.kinematic.moveTo(new Vector3(2, 2, 2.5), metersPerSecond(0.05));
-    physicsActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(radians(degToRad(degrees(90))), radians(0), 40, ForwardAxis.Z), true);
+    physicsActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(radians(degToRad(degrees(90))), radians(0), 30, ForwardAxis.Z), true);
   }
 
-  return doKinematicSteps(space, 100, 15);
+  return Promise.all([doLoopSteps(space.loops.kinematicLoop, 100, 15), doLoopSteps(space.loops.physicalLoop, 100, 15)]);
 }
 
 async function performContinuousMoveSaveLoadTest(space: TSpace): Promise<void> {
-  const { defaultActor, kinematicText, kinematicActor } = getShowcaseActors(space);
+  const { defaultActor, kinematicText, kinematicActor, physicsActor } = getShowcaseActors(space);
 
   // The first step: move kinematic actors (50 ticks), then Save, Load and click again...
   if (continuousStepCounter === 0) {
@@ -77,24 +78,26 @@ async function performContinuousMoveSaveLoadTest(space: TSpace): Promise<void> {
     kinematicActor.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.05));
     kinematicActor.drive.kinematic.lookAt(new Vector3(0, 2, 0), metersPerSecond(0.00001));
     kinematicText.drive.kinematic.moveTo(new Vector3(2, 2, 2.5), metersPerSecond(0.05));
-    await doKinematicSteps(space, 50, 10);
+    physicsActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(radians(degToRad(degrees(90))), radians(0), 30, ForwardAxis.Z), true);
+
+    await Promise.all([doLoopSteps(space.loops.kinematicLoop, 50, 10), doLoopSteps(space.loops.physicalLoop, 50, 10)]);
   }
 
   //The second step: ...click after loaded the space. Actors should continue to move (120 ticks more)
   if (continuousStepCounter === 1) {
     addAwait('continuous_move_1', spaceTransformDriveData.awaits$);
-    await doKinematicSteps(space, 110, 10);
+    await Promise.all([doLoopSteps(space.loops.physicalLoop, 110, 10), doLoopSteps(space.loops.kinematicLoop, 110, 10)]);
     removeAwait('continuous_move_1', spaceTransformDriveData.awaits$);
   }
 
   continuousStepCounter += 1;
 }
 
-function doKinematicSteps(space: TSpace, stepsCount: number, stepCooldown: number = 100): Promise<void> {
+function doLoopSteps(loop: TLoop, stepsCount: number, stepCooldown: number = 100): Promise<void> {
   return new Promise((resolve): void => {
     let step: number = 0;
     const idx = setInterval((): void => {
-      space.loops.kinematicLoop.tick$.next(0);
+      loop.tick$.next(0);
       step += 1;
       if (step >= stepsCount) resolve(clearInterval(idx));
     }, stepCooldown);
