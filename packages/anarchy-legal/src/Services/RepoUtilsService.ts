@@ -425,7 +425,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
           } satisfies TLicenseEntry;
         })
     );
-    return [...entries].sort((a, b) => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
+    return [...entries].sort((a, b): number => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
   }
 
   function renderMarkdown(workspaceLabel: string, items: ReadonlyArray<TLicenseEntry>, emptyNote?: string): string {
@@ -462,7 +462,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     if (info) return { wsName: info.name, wsDir: info.dir };
     const asPath: string = path.isAbsolute(arg) ? arg : path.join(rootDir, arg);
     const normalized: string = path.resolve(asPath);
-    const found: TWorkspaceInfo | undefined = [...workspaces.values()].find((w) => path.resolve(w.dir) === normalized);
+    const found: TWorkspaceInfo | undefined = [...workspaces.values()].find((w: TWorkspaceInfo): boolean => path.resolve(w.dir) === normalized);
     if (found) return { wsName: found.name, wsDir: found.dir };
     throw new Error(`Workspace "${arg}" not found. Use a workspace *name* (package.json:name) or a *path* to its directory (relative to monorepo root).`);
   }
