@@ -1,4 +1,4 @@
-import type { TSerializableResourceService } from '@/Engine/Abstract';
+import type { TSerializableEntitiesService } from '@/Engine/Abstract';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 
 import type { TFsmConfig } from './TFsmConfig';
@@ -12,8 +12,7 @@ export type TFsmSourceServiceWithCreateFromConfig = TWithCreateFromConfigService
 export type TFsmSourceServiceWithFactory = TWithFactoryService<TFsmSource, TFsmParams, undefined, TFsmSourceFactory>;
 export type TFsmSourceServiceWithRegistry = TWithRegistryService<TFsmSourceRegistry>;
 
-// TODO 15-0-0: Return type might be not TFsmConfig, but something else, check it
-export type TFsmSourceService = TSerializableResourceService<TFsmConfig> &
+export type TFsmSourceService = TSerializableEntitiesService<TFsmConfig> &
   TFsmSourceServiceWithCreate &
   TFsmSourceServiceWithCreateFromConfig &
   TFsmSourceServiceWithFactory &

@@ -1,6 +1,6 @@
 import type { Subscription } from 'rxjs';
 
-import type { TAbstractResourceAsyncRegistry, TAbstractService } from '@/Engine/Abstract';
+import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type {
   TFsmConfig,
@@ -14,7 +14,7 @@ import type {
   TFsmSourceServiceWithRegistry
 } from '@/Engine/Fsm/Models';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializeAllResources } from '@/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
 
 export function FsmSourceService(factory: TFsmSourceFactory, registry: TFsmSourceRegistry): TFsmSourceService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((fsm: TFsmSource): void => registry.add(fsm.name, fsm));
@@ -27,13 +27,5 @@ export function FsmSourceService(factory: TFsmSourceFactory, registry: TFsmSourc
   const withRegistry: TFsmSourceServiceWithRegistry = withRegistryService(registry);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(
-    abstractService,
-    withCreateService,
-    withCreateFromConfigService,
-    withFactory,
-    withRegistry,
-    // TODO 15-0-0: Return type might be not TFsmConfig, but something else, check it
-    withSerializeAllResources<TFsmConfig, undefined>(registry as TAbstractResourceAsyncRegistry<TFsmSource>)
-  );
+  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TFsmConfig, undefined>(registry));
 }
