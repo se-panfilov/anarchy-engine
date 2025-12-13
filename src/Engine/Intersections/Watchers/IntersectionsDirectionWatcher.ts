@@ -34,10 +34,10 @@ export function IntersectionsDirectionWatcher(params: TIntersectionsDirectionWat
       switchMap((isEnabled: boolean): Observable<TMilliseconds | never> => (isEnabled ? intersectionsLoop.tick$ : EMPTY)),
       map((): Readonly<{ origin: TReadonlyVector3; direction: TReadonlyVector3 }> | undefined =>
         // TODO 15-0-0: implement a support of shouldUseDistinct and test it
-        // getOriginAndDirection(tmpOrigin, tmpDirection, prevOrigin, prevDirection, origin$.value, direction$.value, threshold)
+        // getOriginAndDirection(tmpOrigin, tmpDirection, prevOrigin, prevDirection, origin$.value.clone(), direction$.value.clone(), threshold)
         shouldUseDistinct
-          ? getOriginAndDirection(tmpOrigin, tmpDirection, prevOrigin, prevDirection, origin$.value, direction$.value, threshold)
-          : { origin: origin$.value, direction: direction$.value }
+          ? getOriginAndDirection(tmpOrigin, tmpDirection, prevOrigin, prevDirection, origin$.value.clone(), direction$.value.clone(), threshold)
+          : { origin: origin$.value.clone(), direction: direction$.value.clone() }
       ),
       filter(isDefined)
     )

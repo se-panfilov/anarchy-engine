@@ -68,7 +68,6 @@ export function getOriginAndDirection(
   prevOrigin.set(tmpOrigin);
   prevDirection.set(tmpDirection);
 
-  // TODO 15-0-0: do we really need Vector3 here?
   return {
     origin: new Vector3(tmpOrigin[0], tmpOrigin[1], tmpOrigin[2]) as TReadonlyVector3,
     direction: new Vector3(tmpDirection[0], tmpDirection[1], tmpDirection[2]) as TReadonlyVector3
