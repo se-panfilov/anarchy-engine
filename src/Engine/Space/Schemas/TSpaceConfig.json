@@ -339,7 +339,7 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "isAutoupdate": {
+        "isAutoUpdate": {
           "type": "boolean"
         },
         "gridName": {
@@ -349,7 +349,7 @@
           "$ref": "#/definitions/SpatialUpdatePriority"
         }
       },
-      "required": ["gridName", "isAutoupdate"]
+      "required": ["gridName", "isAutoUpdate"]
     },
     "SpatialUpdatePriority": {
       "type": "number",

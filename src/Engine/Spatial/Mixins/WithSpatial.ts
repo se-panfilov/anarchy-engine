@@ -7,15 +7,15 @@ import type { TSpatialData, TWithSpatial } from '@/Engine/Spatial/Models';
 import type { TWriteable } from '@/Engine/Utils';
 
 export function withSpatial(params: TActorParams): TWithSpatial {
-  let _isAutoUpdate: boolean = params.isSpatialAutoUpdate ?? false;
+  let _isAutoUpdate: boolean = params.spatial.isAutoUpdate;
   const cellsChanged$: Subject<ReadonlyArray<TSpatialCellWrapper>> = new Subject<ReadonlyArray<TSpatialCellWrapper>>();
 
   return {
     spatial: {
       data: {
-        updatePriority: params.spatial?.updatePriority ?? SpatialUpdatePriority.LOW,
-        grid: params.spatial?.grid || undefined,
-        cells: params.spatial?.cells || []
+        updatePriority: params.spatial.updatePriority ?? SpatialUpdatePriority.LOW,
+        grid: params.spatial.grid || undefined,
+        cells: []
       },
       setData({ updatePriority, cells }: TSpatialData): void {
         this.setSpatialUpdatePriority(updatePriority);

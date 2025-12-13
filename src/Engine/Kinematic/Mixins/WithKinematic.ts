@@ -9,7 +9,7 @@ import type { TWriteable } from '@/Engine/Utils';
 import { Vector3Wrapper } from '@/Engine/Vector';
 
 export function withKinematic(params: TActorParams): TWithKinematic {
-  let _isAutoUpdate: boolean = params.isKinematicAutoUpdate ?? false;
+  let _isAutoUpdate: boolean = params.kinematic?.isAutoUpdate ?? false;
 
   return {
     kinematic: {
