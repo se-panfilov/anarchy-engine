@@ -44,8 +44,7 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: T
     // eslint-disable-next-line functional/immutable-data
     element.className = '';
     element.removeAttribute('style');
-    document.body.removeChild(element);
-    if (element?.parentNode) element?.parentNode.removeChild(element);
+    if (element?.parentElement) element?.parentElement.removeChild(element);
     element?.remove();
     element = null as any;
 
