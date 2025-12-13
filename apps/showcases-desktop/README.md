@@ -1,4 +1,4 @@
-# Anarchy engine
+# Anarchy-Showcases (desktop wrapper)
 
 Showcases for the Anarchy engine (desktop app).
 

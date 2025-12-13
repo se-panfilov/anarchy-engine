@@ -1,6 +1,6 @@
 # Anarchy Engine (monorepo)
 
-A framework around three.js for game development.
+This is a monorepo for framework around three.js for game development.
 
 ## License
 

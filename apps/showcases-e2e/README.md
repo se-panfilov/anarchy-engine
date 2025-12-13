@@ -1,4 +1,4 @@
-# Anarchy engine
+# Anarchy-Showcases E2E
 
 E2E tests (for Showcases app of the Anarchy engine).
 
