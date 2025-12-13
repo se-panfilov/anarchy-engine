@@ -1,4 +1,4 @@
-import type { TShowcaseLocaleIds } from 'showcases-shared';
+import type { TShowcaseLocaleIds } from './TShowcaseLocaleIds';
 
 export type TLoadDocPayload = Readonly<{
   name: string;

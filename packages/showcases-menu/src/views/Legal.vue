@@ -19,7 +19,8 @@ import { onMounted } from 'vue';
 // Render .md files in a scrollable view
 
 onMounted(() => {
-  eventsService.emitLoadMenuSettings();
+  const val = eventsService.emitLoadLegalDocs();
+  console.log('XXX legal docs', val);
 });
 
 const { $t } = vueTranslationService;

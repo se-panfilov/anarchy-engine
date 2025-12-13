@@ -1,7 +1,7 @@
 import { PlatformActions } from '@Showcases/Desktop/Constants';
 import type { THandleRequestDependencies } from '@Showcases/Desktop/Models';
 import { isPlatformAction } from '@Showcases/Desktop/Utils';
-import { isSettings } from '@Showcases/Shared';
+import { isLoadDocPayload, isSettings } from '@Showcases/Shared';
 import type { IpcMainInvokeEvent } from 'electron';
 
 // TODO DESKTOP: any
@@ -21,6 +21,7 @@ export function handleAppRequest({ settingsService, docsService }: THandleReques
     case PlatformActions.LoadAppSettings:
       return Promise.resolve(settingsService.loadAppSettings());
     case PlatformActions.LoadLegalDocs:
+      if (!isLoadDocPayload(payload)) throw new Error(`[DESKTOP]: Failed to load legal docs: Invalid payload`);
       return Promise.resolve(docsService.load(payload));
     default:
       throw new Error(`[DESKTOP]: Unknown platform action: ${type}`);

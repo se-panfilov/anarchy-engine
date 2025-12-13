@@ -1,1 +1,1 @@
-export * from './SettingsUtils';
+export * from './ChecUtils';

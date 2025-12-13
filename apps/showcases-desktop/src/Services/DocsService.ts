@@ -1,7 +1,10 @@
 import * as fs from 'node:fs';
 import { readFile } from 'node:fs/promises';
+import { join, normalize } from 'node:path';
 
-import type { TDocsService, TLoadDocPayload } from '@Showcases/Desktop/Models';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TDocsService } from '@Showcases/Desktop/Models';
+import type { TLoadDocPayload } from '@Showcases/Shared';
 import type { App } from 'electron';
 
 // TODO DESKTOP: extract
@@ -22,9 +25,9 @@ export function DocsService(app: App): TDocsService {
 
   // TODO DESKTOP: Extract file reading/writing to a separate utility
   // TODO DESKTOP: Better to make all of this async
-  function load({ name }: TLoadDocPayload): string | never {
-    const filePath = resolveDocPath(name);
-    if (!fs.existsSync(filePath)) throw new Error(`[DESKTOP]: Document "${name}" does not found: ${filePath}`);
+  function load({ name }: TLoadDocPayload): Promise<string> | never {
+    const filePath: string | undefined = resolveDocPath(name);
+    if (isNotDefined(filePath) || !fs.existsSync(filePath)) throw new Error(`[DESKTOP]: Document "${name}" does not found: ${filePath}`);
 
     const result = readFile(filePath, 'utf-8');
     // TODO DESKTOP: sanitize result

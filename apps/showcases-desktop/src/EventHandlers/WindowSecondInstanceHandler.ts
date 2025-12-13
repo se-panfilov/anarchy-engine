@@ -11,7 +11,6 @@ export function windowSecondInstanceHandler(app: App, win: BrowserWindow): void 
   if (!gotTheLock) {
     app.quit(); // Close the second instance of the app
   } else {
-    // eslint-disable-next-line spellcheck/spell-checker
     app.on('second-instance', (_event: unknown, _argv: ReadonlyArray<string>, _cwd: string): void => {
       // Restore the window if it was minimized
       if (win) {
