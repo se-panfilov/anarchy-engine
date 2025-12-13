@@ -1,7 +1,7 @@
-import type { IWithTagsMixin } from '@/Engine/Mixins/Generics/Models';
+import type { TWithTagsMixin } from '@/Engine/Mixins/Generics/Models';
 import { omitInArray } from '@/Engine/Utils';
 
-export function withTagsMixin(tagsList: ReadonlyArray<string> = []): IWithTagsMixin {
+export function withTagsMixin(tagsList: ReadonlyArray<string> = []): TWithTagsMixin {
   const state: { tags: ReadonlyArray<string> } = { tags: [...tagsList] };
 
   return {

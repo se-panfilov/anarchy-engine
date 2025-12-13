@@ -16,13 +16,13 @@ import type {
   IToonMaterialTexturePack,
   TMaterialTexturePack
 } from '@/Engine/MaterialTexturePack';
-import type { IMovable3dXYZ, IRotatable, IScalable, IWithObject3d } from '@/Engine/Mixins';
+import type { TMovable3dXYZ, TRotatable, IScalable, TWithObject3d } from '@/Engine/Mixins';
 import type { IWithTextures } from '@/Engine/Texture';
-import type { IObject3DParams } from '@/Engine/ThreeLib';
+import type { TObject3DParams } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils/index';
 import type { TVector2Wrapper, TVector3Wrapper } from '@/Engine/Vector';
 
-export function applyObject3dParams(obj: IWithObject3d, { visible, castShadow, receiveShadow, frustumCulled, renderOrder }: Partial<IObject3DParams>): void {
+export function applyObject3dParams(obj: TWithObject3d, { visible, castShadow, receiveShadow, frustumCulled, renderOrder }: Partial<TObject3DParams>): void {
   if (isDefined(visible)) obj.setVisible(visible);
   if (isDefined(castShadow)) obj.setCastShadow(castShadow);
   if (isDefined(receiveShadow)) obj.setReceiveShadow(receiveShadow);
@@ -30,7 +30,7 @@ export function applyObject3dParams(obj: IWithObject3d, { visible, castShadow, r
   if (isDefined(renderOrder)) obj.setRenderOrder(renderOrder);
 }
 
-export function applyPosition(obj: IMovable3dXYZ, position?: TVector3Wrapper): void {
+export function applyPosition(obj: TMovable3dXYZ, position?: TVector3Wrapper): void {
   if (isDefined(position)) obj.setPosition(position);
 }
 
@@ -52,7 +52,7 @@ export function applyTexturePack(obj: IWithTextures, pack: IMaterialPackParams<T
   return obj.loadAndApplyMaterialTexturePack(pack);
 }
 
-export function applyRotation(obj: IRotatable, rotation?: TEulerWrapper): void {
+export function applyRotation(obj: TRotatable, rotation?: TEulerWrapper): void {
   if (isDefined(rotation)) obj.setRotation(rotation.getRotationX(), rotation.getRotationY(), rotation.getRotationZ());
 }
 

@@ -1,3 +1,3 @@
-import type { IMovable3dXYZ, IRotatable, IScalable, IWithObject3d, IWithTagsMixin } from '@/Engine/Mixins';
+import type { TMovable3dXYZ, TRotatable, IScalable, TWithObject3d, TWithTagsMixin } from '@/Engine/Mixins';
 
-export type IAbstractTextWrapper = Readonly<{ getElement: () => HTMLElement }> & IMovable3dXYZ & IRotatable & IScalable & IWithObject3d & IWithTagsMixin;
+export type IAbstractTextWrapper = Readonly<{ getElement: () => HTMLElement }> & TMovable3dXYZ & TRotatable & IScalable & TWithObject3d & TWithTagsMixin;

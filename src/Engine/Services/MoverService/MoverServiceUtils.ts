@@ -1,8 +1,8 @@
 import anime from 'animejs';
 import type { Subscription } from 'rxjs';
 
-import type { TLoopTimes, TLoopService } from '@/Engine/Loop';
-import type { IMovable3dXYZ } from '@/Engine/Mixins';
+import type { TLoopService, TLoopTimes } from '@/Engine/Loop';
+import type { TMovable3dXYZ } from '@/Engine/Mixins';
 import type {
   IAnimationParams,
   IFullKeyframeDestination,
@@ -36,11 +36,11 @@ export function performMoveUntil<F extends (params: P) => IMoveableByTick, P>(mo
 }
 
 // Do not use this function for complex paths (with more than 1 point), it might not work as expected when partial coords are provided.
-export function addMissingCoords<T extends IKeyframeDestination | IMoveDestination>(destination: T, actor: IMovable3dXYZ): IKeyframeDestination | Required<IMoveDestination> {
+export function addMissingCoords<T extends IKeyframeDestination | IMoveDestination>(destination: T, actor: TMovable3dXYZ): IKeyframeDestination | Required<IMoveDestination> {
   return { ...destination, x: destination.x ?? actor.getX(), y: destination.y ?? actor.getY(), z: destination.z ?? actor.getZ() };
 }
 
-export function getAccumulatedKeyframes(path: ReadonlyArray<IKeyframeDestination>, obj: IMovable3dXYZ): ReadonlyArray<IFullKeyframeDestination> {
+export function getAccumulatedKeyframes(path: ReadonlyArray<IKeyframeDestination>, obj: TMovable3dXYZ): ReadonlyArray<IFullKeyframeDestination> {
   return path.reduce((acc: ReadonlyArray<IFullKeyframeDestination>, destination: IKeyframeDestination, index: number) => {
     const prevDestination: IKeyframeDestination | undefined = acc[index - 1];
     const prevX: number = prevDestination?.x ?? obj.getX();
@@ -54,11 +54,11 @@ export function getAccumulatedKeyframes(path: ReadonlyArray<IKeyframeDestination
   }, []);
 }
 
-export function prepareDestination(destination: IMoveDestination, obj: IMovable3dXYZ): Required<IMoveDestination> {
+export function prepareDestination(destination: IMoveDestination, obj: TMovable3dXYZ): Required<IMoveDestination> {
   return addMissingCoords(destination, obj) as Required<IMoveDestination>;
 }
 
-export function preparePathList(list: ReadonlyArray<IKeyframeDestination>, obj: IMovable3dXYZ): ReadonlyArray<IFullKeyframeDestination> {
+export function preparePathList(list: ReadonlyArray<IKeyframeDestination>, obj: TMovable3dXYZ): ReadonlyArray<IFullKeyframeDestination> {
   return list.map((destination: IKeyframeDestination) => addMissingCoords(destination, obj) as IFullKeyframeDestination);
 }
 

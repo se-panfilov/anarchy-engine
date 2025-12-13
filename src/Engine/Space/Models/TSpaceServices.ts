@@ -4,7 +4,7 @@ import type { TControlsService } from '@/Engine/Controls';
 import type { TEnvMapService } from '@/Engine/EnvMap';
 import type { TFogService } from '@/Engine/Fog';
 import type { TIntersectionsWatcherService } from '@/Engine/Intersections';
-import type { ILightService } from '@/Engine/Light';
+import type { TLightService } from '@/Engine/Light';
 import type { IMaterialService } from '@/Engine/Material';
 import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import type { IParticlesService } from '@/Engine/Particles';
@@ -17,7 +17,7 @@ export type TSpaceServices = Readonly<{
   textService: ITextService;
   cameraService: TCameraService;
   intersectionsWatcherService: TIntersectionsWatcherService;
-  lightService: ILightService;
+  lightService: TLightService;
   particlesService: IParticlesService;
   fogService: TFogService;
   controlsService: TControlsService;

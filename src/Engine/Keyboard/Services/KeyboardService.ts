@@ -1,9 +1,9 @@
 import { bindKey, bindKeyCombo, checkKey, checkKeyCombo, unbindKey, unbindKeyCombo } from '@rwh/keystrokes';
 import { Subject } from 'rxjs';
 
-import type { TGameKey, TKeyboardRegistry, TKeyboardRegistryValues, TKeyCombo, TKeySubscription, TKeyboardService } from '@/Engine/Keyboard/Models';
+import type { TGameKey, TKeyboardRegistry, TKeyboardRegistryValues, TKeyboardService, TKeyCombo, TKeySubscription } from '@/Engine/Keyboard/Models';
 import { KeyboardRegistry } from '@/Engine/Keyboard/Registries';
-import type { TLoopTimes, TLoopService } from '@/Engine/Loop';
+import type { TLoopService, TLoopTimes } from '@/Engine/Loop';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function KeyboardService(loopService: TLoopService): TKeyboardService {

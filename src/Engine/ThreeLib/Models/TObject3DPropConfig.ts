@@ -1,9 +1,9 @@
 import type { TWithCoordsXYZ } from '@/Engine/Mixins';
 
 import type { TEuler3dConfig } from '../../Euler/Models/TEuler3dConfig';
-import type { IObject3DParams } from './IObject3DParams';
+import type { TObject3DParams } from './TObject3DParams';
 
-export type TObject3DPropConfig = Omit<IObject3DParams, 'layers' | 'animations' | 'position' | 'rotation' | 'scale'> &
+export type TObject3DPropConfig = Omit<TObject3DParams, 'layers' | 'animations' | 'position' | 'rotation' | 'scale'> &
   Readonly<{
     layers?: number;
     animations?: ReadonlyArray<string>;

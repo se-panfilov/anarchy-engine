@@ -8,7 +8,7 @@ import type { TColor } from '@/Engine/Color';
 import { ColorWrapper } from '@/Engine/Color';
 import type { TDataTexture } from '@/Engine/EnvMap';
 import type { TFogWrapper } from '@/Engine/Fog';
-import type { IAbstractLightWrapper, ILight } from '@/Engine/Light';
+import type { TAbstractLightWrapper, TLight } from '@/Engine/Light';
 import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
 import type { IParticlesWrapperAsync } from '@/Engine/Particles';
 import type { ISceneObject, ISceneParams, TSceneWrapper } from '@/Engine/Scene/Models';
@@ -27,7 +27,7 @@ export function SceneWrapper(params: ISceneParams): TSceneWrapper {
   const add = (obj: ISceneObject): void => void entity.add(obj);
   const addCamera = (camera: Readonly<TCameraWrapper>): void => add(camera.entity);
   const addActor = (actor: Readonly<TActorWrapperAsync>): void => add(actor.entity);
-  const addLight = <T extends ILight>(light: Readonly<IAbstractLightWrapper<T>>): void => add(light.entity);
+  const addLight = <T extends TLight>(light: Readonly<TAbstractLightWrapper<T>>): void => add(light.entity);
   const addParticles = (particles: Readonly<IParticlesWrapperAsync>): void => add(particles.entity);
 
   const addText = (text: Readonly<ITextAnyWrapper>): void => add(text.entity);

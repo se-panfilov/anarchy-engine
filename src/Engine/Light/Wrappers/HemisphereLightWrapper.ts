@@ -1,10 +1,10 @@
 import { HemisphereLight } from 'three';
 
-import type { IAbstractLightWrapper, IHemisphereLight, IHemisphereLightParams } from '@/Engine/Light/Models';
+import type { TAbstractLightWrapper, THemisphereLight, THemisphereLightParams } from '@/Engine/Light/Models';
 
 import { AbstractLightWrapper } from './AbstractLightWrapper';
 
-export function HemisphereLightWrapper(params: IHemisphereLightParams): IAbstractLightWrapper<IHemisphereLight> {
-  const entity: IHemisphereLight = new HemisphereLight(params.color, params.groundColor, params.intensity);
+export function HemisphereLightWrapper(params: THemisphereLightParams): TAbstractLightWrapper<THemisphereLight> {
+  const entity: THemisphereLight = new HemisphereLight(params.color, params.groundColor, params.intensity);
   return AbstractLightWrapper(entity, params);
 }

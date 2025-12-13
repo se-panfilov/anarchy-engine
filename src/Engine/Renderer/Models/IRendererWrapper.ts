@@ -1,6 +1,6 @@
 import type { WebGLRenderer } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
-import type { IWithActiveMixin, IWithTagsMixin, TDestroyable } from '@/Engine/Mixins';
+import type { IWithActiveMixin, TWithTagsMixin, TDestroyable } from '@/Engine/Mixins';
 
-export type IRendererWrapper = TWrapper<WebGLRenderer> & IWithActiveMixin & IWithTagsMixin & TDestroyable;
+export type IRendererWrapper = TWrapper<WebGLRenderer> & IWithActiveMixin & TWithTagsMixin & TDestroyable;

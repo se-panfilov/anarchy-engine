@@ -4,7 +4,7 @@ import type { TEngine } from '@/Engine/Engine/Models';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TKeyboardService } from '@/Engine/Keyboard';
 import { KeyboardService } from '@/Engine/Keyboard';
-import type { TLoopTimes, TLoopService } from '@/Engine/Loop';
+import type { TLoopService, TLoopTimes } from '@/Engine/Loop';
 import { LoopService } from '@/Engine/Loop';
 import type { IRendererWrapper } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';

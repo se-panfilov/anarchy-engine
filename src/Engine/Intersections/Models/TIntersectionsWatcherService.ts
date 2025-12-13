@@ -4,11 +4,11 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import type { TMouseService } from '@/Engine/Mouse';
 import type { TWithCreateFromConfigAsyncService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
 
+import type { TIntersectionsWatcher } from './TIntersectionsWatcher';
 import type { TIntersectionsWatcherAsyncRegistry } from './TIntersectionsWatcherAsyncRegistry';
 import type { TIntersectionsWatcherConfig } from './TIntersectionsWatcherConfig';
 import type { TIntersectionsWatcherFactory } from './TIntersectionsWatcherFactory';
 import type { TIntersectionsWatcherParams } from './TIntersectionsWatcherParams';
-import type { TIntersectionsWatcher } from './TIntersectionsWatcher';
 
 export type TIntersectionsWatcherService = TWithCreateService<TIntersectionsWatcher, TIntersectionsWatcherParams> &
   Omit<TWithCreateFromConfigAsyncService<TIntersectionsWatcherConfig>, 'createFromConfigAsync'> &

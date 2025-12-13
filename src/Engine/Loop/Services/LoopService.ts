@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs';
 import { Clock } from 'three';
 
-import type { TLoopTimes, TLoopService } from '@/Engine/Loop/Models';
+import type { TLoopService, TLoopTimes } from '@/Engine/Loop/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 

@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import type { TWithUserData, TWithWrapperId, TWithWrapperIdEntity, WrapperType } from '@/Engine/Abstract';
 import { withNoWrapperIdMixin, withWrapperIdMixin } from '@/Engine/Abstract';
 import type { TWrapper } from '@/Engine/Abstract/Models';
-import type { IWithEntity, IWithName, IWithNameAndNameAccessorsMixin, IWithTagsMixin, TDestroyable, TRegistrable } from '@/Engine/Mixins';
+import type { IWithEntity, IWithName, IWithNameAndNameAccessorsMixin, TWithTagsMixin, TDestroyable, TRegistrable } from '@/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins/Generics';
 import { isDefined, isWithUserData, isWithWrapperIdAccessors } from '@/Engine/Utils';
@@ -18,9 +18,9 @@ export function AbstractWrapper<T extends TWithUserData>(entity: T, type: Wrappe
   const withNameAndNameAccessors: IWithNameAndNameAccessorsMixin = withNameAndNameAccessorsMixin();
   const withWrapperId: TWithWrapperId = isWithUserData(entity) ? withWrapperIdMixin(entity) : withNoWrapperIdMixin(entity);
   const destroyable: TDestroyable = destroyableMixin();
-  const withTags: IWithTagsMixin = withTagsMixin(params ? params.tags : []);
+  const withTags: TWithTagsMixin = withTagsMixin(params ? params.tags : []);
 
-  const partialResult: IWithEntity<T> & TRegistrable & IWithTagsMixin & TDestroyable = {
+  const partialResult: IWithEntity<T> & TRegistrable & TWithTagsMixin & TDestroyable = {
     id,
     entity,
     ...withTags,

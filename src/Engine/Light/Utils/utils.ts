@@ -1,23 +1,23 @@
 import { WrapperType } from '@/Engine/Abstract';
 import type {
-  IAmbientLight,
-  IAmbientLightParams,
-  IDirectionalLight,
-  IDirectionalLightParams,
-  IHemisphereLight,
-  IHemisphereLightParams,
-  ILight,
-  ILightParams,
-  IPointLight,
-  IPointLightParams,
-  IRectAreaLight,
-  IRectAreaLightParams,
-  ISpotLight,
-  ISpotLightParams
+  TAmbientLight,
+  TAmbientLightParams,
+  TDirectionalLight,
+  TDirectionalLightParams,
+  THemisphereLight,
+  THemisphereLightParams,
+  TLight,
+  TLightParams,
+  TPointLight,
+  TPointLightParams,
+  TRectAreaLight,
+  TRectAreaLightParams,
+  TSpotLight,
+  TSpotLightParams
 } from '@/Engine/Light/Models';
 import { isDefined } from '@/Engine/Utils';
 
-export function getWrapperType(light: ILight): WrapperType | never {
+export function getWrapperType(light: TLight): WrapperType | never {
   if (isAmbientLight(light)) return WrapperType.AmbientLight;
   else if (isDirectionalLight(light)) return WrapperType.DirectionalLight;
   else if (isPointLight(light)) return WrapperType.PointLight;
@@ -27,62 +27,62 @@ export function getWrapperType(light: ILight): WrapperType | never {
   else throw new Error('Unknown light type');
 }
 
-export function isAmbientLight(light: ILight): light is IAmbientLight {
-  return Boolean((light as IAmbientLight).isAmbientLight);
+export function isAmbientLight(light: TLight): light is TAmbientLight {
+  return Boolean((light as TAmbientLight).isAmbientLight);
 }
 
-export function isDirectionalLight(light: ILight): light is IDirectionalLight {
-  return Boolean((light as IDirectionalLight).isDirectionalLight);
+export function isDirectionalLight(light: TLight): light is TDirectionalLight {
+  return Boolean((light as TDirectionalLight).isDirectionalLight);
 }
 
-export function isPointLight(light: ILight): light is IPointLight {
-  return Boolean((light as IPointLight).isPointLight);
+export function isPointLight(light: TLight): light is TPointLight {
+  return Boolean((light as TPointLight).isPointLight);
 }
 
-export function isHemisphereLight(light: ILight): light is IHemisphereLight {
-  return Boolean((light as IHemisphereLight).isHemisphereLight);
+export function isHemisphereLight(light: TLight): light is THemisphereLight {
+  return Boolean((light as THemisphereLight).isHemisphereLight);
 }
 
-export function isRectAreaLight(light: ILight): light is IRectAreaLight {
-  return Boolean((light as IRectAreaLight).isRectAreaLight);
+export function isRectAreaLight(light: TLight): light is TRectAreaLight {
+  return Boolean((light as TRectAreaLight).isRectAreaLight);
 }
 
-export function isSpotLight(light: ILight): light is ISpotLight {
-  return Boolean((light as ISpotLight).isSpotLight);
+export function isSpotLight(light: TLight): light is TSpotLight {
+  return Boolean((light as TSpotLight).isSpotLight);
 }
 
-export function isAmbientLightParams(params: ILightParams): params is IAmbientLightParams {
-  return isDefined((params as IAmbientLightParams).color) && isDefined((params as IAmbientLightParams).intensity);
+export function isAmbientLightParams(params: TLightParams): params is TAmbientLightParams {
+  return isDefined((params as TAmbientLightParams).color) && isDefined((params as TAmbientLightParams).intensity);
 }
 
-export function isDirectionalLightParams(params: ILightParams): params is IDirectionalLightParams {
-  return isDefined((params as IDirectionalLightParams).color) && isDefined((params as IDirectionalLightParams).intensity);
+export function isDirectionalLightParams(params: TLightParams): params is TDirectionalLightParams {
+  return isDefined((params as TDirectionalLightParams).color) && isDefined((params as TDirectionalLightParams).intensity);
 }
 
-export function isPointLightParams(params: ILightParams): params is IPointLightParams {
-  return isDefined((params as IPointLightParams).color) && isDefined((params as IPointLightParams).intensity);
+export function isPointLightParams(params: TLightParams): params is TPointLightParams {
+  return isDefined((params as TPointLightParams).color) && isDefined((params as TPointLightParams).intensity);
 }
 
-export function isHemisphereLightParams(params: ILightParams): params is IHemisphereLightParams {
-  return isDefined((params as IHemisphereLightParams).color) && isDefined((params as IHemisphereLightParams).groundColor) && isDefined((params as IHemisphereLightParams).intensity);
+export function isHemisphereLightParams(params: TLightParams): params is THemisphereLightParams {
+  return isDefined((params as THemisphereLightParams).color) && isDefined((params as THemisphereLightParams).groundColor) && isDefined((params as THemisphereLightParams).intensity);
 }
 
-export function isRectAreaLightParams(params: ILightParams): params is IRectAreaLightParams {
+export function isRectAreaLightParams(params: TLightParams): params is TRectAreaLightParams {
   return (
-    isDefined((params as IRectAreaLightParams).color) &&
-    isDefined((params as IRectAreaLightParams).intensity) &&
-    isDefined((params as IRectAreaLightParams).height) &&
-    isDefined((params as IRectAreaLightParams).width)
+    isDefined((params as TRectAreaLightParams).color) &&
+    isDefined((params as TRectAreaLightParams).intensity) &&
+    isDefined((params as TRectAreaLightParams).height) &&
+    isDefined((params as TRectAreaLightParams).width)
   );
 }
 
-export function isSpotLightParams(params: ILightParams): params is ISpotLightParams {
+export function isSpotLightParams(params: TLightParams): params is TSpotLightParams {
   return (
-    isDefined((params as ISpotLightParams).color) &&
-    isDefined((params as ISpotLightParams).intensity) &&
-    isDefined((params as ISpotLightParams).angle) &&
-    isDefined((params as ISpotLightParams).penumbra) &&
-    isDefined((params as ISpotLightParams).decay) &&
-    isDefined((params as ISpotLightParams).distance)
+    isDefined((params as TSpotLightParams).color) &&
+    isDefined((params as TSpotLightParams).intensity) &&
+    isDefined((params as TSpotLightParams).angle) &&
+    isDefined((params as TSpotLightParams).penumbra) &&
+    isDefined((params as TSpotLightParams).decay) &&
+    isDefined((params as TSpotLightParams).distance)
   );
 }

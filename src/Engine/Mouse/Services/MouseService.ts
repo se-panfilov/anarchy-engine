@@ -14,8 +14,8 @@ import type {
   IMousePositionWatcher,
   IMousePositionWatcherFactory,
   IMousePositionWatcherRegistry,
-  TMouseService,
-  IMouseWatcherEvent
+  IMouseWatcherEvent,
+  TMouseService
 } from '@/Engine/Mouse/Models';
 import { MouseClickWatcherRegistry, MousePositionWatcherRegistry } from '@/Engine/Mouse/Registries';
 

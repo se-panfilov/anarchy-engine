@@ -3,7 +3,7 @@ export * from './IWithActiveMixin';
 export * from './IWithActiveMixinResult';
 export * from './IWithMessages';
 export * from './IWithName';
-export * from './IWithTagsMixin';
+export * from './TWithTagsMixin';
 export * from './TDestroyable';
 export * from './TMultitonRegistrable';
 export * from './TRegistrable';

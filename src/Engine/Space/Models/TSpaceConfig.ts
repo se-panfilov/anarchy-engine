@@ -3,7 +3,7 @@ import type { TCameraConfig } from '@/Engine/Camera';
 import type { TControlsConfig } from '@/Engine/Controls';
 import type { TFogConfig } from '@/Engine/Fog';
 import type { TIntersectionsWatcherConfig } from '@/Engine/Intersections';
-import type { IAnyLightConfig } from '@/Engine/Light';
+import type { TAnyLightConfig } from '@/Engine/Light';
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
 import type { IParticlesConfig } from '@/Engine/Particles';
 import type { ISceneConfig } from '@/Engine/Scene';
@@ -17,7 +17,7 @@ export type TSpaceConfig = Readonly<{
   actors: ReadonlyArray<TActorConfig>;
   cameras: ReadonlyArray<TCameraConfig>;
   intersections: ReadonlyArray<TIntersectionsWatcherConfig>;
-  lights: ReadonlyArray<IAnyLightConfig>;
+  lights: ReadonlyArray<TAnyLightConfig>;
   particles: ReadonlyArray<IParticlesConfig>;
   fogs: ReadonlyArray<TFogConfig>;
   texts: ReadonlyArray<ITextConfig>;

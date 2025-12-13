@@ -1,14 +1,14 @@
-import type { IAbstractLightWrapper, IAnyLightConfig, ILight, ILightFactory, ILightParams, ILightRegistry, ILightService } from '@/Engine/Light/Models';
+import type { TAbstractLightWrapper, TAnyLightConfig, TLight, TLightFactory, TLightParams, TLightRegistry, TLightService } from '@/Engine/Light/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 
-export function LightService(factory: ILightFactory, registry: ILightRegistry, scene: TSceneWrapper): ILightService {
-  registry.added$.subscribe((wrapper: IAbstractLightWrapper<ILight>) => scene.addLight(wrapper));
-  factory.entityCreated$.subscribe((wrapper: IAbstractLightWrapper<ILight>): void => registry.add(wrapper));
+export function LightService(factory: TLightFactory, registry: TLightRegistry, scene: TSceneWrapper): TLightService {
+  registry.added$.subscribe((wrapper: TAbstractLightWrapper<TLight>) => scene.addLight(wrapper));
+  factory.entityCreated$.subscribe((wrapper: TAbstractLightWrapper<TLight>): void => registry.add(wrapper));
 
-  const create = (params: ILightParams): IAbstractLightWrapper<ILight> => factory.create(params);
-  const createFromConfig = (lights: ReadonlyArray<IAnyLightConfig>): void => lights.forEach((config: IAnyLightConfig): IAbstractLightWrapper<ILight> => factory.create(factory.configToParams(config)));
+  const create = (params: TLightParams): TAbstractLightWrapper<TLight> => factory.create(params);
+  const createFromConfig = (lights: ReadonlyArray<TAnyLightConfig>): void => lights.forEach((config: TAnyLightConfig): TAbstractLightWrapper<TLight> => factory.create(factory.configToParams(config)));
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
@@ -19,8 +19,8 @@ export function LightService(factory: ILightFactory, registry: ILightRegistry, s
   return {
     create,
     createFromConfig,
-    getFactory: (): ILightFactory => factory,
-    getRegistry: (): ILightRegistry => registry,
+    getFactory: (): TLightFactory => factory,
+    getRegistry: (): TLightRegistry => registry,
     getScene: (): TSceneWrapper => scene,
     ...destroyable
   };

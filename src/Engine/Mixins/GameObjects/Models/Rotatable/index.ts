@@ -1,4 +1,4 @@
-export * from './IRotatable';
+export * from './TRotatable';
 export * from './IWithRotation';
 export * from './IWithRotationProperty';
 export * from './TRotatableX';

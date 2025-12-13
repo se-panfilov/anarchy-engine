@@ -1,7 +1,7 @@
 import GUI from 'lil-gui';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TIntersectionEvent, TAppCanvas, TCameraRegistry, TCameraWrapper, TEngine, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
+import type { TAppCanvas, TCameraRegistry, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase.json';

@@ -1,12 +1,12 @@
 import type { TActorService } from '@/Engine/Actor';
 import type { TCameraService } from '@/Engine/Camera';
 import type {
+  TIntersectionsWatcher,
   TIntersectionsWatcherAsyncRegistry,
   TIntersectionsWatcherConfig,
   TIntersectionsWatcherFactory,
   TIntersectionsWatcherParams,
-  TIntersectionsWatcherService,
-  TIntersectionsWatcher
+  TIntersectionsWatcherService
 } from '@/Engine/Intersections/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';

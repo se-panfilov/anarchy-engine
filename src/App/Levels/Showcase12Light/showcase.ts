@@ -4,12 +4,12 @@ import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHel
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
-  IDirectionalLightWrapper,
-  IHemisphereLightWrapper,
-  ILightRegistry,
-  IPointLightWrapper,
-  IRectAreaLightWrapper,
-  ISpotLightWrapper,
+  TDirectionalLightWrapper,
+  THemisphereLightWrapper,
+  TLightRegistry,
+  TPointLightWrapper,
+  TRectAreaLightWrapper,
+  TSpotLightWrapper,
   TAppCanvas,
   TEngine,
   TSceneWrapper,
@@ -26,7 +26,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const engine: TEngine = Engine(space);
   const { lightService, scenesService } = space.services;
 
-  const lightRegistry: ILightRegistry = lightService.getRegistry();
+  const lightRegistry: TLightRegistry = lightService.getRegistry();
 
   // void envMapService.load('/Showcase/hdr/urban_alley_01_4k.hdr');
 
@@ -35,7 +35,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     if (isNotDefined(scene)) throw new Error('Scene not found');
 
     //directional light
-    const directionalLight: IDirectionalLightWrapper | undefined = lightRegistry.findByTag('directional') as IDirectionalLightWrapper | undefined;
+    const directionalLight: TDirectionalLightWrapper | undefined = lightRegistry.findByTag('directional') as TDirectionalLightWrapper | undefined;
     if (isNotDefined(directionalLight)) throw new Error('Directional light not found');
     const directionalLightHelper: DirectionalLightHelper = new DirectionalLightHelper(directionalLight.entity, 3);
     const directionalLightCameraHelper: CameraHelper = new CameraHelper(directionalLight.entity.shadow.camera);
@@ -55,7 +55,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     directionalFolder.add(directionalLight.entity.shadow.camera, 'far').min(0).max(10).step(1);
 
     //hemisphere light
-    const hemisphereLight: IHemisphereLightWrapper | undefined = lightRegistry.findByTag('hemisphere') as IHemisphereLightWrapper | undefined;
+    const hemisphereLight: THemisphereLightWrapper | undefined = lightRegistry.findByTag('hemisphere') as THemisphereLightWrapper | undefined;
     if (isNotDefined(hemisphereLight)) throw new Error('Hemisphere light not found');
     const hemisphereLightHelper: HemisphereLightHelper = new HemisphereLightHelper(hemisphereLight.entity, 3);
     scene.entity.add(hemisphereLightHelper);
@@ -64,7 +64,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     hemisphereFolder.addColor(hemisphereLight.entity, 'groundColor');
     hemisphereFolder.add(hemisphereLight.entity, 'intensity').min(0).max(10).step(0.1);
 
-    const rectAreaLight: IRectAreaLightWrapper | undefined = lightRegistry.findByTag('rect_area') as IRectAreaLightWrapper | undefined;
+    const rectAreaLight: TRectAreaLightWrapper | undefined = lightRegistry.findByTag('rect_area') as TRectAreaLightWrapper | undefined;
     if (isNotDefined(rectAreaLight)) throw new Error('Rect area light not found');
     const rectAreaLightHelper: RectAreaLightHelper = new RectAreaLightHelper(rectAreaLight.entity, 5);
     scene.entity.add(rectAreaLightHelper);
@@ -76,7 +76,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     rectAreaFolder.add(rectAreaLight.entity, 'height').min(0).max(50).step(0.5);
     rectAreaFolder.add(rectAreaLight.entity, 'intensity').min(0).max(10).step(0.1);
 
-    const pointLight: IPointLightWrapper | undefined = lightRegistry.findByTag('point') as IPointLightWrapper | undefined;
+    const pointLight: TPointLightWrapper | undefined = lightRegistry.findByTag('point') as TPointLightWrapper | undefined;
     if (isNotDefined(pointLight)) throw new Error('Point light not found');
     const pointLightHelper: PointLightHelper = new PointLightHelper(pointLight.entity, 3);
     scene.entity.add(pointLightHelper);
@@ -89,7 +89,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     pointFolder.add(pointLight.entity, 'distance').min(0).max(100).step(0.1);
     pointFolder.add(pointLight.entity, 'decay').min(0).max(100).step(0.1);
 
-    const spotLight: ISpotLightWrapper | undefined = lightRegistry.findByTag('spot') as ISpotLightWrapper | undefined;
+    const spotLight: TSpotLightWrapper | undefined = lightRegistry.findByTag('spot') as TSpotLightWrapper | undefined;
     if (isNotDefined(spotLight)) throw new Error('Spot light not found');
     const spotLightHelper: SpotLightHelper = new SpotLightHelper(spotLight.entity, 3);
     scene.entity.add(spotLightHelper);

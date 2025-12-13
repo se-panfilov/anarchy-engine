@@ -1,7 +1,7 @@
 import { filter } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TIntersectionEvent, TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TCameraWrapper, TEngine, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase.json';

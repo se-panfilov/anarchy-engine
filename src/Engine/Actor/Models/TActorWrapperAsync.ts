@@ -1,7 +1,7 @@
 import type { TWrapper } from '@/Engine/Abstract';
 import type { IWithMaterial } from '@/Engine/Material';
-import type { IMovable3dXYZ, IRotatable, IScalable, IWithObject3d, IWithTagsMixin } from '@/Engine/Mixins';
+import type { TMovable3dXYZ, TRotatable, IScalable, TWithObject3d, TWithTagsMixin } from '@/Engine/Mixins';
 import type { IWithTextures } from '@/Engine/Texture';
 import type { IMesh } from '@/Engine/ThreeLib';
 
-export type TActorWrapperAsync = TWrapper<IMesh> & IMovable3dXYZ & IRotatable & IScalable & IWithObject3d & IWithMaterial & IWithTextures & IWithTagsMixin;
+export type TActorWrapperAsync = TWrapper<IMesh> & TMovable3dXYZ & TRotatable & IScalable & TWithObject3d & IWithMaterial & IWithTextures & TWithTagsMixin;

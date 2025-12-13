@@ -4,9 +4,9 @@ import type { TCameraService } from '@/Engine/Camera';
 import type { TDestroyable } from '@/Engine/Mixins';
 import type { TMouseService } from '@/Engine/Mouse';
 
+import type { TIntersectionsWatcher } from './TIntersectionsWatcher';
 import type { TIntersectionsWatcherConfig } from './TIntersectionsWatcherConfig';
 import type { TIntersectionsWatcherParams } from './TIntersectionsWatcherParams';
-import type { TIntersectionsWatcher } from './TIntersectionsWatcher';
 
 export type TIntersectionsWatcherParamsFromConfig = Omit<TParamsFromConfigAsync<TIntersectionsWatcherConfig, TIntersectionsWatcherParams>, 'configToParamsAsync'> &
   Readonly<{

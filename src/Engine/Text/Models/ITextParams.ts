@@ -1,5 +1,5 @@
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
 import type { ITextProps } from '@/Engine/Text/Models';
-import type { IObject3DParams } from '@/Engine/ThreeLib';
+import type { TObject3DParams } from '@/Engine/ThreeLib';
 
-export type ITextParams = ITextProps & IObject3DParams & TWithReadonlyTags;
+export type ITextParams = ITextProps & TObject3DParams & TWithReadonlyTags;

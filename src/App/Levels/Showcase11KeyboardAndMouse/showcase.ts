@@ -3,7 +3,6 @@ import { withLatestFrom } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
-  TIntersectionEvent,
   IMouseWatcherEvent,
   IMoverService,
   TActorAsyncRegistry,
@@ -12,6 +11,7 @@ import type {
   TCameraRegistry,
   TCameraWrapper,
   TEngine,
+  TIntersectionEvent,
   TIntersectionsWatcher,
   TSpace,
   TSpaceConfig
