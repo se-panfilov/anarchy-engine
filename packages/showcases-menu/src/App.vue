@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import './assets/style.scss';
 
+import { vueTranslationService } from '@Showcases/i18n';
 import RouterView from '@Showcases/Menu/components/RouterView.vue';
 import { eventsService } from '@Showcases/Menu/services';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
@@ -14,7 +15,10 @@ onMounted((): void => {
   eventsService.emitGetMenuSettings();
 });
 
-onUnmounted((): void => appEventsSub$?.unsubscribe());
+onUnmounted((): void => {
+  vueTranslationService.destroy$.next();
+  appEventsSub$?.unsubscribe();
+});
 
 function save(): void {
   eventsService.emitSetMenuSettings(useSettingsStore().state);

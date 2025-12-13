@@ -3,6 +3,7 @@ import './assets/style.scss';
 
 import { eventsService } from '@Showcases/GUI/services';
 import Bottom from '@Showcases/GUI/views/Bottom.vue';
+import { vueTranslationService } from '@Showcases/i18n';
 import type { Subscription } from 'rxjs';
 import { onMounted, onUnmounted } from 'vue';
 
@@ -13,7 +14,10 @@ onMounted((): void => {
   // eventsService.emitGetCurrentGui();
 });
 
-onUnmounted((): void => appEventsSub$?.unsubscribe());
+onUnmounted((): void => {
+  vueTranslationService.destroy$.next();
+  appEventsSub$?.unsubscribe();
+});
 
 // function some(): void {
 // eventsService.emitSetGuiSettings(useSettingsStore().state);
