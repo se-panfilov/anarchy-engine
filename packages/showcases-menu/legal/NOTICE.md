@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 119
+Components listed: 118
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -177,7 +177,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @dimforge/rapier3d@0.19.0
+## @dimforge/rapier3d@0.19.2
 
 **License(s):** Apache-2.0
 
@@ -189,7 +189,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/ecma402-abstract@2.3.4
+## @formatjs/ecma402-abstract@2.3.6
 
 **License(s):** MIT
 
@@ -213,7 +213,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/icu-messageformat-parser@2.11.2
+## @formatjs/icu-messageformat-parser@2.11.4
 
 **License(s):** MIT
 
@@ -223,7 +223,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/icu-skeleton-parser@1.8.14
+## @formatjs/icu-skeleton-parser@1.8.16
 
 **License(s):** MIT
 
@@ -233,7 +233,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/intl@3.1.6
+## @formatjs/intl@3.1.8
 
 **License(s):** MIT
 
@@ -245,7 +245,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/intl-localematcher@0.6.1
+## @formatjs/intl-localematcher@0.6.2
 
 **License(s):** MIT
 
@@ -439,7 +439,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-engine@21.1.0
+## anarchy-engine@21.1.1
 
 **License(s):** MIT
 
@@ -447,7 +447,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-i18n@1.2.0
+## anarchy-i18n@1.2.1
 
 **License(s):** MIT
 
@@ -455,7 +455,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-shared@1.4.2
+## anarchy-shared@1.4.3
 
 **License(s):** MIT
 
@@ -601,18 +601,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## dompurify@3.2.6
-
-**License(s):** (MPL-2.0 OR Apache-2.0)
-
-**Repository:** git://github.com/cure53/DOMPurify.git
-
-**URL:** https://github.com/cure53/DOMPurify
-
-**Attribution:** Copyright 2025 Dr.-Ing. Mario Heiderich, Cure53
-
----
-
 ## dompurify@3.3.0
 
 **License(s):** (MPL-2.0 OR Apache-2.0)
@@ -707,7 +695,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## intl-messageformat@10.7.16
+## intl-messageformat@10.7.18
 
 **License(s):** BSD-3-Clause
 
@@ -743,7 +731,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## isomorphic-dompurify@2.28.0
+## isomorphic-dompurify@2.30.1
 
 **License(s):** MIT
 
@@ -753,7 +741,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## jsdom@27.0.0
+## jsdom@27.0.1
 
 **License(s):** MIT
 
@@ -795,7 +783,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## marked@16.3.0
+## marked@16.4.1
 
 **License(s):** MIT
 
@@ -863,7 +851,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## nanoid@5.1.5
+## nanoid@5.1.6
 
 **License(s):** MIT
 
@@ -873,7 +861,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## parse5@7.3.0
+## parse5@8.0.0
 
 **License(s):** MIT
 
@@ -1039,7 +1027,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-i18n@1.3.0
+## showcases-i18n@1.3.1
 
 **License(s):** MIT
 
@@ -1047,7 +1035,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-shared@1.5.0
+## showcases-shared@1.5.1
 
 **License(s):** MIT
 
@@ -1207,7 +1195,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## typescript@5.9.2
+## typescript@5.9.3
 
 **License(s):** Apache-2.0
 

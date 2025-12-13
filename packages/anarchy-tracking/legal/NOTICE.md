@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 91
+Components listed: 89
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -18,18 +18,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** open-telemetry/opentelemetry-js
 
 **URL:** https://github.com/open-telemetry/opentelemetry-js/tree/main/api
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/api-logs@0.203.0
-
-**License(s):** Apache-2.0
-
-**Repository:** open-telemetry/opentelemetry-js
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js/tree/main/experimental/packages/api-logs
 
 **Attribution:** copyright notice that is included in or attached to the work
 
@@ -71,7 +59,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/core@2.0.1
+## @opentelemetry/core@2.1.0
 
 **License(s):** Apache-2.0
 
@@ -90,18 +78,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** open-telemetry/opentelemetry-js
 
 **URL:** https://github.com/open-telemetry/opentelemetry-js/tree/main/packages/opentelemetry-core
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation@0.203.0
-
-**License(s):** Apache-2.0
-
-**Repository:** git+https://github.com/open-telemetry/opentelemetry-js.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js/tree/main/experimental/packages/opentelemetry-instrumentation
 
 **Attribution:** copyright notice that is included in or attached to the work
 
@@ -131,7 +107,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-amqplib@0.50.0
+## @opentelemetry/instrumentation-amqplib@0.51.0
 
 **License(s):** Apache-2.0
 
@@ -143,7 +119,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-connect@0.47.0
+## @opentelemetry/instrumentation-connect@0.48.0
 
 **License(s):** Apache-2.0
 
@@ -155,7 +131,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-dataloader@0.21.1
+## @opentelemetry/instrumentation-dataloader@0.22.0
 
 **License(s):** Apache-2.0
 
@@ -167,7 +143,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-express@0.52.0
+## @opentelemetry/instrumentation-express@0.53.0
 
 **License(s):** Apache-2.0
 
@@ -179,7 +155,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-fs@0.23.0
+## @opentelemetry/instrumentation-fs@0.24.0
 
 **License(s):** Apache-2.0
 
@@ -191,7 +167,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-generic-pool@0.47.0
+## @opentelemetry/instrumentation-generic-pool@0.48.0
 
 **License(s):** Apache-2.0
 
@@ -203,7 +179,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-graphql@0.51.0
+## @opentelemetry/instrumentation-graphql@0.52.0
 
 **License(s):** Apache-2.0
 
@@ -215,7 +191,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-hapi@0.50.0
+## @opentelemetry/instrumentation-hapi@0.51.0
 
 **License(s):** Apache-2.0
 
@@ -227,7 +203,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-http@0.203.0
+## @opentelemetry/instrumentation-http@0.204.0
 
 **License(s):** Apache-2.0
 
@@ -251,7 +227,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-kafkajs@0.13.0
+## @opentelemetry/instrumentation-kafkajs@0.14.0
 
 **License(s):** Apache-2.0
 
@@ -263,7 +239,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-knex@0.48.0
+## @opentelemetry/instrumentation-knex@0.49.0
 
 **License(s):** Apache-2.0
 
@@ -275,7 +251,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-koa@0.51.0
+## @opentelemetry/instrumentation-koa@0.52.0
 
 **License(s):** Apache-2.0
 
@@ -287,7 +263,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-lru-memoizer@0.48.0
+## @opentelemetry/instrumentation-lru-memoizer@0.49.0
 
 **License(s):** Apache-2.0
 
@@ -299,7 +275,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-mongodb@0.56.0
+## @opentelemetry/instrumentation-mongodb@0.57.0
 
 **License(s):** Apache-2.0
 
@@ -311,7 +287,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-mongoose@0.50.0
+## @opentelemetry/instrumentation-mongoose@0.51.0
 
 **License(s):** Apache-2.0
 
@@ -323,7 +299,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-mysql@0.49.0
+## @opentelemetry/instrumentation-mysql@0.50.0
 
 **License(s):** Apache-2.0
 
@@ -335,7 +311,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-mysql2@0.50.0
+## @opentelemetry/instrumentation-mysql2@0.51.0
 
 **License(s):** Apache-2.0
 
@@ -347,7 +323,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-pg@0.55.0
+## @opentelemetry/instrumentation-pg@0.57.0
 
 **License(s):** Apache-2.0
 
@@ -359,7 +335,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-redis@0.51.0
+## @opentelemetry/instrumentation-redis@0.53.0
 
 **License(s):** Apache-2.0
 
@@ -371,7 +347,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-tedious@0.22.0
+## @opentelemetry/instrumentation-tedious@0.23.0
 
 **License(s):** Apache-2.0
 
@@ -383,7 +359,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-undici@0.14.0
+## @opentelemetry/instrumentation-undici@0.15.0
 
 **License(s):** Apache-2.0
 
@@ -455,7 +431,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @prisma/instrumentation@6.14.0
+## @prisma/instrumentation@6.15.0
 
 **License(s):** Apache-2.0
 
@@ -464,18 +440,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://www.prisma.io
 
 **Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @sentry-internal/browser-utils@10.11.0
-
-**License(s):** MIT
-
-**Repository:** git://github.com/getsentry/sentry-javascript.git
-
-**URL:** https://github.com/getsentry/sentry-javascript/tree/master/packages/browser-utils
-
-**Attribution:** Copyright (c) 2020 Functional Software, Inc. dba Sentry
 
 ---
 
@@ -491,15 +455,15 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @sentry-internal/feedback@10.11.0
+## @sentry-internal/browser-utils@10.21.0
 
 **License(s):** MIT
 
 **Repository:** git://github.com/getsentry/sentry-javascript.git
 
-**URL:** https://github.com/getsentry/sentry-javascript/tree/master/packages/feedback
+**URL:** https://github.com/getsentry/sentry-javascript/tree/master/packages/browser-utils
 
-**Attribution:** Copyright (c) 2023 Functional Software, Inc. dba Sentry
+**Attribution:** Copyright (c) 2020 Functional Software, Inc. dba Sentry
 
 ---
 
@@ -515,15 +479,15 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @sentry-internal/replay@10.11.0
+## @sentry-internal/feedback@10.21.0
 
 **License(s):** MIT
 
-**Repository:** git+https://github.com/getsentry/sentry-javascript.git
+**Repository:** git://github.com/getsentry/sentry-javascript.git
 
-**URL:** https://docs.sentry.io/platforms/javascript/session-replay/
+**URL:** https://github.com/getsentry/sentry-javascript/tree/master/packages/feedback
 
-**Attribution:** Copyright (c) 2022 Functional Software, Inc. dba Sentry
+**Attribution:** Copyright (c) 2023 Functional Software, Inc. dba Sentry
 
 ---
 
@@ -539,7 +503,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @sentry-internal/replay-canvas@10.11.0
+## @sentry-internal/replay@10.21.0
 
 **License(s):** MIT
 
@@ -547,7 +511,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 **URL:** https://docs.sentry.io/platforms/javascript/session-replay/
 
-**Attribution:** Copyright (c) 2024 Functional Software, Inc. dba Sentry
+**Attribution:** Copyright (c) 2022 Functional Software, Inc. dba Sentry
 
 ---
 
@@ -563,15 +527,15 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @sentry/browser@10.11.0
+## @sentry-internal/replay-canvas@10.21.0
 
 **License(s):** MIT
 
-**Repository:** git://github.com/getsentry/sentry-javascript.git
+**Repository:** git+https://github.com/getsentry/sentry-javascript.git
 
-**URL:** https://github.com/getsentry/sentry-javascript/tree/master/packages/browser
+**URL:** https://docs.sentry.io/platforms/javascript/session-replay/
 
-**Attribution:** Copyright (c) 2019 Functional Software, Inc. dba Sentry
+**Attribution:** Copyright (c) 2024 Functional Software, Inc. dba Sentry
 
 ---
 
@@ -587,13 +551,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @sentry/core@10.11.0
+## @sentry/browser@10.21.0
 
 **License(s):** MIT
 
 **Repository:** git://github.com/getsentry/sentry-javascript.git
 
-**URL:** https://github.com/getsentry/sentry-javascript/tree/master/packages/core
+**URL:** https://github.com/getsentry/sentry-javascript/tree/master/packages/browser
 
 **Attribution:** Copyright (c) 2019 Functional Software, Inc. dba Sentry
 
@@ -611,7 +575,19 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @sentry/electron@7.1.1
+## @sentry/core@10.21.0
+
+**License(s):** MIT
+
+**Repository:** git://github.com/getsentry/sentry-javascript.git
+
+**URL:** https://github.com/getsentry/sentry-javascript/tree/master/packages/core
+
+**Attribution:** Copyright (c) 2019 Functional Software, Inc. dba Sentry
+
+---
+
+## @sentry/electron@7.2.0
 
 **License(s):** MIT
 
@@ -621,7 +597,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @sentry/node@10.11.0
+## @sentry/node@10.17.0
 
 **License(s):** MIT
 
@@ -633,7 +609,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @sentry/node-core@10.11.0
+## @sentry/node-core@10.17.0
 
 **License(s):** MIT
 
@@ -645,7 +621,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @sentry/opentelemetry@10.11.0
+## @sentry/opentelemetry@10.17.0
 
 **License(s):** MIT
 
@@ -681,7 +657,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @types/node@24.5.0
+## @types/node@24.9.1
 
 **License(s):** MIT
 
@@ -693,7 +669,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @types/pg@8.15.4
+## @types/pg@8.15.5
 
 **License(s):** MIT
 
@@ -809,7 +785,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## dotenv@17.2.2
+## dotenv@17.2.3
 
 **License(s):** BSD-2-Clause
 
@@ -1051,7 +1027,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## undici-types@7.12.0
+## undici-types@7.16.0
 
 **License(s):** MIT
 

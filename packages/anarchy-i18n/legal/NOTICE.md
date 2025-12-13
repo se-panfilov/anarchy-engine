@@ -11,7 +11,7 @@ Components listed: 11
 
 The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
 
-## @formatjs/ecma402-abstract@2.3.4
+## @formatjs/ecma402-abstract@2.3.6
 
 **License(s):** MIT
 
@@ -35,7 +35,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/icu-messageformat-parser@2.11.2
+## @formatjs/icu-messageformat-parser@2.11.4
 
 **License(s):** MIT
 
@@ -45,7 +45,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/icu-skeleton-parser@1.8.14
+## @formatjs/icu-skeleton-parser@1.8.16
 
 **License(s):** MIT
 
@@ -55,7 +55,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/intl@3.1.6
+## @formatjs/intl@3.1.8
 
 **License(s):** MIT
 
@@ -67,7 +67,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/intl-localematcher@0.6.1
+## @formatjs/intl-localematcher@0.6.2
 
 **License(s):** MIT
 
@@ -89,7 +89,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## intl-messageformat@10.7.16
+## intl-messageformat@10.7.18
 
 **License(s):** BSD-3-Clause
 
@@ -125,7 +125,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## typescript@5.9.2
+## typescript@5.9.3
 
 **License(s):** Apache-2.0
 

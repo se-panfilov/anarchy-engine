@@ -23,7 +23,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @dimforge/rapier3d@0.19.0
+## @dimforge/rapier3d@0.19.2
 
 **License(s):** Apache-2.0
 
@@ -45,7 +45,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-shared@1.4.2
+## anarchy-shared@1.4.3
 
 **License(s):** MIT
 
@@ -87,7 +87,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## nanoid@5.1.5
+## nanoid@5.1.6
 
 **License(s):** MIT
 

@@ -2,7 +2,7 @@
   "name": "anarchy-shared",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.4.2",
+  "version": "1.4.3",
   "type": "module",
   "sideEffects": false,
   "license": "MIT",

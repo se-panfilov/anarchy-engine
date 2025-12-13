@@ -6,7 +6,7 @@ Production dependencies (including transition dependencies): 11
 
 ---
 
-## @formatjs/ecma402-abstract@2.3.4
+## @formatjs/ecma402-abstract@2.3.6
 
 **License:** MIT
 
@@ -50,7 +50,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @formatjs/icu-messageformat-parser@2.11.2
+## @formatjs/icu-messageformat-parser@2.11.4
 
 **License:** MIT
 
@@ -68,7 +68,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @formatjs/icu-skeleton-parser@1.8.14
+## @formatjs/icu-skeleton-parser@1.8.16
 
 **License:** MIT
 
@@ -86,7 +86,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @formatjs/intl@3.1.6
+## @formatjs/intl@3.1.8
 
 **License:** MIT
 
@@ -108,7 +108,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @formatjs/intl-localematcher@0.6.1
+## @formatjs/intl-localematcher@0.6.2
 
 **License:** MIT
 
@@ -163,7 +163,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## intl-messageformat@10.7.16
+## intl-messageformat@10.7.18
 
 **License:** BSD-3-Clause
 
@@ -448,7 +448,7 @@ PERFORMANCE OF THIS SOFTWARE.
 
 ---
 
-## typescript@5.9.2
+## typescript@5.9.3
 
 **License:** Apache-2.0
 

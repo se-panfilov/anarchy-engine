@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 53
+Components listed: 52
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -203,18 +203,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## dompurify@3.2.6
-
-**License(s):** (MPL-2.0 OR Apache-2.0)
-
-**Repository:** git://github.com/cure53/DOMPurify.git
-
-**URL:** https://github.com/cure53/DOMPurify
-
-**Attribution:** Copyright 2025 Dr.-Ing. Mario Heiderich, Cure53
-
----
-
 ## dompurify@3.3.0
 
 **License(s):** (MPL-2.0 OR Apache-2.0)
@@ -291,7 +279,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## isomorphic-dompurify@2.28.0
+## isomorphic-dompurify@2.30.1
 
 **License(s):** MIT
 
@@ -301,7 +289,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## jsdom@27.0.0
+## jsdom@27.0.1
 
 **License(s):** MIT
 
@@ -353,7 +341,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## parse5@7.3.0
+## parse5@8.0.0
 
 **License(s):** MIT
 

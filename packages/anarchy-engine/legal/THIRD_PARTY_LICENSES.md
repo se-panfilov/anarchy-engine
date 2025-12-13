@@ -20,7 +20,7 @@ _No license text file found; relying on package metadata._
 
 ---
 
-## @dimforge/rapier3d@0.19.0
+## @dimforge/rapier3d@0.19.2
 
 **License:** Apache-2.0
 
@@ -264,7 +264,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-shared@1.4.2
+## anarchy-shared@1.4.3
 
 **License:** MIT
 
@@ -435,7 +435,7 @@ terms above.
 
 ---
 
-## nanoid@5.1.5
+## nanoid@5.1.6
 
 **License:** MIT
 

@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 19
+Components listed: 20
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -23,7 +23,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @dimforge/rapier3d@0.19.0
+## @dimforge/rapier3d@0.19.2
 
 **License(s):** Apache-2.0
 
@@ -45,7 +45,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-engine@21.1.0
+## anarchy-engine@21.1.1
 
 **License(s):** MIT
 
@@ -53,7 +53,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-shared@1.4.2
+## anarchy-shared@1.4.3
 
 **License(s):** MIT
 
@@ -83,6 +83,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## fsevents@2.3.2
+
+**License(s):** MIT
+
+**Repository:** https://github.com/fsevents/fsevents.git
+
+**URL:** https://github.com/fsevents/fsevents
+
+**Attribution:** Copyright (C) 2010-2020 by Philipp Dunkel, Ben Noordhuis, Elan Shankar, Paul Miller
+
+---
+
 ## lodash-es@4.17.21
 
 **License(s):** MIT
@@ -95,7 +107,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## nanoid@5.1.5
+## nanoid@5.1.6
 
 **License(s):** MIT
 
