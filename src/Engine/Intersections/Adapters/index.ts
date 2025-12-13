@@ -1,1 +1,1 @@
-export * from './IntersectionsWatcherConfigAdapter';
+export * from './ConfigToParams';
