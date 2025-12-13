@@ -21,6 +21,7 @@ export function actorToConfig(entity: TActor, { models3dService }: TActorEntityT
   return filterOutEmptyFields({
     model3dSource,
     // physics?: TWithPresetNamePhysicsBodyConfig,
+    // kinematic?: TKinematicConfig,
     spatial: getSpatial(entity),
     collisions: getCollisions(entity),
     model3dSettings: entity.getModel3dSettings(),
