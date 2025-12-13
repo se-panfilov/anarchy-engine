@@ -1,4 +1,5 @@
-import type { TMaterialRegistry } from '@/Engine/Material';
+import type { TAnimationsService } from '@/Engine/Animations';
+import type { TMaterialRegistry, TMaterialService } from '@/Engine/Material';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { Models3dLoader } from '@/Engine/Models3d/Loaders';
@@ -89,6 +90,8 @@ export function Models3dService(
     getFactory: (): TModels3dFactory => factory,
     getRegistry: (): TModel3dRegistry => registry,
     getResourceRegistry: (): TModel3dResourceAsyncRegistry => resourcesRegistry,
+    getAnimationsService: (): TAnimationsService => animationsService,
+    getMaterialService: (): TMaterialService => materialService,
     clone,
     ...destroyable
   };
