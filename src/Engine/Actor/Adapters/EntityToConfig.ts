@@ -29,7 +29,7 @@ export function actorToConfig(entity: TActor, { models3dService }: TActorEntityT
     // kinematic?: TKinematicConfig,
     spatial: getSpatial(entity),
     collisions: getCollisions(entity),
-    // model3dSettings?: TActorModel3dSettingsConfig,
+    model3dSettings: entity.getModel3dSettings(),
     states: getStates(entity),
 
     ...extractSerializableRegistrableFields(entity),
