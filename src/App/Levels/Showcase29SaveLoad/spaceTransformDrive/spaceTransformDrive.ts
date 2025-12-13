@@ -15,8 +15,8 @@ const config: TSpaceConfig = spaceConfig as TSpaceConfig;
 let isOriginalSceneLoaded: boolean = true;
 let continuousStepCounter: number = 0;
 
-// TODO 15-0-0: Add physical TD check after serialization physics will be done
 // TODO 15-0-0: Check other entities TD (light, text, camera, particles, audio3d with debug renderer)
+// TODO 15-0-0: Add physical TD check after serialization physics will be done
 export const spaceTransformDriveData: TSpacesData = {
   name: config.name,
   config: config,
@@ -58,11 +58,8 @@ export const spaceTransformDriveData: TSpacesData = {
 };
 
 async function performNormalSaveLoadTest(space: TSpace): Promise<void> {
-  const defaultActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_default_actor');
-  if (isNotDefined(defaultActor)) throw new Error('[Showcase]: Actor "cube_default_actor" not found');
-  const kinematicActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_kinematic_actor');
+  const { defaultActor, kinematicActor } = getShowcaseActors(space);
 
-  if (isNotDefined(kinematicActor)) throw new Error('[Showcase]: Actor "cube_kinematic_actor" not found');
   if (isOriginalSceneLoaded) {
     defaultActor.drive.default.addZ(4);
     kinematicActor.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.05));
@@ -73,11 +70,7 @@ async function performNormalSaveLoadTest(space: TSpace): Promise<void> {
 }
 
 async function performContinuousMoveSaveLoadTest(space: TSpace): Promise<void> {
-  const defaultActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_default_actor');
-  if (isNotDefined(defaultActor)) throw new Error('[Showcase]: Actor "cube_default_actor" not found');
-
-  const kinematicActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_kinematic_actor');
-  if (isNotDefined(kinematicActor)) throw new Error('[Showcase]: Actor "cube_kinematic_actor" not found');
+  const { defaultActor, kinematicActor } = getShowcaseActors(space);
 
   // The first step: move kinematic actors (50 ticks), then Save, Load and click again...
   if (continuousStepCounter === 0) {
@@ -108,4 +101,17 @@ function doKinematicSteps(space: TSpace, stepsCount: number, stepCooldown: numbe
       if (step >= stepsCount) resolve(clearInterval(idx));
     }, stepCooldown);
   });
+}
+
+function getShowcaseActors(space: TSpace): { defaultActor: TActor; kinematicActor: TActor; connectedActor: TActor } {
+  const defaultActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_default_actor');
+  if (isNotDefined(defaultActor)) throw new Error('[Showcase]: Actor "cube_default_actor" not found');
+
+  const kinematicActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_kinematic_actor');
+  if (isNotDefined(kinematicActor)) throw new Error('[Showcase]: Actor "cube_kinematic_actor" not found');
+
+  const connectedActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_connected_actor');
+  if (isNotDefined(connectedActor)) throw new Error('[Showcase]: Actor "cube_connected_actor" not found');
+
+  return { defaultActor, kinematicActor, connectedActor };
 }

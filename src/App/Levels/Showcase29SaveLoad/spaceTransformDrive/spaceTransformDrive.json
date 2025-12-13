@@ -143,6 +143,20 @@
           "normalBias": 0.05
         },
         "type": "DirectionalLight"
+      },
+      {
+        "castShadow": false,
+        "color": "#FF0000",
+        "decay": 1,
+        "distance": 1,
+        "intensity": 100,
+        "name": "point_light",
+        "position": {
+          "x": 0,
+          "y": 4,
+          "z": 0
+        },
+        "type": "PointLight"
       }
     ],
     "materials": [
@@ -271,7 +285,28 @@
         "name": "main_grid"
       }
     ],
-    "texts": []
+    "texts": [
+      {
+        "cssProps": {
+          "color": "#FF0000",
+          "fontFamily": "\"Roboto\", sans-serif",
+          "fontSize": "24rem"
+        },
+        "name": "td_text",
+        "position": {
+          "x": 0,
+          "y": 1,
+          "z": 0
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "text": "TD_text",
+        "type": "text_3d_texture"
+      }
+    ]
   },
   "name": "SpaceTransformDrive",
   "resources": {
