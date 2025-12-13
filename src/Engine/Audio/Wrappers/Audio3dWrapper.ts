@@ -4,7 +4,7 @@ import type { AudioListener, PositionalAudio } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TAudio3dParams, TAudio3dTransformDrive, TAudio3dWrapper, TAudio3dWrapperDependencies, TAudioFadeParams, TAudioLoop } from '@/Engine/Audio/Models';
+import type { TAudio3dParams, TAudio3dTransformDrive, TAudio3dWrapper, TAudioFadeParams, TAudioWrapperDependencies } from '@/Engine/Audio/Models';
 import { Audio3dTransformDrive } from '@/Engine/Audio/TransformDrive';
 import { createPositionalAudion, fadeAudio, pauseAudio, resumeAudio, seekAudio } from '@/Engine/Audio/Utils';
 import { LoopUpdatePriority } from '@/Engine/Loop';
@@ -17,7 +17,7 @@ import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import { isEqualOrSimilarByXyzCoords } from '@/Engine/Utils';
 
-export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3dWrapperDependencies): TAudio3dWrapper {
+export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrapperDependencies): TAudio3dWrapper {
   const { audioSource, volume, position, performance } = params;
   const entity: PositionalAudio = createPositionalAudion(audioSource, params);
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(position);
@@ -35,8 +35,6 @@ export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3d
 
   const volumeSub$: Subscription = volume$.pipe(distinctUntilChanged()).subscribe((volume: number): void => void entity.setVolume(volume));
 
-  const audioLoop$: TAudioLoop = loopService.getAudioLoop();
-
   const pauseSub$: Subscription = pause$.pipe(distinctUntilChanged()).subscribe((isPause: boolean): void => {
     if (isPause) pauseAudio(entity);
     else resumeAudio(entity);
@@ -52,9 +50,9 @@ export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3d
 
   const updateVolumeSub$: Subscription = sourcePositionUpdate$
     .pipe(
-      sample(audioLoop$.tick$),
+      sample(audioLoop.tick$),
       // TODO 11.0.0: check filter logic
-      filter((): boolean => updatePriority >= audioLoop$.priority$.value)
+      filter((): boolean => updatePriority >= audioLoop.priority$.value)
     )
     .subscribe((position: TReadonlyVector3): void => {
       entity.position.copy(position);

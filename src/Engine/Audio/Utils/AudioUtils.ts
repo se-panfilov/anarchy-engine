@@ -1,8 +1,9 @@
 import { PositionalAudio } from 'three';
 
-import type { TAudio3dConfig, TAudioConfig, TAudioFadeParams, TAudioParams } from '@/Engine/Audio/Models';
+import type { TAudio3dConfig, TAudio3dParams, TAudioConfig, TAudioFadeParams, TAudioParams } from '@/Engine/Audio/Models';
 
 export const isAudio3dConfig = (config: TAudioConfig | TAudio3dConfig): config is TAudio3dConfig => (config as TAudio3dConfig).position !== undefined;
+export const isAudio3dParams = (config: TAudioParams | TAudio3dParams): config is TAudio3dParams => (config as TAudio3dParams).position !== undefined;
 
 // TODO 11.0.0: implement pauseAudio
 export function pauseAudio(entity: PositionalAudio): void {

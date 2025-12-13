@@ -93,7 +93,7 @@ export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas,
       },
       sceneW
     ),
-    audioService: AudioService(AudioFactory(), AudioRegistry(), AudioResourceAsyncRegistry()),
+    audioService: AudioService(AudioFactory(), AudioRegistry(), AudioResourceAsyncRegistry(), loops),
     cameraService,
     controlsService: ControlService(ControlsFactory(), ControlsRegistry(), loops, canvas),
     collisionsService,

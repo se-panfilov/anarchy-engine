@@ -7,7 +7,7 @@ import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 // TODO 11.0.0: CWP
 // TODO 11.0.0: debug
-// TODO 11.0.0: we should create not create a new listener every time. Instead we need a single listener (but we need a registry, and use active$ to be able to get it) and get that listener from the registry here via "getActive"
+// TODO 11.0.0: We should create not create a new listener every time. Instead we need a single listener with wrapper (but we need a registry, and use active$ to be able to get it) and get that listener from the registry here via "getActive"
 // TODO 11.0.0: Should be possible to add listener to entities via config (so it should use connected transform drive)
 const listener = new AudioListener();
 
