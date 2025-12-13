@@ -1602,7 +1602,7 @@
           }
         }
       },
-      "required": ["presetName", "type"]
+      "required": ["presetName"]
     },
     "RigidBodyTypesNames": {
       "type": "string",
@@ -3703,8 +3703,7 @@
             "type": "string"
           }
         }
-      },
-      "required": ["type"]
+      }
     },
     "TFogConfig": {
       "type": "object",

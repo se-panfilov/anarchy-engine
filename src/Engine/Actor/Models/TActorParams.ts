@@ -7,6 +7,6 @@ import type { TActorProps } from './TActorProps';
 export type TActorParams = TActorProps &
   TObject3DParams &
   Readonly<{
-    physics: TWithPresetPhysicsBodyParams;
+    physics?: TWithPresetPhysicsBodyParams;
   }> &
   TWithReadonlyTags;

@@ -11,7 +11,7 @@ export type TActorConfig = Omit<TActorProps, 'material'> &
     material: TMaterialPackConfig<TMaterialTexturePack>;
     type: ActorType;
     castShadow: boolean;
-    physics: TWithPresetNamePhysicsBodyConfig;
+    physics?: TWithPresetNamePhysicsBodyConfig;
   }> &
   TObject3DPropConfig &
   TWithReadonlyTags;
