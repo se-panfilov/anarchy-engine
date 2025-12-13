@@ -1,1 +1,1 @@
-export * from './MaterialConfigAdapter';
+export * from './ConfigToParams';
