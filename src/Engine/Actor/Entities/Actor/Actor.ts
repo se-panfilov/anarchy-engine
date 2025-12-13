@@ -40,11 +40,11 @@ export function Actor(params: TActorParams, { spatialGridService, physicsBodySer
 
   const actor: TActor = AbstractEntity(entities, EntityType.Actor, { ...params, id });
 
-  const positionChangeSub$: Subscription = spatialPositionUpdate(loopService.getSpatialLoop(), drive.position$, params.spatial.performance?.noiseThreshold ?? 0.000001).subscribe(
-    (position: TReadonlyVector3): void => {
-      actor.updateSpatialCells(position);
-    }
-  );
+  const spatialLoop: TSpatialLoop = loopService.getSpatialLoop();
+  const positionChangeSub$: Subscription = spatialPositionUpdate(spatialLoop, drive.position$, params.spatial.performance?.noiseThreshold ?? 0.000001).subscribe((position: TReadonlyVector3): void => {
+    if (entities.spatial.getSpatialUpdatePriority() < spatialLoop.priority$.value) return;
+    actor.updateSpatialCells(position);
+  });
 
   actor.destroy$.subscribe((): void => {
     //Remove model3d registration
