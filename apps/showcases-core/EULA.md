@@ -79,7 +79,7 @@ Where UGC features exist, you remain responsible for your content. You grant Lic
 
 ## 8. Children & Age Ratings
 
-This Game is **directed to children**. We implement measures required by applicable law (e.g., **parental consent/notice** where necessary). By using online features (if any), you confirm that **parental consent** has been provided where required. See **Privacy Policy** for details.
+This Game is not directed to children below the age requiring parental consent under applicable law (e.g., EU 16, US 13, China 14). We do not knowingly collect personal data from such children.
 
 ## 9. Term & Termination
 
@@ -114,7 +114,7 @@ If you are a consumer, **mandatory consumer protection laws of your country of r
 
 ## 15. Changes
 
-We may update this EULA. Material changes may be communicated within the product or the update package (for example, via an in-product notice, a prompt to review the EULA on update, or release notes included with the distribution), or via the applicable Distribution Channel. Continued use after the effective date constitutes acceptance.
+We may update this EULA. Material changes may be communicated **within the product or the update package** (for example, via an in-product notice, a prompt to review the EULA on update, or release notes included with the distribution), or via the applicable Distribution Channel. Continued use after the effective date constitutes acceptance.
 
 ## Governing Language
 

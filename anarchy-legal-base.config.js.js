@@ -9,7 +9,7 @@ export default [
       MOD_HOSTING: false,
       ALLOW_PERSONAL_SHARING: true,
       ALLOW_COMMERCIAL_RESALE: true,
-      IS_CHILD_DIRECTED: true,
+      IS_CHILD_DIRECTED: false,
 
       //B2B
       LIABILITY_CAP_AMOUNT: 'the total fees paid by that Business User to the Licensor for the Game in the 12 months immediately preceding the event giving rise to the claim',

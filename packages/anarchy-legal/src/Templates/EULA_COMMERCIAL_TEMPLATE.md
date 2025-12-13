@@ -135,7 +135,7 @@ If you are a consumer, **mandatory consumer protection laws of your country of r
 
 ## 15. Changes
 
-We may update this EULA. Material changes may be communicated within the product or the update package (for example, via an in-product notice, a prompt to review the EULA on update, or release notes included with the distribution), or via the applicable Distribution Channel. Continued use after the effective date constitutes acceptance.
+We may update this EULA. Material changes may be communicated **within the product or the update package** (for example, via an in-product notice, a prompt to review the EULA on update, or release notes included with the distribution), or via the applicable Distribution Channel. Continued use after the effective date constitutes acceptance.
 
 ## Governing Language
 
