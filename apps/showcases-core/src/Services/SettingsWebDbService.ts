@@ -56,3 +56,5 @@ export function SettingsWebDbService(): TSettingsWebDbService {
     updateSettings
   };
 }
+
+export const settingsWebDbService: TSettingsWebDbService = SettingsWebDbService();

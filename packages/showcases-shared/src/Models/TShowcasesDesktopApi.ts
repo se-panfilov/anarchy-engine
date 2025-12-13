@@ -1,3 +1,4 @@
+import type { TLocaleId } from '@Anarchy/i18n';
 import type { TLegalDoc, TLoadDocPayload } from '@Showcases/Shared';
 
 import type { TShowcaseGameSettings } from './TShowcaseGameSettings';
@@ -9,6 +10,7 @@ export type TShowcasesDesktopApi = Readonly<{
   electron: () => string;
   getAppSettings: () => Promise<TShowcaseGameSettings>;
   getLegalDocs: (options: TLoadDocPayload) => Promise<TLegalDoc>;
+  getPreferredLocales: () => Promise<ReadonlyArray<TLocaleId>>;
   node: () => string;
   restartApp: () => void;
   setAppSettings: (settings: TShowcaseGameSettings) => Promise<void>;

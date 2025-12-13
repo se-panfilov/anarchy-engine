@@ -1,3 +1,4 @@
+import type { TLocaleId } from '@Anarchy/i18n';
 import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared';
 import { platformApiName } from '@Showcases/Shared';
 
@@ -6,26 +7,28 @@ import type { TPlatformDriver } from '@/Models';
 // TODO DESKTOP: Make sure ALL these methods are working correctly
 export function Driver(): TPlatformDriver {
   const closeApp = (): void => window[platformApiName].closeApp();
+  const getAppSettings = (): Promise<TShowcaseGameSettings> => window[platformApiName].getAppSettings();
   const getChromeVersion = (): string => window[platformApiName].chrome();
+  const getLegalDocs = (options: TLoadDocPayload): Promise<TLegalDoc> => window[platformApiName].getLegalDocs(options);
   const getNodeVersion = (): string => window[platformApiName].node();
   const getPlatformVersion = (): string => window[platformApiName].electron();
+  const getPreferredLocales = (): Promise<ReadonlyArray<TLocaleId>> => window[platformApiName].getPreferredLocales();
   const getWrappedAppVersion = (): Promise<string> => window[platformApiName].desktopAppVersion();
-  const getAppSettings = (): Promise<TShowcaseGameSettings> => window[platformApiName].getAppSettings();
-  const getLegalDocs = (options: TLoadDocPayload): Promise<TLegalDoc> => window[platformApiName].getLegalDocs(options);
   const restartApp = (): void => window[platformApiName].restartApp();
-  const setFirstRun: (isFirstRun: boolean) => Promise<void> = (isFirstRun: boolean): Promise<void> => window[platformApiName].setFirstRun(isFirstRun);
   const setAppSettings = (settings: TShowcaseGameSettings): Promise<void> => window[platformApiName].setAppSettings(settings);
+  const setFirstRun: (isFirstRun: boolean) => Promise<void> = (isFirstRun: boolean): Promise<void> => window[platformApiName].setFirstRun(isFirstRun);
 
   return {
     closeApp,
+    getAppSettings,
     getChromeVersion,
+    getLegalDocs,
     getNodeVersion,
     getPlatformVersion,
+    getPreferredLocales,
     getWrappedAppVersion,
-    getAppSettings,
-    getLegalDocs,
     restartApp,
-    setFirstRun,
-    setAppSettings
+    setAppSettings,
+    setFirstRun
   };
 }

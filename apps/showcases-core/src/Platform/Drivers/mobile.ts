@@ -1,3 +1,4 @@
+import type { TLocaleId } from '@Anarchy/i18n';
 import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared';
 
 import type { TPlatformDriver } from '@/Models';
@@ -53,16 +54,22 @@ export function Driver(): TPlatformDriver {
     return Promise.resolve();
   }
 
+  function getPreferredLocales(): Promise<ReadonlyArray<TLocaleId>> {
+    console.log('XXX [MOBILE]', 'getPreferredLocales');
+    return Promise.resolve({} as any);
+  }
+
   return {
     closeApp,
+    getAppSettings,
     getChromeVersion,
+    getLegalDocs,
     getNodeVersion,
     getPlatformVersion,
+    getPreferredLocales,
     getWrappedAppVersion,
-    getAppSettings,
-    getLegalDocs,
     restartApp,
-    setFirstRun,
-    setAppSettings
+    setAppSettings,
+    setFirstRun
   };
 }
