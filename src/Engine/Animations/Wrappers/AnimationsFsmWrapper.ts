@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { StateMachine, t } from 'typescript-fsm';
 
 import type { TWrapper } from '@/Engine/Abstract';
@@ -10,7 +10,7 @@ import { destroyableMixin } from '@/Engine/Mixins';
 
 // export function AnimationsFsmWrapper<TStates extends string | number | symbol, TEvents extends string | number | symbol>(params: TAnimationsFsmParams): TAnimationsFsmWrapper {
 export function AnimationsFsmWrapper(params: TAnimationsFsmParams): TAnimationsFsmWrapper {
-  const changed$: Subject<string | number | symbol> = new Subject<string | number | symbol>();
+  const changed$: BehaviorSubject<string | number | symbol> = new BehaviorSubject<string | number | symbol>(params.initial);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { name, ...machineParams } = params;
 
@@ -46,5 +46,5 @@ export function AnimationsFsmWrapper(params: TAnimationsFsmParams): TAnimationsF
     changed$.unsubscribe();
   });
 
-  return { ...wrapper, entity, changed$, send, getState, ...destroyable };
+  return { ...wrapper, entity, changed$: changed$.asObservable(), send, getState, ...destroyable };
 }
