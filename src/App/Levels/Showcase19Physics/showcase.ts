@@ -1,4 +1,6 @@
 import RAPIER from '@dimforge/rapier3d';
+import type { Scene } from 'three';
+import { BufferAttribute, BufferGeometry, LineBasicMaterial, LineSegments } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
@@ -10,10 +12,15 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { loopService } = engine.services;
-  // const { particlesService } = space.services;
+  const { actorService } = space.services;
 
   const gravity = { x: 0.0, y: -9.81, z: 0.0 };
   const world = new RAPIER.World(gravity);
+
+  // const { vertices, colors } = world.debugRender()
+
+  const scene = actorService.getScene();
+  const rapierDebugRenderer = new RapierDebugRenderer(scene.entity, world);
 
   // Create the ground
   const groundColliderDesc = RAPIER.ColliderDesc.cuboid(10.0, 0.1, 10.0);
@@ -36,6 +43,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const position = rigidBody.translation();
     console.log('Rigid-body position: ', position.x, position.y, position.z);
 
+    rapierDebugRenderer.update();
     setTimeout(gameLoop, 16);
   };
 
@@ -57,4 +65,28 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   }
 
   return { start, space };
+}
+
+class RapierDebugRenderer {
+  mesh;
+  world;
+  enabled = true;
+
+  constructor(scene: Scene, world: RAPIER.World) {
+    this.world = world;
+    this.mesh = new LineSegments(new BufferGeometry(), new LineBasicMaterial({ color: 0xffffff, vertexColors: true }));
+    this.mesh.frustumCulled = false;
+    scene.add(this.mesh);
+  }
+
+  update() {
+    if (this.enabled) {
+      const { vertices, colors } = this.world.debugRender();
+      this.mesh.geometry.setAttribute('position', new BufferAttribute(vertices, 3));
+      this.mesh.geometry.setAttribute('color', new BufferAttribute(colors, 4));
+      this.mesh.visible = true;
+    } else {
+      this.mesh.visible = false;
+    }
+  }
 }
