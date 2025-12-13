@@ -1,8 +1,8 @@
-import type { IMultitonRegistrable } from '@/Engine';
+import type { IMultitonRegistrable, IWatcher } from '@/Engine';
 
 export type IMultitonWatcher<T> = IMultitonRegistrable &
+  IWatcher<T> &
   Readonly<{
-    //same as IWatcher<T>
     start: () => IMultitonWatcher<T>;
     stop: () => IMultitonWatcher<T>;
   }>;
