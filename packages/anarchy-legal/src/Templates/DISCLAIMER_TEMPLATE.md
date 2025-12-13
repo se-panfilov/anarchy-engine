@@ -5,6 +5,7 @@
 **No Warranty.** The Software is provided **“AS IS,” without warranty of any kind**, express or implied, including but not limited to **implied warranties of merchantability, fitness for a particular purpose, and non-infringement**, **to the maximum extent permitted by applicable law**.
 
 **Limitation of Liability.** To the fullest extent permitted by law, {{LEGAL_ENTITY_NAME}} and contributors shall **not** be liable for any damages (including direct, indirect, incidental, special, exemplary, or consequential) arising from the use of, inability to use, or performance of the Software, even if advised of the possibility of such damages.
+
 **Nothing in this disclaimer excludes or limits liability where such exclusion or limitation is unlawful**, including liability for **death or personal injury caused by negligence**, **fraud**, or **wilful misconduct**. **Statutory consumer rights are not affected.**
 
 ## Regulatory Compliance Notice
@@ -19,21 +20,21 @@ Where {{LEGAL_ENTITY_NAME}} distributes **commercial binaries** of {{PACKAGE_NAM
 
 The Software may be subject to **export control, re-export, and sanctions** laws and regulations (including those of the **EU**, **US**, **UK**, and other jurisdictions). You agree to comply with all applicable restrictions and **not** to use, export, re-export, or transfer the Software **(i)** to any **sanctioned or restricted** person, entity, or destination, or **(ii)** for any prohibited end use under applicable law.
 
+{{#PROHIBIT_HIGH_RISK_USE}}
+
 ## Not for Safety-Critical Use
 
-The Software is **not designed or intended** for use in **safety-critical** environments (including medical, aviation, nuclear, military, or critical infrastructure) where failure could lead to death, personal injury, or severe environmental or property damage. Any such use is **at your sole risk**.
-
-{{#PROHIBIT_HIGH_RISK_USE}}
-**High-Risk Use Prohibition.** The Software **must not** be used in safety-critical contexts (including medical, aviation, nuclear, military, or critical infrastructure). Any such use is **strictly prohibited**.
+**High-Risk Use Prohibition.** The Software **must not** be used in safety-critical contexts (including medical, aviation, nuclear, military, or critical infrastructure) where failure could lead to death, personal injury, or severe environmental or property damage. Any such use is **strictly prohibited**.
 {{/PROHIBIT_HIGH_RISK_USE}}
 
 ## Third-Party Components (OSS Precedence)
 
-The Software may include or interface with **third-party open-source components**. Such components are licensed under their **own** terms. **If there is a conflict between this disclaimer/EULA and an OSS license for a specific component, the OSS license controls for that component.** See `NOTICE` / `THIRD_PARTY_LICENSES.md`.
+The Software may include or interface with **third-party open-source components**. Such components are licensed under their **own** terms. **If there is a conflict between this disclaimer/EULA and an OSS license for a specific component, the OSS license controls for that component.** See `NOTICE.md` / `THIRD_PARTY_LICENSES.md`.
 
 ## Security and Support
 
 This project is maintained **without any commitment** to provide support, maintenance, updates, or security fixes for the open-source codebase.
+
 For distributed binaries (if any), see `SECURITY.md` for the **coordinated vulnerability disclosure** process and **{{SECURITY_SUPPORT_PERIOD}}**.
 
 ## Modifications
