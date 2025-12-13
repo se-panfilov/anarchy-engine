@@ -1,7 +1,6 @@
 {
   "canvasSelector": "#text_container #app",
   "entities": {
-    "renderers": [{ "name": "main", "mode": "webgl2", "isActive": true, "alpha": true }],
     "actors": [],
     "audio": [],
     "cameras": [
@@ -28,31 +27,19 @@
     "fogs": [],
     "fsm": [],
     "intersections": [],
-    "lights": [
-      {
-        "name": "ambient_light",
-        "color": "#ffffff",
-        "intensity": 0.5,
-        "position": {
-          "x": 0.25,
-          "y": 2,
-          "z": 2.25
-        },
-        "type": "AmbientLight"
-      }
-    ],
-    "materials": [
-      {
-        "name": "surface_material",
-        "options": {
-          "color": "#5EDCAE"
-        },
-        "type": "MeshStandardMaterial"
-      }
-    ],
+    "lights": [],
+    "materials": [],
     "models3d": [],
     "particles": [],
     "physics": {},
+    "renderers": [
+      {
+        "alpha": true,
+        "isActive": true,
+        "mode": "webgl2",
+        "name": "main"
+      }
+    ],
     "spatialGrids": [
       {
         "cellSize": 10,
@@ -65,12 +52,12 @@
     ],
     "texts": [
       {
-        "name": "text_2d",
         "cssProps": {
           "color": "#ff0000",
           "fontFamily": "\"Roboto\", sans-serif",
           "fontSize": "4rem"
         },
+        "name": "text_2d",
         "position": {
           "x": -10,
           "y": 10,
@@ -85,12 +72,12 @@
         "type": "text_2d"
       },
       {
-        "name": "text_3d_1",
         "cssProps": {
           "color": "#ff0000",
           "fontFamily": "\"Roboto\", sans-serif",
           "fontSize": "0.2rem"
         },
+        "name": "text_3d_1",
         "position": {
           "x": 10,
           "y": -10,
@@ -105,12 +92,12 @@
         "type": "text_3d"
       },
       {
-        "name": "text_3d_2",
         "cssProps": {
           "color": "#000000",
           "fontFamily": "\"RubikDoodleTriangles\", sans-serif",
           "fontSize": "18rem"
         },
+        "name": "text_3d_2",
         "position": {
           "x": 0,
           "y": 10,
