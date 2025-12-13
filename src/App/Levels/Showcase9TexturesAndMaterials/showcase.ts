@@ -18,12 +18,12 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const sceneW: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
-    const modelF: TModel3d | undefined = models3dRegistry.findByName('wood_cube_model');
-    if (isNotDefined(modelF)) throw new Error('Model is not found');
+    const model3d: TModel3d | undefined = models3dRegistry.findByName('wood_cube_model');
+    if (isNotDefined(model3d)) throw new Error('Model is not found');
 
-    sceneW.addModel3d(modelF.getRawModel3d());
+    sceneW.addModel3d(model3d.getRawModel3d());
 
-    initCameraRotation(space, modelF, mouseService);
+    initCameraRotation(space, model3d, mouseService);
   }
 
   function start(): void {
@@ -35,7 +35,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 }
 
 // This is mostly a copy of Showcase 3 (camera rotation)
-function initCameraRotation(space: TSpace, modelF: TModel3d | undefined, mouseService: TMouseService): void {
+function initCameraRotation(space: TSpace, model3d: TModel3d | undefined, mouseService: TMouseService): void {
   const { cameraService } = space.services;
 
   const camera: TCameraWrapper | undefined = cameraService.findActive();
@@ -59,8 +59,8 @@ function initCameraRotation(space: TSpace, modelF: TModel3d | undefined, mouseSe
       camera.setY(yRatio * 10);
       camera.setZ(yRotation);
 
-      const vector: Vector3 | undefined = modelF?.getRawModel3d().position;
+      const vector: Vector3 | undefined = model3d?.getRawModel3d().position;
       if (isNotDefined(vector)) throw new Error('Model3d has no position');
-      if (isDefined(modelF)) camera.lookAt(vector);
+      if (isDefined(model3d)) camera.lookAt(vector);
     });
 }
