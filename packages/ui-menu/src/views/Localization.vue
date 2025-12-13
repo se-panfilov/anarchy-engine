@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { TWriteable } from '@Engine';
 import Dropdown from '@Menu/components/Dropdown.vue';
+import Navigation from '@Menu/components/Navigation.vue';
 import SettingsGroup from '@Menu/components/SettingsGroup.vue';
 import View from '@Menu/components/View.vue';
 import ViewActions from '@Menu/components/ViewActions.vue';
@@ -38,6 +39,7 @@ const options = computed((): ReadonlyArray<TDropdownOption<Languages>> => {
       <Dropdown v-model="state.language" :options="options" class="main-menu-view__setting -resolution" label="Resolution" />
     </SettingsGroup>
     <ViewActions @reset="reset()" @save="save(state)" />
+    <Navigation class="settings__navigation" :back-btn="true" />
   </View>
 </template>
 

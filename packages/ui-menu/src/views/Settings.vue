@@ -21,17 +21,12 @@ const navOptions: ReadonlyArray<TNavOption> = [
     id: 2,
     label: 'Localization',
     action: () => menuRouterStore.go(Routes.Localization)
-  },
-  {
-    id: 3,
-    label: 'Back',
-    action: () => menuRouterStore.goBack()
   }
 ];
 </script>
 
 <template>
   <div class="settings">
-    <Navigation class="settings__navigation" :options="navOptions" />
+    <Navigation class="settings__navigation" :options="navOptions" :back-btn="true" />
   </div>
 </template>

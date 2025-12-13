@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Navigation from '@Menu/components/Navigation.vue';
 import Range from '@Menu/components/Range.vue';
 import SettingsGroup from '@Menu/components/SettingsGroup.vue';
 import View from '@Menu/components/View.vue';
@@ -31,6 +32,7 @@ function save(payload: TAudioSettings): void {
       <Range v-model="state.masterVolume" :min="0" :max="100" class="main-menu-view__setting -masterVolume" label="Master Volume" />
     </SettingsGroup>
     <ViewActions @reset="reset()" @save="save(state)" />
+    <Navigation class="settings__navigation" :back-btn="true" />
   </View>
 </template>
 
