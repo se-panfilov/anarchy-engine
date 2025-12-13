@@ -1,5 +1,6 @@
 import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig, TText3dWrapper } from '@Engine';
 import { asRecord, isNotDefined, spaceService } from '@Engine';
+import { initMenuApp } from '@Menu/main';
 import { filter, Subject } from 'rxjs';
 
 import { openMainMenu } from '@/Levels/Showcase28Menu/MainMenuService';
@@ -34,6 +35,8 @@ export function showcase(space: TSpace): void {
 
   sceneW.addModel3d(planeModel3d);
   sceneW.addText(text3d);
+
+  initMenuApp('#menu');
 
   const watcherMenuCube: TIntersectionsCameraWatcher = intersectionsWatcherService.getCameraWatcher('watcher_menu_cube');
 
