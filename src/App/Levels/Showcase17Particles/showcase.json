@@ -87,7 +87,23 @@
     }
   ],
   "envMaps": [],
-  "particles": [],
+  "particles": [
+    {
+      "name": "bubbles",
+      "position": { "x": 0, "y": 6, "z": 0 },
+      "material": {
+        "type": "points",
+        "params": {
+          "color": "#E91E63",
+          "size": 0.5
+        },
+        "textures": {
+          "alphaMap": { "url": "/Showcase/particles/2.png" }
+        }
+      },
+      "tags": []
+    }
+  ],
   "fogs": [],
   "tags": []
 }
