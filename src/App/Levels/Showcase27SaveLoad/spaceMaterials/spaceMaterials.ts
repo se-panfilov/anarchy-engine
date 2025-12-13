@@ -15,8 +15,6 @@ export const spaceMaterialsData: TSpacesData = {
   container: getContainer(config.canvasSelector),
   awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
   onChange: (space: TSpace): void => {
-    // TODO 15-0-0: Test textures change
-
     adjustMaterial(space, 'surface_material', {
       clearcoat: 1,
       clearcoatRoughness: 0.12,
