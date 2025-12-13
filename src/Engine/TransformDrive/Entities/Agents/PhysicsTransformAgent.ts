@@ -58,7 +58,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
     physicsBody$,
     serialize: (): TPhysicsBodyConfig => {
       const body: TPhysicsBody | undefined = physicsBody$.value;
-      if (isNotDefined(body)) throw new Error(`[Serialization] PhysicsTransformAgent: physics body is not defined for agent with name: "${params.name}", (id: "${agent.id}")`);
+      if (isNotDefined(body)) throw new Error(`[Serialization] [PhysicsTransformAgent]: physics body is not defined for agent with name: "${params.name}", (id: "${agent.id}")`);
 
       return body.serialize();
     }
