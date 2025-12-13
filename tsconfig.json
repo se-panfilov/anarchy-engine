@@ -26,7 +26,9 @@
       "@Showcases/E2E": ["apps/showcases-e2e/src/index.ts"],
       "@Showcases/E2E/*": ["apps/showcases-e2e/src/*"],
       "@Showcases/Menu": ["packages/showcases-menu/src/index.ts"],
-      "@Showcases/Menu/*": ["packages/showcases-menu/src/*"]
+      "@Showcases/Menu/*": ["packages/showcases-menu/src/*"],
+      "@Showcases/GUI": ["packages/showcases-gui/src/index.ts"],
+      "@Showcases/GUI/*": ["packages/showcases-gui/src/*"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,

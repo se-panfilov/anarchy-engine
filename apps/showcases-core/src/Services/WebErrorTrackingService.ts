@@ -37,7 +37,7 @@ export function WebErrorTrackingService(): TWebErrorTrackingService {
 
       return {
         settings: isDefined(settings) ? getAnonymizedSettings(settings) : undefined
-        // TODO DESKTOP: And some "state of the game" (current level, quest, etc)
+        // TODO RELEASE: And some "state of the game" (current level, quest, etc)
         // game: ...
       };
     };
