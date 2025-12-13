@@ -2,7 +2,7 @@
   "name": "anarchy_engine_e2e",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "license": "MIT",
   "scripts": {
@@ -27,9 +27,9 @@
   "dependencies": {
     "anarchy_engine": "*",
     "anarchy_engine_shared": "*",
-    "playwright": "1.53.1"
+    "playwright": "1.54.1"
   },
   "devDependencies": {
-    "@playwright/test": "1.53.1"
+    "@playwright/test": "1.54.1"
   }
 }
