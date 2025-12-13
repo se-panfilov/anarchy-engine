@@ -67,9 +67,9 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     const blocks = await buildTower(actorService, { x: 10, z: 0 }, 10, 10, 20, spatialGrid);
     // const blocks2 = await buildTower(actorService, { x: 20, z: 0 }, 5, 5, 15, spatialGrid);
-    // await buildTower(actorService, { x: 0, z: 30 }, 6, 7, 18, spatialGrid);
+    await buildTower(actorService, { x: 0, z: 30 }, 6, 7, 18, spatialGrid);
     // await buildTower(actorService, { x: 17, z: 30 }, 7, 7, 35, spatialGrid);
-    // await buildTower(actorService, { x: -15, z: -15 }, 10, 7, 15, spatialGrid);
+    await buildTower(actorService, { x: -15, z: -15 }, 10, 7, 15, spatialGrid);
 
     const maxBulletsSameTime: number = 150;
     const bullets: ReadonlyArray<TBullet> = await Promise.all(getBulletsPool(maxBulletsSameTime, actorService, spatialGridService));
