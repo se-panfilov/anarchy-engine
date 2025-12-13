@@ -49,8 +49,8 @@ export function start(): void {
   );
 
   //Initial space
-  // loadSpace(basicCase.name);
-  loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceBasicData.name)?.name);
+  // loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceBasicData.name)?.name);
+  loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceMaterialsData.name)?.name);
 }
 
 function loadSpace(name: string | undefined): void {

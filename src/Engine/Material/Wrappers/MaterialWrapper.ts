@@ -6,10 +6,10 @@ import { buildMaterial } from '@/Engine/Material/Utils';
 export function MaterialWrapper(params: TMaterialParams): TMaterialWrapper {
   const entity: TMaterials = buildMaterial(params);
 
-  const result = Object.assign(AbstractWrapper(entity, WrapperType.Material, { name: params.name, tags: params.tags }), {
+  const result: TMaterialWrapper = Object.assign(AbstractWrapper(entity, WrapperType.Material, { name: params.name, tags: params.tags }), {
     entity,
     serialize: (dependencies: TMaterialEntityToConfigDependencies): TMaterialConfig => materialToConfig(result, dependencies)
-  });
+  }) as TMaterialWrapper;
 
   return result;
 }

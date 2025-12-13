@@ -1,5 +1,5 @@
-import type { TCameraWrapper, TSpace, TSpaceConfig } from '@/Engine';
-import { eulerToXyz, isNotDefined, vector3ToXyz } from '@/Engine';
+import type { TMaterialConfigOptions, TPhysicalMaterialWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import { isNotDefined } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { getContainer } from '../utils';
@@ -12,11 +12,91 @@ export const spaceMaterialsData: TSpacesData = {
   config: config,
   container: getContainer(config.canvasSelector),
   onChange: (space: TSpace): void => {
-    // TODO debug
-    const camera: TCameraWrapper | undefined = space.services.cameraService.findActive();
-    if (isNotDefined(camera)) throw new Error(`[Showcase]: Camera is not found`);
-    console.log('XXX camera position', vector3ToXyz(camera.entity.position));
-    console.log('XXX camera rotation', eulerToXyz(camera.entity.rotation));
-    console.log('XXX implement');
+    // TODO 15-0-0: test textures change
+
+    adjustMaterial(space, 'surface_material', {
+      clearcoat: 1,
+      clearcoatRoughness: 0.12,
+      displacementScale: 0,
+      ior: 2.5,
+      iridescence: 1.655,
+      iridescenceIOR: 2,
+      metalness: 0.97,
+      roughness: 0.8,
+      thickness: 0,
+      transmission: 0.66
+    });
+
+    adjustMaterial(space, 'standard_metal', { displacementScale: 0.2 });
+
+    adjustMaterial(space, 'physical_metal', {
+      clearcoat: 1,
+      clearcoatRoughness: 0.12,
+      displacementScale: 0,
+      ior: 100,
+      iridescence: 0.655,
+      iridescenceIOR: 1.86,
+      metalness: 0.97,
+      roughness: 0.8,
+      thickness: 0,
+      transmission: 0
+    });
+
+    adjustMaterial(space, 'basic_metal', {});
+
+    adjustMaterial(space, 'phong_metal', { displacementScale: 0.2 });
+
+    adjustMaterial(space, 'lambert_metal', { displacementScale: 0.2 });
+    adjustMaterial(space, 'toon_metal', { displacementScale: 0.2 });
+    adjustMaterial(space, 'matcap_metal', { displacementScale: 0.2 });
+    adjustMaterial(space, 'standard_wood', { displacementScale: 0.2 });
+    adjustMaterial(space, 'physical_wood', { displacementScale: 0.2 });
+    adjustMaterial(space, 'basic_wood', {});
+    adjustMaterial(space, 'phong_wood', { displacementScale: 0.2 });
+    adjustMaterial(space, 'lambert_wood', { displacementScale: 0.2 });
+    adjustMaterial(space, 'toon_wood', { displacementScale: 0.2 });
+    adjustMaterial(space, 'matcap_wood', { displacementScale: 0.2 });
+    adjustMaterial(space, 'standard_glass', {
+      metalness: 0.5,
+      roughness: 0.5
+    });
+
+    adjustMaterial(space, 'physical_glass', {
+      clearcoat: 0.8,
+      clearcoatRoughness: 0.09,
+      displacementScale: 0.1,
+      ior: 1.76,
+      iridescence: 1,
+      iridescenceIOR: 1.44,
+      metalness: 0.1,
+      roughness: 0.1,
+      thickness: 0.1,
+      transmission: 0.6
+    });
+
+    adjustMaterial(space, 'basic_glass', {});
+    adjustMaterial(space, 'phong_glass', { displacementScale: 0.2 });
+    adjustMaterial(space, 'lambert_glass', { displacementScale: 0.2 });
+    adjustMaterial(space, 'toon_glass', { displacementScale: 0.2 });
+    adjustMaterial(space, 'matcap_glass', { displacementScale: 0.2 });
+    adjustMaterial(space, 'standard_textile', { displacementScale: 0.2 });
+    adjustMaterial(space, 'physical_textile', { displacementScale: 0.2 });
+    adjustMaterial(space, 'basic_textile', {});
+    adjustMaterial(space, 'phong_textile', { displacementScale: 0.2 });
+    adjustMaterial(space, 'lambert_textile', { displacementScale: 0.2 });
+    adjustMaterial(space, 'toon_textile', { displacementScale: 0.2 });
+    adjustMaterial(space, 'matcap_textile', { displacementScale: 0.2 });
   }
 };
+
+function adjustMaterial(space: TSpace, materialName: string, options: TMaterialConfigOptions): void | never {
+  const materialW: TPhysicalMaterialWrapper | undefined = space.services.materialService.getRegistry().findByName(materialName) as TPhysicalMaterialWrapper;
+  if (isNotDefined(materialW)) throw new Error(`[Showcase]: Cannot find the material "${materialName}"`);
+
+  Object.entries(options).forEach(([key, value]): void => {
+    if (isNotDefined(value)) return;
+
+    // eslint-disable-next-line functional/immutable-data
+    (materialW as any).entity[key] = value;
+  });
+}
