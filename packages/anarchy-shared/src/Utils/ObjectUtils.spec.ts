@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { omitInObjectWithMutation, omitInObjectWithoutMutation } from './ObjectUtils';
+import { mergeDeep, omitInObjectWithMutation, omitInObjectWithoutMutation } from './ObjectUtils';
 
 describe('ObjectUtils', () => {
   describe('omitInObjectWithoutMutation', () => {
@@ -52,6 +52,61 @@ describe('ObjectUtils', () => {
 
       expect(result).toEqual(expectedResult);
       expect(obj).toEqual(result);
+    });
+  });
+
+  describe('mergeDeep', () => {
+    const origin = {
+      levelA1: {
+        valueA1: true,
+        valueA2: true,
+        valueA3: true,
+        levelA2: {
+          valueA1: true,
+          valueA2: true,
+          valueA3: true
+        }
+      },
+      levelB1: {
+        valueB1: true,
+        valueB2: true,
+        valueB3: true,
+        levelB2: {
+          valueB1: true,
+          valueB2: true,
+          valueB3: true
+        }
+      },
+      levelC1: {
+        valueC1: true,
+        valueC2: true,
+        valueC3: true,
+        levelC2: {
+          valueC1: true,
+          valueC2: true,
+          valueC3: true
+        }
+      }
+    };
+
+    it('should modify single top-level value', () => {
+      const expected = { ...origin, levelA1: { ...origin.levelA1, valueA1: false } };
+      expect(mergeDeep(origin, { levelA1: { valueA1: false } })).toEqual(expected);
+    });
+
+    it('should modify single deep-level value', () => {
+      const expected = { ...origin, levelA1: { ...origin.levelA1, levelA2: { ...origin.levelA1.levelA2, valueA1: false } } };
+      expect(mergeDeep(origin, { levelA1: { levelA2: { valueA1: false } } })).toEqual(expected);
+    });
+
+    it('should modify multiple top-level values', () => {
+      const expected = { ...origin, levelA1: { ...origin.levelA1, valueA1: false, valueA3: false } };
+      expect(mergeDeep(origin, { levelA1: { valueA1: false, valueA3: false } })).toEqual(expected);
+    });
+
+    it('should modify multiple deep-level values', () => {
+      const expected = { ...origin, levelA1: { ...origin.levelA1, levelA2: { ...origin.levelA1.levelA2, valueA1: false, valueA3: false } } };
+      expect(mergeDeep(origin, { levelA1: { levelA2: { valueA1: false, valueA3: false } } })).toEqual(expected);
     });
   });
 });
