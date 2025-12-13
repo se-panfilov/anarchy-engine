@@ -1,6 +1,7 @@
 # Security Policy — {{PACKAGE_NAME}}
 
 **Effective date:** {{EFFECTIVE_DATE}}
+
 **Security Contact:** {{SECURITY_EMAIL}} (email preferred for sensitive reports)
 
 ## Scope

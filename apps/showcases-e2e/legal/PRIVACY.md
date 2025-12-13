@@ -1,6 +1,7 @@
 # Privacy Notice — showcases-e2e
 
 **Effective date:** TBD until market release
+
 **Controller:** Sergei Aleksandrovich Panfilov — Contact: TBD until market release
 
 **Scope / Identification.** This notice applies to the **open-source project** **showcases-e2e** (hosted on or mirrored to **public code hosting platform(s)**). We do **not** operate a consumer service through this repository.

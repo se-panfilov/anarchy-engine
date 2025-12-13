@@ -1,6 +1,7 @@
 # Security Policy — anarchy-legal
 
 **Effective date:** TBD until market release
+
 **Security Contact:** TBD until market release (email preferred for sensitive reports)
 
 ## Scope

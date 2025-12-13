@@ -1,6 +1,7 @@
 # Privacy Policy — TBD until market release
 
 **Effective date:** TBD until market release
+
 **Controller:** Sergei Aleksandrovich Panfilov — Contact: TBD until market release
 
 **Scope / Identification.** This policy applies to **TBD until market release** (the “Software”) and related distributions under the following technical identifiers: `showcases-core`.

@@ -1,6 +1,7 @@
 # Privacy Policy — {{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}
 
 **Effective date:** {{EFFECTIVE_DATE}}
+
 **Controller:** {{LEGAL_ENTITY_NAME}} — Contact: {{PRIVACY_EMAIL}}
 
 **Scope / Identification.** This policy applies to **{{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}** (the “{{PRODUCT_TERM}}”){{#SHOW_TECH_IDENTIFIERS}} and related distributions under the following technical identifiers: `{{PACKAGE_NAME}}`{{/SHOW_TECH_IDENTIFIERS}}.

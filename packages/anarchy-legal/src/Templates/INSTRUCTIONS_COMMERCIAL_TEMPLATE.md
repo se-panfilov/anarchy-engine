@@ -1,7 +1,9 @@
 # Instructions & Support — {{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}
 
 **Effective date:** {{EFFECTIVE_DATE}}
+
 **Publisher/Developer:** {{LEGAL_ENTITY_NAME}}
+
 **Support contact:** {{SUPPORT_EMAIL}}
 
 > This document provides basic use, safety, and compliance information for **{{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}** (the “{{PRODUCT_TERM}}”). It does **not** create service levels, warranties, or contractual obligations. For license terms, see **EULA** (`EULA.*`). For privacy, see **Privacy Policy** (`PRIVACY.*`). For security and updates, see **Security Policy** (`SECURITY.*`).
@@ -26,6 +28,7 @@ Operates **offline** by default; any online features, if offered, are **opt-in**
 
 {{#SUPPORTED_PLATFORMS}}
 **Supported platforms (indicative):** {{SUPPORTED_PLATFORMS}}.
+
 {{/SUPPORTED_PLATFORMS}}
 {{#MIN_SYSTEM_REQUIREMENTS}}
 

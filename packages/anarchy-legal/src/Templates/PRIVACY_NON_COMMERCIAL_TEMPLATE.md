@@ -1,6 +1,7 @@
 # Privacy Notice — {{PACKAGE_NAME}}
 
 **Effective date:** {{EFFECTIVE_DATE}}
+
 **Controller:** {{LEGAL_ENTITY_NAME}} — Contact: {{PRIVACY_EMAIL}}
 
 **Scope / Identification.** This notice applies to the **open-source project** **{{PACKAGE_NAME}}** (hosted on or mirrored to **public code hosting platform(s)**). We do **not** operate a consumer service through this repository.

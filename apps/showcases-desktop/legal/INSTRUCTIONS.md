@@ -1,7 +1,9 @@
 # Instructions & Support — TBD until market release
 
 **Effective date:** TBD until market release
+
 **Publisher/Developer:** Sergei Aleksandrovich Panfilov
+
 **Support contact:** TBD until market release
 
 > This document provides basic use, safety, and compliance information for **TBD until market release** (the “Software”). It does **not** create service levels, warranties, or contractual obligations. For license terms, see **EULA** (`EULA.*`). For privacy, see **Privacy Policy** (`PRIVACY.*`). For security and updates, see **Security Policy** (`SECURITY.*`).

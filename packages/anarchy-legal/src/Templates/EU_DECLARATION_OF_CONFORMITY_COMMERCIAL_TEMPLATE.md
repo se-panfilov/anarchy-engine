@@ -4,11 +4,14 @@
 
 **Manufacturer (Legal Entity):** {{LEGAL_ENTITY_NAME}}
 {{#LEGAL_ENTITY_ADDRESS}}
+
 **Address:** {{LEGAL_ENTITY_ADDRESS}}
 {{/LEGAL_ENTITY_ADDRESS}}
 {{#HAS_EU_REP}}
+
 **EU Authorized Representative:** {{EU_REPRESENTATIVE_CONTACT}}
 {{/HAS_EU_REP}}
+
 **Contact (regulatory):** {{LEGAL_EMAIL}}
 
 > **We, {{LEGAL_ENTITY_NAME}}, declare under our sole responsibility** that the object of this declaration described below is in conformity with the relevant Union legislation identified herein.
