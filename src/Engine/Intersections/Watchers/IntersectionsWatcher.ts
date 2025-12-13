@@ -16,10 +16,12 @@ export function IntersectionsWatcher({ mousePosWatcher, tags = [] }: IIntersecti
   let actors: ReadonlyArray<IWithWrapperIdEntity<IMesh>> = [];
   let camera: Readonly<ICameraWrapper> | undefined;
 
-  const addActors = (actorsWrappers: ReadonlyArray<IActorWrapperAsync>): void => void (actors = unWrapEntities(actorsWrappers) as ReadonlyArray<IWithWrapperIdEntity<IMesh>>);
+  const addActors = (actorWrappers: ReadonlyArray<IActorWrapperAsync>): void => void (actors = [...actors, unWrapEntities(actorWrappers)] as ReadonlyArray<IWithWrapperIdEntity<IMesh>>);
+  const addActor = (actorWrapper: IActorWrapperAsync): void => void (actors = [...actors, actorWrapper.entity as IWithWrapperIdEntity<IMesh>]);
   const getActors = (): ReadonlyArray<IWithWrapperIdEntity<IMesh>> => actors;
-  const removeActors = (actorsWrapperIds: ReadonlyArray<string>): void =>
-    void (actors = actors.filter((actor: IWithWrapperIdEntity<IMesh>): boolean => !actorsWrapperIds.includes(actor.userData.wrapperId)));
+  const removeActors = (actorWrapperIds: ReadonlyArray<string>): void =>
+    void (actors = actors.filter((actor: IWithWrapperIdEntity<IMesh>): boolean => !actorWrapperIds.includes(actor.userData.wrapperId)));
+  const removeActor = (actorWrapperId: string): void => void (actors = actors.filter((actor: IWithWrapperIdEntity<IMesh>): boolean => actorWrapperId !== actor.userData.wrapperId));
 
   const setCamera = (cam: Readonly<ICameraWrapper>): void => void (camera = cam);
   const getCamera = (): Readonly<ICameraWrapper> | undefined => camera;
@@ -53,10 +55,12 @@ export function IntersectionsWatcher({ mousePosWatcher, tags = [] }: IIntersecti
   const result: IIntersectionsWatcher = {
     ...abstractWatcher,
     addActors,
+    addActor,
     getActors,
     setCamera,
     getCamera,
     removeActors,
+    removeActor,
     start,
     stop
   };

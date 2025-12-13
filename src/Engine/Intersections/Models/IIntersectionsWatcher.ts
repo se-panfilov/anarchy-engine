@@ -6,9 +6,11 @@ import type { IIntersectionEvent } from './IIntersectionEvent';
 
 export type IIntersectionsWatcher = Omit<IWatcher<IIntersectionEvent>, 'start' | 'stop'> &
   Readonly<{
-    addActors: (actorsWrappers: ReadonlyArray<IActorWrapperAsync>) => void;
+    addActors: (actorWrappers: ReadonlyArray<IActorWrapperAsync>) => void;
+    addActor: (actorWrapper: IActorWrapperAsync) => void;
     getActors: () => ReadonlyArray<IWithWrapperIdEntity<IMesh>>;
-    removeActors: (actorsWrapperIds: ReadonlyArray<string>) => void;
+    removeActors: (actorWrapperIds: ReadonlyArray<string>) => void;
+    removeActor: (actorWrapperId: string) => void;
     setCamera: (cam: Readonly<ICameraWrapper>) => void;
     getCamera: () => Readonly<ICameraWrapper> | undefined;
     start: () => IIntersectionsWatcher;
