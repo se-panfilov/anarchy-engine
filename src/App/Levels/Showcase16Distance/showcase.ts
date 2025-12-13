@@ -24,12 +24,21 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     if (isNotDefined(car)) throw new Error('Actor "car" is not defined');
 
     let isMove: boolean = false;
+    let isTimerStarted: boolean = false;
+
     clickLeftRelease$.subscribe((): void => {
       if (!isMove) isMove = true;
     });
 
+    //Move by click once
     engine.services.loopService.tick$.subscribe(({ delta }): void => {
+      if (isMove && !isTimerStarted) {
+        isTimerStarted = true;
+        console.time('move');
+      }
+
       if (car.entity.position.z <= -50) {
+        console.timeEnd('move');
         isMove = false;
         // eslint-disable-next-line functional/immutable-data
         car.entity.position.z = 50;
@@ -37,12 +46,12 @@ export function showcase(canvas: IAppCanvas): IShowcase {
       }
 
       if (isMove) {
-        console.log('123', isMove);
         // eslint-disable-next-line functional/immutable-data
         car.entity.position.z -= 10 * delta;
       }
     });
 
+    //Move by pressing
     // onKey(KeyCode.W).pressing$.subscribe(({ delta }): void => {
     //   console.log(mpsSpeed(-10, delta));
     //   void car.addZ(mpsSpeed(-10, delta));
