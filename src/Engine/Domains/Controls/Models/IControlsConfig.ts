@@ -1,6 +1,5 @@
-import type { CameraTag } from '@Engine/Domains/Camera/Constants';
-import type { ControlsTag } from '@Engine/Domains/Controls/Constants';
-import type { IControlsType } from '@Engine/Domains/Controls/Models';
+import type { CameraTag } from '@Engine/Domains/Camera';
+import type { ControlsTag, IControlsType } from '@Engine/Domains/Controls';
 
 export type IControlsConfig = Readonly<{
   type: IControlsType;

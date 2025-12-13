@@ -1,5 +1,5 @@
 import type { IAbstractWatcher } from '@Engine/Domains/Abstract';
-import { AbstractWatcher } from '@Engine/Domains/Abstract/Watcher/AbstractWatcher';
+import { AbstractWatcher } from '@Engine/Domains/Abstract/Watcher';
 import type { IActorWrapper } from '@Engine/Domains/Actor';
 import type { ICameraWrapper } from '@Engine/Domains/Camera';
 import type { ISceneObject } from '@Engine/Domains/Scene';

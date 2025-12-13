@@ -1,6 +1,6 @@
-import { AbstractFromConfigWrapperFactory } from '@Engine/Domains/Abstract/Factory';
-import type { ICreateFN } from '@Engine/Domains/Abstract/Models';
-import type { IAbstractConfig, IAbstractFactory, IAbstractFromConfigWrapperFactory, IDestroyableFromConfigFactory, IWrapper } from '@Engine/Models';
+import type { IAbstractConfig, IAbstractFactory, IAbstractFromConfigWrapperFactory, ICreateFN } from '@Engine/Domains/Abstract';
+import { AbstractFromConfigWrapperFactory } from '@Engine/Domains/Abstract';
+import type { IDestroyableFromConfigFactory, IWrapper } from '@Engine/Models';
 import { cleanObject } from '@Engine/Utils';
 
 export function AbstractDestroyableFromConfigFactory<

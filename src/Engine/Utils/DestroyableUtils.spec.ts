@@ -1,3 +1,4 @@
+import type { IAbstractWrapperFactory } from '@Engine/Domains/Abstract';
 import { AbstractDestroyableFactory, AbstractWrapperFactory } from '@Engine/Domains/Abstract';
 import type { IActorFactory } from '@Engine/Domains/Actor';
 import { ActorFactory } from '@Engine/Domains/Actor';
@@ -15,7 +16,7 @@ import type { IRendererFactory } from '@Engine/Domains/Renderer';
 import { RendererFactory } from '@Engine/Domains/Renderer';
 import type { ISceneFactory } from '@Engine/Domains/Scene';
 import { SceneFactory } from '@Engine/Domains/Scene';
-import type { IAbstractWrapperFactory, IDestroyableFactory } from '@Engine/Models';
+import type { IDestroyableFactory } from '@Engine/Models';
 import { isDestroyedFactory } from '@Engine/Utils/DestroyableUtils';
 
 describe('DestroyableUtils', () => {

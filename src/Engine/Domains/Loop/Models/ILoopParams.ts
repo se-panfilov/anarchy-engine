@@ -1,4 +1,4 @@
-import type { LoopTag } from '@Engine/Domains/Loop/Models';
+import type { LoopTag } from '@Engine/Domains/Loop';
 
 export type ILoopParams = Readonly<{
   tags: ReadonlyArray<LoopTag | string>;

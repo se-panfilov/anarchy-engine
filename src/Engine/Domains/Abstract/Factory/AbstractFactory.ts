@@ -1,5 +1,4 @@
-import type { ICreateFN } from '@Engine/Domains/Abstract/Models';
-import type { IAbstractFactory } from '@Engine/Models';
+import type { IAbstractFactory, ICreateFN } from '@Engine/Domains/Abstract';
 import { nanoid } from 'nanoid';
 
 export function AbstractFactory<T, PRMS>(type: string, createFn: ICreateFN<T, PRMS>): IAbstractFactory<T, PRMS> {

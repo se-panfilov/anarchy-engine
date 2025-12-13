@@ -1,5 +1,5 @@
 import { AbstractWrapper } from '@Engine/Domains/Abstract';
-import type { IRendererParams, IRendererWrapper } from '@Engine/Domains/Renderer/Models';
+import type { IRendererParams, IRendererWrapper } from '@Engine/Domains/Renderer';
 import type { IScreenParams, IWrapper } from '@Engine/Models';
 import type { Writeable } from '@Engine/Utils';
 import { isNotDefined, isWebGLAvailable } from '@Engine/Utils';

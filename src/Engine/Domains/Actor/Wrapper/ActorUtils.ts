@@ -1,4 +1,4 @@
-import type { IActorParams, IMesh } from '@Engine/Domains/Actor/Models';
+import type { IActorParams, IMesh } from '@Engine/Domains/Actor';
 import { Mesh, MeshToonMaterial, PlaneGeometry, SphereGeometry } from 'three';
 
 export function createActor(params: IActorParams): IMesh | never {

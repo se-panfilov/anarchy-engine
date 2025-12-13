@@ -1,4 +1,4 @@
-import type { IAbstractConfig } from '@Engine/Domains/Abstract/Models/IAbstractConfig';
+import type { IAbstractConfig } from '@Engine/Domains/Abstract/Models';
 import type { IFactory } from '@Engine/Models/IFactory';
 import type { IFromConfigFactory } from '@Engine/Models/IFromConfigFactory';
 import type { IWrapper } from '@Engine/Models/IWrapper';

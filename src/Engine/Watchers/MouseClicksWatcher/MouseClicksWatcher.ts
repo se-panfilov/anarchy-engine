@@ -1,5 +1,5 @@
 import type { IAbstractWatcher } from '@Engine/Domains/Abstract';
-import { AbstractWatcher } from '@Engine/Domains/Abstract/Watcher/AbstractWatcher';
+import { AbstractWatcher } from '@Engine/Domains/Abstract/Watcher';
 import type { IGlobalContainerDecorator } from '@Engine/Global';
 import type { IMouseClicksWatcher } from '@Engine/Watchers';
 

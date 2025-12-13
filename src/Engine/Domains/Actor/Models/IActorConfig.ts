@@ -1,4 +1,4 @@
-import type { IActorParams, IActorType } from '@Engine/Domains/Actor/Models';
+import type { IActorParams, IActorType } from '@Engine/Domains/Actor';
 
 import type { IVector3dConfig } from '@/Engine/Models';
 

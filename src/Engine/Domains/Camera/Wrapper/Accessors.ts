@@ -1,4 +1,4 @@
-import type { ICameraAccessors, IPerspectiveCamera } from '@Engine/Domains/Camera/Models';
+import type { ICameraAccessors, IPerspectiveCamera } from '@Engine/Domains/Camera';
 import type { Writeable } from '@Engine/Utils';
 
 import type { IVector3 } from '@/Engine/Wrappers/Vector3Wrapper';

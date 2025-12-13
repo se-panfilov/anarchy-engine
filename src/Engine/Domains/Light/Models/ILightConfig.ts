@@ -1,4 +1,4 @@
-import type { ILightParams, ILightShadowParams, ILightType } from '@Engine/Domains/Light/Models';
+import type { ILightParams, ILightShadowParams, ILightType } from '@Engine/Domains/Light';
 
 import type { IVector2dConfig, IVector3dConfig } from '@/Engine/Models';
 

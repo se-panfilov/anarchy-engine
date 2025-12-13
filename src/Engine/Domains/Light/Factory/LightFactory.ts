@@ -1,6 +1,5 @@
-import { lightAdapter } from '@Engine/Domains/Light/Adapter';
-import type { ICreateLightFn, ILightFactory, ILightParams, ILightWrapper } from '@Engine/Domains/Light/Models';
-import { LightWrapper } from '@Engine/Domains/Light/Wrapper';
+import { lightAdapter, LightWrapper } from '@Engine/Domains/Light';
+import type { ICreateLightFn, ILightFactory, ILightParams, ILightWrapper } from '@Engine/Domains/Light';
 
 import { AbstractFromConfigWrapperFactory } from '@/Engine/Domains/Abstract';
 

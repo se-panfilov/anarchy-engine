@@ -1,5 +1,5 @@
 import { InputWrapper } from '@Engine/Domains/Input';
-import type { ICreateInputFn, IInputFactory, IInputParams, IInputWrapper } from '@Engine/Domains/Input/Models';
+import type { ICreateInputFn, IInputFactory, IInputParams, IInputWrapper } from '@Engine/Domains/Input';
 
 import { AbstractFromConfigWrapperFactory } from '@/Engine/Domains/Abstract';
 

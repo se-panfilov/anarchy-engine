@@ -1,5 +1,5 @@
 import { AbstractWrapper } from '@Engine/Domains/Abstract';
-import type { ICameraParams, ICameraWrapper, IPerspectiveCamera } from '@Engine/Domains/Camera/Models';
+import type { ICameraParams, ICameraWrapper, IPerspectiveCamera } from '@Engine/Domains/Camera';
 import type { IScreenParams } from '@Engine/Models';
 import type { Writeable } from '@Engine/Utils';
 import { isNotDefined } from '@Engine/Utils';

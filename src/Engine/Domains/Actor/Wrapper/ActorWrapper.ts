@@ -1,5 +1,5 @@
 import { AbstractWrapper } from '@Engine/Domains/Abstract';
-import type { IActorParams, IActorWrapper, IMesh } from '@Engine/Domains/Actor/Models';
+import type { IActorParams, IActorWrapper, IMesh } from '@Engine/Domains/Actor';
 
 import { getAccessors } from './Accessors';
 import { createActor } from './ActorUtils';

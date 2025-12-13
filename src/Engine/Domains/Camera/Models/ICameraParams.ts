@@ -1,4 +1,4 @@
-import type { CameraTag } from '@Engine/Domains/Camera/Constants';
+import type { CameraTag } from '@Engine/Domains/Camera';
 
 import type { IVector3 } from '@/Engine/Wrappers';
 

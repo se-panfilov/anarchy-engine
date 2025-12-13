@@ -1,8 +1,8 @@
 import { AbstractWrapper } from '@Engine/Domains/Abstract';
-import type { IActorWrapper } from '@Engine/Domains/Actor/Models';
-import type { ICameraWrapper } from '@Engine/Domains/Camera/Models';
-import type { ILightWrapper } from '@Engine/Domains/Light/Models';
-import type { IScene, ISceneObject, ISceneParams, ISceneWrapper } from '@Engine/Domains/Scene/Models';
+import type { IActorWrapper } from '@Engine/Domains/Actor';
+import type { ICameraWrapper } from '@Engine/Domains/Camera';
+import type { ILightWrapper } from '@Engine/Domains/Light';
+import type { IScene, ISceneObject, ISceneParams, ISceneWrapper } from '@Engine/Domains/Scene';
 import type { IWrapper } from '@Engine/Models';
 import type { Writeable } from '@Engine/Utils';
 import { Scene } from 'three';

@@ -1,7 +1,7 @@
-import type { ICameraWrapper } from '@Engine/Domains/Camera/Models';
-import type { ILoopUtils, LoopFn } from '@Engine/Domains/Loop/Models';
-import type { IRendererWrapper } from '@Engine/Domains/Renderer/Models';
-import type { ISceneWrapper } from '@Engine/Domains/Scene/Models';
+import type { ICameraWrapper } from '@Engine/Domains/Camera';
+import type { ILoopUtils, LoopFn } from '@Engine/Domains/Loop';
+import type { IRendererWrapper } from '@Engine/Domains/Renderer';
+import type { ISceneWrapper } from '@Engine/Domains/Scene';
 
 export function getUtils(entity: LoopFn): ILoopUtils {
   function start(renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, camera: Readonly<ICameraWrapper>): void {

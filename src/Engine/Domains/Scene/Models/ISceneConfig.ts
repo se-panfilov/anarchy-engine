@@ -1,8 +1,8 @@
-import type { IActorConfig } from '@Engine/Domains/Actor/Models';
-import type { ICameraConfig } from '@Engine/Domains/Camera/Models';
-import type { IControlsConfig } from '@Engine/Domains/Controls/Models';
-import type { ILightConfig } from '@Engine/Domains/Light/Models';
-import type { SceneTag } from '@Engine/Domains/Scene/Constants';
+import type { IActorConfig } from '@Engine/Domains/Actor';
+import type { ICameraConfig } from '@Engine/Domains/Camera';
+import type { IControlsConfig } from '@Engine/Domains/Controls';
+import type { ILightConfig } from '@Engine/Domains/Light';
+import type { SceneTag } from '@Engine/Domains/Scene';
 
 export type ISceneConfig = Readonly<{
   name: string;

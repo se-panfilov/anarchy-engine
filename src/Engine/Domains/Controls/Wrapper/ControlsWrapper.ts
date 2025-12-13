@@ -1,5 +1,5 @@
 import { AbstractWrapper } from '@Engine/Domains/Abstract';
-import type { IControlsParams, IControlsWrapper } from '@Engine/Domains/Controls/Models';
+import type { IControlsParams, IControlsWrapper } from '@Engine/Domains/Controls';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 export function ControlsWrapper(params: IControlsParams): IControlsWrapper {

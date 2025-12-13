@@ -1,4 +1,4 @@
-import type { RendererTag } from '@Engine/Domains/Renderer/Constants';
+import type { RendererTag } from '@Engine/Domains/Renderer';
 
 export type IRendererParams = Readonly<{
   canvas: HTMLElement;

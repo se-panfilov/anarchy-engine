@@ -1,6 +1,4 @@
-import type { ILoopParams } from '@Engine/Domains/Loop/Models/ILoopParams';
-import type { ILoopWrapper } from '@Engine/Domains/Loop/Models/ILoopWrapper';
-import type { LoopFn } from '@Engine/Domains/Loop/Models/LoopFn';
-import type { IAbstractFactory, IAbstractFromConfigWrapperFactory } from '@Engine/Models';
+import type { IAbstractFactory, IAbstractFromConfigWrapperFactory } from '@Engine/Domains/Abstract';
+import type { LoopFn, ILoopParams, ILoopWrapper } from '@Engine/Domains/Loop';
 
 export type ILoopFactory = IAbstractFromConfigWrapperFactory<ILoopWrapper, LoopFn, ILoopParams, void, IAbstractFactory<ILoopWrapper, ILoopParams>>;

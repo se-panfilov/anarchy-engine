@@ -1,4 +1,4 @@
-import type { IActorAccessors, IMesh } from '@Engine/Domains/Actor/Models';
+import type { IActorAccessors, IMesh } from '@Engine/Domains/Actor';
 import type { Writeable } from '@Engine/Utils';
 
 import type { IVector3 } from '@/Engine/Wrappers/Vector3Wrapper';

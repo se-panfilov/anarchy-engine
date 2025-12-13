@@ -1,5 +1,5 @@
-import type { IOrthographicCamera } from '@Engine/Domains/Camera/Models';
-import type { IAmbientLight, IDirectionalLight, ILightAccessors } from '@Engine/Domains/Light/Models';
+import type { IOrthographicCamera } from '@Engine/Domains/Camera';
+import type { IAmbientLight, IDirectionalLight, ILightAccessors } from '@Engine/Domains/Light';
 import type { Writeable } from '@Engine/Utils';
 
 import type { IVector2 } from '@/Engine/Wrappers/Vector2Wrapper';

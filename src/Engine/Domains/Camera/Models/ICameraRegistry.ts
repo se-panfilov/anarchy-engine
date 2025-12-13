@@ -1,4 +1,5 @@
-import type { ICameraWrapper } from '@Engine/Domains/Camera/Models';
-import type { IAbstractRegistry, IProtectedRegistry } from '@Engine/Models';
+import type { IAbstractRegistry } from '@Engine/Domains/Abstract';
+import type { ICameraWrapper } from '@Engine/Domains/Camera';
+import type { IProtectedRegistry } from '@Engine/Models';
 
 export type ICameraRegistry = IProtectedRegistry<ICameraWrapper, IAbstractRegistry<ICameraWrapper>>;

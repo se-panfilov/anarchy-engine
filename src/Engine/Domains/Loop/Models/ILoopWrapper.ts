@@ -1,4 +1,4 @@
-import type { ILoopUtils, LoopFn, LoopTag } from '@Engine/Domains/Loop/Models';
+import type { ILoopUtils, LoopFn, LoopTag } from '@Engine/Domains/Loop';
 import type { IWrapper } from '@Engine/Models';
 
 export type ILoopWrapper = IWrapper<LoopFn> &

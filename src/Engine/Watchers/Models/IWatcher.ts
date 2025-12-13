@@ -1,4 +1,4 @@
-import type { IAbstractWatcher } from '@Engine/Domains/Abstract/Models';
+import type { IAbstractWatcher } from '@Engine/Domains/Abstract';
 
 export type IWatcher<T> = IAbstractWatcher<T> &
   Readonly<{

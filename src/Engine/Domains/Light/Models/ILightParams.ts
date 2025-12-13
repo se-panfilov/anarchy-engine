@@ -1,4 +1,4 @@
-import type { LightTag } from '@Engine/Domains/Light/Constants';
+import type { LightTag } from '@Engine/Domains/Light';
 import type { IVector2, IVector3 } from '@Engine/Wrappers';
 import type { Color } from 'three/src/math/Color';
 
