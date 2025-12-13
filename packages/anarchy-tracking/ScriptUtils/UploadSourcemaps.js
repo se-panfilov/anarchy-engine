@@ -9,7 +9,7 @@ import { parseModeArg } from 'anarchy-shared/ScriptUtils/ModeUtils.js';
  * Features:
  *  - release: from --release | $RELEASE | "<VITE_RELEASE_NAME_PREFIX>@$npm_package_version"
  *  - build dir: from --dist | "dist"
- *  - sentry dist-name: --dist-name | --sentry-dist | VITE_DIST_NAME (e.g., "darwin-arm64", "web-web")
+ *  - sentry dist-name: --dist-name | --sentry-dist | VITE_DIST_NAME, or auto from dist-info.json
  *  - urlPrefix: --url-prefix | auto from Vite "base" | "~/" fallback
  *  - dev-guard (ON by default): blocks upload unless mode=production; can disable via --no-dev-guard
  *  - org/project overrides: --org, --project (otherwise read from .sentryclirc)
@@ -17,7 +17,7 @@ import { parseModeArg } from 'anarchy-shared/ScriptUtils/ModeUtils.js';
  *
  * Requirements:
  *  - @sentry/cli must be available (devDependency in this package is fine)
- *  - SENTRY_AUTH_TOKEN must be provided via env (e.g., .env.local), NOT committed
+ *  - SENTRY_AUTH_TOKEN must be provided via env (unless --dry-run)
  */
 
 function printHelp() {
@@ -33,7 +33,7 @@ Args:
   --org <slug>            Override Sentry org (else .sentryclirc).
   --project <slug>        Override Sentry project (else .sentryclirc).
   --url-prefix <prefix>   upload-sourcemaps urlPrefix (e.g., "~/" or "app:///dist").
-  --dist-name <name>      Sentry "dist" value (e.g., "darwin-arm64", "win32-x64", "web"). Also read from <VITE_DIST_NAME>.
+  --dist-name <name>      Sentry "dist" value (e.g., "darwin-arm64", "win32-x64", "web"). Also read from <VITE_DIST_NAME> or dist-info.json.
   --sentry-dist <name>    Alias of --dist-name.
   --mode <name>           Build mode (e.g., production).
   --no-dev-guard          Disable protection that blocks upload when mode != "production".
@@ -42,10 +42,10 @@ Args:
   -h, --help              Show this help.
 
 Notes:
-  * Requires SENTRY_AUTH_TOKEN with "project:releases" scope (and "org:read" if you use info commands).
+  * Requires SENTRY_AUTH_TOKEN with "project:releases" scope (and "org:read" if you use info commands). Skipped in --dry-run.
   * urlPrefix defaults:
       - if --url-prefix given → used as is
-      - else if detect-base and Vite base starts with "/" → "~/<base>/"
+      - else if detect-base and Vite base starts with "/" → "~<base>/"
       - else "~/" (safe default for typical Vite web assets)
   * For Electron main/preload with rewrite to app:///, use: --url-prefix "app:///dist" or similar.
 `);
@@ -123,6 +123,17 @@ function ensureMapsExist(distDir) {
   return count;
 }
 
+function readDistInfo(distDir) {
+  try {
+    const p = join(distDir, 'dist-info.json');
+    if (!existsSync(p)) return null;
+    const info = JSON.parse(readFileSync(p, 'utf8'));
+    return info && typeof info === 'object' ? info : null;
+  } catch {
+    return null;
+  }
+}
+
 function runSentryCli(args, env, dryRun) {
   const cmd = ['-y', 'sentry-cli', ...args];
   console.log(`$ npx ${cmd.join(' ')}`);
@@ -156,7 +167,14 @@ function runSentryCli(args, env, dryRun) {
   }
 
   // Resolve Sentry dist (optional but recommended for multi-platform builds)
-  const distName = argv.distName || process.env.VITE_DIST_NAME || undefined;
+  let distName = argv.distName || process.env.VITE_DIST_NAME || undefined;
+  if (!distName) {
+    const info = readDistInfo(distAbs);
+    if (info) {
+      distName = info.distName || (info.platform && info.arch ? `${info.platform}-${info.arch}` : undefined);
+      if (distName) console.log(`auto-detected Sentry dist from dist-info.json: ${distName}`);
+    }
+  }
 
   // Dev-guard (default ON)
   if (argv.devGuard) {
@@ -187,7 +205,7 @@ function runSentryCli(args, env, dryRun) {
 
   // Env with token
   const env = { ...process.env };
-  if (!env.SENTRY_AUTH_TOKEN) {
+  if (!argv.dryRun && !env.SENTRY_AUTH_TOKEN) {
     console.error('ERROR: SENTRY_AUTH_TOKEN is not set. Put it in your local env (e.g., .env.local).');
     process.exit(4);
   }
