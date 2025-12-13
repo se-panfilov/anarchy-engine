@@ -1,6 +1,7 @@
 import GUI from 'lil-gui';
 import { map, withLatestFrom } from 'rxjs';
 import { Vector3 } from 'three';
+import { ViewportGizmo } from 'three-viewport-gizmo';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
@@ -16,6 +17,7 @@ import type {
   TOrbitControlsWrapper,
   TParticlesWrapper,
   TPointLightWrapper,
+  TRendererWrapper,
   TSceneWrapper,
   TSpace,
   TSpaceConfig,
@@ -52,9 +54,21 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const gui: GUI = new GUI();
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
-
-  const { cameraService, controlsService, lightService, models3dService, mouseService, particlesService, physicsWorldService, physicsLoopService, scenesService, spatialGridService, textService } =
-    space.services;
+  const {
+    cameraService,
+    controlsService,
+    lightService,
+    loopService,
+    models3dService,
+    mouseService,
+    particlesService,
+    physicsWorldService,
+    physicsLoopService,
+    rendererService,
+    scenesService,
+    spatialGridService,
+    textService
+  } = space.services;
   const { keyboardService } = engine.services;
   const { clickLeftRelease$ } = mouseService;
   const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
@@ -89,6 +103,13 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const sphereText: TText3dWrapper | undefined = textService.getRegistries().text3dRegistry.findByName('sphere_text');
     if (isNotDefined(sphereText)) throw new Error('Text is not defined');
+
+    const renderer: TRendererWrapper | undefined = rendererService.findActive();
+    if (isNotDefined(renderer)) throw new Error('Renderer is not defined');
+
+    const gizmo = new ViewportGizmo(camera.entity, renderer.entity, { placement: 'bottom-left' });
+    gizmo.attachControls(controls.entity);
+    loopService.tick$.subscribe(() => gizmo.render());
 
     setParticles(particles);
     grid._debugVisualizeCells(sceneW, '#4e0c85');

@@ -38,6 +38,7 @@
     "stats.js": "0.17.0",
     "three": "0.168.0",
     "three-mesh-bvh": "0.8.0",
+    "three-viewport-gizmo": "2.0.2",
     "ts-key-enum": "3.0.13"
   },
   "devDependencies": {
