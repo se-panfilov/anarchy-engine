@@ -7,7 +7,7 @@ import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TIntersectionEvent, TIntersectionsWatcher, TIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
-import type { TRawModel } from '@/Engine/Models3d';
+import type { TRawModel3d } from '@/Engine/Models3d';
 import type { TMousePosition } from '@/Engine/Mouse';
 import { getNormalizedMousePosition } from '@/Engine/Mouse';
 import type { TSceneObject } from '@/Engine/Scene';
@@ -37,7 +37,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
       const intersection: TIntersectionEvent | undefined = getIntersection(
         new Vector2(position.coords.x, position.coords.y),
         camera,
-        actors.map((a: TActor): TRawModel => a.model3d.model3d.getRawModel3d())
+        actors.map((a: TActor): TRawModel3d => a.model3d.model3d.getRawModel3d())
       );
       if (isDefined(intersection)) abstractWatcher.value$.next(intersection);
     });

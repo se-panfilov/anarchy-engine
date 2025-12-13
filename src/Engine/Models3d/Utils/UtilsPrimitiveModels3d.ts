@@ -3,7 +3,7 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TMaterials, TMaterialWrapper } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
-import type { TModel3dConfig, TModel3dParams, TModel3dResourceConfig, TRawModel } from '@/Engine/Models3d';
+import type { TModel3dConfig, TModel3dParams, TModel3dResourceConfig, TRawModel3d } from '@/Engine/Models3d';
 import { PrimitiveModel3dType } from '@/Engine/Models3d';
 import type { TBoxGeometryProps, TPlaneGeometryProps, TSphereGeometryProps } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
@@ -42,5 +42,5 @@ function createCube({ width, height, depth, widthSegments, heightSegments, depth
 
 export const isPrimitiveModel3dResourceConfig = (params: TModel3dResourceConfig): boolean => isPrimitiveModel3dSource(params.url);
 export const isPrimitiveModel3dData = (params: TModel3dConfig | TModel3dParams): boolean => isPrimitiveModel3dSource(params.model3dSource);
-export const isPrimitiveModel3dSource = (model3dSource: TRawModel | GLTF | PrimitiveModel3dType | string): model3dSource is PrimitiveModel3dType =>
+export const isPrimitiveModel3dSource = (model3dSource: TRawModel3d | GLTF | PrimitiveModel3dType | string): model3dSource is PrimitiveModel3dType =>
   [...Object.values(PrimitiveModel3dType)].includes(model3dSource as PrimitiveModel3dType);

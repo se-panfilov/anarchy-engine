@@ -7,7 +7,7 @@ import type { TAnimationActions, TAnimationActionsPack, TAnimationsService, TMod
 import type { TLoopService, TLoopTimes } from '@/Engine/Loop';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import type { TModel3d, TRawModel } from '@/Engine/Models3d';
+import type { TModel3d, TRawModel3d } from '@/Engine/Models3d';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -15,7 +15,7 @@ export function AnimationsService(loopService: TLoopService): TAnimationsService
   const added$: Subject<TModel3dAnimations> = new Subject<TModel3dAnimations>();
   const subscriptions: Map<AnimationMixer, Subscription> = new Map<AnimationMixer, Subscription>();
 
-  function createActions(model: TRawModel, animations: ReadonlyArray<AnimationClip> = []): TAnimationActionsPack {
+  function createActions(model: TRawModel3d, animations: ReadonlyArray<AnimationClip> = []): TAnimationActionsPack {
     const mixer = new AnimationMixer(model);
     const actions: TWriteable<TAnimationActions> = {};
     // eslint-disable-next-line functional/immutable-data

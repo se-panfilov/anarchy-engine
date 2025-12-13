@@ -2,11 +2,11 @@ import type { Group, Material, Mesh, Object3D } from 'three';
 import type { Points } from 'three/src/objects/Points';
 
 import type { TWithMaterial } from '@/Engine/Material/Models';
+import type { TRawModel3d } from '@/Engine/Models3d';
 import type { TWriteable } from '@/Engine/Utils';
-import type { TRawModel } from '@/Engine/Models3d';
 import { isDefined } from '@/Engine/Utils';
 
-export function withMaterial<T extends TWriteable<TRawModel | Points>>(entity: T): TWithMaterial {
+export function withMaterial<T extends TWriteable<TRawModel3d | Points>>(entity: T): TWithMaterial {
   function useMaterial(material: Material): Material {
     if ((entity as Group).isGroup) {
       entity.traverse((object) => hasMaterial(object) && applyMaterial(object, material));

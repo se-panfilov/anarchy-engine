@@ -10,13 +10,13 @@ import type { TEnvMapTexture } from '@/Engine/EnvMap';
 import type { TFogWrapper } from '@/Engine/Fog';
 import type { TAbstractLightWrapper, TLight } from '@/Engine/Light';
 import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
+import type { TRawModel3d } from '@/Engine/Models3d';
 import type { TParticlesWrapper } from '@/Engine/Particles';
 import type { TSceneObject, TSceneParams, TSceneWrapper } from '@/Engine/Scene/Models';
 import type { TTextAnyWrapper } from '@/Engine/Text';
 import type { TTexture } from '@/Engine/Texture';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined, isString } from '@/Engine/Utils';
-import type { TRawModel } from '@/Engine/Models3d';
 
 export function SceneWrapper(params: TSceneParams): TSceneWrapper {
   const entity: TWriteable<Scene> = new Scene();
@@ -27,7 +27,7 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
 
   const add = (obj: TSceneObject): void => void entity.add(obj);
   const addCamera = (camera: TCameraWrapper): void => add(camera.entity);
-  const addModel3d = (model3d: TRawModel): void => add(model3d);
+  const addModel3d = (model3d: TRawModel3d): void => add(model3d);
   const addLight = <T extends TLight>(light: Readonly<TAbstractLightWrapper<T>>): void => add(light.entity);
   const addParticles = (particles: Readonly<TParticlesWrapper>): void => add(particles.entity);
 
