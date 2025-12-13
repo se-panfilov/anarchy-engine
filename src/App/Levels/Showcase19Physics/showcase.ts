@@ -145,11 +145,6 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     // TODO (S.Panfilov) extract physics world update to the main loop
     loopService.tick$.subscribe(() => {
-      // TODO (S.Panfilov) debug: this should not be done here, but instead in the service (with an option to manual update)
-      // const world = physicsWorldService.getWorld();
-      // if (isNotDefined(world)) throw new Error(`Cannot find physics world`);
-      // world.step();
-
       if (isDefined(mouseLineIntersectionsCoords)) {
         const ballCoords: TWithCoordsXYZ = ballActorW.getPosition().getCoords();
         azimuth = getHorizontalAzimuth({ x: ballCoords.x, z: ballCoords.z }, mouseLineIntersectionsCoords);

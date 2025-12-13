@@ -15,8 +15,6 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const actor2Promise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('actor_2');
   const actor3Promise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('actor_3');
 
-  // physicsWorldService.getDebugRenderer(loopService).start();
-
   async function init(): Promise<void> {
     const actor1W: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await actor1Promise;
     if (isNotDefined(actor1W)) throw new Error(`Cannot find "actor_1" actor`);
@@ -40,19 +38,9 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     physicsWorldService.getDebugRenderer(loopService).start();
 
-    // TODO (S.Panfilov) extract physics world update to the main loop
     loopService.tick$.subscribe(() => {
-      // TODO (S.Panfilov) debug: this should not be done here, but instead in the service (with an option to manual update)
-      // const world = physicsWorldService.getWorld();
-      // if (isNotDefined(world)) throw new Error(`Cannot find physics world`);
-      // world.step();
-
       actor3W.physicsBody?.getRigidBody()?.setAngvel({ x: 0, y: 3, z: 1 }, true);
       cameraW.setY(actor1W.getPosition().getY());
-
-      // updateActorByPhysics(actor1W.physicsBody.getRigidBody(), actor1W);
-      // updateActorByPhysics(actor2W.physicsBody.getRigidBody(), actor2W);
-      // updateActorByPhysics(actor3W.physicsBody.getRigidBody(), actor3W);
     });
   }
 
@@ -63,11 +51,3 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   return { start, space };
 }
-
-// function updateActorByPhysics(rigidBody: RigidBody, actor: TActorWrapperAsync): void {
-//   const position = rigidBody.translation();
-//   const rotation = rigidBody.rotation();
-//
-//   actor.setPosition(Vector3Wrapper(position));
-//   actor.entity.quaternion.set(rotation.x, rotation.y, rotation.z, rotation.w);
-// }

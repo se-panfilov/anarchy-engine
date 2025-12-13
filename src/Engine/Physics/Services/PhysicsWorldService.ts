@@ -59,6 +59,11 @@ export function PhysicsWorldService(scene: TSceneWrapper): TPhysicsWorldService 
     world.gravity = vector.getCoords();
   }
 
+  function step(): void {
+    if (isNotDefined(world)) throw new Error('Cannot step: world is not defined');
+    world.step();
+  }
+
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     world?.free();
@@ -70,6 +75,7 @@ export function PhysicsWorldService(scene: TSceneWrapper): TPhysicsWorldService 
     getWorld: (): World | undefined => world,
     setGravity,
     getScene: (): TSceneWrapper => scene,
+    step,
     ...destroyable
   };
 }
