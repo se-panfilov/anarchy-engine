@@ -3,12 +3,11 @@
   "author": "S. Panfilov",
   "private": true,
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint ./src --ext .js,.ts",
     "prettier": "prettier --write ."
   },
   "dependencies": {
@@ -22,10 +21,12 @@
   "devDependencies": {
     "@types/node": "18.11.17",
     "@types/three": "0.146.0",
+    "@typescript-eslint/eslint-plugin": "5.47.0",
+    "@typescript-eslint/parser": "5.47.0",
     "eslint": "8.27.0",
-    "eslint-config-prettier": "8.5.0",
     "eslint-plugin-functional": "4.4.1",
     "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-jest": "27.1.7",
     "husky": "4.3.8",
     "prettier": "2.7.1",
     "pretty-quick": "3.1.3",

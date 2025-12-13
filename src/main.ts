@@ -1,55 +1,34 @@
 import './style.css';
-import { Color, Mesh, MeshToonMaterial, Scene, SphereGeometry, Vector3 } from 'three';
-import { IntersectionPointer, MousePointer } from './Pointer';
-import { RendererWrapper } from './Renderer/RendererWrapper';
-import { CameraWrapper } from './Camera/CameraWrapper';
-import { ambientLight, directionalLight } from './lights';
-import { sphere } from './sphere';
-import { plane } from './Scenes';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { fpsGraph } from './DeveloperPanel';
-import { startWatchResize } from './Watchers/Device/ResizeWatcher';
-import { deviceSize$ } from './Store/DeviceSize';
+import { Color, Mesh, MeshToonMaterial, SphereGeometry, Vector3 } from 'three';
 
-const scene = new Scene();
-scene.add(sphere);
-scene.add(plane);
+const actorManager = new ActorManager();
+const cameraManager = new CameraManager();
+const lightManager = new LightManager();
+const inputManager = new InputManager();
+const loopManager = new LoopManager();
+const sceneManager = new SceneManager();
 
-const { camera } = CameraWrapper(window.innerWidth, window.innerHeight);
-camera.position.set(3, 2, 15);
-camera.lookAt(0, 0, 0);
-scene.add(camera);
+const scene = sceneManager.createScene();
+sceneManager.setCurrentScene(scene);
 
-startWatchResize();
+sceneManager.currentScene.attachActorManager(actorManager);
+sceneManager.currentScene.attachCameraManager(cameraManager);
+sceneManager.currentScene.attachLightManager(lightManager);
+sceneManager.currentScene.attachInputManager(inputManager);
 
-scene.add(ambientLight);
-scene.add(directionalLight);
+actorManager.addActor('sphere');
+actorManager.addActor('plane');
 
-//init screen
-deviceSize$.next({
-  width: window.innerWidth,
-  height: window.innerHeight,
-  devicePixelRatio: 2
-});
-const { renderer } = RendererWrapper('#app');
-const controls = new OrbitControls(camera, renderer.domElement);
-// new OrbitControls(directionalLight as any, renderer.domElement);
-controls.enableDamping = true;
+cameraManager.createCamera().setAsCurrent().setPosition(3, 2, 15).lookAt(0, 0, 0).setControls('OrbitControls');
 
-const intersectionPointer = IntersectionPointer(MousePointer(), camera, scene.children);
+lightManager.addAmbientLight();
+lightManager.addDirectionalLight();
 
-intersectionPointer.click$.subscribe(({ position, event }) => onMouseClick(position, event));
+inputManager.initMousePointer().addIntersectionPointer().onClick(onMouseClick);
 
-const loop = () => {
-  (fpsGraph as any).begin();
-  renderer.render(scene, camera);
+loopManager.start();
 
-  (fpsGraph as any).end();
-  requestAnimationFrame(loop);
-};
-
-loop();
-
+// TODO (S.Panfilov) move it to any other place
 function onMouseClick({ x, y, z }: Vector3, event: MouseEvent): void {
   event.preventDefault();
   const sphere = new Mesh(new SphereGeometry(1, 32, 32), new MeshToonMaterial({ color: new Color('#5EDCAE') }));

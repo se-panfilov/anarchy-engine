@@ -1,4 +1,4 @@
-import { Entity } from '@/Models';
+import { Entity } from '@/Engine/Models';
 import { WebGL1Renderer } from 'three';
 
 export interface WrappedRenderer extends Entity {

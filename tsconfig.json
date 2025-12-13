@@ -17,7 +17,9 @@
     "types": ["node", "vite/client", "three"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@Engine/*": ["./src/Engine/*"],
+      "@App/*": ["./src/App/*"]
     }
   },
   "include": ["src"]
