@@ -2,7 +2,10 @@ import { LookUpStrategy } from '@/Engine/Abstract/Registry';
 import type { IRegistrable } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic/WithTags';
 
-import { getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags } from './RegistryUtils';
+import { findActiveWrappedEntity, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, setActiveWrappedEntity } from './RegistryUtils';
+import { expect } from 'vitest';
+import type { ISceneRegistry, ISceneWrapper } from '@/Engine/Scene';
+import { SceneRegistry, SceneWrapper } from '@/Engine/Scene';
 
 describe('RegistryUtils', () => {
   const tagA: string = 'tagA';
@@ -111,6 +114,74 @@ describe('RegistryUtils', () => {
 
     it('should return an empty array if the registry is empty', () => {
       expect(getUniqEntityWithTag(tagB, new Map())).toBeUndefined();
+    });
+  });
+
+  describe('setActiveWrappedEntity', () => {
+    it('should set "isActive" to "true" for an entity', () => {
+      const mockObj: ISceneWrapper = SceneWrapper({ name: 'mock-scene', isActive: false, tags: [] });
+      const registry: ISceneRegistry = SceneRegistry();
+      registry.add(mockObj);
+      setActiveWrappedEntity(registry, mockObj.id);
+      expect(mockObj.isActive).toBe(true);
+    });
+
+    it('should set "isActive" to "true" for an entity in a registry', () => {
+      const mockObj: ISceneWrapper = SceneWrapper({ name: 'mock-scene', isActive: false, tags: [] });
+      const registry: ISceneRegistry = SceneRegistry();
+      registry.add(mockObj);
+      setActiveWrappedEntity(registry, mockObj.id);
+      expect(registry.find((w: ISceneWrapper): boolean => w.id === mockObj.id)?.isActive).toBe(true);
+    });
+
+    it('should set "isActive" to "false" for all entities in a registry but the target entity', () => {
+      const mockObj1: ISceneWrapper = SceneWrapper({ name: 'mock-scene-1', isActive: true, tags: [] });
+      const mockObj2: ISceneWrapper = SceneWrapper({ name: 'mock-scene-2', isActive: false, tags: [] });
+      const mockObjTarget: ISceneWrapper = SceneWrapper({ name: 'mock-scene-target', isActive: false, tags: [] });
+      const registry: ISceneRegistry = SceneRegistry();
+      registry.add(mockObj1);
+      registry.add(mockObjTarget);
+      registry.add(mockObj2);
+      setActiveWrappedEntity(registry, mockObjTarget.id);
+      expect(registry.find((w: ISceneWrapper): boolean => w.id === mockObj1.id)?.isActive).toBe(false);
+      expect(registry.find((w: ISceneWrapper): boolean => w.id === mockObj2.id)?.isActive).toBe(false);
+      expect(registry.find((w: ISceneWrapper): boolean => w.id === mockObjTarget.id)?.isActive).toBe(true);
+    });
+
+    it('should change "isActive" status of entities', () => {
+      const mockObj1: ISceneWrapper = SceneWrapper({ name: 'mock-scene-1', isActive: true, tags: [] });
+      const mockObjTarget: ISceneWrapper = SceneWrapper({ name: 'mock-scene-target', isActive: false, tags: [] });
+      const registry: ISceneRegistry = SceneRegistry();
+      registry.add(mockObj1);
+      registry.add(mockObjTarget);
+      setActiveWrappedEntity(registry, mockObjTarget.id);
+      expect(registry.find((w: ISceneWrapper): boolean => w.id === mockObj1.id)?.isActive).toBe(false);
+      expect(registry.find((w: ISceneWrapper): boolean => w.id === mockObjTarget.id)?.isActive).toBe(true);
+    });
+  });
+
+  describe('findActiveWrappedEntity', () => {
+    it('should find an active entity in a registry', () => {
+      const mockObj1: ISceneWrapper = SceneWrapper({ name: 'mock-scene-1', isActive: false, tags: [] });
+      const mockObj2: ISceneWrapper = SceneWrapper({ name: 'mock-scene-2', isActive: true, tags: [] });
+      const mockObj3: ISceneWrapper = SceneWrapper({ name: 'mock-scene-3', isActive: false, tags: [] });
+      const registry: ISceneRegistry = SceneRegistry();
+      registry.add(mockObj1);
+      registry.add(mockObj2);
+      registry.add(mockObj3);
+
+      expect(findActiveWrappedEntity(registry)).toEqual(mockObj2);
+    });
+    it('should return "undefined" when no active entity', () => {
+      const mockObj1: ISceneWrapper = SceneWrapper({ name: 'mock-scene-1', isActive: false, tags: [] });
+      const mockObj2: ISceneWrapper = SceneWrapper({ name: 'mock-scene-2', isActive: false, tags: [] });
+      const mockObj3: ISceneWrapper = SceneWrapper({ name: 'mock-scene-3', isActive: false, tags: [] });
+      const registry: ISceneRegistry = SceneRegistry();
+      registry.add(mockObj1);
+      registry.add(mockObj2);
+      registry.add(mockObj3);
+
+      expect(findActiveWrappedEntity(registry)).toBeUndefined();
     });
   });
 });

@@ -21,7 +21,6 @@ export function getUniqEntityWithTag<T extends IRegistrable>(tag: string, regist
   return Array.from(registry.values()).find((obj: T) => obj.hasTag(tag));
 }
 
-// TODO (S.Panfilov) add unit tests
 export function setActiveWrappedEntity<E extends IRegistrable, AE extends IWithActive<E>>(registry: IProtectedRegistry<IAbstractEntityRegistry<AE>>, id: string): void {
   registry.forEach((entity: AE): void => {
     const isTarget: boolean = entity.id === id;
@@ -30,6 +29,5 @@ export function setActiveWrappedEntity<E extends IRegistrable, AE extends IWithA
   });
 }
 
-// TODO (S.Panfilov) add unit tests
 export const findActiveWrappedEntity = <E extends IRegistrable, AE extends IWithActive<E>>(registry: IProtectedRegistry<IAbstractEntityRegistry<AE>>): AE | undefined =>
   registry.find((entity: AE): boolean => entity.isActive);
