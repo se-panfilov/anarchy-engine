@@ -9,3 +9,8 @@ export enum FromMenuEvents {
   SetSettings = 'menu:settings:set',
   StartNewGame = 'menu:game:start-new'
 }
+
+export enum ToMenuEvents {
+  SettingsReceived = 'app:settings:received',
+  LegalDocsReceived = 'app:docs:legal:received'
+}

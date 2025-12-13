@@ -1,5 +1,7 @@
 export type * from './TDistName';
 export type * from './TDropdownOption';
+export type * from './TEvent';
+export type * from './TGuiEvent';
 export type * from './TLegalDoc';
 export type * from './TLoadDocPayload';
 export type * from './TMenuEvent';

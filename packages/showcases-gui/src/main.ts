@@ -1,6 +1,6 @@
 import { eventsService } from '@Showcases/GUI/services';
 import { vueTranslationService } from '@Showcases/i18n';
-import type { TFromGuiEvent, TGuiOptions, TToGuiEvent } from '@Showcases/Shared';
+import type { TFromGuiEvent, TToGuiEvent } from '@Showcases/Shared';
 import { createPinia } from 'pinia';
 import type { Observable, Subject } from 'rxjs';
 import type { App as VueApp } from 'vue';
@@ -8,7 +8,7 @@ import { createApp } from 'vue';
 
 import App from './App.vue';
 
-export async function initGuiApp(id: string, fromGuiBus$: Subject<TFromGuiEvent>, toGuiBus$: Observable<TToGuiEvent>, options?: TGuiOptions): Promise<void> {
+export async function initGuiApp(id: string, fromGuiBus$: Subject<TFromGuiEvent>, toGuiBus$: Observable<TToGuiEvent>): Promise<void> {
   const guiApp: VueApp<Element> = createApp(App);
   await vueTranslationService.waitInitialReady();
   guiApp.use(createPinia());

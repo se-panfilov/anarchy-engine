@@ -28,8 +28,8 @@ function EventsService(): TEventsService {
 
   function handleToGuiEvents(event: TToGuiEvent): void {
     switch (event.type) {
-      case ToGuiEvents.SettingsReceived: {
-        console.log('[EventsService]: Settings received');
+      case ToGuiEvents.MOCK: {
+        // console.log('[EventsService]: MOCK!!!');
         // TODO DESKTOP: Implement
         // if (!isSettings(event.payload)) throw new Error(`[EventsService]: Failed to apply settings: Invalid payload`);
         // useSettingsStore().setState(event.payload);

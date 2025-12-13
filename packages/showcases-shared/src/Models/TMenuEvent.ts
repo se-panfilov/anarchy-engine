@@ -1,11 +1,15 @@
 import type { FromMenuEvents, ToMenuEvents } from '@Showcases/Shared/Constants';
 
-export type TFromMenuEvent = {
-  type: FromMenuEvents;
-  payload?: Record<string, any>;
-};
+import type { TFromEvent, TToEvent } from './TEvent';
 
-export type TToMenuEvent = {
-  type: ToMenuEvents;
-  payload?: Record<string, any>;
-};
+export type TFromMenuEvent = Omit<TFromEvent, 'type'> &
+  Readonly<{
+    type: FromMenuEvents;
+    payload?: Record<string, any>;
+  }>;
+
+export type TToMenuEvent = Omit<TToEvent, 'type'> &
+  Readonly<{
+    type: ToMenuEvents;
+    payload?: Record<string, any>;
+  }>;

@@ -1,5 +1,5 @@
 export * from './AllowedLegalDocNames';
 export * from './DefaultShowcaseGameSettings';
-export * from './FromMenuEvents';
+export * from './GuiEvents';
+export * from './MenuEvents';
 export * from './PlatformMessages';
-export * from './ToMenuEvents';
