@@ -7,6 +7,4 @@ export type TPhysicsBody = TEntity<TWithPhysicsBodyEntities> &
   Readonly<{
     getPhysicsBodyType: () => RigidBodyTypesNames;
     getPhysicsBodyShape: () => CollisionShape;
-    shouldUpdateKinematic: () => boolean;
-    setShouldUpdateKinematic: (value: boolean) => void;
   }>;

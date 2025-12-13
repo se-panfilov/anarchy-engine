@@ -9,7 +9,6 @@ export type TPhysicsBodyParams = TPhysicsBodyProps &
   Readonly<{
     position?: Vector3;
     rotation?: Vector4;
-    shouldUpdateKinematic?: boolean;
     isSleep?: boolean;
   }> &
   TWithReadonlyTags;
