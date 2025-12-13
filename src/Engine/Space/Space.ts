@@ -14,15 +14,15 @@ import type { IDataTexture, IEnvMapService } from '@/Engine/EnvMap';
 import { EnvMapService } from '@/Engine/EnvMap';
 import type { IFogConfig, IFogFactory, IFogRegistry, IFogService, IFogWrapper } from '@/Engine/Fog';
 import { FogFactory, FogRegistry, FogService } from '@/Engine/Fog';
-import { IAbstractLightWrapper, ILight, ILightConfig, ILightFactory, ILightRegistry, ILightService, LightService } from '@/Engine/Light';
-import { LightFactory, LightRegistry } from '@/Engine/Light';
+import type { ILightFactory, ILightRegistry, ILightService } from '@/Engine/Light';
+import { LightFactory, LightRegistry, LightService } from '@/Engine/Light';
 import type { ILoopTimes } from '@/Engine/Loop';
 import { standardLoopService } from '@/Engine/Loop';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic';
-import type { IRendererFactory, IRendererRegistry, IRendererWrapper } from '@/Engine/Renderer';
-import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@/Engine/Renderer';
+import type { IRendererFactory, IRendererRegistry, IRendererService, IRendererWrapper } from '@/Engine/Renderer';
+import { RendererFactory, RendererModes, RendererRegistry, RendererService } from '@/Engine/Renderer';
 import type { ISceneFactory, ISceneRegistry, IScenesService, ISceneWrapper } from '@/Engine/Scene';
 import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
@@ -201,12 +201,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     const rendererRegistry: IRendererRegistry = RendererRegistry();
     const rendererService: IRendererService = RendererService(rendererFactory, rendererRegistry);
 
-    // TODO (S.Panfilov) move this into the service
-    rendererFactory.entityCreated$.subscribe((wrapper: IRendererWrapper): void => rendererRegistry.add(wrapper));
-    ////
-
-    // TODO (S.Panfilov) use service
-    const renderer: IRendererWrapper = rendererFactory.create({ canvas, tags: [RendererTag.Main], mode: RendererModes.WebGL2 });
+    const renderer: IRendererWrapper = rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2 });
 
     factories = { ...factories, rendererFactory };
     registries = { ...registries, rendererRegistry };

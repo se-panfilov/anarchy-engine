@@ -2,7 +2,7 @@ import GUI from 'lil-gui';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IAppCanvas, ISceneWrapper, ISpace, ISpaceConfig } from '@/Engine';
-import { buildSpaceFromConfig, isNotDefined, RendererTag } from '@/Engine';
+import { buildSpaceFromConfig, isNotDefined } from '@/Engine';
 
 import spaceConfig from './showcase-13-fog.json';
 
@@ -17,7 +17,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     if (isNotDefined(scene)) throw new Error('Scene not found');
     if (isNotDefined(scene.entity.fog)) throw new Error("Scene's fog not found");
 
-    rendererRegistry.findByTag(RendererTag.Main)?.entity.setClearColor(scene.entity.fog.color);
+    rendererRegistry.findActiveRenderer()?.entity.setClearColor(scene.entity.fog.color);
 
     // Create fog via service
     // FogService().createFog({ color: ColorWrapper('#00ff00').entity, near: 1, far: 100, tags: [] });

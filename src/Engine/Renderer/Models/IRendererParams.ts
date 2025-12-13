@@ -1,5 +1,5 @@
 import type { IWithReadonlyTags } from '@/Engine/Mixins';
-import type { RendererModes, RendererTag } from '@/Engine/Renderer/Constants';
+import type { RendererModes } from '@/Engine/Renderer/Constants';
 
 import type { ITreeJsRendererParams } from './ITreeJsRendererParams';
 
@@ -10,4 +10,4 @@ export type IRendererParams = ITreeJsRendererParams &
     isShadowMapEnabled?: boolean;
     maxPixelRatio?: number;
   }> &
-  IWithReadonlyTags<RendererTag>;
+  IWithReadonlyTags<string>;

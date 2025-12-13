@@ -2,6 +2,7 @@ export * from './IRendererAccessors';
 export * from './IRendererFactory';
 export * from './IRendererParams';
 export * from './IRendererRegistry';
+export * from './IRendererSewrvice';
 export * from './IRendererWrapper';
 export * from './IThreeJsRendererParamsAccessors';
 export * from './IThreeJsRendererPropsAccessors';
