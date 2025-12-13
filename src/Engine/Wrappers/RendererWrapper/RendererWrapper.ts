@@ -1,9 +1,9 @@
-import type { IRendererParams, IScreenParams } from '@Engine/Models';
-import { IWrapper } from '@Engine/Models';
-import { isNotDefined, isWebGLAvailable, Writeable } from '@Engine/Utils';
+import type { IRendererParams, IScreenParams, IWrapper } from '@Engine/Models';
+import type { Writeable } from '@Engine/Utils';
+import { isNotDefined, isWebGLAvailable } from '@Engine/Utils';
 import type { IScreenSizeWatcher } from '@Engine/Watchers';
 import { AbstractWrapper } from '@Engine/Wrappers';
-import { PCFShadowMap, WebGL1Renderer } from 'three';
+import { PCFShadowMap, WebGLRenderer } from 'three';
 
 import type { IRendererWrapper } from './Models';
 
@@ -12,7 +12,7 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: IScr
   if (isNotDefined(params.canvas)) throw new Error(`Canvas is not defined`);
   if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');
 
-  const entity: WebGL1Renderer = new WebGL1Renderer({ canvas: params.canvas });
+  const entity: WebGLRenderer = new WebGLRenderer({ canvas: params.canvas });
   // eslint-disable-next-line functional/immutable-data
   entity.shadowMap.enabled = true;
   // eslint-disable-next-line functional/immutable-data
@@ -21,7 +21,7 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: IScr
   entity.useLegacyLights = false;
 
   // eslint-disable-next-line functional/prefer-immutable-types
-  function setValues(entity: Writeable<WebGL1Renderer>, { width, height, ratio }: IScreenParams): void {
+  function setValues(entity: Writeable<WebGLRenderer>, { width, height, ratio }: IScreenParams): void {
     if (isNotDefined(entity)) return;
     entity.setSize(width, height);
     entity.setPixelRatio(Math.min(ratio, 2));
@@ -37,7 +37,7 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: IScr
     screenSizeWatcher.destroy$.unsubscribe();
   });
 
-  const wrapper: IWrapper<WebGL1Renderer> = AbstractWrapper(entity, params);
+  const wrapper: IWrapper<WebGLRenderer> = AbstractWrapper(entity, params);
 
   function destroy(): void {
     screenSizeWatcher.value$.unsubscribe();
