@@ -1,5 +1,6 @@
 import type { TAmbientContext } from '@Anarchy/Engine/Context';
 import type { TAppGlobalContainer, TContainerDecorator } from '@Anarchy/Engine/Global';
+import { ContainerEvents } from '@Anarchy/Engine/Global';
 import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Subscriber } from 'rxjs';
 import { distinctUntilChanged, fromEvent, map, merge, Observable, startWith } from 'rxjs';
@@ -91,11 +92,11 @@ export function observeContainerRect(container: HTMLElement | TAppGlobalContaine
   });
 
   const generalEvents$: Observable<DOMRect> = merge(
-    fromEvent(window, 'resize'),
-    fromEvent(window, 'scroll', { passive: true }),
-    fromEvent(document, 'fullscreenchange'),
-    fromEvent(window, 'orientationchange'),
-    fromEvent(document, 'visibilitychange')
+    fromEvent(window, ContainerEvents.Resize),
+    fromEvent(window, ContainerEvents.Scroll, { passive: true }),
+    fromEvent(document, ContainerEvents.FullscreenChange),
+    fromEvent(window, ContainerEvents.OrientationChange),
+    fromEvent(document, ContainerEvents.VisibilityChange)
   ).pipe(map((): DOMRect => getRect(container)));
 
   return merge(generalEvents$, resizeObserver$).pipe(
