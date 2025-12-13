@@ -2,7 +2,7 @@ import type { TActor, TActorConfig } from '@/Engine/Actor/Models';
 
 // TODO 15-0-0: (finish 14-0-0 tasks)
 
-export function ActorToConfigSerializer(actor: TActor): TActorConfig {
+export function ActorToConfigSerializer(entity: TActor): TActorConfig {
   // TODO 15-0-0: implement
 
   return {
