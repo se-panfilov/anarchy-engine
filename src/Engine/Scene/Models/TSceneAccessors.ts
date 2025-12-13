@@ -1,4 +1,4 @@
-import type { CubeTexture, Group, Mesh, Object3D } from 'three';
+import type { CubeTexture } from 'three';
 
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TColor } from '@/Engine/Color';

@@ -1,5 +1,3 @@
-import type { Group, Mesh, Object3D } from 'three';
-
 import type { TAbstractSimpleRegistry } from '@/Engine/Abstract';
 import { AbstractSimpleRegistry, RegistryFacade, RegistryType } from '@/Engine/Abstract';
 import type { TRawModel3d } from '@/Engine/Models3d';

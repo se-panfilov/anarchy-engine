@@ -29,7 +29,7 @@ export function CollisionsService(): TCollisionsService {
     for (const object of actorsToCheck) {
       if (object.id === actor.id) continue;
 
-      const intersects = raycaster.intersectObject(object.model.getRawModel3d(), true);
+      const intersects = raycaster.intersectObject(object.model3d.model3d.getRawModel3d(), true);
       if (intersects.length > 0) {
         const intersection = intersects[0];
         if (intersection.distance <= extendedDistance) {
