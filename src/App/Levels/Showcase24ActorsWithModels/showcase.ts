@@ -4,7 +4,7 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TFsmStates, TFsmWrapper, TModel3d, TModels3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
-import { ambientContext, asRecord, isNotDefined, KeyCode, KeysExtra, spaceService } from '@/Engine';
+import { asRecord, isNotDefined, KeyCode, KeysExtra, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
 
@@ -28,10 +28,10 @@ export function start(): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { keyboardService } = space.services;
+  const { keyboardService, screenService } = space.services;
   const { onKey, isKeyPressed } = keyboardService;
 
-  addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
   const fadeDuration = 0.3;
 
   const solder1AnimFsm: TFsmWrapper = initSolder1('solder_actor_1', fadeDuration, space.services);

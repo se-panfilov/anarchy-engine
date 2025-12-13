@@ -29,7 +29,7 @@ import type {
   TWithThickness,
   TWithTransmission
 } from '@/Engine';
-import { ambientContext, asRecord, ControlsType, getTags, isDefined, isNotDefined, isOrbitControls, KeyCode, LookUpStrategy, spaceService, TextType } from '@/Engine';
+import { asRecord, ControlsType, getTags, isDefined, isNotDefined, isOrbitControls, KeyCode, LookUpStrategy, spaceService, TextType } from '@/Engine';
 
 import spaceConfigJson from './space.json';
 
@@ -45,9 +45,9 @@ export function start(): void {
 
 export function showcase(space: TSpace): void {
   const gui: GUI = new GUI();
-  const { textService, keyboardService } = space.services;
+  const { textService, keyboardService, screenService } = space.services;
 
-  addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
 
   const { actorService, controlsService } = space.services;
   const actorRegistry: TActorRegistry = actorService.getRegistry();

@@ -2,7 +2,7 @@ import { Clock } from 'three';
 
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TMilliseconds, TSpace, TSpaceConfig } from '@/Engine';
-import { ambientContext, asRecord, isNotDefined, KeysExtra, spaceService } from '@/Engine';
+import { asRecord, isNotDefined, KeysExtra, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
 
@@ -17,13 +17,13 @@ export function start(): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { actorService, keyboardService, physicsWorldService } = space.services;
+  const { actorService, keyboardService, physicsWorldService, screenService } = space.services;
   const { physicalLoop, transformLoop } = space.loops;
 
   physicsWorldService.getDebugRenderer(physicalLoop).start();
   physicalLoop.enabled$.next(false);
 
-  addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
 
   //run/stop physics loop
   keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicalLoop.enabled$.next(true));

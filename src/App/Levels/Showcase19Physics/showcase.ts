@@ -5,20 +5,7 @@ import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TCameraWrapper, TIntersectionEvent, TIntersectionsWatcher, TRadians, TReadonlyVector3, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper } from '@/Engine';
-import {
-  ambientContext,
-  asRecord,
-  ForwardAxis,
-  getDistance,
-  getHorizontalAzimuth,
-  getPushCoordsFrom3dAzimuth,
-  isActorHasPhysicsBody,
-  isDefined,
-  isNotDefined,
-  KeysExtra,
-  spaceService,
-  TextType
-} from '@/Engine';
+import { asRecord, ForwardAxis, getDistance, getHorizontalAzimuth, getPushCoordsFrom3dAzimuth, isActorHasPhysicsBody, isDefined, isNotDefined, KeysExtra, spaceService, TextType } from '@/Engine';
 import { meters, radians } from '@/Engine/Measurements/Utils';
 
 import spaceConfigJson from './space.json';
@@ -34,7 +21,7 @@ export function start(): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { actorService, cameraService, intersectionsWatcherService, keyboardService, mouseService, textService, physicsWorldService } = space.services;
+  const { actorService, cameraService, intersectionsWatcherService, keyboardService, mouseService, textService, physicsWorldService, screenService } = space.services;
   const { physicalLoop, intersectionsLoop } = space.loops;
 
   const actorAsyncRegistry = actorService.getRegistry();
@@ -42,7 +29,7 @@ export function showcase(space: TSpace): void {
 
   physicsWorldService.getDebugRenderer(physicalLoop).start();
 
-  addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
 
   const line: Line2 = createLine();
   sceneWrapper.entity.add(line);

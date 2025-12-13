@@ -10,5 +10,6 @@ export type * from './TCameraServiceDependencies';
 export type * from './TCameraTransformAgents';
 export type * from './TCameraTransformDrive';
 export type * from './TCameraWrapper';
+export type * from './TCameraWrapperDependencies';
 export type * from './TOrthographicCamera';
 export type * from './TPerspectiveCamera';

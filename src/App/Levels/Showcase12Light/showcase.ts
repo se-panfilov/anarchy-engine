@@ -16,7 +16,7 @@ import type {
   TSpaceConfig,
   TSpotLightWrapper
 } from '@/Engine';
-import { ambientContext, asRecord, isNotDefined, spaceService } from '@/Engine';
+import { asRecord, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
 
@@ -33,7 +33,7 @@ export function start(): void {
 export function showcase(space: TSpace): void {
   const gui: GUI = new GUI();
 
-  const { lightService, scenesService, models3dService } = space.services;
+  const { lightService, scenesService, models3dService, screenService } = space.services;
 
   const lightRegistry: TLightRegistry = lightService.getRegistry();
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
@@ -48,7 +48,7 @@ export function showcase(space: TSpace): void {
   const scene: TSceneWrapper | undefined = scenesService.findActive();
   if (isNotDefined(scene)) throw new Error('Scene not found');
 
-  addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
 
   //directional light
   const directionalLight: TDirectionalLightWrapper | undefined = lightRegistry.findByTag('directional') as TDirectionalLightWrapper | undefined;

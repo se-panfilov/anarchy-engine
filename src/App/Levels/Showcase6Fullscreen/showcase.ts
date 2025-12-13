@@ -2,7 +2,7 @@ import { Clock } from 'three';
 
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TActorRegistry, TMilliseconds, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
-import { ambientContext, asRecord, isNotDefined, screenService, spaceService } from '@/Engine';
+import { asRecord, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
 
@@ -17,7 +17,7 @@ export function start(): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { actorService, models3dService, mouseService, scenesService } = space.services;
+  const { actorService, models3dService, mouseService, scenesService, screenService } = space.services;
   const { transformLoop } = space.loops;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
   const actorRegistry: TActorRegistry = actorService.getRegistry();
@@ -25,7 +25,7 @@ export function showcase(space: TSpace): void {
   const sceneW: TSceneWrapper | undefined = scenesService.findActive();
   if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
-  addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
 
   const planeModel3d: TModel3d | undefined = models3dRegistry.findByName('surface_model');
   if (isNotDefined(planeModel3d)) throw new Error('Plane model is not defined');

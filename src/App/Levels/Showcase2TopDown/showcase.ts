@@ -1,8 +1,8 @@
 import { combineLatest } from 'rxjs';
 import { Euler, Vector3 } from 'three';
 
-import type { TActorParams, TCameraWrapper, TMaterialWrapper, TModel3d, TModels3dService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
-import { ambientContext, asRecord, isNotDefined, MaterialType, meters, PrimitiveModel3dType, spaceService } from '@/Engine';
+import type { TActorParams, TCameraWrapper, TMaterialWrapper, TModel3d, TModels3dService, TScreenSizeWatcher, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
+import { asRecord, isNotDefined, MaterialType, meters, PrimitiveModel3dType, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
 
@@ -17,7 +17,7 @@ export function start(): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { actorService, spatialGridService, cameraService, materialService, models3dService, mouseService } = space.services;
+  const { actorService, spatialGridService, cameraService, materialService, models3dService, mouseService, screenService } = space.services;
   const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
   if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" grid`);
 
@@ -44,7 +44,9 @@ export function showcase(space: TSpace): void {
     isActive: true
   });
 
-  const { screenSizeWatcher } = ambientContext;
+  const screenSizeWatcher: TScreenSizeWatcher | undefined = screenService.watchers.default;
+  if (isNotDefined(screenSizeWatcher)) throw new Error('Cannot find default screen size watcher');
+
   combineLatest([mouseService.position$, screenSizeWatcher.value$]).subscribe(([coords, { width, height }]): void => {
     if (isNotDefined(camera)) return;
     const xRatio: number = coords.x / width - 0.5;

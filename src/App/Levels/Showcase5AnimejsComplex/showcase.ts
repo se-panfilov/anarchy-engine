@@ -17,19 +17,7 @@ import type {
   TText2dWrapper,
   TTextAnyWrapper
 } from '@/Engine';
-import {
-  ambientContext,
-  asRecord,
-  ControlsType,
-  createCirclePathXZ,
-  defaultMoverServiceConfig,
-  Easing,
-  generateAnglesForCircle,
-  isNotDefined,
-  isOrbitControls,
-  spaceService,
-  TextType
-} from '@/Engine';
+import { asRecord, ControlsType, createCirclePathXZ, defaultMoverServiceConfig, Easing, generateAnglesForCircle, isNotDefined, isOrbitControls, spaceService, TextType } from '@/Engine';
 import { meters, radians } from '@/Engine/Measurements/Utils';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
@@ -46,14 +34,14 @@ export function start(): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { actorService, cameraService, controlsService, textService, mouseService } = space.services;
+  const { actorService, cameraService, controlsService, textService, mouseService, screenService } = space.services;
   const { transformLoop } = space.loops;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
   const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
   const controlsRegistry: TControlsRegistry = controlsService.getRegistry();
   const { text2dRegistry } = textService.getRegistries();
 
-  addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
 
   const orbitControls: TControlsWrapper | undefined = controlsRegistry.asArray()[0];
   if (isNotDefined(orbitControls)) throw new Error('Orbit controls are not defined');

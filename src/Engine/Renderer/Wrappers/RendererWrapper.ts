@@ -7,19 +7,22 @@ import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import { withActiveMixin } from '@/Engine/Mixins';
 import { RendererModes } from '@/Engine/Renderer/Constants';
-import type { TRendererAccessors, TRendererParams, TRendererWrapper } from '@/Engine/Renderer/Models';
+import type { TRendererAccessors, TRendererParams, TRendererWrapper, TRendererWrapperDependencies } from '@/Engine/Renderer/Models';
 import type { TScreenSizeValues, TScreenSizeWatcher } from '@/Engine/Screen';
 import type { TWriteable } from '@/Engine/Utils';
 import { isNotDefined, isWebGL2Available, isWebGLAvailable } from '@/Engine/Utils';
 
 import { getAccessors } from './Accessors';
 
-export function RendererWrapper(params: TRendererParams, screenSizeWatcher: Readonly<TScreenSizeWatcher>): TRendererWrapper {
+export function RendererWrapper(params: TRendererParams, { screenService }: TRendererWrapperDependencies): TRendererWrapper {
   const maxPixelRatio: number = params.maxPixelRatio ?? 2;
   if (isNotDefined(params.canvas)) throw new Error(`Canvas is not defined`);
   if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');
   const isWebGL2: boolean = params.mode === RendererModes.WebGL2;
   if (isWebGL2 && !isWebGL2Available()) throw new Error('WebGL2 is not supported by this device');
+
+  const screenSizeWatcher: TScreenSizeWatcher | undefined = screenService.watchers.default;
+  if (isNotDefined(screenSizeWatcher)) throw new Error('RendererWrapper: Screen size watcher is not defined');
 
   let options: WebGLRendererParameters = {
     canvas: params.canvas,

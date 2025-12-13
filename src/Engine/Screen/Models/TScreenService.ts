@@ -4,8 +4,8 @@ import type { TAppCanvas } from '@/Engine/App';
 import type { TScreenSizeWatcherService } from './TScreenSizeWatcherService';
 
 export type TScreenService = TAbstractService &
-  TScreenSizeWatcherService &
   Readonly<{
+    watchers: TScreenSizeWatcherService;
     setCanvas: (canvas: TAppCanvas) => void;
     getCanvas: () => TAppCanvas | undefined;
     destroyCanvas: () => void;

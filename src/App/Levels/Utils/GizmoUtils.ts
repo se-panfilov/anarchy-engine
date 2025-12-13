@@ -6,10 +6,11 @@ import { ControlsType, isNotDefined } from '@/Engine';
 
 export function addGizmo(
   { cameraService, rendererService, controlsService }: Pick<TSpaceServices, 'cameraService' | 'rendererService' | 'controlsService' | 'loopService'>,
-  screenSizeWatcher: TScreenSizeWatcher,
+  screenSizeWatcher: TScreenSizeWatcher | undefined,
   { renderLoop }: TSpaceLoops,
   options?: GizmoOptions
-): void {
+): void | never {
+  if (isNotDefined(screenSizeWatcher)) throw Error('ScreenSizeWatcher is not defined');
   const camera: TCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(camera)) throw new Error('Gizmo: Camera is not defined');
 

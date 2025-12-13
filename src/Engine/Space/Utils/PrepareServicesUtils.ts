@@ -69,7 +69,7 @@ export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas,
   });
   const fsmService: TFsmService = FsmService(FsmInstanceFactory(), FsmSourceFactory(), FsmInstanceRegistry(), FsmSourceRegistry());
   const audioService: TAudioService = AudioService(AudioFactory(), AudioRegistry(), AudioResourceAsyncRegistry(), AudioListenersRegistry(), loops);
-  const cameraService: TCameraService = CameraService(CameraFactory(), CameraRegistry(), sceneW, { audioService });
+  const cameraService: TCameraService = CameraService(CameraFactory(), CameraRegistry(), sceneW, { audioService, screenService });
 
   return {
     actorService: ActorService(
@@ -107,7 +107,7 @@ export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas,
     physicsBodyService,
     physicsWorldService,
     physicsPresetService,
-    rendererService: RendererService(RendererFactory(), RendererRegistry(), loops, { cameraService }, sceneW),
+    rendererService: RendererService(RendererFactory(), RendererRegistry(), loops, { cameraService, screenService }, sceneW),
     spatialGridService,
     textService: TextService(
       TextFactory(),

@@ -5,6 +5,7 @@ export type * from './TRendererRegistry';
 export type * from './TRendererService';
 export type * from './TRendererServiceDependencies';
 export type * from './TRendererWrapper';
+export type * from './TRendererWrapperDependencies';
 export type * from './TThreeJsRendererParamsAccessors';
 export type * from './TThreeJsRendererPropsAccessors';
 export type * from './TTreeJsRendererParams';

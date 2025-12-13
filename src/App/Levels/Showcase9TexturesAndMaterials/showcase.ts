@@ -2,7 +2,7 @@ import { combineLatest, distinctUntilChanged, tap } from 'rxjs';
 import type { Vector2Like, Vector3 } from 'three';
 
 import type { TCameraWrapper, TModel3d, TModels3dRegistry, TMouseService, TSceneWrapper, TScreenSizeValues, TSpace, TSpaceConfig } from '@/Engine';
-import { ambientContext, asRecord, getRotationByCos, getRotationBySin, isDefined, isNotDefined, spaceService } from '@/Engine';
+import { asRecord, getRotationByCos, getRotationBySin, isDefined, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
 
@@ -35,11 +35,13 @@ export function showcase(space: TSpace): void {
 
 // This is mostly a copy of Showcase 3 (camera rotation)
 function initCameraRotation(space: TSpace, model3d: TModel3d | undefined, mouseService: TMouseService): void {
-  const { cameraService } = space.services;
+  const { cameraService, screenService } = space.services;
 
   const camera: TCameraWrapper | undefined = cameraService.findActive();
 
-  const { screenSizeWatcher } = ambientContext;
+  const screenSizeWatcher = screenService.watchers.default;
+  if (isNotDefined(screenSizeWatcher)) throw new Error('ScreenSizeWatcher is not defined');
+
   const prevValue: Float32Array = new Float32Array([0, 0, 0, 0]); // [x, y, wight, height]
   combineLatest([mouseService.position$, screenSizeWatcher.value$])
     .pipe(

@@ -1,6 +1,6 @@
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TParticlesWrapper, TSpace, TSpaceConfig } from '@/Engine';
-import { ambientContext, asRecord, isNotDefined, spaceService } from '@/Engine';
+import { asRecord, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
 
@@ -15,13 +15,13 @@ export function start(): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { particlesService } = space.services;
+  const { particlesService, screenService } = space.services;
 
   const count: number = 50000;
   const positions: Float32Array = new Float32Array(count * 3);
   const colors: Float32Array = new Float32Array(count * 3);
 
-  addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
 
   // eslint-disable-next-line functional/no-loop-statements
   for (let i: number = 0; i < count * 3; i++) {

@@ -3,7 +3,7 @@ import type { Fog } from 'three';
 
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
-import { ambientContext, asRecord, isNotDefined, spaceService } from '@/Engine';
+import { asRecord, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
 
@@ -20,13 +20,13 @@ export function start(): void {
 export function showcase(space: TSpace): void {
   const gui: GUI = new GUI();
 
-  const { rendererService, scenesService } = space.services;
+  const { rendererService, scenesService, screenService } = space.services;
 
   const scene: TSceneWrapper | undefined = scenesService.findActive();
   if (isNotDefined(scene)) throw new Error('Scene not found');
   if (isNotDefined(scene.entity.fog)) throw new Error("Scene's fog not found");
 
-  addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
 
   rendererService.findActive()?.entity.setClearColor(scene.entity.fog.color);
 

@@ -5,7 +5,7 @@ import { Vector3 } from 'three';
 import { createReactiveLineFromActor } from '@/App/Levels/Showcase25TransformDrive/Utils';
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TActorRegistry, TCameraWrapper, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
-import { ambientContext, asRecord, defaultMoverServiceConfig, Easing, isNotDefined, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@/Engine';
+import { asRecord, defaultMoverServiceConfig, Easing, isNotDefined, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfigJson from './space.json';
@@ -25,7 +25,7 @@ export function showcase(space: TSpace): void {
 
   const { keyboardService } = space.services;
 
-  const { actorService, cameraService, intersectionsWatcherService, mouseService, scenesService } = space.services;
+  const { actorService, cameraService, intersectionsWatcherService, mouseService, scenesService, screenService } = space.services;
   const { transformLoop, intersectionsLoop } = space.loops;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
   const { findByName, findByTags } = actorRegistry;
@@ -34,7 +34,7 @@ export function showcase(space: TSpace): void {
   const camera: TCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(camera)) throw new Error('Camera is not defined');
 
-  addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
 
   const actorKeyboard: TActor | undefined = findByName('sphere_keyboard_actor');
   const actorMouse: TActor | undefined = findByName('sphere_mouse_actor');

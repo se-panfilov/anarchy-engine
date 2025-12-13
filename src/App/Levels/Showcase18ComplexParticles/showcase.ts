@@ -3,7 +3,7 @@ import { BufferGeometry, Color, PointsMaterial } from 'three';
 
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TMaterialConfig, TMaterialParams, TMilliseconds, TParticlesConfig, TParticlesWrapper, TSpace, TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources } from '@/Engine';
-import { ambientContext, asRecord, isDefined, isNotDefined, spaceService } from '@/Engine';
+import { asRecord, isDefined, isNotDefined, spaceService } from '@/Engine';
 import { configToParams as materialConfigToParams } from '@/Engine/Material/Adapters';
 
 import spaceConfigJson from './space.json';
@@ -20,7 +20,7 @@ export function start(): void {
 
 export function showcase(space: TSpace): void {
   const gui: GUI = new GUI();
-  const { particlesService, textureService } = space.services;
+  const { particlesService, textureService, screenService } = space.services;
   const { transformLoop } = space.loops;
 
   const particlesName: string = 'stars';
@@ -126,7 +126,7 @@ export function showcase(space: TSpace): void {
     }
   });
 
-  addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
   gui.add(parameters, 'count').min(1000).max(1000000).step(1000).onFinishChange(createGalaxy);
   gui.add(parameters, 'size').min(0.001).max(1).step(0.001).onFinishChange(createGalaxy);
   gui.add(parameters, 'radius').min(0.01).max(20).step(0.01).onFinishChange(createGalaxy);

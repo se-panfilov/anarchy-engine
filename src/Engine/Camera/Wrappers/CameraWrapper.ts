@@ -2,9 +2,8 @@ import type { Subscription } from 'rxjs';
 import { PerspectiveCamera, Vector3 } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TCameraAccessors, TCameraParams, TCameraTransformDrive, TCameraWrapper, TPerspectiveCamera } from '@/Engine/Camera/Models';
+import type { TCameraAccessors, TCameraParams, TCameraTransformDrive, TCameraWrapper, TCameraWrapperDependencies, TPerspectiveCamera } from '@/Engine/Camera/Models';
 import { CameraTransformDrive } from '@/Engine/Camera/TransformDrive';
-import { ambientContext } from '@/Engine/Context';
 import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
@@ -13,9 +12,9 @@ import { applyObject3dParams, isDefined } from '@/Engine/Utils';
 
 import { getAccessors } from './Accessors';
 
-export function CameraWrapper(params: TCameraParams): TCameraWrapper {
+export function CameraWrapper(params: TCameraParams, { screenService }: TCameraWrapperDependencies): TCameraWrapper {
   const { fov = 45, near = 1, far = 10000, lookAt, audioListener }: TCameraParams = params;
-  const { width, height, ratio } = ambientContext.screenSizeWatcher.getValue() ?? { width: 0, height: 0, ratio: 1 };
+  const { width, height, ratio } = screenService.watchers.default?.getValue() ?? { width: 0, height: 0, ratio: 1 };
   const entity: TWriteable<TPerspectiveCamera> = new PerspectiveCamera(fov, ratio, near, far);
 
   const accessors: TCameraAccessors = getAccessors(entity);

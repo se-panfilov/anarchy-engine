@@ -10,4 +10,10 @@ export type TScreenSizeWatcherServiceWithCreate = TWithCreateService<TScreenSize
 export type TScreenSizeWatcherServiceWithFactory = TWithFactoryService<TScreenSizeWatcher, TScreenSizeWatcherParams, undefined, TScreenSizeWatcherFactory>;
 export type TScreenSizeWatcherServiceWithRegistry = TWithRegistryService<TScreenSizeWatcherRegistry>;
 
-export type TScreenSizeWatcherService = TAbstractService & TScreenSizeWatcherServiceWithCreate & TScreenSizeWatcherServiceWithFactory & TScreenSizeWatcherServiceWithRegistry;
+export type TScreenSizeWatcherService = TAbstractService &
+  TScreenSizeWatcherServiceWithCreate &
+  TScreenSizeWatcherServiceWithFactory &
+  TScreenSizeWatcherServiceWithRegistry &
+  Readonly<{
+    default: TScreenSizeWatcher | undefined;
+  }>;

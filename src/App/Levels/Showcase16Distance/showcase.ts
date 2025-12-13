@@ -3,7 +3,7 @@ import { Vector3 } from 'three';
 
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TActorRegistry, TCameraRegistry, TMetersPerSecond, TMilliseconds, TReadonlyVector3, TSpace, TSpaceConfig } from '@/Engine';
-import { ambientContext, asRecord, isNotDefined, KeysExtra, meters, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@/Engine';
+import { asRecord, isNotDefined, KeysExtra, meters, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@/Engine';
 
 import spaceConfigJson from './space.json';
 
@@ -27,7 +27,7 @@ export function showcase(space: TSpace): void {
   const mode = { isKinematic: false };
   folder.add(mode, 'isKinematic').name('Actor is in kinematic mode');
 
-  const { actorService, cameraService } = space.services;
+  const { actorService, cameraService, screenService } = space.services;
   const { transformLoop } = space.loops;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
   const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
@@ -39,7 +39,7 @@ export function showcase(space: TSpace): void {
   const sphere: TActor | undefined = findByName('sphere_actor');
   if (isNotDefined(sphere)) throw new Error('Actor "sphere_actor" is not defined');
 
-  addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
 
   let isMove: boolean = false;
   let isTimerStarted: boolean = false;

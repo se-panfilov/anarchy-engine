@@ -1,11 +1,11 @@
 import type { TRegistryPack } from '@/Engine/Abstract';
-import type { TAppCanvas } from '@/Engine/App';
 import { ambientContext } from '@/Engine/Context';
+import type { TAppGlobalContainer, TGlobalContainerDecorator } from '@/Engine/Global';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
 import type { TSpaceConfigEntities, TSpaceParamsEntities, TSpaceServices } from '@/Engine/Space/Models';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { isDefined } from '@/Engine/Utils';
 
 export function createEntities(entities: TSpaceConfigEntities | TSpaceParamsEntities, services: TSpaceServices, strategy: CreateEntitiesStrategy): void | never {
   switch (strategy) {
@@ -25,7 +25,7 @@ export function createEntities(entities: TSpaceConfigEntities | TSpaceParamsEnti
   });
 
   // TODO 14-0-0: Move this into Space
-  services.screenService.getRegistry().added$.subscribe(({ value }: TRegistryPack<TScreenSizeWatcher>): void => value.start$.next());
+  services.screenService.watchers.getRegistry().added$.subscribe(({ value }: TRegistryPack<TScreenSizeWatcher>): void => value.start$.next());
 }
 
 // TODO a lot of code duplication here, but doesn't worth to refactor right now
@@ -53,9 +53,9 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
     textService
   } = services;
 
-  const canvas: TAppCanvas | undefined = screenService.getCanvas();
-  if (isNotDefined(canvas)) throw new Error('Space: Cannot build space, canvas not found');
-  const screenSizeWatcher: TScreenSizeWatcher = screenService.create({ canvas });
+  const container: TGlobalContainerDecorator = ambientContext.container;
+  const appContainer: TAppGlobalContainer = container.getAppContainer();
+  const screenSizeWatcher: TScreenSizeWatcher = screenService.watchers.create({ container });
 
   // better to create FSMs before any other entities
   fsmService.createSourceFromConfig(fsm);
@@ -73,8 +73,8 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
   cameraService.createFromConfig(cameras);
   actorService.createFromConfig(actors);
 
-  textService.createText2dRenderer(ambientContext.container.getAppContainer(), screenSizeWatcher);
-  textService.createText3dRenderer(ambientContext.container.getAppContainer(), screenSizeWatcher);
+  textService.createText2dRenderer(appContainer, screenSizeWatcher);
+  textService.createText3dRenderer(appContainer, screenSizeWatcher);
   textService.createFromConfig(texts);
 
   controlsService.createFromConfig(controls, cameraService.getRegistry());
@@ -106,9 +106,9 @@ export function createEntitiesFromParams(entities: TSpaceParamsEntities, service
     textService
   } = services;
 
-  const canvas: TAppCanvas | undefined = screenService.getCanvas();
-  if (isNotDefined(canvas)) throw new Error('Space: Cannot build space, canvas not found');
-  const screenSizeWatcher: TScreenSizeWatcher = screenService.create({ canvas });
+  const container: TGlobalContainerDecorator = ambientContext.container;
+  const appContainer: TAppGlobalContainer = container.getAppContainer();
+  const screenSizeWatcher: TScreenSizeWatcher = screenService.watchers.create({ container });
 
   // better to create FSMs before any other entities
   if (isDefined(fsm)) fsmService.createSourceFromList(fsm);
@@ -126,8 +126,8 @@ export function createEntitiesFromParams(entities: TSpaceParamsEntities, service
   if (isDefined(cameras)) cameraService.createFromList(cameras);
   if (isDefined(actors)) actorService.createFromList(actors);
 
-  textService.createText2dRenderer(ambientContext.container.getAppContainer(), screenSizeWatcher);
-  textService.createText3dRenderer(ambientContext.container.getAppContainer(), screenSizeWatcher);
+  textService.createText2dRenderer(appContainer, screenSizeWatcher);
+  textService.createText3dRenderer(appContainer, screenSizeWatcher);
   if (isDefined(texts)) textService.createFromList(texts);
 
   if (isDefined(controls)) controlsService.createFromList(controls);

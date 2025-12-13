@@ -49,7 +49,7 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
 
     const { intersectionsWatcherService, screenService } = space.services;
 
-    screenService.getRegistry().forEach((watcher: TScreenSizeWatcher): void => watcher.stop$.next());
+    screenService.watchers.getRegistry().forEach((watcher: TScreenSizeWatcher): void => watcher.stop$.next());
     // TODO 14-0-0: stop all watchers, not only intersections
     void intersectionsWatcherService.getRegistry().forEach((watcher: TIntersectionsWatcher): void => {
       if (watcher.isStarted) watcher.stop$.next();

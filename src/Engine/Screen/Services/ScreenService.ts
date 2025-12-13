@@ -13,7 +13,8 @@ export function ScreenService(factory: TScreenSizeWatcherFactory, registry: TScr
   let canvas: TAppCanvas | undefined;
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, ScreenSizeWatcherService(factory, registry), {
+  return Object.assign(abstractService, {
+    watchers: ScreenSizeWatcherService(factory, registry),
     setCanvas: (appCanvas: TAppCanvas): void => void (canvas = appCanvas),
     getCanvas: (): TAppCanvas | undefined => canvas,
     destroyCanvas: (): void => {

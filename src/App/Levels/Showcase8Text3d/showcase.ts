@@ -5,7 +5,7 @@ import { degToRad } from 'three/src/math/MathUtils';
 
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TAnimationParams, TMeters, TModel3d, TModels3dRegistry, TMoverService, TRadians, TSceneWrapper, TSpace, TSpaceConfig, TText3dTextureWrapper, TText3dWrapper } from '@/Engine';
-import { ambientContext, asRecord, createCirclePathXZ, defaultMoverServiceConfig, Easing, generateAnglesForCircle, isNotDefined, spaceService, TextType, TransformAgent } from '@/Engine';
+import { asRecord, createCirclePathXZ, defaultMoverServiceConfig, Easing, generateAnglesForCircle, isNotDefined, spaceService, TextType, TransformAgent } from '@/Engine';
 import { meters, radians } from '@/Engine/Measurements/Utils';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
@@ -22,14 +22,14 @@ export function start(): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { textService, models3dService, mouseService, scenesService } = space.services;
+  const { textService, models3dService, mouseService, scenesService, screenService } = space.services;
   const { transformLoop } = space.loops;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
 
   const sceneW: TSceneWrapper | undefined = scenesService.findActive();
   if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
-  addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
 
   const planeModel3d: TModel3d | undefined = models3dRegistry.findByName('surface_model');
   if (isNotDefined(planeModel3d)) throw new Error('Plane model is not defined');

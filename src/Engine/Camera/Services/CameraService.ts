@@ -14,11 +14,10 @@ import type {
   TCameraServiceWithRegistry,
   TCameraWrapper
 } from '@/Engine/Camera/Models';
-import { ambientContext } from '@/Engine/Context';
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
-import type { TScreenSizeValues } from '@/Engine/Screen';
+import type { TScreenSizeValues, TScreenSizeWatcher } from '@/Engine/Screen';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function CameraService(
@@ -39,12 +38,16 @@ export function CameraService(
 
   let screenSizeSub$: Subscription | undefined = undefined;
 
+  const screenSizeWatcher: TScreenSizeWatcher | undefined = dependencies.screenService.watchers.default;
+
   // TODO 9.2.0 ACTIVE: Rework ACTIVE mixin to active$ (add hooks to apply ratio). Do the same for all entities with active
   const findActive = withActive.findActive;
 
   // TODO 9.2.0 ACTIVE: This could be moved in active$ camera and applied in onActive hook
   function startUpdatingCamerasAspect(shouldUpdateOnlyActiveCamera: boolean = false): void {
-    screenSizeSub$ = ambientContext.screenSizeWatcher.value$
+    if (isNotDefined(screenSizeWatcher)) throw new Error('CameraService: cannot find default screen size watcher)');
+
+    screenSizeSub$ = screenSizeWatcher.value$
       .pipe(distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height))
       .subscribe((params: TScreenSizeValues): void => {
         if (shouldUpdateOnlyActiveCamera) {
@@ -59,7 +62,8 @@ export function CameraService(
 
   if (shouldUpdateCamerasAspect) startUpdatingCamerasAspect(false);
 
-  const screenSizeDestroy$: Subscription = ambientContext.screenSizeWatcher.destroy$.subscribe(() => {
+  if (isNotDefined(screenSizeWatcher)) throw new Error('CameraService: cannot find default screen size watcher)');
+  const screenSizeDestroy$: Subscription = screenSizeWatcher.destroy$.subscribe(() => {
     screenSizeSub$?.unsubscribe();
     screenSizeDestroy$.unsubscribe();
   });

@@ -2,7 +2,7 @@ import { combineLatest } from 'rxjs';
 import type { Vector3 } from 'three';
 
 import type { TActor, TActorRegistry, TCameraWrapper, TSpace, TSpaceConfig } from '@/Engine';
-import { ambientContext, asRecord, getRotationByCos, getRotationBySin, isNotDefined, spaceService } from '@/Engine';
+import { asRecord, getRotationByCos, getRotationBySin, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
 
@@ -17,12 +17,14 @@ export function start(): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { actorService, cameraService, mouseService } = space.services;
+  const { actorService, cameraService, mouseService, screenService } = space.services;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
 
   const camera: TCameraWrapper | undefined = cameraService.findActive();
 
-  const { screenSizeWatcher } = ambientContext;
+  const screenSizeWatcher = screenService.watchers.default;
+  if (isNotDefined(screenSizeWatcher)) throw new Error('ScreenSizeWatcher is not defined');
+
   combineLatest([mouseService.position$, screenSizeWatcher.value$]).subscribe(([coords, { width, height }]): void => {
     if (isNotDefined(camera)) return;
     const xRatio: number = coords.x / width - 0.5;
