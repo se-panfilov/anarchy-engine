@@ -1,6 +1,4 @@
-import type { CommonTag } from '@/Engine/Domains/Abstract';
 import type { LoopTag } from '@/Engine/Domains/Loop/Constants';
+import type { IWithReadonlyTags } from '@/Engine/Mixins';
 
-export type ILoopParams = Readonly<{
-  tags: ReadonlyArray<LoopTag | CommonTag | string>;
-}>;
+export type ILoopParams = IWithReadonlyTags<LoopTag>;

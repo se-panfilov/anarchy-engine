@@ -4,6 +4,7 @@ import { PerspectiveCamera } from 'three';
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { ICameraParams, ICameraWrapper, IPerspectiveCamera } from '@/Engine/Domains/Camera/Models';
 import type { IScreenSizeValues, IScreenSizeWatcher } from '@/Engine/Domains/Screen';
+import { withTags } from '@/Engine/Mixins/Generic/WithTags';
 import type { IWriteable } from '@/Engine/Utils';
 import { isNotDefined } from '@/Engine/Utils';
 
@@ -34,5 +35,5 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly
     screenSizeWatcherSubscription.unsubscribe();
   });
 
-  return { ...AbstractWrapper(entity, WrapperType.Camera, params), ...getAccessors(entity), entity, tags };
+  return { ...AbstractWrapper(entity, WrapperType.Camera, params), ...getAccessors(entity), entity, ...withTags(tags) };
 }

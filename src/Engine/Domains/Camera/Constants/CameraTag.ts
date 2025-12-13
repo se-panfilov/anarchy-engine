@@ -1,3 +1,4 @@
 export enum CameraTag {
-  Initial = 'initial'
+  Initial = 'initial',
+  Active = 'active'
 }

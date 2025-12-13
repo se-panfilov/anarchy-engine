@@ -1,5 +1,6 @@
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
-import type { ICameraWrapper } from '@/Engine/Domains/Camera';
+import type { ICameraRegistry, ICameraWrapper } from '@/Engine/Domains/Camera';
+import { CameraTag } from '@/Engine/Domains/Camera';
 import type { IControlsRegistry, IOrbitControlsWrapper } from '@/Engine/Domains/Controls';
 import type { ILoopParams, ILoopWrapper, LoopFn } from '@/Engine/Domains/Loop/Models';
 import type { IRendererWrapper } from '@/Engine/Domains/Renderer';
@@ -10,15 +11,18 @@ import { getUtils } from './utils';
 
 export function LoopWrapper(params: ILoopParams): ILoopWrapper {
   let _delta: number = 0;
-  const entity: LoopFn = (renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, delta: number, controlsRegistry: IControlsRegistry, camera?: Readonly<ICameraWrapper>): void => {
+  const entity: LoopFn = (renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, delta: number, controlsRegistry: IControlsRegistry, cameraRegistry: ICameraRegistry): void => {
     _delta = delta;
 
     //just for control's damping
-    controlsRegistry.getAll().forEach((controls: IOrbitControlsWrapper) => {
+    controlsRegistry.getAll().forEach((controls: IOrbitControlsWrapper): void => {
       if (controls.entity.enableDamping) controls.entity.update(delta);
     });
 
-    if (isDefined(camera)) renderer.entity.render(scene.entity, camera.entity);
+    const activeCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Active);
+    // TODO (S.Panfilov) debug
+    console.log(111, cameraRegistry.getAll()[0].tags);
+    if (isDefined(activeCamera)) renderer.entity.render(scene.entity, activeCamera.entity);
   };
 
   return {

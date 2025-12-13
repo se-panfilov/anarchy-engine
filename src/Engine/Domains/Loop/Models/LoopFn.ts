@@ -1,6 +1,6 @@
-import type { ICameraWrapper } from '@/Engine/Domains/Camera';
+import type { ICameraRegistry } from '@/Engine/Domains/Camera';
 import type { IControlsRegistry } from '@/Engine/Domains/Controls';
 import type { IRendererWrapper } from '@/Engine/Domains/Renderer';
 import type { ISceneWrapper } from '@/Engine/Domains/Scene';
 
-export type LoopFn = (renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, delta: number, controlsRegistry: IControlsRegistry, camera?: Readonly<ICameraWrapper>) => void;
+export type LoopFn = (renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, delta: number, controlsRegistry: IControlsRegistry, cameraRegistry: ICameraRegistry) => void;

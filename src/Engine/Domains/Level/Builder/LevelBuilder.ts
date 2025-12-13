@@ -24,6 +24,7 @@ import type { ISceneConfig, ISceneFactory, ISceneRegistry, ISceneWrapper } from 
 import { SceneFactory, SceneRegistry, SceneTag } from '@/Engine/Domains/Scene';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
+import { withTags } from '@/Engine/Mixins/Generic/WithTags';
 import { isDefined, isNotDefined, isValidLevelConfig } from '@/Engine/Utils';
 
 export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
@@ -72,13 +73,15 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   let intersectionsWatcher: IIntersectionsWatcher | undefined;
   let intersectionsWatcherEntityCreatedSubscription: Subscription | undefined;
   if (isDefined(initialCamera)) {
+    initialCamera.addTag(CameraTag.Active);
+    console.log('2222', initialCamera.hasTag(CameraTag.Active), initialCamera.tags);
     intersectionsWatcherEntityCreatedSubscription = intersectionsWatcherFactory.entityCreated$.subscribe((intersectionsWatcher: IIntersectionsWatcher): void =>
       intersectionsWatcherRegistry.add({ ...intersectionsWatcher, tags: [...intersectionsWatcher.tags, CommonTag.FromConfig] })
     );
     intersectionsWatcher = intersectionsWatcherFactory.create({ actors: clickableActors, camera: initialCamera, positionWatcher: ambientContext.mousePositionWatcher });
     messages$.next(`Intersections watcher created`);
   } else {
-    messages$.next(`Warning: no initial camera`);
+    messages$.next(`WARNING: no initial camera`);
   }
 
   const lightFactory: ILightFactory = LightFactory();
@@ -148,14 +151,14 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     name,
     start(): ILoopWrapper {
       if (isDefined(intersectionsWatcher)) intersectionsWatcher.start();
-      loop.start(renderer, scene, controlsRegistry, initialCamera);
+      loop.start(renderer, scene, controlsRegistry, cameraRegistry);
       messages$.next(`Level started`);
       return loop;
     },
     stop(): void {
       if (isDefined(intersectionsWatcher)) intersectionsWatcher.stop();
       // TODO (S.Panfilov) implement stop
-      // loop.stop(renderer, scene, initialCamera, controlsRegistry);
+      // loop.stop(renderer, scene, controlsRegistry, cameraRegistry);
       messages$.next(`Level stopped`);
     },
     entities: {
@@ -176,10 +179,10 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
       rendererRegistry: rendererRegistry,
       rendererFactory: rendererFactory
     },
-    tags,
     ...builtMixin,
     built$: builtMixin.built$.asObservable(),
     ...destroyable,
+    ...withTags(tags),
     get messages$(): Observable<string> {
       return messages$;
     }

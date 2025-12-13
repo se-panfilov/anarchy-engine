@@ -1,3 +1,4 @@
+export * from './ArrayUtils';
 export * from './AsyncUtils';
 export * from './CheckUtils';
 export * from './EntityUtils';

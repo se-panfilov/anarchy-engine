@@ -1,5 +1,5 @@
-import type { CommonTag } from '@/Engine/Domains/Abstract';
 import type { CameraTag } from '@/Engine/Domains/Camera/Constants';
+import type { IWithReadonlyTags } from '@/Engine/Mixins';
 import type { IEulerWrapper, IVector3Wrapper } from '@/Engine/Wrappers';
 
 export type ICameraParams = Readonly<{
@@ -8,5 +8,5 @@ export type ICameraParams = Readonly<{
   far?: number;
   position: IVector3Wrapper;
   rotation: IEulerWrapper;
-  tags: ReadonlyArray<CameraTag | CommonTag | string>;
-}>;
+}> &
+  IWithReadonlyTags<CameraTag>;

@@ -1,9 +1,9 @@
-import type { CommonTag } from '@/Engine/Domains/Abstract';
 import type { SceneTag } from '@/Engine/Domains/Scene';
+import type { IWithReadonlyTags } from '@/Engine/Mixins';
 import type { IColor, ICubeTexture, ITexture } from '@/Engine/Wrappers';
 
 export type ISceneParams = Readonly<{
   name: string;
   background?: string | IColor | ITexture | ICubeTexture;
-  tags: ReadonlyArray<SceneTag | CommonTag | string>;
-}>;
+}> &
+  IWithReadonlyTags<SceneTag>;

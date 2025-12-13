@@ -1,11 +1,8 @@
-import type { CommonTag, IWrapper } from '@/Engine/Domains/Abstract';
+import type { IWrapper } from '@/Engine/Domains/Abstract';
 import type { CameraTag } from '@/Engine/Domains/Camera/Constants';
+import type { IWithTags } from '@/Engine/Mixins';
 
 import type { ICameraAccessors } from './ICameraAccessors';
 import type { IPerspectiveCamera } from './IPerspectiveCamera';
 
-export type ICameraWrapper = IWrapper<IPerspectiveCamera> &
-  ICameraAccessors &
-  Readonly<{
-    tags: ReadonlyArray<CameraTag | CommonTag | string>;
-  }>;
+export type ICameraWrapper = IWrapper<IPerspectiveCamera> & ICameraAccessors & IWithTags<CameraTag>;

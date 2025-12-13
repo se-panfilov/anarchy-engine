@@ -1,8 +1,8 @@
-import type { CommonTag } from '@/Engine/Domains/Abstract';
 import type { RendererModes, RendererTag } from '@/Engine/Domains/Renderer/Constants';
+import type { IWithReadonlyTags } from '@/Engine/Mixins';
 
 export type IRendererParams = Readonly<{
   canvas: HTMLElement;
   mode: RendererModes;
-  tags: ReadonlyArray<RendererTag | CommonTag | string>;
-}>;
+}> &
+  IWithReadonlyTags<RendererTag>;
