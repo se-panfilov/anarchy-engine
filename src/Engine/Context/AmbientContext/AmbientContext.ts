@@ -1,9 +1,9 @@
+import type { IGlobalContainerDecorator } from '@Engine/Domains/Global';
+import { ContainerDecorator } from '@Engine/Domains/Global';
 import type { IMouseClicksWatcher, IMousePositionWatcher } from '@Engine/Domains/Mouse';
 import { MouseClicksWatcherFactory, MousePositionWatcherFactory } from '@Engine/Domains/Mouse';
 import type { IScreenSizeWatcher } from '@Engine/Domains/Screen';
 import { ScreenSizeWatcherFactory } from '@Engine/Domains/Screen';
-import type { IGlobalContainerDecorator } from '@Engine/Global';
-import { ContainerDecorator } from '@Engine/Global';
 
 import type { IAmbientContext } from './Models';
 

@@ -1,6 +1,6 @@
 import type { IAbstractWatcher } from '@Engine/Domains/Abstract';
 import { AbstractWatcher } from '@Engine/Domains/Abstract';
-import type { IGlobalContainerDecorator } from '@Engine/Global';
+import type { IGlobalContainerDecorator } from '@Engine/Domains/Global';
 
 import type { IMouseEvent, IMousePosition, IMousePositionWatcher } from '../Models';
 

@@ -11,7 +11,6 @@ export * from './Domains/Mouse';
 export * from './Domains/Renderer';
 export * from './Domains/Scene';
 export * from './Domains/Screen';
-export * from './Global';
 export * from './Launcher';
 export * from './Models';
 export * from './Pool';

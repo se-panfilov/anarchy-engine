@@ -1,6 +1,6 @@
 import type { IAbstractWatcherWithState } from '@Engine/Domains/Abstract';
 import { AbstractWatcherWithState } from '@Engine/Domains/Abstract';
-import type { IGlobalContainerDecorator } from '@Engine/Global';
+import type { IGlobalContainerDecorator } from '@Engine/Domains/Global';
 
 import type { IScreenParams, IScreenSizeWatcher } from '../Models';
 

@@ -1,5 +1,4 @@
 export * from './IAppCanvas';
-export * from './IAppGlobalContainer';
 export * from './IIntersectionsParams';
 export * from './ILaunchedEngine';
 export * from './ILaunchedScene';
