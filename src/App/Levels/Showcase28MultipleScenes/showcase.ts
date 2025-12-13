@@ -3,6 +3,7 @@ import { combineLatest, Observable, Subscription } from 'rxjs';
 import type { TSpace, TSpaceConfig } from '@/Engine';
 import { asRecord, isNotDefined, spaceService } from '@/Engine';
 
+import type { TSubscriptionsData } from './Helpers';
 import { runAlpha, runBeta, runDelta, runGamma } from './Helpers';
 import { createButtons, createContainersDivs } from './Helpers/Utils';
 import spaceAlphaConfigJson from './spaceAlpha.json';
@@ -10,10 +11,12 @@ import spaceBetaConfigJson from './spaceBeta.json';
 import spaceDeltaConfigJson from './spaceDelta.json';
 import spaceGammaConfigJson from './spaceGamma.json';
 
-const subscriptionStacks = new Map<Subscription, string>();
-let totalSubscriptions = 0;
-let completedSubscriptions = 0;
-hackRxJsSubscriptions(subscriptionStacks);
+const subscriptionsData: TSubscriptionsData = {
+  totalSubscriptions: 0,
+  completedSubscriptions: 0,
+  subscriptionStacks: new Map<Subscription, string>()
+};
+hackRxJsSubscriptions(subscriptionsData);
 
 const spaceAlphaConfig: TSpaceConfig = spaceAlphaConfigJson as TSpaceConfig;
 const spaceBetaConfig: TSpaceConfig = spaceBetaConfigJson as TSpaceConfig;
@@ -45,22 +48,23 @@ export function start(): void {
   const leftBottomContainerId = 'btn-container-left-bottom';
   const rightBottomContainerId = 'btn-container-right-bottom';
 
-  createButtons('Alpha', leftTopContainerId, spaceAlpha, true, false, totalSubscriptions, completedSubscriptions, subscriptionStacks);
-  createButtons('Beta', rightTopContainerId, spaceBeta, true, true, totalSubscriptions, completedSubscriptions, subscriptionStacks);
-  createButtons('Gamma', leftBottomContainerId, spaceGamma, false, false, totalSubscriptions, completedSubscriptions, subscriptionStacks);
-  createButtons('Delta', rightBottomContainerId, spaceDelta, false, true, totalSubscriptions, completedSubscriptions, subscriptionStacks);
+  createButtons('Alpha', leftTopContainerId, spaceAlpha, true, false, subscriptionsData);
+  createButtons('Beta', rightTopContainerId, spaceBeta, true, true, subscriptionsData);
+  createButtons('Gamma', leftBottomContainerId, spaceGamma, false, false, subscriptionsData);
+  createButtons('Delta', rightBottomContainerId, spaceDelta, false, true, subscriptionsData);
 }
 
 //Hack RxJS to track subscriptions to prevent memory leaks (DO NOT USE IN PRODUCTION);
-function hackRxJsSubscriptions(subscriptionStacks: Map<Subscription, string>): void {
+function hackRxJsSubscriptions(subscriptionData: TSubscriptionsData): void {
   const originalSubscribe = Observable.prototype.subscribe;
   // eslint-disable-next-line functional/immutable-data
   Observable.prototype.subscribe = function (...args: any[]): any {
     const sub: Subscription & { __aliveInterval?: number } = originalSubscribe.apply(this, args as any);
 
-    totalSubscriptions++;
+    // eslint-disable-next-line functional/immutable-data
+    subscriptionData.totalSubscriptions = subscriptionData.totalSubscriptions + 1;
     const stackTrace: string = new Error('Subscription created').stack || '';
-    subscriptionStacks.set(sub, stackTrace);
+    subscriptionData.subscriptionStacks.set(sub, stackTrace);
 
     // (sub as any).__aliveInterval = window.setInterval((): void => {
     //   console.log('alive' + Math.random());
@@ -73,7 +77,8 @@ function hackRxJsSubscriptions(subscriptionStacks: Map<Subscription, string>): v
   // eslint-disable-next-line functional/immutable-data
   Subscription.prototype.unsubscribe = function (...args: any[]): void {
     if (!this.closed) {
-      completedSubscriptions++;
+      // eslint-disable-next-line functional/immutable-data
+      subscriptionData.completedSubscriptions = subscriptionData.completedSubscriptions + 1;
 
       const subscription = this as Subscription & { __aliveInterval?: number };
       if (typeof subscription.__aliveInterval === 'number') {
@@ -82,7 +87,7 @@ function hackRxJsSubscriptions(subscriptionStacks: Map<Subscription, string>): v
         delete (subscription as any).__aliveInterval;
       }
 
-      subscriptionStacks.delete(this);
+      subscriptionData.subscriptionStacks.delete(this);
     }
 
     return originalUnsubscribe.apply(this, args as any);
