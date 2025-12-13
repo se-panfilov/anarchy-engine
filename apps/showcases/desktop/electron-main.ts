@@ -27,7 +27,7 @@ function getIndexHtmlPath(): string {
   return path;
 }
 
-function createWindow(width: number, height: number): void {
+function createWindow(width: number, height: number): BrowserWindow {
   const win = new BrowserWindow({
     width,
     height,
@@ -47,6 +47,8 @@ function createWindow(width: number, height: number): void {
   // try {
   //   require('electron-reloader')(module);
   // } catch (_) {}
+
+  return win;
 }
 
 // TODO DESKTOP: could it be a better place for this?
@@ -56,7 +58,7 @@ ipcMain.handle('ping', async () => {
 });
 
 app.whenReady().then((): void => {
-  createWindow(windowWidth, windowHeight);
+  const win: BrowserWindow = createWindow(windowWidth, windowHeight);
 
   // TODO DESKTOP: test this case
   app.on('activate', (): void => {
@@ -76,4 +78,21 @@ app.whenReady().then((): void => {
   // Turn off the menu bar (and Hotkeys(!!!) such as Ctrl+R, Ctrl+F5, etc.)
   const emptyMenu: Menu = Menu.buildFromTemplate([]);
   Menu.setApplicationMenu(emptyMenu);
+
+  // TODO DESKTOP: Make sure navigation isn't working (also from mouse extra buttons)
+  win.webContents.on('will-navigate', (event, url): void => {
+    console.log(`[NAVIGATION] navigation to {event.url} `);
+
+    // event.preventDefault(); // Prevent navigation to other pages
+
+    // Prevent drag and drop navigation
+    if (url !== win.webContents.getURL()) {
+      event.preventDefault();
+      console.log(`[NAVIGATION] navigation by drag and drop prevented`);
+    }
+  });
+
+  // win.webContents.on('will-prevent-unload', (event) => {
+  // event.preventDefault(); // Prevent the default behavior of closing the window
+  // });
 });
