@@ -23,7 +23,6 @@ export function disposeGltf(gltf: Object3D | null): void {
 
   // eslint-disable-next-line functional/immutable-data
   if (isDefined((gltf as any).animations)) gltf.animations.length = 0;
-  // TODO 13-0-0: remove user data and children as functions and call them in abstract entities?
   // eslint-disable-next-line functional/immutable-data
   gltf.userData = {};
   gltf.clear?.();
@@ -46,7 +45,6 @@ export function destroyMaterialInEntity(entity: unknown): void {
   const materials = Array.isArray(entity.material) ? entity.material : [entity.material];
   disposeMaterialDeep(materials);
 
-  // TODO 13-0-0: not sure if it's needed to set to null
   // eslint-disable-next-line functional/immutable-data
   entity.material = null;
 }

@@ -9,7 +9,6 @@ import { isDefined } from '@/Engine/Utils';
 
 import { Space } from './Space';
 
-// TODO 13-0-0: can we use configToParams instead of params argument?
 export function SpaceFromConfig(params: TSpaceParams, config: TSpaceConfig, hooks?: TSpaceHooks): TSpace {
   const builtFromConfig$: BehaviorSubject<TSpace | undefined> = new BehaviorSubject<TSpace | undefined>(undefined);
 

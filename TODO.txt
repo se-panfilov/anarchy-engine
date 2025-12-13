@@ -20,29 +20,28 @@ Done:
 - 12.1.x Fixed production build (removed topLevelAsync vite plugin)
 - 13.0.x Deletion and resource dispose (memory management)
 - 13.1.x Refactored spaces and services (better destroy and re-create)
+- 14.0.0 Multiple scenes full support (unload/load scenes one after another and hard reset)
 
 Roadmap:
-- 13.2.x Hard scene reset (canvas drop?)
-- 14.0.0 Multiple scenes full support (unload/load scenes one after another)
 - 15.x.x Save/Load configs (serialization)
 - 16.0.x Split apps and engine (and add config for an app to set up engine)
 - 17.0.x npm package and a repo for the engine
 - 18.0.x Building app (desktop/mobile) (might be not a part of an engine)
 - 19.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
-- 20.0.x Lines domain
-- 21.0.x Performance improvements (make sure materials and env maps are async)
-- 22.x.x Postprocessing
-- 23.0.x Shaders
+- 20.x.x Postprocessing
+- 21.0.x Shaders
 
 Thoughts:
+- Maybe: Split data entities from functional entities (check ECS approach);
 - Maybe: Try to replace spread operator with Object.assign everywhere (for performance and make sure that we are not creating new objects)? Check with AbstractEntity first;
 - Maybe: Add domain for timers (based on web workers);
+- Maybe: Add domain for lines;
 - Maybe: Refactor withActive entities (use active$) (camera, renderer, etc);
 - Maybe: a single generic factory and registries for all entities (actor, model, etc), instead of files create them with params;
 - Maybe: if it makes sense to replace Rapier with Havok;
-- Maybe: maybe split data and functional entities (check ECS approach);
 - BUG: #191823 Text3dTextures doesn't update text values on textures on change;
 - TASK: Check every function in the engine that it's not calling every second (with adding console.log everywhere);
+- TASK: Check performance (make sure materials and env maps are async)
 
 Won't be implemented soon:
 - GUI/UI/HUD/Menus: Leave it to the app (don't want to build a generic solution);

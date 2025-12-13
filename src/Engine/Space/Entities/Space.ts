@@ -56,7 +56,7 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
     return undefined;
   });
 
-  // TODO 13-0-0: Add possibility to drop the whole canvas on destroy
+  // TODO 14-0-0: Add possibility to drop the whole canvas on destroy
   const destroySub$: Subscription = space.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
@@ -74,7 +74,6 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   return result;
 }
 
-// TODO 13-0-0: Find a better place for this function
 function initSpaceServices(params: TSpaceParams, hooks?: TSpaceHooks): { services: TSpaceServices; loops: TSpaceLoops } {
   hooks?.beforeBaseServicesBuilt?.(params.canvas, params);
   const baseServices: TSpaceBaseServices = buildBaseServices();

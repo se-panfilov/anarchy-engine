@@ -105,7 +105,7 @@ export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
   const removeKeyBinding = (key: TGameKey): void => removeBinding(key, false);
   const removeKeyComboBinding = (key: TKeyCombo): void => removeBinding(key, true);
 
-  // TODO 13-0-0:  we need to destroy all bindings on destroy$
+  // TODO 14-0-0:  we need to destroy all bindings on destroy$
 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, {
