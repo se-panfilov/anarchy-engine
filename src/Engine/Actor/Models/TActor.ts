@@ -7,7 +7,6 @@ import type { TActorEntities } from './TActorEntities';
 import type { TActorModel3dSettings } from './TActorModel3dSettings';
 
 export type TActor = Omit<TEntity<TActorEntities>, 'serialize'> &
-  // TODO 15-0-0: extract all .serialize() with dependencies
   Readonly<{
     getModel3dSettings: () => TActorModel3dSettings | undefined;
     getPhysicsBody: () => TPhysicsBody | undefined;
