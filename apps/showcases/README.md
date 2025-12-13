@@ -1,6 +1,6 @@
 # Anarchy engine
 
-A framework around three.js for game development.
+Showcases for the Anarchy engine.
 
 ## License
 

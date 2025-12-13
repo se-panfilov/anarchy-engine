@@ -1,6 +1,6 @@
-# Anarchy engine
+# Anarchy engine shared package
 
-A framework around three.js for game development.
+Shared utilities and types for the Anarchy engine.
 
 ## License
 
