@@ -6,6 +6,7 @@ export enum FactoryType {
   Light = 'light_factory',
   Fog = 'fog_factory',
   Renderer = 'renderer_factory',
+  Material = 'material_factory',
   Particles = 'particles_factory',
   Scene = 'scene_factory',
   Text = 'text_factory',
