@@ -1,0 +1,9 @@
+// Allowing changing font on locale/lang change (via anarchy-i18n).
+// You need to define @font-face yourself and add "font" property to each locale.
+:root {
+  --anarchy-i18n-font: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+body {
+  font-family: var(--anarchy-i18n-font);
+}
