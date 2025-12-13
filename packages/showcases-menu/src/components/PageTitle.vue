@@ -18,5 +18,6 @@ defineProps<{
   line-height: anarchy_constants.$big-title-line-height;
   text-transform: uppercase;
   text-align: center;
+  word-break: break-word;
 }
 </style>
