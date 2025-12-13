@@ -6,18 +6,18 @@
 ## Scope
 
 This policy applies to the open-source project **anarchy-i18n** (the “Project”). It is provided for community coordination only and **does not create service levels (SLAs), warranties, or contractual obligations**.
-It covers the Project’s **source code** and our **officially published release artifacts** (e.g., package registries, release archives, or documentation sites) that **we** publish. It does **not** cover third-party repackaging, unofficial builds, downstream products, hosting-platform infrastructure, or **commercial editions**.
+It covers the Project’s **source code** and our **officially published release artifacts** (e.g., package registries, release archives, documentation sites, **container images**, or **CDN bundles**) that **we** publish. It does **not** cover third-party repackaging, unofficial builds, downstream products, hosting-platform infrastructure, or **commercial editions**.
 
-**Technical identifiers (optional):** anarchy-i18n.
+**Technical identifiers (optional):** `anarchy-i18n`.
 
 ## Reporting (CVD)
 
-- **Report:** email **TBD until market release** with a minimal reproduction, affected commit/tag, and impact (if known). If possible, include a short patch or mitigation suggestion.
-- **Public disclosure:** please coordinate timing with us to allow a fix or mitigation to be available where reasonably possible.
+- **Report:** email **TBD until market release** with steps to reproduce, affected commit/tag, and impact (if known). If possible, include a short patch or mitigation suggestion.
+- **Public disclosure:** please **do not file public issues with exploit details**; coordinate timing with us to allow a fix or mitigation to be available where reasonably possible.
 
 ## Handling & Disclosure
 
-This is a volunteer-maintained project. We’ll make a **good-faith effort** to review and prioritize reports; **no timelines are promised**. We may publish an advisory if the issue materially impacts users. There is **no bug bounty** unless explicitly announced.
+This is a volunteer-maintained Project. We’ll make a **good-faith effort** to review and prioritize reports; **no timelines are promised**. We may publish an advisory if the issue materially impacts users. There is **no bug bounty** unless explicitly announced.
 
 ### Research Guidelines (please follow)
 
@@ -33,7 +33,7 @@ We generally address issues on **main** and the **latest stable** release. Older
 
 ## Advisories
 
-If warranted, we will publish a security note or advisory in the repository or adjacent project materials (e.g., `SECURITY` or `CHANGELOG`, release notes, or the advisories section). There is **no SLA**.
+If warranted, we will publish a security note or advisory in the repository or adjacent Project materials (e.g., `SECURITY`, `CHANGELOG`, release notes, or the advisories section). There is **no SLA**.
 Copies of public content may also appear in mirrors, forks, caches, or package registries controlled by others; **we do not control those third-party copies**.
 
 ## In / Out of Scope
