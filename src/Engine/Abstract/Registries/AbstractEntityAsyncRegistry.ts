@@ -19,13 +19,13 @@ export function AbstractEntityAsyncRegistry<T extends TRegistrable | TMultitonRe
   const findByTag$ = (tag: string): Observable<T> => getUniqEntityWithTag$(tag, abstractRegistry);
   const findByName$ = (name: string): Observable<T> => getUniqEntityByName$(name, abstractRegistry);
 
-  return {
-    ...abstractRegistry,
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractRegistry, {
     findByName$,
     findByNameAsync,
     findByTag$,
     findByTagAsync,
     findByTags$,
     findByTagsAsync
-  };
+  });
 }

@@ -40,9 +40,9 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
     updateVolumeSub$.unsubscribe();
   });
 
-  return {
-    ...wrapper,
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(wrapper, {
     drive,
     listener$
-  };
+  });
 }

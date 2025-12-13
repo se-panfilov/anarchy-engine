@@ -84,8 +84,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
     abstractWatcherSubscription.unsubscribe();
   });
 
-  const result: TWriteable<TIntersectionsWatcher> = {
-    ...ProtectedWatcher(abstractWatcher),
+  const result: TWriteable<TIntersectionsWatcher> = Object.assign(ProtectedWatcher(abstractWatcher), {
     addActors,
     addActor,
     getActors,
@@ -97,7 +96,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
     stop,
     isStarted: false,
     isAutoStart
-  };
+  });
 
   setCamera(rest.camera);
   if (rest.actors.length > 0) addActors(rest.actors);

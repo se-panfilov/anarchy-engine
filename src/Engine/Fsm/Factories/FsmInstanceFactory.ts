@@ -5,4 +5,5 @@ import type { TFsmInstanceFactory, TFsmParams, TFsmWrapper } from '@/Engine/Fsm/
 import { FsmWrapper } from '@/Engine/Fsm/Wrappers';
 
 const factory: TReactiveFactory<TFsmWrapper, TFsmParams> = ReactiveFactory(FactoryType.FsmInstance, FsmWrapper);
-export const FsmInstanceFactory = (): TFsmInstanceFactory => ({ ...factory, configToParams: configToParamsFsm });
+// eslint-disable-next-line functional/immutable-data
+export const FsmInstanceFactory = (): TFsmInstanceFactory => Object.assign(factory, { configToParams: configToParamsFsm });

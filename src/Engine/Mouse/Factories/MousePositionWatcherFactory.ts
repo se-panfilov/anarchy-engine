@@ -9,4 +9,5 @@ const factory: TReactiveFactoryWithDependencies<TMousePositionWatcher, TMousePos
   FactoryType.MousePositionWatcher,
   createMousePositionWatcher
 );
-export const MousePositionWatcherFactory = (): TMousePositionWatcherFactory => ({ ...factory });
+// eslint-disable-next-line functional/immutable-data
+export const MousePositionWatcherFactory = (): TMousePositionWatcherFactory => Object.assign(factory, {});

@@ -103,8 +103,8 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
     // TODO DESTROY: Important: all wrappers/entities should be removed from the registry (and disposed) when destroyed. Perhaps we should add an event bus to send the message to remove a certain wrapper/entity from a certain registry
   });
 
-  return {
-    ...wrapper,
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(wrapper, {
     play$,
     pause$,
     speed$,
@@ -115,5 +115,5 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
     volume$,
     listener$,
     ...destroyable
-  };
+  });
 }

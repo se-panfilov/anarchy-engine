@@ -5,4 +5,5 @@ import { Actor } from '@/Engine/Actor/Entities';
 import type { TActor, TActorFactory, TActorParams, TActorServiceDependencies } from '@/Engine/Actor/Models';
 
 const factory: TReactiveFactoryWithDependencies<TActor, TActorParams, TActorServiceDependencies> = ReactiveFactoryWithDependencies(FactoryType.Actor, Actor);
-export const ActorFactory = (): TActorFactory => ({ ...factory, configToParams });
+// eslint-disable-next-line functional/immutable-data
+export const ActorFactory = (): TActorFactory => Object.assign(factory, { configToParams });

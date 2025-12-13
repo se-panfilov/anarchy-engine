@@ -9,4 +9,5 @@ const factory: TReactiveFactoryWithDependencies<
   TModel3dParams,
   Pick<TModels3dServiceDependencies, 'animationsService' | 'model3dRawToModel3dConnectionRegistry'>
 > = ReactiveFactoryWithDependencies(FactoryType.Models3d, Model3d);
-export const Models3dFactory = (): TModels3dFactory => ({ ...factory, configToParams });
+// eslint-disable-next-line functional/immutable-data
+export const Models3dFactory = (): TModels3dFactory => Object.assign(factory, { configToParams });

@@ -24,14 +24,14 @@ export function CameraWrapper(params: TCameraParams): TCameraWrapper {
   const drive: TCameraTransformDrive = CameraTransformDrive(params, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
-  const result = {
-    ...wrapper,
+  // eslint-disable-next-line functional/immutable-data
+  const result = Object.assign(wrapper, {
     drive,
     ...accessors,
     entity,
     ...withObject3d(entity),
     ...withActiveMixin()
-  };
+  });
 
   applyObject3dParams(result, params);
   result._setActive(params.isActive, true);

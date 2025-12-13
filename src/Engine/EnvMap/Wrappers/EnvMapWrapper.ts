@@ -6,11 +6,10 @@ export function EnvMapWrapper(params: TEnvMapParams): TEnvMapWrapper {
   const { texture, isActive } = params;
   const entity: TEnvMapTexture = texture;
 
-  const result = {
-    ...AbstractWrapper(entity, WrapperType.EnvMap),
+  const result = Object.assign(AbstractWrapper(entity, WrapperType.EnvMap), {
     getName: (): string => params.name,
     ...withActiveMixin()
-  };
+  });
 
   result._setActive(isActive, true);
 

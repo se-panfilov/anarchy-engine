@@ -20,5 +20,9 @@ export function FogWrapper(params: TFogParams): TFogWrapper {
     throw new Error('Fog destroy not implemented');
   });
 
-  return { ...wrapper, entity, ...destroyable };
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(wrapper, {
+    entity,
+    ...destroyable
+  });
 }

@@ -18,10 +18,9 @@ export function AsyncReactiveFactory<T, P, D>(
     return entity;
   }
 
-  return {
-    ...AbstractFactory(type),
+  return Object.assign(AbstractFactory(type), {
     entityCreated$,
     createAsync,
     ...destroyableMixin()
-  };
+  });
 }

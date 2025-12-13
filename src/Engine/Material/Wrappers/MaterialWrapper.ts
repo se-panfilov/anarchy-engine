@@ -5,10 +5,7 @@ import { buildMaterial } from '@/Engine/Material/Utils';
 export function MaterialWrapper(params: TMaterialParams): TMaterialWrapper {
   const entity: TMaterials = buildMaterial(params);
 
-  const result = {
-    ...AbstractWrapper(entity, WrapperType.Material, params),
-    entity
-  };
+  const result = Object.assign(AbstractWrapper(entity, WrapperType.Material, params), { entity });
 
   return result;
 }

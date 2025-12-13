@@ -5,4 +5,5 @@ import type { TCameraFactory, TCameraParams, TCameraServiceDependencies, TCamera
 import { CameraWrapper } from '@/Engine/Camera/Wrappers';
 
 const factory: TReactiveFactoryWithDependencies<TCameraWrapper, TCameraParams, TCameraServiceDependencies> = ReactiveFactoryWithDependencies(FactoryType.Camera, CameraWrapper);
-export const CameraFactory = (): TCameraFactory => ({ ...factory, configToParams });
+// eslint-disable-next-line functional/immutable-data
+export const CameraFactory = (): TCameraFactory => Object.assign(factory, { configToParams });

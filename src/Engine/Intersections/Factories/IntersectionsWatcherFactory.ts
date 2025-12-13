@@ -5,4 +5,5 @@ import type { TIntersectionsWatcher, TIntersectionsWatcherFactory, TIntersection
 import { IntersectionsWatcher } from '@/Engine/Intersections/Watchers';
 
 const factory: TReactiveFactory<TIntersectionsWatcher, TIntersectionsWatcherParams> = ReactiveFactory(FactoryType.IntersectionsWatcher, IntersectionsWatcher);
-export const IntersectionsWatcherFactory = (): TIntersectionsWatcherFactory => ({ ...factory, configToParams });
+// eslint-disable-next-line functional/immutable-data
+export const IntersectionsWatcherFactory = (): TIntersectionsWatcherFactory => Object.assign(factory, { configToParams });

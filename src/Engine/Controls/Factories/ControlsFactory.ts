@@ -17,4 +17,5 @@ function create(params: TControlsParams): TControlsWrapper | never {
 }
 
 export const controlsWithConfigFactory: TReactiveFactory<TControlsWrapper, TControlsParams> = ReactiveFactory(FactoryType.Controls, create);
-export const ControlsFactory = (): TControlsFactory => ({ ...controlsWithConfigFactory, configToParams });
+// eslint-disable-next-line functional/immutable-data
+export const ControlsFactory = (): TControlsFactory => Object.assign(controlsWithConfigFactory, { configToParams });

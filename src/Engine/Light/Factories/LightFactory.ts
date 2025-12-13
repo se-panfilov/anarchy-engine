@@ -17,4 +17,5 @@ function create(params: TLightParams): TLightWrapper | never {
 }
 
 const factory: TReactiveFactory<TLightWrapper, TLightParams> = ReactiveFactory(FactoryType.Light, create);
-export const LightFactory = (): TLightFactory => ({ ...factory, configToParams });
+// eslint-disable-next-line functional/immutable-data
+export const LightFactory = (): TLightFactory => Object.assign(factory, { configToParams });

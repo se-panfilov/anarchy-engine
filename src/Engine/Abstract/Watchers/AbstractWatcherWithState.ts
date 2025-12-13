@@ -23,8 +23,8 @@ export function AbstractWatcherWithState<T>(type: WatcherType | string, name: st
     abstractWatcher.value$.unsubscribe();
   });
 
-  return {
-    ...abstractWatcher,
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractWatcher, {
     getValue: (): T => abstractWatcher.value$.value
-  };
+  });
 }

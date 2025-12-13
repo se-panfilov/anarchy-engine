@@ -5,4 +5,5 @@ import { FsmSource } from '@/Engine/Fsm/Entities';
 import type { TFsmParams, TFsmSource, TFsmSourceFactory } from '@/Engine/Fsm/Models';
 
 const factory: TReactiveFactory<TFsmSource, TFsmParams> = ReactiveFactory(FactoryType.FsmSource, FsmSource);
-export const FsmSourceFactory = (): TFsmSourceFactory => ({ ...factory, configToParams: configToParamsFsm });
+// eslint-disable-next-line functional/immutable-data
+export const FsmSourceFactory = (): TFsmSourceFactory => Object.assign(factory, { configToParams: configToParamsFsm });

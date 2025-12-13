@@ -14,12 +14,12 @@ export function AbstractLightWrapper<T extends TLight>(entity: T, params: TLight
   const drive: TLightTransformDrive = LightTransformDrive(params, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
-  const result: TAbstractLightWrapper<T> = {
-    ...wrapper,
+  // eslint-disable-next-line functional/immutable-data
+  const result: TAbstractLightWrapper<T> = Object.assign(wrapper, {
     drive,
     ...withObject3d(entity),
     entity
-  };
+  });
 
   result.destroy$.subscribe((): void => driveToTargetConnector.destroy$.next());
 

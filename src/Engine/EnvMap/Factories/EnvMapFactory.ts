@@ -5,4 +5,5 @@ import type { TEnvMapFactory, TEnvMapParams, TEnvMapWrapper } from '@/Engine/Env
 import { EnvMapWrapper } from '@/Engine/EnvMap/Wrappers';
 
 const factory: TReactiveFactory<TEnvMapWrapper, TEnvMapParams> = ReactiveFactory(FactoryType.EnvMap, EnvMapWrapper);
-export const EnvMapFactory = (): TEnvMapFactory => ({ ...factory, configToParams });
+// eslint-disable-next-line functional/immutable-data
+export const EnvMapFactory = (): TEnvMapFactory => Object.assign(factory, { configToParams });

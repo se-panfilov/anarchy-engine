@@ -28,10 +28,9 @@ export function ReactiveFactoryWithDependencies<T, P, D>(type: FactoryType | str
     entityCreated$.unsubscribe();
   });
 
-  return {
-    ...AbstractFactory(type),
+  return Object.assign(AbstractFactory(type), {
     entityCreated$: entityCreated$.asObservable(),
     create,
     ...destroyable
-  };
+  });
 }

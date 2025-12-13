@@ -80,5 +80,14 @@ export function FsmWrapper(params: TFsmParams): TFsmWrapper {
     send$.unsubscribe();
   });
 
-  return { ...wrapper, entity, type: params.type, changed$: changed$.asObservable(), send$, strategy$, getState, ...destroyable };
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(wrapper, {
+    entity,
+    type: params.type,
+    changed$: changed$.asObservable(),
+    send$,
+    strategy$,
+    getState,
+    ...destroyable
+  });
 }

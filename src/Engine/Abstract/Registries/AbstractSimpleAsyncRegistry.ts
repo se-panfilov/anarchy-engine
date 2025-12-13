@@ -12,9 +12,9 @@ export function AbstractSimpleAsyncRegistry<T>(type: RegistryType): TAbstractRes
   const findByKeyAsync = (key: string): Promise<T | undefined> => getAsyncUniqEntityByKeyAsync(key, abstractSimpleAsyncRegistry);
   const findByKey$ = (key: string): Observable<T> => getUniqEntityByKey$(key, abstractSimpleAsyncRegistry);
 
-  return {
-    ...abstractSimpleAsyncRegistry,
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractSimpleAsyncRegistry, {
     findByKey$,
     findByKeyAsync
-  };
+  });
 }
