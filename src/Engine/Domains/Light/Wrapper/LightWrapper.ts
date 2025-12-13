@@ -1,10 +1,27 @@
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { IAmbientLight, IDirectionalLight, ILightParams, ILightWrapper } from '@/Engine/Domains/Light/Models';
+import { moveableMixin, rotatableMixin } from '@/Engine/Mixins';
+import { withObject3d } from '@/Engine/Mixins/GameObject/WithObject3D';
+import { applyObject3dParams, applyPosition, applyRotation } from '@/Engine/Utils';
 
 import { getAccessors } from './Accessors';
 import { getLight } from './utils';
 
 export function LightWrapper(params: ILightParams): ILightWrapper {
   const entity: IAmbientLight | IDirectionalLight = getLight(params);
-  return { ...AbstractWrapper(entity, WrapperType.Light, params), ...getAccessors(entity), entity };
+
+  const result = {
+    ...AbstractWrapper(entity, WrapperType.Light, params),
+    ...getAccessors(entity),
+    ...moveableMixin(entity),
+    ...rotatableMixin(entity),
+    ...withObject3d(entity),
+    entity
+  };
+
+  applyPosition(params.position, result);
+  applyRotation(params.rotation, result);
+  applyObject3dParams(params, result);
+
+  return result;
 }

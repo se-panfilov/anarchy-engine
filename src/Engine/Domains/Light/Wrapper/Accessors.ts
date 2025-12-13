@@ -1,14 +1,11 @@
 import type { IOrthographicCamera } from '@/Engine/Domains/Camera';
 import type { IAmbientLight, IDirectionalLight, ILightAccessors } from '@/Engine/Domains/Light/Models';
-import { moveableMixin } from '@/Engine/Mixins';
 import type { IWriteable } from '@/Engine/Utils';
 import type { IVector2Wrapper, IVector3Wrapper } from '@/Engine/Wrappers';
 import { Vector2Wrapper, Vector3Wrapper } from '@/Engine/Wrappers';
 
 // eslint-disable-next-line functional/prefer-immutable-types
 export function getAccessors(entity: IWriteable<IAmbientLight | IDirectionalLight>): ILightAccessors {
-  // eslint-disable-next-line functional/immutable-data
-  const setCastShadow = (value: boolean): boolean => (entity.castShadow = value);
   const setControls = (x: number, y: number, z: number): IVector3Wrapper => Vector3Wrapper(entity.position.set(x, y, z));
 
   function setFar(far: number): number | never {
@@ -29,7 +26,7 @@ export function getAccessors(entity: IWriteable<IAmbientLight | IDirectionalLigh
     return (entity.shadow.normalBias = val);
   }
 
-  return { ...moveableMixin(entity), setCastShadow, setControls, setFar, setShadowMapSize, setNormalBias };
+  return { setControls, setFar, setShadowMapSize, setNormalBias };
 }
 
 // function isDirectionalLight(light: IAmbientLight | IDirectionalLight): light is IDirectionalLight {

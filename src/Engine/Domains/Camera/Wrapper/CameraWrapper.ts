@@ -8,7 +8,7 @@ import { moveableMixin, rotatableMixin } from '@/Engine/Mixins';
 import { withObject3d } from '@/Engine/Mixins/GameObject/WithObject3D';
 import { withTags } from '@/Engine/Mixins/Generic/WithTags';
 import type { IWriteable } from '@/Engine/Utils';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { applyObject3dParams, applyPosition, applyRotation, isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { getAccessors } from './Accessors';
 
@@ -45,6 +45,10 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly
     ...withObject3d(entity),
     ...withTags(tags)
   };
+
+  applyPosition(params.position, result);
+  applyRotation(params.rotation, result);
+  applyObject3dParams(params, result);
 
   return result;
 }
