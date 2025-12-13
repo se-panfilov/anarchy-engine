@@ -51,7 +51,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   function addTextToActor(pack: TRegistryPack<TActor>): void {
     const actor: TActor = pack.value;
-    const position: Vector3 = actor.position$.value.clone();
+    const position: Vector3 = actor.drive.getPosition();
     const { x, y, z } = position;
 
     textService.create({
@@ -88,7 +88,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     state.controllers.forEach((controller: GUI | Controller): void => controller.destroy$.next());
     // eslint-disable-next-line functional/immutable-data
     state.controllers = addGuiToActor(actor);
-    const position: Vector3 = actor.position$.value.clone();
+    const position: Vector3 = actor.drive.getPosition();
     const orbitControls: TOrbitControlsWrapper | undefined = controlsRegistry.findByTag('orbit');
     if (isNotDefined(orbitControls)) throw new Error('Orbit controls are not found');
     orbitControls.setDamping(true);

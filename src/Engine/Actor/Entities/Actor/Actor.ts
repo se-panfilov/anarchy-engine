@@ -39,6 +39,7 @@ export function Actor(
   // TODO 8.0.0. MODELS: Make spatial is working
   // TODO 8.0.0. MODELS: Make collisions are working
   // TODO 8.0.0. MODELS: Maybe implement custom delay to ActorDriver to slowdown updates of observable?
+  // TODO 8.0.0. ✅ MODELS: ActorDriver's position$/rotation$/scale$ are BehaviorSubjects, so .value is vulnerable to external changes without .next(). Fix that (convert them to Subject?)
 
   // const { value$: position$, update: updatePosition } = withReactivePosition(model3d);
   // const { value$: rotation$, update: updateRotation } = withReactiveRotation(model3d);

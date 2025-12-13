@@ -1,5 +1,5 @@
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, filter, switchMap } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, filter, ReplaySubject, switchMap } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
 import { ProtectedDriverFacade } from '@/Engine/Abstract';
@@ -13,9 +13,18 @@ import type { TPhysicsActorDriver } from '@/Engine/Physics';
 import { PhysicsActorDriver } from '@/Engine/Physics';
 
 export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: Pick<TActorDependencies, 'kinematicLoopService'>): TActorDriveMixin {
+  //We don't want to use BehaviorSubject here, because it's vulnerable to external changes without .next()
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
+  const positionRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
   const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(params.rotation);
+  const rotationRep$: ReplaySubject<Euler> = new ReplaySubject<Euler>(1);
   const scale$: BehaviorSubject<Vector3 | undefined> = new BehaviorSubject<Vector3 | undefined>(params.scale);
+  const scaleRep$: ReplaySubject<Vector3 | undefined> = new ReplaySubject<Vector3 | undefined>(1);
+
+  position$.subscribe(positionRep$);
+  rotation$.subscribe(rotationRep$);
+  scale$.subscribe(scaleRep$);
+
   const driver$: BehaviorSubject<ActorDriver> = new BehaviorSubject<ActorDriver>(params.driver);
 
   const kinematicDriver: TKinematicActorDriver = KinematicActorDriver(params, kinematicLoopService, driver$);
@@ -49,10 +58,12 @@ export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: 
   const result = {
     ...destroyable,
     driver$,
-    position$,
-    rotation$,
-    scale$,
-    // TODO 8.0.0. MODELS: implement "ProtectedDriveFacade" to hide position$/rotation$/scale$ from external modifications (make them observable?)
+    position$: positionRep$,
+    getPosition: (): Vector3 => position$.value.clone(),
+    rotation$: rotationRep$,
+    getRotation: (): Euler => rotation$.value.clone(),
+    scale$: scaleRep$,
+    getScale: (): Vector3 | undefined => scale$.value?.clone(),
     [ActorDriver.Kinematic]: ProtectedDriverFacade(kinematicDriver),
     [ActorDriver.Physical]: ProtectedDriverFacade(physicsDriver)
   };

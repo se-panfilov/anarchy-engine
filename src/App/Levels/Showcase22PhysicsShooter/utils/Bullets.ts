@@ -163,10 +163,10 @@ export function shootRapidFire(
 ): void {
   let idx: ReturnType<typeof setTimeout> | number = 0;
   mouseService.clickLeftPress$.subscribe((): void => {
-    shoot(actor.position$.value, from.azimuth, from.elevation, meters(shootingParams.speed), bullets);
+    shoot(actor.drive.getPosition(), from.azimuth, from.elevation, meters(shootingParams.speed), bullets);
     // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
     idx = setInterval(() => {
-      shoot(actor.position$.value, from.azimuth, from.elevation, meters(shootingParams.speed), bullets);
+      shoot(actor.drive.getPosition(), from.azimuth, from.elevation, meters(shootingParams.speed), bullets);
     }, shootingParams.cooldownMs);
   });
   mouseService.clickLeftRelease$.subscribe((): void => {
