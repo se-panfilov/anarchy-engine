@@ -976,10 +976,10 @@
           "type": "boolean"
         },
         "linearSpeed": {
-          "type": "number"
+          "$ref": "#/definitions/TMetersPerSecond"
         },
         "angularSpeed": {
-          "type": "number"
+          "$ref": "#/definitions/TMetersPerSecond"
         },
         "linearDirection": {
           "$ref": "#/definitions/Vector3Like"
@@ -989,6 +989,9 @@
         }
       },
       "required": ["isAutoUpdate"]
+    },
+    "TMetersPerSecond": {
+      "type": "number"
     },
     "TSpatialDataConfig": {
       "type": "object",
@@ -1711,13 +1714,13 @@
       "type": "object",
       "properties": {
         "width": {
-          "type": "number"
+          "$ref": "#/definitions/TMeters"
         },
         "height": {
-          "type": "number"
+          "$ref": "#/definitions/TMeters"
         },
         "depth": {
-          "type": "number"
+          "$ref": "#/definitions/TMeters"
         },
         "widthSegments": {
           "type": "number"
@@ -1729,7 +1732,7 @@
           "type": "number"
         },
         "radius": {
-          "type": "number"
+          "$ref": "#/definitions/TMeters"
         },
         "phiStart": {
           "type": "number"
@@ -1745,6 +1748,9 @@
         }
       },
       "additionalProperties": false
+    },
+    "TMeters": {
+      "type": "number"
     },
     "Layers": {
       "type": "object",
