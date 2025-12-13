@@ -17,12 +17,11 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly
   const aspectRatio: number = ambientContext.screenSizeWatcher.latest$.value.ratio || 0;
   const entity: IWriteable<IPerspectiveCamera> = new PerspectiveCamera(fov, aspectRatio, near, far);
 
-  // eslint-disable-next-line functional/prefer-immutable-types
+  const accessors = getAccessors(entity);
+
   function setValues(entity: IWriteable<IPerspectiveCamera>, { width, height }: IScreenSizeValues): void {
     if (isNotDefined(entity)) return;
-    // eslint-disable-next-line functional/immutable-data
-    entity.aspect = width / height;
-    entity.updateProjectionMatrix();
+    accessors.setAspect(width / height);
   }
 
   //init with the values which came before the start of the subscription
@@ -37,7 +36,7 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly
 
   const result = {
     ...AbstractWrapper(entity, WrapperType.Camera, params),
-    ...getAccessors(entity),
+    ...accessors,
     entity,
     ...withMoveByXyzMixin(entity),
     ...withRotationByXyzMixin(entity),
