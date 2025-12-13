@@ -3,4 +3,5 @@
 1.5.0 JS-based config and new templates
 1.7.0 Added support of root folder
 1.8.0 More CRA-related docs support
-1.8.0 Distinct output for each file
+1.9.0 Distinct output for each file ("relativeOutput" config param)
+1.10.0 Allow to generate any files (not only DISCLAIMER, EULA and etc.). Added "outputName" config param.

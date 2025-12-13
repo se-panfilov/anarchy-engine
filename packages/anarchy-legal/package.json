@@ -2,7 +2,7 @@
   "name": "anarchy-legal",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.9.0",
+  "version": "1.10.0",
   "type": "module",
   "sideEffects": false,
   "license": "MIT",

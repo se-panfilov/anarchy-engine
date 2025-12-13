@@ -47,35 +47,29 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
       // Very light validation and narrowing
       const obj = exported as Record<string, unknown>;
 
-      const processConfigSection = (k: 'GENERIC' | TLegalDocumentType): [string, any] | undefined => {
+      const processConfigSection = (k: 'GENERIC' | string): [string, any] | undefined => {
         const v = obj[k];
         if (v === undefined) return undefined;
         if (!v || typeof v !== 'object' || Array.isArray(v)) {
           console.warn(`[warn] anarchy-legal.config: section "${k}" must be an object; got ${typeof v}. Skipped.`);
           return undefined;
         }
-        const { template, messages, relativeOutput } = v as TAnarchyLegalConfigEntry;
+        const { template, messages, relativeOutput, outputName } = v as TAnarchyLegalConfigEntry;
         return [
           k,
           {
             ...(template ? { template } : {}),
             ...(messages ? { messages } : {}),
-            ...(relativeOutput ? { relativeOutput } : {})
+            ...(relativeOutput ? { relativeOutput } : {}),
+            ...(outputName ? { outputName } : {})
           }
         ];
       };
 
-      // Process all sections functionally
-      const allSections = ['GENERIC' as const, ...Object.values(LegalDocumentType)];
-      const processedEntries = allSections.map(processConfigSection).filter((entry): entry is [string, any] => entry !== undefined);
-
+      const processedEntries = Object.keys(obj)
+        .map(processConfigSection)
+        .filter((entry): entry is [string, any] => entry !== undefined);
       const config: TAnarchyLegalConfig = Object.fromEntries(processedEntries);
-
-      // Warn on unknown keys (helps catch typos)
-      const known = new Set<string>(['GENERIC', ...Object.values(LegalDocumentType)]);
-      Object.keys(obj)
-        .filter((k: string): boolean => !known.has(k))
-        .forEach((k: string): void => console.warn(`[warn] anarchy-legal.config: unknown section "${k}" ignored.`));
 
       debugLog(isDebug(), 'config file:', found, 'keys:', Object.keys(config));
       return config;
@@ -278,47 +272,46 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
     return processUntilConverged(input);
   }
 
-  async function generateForType(input: TRenderInput, docType: TLegalDocumentType, options: TTemplateGeneratorOptions): Promise<void> {
+  async function generateForType(input: TRenderInput, key: string, options: TTemplateGeneratorOptions): Promise<void> {
     const genericConfig = input.config['GENERIC'];
-    const specificConfig = input.config[docType];
+    const specificConfig = input.config[key];
 
-    if (!specificConfig?.template || specificConfig.template.trim() === '') throw new Error(`[${docType}] missing "template" in anarchy-legal.config.js`);
+    if (!specificConfig?.template || specificConfig.template.trim() === '') throw new Error(`[${key}] missing "template" in anarchy-legal.config.js`);
 
     const desiredBase: string = specificConfig.template;
 
-    const tplPath: string | undefined = await findTemplateFile(input.templatesDir, docType, options, desiredBase);
-    if (!tplPath) throw new Error(`[${docType}] template "${desiredBase}" not found under templates dir: ${input.templatesDir}`);
+    const tplPath: string | undefined = await findTemplateFile(input.templatesDir, key, options, desiredBase);
+    if (!tplPath) throw new Error(`[${key}] template "${desiredBase}" not found under templates dir: ${input.templatesDir}`);
 
     const tplText: string = await fs.readFile(tplPath, 'utf8');
 
-    const { values, raw } = buildContext(docType, tplText, input.ws.pkg, genericConfig?.messages as any, specificConfig?.messages as any);
+    const { values, raw } = buildContext(key, tplText, input.ws.pkg, genericConfig?.messages, specificConfig?.messages);
 
     const afterSections: string = renderSections(tplText, raw);
 
     const namesAfter: ReadonlySet<string> = collectPlaceholders(afterSections);
     const missing: ReadonlyArray<string> = Array.from(namesAfter).filter((name: string): boolean => values[name] === undefined);
-    if (missing.length) console.warn(`[warn] ${docType}: ${missing.length} placeholders had no value: ${missing.slice(0, 10).join(', ')}${missing.length > 10 ? '…' : ''}`);
+    if (missing.length) console.warn(`[warn] ${key}: ${missing.length} placeholders had no value: ${missing.slice(0, 10).join(', ')}${missing.length > 10 ? '…' : ''}`);
 
     const rendered: string = renderVariables(afterSections, values);
 
     const relOut: string | undefined = specificConfig.relativeOutput?.trim();
-    if (relOut && path.isAbsolute(relOut)) console.warn(`[warn] ${docType}: relativeOutput is absolute ("${relOut}"); it will be used as-is.`);
+    if (relOut && path.isAbsolute(relOut)) console.warn(`[warn] ${key}: relativeOutput is absolute ("${relOut}"); it will be used as-is.`);
     const targetDir: string = relOut ? path.resolve(input.outDir, relOut) : input.outDir;
 
-    const outName: string = `${docType}.md`;
+    const baseName: string = (specificConfig.outputName?.trim() || key).replace(/\s+$/, '');
+
+    const outName: string = `${baseName}.md`;
     const outPath: string = path.join(targetDir, outName);
     await fs.mkdir(path.dirname(outPath), { recursive: true });
     await fs.writeFile(outPath, rendered, 'utf8');
-    console.log(`${docType}.md written -> ${outPath}`);
+    console.log(`${baseName}.md written -> ${outPath}`);
   }
 
-  async function generateAll(renderInput: TRenderInput, options: TTemplateGeneratorOptions): Promise<void> {
-    await (Object.values(LegalDocumentType) as ReadonlyArray<TLegalDocumentType>).reduce<Promise<void>>(async (prev: Promise<void>, docType: TLegalDocumentType): Promise<void> => {
-      await prev;
-      if (renderInput.types.has(docType)) {
-        await generateForType(renderInput, docType, options);
-      }
-    }, Promise.resolve());
+  async function generateAll(renderInput: TRenderInput & { keys: ReadonlySet<string> }, options: TTemplateGeneratorOptions): Promise<void> {
+    for (const k of renderInput.keys) {
+      await generateForType(renderInput, k, options);
+    }
   }
 
   // Return only those doc types that are explicitly present in the config object
@@ -331,19 +324,31 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
   }
 
   // Ensure every configured doc type has a non-empty "template" field
-  function assertTemplatesPresent(config: TAnarchyLegalConfig, types: ReadonlySet<TLegalDocumentType>): void | never {
-    const missing: ReadonlyArray<string> = Array.from(types).filter((t: TLegalDocumentType): boolean => {
-      const sec: TAnarchyLegalConfigEntry | undefined = config[t];
-      const tpl: string | undefined = sec?.template;
-      return typeof tpl !== 'string' || tpl.trim() === '';
-    });
+  function assertTemplatesPresent(config: TAnarchyLegalConfig, keys: ReadonlySet<string>): void | never {
+    const missing: string[] = [];
+    for (const k of keys) {
+      const tpl = config[k]?.template;
+      if (typeof tpl !== 'string' || tpl.trim() === '') missing.push(k);
+    }
 
-    if (missing.length) throw new Error(`anarchy-legal.config.js: "template" is required for sections: ${missing.join(', ')}`);
+    if (missing.length) {
+      throw new Error(`anarchy-legal.config.js: "template" is required for sections: ${missing.join(', ')}`);
+    }
+  }
+
+  function getConfiguredDocKeys(config: TAnarchyLegalConfig): ReadonlySet<string> {
+    const set = new Set<string>();
+    for (const k of Object.keys(config || {})) {
+      if (k === 'GENERIC') continue;
+      set.add(k);
+    }
+    return set;
   }
 
   return {
     assertTemplatesPresent,
     generateAll,
+    getConfiguredDocKeys,
     getConfiguredDocTypes,
     readConfig
   };

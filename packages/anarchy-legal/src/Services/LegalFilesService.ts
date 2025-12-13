@@ -14,7 +14,7 @@ export function LegalFilesService(): TLegalFilesService {
   const repoUtilsService: TRepoUtilsService = RepoUtilsService();
   const legalFilesUtilsService: TLegalFilesUtilsService = LegalFilesUtilsService(repoUtilsService);
   const { debugLog, findMonorepoRoot, resolveWorkspaceFromArg, loadWorkspaces } = repoUtilsService;
-  const { assertTemplatesPresent, getConfiguredDocTypes, generateAll, readConfig } = legalFilesUtilsService;
+  const { assertTemplatesPresent, getConfiguredDocKeys, generateAll, readConfig } = legalFilesUtilsService;
 
   const options: TTemplateGeneratorOptions = {
     templateExtension: '.md',
@@ -66,44 +66,33 @@ export function LegalFilesService(): TLegalFilesService {
     const outDir: string = path.isAbsolute(argv.out as string) ? (argv.out as string) : path.resolve(process.cwd(), String(argv.out));
     debugLog(isDebug, 'out dir:', outDir);
 
-    // Types from CLI (may be absent → all)
-    const cliTypes: ReadonlySet<TLegalDocumentType> = ((): Set<TLegalDocumentType> => {
-      if (!argv.types) return new Set(Object.values(LegalDocumentType));
-      const parts: ReadonlyArray<string> = String(argv.types)
-        .split(',')
-        .map((s: string): string => s.trim().toUpperCase())
-        .filter(Boolean);
-      const set = new Set<TLegalDocumentType>();
-      parts.forEach((part: string): void => {
-        if ((Object.values(LegalDocumentType) as ReadonlyArray<string>).includes(part)) set.add(part as TLegalDocumentType);
-        else console.warn(`[warn] Unknown doc type "${part}" ignored. Known: ${Object.values(LegalDocumentType).join(', ')}`);
-      });
-      return set.size ? set : new Set(Object.values(LegalDocumentType));
-    })();
-
-    // Read config (optional)
     const config: TAnarchyLegalConfig = await readConfig(ws.dir);
+    const configKeys: ReadonlyArray<string> = Array.from(getConfiguredDocKeys(config));
 
-    // NEW: only generate those explicitly present in the config
-    const configTypes: ReadonlySet<TLegalDocumentType> = getConfiguredDocTypes(config);
-
-    // Intersect CLI filter with configured types
-    const typesSet = new Set<TLegalDocumentType>([...cliTypes].filter((t: TLegalDocumentType): boolean => configTypes.has(t)));
-
-    if (!typesSet.size) {
+    if (!configKeys.length) {
       console.log('Nothing to generate: no doc types configured (or filtered out by --types).');
       return;
     }
 
-    // NEW: validate that every selected type has a template
-    assertTemplatesPresent(config, typesSet);
+    const cliKeys: ReadonlySet<string> = ((): Set<string> => {
+      if (!argv.types) return new Set(configKeys);
+      const parts: ReadonlyArray<string> = String(argv.types)
+        .split(',')
+        .map((s: string): string => s.trim())
+        .filter(Boolean);
+      const ok = new Set(configKeys);
+      return new Set(parts.filter((p: string): boolean => ok.has(p)));
+    })();
 
-    const configKeys: ReadonlyArray<string> = Object.keys(config ?? {});
-    if (configKeys.length) debugLog(isDebug, 'config keys:', configKeys);
-    else debugLog(isDebug, 'config: <none>');
+    if (!cliKeys.size) {
+      console.log('Nothing to generate: all requested sections were filtered out or missing in config.');
+      return;
+    }
+
+    assertTemplatesPresent(config, cliKeys);
 
     // Go
-    await generateAll({ ws, outDir, templatesDir, types: typesSet, config }, options);
+    await generateAll({ ws, outDir, templatesDir, keys: cliKeys, config }, options);
   }
 
   return { generate };
