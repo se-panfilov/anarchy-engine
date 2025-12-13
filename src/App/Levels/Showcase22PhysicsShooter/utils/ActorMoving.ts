@@ -1,6 +1,6 @@
 import { distinctUntilChanged, map } from 'rxjs';
 import type { Vector3 } from 'three';
-import { degToRad } from 'three/src/math/MathUtils';
+import { degToRad, radToDeg } from 'three/src/math/MathUtils';
 
 import type { TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService, TRadians } from '@/Engine';
 import { getAzimuthRadFromDirection, getElevationRadFromDirection, KeyCode } from '@/Engine';
@@ -42,7 +42,10 @@ export function startMoveActorWithKeyboard(actorW: TActorWrapperAsync, keyboardS
     const state: TActorMoveState = getActorMoveState(keyStates, actorMovingParams);
     actorW.kinematic.setLinearSpeed(state.currentSpeed);
     actorW.kinematic.setLinearAzimuthRad(baseAzimuthRad + state.azimuthDeviationLeftRad + state.azimuthDeviationRightRad + state.azimuthDeviationBackwardRad);
-    // console.log(state);
+    console.log(
+      radToDeg(baseAzimuthRad + state.azimuthDeviationLeftRad + state.azimuthDeviationRightRad + state.azimuthDeviationBackwardRad),
+      `${keyStates.Forward ? 'Forward' : ''} ${keyStates.Left ? 'Left' : ''} ${keyStates.Right ? 'Right' : ''} ${keyStates.Backward ? 'Backward' : ''}`.trim()
+    );
   }, 40);
 }
 
@@ -77,8 +80,6 @@ function getActorMoveState(keyStates: TMoveKeysState, { speed, azimuthAngleDevia
     currentSpeed = 0;
     azimuthDeviationBackwardRad = 0;
   }
-
-  console.log(`${keyStates.Forward ? 'Forward' : ''} ${keyStates.Left ? 'Left' : ''} ${keyStates.Right ? 'Right' : ''} ${keyStates.Backward ? 'Backward' : ''}`);
 
   return { currentSpeed, azimuthDeviationLeftRad, azimuthDeviationRightRad, azimuthDeviationBackwardRad };
 }
