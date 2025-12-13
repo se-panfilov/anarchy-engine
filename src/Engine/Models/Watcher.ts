@@ -6,5 +6,5 @@ export interface Watcher<T> {
   readonly value$: Subject<T>;
   readonly start$: Subject<void>;
   readonly stop$: Subject<void>;
-  readonly destroyed$: Subject<void>;
+  readonly destroy$: Subject<void>;
 }

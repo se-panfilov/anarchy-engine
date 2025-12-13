@@ -7,19 +7,19 @@ export function AbstractWatcher<T>(type: string, start: () => void, stop: () => 
   const value$: Subject<T> = new Subject<T>();
   const start$: Subject<void> = new Subject<void>();
   const stop$: Subject<void> = new Subject<void>();
-  const destroyed$: Subject<void> = new Subject<void>();
+  const destroy$: Subject<void> = new Subject<void>();
 
   start$.subscribe(start);
   stop$.subscribe(stop);
 
-  destroyed$.subscribe(() => {
+  destroy$.subscribe(() => {
     start$.unsubscribe();
     start$.complete();
     stop$.unsubscribe();
     stop$.complete();
     value$.complete();
-    destroyed$.unsubscribe();
-    destroyed$.complete();
+    destroy$.unsubscribe();
+    destroy$.complete();
   });
 
   return {
@@ -38,8 +38,8 @@ export function AbstractWatcher<T>(type: string, start: () => void, stop: () => 
     get stop$(): Subject<void> {
       return stop$;
     },
-    get destroyed$(): Subject<void> {
-      return destroyed$;
+    get destroy$(): Subject<void> {
+      return destroy$;
     }
   };
 }
