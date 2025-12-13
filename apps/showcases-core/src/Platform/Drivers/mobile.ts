@@ -10,8 +10,8 @@ export function Driver(): TPlatformDriver {
     throw new Error('[MOBILE] closeApp is not supported on this platform');
   }
 
-  function getChromeVersion(): string {
-    console.log('XXX [MOBILE]', 'getChromeVersion');
+  function getBrowserVersion(): string {
+    console.log('XXX [MOBILE]', 'getBrowserVersion');
     return 'XXX [MOBILE] mocked chrome version';
   }
 
@@ -62,7 +62,7 @@ export function Driver(): TPlatformDriver {
   return {
     closeApp,
     getAppSettings,
-    getChromeVersion,
+    getBrowserVersion,
     getLegalDocs,
     getNodeVersion,
     getPlatformVersion,

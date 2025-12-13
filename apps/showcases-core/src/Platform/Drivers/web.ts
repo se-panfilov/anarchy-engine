@@ -15,8 +15,8 @@ export function Driver(): TPlatformDriver {
     throw new Error('[WEB] closeApp is not supported on this platform');
   }
 
-  // TODO DESKTOP: Replace everywhere: should be getBrowserVersion
-  function getChromeVersion(): string {
+  // TODO DESKTOP: implement this
+  function getBrowserVersion(): string {
     const userAgent = navigator.userAgent;
     const chromeMatch = userAgent.match(/Chrome\/([0-9.]+)/);
     return chromeMatch ? chromeMatch[1] : 'Chrome not detected';
@@ -87,7 +87,7 @@ export function Driver(): TPlatformDriver {
   return {
     closeApp,
     getAppSettings,
-    getChromeVersion,
+    getBrowserVersion,
     getLegalDocs,
     getNodeVersion,
     getPlatformVersion,

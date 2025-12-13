@@ -4,7 +4,7 @@ import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcas
 export type TPlatformDriver = Readonly<{
   closeApp: () => void;
   getAppSettings: () => Promise<TShowcaseGameSettings>;
-  getChromeVersion: () => string;
+  getBrowserVersion: () => string;
   getLegalDocs: (options: TLoadDocPayload) => Promise<TLegalDoc>;
   getNodeVersion: () => string;
   getPlatformVersion: () => string;

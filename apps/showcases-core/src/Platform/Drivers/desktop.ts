@@ -8,7 +8,7 @@ import type { TPlatformDriver } from '@/Models';
 export function Driver(): TPlatformDriver {
   const closeApp = (): void => window[platformApiName].closeApp();
   const getAppSettings = (): Promise<TShowcaseGameSettings> => window[platformApiName].getAppSettings();
-  const getChromeVersion = (): string => window[platformApiName].chrome();
+  const getBrowserVersion = (): string => window[platformApiName].chrome();
   const getLegalDocs = (options: TLoadDocPayload): Promise<TLegalDoc> => window[platformApiName].getLegalDocs(options);
   const getNodeVersion = (): string => window[platformApiName].node();
   const getPlatformVersion = (): string => window[platformApiName].electron();
@@ -21,7 +21,7 @@ export function Driver(): TPlatformDriver {
   return {
     closeApp,
     getAppSettings,
-    getChromeVersion,
+    getBrowserVersion,
     getLegalDocs,
     getNodeVersion,
     getPlatformVersion,
