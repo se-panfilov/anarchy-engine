@@ -1,29 +1,18 @@
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs';
-import { Vector3 } from 'three';
+import type { Vector3 } from 'three';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import type { TActor, TActorDependencies, TActorEntities, TActorParams } from '@/Engine/Actor/Models';
+import { ActorTransformDrive } from '@/Engine/Actor/TransformDrive';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
 import { withCollisions } from '@/Engine/Collisions';
 import type { TModel3d } from '@/Engine/Models3d';
 import { withModel3d } from '@/Engine/Models3d';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
 import { withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
-import type {
-  TDriveToModel3dConnector,
-  TInstantTransformAgent,
-  TKinematicTransformAgent,
-  TPhysicsTransformAgent,
-  TTransformAgentParams,
-  TTransformAgents,
-  TTransformDrive,
-  TTransformDriveParams
-} from '@/Engine/TransformDrive';
-import { DriveToModel3dConnector, TransformAgent, TransformDrive } from '@/Engine/TransformDrive';
-import { InstantTransformAgent } from '@/Engine/TransformDrive/Agents/InstantTransformAgent';
-import { KinematicTransformAgent } from '@/Engine/TransformDrive/Agents/KinematicTransformAgent';
-import { PhysicsTransformAgent } from '@/Engine/TransformDrive/Agents/PhysicsTransformAgent';
+import type { TDriveToModel3dConnector, TTransformDrive } from '@/Engine/TransformDrive';
+import { DriveToModel3dConnector } from '@/Engine/TransformDrive';
 import { isDefined } from '@/Engine/Utils';
 
 export function Actor(
@@ -34,13 +23,7 @@ export function Actor(
   const model3d: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
 
   // Init TransformDrive
-  const agentParams: TTransformAgentParams = { position: params.position, rotation: params.rotation, scale: params.scale ?? new Vector3(1, 1, 1) };
-  const driveParams: TTransformDriveParams = { activeAgent: params.agent ?? TransformAgent.Instant };
-  const kinematicTransformAgent: TKinematicTransformAgent = KinematicTransformAgent(agentParams, kinematicLoopService);
-  const physicsTransformAgent: TPhysicsTransformAgent = PhysicsTransformAgent(agentParams);
-  const instantTransformAgent: TInstantTransformAgent = InstantTransformAgent(agentParams);
-  const transformAgents: TTransformAgents = { [TransformAgent.Kinematic]: kinematicTransformAgent, [TransformAgent.Physical]: physicsTransformAgent, [TransformAgent.Instant]: instantTransformAgent };
-  const drive: TTransformDrive = TransformDrive(driveParams, transformAgents);
+  const drive: TTransformDrive = ActorTransformDrive(params, kinematicLoopService);
   const driveToModel3dConnector: TDriveToModel3dConnector = DriveToModel3dConnector(drive, model3d);
 
   // TODO CWP:
