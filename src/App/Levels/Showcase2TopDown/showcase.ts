@@ -20,7 +20,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const actorDefaultParams: Omit<TActorParams, 'model3dSource'> = {
       position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
-      castShadow: true,
       spatial: { grid, isAutoUpdate: false }
     };
 
