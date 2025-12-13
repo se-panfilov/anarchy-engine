@@ -33,8 +33,9 @@ export function FilesService(app: App): TFilesService {
 
   async function writeFile(fileName: string, dir: AllowedSystemFolders, content: string): Promise<boolean> | never {
     const folder: string = app.getPath(dir);
-    const finalPath: string = `${folder}/${fileName}`;
-    const tmpPath: string = `${fileName}__${dir}__${nanoid()}.tmp`;
+    const baseName: string = path.basename(fileName);
+    const finalPath: string = path.join(folder, baseName);
+    const tmpPath: string = path.join(folder, `.${baseName}.${nanoid()}.tmp`);
 
     try {
       await mkdir(folder, { recursive: true });
