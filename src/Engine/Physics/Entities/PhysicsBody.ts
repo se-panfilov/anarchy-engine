@@ -23,7 +23,7 @@ export function PhysicsBody(params: TPhysicsBodyParams, { world }: TPhysicsDepen
     if (isDefined(entities.rigidBody)) world.removeRigidBody(entities.rigidBody);
     // eslint-disable-next-line functional/immutable-data
     (entities as TWriteable<TPhysicsBodyEntities>).rigidBody = null as any;
-    if (isDefined(entities.collider)) world.removeCollider(entities.collider, false);
+    if (isDefined(entities.collider)) world.removeCollider(entities.collider, true);
     // eslint-disable-next-line functional/immutable-data
     (entities as TWriteable<TPhysicsBodyEntities>).collider = null as any;
 
