@@ -12,7 +12,7 @@
   "cameras": [],
   "lights": [
     {
-      "type": "ambient",
+      "type": "Ambient",
       "color": "#ffffff",
       "intensity": 0.5,
       "castShadow": false,
@@ -20,7 +20,7 @@
       "tags": []
     },
     {
-      "type": "directional",
+      "type": "Directional",
       "color": "#ffffff",
       "intensity": 0.5,
       "castShadow": true,
