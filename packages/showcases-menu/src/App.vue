@@ -4,7 +4,7 @@ import './assets/style.scss';
 import RouterView from '@Showcases/Menu/components/RouterView.vue';
 import { eventsService, vueTranslationService } from '@Showcases/Menu/services';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
-import { Locales } from '@Showcases/Shared';
+import { ShowcasesLocales } from '@Showcases/Shared';
 import type { Subscription } from 'rxjs';
 import { onMounted, onUnmounted } from 'vue';
 
@@ -14,7 +14,7 @@ const { $t } = vueTranslationService;
 
 // TODO DESKTOP: DEBUG CODE
 setInterval(() => {
-  vueTranslationService.locale$.next(vueTranslationService.locale$.value === Locales.NL ? Locales.EN : Locales.NL);
+  vueTranslationService.locale$.next(vueTranslationService.locale$.value === ShowcasesLocales['nl-NL'] ? ShowcasesLocales['en-US'] : ShowcasesLocales['nl-NL']);
 }, 1500);
 
 const translated = $t('menu.start');

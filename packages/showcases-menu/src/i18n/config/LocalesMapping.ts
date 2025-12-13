@@ -1,7 +1,7 @@
 import type { TLocalesMapping } from '@Anarchy/i18n';
-import type { Locales } from '@Showcases/Shared';
+import { enUs, nlNl } from '@Anarchy/i18n';
 
-export const locales: TLocalesMapping<Locales> = {
-  en: () => import('@Showcases/Menu/i18n/locales/en.json').then((m) => m.default ?? m),
-  nl: () => import('@Showcases/Menu/i18n/locales/nl.json').then((m) => m.default ?? m)
+export const locales: TLocalesMapping = {
+  'en-US': () => import(`@Showcases/Menu/i18n/locales/${enUs.id}.json`).then((m) => m.default ?? m),
+  'nl-NL': () => import(`@Showcases/Menu/i18n/locales/${nlNl.id}.json`).then((m) => m.default ?? m)
 } as const;
