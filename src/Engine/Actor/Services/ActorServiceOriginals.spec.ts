@@ -1,4 +1,4 @@
-import { beforeAll, beforeEach, describe } from 'vitest';
+import { beforeAll, describe } from 'vitest';
 
 import type { TActor, TActorConfigToParamsDependencies, TActorParams, TActorService } from '@/Engine/Actor';
 import { configToParams } from '@/Engine/Actor/Adapters';
@@ -13,34 +13,31 @@ import { mockModel3dConfig } from '@/Tests/Mocks/MockModel3dConfig';
 import { mockConfig } from '@/Tests/Mocks/MockSpaceConfig';
 import { validateCommonServiceBehavior } from '@/Tests/Suits/ValidateServiceOriginalsTestSuite';
 
+async function getServiceAndParams(spaceService: TSpaceService, canvas: TAppCanvas): Promise<{ service: TActorService; params: TActorParams }> {
+  // eslint-disable-next-line functional/immutable-data
+  (mockConfig.resources as TWriteable<TSpaceConfigResources>).materials = [mockMaterialConfig];
+  // eslint-disable-next-line functional/immutable-data
+  (mockConfig.entities as TWriteable<TSpaceConfigEntities>).models3d = [mockModel3dConfig];
+  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, mockConfig);
+  const dependencies: TActorConfigToParamsDependencies = {
+    models3dService: space.services.models3dService,
+    fsmService: space.services.fsmService,
+    spatialGridRegistry: space.services.spatialGridService.getRegistry()
+  };
+
+  return { service: space.services.actorService, params: configToParams(mockActorConfig, dependencies) };
+}
+
 describe('ActorServiceOriginals', () => {
   let spaceService: TSpaceService;
   let canvas: TAppCanvas;
-  let service: TActorService;
-  let dependencies: TActorConfigToParamsDependencies;
-  let space: TSpace;
 
   beforeAll(() => {
     spaceService = SpaceService();
     canvas = getMockCanvas();
   });
 
-  beforeEach(async () => {
-    if (!space || !dependencies || !service) {
-      // eslint-disable-next-line functional/immutable-data
-      (mockConfig.resources as TWriteable<TSpaceConfigResources>).materials = [mockMaterialConfig];
-      (mockConfig.entities as TWriteable<TSpaceConfigEntities>).models3d = [mockModel3dConfig];
-      space = await spaceService.buildSpaceFromConfig(canvas, mockConfig);
-      dependencies = {
-        models3dService: space.services.models3dService,
-        fsmService: space.services.fsmService,
-        spatialGridRegistry: space.services.spatialGridService.getRegistry()
-      };
-      service = space.services.actorService;
-    }
-  });
-
-  describe('Make sure that the registry operates with original object, not copies ', () => {
-    validateCommonServiceBehavior<TActor, TActorParams>(service, () => configToParams(mockActorConfig, dependencies));
+  describe('Make sure that the registry operates with original object, not copies ', async () => {
+    validateCommonServiceBehavior<TActor, TActorParams>(() => getServiceAndParams(spaceService, canvas));
   });
 });

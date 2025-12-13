@@ -28,20 +28,23 @@ vi.mock('three/examples/jsm/loaders/DRACOLoader.js', () => {
 });
 
 // TODO 12-0-0: Move to the right place
-export function validateCommonServiceBehavior<T extends TRegistrable, P>(service: TAnyMockService<T, P>, getParams: () => P): void {
-  let params: P;
+export function validateCommonServiceBehavior<T extends TRegistrable, P>(getData: () => Promise<{ service: TAnyMockService<T, P>; params: P }>): void {
+  afterEach(() => {
+    // const { service, params } = await getData();
+    // return getService().getRegistry().clear();
+  });
 
-  afterEach(() => service.getRegistry().clear());
-
-  it('should return the same object from registry', () => {
-    params = getParams();
+  it('should return the same object from registry', async () => {
+    const { service, params } = await getData();
     const returnedEntity: T = service.create(params);
     const foundEntity: T | undefined = service.getRegistry().find((e: T): boolean => e.id === returnedEntity.id);
     expectSame(returnedEntity, foundEntity);
   });
 
-  it('should modify obj from a registry when modify the returned one', () => {
+  it('should modify obj from a registry when modify the returned one', async () => {
     // setup
+    const { service, params } = await getData();
+
     const newName: string = 'newName';
     const returnedEntity: T = service.create(params);
     const foundEntity: T | undefined = service.getRegistry().find((e: T): boolean => e.id === returnedEntity.id);
@@ -57,8 +60,10 @@ export function validateCommonServiceBehavior<T extends TRegistrable, P>(service
     expect((foundEntity as any)?.someNewPropWhatever).toBe(newName);
   });
 
-  it('should modify obj the returned obj when modify the one from a registry', () => {
+  it('should modify obj the returned obj when modify the one from a registry', async () => {
     // setup
+    const { service, params } = await getData();
+
     const newName: string = 'newName';
     const returnedEntity: T = service.create(params);
     const foundEntity: T | undefined = service.getRegistry().find((e: T): boolean => e.id === returnedEntity.id);
