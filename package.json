@@ -24,6 +24,7 @@
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit",
     "e2e": "playwright test",
+    "e2e:debug": "PWDEBUG=1 npx playwright test",
     "e2e:with-lean": "playwright test && npm run e2e:clean-metadate",
     "e2e:headed": "npm run e2e -- --headed",
     "e2e:update": "npm run e2e -- --update-snapshots",
