@@ -1,3 +1,3 @@
-export * from './CreateEntities';
-export * from './LoadResources';
-export * from './SpaceServicesLauncher';
+export * from './CreateEntitiesUtils';
+export * from './LoadResourcesUtils';
+export * from './SpaceServicesUtils';
