@@ -3,6 +3,7 @@
   "author": "S. Panfilov",
   "private": true,
   "version": "1.0.1",
+  "description": "Desktop application for Anarchy Engine showcases",
   "main": "dist/electron-main.js",
   "type": "module",
   "license": "MIT",
@@ -30,6 +31,7 @@
       "dist/preload.js",
       "game-dist/**"
     ],
+    "asar": true,
     "mac": {
       "target": [
         "dmg",
