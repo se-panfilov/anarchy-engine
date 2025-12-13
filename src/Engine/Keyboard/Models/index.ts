@@ -1,4 +1,5 @@
 export type * from './TGameKey';
+export type * from './TKeyboardLoop';
 export type * from './TKeyboardRegistry';
 export type * from './TKeyboardRegistryRecords';
 export type * from './TKeyboardRegistryValues';

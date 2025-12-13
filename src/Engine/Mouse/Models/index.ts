@@ -3,6 +3,7 @@ export type * from './TMouseClickWatcherFactory';
 export type * from './TMouseClickWatcherParams';
 export type * from './TMouseClickWatcherRegistry';
 export type * from './TMouseEvent';
+export type * from './TMouseLoop';
 export type * from './TMousePositionPerformanceOptions';
 export type * from './TMousePositionWatcher';
 export type * from './TMousePositionWatcherDependencies';

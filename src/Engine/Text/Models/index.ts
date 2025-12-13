@@ -15,6 +15,7 @@ export type * from './TTextConfig';
 export type * from './TTextCssProps';
 export type * from './TTextDependencies';
 export type * from './TTextFactory';
+export type * from './TTextLoop';
 export type * from './TTextParams';
 export type * from './TTextRegistry';
 export type * from './TTextRenderer';

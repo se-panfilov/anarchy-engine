@@ -1,4 +1,5 @@
 export type * from './TIntersectionEvent';
+export type * from './TIntersectionsLoop';
 export type * from './TIntersectionsWatcher';
 export type * from './TIntersectionsWatcherConfig';
 export type * from './TIntersectionsWatcherFactory';

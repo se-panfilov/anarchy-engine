@@ -3,6 +3,7 @@ export type * from './TControlsConfig';
 export type * from './TControlService';
 export type * from './TControlsFactory';
 export type * from './TControlsFactoryParams';
+export type * from './TControlsLoop';
 export type * from './TControlsParams';
 export type * from './TControlsRegistry';
 export type * from './TControlsWrapper';
