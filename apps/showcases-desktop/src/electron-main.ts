@@ -1,17 +1,14 @@
-import { existsSync } from 'node:fs';
-
 import { platformApiChannel } from '@Desktop/Constants';
 import { appCrashHandler, appWindowAllClosedHandler, windowNavigateHandler, windowSecondInstanceHandler } from '@Desktop/EventHandlers';
-import { handleAppRequest } from '@Desktop/Services';
+import type { TDesktopAppSettings } from '@Desktop/Models';
+import { handleAppRequest, WindowService } from '@Desktop/Services';
 import { getDisplayInfo, hideMenuBar, noZoom, turnOffMenuBarAndHotkeys } from '@Desktop/Utils';
-import { app, BrowserWindow, dialog, ipcMain } from 'electron';
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
+import type { BrowserWindow } from 'electron';
+import { app, ipcMain } from 'electron';
 
-const __filename: string = fileURLToPath(import.meta.url);
-const __dirname: string = dirname(__filename);
-
-const isOpenDevTools: boolean = true;
+const desktopAppSettings: TDesktopAppSettings = {
+  isOpenDevTools: true
+};
 
 // TODO CWP
 // TODO DESKTOP: Save/Load with files?
@@ -25,55 +22,13 @@ const isOpenDevTools: boolean = true;
 // TODO DESKTOP: We need e2e eventually
 // TODO DESKTOP: Add .env files for different platforms (macos, windows, linux).
 
-function getIndexHtmlPath(): string {
-  const path: string = join(__dirname, 'dist-desktop', 'index.html');
-
-  if (!existsSync(path)) {
-    const errMsg: string = `[Desktop Main]: index.html not found at: ${path}`;
-    console.error(errMsg);
-    dialog.showErrorBox('[Desktop Main]: Startup Error', errMsg);
-    app.quit();
-  }
-
-  return path;
-}
-
-function createWindow(width: number, height: number): BrowserWindow {
-  const win = new BrowserWindow({
-    width,
-    height,
-    // TODO DESKTOP: Is Fullscreen or not should depend on the app settings
-    // TODO DESKTOP: Change default fullscreen mode to "true"
-    fullscreen: false,
-    autoHideMenuBar: true,
-    useContentSize: true,
-    hiddenInMissionControl: true,
-    webPreferences: {
-      contextIsolation: true,
-      preload: join(__dirname, 'preload.js'),
-      nodeIntegration: false //Must be off fore security reasons
-    }
-  });
-
-  const indexPath: string = getIndexHtmlPath();
-  win.loadFile(indexPath);
-
-  if (isOpenDevTools) win.webContents.openDevTools();
-
-  // Hot reloading (in development mode)
-  // try {
-  //   require('electron-reloader')(module);
-  // } catch (_) {}
-
-  return win;
-}
-
+const windowService = WindowService();
 ipcMain.handle(platformApiChannel, handleAppRequest);
 
 app.whenReady().then((): void => {
   // TODO DESKTOP: use "getDisplayInfo()" as default settings, prioritize saved user settings and use hardcoded fallback settings. Same for fullscreen mode
   const { width, height } = getDisplayInfo();
-  const win: BrowserWindow = createWindow(width, height);
+  const win: BrowserWindow = windowService.createWindow(width, height, desktopAppSettings);
 
   appWindowAllClosedHandler(app);
   turnOffMenuBarAndHotkeys();
