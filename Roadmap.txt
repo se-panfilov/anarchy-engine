@@ -43,6 +43,7 @@ Roadmap:
 - 23.0.x Shaders
 
 Thoughts:
+- Maybe: use "as const" everywhere (hard fixed types), especially configs and params;
 - Maybe: Replace all arrays (with no allowed duplicates) with Maps (for performance)?;
 - Maybe: Try to replace spread operator with Object.assign everywhere (for performance and make sure that we are not creating new objects)? Check with AbstractEntity first;
 - Maybe: Add domain for timers (based on web workers);
