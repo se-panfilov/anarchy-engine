@@ -1,5 +1,5 @@
 import { isNotDefined } from '@Anarchy/Shared/Utils';
-import type { TShowcaseGameSettings } from '@Showcases/Shared';
+import type { TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared';
 
 import { platformApiService } from '@/Services';
 
@@ -21,4 +21,4 @@ export async function saveSettings(settings: TShowcaseGameSettings): Promise<voi
 
 export const loadSettings = async (): Promise<TShowcaseGameSettings> => platformApiService.loadAppSettings();
 // TODO DESKTOP: fix return type of "loadLegalDocs"
-export const loadLegalDocs = async (): Promise<string> => platformApiService.loadLegalDocs();
+export const loadLegalDocs = async (options: TLoadDocPayload): Promise<string> => platformApiService.loadLegalDocs(options);

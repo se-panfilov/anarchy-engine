@@ -1,4 +1,4 @@
-import type { TShowcaseGameSettings } from '@Showcases/Shared';
+import type { TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared';
 
 import type { TPlatformDriver } from '@/Models';
 
@@ -16,8 +16,8 @@ export function Driver(): TPlatformDriver {
   }
 
   // TODO DESKTOP: fix return type of "loadLegalDocs"
-  const loadLegalDocs = (): Promise<string> => {
-    console.log('XXX [MOBILE]', 'loadLegalDocs');
+  const loadLegalDocs = (options: TLoadDocPayload): Promise<string> => {
+    console.log('XXX [MOBILE]', 'loadLegalDocs', options);
     return Promise.resolve({} as any);
   };
 

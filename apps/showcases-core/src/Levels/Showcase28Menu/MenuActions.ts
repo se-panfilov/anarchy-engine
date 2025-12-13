@@ -1,6 +1,6 @@
 import { isNotDefined } from '@Anarchy/Shared/Utils';
-import type { TFromMenuEvent, TShowcaseGameSettings, TToMenuEvent } from '@Showcases/Shared';
-import { FromMenuEvents, ToMenuEvents } from '@Showcases/Shared';
+import type { TFromMenuEvent, TLoadDocPayload, TShowcaseGameSettings, TToMenuEvent } from '@Showcases/Shared';
+import { FromMenuEvents, isLoadDocPayload, isSettings, ToMenuEvents } from '@Showcases/Shared';
 import type { Observable, Subject } from 'rxjs';
 
 import { closeMainMenu, loadLegalDocs, loadSettings, saveSettings } from '@/Levels/Showcase28Menu/MainMenuService';
@@ -18,6 +18,7 @@ export function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEve
       }
       case FromMenuEvents.SaveSettings: {
         if (isNotDefined(event.payload)) throw new Error(`[Showcase]: No settings provided for saving`);
+        if (isSettings(event.payload)) throw new Error(`[Showcase]: payload is not valid settings: ${event.payload}`);
         //Better to validate the payload type here
         // TODO DESKTOP: this code is async, hmm... What should we do with the UI?
         saveSettings(event.payload as TShowcaseGameSettings);
@@ -40,8 +41,11 @@ export function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEve
       }
       case FromMenuEvents.LoadLegalDocs: {
         // TODO DESKTOP: this code is async, hmm... What should we do with the UI?
+
+        if (isNotDefined(event.payload)) throw new Error(`[Showcase]: No legal docs params provided`);
+        if (isLoadDocPayload(event.payload)) throw new Error(`[Showcase]: payload is not valid legal docs params: ${event.payload}`);
         try {
-          legalDocs = await loadLegalDocs();
+          legalDocs = await loadLegalDocs(event.payload as TLoadDocPayload);
         } catch (error) {
           throw new Error(`[Showcase]: Failed to load legal docs: ${error}`);
         }

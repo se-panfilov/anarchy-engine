@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron';
-import type { TShowcaseGameSettings, TShowcasesDesktopApi } from '@Showcases/Shared';
+import type { TLoadDocPayload, TShowcaseGameSettings, TShowcasesDesktopApi } from '@Showcases/Shared';
 import { platformApiChannel, platformApiName } from '@Showcases/Shared';
 import { PlatformActions } from './src/Constants';
 
@@ -9,7 +9,7 @@ declare const __DESKTOP_APP_VERSION__: string;
 
 const mapping: TShowcasesDesktopApi = {
   saveAppSettings: (settings: TShowcaseGameSettings): Promise<void> => ipcRenderer.invoke(platformApiChannel, SaveAppSettings, settings),
-  loadAppSettings: (): Promise<TShowcaseGameSettings> => ipcRenderer.invoke(platformApiChannel, LoadAppSettings),
+  loadAppSettings: (options: TLoadDocPayload): Promise<TShowcaseGameSettings> => ipcRenderer.invoke(platformApiChannel, LoadAppSettings, options),
   // TODO DESKTOP: fix return type of "loadLegalDocs"
   loadLegalDocs: (): Promise<string> => ipcRenderer.invoke(platformApiChannel, LoadLegalDocs),
   node: (): string => process.versions.node,
