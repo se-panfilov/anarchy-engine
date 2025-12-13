@@ -21,7 +21,10 @@ export function PhysicsBodyService(factory: TPhysicsBodyFactory, registry: TPhys
   let world: World | undefined;
   factory.entityCreated$.subscribe((coordinator: TPhysicsBodyFacade): void => registry.add(coordinator));
 
-  const create = (params: TPhysicsBodyParams): TPhysicsBodyFacade => factory.create(params);
+  const create = (params: TPhysicsBodyParams): TPhysicsBodyFacade => {
+    if (isNotDefined(world)) throw new Error('Cannot create physics body: world is not defined');
+    return factory.create(params, { world });
+  };
   const createFromConfig = (physics: ReadonlyArray<TPhysicsBodyConfig>): void => {
     physics.forEach((config: TPhysicsBodyConfig): TPhysicsBodyFacade => factory.create(factory.configToParams(config)));
   };
@@ -42,7 +45,7 @@ export function PhysicsBodyService(factory: TPhysicsBodyFactory, registry: TPhys
     rawSerializationPipeline,
     rawDebugRenderPipeline
   }: TPhysicsWorldParams): World {
-    return new World(
+    world = new World(
       gravity,
       rawIntegrationParameters,
       rawIslands,
@@ -58,6 +61,7 @@ export function PhysicsBodyService(factory: TPhysicsBodyFactory, registry: TPhys
       rawSerializationPipeline,
       rawDebugRenderPipeline
     );
+    return world;
   }
 
   const getDebugRenderer = (): TPhysicsDebugRenderer => {
