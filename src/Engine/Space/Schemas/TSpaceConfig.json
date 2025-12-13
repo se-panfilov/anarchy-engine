@@ -3666,8 +3666,17 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "name": {
           "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/MaterialType"
         },
         "params": {
           "type": "object",
@@ -3971,7 +3980,12 @@
         "textures": {
           "$ref": "#/definitions/TMaterialTexturePack"
         }
-      }
+      },
+      "required": ["type"]
+    },
+    "MaterialType": {
+      "type": "string",
+      "enum": ["basic", "depth", "distance", "lambert", "matcap", "normal", "phong", "physical", "points", "standard", "toon"]
     },
     "ColorRepresentation": {
       "anyOf": [
