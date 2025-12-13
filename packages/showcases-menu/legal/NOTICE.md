@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 72
+Components listed: 73
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -54,6 +54,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://babel.dev/docs/en/next/babel-types
 
 **Attribution:** Copyright (c) 2014-present Sebastian McKenzie and other contributors
+
+---
+
+## @cfworker/json-schema@4.1.1
+
+**License(s):** MIT
+
+**Repository:** https://github.com/cfworker/cfworker
+
+**URL:** https://github.com/cfworker/cfworker/tree/master/packages/json-schema/README.md
+
+**Attribution:** Jeremy Danyow
 
 ---
 
@@ -333,13 +345,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## birpc@2.5.0
+## birpc@2.6.1
 
 **License(s):** MIT
 
-**Repository:** git+https://github.com/antfu/birpc.git
+**Repository:** git+https://github.com/antfu-collective/birpc.git
 
-**URL:** https://github.com/antfu/birpc#readme
+**URL:** https://github.com/antfu-collective/birpc#readme
 
 **Attribution:** Copyright (c) 2021 Anthony Fu <https://github.com/antfu>
 

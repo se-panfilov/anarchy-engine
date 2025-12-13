@@ -2,7 +2,21 @@
 
 ## Application: showcases-i18n
 
-Production dependencies (including transition dependencies): 30
+Production dependencies (including transition dependencies): 31
+
+---
+
+## @cfworker/json-schema@4.1.1
+
+**License:** MIT
+
+**Repository:** https://github.com/cfworker/cfworker
+
+**URL:** https://github.com/cfworker/cfworker/tree/master/packages/json-schema/README.md
+
+**Publisher:** Jeremy Danyow <jdanyow@gmail.com>
+
+_No license text file found; relying on package metadata._
 
 ---
 

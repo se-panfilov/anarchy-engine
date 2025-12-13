@@ -5,11 +5,23 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 15
+Components listed: 16
 
 ## 1) Mandatory Attributions (verbatim)
 
 The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
+
+## @cfworker/json-schema@4.1.1
+
+**License(s):** MIT
+
+**Repository:** https://github.com/cfworker/cfworker
+
+**URL:** https://github.com/cfworker/cfworker/tree/master/packages/json-schema/README.md
+
+**Attribution:** Jeremy Danyow
+
+---
 
 ## @dimforge/rapier3d@0.19.0
 

@@ -2,7 +2,7 @@
 
 ## Application: showcases-menu
 
-Production dependencies (including transition dependencies): 72
+Production dependencies (including transition dependencies): 73
 
 ---
 
@@ -138,6 +138,20 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+---
+
+## @cfworker/json-schema@4.1.1
+
+**License:** MIT
+
+**Repository:** https://github.com/cfworker/cfworker
+
+**URL:** https://github.com/cfworker/cfworker/tree/master/packages/json-schema/README.md
+
+**Publisher:** Jeremy Danyow <jdanyow@gmail.com>
+
+_No license text file found; relying on package metadata._
 
 ---
 
@@ -1065,13 +1079,13 @@ SOFTWARE.
 
 ---
 
-## birpc@2.5.0
+## birpc@2.6.1
 
 **License:** MIT
 
-**Repository:** git+https://github.com/antfu/birpc.git
+**Repository:** git+https://github.com/antfu-collective/birpc.git
 
-**URL:** https://github.com/antfu/birpc#readme
+**URL:** https://github.com/antfu-collective/birpc#readme
 
 **Publisher:** Anthony Fu <anthonyfu117@hotmail.com>
 
