@@ -63,7 +63,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       console.log('click is ready', !isClickBlocked);
       isClickBlocked = true;
 
-      actorRegistry.getAllByTags([boxActorTag], LookUpStrategy.Some).forEach((actor: IActorWrapperAsync) => {
+      actorRegistry.findAllByTags([boxActorTag], LookUpStrategy.Some).forEach((actor: IActorWrapperAsync) => {
         const easing = actor.getTags()[1] as Easing;
         void standardMoverService.goToPosition(actor, { x: 20 }, { ...animationParams, easing });
       });

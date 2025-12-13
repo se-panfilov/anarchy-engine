@@ -12,7 +12,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const { actorRegistry, cameraRegistry } = level.entities;
 
   async function init(): Promise<void> {
-    const actor: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync(ActorTag.Intersectable);
+    const actor: IActorWrapperAsync = await actorRegistry.findByTagAsync(ActorTag.Intersectable);
     actor.setY(2);
 
     standardLoopService.tick$.subscribe(({ elapsedTime }) => {
@@ -24,7 +24,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   function startIntersections(): void {
     const camera: ICameraWrapper | undefined = cameraRegistry.getActiveCamera();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
-    // const actors: ReadonlyArray<IActorWrapperAsync> = actorRegistry.getAllByTags([ActorTag.Intersectable], LookUpStrategy.Every);
+    // const actors: ReadonlyArray<IActorWrapperAsync> = actorRegistry.findAllByTags([ActorTag.Intersectable], LookUpStrategy.Every);
     const intersectionsWatcher: IIntersectionsWatcher = intersectionsService.buildWatcher(camera);
 
     actorRegistry.added$.pipe(filter((a: IActorWrapperAsync) => a.hasTag(ActorTag.Intersectable))).subscribe((actor: IActorWrapperAsync): void => intersectionsWatcher.addActor(actor));

@@ -14,14 +14,14 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
     cameraRegistry.getAll()[0]?.setPosition(Vector3Wrapper({ x: 6, y: 30, z: 0 }));
 
-    const redActor: IActorWrapperAsync | undefined = await actorRegistry.getUniqByTagAsync('red');
-    const blueActor: IActorWrapperAsync | undefined = await actorRegistry.getUniqByTagAsync('blue');
-    const greenActor: IActorWrapperAsync | undefined = await actorRegistry.getUniqByTagAsync('green');
+    const redActor: IActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('red');
+    const blueActor: IActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('blue');
+    const greenActor: IActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('green');
     if (isNotDefined(redActor) || isNotDefined(blueActor) || isNotDefined(greenActor)) throw new Error('Actors are not defined');
 
-    const redText: IText2dWrapper | undefined = text2dRegistry.getUniqByTag('red');
-    const blueText: IText2dWrapper | undefined = text2dRegistry.getUniqByTag('blue');
-    const greenText: IText2dWrapper | undefined = text2dRegistry.getUniqByTag('green');
+    const redText: IText2dWrapper | undefined = text2dRegistry.findByTag('red');
+    const blueText: IText2dWrapper | undefined = text2dRegistry.findByTag('blue');
+    const greenText: IText2dWrapper | undefined = text2dRegistry.findByTag('green');
     if (isNotDefined(redText) || isNotDefined(blueText) || isNotDefined(greenText)) throw new Error('Texts are not defined');
 
     let isClickBlocked: boolean = false;

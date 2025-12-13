@@ -53,7 +53,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   scenes.forEach((scene: ISceneConfig): ISceneWrapper => sceneFactory.create(sceneFactory.configToParams({ ...scene, tags: [...scene.tags, CommonTag.FromConfig] })));
   messages$.next(`Scenes (${scenes.length}) created`);
 
-  const scene: ISceneWrapper | undefined = sceneRegistry.getUniqByTag(SceneTag.Current);
+  const scene: ISceneWrapper | undefined = sceneRegistry.findByTag(SceneTag.Current);
   if (isNotDefined(scene)) throw new Error(`Cannot find the current scene for level "${name}" during the level building.`);
 
   //build actors

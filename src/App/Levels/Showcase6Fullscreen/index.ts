@@ -10,7 +10,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const { actorRegistry } = level.entities;
 
   async function init(): Promise<void> {
-    const actor: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync('sphere');
+    const actor: IActorWrapperAsync = await actorRegistry.findByTagAsync('sphere');
     actor.setY(2);
 
     mouseService.clickLeftRelease$.subscribe(() => {

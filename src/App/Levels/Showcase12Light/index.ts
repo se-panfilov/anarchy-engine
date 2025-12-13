@@ -17,11 +17,11 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   // void envMapService.load('/Showcase/hdr/urban_alley_01_4k.hdr');
 
   function init(): void {
-    const scene: ISceneWrapper | undefined = scenesRegistry.getUniqByTag('current');
+    const scene: ISceneWrapper | undefined = scenesRegistry.findByTag('current');
     if (isNotDefined(scene)) throw new Error('Scene not found');
 
     //directional light
-    const directionalLight: IDirectionalLightWrapper | undefined = lightRegistry.getUniqByTag('directional') as IDirectionalLightWrapper | undefined;
+    const directionalLight: IDirectionalLightWrapper | undefined = lightRegistry.findByTag('directional') as IDirectionalLightWrapper | undefined;
     if (isNotDefined(directionalLight)) throw new Error('Directional light not found');
     const directionalLightHelper: DirectionalLightHelper = new DirectionalLightHelper(directionalLight.entity, 3);
     const directionalLightCameraHelper: CameraHelper = new CameraHelper(directionalLight.entity.shadow.camera);
@@ -41,7 +41,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     directionalFolder.add(directionalLight.entity.shadow.camera, 'far').min(0).max(10).step(1);
 
     //hemisphere light
-    const hemisphereLight: IHemisphereLightWrapper | undefined = lightRegistry.getUniqByTag('hemisphere') as IHemisphereLightWrapper | undefined;
+    const hemisphereLight: IHemisphereLightWrapper | undefined = lightRegistry.findByTag('hemisphere') as IHemisphereLightWrapper | undefined;
     if (isNotDefined(hemisphereLight)) throw new Error('Hemisphere light not found');
     const hemisphereLightHelper: HemisphereLightHelper = new HemisphereLightHelper(hemisphereLight.entity, 3);
     scene.add(hemisphereLightHelper);
@@ -50,7 +50,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     hemisphereFolder.addColor(hemisphereLight.entity, 'groundColor');
     hemisphereFolder.add(hemisphereLight.entity, 'intensity').min(0).max(10).step(0.1);
 
-    const rectAreaLight: IRectAreaLightWrapper | undefined = lightRegistry.getUniqByTag('rect_area') as IRectAreaLightWrapper | undefined;
+    const rectAreaLight: IRectAreaLightWrapper | undefined = lightRegistry.findByTag('rect_area') as IRectAreaLightWrapper | undefined;
     if (isNotDefined(rectAreaLight)) throw new Error('Rect area light not found');
     const rectAreaLightHelper: RectAreaLightHelper = new RectAreaLightHelper(rectAreaLight.entity, 5);
     scene.add(rectAreaLightHelper);
@@ -62,7 +62,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     rectAreaFolder.add(rectAreaLight.entity, 'height').min(0).max(50).step(0.5);
     rectAreaFolder.add(rectAreaLight.entity, 'intensity').min(0).max(10).step(0.1);
 
-    const pointLight: IPointLightWrapper | undefined = lightRegistry.getUniqByTag('point') as IPointLightWrapper | undefined;
+    const pointLight: IPointLightWrapper | undefined = lightRegistry.findByTag('point') as IPointLightWrapper | undefined;
     if (isNotDefined(pointLight)) throw new Error('Point light not found');
     const pointLightHelper: PointLightHelper = new PointLightHelper(pointLight.entity, 3);
     scene.add(pointLightHelper);
@@ -75,7 +75,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     pointFolder.add(pointLight.entity, 'distance').min(0).max(100).step(0.1);
     pointFolder.add(pointLight.entity, 'decay').min(0).max(100).step(0.1);
 
-    const spotLight: ISpotLightWrapper | undefined = lightRegistry.getUniqByTag('spot') as ISpotLightWrapper | undefined;
+    const spotLight: ISpotLightWrapper | undefined = lightRegistry.findByTag('spot') as ISpotLightWrapper | undefined;
     if (isNotDefined(spotLight)) throw new Error('Spot light not found');
     const spotLightHelper: SpotLightHelper = new SpotLightHelper(spotLight.entity, 3);
     scene.add(spotLightHelper);

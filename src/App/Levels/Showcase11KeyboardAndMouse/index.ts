@@ -14,18 +14,18 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const { actorRegistry, cameraRegistry } = level.entities;
 
   async function init(): Promise<void> {
-    const actorKeyboard: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync('keyboard');
-    const actorMouse: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync('mouse');
-    const actorKeyW: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['key', 'W'], LookUpStrategy.Every);
-    const actorKeyA: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['key', 'A'], LookUpStrategy.Every);
-    const actorKeyS: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['key', 'S'], LookUpStrategy.Every);
-    const actorKeyD: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['key', 'D'], LookUpStrategy.Every);
-    const actorMkeyLeft: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['mkey', 'Left'], LookUpStrategy.Every);
-    const actorMkeyRight: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['mkey', 'Right'], LookUpStrategy.Every);
-    const actorMkeyMiddle: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['mkey', 'Middle'], LookUpStrategy.Every);
-    const actorMkeyBack: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['mkey', 'Back'], LookUpStrategy.Every);
-    const actorMkeyForward: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['mkey', 'Forward'], LookUpStrategy.Every);
-    const actorMkeyExtra: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync(['mkey', 'Extra'], LookUpStrategy.Every);
+    const actorKeyboard: IActorWrapperAsync = await actorRegistry.findByTagAsync('keyboard');
+    const actorMouse: IActorWrapperAsync = await actorRegistry.findByTagAsync('mouse');
+    const actorKeyW: IActorWrapperAsync = await actorRegistry.findByTagsAsync(['key', 'W'], LookUpStrategy.Every);
+    const actorKeyA: IActorWrapperAsync = await actorRegistry.findByTagsAsync(['key', 'A'], LookUpStrategy.Every);
+    const actorKeyS: IActorWrapperAsync = await actorRegistry.findByTagsAsync(['key', 'S'], LookUpStrategy.Every);
+    const actorKeyD: IActorWrapperAsync = await actorRegistry.findByTagsAsync(['key', 'D'], LookUpStrategy.Every);
+    const actorMkeyLeft: IActorWrapperAsync = await actorRegistry.findByTagsAsync(['mkey', 'Left'], LookUpStrategy.Every);
+    const actorMkeyRight: IActorWrapperAsync = await actorRegistry.findByTagsAsync(['mkey', 'Right'], LookUpStrategy.Every);
+    const actorMkeyMiddle: IActorWrapperAsync = await actorRegistry.findByTagsAsync(['mkey', 'Middle'], LookUpStrategy.Every);
+    const actorMkeyBack: IActorWrapperAsync = await actorRegistry.findByTagsAsync(['mkey', 'Back'], LookUpStrategy.Every);
+    const actorMkeyForward: IActorWrapperAsync = await actorRegistry.findByTagsAsync(['mkey', 'Forward'], LookUpStrategy.Every);
+    const actorMkeyExtra: IActorWrapperAsync = await actorRegistry.findByTagsAsync(['mkey', 'Extra'], LookUpStrategy.Every);
 
     keyboardService.onKey(KeyCode.W).pressing$.subscribe((): void => void actorKeyboard.addZ(-0.3));
     keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => void actorKeyW.addY(-0.2));
@@ -80,7 +80,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
     const intersectionsWatcher: IIntersectionsWatcher = intersectionsService.buildWatcher(camera);
 
-    await actorRegistry.getUniqByTagAsync('surface').then((actor: IActorWrapperAsync) => intersectionsWatcher.addActor(actor));
+    await actorRegistry.findByTagAsync('surface').then((actor: IActorWrapperAsync) => intersectionsWatcher.addActor(actor));
 
     intersectionsWatcher.start();
     return intersectionsWatcher;

@@ -18,7 +18,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
   async function init(): Promise<void> {
     const { actorRegistry } = level.entities;
-    const actor: IActorWrapperAsync | undefined = await actorRegistry.getUniqByTagAsync('central_actor');
+    const actor: IActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('central_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not found');
 
     //apply textures async, without blocking the main thread (game might be started before textures are loaded)

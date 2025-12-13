@@ -16,7 +16,7 @@ export const configToParams: IGetParamsFn<IOrbitControlsParams, IOrbitControlsCo
   if (config.type !== IControlsType.OrbitControls) throw new Error(`Cannot create controls of unknown type "${config.type as string}"`);
   if (isNotDefined(config.cameraTag)) throw new Error(`Cannot attach controls ("${config.type}") to undefined camera tag`);
 
-  const camera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(config.cameraTag);
+  const camera: ICameraWrapper | undefined = cameraRegistry.findByTag(config.cameraTag);
   if (isNotDefined(camera)) throw new Error(`Cannot execute ControlsConfigAdapter: a camera with tag "${config.cameraTag}" is not defined`);
 
   let result: IWriteable<IOrbitControlsParams> = {

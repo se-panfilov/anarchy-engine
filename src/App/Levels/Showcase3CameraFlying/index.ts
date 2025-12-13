@@ -29,7 +29,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       camera.setY(yRatio * 10);
       camera.setZ(yRotation);
 
-      void actorRegistry.getUniqByTagAsync('central_actor').then((actor: IActorWrapperAsync): void => {
+      void actorRegistry.findByTagAsync('central_actor').then((actor: IActorWrapperAsync): void => {
         camera.lookAt(actor.getPosition());
       });
     });

@@ -10,9 +10,9 @@ import '@/App/style.css';
 // import { showcaseLevel } from '@/App/Levels/Showcase8Text3d';
 // import { showcaseLevel } from '@/App/Levels/Showcase9TexturesAndMaterials';
 // import { showcaseLevel } from '@/App/Levels/Showcase10ComplexMaterials';
-// import { showcaseLevel } from '@/App/Levels/Showcase11KeyboardAndMouse';
+import { showcaseLevel } from '@/App/Levels/Showcase11KeyboardAndMouse';
 // import { showcaseLevel } from '@/App/Levels/Showcase12Light';
-import { showcaseLevel } from '@/App/Levels/Showcase13Fog';
+// import { showcaseLevel } from '@/App/Levels/Showcase13Fog';
 import type { IAppCanvas } from '@/Engine';
 import { ambientContext, isNotDefined } from '@/Engine';
 

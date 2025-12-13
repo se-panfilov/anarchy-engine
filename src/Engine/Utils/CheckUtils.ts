@@ -52,4 +52,4 @@ export const isEntityWith3dPosition = (obj: IWithPositionProperty): obj is IWith
 export const isEntityWith4dPosition = (obj: IWithPositionProperty): obj is IWithPosition4dProperty => isVector4(obj.position as IVector4);
 
 export const isAsyncRegistry = (registry: IAbstractEntityRegistry<any> | IAbstractAsyncRegistry<any>): registry is IAbstractAsyncRegistry<any> =>
-  isDefined((registry as IAbstractAsyncRegistry<any>).getUniqByTagsAsync) && isDefined((registry as IAbstractAsyncRegistry<any>).getUniqByTagAsync);
+  isDefined((registry as IAbstractAsyncRegistry<any>).findByTagsAsync) && isDefined((registry as IAbstractAsyncRegistry<any>).findByTagAsync);

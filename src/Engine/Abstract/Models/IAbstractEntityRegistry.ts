@@ -9,9 +9,9 @@ export type IAbstractEntityRegistry<T extends IRegistrable> = Omit<IAbstractSimp
     replace: (entity: T) => void;
     remove: (id: string) => void;
     getById: (id: string) => T | undefined;
-    getAllByTags: (tags: ReadonlyArray<string>, strategy: LookUpStrategy) => ReadonlyArray<T>;
-    getAllByTag: (tag: string) => ReadonlyArray<T>;
-    getUniqByTags: (tags: ReadonlyArray<string>, strategy: LookUpStrategy) => T | undefined | never;
-    getUniqByTag: (tag: string) => T | undefined | never;
+    findAllByTags: (tags: ReadonlyArray<string>, strategy: LookUpStrategy) => ReadonlyArray<T>;
+    findAllByTag: (tag: string) => ReadonlyArray<T>;
+    findByTags: (tags: ReadonlyArray<string>, strategy: LookUpStrategy) => T | undefined | never;
+    findByTag: (tag: string) => T | undefined | never;
   }> &
   IDestroyable;

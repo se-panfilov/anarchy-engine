@@ -44,11 +44,11 @@ export function AbstractEntityRegistry<T extends IRegistrable | IMultitonRegistr
     removed$.next(entity);
   }
 
-  const getAllByTags = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): ReadonlyArray<T> => getAllEntitiesWithTags(tags, registry, strategy);
-  const getAllByTag = (tag: string): ReadonlyArray<T> => getAllEntitiesWithTag(tag, registry);
+  const findAllByTags = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): ReadonlyArray<T> => getAllEntitiesWithTags(tags, registry, strategy);
+  const findAllByTag = (tag: string): ReadonlyArray<T> => getAllEntitiesWithTag(tag, registry);
 
-  const getUniqByTags = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): T | undefined | never => getUniqEntityWithTags(tags, registry, strategy);
-  const getUniqByTag = (tag: string): T | undefined | never => getUniqEntityWithTag(tag, registry);
+  const findByTags = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): T | undefined | never => getUniqEntityWithTags(tags, registry, strategy);
+  const findByTag = (tag: string): T | undefined | never => getUniqEntityWithTag(tag, registry);
 
   return {
     id,
@@ -60,10 +60,10 @@ export function AbstractEntityRegistry<T extends IRegistrable | IMultitonRegistr
     replace,
     getById,
     getAll,
-    getAllByTags,
-    getAllByTag,
-    getUniqByTags,
-    getUniqByTag,
+    findAllByTags: findAllByTags,
+    findAllByTag: findAllByTag,
+    findByTags: findByTags,
+    findByTag: findByTag,
     isEmpty,
     registry,
     remove,

@@ -13,11 +13,11 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const { scenesRegistry, rendererRegistry } = level.entities;
 
   function init(): void {
-    const scene: ISceneWrapper | undefined = scenesRegistry.getUniqByTag('current');
+    const scene: ISceneWrapper | undefined = scenesRegistry.findByTag('current');
     if (isNotDefined(scene)) throw new Error('Scene not found');
     if (isNotDefined(scene.entity.fog)) throw new Error("Scene's fog not found");
 
-    rendererRegistry.getUniqByTag(RendererTag.Main)?.entity.setClearColor(scene.entity.fog.color);
+    rendererRegistry.findByTag(RendererTag.Main)?.entity.setClearColor(scene.entity.fog.color);
 
     gui.addColor(scene.entity.fog, 'color');
     gui.add(scene.entity.fog, 'near').min(0).max(1).step(0.1);

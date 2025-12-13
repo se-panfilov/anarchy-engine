@@ -34,7 +34,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     currentMaterialType$.pipe(startWith(materialType[3]))
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
   ]).subscribe(async ([material, type]: ReadonlyArray<string>): Promise<void> => {
-    const actor: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync([material, type], LookUpStrategy.Every);
+    const actor: IActorWrapperAsync = await actorRegistry.findByTagsAsync([material, type], LookUpStrategy.Every);
     // console.log('material', material, 'type', type, actor.getTags());
     if (isNotDefined(actor)) throw new Error(`Actor with tag "${material}" is not found`);
     currentActor$.next(actor);
@@ -83,7 +83,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     // eslint-disable-next-line functional/immutable-data
     state.controllers = addGuiToActor(actor);
     const position: IVector3Wrapper = actor.getPosition();
-    const orbitControls: IOrbitControlsWrapper | undefined = controlsRegistry.getUniqByTag('orbit');
+    const orbitControls: IOrbitControlsWrapper | undefined = controlsRegistry.findByTag('orbit');
     if (isNotDefined(orbitControls)) throw new Error('Orbit controls are not found');
     orbitControls.setDamping(true);
     orbitControls.moveToTargetSmoothly(position);

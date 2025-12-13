@@ -13,20 +13,20 @@ import { getValueAsync, subscribeToValue$ } from './AbstractAsyncRegistryHelper'
 export function AbstractAsyncRegistry<T extends IRegistrable | IMultitonRegistrable>(type: RegistryType): IAbstractAsyncRegistry<T> {
   const abstractRegistry: IAbstractEntityRegistry<T> = AbstractEntityRegistry<T>(type);
 
-  function getUniqByTagsAsync(tags: ReadonlyArray<string>, strategy: LookUpStrategy): Promise<T> {
-    const result: T | undefined = abstractRegistry.getUniqByTags(tags, strategy);
+  function findByTagsAsync(tags: ReadonlyArray<string>, strategy: LookUpStrategy): Promise<T> {
+    const result: T | undefined = abstractRegistry.findByTags(tags, strategy);
     if (isDefined(result)) return Promise.resolve(result);
     return getValueAsync<T>(abstractRegistry, (entity: T) => entity.getTags()[strategy]((tag: string) => tags.includes(tag)));
   }
 
-  function getUniqByTagAsync(tag: string): Promise<T> {
-    const result: T | undefined = abstractRegistry.getUniqByTag(tag);
+  function findByTagAsync(tag: string): Promise<T> {
+    const result: T | undefined = abstractRegistry.findByTag(tag);
     if (isDefined(result)) return Promise.resolve(result);
     return getValueAsync<T>(abstractRegistry, (entity: T) => entity.hasTag(tag));
   }
 
-  function getUniqByTags$(tags: ReadonlyArray<string>, strategy: LookUpStrategy): Observable<T> {
-    const result: T | undefined = abstractRegistry.getUniqByTags(tags, strategy);
+  function findByTags$(tags: ReadonlyArray<string>, strategy: LookUpStrategy): Observable<T> {
+    const result: T | undefined = abstractRegistry.findByTags(tags, strategy);
     if (isDefined(result)) {
       const subj$: BehaviorSubject<T> = new BehaviorSubject(result);
       return subj$.asObservable();
@@ -34,8 +34,8 @@ export function AbstractAsyncRegistry<T extends IRegistrable | IMultitonRegistra
     return subscribeToValue$<T>(abstractRegistry, (entity: T) => entity.getTags()[strategy]((tag: string) => tags.includes(tag)));
   }
 
-  function getUniqByTag$(tag: string): Observable<T> {
-    const result: T | undefined = abstractRegistry.getUniqByTag(tag);
+  function findByTag$(tag: string): Observable<T> {
+    const result: T | undefined = abstractRegistry.findByTag(tag);
     if (isDefined(result)) {
       const subj$: BehaviorSubject<T> = new BehaviorSubject(result);
       return subj$.asObservable();
@@ -44,10 +44,10 @@ export function AbstractAsyncRegistry<T extends IRegistrable | IMultitonRegistra
   }
 
   return {
-    ...omitInObjectWithoutMutation(abstractRegistry, ['getUniqByTags', 'getUniqByTag']),
-    getUniqByTagsAsync,
-    getUniqByTags$,
-    getUniqByTagAsync,
-    getUniqByTag$
+    ...omitInObjectWithoutMutation(abstractRegistry, ['findByTags', 'findByTag']),
+    findByTagsAsync,
+    findByTags$,
+    findByTagAsync,
+    findByTag$
   };
 }
