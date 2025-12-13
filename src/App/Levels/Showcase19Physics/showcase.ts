@@ -136,11 +136,6 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     let mouseLineIntersectionsCoords: Vector3 | undefined = undefined;
     mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent) => {
       mouseLineIntersectionsCoords = intersection.point;
-      forcePower = getDistance(ballActorW.getPosition().getCoords(), mouseLineIntersectionsCoords);
-      const ballCoords: TWithCoordsXYZ = ballActorW.getPosition().getCoords();
-      azimuth = getHorizontalAzimuth({ x: ballCoords.x, z: ballCoords.z }, mouseLineIntersectionsCoords);
-      azimuthText.setText(`Azimuth: ${azimuth}`);
-      forcePowerText.setText(`Force: ${forcePower}`);
     });
 
     // TODO (S.Panfilov) extract physics world update to the main loop
@@ -150,6 +145,10 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
       if (isDefined(mouseLineIntersectionsCoords)) {
         const ballCoords: TWithCoordsXYZ = ballActorW.getPosition().getCoords();
+        azimuth = getHorizontalAzimuth({ x: ballCoords.x, z: ballCoords.z }, mouseLineIntersectionsCoords);
+        azimuthText.setText(`Azimuth: ${azimuth}`);
+        forcePowerText.setText(`Force: ${forcePower}`);
+        forcePower = getDistance(ballActorW.getPosition().getCoords(), mouseLineIntersectionsCoords);
         line.geometry.setPositions([ballCoords.x, ballCoords.y, ballCoords.z, mouseLineIntersectionsCoords.x, mouseLineIntersectionsCoords.y, mouseLineIntersectionsCoords.z]);
         line.computeLineDistances();
       }
