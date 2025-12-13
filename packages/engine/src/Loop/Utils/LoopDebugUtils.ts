@@ -3,6 +3,7 @@ import type { TMilliseconds } from '@Engine/Math';
 import type { Observable, Subscription } from 'rxjs';
 import Stats from 'stats.js';
 
+// TODO 18-0-0: move to apps/showcase (and move stats.js there)
 export function enableFPSCounter(tick$: Observable<TMilliseconds>): Subscription {
   // TODO DEBUG: make stats enable/disable configurable via url params (?debug=true)
   const stats: any = new Stats();
