@@ -7,4 +7,5 @@ export type ISpaceInitializationConfig = Readonly<{
   isTextsInit?: boolean;
   isControlsInit?: boolean;
   isEnvMapsInit?: boolean;
+  isRendererInit?: boolean;
 }>;

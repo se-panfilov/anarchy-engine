@@ -4,6 +4,7 @@ export type ISpaceSubscriptions = Readonly<{
   sceneCreated$: Subscription;
   actorCreated$: Subscription;
   actorAdded$: Subscription;
+  envMapAdded$: Subscription;
   textCreated$: Subscription;
   textAdded$: Subscription;
   cameraCreated$: Subscription;
@@ -13,5 +14,6 @@ export type ISpaceSubscriptions = Readonly<{
   fogCreated$: Subscription;
   fogAdded$: Subscription;
   controlsCreated$: Subscription;
-  loopTickSubscription: Subscription;
+  loopTick$: Subscription;
+  rendererCreated$: Subscription;
 }>;

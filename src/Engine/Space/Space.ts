@@ -25,6 +25,7 @@ import { withBuiltMixin } from '@/Engine/Space/Mixin';
 import type { ISpace, ISpaceConfig, ISpaceEntities, ISpaceSubscriptions, IWithBuilt } from '@/Engine/Space/Models';
 import { isSpaceInitializationConfig, setInitialActiveCamera } from '@/Engine/Space/SpaceHelper';
 import { isDefined, isNotDefined, validLevelConfig } from '@/Engine/Utils';
+import { initRenderersEntityPipe } from '@/Engine/Space/EntityPipes/RendererEntityPipe';
 
 export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): ISpace {
   const { isValid, errors } = validLevelConfig(config);
@@ -38,7 +39,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   // TODO (S.Panfilov) CWP do not init space if the param set to false, or init namely what is set to true
   if (!initSpace) return; // TODO (S.Panfilov) guess not return, but do the bare minimum
   if (isSpaceInitializationConfig(initSpace)) {
-    const { isScenesInit, isActorsInit, isCamerasInit, isLightsInit, isFogsInit, isTextsInit, isControlsInit, isEnvMapsInit } = initSpace;
+    const { isScenesInit, isActorsInit, isCamerasInit, isLightsInit, isFogsInit, isTextsInit, isControlsInit, isRendererInit, isEnvMapsInit } = initSpace;
 
     // TODO (S.Panfilov) move somewhere?
     screenService.setCanvas(canvas);
@@ -91,7 +92,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     }
 
     //build controls
-    if (isCamerasInit) {
+    if (isControlsInit) {
       if (isNotDefined(scene)) throw new Error('Scene should be initialized for controls initialization');
       if (isNotDefined(isCamerasInit)) throw new Error('Camera initialization should be "true" for controls initialization');
       if (isNotDefined(entities.cameraRegistry)) throw new Error('Cannot find camera registry for controls initialization');
@@ -126,21 +127,24 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     if (isEnvMapsInit) {
       if (isNotDefined(scene)) throw new Error('Scene should be initialized for fogs initialization');
 
-      envMapService.added$.subscribe((texture: IDataTexture): void => {
+      const envMapAdded$: Subscription = envMapService.added$.subscribe((texture: IDataTexture): void => {
         scene.setBackground(texture);
         scene.setEnvironmentMap(texture);
         messages$.next(`Env map added: "${texture.id}"`);
       });
+
+      subscriptions = { ...subscriptions, envMapAdded$ };
     }
 
     //build renderer
-    const rendererFactory: IRendererFactory = RendererFactory();
-    const rendererRegistry: IRendererRegistry = RendererRegistry();
-    const rendererCreated$: Subscription = rendererFactory.entityCreated$.subscribe((renderer: IRendererWrapper): void => rendererRegistry.add(renderer));
-    const renderer: IRendererWrapper = rendererFactory.create({ canvas, tags: [RendererTag.Main], mode: RendererModes.WebGL2 });
-    messages$.next(`Renderer created`);
+    if (isRendererInit) {
+      const { rendererCreated$, rendererFactory, rendererRegistry } = initRenderersEntityPipe(canvas);
+      entities = { ...entities, rendererFactory, rendererRegistry };
+      subscriptions = { ...subscriptions, rendererCreated$ };
+      messages$.next(`Renderer created`);
+    }
 
-    const loopTickSubscription: Subscription = standardLoopService.tick$.subscribe(({ delta }: ILoopTimes): void => {
+    const loopTick$: Subscription = standardLoopService.tick$.subscribe(({ delta }: ILoopTimes): void => {
       const activeCamera: ICameraWrapper | undefined = cameraRegistry.getActiveCamera();
       if (isDefined(activeCamera)) {
         renderer.entity.render(scene.entity, activeCamera.entity);
@@ -197,7 +201,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
       rendererFactory.destroy();
       rendererRegistry.destroy();
 
-      loopTickSubscription.unsubscribe();
+      loopTick$.unsubscribe();
 
       messages$.complete();
     });
