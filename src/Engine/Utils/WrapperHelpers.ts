@@ -1,6 +1,7 @@
 import type { Vector2 } from 'three';
 import type { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 
+import type { TAbstractWrapper } from '@/Engine/Abstract';
 import type { TWithObject3d } from '@/Engine/Mixins';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils/index';
@@ -17,4 +18,8 @@ export function applyObject3dParams(obj: TWithObject3d, { visible, castShadow, r
 
 export function applyCenter(obj: CSS2DObject, center?: Vector2): void {
   if (isDefined(center)) obj.center.set(center.x, center.y);
+}
+
+export function isWrapper<T extends TAbstractWrapper<E>, E>(obj: T | any): obj is T {
+  return isDefined((obj as T).entity) && isDefined((obj as T).destroy$) && isDefined((obj as T).id) && isDefined((obj as T).name);
 }

@@ -3,10 +3,10 @@ import { Mesh, Texture } from 'three';
 
 import type { TAbstractEntity } from '@/Engine/Abstract';
 import type { TAnyAudio } from '@/Engine/Audio';
-import type { TMaterials } from '@/Engine/Material';
+import type { TMaterials, TMaterialWrapper } from '@/Engine/Material';
 import type { TWithModel3d, TWithModel3dEntities } from '@/Engine/Models3d';
 import { hasTransformDrive } from '@/Engine/TransformDrive/Utils';
-import { hasGeometry, hasMaterial, isDefined, isNotDefined } from '@/Engine/Utils';
+import { hasGeometry, hasMaterial, isDefined, isNotDefined, isWrapper } from '@/Engine/Utils';
 
 export function disposeGltf(gltf: Object3D | null): void {
   if (!gltf) return;
@@ -38,7 +38,7 @@ export function destroyTransformDriveInEntity(entity: unknown): void {
   entity.driveToTargetConnector.destroy$.next();
 }
 
-export function destroyMaterialInEntity<T extends { material: TMaterials | ReadonlyArray<TMaterials> }>(entity: T): void {
+export function destroyMaterialInEntity<T extends { material: TMaterials | TMaterialWrapper | ReadonlyArray<TMaterials> | ReadonlyArray<TMaterialWrapper> }>(entity: T): void {
   if (isNotDefined(entity)) return;
   if (!hasMaterial(entity)) return;
   if (isNotDefined(entity.material)) return;
@@ -50,13 +50,16 @@ export function destroyMaterialInEntity<T extends { material: TMaterials | Reado
   entity.material = null as any;
 }
 
-export function disposeMaterialDeep(material: Material | ReadonlyArray<Material> | undefined | null): void {
+export function disposeMaterialDeep(material: Material | TMaterialWrapper | ReadonlyArray<Material> | ReadonlyArray<TMaterialWrapper> | undefined | null): void {
   if (isNotDefined(material)) return;
+  const materials: ReadonlyArray<Material> | ReadonlyArray<TMaterialWrapper> = Array.isArray(material) ? material : [material];
 
-  const materials = Array.isArray(material) ? material : [material];
-
-  materials.forEach((material: Material | null): void => {
-    if (!material) return;
+  materials.forEach((material: Material | TMaterialWrapper | null): void => {
+    if (isNotDefined(material)) return;
+    if (isWrapper(material)) {
+      material.destroy$.next();
+      return;
+    }
 
     Object.values(material).forEach((value: any): void => {
       if (value instanceof Texture) value.dispose();
