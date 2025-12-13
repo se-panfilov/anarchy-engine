@@ -29,9 +29,15 @@
     "anarchy_engine": "*",
     "anarchy_engine_shared": "*",
     "lil-gui": "0.20.0",
+    "pinia": "3.0.3",
     "sanitize.css": "13.0.0",
     "stats.js": "0.17.0",
-    "three-viewport-gizmo": "2.2.0"
+    "three-viewport-gizmo": "2.2.0",
+    "vue": "3.5.18",
+    "vue-router": "4.5.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@vitejs/plugin-vue": "6.0.1",
+    "@vitejs/plugin-vue-jsx": "5.0.1"
+  }
 }
