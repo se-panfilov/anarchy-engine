@@ -1,6 +1,6 @@
 import type { Subscription } from 'rxjs';
-import type { ActorLogic } from 'xstate';
-import { createMachine } from 'xstate';
+import type { Actor as ActorFsm, ActorLogic } from 'xstate';
+import { createActor, createMachine } from 'xstate';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
@@ -13,6 +13,9 @@ export function AnimationsFsmWrapper(params: TAnimationsFsmParams): TAnimationsF
   const entity: ActorLogic<any, any> = createMachine(params);
 
   // TODO 9.3.0 STATE: fix any
+  const createActorFsm = (): ActorFsm<ActorLogic<any, any>> => createActor(entity).start();
+
+  // TODO 9.3.0 STATE: fix any
   const wrapper: TWrapper<ActorLogic<any, any>> = AbstractWrapper(entity, WrapperType.Fog, params);
 
   const destroyable: TDestroyable = destroyableMixin();
@@ -23,5 +26,5 @@ export function AnimationsFsmWrapper(params: TAnimationsFsmParams): TAnimationsF
     throw new Error('Fog destroy not implemented');
   });
 
-  return { ...wrapper, entity, ...destroyable };
+  return { ...wrapper, entity, createActorFsm, ...destroyable };
 }
