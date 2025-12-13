@@ -53,50 +53,65 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
 
     const fontSizeNoUnits: number = stripUnits(fontSize);
     const fontFamily: string | undefined = params.cssProps?.fontFamily || textTranslationService?.locale$.value.font;
+    const bg: string | undefined = params.cssProps?.backgroundColor;
+    const fg: string = params.cssProps?.color ?? '#000000';
+
+    const fontStr: string = `${fontSize} ${fontFamily ?? FallBackFonts}`;
 
     await document.fonts.ready;
-    await document.fonts.load(`${fontSize} ${fontFamily ?? FallBackFonts}`, text);
+    await document.fonts.load(fontStr, text);
 
     // eslint-disable-next-line functional/immutable-data
-    context.font = `${fontSize} ${fontFamily ?? FallBackFonts}`;
+    context.font = fontStr;
 
     const textMetrics: TextMetrics = context.measureText(text);
-    const padding: number = fontSizeNoUnits * 0.2;
-    // const ascent: number = textMetrics.actualBoundingBoxAscent ?? fontSizeNoUnits;
-    // const descent: number = textMetrics.actualBoundingBoxDescent ?? fontSizeNoUnits * 0.2;
+    const ascent: number = Math.ceil(textMetrics.actualBoundingBoxAscent ?? fontSizeNoUnits * 0.8);
+    const descent: number = Math.ceil(textMetrics.actualBoundingBoxDescent ?? fontSizeNoUnits * 0.25);
+    const padding: number = Math.ceil(fontSizeNoUnits * 0.2);
     const textWidth: number = Math.ceil(textMetrics.width + padding * 2);
-    //const textWidth: number = Math.ceil(textMetrics.width + padding * 2);
-    const textHeight: number = Math.ceil(fontSizeNoUnits + padding * 2);
-    //const textHeight: number = Math.ceil(ascent + descent + padding * 2);
+    const textHeight: number = Math.ceil(ascent + descent + padding * 2);
 
     // eslint-disable-next-line functional/immutable-data
-    canvas.width = textWidth;
-    // eslint-disable-next-line functional/immutable-data
-    canvas.height = textHeight;
+    context.font = fontStr;
+
+    const prevW: number = canvas.width;
+    const prevH: number = canvas.height;
 
     // eslint-disable-next-line functional/immutable-data
-    context.font = `${fontSize} ${fontFamily ?? 'Arial'}`;
+    canvas.width = Math.max(1, textWidth);
+    // eslint-disable-next-line functional/immutable-data
+    canvas.height = Math.max(1, textHeight);
+
+    // eslint-disable-next-line functional/immutable-data
+    context.font = fontStr;
 
     // eslint-disable-next-line functional/immutable-data
     context.textAlign = 'center';
     // eslint-disable-next-line functional/immutable-data
     context.textBaseline = 'middle';
-    // eslint-disable-next-line functional/immutable-data
-    context.fillStyle = params.cssProps?.backgroundColor ?? 'rgba(0, 0, 0, 0)';
-    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
+      // eslint-disable-next-line functional/immutable-data
+      context.fillStyle = bg;
+      context.fillRect(0, 0, canvas.width, canvas.height);
+    } else {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+    }
 
     // eslint-disable-next-line functional/immutable-data
-    context.fillStyle = params.cssProps?.color ?? '#000000';
+    context.fillStyle = fg;
     context.fillText(text, canvas.width / 2, canvas.height / 2);
     // eslint-disable-next-line functional/immutable-data
     texture.needsUpdate = true;
 
-    const newGeometryWidth: number = canvas.width / 256;
-    const newGeometryHeight: number = canvas.height / 256;
+    if (canvas.width !== prevW || canvas.height !== prevH) {
+      const newGeometryWidth: number = canvas.width / 256;
+      const newGeometryHeight: number = canvas.height / 256;
 
-    entity.geometry.dispose();
-    // eslint-disable-next-line functional/immutable-data
-    entity.geometry = new PlaneGeometry(newGeometryWidth, newGeometryHeight);
+      entity.geometry.dispose();
+      // eslint-disable-next-line functional/immutable-data
+      entity.geometry = new PlaneGeometry(newGeometryWidth, newGeometryHeight);
+    }
   }
 
   async function setText(newText: string): Promise<void> {
