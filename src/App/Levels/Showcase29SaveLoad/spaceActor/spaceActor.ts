@@ -1,4 +1,8 @@
-import type { TActor, TSpace, TSpaceConfig } from '@/Engine';
+import type { Subscription } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs';
+import type { AnimationAction } from 'three';
+
+import type { TActor, TFsmStates, TModel3d, TSpace, TSpaceConfig } from '@/Engine';
 import { isNotDefined } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
@@ -7,21 +11,59 @@ import spaceConfig from './spaceActor.json';
 
 const config: TSpaceConfig = spaceConfig as TSpaceConfig;
 
+enum AnimationActions {
+  Idle = 'Idle',
+  TPose = 'TPose'
+}
+
+const { Idle, TPose } = AnimationActions;
+
 export const spaceActorData: TSpacesData = {
   name: config.name,
   config: config,
   container: getContainer(config.canvasSelector),
-  onSpaceReady(space: TSpace): void {
-    const solder: TActor | undefined = space.services.actorService.getRegistry().findByName('solder_actor_1');
-    if (isNotDefined(solder)) throw new Error('Solder actor not found');
+  onSpaceReady(space: TSpace, subscriptions?: Record<string, Subscription>): void {
+    const fadeDuration = 0.3;
 
-    solder.states.animationsFsm.send$.next('Idle');
+    const solder: TActor | undefined = space.services.actorService.getRegistry().findByName('solder_actor_1');
+    if (isNotDefined(solder)) throw new Error('[Showcase]: Solder actor not found');
+
+    const { animationsFsm } = solder.states;
+    if (isNotDefined(animationsFsm)) throw new Error('[Showcase]:Solder animationsFsm not found');
+
+    const model3d: TModel3d = solder.model3d;
+    const actions = space.services.animationsService.startAutoUpdateMixer(model3d).actions;
+
+    const idleAction: AnimationAction = actions[Idle];
+    const tPoseAction: AnimationAction = actions[TPose];
+
+    if (isNotDefined(subscriptions)) throw new Error(`[Showcase]: Subscriptions is not defined`);
+
+    // eslint-disable-next-line functional/immutable-data
+    subscriptions[config.name] = animationsFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: TFsmStates): void => {
+      switch (state) {
+        case Idle:
+          tPoseAction.fadeOut(fadeDuration);
+          idleAction.reset().fadeIn(fadeDuration).play();
+          break;
+        case TPose:
+          idleAction.fadeOut(fadeDuration);
+          tPoseAction.reset().fadeIn(fadeDuration).play();
+          break;
+        default:
+          throw new Error(`Unknown state: ${String(state)}`);
+      }
+    });
+
+    // solder.states.animationsFsm?.send$.next(TPose);
   },
   onChange: (space: TSpace): void => {
-    // TODO 15-0-0: "states" and FSM not saves
-    console.log('XXX position', space.services.cameraService.findActive()?.entity.position);
-    console.log('XXX rotation', space.services.cameraService.findActive()?.entity.rotation);
-    //XXX position {x: 1.787368434424427, y: 4.714311488359444, z: 10.511963126740232}
-    //XXX rotation {x: -0.7476708028448679, y: 0.6094718078100407, z: 0.4879773445044666 }
+    const solder: TActor | undefined = space.services.actorService.getRegistry().findByName('solder_actor_1');
+    if (isNotDefined(solder)) throw new Error('[Showcase]: Solder actor not found');
+    solder.states.animationsFsm?.send$.next(Idle);
+  },
+  onUnload: (_space: TSpace, subscriptions?: Record<string, Subscription>): void | never => {
+    if (isNotDefined(subscriptions)) throw new Error(`[Showcase]: Subscriptions is not defined`);
+    subscriptions[config.name].unsubscribe();
   }
 };

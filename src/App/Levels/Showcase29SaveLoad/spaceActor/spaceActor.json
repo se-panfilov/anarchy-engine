@@ -63,7 +63,7 @@
     "fogs": [],
     "fsm": [
       {
-        "initial": "Idle",
+        "initial": "TPose",
         "name": "solder_anim_fsm",
         "transitions": [
           ["Idle", "TPose", "TPose"],
