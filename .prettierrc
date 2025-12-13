@@ -2,10 +2,11 @@
   "semi": true,
   "arrowParens": "always",
   "singleQuote": true,
-  "endOfLine": "auto",
+  "endOfLine": "lf",
   "trailingComma": "none",
   "bracketSpacing": true,
   "useTabs": false,
   "tabWidth": 2,
-  "printWidth": 120
+  "printWidth": 200,
+  "editorconfig": true
 }

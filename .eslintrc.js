@@ -53,6 +53,7 @@ module.exports = {
     'functional/no-expression-statements': 'off',
     'functional/no-throw-statements': 'off',
     'functional/no-throw-statement': 'off',
+    'functional/no-conditional-statements': 'off',
     'functional/no-mixed-types': 'off',
     'functional/no-let': 'off',
     'functional/no-mixed-type': 'off',
