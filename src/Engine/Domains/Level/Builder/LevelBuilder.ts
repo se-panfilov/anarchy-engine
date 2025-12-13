@@ -23,7 +23,7 @@ import type { ISceneConfig, ISceneFactory, ISceneRegistry, ISceneWrapper } from 
 import { SceneFactory, SceneRegistry, SceneTag } from '@/Engine/Domains/Scene';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { isNotDefined, isValidLevelConfig } from '@/Engine/Utils';
+import { isDefined, isNotDefined, isValidLevelConfig } from '@/Engine/Utils';
 
 export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
   if (!isValidLevelConfig(config)) throw new Error('Failed to launch a level: invalid data format');
@@ -58,15 +58,18 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   );
 
   const clickableActors: ReadonlyArray<IActorWrapper> = actorRegistry.getAllWithEveryTag([ActorTag.Intersectable]);
-  const camera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Initial);
-  if (isNotDefined(camera)) throw new Error(`Cannot init intersection service: camera with tag "${CameraTag.Initial}" is not defined`);
+  const initialCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Initial);
 
   const intersectionsWatcherFactory: IIntersectionsWatcherFactory = IntersectionsWatcherFactory();
   const intersectionsWatcherRegistry: IIntersectionsWatcherRegistry = IntersectionsWatcherRegistry();
-  const intersectionsWatcherEntityCreatedSubscription: Subscription = intersectionsWatcherFactory.entityCreated$.subscribe((intersectionsWatcher: IIntersectionsWatcher): void =>
-    intersectionsWatcherRegistry.add({ ...intersectionsWatcher, tags: [...intersectionsWatcher.tags, CommonTag.FromConfig] })
-  );
-  const intersectionsWatcher: IIntersectionsWatcher = intersectionsWatcherFactory.create({ actors: clickableActors, camera, positionWatcher: ambientContext.mousePositionWatcher });
+  let intersectionsWatcher: IIntersectionsWatcher | undefined;
+  let intersectionsWatcherEntityCreatedSubscription: Subscription | undefined;
+  if (isDefined(initialCamera)) {
+    intersectionsWatcherEntityCreatedSubscription = intersectionsWatcherFactory.entityCreated$.subscribe((intersectionsWatcher: IIntersectionsWatcher): void =>
+      intersectionsWatcherRegistry.add({ ...intersectionsWatcher, tags: [...intersectionsWatcher.tags, CommonTag.FromConfig] })
+    );
+    intersectionsWatcher = intersectionsWatcherFactory.create({ actors: clickableActors, camera: initialCamera, positionWatcher: ambientContext.mousePositionWatcher });
+  }
 
   const lightFactory: ILightFactory = LightFactory();
   const lightRegistry: ILightRegistry = LightRegistry();
@@ -111,7 +114,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     controlsFactory.destroy();
     controlsRegistry.destroy();
 
-    intersectionsWatcherEntityCreatedSubscription.unsubscribe();
+    if (isDefined(intersectionsWatcherEntityCreatedSubscription)) intersectionsWatcherEntityCreatedSubscription.unsubscribe();
     intersectionsWatcherFactory.destroy();
     intersectionsWatcherRegistry.destroy();
 
@@ -124,20 +127,17 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     rendererRegistry.destroy();
   });
 
-  const initialCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Initial);
-  if (isNotDefined(initialCamera)) throw new Error(`Cannot start the main loop for the level "${name}": initial camera is not defined`);
-
   builtMixin.build();
 
   return {
     name,
     start(): ILoopWrapper {
-      intersectionsWatcher.start();
-      loop.start(renderer, scene, initialCamera, controlsRegistry);
+      if (isDefined(intersectionsWatcher)) intersectionsWatcher.start();
+      loop.start(renderer, scene, controlsRegistry, initialCamera);
       return loop;
     },
     stop(): void {
-      intersectionsWatcher.stop();
+      if (isDefined(intersectionsWatcher)) intersectionsWatcher.stop();
       // TODO (S.Panfilov) implement stop
       // loop.stop(renderer, scene, initialCamera, controlsRegistry);
     },

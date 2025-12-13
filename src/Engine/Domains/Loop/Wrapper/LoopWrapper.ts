@@ -4,12 +4,13 @@ import type { IControlsRegistry, IOrbitControlsWrapper } from '@/Engine/Domains/
 import type { ILoopParams, ILoopWrapper, LoopFn } from '@/Engine/Domains/Loop/Models';
 import type { IRendererWrapper } from '@/Engine/Domains/Renderer';
 import type { ISceneWrapper } from '@/Engine/Domains/Scene';
+import { isDefined } from '@/Engine/Utils';
 
 import { getUtils } from './utils';
 
 export function LoopWrapper(params: ILoopParams): ILoopWrapper {
   let _delta: number = 0;
-  const entity: LoopFn = (renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, camera: Readonly<ICameraWrapper>, delta: number, controlsRegistry: IControlsRegistry): void => {
+  const entity: LoopFn = (renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, delta: number, controlsRegistry: IControlsRegistry, camera?: Readonly<ICameraWrapper>): void => {
     _delta = delta;
 
     //just for control's damping
@@ -17,7 +18,7 @@ export function LoopWrapper(params: ILoopParams): ILoopWrapper {
       if (controls.entity.enableDamping) controls.entity.update(delta);
     });
 
-    renderer.entity.render(scene.entity, camera.entity);
+    if (isDefined(camera)) renderer.entity.render(scene.entity, camera.entity);
   };
 
   return {
