@@ -1,90 +1,133 @@
-import type { Vector3 } from 'three';
-import { BufferGeometry, Mesh } from 'three';
-import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree, MeshBVH } from 'three-mesh-bvh';
+import RBush from 'rbush';
+import type { BufferGeometry, Intersection, Mesh, Object3D, Vector3 } from 'three';
+import { Box3, Raycaster } from 'three';
+import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree } from 'three-mesh-bvh';
 
-BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
-BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
-Mesh.prototype.raycast = acceleratedRaycast;
+interface BoundingBox {
+  minX: number;
+  minY: number;
+  minZ: number;
+  maxX: number;
+  maxY: number;
+  maxZ: number;
+  object: Object3D;
+}
+
+const spatialGrid = new RBush<BoundingBox>();
+
+function toBoundingBox(object: Object3D): BoundingBox {
+  const box: Box3 = new Box3().setFromObject(object);
+  return {
+    minX: box.min.x,
+    minY: box.min.y,
+    minZ: box.min.z,
+    maxX: box.max.x,
+    maxY: box.max.y,
+    maxZ: box.max.z,
+    object: object
+  };
+}
+
+function addObjectToGrid(object: Object3D): void {
+  spatialGrid.insert(toBoundingBox(object));
+}
+
+function removeObjectFromGrid(object: Object3D): void {
+  spatialGrid.remove(toBoundingBox(object), (a, b) => a.object === b.object);
+}
+
+function updateObjectInGrid(object: Object3D): void {
+  removeObjectFromGrid(object);
+  addObjectToGrid(object);
+}
+
+function computeBVHBoundsTree(geometry: BufferGeometry, options?: BVHOptions) {
+  return computeBoundsTree.call(geometry, options);
+}
+
+function disposeBVHBoundsTree(geometry: BufferGeometry) {
+  return disposeBoundsTree.call(geometry);
+}
+
+function raycastWithBVH(mesh: Mesh, raycaster: Raycaster, intersects: Intersection[]) {
+  return acceleratedRaycast.call(mesh, raycaster, intersects);
+}
 
 function initializeBVH(object: Mesh): void {
   if (object.isMesh) {
-    object.geometry.computeBoundsTree();
+    computeBVHBoundsTree(object.geometry);
   }
 }
 
-// Пример инициализации BVH для объектов в сцене
 scene.traverse((object: Object3D) => {
   if ((object as Mesh).isMesh) {
     initializeBVH(object as Mesh);
+    addObjectToGrid(object);
   }
 });
 
-interface Object3D {
-  position: Vector3;
-  geometry: BufferGeometry;
-  isMesh: boolean;
-}
-
-interface Cell {
-  [key: string]: Object3D[];
-}
-
-function createSpatialHashGrid(cellSize: number): Cell {
-  const cells: Cell = {};
-
-  function getCellCoordinates(position: Vector3): string {
-    return [Math.floor(position.x / cellSize), Math.floor(position.y / cellSize), Math.floor(position.z / cellSize)].join(',');
-  }
-
-  function addObject(object: Object3D): void {
-    const cellCoordinates = getCellCoordinates(object.position);
-    if (!cells[cellCoordinates]) {
-      cells[cellCoordinates] = [];
-    }
-    cells[cellCoordinates].push(object);
-  }
-
-  function removeObject(object: Object3D): void {
-    const cellCoordinates = getCellCoordinates(object.position);
-    const cell = cells[cellCoordinates];
-    if (cell) {
-      const index = cell.indexOf(object);
-      if (index !== -1) {
-        cell.splice(index, 1);
-        if (cell.length === 0) {
-          delete cells[cellCoordinates];
-        }
-      }
-    }
-  }
-
-  function updateObject(object: Object3D): void {
-    removeObject(object);
-    addObject(object);
-  }
-
-  function search(position: Vector3, radius: number): Object3D[] {
-    const cellCoordinates = getCellCoordinates(position);
-    const nearbyCells = [];
-
-    for (let x = -1; x <= 1; x++) {
-      for (let y = -1; y <= 1; y++) {
-        for (let z = -1; z <= 1; z++) {
-          const nearbyCellCoordinates = [cellCoordinates.split(',')[0] + x, cellCoordinates.split(',')[1] + y, cellCoordinates.split(',')[2] + z].join(',');
-          if (cells[nearbyCellCoordinates]) {
-            nearbyCells.push(...cells[nearbyCellCoordinates]);
-          }
-        }
-      }
-    }
-
-    return nearbyCells.filter((object) => object.position.distanceTo(position) <= radius);
-  }
-
-  return {
-    addObject,
-    removeObject,
-    updateObject,
-    search
+function checkCollision(bullet: Mesh, radius: number): { object: Object3D; distance: number; collisionPoint: Vector3; bulletPosition: Vector3 } | null {
+  const bulletBox = new Box3().setFromObject(bullet);
+  const queryBox = {
+    minX: bulletBox.min.x - radius,
+    minY: bulletBox.min.y - radius,
+    minZ: bulletBox.min.z - radius,
+    maxX: bulletBox.max.x + radius,
+    maxY: bulletBox.max.y + radius,
+    maxZ: bulletBox.max.z + radius
   };
+
+  const candidates = spatialGrid.search(queryBox);
+  // eslint-disable-next-line functional/no-loop-statements
+  for (const candidate of candidates) {
+    if (candidate.object !== bullet) {
+      const raycaster = new Raycaster();
+      raycaster.set(bullet.position, bullet.direction);
+
+      const intersects: Intersection[] = [];
+      raycastWithBVH(candidate.object as Mesh, raycaster, intersects);
+
+      if (intersects.length > 0) {
+        const intersect = intersects[0];
+        return {
+          object: candidate.object,
+          distance: intersect.distance,
+          collisionPoint: intersect.point,
+          bulletPosition: bullet.position.clone()
+        };
+      }
+    }
+  }
+  return null;
 }
+
+function animate(): void {
+  requestAnimationFrame(animate);
+
+  const movingObject = scene.getObjectByName('movingObject');
+  if (movingObject) {
+    updateObjectInGrid(movingObject);
+  }
+
+  bullets.forEach((bullet) => {
+    if (bullet.visible) {
+      const collision = checkCollision(bullet, collisionRadius);
+      if (collision) {
+        console.log('Hit detected', collision);
+        resetBullet(bullet);
+      } else if (bullet.position.distanceTo(bullet.startPosition) > maxDistance) {
+        resetBullet(bullet);
+      }
+    }
+  });
+
+  renderer.render(scene, camera);
+}
+
+function resetBullet(bullet: Mesh) {
+  bullet.position.set(0, 0, 0);
+  bullet.visible = false;
+  updateObjectInGrid(bullet);
+}
+
+animate();
