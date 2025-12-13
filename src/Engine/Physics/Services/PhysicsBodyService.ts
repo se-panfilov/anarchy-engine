@@ -32,8 +32,8 @@ export function PhysicsBodyService(factory: TPhysicsBodyFactory, registry: TPhys
 
   const createFromList = (list: ReadonlyArray<TPhysicsBodyParams>): ReadonlyArray<TPhysicsBody> => list.map(create);
 
-  const createFromConfig = (physics: ReadonlyArray<TWithPresetNamePhysicsBodyConfig>): ReadonlyArray<TPhysicsBody> => {
-    return physics.map((config: TWithPresetNamePhysicsBodyConfig): TPhysicsBody => {
+  const createFromConfig = (physics: ReadonlyArray<TPhysicsBodyConfig>): ReadonlyArray<TPhysicsBody> => {
+    return physics.map((config: TPhysicsBodyConfig): TPhysicsBody => {
       return create(physicsPresetService.getMergedConfigWithPresetParams(config, factory));
     });
   };

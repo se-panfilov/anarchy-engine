@@ -8,7 +8,6 @@ import type { TControlsConfig } from '@/Engine/Controls';
 import type { TIntersectionsWatcherConfig } from '@/Engine/Intersections';
 import type { TActive, TWithName, TWithNameOptional, TWithTags } from '@/Engine/Mixins';
 import type { TModel3dConfig, TModel3dResourceConfig } from '@/Engine/Models3d';
-import type { TPhysicsConfig } from '@/Engine/Physics';
 import type { TSceneConfig } from '@/Engine/Scene/Models';
 import { SpaceSchemaVersion } from '@/Engine/Space/Constants';
 import type { TSpaceConfig } from '@/Engine/Space/Models';
@@ -17,14 +16,12 @@ import {
   validate,
   validateActorNamesForEveryEntity,
   validateAllActorsHasModel3d,
-  validateAllActorsHasPhysicsPreset,
   validateAllAudioEntityHasValidResource,
   validateAllModel3dEntityHasValidResource,
   validateCameraNames,
   validateFileUrls,
   validateModel3dFileUrls,
   validateNames,
-  validatePresetNames,
   validateTags,
   validateTagsForEveryEntity
 } from '@/Engine/Space/Utils';
@@ -50,11 +47,11 @@ function validateJsonSchema(config: TSpaceConfig): TSchemaValidationResult {
 
 function validateData({ name, version, scenes, resources, entities, canvasSelector, tags }: TSpaceConfig): TSchemaValidationResult {
   const { models3d: models3dResources, audio: audioResources, envMaps, textures } = resources;
-  const { actors, audio, cameras, spatialGrids, controls, intersections, lights, materials, models3d: models3dEntities, fogs, texts, physics } = entities;
+  const { actors, audio, cameras, spatialGrids, controls, intersections, lights, materials, models3d: models3dEntities, fogs, texts } = entities;
 
   const basicErrors: ReadonlyArray<string> = validateConfigBasics(name, version, scenes, canvasSelector, tags);
   const activeErrors: ReadonlyArray<string> = validateActiveEntities({ cameras, scenes, controls });
-  const relationsErrors: ReadonlyArray<string> = validateRelations(controls, cameras, actors, physics, models3dEntities, models3dResources, audioResources, audio, intersections);
+  const relationsErrors: ReadonlyArray<string> = validateRelations(controls, cameras, actors, models3dEntities, models3dResources, audioResources, audio, intersections);
   const namesErrors: ReadonlyArray<string> = validateEntityNames({
     scenes,
     spatialGrids,
@@ -121,7 +118,6 @@ function validateRelations(
   controls: ReadonlyArray<TControlsConfig>,
   cameras: ReadonlyArray<TAnyCameraConfig>,
   actors: ReadonlyArray<TActorConfig>,
-  physics: TPhysicsConfig,
   models3dEntities: ReadonlyArray<TModel3dConfig>,
   models3dResources: ReadonlyArray<TModel3dResourceConfig>,
   audioResources: ReadonlyArray<TAudioResourceConfig>,
@@ -133,13 +129,11 @@ function validateRelations(
   if (controls.length > 0 && cameras.length === 0) errors = [...errors, 'Controls cannot be defined without at least one camera, but there are no cameras'];
   if (!controls.every((control: TControlsConfig): boolean => cameras.some((camera: TAnyCameraConfig): boolean => camera.name === control.cameraName)))
     errors = [...errors, 'Not every control has a camera'];
-  if (!validateAllActorsHasPhysicsPreset(actors, physics.presets)) errors = [...errors, 'Not every actor has a defined physics preset (check actors presetName against physics presets names)'];
   if (!validateAllActorsHasModel3d(actors, models3dEntities)) errors = [...errors, 'Not every actor has a defined model3dSource (check actors model3dSource against models3d entities)'];
   if (!validateAllModel3dEntityHasValidResource(models3dEntities, models3dResources)) errors = [...errors, 'Not every model3d entity has a valid resource (must be a primitive or an url)'];
   if (!validateAllAudioEntityHasValidResource(audio, audioResources)) errors = [...errors, 'Not every audio entity has a valid resource (must be a primitive or an url)'];
   if (!validateCameraNames(intersections)) errors = [...errors, 'Not every intersection camera name is valid'];
   if (!validateActorNamesForEveryEntity(intersections)) errors = [...errors, 'Not every intersection actor name is valid'];
-  if (!validatePresetNames(actors)) errors = [...errors, 'Not every actor has a valid physics preset name'];
 
   return errors;
 }

@@ -1,7 +1,7 @@
 import type { RigidBody, Rotation, Vector } from '@dimforge/rapier3d';
 import type { QuaternionLike, Vector3Like } from 'three';
 
-import type { TPhysicsBody, TPhysicsBodyService, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
+import type { TPhysicsBody, TPhysicsBodyParams, TPhysicsBodyService } from '@/Engine/Physics';
 import { isPhysicsBodyParamsComplete } from '@/Engine/Physics';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TRigidBodyTransformData } from '@/Engine/TransformDrive/Models';
@@ -30,7 +30,7 @@ export function getPhysicalBodyTransform(
   };
 }
 
-export function createPhysicsBody(physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService): TPhysicsBody | undefined {
+export function createPhysicsBody(physics: TPhysicsBodyParams, physicsBodyService: TPhysicsBodyService): TPhysicsBody | undefined {
   if (!isPhysicsBodyParamsComplete(physics)) return undefined;
   return physicsBodyService.create(physics);
 }

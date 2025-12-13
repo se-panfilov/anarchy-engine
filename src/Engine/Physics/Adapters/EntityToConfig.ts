@@ -38,7 +38,6 @@ export function physicsToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
   return filterOutEmptyFields({
     collisionShape: entity.getPhysicsBodyShape(),
     ...rigidBodySettings,
-    ...colliderSettings,
-    presetName: entity.name
+    ...colliderSettings
   });
 }

@@ -4,7 +4,6 @@ import type { TAnyAudioConfig, TAudioResourceConfig } from '@/Engine/Audio';
 import type { TWithNameOptional, TWithTags } from '@/Engine/Mixins';
 import type { TModel3dConfig, TModel3dResourceConfig } from '@/Engine/Models3d';
 import { isPrimitiveModel3dResourceConfig, isPrimitiveModel3dSource } from '@/Engine/Models3d';
-import type { TPhysicsPresetConfig, TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export const validateNames = (entities: ReadonlyArray<TWithNameOptional>): boolean => entities.every(validateName);
@@ -17,20 +16,6 @@ export const validateCameraNames = (
   >
 ): boolean => entities.every(validateCameraName);
 export const validateCameraName = (entity: Readonly<{ cameraName: string }>): boolean => validateField(entity, 'cameraName');
-export const validatePresetName = (entity: Readonly<{ presetName: string }>): boolean => validateField(entity, 'presetName');
-
-export function validatePresetNames(
-  entities: ReadonlyArray<
-    Readonly<{
-      physics?: TWithPresetNamePhysicsBodyConfig;
-    }>
-  >
-): boolean {
-  return entities
-    .map((entity) => entity.physics)
-    .filter(isDefined)
-    .every((physics): boolean => isNotDefined(physics.presetName) || validatePresetName(physics as any));
-}
 
 export const validateActorNamesForEveryEntity = (
   entities: ReadonlyArray<
@@ -53,13 +38,6 @@ export const validateField = <T extends Record<string, any>>(obj: T, field: keyo
 export const validateArrayField = <T extends Record<string, any>>(obj: T, field: keyof T): boolean => obj[field].every(validate);
 
 export const validate = (str: string | undefined): boolean => (isDefined(str) ? str.length > 0 && /^[A-z0-9_]+$/gm.test(str) : true);
-
-export function validateAllActorsHasPhysicsPreset(actors: ReadonlyArray<TActorConfig>, presets: ReadonlyArray<TPhysicsPresetConfig> | undefined): boolean {
-  return actors.every((actor: TActorConfig): boolean => {
-    if (isNotDefined(presets) || presets.length === 0) return true;
-    return presets.some((preset: TPhysicsPresetConfig): boolean => isNotDefined(actor.physics) || isNotDefined(actor.physics?.presetName) || preset.name === actor.physics.presetName);
-  });
-}
 
 export function validateAllActorsHasModel3d(actors: ReadonlyArray<TActorConfig>, models3d: ReadonlyArray<TModel3dConfig> | undefined): boolean {
   const sources: ReadonlyArray<string> = models3d?.map((v: TModel3dConfig): string => v.name) ?? [];

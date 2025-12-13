@@ -16,6 +16,7 @@ import type {
   TModels3dRegistry,
   TMouseWatcherEvent,
   TParticlesWrapper,
+  TPhysicsBodyParams,
   TPointLightWrapper,
   TRadians,
   TReadonlyQuaternion,
@@ -25,8 +26,7 @@ import type {
   TSpaceConfig,
   TSpatialGridWrapper,
   TText3dWrapper,
-  TTextAnyWrapper,
-  TWithPresetNamePhysicsBodyParams
+  TTextAnyWrapper
 } from '@/Engine';
 import {
   asRecord,
@@ -126,7 +126,7 @@ export async function showcase(space: TSpace): Promise<void> {
   sceneW.addModel3d(planeModel3d);
 
   const actorCoords = new Vector3(0, actorsOffsetY, 0);
-  const sphereActorPhysics: TWithPresetNamePhysicsBodyParams = {
+  const sphereActorPhysics: TPhysicsBodyParams = {
     collisionShape: CollisionShape.Ball,
     type: RigidBodyTypesNames.Dynamic,
     shapeParams: {

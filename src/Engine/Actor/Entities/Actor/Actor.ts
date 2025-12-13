@@ -12,7 +12,7 @@ import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
 import { withCollisions } from '@/Engine/Collisions';
 import type { TFsmWrapper } from '@/Engine/Fsm';
 import type { TModel3d } from '@/Engine/Models3d';
-import type { TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
+import type { TPhysicsBodyParams } from '@/Engine/Physics';
 import type { TSpatialLoop } from '@/Engine/Spatial';
 import { withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
@@ -49,7 +49,7 @@ export function Actor(
     // TODO 15-0-0: add serializer to the service to avoid dependencies passing
     serialize: (dependencies: TActorEntityToConfigDependencies): TActorConfig => actorToConfig(actor, dependencies),
     getModel3dSettings: (): TActorModel3dSettings | undefined => params.model3dSettings,
-    getPhysicsSettings: (): TWithPresetNamePhysicsBodyParams | undefined => params.physics
+    getPhysicsSettings: (): TPhysicsBodyParams | undefined => params.physics
   });
 
   const spatialLoop: TSpatialLoop = loopService.getSpatialLoop();
