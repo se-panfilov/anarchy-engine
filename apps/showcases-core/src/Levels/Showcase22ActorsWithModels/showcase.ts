@@ -33,7 +33,7 @@ export function start(settings: TAppSettings): void {
 
 export function showcase(space: TSpace): void {
   const { keyboardService } = space.services;
-  const { onKey, isKeyPressed } = keyboardService;
+  const { pressing$ } = keyboardService;
 
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
   const fadeDuration = 0.3;
@@ -50,6 +50,11 @@ export function showcase(space: TSpace): void {
   });
 
   onKey(KeyCode.W).pressing$.subscribe((): void => {
+    const action: 'Run' | 'Walk' = isKeyPressed(KeyCode.Shift) ? 'Run' : 'Walk';
+    if (solder1AnimFsm.getState() !== action) solder1AnimFsm.send$.next(action);
+  });
+
+  pressing$.subscribe((): void => {
     const action: 'Run' | 'Walk' = isKeyPressed(KeyCode.Shift) ? 'Run' : 'Walk';
     if (solder1AnimFsm.getState() !== action) solder1AnimFsm.send$.next(action);
   });

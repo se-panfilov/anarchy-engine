@@ -1,4 +1,4 @@
-import type { TActor, TActorRegistry, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TKeyboardPressingEvent, TMouseWatcherEvent, TSpace, TSpaceConfig } from '@Anarchy/Engine';
+import type { TActor, TActorRegistry, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TKeysPressingEvent, TMouseWatcherEvent, TSpace, TSpaceConfig } from '@Anarchy/Engine';
 import { KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import GUI from 'lil-gui';
@@ -50,19 +50,19 @@ export function showcase(space: TSpace): void {
   const actorMkeyForward: TActor = getByTags(['mkey', 'Forward'], LookUpStrategy.Every);
   const actorMkeyExtra: TActor = getByTags(['mkey', 'Extra'], LookUpStrategy.Every);
 
-  onKey(KeyCode.W).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta)));
+  onKey(KeyCode.W).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta)));
   onKey(KeyCode.W).pressed$.subscribe((): void => void actorKeyW.drive.default.addY(-0.2));
   onKey(KeyCode.W).released$.subscribe((): void => void actorKeyW.drive.default.addY(0.2));
 
-  onKey(KeyCode.A).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta)));
+  onKey(KeyCode.A).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta)));
   onKey(KeyCode.A).pressed$.subscribe((): void => void actorKeyA.drive.default.addY(-0.2));
   onKey(KeyCode.A).released$.subscribe((): void => void actorKeyA.drive.default.addY(0.2));
 
-  onKey(KeyCode.S).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta)));
+  onKey(KeyCode.S).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta)));
   onKey(KeyCode.S).pressed$.subscribe((): void => void actorKeyS.drive.default.addY(-0.2));
   onKey(KeyCode.S).released$.subscribe((): void => void actorKeyS.drive.default.addY(0.2));
 
-  onKey(KeyCode.D).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(10), delta)));
+  onKey(KeyCode.D).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(10), delta)));
   onKey(KeyCode.D).pressed$.subscribe((): void => void actorKeyD.drive.default.addY(-0.2));
   onKey(KeyCode.D).released$.subscribe((): void => void actorKeyD.drive.default.addY(0.2));
 

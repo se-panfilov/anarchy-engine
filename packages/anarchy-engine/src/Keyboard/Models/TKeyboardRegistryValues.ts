@@ -1,9 +1,9 @@
 import type { Subject } from 'rxjs';
 
-import type { TKeyboardPressingEvent } from './TKeyboardPressingEvent';
+import type { TKeysPressingEvent } from './TKeysPressingEvent';
 
 export type TKeyboardRegistryValues = {
   pressed$: Subject<string>;
-  pressing$: Subject<TKeyboardPressingEvent>;
+  pressing$: Subject<TKeysPressingEvent>;
   released$: Subject<string>;
 };

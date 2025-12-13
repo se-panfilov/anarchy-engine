@@ -1,4 +1,4 @@
-import type { TActor, TActorRegistry, TKeyboardPressingEvent, TSpace, TSpaceConfig, TSpaceServices } from '@Anarchy/Engine';
+import type { TActor, TActorRegistry, TKeysPressingEvent, TSpace, TSpaceConfig, TSpaceServices } from '@Anarchy/Engine';
 import { ambientContext, createDomElement, KeyCode, metersPerSecond, mpsSpeed, spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import { combineLatest } from 'rxjs';
@@ -63,8 +63,8 @@ function driveByKeyboard(actorName: string, { actorService, keyboardService }: T
   const actor: TActor = actorRegistry.getByName(actorName);
   const { onKey } = keyboardService;
 
-  onKey(KeyCode.W).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actor.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta)));
-  onKey(KeyCode.A).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actor.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta)));
-  onKey(KeyCode.S).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actor.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta)));
-  onKey(KeyCode.D).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actor.drive.default.addX(mpsSpeed(metersPerSecond(10), delta)));
+  onKey(KeyCode.W).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actor.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta)));
+  onKey(KeyCode.A).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actor.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta)));
+  onKey(KeyCode.S).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actor.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta)));
+  onKey(KeyCode.D).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actor.drive.default.addX(mpsSpeed(metersPerSecond(10), delta)));
 }
