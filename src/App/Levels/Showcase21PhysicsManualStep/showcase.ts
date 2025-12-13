@@ -13,7 +13,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   function init(): void {
     physicsWorldService.getDebugRenderer(loopService).start();
 
-    const actor: TActorWrapper | undefined = actorService.getRegistry().findByName('actor_6');
+    const actor: TActorWrapper | undefined = actorService.getRegistry().findByName('sphere_4_actor');
     if (isNotDefined(actor)) throw new Error('Non-physical actor not found');
 
     //run/stop physics loop

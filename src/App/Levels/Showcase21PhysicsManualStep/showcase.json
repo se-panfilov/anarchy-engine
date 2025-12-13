@@ -8,235 +8,274 @@
       "isActive": true
     }
   ],
-  "spatialGrids": [
-    {
-      "name": "main_grid",
-      "mapWidth": 20,
-      "mapHeight": 20,
-      "cellSize": 10,
-      "centerX": 0,
-      "centerZ": 0,
-      "tags": []
-    }
-  ],
-  "actors": [
-    {
-      "name": "surface",
-      "model3d": {
-        "url": "plane"
-      },
-      "width": 20,
-      "height": 20,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
-      "physics": {
-        "presetName": "wall_physics",
-        "shapeParams": {
-          "hx": 10,
-          "hy": 0.025,
-          "hz": 10
-        },
-        "position": { "x": 0, "y": -0.025, "z": 0 },
-        "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
-      },
-      "position": { "x": 0, "y": 0, "z": 0 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "castShadow": false,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "name": "actor_1",
-      "model3d": {
-        "url": "sphere"
-      },
-      "radius": 1,
-      "material": { "type": "standard", "params": { "color": "#8EFEFE" } },
-      "physics": {
-        "presetName": "ball_physics",
-        "shapeParams": {
-          "radius": 1
-        },
-        "position": { "x": 0, "y": 6, "z": 0 }
-      },
-      "position": { "x": 0, "y": 6, "z": 0 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "name": "actor_2",
-      "model3d": {
-        "url": "cube"
-      },
-      "height": 4,
-      "width": 1,
-      "depth": 1,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#8FAA8F" } },
-      "physics": {
-        "presetName": "box_physics",
-        "shapeParams": {
-          "hx": 0.5,
-          "hy": 2,
-          "hz": 0.5
-        },
-        "position": { "x": -4, "y": 4, "z": 3 },
-        "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
-      },
-      "position": { "x": -4, "y": 4, "z": 3 },
-      "rotation": { "x": 0, "y": 0, "z": 0 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "name": "actor_3",
-      "model3d": {
-        "url": "cube"
-      },
-      "height": 4,
-      "width": 1,
-      "depth": 1,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#FF8E8E" } },
-      "physics": {
-        "presetName": "box_physics",
-        "shapeParams": {
-          "hx": 0.5,
-          "hy": 2,
-          "hz": 0.5
-        },
-        "position": { "x": 4, "y": 9, "z": -4 },
-        "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
-      },
-      "position": { "x": 4, "y": 9, "z": -4 },
-      "rotation": { "x": 0, "y": 0, "z": 0 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "name": "actor_4",
-      "model3d": {
-        "url": "sphere"
-      },
-      "radius": 1,
-      "material": { "type": "standard", "params": { "color": "#8E8EFF" } },
-      "physics": {
-        "presetName": "ball_physics",
-        "shapeParams": {
-          "radius": 1
-        },
-        "restitution": 0.9,
-        "position": { "x": 1, "y": 12, "z": 0 }
-      },
-      "position": { "x": 1, "y": 12, "z": 0 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "name": "actor_5",
-      "model3d": {
-        "url": "sphere"
-      },
-      "radius": 2,
-      "material": { "type": "standard", "params": { "color": "#8EFF8E" } },
-      "physics": {
-        "presetName": "ball_physics",
-        "shapeParams": {
-          "radius": 2
-        },
-        "restitution": 0.9,
-        "position": { "x": 1, "y": 12, "z": 1 }
-      },
-      "position": { "x": 1, "y": 12, "z": 1 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "name": "actor_6",
-      "model3d": {
-        "url": "sphere"
-      },
-      "radius": 0.25,
-      "material": { "type": "standard", "params": { "color": "#E91E63" } },
-      "position": { "x": 0, "y": 0, "z": 0 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    }
-  ],
-  "models3d": [],
-  "intersections": [],
-  "physics": {
-    "global": {
-      "gravity": { "x": 0, "y": -9.81, "z": 0 }
-    },
-    "presets": [
+  "resources": {
+    "textures": [],
+    "envMaps": [],
+    "materials": [
+      { "name": "box_material", "type": "standard", "options": { "color": "#8E8E8E" } },
+      { "name": "box_2_material", "type": "standard", "options": { "color": "#FF8E8E" } },
+      { "name": "box_3_material", "type": "standard", "options": { "color": "#8E8EFF" } },
+      { "name": "box_4_material", "type": "standard", "options": { "color": "#8EFEFE" } },
+      { "name": "box_5_material", "type": "standard", "options": { "color": "#8FAA8F" } },
+      { "name": "box_6_material", "type": "standard", "options": { "color": "#E91E63" } },
+      { "name": "box_7_material", "type": "standard", "options": { "color": "#8EFF8E" } }
+    ],
+    "models3d": []
+  },
+  "entities": {
+    "spatialGrids": [
       {
-        "name": "wall_physics",
-        "type": "fixed",
-        "collisionShape": "cuboid"
-      },
-      {
-        "name": "ball_physics",
-        "type": "dynamic",
-        "collisionShape": "ball"
-      },
-      {
-        "name": "box_physics",
-        "type": "dynamic",
-        "restitution": 0.1,
-        "collisionShape": "cuboid"
+        "name": "main_grid",
+        "mapWidth": 20,
+        "mapHeight": 20,
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "tags": []
       }
     ],
-    "isAutoUpdate": false
-  },
-  "texts": [],
-  "cameras": [
-    {
-      "fov": 45,
-      "name": "main",
-      "near": 1,
-      "far": 10000,
-      "position": { "x": 3, "y": 10, "z": 15 },
-      "rotation": { "x": 0, "y": 0, "z": 0 },
-      "tags": [],
-      "isActive": true
-    }
-  ],
-  "lights": [
-    {
-      "type": "Directional",
-      "color": "#ffffff",
-      "intensity": 1,
-      "castShadow": true,
-      "shadow": {
-        "mapSize": { "x": 1024, "y": 1024 },
-        "camera": { "far": 15 },
-        "normalBias": 0.05
+    "models3d": [
+      {
+        "name": "surface_model",
+        "model3dSource": "plane",
+        "materialSource": "box_material",
+        "options": {
+          "width": 20,
+          "height": 20,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": false,
+        "receiveShadow": true
       },
-      "position": { "x": 0.25, "y": 2, "z": 2.25 },
-      "tags": []
-    }
-  ],
-  "controls": [
-    {
-      "type": "OrbitControls",
-      "cameraName": "main",
-      "enableDamping": true,
-      "tags": [],
-      "isActive": true
-    }
-  ],
-  "envMaps": [],
-  "particles": [],
-  "fogs": [],
+      {
+        "name": "sphere_1_model",
+        "model3dSource": "sphere",
+        "materialSource": "box_4_material",
+        "options": {
+          "radius": 1
+        },
+        "castShadow": true
+      },
+      {
+        "name": "cube_1_model",
+        "model3dSource": "cube",
+        "materialSource": "box_5_material",
+        "options": {
+          "height": 4,
+          "width": 1,
+          "depth": 1,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": true
+      },
+      {
+        "name": "cube_2_model",
+        "model3dSource": "cube",
+        "materialSource": "box_2_material",
+        "options": {
+          "height": 4,
+          "width": 1,
+          "depth": 1,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": true
+      },
+      {
+        "name": "sphere_2_model",
+        "model3dSource": "sphere",
+        "materialSource": "box_3_material",
+        "options": {
+          "radius": 1
+        },
+        "castShadow": true
+      },
+      {
+        "name": "sphere_3_model",
+        "model3dSource": "sphere",
+        "materialSource": "box_7_material",
+        "options": {
+          "radius": 2
+        },
+        "castShadow": true
+      },
+      {
+        "name": "sphere_4_model",
+        "model3dSource": "sphere",
+        "materialSource": "box_6_material",
+        "options": {
+          "radius": 0.25
+        },
+        "castShadow": true
+      }
+    ],
+    "actors": [
+      {
+        "name": "surface_actor",
+        "model3dSource": "surface_model",
+        "physics": {
+          "presetName": "wall_physics",
+          "shapeParams": {
+            "hx": 10,
+            "hy": 0.025,
+            "hz": 10
+          },
+          "position": { "x": 0, "y": -0.025, "z": 0 },
+          "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
+        },
+        "position": { "x": 0, "y": 0, "z": 0 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      },
+      {
+        "name": "sphere_1_actor",
+        "model3dSource": "sphere_1_model",
+        "physics": {
+          "presetName": "ball_physics",
+          "shapeParams": {
+            "radius": 1
+          },
+          "position": { "x": 0, "y": 6, "z": 0 }
+        },
+        "position": { "x": 0, "y": 6, "z": 0 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      },
+      {
+        "name": "cube_1_actor",
+        "model3dSource": "cube_1_model",
+        "physics": {
+          "presetName": "box_physics",
+          "shapeParams": {
+            "hx": 0.5,
+            "hy": 2,
+            "hz": 0.5
+          },
+          "position": { "x": -4, "y": 4, "z": 3 },
+          "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
+        },
+        "position": { "x": -4, "y": 4, "z": 3 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      },
+      {
+        "name": "cube_2_actor",
+        "model3dSource": "cube_2_model",
+        "physics": {
+          "presetName": "box_physics",
+          "shapeParams": {
+            "hx": 0.5,
+            "hy": 2,
+            "hz": 0.5
+          },
+          "position": { "x": 4, "y": 9, "z": -4 },
+          "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
+        },
+        "position": { "x": 4, "y": 9, "z": -4 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      },
+      {
+        "name": "sphere_2_actor",
+        "model3dSource": "sphere_2_model",
+        "physics": {
+          "presetName": "ball_physics",
+          "shapeParams": {
+            "radius": 1
+          },
+          "restitution": 0.9,
+          "position": { "x": 1, "y": 12, "z": 0 }
+        },
+        "position": { "x": 1, "y": 12, "z": 0 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      },
+      {
+        "name": "sphere_3_actor",
+        "model3dSource": "sphere_3_model",
+        "physics": {
+          "presetName": "ball_physics",
+          "shapeParams": {
+            "radius": 2
+          },
+          "restitution": 0.9,
+          "position": { "x": 1, "y": 12, "z": 1 }
+        },
+        "position": { "x": 1, "y": 12, "z": 1 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      },
+      {
+        "name": "sphere_4_actor",
+        "model3dSource": "sphere_4_model",
+        "position": { "x": 0, "y": 0, "z": 0 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      }
+    ],
+    "intersections": [],
+    "physics": {
+      "global": {
+        "gravity": { "x": 0, "y": -9.81, "z": 0 }
+      },
+      "presets": [
+        {
+          "name": "wall_physics",
+          "type": "fixed",
+          "collisionShape": "cuboid"
+        },
+        {
+          "name": "ball_physics",
+          "type": "dynamic",
+          "collisionShape": "ball"
+        },
+        {
+          "name": "box_physics",
+          "type": "dynamic",
+          "restitution": 0.1,
+          "collisionShape": "cuboid"
+        }
+      ],
+      "isAutoUpdate": false
+    },
+    "texts": [],
+    "cameras": [
+      {
+        "fov": 45,
+        "name": "main",
+        "near": 1,
+        "far": 10000,
+        "position": { "x": 3, "y": 10, "z": 15 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "tags": [],
+        "isActive": true
+      }
+    ],
+    "lights": [
+      {
+        "type": "Directional",
+        "color": "#ffffff",
+        "intensity": 1,
+        "castShadow": true,
+        "shadow": {
+          "mapSize": { "x": 1024, "y": 1024 },
+          "camera": { "far": 15 },
+          "normalBias": 0.05
+        },
+        "position": { "x": 0.25, "y": 2, "z": 2.25 },
+        "tags": []
+      }
+    ],
+    "controls": [
+      {
+        "type": "OrbitControls",
+        "cameraName": "main",
+        "enableDamping": true,
+        "tags": [],
+        "isActive": true
+      }
+    ],
+    "envMaps": [],
+    "particles": [],
+    "fogs": []
+  },
   "tags": []
 }
