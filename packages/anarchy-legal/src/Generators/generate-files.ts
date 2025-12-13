@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import type { TWorkspaceInfo } from '@Anarchy/Legal';
 // eslint-disable-next-line spellcheck/spell-checker
 import { globby } from 'globby';
 // eslint-disable-next-line spellcheck/spell-checker
@@ -41,26 +42,8 @@ import { hideBin } from 'yargs/helpers';
  *   - Overrides and template selection come from .anarchy-legal.config.json in the workspace.
  */
 
-// ---------------------- Types ----------------------
-
-type TJson = Readonly<Record<string, unknown>>;
-type TStringMap = Readonly<Record<string, string>>;
-type TReadonlyArray<T> = ReadonlyArray<T>;
-
 const DOC_TYPES = ['DISCLAIMER', 'EULA', 'PRIVACY', 'SECURITY'] as const;
 type TDocType = (typeof DOC_TYPES)[number];
-
-type TWorkspaceInfo = Readonly<{
-  name: string;
-  dir: string; // abs path
-  pkgPath: string; // abs path to package.json
-  pkg: Readonly<Record<string, unknown>>;
-}>;
-
-type TRootInfo = Readonly<{
-  rootDir: string;
-  workspaces: ReadonlyMap<string, TWorkspaceInfo>;
-}>;
 
 type TDateMessage = Readonly<{
   date: string; // "now" or ISO-like "YYYY-MM-DD" or full ISO
@@ -74,6 +57,7 @@ type TConfigEntry = Readonly<{
   template?: string; // base name without extension, e.g. "DISCLAIMER_COMMERCIAL_TEMPLATE"
   messages?: TMessages;
 }>;
+
 type TConfig = ReadonlyArray<TConfigEntry>;
 
 type TRenderInput = Readonly<{
@@ -86,12 +70,12 @@ type TRenderInput = Readonly<{
 
 // ---------------------- Utils ----------------------
 
-let DEBUG = false;
+let isDebug: boolean = false;
 const dlog = (...args: ReadonlyArray<unknown>): void => {
-  if (DEBUG) console.log('[debug]', ...args);
+  if (isDebug) console.log('[debug]', ...args);
 };
 
-const readJson = async <T extends TJson>(p: string): Promise<T> => JSON.parse(await fs.readFile(p, 'utf8')) as T;
+const readJson = async <T extends Record<string, unknown>>(p: string): Promise<T> => JSON.parse(await fs.readFile(p, 'utf8')) as T;
 
 const exists = async (p: string): Promise<boolean> => {
   try {
@@ -383,7 +367,7 @@ const main = async (): Promise<void> => {
     .help()
     .parseAsync();
 
-  DEBUG = Boolean(argv.debug);
+  isDebug = Boolean(argv.debug);
 
   const scriptDir = path.dirname(fileURLToPath(import.meta.url));
   const startCandidates = [process.env.INIT_CWD, process.cwd(), scriptDir].filter(Boolean) as string[];
