@@ -28,6 +28,6 @@ watch(
 </script>
 
 <template>
-  <!--  // eslint-disable-next-line vue/no-v-htm-->
+  <!-- eslint-disable-next-line vue/no-v-html -->
   <div class="md-renderer" v-html="state.parsedContent" />
 </template>
