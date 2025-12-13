@@ -6,9 +6,9 @@ import type { TGameKey } from './TGameKey';
 
 export type TKeyboardService = TAbstractService &
   Readonly<{
-    pressed$: Observable<ReadonlySet<TGameKey>>;
+    combo$: Observable<ReadonlySet<TGameKey>>;
     pressing$: Observable<TKeysPressingEvent>;
+    pressed$: Observable<KeyboardEvent>;
+    released$: Observable<KeyboardEvent>;
     currentKeys: ReadonlySet<TGameKey>;
-    isKeyPressed: (key: TGameKey) => boolean;
-    isKeysPressed: (keys: ReadonlyArray<TGameKey>) => boolean;
   }>;

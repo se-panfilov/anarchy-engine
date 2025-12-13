@@ -10,13 +10,14 @@ import type {
   TMouseWatcherEvent
 } from '@Anarchy/Engine';
 import { KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed } from '@Anarchy/Engine';
+import { isEventKey, isKeyPressed } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import { withLatestFrom } from 'rxjs';
 import { Vector3 } from 'three';
 
 export function initInputActors(actorService: TActorService, keyboardService: TKeyboardService, mouseService: TMouseService, intersectionsWatcherService: TIntersectionsWatcherService): void {
   const { getByName, getByTags } = actorService.getRegistry();
-  const { onKey } = keyboardService;
+  const { combo$, pressing$, pressed$, released$ } = keyboardService;
 
   const actorKeyboard: TActor = getByName('sphere_keyboard_actor');
   const actorMouse: TActor = getByName('sphere_mouse_actor');
@@ -28,21 +29,39 @@ export function initInputActors(actorService: TActorService, keyboardService: TK
   const actorMkeyRight: TActor = getByTags(['mkey', 'Right'], LookUpStrategy.Every);
   const actorMkeyMiddle: TActor = getByTags(['mkey', 'Middle'], LookUpStrategy.Every);
 
-  onKey(KeyCode.W).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta)));
-  onKey(KeyCode.W).pressed$.subscribe((): void => void actorKeyW.drive.default.addY(-0.2));
-  onKey(KeyCode.W).released$.subscribe((): void => void actorKeyW.drive.default.addY(0.2));
+  const actionKeys = {
+    GoDown: KeyCode.S,
+    GoLeft: KeyCode.A,
+    GoRight: KeyCode.D,
+    GoUp: KeyCode.W
+  };
 
-  onKey(KeyCode.A).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta)));
-  onKey(KeyCode.A).pressed$.subscribe((): void => void actorKeyA.drive.default.addY(-0.2));
-  onKey(KeyCode.A).released$.subscribe((): void => void actorKeyA.drive.default.addY(0.2));
+  const { GoDown, GoLeft, GoRight, GoUp } = actionKeys;
 
-  onKey(KeyCode.S).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta)));
-  onKey(KeyCode.S).pressed$.subscribe((): void => void actorKeyS.drive.default.addY(-0.2));
-  onKey(KeyCode.S).released$.subscribe((): void => void actorKeyS.drive.default.addY(0.2));
+  combo$.subscribe((v) => {
+    console.log('XXX1', v);
+  });
 
-  onKey(KeyCode.D).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(10), delta)));
-  onKey(KeyCode.D).pressed$.subscribe((): void => void actorKeyD.drive.default.addY(-0.2));
-  onKey(KeyCode.D).released$.subscribe((): void => void actorKeyD.drive.default.addY(0.2));
+  pressed$.subscribe((event: KeyboardEvent): void => {
+    if (isEventKey(GoUp, event)) void actorKeyW.drive.default.addY(-0.2);
+    if (isEventKey(GoLeft, event)) void actorKeyA.drive.default.addY(-0.2);
+    if (isEventKey(GoDown, event)) void actorKeyS.drive.default.addY(-0.2);
+    if (isEventKey(GoRight, event)) void actorKeyD.drive.default.addY(-0.2);
+  });
+
+  released$.subscribe((event: KeyboardEvent): void => {
+    if (isEventKey(GoUp, event)) void actorKeyW.drive.default.addY(0.2);
+    if (isEventKey(GoLeft, event)) void actorKeyA.drive.default.addY(0.2);
+    if (isEventKey(GoDown, event)) void actorKeyS.drive.default.addY(0.2);
+    if (isEventKey(GoRight, event)) void actorKeyD.drive.default.addY(0.2);
+  });
+
+  pressing$.subscribe(({ keys, delta }: TKeysPressingEvent): void => {
+    if (isKeyPressed(GoUp, keys)) actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta));
+    if (isKeyPressed(GoLeft, keys)) actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta));
+    if (isKeyPressed(GoDown, keys)) actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta));
+    if (isKeyPressed(GoRight, keys)) actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(10), delta));
+  });
 
   const watcherSurface: TIntersectionsCameraWatcher = intersectionsWatcherService.getCameraWatcher('watcher_surface');
 

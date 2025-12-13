@@ -4,7 +4,6 @@ import type { TContainerDecorator } from '@Anarchy/Engine/Global';
 import type { TGameKey, TKeyComboWatcher, TKeysPressingEvent } from '@Anarchy/Engine/Keyboard';
 import { KeyWatcherType } from '@Anarchy/Engine/Keyboard';
 import type { TKeyboardService, TKeyWatcher, TKeyWatcherFactory, TKeyWatcherRegistry } from '@Anarchy/Engine/Keyboard/Models';
-import { isKeyPressed, isKeysPressed } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
 import type { TDelta } from '@Anarchy/Engine/Loop';
 import type { TSpaceLoops } from '@Anarchy/Engine/Space';
 import type { Subscription } from 'rxjs';
@@ -50,10 +49,10 @@ export function KeyboardService(container: TContainerDecorator, keyWatcherFactor
 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, {
-    pressed$: keyComboWatcher.value$.asObservable(),
+    combo$: keyComboWatcher.value$.asObservable(),
+    pressed$: keyPressWatcher.value$.asObservable(),
+    released$: keyReleaseWatcher.value$.asObservable(),
     pressing$: pressing$.asObservable(),
-    currentKeys: keyComboWatcher.value$.value,
-    isKeyPressed: (key: TGameKey): boolean => isKeyPressed(key, keyComboWatcher.value$.value),
-    isKeysPressed: (keys: ReadonlyArray<TGameKey>): boolean => isKeysPressed(keys, keyComboWatcher.value$.value)
+    currentKeys: keyComboWatcher.value$.value
   });
 }

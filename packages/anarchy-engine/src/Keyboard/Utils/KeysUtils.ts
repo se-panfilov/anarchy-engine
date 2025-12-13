@@ -9,3 +9,4 @@ export function isKeysPressed(keys: ReadonlyArray<TGameKey>, pressedKeys: Readon
   }
   return true;
 }
+export const isEventKey = (key: TGameKey, event: KeyboardEvent): boolean => event.code === key;
