@@ -267,7 +267,7 @@
           "type": "string"
         }
       },
-      "required": ["castShadow", "material", "physics", "position", "tags", "type"]
+      "required": ["castShadow", "material", "position", "tags", "type"]
     },
     "TMaterialPackConfig<TMaterialTexturePack>": {
       "type": "object",
@@ -1565,11 +1565,14 @@
         "presetName": {
           "type": "string"
         },
-        "name": {
-          "type": "string"
-        },
         "type": {
           "$ref": "#/definitions/RigidBodyTypesNames"
+        },
+        "position": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "rotation": {
+          "$ref": "#/definitions/TWithCoordsXYZW"
         },
         "collisionShape": {
           "$ref": "#/definitions/CollisionShape"
@@ -1589,12 +1592,6 @@
         "collisionGroups": {
           "type": "number"
         },
-        "position": {
-          "$ref": "#/definitions/TVector3Wrapper"
-        },
-        "rotation": {
-          "$ref": "#/definitions/TEulerWrapper"
-        },
         "tags": {
           "type": "array",
           "items": {
@@ -1607,6 +1604,25 @@
     "RigidBodyTypesNames": {
       "type": "string",
       "enum": ["dynamic", "fixed", "kinematicPositionBased", "kinematicVelocityBased"]
+    },
+    "TWithCoordsXYZW": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "w": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "x": {
+          "type": "number"
+        }
+      },
+      "required": ["w", "x", "y", "z"]
     },
     "CollisionShape": {
       "type": "string",
@@ -2250,639 +2266,6 @@
       "required": ["halfHeight", "radius", "borderRadius"],
       "additionalProperties": false
     },
-    "TVector3Wrapper": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "addZ": {
-          "$comment": "(z: number) => number",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": ["z"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "setZ": {
-          "$comment": "(z: number) => number",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": ["z"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "getZ": {
-          "$comment": "() => number"
-        },
-        "addY": {
-          "$comment": "(y: number) => number",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "y": {
-                  "type": "number"
-                }
-              },
-              "required": ["y"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "setY": {
-          "$comment": "(y: number) => number",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "y": {
-                  "type": "number"
-                }
-              },
-              "required": ["y"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "getY": {
-          "$comment": "() => number"
-        },
-        "addX": {
-          "$comment": "(x: number) => number",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                }
-              },
-              "required": ["x"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "setX": {
-          "$comment": "(x: number) => number",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                }
-              },
-              "required": ["x"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "getX": {
-          "$comment": "() => number"
-        },
-        "getCoords": {
-          "$comment": "() => TWithCoordsXYZ"
-        },
-        "getName": {
-          "$comment": "() => string | undefined"
-        },
-        "setName": {
-          "$comment": "(name: string) => void",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                }
-              },
-              "required": ["name"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "name": {
-          "type": "string"
-        },
-        "setTags": {
-          "$comment": "(tagsList: ReadonlyArray<string>) => void",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "tagsList": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              },
-              "required": ["tagsList"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "addTag": {
-          "$comment": "(tag: string) => void",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "tag": {
-                  "type": "string"
-                }
-              },
-              "required": ["tag"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "removeTag": {
-          "$comment": "(tag: string) => void",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "tag": {
-                  "type": "string"
-                }
-              },
-              "required": ["tag"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "hasTag": {
-          "$comment": "(tag: string) => boolean",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "tag": {
-                  "type": "string"
-                }
-              },
-              "required": ["tag"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "getTags": {
-          "$comment": "() => ReadonlyArray<string>"
-        },
-        "clearTags": {
-          "$comment": "() => void"
-        },
-        "id": {
-          "type": "string"
-        },
-        "destroyed$": {
-          "$ref": "#/definitions/Observable%3Cvoid%3E"
-        },
-        "isDestroyed": {
-          "$comment": "() => boolean"
-        },
-        "destroy": {
-          "$comment": "() => void"
-        },
-        "setWrapperId": {
-          "$comment": "(id: string) => void",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                }
-              },
-              "required": ["id"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "getWrapperId": {
-          "$comment": "() => string | undefined"
-        },
-        "entity": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number",
-              "default": 0
-            },
-            "y": {
-              "type": "number",
-              "default": 0
-            },
-            "z": {
-              "type": "number",
-              "default": 0
-            },
-            "isVector3": {
-              "type": "boolean",
-              "const": true
-            }
-          },
-          "required": ["x", "y", "z", "isVector3"],
-          "additionalProperties": false
-        }
-      },
-      "required": [
-        "addTag",
-        "addX",
-        "addY",
-        "addZ",
-        "clearTags",
-        "destroy",
-        "destroyed$",
-        "entity",
-        "getCoords",
-        "getName",
-        "getTags",
-        "getWrapperId",
-        "getX",
-        "getY",
-        "getZ",
-        "hasTag",
-        "id",
-        "isDestroyed",
-        "removeTag",
-        "setName",
-        "setTags",
-        "setWrapperId",
-        "setX",
-        "setY",
-        "setZ"
-      ]
-    },
-    "Observable<void>": {
-      "type": "object",
-      "properties": {
-        "source": {
-          "$ref": "#/definitions/Observable%3Cany%3E",
-          "deprecated": "Internal implementation detail, do not use directly. Will be made internal in v8."
-        },
-        "operator": {
-          "$ref": "#/definitions/Operator%3Cany%2Cvoid%3E",
-          "deprecated": "Internal implementation detail, do not use directly. Will be made internal in v8."
-        }
-      },
-      "additionalProperties": false,
-      "description": "A representation of any set of values over any amount of time. This is the most basic building block of RxJS."
-    },
-    "Observable<any>": {
-      "type": "object",
-      "properties": {
-        "source": {
-          "$ref": "#/definitions/Observable%3Cany%3E",
-          "deprecated": "Internal implementation detail, do not use directly. Will be made internal in v8."
-        },
-        "operator": {
-          "$ref": "#/definitions/Operator%3Cany%2Cany%3E",
-          "deprecated": "Internal implementation detail, do not use directly. Will be made internal in v8."
-        }
-      },
-      "additionalProperties": false,
-      "description": "A representation of any set of values over any amount of time. This is the most basic building block of RxJS."
-    },
-    "Operator<any,any>": {
-      "type": "object",
-      "additionalProperties": false,
-      "description": "*",
-      "deprecated": "Internal implementation detail, do not use directly. Will be made internal in v8."
-    },
-    "Operator<any,void>": {
-      "type": "object",
-      "additionalProperties": false,
-      "description": "*",
-      "deprecated": "Internal implementation detail, do not use directly. Will be made internal in v8."
-    },
-    "TEulerWrapper": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "setRotationZ": {
-          "$comment": "(z: number) => void",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": ["z"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "getRotationZ": {
-          "$comment": "() => number"
-        },
-        "adjustRotationByZ": {
-          "$comment": "(z: number) => void",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": ["z"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "setRotationY": {
-          "$comment": "(y: number) => void",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "y": {
-                  "type": "number"
-                }
-              },
-              "required": ["y"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "getRotationY": {
-          "$comment": "() => number"
-        },
-        "adjustRotationByY": {
-          "$comment": "(y: number) => void",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "y": {
-                  "type": "number"
-                }
-              },
-              "required": ["y"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "setRotationX": {
-          "$comment": "(x: number) => void",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                }
-              },
-              "required": ["x"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "getRotationX": {
-          "$comment": "() => number"
-        },
-        "adjustRotationByX": {
-          "$comment": "(x: number) => void",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                }
-              },
-              "required": ["x"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "getCoords": {
-          "$comment": "() => TWithCoordsXYZ"
-        },
-        "toQuaternion": {
-          "$comment": "() => Quaternion"
-        },
-        "getName": {
-          "$comment": "() => string | undefined"
-        },
-        "setName": {
-          "$comment": "(name: string) => void",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                }
-              },
-              "required": ["name"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "name": {
-          "type": "string"
-        },
-        "setTags": {
-          "$comment": "(tagsList: ReadonlyArray<string>) => void",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "tagsList": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              },
-              "required": ["tagsList"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "addTag": {
-          "$comment": "(tag: string) => void",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "tag": {
-                  "type": "string"
-                }
-              },
-              "required": ["tag"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "removeTag": {
-          "$comment": "(tag: string) => void",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "tag": {
-                  "type": "string"
-                }
-              },
-              "required": ["tag"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "hasTag": {
-          "$comment": "(tag: string) => boolean",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "tag": {
-                  "type": "string"
-                }
-              },
-              "required": ["tag"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "getTags": {
-          "$comment": "() => ReadonlyArray<string>"
-        },
-        "clearTags": {
-          "$comment": "() => void"
-        },
-        "id": {
-          "type": "string"
-        },
-        "destroyed$": {
-          "$ref": "#/definitions/Observable%3Cvoid%3E"
-        },
-        "isDestroyed": {
-          "$comment": "() => boolean"
-        },
-        "destroy": {
-          "$comment": "() => void"
-        },
-        "setWrapperId": {
-          "$comment": "(id: string) => void",
-          "type": "object",
-          "properties": {
-            "namedArgs": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                }
-              },
-              "required": ["id"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "getWrapperId": {
-          "$comment": "() => string | undefined"
-        },
-        "entity": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number",
-              "default": 0
-            },
-            "y": {
-              "type": "number",
-              "default": 0
-            },
-            "z": {
-              "type": "number",
-              "default": 0
-            },
-            "order": {
-              "$ref": "#/definitions/EulerOrder",
-              "default": "THREE.Euler.DEFAULT_ORDER"
-            },
-            "isEuler": {
-              "type": "boolean",
-              "const": true
-            },
-            "_onChangeCallback": {
-              "$comment": "() => void"
-            }
-          },
-          "required": ["x", "y", "z", "order", "isEuler", "_onChangeCallback"],
-          "additionalProperties": false
-        }
-      },
-      "required": [
-        "addTag",
-        "adjustRotationByX",
-        "adjustRotationByY",
-        "adjustRotationByZ",
-        "clearTags",
-        "destroy",
-        "destroyed$",
-        "entity",
-        "getCoords",
-        "getName",
-        "getRotationX",
-        "getRotationY",
-        "getRotationZ",
-        "getTags",
-        "getWrapperId",
-        "hasTag",
-        "id",
-        "isDestroyed",
-        "removeTag",
-        "setName",
-        "setRotationX",
-        "setRotationY",
-        "setRotationZ",
-        "setTags",
-        "setWrapperId",
-        "toQuaternion"
-      ]
-    },
     "TCameraConfig": {
       "type": "object",
       "additionalProperties": false,
@@ -3506,7 +2889,7 @@
         "presets": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/TPhysicsBodyConfig"
+            "$ref": "#/definitions/TPhysicsPresetConfig"
           }
         }
       },
@@ -3663,7 +3046,7 @@
       "type": "object",
       "additionalProperties": false
     },
-    "TPhysicsBodyConfig": {
+    "TPhysicsPresetConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -3672,6 +3055,12 @@
         },
         "type": {
           "$ref": "#/definitions/RigidBodyTypesNames"
+        },
+        "position": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "rotation": {
+          "$ref": "#/definitions/TWithCoordsXYZW"
         },
         "collisionShape": {
           "$ref": "#/definitions/CollisionShape"
@@ -3690,12 +3079,6 @@
         },
         "collisionGroups": {
           "type": "number"
-        },
-        "position": {
-          "$ref": "#/definitions/TVector3Wrapper"
-        },
-        "rotation": {
-          "$ref": "#/definitions/TEulerWrapper"
         },
         "tags": {
           "type": "array",

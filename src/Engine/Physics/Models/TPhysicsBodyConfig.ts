@@ -1,4 +1,4 @@
-import type { TWithCoordsXYZ, TWithCoordsXYZW, TWithName } from '@/Engine/Mixins';
+import type { TWithCoordsXYZ, TWithCoordsXYZW } from '@/Engine/Mixins';
 import type { RigidBodyTypesNames } from '@/Engine/Physics/Constants';
 import type { TOptional } from '@/Engine/Utils';
 
@@ -11,5 +11,4 @@ export type TPhysicsBodyConfig = Omit<TOptional<TPhysicsBodyParams>, 'type' | 'n
       position?: TWithCoordsXYZ;
       rotation?: TWithCoordsXYZW;
     }>
-  > &
-  Required<TWithName>;
+  >;
