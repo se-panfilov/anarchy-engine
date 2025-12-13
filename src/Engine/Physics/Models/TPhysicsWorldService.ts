@@ -14,5 +14,6 @@ export type TPhysicsWorldService = TAbstractService &
     createWorld: (physicsWorldParams: TPhysicsWorldParams) => World;
     getDebugRenderer: (loopService: TPhysicalLoop) => TPhysicsDebugRenderer;
     setGravity: (vector: Vector3) => void;
-    getWorld: () => World | undefined;
+    findWorld: () => World | undefined;
+    getWorld: () => World | never;
   }>;

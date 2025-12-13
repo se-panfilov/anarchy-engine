@@ -1,9 +1,11 @@
+import type { RigidBody, Vector, World } from '@dimforge/rapier3d';
 import { BehaviorSubject } from 'rxjs';
+import { Vector3 } from 'three/src/math/Vector3';
 
 import type { TSpace, TSpaceConfig } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
-import { addModel3dToScene, getContainer } from '../utils';
+import { getContainer } from '../utils';
 import spaceConfig from './spacePhysics.json';
 
 const config: TSpaceConfig = spaceConfig as TSpaceConfig;
@@ -13,10 +15,44 @@ export const spacePhysicsData: TSpacesData = {
   config: config,
   container: getContainer(config.canvasSelector),
   awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
-  onCreate: (space: TSpace): void | never => {
-    addModel3dToScene(space, 'surface_model');
-  },
+  // onCreate: (space: TSpace): void | never => {},
   onChange: (space: TSpace): void => {
-    space.services.actorService.getRegistry().getByName('sphere_actor').drive.default.setX(10);
+    applyExplosion(space.services.physicsWorldService.getWorld(), new Vector3(), 10, 1000);
   }
 };
+
+function applyExplosion(world: World, explosionCenter: Vector3, explosionRadius: number, explosionStrength: number): void {
+  world.forEachRigidBody((body: RigidBody): void => {
+    if (body.isDynamic()) {
+      const bodyPosition: Vector = body.translation();
+      const direction = {
+        x: bodyPosition.x - explosionCenter.x,
+        y: bodyPosition.y - explosionCenter.y,
+        z: bodyPosition.z - explosionCenter.z
+      };
+
+      const distance: number = Math.sqrt(direction.x ** 2 + direction.y ** 2 + direction.z ** 2);
+
+      if (distance < explosionRadius && distance > 0.0001) {
+        const invertedDistance: number = 1 / distance;
+        // eslint-disable-next-line functional/immutable-data
+        direction.x *= invertedDistance;
+        // eslint-disable-next-line functional/immutable-data
+        direction.y *= invertedDistance;
+        // eslint-disable-next-line functional/immutable-data
+        direction.z *= invertedDistance;
+
+        const strength: number = explosionStrength * (1 - distance / explosionRadius);
+
+        const impulse = {
+          x: direction.x * strength,
+          y: direction.y * strength,
+          z: direction.z * strength
+        };
+
+        body.applyImpulse(impulse, true);
+        body.applyTorqueImpulse(impulse, true);
+      }
+    }
+  });
+}

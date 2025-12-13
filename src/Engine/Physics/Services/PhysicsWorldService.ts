@@ -84,7 +84,11 @@ export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TSpa
   return Object.assign(abstractService, withSceneGetterService(scene), {
     createWorld,
     getDebugRenderer,
-    getWorld: (): World | undefined => world,
+    findWorld: (): World | undefined => world,
+    getWorld: (): World | never => {
+      if (isNotDefined(world)) throw new Error('[PhysicsWorldService]: Physical world is not defined');
+      return world;
+    },
     setGravity
   });
 }

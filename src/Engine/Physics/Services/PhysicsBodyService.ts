@@ -34,7 +34,7 @@ export function PhysicsBodyService(
   const abstractService: TAbstractService = AbstractService(disposable);
 
   const create = (params: TPhysicsBodyParams): TPhysicsBody | never => {
-    const world: World | undefined = physicsWorldService.getWorld();
+    const world: World | undefined = physicsWorldService.findWorld();
     if (isNotDefined(world)) throw new Error('Cannot create physics body: physical world is not defined');
     return factory.create(params, { world });
   };
