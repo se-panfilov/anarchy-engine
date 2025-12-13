@@ -49,14 +49,12 @@ export function getUniqEntityByName$<T extends IRegistrable>(name: string, regis
   return subscribeToValue$<T>(registry, (entity: T): boolean => entity.name === name);
 }
 
-// TODO (S.Panfilov) i'm still not sure that this function should exist
 export function getValueAsync<T extends IRegistrable | IMultitonRegistrable>(
   reg: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>,
   filterFn: (entity: T) => boolean,
   stopCb?: (stop: () => void) => void,
   // TODO (S.Panfilov) this time should be bigger and different for different entities (DEFAULT_WAITING_TIME + from params)
   waitingTime: number = 3000
-  // waitingTime: number = 1000
 ): Promise<T | undefined> {
   const { resolve, promise, reject } = createDeferredPromise<T | undefined>();
   const destroySub$: Subscription = reg.destroyed$.subscribe(stop);
@@ -67,7 +65,7 @@ export function getValueAsync<T extends IRegistrable | IMultitonRegistrable>(
       take(1),
       timeout(waitingTime),
       catchError((error: any) => {
-        // TODO (S.Panfilov) instead of console should be forwarded to some kind of logger
+        // TODO (S.Panfilov) LOGGER: instead of console should be forwarded to some kind of logger
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         if (error?.name === 'TimeoutError') console.error(`Cannot get entity async from registry ("${reg.id}"): timeout error has occurred`);
         else console.error(`Cannot get entity async from registry ("${reg.id}"): unknown error has occurred`);
