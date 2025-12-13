@@ -1,5 +1,6 @@
 import type { Subscription } from 'rxjs';
 
+import type { TAudioLoop } from '@/Engine/Audio';
 import type { TCollisionsLoop } from '@/Engine/Collisions';
 import type { TControlsLoop } from '@/Engine/Controls';
 import type { TIntersectionsLoop } from '@/Engine/Intersections';
@@ -45,6 +46,7 @@ export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLo
     create,
     getLoop,
     getRenderLoop: (name?: string): TRenderLoop | never => getLoop(name, LoopType.Render) as TRenderLoop,
+    getAudioLoop: (name?: string): TAudioLoop | never => getLoop(name, LoopType.Audio) as TAudioLoop,
     getPhysicalLoop: (name?: string): TPhysicalLoop | never => getLoop(name, LoopType.Physical) as TPhysicalLoop,
     getCollisionsLoop: (name?: string): TCollisionsLoop | never => getLoop(name, LoopType.Collisions) as TCollisionsLoop,
     getKinematicLoop: (name?: string): TKinematicLoop | never => getLoop(name, LoopType.Kinematic) as TKinematicLoop,

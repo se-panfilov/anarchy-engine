@@ -7,6 +7,7 @@ export enum LoopType {
   Mouse = 'mouse',
   Physical = 'physical',
   Render = 'render',
+  Audio = 'audio',
   Spatial = 'spatial',
   Text = 'text',
   Transform = 'transform'

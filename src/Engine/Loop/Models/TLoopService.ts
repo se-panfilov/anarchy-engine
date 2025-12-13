@@ -1,3 +1,4 @@
+import type { TAudioLoop } from '@/Engine/Audio';
 import type { TCollisionsLoop } from '@/Engine/Collisions';
 import type { TControlsLoop } from '@/Engine/Controls';
 import type { TIntersectionsLoop } from '@/Engine/Intersections';
@@ -19,6 +20,7 @@ import type { TLoopRegistry } from './TLoopRegistry';
 
 export type TLoopService = Readonly<{
   getRenderLoop: (name?: string) => TRenderLoop | never;
+  getAudioLoop: (name?: string) => TAudioLoop | never;
   getPhysicalLoop: (name?: string) => TPhysicalLoop | never;
   getCollisionsLoop: (name?: string) => TCollisionsLoop | never;
   getKinematicLoop: (name?: string) => TKinematicLoop | never;
