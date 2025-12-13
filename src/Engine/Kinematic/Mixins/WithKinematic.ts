@@ -1,21 +1,37 @@
+import type { Subscription } from 'rxjs';
 import { BehaviorSubject, map } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad } from 'three/src/math/MathUtils';
 
 import type { TActorParams } from '@/Engine/Actor';
-import type { TKinematicData, TWithKinematic } from '@/Engine/Kinematic/Models';
+import type { TKinematicData, TKinematicLoopService, TWithKinematic } from '@/Engine/Kinematic/Models';
 import type { TDegrees, TRadians } from '@/Engine/Math';
 import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
+import type { TDestroyable } from '@/Engine/Mixins';
+import { destroyableMixin } from '@/Engine/Mixins';
 import type { TObject3dMoveData } from '@/Engine/ThreeLib';
 import type { TWriteable } from '@/Engine/Utils';
+import { isDefined } from '@/Engine/Utils';
 
-export function withKinematic(params: TActorParams, { position, rotation }: Omit<TObject3dMoveData, 'scale'>): TWithKinematic {
+export function withKinematic(params: TActorParams, kinematicLoopService: TKinematicLoopService, { position, rotation }: Omit<TObject3dMoveData, 'scale'>): TWithKinematic {
   let _isAutoUpdate: boolean = params.kinematic?.isAutoUpdate ?? false;
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(position);
   const rotation$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(new Quaternion().setFromEuler(rotation));
 
-  return {
+  let kinematicSub$: Subscription;
+
+  const destroyable: TDestroyable = destroyableMixin();
+  destroyable.destroyed$.subscribe((): void => {
+    if (isDefined(kinematicSub$)) kinematicSub$.unsubscribe();
+    position$.unsubscribe();
+    position$.complete();
+    rotation$.unsubscribe();
+    rotation$.complete();
+  });
+
+  const result = {
     kinematic: {
+      ...destroyable,
       data: {
         linearSpeed: params.kinematic?.linearSpeed ?? 0,
         linearDirection: params.kinematic?.linearDirection ?? new Vector3(),
@@ -171,24 +187,31 @@ export function withKinematic(params: TActorParams, { position, rotation }: Omit
         this.setAngularSpeed(speed);
         this.setAngularDirectionFromParamsRad(azimuth, elevation);
       }
-    },
-    doKinematicMove(delta: number): void {
-      if (this.kinematic.data.linearSpeed <= 0) return;
-      const normalizedDirection: Vector3 = this.kinematic.data.linearDirection.clone().normalize();
-      const displacement: Vector3 = normalizedDirection.multiplyScalar(this.kinematic.data.linearSpeed * delta);
-      position$.next(position$.value.clone().add(displacement));
-    },
-    doKinematicRotation(delta: number): void {
-      if (this.kinematic.data.angularSpeed <= 0) return;
-      const normalizedAngularDirection: Vector3 = this.kinematic.data.angularDirection.clone().normalize();
-      const angle: TRadians = this.kinematic.data.angularSpeed * delta;
-      const quaternion: Quaternion = new Quaternion().setFromAxisAngle(normalizedAngularDirection, angle);
-
-      const rotation$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(new Quaternion().setFromEuler(rotation));
-      rotation$.next(rotation$.value.clone().multiply(quaternion));
-
-      // TODO 8.0.0. MODELS: move this to actor in subscription of the rotationQuaternion$
-      // (this as TActor).model.getRawModel3d().quaternion.multiplyQuaternions(quaternion, (this as TActor).model.getRawModel3d().quaternion);
     }
   };
+
+  function doKinematicMove(delta: number): void {
+    if (result.kinematic.data.linearSpeed <= 0) return;
+    const normalizedDirection: Vector3 = result.kinematic.data.linearDirection.clone().normalize();
+    const displacement: Vector3 = normalizedDirection.multiplyScalar(result.kinematic.data.linearSpeed * delta);
+    position$.next(position$.value.clone().add(displacement));
+  }
+
+  function doKinematicRotation(delta: number): void {
+    if (result.kinematic.data.angularSpeed <= 0) return;
+    const normalizedAngularDirection: Vector3 = result.kinematic.data.angularDirection.clone().normalize();
+    const angle: TRadians = result.kinematic.data.angularSpeed * delta;
+    const quaternion: Quaternion = new Quaternion().setFromAxisAngle(normalizedAngularDirection, angle);
+
+    const rotation$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(new Quaternion().setFromEuler(rotation));
+    rotation$.next(rotation$.value.clone().multiply(quaternion));
+  }
+
+  kinematicSub$ = kinematicLoopService.tick$.subscribe((delta: number): void => {
+    if (!result.kinematic.isAutoUpdate()) return;
+    doKinematicMove(delta);
+    doKinematicRotation(delta);
+  });
+
+  return result;
 }

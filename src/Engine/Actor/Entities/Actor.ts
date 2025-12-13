@@ -47,7 +47,7 @@ export function Actor(
   // TODO CWP The Actor flow is the following:
   //  Case "Kinematic":
   //  Kinematic mixin should have position$ and rotation$ (which piped to return Vector3 and Euler)
-  //  "doKinematicMove", "doKinematicRotation" should update Kinematic's position$ and rotation$
+  //  ✅ "doKinematicMove", "doKinematicRotation" should update Kinematic's position$ and rotation$
   //  Actor is subscribed to Kinematic's position$ and rotation$
   //  Model3d is subscribed to Actor's position$/rotation$/scale$
   //  When Actor's position$/rotation$/scale$ updated, Model3d updates its position/rotation/scale
@@ -74,19 +74,13 @@ export function Actor(
     ...withModel3d(model3d),
     // TODO 8.0.0. MODELS: Kinematic should update rotation (and position?) (if "drive" is "kinematic")
     // TODO 8.0.0. MODELS: Physics should update position and rotation (if "drive" is "physics")
-    ...withKinematic(params),
+    ...withKinematic(params, kinematicLoopService, { position$, rotation$ }),
     ...withSpatial(params),
     ...withCollisions(params, collisionsService, collisionsLoopService),
     ...withUpdateSpatialCell()
   };
 
   const abstract = AbstractEntity(entities, EntityType.Actor, params);
-
-  const kinematicSub$: Subscription = kinematicLoopService.tick$.subscribe((delta: number): void => {
-    if (!entities.kinematic.isAutoUpdate()) return;
-    entities.doKinematicMove(delta);
-    entities.doKinematicRotation(delta);
-  });
 
   const spatialSub$: Subscription = spatialLoopService.tick$.subscribe(({ priority }: TSpatialLoopServiceValue): void => {
     if (!entities.spatial.isAutoUpdate()) return;
