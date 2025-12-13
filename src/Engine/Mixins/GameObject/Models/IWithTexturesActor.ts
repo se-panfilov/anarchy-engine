@@ -1,5 +1,5 @@
 import type { MeshBasicMaterialParameters } from 'three';
 
-export type WithTexturesActor = {
+export type IWithTexturesActor = {
   useTexture: (maps: MeshBasicMaterialParameters) => void;
 };
