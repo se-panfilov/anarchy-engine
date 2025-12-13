@@ -64,6 +64,7 @@ module.exports = {
     'functional/no-return-void': 'off', // TODO (S.Panfilov) temp off (don't get this rule tbh)
     '@typescript-eslint/explicit-function-return-type': 'error',
     '@typescript-eslint/no-explicit-any': 'error',
+    '@typescript-eslint/no-inferrable-types': 'off',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error'
   }

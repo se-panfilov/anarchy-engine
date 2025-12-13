@@ -8,5 +8,8 @@ export default defineConfig({
       '@Engine': path.resolve(__dirname, './src/Engine'),
       '@App': path.resolve(__dirname, './src/App')
     }
+  },
+  test: {
+    globals: true
   }
 });
