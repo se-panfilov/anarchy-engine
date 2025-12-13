@@ -30,19 +30,20 @@ const mapping: TShowcasesDesktopApi = {
 contextBridge.exposeInMainWorld(platformApiName, mapping);
 
 if (import.meta.env.VITE_SENTRY_DSN) {
-  DesktopPreloadTrackingService(
-    {
-      dsn: import.meta.env.VITE_SENTRY_DSN,
-      environment: __PLATFORM_MODE__,
-      release: __DESKTOP_APP_VERSION__,
-      dist: makeDistName(process.platform, process.arch)
-    },
-    {
-      //Other meta info (versions) will be added by DesktopTrackingService ("main" layer)
-      desktop: __DESKTOP_APP_VERSION__,
-      platformVersion: process.versions.electron,
-      node: process.versions.node,
-      wrappedAppVersion: __DESKTOP_APP_VERSION__
-    }
-  ).start();
+  const options: Record<string, any> = {
+    dsn: import.meta.env.VITE_SENTRY_DSN,
+    environment: __PLATFORM_MODE__,
+    release: __DESKTOP_APP_VERSION__,
+    dist: makeDistName(process.platform, process.arch)
+  };
+
+  const metaData = {
+    //Other meta info (versions) will be added by DesktopTrackingService ("main" layer)
+    desktop: __DESKTOP_APP_VERSION__,
+    platformVersion: process.versions.electron,
+    node: process.versions.node,
+    wrappedAppVersion: __DESKTOP_APP_VERSION__
+  };
+
+  DesktopPreloadTrackingService(options, metaData).start();
 }
