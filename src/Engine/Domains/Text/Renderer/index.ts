@@ -1,1 +1,1 @@
-export * from './Css2dRenderer';
+export * from './Text2dRenderer';

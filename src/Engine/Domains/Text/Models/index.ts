@@ -1,4 +1,5 @@
 export * from './IElement2dAccessors';
+export * from './IText2dRenderer';
 export * from './ITextConfig';
 export * from './ITextFactory';
 export * from './ITextParams';
