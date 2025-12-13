@@ -6,6 +6,7 @@ export type * from './TEnvMapMetaInfoRegistry';
 export type * from './TEnvMapParams';
 export type * from './TEnvMapRegistry';
 export type * from './TEnvMapResourceConfig';
+export type * from './TEnvMapSerializeResourcesDependencies';
 export type * from './TEnvMapService';
 export type * from './TEnvMapTexture';
 export type * from './TEnvMapTextureAsyncRegistry';

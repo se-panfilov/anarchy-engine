@@ -11,6 +11,7 @@ import type {
   TEnvMapMetaInfoRegistry,
   TEnvMapRegistry,
   TEnvMapResourceConfig,
+  TEnvMapSerializeResourcesDependencies,
   TEnvMapService,
   TEnvMapServiceWithCreate,
   TEnvMapServiceWithCreateFromConfig,
@@ -80,7 +81,7 @@ export function EnvMapService(
     withFactory,
     withRegistry,
     withSceneGetterService(sceneW),
-    withSerializeAllResources<TEnvMapResourceConfig, undefined>(resourcesRegistry),
+    withSerializeAllResources<TEnvMapResourceConfig, TEnvMapSerializeResourcesDependencies>(resourcesRegistry, { metaInfoRegistry }),
     withSerializeAllEntities<TEnvMapConfig, TEnvMapConfigToParamsDependencies>(registry, { resourcesRegistry }),
     {
       loadAsync: envMapLoader.loadAsync,
