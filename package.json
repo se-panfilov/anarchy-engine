@@ -34,6 +34,7 @@
     "generate:legal:files:showcases-e2e": "npm run -w anarchy-legal generate:files -- --workspace apps/showcases-e2e --out ../../apps/showcases-e2e  --debug",
     "generate:legal:files:showcases-menu": "npm run -w anarchy-legal generate:files -- --workspace packages/showcases-menu --out ../../packages/showcases-menu  --debug",
     "generate:legal:files:showcases-shared": "npm run -w anarchy-legal generate:files -- --workspace packages/showcases-shared --out ../../packages/showcases-shared  --debug",
+    "generate:legal:notice:showcases-core": "npm run -w anarchy-legal generate:notice -- --workspace apps/showcases-core",
     "gitleaks:ci": "gitleaks detect --config=.gitleaks.toml --source=. --no-git --redact --report-format=json --report-path=reports/gitleaks-ci.json --verbose",
     "gitleaks:scan:files": "gitleaks detect --config=.gitleaks.toml --no-git --verbose --source=.",
     "gitleaks:scan:history": "gitleaks detect --config=.gitleaks.toml --report-format=table --verbose --source=.",
