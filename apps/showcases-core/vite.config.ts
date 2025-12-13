@@ -71,6 +71,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       vueJsx(),
       //END: FOR GUI only///////
 
+      // TODO DESKTOP: CSP plugin generates too many inline-script's hashes. Fix it or replace a plugin.
       //Issue: CSP plugin doesn't add <Meta> tag in dev mode
       csp({
         dev: {
