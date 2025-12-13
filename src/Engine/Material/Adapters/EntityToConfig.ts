@@ -5,7 +5,6 @@ import { serializeColorWhenPossible } from '@/Engine/Color';
 import type { MaterialType } from '@/Engine/Material/Constants';
 import { BlendEquationMap, BlendingDstFactorMap, BlendingMap, BlendingSrcFactorMap, NormalMapTypesMap, SideMap, StencilFailMap, StencilFuncMap, StencilOpMap } from '@/Engine/Material/Constants';
 import type {
-  TAllMaterialConfigOptions,
   TMaterialConfig,
   TMaterialConfigOptions,
   TMaterialConfigTextures,
@@ -17,6 +16,7 @@ import type {
 import { getOptionName } from '@/Engine/Material/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TTexture, TTextureAsyncRegistry } from '@/Engine/Texture';
+import type { TOptional } from '@/Engine/Utils';
 import { eulerToXyz, filterOutEmptyFields, isNotDefined, nullsToUndefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate
@@ -34,7 +34,7 @@ export function materialToConfig(entity: TMaterialWrapper, { textureResourceRegi
   });
 }
 
-function getMaterialOptions({ entity }: TMaterialWrapper): TAllMaterialConfigOptions | undefined {
+function getMaterialOptions({ entity }: TMaterialWrapper): TOptional<TMaterialConfigOptions> | undefined {
   // Should more or less match threejs's MaterialParameters type
   return filterOutEmptyFields(
     nullsToUndefined({
