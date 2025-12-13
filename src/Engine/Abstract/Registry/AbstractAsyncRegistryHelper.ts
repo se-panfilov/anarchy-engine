@@ -1,10 +1,11 @@
 import type { Observable, Subscription } from 'rxjs';
-import { catchError, EMPTY, filter, of, take, timeout } from 'rxjs';
+import { catchError, filter, of, take, timeout } from 'rxjs';
 
 import type { IAbstractAsyncRegistry, IAbstractEntityRegistry } from '@/Engine/Abstract/Models';
 import type { IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
 import { createDeferredPromise, isDefined } from '@/Engine/Utils';
 
+// TODO (S.Panfilov) i'm still not sure that this function should exist
 export function getValueAsync<T extends IRegistrable | IMultitonRegistrable>(
   reg: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>,
   filterFn: (entity: T) => boolean,
@@ -49,20 +50,5 @@ export function getValueAsync<T extends IRegistrable | IMultitonRegistrable>(
   return promise;
 }
 
-export function subscribeToValue$<T extends IRegistrable | IMultitonRegistrable>(reg: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>, filterFn: (entity: T) => boolean): Observable<T> {
-  return reg.added$.pipe(
-    filter(filterFn),
-    take(1),
-    // TODO (S.Panfilov) add waiting time (DEFAULT_WAITING_TIME + from params)
-    // timeout(waitingTime),
-    // TODO (S.Panfilov) fix this
-    catchError((error: any) => {
-      // TODO (S.Panfilov) instead of console should be forwarded to some kind of logger
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      if (error?.name === 'TimeoutError') console.error(`Cannot get entity async from registry ("${reg.id}"): timeout error has occurred`);
-
-      // return of(undefined);
-      return EMPTY;
-    })
-  );
-}
+export const subscribeToValue$ = <T extends IRegistrable | IMultitonRegistrable>(reg: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>, filterFn: (entity: T) => boolean): Observable<T> =>
+  reg.added$.pipe(filter(filterFn), take(1));

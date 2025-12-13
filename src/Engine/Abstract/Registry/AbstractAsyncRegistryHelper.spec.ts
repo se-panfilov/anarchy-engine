@@ -1,9 +1,10 @@
+import { firstValueFrom } from 'rxjs';
+import { expect } from 'vitest';
+
 import type { IAbstractAsyncRegistry, RegistryType } from '@/Engine/Abstract';
 import { AbstractAsyncRegistry } from '@/Engine/Abstract';
 import { getValueAsync, subscribeToValue$ } from '@/Engine/Abstract/Registry/AbstractAsyncRegistryHelper';
 import type { IRegistrable } from '@/Engine/Mixins';
-import { expect } from 'vitest';
-import { firstValueFrom, lastValueFrom } from 'rxjs';
 
 const mockEntity1: IRegistrable = { id: 'mockEntityId1', name: 'mockEntity1' } as unknown as IRegistrable;
 const mockEntity2: IRegistrable = { id: 'mockEntityId2', name: 'mockEntity2' } as unknown as IRegistrable;
