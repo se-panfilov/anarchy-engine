@@ -55,9 +55,9 @@
       "buildResources": "assets"
     },
     "files": [
+      "dist-app/**",
       "dist/electron-main.js",
-      "dist/preload.js",
-      "dist-app/**"
+      "dist/preload.js"
     ],
     "asar": true,
     "mac": {
