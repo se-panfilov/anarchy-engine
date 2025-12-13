@@ -17,7 +17,7 @@ import type {
   TWithConnectedTransformAgent,
   TWithTransformDrive
 } from '@Anarchy/Engine';
-import { ForwardAxis, MaterialType, metersPerSecond, TransformAgent } from '@Anarchy/Engine';
+import { ForwardAxis, MaterialType, metersPerSecond, onKey, TransformAgent } from '@Anarchy/Engine';
 import { meters } from '@Anarchy/Engine/Measurements/Utils';
 import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type GUI from 'lil-gui';
@@ -109,8 +109,8 @@ export function startIntersections({ actorService, cameraService, intersectionsW
   }) as TIntersectionsCameraWatcher;
 }
 
-export function changeActorActiveAgent(actor: TActor, key: KeyCode | KeyCode, keyboardService: TKeyboardService): Subscription {
-  return keyboardService.onKey(key).pressed$.subscribe((): void => {
+export function changeActorActiveAgent(actor: TActor, key: KeyCode, keyboardService: TKeyboardService): Subscription {
+  return keyboardService.keys$.pipe(onKey(key)).subscribe((): void => {
     const agents: ReadonlyArray<TransformAgent> = Object.values(TransformAgent);
     const index: number = agents.findIndex((agent: TransformAgent): boolean => agent === actor.drive.agent$.value);
     actor.drive.agent$.next(agents[(index + 1) % agents.length]);
