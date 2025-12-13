@@ -33,9 +33,9 @@ Done:
 - 17.4.0 Better physics serizlization/deserialization
 - 17.5.0 Intersections watchers split to camera-mouse based and origin-direction based
 - 17.5.1 Replaced Object.assign with mergeAll (a fix for a broken TS types merging)
+- 18.0.x Monorepo: Split apps and engine
 
 Roadmap:
-- 18.0.x Split apps and engine (and add config for an app to set up engine)
 - 19.0.x npm package and a repo for the engine
 - 20.0.x Building app (desktop/mobile) (might be not a part of an engine, but at least POC level)
 - 21.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
