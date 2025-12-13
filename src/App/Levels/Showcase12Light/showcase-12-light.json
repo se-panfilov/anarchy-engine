@@ -653,7 +653,7 @@
         "camera": { "far": 15 },
         "normalBias": 0.05
       },
-      "position": { "x": 0.25, "y": 6, "z": 2.25 },
+      "position": { "x": 10, "y": 10, "z": 2.25 },
       "tags": ["directional"]
     },
     {
@@ -679,7 +679,13 @@
       "intensity": 14,
       "distance": 23,
       "decay": 4.5,
-      "position": { "x": 10, "y": 2, "z": 2.25 },
+      "castShadow": true,
+      "shadow": {
+        "mapSize": { "x": 1024, "y": 1024 },
+        "camera": { "far": 15 },
+        "normalBias": 0.05
+      },
+      "position": { "x": 10, "y": 6.5, "z": 2.25 },
       "tags": ["point"]
     },
     {
@@ -696,7 +702,7 @@
         "camera": { "far": 15 },
         "normalBias": 0.05
       },
-      "position": { "x": 10, "y": 2, "z": 2.25 },
+      "position": { "x": 8, "y": 4, "z": 2.25 },
       "tags": ["spot"]
     }
   ],
