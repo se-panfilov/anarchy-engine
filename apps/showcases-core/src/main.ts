@@ -30,7 +30,7 @@ BrowserTrackingService(
 );
 
 // TODO DESKTOP: DEBUG ERROR
-(window as any).myUndefinedFunction();
+// (window as any).myUndefinedFunction();
 
 // TODO MOBILE: Detect user locale in mobile app and send it to the app settings (menu)
 
