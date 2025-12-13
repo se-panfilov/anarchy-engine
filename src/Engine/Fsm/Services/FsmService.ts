@@ -18,7 +18,7 @@ import type {
   TFsmWrapper
 } from '@/Engine/Fsm/Models';
 import type { TDisposable } from '@/Engine/Mixins';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { isDefined } from '@/Engine/Utils';
 
 import { FsmInstanceService } from './FsmInstanceService';
 import { FsmSourceService } from './FsmSourceService';
@@ -53,9 +53,8 @@ export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: 
     return isEqual(params, sourceParams);
   }
 
-  function createInstanceBySourceName(sourceName: string, currentState?: TFsmStates, strategy?: FsmEventsStrategy): TFsmWrapper | never {
-    let source: TFsmSource | undefined = sourceService.getRegistry().findByKey(sourceName);
-    if (isNotDefined(source)) throw new Error(`FsmService. Can't create a fsm instance by a source name "${sourceName}": fsm source not found`);
+  function createInstanceBySourceName(sourceName: string, currentState?: TFsmStates, strategy?: FsmEventsStrategy): TFsmWrapper {
+    let source: TFsmSource | undefined = sourceService.getRegistry().getByKey(sourceName);
     if (isDefined(currentState)) source = { ...source, currentState };
     if (isDefined(strategy)) source = { ...source, strategy };
     return instanceService.create(source);
@@ -65,15 +64,15 @@ export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: 
   return Object.assign(abstractService, {
     create,
     createFromList,
-    createInstanceBySourceName,
-    createSource: sourceService.create,
-    createSourceFromList: sourceService.createFromList,
-    createSourceFromConfig: sourceService.createFromConfig,
     createInstance: instanceService.create,
+    createInstanceBySourceName,
     createInstanceFromList: instanceService.createFromList,
-    getSourceRegistry: (): TFsmSourceRegistry => sourceRegistry,
-    getInstanceRegistry: (): TFsmInstanceRegistry => instanceRegistry,
+    createSource: sourceService.create,
+    createSourceFromConfig: sourceService.createFromConfig,
+    createSourceFromList: sourceService.createFromList,
     getFactory: (): TFsmInstanceFactory => instanceFactory,
+    getInstanceRegistry: (): TFsmInstanceRegistry => instanceRegistry,
+    getSourceRegistry: (): TFsmSourceRegistry => sourceRegistry,
     serializeAllEntities: (): ReadonlyArray<TFsmConfig> => instanceService.serializeAllEntities(),
     serializeAllResources: (): ReadonlyArray<TFsmConfig> => sourceService.serializeAllEntities()
   });

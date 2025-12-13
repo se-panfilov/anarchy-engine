@@ -16,7 +16,7 @@ import {
 import { StencilFuncMap } from '@/Engine/Material/Constants/StencilFuncName';
 import type { TMaterialConfig, TMaterialConfigToParamsDependencies, TMaterialParams, TMaterialParamsOptions, TMaterialParamsTextures } from '@/Engine/Material/Models';
 import type { TTexture } from '@/Engine/Texture';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { isDefined } from '@/Engine/Utils';
 
 export function configToParams(config: TMaterialConfig, { textureService }: TMaterialConfigToParamsDependencies): TMaterialParams {
   let options: TMaterialParamsOptions = {} as TMaterialParamsOptions;
@@ -65,8 +65,7 @@ export function configToParams(config: TMaterialConfig, { textureService }: TMat
     textures = {};
 
     Object.entries(config.textures).forEach(([key, value]: [string, string]): void => {
-      const textureEntity: TTexture | undefined = textureService.getResourceRegistry().findByKey(value);
-      if (isNotDefined(textureEntity)) throw new Error(`Texture "${value}" not found`);
+      const textureEntity: TTexture = textureService.getResourceRegistry().getByKey(value);
       textures = { ...textures, [key]: textureEntity };
     });
   }

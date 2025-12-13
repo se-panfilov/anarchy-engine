@@ -39,8 +39,7 @@ export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
   }
 
   function bind(key: TGameKey | TKeyCombo, isCombo: boolean): TKeySubscription {
-    const subjects: TKeyboardRegistryValues | undefined = keyboardRegistry.findByKey(key);
-    if (isNotDefined(subjects)) throw new Error(`Key ${key} is not found in registry`);
+    const subjects: TKeyboardRegistryValues = keyboardRegistry.getByKey(key);
     const { pressed$, pressing$, released$ } = subjects;
 
     let pressedKey: TGameKey | TKeyCombo | undefined = undefined;

@@ -25,7 +25,7 @@ function getModel3d(config: TModel3dConfig, model3dResourceAsyncRegistry: TModel
   if (isPrimitiveModel3dData(config)) {
     model3d = config.model3dSource as PrimitiveModel3dType;
   } else {
-    model3d = isDefined(config.model3dSource) ? model3dResourceAsyncRegistry.findByKey(config.model3dSource) : undefined;
+    model3d = isDefined(config.model3dSource) ? model3dResourceAsyncRegistry.getByKey(config.model3dSource) : undefined;
   }
 
   if (isNotDefined(model3d)) throw new Error(`Model3dConfigAdapter: model3dSource not found: ${config.model3dSource}`);
@@ -37,8 +37,7 @@ function getAnimationsSource(config: TModel3dConfig, animationsResourceAsyncRegi
   let animations: ReadonlyArray<AnimationClip> = [];
   if (isDefined(config.animationsSource)) {
     config.animationsSource.forEach((source: string): void => {
-      const loaded: TAnimations | undefined = animationsResourceAsyncRegistry.findByKey(source);
-      if (isNotDefined(loaded)) throw new Error(`Model3dConfigAdapter: animationsSource not found: ${source}`);
+      const loaded: TAnimations = animationsResourceAsyncRegistry.getByKey(source);
       animations = [...animations, ...loaded];
     });
   }

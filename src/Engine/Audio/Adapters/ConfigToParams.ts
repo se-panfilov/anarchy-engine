@@ -4,7 +4,6 @@ import { Listeners } from '@/Engine/Audio/Constants';
 import type { TAnyAudioConfig, TAnyAudioParams, TAudio3dConfig, TAudio3dParams, TAudioConfigToParamsDependencies, TAudioResourceAsyncRegistry } from '@/Engine/Audio/Models';
 import { isAudio3dConfig } from '@/Engine/Audio/Utils';
 import type { TWriteable } from '@/Engine/Utils';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function configToParams(config: TAnyAudioConfig, { audioResourceAsyncRegistry, audioListenersRegistry }: TAudioConfigToParamsDependencies): TAnyAudioParams {
   const { position, ...rest } = config as TAudio3dConfig;
@@ -24,8 +23,6 @@ export function configToParams(config: TAnyAudioConfig, { audioResourceAsyncRegi
   return result;
 }
 
-function getAudio(config: TAnyAudioConfig, audioResourceAsyncRegistry: TAudioResourceAsyncRegistry): AudioBuffer | never {
-  const audio: AudioBuffer | undefined = isDefined(config.audioSource) ? audioResourceAsyncRegistry.findByKey(config.audioSource) : undefined;
-  if (isNotDefined(audio)) throw new Error(`AudioConfigAdapter: audioSource not found: ${config.audioSource}`);
-  return audio;
+function getAudio(config: TAnyAudioConfig, audioResourceAsyncRegistry: TAudioResourceAsyncRegistry): AudioBuffer {
+  return audioResourceAsyncRegistry.getByKey(config.audioSource);
 }

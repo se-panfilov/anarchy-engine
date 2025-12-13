@@ -46,8 +46,7 @@ export function configToParamsCameraOptionsOnly(config: TCommonCameraConfig | TS
 function configToParamsAudioListener(config: TCommonCameraConfig, audioService: TAudioService): Pick<TAnyCameraParams, 'audioListener'> {
   let listener: AudioListener | undefined;
   if (isDefined(config.audioListener)) {
-    listener = audioService.getListenersRegistry().findByKey(config.audioListener);
-    if (isNotDefined(listener)) throw new Error(`Camera: cannot create camera from config: listener ("${config.audioListener}") is not found`);
+    listener = audioService.getListenersRegistry().getByKey(config.audioListener);
   }
 
   return {

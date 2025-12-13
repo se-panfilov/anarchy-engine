@@ -14,12 +14,12 @@ export type TFsmService = TSerializableEntitiesService<TFsmConfig> &
   Readonly<{
     create: (params: TFsmParams, force?: boolean) => TFsmWrapper | never;
     createFromList: (params: ReadonlyArray<TFsmParams>, force?: boolean) => ReadonlyArray<TFsmWrapper>;
-    createInstanceBySourceName: (sourceName: string, currentState?: TFsmStates, strategy?: FsmEventsStrategy) => TFsmWrapper | never;
-    createSource: (source: TFsmParams) => TFsmSource;
-    createSourceFromList: (source: ReadonlyArray<TFsmParams>) => ReadonlyArray<TFsmSource>;
-    createSourceFromConfig: (fsm: ReadonlyArray<TFsmConfig>) => ReadonlyArray<TFsmSource>;
     createInstance: (source: TFsmSource) => TFsmWrapper;
+    createInstanceBySourceName: (sourceName: string, currentState?: TFsmStates, strategy?: FsmEventsStrategy) => TFsmWrapper;
     createInstanceFromList: (source: ReadonlyArray<TFsmSource>) => ReadonlyArray<TFsmWrapper>;
-    getSourceRegistry: () => TFsmSourceRegistry;
+    createSource: (source: TFsmParams) => TFsmSource;
+    createSourceFromConfig: (fsm: ReadonlyArray<TFsmConfig>) => ReadonlyArray<TFsmSource>;
+    createSourceFromList: (source: ReadonlyArray<TFsmParams>) => ReadonlyArray<TFsmSource>;
     getInstanceRegistry: () => TFsmInstanceRegistry;
+    getSourceRegistry: () => TFsmSourceRegistry;
   }>;

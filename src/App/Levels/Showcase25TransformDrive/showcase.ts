@@ -146,8 +146,7 @@ export async function showcase(space: TSpace): Promise<void> {
     restitution: 0.9
   };
 
-  const foxModel3dSource: GLTF | undefined = models3dService.getResourceRegistry().findByKey(foxModelName);
-  if (isNotDefined(foxModel3dSource)) throw new Error('Fox model is not defined');
+  const foxModel3dSource: GLTF = models3dService.getResourceRegistry().getByKey(foxModelName);
 
   const sphereActor: TActor = createActor('sphere', foxModel3dSource, TransformAgent.Default, grid, actorCoords, '#E91E63', sphereActorPhysics, space.services);
   gui.add(mode, 'isTeleportationMode').name('Teleportation mode');

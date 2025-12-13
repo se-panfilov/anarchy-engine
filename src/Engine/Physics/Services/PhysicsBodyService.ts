@@ -49,8 +49,7 @@ export function PhysicsBodyService(
   };
 
   const createWithPresetName = (params: TOptional<TPhysicsBodyParams>, presetName: string): TPhysicsBody | never => {
-    const preset: TPhysicsPresetParams | undefined = physicsPresetService.getPresetByName(presetName);
-    if (isNotDefined(preset)) throw new Error(`Cannot create physics body: preset with name "${presetName}" not found`);
+    const preset: TPhysicsPresetParams = physicsPresetService.getPresetByName(presetName);
     return createWithPreset(params, preset);
   };
 

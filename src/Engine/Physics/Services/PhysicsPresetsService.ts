@@ -23,17 +23,20 @@ export function PhysicsPresetsService(registry: TPhysicsPresetRegistry): TPhysic
   const addPresets = (presets: ReadonlyArray<TPhysicsPresetParams>): void => presets.forEach((preset: TPhysicsPresetParams) => registry.add(preset.name, preset));
   const addPresetsFromConfig = (presets: ReadonlyArray<TPhysicsPresetConfig>): void => addPresets(presets.map(configToParamsPreset));
 
-  const getPresetByName = (name: string): TPhysicsPresetParams | undefined => registry.findByKey(name);
+  const findPresetByName = (name: string): TPhysicsPresetParams | undefined => registry.findByKey(name);
+
+  const getPresetByName = (name: string): TPhysicsPresetParams | never => {
+    const preset: TPhysicsPresetParams | undefined = findPresetByName(name);
+    if (isNotDefined(preset)) throw new Error(`[PhysicsPresetsService]: Physics preset not found: "${name}"`);
+    return preset;
+  };
 
   function getMergedConfigWithPresetParams(config: TWithPresetNamePhysicsBodyConfig, factory: TPhysicsBodyFactory): TPhysicsBodyParams | never {
     const { presetName, ...rest } = config;
     const ownParams: TPhysicsBodyParams = factory.configToParams(rest);
 
     let presetParams: TPhysicsPresetParams | TOptional<TPhysicsPresetParams> | undefined = {};
-    if (isDefined(presetName)) {
-      presetParams = getPresetByName(presetName);
-      if (isNotDefined(presetParams)) throw new Error(`Physics preset not found: "${presetName}"`);
-    }
+    if (isDefined(presetName)) presetParams = getPresetByName(presetName);
 
     const fullParams: TPhysicsBodyParams = { ...ownParams };
     if (!isPhysicsBodyParamsComplete(fullParams)) throw new Error('Cannot create physics body: params are lacking of mandatory fields');
@@ -45,6 +48,7 @@ export function PhysicsPresetsService(registry: TPhysicsPresetRegistry): TPhysic
   return Object.assign(abstractService, withSerializeAllEntities<TPhysicsPresetConfig, undefined>(registry), {
     addPresets,
     addPresetsFromConfig,
+    findPresetByName,
     getPresetByName,
     getMergedConfigWithPresetParams,
     getRegistry: (): TPhysicsPresetRegistry => registry

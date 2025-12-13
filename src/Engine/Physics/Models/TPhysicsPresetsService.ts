@@ -15,6 +15,7 @@ export type TPhysicsPresetsService = TSerializableEntitiesService<TPhysicsPreset
   Readonly<{
     addPresets: (presets: ReadonlyArray<TPhysicsPresetParams>) => void;
     addPresetsFromConfig: (presets: ReadonlyArray<TPhysicsPresetConfig>) => void;
-    getPresetByName: (name: string) => TPhysicsPresetParams | undefined;
+    findPresetByName: (name: string) => TPhysicsPresetParams | undefined;
+    getPresetByName: (name: string) => TPhysicsPresetParams | never;
     getMergedConfigWithPresetParams: (config: TWithPresetNamePhysicsBodyConfig, factory: TPhysicsBodyFactory) => TPhysicsBodyParams;
   }>;
