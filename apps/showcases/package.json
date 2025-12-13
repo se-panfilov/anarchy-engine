@@ -25,7 +25,10 @@
   "dependencies": {
     "anarchy_engine": "*",
     "anarchy_engine_shared": "*",
-    "stats.js": "0.17.0"
+    "lil-gui": "0.20.0",
+    "sanitize.css": "13.0.0",
+    "stats.js": "0.17.0",
+    "three-viewport-gizmo": "2.2.0"
   },
   "devDependencies": {}
 }
