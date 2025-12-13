@@ -95,7 +95,8 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
         spatialGridService,
         collisionsService,
         model3dToActorConnectionRegistry,
-        fsmService
+        fsmService,
+        loopService
       },
       sceneW
     ),
@@ -125,13 +126,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
       Text3dTextureRegistry(),
       Text2dRendererRegistry(),
       Text3dRendererRegistry(),
-      // TODO CWP
-      // TODO 10.0.0. LOOPS: Maybe instead of passings deps here, we can implement a provider for a transform drive, which provide loops?
-      {
-        kinematicLoop,
-        physicsBodyService,
-        physicsLoop
-      },
+      { loopService, physicsBodyService },
       sceneW
     ),
     textureService

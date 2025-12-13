@@ -1,11 +1,17 @@
 import type { Subscription } from 'rxjs';
 import Stats from 'stats.js';
 
+import type { TCollisionsLoop } from '@/Engine/Collisions';
+import type { TKinematicLoop } from '@/Engine/Kinematic';
+import { LoopType } from '@/Engine/Loop/Constants';
 import { Loop } from '@/Engine/Loop/Entities/Loop';
 import type { TLoop, TLoopService } from '@/Engine/Loop/Models';
 import type { TMilliseconds } from '@/Engine/Math';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
+import type { TPhysicalLoop } from '@/Engine/Physics';
+import type { TRenderLoop } from '@/Engine/Space';
+import type { TSpatialLoop } from '@/Engine/Spatial';
 
 export function LoopService(): TLoopService {
   let debugInfoSub$: Subscription | undefined;
@@ -28,14 +34,28 @@ export function LoopService(): TLoopService {
     destroySub$.unsubscribe();
   });
 
+  // TODO CWP
+  // TODO 10.0.0. LOOPS: implement getLoop (we need a registry and etc)
+  function getLoop(name: string | undefined, type: LoopType): TLoop | never {
+    // If no name is provided, return the main loop
+    // otherwise, return the loop with the specified name or throw an error
+    throw new Error(`LoopService: No loop with name "${name}" found`);
+  }
+
   return {
     // You can optionally pass a "requestAnimationFrame" function you want (e.g. window.requestAnimationFrame, display.requestAnimationFrame for VR, etc.)
-    createRenderLoop: (fn: (cb: FrameRequestCallback) => number = requestAnimationFrame, showDebugInfo: boolean = false): TLoop => {
-      const loop: TLoop = Loop(fn);
+    createRenderLoop: (name: string, type: LoopType, fn: (cb: FrameRequestCallback) => number = requestAnimationFrame, showDebugInfo: boolean = false): TLoop => {
+      const loop: TLoop = Loop(name, type, fn);
       if (showDebugInfo) debugInfoSub$ = enableFPSCounter(loop);
       return loop;
     },
-    createIntervalLoop: (interval: TMilliseconds): TLoop => Loop(interval),
+    createIntervalLoop: (name: string, type: LoopType, interval: TMilliseconds): TLoop => Loop(name, type, interval),
+    getLoop,
+    getCollisionsLoop: (name?: string): TCollisionsLoop | never => getLoop(name, LoopType.Collisions) as TCollisionsLoop,
+    getKinematicLoop: (name?: string): TKinematicLoop | never => getLoop(name, LoopType.Kinematic),
+    getPhysicalLoop: (name?: string): TPhysicalLoop | never => getLoop(name, LoopType.Physical),
+    getRenderLoop: (name?: string): TRenderLoop | never => getLoop(name, LoopType.Render),
+    getSpatialLoop: (name?: string): TSpatialLoop | never => getLoop(name, LoopType.Spatial) as TSpatialLoop,
     ...destroyable
   };
 }

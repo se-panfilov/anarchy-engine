@@ -2,13 +2,14 @@ import type { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 
 import type { TLoop, TLoopService } from '@/Engine/Loop';
+import { LoopType } from '@/Engine/Loop';
 import type { TMilliseconds } from '@/Engine/Math';
 import { milliseconds } from '@/Engine/Measurements';
 import { SpatialUpdatePriority } from '@/Engine/Spatial/Constants';
 import type { TSpatialLoop } from '@/Engine/Spatial/Models';
 
-export function SpatialLoop(loopService: TLoopService, updateRate: TMilliseconds): TSpatialLoop {
-  const loop: TLoop = loopService.createIntervalLoop(milliseconds(updateRate));
+export function SpatialLoop(name: string, loopService: TLoopService, updateRate: TMilliseconds): TSpatialLoop {
+  const loop: TLoop = loopService.createIntervalLoop(name, LoopType.Spatial, milliseconds(updateRate));
   const priority$: BehaviorSubject<SpatialUpdatePriority> = new BehaviorSubject<SpatialUpdatePriority>(SpatialUpdatePriority.ASAP);
 
   const loopSub$: Subscription = loop.tick$.subscribe((): void => {

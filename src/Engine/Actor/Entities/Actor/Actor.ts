@@ -17,16 +17,13 @@ import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import { isDefined, isEqualOrSimilarByXyzCoords } from '@/Engine/Utils';
 
-export function Actor(
-  params: TActorParams,
-  { kinematicLoop, spatialGridService, physicsBodyService, physicalLoop, collisionsLoop, collisionsService, models3dService, model3dToActorConnectionRegistry }: TActorDependencies
-): TActor {
+export function Actor(params: TActorParams, { spatialGridService, physicsBodyService, loopService, collisionsService, models3dService, model3dToActorConnectionRegistry }: TActorDependencies): TActor {
   const id: string = EntityType.Actor + '_' + nanoid();
   const isModelAlreadyInUse: boolean = isDefined(model3dToActorConnectionRegistry.findByModel3d(params.model3dSource));
   const model3d: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
 
   // Init TransformDrive
-  const drive: TActorTransformDrive = ActorTransformDrive(params, { kinematicLoop, physicsBodyService, physicalLoop }, id);
+  const drive: TActorTransformDrive = ActorTransformDrive(params, { physicsBodyService, loopService }, id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d(), params.model3dSettings);
 
   const entities: TActorEntities = {
@@ -36,7 +33,7 @@ export function Actor(
     model3d,
     ...withActorStates(params),
     ...withSpatial(params),
-    ...withCollisions(params, collisionsService, collisionsLoop),
+    ...withCollisions(params, collisionsService, loopService.getCollisionsLoop()),
     ...withUpdateSpatialCell()
   };
 

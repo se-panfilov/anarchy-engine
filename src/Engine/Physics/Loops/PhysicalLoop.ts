@@ -1,6 +1,7 @@
 import type { Subscription } from 'rxjs';
 
 import type { TLoop, TLoopService } from '@/Engine/Loop';
+import { LoopType } from '@/Engine/Loop';
 import type { TMilliseconds } from '@/Engine/Math';
 import { milliseconds } from '@/Engine/Measurements';
 import type { TPhysicsWorldService } from '@/Engine/Physics';
@@ -13,8 +14,8 @@ import type { TPhysicalLoop } from '@/Engine/Physics/Models';
 // TODO 10.0.0. LOOPS: add text loop?
 // TODO 10.0.0. LOOPS: get rid of autoUpdate$ (and isAutoUpdate in config, guess)
 
-export function PhysicalLoop(loopService: TLoopService, physicsWorldService: TPhysicsWorldService, updateRate: TMilliseconds): TPhysicalLoop {
-  const loop: TLoop = loopService.createIntervalLoop(milliseconds(updateRate));
+export function PhysicalLoop(name: string, loopService: TLoopService, physicsWorldService: TPhysicsWorldService, updateRate: TMilliseconds): TPhysicalLoop {
+  const loop: TLoop = loopService.createIntervalLoop(name, LoopType.Physical, milliseconds(updateRate));
   const loopSub$: Subscription = loop.tick$.subscribe((): void => physicsWorldService.getWorld()?.step());
 
   const destroySub$: Subscription = loop.destroy$.subscribe((): void => {
