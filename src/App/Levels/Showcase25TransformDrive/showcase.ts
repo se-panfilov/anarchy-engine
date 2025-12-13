@@ -19,6 +19,7 @@ import type {
 } from '@/Engine';
 import { Engine, getMouseAzimuthAndElevation, isNotDefined, KeysExtra, spaceService, TransformAgent } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
+import { getHumanReadableMemorySize } from '@/Engine/Utils/FileUtils';
 
 import spaceConfig from './showcase.json';
 import { addActorFolderGui, addSpatialGuiFolder, attachConnectorToSubj, changeActorActiveAgent, createActor, createReactiveLineFromActor, createRepeaterActor, startIntersections } from './Utils';
@@ -78,9 +79,12 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         moveActorTo(sphereActor, intersection.point, agent, mode.isTeleportationMode);
       });
 
-    attachConnectorToSubj(sphereActor, intersectionsWatcher.value$.pipe(map((v): Vector3 => v.point)));
+    attachConnectorToSubj(sphereActor, intersectionsWatcher.value$.pipe(map((v: TIntersectionEvent): Vector3 => v.point)));
 
     changeActorActiveAgent(sphereActor, KeysExtra.Space, keyboardService);
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    console.log('Memory usage:', getHumanReadableMemorySize((window as any).performance.memory.usedJSHeapSize));
   }
 
   function start(): void {
