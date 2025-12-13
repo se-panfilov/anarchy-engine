@@ -4,15 +4,15 @@
 
 1. Convert `./compliance/EU_DECLARATION_OF_CONFORMITY.md` to `./legal/dd-mm-yyyy/EU_DECLARATION_OF_CONFORMITY.pdf` and sign it.
 2. Add CE-mark to the product's Legal/About screen
-3. For web version add ./well-known/security.txt with the content of `./legal/SECURITY.md` (CVD) to the root of the web server.
+3. For web version add `./well-known/security.txt` with the content of `./legal/SECURITY.md` (CVD) to the root of the web server.
 
 ## Windows
 
 **What:** Code signing certificate (**OV** or **EV**) + sign `.exe/.msi` with a timestamp
 
-**When:** Before relese/beta. Re-sign on every release
+**When:** Before release/beta. Re-sign on every release
 
-**Keep in:** sertificate/keys — **not in the repository**. Store in OS store/token/HSM or in CI secrets. In the repo keep `docs/release/windows-signing.md` (command `signtool`, URL TSA, contact).
+**Keep in:** certificate/keys — **not in the repository**. Store in OS store/token/HSM or in CI secrets. In the repo keep `docs/release/windows-signing.md` (command `signtool`, URL TSA, contact).
 
 ## iOS/macOS
 
