@@ -15,15 +15,15 @@ export type TLoopsSettingsSteps = Readonly<{
 }>;
 
 export type TLoopsSettingsModes = Readonly<{
-  isAudioParallel?: boolean;
-  isCollisionsParallel?: boolean;
-  isControlsParallel?: boolean;
-  isIntersectionsParallel?: boolean;
-  isKeyboardParallel?: boolean;
-  isKinematicParallel?: boolean;
-  isMouseParallel?: boolean;
-  isPhysicsParallel?: boolean;
-  isSpatialParallel?: boolean;
-  isTextParallel?: boolean;
-  isTransformParallel?: boolean;
+  isAudioParallel: boolean;
+  isCollisionsParallel: boolean;
+  isControlsParallel: boolean;
+  isIntersectionsParallel: boolean;
+  isKeyboardParallel: boolean;
+  isKinematicParallel: boolean;
+  isMouseParallel: boolean;
+  isPhysicsParallel: boolean;
+  isSpatialParallel: boolean;
+  isTextParallel: boolean;
+  isTransformParallel: boolean;
 }>;

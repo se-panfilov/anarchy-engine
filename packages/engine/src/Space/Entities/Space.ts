@@ -22,7 +22,7 @@ export function Space(params: TSpaceParams, registry: TSpaceRegistry, hooks?: TS
   const canvas: TSpaceCanvas = getOrCreateCanvasFromSelector(canvasSelector);
   const container: TContainerDecorator = getCanvasContainer(canvas);
 
-  const { services, loops } = initSpaceServices(canvas, container, params);
+  const { services, loops } = initSpaceServices(canvas, container, params, hooks);
   hooks?.afterAllServicesInitialized?.(canvas, services, loops, params);
 
   let entitiesCreationPromise: Promise<void> = Promise.resolve();
@@ -130,7 +130,7 @@ function initSpaceServices(
   const sceneW: TSceneWrapper = baseServices.scenesService.getActive();
 
   hooks?.beforeLoopsCreated?.(params);
-  const loops: TSpaceLoops = createLoops(baseServices.loopService);
+  const loops: TSpaceLoops = createLoops(baseServices.loopService, params.options);
 
   hooks?.beforeEntitiesServicesBuilt?.(canvas, params);
   const services: TSpaceServices = buildEntitiesServices(sceneW, canvas, container, loops, baseServices);
