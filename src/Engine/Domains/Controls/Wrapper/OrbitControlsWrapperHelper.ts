@@ -1,10 +1,9 @@
 import type { IOrbitControlsParams, IOrbitControlsWrapper } from '@/Engine/Domains/Controls/Models';
 import { isDefined } from '@/Engine/Utils';
-import { Vector3Wrapper } from '@/Engine/Wrappers';
 
 export function applyOrbitControlsParams(wrapper: IOrbitControlsWrapper, params: IOrbitControlsParams): void {
   if (isDefined(params.enableDamping)) wrapper.setDamping(params.enableDamping);
-  if (isDefined(params.target)) wrapper.setTarget(Vector3Wrapper(params.target));
+  if (isDefined(params.target)) wrapper.setTarget(params.target);
   if (isDefined(params.autoRotate)) wrapper.setAutoRotate(params.autoRotate);
   if (isDefined(params.minDistance)) wrapper.setMinDistance(params.minDistance);
   if (isDefined(params.maxDistance)) wrapper.setMaxDistance(params.maxDistance);

@@ -9,7 +9,7 @@ import { isDefined } from '@/Engine/Utils';
 export function OrbitControlsWrapper(params: IOrbitControlsParams): IOrbitControlsWrapper {
   const entity: OrbitControls = new OrbitControls(params.camera.entity, params.canvas);
   if (isDefined(params.target)) {
-    entity.target.set(params.target.x, params.target.y, params.target.z);
+    entity.target.set(params.target.getX(), params.target.getY(), params.target.getZ());
     entity.update();
   }
   const update = (): boolean => entity.update();

@@ -9,5 +9,7 @@ export type IOrbitControlsConfig = Omit<IOrbitControlsProps, 'target' | 'cursor'
   Readonly<{
     type: IControlsType;
     cameraTag: CameraTag;
+    target?: { x: number; y: number; z: number };
+    cursor?: { x: number; y: number; z: number };
   }> &
   IWithReadonlyTags<ControlsTag>;
