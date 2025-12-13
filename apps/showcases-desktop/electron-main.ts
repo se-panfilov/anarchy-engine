@@ -17,6 +17,7 @@ const isOpenDevTools: boolean = true;
 // TODO DESKTOP: Save/Load app's settings (screen resolution, fullscreen mode, etc.)
 // TODO DESKTOP: Steam integration (manifest, cloud_sync.vdf, cloud saves, achievements, layer, etc.)
 // TODO DESKTOP: Other integrations (epic, gog, etc.)
+// TODO DESKTOP: Add getting game's and engine's versions in preload.ts
 // TODO DESKTOP: Error forwarding to a file (with versions)
 // TODO DESKTOP: Add canvas.requestPointerLock(); on a Space level
 // TODO DESKTOP: Fix Electron Security Warning (Insecure Content-Security-Policy) https://www.electronjs.org/docs/latest/tutorial/security
