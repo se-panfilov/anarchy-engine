@@ -52,7 +52,6 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
     const fontSize: string = toPx(params.cssProps?.fontSize);
 
     const fontSizeNoUnits: number = stripUnits(fontSize);
-    // TODO DESKTOP: font-family doesn't apply!
     const fontFamily: string | undefined = params.cssProps?.fontFamily || textTranslationService?.locale$.value.font;
 
     await document.fonts.ready;
