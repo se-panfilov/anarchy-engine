@@ -5,6 +5,7 @@ import { initMenuApp } from '@Menu/main';
 import type { TMenuEvent } from '@Menu/models';
 import { filter, Subject } from 'rxjs';
 
+import { runtimeEnv } from '@/env';
 import { closeMainMenu, openMainMenu } from '@/Levels/Showcase28Menu/MainMenuService';
 import { menuEventsBus$ } from '@/Levels/Showcase28Menu/MenuEventsBus';
 import type { TAppSettings } from '@/Models';
@@ -51,7 +52,9 @@ export function showcase(space: TSpace): void {
     }
   });
 
-  initMenuApp('#menu', menuEventsBus$);
+  initMenuApp('#menu', menuEventsBus$, {
+    showExitBtn: runtimeEnv.VITE_SHOW_EXIT_GAME_MENU_BTN
+  });
 
   const watcherMenuCube: TIntersectionsCameraWatcher = intersectionsWatcherService.getCameraWatcher('watcher_menu_cube');
 
