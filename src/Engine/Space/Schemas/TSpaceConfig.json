@@ -319,7 +319,7 @@
           "type": "string"
         },
         "physics": {
-          "$ref": "#/definitions/TWithPresetNamePhysicsBodyConfig"
+          "$ref": "#/definitions/TPhysicsBodyConfig"
         },
         "kinematic": {
           "$ref": "#/definitions/TKinematicConfig"
@@ -351,12 +351,18 @@
       },
       "required": ["model3dSource", "name", "position", "spatial"]
     },
-    "TWithPresetNamePhysicsBodyConfig": {
+    "TPhysicsBodyConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "presetName": {
-          "type": "string"
+        "position": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "rotation": {
+          "$ref": "#/definitions/QuaternionLike"
+        },
+        "type": {
+          "$ref": "#/definitions/RigidBodyTypesNames"
         },
         "collisionShape": {
           "$ref": "#/definitions/CollisionShape"
@@ -379,16 +385,21 @@
         "isSleep": {
           "type": "boolean"
         },
-        "type": {
-          "$ref": "#/definitions/RigidBodyTypesNames"
+        "name": {
+          "type": "string"
         },
-        "position": {
-          "$ref": "#/definitions/Vector3Like"
-        },
-        "rotation": {
-          "$ref": "#/definitions/QuaternionLike"
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
-      }
+      },
+      "required": ["collisionShape", "name", "shapeParams", "type"]
+    },
+    "RigidBodyTypesNames": {
+      "type": "string",
+      "enum": ["dynamic", "fixed", "kinematicPositionBased", "kinematicVelocityBased"]
     },
     "CollisionShape": {
       "type": "string",
@@ -1029,10 +1040,6 @@
       },
       "required": ["halfHeight", "radius", "borderRadius"],
       "additionalProperties": false
-    },
-    "RigidBodyTypesNames": {
-      "type": "string",
-      "enum": ["dynamic", "fixed", "kinematicPositionBased", "kinematicVelocityBased"]
     },
     "TKinematicConfig": {
       "type": "object",
@@ -6216,12 +6223,6 @@
       "properties": {
         "global": {
           "$ref": "#/definitions/TPhysicsGlobalConfig"
-        },
-        "presets": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TPhysicsPresetConfig"
-          }
         }
       },
       "additionalProperties": false
@@ -6371,51 +6372,6 @@
       "type": "object",
       "additionalProperties": false
     },
-    "TPhysicsPresetConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "type": {
-          "$ref": "#/definitions/RigidBodyTypesNames"
-        },
-        "position": {
-          "$ref": "#/definitions/Vector3Like"
-        },
-        "rotation": {
-          "$ref": "#/definitions/QuaternionLike"
-        },
-        "collisionShape": {
-          "$ref": "#/definitions/CollisionShape"
-        },
-        "shapeParams": {
-          "$ref": "#/definitions/TPhysicsShapeParams"
-        },
-        "mass": {
-          "type": "number"
-        },
-        "restitution": {
-          "type": "number"
-        },
-        "friction": {
-          "type": "number"
-        },
-        "collisionGroups": {
-          "type": "number"
-        },
-        "isSleep": {
-          "type": "boolean"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
     "TFogConfig": {
       "type": "object",
       "additionalProperties": false,
@@ -6544,7 +6500,7 @@
           "$ref": "#/definitions/TKinematicConfig"
         },
         "physics": {
-          "$ref": "#/definitions/TWithPresetNamePhysicsBodyConfig"
+          "$ref": "#/definitions/TPhysicsBodyConfig"
         },
         "text": {
           "type": "string"

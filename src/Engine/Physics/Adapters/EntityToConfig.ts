@@ -4,7 +4,7 @@ import type { TPhysicsBody, TPhysicsBodyConfig } from '@/Engine/Physics/Models';
 import { filterOutEmptyFields, isDefined } from '@/Engine/Utils';
 
 export function physicsToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
-  // TODO 15-0-0: Add adapters for Physics World, and Physics presets
+  // TODO 15-0-0: Add adapters for Physics World also
 
   const rigidBody: RigidBody | undefined = entity.getRigidBody();
   const collider: Collider | undefined = rigidBody?.collider(0);
@@ -38,6 +38,9 @@ export function physicsToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
   return filterOutEmptyFields({
     collisionShape: entity.getPhysicsBodyShape(),
     ...rigidBodySettings,
-    ...colliderSettings
+    ...colliderSettings,
+    name: entity.name,
+    type: entity.getPhysicsBodyType(),
+    shapeParams: entity.getShapeParams()
   });
 }

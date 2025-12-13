@@ -12,7 +12,6 @@ export type * from './TPhysicsDependencies';
 export type * from './TPhysicsGlobalConfig';
 export type * from './TPhysicsGlobalParams';
 export type * from './TPhysicsParams';
-export type * from './TPhysicsService';
 export type * from './TPhysicsShapeParams';
 export type * from './TPhysicsWorldParams';
 export type * from './TPhysicsWorldService';
