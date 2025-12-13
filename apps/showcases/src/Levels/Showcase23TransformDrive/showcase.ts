@@ -81,9 +81,9 @@ export function start(flags: TAppFlags): void {
 
 //This showcase should demonstrate the ways we can move the actor.
 // We have different "agents" (modes) which can be switched in runtime
-// - Connected agent is expose mutable position/rotation/scale objects and follow the changes of them. Useful to work with 3rd party libs (e.g. animejs). But recommended to avoid.
-// - Kinematic agent is a mode that moves actor by angular velocity and linear velocity (vectors). Useful when you need to know the direction (e.g. bullet, car) of the object. Recommended way for NPCs.
-// - Physics agent is a mode when model3d reads values from a physical body. Requires setup of physics. Recommended for environmental objects (e.g. physical bricks in a wall).
+// - Connected agent expose mutable position/rotation/scale objects and follow the changes of them. Useful to work with 3rd party libs. But recommended to avoid.
+// - Kinematic agent is a mode that moves actor by angular velocity and linear velocity (vectors). Useful when you need to know the direction (e.g., bullet, car) of the object. Recommended way for NPCs.
+// - Physics agent is a mode when model3d reads values from a physical body. Requires setup of physics. Recommended for environmental objects (e.g., physical bricks in a wall).
 // - Default agent is providing almost nothing, but setters. Recommended for static objects.
 // - Also: with every mode you can do position$.next() to "teleport" the object to the new position
 export async function showcase(space: TSpace): Promise<void> {

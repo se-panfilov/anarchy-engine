@@ -6,16 +6,7 @@
         "agent": "physics",
         "model3dSource": "surface_model",
         "name": "surface_actor",
-        "physics": {
-          "collisionShape": "cuboid",
-          "name": "surface_actor_physics",
-          "shapeParams": {
-            "hx": 50,
-            "hy": 50,
-            "hz": 0.025
-          },
-          "type": "fixed"
-        },
+        "physicsBodyName": "surface_actor_physics",
         "position": {
           "x": 0,
           "y": 0,
@@ -35,16 +26,7 @@
         "agent": "physics",
         "model3dSource": "box_model_1",
         "name": "box_actor_1",
-        "physics": {
-          "collisionShape": "cuboid",
-          "name": "box_actor_1_physics",
-          "shapeParams": {
-            "hx": 10,
-            "hy": 10,
-            "hz": 1
-          },
-          "type": "fixed"
-        },
+        "physicsBodyName": "box_actor_1_physics",
         "position": {
           "x": 0,
           "y": 1,
@@ -64,16 +46,7 @@
         "agent": "physics",
         "model3dSource": "box_model_2",
         "name": "box_actor_2",
-        "physics": {
-          "collisionShape": "cuboid",
-          "name": "box_actor_2_physics",
-          "shapeParams": {
-            "hx": 1,
-            "hy": 1,
-            "hz": 20
-          },
-          "type": "fixed"
-        },
+        "physicsBodyName": "box_actor_2_physics",
         "position": {
           "x": 20,
           "y": 20,
@@ -283,7 +256,68 @@
           "z": 0
         }
       },
-      "bodies": []
+      "bodies": [
+        {
+          "collisionShape": "cuboid",
+          "name": "box_actor_2_physics",
+          "position": {
+            "x": 20,
+            "y": 20,
+            "z": -10
+          },
+          "rotation": {
+            "x": -1.57,
+            "y": 0,
+            "z": 0
+          },
+          "shapeParams": {
+            "hx": 1,
+            "hy": 1,
+            "hz": 20
+          },
+          "type": "fixed"
+        },
+        {
+          "collisionShape": "cuboid",
+          "name": "surface_actor_physics",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "rotation": {
+            "x": -1.57,
+            "y": 0,
+            "z": 0
+          },
+          "shapeParams": {
+            "hx": 50,
+            "hy": 50,
+            "hz": 0.025
+          },
+          "type": "fixed"
+        },
+        {
+          "collisionShape": "cuboid",
+          "name": "box_actor_1_physics",
+          "position": {
+            "x": 0,
+            "y": 1,
+            "z": -20
+          },
+          "rotation": {
+            "x": -1.57,
+            "y": 0,
+            "z": 0
+          },
+          "shapeParams": {
+            "hx": 10,
+            "hy": 10,
+            "hz": 1
+          },
+          "type": "fixed"
+        }
+      ]
     },
     "renderers": [
       {
