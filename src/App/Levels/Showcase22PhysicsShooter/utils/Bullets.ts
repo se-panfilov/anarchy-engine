@@ -9,8 +9,6 @@ export type TBullet = TActorWrapperAsync &
   Readonly<{
     setDistanceTraveled: (dist: number) => void;
     getDistanceTraveled: () => number;
-    setFallSpeed: (speed: number) => void;
-    getFallSpeed: () => number;
     setActive: (act: boolean) => void;
     isActive: () => boolean;
     reset: () => void;
@@ -54,13 +52,10 @@ export function getBulletsPool(count: number, actorService: TActorService): Read
 export async function BulletAsync(params: TActorParams, actorService: TActorService): Promise<TBullet> {
   const actor: TActorWrapperAsync = await actorService.createAsync(params);
   let distanceTraveled: number = 0;
-  let fallSpeed: number = 0;
   let active: boolean = false;
 
   const setDistanceTraveled = (dist: number): void => void (distanceTraveled = dist);
   const getDistanceTraveled = (): number => distanceTraveled;
-  const setFallSpeed = (speed: number): void => void (fallSpeed = speed);
-  const getFallSpeed = (): number => fallSpeed;
   const setActive = (act: boolean): void => void (active = act);
   const isActive = (): boolean => active;
 
@@ -98,8 +93,6 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
     ...actor,
     setDistanceTraveled,
     getDistanceTraveled,
-    setFallSpeed,
-    getFallSpeed,
     setActive,
     isActive,
     reset,
@@ -107,14 +100,13 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
   };
 }
 
-export function shoot(actorPosition: TWithCoordsXYZ, toAngle: TRadians, elevation: TRadians, speedMeters: number, fallSpeedMeters: number, bullets: ReadonlyArray<TBullet>): void {
+export function shoot(actorPosition: TWithCoordsXYZ, toAngle: TRadians, elevation: TRadians, speedMeters: number, bullets: ReadonlyArray<TBullet>): void {
   const bullet: TBullet | undefined = bullets.find((b: TBullet) => !b.isActive());
   if (isDefined(bullet)) {
     bullet.setPosition(Vector3Wrapper(actorPosition));
     bullet.kinematic.setLinearAzimuthRad(toAngle);
     bullet.kinematic.setLinearElevationRad(elevation);
     bullet.setDistanceTraveled(0);
-    bullet.setFallSpeed(meters(fallSpeedMeters));
     bullet.kinematic.setLinearSpeed(meters(speedMeters));
     bullet.setActive(true);
   }

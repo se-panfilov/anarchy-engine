@@ -53,7 +53,7 @@
       "heightSegments": 1,
       "isKinematicAutoUpdate": true,
       "material": { "type": "standard", "params": { "color": "#8EFEFE" } },
-      "position": { "x": 20, "y": 1, "z": 10 },
+      "position": { "x": 18, "y": 1, "z": 12 },
       "castShadow": true,
       "tags": []
     },

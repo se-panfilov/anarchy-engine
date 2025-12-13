@@ -119,13 +119,10 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     addActor.call(this, actorW);
   }
 
-  function findCellsForPoint(x: number, z: number): ReadonlyArray<TSpatialCell> {
-    return entity.search({ minX: x, minY: z, maxX: x, maxY: z });
-  }
+  const findCellsForPoint = (x: number, z: number): ReadonlyArray<TSpatialCell> => entity.search({ minX: x, minY: z, maxX: x, maxY: z });
 
-  function findCellsForBox<T extends BBox>(box: T): ReadonlyArray<TSpatialCell> {
-    return entity.search(box);
-  }
+  const findCellsForBox = ({ minX, minZ, maxX, maxZ }: Readonly<{ minX: number; minZ: number; maxX: number; maxZ: number }>): ReadonlyArray<TSpatialCell> =>
+    entity.search({ minX, minY: minZ, maxX, maxY: maxZ });
 
   function findCellById(id: TSpatialCellId): TSpatialCell | undefined {
     return entity.all().filter((cell: TSpatialCell): boolean => cell.id === id)[0];
