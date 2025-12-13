@@ -1,7 +1,8 @@
 import { AllowedSystemFolders } from '@Showcases/Desktop/Constants';
 import type { TFilesService, TSettingsService } from '@Showcases/Desktop/Models';
-import type { TShowcaseGameSettings } from '@Showcases/Shared';
+import type { TResolution, TShowcaseGameSettings } from '@Showcases/Shared';
 import { DefaultShowcaseGameSettings, isSettings } from '@Showcases/Shared';
+import { screen } from 'electron';
 
 // TODO DESKTOP: Add protection (allowed files list, name/extension checks, sanitization, etc)
 export function SettingsService(filesService: TFilesService): TSettingsService {
@@ -25,7 +26,7 @@ export function SettingsService(filesService: TFilesService): TSettingsService {
       graphics: {
         ...DefaultShowcaseGameSettings.graphics,
         resolution: detectResolution(),
-        isFullScreen: false
+        isFullScreen: true
       }
     };
 
@@ -35,9 +36,15 @@ export function SettingsService(filesService: TFilesService): TSettingsService {
     };
   }
 
-  function detectResolution(): { width: number; height: number } {
-    // TODO DESKTOP: Implement actual resolution detection
-    return { width: 1280, height: 720 };
+  function detectResolution(): TResolution {
+    const primaryDisplay = screen.getPrimaryDisplay();
+    const { width, height } = primaryDisplay.size;
+    return { width, height };
+  }
+
+  function getScreenRatio(): number {
+    const { width, height } = detectResolution();
+    return width / height;
   }
 
   async function saveAppSettings(settings: TShowcaseGameSettings): Promise<void> {
@@ -55,8 +62,10 @@ export function SettingsService(filesService: TFilesService): TSettingsService {
   }
 
   return {
+    applyPlatformSettings,
+    detectResolution,
+    getScreenRatio,
     loadAppSettings,
-    saveAppSettings,
-    applyPlatformSettings
+    saveAppSettings
   };
 }
