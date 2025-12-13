@@ -237,8 +237,13 @@ ${locales.map((l) => `export const ${kebabToCamel(l.id)}: TLocale =  ` + toTs(l)
 
 `;
 
+  const idsUnion = locales.map(({ id }) => `  | '${id}'`).join('\n');
+
+  const typesTail = `// Union type of all possible BCP47 IDs
+    export type TLocaleId = ${idsUnion};`;
+
   await fs.mkdir(path.dirname(OUT_PATH), { recursive: true });
-  await fs.writeFile(OUT_PATH, header + body, 'utf8');
+  await fs.writeFile(OUT_PATH, header + body + typesTail, 'utf8');
 
   process.stdout.write(`Generated ${path.relative(process.cwd(), OUT_PATH)} with ${locales.length} locales.\n`);
 }
