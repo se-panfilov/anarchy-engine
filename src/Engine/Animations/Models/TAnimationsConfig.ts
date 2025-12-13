@@ -1,8 +1,10 @@
+import type { AnimationActionLoopStyles } from 'three/src/constants';
+
 export type TAnimationsConfig = Readonly<{
   clipName: string;
   time: number;
   weight: number;
-  loop: number;
+  loop: AnimationActionLoopStyles;
   repetitions: number;
   clampWhenFinished: boolean;
   timeScale: number;

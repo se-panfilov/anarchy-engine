@@ -6030,7 +6030,7 @@
           "type": "number"
         },
         "loop": {
-          "type": "number"
+          "$ref": "#/definitions/AnimationActionLoopStyles"
         },
         "repetitions": {
           "type": "number"
@@ -6050,6 +6050,10 @@
       },
       "required": ["clipName", "time", "weight", "loop", "repetitions", "clampWhenFinished", "timeScale", "enabled", "paused"],
       "additionalProperties": false
+    },
+    "AnimationActionLoopStyles": {
+      "type": "number",
+      "enum": [2200, 2201, 2202]
     },
     "TModel3dOptions": {
       "$ref": "#/definitions/TOptional%3CTPrimitiveModel3dParams%3E"
