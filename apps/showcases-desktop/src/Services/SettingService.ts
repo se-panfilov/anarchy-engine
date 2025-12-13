@@ -1,9 +1,7 @@
-import * as fs from 'node:fs';
-
 import { AllowedSystemFolders } from '@Showcases/Desktop/Constants';
 import type { TFilesService, TSettingsService } from '@Showcases/Desktop/Models';
 import type { TShowcaseGameSettings } from '@Showcases/Shared';
-import { isSettings } from '@Showcases/Shared';
+import { DefaultShowcaseGameSettings, isSettings } from '@Showcases/Shared';
 
 // TODO DESKTOP: Add protection (allowed files list, name/extension checks, sanitization, etc)
 export function SettingsService(filesService: TFilesService): TSettingsService {
@@ -13,13 +11,34 @@ export function SettingsService(filesService: TFilesService): TSettingsService {
   // TODO DESKTOP: rename load/save to read/write
   // TODO DESKTOP: What should happen when no settings? Return values from desktop?
   //  Use defaults from the main app? (or send partial settings, what were detected by the desktop app)
-  const loadAppSettings = async (): Promise<TShowcaseGameSettings | undefined> => {
-    if (!fs.existsSync(filesService.getPathToFile(appSettingsFileName, userDataFolder))) {
-      console.log(`[DESKTOP]: Settings file ("${appSettingsFileName}") not found in : ${userDataFolder}`);
-      return undefined;
+  const loadAppSettings = async (): Promise<TShowcaseGameSettings> => {
+    try {
+      return filesService.readFileAsJson(appSettingsFileName, userDataFolder, isSettings);
+    } catch {
+      console.log(`[DESKTOP]: Settings file ("${appSettingsFileName}") not found in : ${userDataFolder}. Applying default settings.`);
+      return buildDefaultSettings();
     }
-    return filesService.readFileAsJson(appSettingsFileName, userDataFolder, isSettings);
   };
+
+  function buildDefaultSettings(): TShowcaseGameSettings {
+    const platformDetectedSettings: Partial<TShowcaseGameSettings> = {
+      graphics: {
+        ...DefaultShowcaseGameSettings.graphics,
+        resolution: detectResolution(),
+        isFullScreen: false
+      }
+    };
+
+    return {
+      ...DefaultShowcaseGameSettings,
+      ...platformDetectedSettings
+    };
+  }
+
+  function detectResolution(): { width: number; height: number } {
+    // TODO DESKTOP: Implement actual resolution detection
+    return { width: 1280, height: 720 };
+  }
 
   async function saveAppSettings(settings: TShowcaseGameSettings): Promise<void> {
     if (!isSettings(settings)) throw new Error('[DESKTOP]: Attempted to save invalid app settings');
