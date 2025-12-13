@@ -7,12 +7,14 @@ import type { TVueNavOption } from '@Showcases/Menu/models';
 import { eventsEmitterService } from '@Showcases/Menu/services';
 import { useMenuOptionsStore } from '@Showcases/Menu/stores/MenuOptionsStore';
 import { useRouterStore } from '@Showcases/Menu/stores/RouterStore';
+import type { ComputedRef } from 'vue';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 const menuRouterStore = useRouterStore();
 
-const navOptions: ReadonlyArray<TVueNavOption> = [
+const navOptions: ComputedRef<ReadonlyArray<TVueNavOption>> = computed(() => [
   {
     id: 0,
     name: 'continue-game',
@@ -51,7 +53,7 @@ const navOptions: ReadonlyArray<TVueNavOption> = [
     condition: useMenuOptionsStore().showExitBtn,
     action: () => eventsEmitterService.emitExitApp()
   }
-];
+]);
 
 const linksOptions: ReadonlyArray<TVueNavOption> = [
   {
