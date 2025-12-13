@@ -109,6 +109,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
                 }) as Plugin
               ]
             : []),
+          // TODO DESKTOP: Perhaps visualizer cannot correctly visualize the lib build (due to custom minify). Check it.
           visualizer({ open: false })
         ]
       },
