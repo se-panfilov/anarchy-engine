@@ -1,19 +1,27 @@
-import { addBtn } from '@/App/Levels/Utils';
-import type { TSpace, TSpaceConfig } from '@/Engine';
+import { addBtn, addDropdown } from '@/App/Levels/Utils';
+import type { TSpace, TSpaceConfig, TSpaceRegistry } from '@/Engine';
 import { asRecord, isNotDefined, spaceService } from '@/Engine';
 
 import space from './space.json';
+import spaceCustomModels from './spaceCustomModels.json';
+import spaceTexts from './spaceTexts.json';
 
 const spaceBasicConfig: TSpaceConfig = space as TSpaceConfig;
+const spaceCustomModelsConfig: TSpaceConfig = spaceCustomModels as TSpaceConfig;
+const spaceTextsConfig: TSpaceConfig = spaceTexts as TSpaceConfig;
+
+let currentSpaceName: string = '';
 
 export function start(): void {
-  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceBasicConfig]));
+  const list: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceBasicConfig, spaceCustomModelsConfig, spaceTextsConfig]);
+  const spaces: Record<string, TSpace> = asRecord('name', list);
   const space: TSpace = spaces[spaceBasicConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase: Space "${spaceBasicConfig.name}" is not defined`);
 
-  createButtons(undefined, space, true, true);
+  createForm(undefined, space, true, true, list);
 
   space.built$.subscribe((space: TSpace): void => {
+    currentSpaceName = spaceBasicConfig.name;
     runSpace(space);
   });
 }
@@ -22,7 +30,7 @@ export function runSpace(space: TSpace): void {
   space.start$.next(true);
 }
 
-function save(space: TSpace): void {
+function download(space: TSpace): void {
   const serialized: TSpaceConfig = space.serialize() as TSpaceConfig;
 
   const blob: Blob = new Blob([JSON.stringify(serialized, undefined, 2)], { type: 'application/json' });
@@ -39,10 +47,27 @@ function save(space: TSpace): void {
   a.remove();
 }
 
-export function createButtons(containerId: string | undefined, space: TSpace, isTop: boolean, isRight: boolean): void {
+export function createForm(containerId: string | undefined, space: TSpace, isTop: boolean, isRight: boolean, options: ReadonlyArray<TSpace>): void {
   const top: string | undefined = isTop ? undefined : 'calc(50% + 14px)';
   const right: string | undefined = !isRight ? 'calc(50% + 14px)' : '4px';
+  const spaceRegistry: TSpaceRegistry = spaceService.getRegistry();
 
-  addBtn(`Save`, containerId, (): void => save(space), { right, top });
-  // addBtn(`Load`, containerId, (): void => space.start$.next(false));
+  addDropdown(
+    'Spaces',
+    containerId,
+    (name: string): void => {
+      const currentSpace: TSpace | undefined = spaceRegistry.findByName(currentSpaceName);
+      if (isNotDefined(currentSpace)) throw new Error(`[Showcase]: Cannot destroy the current space "${name}"`);
+      currentSpace.drop();
+
+      const nextSpace: TSpace | undefined = spaceRegistry.findByName(name);
+      if (isNotDefined(nextSpace)) throw new Error(`[Showcase]: Cannot launch the next space "${name}"`);
+      runSpace(nextSpace);
+      currentSpaceName = name;
+    },
+    options.map((space: TSpace): string => space.name),
+    { right, top }
+  );
+  addBtn(`Download`, containerId, (): void => download(space), { right, top });
+  addBtn(`Load`, containerId, (): void => space.start$.next(false));
 }
