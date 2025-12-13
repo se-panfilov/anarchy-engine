@@ -52,24 +52,21 @@ export function filterOutEmptyFieldsRecursive<T extends Record<string, unknown> 
       value instanceof Map ||
       value instanceof Set ||
       (typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView(value)) // TypedArray/DataView
-    ) {
+    )
       return undefined;
-    }
 
     if (Array.isArray(value)) {
       const cleaned = (value as ReadonlyArray<unknown>).map((v) => cloneDeepWith(v, customizer));
-      return cleaned.filter((v) => v !== undefined);
+      return cleaned.filter((v): boolean => v !== undefined);
     }
 
     if (isPlainObject(value)) {
-      const src = value as Record<string, unknown>;
-      const out: Record<string, unknown> = {};
-      for (const [k, v] of Object.entries(src)) {
-        if (v === undefined) continue;
-        const cleaned = cloneDeepWith(v, customizer);
-        if (cleaned !== undefined) out[k] = cleaned;
-      }
-      return out;
+      const src: Record<string, unknown> = value as Record<string, unknown>;
+      return Object.entries(src)
+        .filter(([, v]): boolean => v !== undefined)
+        .map(([k, v]) => [k, cloneDeepWith(v, customizer)])
+        .filter(([, cleanedValue]): boolean => cleanedValue !== undefined)
+        .reduce((acc, [k, cleanedValue]) => ({ ...acc, [k]: cleanedValue }), {} as Record<string, unknown>);
     }
 
     return undefined;

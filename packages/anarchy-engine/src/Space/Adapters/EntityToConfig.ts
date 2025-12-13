@@ -1,7 +1,7 @@
 import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
 import type { SpaceSchemaVersion } from '@Anarchy/Engine/Space/Constants';
 import type { TSpace, TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources, TSpaceServices } from '@Anarchy/Engine/Space/Models';
-import { filterOutEmptyFields, isDefined } from '@Anarchy/Shared/Utils';
+import { filterOutEmptyFieldsRecursive, isDefined } from '@Anarchy/Shared/Utils';
 
 export function spaceToConfig(
   entity: TSpace,
@@ -60,7 +60,7 @@ export function spaceToConfig(
     textures: textureService.serializeAllResources()
   };
 
-  return filterOutEmptyFields({
+  return filterOutEmptyFieldsRecursive({
     canvasSelector: entity.getCanvasSelector(),
     version: entity.version as SpaceSchemaVersion,
     entities,
