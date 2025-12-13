@@ -75,9 +75,6 @@ export function KeyboardService(): IKeyboardService {
   const removeKeyBinding = (key: IGameKey): void => removeBinding(key, false);
   const removeKeyComboBinding = (key: IKeyCombo): void => removeBinding(key, true);
 
-  const isKeyPressed = (key: IGameKey): boolean => checkKey(key);
-  const isKeyComboPressed = (key: IKeyCombo): boolean => checkKeyCombo(key);
-
   return {
     onKey,
     onKeyCombo,
@@ -87,8 +84,8 @@ export function KeyboardService(): IKeyboardService {
     resumeKeyComboBinding,
     removeKeyBinding,
     removeKeyComboBinding,
-    isKeyPressed,
-    isKeyComboPressed
+    isKeyPressed: checkKey,
+    isKeyComboPressed: checkKeyCombo
   };
 }
 
