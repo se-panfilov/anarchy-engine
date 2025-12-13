@@ -50,6 +50,7 @@
     "anarchy-engine": "*",
     "anarchy-i18n": "*",
     "anarchy-shared": "*",
+    "lucide-vue-next": "0.553.0",
     "sanitize.css": "13.0.0",
     "showcases-i18n": "*",
     "showcases-shared": "*",
