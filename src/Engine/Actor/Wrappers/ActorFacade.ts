@@ -1,5 +1,6 @@
 import type { Subscription } from 'rxjs';
-import type { Vector3 } from 'three';
+import { Subject } from 'rxjs';
+import type { Euler, Vector3 } from 'three';
 
 import { FacadeType } from '@/Engine/Abstract';
 import { AbstractFacade } from '@/Engine/Abstract/Wrappers/AbstractFacade';
@@ -10,7 +11,7 @@ import { withKinematic } from '@/Engine/Kinematic';
 import type { TModel3dFacade } from '@/Engine/Models3d';
 import { withModel3dFacade } from '@/Engine/Models3d';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
-import { withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
+import { withReactivePosition, withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import { applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 // TODO 8.0.0. MODELS: Why we call it facades? Just Actor. Just Model3d (however, we need an abstract "class" for it)
@@ -19,6 +20,20 @@ export function ActorFacade(
   params: TActorParams,
   { kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService, models3dService, model3dFacadeToActorConnectionRegistry }: TActorDependencies
 ): TActorFacade {
+  // TODO 8.0.0. MODELS: Actor should be driven either by kinematic or physics or none (direct applying of position)
+  // TODO 8.0.0. MODELS: Extract to constants
+  // TODO 8.0.0. MODELS: Allow to switch "drive" it in runtime
+  let drive: 'kinematic' | 'physics' | 'none' = 'kinematic';
+
+  const setDrive = (mode: 'kinematic' | 'physics' | 'none'): string => (drive = mode);
+  const getDrive = (): string => drive;
+
+  const position$: Subject<Vector3> = new Subject<Vector3>();
+  const rotation$: Subject<Euler> = new Subject<Euler>();
+  const scale$: Subject<Vector3> = new Subject<Vector3>();
+
+  // TODO 8.0.0. MODELS: position$, rotation$, scale$ should update related model3d values
+
   const isModelAlreadyInUse: boolean = isDefined(model3dFacadeToActorConnectionRegistry.findByModel3dFacade(params.model3dSource));
   const model3dF: TModel3dFacade = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
   // const model3d: Group | Mesh | Object3D = model3dF.getModel3d();
@@ -28,6 +43,8 @@ export function ActorFacade(
 
   const entities: TActorFacadeEntities = {
     ...withModel3dFacade(model3dF),
+    // TODO 8.0.0. MODELS: Kinematic should update rotation (and position?) (if "drive" is "kinematic")
+    // TODO 8.0.0. MODELS: Physics should update position and rotation (if "drive" is "physics")
     ...withKinematic(params),
     ...withSpatial(params),
     ...withCollisions(params, collisionsService, collisionsLoopService),
@@ -80,7 +97,10 @@ export function ActorFacade(
 
   return {
     ...facade,
-    position$: position$.asObservable(),
-    rotation$: rotation$.asObservable()
+    setDrive,
+    getDrive,
+    position$,
+    rotation$,
+    scale$
   };
 }
