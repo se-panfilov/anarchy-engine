@@ -1,7 +1,6 @@
-import type { IMousePositionWatcher, IMousePositionWatcherParams, IMousePositionWatcherRegistry } from '@Engine/Domains/Mouse';
-import { MousePositionWatcher, MousePositionWatcherRegistry } from '@Engine/Domains/Mouse';
-
-import type { IMousePositionWatcherFactory } from '../Models';
+import type { IMousePositionWatcher, IMousePositionWatcherFactory, IMousePositionWatcherParams, IMousePositionWatcherRegistry } from '../Models';
+import { MousePositionWatcherRegistry } from '../Registry';
+import { MousePositionWatcher } from '../Watcher';
 
 export function MousePositionWatcherFactory(): IMousePositionWatcherFactory {
   const registry: IMousePositionWatcherRegistry = MousePositionWatcherRegistry();
