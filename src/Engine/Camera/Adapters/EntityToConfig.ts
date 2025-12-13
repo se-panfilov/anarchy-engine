@@ -5,6 +5,7 @@ import type { TCameraConfig, TCameraWrapper, TCameraWrapperDependencies } from '
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields, isDefined } from '@/Engine/Utils';
 
+// TODO 15-0-0: Camera's drive might hold old values (position, rotation), cause controls might not update it (they are update values directly)
 export function cameraToConfig(entity: TCameraWrapper, { audioService }: Pick<TCameraWrapperDependencies, 'audioService'>): TCameraConfig {
   const { drive } = entity;
 
