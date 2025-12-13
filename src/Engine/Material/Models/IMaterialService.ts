@@ -8,7 +8,8 @@ import type {
   MeshPhongMaterial,
   MeshPhysicalMaterial,
   MeshStandardMaterial,
-  MeshToonMaterial
+  MeshToonMaterial,
+  PointsMaterial
 } from 'three';
 
 import type { MaterialType } from '@/Engine/Material/Constants';
@@ -21,6 +22,7 @@ import type {
   INormalTextureUploaded,
   IPhongTextureUploaded,
   IPhysicalTextureUploaded,
+  IPointsTextureUploaded,
   IStandardTextureUploaded,
   IToonTextureUploaded
 } from '@/Engine/Texture/Models';
@@ -67,6 +69,10 @@ export type IStandardMaterialService = Readonly<{
   buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IStandardTextureUploaded) => MeshStandardMaterial;
 }>;
 
+export type IPointsMaterialService = Readonly<{
+  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IPointsTextureUploaded) => PointsMaterial;
+}>;
+
 export type IMaterialService =
   | IBasicMaterialService
   | IDepthMaterialService
@@ -77,4 +83,5 @@ export type IMaterialService =
   | IPhongMaterialService
   | IPhysicalMaterialService
   | IStandardMaterialService
-  | IToonMaterialService;
+  | IToonMaterialService
+  | IPointsMaterialService;

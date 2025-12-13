@@ -9,7 +9,8 @@ import type {
   MeshPhongMaterial,
   MeshPhysicalMaterial,
   MeshStandardMaterial,
-  MeshToonMaterial
+  MeshToonMaterial,
+  PointsMaterial
 } from 'three';
 
 import type { IMaterialParams, ITypeOfMaterials, MaterialType } from '@/Engine/Material';
@@ -24,6 +25,7 @@ import type {
   INormalTextureUploaded,
   IPhongTextureUploaded,
   IPhysicalTextureUploaded,
+  IPointsTextureUploaded,
   IStandardTextureUploaded,
   ITextureUploaded,
   IToonTextureUploaded
@@ -41,6 +43,7 @@ export function MaterialService(): IMaterialService {
   function buildMaterial(type: MaterialType, params?: IMaterialParams, textures?: IPhysicalTextureUploaded): MeshPhysicalMaterial;
   function buildMaterial(type: MaterialType, params?: IMaterialParams, textures?: IToonTextureUploaded): MeshToonMaterial;
   function buildMaterial(type: MaterialType, params?: IMaterialParams, textures?: IStandardTextureUploaded): MeshStandardMaterial;
+  function buildMaterial(type: MaterialType, params?: IMaterialParams, textures?: IPointsTextureUploaded): PointsMaterial;
   function buildMaterial(type: MaterialType, params?: IMaterialParams, textures?: ITextureUploaded): Material {
     const MaterialConstructor: ITypeOfMaterials = MaterialMap[type];
     if (isNotDefined(MaterialConstructor)) throw new Error(`Unsupported material type: ${type}`);
