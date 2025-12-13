@@ -1,16 +1,23 @@
 import sceneConfig from '@Engine/Launcher/debug-scene.config.json';
-import { isNotDefined, isValidSceneConfig } from '@Engine/Utils';
 import { ambientContext, startAmbientContext } from '@Engine/Context';
+import { isNotDefined, isValidSceneConfig } from '@Engine/Utils';
 import './style.css';
 import { launch } from '@Engine/Launcher';
 import type { ISceneConfig } from '@Engine/Launcher/Models';
+import { startWatchers } from './startWatchers';
+import { getRegistryPool } from '@Engine/Pool/GetRegistiryPool';
+import type { IRegistriesPool } from '@Engine/Pool/Models/IRegistriesPool';
+import { getFactoriesPool } from '@Engine/Pool/GetFactoriesPool';
+import type { IFactoriesPool } from '@Engine/Pool/Models/IFactoriesPool';
 
-// TODO (S.Panfilov) canvas (or something else) should come from settings or ambient context
 const canvas: HTMLCanvasElement | null = document.querySelector('#app');
 if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
-
 if (!isValidSceneConfig(sceneConfig)) throw new Error('Failed to load a scene: invalid data format');
-const isLaunched: boolean = await launch(sceneConfig as unknown as ISceneConfig, canvas);
+
+startWatchers();
+const registryPool: IRegistriesPool = getRegistryPool();
+const factoriesPool: IFactoriesPool = getFactoriesPool({ canvas, cameraRegistry: registryPool.cameraRegistry });
+const isLaunched: boolean = await launch(sceneConfig as unknown as ISceneConfig, canvas, factoriesPool, registryPool);
 console.log('Launched', isLaunched);
 
 //Ambient Context

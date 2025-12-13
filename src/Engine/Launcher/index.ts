@@ -1,76 +1,27 @@
-import type { IActorConfig, ISceneConfig } from '@Engine/Launcher/Models';
-import type { IAppCanvas, IMousePosition } from '@Engine/Models';
-import type {
-  IActorFactory,
-  ICameraFactory,
-  IControlsFactory,
-  ILightFactory,
-  ILoopFactory,
-  IRendererFactory,
-  ISceneFactory
-} from '@Engine/Factories';
-import {
-  ActorFactory,
-  CameraFactory,
-  ControlsFactory,
-  LightFactory,
-  LoopFactory,
-  RendererFactory,
-  SceneFactory
-} from '@Engine/Factories';
-import type { IActorRegistry, ICameraRegistry, IControlsRegistry, ILightRegistry } from '@Engine/Registries';
-import { ActorRegistry, CameraRegistry, ControlsRegistry, LightRegistry } from '@Engine/Registries';
-import { createDeferredPromise } from '@Engine/Utils';
-import type {
-  IActorWrapper,
-  ICameraWrapper,
-  ILightWrapper,
-  ILoopWrapper,
-  IRendererWrapper,
-  ISceneWrapper
-} from '@Engine/Wrappers';
-import { MouseClicksWatcher, MousePositionWatcher } from '@Engine/Watchers';
-import type { IWatcher } from '@Engine/Watchers';
-import { CameraTag } from '@Engine/Constants';
+import type { ICameraWrapper, ILoopWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
+import type { IFactoriesPool, IRegistriesPool } from '@Engine/Pool/Models';
 import { addToRegistry } from '@Engine/Launcher/AddToRegistry';
+import { CameraTag } from '@Engine/Constants';
+import { createDeferredPromise } from '@Engine/Utils';
+import type { IAppCanvas } from '@Engine/Models';
+import type { ISceneConfig } from '@Engine/Launcher/Models';
+import { initRegistriesAddSubscription } from '@Engine/Pool/GetRegistiryPool';
 
-export async function launch(sceneConfig: ISceneConfig, canvas: IAppCanvas): Promise<boolean> {
+export async function launch(
+  sceneConfig: ISceneConfig,
+  canvas: IAppCanvas,
+  factoriesPool: IFactoriesPool,
+  registryPool: IRegistriesPool
+): Promise<boolean> {
   const { name, actors, cameras, lights, controls } = sceneConfig;
+  const { actorFactory, cameraFactory, lightFactory, controlsFactory, rendererFactory, sceneFactory, loopFactory } =
+    factoriesPool;
+  const { actorRegistry, cameraRegistry, lightRegistry, controlsRegistry } = registryPool;
   const { promise, resolve } = createDeferredPromise<boolean>();
 
-  //Watchers
-  const mouseClicksWatcher: IWatcher<void> = MouseClicksWatcher();
-  mouseClicksWatcher.start();
-  const mousePositionWatcher: IWatcher<IMousePosition> = MousePositionWatcher();
-  mousePositionWatcher.start();
-
-  //Entities registries
-  const actorRegistry: IActorRegistry = ActorRegistry();
-  const cameraRegistry: ICameraRegistry = CameraRegistry();
-  const lightRegistry: ILightRegistry = LightRegistry();
-  const controlsRegistry: IControlsRegistry = ControlsRegistry();
-
-  //Factories
-  const sceneFactory: ISceneFactory = SceneFactory();
-  const actorFactory: IActorFactory = ActorFactory();
-  const cameraFactory: ICameraFactory = CameraFactory();
-  const lightFactory: ILightFactory = LightFactory();
-  const rendererFactory: IRendererFactory = RendererFactory();
-  const controlsFactory: IControlsFactory = ControlsFactory({ canvas, cameraRegistry });
-  const loopFactory: ILoopFactory = LoopFactory();
-
-  //Dynamic create entities
   const scene: ISceneWrapper = sceneFactory.create({ name });
 
-  actors.forEach((config: IActorConfig): void => {
-    const actor: IActorWrapper = actorFactory.fromConfig(config);
-    actorRegistry.add(actor);
-    scene.addActor(actor);
-  });
-
-  actorRegistry.added$.subscribe((actor: IActorWrapper) => scene.addActor(actor));
-  cameraRegistry.added$.subscribe((camera: ICameraWrapper) => scene.addCamera(camera));
-  lightRegistry.added$.subscribe((light: ILightWrapper) => scene.addLight(light));
+  initRegistriesAddSubscription(scene, registryPool);
 
   addToRegistry(actors, actorFactory, actorRegistry);
   addToRegistry(cameras, cameraFactory, cameraRegistry);
