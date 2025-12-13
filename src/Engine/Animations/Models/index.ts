@@ -1,6 +1,5 @@
 export type * from './TAnimationActions';
 export type * from './TAnimationActionsPack';
-export type * from './TAnimationsFsm';
 export type * from './TAnimationsFsmConfig';
 export type * from './TAnimationsFsmFactory';
 export type * from './TAnimationsFsmParams';

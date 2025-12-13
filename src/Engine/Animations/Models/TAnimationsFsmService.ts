@@ -5,10 +5,10 @@ import type { TAnimationsFsmConfig } from './TAnimationsFsmConfig';
 import type { TAnimationsFsmFactory } from './TAnimationsFsmFactory';
 import type { TAnimationsFsmParams } from './TAnimationsFsmParams';
 import type { TAnimationsFsmRegistry } from './TAnimationsFsmRegistry';
-import type { TAnimationsFsm } from './TAnimationsFsmWrapper';
+import type { TAnimationsFsmWrapper } from './TAnimationsFsmWrapper';
 
-export type TAnimationsFsmService = TWithCreateService<TAnimationsFsm, TAnimationsFsmParams> &
-  TWithCreateFromConfigService<TAnimationsFsmConfig, TAnimationsFsm> &
+export type TAnimationsFsmService = TWithCreateService<TAnimationsFsmWrapper, TAnimationsFsmParams> &
+  TWithCreateFromConfigService<TAnimationsFsmConfig, TAnimationsFsmWrapper> &
   TWithFactoryService<TAnimationsFsmFactory> &
   TWithRegistryService<TAnimationsFsmRegistry> &
   TDestroyable;

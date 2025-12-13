@@ -1,6 +1,7 @@
+import type { EventObject, MachineContext, MetaObject, NonReducibleUnknown, ParameterizedObject, ProvidedActor, StatesConfig } from 'xstate';
+
 import type { TWithNameOptional } from '@/Engine/Mixins';
 
-// TODO 9.3.0 STATE: fix state (extend)
 export type TAnimationsFsmParams = Readonly<{
   id: string;
   initial: string;
@@ -8,5 +9,4 @@ export type TAnimationsFsmParams = Readonly<{
 }> &
   TWithNameOptional;
 
-// TODO 9.3.0 STATE: fix state (extend)
-export type TAnimationState = Record<string, string>;
+export type TAnimationState = StatesConfig<MachineContext, any, ProvidedActor, ParameterizedObject, ParameterizedObject, string, string, NonReducibleUnknown, EventObject, MetaObject>;

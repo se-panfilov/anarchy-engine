@@ -1,1 +1,1 @@
-export * from './TAnimationsFsmWrapper';
+export * from './AnimationsFsmWrapper';
