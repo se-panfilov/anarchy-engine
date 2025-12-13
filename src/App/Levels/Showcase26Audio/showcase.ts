@@ -53,11 +53,10 @@ function initMusicWithControls(name: string, folderName: string, gui: GUI, { aud
   const folder: GUI = gui.addFolder(folderName);
   const audioW: TAnyAudioWrapper | undefined = audioService.getRegistry().findByName(name);
   if (isNotDefined(audioW)) throw new Error('Background music is not found');
+  const isDebugRendererEnabled: boolean = isAudio3dWrapper(audioW) && isDefined(loop) && isDefined(scene);
 
   let debugAudioRenderer: TDebugAudioRenderer | undefined;
-  if (isAudio3dWrapper(audioW) && isDefined(loop) && isDefined(scene)) {
-    debugAudioRenderer = DebugAudioRenderer(audioW, scene, loop);
-  }
+  if (isDebugRendererEnabled) debugAudioRenderer = DebugAudioRenderer(audioW, scene, loop);
 
   const state = {
     playMusic: (): void => audioW.play$.next(true),
@@ -96,7 +95,7 @@ function initMusicWithControls(name: string, folderName: string, gui: GUI, { aud
     .onChange((value: number): void => {
       audioW.volume$.next(value);
     });
-  folder.add(state, 'toggleDebugRendrer').name('Debug renderer');
+  if (isDebugRendererEnabled) folder.add(state, 'toggleDebugRendrer').name('Debug renderer');
 
   return audioW;
 }
