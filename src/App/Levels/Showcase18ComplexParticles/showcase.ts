@@ -1,12 +1,12 @@
 import GUI from 'lil-gui';
-import { AdditiveBlending, BufferGeometry, Color, PointsMaterial } from 'three';
+import { BufferGeometry, Color, PointsMaterial } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAppCanvas, TEngine, TParticlesConfig, TParticlesParams, TParticlesWrapperAsync, TSpace, TSpaceConfig } from '@/Engine';
+import type { TAppCanvas, TEngine, TParticlesConfig, TParticlesParams, TParticlesWrapperAsync, TPointsMaterialProps, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isDefined, isNotDefined } from '@/Engine';
+import { configToParams as particlesConfigToParams } from '@/Engine/Particles/Adapters';
 
 import spaceConfig from './showcase.json';
-import { configToParams as particlesConfigToParams } from '@/Engine/Particles/Adapters';
 
 export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
@@ -19,10 +19,12 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   if (isNotDefined(particlesConfig)) throw new Error(`Particles "${particlesName}" not found`);
   const particlesDefaultParams: TParticlesParams = particlesConfigToParams(particlesConfig);
 
+  let particles: TParticlesWrapperAsync | undefined;
+
   const parameters: Record<string, string | number> = {
-    count: 100000,
-    size: particlesDefaultParams.material.params?.size ?? 0.01,
-    radius: 5,
+    count: 42000,
+    size: (particlesDefaultParams.material.params as TPointsMaterialProps).size ?? 0.01,
+    radius: 7.2,
     branches: 3,
     spin: 1,
     randomness: 0.2,
@@ -38,8 +40,13 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     // Destroy old galaxy
     if (isDefined(geometry)) geometry.dispose();
     if (isDefined(material)) material.dispose();
-    // TODO (S.Panfilov) scene.remove
-    // if (isDefined(particles)) scene.entity.remove(points);
+    if (isDefined(particles)) {
+      // TODO (S.Panfilov) DESTROY: implement scene remove
+      // particlesService.getScene().entity.remove(particles.entity);
+      // TODO (S.Panfilov) DESTROY: destroy doesn't work atm
+      //particles.destroy();
+      // particles = undefined;
+    }
 
     geometry = new BufferGeometry();
     const { positions, colors } = generateParams();
@@ -48,8 +55,10 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       ...particlesDefaultParams.material.params,
       size: parameters.size as number
     });
-    const particles: TParticlesWrapperAsync | undefined = await particlesService.getRegistry().findByNameAsync(particlesName);
+
+    particles = await particlesService.getRegistry().findByNameAsync(particlesName);
     if (isNotDefined(particles)) throw new Error(`Particles "${particlesName}" not found`);
+
     particles.setIndividualPositions(positions);
     particles.setIndividualMaterialColors(colors);
   }
@@ -90,10 +99,10 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     return { positions, colors, colorInside, colorOutside };
   }
 
-  async function init(): Promise<void> {
+  function init(): void {
     const gui: GUI = new GUI();
-    gui.add(parameters, 'count').min(100).max(1000000).step(100).onFinishChange(createGalaxy);
-    gui.add(parameters, 'size').min(0.001).max(0.1).step(0.001).onFinishChange(createGalaxy);
+    gui.add(parameters, 'count').min(1000).max(1000000).step(1000).onFinishChange(createGalaxy);
+    gui.add(parameters, 'size').min(0.001).max(1).step(0.001).onFinishChange(createGalaxy);
     gui.add(parameters, 'radius').min(0.01).max(20).step(0.01).onFinishChange(createGalaxy);
     gui.add(parameters, 'branches').min(2).max(20).step(1).onFinishChange(createGalaxy);
     gui.add(parameters, 'spin').min(-5).max(5).step(0.001).onFinishChange(createGalaxy);
@@ -102,11 +111,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     gui.addColor(parameters, 'insideColor').onFinishChange(createGalaxy);
     gui.addColor(parameters, 'outsideColor').onFinishChange(createGalaxy);
 
-    createGalaxy();
-    // const particlesName: string = 'bubbles';
-    // const particles: TParticlesWrapperAsync | undefined = await particlesService.getRegistry().findByNameAsync(particlesName);
-    // if (isNotDefined(particles)) throw new Error(`Particles "${particlesName}" not found`);
-    // particles.setIndividualPositions(positions);
+    void createGalaxy();
   }
 
   function start(): void {
