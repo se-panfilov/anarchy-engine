@@ -7,7 +7,7 @@ export const runtimeSchema = object({
   VITE_BUILD_MINIFIED: toBool,
   VITE_BUILD_SOURCEMAPS: toBool,
   VITE_APP_SHOW_DEBUG_INFO: toBool,
-  VITE_SHOW_EXIT_BTN: toBool
+  VITE_SHOW_EXIT_BTN: optional(toBool)
 });
 
 export const nodeSchema = object({
