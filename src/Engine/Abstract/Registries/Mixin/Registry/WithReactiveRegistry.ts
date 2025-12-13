@@ -17,8 +17,12 @@ export function withReactiveRegistry<T>(registry: Map<string, T>, destroyable: T
     replaced$.complete();
     removed$.complete();
     registry.forEach((obj: T): void => {
+      if ((obj as any).dispose) (obj as any).dispose();
       if (isDestroyable(obj)) obj.destroy$.next();
-      else console.warn(`Entity ${obj} (name: "${(obj as any).name}", id: "${(obj as any).id}", type: ${(obj as any).type}) is not destroyable, please add destroy$ to it.`);
+      else {
+        console.log('XXX obj', obj);
+        console.warn(`Entity ${obj} (name: "${(obj as any).name}", id: "${(obj as any).id}", type: ${(obj as any).type}) is not destroyable, you may need to add destroy$ to it.`);
+      }
     });
     registry.clear();
   });
