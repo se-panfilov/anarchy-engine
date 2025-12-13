@@ -7,9 +7,9 @@ Done:
 - 6.0.x Complex models
 
 Roadmap:
-- 6.1.x Lines domain
 - 7.x.x Animations
-- 7.1.x Refactor Vector/TVectorWrapper (should be Vector everywhere)
+- 7.1.x Lines domain
+- 7.2.x Refactor Vector/TVectorWrapper (should be Vector everywhere)
 - 8.0.x Sounds/Music
 - 8.1.x Tags should be optional
 - 8.2.x GUI

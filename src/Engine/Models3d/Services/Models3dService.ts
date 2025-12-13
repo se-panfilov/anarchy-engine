@@ -30,7 +30,6 @@ export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models
     if (options.shouldAddToScene) sceneW.addModel(model);
   });
 
-  // TODO (S.Panfilov) 6. CWP return a cloned model from registry if it is already loaded
   // TODO (S.Panfilov) 6.5 CWP make sure animations works
   // TODO (S.Panfilov) 7. CWP if model already existed, animations are also might be loaded, so return them, instead of an empty array
   // TODO (S.Panfilov) 8. CWP implement models load via actor (merge branch and create a new one before doing this)
@@ -39,13 +38,8 @@ export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models
 
     const preResult: Pick<TModel3dLoadResult, 'url' | 'options'> = { url, options };
     if (!options.isForce) {
-      //models
       const model: Mesh | Group | undefined = models3dRegistry.findByKey(url);
-
-      //anims
       const animations: ReadonlyArray<AnimationClip> | undefined = models3dAnimationsRegistry.findByKey(url);
-
-      // TODO find animations
       if (isDefined(model)) return Promise.resolve({ result: { ...preResult, model, animations: animations ?? [] }, isExisting: true });
     }
 
@@ -83,6 +77,8 @@ export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models
   return {
     loadAsync,
     loadFromConfigAsync,
-    added$: added$.asObservable()
+    added$: added$.asObservable(),
+    getRegistry: (): TModels3dAsyncRegistry => models3dRegistry,
+    getAnimationsRegistry: (): TModels3dAnimationsAsyncRegistry => models3dAnimationsRegistry
   };
 }
