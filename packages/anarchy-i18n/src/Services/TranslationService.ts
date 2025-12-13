@@ -1,6 +1,7 @@
 import { ReactiveTranslationMixin } from '@Anarchy/i18n/Mixins';
 import type { TLocale, TLocaleId, TLocalesMapping, TMessages, TReactiveTranslationMixin, TTranslationService } from '@Anarchy/i18n/Models';
 import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { MessageFormatElement } from '@formatjs/icu-messageformat-parser';
 import type { FormatNumberOptions, IntlCache, IntlShape } from '@formatjs/intl';
 import { createIntl, createIntlCache } from '@formatjs/intl';
 import type { FormatDateOptions } from '@formatjs/intl/src/types';
@@ -17,7 +18,6 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
   const destroy$: Subject<void> = new Subject<void>();
 
   const intlMap: Map<TLocaleId, IntlShape<string>> = new Map<TLocaleId, IntlShape<string>>();
-  const intl$: BehaviorSubject<IntlShape<string> | undefined> = new BehaviorSubject<IntlShape<string> | undefined>(undefined);
 
   function getIntl(locale: TLocale): IntlShape<string> {
     const existed: IntlShape<string> | undefined = intlMap.get(locale.id);
@@ -75,7 +75,7 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
 
   const localeSub$: Subscription = locale$.pipe(distinctUntilChanged((prev: TLocale, current: TLocale): boolean => prev.id === current.id)).subscribe((locale: TLocale): void => {
     const html: HTMLElement | undefined = document?.documentElement;
-    html?.setAttribute?.('lang', intl$.value?.locale ?? locale.id);
+    html?.setAttribute?.('lang', intlMap.get(locale.id)?.locale ?? locale.id);
     html?.setAttribute?.('dir', locale.direction);
 
     // This allows to change the font depending on the locale.
@@ -96,13 +96,12 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
     localeSub$.unsubscribe();
 
     ready$.complete();
-    intl$.complete();
   });
 
   const waitForTrue = async (source$: Observable<boolean>): Promise<boolean> => firstValueFrom(source$.pipe(filter(Boolean)));
 
   function translate(id: string, params?: Record<string, string>): string | never {
-    const intl: IntlShape<string> | undefined = intl$.value;
+    const intl: IntlShape<string> | undefined = intlMap.get(locale$.value.id);
     // const intl: IntlShape<string> | undefined = getIntl(locale$.value);
     if (isNotDefined(intl)) throw new Error(`[TranslateService]: The service is not ready. Tried to translate: "${id}"`);
 
@@ -114,13 +113,13 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
   }
 
   function formatDate(value: Date | number, options?: FormatDateOptions): string | never {
-    const intl: IntlShape<string> | undefined = intl$.value;
+    const intl: IntlShape<string> | undefined = intlMap.get(locale$.value.id);
     if (isDefined(intl)) return intl.formatDate(value, options);
     throw new Error(`[TranslateService]: The service is not ready. Tried to formatDate: "${value}"`);
   }
 
   function formatNumber(value: number, options?: FormatNumberOptions): string | never {
-    const intl: IntlShape<string> | undefined = intl$.value;
+    const intl: IntlShape<string> | undefined = intlMap.get(locale$.value.id);
     if (isDefined(intl)) return intl.formatNumber(value, options);
     throw new Error(`[TranslateService]: The service is not ready. Tried to formatNumber: "${value}"`);
   }
@@ -142,11 +141,12 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
       await waitForTrue(ready$);
       return formatNumber(value, options);
     },
+    getCurrentIntl: (): IntlShape | undefined => intlMap.get(locale$.value.id),
+    getCurrentMessages: (): TMessages | Record<string, MessageFormatElement[]> | undefined => intlMap.get(locale$.value.id)?.messages,
     ready$,
     locale$: locale$.asObservable(),
     getCurrentLocale: (): TLocale => locale$.value,
-    destroy$,
-    intl$: intl$.asObservable()
+    destroy$
   };
 
   const reactiveMixin: TReactiveTranslationMixin = ReactiveTranslationMixin(result);

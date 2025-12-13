@@ -6,12 +6,15 @@ import type { Observable } from 'rxjs';
 import { combineLatest, distinctUntilChanged, filter, map, shareReplay, tap } from 'rxjs';
 
 export function ReactiveTranslationMixin(service: Omit<TTranslationService, keyof TReactiveTranslationMixin>): TReactiveTranslationMixin {
-  const intlReady$: Observable<IntlShape<string>> = service.intl$.pipe(filter(isDefined), distinctUntilChanged(), shareReplay({ bufferSize: 1, refCount: true }));
-
   function translate$(id: string, params?: Record<string, string> | Observable<Record<string, string>>): Observable<string> {
     const params$ = toObservable$(params ?? {});
-    return combineLatest([intlReady$, params$]).pipe(
-      map(([intl, p]) => intl.formatMessage({ id, defaultMessage: id }, p)),
+    return combineLatest([service.locale$, params$]).pipe(
+      map(([, p]) => {
+        const intl = service.getCurrentIntl();
+        return [intl, p];
+      }),
+      filter((intl, _p) => isDefined(intl)),
+      map(([intl, p]) => (intl as IntlShape).formatMessage({ id, defaultMessage: id }, p)),
       distinctUntilChanged(),
       tap((value: string): string => {
         if (value === id) console.warn(`[TranslationService]: Can't find translation for "${id}".`);
@@ -22,16 +25,26 @@ export function ReactiveTranslationMixin(service: Omit<TTranslationService, keyo
   }
 
   function formatNumber$(value: number | Observable<number>, options?: FormatNumberOptions | Observable<FormatNumberOptions | undefined>): Observable<string> {
-    return combineLatest([intlReady$, toObservable$(value), toObservable$(options)]).pipe(
-      map(([intl, v, o]) => intl.formatNumber(v, o)),
+    return combineLatest([service.locale$, toObservable$(value), toObservable$(options)]).pipe(
+      map(([, v, o]) => {
+        const intl = service.getCurrentIntl();
+        return [intl, v, o];
+      }),
+      filter((intl, _p) => isDefined(intl)),
+      map(([intl, v, o]) => (intl as IntlShape).formatNumber(v, o)),
       distinctUntilChanged(),
       shareReplay({ bufferSize: 1, refCount: true })
     );
   }
 
   function formatDate$(value: number | Date | Observable<number | Date>, options?: FormatDateOptions | Observable<FormatDateOptions | undefined>): Observable<string> {
-    return combineLatest([intlReady$, toObservable$(value), toObservable$(options)]).pipe(
-      map(([intl, v, o]) => intl.formatDate(v, o)),
+    return combineLatest([service.locale$, toObservable$(value), toObservable$(options)]).pipe(
+      map(([, v, o]) => {
+        const intl = service.getCurrentIntl();
+        return [intl, v, o];
+      }),
+      filter((intl, _p) => isDefined(intl)),
+      map(([intl, v, o]) => (intl as IntlShape).formatDate(v, o)),
       distinctUntilChanged(),
       shareReplay({ bufferSize: 1, refCount: true })
     );
