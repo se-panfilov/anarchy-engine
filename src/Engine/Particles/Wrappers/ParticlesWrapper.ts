@@ -6,7 +6,7 @@ import type { TColor } from '@/Engine/Color';
 import type { TWithMaterial } from '@/Engine/Material';
 import { isPointsMaterial, withMaterial } from '@/Engine/Material';
 import { withObject3d } from '@/Engine/Mixins';
-import type { TParticlesParams, TParticlesTransformDrive, TParticlesWrapper } from '@/Engine/Particles/Models';
+import type { TParticlesParams, TParticlesServiceDependencies, TParticlesTransformDrive, TParticlesWrapper } from '@/Engine/Particles/Models';
 import { ParticlesTransformDrive } from '@/Engine/Particles/TransformDrive';
 import type { TBufferGeometry, TPoints } from '@/Engine/ThreeLib';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
@@ -14,7 +14,7 @@ import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import type { TWriteable } from '@/Engine/Utils';
 import { applyObject3dParams } from '@/Engine/Utils';
 
-export function ParticlesWrapper(params: TParticlesParams): TParticlesWrapper {
+export function ParticlesWrapper(params: TParticlesParams, dependencies: TParticlesServiceDependencies): TParticlesWrapper {
   let geometry: TBufferGeometry = new BufferGeometry();
   let entity: TPoints = new Points(geometry, params.materialSource.entity);
 
@@ -32,7 +32,7 @@ export function ParticlesWrapper(params: TParticlesParams): TParticlesWrapper {
   const getIndividualPositions = (): Float32Array => geometry.getAttribute('position').array as Float32Array;
 
   const wrapper = AbstractWrapper(entity, WrapperType.Particles, params);
-  const drive: TParticlesTransformDrive = ParticlesTransformDrive(params, wrapper.id);
+  const drive: TParticlesTransformDrive = ParticlesTransformDrive(params, dependencies, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
   // eslint-disable-next-line functional/immutable-data

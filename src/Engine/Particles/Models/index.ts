@@ -4,6 +4,7 @@ export type * from './TParticlesFactory';
 export type * from './TParticlesParams';
 export type * from './TParticlesRegistry';
 export type * from './TParticlesService';
+export type * from './TParticlesServiceDependencies';
 export type * from './TParticlesTransformAgents';
 export type * from './TParticlesTransformDrive';
 export type * from './TParticlesWrapper';

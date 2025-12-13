@@ -114,7 +114,7 @@ export function buildEntitiesServices(
     models3dService,
     animationsService,
     mouseService: MouseService(container, MouseClickWatcherFactory(), MouseClickWatcherRegistry(), MousePositionWatcherFactory(), MousePositionWatcherRegistry(), loops),
-    particlesService: ParticlesService(ParticlesFactory(), ParticlesRegistry(), materialService, sceneW),
+    particlesService: ParticlesService(ParticlesFactory(), ParticlesRegistry(), { transformDriveService, materialService }, sceneW),
     physicsBodyService,
     physicsWorldService,
     physicsPresetService,

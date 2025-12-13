@@ -3,6 +3,8 @@ import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@/Engi
 import type { TParticlesConfig } from './TParticlesConfig';
 import type { TParticlesConfigToParamsDependencies } from './TParticlesConfigToParamsDependencies';
 import type { TParticlesParams } from './TParticlesParams';
+import type { TParticlesServiceDependencies } from './TParticlesServiceDependencies';
 import type { TParticlesWrapper } from './TParticlesWrapper';
 
-export type TParticlesFactory = TReactiveFactory<TParticlesWrapper, TParticlesParams> & TParamsFromConfigWithDependencies<TParticlesConfig, TParticlesParams, TParticlesConfigToParamsDependencies>;
+export type TParticlesFactory = TReactiveFactory<TParticlesWrapper, TParticlesParams, TParticlesServiceDependencies> &
+  TParamsFromConfigWithDependencies<TParticlesConfig, TParticlesParams, TParticlesConfigToParamsDependencies>;
