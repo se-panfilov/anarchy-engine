@@ -8,11 +8,14 @@ const GAME_URL = `http://localhost:${process.env.PORT}`;
 
 test.use({ viewport: VIEWPORT });
 
+test.beforeEach(async ({ page }) => {
+  await page.goto(GAME_URL);
+});
+
 test.describe('SpaceBasic', () => {
   const name = 'SpaceBasic';
 
   test('Normal state', async ({ page }) => {
-    await page.goto(GAME_URL);
     const spaceSelect: Locator = page.getByLabel('Spaces');
     await expect(spaceSelect).toBeVisible();
     await page.getByLabel('Spaces').selectOption(name);
@@ -20,8 +23,6 @@ test.describe('SpaceBasic', () => {
   });
 
   test('Compare canvas before and after reload', async ({ page }, testInfo) => {
-    await page.goto(GAME_URL);
-
     const canvas: Locator = page.locator('canvas');
     await page.getByLabel('Spaces').selectOption(name);
 
@@ -49,21 +50,3 @@ test.describe('SpaceBasic', () => {
     });
   });
 });
-
-// test('SpaceCustomModels', async ({ page }) => {
-//   await page.goto(GAME_URL);
-//
-//   const spaceSelect: Locator = page.getByLabel('Spaces');
-//   await expect(spaceSelect).toBeVisible();
-//
-//   await page.getByLabel('Spaces').selectOption('SpaceCustomModels');
-//
-//   await expect(page.locator('canvas')).toHaveScreenshot('SpaceCustomModels-before.png');
-//
-//   await page.getByRole('button', { name: 'Change' }).click();
-//   await page.getByRole('button', { name: 'Save' }).click();
-//   await page.getByRole('button', { name: 'Drop' }).click();
-//   await page.getByRole('button', { name: 'Load' }).click();
-//
-//   await expect(page.locator('canvas')).toHaveScreenshot('SpaceCustomModels-after.png');
-// });
