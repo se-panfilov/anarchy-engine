@@ -6,10 +6,8 @@
   "type": "module",
   "sideEffects": false,
   "license": "MIT",
-  "bin": {
-    "anarchy-legal": "./dist/cli.js"
-  },
   "scripts": {
+    "generate:licenses": "node ./src/Builders/LicensesBuilder.ts",
     "before:release": "npm run before:release:check && npm run generate:third-party-list && npm run generate:licenses",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",
     "lint": "eslint ./src",
@@ -20,6 +18,7 @@
     "ts:check:watch": "tsc --watch --noEmit"
   },
   "devDependencies": {
+    "@types/yargs": "17.0.33",
     "globby": "14.1.0",
     "license-checker-rseidelsohn": "4.4.2",
     "yargs": "18.0.0"
