@@ -4,14 +4,14 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TAppCanvas, TEngine, TFsmStates, TFsmWrapper, TModel3d, TModel3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
+import type { TActor, TAppCanvas, TEngine, TFsmStates, TFsmWrapper, TModel3d, TModels3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
 import { ambientContext, Engine, isNotDefined, KeyCode, KeysExtra, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   function beforeResourcesLoaded(_config: TSpaceConfig, { models3dService, scenesService }: TSpaceServices): void {
-    const models3dResourceRegistry: TModel3dResourceAsyncRegistry = models3dService.getResourceRegistry();
+    const models3dResourceRegistry: TModels3dResourceAsyncRegistry = models3dService.getResourceRegistry();
     const sceneW: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 

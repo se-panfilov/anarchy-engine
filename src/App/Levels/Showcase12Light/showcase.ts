@@ -11,7 +11,7 @@ import type {
   THemisphereLightWrapper,
   TLightRegistry,
   TModel3d,
-  TModel3dRegistry,
+  TModels3dRegistry,
   TPointLightWrapper,
   TRectAreaLightWrapper,
   TSceneWrapper,
@@ -30,7 +30,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { lightService, scenesService, models3dService } = space.services;
 
   const lightRegistry: TLightRegistry = lightService.getRegistry();
-  const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
+  const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
 
   const planeModel3d: TModel3d | undefined = models3dRegistry.findByName('surface_model');
   if (isNotDefined(planeModel3d)) throw new Error('Plane model is not defined');

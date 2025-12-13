@@ -5,7 +5,7 @@ import { degToRad } from 'three/src/math/MathUtils';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TAnimationParams, TAppCanvas, TEngine, TMeters, TModel3d, TModel3dRegistry, TMoverService, TRadians, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper } from '@/Engine';
+import type { TAnimationParams, TAppCanvas, TEngine, TMeters, TModel3d, TModels3dRegistry, TMoverService, TRadians, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper } from '@/Engine';
 import {
   ambientContext,
   createCirclePathXZ,
@@ -29,7 +29,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
   const { textService, loopService, mouseService, models3dService, scenesService } = space.services;
 
-  const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
+  const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
 
   const sceneW: TSceneWrapper | undefined = scenesService.findActive();
   if (isNotDefined(sceneW)) throw new Error('Scene is not defined');

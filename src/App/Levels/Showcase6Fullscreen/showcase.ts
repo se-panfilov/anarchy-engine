@@ -1,6 +1,6 @@
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TActorRegistry, TAppCanvas, TEngine, TModel3d, TModel3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TActorRegistry, TAppCanvas, TEngine, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import { ambientContext, Engine, isNotDefined, screenService, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -10,7 +10,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
 
   const { actorService, loopService, models3dService, mouseService, scenesService } = space.services;
-  const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
+  const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
   const actorRegistry: TActorRegistry = actorService.getRegistry();
 
   function init(): void {

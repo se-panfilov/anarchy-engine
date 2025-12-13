@@ -2,4 +2,4 @@ import type { TAbstractEntityRegistry, TProtectedRegistry } from '@/Engine/Abstr
 
 import type { TModel3d } from './TModel3d';
 
-export type TModel3dRegistry = TProtectedRegistry<TAbstractEntityRegistry<TModel3d>>;
+export type TModels3dRegistry = TProtectedRegistry<TAbstractEntityRegistry<TModel3d>>;

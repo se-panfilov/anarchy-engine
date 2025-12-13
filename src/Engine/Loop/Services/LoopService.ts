@@ -1,6 +1,7 @@
 import type { Subscription } from 'rxjs';
 import Stats from 'stats.js';
 
+import type { TLoopRegistry, TModels3dFactory } from '@/Engine';
 import type { TCollisionsLoop } from '@/Engine/Collisions';
 import type { TKinematicLoop } from '@/Engine/Kinematic';
 import { LoopType } from '@/Engine/Loop/Constants';
@@ -15,8 +16,9 @@ import type { TSpatialLoop } from '@/Engine/Spatial';
 
 export function LoopService(): TLoopService {
   let debugInfoSub$: Subscription | undefined;
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TLoop): void => registry.add(wrapper));
+  const create = (params: TLoopParams): TLoop => factory.create(params);
 
-  // TODO 10.0.0. LOOPS: Maybe add factory/registries flow here?
   function enableFPSCounter(loop: TLoop): Subscription {
     // TODO DEBUG: make stats enable/disable configurable via url params (?debug=true)
     const stats: any = new Stats();
@@ -56,6 +58,8 @@ export function LoopService(): TLoopService {
     getPhysicalLoop: (name?: string): TPhysicalLoop | never => getLoop(name, LoopType.Physical),
     getRenderLoop: (name?: string): TRenderLoop | never => getLoop(name, LoopType.Render),
     getSpatialLoop: (name?: string): TSpatialLoop | never => getLoop(name, LoopType.Spatial) as TSpatialLoop,
+    getFactory: (): TLoopFactory => factory,
+    getRegistry: (): TLoopRegistry => registry,
     ...destroyable
   };
 }

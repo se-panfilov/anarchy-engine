@@ -1,10 +1,10 @@
 import type { TAnimationsResourceAsyncRegistry } from '@/Engine/Animations';
 import type { TMaterialRegistry } from '@/Engine/Material';
 
-import type { TModel3dResourceAsyncRegistry } from './TModel3dResourceAsyncRegistry';
+import type { TModels3dResourceAsyncRegistry } from './TModels3dResourceAsyncRegistry';
 
 export type TModel3dConfigToParamsDependencies = Readonly<{
   materialRegistry: TMaterialRegistry;
-  model3dResourceAsyncRegistry: TModel3dResourceAsyncRegistry;
+  model3dResourceAsyncRegistry: TModels3dResourceAsyncRegistry;
   animationsResourceAsyncRegistry: TAnimationsResourceAsyncRegistry;
 }>;

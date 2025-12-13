@@ -9,10 +9,10 @@ import type {
   TModel3d,
   TModel3dConfig,
   TModel3dParams,
-  TModel3dRegistry,
-  TModel3dResourceAsyncRegistry,
   TModels3dFactory,
   TModels3dLoader,
+  TModels3dRegistry,
+  TModels3dResourceAsyncRegistry,
   TModels3dService,
   TModels3dServiceDependencies
 } from '@/Engine/Models3d/Models';
@@ -20,8 +20,8 @@ import type { TOptional } from '@/Engine/Utils';
 
 export function Models3dService(
   factory: TModels3dFactory,
-  registry: TModel3dRegistry,
-  resourcesRegistry: TModel3dResourceAsyncRegistry,
+  registry: TModels3dRegistry,
+  resourcesRegistry: TModels3dResourceAsyncRegistry,
   { materialService, animationsService, model3dRawToModel3dConnectionRegistry }: TModels3dServiceDependencies
 ): TModels3dService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TModel3d): void => registry.add(wrapper));
@@ -55,8 +55,8 @@ export function Models3dService(
     loadAsync: model3dLoader.loadAsync,
     loadFromConfigAsync: model3dLoader.loadFromConfigAsync,
     getFactory: (): TModels3dFactory => factory,
-    getRegistry: (): TModel3dRegistry => registry,
-    getResourceRegistry: (): TModel3dResourceAsyncRegistry => resourcesRegistry,
+    getRegistry: (): TModels3dRegistry => registry,
+    getResourceRegistry: (): TModels3dResourceAsyncRegistry => resourcesRegistry,
     getAnimationsService: (): TAnimationsService => animationsService,
     getMaterialService: (): TMaterialService => materialService,
     clone,

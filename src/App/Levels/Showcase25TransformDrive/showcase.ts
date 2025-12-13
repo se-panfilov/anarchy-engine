@@ -15,7 +15,7 @@ import type {
   TIntersectionEvent,
   TIntersectionsWatcher,
   TModel3d,
-  TModel3dRegistry,
+  TModels3dRegistry,
   TMouseWatcherEvent,
   TOrbitControlsWrapper,
   TParticlesWrapper,
@@ -82,7 +82,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { physicalLoop } = space.loops;
   const { keyboardService } = engine.services;
   const { clickLeftRelease$ } = mouseService;
-  const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
+  const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
 
   const mode = { isTeleportationMode: false };
 

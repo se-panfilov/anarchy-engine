@@ -3,7 +3,7 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TAnimations, TAnimationsResourceAsyncRegistry } from '@/Engine/Animations';
 import type { PrimitiveModel3dType } from '@/Engine/Models3d/Constants';
-import type { TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModel3dResourceAsyncRegistry } from '@/Engine/Models3d/Models';
+import type { TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModels3dResourceAsyncRegistry } from '@/Engine/Models3d/Models';
 import { isPrimitiveModel3dData } from '@/Engine/Models3d/Utils';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
@@ -20,7 +20,7 @@ export function configToParams(config: TModel3dConfig, { animationsResourceAsync
   };
 }
 
-function getModel3d(config: TModel3dConfig, model3dResourceAsyncRegistry: TModel3dResourceAsyncRegistry): GLTF | PrimitiveModel3dType | never {
+function getModel3d(config: TModel3dConfig, model3dResourceAsyncRegistry: TModels3dResourceAsyncRegistry): GLTF | PrimitiveModel3dType | never {
   let model3d: GLTF | PrimitiveModel3dType | undefined;
   if (isPrimitiveModel3dData(config)) {
     model3d = config.model3dSource as PrimitiveModel3dType;

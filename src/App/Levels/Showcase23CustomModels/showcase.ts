@@ -4,7 +4,7 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TAppCanvas, TEngine, TModel3d, TModel3dRegistry, TModel3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
+import type { TAppCanvas, TEngine, TModel3d, TModels3dRegistry, TModels3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
 import { ambientContext, Engine, isNotDefined, KeyCode, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -17,8 +17,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const originalCompressedName: string = 'fox_glb_config_original';
 
   function beforeResourcesLoaded(_config: TSpaceConfig, { models3dService, scenesService }: TSpaceServices): void {
-    const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
-    const models3dResourceRegistry: TModel3dResourceAsyncRegistry = models3dService.getResourceRegistry();
+    const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
+    const models3dResourceRegistry: TModels3dResourceAsyncRegistry = models3dService.getResourceRegistry();
     const sceneW: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 

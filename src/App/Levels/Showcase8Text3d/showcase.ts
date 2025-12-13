@@ -11,7 +11,7 @@ import type {
   TEngine,
   TMeters,
   TModel3d,
-  TModel3dRegistry,
+  TModels3dRegistry,
   TMoverService,
   TRadians,
   TSceneWrapper,
@@ -30,7 +30,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { textService, loopService, models3dService, mouseService, scenesService } = space.services;
-  const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
+  const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
 
   const sceneW: TSceneWrapper | undefined = scenesService.findActive();
   if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
