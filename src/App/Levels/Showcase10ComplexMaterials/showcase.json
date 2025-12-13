@@ -522,8 +522,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["matcap", "metal"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["matcap", "metal"]
       },
       {
         "model3d": "cube_standard_wood",
@@ -533,8 +533,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["standard", "wood"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["standard", "wood"]
       },
       {
         "model3d": "cube_physical_wood",
@@ -544,8 +544,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["physical", "wood"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["physical", "wood"]
       },
       {
         "model3d": "cube_basic_wood",
@@ -555,8 +555,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["basic", "wood"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["basic", "wood"]
       },
       {
         "model3d": "cube_phong_wood",
@@ -566,8 +566,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["phong", "wood"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["phong", "wood"]
       },
       {
         "model3d": "cube_lambert_wood",
@@ -577,8 +577,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["lambert", "wood"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["lambert", "wood"]
       },
       {
         "model3d": "cube_toon_wood",
@@ -588,8 +588,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["toon", "wood"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["toon", "wood"]
       },
       {
         "model3d": "cube_matcap_wood",
@@ -599,8 +599,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["matcap", "wood"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["matcap", "wood"]
       },
       {
         "model3d": "sphere_standard_glass",
@@ -611,8 +611,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["standard", "glass"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["standard", "glass"]
       },
       {
         "model3d": "sphere_physical_glass",
@@ -623,8 +623,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["physical", "glass"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["physical", "glass"]
       },
       {
         "model3d": "sphere_basic_glass",
@@ -635,8 +635,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["basic", "glass"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["basic", "glass"]
       },
       {
         "model3d": "sphere_phong_glass",
@@ -647,8 +647,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["phong", "glass"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["phong", "glass"]
       },
       {
         "model3d": "sphere_lambert_glass",
@@ -659,8 +659,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["lambert", "glass"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["lambert", "glass"]
       },
       {
         "model3d": "sphere_toon_glass",
@@ -671,8 +671,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["toon", "glass"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["toon", "glass"]
       },
       {
         "model3d": "sphere_matcap_glass",
@@ -683,8 +683,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["matcap", "glass"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["matcap", "glass"]
       },
       {
         "model3d": "sphere_standard_textile",
@@ -695,8 +695,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["standard", "textile"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["standard", "textile"]
       },
       {
         "model3d": "sphere_physical_textile",
@@ -707,8 +707,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["physical", "textile"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["physical", "textile"]
       },
       {
         "model3d": "sphere_basic_textile",
@@ -719,8 +719,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["basic", "textile"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["basic", "textile"]
       },
       {
         "model3d": "sphere_phong_textile",
@@ -731,8 +731,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["phong", "textile"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["phong", "textile"]
       },
       {
         "model3d": "sphere_lambert_textile",
@@ -743,8 +743,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["lambert", "textile"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["lambert", "textile"]
       },
       {
         "model3d": "sphere_toon_textile",
@@ -755,8 +755,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["toon", "textile"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["toon", "textile"]
       },
       {
         "model3d": "sphere_matcap_textile",
@@ -767,8 +767,8 @@
         "widthSegments": 64,
         "heightSegments": 64,
         "castShadow": true,
-        "tags": ["matcap", "textile"],
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["matcap", "textile"]
       }
     ],
     "intersections": [],
