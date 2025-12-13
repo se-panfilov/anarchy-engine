@@ -50,7 +50,19 @@ describe('RegistryUtils', () => {
         expect(getAllEntitiesWithTags([tagB], registry, LookUpStrategy.Every)).toEqual([obj1AB, obj2B, obj4BE, obj6ABE, obj7EB]);
       });
 
-      it('should return an empty array if no tagList is provided', () => {
+      it('should return an empty array if the entity is not in the registry', () => {
+        const registry: Map<string, IRegistrable> = new Map();
+        registry.set('obj3CD', obj3CD);
+        expect(getAllEntitiesWithTags([tagB], registry, LookUpStrategy.Every)).toEqual([]);
+      });
+
+      it('should return an empty array if the entity is not in the registry and the entity in the registry has an empty tags list', () => {
+        const registry: Map<string, IRegistrable> = new Map();
+        registry.set('obj5None', obj5None);
+        expect(getAllEntitiesWithTags([tagB], registry, LookUpStrategy.Every)).toEqual([]);
+      });
+
+      it('should return an empty array if NO tagList is provided', () => {
         expect(getAllEntitiesWithTags([], registry, LookUpStrategy.Every)).toEqual([]);
       });
 
@@ -70,6 +82,18 @@ describe('RegistryUtils', () => {
 
       it('should return an empty array if no tagList is provided', () => {
         expect(getAllEntitiesWithTags([], registry, LookUpStrategy.Some)).toEqual([]);
+      });
+
+      it('should return an empty array if the entity is not in the registry', () => {
+        const registry: Map<string, IRegistrable> = new Map();
+        registry.set('obj3CD', obj3CD);
+        expect(getAllEntitiesWithTags([tagB], registry, LookUpStrategy.Some)).toEqual([]);
+      });
+
+      it('should return an empty array if the entity is not in the registry and the entity in the registry has an empty tags list', () => {
+        const registry: Map<string, IRegistrable> = new Map();
+        registry.set('obj5None', obj5None);
+        expect(getAllEntitiesWithTags([tagB], registry, LookUpStrategy.Some)).toEqual([]);
       });
 
       it('should return an empty array if the registry is empty', () => {
@@ -98,6 +122,18 @@ describe('RegistryUtils', () => {
         expect(getUniqEntityWithTags([tagUniq1], registry, LookUpStrategy.Every)).toEqual(obj8Uniq1);
       });
 
+      it('should return "undefined" if the entity is not in the registry', () => {
+        const registry: Map<string, IRegistrable> = new Map();
+        registry.set('obj3CD', obj3CD);
+        expect(getUniqEntityWithTags([tagB], registry, LookUpStrategy.Every)).toBeUndefined();
+      });
+
+      it('should return "undefined" if the entity is not in the registry and the entity in the registry has an empty tags list', () => {
+        const registry: Map<string, IRegistrable> = new Map();
+        registry.set('obj5None', obj5None);
+        expect(getUniqEntityWithTags([tagB], registry, LookUpStrategy.Every)).toBeUndefined();
+      });
+
       it('should return an empty array if the registry is empty', () => {
         expect(getUniqEntityWithTags([tagB], new Map(), LookUpStrategy.Every)).toBeUndefined();
       });
@@ -117,6 +153,18 @@ describe('RegistryUtils', () => {
 
     it('should return an empty array if the registry is empty', () => {
       expect(getUniqEntityWithTag(tagB, new Map())).toBeUndefined();
+    });
+
+    it('should return "undefined" if the entity is not in the registry', () => {
+      const registry: Map<string, IRegistrable> = new Map();
+      registry.set('obj3CD', obj3CD);
+      expect(getUniqEntityWithTag(tagB, registry)).toBeUndefined();
+    });
+
+    it('should return "undefined" if the entity is not in the registry and the entity in the registry has an empty tags list', () => {
+      const registry: Map<string, IRegistrable> = new Map();
+      registry.set('obj5None', obj5None);
+      expect(getUniqEntityWithTag(tagB, registry)).toBeUndefined();
     });
   });
 
