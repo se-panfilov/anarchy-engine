@@ -1,6 +1,6 @@
 import { isNotDefined } from '@Engine';
-import { Events } from '@Menu/constants';
 import type { TEventsService, TMenuEvent } from '@Menu/models';
+import { MenuEvents } from '@ShowcasesShared';
 import type { Subject } from 'rxjs';
 
 function EventsService(): TEventsService {
@@ -11,25 +11,25 @@ function EventsService(): TEventsService {
   function emitClose(): void | never {
     if (isNotDefined(bus$)) throw new Error('[EventsService]: bus$ is not defined. Call setBus() first.');
     console.log('[EventsService]: emitClose');
-    bus$.next({ type: Events.Close });
+    bus$.next({ type: MenuEvents.Close });
   }
 
   function emitStartNew(): void | never {
     if (isNotDefined(bus$)) throw new Error('[EventsService]: bus$ is not defined. Call setBus() first.');
     console.log('[EventsService]: emitStartNew');
-    bus$.next({ type: Events.StartNewGame });
+    bus$.next({ type: MenuEvents.StartNewGame });
   }
 
   function emitContinue(): void | never {
     if (isNotDefined(bus$)) throw new Error('[EventsService]: bus$ is not defined. Call setBus() first.');
     console.log('[EventsService]: emitContinue');
-    bus$.next({ type: Events.ContinueGame });
+    bus$.next({ type: MenuEvents.ContinueGame });
   }
 
   function emitLoad(): void | never {
     if (isNotDefined(bus$)) throw new Error('[EventsService]: bus$ is not defined. Call setBus() first.');
     console.log('[EventsService]: emitLoad');
-    bus$.next({ type: Events.LoadGame });
+    bus$.next({ type: MenuEvents.LoadGame });
   }
 
   return { setBus, emitClose, emitStartNew, emitContinue, emitLoad };

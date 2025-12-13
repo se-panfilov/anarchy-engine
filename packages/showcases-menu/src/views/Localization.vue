@@ -9,8 +9,9 @@ import ViewForm from '@Menu/components/ViewForm.vue';
 import { Languages } from '@Menu/constants';
 import type { TDropdownOption } from '@Menu/models';
 import { useSettingsStore } from '@Menu/stores/SettingsStore';
-import type { TLocalizationSettings } from '@Shared/Showcase';
 import { computed, reactive } from 'vue';
+
+import type { TLocalizationSettings } from '@ShowcasesShared';
 
 const emit = defineEmits(['reset', 'save']);
 const settingsStore = useSettingsStore();

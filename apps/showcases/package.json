@@ -29,6 +29,7 @@
     "anarchy_engine": "*",
     "anarchy_engine_shared": "*",
     "showcases_menu": "*",
+    "showcases_shared": "*",
     "lil-gui": "0.20.0",
     "rxjs": "7.8.2",
     "sanitize.css": "13.0.0",

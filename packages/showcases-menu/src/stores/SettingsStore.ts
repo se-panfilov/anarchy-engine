@@ -1,8 +1,9 @@
 import type { TDeepWriteable } from '@Engine';
 import { Languages } from '@Menu/constants';
-import type { TAudioSettings, TDebugSettings, TGameSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TResolution } from '@Shared/Showcase';
 import { defineStore } from 'pinia';
 import { computed, reactive } from 'vue';
+
+import type { TAudioSettings, TDebugSettings, TGameSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TResolution } from '@ShowcasesShared';
 
 export const useSettingsStore = defineStore('settingsStore', () => {
   const state: TDeepWriteable<TGameSettings> = reactive({

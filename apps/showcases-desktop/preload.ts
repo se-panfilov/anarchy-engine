@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import { PlatformActions, platformApiChannel, platformApiName } from './src/Constants';
-import { TGameSettings } from 'anarchy_engine_shared/src/Showcase';
+import type { TGameSettings } from 'showcases_shared';
 
 const { SaveAppSettings, LoadAppSettings } = PlatformActions;
 

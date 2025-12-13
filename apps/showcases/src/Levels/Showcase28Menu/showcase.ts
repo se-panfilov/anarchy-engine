@@ -1,9 +1,8 @@
 import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig, TText3dWrapper } from '@Engine';
 import { asRecord, isNotDefined, spaceService } from '@Engine';
-import { Events } from '@Menu/constants';
-import { initMenuApp } from '@Menu/main';
-import type { TMenuEvent } from '@Menu/models';
+import type { MenuEvents, TMenuEvent } from '@ShowcasesShared';
 import { filter, Subject } from 'rxjs';
+import { initMenuApp } from 'showcases_menu/src/main';
 
 import { runtimeEnv } from '@/env';
 import { closeMainMenu, openMainMenu } from '@/Levels/Showcase28Menu/MainMenuService';
@@ -42,7 +41,7 @@ export function showcase(space: TSpace): void {
 
   menuEventsBus$.subscribe((event: TMenuEvent): void => {
     switch (event.type) {
-      case Events.Close: {
+      case MenuEvents.Close: {
         closeMainMenu();
         break;
       }

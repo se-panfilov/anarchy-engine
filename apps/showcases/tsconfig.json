@@ -8,12 +8,13 @@
       "@Engine": ["packages/engine/src/index.ts"],
       "@Shared/*": ["packages/shared/src/*"],
       "@Shared": ["packages/shared/src/index.ts"],
+      "@ShowcasesShared/*": ["packages/showcase-shared/src/*"],
+      "@ShowcasesShared": ["packages/showcase-shared/src/index.ts"],
       "@E2E/*": ["apps/e2e/src/*"],
       "@E2E": ["apps/e2e/src/index.ts"],
-      "@Menu/*": ["packages/ui-menu/src/*"],
-      "@Menu": ["packages/ui-menu/src/index.ts"]
+      "@Menu/*": ["packages/showcases-menu/src/*"],
+      "@Menu": ["packages/showcases-menu/src/index.ts"]
     }
   },
   "include": ["src", "vite.config.ts", "types", "dist-desktop", "dist-web", "dist-mobile", "dist"],
-  "exclude": ["../../packages/showcases-menu"]
 }
