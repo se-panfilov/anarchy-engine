@@ -1,1 +1,1 @@
-export * from './TShowcase';
+export type * from './TShowcase';

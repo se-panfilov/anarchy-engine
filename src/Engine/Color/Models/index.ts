@@ -1,3 +1,3 @@
-export * from './TColor';
-export * from './TColorParams';
-export * from './TColorWrapper';
+export type * from './TColor';
+export type * from './TColorParams';
+export type * from './TColorWrapper';

@@ -1,4 +1,4 @@
-export * from './TAnimationActions';
-export * from './TAnimationActionsPack';
-export * from './TAnimationsService';
-export * from './TModel3dAnimations';
+export type * from './TAnimationActions';
+export type * from './TAnimationActionsPack';
+export type * from './TAnimationsService';
+export type * from './TModel3dAnimations';

@@ -1,1 +1,1 @@
-export * from './TAmbientContext';
+export type * from './TAmbientContext';

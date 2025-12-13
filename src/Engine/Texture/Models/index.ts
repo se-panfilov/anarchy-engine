@@ -1,6 +1,6 @@
-export * from './TTexture';
-export * from './TTextureAsyncRegistry';
-export * from './TTextureOptions';
-export * from './TTextureResourceConfig';
-export * from './TTextureService';
-export * from './TTexturesLoader';
+export type * from './TTexture';
+export type * from './TTextureAsyncRegistry';
+export type * from './TTextureOptions';
+export type * from './TTextureResourceConfig';
+export type * from './TTextureService';
+export type * from './TTexturesLoader';

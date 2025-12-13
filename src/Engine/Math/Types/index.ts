@@ -1,2 +1,2 @@
-export * from './TDegrees';
-export * from './TRadians';
+export type * from './TDegrees';
+export type * from './TRadians';

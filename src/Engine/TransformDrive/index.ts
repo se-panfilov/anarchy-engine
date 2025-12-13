@@ -4,5 +4,5 @@ export * from './Constants';
 export * from './Drive';
 export * from './Facades';
 export * from './Mixins';
-export * from './Models';
+export type * from './Models';
 export * from './Utils';

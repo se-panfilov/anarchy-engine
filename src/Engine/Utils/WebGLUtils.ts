@@ -8,7 +8,7 @@ export function isWebGLAvailable(): boolean {
     canvas = document.createElement('canvas');
     if (!canvas) return false;
     return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
-  } catch (e) {
+  } catch {
     return false;
   } finally {
     canvas = undefined;

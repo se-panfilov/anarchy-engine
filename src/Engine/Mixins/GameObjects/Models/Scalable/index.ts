@@ -1,2 +1,2 @@
-export * from './TScaleMixin';
-export * from './TWithScaleProperty';
+export type * from './TScaleMixin';
+export type * from './TWithScaleProperty';

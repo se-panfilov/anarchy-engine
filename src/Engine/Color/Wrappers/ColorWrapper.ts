@@ -6,6 +6,5 @@ import { isColorWrapper } from '@/Engine/Utils';
 
 export function ColorWrapper(color: TColorParams): TColorWrapper {
   const entity: TColor = new Color(isColorWrapper(color) ? color.entity : color);
-  entity;
   return { ...AbstractWrapper(entity, WrapperType.Color), entity };
 }

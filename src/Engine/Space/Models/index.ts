@@ -1,9 +1,9 @@
-export * from './TSpace';
-export * from './TSpaceConfig';
-export * from './TSpaceConfigEntities';
-export * from './TSpaceConfigResources';
-export * from './TSpaceHooks';
-export * from './TSpaceService';
-export * from './TSpaceServiceMixins';
-export * from './TSpaceServices';
-export * from './TWithBuilt';
+export type * from './TSpace';
+export type * from './TSpaceConfig';
+export type * from './TSpaceConfigEntities';
+export type * from './TSpaceConfigResources';
+export type * from './TSpaceHooks';
+export type * from './TSpaceService';
+export type * from './TSpaceServiceMixins';
+export type * from './TSpaceServices';
+export type * from './TWithBuilt';

@@ -12,6 +12,6 @@ export * from './RotationUtils';
 export * from './RxJsUtils';
 export * from './StringUtils';
 export * from './TransformUtils';
-export * from './TypesUtils';
+export type * from './TypesUtils';
 export * from './WebGLUtils';
 export * from './WrapperHelpers';

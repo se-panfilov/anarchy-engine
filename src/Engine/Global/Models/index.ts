@@ -1,2 +1,2 @@
-export * from './TAppGlobalContainer';
-export * from './TGlobalContainerDecorator';
+export type * from './TAppGlobalContainer';
+export type * from './TGlobalContainerDecorator';

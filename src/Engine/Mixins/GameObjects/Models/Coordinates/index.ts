@@ -1,9 +1,9 @@
-export * from './TWithCoordsXY';
-export * from './TWithCoordsXYZ';
-export * from './TWithCoordsXYZW';
-export * from './TWithCoordsXZ';
-export * from './TWithCoordsYZ';
-export * from './TWithCoordW';
-export * from './TWithCoordX';
-export * from './TWithCoordY';
-export * from './TWithCoordZ';
+export type * from './TWithCoordsXY';
+export type * from './TWithCoordsXYZ';
+export type * from './TWithCoordsXYZW';
+export type * from './TWithCoordsXZ';
+export type * from './TWithCoordsYZ';
+export type * from './TWithCoordW';
+export type * from './TWithCoordX';
+export type * from './TWithCoordY';
+export type * from './TWithCoordZ';

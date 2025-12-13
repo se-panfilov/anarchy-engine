@@ -1,9 +1,9 @@
-export * from './TSceneAccessors';
-export * from './TSceneConfig';
-export * from './TSceneFactory';
-export * from './TSceneObject';
-export * from './TSceneParams';
-export * from './TSceneProps';
-export * from './TSceneRegistry';
-export * from './TScenesService';
-export * from './TSceneWrapper';
+export type * from './TSceneAccessors';
+export type * from './TSceneConfig';
+export type * from './TSceneFactory';
+export type * from './TSceneObject';
+export type * from './TSceneParams';
+export type * from './TSceneProps';
+export type * from './TSceneRegistry';
+export type * from './TScenesService';
+export type * from './TSceneWrapper';

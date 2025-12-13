@@ -1,2 +1,2 @@
-export * from './TEngine';
-export * from './TEngineServices';
+export type * from './TEngine';
+export type * from './TEngineServices';

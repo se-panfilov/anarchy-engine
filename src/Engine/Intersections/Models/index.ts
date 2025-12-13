@@ -1,9 +1,9 @@
-export * from './TIntersectionEvent';
-export * from './TIntersectionsWatcher';
-export * from './TIntersectionsWatcherConfig';
-export * from './TIntersectionsWatcherFactory';
-export * from './TIntersectionsWatcherParams';
-export * from './TIntersectionsWatcherPerformanceOptions';
-export * from './TIntersectionsWatcherProps';
-export * from './TIntersectionsWatcherRegistry';
-export * from './TIntersectionsWatcherService';
+export type * from './TIntersectionEvent';
+export type * from './TIntersectionsWatcher';
+export type * from './TIntersectionsWatcherConfig';
+export type * from './TIntersectionsWatcherFactory';
+export type * from './TIntersectionsWatcherParams';
+export type * from './TIntersectionsWatcherPerformanceOptions';
+export type * from './TIntersectionsWatcherProps';
+export type * from './TIntersectionsWatcherRegistry';
+export type * from './TIntersectionsWatcherService';

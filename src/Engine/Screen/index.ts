@@ -1,4 +1,4 @@
 export * from './Factories';
-export * from './Models';
+export type * from './Models';
 export * from './Registries';
 export * from './Watchers';

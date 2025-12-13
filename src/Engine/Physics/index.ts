@@ -3,7 +3,7 @@ export * from './Constants';
 export * from './Entities';
 export * from './Factories';
 export * from './Mixins';
-export * from './Models';
+export type * from './Models';
 export * from './Registries';
 export * from './Renderers';
 export * from './Services';

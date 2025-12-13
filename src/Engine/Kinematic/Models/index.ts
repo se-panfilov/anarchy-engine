@@ -1,5 +1,5 @@
-export * from './TKinematicData';
-export * from './TKinematicDataConfig';
-export * from './TKinematicDataParams';
-export * from './TKinematicLoopService';
-export * from './TKinematicMethods';
+export type * from './TKinematicData';
+export type * from './TKinematicDataConfig';
+export type * from './TKinematicDataParams';
+export type * from './TKinematicLoopService';
+export type * from './TKinematicMethods';

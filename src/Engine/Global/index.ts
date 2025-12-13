@@ -1,2 +1,2 @@
 export * from './Decorators';
-export * from './Models';
+export type * from './Models';

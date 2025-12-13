@@ -1,1 +1,1 @@
-export * from './TScreenService';
+export type * from './TScreenService';

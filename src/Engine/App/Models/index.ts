@@ -1,1 +1,1 @@
-export * from './TAppCanvas';
+export type * from './TAppCanvas';

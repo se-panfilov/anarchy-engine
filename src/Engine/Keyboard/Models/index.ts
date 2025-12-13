@@ -1,7 +1,7 @@
-export * from './TGameKey';
-export * from './TKeyboardRegistry';
-export * from './TKeyboardRegistryRecords';
-export * from './TKeyboardRegistryValues';
-export * from './TKeyboardService';
-export * from './TKeyCombo';
-export * from './TKeySubscription';
+export type * from './TGameKey';
+export type * from './TKeyboardRegistry';
+export type * from './TKeyboardRegistryRecords';
+export type * from './TKeyboardRegistryValues';
+export type * from './TKeyboardService';
+export type * from './TKeyCombo';
+export type * from './TKeySubscription';

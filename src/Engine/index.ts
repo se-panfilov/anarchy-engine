@@ -1,7 +1,7 @@
 export * from './Abstract';
 export * from './Actor';
 export * from './Animations';
-export * from './App';
+export type * from './App';
 export * from './Camera';
 export * from './Collisions';
 export * from './Color';

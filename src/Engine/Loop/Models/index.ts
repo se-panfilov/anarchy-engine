@@ -1,3 +1,3 @@
-export * from './TLoopService';
-export * from './TLoopTimes';
-export * from './TLoopUtils';
+export type * from './TLoopService';
+export type * from './TLoopTimes';
+export type * from './TLoopUtils';
