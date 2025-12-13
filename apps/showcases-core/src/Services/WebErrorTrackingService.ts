@@ -32,7 +32,6 @@ export function WebErrorTrackingService(): TWebErrorTrackingService {
       wrappedAppVersion: await platformApiService.getWrappedAppVersion()
     };
 
-    // TODO DESKTOP: Do the same at the Desktop app level
     const dynamicContext = (): Record<string, any> => {
       const settings: TShowcaseGameSettings | undefined = platformApiService.getCachedAppSettings();
 
