@@ -10,3 +10,4 @@ export * from './TPhysicsPresetParams';
 export * from './TPhysicsPresetProps';
 export * from './TPhysicsProps';
 export * from './TPhysicsService';
+export * from './TWithPhysicsPresetConfig';
