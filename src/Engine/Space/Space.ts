@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { merge, ReplaySubject } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 
 import { CommonTag } from '@/Engine/Abstract';
 import type { IActorAsyncRegistry, IActorFactory, IActorService } from '@/Engine/Actor';
@@ -29,8 +29,8 @@ import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixin';
 import type { ISpace, ISpaceConfig, ISpaceFactories, ISpaceRegistries, ISpaceRenderer, ISpaceServices, IWithBuilt } from '@/Engine/Space/Models';
 import { getBoolValue, setInitialActiveCamera } from '@/Engine/Space/SpaceHelper';
-import { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer, ITextAnyWrapper, ITextConfig, ITextFactory, ITextService, TextService } from '@/Engine/Text';
-import { initText2dRenderer, initText3dRenderer, isText2dWrapper, isText3dWrapper, Text2dRegistry, Text3dRegistry, TextFactory } from '@/Engine/Text';
+import type { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer, ITextFactory, ITextService } from '@/Engine/Text';
+import { initText2dRenderer, initText3dRenderer, Text2dRegistry, Text3dRegistry, TextFactory, TextService } from '@/Engine/Text';
 import { isDefined, isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
 
 export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): ISpace {
@@ -106,7 +106,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     const text2dRegistry: IText2dRegistry = Text2dRegistry();
     const text3dRegistry: IText3dRegistry = Text3dRegistry();
 
-    const textService: ITextService = TextService(textFactory, text2dRegistry, text3dRegistry);
+    const textService: ITextService = TextService(textFactory, text2dRegistry, text3dRegistry, scene);
 
     factories = { ...factories, textFactory };
     registries = { ...registries, text2dRegistry, text3dRegistry };
