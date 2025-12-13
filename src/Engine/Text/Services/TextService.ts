@@ -1,5 +1,6 @@
 import { merge } from 'rxjs';
 
+import type { TRegistryPack } from '@/Engine/Abstract';
 import type { TAppGlobalContainer } from '@/Engine/Global';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -29,7 +30,7 @@ export function TextService(
   text3dRendererRegistry: TText3dRendererRegistry,
   scene: TSceneWrapper
 ): TTextService {
-  merge(text2dRegistry.added$, text3dRegistry.added$).subscribe((text: TTextAnyWrapper) => scene.addText(text));
+  merge(text2dRegistry.added$, text3dRegistry.added$).subscribe(({ value }: TRegistryPack<TTextAnyWrapper>) => scene.addText(value));
   factory.entityCreated$.subscribe((text: TTextAnyWrapper): void => {
     if (isText2dWrapper(text)) text2dRegistry.add(text);
     if (isText3dWrapper(text)) text3dRegistry.add(text);

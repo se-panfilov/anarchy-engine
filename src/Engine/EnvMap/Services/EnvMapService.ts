@@ -1,3 +1,4 @@
+import type { TRegistryPack } from '@/Engine/Abstract';
 import { EnvMapLoader } from '@/Engine/EnvMap/Loader';
 import type { TEnvMapConfig, TEnvMapFactory, TEnvMapLoader, TEnvMapParams, TEnvMapRegistry, TEnvMapService, TEnvMapTextureAsyncRegistry, TEnvMapWrapper } from '@/Engine/EnvMap/Models';
 import type { TDestroyable, TWithActiveMixinResult } from '@/Engine/Mixins';
@@ -6,8 +7,8 @@ import type { TSceneWrapper } from '@/Engine/Scene';
 import { isDefined } from '@/Engine/Utils';
 
 export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry, resourcesRegistry: TEnvMapTextureAsyncRegistry, sceneW: TSceneWrapper): TEnvMapService {
-  registry.added$.subscribe((wrapper: TEnvMapWrapper): void => {
-    if (wrapper.isActive()) withActive.active$.next(wrapper);
+  registry.added$.subscribe(({ value }: TRegistryPack<TEnvMapWrapper>): void => {
+    if (value.isActive()) withActive.active$.next(value);
   });
 
   factory.entityCreated$.subscribe((wrapper: TEnvMapWrapper): void => registry.add(wrapper));

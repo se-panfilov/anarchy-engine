@@ -15,12 +15,12 @@ export function getUniqEntityWithTagsAsync<T extends TRegistrable>(
   // TODO should be set from default config
   waitingTime: number = 3000
 ): Promise<T | undefined> {
-  return getEntityValueAsync<T>(registry, (pack: TRegistryPack<T>): boolean => shouldHaveTags(pack.value, tags, strategy), undefined, waitingTime);
+  return getEntityValueAsync<T>(registry, (entity: T): boolean => shouldHaveTags(entity, tags, strategy), undefined, waitingTime);
 }
 
 // TODO all waiting times should be set from default config
 export function getAsyncUniqEntityWithTag<T extends TRegistrable>(tag: string, registry: TAbstractEntityRegistry<T> | TAbstractAsyncRegistry<T>, waitingTime: number = 3000): Promise<T | undefined> {
-  return getEntityValueAsync<T>(registry, (pack: TRegistryPack<T>): boolean => pack.value.hasTag(tag), undefined, waitingTime);
+  return getEntityValueAsync<T>(registry, (entity: T): boolean => entity.hasTag(tag), undefined, waitingTime);
 }
 
 export function getAsyncUniqEntityByNameAsync<T extends TRegistrable>(
@@ -28,7 +28,7 @@ export function getAsyncUniqEntityByNameAsync<T extends TRegistrable>(
   registry: TAbstractEntityRegistry<T> | TAbstractAsyncRegistry<T>,
   waitingTime: number = 3000
 ): Promise<T | undefined> {
-  return getEntityValueAsync<T>(registry, (pack: TRegistryPack<T>): boolean => isDefined(pack) && pack.value.name === name, undefined, waitingTime);
+  return getEntityValueAsync<T>(registry, (entity: T): boolean => isDefined(entity) && entity.name === name, undefined, waitingTime);
 }
 
 export function getAsyncUniqEntityByKeyAsync<T>(key: string, registry: TAbstractSimpleRegistry<T> | TAbstractResourceAsyncRegistry<T>, waitingTime: number = 3000): Promise<T | undefined> {
@@ -61,7 +61,7 @@ export function getUniqEntityByKey$<T>(key: string, registry: TAbstractSimpleReg
 
 export function getEntityValueAsync<T extends TRegistrable | TMultitonRegistrable>(
   reg: TAbstractEntityRegistry<T> | TAbstractAsyncRegistry<T>,
-  filterFn: (pack: TRegistryPack<T>) => boolean,
+  filterFn: (entity: T) => boolean,
   stopCb?: (stop: () => void) => void,
   // TODO this time should be bigger and different for different entities (DEFAULT_WAITING_TIME + from params)
   waitingTime: number = 3000
@@ -71,7 +71,7 @@ export function getEntityValueAsync<T extends TRegistrable | TMultitonRegistrabl
 
 export function getValueAsync<T>(
   reg: TAbstractSimpleRegistry<T> | TAbstractResourceAsyncRegistry<T>,
-  filterFn: (pack: TRegistryPack<T>) => boolean,
+  filterFn: (entity: T) => boolean,
   stopCb?: (stop: () => void) => void,
   // TODO this time should be bigger and different for different entities (DEFAULT_WAITING_TIME + from params)
   waitingTime: number = 3000
@@ -81,7 +81,7 @@ export function getValueAsync<T>(
 
   const sub$: Subscription = reg.added$
     .pipe(
-      filter(filterFn),
+      filter(({ value }: TRegistryPack<T>) => filterFn(value)),
       take(1),
       map((pack: TRegistryPack<T>): T => pack.value),
       timeout(waitingTime),
