@@ -21,25 +21,9 @@ import { SceneTag } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
 import { initActorsEntityPipe, initCamerasEntityPipe, initFogsEntityPipe, initLightsEntityPipe, initScenesEntityPipe, initTextsEntityPipe } from '@/Engine/Space/EntityPipes';
 import { withBuiltMixin } from '@/Engine/Space/Mixin';
-import type { ISpace, ISpaceConfig, ISpaceEntities, IWithBuilt } from '@/Engine/Space/Models';
+import type { ISpace, ISpaceConfig, ISpaceEntities, ISpaceSubscriptions, IWithBuilt } from '@/Engine/Space/Models';
 import { isSpaceInitializationConfig, setInitialActiveCamera } from '@/Engine/Space/SpaceHelper';
 import { isDefined, isNotDefined, validLevelConfig } from '@/Engine/Utils';
-
-// TODO (S.Panfilov) extract this type
-type ISpaceSubscriptions = Readonly<{
-  actorCreated$: Subscription;
-  actorAdded$: Subscription;
-  textCreated$: Subscription;
-  textAdded$: Subscription;
-  cameraCreated$: Subscription;
-  cameraAdded$: Subscription;
-  lightCreated$: Subscription;
-  lightAdded$: Subscription;
-  fogCreated$: Subscription;
-  fogAdded$: Subscription;
-  controlsCreated$: Subscription;
-  loopTickSubscription: Subscription;
-}>;
 
 export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): ISpace {
   const { isValid, errors } = validLevelConfig(config);
