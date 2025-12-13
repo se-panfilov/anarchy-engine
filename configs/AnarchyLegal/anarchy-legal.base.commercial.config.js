@@ -2,6 +2,7 @@ import base from './anarchy-legal.base.config.js';
 
 //Commercial configuration preset for legal docs
 export default {
+  ...base,
   GENERIC: {
     messages: {
       ...base.GENERIC.messages,
@@ -25,6 +26,5 @@ export default {
   EU_DECLARATION_OF_CONFORMITY: { template: 'EU_DECLARATION_OF_CONFORMITY_COMMERCIAL_TEMPLATE', relativeOutput: './compliance' },
 
   //COMPLIANCE folder (do not include in a package/binary)
-  TECHNICAL_DOCUMENTATION: { template: 'TECHNICAL_DOCUMENTATION_COMMERCIAL_TEMPLATE', relativeOutput: './compliance' },
-  VULN_HANDLING: { template: 'VULN_HANDLING_COMMERCIAL_TEMPLATE', relativeOutput: './compliance' }
+  TECHNICAL_DOCUMENTATION: { template: 'TECHNICAL_DOCUMENTATION_COMMERCIAL_TEMPLATE', relativeOutput: './compliance' }
 };

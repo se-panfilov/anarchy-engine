@@ -2,6 +2,7 @@ import base from './anarchy-legal.base.config.js';
 
 //Non-Commercial configuration preset for legal docs
 export default {
+  ...base,
   GENERIC: {
     messages: {
       ...base.GENERIC.messages,
