@@ -6,9 +6,12 @@ import { moveByCircle } from '@/App/Levels/Utils/MoveUtils';
 import type { TActor, TActorRegistry, TAudio3dWrapper, TCameraWrapper, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TSceneWrapper, TSpace } from '@/Engine';
 import { DebugAudioRenderer, isNotDefined, metersPerSecond } from '@/Engine';
 
+import { addParticles } from './Utils';
+
 export function runDelta(space: TSpace): void {
   initAudio(space);
   initKinematic(space);
+  addParticles(space);
 
   space.start$.next(true);
 }

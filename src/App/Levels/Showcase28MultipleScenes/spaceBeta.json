@@ -98,7 +98,17 @@
         "tags": []
       }
     ],
-    "particles": [],
+    "particles": [
+      {
+        "materialSource": "particles_material",
+        "name": "bubbles",
+        "position": {
+          "x": 0,
+          "y": 20,
+          "z": 0
+        }
+      }
+    ],
     "physics": {},
     "spatialGrids": [
       {
@@ -165,6 +175,22 @@
           "color": "#4638DF"
         },
         "type": "basic"
+      },
+      {
+        "name": "particles_material",
+        "options": {
+          "blending": "AdditiveBlending",
+          "color": "#FFFFFF",
+          "depthWrite": false,
+          "size": 0.6,
+          "sizeAttenuation": true,
+          "transparent": true,
+          "vertexColors": false
+        },
+        "textures": {
+          "alphaMap": "particles_alpha_map_texture"
+        },
+        "type": "points"
       }
     ],
     "models3d": [
@@ -173,7 +199,12 @@
         "url": "/Showcase/Models/Fox/Fox.glb"
       }
     ],
-    "textures": []
+    "textures": [
+      {
+        "name": "particles_alpha_map_texture",
+        "url": "/Showcase/particles/4.png"
+      }
+    ]
   },
   "scenes": [
     {

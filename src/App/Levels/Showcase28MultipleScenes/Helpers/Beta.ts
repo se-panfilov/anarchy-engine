@@ -4,9 +4,12 @@ import { moveByCircle } from '@/App/Levels/Utils/MoveUtils';
 import type { TModel3d, TOrbitControlsWrapper, TSceneWrapper, TSpace } from '@/Engine';
 import { isDefined, isNotDefined, TextType } from '@/Engine';
 
+import { addParticles } from './Utils';
+
 export function runBeta(space: TSpace): void {
   addModel3d(space);
   addText(space);
+  addParticles(space);
 }
 
 function addModel3d(space: TSpace): void {
