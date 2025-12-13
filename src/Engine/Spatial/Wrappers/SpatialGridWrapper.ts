@@ -155,12 +155,25 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     entity.clear();
   });
 
+  const _debugVisualizeCellsBoxList: Array<Mesh> = [];
+
   // this visualization is for debugging purposes only
   function _debugVisualizeCells(sceneW: TSceneWrapper, color: ColorRepresentation = '#00ff00', wireframe: boolean = true, height: number = 0.1): void {
     entity.all().forEach((cell: TSpatialCellWrapper): void => {
       const box: Mesh = createBoundingBox(cell.minX, cell.minY, cell.maxX, cell.maxY, color, wireframe, height);
       sceneW.entity.add(box);
+      // eslint-disable-next-line functional/immutable-data
+      _debugVisualizeCellsBoxList.push(box);
     });
+  }
+
+  function _removeDebugVisualizeCells(sceneW: TSceneWrapper): void {
+    _debugVisualizeCellsBoxList.forEach((box: Mesh): void => {
+      sceneW.entity.remove(box);
+      box.geometry.dispose();
+    });
+    // eslint-disable-next-line functional/immutable-data
+    _debugVisualizeCellsBoxList.length = 0;
   }
 
   // this highlight is for debugging purposes only (only adds outlines to scene, might not remove them afterward!!!).
@@ -201,6 +214,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     removeFromGrid,
     clearGrid,
     _debugVisualizeCells,
+    _removeDebugVisualizeCells,
     _debugHighlightObjects,
     updateActorCell,
     getParams: (): TSpatialGridParams => params,

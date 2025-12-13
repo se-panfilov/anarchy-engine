@@ -25,6 +25,7 @@ export type TSpatialGridWrapper = TWrapper<TSpatialGrid> &
     updateActorCell: (actor: TActor) => void;
     getParams: () => TSpatialGridParams;
     _debugVisualizeCells: (sceneW: TSceneWrapper, color?: ColorRepresentation, wireframe?: boolean) => void;
+    _removeDebugVisualizeCells: (sceneW: TSceneWrapper) => void;
     _debugHighlightObjects: (sceneW: TSceneWrapper, x: number, z: number) => void;
     update$: Observable<TSpatialCellWrapper>;
   }>;
