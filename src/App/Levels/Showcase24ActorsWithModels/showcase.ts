@@ -50,27 +50,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     });
   }
 
-  // solder1AnimFsm.changed$.pipe(
-  //   distinctUntilChanged(),
-  //   concatMap((state: TFsmStates): Promise<void> => {
-  //     return state === 'Idle' ? solder2AnimFsm.send('Idle') : solder2AnimFsm.send('Dance');
-  //   })
-  // ).subscribe();
-  //
-  // onKey(KeyCode.W).pressing$
-  //   .pipe(
-  //     exhaustMap((): Promise<void> => {
-  //       const action: 'Run' | 'Walk' = isKeyPressed(KeysExtra.Shift) ? 'Run' : 'Walk';
-  //       return solder1AnimFsm.getState() !== action ? solder1AnimFsm.send(action) : Promise.resolve();
-  //     }))
-  //   .subscribe();
-  //
-  // onKey(KeyCode.W).released$
-  //   .pipe(
-  //     exhaustMap((): Promise<void> => solder1AnimFsm.send('Idle')))
-  //   .subscribe();
-  // }
-
   function start(): void {
     engine.start();
     void init();
