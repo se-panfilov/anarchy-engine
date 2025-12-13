@@ -10,7 +10,7 @@ import type { TActorProps } from './TActorProps';
 export type TActorConfig = TActorProps &
   Readonly<{
     // TODO 8.0.0. MODELS: check name match model's in config
-    model3d: string;
+    model3dEntity: string;
   }> &
   Readonly<{
     physics?: TWithPresetNamePhysicsBodyConfig;
