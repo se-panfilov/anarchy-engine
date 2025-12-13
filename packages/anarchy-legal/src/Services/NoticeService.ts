@@ -100,7 +100,7 @@ This product incorporates open-source software. **If any term of this file or th
 
     // Workspaces
     const workspaces: ReadonlyMap<string, TWorkspaceInfo> = await loadWorkspaces(rootDir);
-    const ws: TWorkspaceInfo = resolveWorkspaceFromArg(String(argv.workspace), workspaces, rootDir);
+    const ws: TWorkspaceInfo = await resolveWorkspaceFromArg(String(argv.workspace), workspaces, rootDir);
     debugLog(isDebug, 'target workspace:', ws.name, ws.dir);
 
     // Source & Out paths

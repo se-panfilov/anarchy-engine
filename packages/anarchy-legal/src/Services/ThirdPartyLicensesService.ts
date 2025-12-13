@@ -130,7 +130,7 @@ export function ThirdPartyLicensesService(): TThirdPartyLicensesService {
     debugLog(isDebug, 'rootDir:', root.rootDir);
 
     // 4) Resolve workspace
-    const { name, dir } = resolveWorkspaceFromArg(argv.workspace as string, root.workspaces, root.rootDir);
+    const { name, dir } = await resolveWorkspaceFromArg(argv.workspace as string, root.workspaces, root.rootDir);
     debugLog(isDebug, 'target workspace:', name, 'dir:', dir);
 
     // 5) Cycle check

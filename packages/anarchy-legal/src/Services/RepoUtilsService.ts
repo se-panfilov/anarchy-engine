@@ -486,14 +486,29 @@ export function RepoUtilsService(): TRepoUtilsService {
     return [...header, ...note, ...body].join('\n');
   }
 
-  function resolveWorkspaceFromArg(arg: string, workspaces: ReadonlyMap<string, TWorkspaceInfo>, rootDir: string): TWorkspaceInfo {
-    const info: TWorkspaceInfo | undefined = workspaces.get(arg);
-    if (info) return info;
+  async function resolveWorkspaceFromArg(arg: string, workspaces: ReadonlyMap<string, TWorkspaceInfo>, rootDir: string): Promise<TWorkspaceInfo> {
+    const byName: TWorkspaceInfo | undefined = workspaces.get(arg);
+    if (byName) return byName;
+
+    // as path relative to monorepo root
     const asPath: string = path.isAbsolute(arg) ? arg : path.join(rootDir, arg);
-    const normalized: string = path.resolve(asPath);
-    const found: TWorkspaceInfo | undefined = [...workspaces.values()].find((w: TWorkspaceInfo): boolean => path.resolve(w.dir) === normalized);
-    if (found) return { ...found, name: found.name, dir: found.dir };
-    throw new Error(`Workspace "${arg}" not found. Use a workspace *name* (package.json:name) or a *path* to its directory (relative to monorepo root).`);
+    const norm: string = path.resolve(asPath);
+
+    // match any known workspace by directory
+    const found: TWorkspaceInfo | undefined = [...workspaces.values()].find((w: TWorkspaceInfo): boolean => path.resolve(w.dir) === norm);
+    if (found) return found;
+
+    // NEW: allow selecting the monorepo root itself
+    const wantRoot: boolean = norm === path.resolve(rootDir) || arg === ':root' || arg === 'root' || arg === '.';
+
+    if (wantRoot) {
+      const pkgPath: string = path.join(rootDir, 'package.json');
+      const pkg = await readJson(pkgPath);
+      const name: string = typeof pkg.name === 'string' ? pkg.name : 'monorepo-root';
+      return { name, dir: rootDir, pkgPath, pkg };
+    }
+
+    throw new Error(`Workspace "${arg}" not found by name or path. Tip: use "--workspace ." or "--workspace :root" to target the monorepo root.`);
   }
 
   return {

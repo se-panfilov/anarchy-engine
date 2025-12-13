@@ -55,7 +55,7 @@ export function LegalFilesService(): TLegalFilesService {
 
     // Load workspaces and resolve target
     const workspaces: ReadonlyMap<string, TWorkspaceInfo> = await loadWorkspaces(rootDir);
-    const ws = resolveWorkspaceFromArg(String(argv.workspace), workspaces, rootDir);
+    const ws = await resolveWorkspaceFromArg(String(argv.workspace), workspaces, rootDir);
     debugLog(isDebug, 'target workspace:', ws.name, ws.dir);
 
     // Resolve templates dir
