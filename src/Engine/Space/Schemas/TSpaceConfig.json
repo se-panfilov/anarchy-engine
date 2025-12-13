@@ -219,20 +219,20 @@
         "scale": {
           "$ref": "#/definitions/TWithCoordsXYZ"
         },
-        "collisions": {
-          "$ref": "#/definitions/TCollisionsDataConfig"
-        },
-        "spatial": {
-          "$ref": "#/definitions/TSpatialDataConfig"
-        },
-        "kinematic": {
-          "$ref": "#/definitions/TKinematicDataConfig"
+        "model3dSource": {
+          "type": "string"
         },
         "physics": {
           "$ref": "#/definitions/TWithPresetNamePhysicsBodyConfig"
         },
-        "model3dSource": {
-          "type": "string"
+        "kinematic": {
+          "$ref": "#/definitions/TKinematicDataConfig"
+        },
+        "spatial": {
+          "$ref": "#/definitions/TSpatialDataConfig"
+        },
+        "collisions": {
+          "$ref": "#/definitions/TCollisionsDataConfig"
         },
         "tags": {
           "type": "array",
@@ -242,92 +242,18 @@
         },
         "name": {
           "type": "string"
-        }
-      },
-      "required": ["model3dSource", "position", "spatial"]
-    },
-    "TCollisionsDataConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "isAutoUpdate": {
-          "type": "boolean"
         },
-        "updatePriority": {
-          "$ref": "#/definitions/CollisionsUpdatePriority"
-        }
-      },
-      "required": ["isAutoUpdate"]
-    },
-    "CollisionsUpdatePriority": {
-      "type": "number",
-      "enum": [5, 4, 3, 2, 1, 0]
-    },
-    "TSpatialDataConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "isAutoUpdate": {
-          "type": "boolean"
+        "driver": {
+          "$ref": "#/definitions/ActorDriver"
         },
-        "grid": {
-          "type": "string"
-        },
-        "updatePriority": {
-          "$ref": "#/definitions/SpatialUpdatePriority"
-        }
-      },
-      "required": ["grid", "isAutoUpdate"]
-    },
-    "SpatialUpdatePriority": {
-      "type": "number",
-      "enum": [5, 4, 3, 2, 1, 0]
-    },
-    "TKinematicDataConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "isAutoUpdate": {
-          "type": "boolean"
-        },
-        "linearSpeed": {
+        "driveUpdateDelay": {
           "type": "number"
         },
-        "linearDirection": {
-          "$ref": "#/definitions/Vector3"
-        },
-        "angularSpeed": {
+        "driveCoordsThreshold": {
           "type": "number"
-        },
-        "angularDirection": {
-          "$ref": "#/definitions/Vector3"
         }
       },
-      "required": ["isAutoUpdate"]
-    },
-    "Vector3": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number",
-          "default": 0
-        },
-        "y": {
-          "type": "number",
-          "default": 0
-        },
-        "z": {
-          "type": "number",
-          "default": 0
-        },
-        "isVector3": {
-          "type": "boolean",
-          "const": true
-        }
-      },
-      "required": ["x", "y", "z", "isVector3"],
-      "additionalProperties": false,
-      "description": "3D vector.\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
+      "required": ["driver", "model3dSource", "position", "spatial"]
     },
     "TWithPresetNamePhysicsBodyConfig": {
       "type": "object",
@@ -1041,6 +967,93 @@
       },
       "required": ["halfHeight", "radius", "borderRadius"],
       "additionalProperties": false
+    },
+    "TKinematicDataConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "isAutoUpdate": {
+          "type": "boolean"
+        },
+        "linearSpeed": {
+          "type": "number"
+        },
+        "linearDirection": {
+          "$ref": "#/definitions/Vector3"
+        },
+        "angularSpeed": {
+          "type": "number"
+        },
+        "angularDirection": {
+          "$ref": "#/definitions/Vector3"
+        }
+      },
+      "required": ["isAutoUpdate"]
+    },
+    "Vector3": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "default": 0
+        },
+        "y": {
+          "type": "number",
+          "default": 0
+        },
+        "z": {
+          "type": "number",
+          "default": 0
+        },
+        "isVector3": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "required": ["x", "y", "z", "isVector3"],
+      "additionalProperties": false,
+      "description": "3D vector.\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
+    },
+    "TSpatialDataConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "isAutoUpdate": {
+          "type": "boolean"
+        },
+        "grid": {
+          "type": "string"
+        },
+        "updatePriority": {
+          "$ref": "#/definitions/SpatialUpdatePriority"
+        }
+      },
+      "required": ["grid", "isAutoUpdate"]
+    },
+    "SpatialUpdatePriority": {
+      "type": "number",
+      "enum": [5, 4, 3, 2, 1, 0]
+    },
+    "TCollisionsDataConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "isAutoUpdate": {
+          "type": "boolean"
+        },
+        "updatePriority": {
+          "$ref": "#/definitions/CollisionsUpdatePriority"
+        }
+      },
+      "required": ["isAutoUpdate"]
+    },
+    "CollisionsUpdatePriority": {
+      "type": "number",
+      "enum": [5, 4, 3, 2, 1, 0]
+    },
+    "ActorDriver": {
+      "type": "string",
+      "enum": ["kinematic", "physical", ""]
     },
     "TCameraConfig": {
       "type": "object",
