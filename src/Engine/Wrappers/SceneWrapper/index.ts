@@ -15,6 +15,8 @@ import { Subject } from 'rxjs';
 
 export function SceneWrapper({ name }: SceneParams): ISceneWrapper {
   const entity: Scene = new Scene();
+
+  // eslint-disable-next-line functional/immutable-data
   entity.name = name;
 
   const wrapper = AbstractWrapper(entity);

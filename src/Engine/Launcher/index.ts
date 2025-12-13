@@ -28,18 +28,27 @@ import type {
   ISceneWrapper
 } from '@Engine/Wrappers';
 import { combineLatest } from 'rxjs';
+import { SceneWrapper } from '@Engine/Wrappers';
+import { Scene } from 'three';
 
 export async function launch(sceneConfig: SceneConfig): Promise<void> {
   const { name, actors, cameras, lights } = sceneConfig;
   const { promise, resolve } = createDeferredPromise<void>();
 
   //Factories
-  const sceneFactory: Factory<ISceneWrapper, SceneParams> = SceneFactory();
-  const actorFactory: Factory<IActorWrapper, ActorParams> = ActorFactory();
-  const cameraFactory: Factory<ICameraWrapper, CameraParams> = CameraFactory();
-  const lightFactory: Factory<ILightWrapper, LightParams> = LightFactory();
-  const rendererFactory: Factory<IRendererWrapper, RendererParams> = RendererFactory();
-  const loopFactory: Factory<ILoopWrapper, LoopParams> = LoopFactory();
+  // const sceneFactory: Factory<ISceneWrapper> = SceneFactory();
+  // const actorFactory: Factory<IActorWrapper> = ActorFactory();
+  // const cameraFactory: Factory<ICameraWrapper> = CameraFactory();
+  // const lightFactory: Factory<ILightWrapper> = LightFactory();
+  // const rendererFactory: Factory<IRendererWrapper> = RendererFactory();
+  // const loopFactory: Factory<ILoopWrapper> = LoopFactory();
+
+  const sceneFactory: ISceneFactory = SceneFactory();
+  const actorFactory: IActorFactory = ActorFactory();
+  const cameraFactory: ICameraFactory = CameraFactory();
+  const lightFactory: ILightFactory = LightFactory();
+  const rendererFactory: IRendererFactory = RendererFactory();
+  const loopFactory: ILoopFactory = LoopFactory();
 
   //Entities registries
   const actorRegistry: Registry<IActorWrapper> = ActorRegistry();
@@ -48,7 +57,7 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
 
   //Subscriptions
   combineLatest([actorFactory.latest$, sceneFactory.latest$]).subscribe(
-    ([actor, scene]: [IActorWrapper, ISceneWrapper]) => {
+    ([actor, scene]: [IActorWrapper, ISceneWrapper]): void => {
       if (isNotDefined(scene) || isNotDefined(actor)) return;
       actorRegistry.add$.next(actor);
       scene.addActor$.next(actor);
@@ -56,7 +65,7 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   );
 
   combineLatest([cameraFactory.latest$, sceneFactory.latest$]).subscribe(
-    ([camera, scene]: [ICameraWrapper, ISceneWrapper]) => {
+    ([camera, scene]: [ICameraWrapper, ISceneWrapper]): void => {
       if (isNotDefined(scene) || isNotDefined(camera)) return;
       cameraRegistry.add$.next(camera);
       scene.addCamera$.next(camera);
@@ -64,7 +73,7 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   );
 
   combineLatest([lightFactory.latest$, sceneFactory.latest$]).subscribe(
-    ([light, scene]: [ILightWrapper, ISceneWrapper]) => {
+    ([light, scene]: [ILightWrapper, ISceneWrapper]): void => {
       if (isNotDefined(scene) || isNotDefined(light)) return;
       lightRegistry.add$.next(light);
       scene.addLight$.next(light);

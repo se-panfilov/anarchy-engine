@@ -9,9 +9,6 @@ export function AbstractWrapper<T>(entity: T): ReactiveWrapper<T> {
   destroyed$.subscribe(() => {
     destroyed$.unsubscribe();
     destroyed$.complete();
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    entity = undefined as any;
   });
 
   return {
