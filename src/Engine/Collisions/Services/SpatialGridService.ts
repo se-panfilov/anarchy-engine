@@ -93,22 +93,21 @@ export function SpatialGridService(): TSpatialGridService {
     return getAllInCell(tree, x, z);
   }
 
-  function removeFromCell(actorW: TActorWrapperAsync): void {
+  function removeFromGrid(actorW: TActorWrapperAsync): void | never {
     const cell: TSpatialCell | undefined = actorW.getSpatialCell();
-    if (isDefined(cell)) {
-      const index: number = cell.objects.indexOf(actorW);
-      if (index !== -1) {
-        // eslint-disable-next-line functional/immutable-data
-        cell.objects.splice(index, 1);
-        actorW.resetSpatialCell();
-      }
-    }
+    if (isNotDefined(cell)) throw new Error(`Cannot remove actor (id: "${actorW.id}") from spatial grid, such actor is not in the grid`);
+    const index: number = cell.objects.indexOf(actorW);
+    if (index === -1) throw new Error(`Cannot remove actor (id: "${actorW.id}") from spatial grid, such actor is not in the grid`);
+
+    // eslint-disable-next-line functional/immutable-data
+    cell.objects.splice(index, 1);
+    actorW.resetSpatialCell();
   }
 
   const clearGrid = (tree: RBush<TSpatialCell>): RBush<TSpatialCell> => tree.clear();
 
   function moveToNewCell(x: number, y: number, tree: RBush<TSpatialCell>, actorW: TActorWrapperAsync): void {
-    removeFromCell(actorW);
+    removeFromGrid(actorW);
     addToCell(x, y, actorW, tree);
   }
 
@@ -155,7 +154,7 @@ export function SpatialGridService(): TSpatialGridService {
     getAllItems,
     getAllInCell,
     getAllInCellByCellId,
-    removeFromCell,
+    removeFromGrid,
     clearGrid,
     moveToNewCell,
     updateActorsCells,
