@@ -92,7 +92,7 @@ app.whenReady().then((): void => {
 
   // TODO DESKTOP: Make sure navigation isn't working (also from mouse extra buttons)
   win.webContents.on('will-navigate', (event: Event<WebContentsWillNavigateEventParams>, url: string): void => {
-    console.log(`[Desktop Main] navigation to {event.url} `);
+    console.log(`[Desktop Main] navigation to ${event.url} `);
 
     // TODO DESKTOP: Make this configurable
     // event.preventDefault(); // Prevent navigation to other pages
