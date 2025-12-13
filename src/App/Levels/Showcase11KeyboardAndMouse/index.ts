@@ -18,6 +18,14 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     keyboardService.onKey(KeyCode.A).pressing$.subscribe((): void => void actorKeyboard.addX(-0.3));
     keyboardService.onKey(KeyCode.D).pressing$.subscribe((): void => void actorKeyboard.addX(0.3));
 
+    mouseService.clickLeftRelease$.subscribe((event: IMouseWatcherEvent): void => {
+      // TODO (S.Panfilov) this is not in game coords, the cords should be in respect of clicking on a plane actor
+      const { x, y } = event;
+      actorMouse.setX(x);
+      actorMouse.setY(y);
+    });
+
+    //console output of mouse events
     mouseService.clickLeftRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click left', event));
     mouseService.clickRightRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click right', event));
     mouseService.clickMiddleRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click middle', event));
