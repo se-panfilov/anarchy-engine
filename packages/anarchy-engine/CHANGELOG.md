@@ -68,6 +68,10 @@ Thoughts:
 - TASK: Clean up dependencies (some should be used by the app, not the engine);
 - TASK: Align types name: intersection types should start with TAny..., e.g. TAnyMaterial = TMaterial1 | TMaterial2;
 
+Known bugs:
+
+- 3d texts doesn't work in Safari (might be scale/LOD issue)
+
 Won't be implemented soon:
 
 - Maybe: Split data entities from functional entities – ECS approach (too hard to migrate now);

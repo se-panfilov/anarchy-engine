@@ -13,7 +13,6 @@ const desktopAppSettings: TDesktopAppConfig = {
 };
 
 // TODO DESKTOP: We need e2e eventually
-// TODO DESKTOP: 3d texts doesn't work in Safari
 // TODO DESKTOP: Linux: make sure we can build the project
 // TODO DESKTOP: Build every platform-version on any machine (use docker or something)
 // TODO DESKTOP: Steam integration (manifest, cloud_sync.vdf, cloud saves, achievements, layer, etc.)
