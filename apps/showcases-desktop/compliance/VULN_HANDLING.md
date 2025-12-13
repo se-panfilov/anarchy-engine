@@ -50,9 +50,9 @@
 
 ## 9. Post-Incident Review
 
-- Короткий ретро-разбор (что случилось, что помогло, что улучшить); подкрутить тесты/контроли, если практично.
+- Short retro-review (what happened, what helped, what to improve); adjust tests/controls if practical.
 
 ## 10. Boundaries
 
-- Нет bug bounty, если явно не объявлено.
-- План **не** создаёт контрактных SLA или гарантий.
+- No bug bounty unless explicitly stated.
+- Plan **does not** create contractual SLAs or guarantees.
