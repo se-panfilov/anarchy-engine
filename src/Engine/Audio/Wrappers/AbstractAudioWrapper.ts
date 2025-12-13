@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, skipWhile, Subject } from 'rxjs';
+import { BehaviorSubject, skipWhile, Subject } from 'rxjs';
 import type { AudioListener } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
@@ -22,44 +22,30 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
   const loop$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.loop ?? false);
   const volume$: BehaviorSubject<number> = new BehaviorSubject<number>(volume ?? 1);
 
-  const playSub$: Subscription = play$.pipe(distinctUntilChanged()).subscribe((isPlay: boolean): void => {
-    if (isPlay) return void entity.play();
-    else {
-      seek$.next(0);
-      return void entity.stop();
-    }
+  const playSub$: Subscription = play$.pipe().subscribe((shouldPlay: boolean): void => {
+    if (shouldPlay && !entity.isPlaying) return void entity.play();
+    else return void entity.stop();
   });
 
   const volumeSub$: Subscription = volume$
     .pipe(
       // to avoid initial value (only if it's a default one)
-      skipWhile((volume: number, index: number): boolean => index === 0 && volume === 1),
-      distinctUntilChanged()
+      skipWhile((volume: number, index: number): boolean => index === 0 && volume === 1)
     )
     .subscribe((volume: number): void => void entity.setVolume(volume));
 
-  const pauseState = {
-    isPaused: false,
-    position: 0
-  };
-
+  let lastPausedPosition: number = 0;
   const pauseSub$: Subscription = pause$
     .pipe(
       // to avoid initial value (only if it's a default one)
-      skipWhile((pause: boolean, index: number): boolean => index === 0 && !pause),
-      distinctUntilChanged()
+      skipWhile((shouldPause: boolean, index: number): boolean => index === 0 && !shouldPause)
     )
-    .subscribe((isPause: boolean): void => {
-      if (isPause && !pauseState.isPaused) {
-        // eslint-disable-next-line functional/immutable-data
-        pauseState.isPaused = true;
-        // eslint-disable-next-line functional/immutable-data
-        pauseState.position = entity.context.currentTime;
+    .subscribe((shouldPause: boolean): void => {
+      if (shouldPause && entity.isPlaying) {
+        lastPausedPosition = entity.context.currentTime;
         play$.next(false);
       } else {
-        // eslint-disable-next-line functional/immutable-data
-        pauseState.isPaused = false;
-        seek$.next(pauseState.position);
+        seek$.next(lastPausedPosition);
         play$.next(true);
       }
     });
@@ -67,30 +53,26 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
   const speedSub$: Subscription = speed$
     .pipe(
       // to avoid initial value (only if it's a default one)
-      skipWhile((speed: number, index: number): boolean => index === 0 && speed === 1),
-      distinctUntilChanged()
+      skipWhile((speed: number, index: number): boolean => index === 0 && speed === 1)
     )
     .subscribe((speed: number): void => void entity.setPlaybackRate(speed));
 
   const seekSub$: Subscription = seek$
     .pipe(
       // to avoid initial value (only if it's a default one)
-      skipWhile((seek: number, index: number): boolean => index === 0 && seek === 0),
-      distinctUntilChanged()
+      skipWhile((seek: number, index: number): boolean => index === 0 && seek === 0)
     )
     .subscribe((seek: number): void => {
       seekAudio(entity, seek);
-      // eslint-disable-next-line functional/immutable-data
-      pauseState.position = seek;
+      lastPausedPosition = seek;
     });
 
   const loopSub$: Subscription = loop$
     .pipe(
       // to avoid initial value (only if it's a default one)
-      skipWhile((loop: boolean, index: number): boolean => index === 0 && !loop),
-      distinctUntilChanged()
+      skipWhile((shouldLoop: boolean, index: number): boolean => index === 0 && !shouldLoop)
     )
-    .subscribe((loop: boolean): void => void entity.setLoop(loop));
+    .subscribe((shouldLoop: boolean): void => void entity.setLoop(shouldLoop));
 
   const wrapper: TWrapper<T> = AbstractWrapper(entity, WrapperType.Audio, params);
 
