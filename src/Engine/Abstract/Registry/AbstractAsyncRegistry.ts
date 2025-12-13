@@ -13,8 +13,12 @@ import { AbstractEntityRegistry } from './AbstractEntityRegistry';
 export function AbstractAsyncRegistry<T extends IRegistrable | IMultitonRegistrable>(type: RegistryType): IAbstractAsyncRegistry<T> {
   const abstractRegistry: IAbstractEntityRegistry<T> = AbstractEntityRegistry<T>(type);
 
-  const findByTagsAsync = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): Promise<T | undefined> =>
-    getValueAsync<T>(abstractRegistry, (entity: T): boolean => entity.getTags()[strategy]((tag: string) => tags.includes(tag)));
+  const findByTagsAsync = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): Promise<T | undefined> => {
+    return getValueAsync<T>(abstractRegistry, (entity: T): boolean => {
+      const entityTags: ReadonlyArray<string> = entity.getTags();
+      return entityTags.length > 0 && entityTags[strategy]((tag: string) => tags.includes(tag));
+    });
+  };
   const findByTagAsync = (tag: string): Promise<T | undefined> => getValueAsync<T>(abstractRegistry, (entity: T): boolean => entity.hasTag(tag));
   const findByNameAsync = (name: string): Promise<T | undefined> => getValueAsync<T>(abstractRegistry, (entity: T): boolean => entity && entity.name === name);
 
