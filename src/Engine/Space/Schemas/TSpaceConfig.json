@@ -233,6 +233,9 @@
         "kinematic": {
           "$ref": "#/definitions/TKinematicDataConfig"
         },
+        "spatial": {
+          "$ref": "#/definitions/TSpatialDataConfig"
+        },
         "isKinematicAutoUpdate": {
           "type": "boolean"
         },
@@ -2321,6 +2324,22 @@
       "required": ["x", "y", "z", "isVector3"],
       "additionalProperties": false,
       "description": "3D vector.\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
+    },
+    "TSpatialDataConfig": {
+      "$ref": "#/definitions/TOptional%3Calias-731470504-73687-73835-731470504-0-215038%3Cdef-alias-282893435-125-243-282893435-0-244%2C%22cell%22%3E%3E"
+    },
+    "TOptional<alias-731470504-73687-73835-731470504-0-215038<def-alias-282893435-125-243-282893435-0-244,\"cell\">>": {
+      "type": "object",
+      "properties": {
+        "updatePriority": {
+          "$ref": "#/definitions/SpatialUpdatePriority"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SpatialUpdatePriority": {
+      "type": "number",
+      "enum": [5, 4, 3, 2, 1, 0]
     },
     "TCameraConfig": {
       "type": "object",
