@@ -5,7 +5,6 @@
     {
       "name": "showcase",
       "background": "#A0A0A0",
-      "tags": [],
       "isActive": true
     }
   ],
@@ -16,8 +15,7 @@
       "mapHeight": 40,
       "cellSize": 10,
       "centerX": 0,
-      "centerZ": 0,
-      "tags": []
+      "centerZ": 0
     }
   ],
   "actors": [
@@ -35,8 +33,7 @@
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "castShadow": false,
       "receiveShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false }
     }
   ],
   "models3d": [
@@ -48,8 +45,7 @@
       "options": {
         "shouldAddToScene": true,
         "shouldAddToRegistry": true
-      },
-      "tags": []
+      }
     }
   ],
   "physics": {},
