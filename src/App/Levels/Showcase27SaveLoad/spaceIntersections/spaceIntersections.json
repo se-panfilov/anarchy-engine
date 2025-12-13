@@ -8,7 +8,7 @@
         "name": "surface_actor",
         "position": {
           "x": 0,
-          "y": 0,
+          "y": -2,
           "z": 0
         },
         "rotation": {
@@ -125,8 +125,17 @@
         "name": "watcher_red"
       },
       {
-        "actorNames": ["cube_blue_1_actor"],
-        "cameraName": "camera_blue",
+        "actorNames": ["cube_blue_2_actor"],
+        "origin": {
+          "x": -12,
+          "y": 1,
+          "z": 8
+        },
+        "direction": {
+          "x": 1,
+          "y": 0,
+          "z": 0
+        },
         "isAutoStart": true,
         "name": "watcher_blue"
       }
