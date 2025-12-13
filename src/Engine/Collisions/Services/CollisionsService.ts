@@ -19,7 +19,7 @@ export function CollisionsService(): TCollisionsService {
     const previousPosition = currentPosition.clone().sub(direction.multiplyScalar(extendedDistance));
 
     const raycaster = new Raycaster();
-    raycaster.set(previousPosition, direction); // Луч направлен от предыдущей позиции к текущей
+    raycaster.set(previousPosition, direction);
     // eslint-disable-next-line functional/immutable-data
     raycaster.far = extendedDistance;
     // eslint-disable-next-line functional/immutable-data
