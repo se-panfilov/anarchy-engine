@@ -7,4 +7,6 @@ export * from './TWithActiveMixinResult';
 export * from './TWithCreateAsync';
 export * from './TWithMessages';
 export * from './TWithName';
+export * from './TWithReactivePosition';
+export * from './TWithReactiveRotation';
 export * from './TWithTagsMixin';
