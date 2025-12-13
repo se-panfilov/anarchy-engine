@@ -21,7 +21,10 @@ export default defineConfig({
     plugins: [wasm(), topLevelAwait()]
   },
   build: {
-    sourcemap: true
+    sourcemap: true,
+    rollupOptions: {
+      treeshake: false
+    }
   },
   test: {
     globals: true,
