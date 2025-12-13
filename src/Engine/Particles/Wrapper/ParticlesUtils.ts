@@ -3,12 +3,10 @@ import { BufferGeometry, Points } from 'three';
 
 import { materialService } from '@/Engine/Material';
 import type { IParticlesParams } from '@/Engine/Particles/Models';
-import { textureService } from '@/Engine/Texture';
 import type { IBufferGeometry, IPoints } from '@/Engine/ThreeLib';
-import { isDefined } from '@/Engine/Utils';
 
 export async function createParticles(params: IParticlesParams): Promise<IPoints> | never {
-  const material: Material = await getMaterial(params);
+  const material: Material = await materialService.buildMaterialWithTextures(params.material);
 
   const geometry: IBufferGeometry = new BufferGeometry();
 
@@ -31,12 +29,4 @@ export async function createParticles(params: IParticlesParams): Promise<IPoints
   //   });
 
   return new Points(geometry, material);
-}
-
-async function getMaterial(params: IParticlesParams): Promise<Material> {
-  let textures;
-  if (isDefined(params.material.textures)) textures = await textureService.load(params.material).all();
-  const material: Material = materialService.buildMaterial(params.material.type, params.material.params, textures);
-
-  return material;
 }

@@ -5,25 +5,16 @@ import { ActorType } from '@/Engine/Actor/Constants';
 import type { IActorParams } from '@/Engine/Actor/Models';
 import { materialService } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
-import { textureService } from '@/Engine/Texture';
 import type { IMesh } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
 
 export async function createActor(params: IActorParams): Promise<IMesh> | never {
-  const material: Material = await getMaterial(params);
+  const material: Material = await materialService.buildMaterialWithTextures(params.material);
 
   if (params.type === ActorType.plane) return createPlane(params, material);
   if (params.type === ActorType.sphere) return createSphere(params, material);
   if (params.type === ActorType.cube) return createCube(params, material);
   throw new Error('Cannot create Actor: unknown actor type');
-}
-
-async function getMaterial(params: IActorParams): Promise<Material> {
-  let textures;
-  if (isDefined(params.material.textures)) textures = await textureService.load(params.material).all();
-  const material: Material = materialService.buildMaterial(params.material.type, params.material.params, textures);
-
-  return material;
 }
 
 function createPlane({ width, height, widthSegments, heightSegments }: IActorParams, material: Material): IMesh {

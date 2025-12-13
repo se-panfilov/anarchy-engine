@@ -1,4 +1,5 @@
 import type {
+  Material,
   MeshBasicMaterial,
   MeshDepthMaterial,
   MeshDistanceMaterial,
@@ -19,6 +20,7 @@ import type {
   IDistanceTextureUploaded,
   ILambertTextureUploaded,
   IMatcapTextureUploaded,
+  IMaterialTexturePack,
   INormalTextureUploaded,
   IPhongTextureUploaded,
   IPhysicalTextureUploaded,
@@ -28,50 +30,66 @@ import type {
 } from '@/Engine/Texture/Models';
 
 import type { IMaterialParams } from './IMaterialParams';
+import type { IMaterialProps } from './IMaterialProps';
 
-export type IBasicMaterialService = Readonly<{
-  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IBasicTextureUploaded) => MeshBasicMaterial;
+type IAbstractMaterialService = Readonly<{
+  buildMaterialWithTextures: (material: IMaterialProps<IMaterialTexturePack>) => Promise<Material>;
 }>;
 
-export type IDepthMaterialService = Readonly<{
-  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IDepthTextureUploaded) => MeshDepthMaterial;
-}>;
+export type IBasicMaterialService = IAbstractMaterialService &
+  Readonly<{
+    buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IBasicTextureUploaded) => MeshBasicMaterial;
+  }>;
 
-export type IDistanceMaterialService = Readonly<{
-  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IDistanceTextureUploaded) => MeshDistanceMaterial;
-}>;
+export type IDepthMaterialService = IAbstractMaterialService &
+  Readonly<{
+    buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IDepthTextureUploaded) => MeshDepthMaterial;
+  }>;
 
-export type INormalMaterialService = Readonly<{
-  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: INormalTextureUploaded) => MeshNormalMaterial;
-}>;
+export type IDistanceMaterialService = IAbstractMaterialService &
+  Readonly<{
+    buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IDistanceTextureUploaded) => MeshDistanceMaterial;
+  }>;
 
-export type IMatcapMaterialService = Readonly<{
-  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IMatcapTextureUploaded) => MeshMatcapMaterial;
-}>;
+export type INormalMaterialService = IAbstractMaterialService &
+  Readonly<{
+    buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: INormalTextureUploaded) => MeshNormalMaterial;
+  }>;
 
-export type ILambertMaterialService = Readonly<{
-  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: ILambertTextureUploaded) => MeshLambertMaterial;
-}>;
+export type IMatcapMaterialService = IAbstractMaterialService &
+  Readonly<{
+    buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IMatcapTextureUploaded) => MeshMatcapMaterial;
+  }>;
 
-export type IPhongMaterialService = Readonly<{
-  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IPhongTextureUploaded) => MeshPhongMaterial;
-}>;
+export type ILambertMaterialService = IAbstractMaterialService &
+  Readonly<{
+    buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: ILambertTextureUploaded) => MeshLambertMaterial;
+  }>;
 
-export type IPhysicalMaterialService = Readonly<{
-  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IPhysicalTextureUploaded) => MeshPhysicalMaterial;
-}>;
+export type IPhongMaterialService = IAbstractMaterialService &
+  Readonly<{
+    buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IPhongTextureUploaded) => MeshPhongMaterial;
+  }>;
 
-export type IToonMaterialService = Readonly<{
-  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IToonTextureUploaded) => MeshToonMaterial;
-}>;
+export type IPhysicalMaterialService = IAbstractMaterialService &
+  Readonly<{
+    buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IPhysicalTextureUploaded) => MeshPhysicalMaterial;
+  }>;
 
-export type IStandardMaterialService = Readonly<{
-  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IStandardTextureUploaded) => MeshStandardMaterial;
-}>;
+export type IToonMaterialService = IAbstractMaterialService &
+  Readonly<{
+    buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IToonTextureUploaded) => MeshToonMaterial;
+  }>;
 
-export type IPointsMaterialService = Readonly<{
-  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IPointsTextureUploaded) => PointsMaterial;
-}>;
+export type IStandardMaterialService = IAbstractMaterialService &
+  Readonly<{
+    buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IStandardTextureUploaded) => MeshStandardMaterial;
+  }>;
+
+export type IPointsMaterialService = IAbstractMaterialService &
+  Readonly<{
+    buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IPointsTextureUploaded) => PointsMaterial;
+  }>;
 
 export type IMaterialService =
   | IBasicMaterialService

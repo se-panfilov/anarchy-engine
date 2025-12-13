@@ -13,9 +13,11 @@ import type {
   PointsMaterial
 } from 'three';
 
-import type { IMaterialParams, ITypeOfMaterials, MaterialType } from '@/Engine/Material';
+import type { IMaterialParams, IMaterialProps, ITypeOfMaterials, MaterialType } from '@/Engine/Material';
 import { MaterialMap } from '@/Engine/Material';
 import type { IMaterialService } from '@/Engine/Material/Models';
+import type { IMaterialTexturePack } from '@/Engine/Texture';
+import { textureService } from '@/Engine/Texture';
 import type {
   IBasicTextureUploaded,
   IDepthTextureUploaded,
@@ -30,7 +32,7 @@ import type {
   ITextureUploaded,
   IToonTextureUploaded
 } from '@/Engine/Texture/Models';
-import { isNotDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function MaterialService(): IMaterialService {
   function buildMaterial(type: MaterialType, params?: IMaterialParams, textures?: IBasicTextureUploaded): MeshBasicMaterial;
@@ -50,7 +52,13 @@ export function MaterialService(): IMaterialService {
     return new MaterialConstructor({ ...textures, ...params });
   }
 
-  return { buildMaterial };
+  async function buildMaterialWithTextures(material: IMaterialProps<IMaterialTexturePack>): Promise<Material> {
+    let textures;
+    if (isDefined(material.textures)) textures = await textureService.load(material).all();
+    return buildMaterial(material.type, material.params, textures);
+  }
+
+  return { buildMaterial, buildMaterialWithTextures };
 }
 
 export const materialService: IMaterialService = MaterialService();
