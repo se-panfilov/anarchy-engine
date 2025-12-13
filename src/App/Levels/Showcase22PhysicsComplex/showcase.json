@@ -18,7 +18,7 @@
       "heightSegments": 1,
       "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
       "physics": {
-        "presetName": "wall_physics",
+        "presetName": "box_physics",
         "shapeParams": {
           "hx": 100,
           "hy": 0.025,
@@ -33,18 +33,15 @@
       "tags": []
     },
     {
-      "name": "ball",
-      "type": "sphere",
-      "radius": 1,
+      "name": "hero",
+      "type": "cube",
+      "height": 1.9,
+      "width": 0.2,
+      "depth": 0.5,
+      "widthSegments": 1,
+      "heightSegments": 1,
       "material": { "type": "standard", "params": { "color": "#8EFEFE" } },
-      "physics": {
-        "presetName": "ball_physics",
-        "shapeParams": {
-          "radius": 1
-        },
-        "position": { "x": -20, "y": 2, "z": 10 }
-      },
-      "position": { "x": -20, "y": 2, "z": 10 },
+      "position": { "x": 20, "y": 1, "z": 10 },
       "castShadow": true,
       "tags": []
     }
@@ -56,20 +53,12 @@
     },
     "presets": [
       {
-        "name": "wall_physics",
+        "name": "box_physics",
         "type": "fixed",
         "collisionShape": "cuboid",
         "mass": 1,
         "friction": 0.5,
         "restitution": 0
-      },
-      {
-        "name": "ball_physics",
-        "type": "dynamic",
-        "collisionShape": "ball",
-        "mass": 2.5,
-        "friction": 0.5,
-        "restitution": 0.9
       }
     ],
     "isAutoUpdate": true
@@ -81,8 +70,8 @@
       "name": "main",
       "near": 1,
       "far": 10000,
-      "position": { "x": -20, "y": 2, "z": 10 },
-      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "position": { "x": 10, "y": 60, "z": 10 },
+      "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "tags": [],
       "isActive": true
     }
@@ -102,7 +91,15 @@
       "tags": []
     }
   ],
-  "controls": [],
+  "controls": [
+    {
+      "type": "OrbitControls",
+      "cameraName": "main",
+      "enableDamping": true,
+      "tags": [],
+      "isActive": true
+    }
+  ],
   "envMaps": [],
   "particles": [],
   "fogs": [],
