@@ -1,8 +1,8 @@
 import '@App/style.css';
 
-import { showcaseLevel1 as showcase } from '@App/Levels/ShowcaseLevel1';
+// import { showcaseLevel1 as showcase } from '@App/Levels/ShowcaseLevel1';
 
-// import { showcaseLevel2 as showcase } from '@App/Levels/ShowcaseLevel2';
+import { showcaseLevel2 as showcase } from '@App/Levels/ShowcaseLevel2';
 import type { IAppCanvas } from '@/Engine';
 import { ambientContext, isNotDefined } from '@/Engine';
 
