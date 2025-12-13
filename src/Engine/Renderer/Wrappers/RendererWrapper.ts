@@ -35,7 +35,7 @@ export function RendererWrapper(params: TRendererParams, screenSizeWatcher: Read
     options = { ...options, context };
   }
 
-  const entity: WebGLRenderer = new WebGLRenderer(options);
+  let entity: WebGLRenderer = new WebGLRenderer(options);
   const accessors: TRendererAccessors = getAccessors(entity);
 
   accessors.setShadowMapEnabled(params.isShadowMapEnabled ?? true);
@@ -63,6 +63,10 @@ export function RendererWrapper(params: TRendererParams, screenSizeWatcher: Read
   const wrapper: TWrapper<WebGLRenderer> = AbstractWrapper(entity, WrapperType.Renderer, params);
 
   const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
+    entity.dispose();
+    entity.forceContextLoss();
+    entity = null as any;
+
     destroySub$.unsubscribe();
     screenSize$.unsubscribe();
     screenSizeWatcherSubscription.unsubscribe();
