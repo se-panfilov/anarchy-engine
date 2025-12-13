@@ -1,7 +1,10 @@
 import type { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { distinctUntilChanged, EMPTY, switchMap, tap, throttleTime } from 'rxjs';
+import { animationFrame, asapScheduler, auditTime, bufferTime, debounceTime, distinctUntilChanged, EMPTY, sampleTime, switchMap, tap, throttle, throttleTime, timer } from 'rxjs';
+import { animationFrameScheduler } from 'rxjs/src/internal/scheduler/animationFrame';
+import { queueScheduler } from 'rxjs/src/internal/scheduler/queue';
 import type { Euler, Vector3 } from 'three';
 
+import type { TSpace } from '@/Engine';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import { ProtectedTransformAgentFacade } from '@/Engine/TransformDrive/Facades';
 import type { TAbstractTransformAgent, TWithProtectedTransformAgents } from '@/Engine/TransformDrive/Models';
@@ -23,7 +26,8 @@ export function updateFromActiveAgent<T extends Vector3 | Euler>(
       return isDefined(agent) ? (agent[agentProp] as unknown as Subject<T>) : EMPTY;
     }),
     distinctUntilChanged((_prev: T, curr: T): boolean => isEqualOrSimilarByXyzCoords(prevValue[0], prevValue[1], prevValue[2], curr.x, curr.y, curr.z, threshold)),
-    throttleTime(delay),
+    // TODO 8.0.0. MODELS: These performance tweaks actually make performance even worse. Fix or remove (check all th other places with suc optimisations, e.g. intersections or mouse)
+    // throttleTime(delay)
     tap((value: T): void => {
       // eslint-disable-next-line functional/immutable-data
       prevValue[0] = value.x;

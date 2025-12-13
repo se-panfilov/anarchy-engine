@@ -61,6 +61,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     physicsWorldService.getDebugRenderer(loopService).start();
     physicsLoopService.autoUpdate$.next(false);
 
+    // (window as any).space = space;
+
     initLight(lightService);
 
     const cameraW: TCameraWrapper | undefined = cameraService.findActive();
@@ -79,8 +81,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     if (isNotDefined(spatialGrid)) throw new Error(`Cannot find "main_grid" spatial grid`);
 
     // TODO 8.0.0. MODELS: A large number of blocks produces a heavy performance issue (which is not in master)
-    const blocks = await buildTower(actorService, models3dService, materialService, { x: 10, z: 0 }, 5, 5, 10, spatialGrid);
-    // const blocks = await buildTower(actorService, models3dService, materialService, { x: 10, z: 0 }, 10, 10, 20, spatialGrid);
+    // const blocks = await buildTower(actorService, models3dService, materialService, { x: 10, z: 0 }, 5, 5, 10, spatialGrid);
+    const blocks = await buildTower(actorService, models3dService, materialService, { x: 10, z: 0 }, 10, 10, 20, spatialGrid);
     // const blocks2 = await buildTower(actorService, models3dService, materialService, { x: 45, z: 7 }, 6, 7, 18, spatialGrid);
     // const blocks3 = await buildTower(actorService, models3dService, materialService, { x: -15, z: -15 }, 10, 7, 15, spatialGrid);
 
