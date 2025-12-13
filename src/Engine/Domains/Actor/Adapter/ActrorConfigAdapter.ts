@@ -5,7 +5,7 @@ import type { IActorConfig, IActorMaterialConfig, IActorParams } from '@/Engine/
 import { configToParamsObject3d } from '@/Engine/Domains/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
 
-export function getParams(config: IActorConfig): IActorParams {
+export function configToParams(config: IActorConfig): IActorParams {
   const { materialParams, position, rotation, layers, animations, scale, ...rest } = config;
 
   return {

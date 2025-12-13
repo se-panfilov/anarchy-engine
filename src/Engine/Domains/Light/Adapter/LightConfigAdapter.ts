@@ -4,7 +4,7 @@ import type { ILightConfig, ILightParams, ILightShadowParams, LightShadowConfig 
 import { configToParamsObject3d } from '@/Engine/Domains/ThreeLib';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function getParams(config: ILightConfig): ILightParams {
+export function configToParams(config: ILightConfig): ILightParams {
   const { position, rotation, scale, layers, animations, color, shadow, ...rest } = config;
 
   return {

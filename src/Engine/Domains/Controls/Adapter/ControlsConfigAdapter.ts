@@ -4,7 +4,7 @@ import type { IAdditionalControlsConfigParams, IControlsConfig, IControlsParams 
 import { IControlsType } from '@/Engine/Domains/Controls/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
-export const getParams: IGetParamsFn<IControlsParams, IControlsConfig> = (config: IControlsConfig, { cameraRegistry, canvas }: IAdditionalControlsConfigParams): IControlsParams => {
+export const configToParams: IGetParamsFn<IControlsParams, IControlsConfig> = (config: IControlsConfig, { cameraRegistry, canvas }: IAdditionalControlsConfigParams): IControlsParams => {
   const { type, cameraTag, tags } = config;
 
   if (type !== IControlsType.OrbitControls) throw new Error(`Cannot create controls of unknown type "${type as string}"`);

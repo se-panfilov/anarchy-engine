@@ -40,7 +40,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const sceneFactory: ISceneFactory = SceneFactory();
   const sceneRegistry: ISceneRegistry = SceneRegistry();
   const sceneEntityCreatedSubscription: Subscription = sceneFactory.entityCreated$.subscribe((scene: ISceneWrapper): void => sceneRegistry.add(scene));
-  scenes.forEach((scene: ISceneConfig): ISceneWrapper => sceneFactory.create(sceneFactory.getParams({ ...scene, tags: [...scene.tags, CommonTag.FromConfig] })));
+  scenes.forEach((scene: ISceneConfig): ISceneWrapper => sceneFactory.create(sceneFactory.configToParams({ ...scene, tags: [...scene.tags, CommonTag.FromConfig] })));
   messages$.next(`Scenes (${scenes.length}) created`);
 
   const scene: ISceneWrapper | undefined = sceneRegistry.getUniqByTag(SceneTag.Current);
@@ -51,7 +51,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const actorRegistry: IActorRegistry = ActorRegistry();
   const actorAddedSubscription: Subscription = actorRegistry.added$.subscribe((actor: IActorWrapper) => scene.addActor(actor));
   const actorEntityCreatedSubscription: Subscription = actorFactory.entityCreated$.subscribe((actor: IActorWrapper): void => actorRegistry.add(actor));
-  actors.forEach((actor: IActorConfig): IActorWrapper => actorFactory.create(actorFactory.getParams({ ...actor, tags: [...actor.tags, CommonTag.FromConfig] })));
+  actors.forEach((actor: IActorConfig): IActorWrapper => actorFactory.create(actorFactory.configToParams({ ...actor, tags: [...actor.tags, CommonTag.FromConfig] })));
   messages$.next(`Actors (${actors.length}) created`);
 
   //build texts
@@ -59,7 +59,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const textRegistry: ITextRegistry = TextRegistry();
   const textAddedSubscription: Subscription = textRegistry.added$.subscribe((text: ITextWrapper) => scene.addText(text));
   const textEntityCreatedSubscription: Subscription = textFactory.entityCreated$.subscribe((text: ITextWrapper): void => textRegistry.add(text));
-  texts.forEach((text: ITextConfig): ITextWrapper => textFactory.create(textFactory.getParams({ ...text, tags: [...text.tags, CommonTag.FromConfig] })));
+  texts.forEach((text: ITextConfig): ITextWrapper => textFactory.create(textFactory.configToParams({ ...text, tags: [...text.tags, CommonTag.FromConfig] })));
   messages$.next(`Texts (${texts.length}) created`);
 
   //build cameras
@@ -67,7 +67,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const cameraRegistry: ICameraRegistry = CameraRegistry();
   const cameraAddedSubscription: Subscription = cameraRegistry.added$.subscribe((camera: ICameraWrapper) => scene.addCamera(camera));
   const cameraEntityCreatedSubscription: Subscription = cameraFactory.entityCreated$.subscribe((camera: ICameraWrapper): void => cameraRegistry.add(camera));
-  cameras.forEach((camera: ICameraConfig): ICameraWrapper => cameraFactory.create(cameraFactory.getParams({ ...camera, tags: [...camera.tags, CommonTag.FromConfig] })));
+  cameras.forEach((camera: ICameraConfig): ICameraWrapper => cameraFactory.create(cameraFactory.configToParams({ ...camera, tags: [...camera.tags, CommonTag.FromConfig] })));
   messages$.next(`Cameras (${cameras.length}) created`);
 
   //build controls
@@ -75,7 +75,8 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const controlsRegistry: IControlsRegistry = ControlsRegistry();
   const controlsEntityCreatedSubscription: Subscription = controlsFactory.entityCreated$.subscribe((controls: IOrbitControlsWrapper): void => controlsRegistry.add(controls));
   controls.forEach(
-    (control: IControlsConfig): IOrbitControlsWrapper => controlsFactory.create(controlsFactory.getParams({ ...control, tags: [...control.tags, CommonTag.FromConfig] }, { cameraRegistry, canvas }))
+    (control: IControlsConfig): IOrbitControlsWrapper =>
+      controlsFactory.create(controlsFactory.configToParams({ ...control, tags: [...control.tags, CommonTag.FromConfig] }, { cameraRegistry, canvas }))
   );
   messages$.next(`Controls (${controls.length}) created`);
 
@@ -104,7 +105,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const lightRegistry: ILightRegistry = LightRegistry();
   const lightAddedSubscription: Subscription = lightRegistry.added$.subscribe((light: ILightWrapper) => scene.addLight(light));
   const lightEntityCreatedSubscription: Subscription = lightFactory.entityCreated$.subscribe((light: ILightWrapper): void => lightRegistry.add(light));
-  lights.forEach((light: ILightConfig): ILightWrapper => lightFactory.create(lightFactory.getParams({ ...light, tags: [...light.tags, CommonTag.FromConfig] })));
+  lights.forEach((light: ILightConfig): ILightWrapper => lightFactory.create(lightFactory.configToParams({ ...light, tags: [...light.tags, CommonTag.FromConfig] })));
   messages$.next(`Lights (${lights.length}) created`);
 
   //build renderer

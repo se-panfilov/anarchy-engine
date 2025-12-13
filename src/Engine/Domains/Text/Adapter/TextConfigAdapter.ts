@@ -5,7 +5,7 @@ import type { ITextConfig, ITextParams } from '@/Engine/Domains/Text/Models';
 import { configToParamsObject3d } from '@/Engine/Domains/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
 
-export function getParams(config: ITextConfig): ITextParams {
+export function configToParams(config: ITextConfig): ITextParams {
   const { position, rotation, scale, layers, animations, materialType, materialParams, ...rest } = config;
   const material: MeshBasicMaterial | MeshStandardMaterial | undefined = materialType ? getTextMaterial(materialType, materialParams) : undefined;
 

@@ -2,7 +2,7 @@ import type { ICameraConfig, ICameraParams } from '@/Engine/Domains/Camera/Model
 import { configToParamsObject3d } from '@/Engine/Domains/ThreeLib';
 import { Vector3Wrapper } from '@/Engine/Wrappers';
 
-export function getParams(config: ICameraConfig): ICameraParams {
+export function configToParams(config: ICameraConfig): ICameraParams {
   const { position, rotation, scale, layers, lookAt, animations, ...rest } = config;
 
   return {

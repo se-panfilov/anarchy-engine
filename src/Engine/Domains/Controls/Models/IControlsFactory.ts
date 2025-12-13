@@ -7,7 +7,7 @@ import type { IControlsParams } from './IControlsParams';
 import type { IOrbitControlsWrapper } from './IOrbitControlsWrapper';
 
 export type IControlsParamsFromConfig = Readonly<{
-  getParams: (config: IControlsConfig, additionalParams: IAdditionalControlsConfigParams) => IControlsParams;
+  configToParams: (config: IControlsConfig, additionalParams: IAdditionalControlsConfigParams) => IControlsParams;
 }>;
 
 export type IControlsFactory = IReactiveFactory<IOrbitControlsWrapper, IControlsParams> & IControlsParamsFromConfig & IDestroyable;
