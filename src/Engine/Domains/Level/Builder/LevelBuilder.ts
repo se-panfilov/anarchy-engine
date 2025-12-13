@@ -146,37 +146,25 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
       // TODO (S.Panfilov) implement stop
       // loop.stop(renderer, scene, initialCamera, controlsRegistry);
     },
-    actor: {
-      factory: { initial: actorFactory },
-      registry: { initial: actorRegistry }
+    registry: {
+      actor: actorRegistry,
+      camera: cameraRegistry,
+      light: lightRegistry,
+      controls: controlsRegistry,
+      intersectionsWatcher: intersectionsWatcherRegistry,
+      loop: loopRegistry,
+      scenes: sceneRegistry,
+      renderer: rendererRegistry
     },
-    camera: {
-      factory: { initial: cameraFactory },
-      registry: { initial: cameraRegistry }
-    },
-    light: {
-      factory: { initial: lightFactory },
-      registry: { initial: lightRegistry }
-    },
-    controls: {
-      factory: { initial: controlsFactory },
-      registry: { initial: controlsRegistry }
-    },
-    intersectionsWatcher: {
-      factory: { initial: intersectionsWatcherFactory },
-      registry: { initial: intersectionsWatcherRegistry }
-    },
-    loop: {
-      factory: { initial: loopFactory },
-      registry: { initial: loopRegistry }
-    },
-    scenes: {
-      factory: { initial: sceneFactory },
-      registry: { initial: sceneRegistry }
-    },
-    renderer: {
-      factory: { initial: rendererFactory },
-      registry: { initial: rendererRegistry }
+    factory: {
+      actor: actorFactory,
+      camera: cameraFactory,
+      light: lightFactory,
+      controls: controlsFactory,
+      intersectionsWatcher: intersectionsWatcherFactory,
+      loop: loopFactory,
+      scenes: sceneFactory,
+      renderer: rendererFactory
     },
     tags,
     ...builtMixin,

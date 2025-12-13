@@ -13,7 +13,7 @@ export function showcaseLevel2(canvas: IAppCanvas): void {
   console.log(level);
 
   // START Experiment1: custom controls ---------------
-  level.actor.factory.initial.create({
+  level.factory.actor.create({
     type: ActorType.cube,
     position: Vector3Wrapper({ x: 0, y: 0, z: 0 }).entity,
     castShadow: true,

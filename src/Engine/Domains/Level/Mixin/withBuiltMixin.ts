@@ -8,7 +8,6 @@ export function withBuiltMixin(): IWithBuilt {
 
   built$.subscribe((): void => {
     isBuilt = true;
-    built$.unsubscribe();
     built$.complete();
   });
 

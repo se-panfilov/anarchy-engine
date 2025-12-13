@@ -9,7 +9,7 @@ export function showcaseLevel1(canvas: IAppCanvas): void {
 
   //START: just debug
   console.log(level);
-  const intersectionsWatcher: IIntersectionsWatcher | undefined = level.intersectionsWatcher.registry.initial.getUniqByTag(CommonTag.FromConfig);
+  const intersectionsWatcher: IIntersectionsWatcher | undefined = level.registry.intersectionsWatcher.getUniqByTag(CommonTag.FromConfig);
   if (isNotDefined(intersectionsWatcher)) throw new Error(`Cannot get "intersectionsWatcher" with tag "${CommonTag.FromConfig}"`);
   intersectionsWatcher.value$.subscribe((obj: IVector3): void => {
     console.log('intersect obj', obj);
@@ -21,9 +21,9 @@ export function showcaseLevel1(canvas: IAppCanvas): void {
   //END: just debug
 
   // START Experiment1: animations ---------------
-  const actor: IActorWrapper = level.actor.registry.initial.getAllWithSomeTag([ActorTag.Intersectable])[0];
+  const actor: IActorWrapper = level.registry.actor.getAllWithSomeTag([ActorTag.Intersectable])[0];
   actor.setY(2);
-  const loop: ILoopWrapper | undefined = level.loop.registry.initial.getUniqByTag(LoopTag.Main);
+  const loop: ILoopWrapper | undefined = level.registry.loop.getUniqByTag(LoopTag.Main);
 
   function moveActor(): void {
     requestAnimationFrame((): void => {
