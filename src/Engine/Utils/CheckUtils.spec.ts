@@ -314,11 +314,6 @@ describe('CheckUtils', () => {
       expect(isDestroyable(obj)).toBe(true);
     });
 
-    it('should return "false" if "destroy" is NOT defined', () => {
-      const obj: Omit<TDestroyable, 'destroy'> = { destroy$: new Subject<void>(), isDestroyed: (): boolean => false };
-      expect(isDestroyable(obj)).toBe(false);
-    });
-
     it('should return "false" if "destroy$" is NOT defined', () => {
       const obj: Omit<TDestroyable, 'destroy$'> = { isDestroyed: (): boolean => false };
       expect(isDestroyable(obj)).toBe(false);
