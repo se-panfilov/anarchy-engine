@@ -1,2 +1,2 @@
-export * from './SpaceMainLoopNames';
+export * from './SpaceLoopNames';
 export * from './SpaceSchemaVersion';

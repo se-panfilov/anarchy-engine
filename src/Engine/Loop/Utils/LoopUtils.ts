@@ -1,18 +1,18 @@
 import { LoopType } from '@/Engine/Loop/Constants';
-import { SpaceMainLoopNames } from '@/Engine/Space';
+import { SpaceLoopNames } from '@/Engine/Space';
 
-export function getMainLoopNameByType(type: LoopType): SpaceMainLoopNames {
+export function getMainLoopNameByType(type: LoopType): SpaceLoopNames {
   switch (type) {
     case LoopType.Render:
-      return SpaceMainLoopNames.RenderLoop;
+      return SpaceLoopNames.RenderMain;
     case LoopType.Physical:
-      return SpaceMainLoopNames.PhysicalLoop;
+      return SpaceLoopNames.PhysicalMain;
     case LoopType.Collisions:
-      return SpaceMainLoopNames.CollisionsLoop;
+      return SpaceLoopNames.CollisionsMain;
     case LoopType.Kinematic:
-      return SpaceMainLoopNames.KinematicLoop;
+      return SpaceLoopNames.KinematicMain;
     case LoopType.Spatial:
-      return SpaceMainLoopNames.SpatialLoop;
+      return SpaceLoopNames.SpatialMain;
     default:
       throw new Error(`Unknown loop type: ${type}`);
   }
