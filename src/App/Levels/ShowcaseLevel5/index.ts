@@ -82,7 +82,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       ];
       const sin = arr.map((v) => Math.sin(v / 1000));
       const cos = arr.map((v) => Math.cos(v / 1000));
-      const path = arr.map((v, i) => ({ x: sin[i] * 10, z: cos[i] * 10 }));
+      const path = arr.map((_v, i) => ({ x: sin[i] * 10, z: cos[i] * 10 }));
 
       // let stop = false;
       // let i = 0;
