@@ -7,7 +7,7 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import { ProtectedTransformAgentFacade } from '@/Engine/TransformDrive/Facades';
-import type { TAbstractTransformAgent, TProtectedTransformAgentFacade, TProtectedTransformAgents, TTransformDrive, TTransformDriveParams } from '@/Engine/TransformDrive/Models';
+import type { TAbstractTransformAgent, TProtectedTransformAgentFacade, TTransformDrive, TTransformDriveParams, TWithProtectedTransformAgents } from '@/Engine/TransformDrive/Models';
 import { isEqualOrSimilarVector3Like, isNotDefined } from '@/Engine/Utils';
 
 // TransformDrive is an entity to move/rotate/scale other entities
@@ -16,7 +16,7 @@ import { isEqualOrSimilarVector3Like, isNotDefined } from '@/Engine/Utils';
 // - Kinematic agent is a mode that moves actor by angular velocity and linear velocity (vectors). Useful when you need to know the direction (e.g. bullet, car) of the object. Recommended way for NPCs.
 // - Default agent is providing almost nothing, but setters. Recommended for static objects.
 // - Also: with every mode you can do position$.next() to "teleport" the object to the new position
-export function TransformDrive(params: TTransformDriveParams, agents: Partial<Record<TransformAgent, TAbstractTransformAgent>>): TTransformDrive | never {
+export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstractTransformAgent>>>(params: TTransformDriveParams, agents: T): TTransformDrive<T> | never {
   const agent$: BehaviorSubject<TransformAgent> = new BehaviorSubject<TransformAgent>(params.activeAgent ?? TransformAgent.Default);
 
   const activeAgent: TAbstractTransformAgent | undefined = agents[agent$.value];
@@ -95,7 +95,7 @@ export function TransformDrive(params: TTransformDriveParams, agents: Partial<Re
     )
     .subscribe(scale$);
 
-  const result: TTransformDrive = {
+  const result: TTransformDrive<T> = {
     ...destroyable,
     agent$,
     activeAgent$: activeAgentRep$,
@@ -106,7 +106,7 @@ export function TransformDrive(params: TTransformDriveParams, agents: Partial<Re
     scale$: scaleRep$,
     getScale: (): Vector3 => scale$.value.clone(),
     ...getDynamicAgents(agents)
-  };
+  } as TTransformDrive<T>;
 
   destroyable.destroy$.subscribe(() => {
     // Stop subscriptions
@@ -138,6 +138,6 @@ export function TransformDrive(params: TTransformDriveParams, agents: Partial<Re
   return result;
 }
 
-function getDynamicAgents(agents: Partial<Record<TransformAgent, TAbstractTransformAgent>>): TProtectedTransformAgents {
-  return Object.fromEntries(Object.entries(agents).map((v) => [v[0], ProtectedTransformAgentFacade(v[1])])) as TProtectedTransformAgents;
+function getDynamicAgents<T extends Partial<Record<TransformAgent, TAbstractTransformAgent>>>(agents: T): TWithProtectedTransformAgents<T> {
+  return Object.fromEntries(Object.entries(agents).map((v) => [v[0], ProtectedTransformAgentFacade(v[1])])) as TWithProtectedTransformAgents<T>;
 }

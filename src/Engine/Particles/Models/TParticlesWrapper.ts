@@ -5,8 +5,10 @@ import type { TWithObject3d } from '@/Engine/Mixins';
 import type { TPoints } from '@/Engine/ThreeLib';
 import type { TWithTransformDrive } from '@/Engine/TransformDrive';
 
+import type { TParticlesTransformAgents } from './TParticlesTransformAgents';
+
 export type TParticlesWrapper = TWrapper<TPoints> &
-  TWithTransformDrive &
+  TWithTransformDrive<TParticlesTransformAgents> &
   TWithObject3d &
   TWithMaterial &
   Readonly<{

@@ -3,10 +3,9 @@ import { LinearFilter, Mesh, MeshBasicMaterial, PlaneGeometry, Texture } from 't
 import { AbstractWrapper } from '@/Engine/Abstract';
 import { withObject3d } from '@/Engine/Mixins';
 import type { TextType } from '@/Engine/Text/Constants';
-import type { TTextDependencies, TTextParams, TTextTextureWrapper } from '@/Engine/Text/Models';
+import type { TTextDependencies, TTextParams, TTextTextureWrapper, TTextTransformDrive } from '@/Engine/Text/Models';
 import { TextTransformDrive } from '@/Engine/Text/TransformDrive';
 import { getWrapperTypeByTextType } from '@/Engine/Text/Wrappers/TextWrapperHelper';
-import type { TTransformDrive } from '@/Engine/TransformDrive';
 import { applyObject3dParams, isNotDefined } from '@/Engine/Utils';
 
 export function createTextTextureWrapper(params: TTextParams, type: TextType, { kinematicLoopService }: TTextDependencies): TTextTextureWrapper<Mesh> {
@@ -67,7 +66,7 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, { 
     entity.geometry = new PlaneGeometry(newGeometryWidth, newGeometryHeight);
   }
 
-  const drive: TTransformDrive = TextTransformDrive(params, kinematicLoopService);
+  const drive: TTextTransformDrive = TextTransformDrive(params, kinematicLoopService);
 
   const result: TTextTextureWrapper<Mesh> = {
     ...AbstractWrapper(entity, getWrapperTypeByTextType(type), params),

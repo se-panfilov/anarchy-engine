@@ -24,4 +24,5 @@ export * from './TTextRendererRegistry';
 export * from './TTextService';
 export * from './TTextTextureWrapper';
 export * from './TTextTransformAgents';
+export * from './TTextTransformDrive';
 export * from './TTextWrapper';

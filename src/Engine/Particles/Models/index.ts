@@ -6,4 +6,5 @@ export * from './TParticlesProps';
 export * from './TParticlesRegistry';
 export * from './TParticlesService';
 export * from './TParticlesTransformAgents';
+export * from './TParticlesTransformDrive';
 export * from './TParticlesWrapper';

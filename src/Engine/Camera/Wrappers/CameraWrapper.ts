@@ -1,12 +1,11 @@
 import { PerspectiveCamera, Vector3 } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TCameraAccessors, TCameraParams, TCameraWrapper, TPerspectiveCamera } from '@/Engine/Camera/Models';
+import type { TCameraAccessors, TCameraParams, TCameraTransformDrive, TCameraWrapper, TPerspectiveCamera } from '@/Engine/Camera/Models';
 import { CameraTransformDrive } from '@/Engine/Camera/TransformDrive';
 import { ambientContext } from '@/Engine/Context';
 import { withActiveMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins/Generics';
-import type { TTransformDrive } from '@/Engine/TransformDrive';
 import type { TWriteable } from '@/Engine/Utils';
 import { applyObject3dParams, isDefined } from '@/Engine/Utils';
 
@@ -21,7 +20,7 @@ export function CameraWrapper(params: TCameraParams): TCameraWrapper {
   const { width, height } = ambientContext.screenSizeWatcher.latest$.value;
   accessors.setAspect(width / height);
 
-  const drive: TTransformDrive = CameraTransformDrive(params);
+  const drive: TCameraTransformDrive = CameraTransformDrive(params);
 
   const result = {
     ...AbstractWrapper(entity, WrapperType.Camera, params),

@@ -5,10 +5,9 @@ import type { TColor } from '@/Engine/Color';
 import type { TWithMaterial } from '@/Engine/Material';
 import { isPointsMaterial, withMaterial } from '@/Engine/Material';
 import { withObject3d } from '@/Engine/Mixins';
-import type { TParticlesParams, TParticlesWrapper } from '@/Engine/Particles/Models';
+import type { TParticlesParams, TParticlesTransformDrive, TParticlesWrapper } from '@/Engine/Particles/Models';
 import { ParticlesTransformDrive } from '@/Engine/Particles/TransformDrive';
 import type { TBufferGeometry, TPoints } from '@/Engine/ThreeLib';
-import type { TTransformDrive } from '@/Engine/TransformDrive';
 import { applyObject3dParams } from '@/Engine/Utils';
 
 export function ParticlesWrapper(params: TParticlesParams): TParticlesWrapper {
@@ -28,7 +27,7 @@ export function ParticlesWrapper(params: TParticlesParams): TParticlesWrapper {
   const setIndividualPositions = (positions: Float32Array): void => void geometry.setAttribute('position', new BufferAttribute(positions, 3));
   const getIndividualPositions = (): Float32Array => geometry.getAttribute('position').array as Float32Array;
 
-  const drive: TTransformDrive = ParticlesTransformDrive(params);
+  const drive: TParticlesTransformDrive = ParticlesTransformDrive(params);
 
   const result = {
     ...AbstractWrapper(entity, WrapperType.Particles, params),

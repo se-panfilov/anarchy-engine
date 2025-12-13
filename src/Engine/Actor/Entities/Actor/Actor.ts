@@ -2,13 +2,13 @@ import type { Subscription } from 'rxjs';
 import type { Vector3 } from 'three';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
-import type { TActor, TActorDependencies, TActorEntities, TActorParams } from '@/Engine/Actor/Models';
+import type { TActor, TActorDependencies, TActorEntities, TActorParams, TActorTransformDrive } from '@/Engine/Actor/Models';
 import { ActorTransformDrive } from '@/Engine/Actor/TransformDrive';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
 import { withCollisions } from '@/Engine/Collisions';
 import type { TModel3d } from '@/Engine/Models3d';
 import { withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
-import type { TDriveToModel3dConnector, TTransformDrive } from '@/Engine/TransformDrive';
+import type { TDriveToModel3dConnector } from '@/Engine/TransformDrive';
 import { DriveToModel3dConnector } from '@/Engine/TransformDrive';
 import { isDefined } from '@/Engine/Utils';
 
@@ -20,7 +20,7 @@ export function Actor(
   const model3d: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
 
   // Init TransformDrive
-  const drive: TTransformDrive = ActorTransformDrive(params, kinematicLoopService);
+  const drive: TActorTransformDrive = ActorTransformDrive(params, kinematicLoopService);
   const driveToModel3dConnector: TDriveToModel3dConnector = DriveToModel3dConnector(drive, model3d);
 
   // TODO CWP:

@@ -1,19 +1,11 @@
 import { Vector3 } from 'three';
 
 import type { TKinematicLoopService } from '@/Engine/Kinematic/Models';
-import type { TTextParams, TTextTransformAgents } from '@/Engine/Text/Models';
-import type {
-  TConnectedTransformAgent,
-  TDefaultTransformAgent,
-  TKinematicTransformAgent,
-  TPhysicsTransformAgent,
-  TTransformAgentParams,
-  TTransformDrive,
-  TTransformDriveParams
-} from '@/Engine/TransformDrive';
+import type { TTextParams, TTextTransformAgents, TTextTransformDrive } from '@/Engine/Text/Models';
+import type { TConnectedTransformAgent, TDefaultTransformAgent, TKinematicTransformAgent, TPhysicsTransformAgent, TTransformAgentParams, TTransformDriveParams } from '@/Engine/TransformDrive';
 import { ConnectedTransformAgent, DefaultTransformAgent, getKinematicTransformAgent, PhysicsTransformAgent, TransformAgent, TransformDrive } from '@/Engine/TransformDrive';
 
-export function TextTransformDrive(params: TTextParams, kinematicLoopService: TKinematicLoopService): TTransformDrive {
+export function TextTransformDrive(params: TTextParams, kinematicLoopService: TKinematicLoopService): TTextTransformDrive {
   const transformAgents: TTextTransformAgents = getTransformAgents(params, kinematicLoopService);
   const driveParams: TTransformDriveParams = { activeAgent: params.agent };
   return TransformDrive(driveParams, transformAgents);

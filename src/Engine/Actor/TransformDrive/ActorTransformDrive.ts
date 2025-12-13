@@ -1,19 +1,11 @@
 import { Vector3 } from 'three';
 
-import type { TActorParams, TActorTransformAgents } from '@/Engine/Actor/Models';
+import type { TActorParams, TActorTransformAgents, TActorTransformDrive } from '@/Engine/Actor/Models';
 import type { TKinematicLoopService } from '@/Engine/Kinematic';
-import type {
-  TConnectedTransformAgent,
-  TDefaultTransformAgent,
-  TKinematicTransformAgent,
-  TPhysicsTransformAgent,
-  TTransformAgentParams,
-  TTransformDrive,
-  TTransformDriveParams
-} from '@/Engine/TransformDrive';
+import type { TConnectedTransformAgent, TDefaultTransformAgent, TKinematicTransformAgent, TPhysicsTransformAgent, TTransformAgentParams, TTransformDriveParams } from '@/Engine/TransformDrive';
 import { ConnectedTransformAgent, DefaultTransformAgent, getKinematicTransformAgent, PhysicsTransformAgent, TransformAgent, TransformDrive } from '@/Engine/TransformDrive';
 
-export function ActorTransformDrive(params: TActorParams, kinematicLoopService: TKinematicLoopService): TTransformDrive {
+export function ActorTransformDrive(params: TActorParams, kinematicLoopService: TKinematicLoopService): TActorTransformDrive {
   const transformAgents: TActorTransformAgents = getTransformAgents(params, kinematicLoopService);
   const driveParams: TTransformDriveParams = { activeAgent: params.agent };
   return TransformDrive(driveParams, transformAgents);

@@ -23,6 +23,7 @@ export * from './TLightRegistry';
 export * from './TLightService';
 export * from './TLightShadowParams';
 export * from './TLightTransformAgents';
+export * from './TLightTransformDrive';
 export * from './TLightWrapper';
 export * from './TPointLight';
 export * from './TPointLightParams';

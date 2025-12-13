@@ -10,6 +10,7 @@ export * from './TActorProps';
 export * from './TActorRegistry';
 export * from './TActorService';
 export * from './TActorTransformAgents';
+export * from './TActorTransformDrive';
 export * from './TActorWithPhysics';
 export * from './TModel3dToActorConnectionRegistry';
 export * from './TParamsFromConfigActor';

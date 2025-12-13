@@ -1,3 +1,4 @@
+import type { TAbstractTransformAgent } from '@/Engine/TransformDrive';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 
 import type { TConnectedTransformAgent } from './TConnectedTransformAgent';
@@ -13,9 +14,9 @@ export type TTransformAgents = Readonly<{
   [TransformAgent.Default]: TDefaultTransformAgent;
 }>;
 
-export type TProtectedTransformAgents = Readonly<{
-  [TransformAgent.Kinematic]: TProtectedTransformAgentFacade<TKinematicTransformAgent>;
-  [TransformAgent.Physical]: TProtectedTransformAgentFacade<TPhysicsTransformAgent>;
-  [TransformAgent.Connected]: TProtectedTransformAgentFacade<TConnectedTransformAgent>;
-  [TransformAgent.Default]: TProtectedTransformAgentFacade<TDefaultTransformAgent>;
+export type TProtectedTransformAgents = TWithProtectedTransformAgents<TTransformAgents>;
+
+// TODO 8.0.0. MODELS: extract to TransformDrive mixins (if works, otherwise remove)
+export type TWithProtectedTransformAgents<TAgents extends Partial<Record<TransformAgent, TAbstractTransformAgent>>> = Readonly<{
+  [K in keyof TAgents]: TProtectedTransformAgentFacade<Extract<TAgents[K], TAbstractTransformAgent>>;
 }>;

@@ -6,12 +6,8 @@ import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 
 import type { TAbstractTransformAgent } from './TAbstractTransformAgent';
 import type { TProtectedTransformAgentFacade } from './TProtectedTransformAgentFacade';
-import type { TWithConnectedProtectedAgent } from './TWithConnectedProtectedAgent';
-import type { TWithDefaultProtectedAgent } from './TWithDefaultProtectedAgent';
-import type { TWithKinematicProtectedAgent } from './TWithKinematicProtectedAgent';
-import type { TWithPhysicsProtectedAgent } from './TWithPhysicsProtectedAgent';
 
-export type TTransformDrive = Readonly<{
+export type TTransformDrive<T extends Partial<Record<TransformAgent, TAbstractTransformAgent>>> = Readonly<{
   agent$: BehaviorSubject<TransformAgent>;
   activeAgent$: ReplaySubject<TProtectedTransformAgentFacade<TAbstractTransformAgent>>;
   position$: ReplaySubject<Vector3>;
@@ -21,8 +17,5 @@ export type TTransformDrive = Readonly<{
   scale$: ReplaySubject<Vector3>;
   getScale: () => Vector3;
 }> &
-  TWithKinematicProtectedAgent &
-  TWithPhysicsProtectedAgent &
-  TWithConnectedProtectedAgent &
-  TWithDefaultProtectedAgent &
+  T &
   TDestroyable;

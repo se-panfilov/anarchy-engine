@@ -1,10 +1,10 @@
 import { Vector3 } from 'three';
 
-import type { TLightParams, TLightTransformAgents } from '@/Engine/Light/Models';
-import type { TConnectedTransformAgent, TDefaultTransformAgent, TTransformAgentParams, TTransformDrive, TTransformDriveParams } from '@/Engine/TransformDrive';
+import type { TLightParams, TLightTransformAgents, TLightTransformDrive } from '@/Engine/Light/Models';
+import type { TConnectedTransformAgent, TDefaultTransformAgent, TTransformAgentParams, TTransformDriveParams } from '@/Engine/TransformDrive';
 import { ConnectedTransformAgent, DefaultTransformAgent, TransformAgent, TransformDrive } from '@/Engine/TransformDrive';
 
-export function LightTransformDrive(params: TLightParams): TTransformDrive {
+export function LightTransformDrive(params: TLightParams): TLightTransformDrive {
   const transformAgents: TLightTransformAgents = getTransformAgents(params);
   const driveParams: TTransformDriveParams = { activeAgent: params.agent };
   return TransformDrive(driveParams, transformAgents);

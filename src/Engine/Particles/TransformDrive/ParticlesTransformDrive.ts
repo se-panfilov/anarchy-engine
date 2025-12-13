@@ -1,10 +1,10 @@
 import { Vector3 } from 'three';
 
-import type { TParticlesParams, TParticlesTransformAgents } from '@/Engine/Particles/Models';
-import type { TConnectedTransformAgent, TDefaultTransformAgent, TTransformAgentParams, TTransformDrive, TTransformDriveParams } from '@/Engine/TransformDrive';
+import type { TParticlesParams, TParticlesTransformAgents, TParticlesTransformDrive } from '@/Engine/Particles/Models';
+import type { TConnectedTransformAgent, TDefaultTransformAgent, TTransformAgentParams, TTransformDriveParams } from '@/Engine/TransformDrive';
 import { ConnectedTransformAgent, DefaultTransformAgent, TransformAgent, TransformDrive } from '@/Engine/TransformDrive';
 
-export function ParticlesTransformDrive(params: TParticlesParams): TTransformDrive {
+export function ParticlesTransformDrive(params: TParticlesParams): TParticlesTransformDrive {
   const transformAgents: TParticlesTransformAgents = getTransformAgents(params);
   const driveParams: TTransformDriveParams = { activeAgent: params.agent };
   return TransformDrive(driveParams, transformAgents);
