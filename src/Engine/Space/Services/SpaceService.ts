@@ -3,7 +3,7 @@ import type { Subscription } from 'rxjs';
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateServiceWithHooksMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
+import { withCreateServiceWithHooksMixin, withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
 import { SpaceFactory } from '@/Engine/Space/Factories';
 import type {
   TSpace,
@@ -40,7 +40,7 @@ export function SpaceService(factory: TSpaceFactory, registry: TSpaceRegistry): 
   const withRegistry: TSpaceServiceWithRegistry = withRegistryService(registry);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withFactory, withRegistry, { createFromConfig });
+  return Object.assign(abstractService, withCreateService, withFactory, withRegistry, withSerializeAllEntities<TSpaceConfig, undefined>(registry), { createFromConfig });
 }
 
 export const spaceService: TSpaceService = SpaceService(SpaceFactory(), SpaceRegistry());

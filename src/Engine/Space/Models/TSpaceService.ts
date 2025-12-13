@@ -1,4 +1,4 @@
-import type { TEntitiesService } from '@/Engine/Abstract';
+import type { TSerializableEntitiesService } from '@/Engine/Abstract';
 import type { TWithCreateFromConfigServiceWithHooks, TWithCreateServiceWithHooks, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 
 import type { TSpace } from './TSpace';
@@ -14,4 +14,4 @@ export type TSpaceServiceWithCreateFromConfig = TWithCreateFromConfigServiceWith
 export type TSpaceServiceWithFactory = TWithFactoryService<TSpace, TSpaceParams, TSpaceFactoryDependencies, TSpaceFactory>;
 export type TSpaceServiceWithRegistry = TWithRegistryService<TSpaceRegistry>;
 
-export type TSpaceService = TEntitiesService & TSpaceServiceWithCreate & TSpaceServiceWithCreateFromConfig & TSpaceServiceWithFactory & TSpaceServiceWithRegistry;
+export type TSpaceService = TSerializableEntitiesService<TSpaceConfig> & TSpaceServiceWithCreate & TSpaceServiceWithCreateFromConfig & TSpaceServiceWithFactory & TSpaceServiceWithRegistry;

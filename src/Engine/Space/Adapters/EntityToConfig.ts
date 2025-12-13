@@ -23,9 +23,7 @@ export function spaceToConfig(entity: TSpace, { actorService }: TSpaceServices):
     //   fsm: ReadonlyArray<TFsmConfig>;
     //   texts: ReadonlyArray<TTextConfig>;
     //   controls: ReadonlyArray<TControlsConfig>;
-
-    actors: actorService.serializeAllEntities()
-
+    // actors: actorService.serializeAllEntities()
     // TODO 15-0-0: fix any
     // ...entity.entities.reduce((acc: TSpaceConfigEntities, entity): TSpaceConfigEntities => {
     //   const { id, type } = entity;
@@ -48,5 +46,5 @@ export function spaceToConfig(entity: TSpace, { actorService }: TSpaceServices):
     //     resources: TSpaceConfigResources;
     // scenes: entity.scenes,
     ...extractSerializableRegistrableFields(entity)
-  });
+  }) as any;
 }
