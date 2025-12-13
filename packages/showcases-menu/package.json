@@ -6,7 +6,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "before:release": "npm run clean:reinstall && npm run before:release:check && npm run generate:license-report && npm run generate:all-licenses-list && npm run sanitize-assets",
+    "before:release": "npm run before:release:check && npm run generate:license-report && npm run generate:all-licenses-list && npm run sanitize-assets",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",
     "build": "rimraf dist && vite build",
     "e2e": "playwright test",
@@ -17,7 +17,7 @@
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "preview": "vite preview",
-    "sanitize-assets": "node ../../packages/shared/ScriptUtils/SanitizeAssets.js",
+    "sanitize-assets": "node ../../packages/shared/ScriptUtils/SanitizeAssets.js ./public",
     "start:dev": "vite --mode dev --port 5083",
     "test:unit": "vitest",
     "ts:check": "vue-tsc --noEmit"

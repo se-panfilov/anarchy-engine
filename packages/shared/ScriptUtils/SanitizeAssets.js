@@ -10,7 +10,14 @@ import { promisify } from 'util';
 
 // eslint-disable-next-line spellcheck/spell-checker
 const execAsync = promisify(exec);
-const TARGET_DIR = path.resolve(process.cwd(), './public');
+
+// Allow passing target directory as CLI arg; default to ./public
+const cliArg = process.argv[2];
+if (cliArg === '--help' || cliArg === '-h') {
+  console.log('Usage: node SanitizeAssets.js [targetDir]\nDefault targetDir is ./public');
+  process.exit(0);
+}
+const TARGET_DIR = path.resolve(process.cwd(), cliArg || './public');
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function cleanImage(filePath) {
