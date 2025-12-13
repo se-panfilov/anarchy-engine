@@ -31,7 +31,7 @@ export function startMoveActorWithKeyboard(actorW: TActorWrapperAsync, keyboardS
   // TODO (S.Panfilov) DEBUG: remove. Testing kinematic movement
   setInterval(() => {
     actorW.kinematic.setLinearSpeed(getActorMoveSpeed(keyStates, 5, 4, 3));
-    actorW.kinematic.setLinearAzimuthRad(getActorMoveDirection(keyStates));
+    actorW.kinematic.setLinearAzimuthRad(getActorMoveAzimuthRad(keyStates));
   }, 40);
 }
 
@@ -67,7 +67,7 @@ function getActorMoveSpeed(keyStates: TMoveKeysState, forwardSpeed: number, side
   return 0;
 }
 
-function getActorMoveDirection(keyStates: TMoveKeysState): TRadians {
+function getActorMoveAzimuthRad(keyStates: TMoveKeysState): TRadians {
   const { Forward, Backward, Left, Right } = keyStates;
 
   //just forward
