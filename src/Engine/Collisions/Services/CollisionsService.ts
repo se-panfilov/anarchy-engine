@@ -43,7 +43,7 @@ export function CollisionsService(): TCollisionsService {
 
         if (intersects.length > 0) {
           const intersect = intersects[0];
-          if (intersect.distance < radius) {
+          if (intersect.distance <= radius) {
             return {
               object: object.entity,
               distance: intersect.distance,
