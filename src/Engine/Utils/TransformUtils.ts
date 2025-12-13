@@ -1,5 +1,7 @@
 import type { Vector2Like, Vector3Like, Vector4Like } from 'three';
 
+import type { TEulerLike } from '@/Engine/ThreeLib';
+
 export function isEqualOrSimilarNumbers(prev: number, curr: number, threshold: number = 0): boolean {
   return Math.abs(curr - prev) <= threshold;
 }
@@ -26,4 +28,30 @@ export function isEqualOrSimilarByXyCoords(x1: number, y1: number, x2: number, y
 
 function differenceSmallerThan(a: number, b: number, value: number): boolean {
   return Math.abs(a - b) <= value;
+}
+
+export function vector3ToXyz(vector: Vector3Like): Readonly<{ x: number; y: number; z: number }> {
+  return {
+    x: vector.x,
+    y: vector.y,
+    z: vector.z
+  };
+}
+
+export function quaternionToXyzw(quaternion: Vector4Like): Readonly<{ x: number; y: number; z: number; w: number }> {
+  return {
+    x: quaternion.x,
+    y: quaternion.y,
+    z: quaternion.z,
+    w: quaternion.w
+  };
+}
+
+export function eulerToXyz(euler: TEulerLike): Readonly<{ x: number; y: number; z: number; order?: 'XYZ' | 'XZY' | 'YXZ' | 'YZX' | 'ZXY' | 'ZYX' }> {
+  return {
+    x: euler.x,
+    y: euler.y,
+    z: euler.z,
+    order: euler.order
+  };
 }
