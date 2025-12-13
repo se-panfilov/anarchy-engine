@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
-import { dirname, join } from 'path';
+import { dirname, join, resolve } from 'path';
 import { fileURLToPath } from 'url';
+import * as fs from 'node:fs';
 
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = dirname(__filename);
@@ -17,7 +18,13 @@ function createWindow(): void {
     }
   });
 
-  win.loadFile(join(__dirname, '../dist/index.html'));
+  const indexPath: string = resolve(__dirname, '../../dist/index.html');
+  console.log('__dirname', __dirname);
+  console.log('🔍 Resolved index.html path:', indexPath);
+  console.log('📁 Exists:', fs.existsSync(indexPath));
+
+  win.loadFile(indexPath);
+  // win.loadURL(`file://${encodeURI(join(__dirname, '../dist/index.html'))}`);
 
   // TODO DESKTOP: Should come from .env file, to enable/disable dev tools.
   win.webContents.openDevTools();
