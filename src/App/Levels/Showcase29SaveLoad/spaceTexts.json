@@ -54,7 +54,7 @@
       {
         "cssProps": {
           "color": "#ff0000",
-          "fontFamily": "\"Roboto\", sans-serif",
+          "fontFamily": "\"LongCang\", sans-serif",
           "fontSize": "4rem"
         },
         "name": "text_2d",
@@ -74,7 +74,7 @@
       {
         "cssProps": {
           "color": "#ff0000",
-          "fontFamily": "\"Roboto\", sans-serif",
+          "fontFamily": "\"RubikScribble\", sans-serif",
           "fontSize": "0.2rem"
         },
         "name": "text_3d_1",
@@ -94,8 +94,8 @@
       {
         "cssProps": {
           "color": "#000000",
-          "fontFamily": "\"RubikDoodleTriangles\", sans-serif",
-          "fontSize": "18rem"
+          "fontFamily": "\"LongCang\", sans-serif",
+          "fontSize": "32rem"
         },
         "name": "text_3d_2",
         "position": {

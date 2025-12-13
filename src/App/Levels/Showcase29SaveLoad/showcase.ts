@@ -1,3 +1,4 @@
+import '@public/Showcase/fonts.css';
 import './style.css';
 
 import type { Subscription } from 'rxjs';
