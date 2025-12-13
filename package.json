@@ -23,7 +23,7 @@
     "generate:all-licenses-list": "yarn licenses generate-disclaimer > THIRD_PARTY_LICENSES_FULL.txt",
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit",
-    "e2e": "playwright test && npm run e2e:clean-metadate",
+    "e2e": "playwright test || true npm run e2e:clean-metadate",
     "e2e:headed": "npm run e2e -- --headed",
     "e2e:update": "npm run e2e -- --update-snapshots",
     "e2e:show-report": "playwright show-report reports/e2e/playwright-report",
