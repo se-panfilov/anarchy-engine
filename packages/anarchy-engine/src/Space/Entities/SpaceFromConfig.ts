@@ -1,8 +1,8 @@
 import { CreateEntitiesStrategy, SpaceEvents } from '@Anarchy/Engine/Space/Constants';
 import type { TSpace, TSpaceConfig, TSpaceParams, TSpaceRegistry, TSpaceSettings } from '@Anarchy/Engine/Space/Models';
 import { createEntities, loadResourcesFromConfig } from '@Anarchy/Engine/Space/Utils';
-import type { TWriteable } from '@Shared/Utils';
-import { isDefined } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, exhaustMap, filter, takeUntil } from 'rxjs';
 

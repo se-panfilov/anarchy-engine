@@ -2,7 +2,7 @@ import type { TAudioService } from '@Anarchy/Engine/Audio';
 import type { TAnyCameraParams, TCameraServiceDependencies, TCommonCameraConfig } from '@Anarchy/Engine/Camera/Models';
 import type { TShadowCameraConfig, TShadowCameraParams } from '@Anarchy/Engine/Light';
 import { configToParamsObject3d } from '@Anarchy/Engine/ThreeLib';
-import { isDefined, isNotDefined, omitInObjectWithoutMutation } from '@Shared/Utils';
+import { isDefined, isNotDefined, omitInObjectWithoutMutation } from '@Anarchy/Shared/Utils';
 import type { AudioListener } from 'three';
 import { Vector3 } from 'three';
 

@@ -3,8 +3,8 @@ import { KinematicSpeed } from '@Anarchy/Engine/Kinematic';
 import type { TMeters, TRadians } from '@Anarchy/Engine/Math';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 import type { TKinematicSpeed, TKinematicTransformAgent } from '@Anarchy/Engine/TransformDrive/Models';
-import type { TWriteable } from '@Shared/Utils';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import { Quaternion, Vector3 } from 'three';
 
 export function getStepRotation(agent: TKinematicTransformAgent, rotationStep: TRadians, infinite: boolean): Quaternion | undefined {

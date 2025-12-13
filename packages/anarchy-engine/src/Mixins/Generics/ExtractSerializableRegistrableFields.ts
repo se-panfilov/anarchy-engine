@@ -1,6 +1,6 @@
 import type { TRegistrable } from '@Anarchy/Engine/Mixins/Generics/Models';
-import type { TWriteable } from '@Shared/Utils';
-import { isDefined } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import { isEmpty } from 'lodash-es';
 
 export const extractSerializableRegistrableFields = <T extends TRegistrable>({ name, tags }: T): Omit<TRegistrable, 'id'> => {

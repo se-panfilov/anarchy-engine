@@ -1,7 +1,7 @@
 import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
 import type { TText2dWrapper, TText3dTextureWrapper, TTextAnyWrapper, TTextConfig, TTextCssProps } from '@Anarchy/Engine/Text/Models';
 import { vector2ToXy } from '@Anarchy/Engine/Utils';
-import { filterOutEmptyFields, isNotDefined, kebabToCamel } from '@Shared/Utils';
+import { filterOutEmptyFields, isNotDefined, kebabToCamel } from '@Anarchy/Shared/Utils';
 import type { Vector2 } from 'three';
 
 export function textToConfig(entity: TTextAnyWrapper): TTextConfig {

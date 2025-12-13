@@ -3,7 +3,7 @@ import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
 import { configToParams } from '@Anarchy/Engine/Space/Adapters';
 import { Space, SpaceFromConfig } from '@Anarchy/Engine/Space/Entities';
 import type { TSpace, TSpaceFactory, TSpaceFactoryDependencies, TSpaceParams, TSpaceSettings } from '@Anarchy/Engine/Space/Models';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 
 function create(params: TSpaceParams, { config, registry }: TSpaceFactoryDependencies, settings?: TSpaceSettings): TSpace | never {
   if (isDefined(config) && Object.keys.length !== 0) return SpaceFromConfig(params, config, registry, settings);

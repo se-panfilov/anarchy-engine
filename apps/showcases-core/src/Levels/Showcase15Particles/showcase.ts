@@ -1,6 +1,6 @@
 import type { TParticlesWrapper, TSpace, TSpaceConfig } from '@Anarchy/Engine';
 import { spaceService } from '@Anarchy/Engine';
-import { asRecord, isNotDefined } from '@Shared/Utils';
+import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 
 import type { TAppSettings } from '@/Models';
 import { addGizmo, enableFPSCounter } from '@/Utils';

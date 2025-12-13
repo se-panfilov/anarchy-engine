@@ -5,7 +5,7 @@ import { withReactiveRegistry } from '@Anarchy/Engine/Abstract/Registries/Mixin/
 import type { TDestroyable } from '@Anarchy/Engine/Mixins';
 import { destroyableMixin } from '@Anarchy/Engine/Mixins';
 import { mergeAll } from '@Anarchy/Engine/Utils';
-import { findKeyWithValue, isNotDefined } from '@Shared/Utils';
+import { findKeyWithValue, isNotDefined } from '@Anarchy/Shared/Utils';
 import { nanoid } from 'nanoid';
 
 export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRegistry<T> {

@@ -1,7 +1,7 @@
 import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 import type { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TDriveToTargetConnector, TOffsets, TTransformDrive, TWithTransforms } from '@Anarchy/Engine/TransformDrive/Models';
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { Euler } from 'three';
 

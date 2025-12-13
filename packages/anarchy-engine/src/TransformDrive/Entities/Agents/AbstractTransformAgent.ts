@@ -3,7 +3,7 @@ import { destroyableMixin } from '@Anarchy/Engine/Mixins';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 import type { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TReadonlyTransform, TSerializedTransform, TTransformAgentParams } from '@Anarchy/Engine/TransformDrive/Models';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, Subject } from 'rxjs';

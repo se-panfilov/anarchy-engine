@@ -1,4 +1,4 @@
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { TShowcaseGameSettings } from '@Showcases/Shared';
 
 import { platformApiService } from '@/Services';

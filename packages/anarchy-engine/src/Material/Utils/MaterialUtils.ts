@@ -2,8 +2,8 @@ import type { TMaterialParams, TMaterialParamsOptions, TMaterials, TTypeOfMateri
 import { MaterialMap, MaterialType } from '@Anarchy/Engine/Material/Constants';
 import type { TEulerLike, TEulerString } from '@Anarchy/Engine/ThreeLib';
 import { eulerToXyz, vector2ToXy, vector3ToXyz } from '@Anarchy/Engine/Utils';
-import type { TWithoutNull } from '@Shared/Utils';
-import { isNotDefined } from '@Shared/Utils';
+import type { TWithoutNull } from '@Anarchy/Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type {
   LineDashedMaterial,
   Material,

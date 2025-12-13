@@ -1,7 +1,7 @@
 import type { TSerializableEntitiesService } from '@Anarchy/Engine/Abstract';
 import type { TWithFactoryService, TWithRegistryService } from '@Anarchy/Engine/Mixins';
 import type { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
-import type { TOptional } from '@Shared/Utils';
+import type { TOptional } from '@Anarchy/Shared/Utils';
 
 import type { TAbstractTransformAgent } from './TAbstractTransformAgent';
 import type { TGetTransformAgentsOptions, TGetTransformAgentsParams } from './TGetTransformAgentsParams';

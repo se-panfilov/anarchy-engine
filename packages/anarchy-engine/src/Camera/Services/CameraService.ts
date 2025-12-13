@@ -26,7 +26,7 @@ import {
 } from '@Anarchy/Engine/Mixins';
 import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
 import { mergeAll } from '@Anarchy/Engine/Utils';
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs';
 

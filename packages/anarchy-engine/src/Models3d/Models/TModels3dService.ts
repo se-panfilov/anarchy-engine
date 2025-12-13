@@ -21,7 +21,7 @@ import type {
   TModels3dResourceAsyncRegistry,
   TModels3dServiceDependencies
 } from '@Anarchy/Engine/Models3d/Models';
-import type { TOptional } from '@Shared/Utils';
+import type { TOptional } from '@Anarchy/Shared/Utils';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 export type TModel3dServiceWithCreate = TWithCreateService<TModel3d, TModel3dParams>;

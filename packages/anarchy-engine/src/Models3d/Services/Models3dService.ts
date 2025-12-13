@@ -27,7 +27,7 @@ import type {
 } from '@Anarchy/Engine/Models3d/Models';
 import type { TSpaceSettings } from '@Anarchy/Engine/Space';
 import { mergeAll } from '@Anarchy/Engine/Utils';
-import type { TOptional } from '@Shared/Utils';
+import type { TOptional } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 
 export function Models3dService(

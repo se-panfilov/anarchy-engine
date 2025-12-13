@@ -5,7 +5,7 @@ import type { TWithName, TWithNameOptional, TWithTags } from '@Anarchy/Engine/Mi
 import type { TModel3dConfig, TModel3dResourceConfig } from '@Anarchy/Engine/Models3d';
 import { isPrimitiveModel3dResourceConfig, isPrimitiveModel3dSource } from '@Anarchy/Engine/Models3d';
 import type { TPhysicsBodyConfig, TPhysicsConfig } from '@Anarchy/Engine/Physics';
-import { findDuplicateString, isDefined, isNotDefined } from '@Shared/Utils';
+import { findDuplicateString, isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 
 export const validateNames = (entities: ReadonlyArray<TWithNameOptional>): boolean => entities.every(validateName);
 export const validateName = (entity: TWithNameOptional): boolean => validateField(entity, 'name');

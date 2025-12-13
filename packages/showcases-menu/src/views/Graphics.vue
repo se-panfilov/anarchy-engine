@@ -7,7 +7,7 @@ import View from '@Menu/components/View.vue';
 import ViewActions from '@Menu/components/ViewActions.vue';
 import ViewForm from '@Menu/components/ViewForm.vue';
 import { useSettingsStore } from '@Menu/stores/SettingsStore';
-import type { TWriteable } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
 import type { TDropdownOption, TGraphicsSettings } from '@Showcases/Shared';
 import { computed, reactive } from 'vue';
 

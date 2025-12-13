@@ -15,7 +15,7 @@ import type {
   TSpotLight,
   TSpotLightParams
 } from '@Anarchy/Engine/Light/Models';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 
 export function getWrapperType(light: TAnyLight): WrapperType | never {
   if (isAmbientLight(light)) return WrapperType.AmbientLight;

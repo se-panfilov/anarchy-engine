@@ -1,6 +1,6 @@
 import type { TPhysicsBodyParams } from '@Anarchy/Engine/Physics';
 import { CollisionShape, RigidBodyTypesNames } from '@Anarchy/Engine/Physics';
-import type { TOptional } from '@Shared/Utils';
+import type { TOptional } from '@Anarchy/Shared/Utils';
 import { Quaternion } from 'three';
 import { Vector3 } from 'three/src/math/Vector3';
 import { describe, expect, it } from 'vitest';

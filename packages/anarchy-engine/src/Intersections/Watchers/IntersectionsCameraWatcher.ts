@@ -11,8 +11,8 @@ import { AbstractIntersectionsWatcher } from '@Anarchy/Engine/Intersections/Watc
 import type { TMilliseconds } from '@Anarchy/Engine/Math';
 import type { TSceneObject } from '@Anarchy/Engine/Scene';
 import type { TReadonlyVector2 } from '@Anarchy/Engine/ThreeLib';
-import type { TWriteable } from '@Shared/Utils';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, EMPTY, filter, map, switchMap } from 'rxjs';
 import type { Vector2Like } from 'three';

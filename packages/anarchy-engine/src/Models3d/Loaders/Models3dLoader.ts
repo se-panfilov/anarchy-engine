@@ -2,8 +2,8 @@ import { LoaderType } from '@Anarchy/Engine/Abstract';
 import type { TModel3dResourceConfig, TModels3dLoader, TModels3dMetaInfoRegistry, TModels3dResourceAsyncRegistry } from '@Anarchy/Engine/Models3d';
 import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToModel3d, applyScaleToModel3d } from '@Anarchy/Engine/Models3d';
 import type { TDracoLoaderSettings } from '@Anarchy/Engine/ThreeLib';
-import type { TWriteable } from '@Shared/Utils';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import { Loader3dCore } from './Loader3dCore';

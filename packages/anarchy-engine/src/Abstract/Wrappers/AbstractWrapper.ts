@@ -4,7 +4,7 @@ import type { TDestroyable, TRegistrable, TWithEntity, TWithName } from '@Anarch
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@Anarchy/Engine/Mixins';
 import type { TWithTags } from '@Anarchy/Engine/Mixins/Generics/Models/TWithTags';
 import { genericEntityCleanUp, isWithUserData, isWithWrapperIdAccessors, mergeAll } from '@Anarchy/Engine/Utils';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 

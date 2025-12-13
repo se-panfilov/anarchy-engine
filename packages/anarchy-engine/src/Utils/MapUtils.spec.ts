@@ -1,4 +1,4 @@
-import { findInMap } from '@Shared/Utils/MapUtils';
+import { findInMap } from '@Anarchy/Shared/Utils/MapUtils';
 import { describe, expect, it } from 'vitest';
 
 describe('MapUtils', () => {

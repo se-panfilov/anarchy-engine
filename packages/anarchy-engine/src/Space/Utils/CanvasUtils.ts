@@ -1,6 +1,6 @@
 import type { TContainerDecorator } from '@Anarchy/Engine/Global';
 import type { TMilliseconds } from '@Anarchy/Engine/Math';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 
 export function waitForCanvasGetSize(container: TContainerDecorator, timeoutMs: TMilliseconds = 10_000 as TMilliseconds): Promise<void> {
   return new Promise((resolve, reject): void => {

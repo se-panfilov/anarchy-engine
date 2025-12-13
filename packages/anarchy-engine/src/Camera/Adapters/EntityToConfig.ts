@@ -14,7 +14,7 @@ import { isOrthographicCameraWrapper, isPerspectiveCameraWrapper } from '@Anarch
 import type { TShadowCameraParams } from '@Anarchy/Engine/Light';
 import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
 import { isVector3Like } from '@Anarchy/Engine/Utils';
-import { filterOutEmptyFields, isDefined } from '@Shared/Utils';
+import { filterOutEmptyFields, isDefined } from '@Anarchy/Shared/Utils';
 import type { AudioListener, OrthographicCameraJSONObject, PerspectiveCameraJSONObject, Vector3Like } from 'three';
 
 // Sometimes Camera's "drive" might hold old values (position, rotation), cause controls might not update it (they are update values directly)

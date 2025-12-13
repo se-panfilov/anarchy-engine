@@ -1,6 +1,6 @@
 import type { TActorConfigToParamsDependencies, TActorStates, TActorStatesConfig, TAnimationsFsmSource } from '@Anarchy/Engine/Actor/Models';
 import type { TFsmWrapper } from '@Anarchy/Engine/Fsm';
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 
 export function actorStatesConfigToParams(states: TActorStatesConfig, dependencies: TActorConfigToParamsDependencies): TActorStates {
   const { animationsFsm } = states;

@@ -9,7 +9,7 @@ import { PhysicsDebugRenderer } from '@Anarchy/Engine/Physics/Renderers';
 import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
 import type { TSpaceLoops } from '@Anarchy/Engine/Space';
 import { mergeAll } from '@Anarchy/Engine/Utils';
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs';
 import type { Vector3 } from 'three';

@@ -20,7 +20,7 @@ import type {
 } from '@Anarchy/Engine';
 import { ForwardAxis, MaterialType, metersPerSecond, TransformAgent } from '@Anarchy/Engine';
 import { meters } from '@Anarchy/Engine/Measurements/Utils';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type GUI from 'lil-gui';
 import type { Subscription } from 'rxjs';
 import { combineLatest, distinctUntilChanged, map } from 'rxjs';

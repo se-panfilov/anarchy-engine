@@ -1,4 +1,4 @@
-import { camelToKebab, kebabToCamel } from '@Shared/Utils/StringUtils';
+import { camelToKebab, kebabToCamel } from '@Anarchy/Shared/Utils/StringUtils';
 import { describe, expect, it } from 'vitest';
 
 describe('StringUtils', () => {

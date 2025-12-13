@@ -1,7 +1,7 @@
 import type { TContainerDecorator } from '@Anarchy/Engine/Global';
 import { CreateEntitiesStrategy } from '@Anarchy/Engine/Space/Constants';
 import type { TSpaceConfigEntities, TSpaceParamsEntities, TSpaceServices } from '@Anarchy/Engine/Space/Models';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 
 import { nextAnimationFrame, waitForCanvasGetSize } from './CanvasUtils';
 

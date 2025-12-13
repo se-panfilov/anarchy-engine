@@ -12,7 +12,7 @@ import type {
   TSpotLightWrapper
 } from '@Anarchy/Engine';
 import { spaceService } from '@Anarchy/Engine';
-import { asRecord, isNotDefined } from '@Shared/Utils';
+import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import GUI from 'lil-gui';
 import { CameraHelper, DirectionalLightHelper, HemisphereLightHelper, PointLightHelper, SpotLightHelper } from 'three';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';

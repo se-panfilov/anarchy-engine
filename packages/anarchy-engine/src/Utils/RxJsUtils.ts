@@ -1,5 +1,5 @@
-import { isDefined, isNotDefined } from '@Shared/Utils';
-import type { TWriteable } from '@Shared/Utils/TypesUtils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils/TypesUtils';
 import type { Observable, Subject } from 'rxjs';
 import { defer, finalize } from 'rxjs';
 

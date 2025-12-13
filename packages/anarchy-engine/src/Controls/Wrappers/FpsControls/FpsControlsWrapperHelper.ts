@@ -1,5 +1,5 @@
 import type { TFpsControlsParamsOptions, TFpsControlsWrapper } from '@Anarchy/Engine/Controls/Models';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 
 export function applyFpsControlsParams(wrapper: TFpsControlsWrapper, params: TFpsControlsParamsOptions | undefined): void {
   if (isNotDefined(params)) return;

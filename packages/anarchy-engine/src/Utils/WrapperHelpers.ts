@@ -1,7 +1,7 @@
 import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
 import type { TWithObject3d } from '@Anarchy/Engine/Mixins';
 import type { TObject3DParams } from '@Anarchy/Engine/ThreeLib';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import type { Vector2 } from 'three';
 import type { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 

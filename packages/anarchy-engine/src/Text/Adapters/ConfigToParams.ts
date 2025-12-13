@@ -1,7 +1,7 @@
 import { kinematicConfigToParams } from '@Anarchy/Engine/Kinematic';
 import type { TTextConfig, TTextParams, TTextServiceDependencies } from '@Anarchy/Engine/Text/Models';
 import { configToParamsObject3d } from '@Anarchy/Engine/ThreeLib';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import { Vector2 } from 'three';
 
 export function configToParams(config: TTextConfig, dependencies: TTextServiceDependencies): TTextParams {

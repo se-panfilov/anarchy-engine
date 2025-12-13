@@ -1,7 +1,7 @@
 import type { TActor } from '@Anarchy/Engine/Actor';
 import type { TSpatialCell, TSpatialCellWrapper, TSpatialGridWrapper, TWithUpdateSpatialCell } from '@Anarchy/Engine/Spatial/Models';
 import type { TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 
 export function withUpdateSpatialCell(): TWithUpdateSpatialCell {
   let prevCells: ReadonlyArray<Pick<TSpatialCell, 'maxX' | 'maxY' | 'minX' | 'minY'>> = [];

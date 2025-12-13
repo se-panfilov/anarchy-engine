@@ -1,6 +1,6 @@
 import type { TDeltaCalculator } from '@Anarchy/Engine/Loop/Models';
 import type { TMilliseconds } from '@Anarchy/Engine/Math';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import { Clock } from 'three';
 
 export function DeltaCalculator(useClock: boolean = true): TDeltaCalculator {

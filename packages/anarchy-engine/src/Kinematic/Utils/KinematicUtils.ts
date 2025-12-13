@@ -1,6 +1,6 @@
 import { DefaultIsAutoUpdate, DefaultKinematicConfigState, DefaultKinematicTarget } from '@Anarchy/Engine/Kinematic';
 import type { TKinematicConfig } from '@Anarchy/Engine/Kinematic/Models';
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import { isEqual } from 'lodash-es';
 
 export function ignoreDefaultStateKinematic(config: TKinematicConfig | undefined): TKinematicConfig | undefined {

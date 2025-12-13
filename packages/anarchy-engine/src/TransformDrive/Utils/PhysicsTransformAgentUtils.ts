@@ -4,7 +4,7 @@ import type { TPhysicsBody, TPhysicsBodyParams, TPhysicsBodyService } from '@Ana
 import { isPhysicsBodyParamsComplete } from '@Anarchy/Engine/Physics';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 import type { TRigidBodyTransformData } from '@Anarchy/Engine/TransformDrive/Models';
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 
 export function getPhysicsBodyTransform(
   body: RigidBody | undefined,

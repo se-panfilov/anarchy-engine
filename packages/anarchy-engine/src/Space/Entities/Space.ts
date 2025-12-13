@@ -22,7 +22,7 @@ import type {
 } from '@Anarchy/Engine/Space/Models';
 import { buildBaseServices, buildEntitiesServices, createEntities, createLoops } from '@Anarchy/Engine/Space/Utils';
 import { findDomElement, getCanvasContainer, getOrCreateCanvasFromSelector, isCanvasElement, isDestroyable, mergeAll } from '@Anarchy/Engine/Utils';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, skip, Subject } from 'rxjs';
 

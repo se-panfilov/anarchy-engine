@@ -1,5 +1,5 @@
 import type { TWithActiveMixin } from '@Anarchy/Engine/Mixins/Generics/Models';
-import type { TWriteable } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
 
 export function withActiveMixin(): TWithActiveMixin {
   return {

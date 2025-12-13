@@ -25,8 +25,8 @@ import type {
 import { eulerToXyzIfPossible, getOptionNameIfPossible, vector2ToXyIfPossible } from '@Anarchy/Engine/Material/Utils';
 import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
 import type { TTexture, TTextureAsyncRegistry } from '@Anarchy/Engine/Texture';
-import type { TOptional } from '@Shared/Utils';
-import { filterOutEmptyFields, nullsToUndefined } from '@Shared/Utils';
+import type { TOptional } from '@Anarchy/Shared/Utils';
+import { filterOutEmptyFields, nullsToUndefined } from '@Anarchy/Shared/Utils';
 import { isEmpty } from 'lodash-es';
 import type {
   LineDashedMaterial,

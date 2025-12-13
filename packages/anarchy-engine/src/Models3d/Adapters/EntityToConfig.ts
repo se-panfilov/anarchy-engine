@@ -6,7 +6,7 @@ import type { PrimitiveModel3dType } from '@Anarchy/Engine/Models3d/Constants';
 import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModels3dResourceAsyncRegistry, TRawModel3d } from '@Anarchy/Engine/Models3d/Models';
 import { isPrimitiveModel3dSource } from '@Anarchy/Engine/Models3d/Utils';
 import { eulerToXyz, vector3ToXyz } from '@Anarchy/Engine/Utils';
-import { filterOutEmptyFields, isDefined, isNotDefined } from '@Shared/Utils';
+import { filterOutEmptyFields, isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { AnimationAction, AnimationClip } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 

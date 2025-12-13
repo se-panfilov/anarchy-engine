@@ -1,4 +1,4 @@
-import { FileSizes } from '@Shared/Constants';
+import { FileSizes } from '@Anarchy/Shared/Constants';
 
 import { isDefined } from './CheckUtils';
 

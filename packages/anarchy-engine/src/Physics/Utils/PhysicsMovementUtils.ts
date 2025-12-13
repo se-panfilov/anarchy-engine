@@ -7,7 +7,7 @@ import type { TMeters, TRadians } from '@Anarchy/Engine/Math';
 import { getDirectionFromAngularVelocity, getDirectionFromLinearVelocity, getSpeedFromAngularVelocity, getSpeedFromLinearVelocity } from '@Anarchy/Engine/Math';
 import { VelocityType } from '@Anarchy/Engine/Physics/Constants';
 import type { TPhysicsBody } from '@Anarchy/Engine/Physics/Models';
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import { Euler, Quaternion, Vector3 } from 'three';
 
 export function getPushCoordsFrom3dAzimuth(azimuth: TRadians, elevation: TRadians, force: number, forwardAxis: ForwardAxis): Vector3 | never {

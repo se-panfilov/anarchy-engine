@@ -1,4 +1,4 @@
-import type { TOptional } from '@Shared/Utils';
+import type { TOptional } from '@Anarchy/Shared/Utils';
 
 import type { TKinematicDataConfig } from './TKinematicDataConfig';
 

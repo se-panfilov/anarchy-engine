@@ -3,7 +3,7 @@ import type { TMilliseconds } from '@Anarchy/Engine/Math';
 import type { TRendererWrapper } from '@Anarchy/Engine/Renderer';
 import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
 import type { TRenderLoop } from '@Anarchy/Engine/Space';
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { BehaviorSubject, Subscription } from 'rxjs';
 import { withLatestFrom } from 'rxjs';
 

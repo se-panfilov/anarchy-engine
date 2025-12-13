@@ -1,6 +1,6 @@
 import type { TActor, TActorRegistry, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TKeyboardPressingEvent, TMouseWatcherEvent, TSpace, TSpaceConfig } from '@Anarchy/Engine';
 import { KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService } from '@Anarchy/Engine';
-import { asRecord, isNotDefined } from '@Shared/Utils';
+import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import GUI from 'lil-gui';
 import { withLatestFrom } from 'rxjs';
 import { Vector3 } from 'three';

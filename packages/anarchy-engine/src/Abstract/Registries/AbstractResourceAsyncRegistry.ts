@@ -1,7 +1,7 @@
 import type { RegistryType } from '@Anarchy/Engine/Abstract/Constants';
 import type { TAbstractResourceAsyncRegistry, TAbstractResourceConfig, TAbstractSerializeDependencies, TAbstractSimpleRegistry } from '@Anarchy/Engine/Abstract/Models';
 import { getAsyncUniqEntityByKeyAsync, getUniqEntityByKey$ } from '@Anarchy/Engine/Utils';
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Observable } from 'rxjs';
 
 import { AbstractSimpleRegistry } from './AbstractSimpleRegistry';

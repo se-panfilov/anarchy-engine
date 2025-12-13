@@ -11,7 +11,7 @@ import type {
   TOrbitControlsParams,
   TOrbitControlsParamsOptions
 } from '@Anarchy/Engine/Controls/Models';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import { Vector3 } from 'three';
 
 export const configToParams: TGetParamsFn<TControlsParams, TControlsConfig> = (config: TControlsConfig, additional: TAdditionalControlsConfigParams): TControlsParams | never => {

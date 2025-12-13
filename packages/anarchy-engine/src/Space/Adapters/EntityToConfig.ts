@@ -1,7 +1,7 @@
 import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
 import type { SpaceSchemaVersion } from '@Anarchy/Engine/Space/Constants';
 import type { TSpace, TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources, TSpaceServices } from '@Anarchy/Engine/Space/Models';
-import { filterOutEmptyFields, isDefined } from '@Shared/Utils';
+import { filterOutEmptyFields, isDefined } from '@Anarchy/Shared/Utils';
 
 export function spaceToConfig(
   entity: TSpace,

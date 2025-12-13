@@ -8,7 +8,7 @@ import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/Thre
 import { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TKinematicAgentDependencies, TKinematicSpeed, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@Anarchy/Engine/TransformDrive/Models';
 import { getStepRotation, isInstant, isPointReached, isRotationReached, moveInstantly, rotateInstantly } from '@Anarchy/Engine/TransformDrive/Utils';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, EMPTY, switchMap } from 'rxjs';
 import type { QuaternionLike, Vector3Like } from 'three';

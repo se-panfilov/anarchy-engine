@@ -1,6 +1,6 @@
 import type { TAnyCameraWrapper, TCameraRegistry, TIntersectionEvent, TIntersectionsCameraWatcher, TSpace, TSpaceConfig } from '@Anarchy/Engine';
 import { spaceService } from '@Anarchy/Engine';
-import { asRecord, isNotDefined } from '@Shared/Utils';
+import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import GUI from 'lil-gui';
 
 import type { TAppSettings } from '@/Models';

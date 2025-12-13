@@ -2,7 +2,7 @@ import type { TColor } from '@Anarchy/Engine/Color';
 import { serializeColor } from '@Anarchy/Engine/Color';
 import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
 import type { TSceneConfig, TSceneWrapper } from '@Anarchy/Engine/Scene/Models';
-import { filterOutEmptyFields, isDefined } from '@Shared/Utils';
+import { filterOutEmptyFields, isDefined } from '@Anarchy/Shared/Utils';
 
 export function sceneToConfig(entity: TSceneWrapper): TSceneConfig {
   const background: TColor | undefined = entity.getBackground() as TColor | undefined;

@@ -2,8 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "paths": {
-      "@Shared/*": ["packages/anarchy-shared/src/*"],
-      "@Shared": ["packages/anarchy-shared/src/index.ts"],
+      "@Anarchy/Shared/*": ["packages/anarchy-shared/src/*"],
+      "@Anarchy/Shared": ["packages/anarchy-shared/src/index.ts"],
       "@AnarchyI18n/*": ["packages/anarchy-i18n/src/*"],
       "@AnarchyI18n": ["packages/anarchy-i18n/src/index.ts"],
       "@Showcases/Shared/*": ["packages/showcases-shared/src/*"],

@@ -3,7 +3,7 @@ import { AbstractWatcherWithState, WatcherType } from '@Anarchy/Engine/Abstract'
 import type { TMouseEvent, TMouseLoop, TMousePositionWatcher, TMousePositionWatcherParams } from '@Anarchy/Engine/Mouse/Models';
 import { getNormalizedMousePosition } from '@Anarchy/Engine/Mouse/Utils';
 import { isEqualOrSimilarByXyCoords } from '@Anarchy/Engine/Utils';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, identity, map, takeUntil, tap, withLatestFrom } from 'rxjs';
 import type { Vector2Like } from 'three';

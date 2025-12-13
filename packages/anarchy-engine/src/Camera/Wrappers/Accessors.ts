@@ -1,5 +1,5 @@
 import type { TCommonCameraAccessors, TOrthographicCamera, TOrthographicCameraAccessors, TPerspectiveCamera, TPerspectiveCameraAccessors } from '@Anarchy/Engine/Camera/Models';
-import type { TWriteable } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
 import type { AudioListener, Vector3 } from 'three';
 
 export function getCommonCameraAccessors(entity: TWriteable<TOrthographicCamera | TPerspectiveCamera>): TCommonCameraAccessors {

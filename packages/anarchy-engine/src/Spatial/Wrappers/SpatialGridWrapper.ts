@@ -6,7 +6,7 @@ import { entityToConfigSpatialGrid } from '@Anarchy/Engine/Spatial/Adapters/Enti
 import type { TSpatialCellId, TSpatialCellParams, TSpatialCellWrapper, TSpatialGrid, TSpatialGridConfig, TSpatialGridParams, TSpatialGridWrapper } from '@Anarchy/Engine/Spatial/Models';
 import { createBoundingBox, createOutline } from '@Anarchy/Engine/Spatial/Services/SpatialHelper';
 import { SpatialCellWrapper } from '@Anarchy/Engine/Spatial/Wrappers/SpatialCellWrapper';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import RBush from 'rbush';
 import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';

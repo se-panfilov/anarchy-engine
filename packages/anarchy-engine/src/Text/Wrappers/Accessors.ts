@@ -1,6 +1,6 @@
 import type { TElementWithCssAccessors } from '@Anarchy/Engine/Text/Models';
-import type { TWriteable } from '@Shared/Utils';
-import { camelToKebab } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
+import { camelToKebab } from '@Anarchy/Shared/Utils';
 
 export function getCssAccessors(element: TWriteable<HTMLElement>): TElementWithCssAccessors {
   // eslint-disable-next-line functional/immutable-data

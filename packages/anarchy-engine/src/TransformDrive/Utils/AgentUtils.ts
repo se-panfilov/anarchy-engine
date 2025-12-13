@@ -2,7 +2,7 @@ import type { TKinematicData, TKinematicParams } from '@Anarchy/Engine/Kinematic
 import { DEFAULT_RADIUS, ForwardAxis } from '@Anarchy/Engine/Kinematic';
 import { KinematicTransformAgent } from '@Anarchy/Engine/TransformDrive/Entities/Agents';
 import type { TKinematicAgentDependencies, TKinematicTransformAgent, TKinematicTransformAgentParams, TTransformAgentParams } from '@Anarchy/Engine/TransformDrive/Models';
-import type { TOptional } from '@Shared/Utils';
+import type { TOptional } from '@Anarchy/Shared/Utils';
 import { Quaternion, Vector3 } from 'three';
 
 export function getKinematicTransformAgent(params: TTransformAgentParams, kinematic: TOptional<TKinematicParams> | undefined, dependencies: TKinematicAgentDependencies): TKinematicTransformAgent {

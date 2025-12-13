@@ -1,7 +1,7 @@
 import { LoopWorkerActions } from '@Anarchy/Engine/Loop/Constants';
 import type { TDeltaCalculator, TLoopWorkerResponseData, TLoopWorkerStartRequestData, TLoopWorkerStopRequestData } from '@Anarchy/Engine/Loop/Models';
 import type { TMilliseconds } from '@Anarchy/Engine/Math';
-import { isDefined } from '@Shared/Utils/CheckUtils';
+import { isDefined } from '@Anarchy/Shared/Utils/CheckUtils';
 
 import { DeltaCalculator } from './DeltaCalculator';
 

@@ -1,7 +1,7 @@
 import { serializeColor } from '@Anarchy/Engine/Color';
 import type { TFogConfig, TFogWrapper } from '@Anarchy/Engine/Fog/Models';
 import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
-import { filterOutEmptyFields } from '@Shared/Utils';
+import { filterOutEmptyFields } from '@Anarchy/Shared/Utils';
 import type { FogJSON } from 'three';
 
 export function fogToConfig(entity: TFogWrapper): TFogConfig {

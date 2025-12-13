@@ -1,6 +1,6 @@
 import type { TActorModel3dSettings, TActorModel3dSettingsConfig } from '@Anarchy/Engine/Actor/Models';
 import { toQuaternion } from '@Anarchy/Engine/Math';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import { Vector3 } from 'three';
 
 export function model3dSettingsConfigToParams(settings: TActorModel3dSettingsConfig): TActorModel3dSettings {

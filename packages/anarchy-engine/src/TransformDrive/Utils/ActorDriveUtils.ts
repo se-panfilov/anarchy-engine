@@ -1,5 +1,5 @@
 import type { TVector3OrEuler, TVector4OrQuaternion } from '@Anarchy/Engine/ThreeLib';
-import type { TWriteable } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
 import type { Subject } from 'rxjs';
 
 export function getXyzUpdateProxy<T extends TVector3OrEuler>(coordsObj: TWriteable<TVector3OrEuler>, subj$: Subject<T>): TVector3OrEuler {

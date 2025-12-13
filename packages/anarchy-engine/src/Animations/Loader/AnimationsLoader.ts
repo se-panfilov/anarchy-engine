@@ -2,8 +2,8 @@ import { LoaderType } from '@Anarchy/Engine/Abstract';
 import type { TAnimations, TAnimationsLoader, TAnimationsMetaInfoRegistry, TAnimationsResourceAsyncRegistry, TAnimationsResourceConfig } from '@Anarchy/Engine/Animations/Models';
 import { Loader3dCore } from '@Anarchy/Engine/Models3d';
 import type { TDracoLoaderSettings } from '@Anarchy/Engine/ThreeLib';
-import type { TWriteable } from '@Shared/Utils';
-import { isNotDefined } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 export function AnimationsLoader(registry: TAnimationsResourceAsyncRegistry, metaInfoRegistry: TAnimationsMetaInfoRegistry, settings: TDracoLoaderSettings = {}): TAnimationsLoader {

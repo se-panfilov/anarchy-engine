@@ -1,6 +1,6 @@
 import type { TKinematicConfig, TKinematicParams } from '@Anarchy/Engine/Kinematic/Models';
 import { toQuaternion } from '@Anarchy/Engine/Math';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import { Quaternion, Vector3 } from 'three';
 
 export function configToParams(config: TKinematicConfig): TKinematicParams {

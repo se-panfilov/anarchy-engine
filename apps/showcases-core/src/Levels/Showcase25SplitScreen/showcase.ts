@@ -1,6 +1,6 @@
 import type { TActor, TActorRegistry, TKeyboardPressingEvent, TSpace, TSpaceConfig, TSpaceServices } from '@Anarchy/Engine';
 import { createDomElement, KeyCode, metersPerSecond, mpsSpeed, spaceService } from '@Anarchy/Engine';
-import { asRecord, isNotDefined } from '@Shared/Utils';
+import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import { combineLatest } from 'rxjs';
 import { Clock } from 'three';
 

@@ -11,8 +11,8 @@ import type {
   TIntersectionsLoop
 } from '@Anarchy/Engine/Intersections/Models';
 import type { TRawModel3d } from '@Anarchy/Engine/Models3d';
-import type { TWriteable } from '@Shared/Utils';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { Raycaster } from 'three';
 

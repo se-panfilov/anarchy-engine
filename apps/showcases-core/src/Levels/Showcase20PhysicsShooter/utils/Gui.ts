@@ -1,5 +1,5 @@
 import type { TActor, TActorService, TIntersectionEvent, TIntersectionsCameraWatcher, TSpatialGridService, TSpatialGridWrapper } from '@Anarchy/Engine';
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import GUI from 'lil-gui';
 
 export function initGui(

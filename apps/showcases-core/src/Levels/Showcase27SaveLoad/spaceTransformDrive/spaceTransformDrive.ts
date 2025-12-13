@@ -1,6 +1,6 @@
 import type { TActor, TCameraWrapper, TLightWrapper, TLoop, TSpace, TSpaceConfig, TText3dTextureWrapper, TText3dWrapper } from '@Anarchy/Engine';
 import { degrees, ForwardAxis, getPushCoordsFrom3dAzimuth, metersPerSecond, radians } from '@Anarchy/Engine';
-import { getQueryParams, isDefined } from '@Shared/Utils';
+import { getQueryParams, isDefined } from '@Anarchy/Shared/Utils';
 import { BehaviorSubject } from 'rxjs';
 import { degToRad } from 'three/src/math/MathUtils';
 import { Vector3 } from 'three/src/math/Vector3';

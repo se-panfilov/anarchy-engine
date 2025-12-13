@@ -41,7 +41,7 @@ import {
   TextType,
   TransformAgent
 } from '@Anarchy/Engine';
-import { asRecord, isNotDefined } from '@Shared/Utils';
+import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import GUI from 'lil-gui';
 import { BehaviorSubject, combineLatest, map, withLatestFrom } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';

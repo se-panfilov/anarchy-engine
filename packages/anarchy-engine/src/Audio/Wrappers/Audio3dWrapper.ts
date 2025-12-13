@@ -8,7 +8,7 @@ import { meters } from '@Anarchy/Engine/Measurements';
 import type { TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 import type { TDriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, sample, takeUntil } from 'rxjs';
 import type { AudioListener, PositionalAudio, Vector3Like } from 'three';

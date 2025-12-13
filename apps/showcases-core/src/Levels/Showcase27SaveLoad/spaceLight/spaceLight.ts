@@ -1,5 +1,5 @@
 import type { THemisphereLightWrapper, TPointLightWrapper, TSpace, TSpaceConfig, TSpotLightWrapper } from '@Anarchy/Engine';
-import type { TWriteable } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
 import { BehaviorSubject } from 'rxjs';
 import type { HemisphereLight, PointLight, SpotLight } from 'three';
 import { Color, Vector3 } from 'three';

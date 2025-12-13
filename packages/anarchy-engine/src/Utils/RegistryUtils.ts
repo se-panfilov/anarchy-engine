@@ -1,7 +1,7 @@
 import type { TAbstractEntityRegistry } from '@Anarchy/Engine/Abstract/Models';
 import type { LookUpStrategy } from '@Anarchy/Engine/Abstract/Registries';
 import type { TRegistrable, TWithActiveMixin } from '@Anarchy/Engine/Mixins';
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 
 import { hasTag } from './TagsUtils';
 

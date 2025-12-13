@@ -3,7 +3,7 @@ import type { TDestroyable } from '@Anarchy/Engine/Mixins';
 import { destroyableMixin } from '@Anarchy/Engine/Mixins';
 import type { TSpaceCanvas } from '@Anarchy/Engine/Space';
 import { exitFullScreen, getWindowFromDomElement, goFullScreen, isFullScreen, observeContainerRect } from '@Anarchy/Engine/Utils';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, skip, Subject, switchMap } from 'rxjs';

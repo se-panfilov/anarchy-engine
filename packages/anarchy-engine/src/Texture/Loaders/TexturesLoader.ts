@@ -1,8 +1,8 @@
 import { AbstractLoader, LoaderType } from '@Anarchy/Engine/Abstract';
 import type { TTexture, TTextureAsyncRegistry, TTextureMetaInfoRegistry, TTextureResourceConfig, TTexturesLoader } from '@Anarchy/Engine/Texture/Models';
 import { applyColorSpace, applyFilters, applyTextureParams } from '@Anarchy/Engine/Texture/Utils';
-import type { TWriteable } from '@Shared/Utils';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import { TextureLoader } from 'three';
 
 export function TexturesLoader(registry: TTextureAsyncRegistry, metaInfoRegistry: TTextureMetaInfoRegistry): TTexturesLoader {

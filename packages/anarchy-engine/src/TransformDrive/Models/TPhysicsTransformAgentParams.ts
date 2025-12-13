@@ -1,5 +1,5 @@
 import type { TPhysicsBody, TPhysicsBodyParams } from '@Anarchy/Engine/Physics';
-import type { TWithMandatoryField } from '@Shared/Utils';
+import type { TWithMandatoryField } from '@Anarchy/Shared/Utils';
 
 import type { TTransformAgentParams } from './TTransformAgentParams';
 

@@ -4,7 +4,7 @@ import { meters } from '@Anarchy/Engine/Measurements/Utils';
 import type { TModel3dConfig, TModel3dParams, TModel3dResourceConfig, TRawModel3d } from '@Anarchy/Engine/Models3d';
 import { PrimitiveModel3dType } from '@Anarchy/Engine/Models3d';
 import type { TBoxGeometryParams, TPlaneGeometryParams, TSphereGeometryParams } from '@Anarchy/Engine/ThreeLib';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import { BoxGeometry, Mesh, PlaneGeometry, SphereGeometry } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 

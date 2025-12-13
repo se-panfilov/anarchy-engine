@@ -1,5 +1,5 @@
 import type { TActor, TFsmStates, TModel3d, TSpace, TSpaceConfig } from '@Anarchy/Engine';
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged } from 'rxjs';
 import type { AnimationAction } from 'three';

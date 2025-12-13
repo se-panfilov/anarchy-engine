@@ -14,7 +14,7 @@ import {
   isModel3dAlreadyInUse
 } from '@Anarchy/Engine/Models3d/Utils';
 import { applyObject3dParams, destroyModel3dAnimationEntities, disposeGltf, mergeAll } from '@Anarchy/Engine/Utils';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 
 export function Model3d(params: TModel3dParams, { animationsService, model3dRawToModel3dConnectionRegistry }: TModel3dDependencies): TModel3d {

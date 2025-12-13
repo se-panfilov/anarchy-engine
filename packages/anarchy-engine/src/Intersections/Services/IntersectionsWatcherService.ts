@@ -20,7 +20,7 @@ import type { TDisposable } from '@Anarchy/Engine/Mixins';
 import { withFactoryService, withRegistryService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
 import type { TMouseService } from '@Anarchy/Engine/Mouse';
 import { mergeAll } from '@Anarchy/Engine/Utils';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 
 export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactory, registry: TIntersectionsWatcherRegistry): TIntersectionsWatcherService {

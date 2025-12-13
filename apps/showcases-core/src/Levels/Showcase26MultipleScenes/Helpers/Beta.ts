@@ -1,6 +1,6 @@
 import type { TModel3d, TOrbitControlsWrapper, TSceneWrapper, TSpace } from '@Anarchy/Engine';
 import { TextType } from '@Anarchy/Engine';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import { Clock, Euler, Vector3 } from 'three';
 
 import { moveByCircle } from '@/Utils/MoveUtils';

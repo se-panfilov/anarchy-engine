@@ -1,4 +1,4 @@
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { TFromMenuEvent, TShowcaseGameSettings, TToMenuEvent } from '@Showcases/Shared';
 import { FromMenuEvents, ToMenuEvents } from '@Showcases/Shared';
 import type { Observable, Subject } from 'rxjs';

@@ -4,7 +4,7 @@ import type { TAnyMaterialWrapper, TMaterials } from '@Anarchy/Engine/Material';
 import type { TWithModel3d, TWithModel3dEntities } from '@Anarchy/Engine/Models3d';
 import { hasTransformDrive } from '@Anarchy/Engine/TransformDrive/Utils';
 import { hasGeometry, hasMaterial, isWrapper } from '@Anarchy/Engine/Utils';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { AnimationAction, AnimationClip, Material, Object3D, PositionalAudio } from 'three';
 import { Mesh, Texture } from 'three';
 

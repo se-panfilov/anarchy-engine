@@ -1,5 +1,5 @@
 import type { TObject3DParams, TObject3DPropConfig } from '@Anarchy/Engine/ThreeLib/Models';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import { Euler, Vector3 } from 'three';
 
 export function configToParamsObject3d(config: Partial<TObject3DPropConfig>): TObject3DParams {

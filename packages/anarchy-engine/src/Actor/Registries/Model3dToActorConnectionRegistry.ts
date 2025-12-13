@@ -2,8 +2,8 @@ import type { TAbstractSimpleRegistry } from '@Anarchy/Engine/Abstract';
 import { AbstractSimpleRegistry, RegistryType } from '@Anarchy/Engine/Abstract';
 import type { TActor, TModel3dToActorConnectionRegistry, TModel3dToActorConnectionRegistryExtension } from '@Anarchy/Engine/Actor/Models';
 import type { TModel3d } from '@Anarchy/Engine/Models3d';
-import type { TWriteable } from '@Shared/Utils';
-import { isNotDefined } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 
 export function Model3dToActorConnectionRegistry(): TModel3dToActorConnectionRegistry {
   const registry: TWriteable<TAbstractSimpleRegistry<string>> & TWriteable<TModel3dToActorConnectionRegistryExtension> = AbstractSimpleRegistry<string>(

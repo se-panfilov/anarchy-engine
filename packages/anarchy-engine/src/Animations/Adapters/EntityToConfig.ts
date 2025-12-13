@@ -1,5 +1,5 @@
 import type { TAnimationStateConfig } from '@Anarchy/Engine/Animations/Models';
-import { filterOutEmptyFields } from '@Shared/Utils';
+import { filterOutEmptyFields } from '@Anarchy/Shared/Utils';
 import type { AnimationAction } from 'three';
 
 export function animationActionToConfig(entity: AnimationAction): TAnimationStateConfig {

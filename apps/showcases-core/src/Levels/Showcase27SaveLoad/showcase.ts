@@ -3,7 +3,7 @@ import './style.css';
 
 import type { TSpace, TSpaceConfig, TSpaceRegistry } from '@Anarchy/Engine';
 import { spaceService } from '@Anarchy/Engine';
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 
 import { spaceActorData } from '@/Levels/Showcase27SaveLoad/spaceActor';

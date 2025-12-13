@@ -1,6 +1,6 @@
 import type { TActor, TActorParams } from '@Anarchy/Engine/Actor/Models';
 import type { TSpatialGridService, TSpatialGridWrapper } from '@Anarchy/Engine/Spatial';
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 
 export const isActorHasPhysicsBody = (actor: TActor): boolean => actor.drive.physics.physicsBody$.value !== undefined;
 

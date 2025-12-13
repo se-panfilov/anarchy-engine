@@ -26,8 +26,8 @@ import type {
 } from '@Anarchy/Engine/Light/Models';
 import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
 import { vector2ToXy } from '@Anarchy/Engine/Utils';
-import type { TWriteable } from '@Shared/Utils';
-import { filterOutEmptyFields, isDefined, isNotDefined } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
+import { filterOutEmptyFields, isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { DirectionalLightShadow, Object3DJSONObject, PointLightShadow, SpotLightShadow, Vector2Like } from 'three';
 import { Vector2 } from 'three';
 

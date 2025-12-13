@@ -13,7 +13,7 @@ import type {
 import { isIntersectionsCameraWatcherConfig, isIntersectionsDirectionWatcherConfig } from '@Anarchy/Engine/Intersections/Utils';
 import type { TLoopService } from '@Anarchy/Engine/Loop';
 import type { TMouseService } from '@Anarchy/Engine/Mouse';
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import { Vector3 } from 'three';
 
 export function configToParams(

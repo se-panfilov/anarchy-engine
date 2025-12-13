@@ -5,8 +5,8 @@ import type { TMilliseconds } from '@Anarchy/Engine/Math';
 import type { TDestroyable } from '@Anarchy/Engine/Mixins';
 import { destroyableMixin } from '@Anarchy/Engine/Mixins';
 import type { TSpatialCellWrapper } from '@Anarchy/Engine/Spatial';
-import type { TWriteable } from '@Shared/Utils';
-import { isDefined, removeDuplicates } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
+import { isDefined, removeDuplicates } from '@Anarchy/Shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, EMPTY, filter, Subject, switchMap } from 'rxjs';
 

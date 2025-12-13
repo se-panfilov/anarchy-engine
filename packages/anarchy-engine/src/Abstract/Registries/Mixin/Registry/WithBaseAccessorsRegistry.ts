@@ -1,7 +1,7 @@
 import type { TWithBaseAccessorsRegistry } from '@Anarchy/Engine/Abstract/Models';
 import type { TSerializable } from '@Anarchy/Engine/Mixins';
 import { asArray } from '@Anarchy/Engine/Utils';
-import { findInMap, findKeyInMap, isDefined, isNotDefined } from '@Shared/Utils';
+import { findInMap, findKeyInMap, isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 
 export function withBaseAccessorsRegistry<T>(registry: Map<string, T>): TWithBaseAccessorsRegistry<T> {
   const isEmpty = (): boolean => registry.size === 0;

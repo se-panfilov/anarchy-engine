@@ -1,4 +1,4 @@
-import { CssUnits } from '@Shared/Constants';
+import { CssUnits } from '@Anarchy/Shared/Constants';
 
 import { isNotDefined } from './CheckUtils';
 

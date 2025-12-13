@@ -27,7 +27,7 @@ import {
   validateTags,
   validateTagsForEveryEntity
 } from '@Anarchy/Engine/Space/Utils';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import Ajv from 'ajv';
 import { isArray } from 'lodash-es';
 

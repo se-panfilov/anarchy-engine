@@ -23,7 +23,7 @@ import type {
   TWithTransmission
 } from '@Anarchy/Engine';
 import { ControlsType, getTags, isOrbitControls, KeyCode, LookUpStrategy, spaceService, TextType } from '@Anarchy/Engine';
-import { asRecord, isDefined, isNotDefined } from '@Shared/Utils';
+import { asRecord, isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Controller } from 'lil-gui';
 import GUI from 'lil-gui';
 import { BehaviorSubject, combineLatest, startWith, Subject } from 'rxjs';

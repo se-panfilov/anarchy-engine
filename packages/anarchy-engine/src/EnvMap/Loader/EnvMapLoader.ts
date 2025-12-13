@@ -1,8 +1,8 @@
 import { AbstractLoader, LoaderType } from '@Anarchy/Engine/Abstract';
 import { EnvMapMappingTypesMap, EnvMapMappingTypesName } from '@Anarchy/Engine/EnvMap/Constants';
 import type { TEnvMapLoader, TEnvMapMetaInfoRegistry, TEnvMapResourceConfig, TEnvMapTexture, TEnvMapTextureAsyncRegistry } from '@Anarchy/Engine/EnvMap/Models';
-import type { TWriteable } from '@Shared/Utils';
-import { isDefined } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import { EquirectangularReflectionMapping } from 'three';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
 

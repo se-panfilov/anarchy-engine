@@ -1,5 +1,5 @@
 import type { TOrbitControlsParamsOptions, TOrbitControlsWrapper } from '@Anarchy/Engine/Controls/Models';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 
 export function applyOrbitControlsParams(wrapper: TOrbitControlsWrapper, options: TOrbitControlsParamsOptions | undefined): void {
   if (isNotDefined(options)) return;

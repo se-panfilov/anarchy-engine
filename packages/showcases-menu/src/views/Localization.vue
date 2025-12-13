@@ -7,7 +7,7 @@ import ViewActions from '@Menu/components/ViewActions.vue';
 import ViewForm from '@Menu/components/ViewForm.vue';
 import { Languages } from '@Menu/constants';
 import { useSettingsStore } from '@Menu/stores/SettingsStore';
-import type { TWriteable } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
 import type { TDropdownOption, TLocalizationSettings } from '@Showcases/Shared';
 import { computed, reactive } from 'vue';
 

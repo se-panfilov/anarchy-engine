@@ -10,8 +10,8 @@ import type {
   TSpotLight
 } from '@Anarchy/Engine/Light/Models';
 import { isDirectionalLight, isPointLight, isSpotLight } from '@Anarchy/Engine/Light/Utils';
-import type { TWriteable } from '@Shared/Utils';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import { Vector3 } from 'three';
 
 export function applyShadowParams<T extends TAnyLight, P extends TLightParams>(params: P, entity: TWriteable<T>): void {

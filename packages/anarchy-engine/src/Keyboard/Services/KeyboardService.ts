@@ -4,7 +4,7 @@ import type { TGameKey, TKeyboardLoop, TKeyboardPressingEvent, TKeyboardRegistry
 import { KeyboardRegistry } from '@Anarchy/Engine/Keyboard/Registries';
 import type { TDelta } from '@Anarchy/Engine/Loop';
 import { bindKey, bindKeyCombo, checkKey, checkKeyCombo, unbindKey, unbindKeyCombo } from '@rwh/keystrokes';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { filter, map, Subject } from 'rxjs';
 

@@ -5,8 +5,8 @@ import type { CollisionShape, RigidBodyTypesNames } from '@Anarchy/Engine/Physic
 import { RigidBodyTypesMap } from '@Anarchy/Engine/Physics/Constants';
 import { withPhysicsBodyEntities } from '@Anarchy/Engine/Physics/Mixins';
 import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsBodyEntities, TPhysicsBodyParams, TPhysicsDependencies, TPhysicsShapeParams } from '@Anarchy/Engine/Physics/Models';
-import type { TWriteable } from '@Shared/Utils';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 
 import { createPhysicsBodyEntities } from './PhysicsBodyUtils';

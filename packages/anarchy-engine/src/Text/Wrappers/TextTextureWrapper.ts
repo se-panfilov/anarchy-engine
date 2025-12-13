@@ -9,7 +9,7 @@ import { getWrapperTypeByTextType } from '@Anarchy/Engine/Text/Wrappers/TextWrap
 import type { TDriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
 import { applyObject3dParams } from '@Anarchy/Engine/Utils';
-import { stripUnits, toPx, toRem } from '@Shared/Utils';
+import { stripUnits, toPx, toRem } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { LinearFilter, Mesh, MeshBasicMaterial, PlaneGeometry, Texture } from 'three';
 

@@ -4,8 +4,8 @@ import type { TFpsControlsConfigOptions } from '@Anarchy/Engine/Controls/Models/
 import { isFpsControls, isOrbitControls } from '@Anarchy/Engine/Controls/Utils';
 import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
 import { vector3ToXyz } from '@Anarchy/Engine/Utils';
-import type { TWriteable } from '@Shared/Utils';
-import { filterOutEmptyFields, isNotDefined } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
+import { filterOutEmptyFields, isNotDefined } from '@Anarchy/Shared/Utils';
 
 export function controlsToConfig(entity: TAnyControlsWrapper, { cameraService }: TControlsServiceDependencies): TControlsConfig {
   const camera: TAnyCamera | undefined = entity.entity.object as TAnyCamera;

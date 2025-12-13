@@ -2,7 +2,7 @@ import type { TAudio3dWrapper, TDebugAudioRenderer } from '@Anarchy/Engine/Audio
 import type { TLoop } from '@Anarchy/Engine/Loop';
 import type { TMilliseconds } from '@Anarchy/Engine/Math';
 import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import type { Observable } from 'rxjs';
 import { BehaviorSubject, EMPTY, switchMap } from 'rxjs';
 import { Mesh, MeshBasicMaterial, SphereGeometry } from 'three';

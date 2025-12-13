@@ -4,7 +4,7 @@ import { kinematicConfigToParams } from '@Anarchy/Engine/Kinematic';
 import type { TModel3d } from '@Anarchy/Engine/Models3d';
 import { configToParamsSpatialData } from '@Anarchy/Engine/Spatial';
 import { configToParamsObject3d } from '@Anarchy/Engine/ThreeLib';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 
 export function configToParams(config: TActorConfig, dependencies: TActorConfigToParamsDependencies): TActorParams {
   const { position, rotation, scale, physicsBodyName, spatial, states, model3dSource, kinematic, model3dSettings, ...rest } = config;

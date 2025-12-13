@@ -1,7 +1,7 @@
 import type { FormatNumberOptions, IntlCache, IntlShape } from '@formatjs/intl';
 import { createIntl, createIntlCache } from '@formatjs/intl';
 import type { FormatDateOptions } from '@formatjs/intl/src/types';
-import { isDefined, omitInArray } from '@Shared/Utils';
+import { isDefined, omitInArray } from '@Anarchy/Shared/Utils';
 import { BehaviorSubject, concatMap, distinctUntilChanged, from, map } from 'rxjs';
 
 // TODO DESKTOP: refactor imports

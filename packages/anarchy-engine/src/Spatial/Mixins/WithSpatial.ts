@@ -4,7 +4,7 @@ import type { TDestroyable } from '@Anarchy/Engine/Mixins';
 import { destroyableMixin } from '@Anarchy/Engine/Mixins';
 import type { TSpatialCellWrapper, TSpatialGridWrapper } from '@Anarchy/Engine/Spatial';
 import type { TSpatialData, TWithSpatial } from '@Anarchy/Engine/Spatial/Models';
-import type { TWriteable } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, Subject } from 'rxjs';
 

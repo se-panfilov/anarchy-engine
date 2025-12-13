@@ -31,7 +31,7 @@ import {
 } from '@Anarchy/Engine/Mixins';
 import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
 import { mergeAll } from '@Anarchy/Engine/Utils';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 
 export function EnvMapService(

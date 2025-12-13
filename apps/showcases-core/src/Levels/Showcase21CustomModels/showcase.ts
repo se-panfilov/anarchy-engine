@@ -1,6 +1,6 @@
 import type { TModel3d, TModels3dRegistry, TModels3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceServices } from '@Anarchy/Engine';
 import { KeyCode, SpaceEvents, spaceService } from '@Anarchy/Engine';
-import { asRecord, isNotDefined } from '@Shared/Utils';
+import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { AnimationAction } from 'three';
 import { Euler, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';

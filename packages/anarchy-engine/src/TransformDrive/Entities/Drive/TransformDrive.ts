@@ -13,7 +13,7 @@ import type {
   TTransformDriveSerializedData
 } from '@Anarchy/Engine/TransformDrive/Models';
 import { getDynamicAgents, updateFromActiveAgent } from '@Anarchy/Engine/TransformDrive/Utils';
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, map, merge, ReplaySubject } from 'rxjs';

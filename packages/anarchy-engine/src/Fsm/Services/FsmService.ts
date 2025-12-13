@@ -16,7 +16,7 @@ import type {
   TFsmWrapper
 } from '@Anarchy/Engine/Fsm/Models';
 import type { TDisposable } from '@Anarchy/Engine/Mixins';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import { isEqual } from 'lodash-es';
 
 import { FsmInstanceService } from './FsmInstanceService';

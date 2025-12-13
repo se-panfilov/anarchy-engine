@@ -1,6 +1,6 @@
 import { eventsService } from '@Menu/services';
 import { useMenuOptionsStore } from '@Menu/stores/MenuOptionsStore';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import type { TFromMenuEvent, TMenuOptions, TToMenuEvent } from '@Showcases/Shared';
 import { createPinia } from 'pinia';
 import type { Observable, Subject } from 'rxjs';

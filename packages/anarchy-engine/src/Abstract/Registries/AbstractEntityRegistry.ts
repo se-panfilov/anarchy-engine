@@ -6,7 +6,7 @@ import { withReactiveRegistry } from '@Anarchy/Engine/Abstract/Registries/Mixin/
 import type { TDestroyable, TMultitonRegistrable, TRegistrable } from '@Anarchy/Engine/Mixins';
 import { destroyableMixin } from '@Anarchy/Engine/Mixins';
 import { getAllEntitiesWithNames, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, mergeAll } from '@Anarchy/Engine/Utils';
-import { findInMap, findKeyWithValue, isNotDefined } from '@Shared/Utils';
+import { findInMap, findKeyWithValue, isNotDefined } from '@Anarchy/Shared/Utils';
 import { nanoid } from 'nanoid';
 
 export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistrable>(type: RegistryType): TAbstractEntityRegistry<T> {

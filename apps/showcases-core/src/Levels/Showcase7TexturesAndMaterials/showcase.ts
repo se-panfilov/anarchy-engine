@@ -1,6 +1,6 @@
 import type { TAnyCameraWrapper, TModel3d, TModels3dRegistry, TMouseService, TSceneWrapper, TSpace, TSpaceConfig } from '@Anarchy/Engine';
 import { getRotationByCos, getRotationBySin, spaceService } from '@Anarchy/Engine';
-import { asRecord, isDefined, isNotDefined } from '@Shared/Utils';
+import { asRecord, isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import { combineLatest, distinctUntilChanged, tap } from 'rxjs';
 import type { Vector2Like, Vector3 } from 'three';
 

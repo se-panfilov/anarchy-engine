@@ -1,6 +1,6 @@
 import type { TEventsService } from '@Menu/models';
 import { useSettingsStore } from '@Menu/stores/SettingsStore';
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { TFromMenuEvent, TShowcaseGameSettings, TToMenuEvent } from '@Showcases/Shared';
 import { FromMenuEvents, isSettings, ToMenuEvents } from '@Showcases/Shared';
 import type { Observable, Subject, Subscription } from 'rxjs';

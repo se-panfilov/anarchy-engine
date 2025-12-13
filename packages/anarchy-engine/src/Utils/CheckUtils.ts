@@ -2,7 +2,7 @@ import type { TAbstractAsyncEntityRegistry, TAbstractEntityRegistry, TWithUserDa
 import type { TColorWrapper } from '@Anarchy/Engine/Color';
 import type { TDestroyable, TWithPosition2dProperty, TWithPosition3dProperty, TWithPosition4dProperty, TWithPositionProperty } from '@Anarchy/Engine/Mixins';
 import type { TEulerLike } from '@Anarchy/Engine/ThreeLib';
-import { isDefined, isNotDefined, isObject } from '@Shared/Utils';
+import { isDefined, isNotDefined, isObject } from '@Anarchy/Shared/Utils';
 import type { BufferGeometry, Euler, Material, Quaternion, QuaternionLike, Vector2, Vector2Like, Vector3, Vector3Like, Vector4, Vector4Like } from 'three';
 import { Color } from 'three';
 

@@ -23,7 +23,7 @@ import type {
 } from '@Anarchy/Engine';
 import { getTags, LoopUpdatePriority, MaterialType, metersPerSecond, mpsSpeed, PrimitiveModel3dType, TransformAgent } from '@Anarchy/Engine';
 import { meters } from '@Anarchy/Engine/Measurements/Utils';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Observable } from 'rxjs';
 import { withLatestFrom } from 'rxjs';

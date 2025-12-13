@@ -11,7 +11,7 @@ import type { TBufferGeometry, TPoints } from '@Anarchy/Engine/ThreeLib';
 import type { TDriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
 import { applyObject3dParams } from '@Anarchy/Engine/Utils';
-import type { TWriteable } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { BufferAttribute, BufferGeometry, Points } from 'three';
 

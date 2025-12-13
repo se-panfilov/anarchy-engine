@@ -1,6 +1,6 @@
 import type { TActor, TActorRegistry, TMetersPerSecond, TMilliseconds, TReadonlyVector3, TSpace, TSpaceConfig } from '@Anarchy/Engine';
 import { KeysExtra, meters, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@Anarchy/Engine';
-import { asRecord, isNotDefined } from '@Shared/Utils';
+import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import GUI from 'lil-gui';
 import { Vector3 } from 'three';
 

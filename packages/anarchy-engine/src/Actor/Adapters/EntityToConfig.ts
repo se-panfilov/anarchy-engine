@@ -4,7 +4,7 @@ import type { TFsmConfig, TFsmWrapper } from '@Anarchy/Engine/Fsm';
 import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
 import type { TModel3d, TModels3dRegistry } from '@Anarchy/Engine/Models3d';
 import type { TSpatialDataConfig } from '@Anarchy/Engine/Spatial';
-import { filterOutEmptyFields, isNotDefined } from '@Shared/Utils';
+import { filterOutEmptyFields, isNotDefined } from '@Anarchy/Shared/Utils';
 
 export function actorToConfig(entity: TActor, { models3dService }: TActorEntityToConfigDependencies): TActorConfig {
   const { drive } = entity;

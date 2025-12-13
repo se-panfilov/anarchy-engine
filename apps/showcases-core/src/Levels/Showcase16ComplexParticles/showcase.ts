@@ -1,7 +1,7 @@
 import type { TMaterialConfig, TMaterialParams, TMilliseconds, TParticlesConfig, TParticlesWrapper, TSpace, TSpaceConfig, TSpaceConfigEntities } from '@Anarchy/Engine';
 import { spaceService } from '@Anarchy/Engine';
 import { configToParams as materialConfigToParams } from '@Anarchy/Engine/Material/Adapters';
-import { asRecord, isDefined, isNotDefined } from '@Shared/Utils';
+import { asRecord, isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import GUI from 'lil-gui';
 import { BufferGeometry, Color, PointsMaterial } from 'three';
 

@@ -1,6 +1,6 @@
 import type { TActor, TAnyCameraWrapper, TReadonlyVector3, TSpace, TSpaceConfig } from '@Anarchy/Engine';
 import { spaceService } from '@Anarchy/Engine';
-import { asRecord, isNotDefined } from '@Shared/Utils';
+import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Vector3 } from 'three';
 
 import type { TAppSettings } from '@/Models';

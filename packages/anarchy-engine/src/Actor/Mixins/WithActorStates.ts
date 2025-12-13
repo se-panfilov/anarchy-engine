@@ -1,7 +1,7 @@
 import type { TActorParams, TActorStates, TWithActorStates } from '@Anarchy/Engine/Actor/Models';
 import type { TFsmWrapper } from '@Anarchy/Engine/Fsm';
-import type { TWriteable } from '@Shared/Utils';
-import { isDefined } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 
 export function withActorStates(params: TActorParams): TWithActorStates {
   const states: TWriteable<TActorStates> = params.states ?? {};

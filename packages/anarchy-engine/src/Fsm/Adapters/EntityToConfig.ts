@@ -1,6 +1,6 @@
 import type { TFsmConfig, TFsmWrapper } from '@Anarchy/Engine/Fsm/Models';
 import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
-import { filterOutEmptyFields } from '@Shared/Utils';
+import { filterOutEmptyFields } from '@Anarchy/Shared/Utils';
 
 export function fsmToConfig(entity: TFsmWrapper): TFsmConfig {
   return filterOutEmptyFields({

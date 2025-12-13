@@ -1,7 +1,7 @@
 import type { TActor } from '@Anarchy/Engine/Actor';
 import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
 import type { TSpatialCellId, TSpatialCellSerializedData, TSpatialCellWrapper, TSpatialGridConfig, TSpatialGridWrapper } from '@Anarchy/Engine/Spatial/Models';
-import { filterOutEmptyFields } from '@Shared/Utils';
+import { filterOutEmptyFields } from '@Anarchy/Shared/Utils';
 
 export function entityToConfigSpatialGrid(entity: TSpatialGridWrapper): TSpatialGridConfig {
   return filterOutEmptyFields({

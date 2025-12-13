@@ -2,7 +2,7 @@ import type { WatcherType } from '@Anarchy/Engine/Abstract/Constants';
 import type { TAbstractWatcher } from '@Anarchy/Engine/Abstract/Models';
 import type { TDestroyable } from '@Anarchy/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@Anarchy/Engine/Mixins';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, Subject } from 'rxjs';

@@ -3,7 +3,7 @@ import type { TAbstractEntity, TEntityParams } from '@Anarchy/Engine/Abstract/Mo
 import type { TDestroyable, TNoSpread, TRegistrable, TWithName } from '@Anarchy/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@Anarchy/Engine/Mixins';
 import { genericEntityCleanUp, mergeAll } from '@Anarchy/Engine/Utils';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 

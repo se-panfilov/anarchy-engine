@@ -12,7 +12,7 @@ import type {
   TRigidBodyTransformData
 } from '@Anarchy/Engine/TransformDrive/Models';
 import { applyLatestTransform, getPhysicsBodyTransform } from '@Anarchy/Engine/TransformDrive/Utils';
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, EMPTY, filter, map, switchMap, takeWhile, withLatestFrom } from 'rxjs';
 import { Quaternion, Vector3 } from 'three';

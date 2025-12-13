@@ -1,4 +1,4 @@
-import { getFileExtension, getHumanReadableMemorySize } from '@Shared/Utils/FileUtils';
+import { getFileExtension, getHumanReadableMemorySize } from '@Anarchy/Shared/Utils/FileUtils';
 import { describe, expect, it } from 'vitest';
 
 describe('FileUtils', () => {

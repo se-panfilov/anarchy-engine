@@ -10,7 +10,7 @@ import type { TMilliseconds } from '@Anarchy/Engine/Math';
 import { withActiveMixin } from '@Anarchy/Engine/Mixins';
 import type { TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 import { isEulerLike } from '@Anarchy/Engine/Utils';
-import { isDefined } from '@Shared/Utils';
+import { isDefined } from '@Anarchy/Shared/Utils';
 import type { Euler } from 'three';
 import { Quaternion, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';

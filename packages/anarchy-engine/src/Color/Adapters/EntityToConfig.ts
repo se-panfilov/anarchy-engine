@@ -1,5 +1,5 @@
 import type { TColorWrapper } from '@Anarchy/Engine/Color/Models';
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Color, ColorRepresentation } from 'three';
 
 export function colorToConfig(entity: TColorWrapper): ColorRepresentation {

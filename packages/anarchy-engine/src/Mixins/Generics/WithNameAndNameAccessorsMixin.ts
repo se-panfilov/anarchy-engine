@@ -1,5 +1,5 @@
 import type { TWithName, TWithNameAndNameAccessorsMixin } from '@Anarchy/Engine/Mixins/Generics/Models';
-import type { TWriteable } from '@Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
 
 export function withNameAndNameAccessorsMixin<T extends TWriteable<TWithName>>(entity: T): TWithNameAndNameAccessorsMixin {
   return {

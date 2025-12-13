@@ -1,4 +1,4 @@
-import { isAllNotDefined, isNotDefined } from '@Shared/Utils';
+import { isAllNotDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { TShowcaseGameSettings } from '@Showcases/Shared/Models';
 
 export function isSettings(settings: TShowcaseGameSettings | unknown): settings is TShowcaseGameSettings {

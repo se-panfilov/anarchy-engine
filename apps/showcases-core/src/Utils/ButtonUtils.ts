@@ -1,4 +1,4 @@
-import { isDefined, isNotDefined } from '@Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 
 export function addBtn(
   text: string,

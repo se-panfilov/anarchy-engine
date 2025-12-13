@@ -3,7 +3,7 @@ import type { TAbstractAsyncEntityRegistry, TAbstractEntityRegistry } from '@Ana
 import type { LookUpStrategy } from '@Anarchy/Engine/Abstract/Registries/Constants';
 import type { TMultitonRegistrable, TRegistrable } from '@Anarchy/Engine/Mixins';
 import { getAsyncUniqEntityByNameAsync, getAsyncUniqEntityWithTag, getUniqEntityByName$, getUniqEntityWithTag$, getUniqEntityWithTags$, getUniqEntityWithTagsAsync } from '@Anarchy/Engine/Utils';
-import { isNotDefined } from '@Shared/Utils';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Observable } from 'rxjs';
 
 import { AbstractEntityRegistry } from './AbstractEntityRegistry';
