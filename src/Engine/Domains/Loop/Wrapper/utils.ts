@@ -3,6 +3,7 @@ import type { IRendererWrapper } from '@Engine/Domains/Renderer';
 import type { ISceneWrapper } from '@Engine/Domains/Scene';
 
 import type { ILoopUtils, LoopFn } from '../Models';
+import { Clock } from 'three';
 
 export function getUtils(entity: LoopFn): ILoopUtils {
   function start(renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, camera: Readonly<ICameraWrapper>): void {
@@ -15,9 +16,10 @@ export function getUtils(entity: LoopFn): ILoopUtils {
 }
 
 function loopWrapper(fn: LoopFn, renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, camera: Readonly<ICameraWrapper>): () => void {
+  const clock: Clock = new Clock();
   const loop = (): void => {
     // (fpsGraph as any).begin();
-    fn(renderer, scene, camera);
+    fn(renderer, scene, camera, clock.getElapsedTime());
 
     // (fpsGraph as any).end();
     requestAnimationFrame(loop);

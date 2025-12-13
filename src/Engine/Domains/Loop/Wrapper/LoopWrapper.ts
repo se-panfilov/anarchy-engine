@@ -7,9 +7,19 @@ import type { ILoopParams, ILoopWrapper, LoopFn } from '../Models';
 import { getUtils } from './utils';
 
 export function LoopWrapper(params: ILoopParams): ILoopWrapper {
-  const entity: LoopFn = (renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, camera: Readonly<ICameraWrapper>): void => {
+  let _delta: number = 0;
+  const entity: LoopFn = (renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, camera: Readonly<ICameraWrapper>, delta: number): void => {
+    _delta = delta;
     renderer.entity.render(scene.entity, camera.entity);
   };
 
-  return { ...AbstractWrapper(entity, params), ...getUtils(entity), entity, tags: params.tags };
+  return {
+    ...AbstractWrapper(entity, params),
+    ...getUtils(entity),
+    entity,
+    tags: params.tags,
+    get delta(): number {
+      return _delta;
+    }
+  };
 }

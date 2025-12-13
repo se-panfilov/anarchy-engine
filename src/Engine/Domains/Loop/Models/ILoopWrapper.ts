@@ -7,5 +7,6 @@ import type { LoopFn } from './LoopFn';
 export type ILoopWrapper = IWrapper<LoopFn> &
   ILoopUtils &
   Readonly<{
+    delta: number;
     tags: ReadonlyArray<LoopTag | string>;
   }>;

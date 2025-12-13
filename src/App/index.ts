@@ -4,8 +4,8 @@ import levelConfig from '@App/Levels/debug-level.config.json';
 import type { IIntersectionsWatcher } from '@Engine/Domains/Intersections';
 import { IntersectionsWatcherFactory } from '@Engine/Domains/Intersections';
 
-import type { IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, IVector3 } from '@/Engine';
-import { ActorTag, ambientContext, buildLevelFromConfig, CameraTag, isNotDefined } from '@/Engine';
+import type { IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, ILoopWrapper, IVector3 } from '@/Engine';
+import { ActorTag, ambientContext, buildLevelFromConfig, CameraTag, isNotDefined, LoopTag } from '@/Engine';
 
 const canvas: IAppCanvas | null = ambientContext.container.getCanvasElement('#app');
 if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
@@ -24,6 +24,24 @@ intersectionsWatcher.value$.subscribe((obj: IVector3): void => {
 });
 
 intersectionsWatcher.start();
+
+// TODO (S.Panfilov) experiments with animations
+const actor = level.actor.registry.initial.getAllWithSomeTag([ActorTag.Intersectable])[0];
+actor.setY(2);
+const loop: ILoopWrapper | undefined = level.loop.registry.initial.getUniqByTag(LoopTag.Main);
+
+function moveActor(): void {
+  requestAnimationFrame((): void => {
+    if (isNotDefined(loop)) throw new Error(`Cannot start the main loop for the level: loop with tag "${LoopTag.Main}" is not defined`);
+    const delta: number = loop.delta;
+    actor.setX(Math.sin(delta) * 8);
+    actor.setZ(Math.cos(delta) * 8);
+    moveActor();
+  });
+}
+
+moveActor();
+// TODO (S.Panfilov) END experiments with animations
 
 ambientContext.mouseClicksWatcher.value$.subscribe((): void => {
   console.log('int click:');
