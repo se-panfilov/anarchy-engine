@@ -11,7 +11,6 @@
     "LICENSE",
     "README.md",
     "THIRD_PARTY_LICENSES.md",
-    "THIRD_PARTY_LICENSES_FULL.txt",
     "dist/"
   ],
   "scripts": {
