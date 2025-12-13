@@ -17,7 +17,7 @@ export type IWithCreateFromConfigService<C> = Readonly<{
 export type IWithActiveAccessorsService<W> = Readonly<{
   setActive: (id: string) => void;
   findActive: () => W | undefined;
-  active$: Observable<W>;
+  active$: Observable<W | undefined>;
 }>;
 
 export type IWithFactoryService<F> = Readonly<{

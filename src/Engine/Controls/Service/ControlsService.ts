@@ -1,16 +1,14 @@
-import { Subject } from 'rxjs';
-
 import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraRegistry, ICameraWrapper } from '@/Engine/Camera';
 import type { IControlsConfig, IControlsFactory, IControlsParams, IControlsRegistry, IControlsService, IControlsWrapper } from '@/Engine/Controls/Models';
-import type { IDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
-import { findActiveWrappedEntity, isNotDefined, setActiveWrappedEntity } from '@/Engine/Utils';
+import type { IDestroyable, IWithActiveMixinResult } from '@/Engine/Mixins';
+import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
+import { isNotDefined } from '@/Engine/Utils';
 
 export function ControlService(factory: IControlsFactory, registry: IControlsRegistry, canvas: IAppCanvas): IControlsService {
-  const active$: Subject<IControlsWrapper> = new Subject<IControlsWrapper>();
+  const withActive: IWithActiveMixinResult<IControlsWrapper> = withActiveEntityServiceMixin<IControlsWrapper>(registry);
   registry.added$.subscribe((wrapper: IControlsWrapper): void => {
-    if (wrapper.isActive) active$.next(wrapper);
+    if (wrapper.isActive) withActive.active$.next(wrapper);
   });
   factory.entityCreated$.subscribe((wrapper: IControlsWrapper): void => registry.add(wrapper));
 
@@ -23,25 +21,19 @@ export function ControlService(factory: IControlsFactory, registry: IControlsReg
     });
   };
 
-  function setActive(id: string): void {
-    const active: IControlsWrapper = setActiveWrappedEntity(registry, id);
-    active$.next(active);
-  }
-  const findActive = (): IControlsWrapper | undefined => findActiveWrappedEntity(registry);
-
   const destroyable: IDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     factory.destroy();
     registry.destroy();
-    active$.complete();
+    withActive.active$.complete();
   });
 
   return {
     create,
     createFromConfig,
-    setActive,
-    findActive,
-    active$: active$.asObservable(),
+    setActive: withActive.setActive,
+    findActive: withActive.findActive,
+    active$: withActive.active$.asObservable(),
     getFactory: (): IControlsFactory => factory,
     getRegistry: (): IControlsRegistry => registry,
     ...destroyable
