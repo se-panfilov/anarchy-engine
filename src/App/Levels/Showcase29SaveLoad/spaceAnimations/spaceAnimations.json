@@ -158,7 +158,12 @@
   },
   "name": "SpaceAnimations",
   "resources": {
-    "animations": [],
+    "animations": [
+      {
+        "name": "dance_anim",
+        "url": "/Showcase/Models/Solder/animations/samba.glb"
+      }
+    ],
     "audio": [],
     "envMaps": [],
     "models3d": [

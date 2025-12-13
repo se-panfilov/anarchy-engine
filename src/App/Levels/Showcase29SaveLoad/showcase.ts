@@ -89,6 +89,7 @@ function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>)
       map((s): boolean => s.size !== 0), // "true" means all awaits are done
       distinctUntilChanged()
     )
+    // eslint-disable-next-line functional/prefer-tacit
     .subscribe((isAwaiting: boolean): void => setAwaiting(isAwaiting));
 
   currentSpaceName = space.name;
