@@ -16,6 +16,7 @@ import type {
   TModel3d,
   TModels3dService,
   TMouseService,
+  TPointLightWrapper,
   TRadians,
   TSceneWrapper,
   TSpatialGridService,
@@ -166,7 +167,7 @@ export function shootRapidFire(
   mouseService.clickLeftPress$.subscribe((): void => {
     shoot(actor.drive.getPosition(), from.azimuth, from.elevation, meters(shootingParams.speed), bullets);
     // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
-    idx = setInterval(() => {
+    idx = setInterval((): void => {
       shoot(actor.drive.getPosition(), from.azimuth, from.elevation, meters(shootingParams.speed), bullets);
     }, shootingParams.cooldownMs);
   });
@@ -176,7 +177,7 @@ export function shootRapidFire(
 }
 
 export function shoot(actorPosition: Vector3, toAngle: TRadians, elevation: TRadians, speedMeters: number, bullets: ReadonlyArray<TBullet>): void {
-  const bullet: TBullet | undefined = bullets.find((b: TBullet) => !b.isActive());
+  const bullet: TBullet | undefined = bullets.find((b: TBullet): boolean => !b.isActive());
   if (isDefined(bullet)) {
     bullet.drive.position$.next(actorPosition);
     bullet.drive.kinematic.setLinearAzimuthRad(toAngle);
@@ -212,11 +213,11 @@ export function createHitEffect(position: Vector3, sceneW: TSceneWrapper, lightS
 
   const particleSystem = new Points(particles, material);
 
-  const lightW = createFlashLight(lightService, position, new Color('#ff0000'), 100, 50);
+  const lightW: TPointLightWrapper = createFlashLight(lightService, position, new Color('#ff0000'), 100, 50);
 
   sceneW.entity.add(particleSystem);
   // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
-  setTimeout(() => {
+  setTimeout((): void => {
     sceneW.entity.remove(particleSystem);
     sceneW.entity.remove(lightW.entity);
   }, 500);
@@ -229,8 +230,8 @@ export function applyExplosionImpulse(actor: TActor, collisionPoint: Vector3, ex
 
   const bodyPosition = new Vector3(body.translation().x, body.translation().y, body.translation().z);
 
-  const direction = new Vector3().subVectors(bodyPosition, collisionPoint).normalize();
-  const impulse = direction.multiplyScalar(explosionForce);
+  const direction: Vector3 = new Vector3().subVectors(bodyPosition, collisionPoint).normalize();
+  const impulse: Vector3 = direction.multiplyScalar(explosionForce);
 
   body.applyImpulseAtPoint({ x: impulse.x, y: impulse.y, z: impulse.z }, { x: collisionPoint.x, y: collisionPoint.y, z: collisionPoint.z }, true);
 }

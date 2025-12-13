@@ -4,7 +4,7 @@ import { Vector3 } from 'three';
 import { radToDeg } from 'three/src/math/MathUtils';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import { addGizmo } from '@/App/Levels/Utils';
+import { addGizmo, getMemoryUsage } from '@/App/Levels/Utils';
 import type {
   TActor,
   TAppCanvas,
@@ -28,7 +28,6 @@ import type {
 } from '@/Engine';
 import { ambientContext, Engine, getDistancePrecisely, getMouseAzimuthAndElevation, getPushCoordsFrom3dAzimuthDeg, isNotDefined, KeysExtra, spaceService, TransformAgent } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
-import { getHumanReadableMemorySize } from '@/Engine/Utils/FileUtils';
 
 import spaceConfig from './showcase.json';
 import {
@@ -158,8 +157,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     changeActorActiveAgent(sphereActor, KeysExtra.Space, keyboardService);
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-argument
-    console.log('Memory usage:', getHumanReadableMemorySize((window as any).performance.memory.usedJSHeapSize));
+    console.log('Memory usage:', getMemoryUsage());
   }
 
   function start(): void {

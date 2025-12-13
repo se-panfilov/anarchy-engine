@@ -24,8 +24,7 @@
       { "name": "box_7_material", "type": "standard", "options": { "color": "#0FF0F0" } },
       { "name": "target_1_material", "type": "standard", "options": { "color": "#000FFF" } },
       { "name": "target_2_material", "type": "standard", "options": { "color": "#FF00FF" } },
-      { "name": "target_3_material", "type": "standard", "options": { "color": "#FFF000" } },
-      { "name": "map_center_material", "type": "standard", "options": { "color": "#FF1E63" } }
+      { "name": "target_3_material", "type": "standard", "options": { "color": "#FFF000" } }
     ],
     "models3d": []
   },
@@ -216,20 +215,6 @@
         },
         "castShadow": true,
         "receiveShadow": true
-      },
-      {
-        "name": "map_center_model",
-        "model3dSource": "cube",
-        "materialSource": "map_center_material",
-        "options": {
-          "width": 0.3,
-          "height": 100,
-          "depth": 0.3,
-          "widthSegments": 1,
-          "heightSegments": 1
-        },
-        "castShadow": true,
-        "receiveShadow": true
       }
     ],
     "actors": [
@@ -347,14 +332,6 @@
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": -22, "y": 0, "z": 8.5 },
         "rotation": { "x": 0, "y": 0, "z": 0 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
-      },
-      {
-        "name": "map_center",
-        "model3dSource": "map_center_model",
-        "agent": "kinematic",
-        "kinematic": { "isAutoUpdate": true },
-        "position": { "x": 0, "y": 2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
       }
     ],
