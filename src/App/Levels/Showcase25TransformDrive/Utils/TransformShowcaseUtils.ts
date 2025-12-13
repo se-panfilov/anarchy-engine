@@ -19,6 +19,7 @@ import type {
   TMaterialWrapper,
   TModel3d,
   TOrbitControlsWrapper,
+  TParticlesWrapper,
   TSpaceServices,
   TSpatialGridWrapper,
   TWithConnectedTransformAgent,
@@ -127,31 +128,31 @@ export function connectCameraToActor(camera: TCameraWrapper, controls: TOrbitCon
     });
 }
 
-export function connectObjToActor(light: TWithTransformDrive<TWithConnectedTransformAgent>, actor: TActor, gui: GUI): void {
-  const lightSettings = { isFollowingActor: false };
-  const folder: GUI = gui.addFolder('Light');
-  folder.add(lightSettings, 'isFollowingActor').name('Following mode');
+export function connectObjToActor(folderName: string, obj: TWithTransformDrive<TWithConnectedTransformAgent>, actor: TActor, gui: GUI): void {
+  const objSettings = { isFollowingActor: false };
+  const folder: GUI = gui.addFolder(folderName);
+  folder.add(objSettings, 'isFollowingActor').name('Following mode');
 
   actor.drive.position$
     .pipe(
       map((position: Vector3): { position: Vector3; isFollowingActor: boolean } => ({
         position: position.clone(),
-        isFollowingActor: lightSettings.isFollowingActor
+        isFollowingActor: objSettings.isFollowingActor
       }))
     )
     .subscribe(({ position, isFollowingActor }: { position: Vector3; isFollowingActor: boolean }): void => {
       if (isFollowingActor) {
-        // we can do just this, but here we want to test the "connected" agent of a light
-        // light.drive.position$.next(position.clone().add(new Vector3(0, 4, 0)));
-        light.drive.agent$.next(TransformAgent.Connected);
+        // we can do just this, but here we want to test the "connected" agent of an obj
+        // obj.drive.position$.next(position.clone().add(new Vector3(0, 4, 0)));
+        obj.drive.agent$.next(TransformAgent.Connected);
         // eslint-disable-next-line functional/immutable-data
-        light.drive.connected.positionConnector.x = position.x;
+        obj.drive.connected.positionConnector.x = position.x;
         // eslint-disable-next-line functional/immutable-data
-        light.drive.connected.positionConnector.y = position.y + 4;
+        obj.drive.connected.positionConnector.y = position.y + 4;
         // eslint-disable-next-line functional/immutable-data
-        light.drive.connected.positionConnector.z = position.z;
+        obj.drive.connected.positionConnector.z = position.z;
       } else {
-        light.drive.agent$.next(TransformAgent.Default);
+        obj.drive.agent$.next(TransformAgent.Default);
       }
     });
 }
@@ -184,6 +185,21 @@ export function addSpatialGuiFolder(gui: GUI, grid: TSpatialGridWrapper, mouseLi
   const gridFolderGui: GUI = gui.addFolder('Spatial Grid');
   gridFolderGui.add(cell, 'name').listen();
   gridFolderGui.add(cell, 'actors').listen();
+}
+
+export function setParticles(particles: TParticlesWrapper, count: number = 500, area: number = 10): void {
+  const positions: Float32Array = new Float32Array(count * 3);
+  const colors: Float32Array = new Float32Array(count * 3);
+
+  // eslint-disable-next-line functional/no-loop-statements
+  for (let i: number = 0; i < count * 3; i++) {
+    // eslint-disable-next-line functional/immutable-data
+    positions[i] = (Math.random() - 0.5) * area;
+    // eslint-disable-next-line functional/immutable-data
+    colors[i] = Math.random();
+  }
+
+  particles.setIndividualPositions(positions);
 }
 
 // TODO LINES: refactor this with lines domain
