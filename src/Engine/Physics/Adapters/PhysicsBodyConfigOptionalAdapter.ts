@@ -1,8 +1,8 @@
-import type { TPhysicsBodyConfig, TPhysicsBodyParams } from '@/Engine/Physics/Models';
+import type { TPhysicsBodyConfig, TWithPresetPhysicsBodyParams } from '@/Engine/Physics/Models';
 
 import { withCoordsToVector } from './PhysicsAdapterUtils';
 
-export function configToParamsBody(config: TPhysicsBodyConfig): TPhysicsBodyParams {
+export function configToOptionalParamsBody(config: TPhysicsBodyConfig): TWithPresetPhysicsBodyParams {
   const { position, rotation, ...rest } = config;
 
   return {

@@ -1,7 +1,7 @@
 import type { TActorConfig, TActorParams } from '@/Engine/Actor/Models';
 import { configToParams as materialConfigToParams } from '@/Engine/Material/Adapters';
 import type { TMaterialPackParams, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
-import { configToParamsBody } from '@/Engine/Physics';
+import { configToOptionalParamsBody } from '@/Engine/Physics';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 
 export function configToParams(config: TActorConfig): TActorParams {
@@ -10,7 +10,7 @@ export function configToParams(config: TActorConfig): TActorParams {
 
   return {
     ...rest,
-    physics: physics ? configToParamsBody(physics) : {},
+    physics: physics ? configToOptionalParamsBody(physics) : {},
     material: { type: materialType, params: { ...restMaterialParams }, textures: material.textures } satisfies TMaterialPackParams<TMaterialTexturePack>,
     ...configToParamsObject3d({ position, rotation, scale, layers, animations })
   };
