@@ -6,7 +6,7 @@ import type { IGlobalContainerDecorator } from '@/Engine/Global';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@/Engine/Mouse/Constants';
-import { MouseClickWatcherFactory, MousePositionWatcherFactory } from 'src/Engine/Mouse/Factories';
+import { MouseClickWatcherFactory, MousePositionWatcherFactory } from '@/Engine/Mouse/Factories';
 import type {
   IMouseClickWatcher,
   IMouseClickWatcherFactory,
@@ -17,7 +17,7 @@ import type {
   IMouseService,
   IMouseWatcherEvent
 } from '@/Engine/Mouse/Models';
-import { MouseClickWatcherRegistry, MousePositionWatcherRegistry } from 'src/Engine/Mouse/Registries';
+import { MouseClickWatcherRegistry, MousePositionWatcherRegistry } from '@/Engine/Mouse/Registries';
 
 export function MouseService(container: IGlobalContainerDecorator): IMouseService {
   const mouseClickWatcherFactory: IMouseClickWatcherFactory = MouseClickWatcherFactory();

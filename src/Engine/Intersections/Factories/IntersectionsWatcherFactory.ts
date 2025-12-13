@@ -1,6 +1,6 @@
 import type { IReactiveFactory } from '@/Engine/Abstract';
 import { FactoryType, ReactiveFactory } from '@/Engine/Abstract';
-import { configToParamsAsync } from 'src/Engine/Intersections/Adapters';
+import { configToParamsAsync } from '@/Engine/Intersections/Adapters';
 import type { IIntersectionsWatcher, IIntersectionsWatcherFactory, IIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
 import { IntersectionsWatcher } from '@/Engine/Intersections/Watchers';
 

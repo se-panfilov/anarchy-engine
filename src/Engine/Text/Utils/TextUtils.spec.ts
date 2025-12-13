@@ -1,7 +1,7 @@
 import { EulerWrapper } from '@/Engine/Euler';
 import { TextType } from '@/Engine/Text/Constants';
 import type { IText2dWrapper, IText3dWrapper, ITextParams } from '@/Engine/Text/Models';
-import { Text2dWrapper, Text3dWrapper } from 'src/Engine/Text/Wrappers';
+import { Text2dWrapper, Text3dWrapper } from '@/Engine/Text/Wrappers';
 import { Vector3Wrapper } from '@/Engine/Vector';
 
 import { isText2dWrapper, isText3dWrapper } from './TextUtils';

@@ -1,6 +1,6 @@
 import { expect } from 'vitest';
 
-import { LookUpStrategy } from 'src/Engine/Abstract/Registries';
+import { LookUpStrategy } from '@/Engine/Abstract/Registries';
 import type { ICameraRegistry, ICameraWrapper } from '@/Engine/Camera';
 import { CameraRegistry, CameraWrapper } from '@/Engine/Camera';
 import type { IRegistrable } from '@/Engine/Mixins';

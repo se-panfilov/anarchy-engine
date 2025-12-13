@@ -1,4 +1,4 @@
-import { RegistryFacade } from 'src/Engine/Abstract/Registries';
+import { RegistryFacade } from '@/Engine/Abstract/Registries';
 import type { ICameraRegistry } from '@/Engine/Camera/Models';
 
 import { AbstractCameraRegistry } from './AbstractCameraRegistry';

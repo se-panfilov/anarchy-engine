@@ -1,8 +1,8 @@
 import type { IReactiveFactory } from '@/Engine/Abstract';
 import { FactoryType, ReactiveFactory } from '@/Engine/Abstract';
-import { configToParams } from 'src/Engine/Controls/Adapters';
+import { configToParams } from '@/Engine/Controls/Adapters';
 import type { IControlsFactory, IControlsParams, IControlsWrapper, IOrbitControlsParams } from '@/Engine/Controls/Models';
-import { OrbitControlsWrapper } from 'src/Engine/Controls/Wrappers';
+import { OrbitControlsWrapper } from '@/Engine/Controls/Wrappers';
 
 // eslint-disable-next-line functional/prefer-tacit
 function create(params: IOrbitControlsParams): IControlsWrapper {

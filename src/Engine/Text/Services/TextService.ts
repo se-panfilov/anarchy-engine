@@ -18,7 +18,7 @@ import type {
   ITextParams,
   ITextService
 } from '@/Engine/Text/Models';
-import { initText2dRenderer, initText3dRenderer } from 'src/Engine/Text/Renderers';
+import { initText2dRenderer, initText3dRenderer } from '@/Engine/Text/Renderers';
 import { isText2dWrapper, isText3dWrapper } from '@/Engine/Text/Utils';
 
 export function TextService(

@@ -1,5 +1,5 @@
 import type { IActorConfig, IActorParams } from '@/Engine/Actor/Models';
-import { configToParams as materialConfigToParams } from 'src/Engine/Material/Adapters';
+import { configToParams as materialConfigToParams } from '@/Engine/Material/Adapters';
 import type { IMaterialPackParams, IMaterialTexturePack } from '@/Engine/MaterialTexturePack';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 

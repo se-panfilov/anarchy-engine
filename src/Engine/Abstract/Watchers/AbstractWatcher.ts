@@ -5,7 +5,7 @@ import type { WatcherType } from '@/Engine/Abstract/Constants';
 import type { IAbstractWatcher } from '@/Engine/Abstract/Models';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
-import { withTagsMixin } from 'src/Engine/Mixins/Generics';
+import { withTagsMixin } from '@/Engine/Mixins/Generics';
 import { isDefined } from '@/Engine/Utils';
 
 export function AbstractWatcher<T>(type: WatcherType | string, name: string | undefined, tags: ReadonlyArray<string> = []): IAbstractWatcher<T> {

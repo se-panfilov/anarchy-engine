@@ -1,10 +1,10 @@
 import type { IReactiveFactory } from '@/Engine/Abstract';
 import { FactoryType, ReactiveFactory } from '@/Engine/Abstract';
-import { configToParams } from 'src/Engine/Light/Adapters';
+import { configToParams } from '@/Engine/Light/Adapters';
 import { LightType } from '@/Engine/Light/Constants';
 import type { ILightFactory, ILightParams, ILightWrapper } from '@/Engine/Light/Models';
 import { isAmbientLightParams, isDirectionalLightParams, isHemisphereLightParams, isPointLightParams, isRectAreaLightParams, isSpotLightParams } from '@/Engine/Light/Utils';
-import { AmbientLightWrapper, DirectionalLightWrapper, HemisphereLightWrapper, PointLightWrapper, RectAreaLightWrapper, SpotLightWrapper } from 'src/Engine/Light/Wrappers';
+import { AmbientLightWrapper, DirectionalLightWrapper, HemisphereLightWrapper, PointLightWrapper, RectAreaLightWrapper, SpotLightWrapper } from '@/Engine/Light/Wrappers';
 
 function create(params: ILightParams): ILightWrapper | never {
   if (params.type === LightType.Ambient && isAmbientLightParams(params)) return AmbientLightWrapper(params);

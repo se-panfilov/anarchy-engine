@@ -1,5 +1,5 @@
 import { RegistryType } from '@/Engine/Abstract/Constants';
-import { AbstractSimpleRegistry, RegistryFacade } from 'src/Engine/Abstract/Registries';
+import { AbstractSimpleRegistry, RegistryFacade } from '@/Engine/Abstract/Registries';
 import type { IText2dRenderer, IText2dRendererRegistry } from '@/Engine/Text/Models';
 
 export const Text2dRendererRegistry = (): IText2dRendererRegistry => RegistryFacade(AbstractSimpleRegistry<IText2dRenderer>(RegistryType.TextRenderer));
