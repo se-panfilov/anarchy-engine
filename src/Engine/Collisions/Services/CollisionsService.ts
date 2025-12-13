@@ -2,13 +2,13 @@ import type { Intersection } from 'three';
 import { Box3, Raycaster } from 'three';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor/Models';
-import type { TCollisionCheckResult, TCollisionsService, TRaycastBvhService } from '@/Engine/Collisions/Models';
+import type { TBvhService, TCollisionCheckResult, TCollisionsService } from '@/Engine/Collisions/Models';
 import { createBoundingBox } from '@/Engine/Spatial/Services/SpatialHelper';
 
-import { RaycastBvhService } from './RaycastBvhService';
+import { BvhService } from './BvhService';
 
 export function CollisionsService(): TCollisionsService {
-  const raycastBvhService: TRaycastBvhService = RaycastBvhService();
+  const raycastBvhService: TBvhService = BvhService();
 
   // TODO (S.Panfilov) debug box
   let box: any;

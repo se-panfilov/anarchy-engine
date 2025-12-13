@@ -1,3 +1,5 @@
+export * from './TBvhOptions';
+export * from './TBvhService';
 export * from './TCollisionCheckResult';
 export * from './TCollisionsData';
 export * from './TCollisionsDataConfig';
@@ -5,6 +7,4 @@ export * from './TCollisionsDataParams';
 export * from './TCollisionsLoopService';
 export * from './TCollisionsMethods';
 export * from './TCollisionsService';
-export * from './TRaycastBvhOptions';
-export * from './TRaycastBvhService';
 export * from './TWithCollisions';

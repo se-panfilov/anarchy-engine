@@ -4,12 +4,12 @@ import type { MeshBVH } from 'three-mesh-bvh';
 import type { TActorWrapperAsync } from '@/Engine/Actor';
 import type { TSceneWrapper } from '@/Engine/Scene';
 
-import type { TRaycastBvhOptions } from './TRaycastBvhOptions';
+import type { TBvhOptions } from './TBvhOptions';
 
-export type TRaycastBvhService = Readonly<{
-  computeBVHBoundsTree: (geometry: BufferGeometry, options?: TRaycastBvhOptions) => MeshBVH;
+export type TBvhService = Readonly<{
+  computeBVHBoundsTree: (geometry: BufferGeometry, options?: TBvhOptions) => MeshBVH;
   disposeBVHBoundsTree: (geometry: BufferGeometry) => void;
   raycastWithBvh: (actorW: TActorWrapperAsync, raycaster: Raycaster, intersects: Array<Intersection>) => void;
-  createBvhForActor: (actorW: TActorWrapperAsync, options?: TRaycastBvhOptions) => void | never;
-  _debugVisualizeRaycastBvh: (actorW: TActorWrapperAsync, sceneW: TSceneWrapper) => void;
+  createBvhForActor: (actorW: TActorWrapperAsync, options?: TBvhOptions) => void | never;
+  _debugVisualizeBvh: (actorW: TActorWrapperAsync, sceneW: TSceneWrapper) => void;
 }>;
