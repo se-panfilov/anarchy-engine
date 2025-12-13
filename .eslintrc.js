@@ -18,17 +18,6 @@ module.exports = {
     'plugin:functional/recommended',
     'plugin:functional/stylistic'
   ],
-  // settings: {
-  //   immutability: {
-  //     overrides: [
-  //       {
-  //         name: "ReadonlyArray",
-  //         to: "ReadonlyShallow",
-  //         from: "ReadonlyDeep"
-  //       }
-  //     ]
-  //   }
-  // },
   rules: {
     'import/no-unresolved': 'off',
     'functional/functional-parameters': [
@@ -37,10 +26,6 @@ module.exports = {
         allowRestParameter: true,
         allowArgumentsKeyword: false,
         enforceParameterCount: false
-        // enforceParameterCount: {
-        //   count: 'atLeastOne',
-        //   ignoreIIFE: true
-        // }
       }
     ],
     'functional/no-expression-statement': 'off',

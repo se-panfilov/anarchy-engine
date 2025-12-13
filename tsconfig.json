@@ -26,6 +26,5 @@
     "types": ["node", "vite/client", "three"],
     "useDefineForClassFields": true
   },
-  "include": ["src"],
-  "exclude": ["src/Engine/main.legacy-old.ts", "src/main.legacy.ts"]
+  "include": ["src"]
 }
