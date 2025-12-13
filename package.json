@@ -1,8 +1,8 @@
 {
-  "name": "3frog",
+  "name": "Hanami",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.0.8",
+  "version": "1.14.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
