@@ -13,8 +13,8 @@
 dist/
 build/
 out/
-coverage/
 reports/
+coverage/
 *.map
 
 

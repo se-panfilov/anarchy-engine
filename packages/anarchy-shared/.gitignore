@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 reports/
+coverage/
 stats.html
 graph.svg
 
