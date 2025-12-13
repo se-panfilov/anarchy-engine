@@ -12,7 +12,6 @@ export function AnimationsLoader(registry: TAnimationsResourceAsyncRegistry): TA
 
   //Actually it's always loaded as GLTF, but we want to only animations (so do GLTF | TAnimations to suppress TS error)
   function applyParamsOnLoaded(loaded: TWriteable<GLTF | TAnimations>, options?: TAnimationsResourceConfig['options']): TAnimations {
-    console.log('XXX loaded', loaded);
     if (isNotDefined(options)) return (loaded as GLTF).animations;
 
     return (loaded as GLTF).animations;

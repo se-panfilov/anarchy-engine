@@ -1,7 +1,7 @@
 import type { AnimationClip } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import type { TAnimationsResourceAsyncRegistry } from '@/Engine/Animations';
+import type { TAnimations, TAnimationsResourceAsyncRegistry } from '@/Engine/Animations';
 import type { PrimitiveModel3dType } from '@/Engine/Models3d/Constants';
 import type { TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModel3dResourceAsyncRegistry } from '@/Engine/Models3d/Models';
 import { isPrimitiveModel3dData } from '@/Engine/Models3d/Utils';
@@ -37,9 +37,9 @@ function getAnimationsSource(config: TModel3dConfig, animationsResourceAsyncRegi
   let animations: ReadonlyArray<AnimationClip> = [];
   if (isDefined(config.animationsSource)) {
     config.animationsSource.forEach((source: string): void => {
-      const a: AnimationClip | undefined = animationsResourceAsyncRegistry.findByKey(source);
-      if (isNotDefined(a)) throw new Error(`Model3dConfigAdapter: animationsSource not found: ${source}`);
-      animations = [...animations, a];
+      const loaded: TAnimations | undefined = animationsResourceAsyncRegistry.findByKey(source);
+      if (isNotDefined(loaded)) throw new Error(`Model3dConfigAdapter: animationsSource not found: ${source}`);
+      animations = [...animations, ...loaded];
     });
   }
 
