@@ -74,12 +74,12 @@ export function RepoUtilsService(): TRepoUtilsService {
     const searchUp = async (dir: string, depth: number): Promise<string | undefined> => {
       if (depth > 50) return undefined;
       const pkgPath: string = path.join(dir, 'package.json');
-      debugLog(isDebug, '  check', pkgPath);
+      debugLog(isDebug, 'check', pkgPath);
       if (await isExist(pkgPath)) {
         try {
           const pkg = await readJson<any>(pkgPath);
           if (hasWorkspacesField(pkg)) {
-            debugLog(isDebug, ' found workspaces at', pkgPath);
+            debugLog(isDebug, 'found workspaces at', pkgPath);
             return dir;
           }
         } catch (e) {

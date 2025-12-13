@@ -4,13 +4,13 @@ import path from 'node:path';
 import type {
   TAnarchyLegalConfig,
   TAnarchyLegalConfigEntry,
-  TDateMessage,
   TLegalDocumentType,
   TLegalFilesUtilsService,
   TRenderInput,
   TRepoUtilsService,
   TTemplateGeneratorOptions,
-  TTemplateMessages
+  TTemplateMessages,
+  TWorkspaceInfo
 } from '@Anarchy/Legal/Models';
 import { isValid, parseISO } from 'date-fns';
 import { format as dfFormat } from 'date-fns/format';
@@ -79,14 +79,16 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
     }
   };
 
-  // Convert message value (string | {date,format}) -> string
+  // Convert message value → string (for variable substitution)
   function materializeMessage(v: unknown): string {
+    if (v === null || v === undefined) return '';
     if (typeof v === 'string') return v;
-    if (v && typeof v === 'object' && 'date' in (v as any) && 'format' in (v as any)) {
-      const { date, format } = v as TDateMessage;
-      if (typeof date === 'string' && typeof format === 'string') {
-        return formatWithDateFns(date, format);
-      }
+    if (typeof v === 'number') return Number.isFinite(v) ? String(v) : '';
+    if (typeof v === 'boolean') return v ? 'true' : 'false'; // only for {{VAR}} replacement
+    // date-object: { date: string; format: string } -> via date-fns
+    if (typeof v === 'object' && 'date' in (v as any) && 'format' in (v as any)) {
+      const { date, format } = v as { date: string; format: string };
+      if (typeof date === 'string' && typeof format === 'string') return formatWithDateFns(date, format);
     }
     return '';
   }
@@ -178,6 +180,30 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
     return { ...pkgValues, ...genericValues, ...specificValues };
   }
 
+  // Build both: materialized values for {{VAR}} and raw map for section truthiness
+  function buildContext(
+    docType: TLegalDocumentType,
+    tplText: string,
+    pkg: Readonly<Record<string, unknown>>,
+    generic: Readonly<Record<string, unknown>> | undefined,
+    specific: Readonly<Record<string, unknown>> | undefined
+  ): Readonly<{ values: Record<string, string>; raw: Record<string, unknown> }> {
+    const values = buildPlaceholderValues(docType, tplText, pkg, generic as any, specific as any);
+    const raw: Record<string, unknown> = {};
+
+    for (const [k, v] of Object.entries(values)) raw[k] = v;
+
+    const mergeRaw = (msgs?: Readonly<Record<string, unknown>>) => {
+      if (!msgs) return;
+      for (const [k, v] of Object.entries(msgs)) raw[k] = v;
+    };
+
+    mergeRaw(generic);
+    mergeRaw(specific);
+
+    return { values, raw };
+  }
+
   // Render
   function renderTemplate(tpl: string, values: Readonly<Record<string, string>>, onMissing: (name: string) => void): string {
     return tpl.replace(PLACEHOLDER_RE, (_m, g1: string): string => {
@@ -190,30 +216,84 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
     });
   }
 
-  async function generateForType(renderInput: TRenderInput, docType: TLegalDocumentType, options: TTemplateGeneratorOptions): Promise<void> {
-    const genericConfig: TAnarchyLegalConfigEntry | undefined = pickEntry(renderInput.config, 'GENERIC');
-    const specificConfig: TAnarchyLegalConfigEntry | undefined = pickEntry(renderInput.config, docType);
-    const desiredBase: string | undefined = specificConfig?.template;
+  // Replace variables {{VAR}} with materialized values
+  const renderVariables = (tpl: string, values: Readonly<Record<string, string>>, onMissing: (name: string) => void): string => {
+    const VAR_RE = /{{\s*([A-Z0-9_]+)\s*}}/g;
+    return tpl.replace(VAR_RE, (_m, g1: string) => {
+      const v = values[g1];
+      if (v === undefined) {
+        onMissing(g1);
+        return '';
+      }
+      return v;
+    });
+  };
 
-    const tplPath: string | undefined = await findTemplateFile(renderInput.templatesDir, docType, options, desiredBase);
+  // Evaluate sections recursively until nothing left
+  function renderSections(input: string, truthyMap: Readonly<Record<string, unknown>>): string {
+    const SECTION_RE = /{{\s*([#^])\s*([A-Z0-9_]+)\s*}}([\s\S]*?){{\s*\/\s*\2\s*}}/g;
+
+    const isTruthy = (raw: unknown): boolean => Boolean(raw);
+
+    let prev: string;
+    let out = input;
+    do {
+      prev = out;
+      out = out.replace(SECTION_RE, (_m, sigil: '#' | '^', name: string, body: string) => {
+        const cond = isTruthy(truthyMap[name]);
+        const pass = sigil === '#' ? cond : !cond;
+        return pass ? renderSections(body, truthyMap) : '';
+      });
+    } while (out !== prev);
+    return out;
+  }
+
+  async function generateForType(
+    i: Readonly<{
+      ws: TWorkspaceInfo;
+      outDir: string;
+      templatesDir: string;
+      types: ReadonlySet<TLegalDocumentType>;
+      config: ReadonlyArray<{
+        type: 'GENERIC' | TLegalDocumentType;
+        template?: string;
+        messages?: Readonly<Record<string, unknown>>;
+      }>;
+    }>,
+    docType: TLegalDocumentType,
+    options: TTemplateGeneratorOptions
+  ): Promise<void> {
+    const genericConfig = i.config.find((e) => e?.type === 'GENERIC');
+    const specificConfig = i.config.find((e) => e?.type === docType);
+    const desiredBase = specificConfig?.template;
+
+    const tplPath: string | undefined = await findTemplateFile(i.templatesDir, docType, options, desiredBase);
     if (!tplPath) {
       console.warn(`[warn] No template found for ${docType}. Skipping.`);
       return;
     }
 
     const tplText: string = await fs.readFile(tplPath, 'utf8');
-    const values = buildPlaceholderValues(docType, tplText, renderInput.ws.pkg, genericConfig?.messages, specificConfig?.messages);
 
-    let missing: string[] = [];
-    const rendered: string = renderTemplate(tplText, values, (name: string): void => {
-      missing = [...missing, name];
-    });
+    const { values, raw } = buildContext(docType, tplText, i.ws.pkg, genericConfig?.messages as any, specificConfig?.messages as any);
+
+    const afterSections = renderSections(tplText, raw);
+
+    const missing: string[] = [];
+    const namesAfter = collectPlaceholders(afterSections);
+    for (const name of namesAfter) {
+      if (values[name] === undefined) missing.push(name);
+    }
     if (missing.length) {
       console.warn(`[warn] ${docType}: ${missing.length} placeholders had no value: ${missing.slice(0, 10).join(', ')}${missing.length > 10 ? '…' : ''}`);
     }
 
+    const rendered = renderVariables(afterSections, values, () => {
+      /* warn already done above */
+    });
+
     const outName: string = `${docType}.md`;
-    const outPath: string = path.join(renderInput.outDir, outName);
+    const outPath: string = path.join(i.outDir, outName);
     await fs.mkdir(path.dirname(outPath), { recursive: true });
     await fs.writeFile(outPath, rendered, 'utf8');
     console.log(`${docType}.md written -> ${outPath}`);
