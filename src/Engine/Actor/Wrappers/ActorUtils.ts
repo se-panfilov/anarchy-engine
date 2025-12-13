@@ -4,9 +4,9 @@ import { ActorType } from '@/Engine/Actor/Constants';
 import type { TActorDependencies, TActorParams } from '@/Engine/Actor/Models';
 import type { TMaterials, TMaterialWrapper } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
-import type { TPhysicsPresetParams, TPhysicsService, TWithPhysicsPresetParams } from '@/Engine/Physics';
+import type { TPhysicsPresetParams, TPhysicsPresetRegistry, TPhysicsService, TWithPhysicsPresetParams } from '@/Engine/Physics';
 import type { TMesh } from '@/Engine/ThreeLib';
-import { isDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export async function createActor(params: TActorParams, { materialTextureService, physicsService }: TActorDependencies): Promise<TMesh> | never {
   const materialWrapper: TMaterialWrapper = await materialTextureService.createAsync(params.material);
@@ -38,9 +38,22 @@ function createCube({ width, height, depth, widthSegments, heightSegments, depth
   return new Mesh(new BoxGeometry(w, h, d, widthSegments, heightSegments, depthSegments), material);
 }
 
-// TODO (S.Panfilov) CWP use createActor in createAsync and createFromConfig
 function buildPhysics(physics: TWithPhysicsPresetParams, physicsService: TPhysicsService): void {
-  // TODO (S.Panfilov) build physics presets from Physics domain, add them to the registry.
-  // access here those presets and merge with instance physics params
-  const presetParams: TPhysicsPresetParams = configToParamsPhysicsPreset(physics);
+  const { preset, ...rest } = physics;
+  let presetFromRegistry: TPhysicsPresetParams | undefined;
+  if (isDefined(preset)) {
+    const physicsPresetRegistry: TPhysicsPresetRegistry = physicsService.getPresetRegistry();
+    // TODO (S.Panfilov) findByKey?
+    presetFromRegistry = physicsPresetRegistry.findByKey(preset);
+    if (isNotDefined(presetFromRegistry)) throw new Error(`Physics preset not found: ${preset}`);
+  }
+
+  let fullParams: TPhysicsPresetParams;
+  if (isDefined(presetFromRegistry)) fullParams = { ...presetFromRegistry, ...rest };
+
+  // TODO (S.Panfilov) CWP here we build somehow,
+  //  next we have to attach it to the actor and put to physics objects registry
+  //  (and so to add to world, and use to update)
+  const physicsObject = physicsService.build(fullParams);
+  return physicsObject;
 }

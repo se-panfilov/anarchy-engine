@@ -64,6 +64,7 @@ export function PhysicsService(physicsPresetRegistry: TPhysicsPresetRegistry, sc
     addPresetsFromConfig,
     getDebugRenderer,
     getWorld: (): World | undefined => world,
+    getPresetRegistry: (): TPhysicsPresetRegistry => physicsPresetRegistry,
     setGravity
   };
 }
