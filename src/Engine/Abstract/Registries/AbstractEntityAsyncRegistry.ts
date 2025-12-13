@@ -1,14 +1,14 @@
 import type { Observable } from 'rxjs';
 
 import type { RegistryType } from '@/Engine/Abstract/Constants';
-import type { TAbstractAsyncRegistry, TAbstractEntityRegistry } from '@/Engine/Abstract/Models';
+import type { TAbstractAsyncEntityRegistry, TAbstractEntityRegistry } from '@/Engine/Abstract/Models';
 import type { LookUpStrategy } from '@/Engine/Abstract/Registries/Constants';
 import type { TMultitonRegistrable, TRegistrable } from '@/Engine/Mixins';
 import { getAsyncUniqEntityByNameAsync, getAsyncUniqEntityWithTag, getUniqEntityByName$, getUniqEntityWithTag$, getUniqEntityWithTags$, getUniqEntityWithTagsAsync } from '@/Engine/Utils';
 
 import { AbstractEntityRegistry } from './AbstractEntityRegistry';
 
-export function AbstractEntityAsyncRegistry<T extends TRegistrable | TMultitonRegistrable>(type: RegistryType): TAbstractAsyncRegistry<T> {
+export function AbstractEntityAsyncRegistry<T extends TRegistrable | TMultitonRegistrable>(type: RegistryType): TAbstractAsyncEntityRegistry<T> {
   const abstractRegistry: TAbstractEntityRegistry<T> = AbstractEntityRegistry<T>(type);
 
   const findByTagsAsync = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): Promise<T | undefined> => getUniqEntityWithTagsAsync<T>(tags, abstractRegistry, strategy);

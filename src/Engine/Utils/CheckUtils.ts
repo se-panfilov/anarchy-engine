@@ -1,7 +1,7 @@
 import type { BufferGeometry, Euler, Material, Quaternion, QuaternionLike, Vector2, Vector2Like, Vector3, Vector3Like, Vector4, Vector4Like } from 'three';
 import { Color } from 'three';
 
-import type { TAbstractAsyncRegistry, TAbstractEntityRegistry, TWithUserData, TWithWrapperId, TWithWrapperIdEntity } from '@/Engine/Abstract/Models';
+import type { TAbstractAsyncEntityRegistry, TAbstractEntityRegistry, TWithUserData, TWithWrapperId, TWithWrapperIdEntity } from '@/Engine/Abstract/Models';
 import type { TColorWrapper } from '@/Engine/Color';
 import type { TDestroyable, TWithPosition2dProperty, TWithPosition3dProperty, TWithPosition4dProperty, TWithPositionProperty } from '@/Engine/Mixins';
 import type { TEulerLike } from '@/Engine/ThreeLib';
@@ -46,8 +46,8 @@ export const isEntityWith2dPosition = (obj: TWithPositionProperty): obj is TWith
 export const isEntityWith3dPosition = (obj: TWithPositionProperty): obj is TWithPosition3dProperty => isVector3Like(obj.position as Vector3);
 export const isEntityWith4dPosition = (obj: TWithPositionProperty): obj is TWithPosition4dProperty => isVector4Like(obj.position as Vector4);
 
-export const isAsyncRegistry = (registry: TAbstractEntityRegistry<any> | TAbstractAsyncRegistry<any>): registry is TAbstractAsyncRegistry<any> =>
-  isDefined((registry as TAbstractAsyncRegistry<any>).findByTagsAsync) && isDefined((registry as TAbstractAsyncRegistry<any>).findByTagAsync);
+export const isAsyncEntityRegistry = (registry: TAbstractEntityRegistry<any> | TAbstractAsyncEntityRegistry<any>): registry is TAbstractAsyncEntityRegistry<any> =>
+  isDefined((registry as TAbstractAsyncEntityRegistry<any>).findByTagsAsync) && isDefined((registry as TAbstractAsyncEntityRegistry<any>).findByTagAsync);
 
 export const isBoolean = (value: unknown): value is boolean => typeof value === 'boolean';
 

@@ -5,7 +5,7 @@ import type { TDestroyable, TRegistrable } from '@/Engine/Mixins';
 
 import type { TAbstractEntityRegistry } from './TAbstractEntityRegistry';
 
-export type TAbstractAsyncRegistry<T extends TRegistrable> = TAbstractEntityRegistry<T> &
+export type TAbstractAsyncEntityRegistry<T extends TRegistrable> = TAbstractEntityRegistry<T> &
   Readonly<{
     findByName$: (name: string) => Observable<T>;
     findByNameAsync: (name: string) => Promise<T | undefined>;

@@ -1,4 +1,4 @@
-export type * from './TAbstractAsyncRegistry';
+export type * from './TAbstractAsyncEntityRegistry';
 export type * from './TAbstractEntity';
 export type * from './TAbstractEntityRegistry';
 export type * from './TAbstractLoadedResourcePack';

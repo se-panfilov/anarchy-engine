@@ -7,7 +7,7 @@ import type { TDestroyable, TWithPosition2dProperty, TWithPosition3dProperty, TW
 import {
   isAllDefined,
   isAllNotDefined,
-  isAsyncRegistry,
+  isAsyncEntityRegistry,
   isBoolean,
   isColorWrapper,
   isDefined,
@@ -499,7 +499,7 @@ describe('CheckUtils', () => {
         findByTagAsync: vi.fn()
       };
 
-      expect(isAsyncRegistry(registry)).toBe(true);
+      expect(isAsyncEntityRegistry(registry)).toBe(true);
     });
 
     it('should return "false" if it is a registry', () => {
@@ -509,7 +509,7 @@ describe('CheckUtils', () => {
         getUniqByTag: vi.fn()
       };
 
-      expect(isAsyncRegistry(registry)).toBe(false);
+      expect(isAsyncEntityRegistry(registry)).toBe(false);
     });
   });
 

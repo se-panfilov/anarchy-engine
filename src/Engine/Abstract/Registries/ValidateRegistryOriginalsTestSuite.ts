@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import type { TRegistrable, TWithName } from '@/Engine/Mixins';
 
-import type { TAbstractAsyncRegistry, TAbstractEntityRegistry, TAbstractResourceAsyncRegistry, TAbstractSimpleRegistry, TRegistryPack } from '../Models';
+import type { TAbstractAsyncEntityRegistry, TAbstractEntityRegistry, TAbstractResourceAsyncRegistry, TAbstractSimpleRegistry, TRegistryPack } from '../Models';
 import { LookUpStrategy } from './Constants';
 
 enum MockTags {
@@ -227,7 +227,7 @@ export function validateSimpleAsyncRegistryReturnsOriginalObjects<T extends TReg
   });
 }
 
-export function validateEntityAsyncRegistryReturnsOriginalObjects<T extends TRegistrable>(registry: TAbstractAsyncRegistry<T>, createEntity: () => T): void {
+export function validateEntityAsyncRegistryReturnsOriginalObjects<T extends TRegistrable>(registry: TAbstractAsyncEntityRegistry<T>, createEntity: () => T): void {
   describe('Registry Reference Integrity Suite', () => {
     let entity: T;
 
@@ -268,7 +268,7 @@ export function validateEntityAsyncRegistryReturnsOriginalObjects<T extends TReg
       expectSame(result, entity);
     });
 
-    validateCommonRegistryBehavior(registry as any, createEntity, (r: TAbstractAsyncRegistry<T>, e: T): void => r.add(e));
+    validateCommonRegistryBehavior(registry as any, createEntity, (r: TAbstractAsyncEntityRegistry<T>, e: T): void => r.add(e));
   });
 }
 
