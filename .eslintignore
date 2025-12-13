@@ -1,8 +1,0 @@
-*.log
-node_modules
-dist
-pnpm-lock.yaml
-package-lock.json
-vite.config.ts
-public
-src/benchmarks
