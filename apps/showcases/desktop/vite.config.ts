@@ -11,6 +11,9 @@ export default defineConfig({
   },
   build: {
     ssr: true, // This is a build for node, not for browser
+    target: 'esnext',
+    sourcemap: false,
+    minify: false,
     outDir: 'dist',
     lib: {
       entry: './electron-main.ts',
