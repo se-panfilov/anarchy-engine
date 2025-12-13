@@ -7,6 +7,7 @@ import type {
   TWithFactoryService,
   TWithLoadResourcesAsyncService,
   TWithRegistryService,
+  TWithResourcesMetaInfoRegistryService,
   TWithResourcesRegistryService,
   TWithSceneGetterService
 } from '@/Engine/Mixins';
@@ -24,5 +25,6 @@ export type TEnvMapService = TSerializableEntitiesService<TEnvMapConfig> &
   TEnvMapServiceWithFactory &
   TEnvMapServiceWithRegistry &
   TWithResourcesRegistryService<TEnvMapTextureAsyncRegistry> &
+  TWithResourcesMetaInfoRegistryService<TEnvMapResourceConfig> &
   TWithLoadResourcesAsyncService<TEnvMapResourceConfig, TEnvMapTexture> &
   TWithSceneGetterService;

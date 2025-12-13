@@ -8,6 +8,7 @@ import type {
   TEnvMapConfigToParamsDependencies,
   TEnvMapFactory,
   TEnvMapLoader,
+  TEnvMapMetaInfoRegistry,
   TEnvMapRegistry,
   TEnvMapResourceConfig,
   TEnvMapService,
@@ -32,7 +33,13 @@ import {
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isDefined } from '@/Engine/Utils';
 
-export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry, resourcesRegistry: TEnvMapTextureAsyncRegistry, sceneW: TSceneWrapper): TEnvMapService {
+export function EnvMapService(
+  factory: TEnvMapFactory,
+  registry: TEnvMapRegistry,
+  resourcesRegistry: TEnvMapTextureAsyncRegistry,
+  metaInfoRegistry: TEnvMapMetaInfoRegistry,
+  sceneW: TSceneWrapper
+): TEnvMapService {
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TEnvMapWrapper>): void => {
     if (value.isActive()) withActive.active$.next(value);
   });
@@ -40,7 +47,7 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TEnvMapWrapper): void => registry.add(wrapper));
 
   const withActive: TWithActiveMixinResult<TEnvMapWrapper> = withActiveEntityServiceMixin<TEnvMapWrapper>(registry);
-  const envMapLoader: TEnvMapLoader = EnvMapLoader(resourcesRegistry);
+  const envMapLoader: TEnvMapLoader = EnvMapLoader(resourcesRegistry, metaInfoRegistry);
 
   const disposable: ReadonlyArray<TDisposable> = [registry, resourcesRegistry, factory, envMapLoader, registrySub$, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
@@ -81,7 +88,8 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
       setActive: withActive.setActive,
       findActive,
       active$: withActive.active$,
-      getResourceRegistry: (): TEnvMapTextureAsyncRegistry => resourcesRegistry
+      getResourceRegistry: (): TEnvMapTextureAsyncRegistry => resourcesRegistry,
+      getMetaInfoRegistry: (): TEnvMapMetaInfoRegistry => metaInfoRegistry
     }
   );
 }

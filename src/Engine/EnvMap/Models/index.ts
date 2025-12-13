@@ -2,6 +2,7 @@ export type * from './TEnvMapConfig';
 export type * from './TEnvMapConfigToParamsDependencies';
 export type * from './TEnvMapFactory';
 export type * from './TEnvMapLoader';
+export type * from './TEnvMapMetaInfoRegistry';
 export type * from './TEnvMapParams';
 export type * from './TEnvMapRegistry';
 export type * from './TEnvMapResourceConfig';
