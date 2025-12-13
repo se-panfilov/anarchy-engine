@@ -9,15 +9,14 @@ import { getMainLoopNameByType, LOOPS_DEFAULT_SETTINGS, LoopType, LoopUpdatePrio
 import { milliseconds } from '@Engine/Measurements';
 import type { TMouseLoop } from '@Engine/Mouse';
 import type { TPhysicsLoop } from '@Engine/Physics';
-import type { TRenderLoop, TSpaceFlags, TSpaceLoops, TSpaceSettings } from '@Engine/Space/Models';
+import type { TRenderLoop, TSpaceLoops, TSpaceSettings } from '@Engine/Space/Models';
 import type { TSpatialLoop } from '@Engine/Spatial';
 import type { TTextLoop } from '@Engine/Text';
 import type { TTransformLoop } from '@Engine/TransformDrive';
 
-export function createLoops({ create }: TLoopService, spaceSettings: TSpaceSettings | undefined, flags?: TSpaceFlags): TSpaceLoops {
+export function createLoops({ create }: TLoopService, spaceSettings: TSpaceSettings | undefined): TSpaceLoops {
   const { Audio, Render, Intersections, Spatial, Mouse, Text, Kinematic, Collisions, Controls, Transform, Keyboard, Physics } = LoopType;
 
-  const showDebugInfo: boolean = flags?.loopsDebugInfo ?? false;
   const settings: TLoopsSettings = { ...LOOPS_DEFAULT_SETTINGS, ...spaceSettings?.loopsSettings };
 
   const {
@@ -49,7 +48,7 @@ export function createLoops({ create }: TLoopService, spaceSettings: TSpaceSetti
   // cause usually loops in workers fires a way faster due to the fact that the worker is not blocked by the main thread (rendering and etc)
   // TL;DR: If you use parallel mode, set the "trigger" time higher.
   return {
-    renderLoop: create({ name: getMainLoopNameByType(Render), type: Render, trigger: requestAnimationFrame, showDebugInfo }) as TRenderLoop,
+    renderLoop: create({ name: getMainLoopNameByType(Render), type: Render, trigger: requestAnimationFrame }) as TRenderLoop,
 
     audioLoop: create({
       name: getMainLoopNameByType(Audio),

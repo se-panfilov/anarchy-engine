@@ -14,8 +14,14 @@ import type { Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, skip, Subject } from 'rxjs';
 
 export function Space(params: TSpaceParams, registry: TSpaceRegistry, flags?: TSpaceFlags): TSpace {
-  // TODO 18-0-0: remove console
-  console.log('XXX flags', flags);
+  if (isDefined(flags)) {
+    console.log(
+      `Space "${params.name}" is launching with flags: ${Object.entries(flags)
+        .map(([key, value]: [string, boolean]): string => `${key}=${value}`)
+        .join(', ')}`
+    );
+  }
+
   const { canvasSelector, version, name, tags } = params;
   const built$: BehaviorSubject<TSpace | undefined> = new BehaviorSubject<TSpace | undefined>(undefined);
   const start$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -25,7 +31,7 @@ export function Space(params: TSpaceParams, registry: TSpaceRegistry, flags?: TS
   const canvas: TSpaceCanvas = getOrCreateCanvasFromSelector(canvasSelector);
   const container: TContainerDecorator = getCanvasContainer(canvas);
 
-  const { services, loops } = initSpaceServices(canvas, container, params, events$, flags);
+  const { services, loops } = initSpaceServices(canvas, container, params, events$);
   events$.next({ name: SpaceEvents.AfterAllServicesInitialized, args: { canvas, services, loops, params } });
 
   let entitiesCreationPromise: Promise<void> = Promise.resolve();
@@ -120,8 +126,7 @@ function initSpaceServices(
   canvas: TSpaceCanvas,
   container: TContainerDecorator,
   params: TSpaceParams,
-  events$: Subject<TSpaceAnyEvent>,
-  flags?: TSpaceFlags
+  events$: Subject<TSpaceAnyEvent>
 ): {
   services: TSpaceServices;
   loops: TSpaceLoops;
@@ -134,7 +139,7 @@ function initSpaceServices(
   const sceneW: TSceneWrapper = baseServices.scenesService.getActive();
 
   events$.next({ name: SpaceEvents.BeforeLoopsCreated, args: { params } });
-  const loops: TSpaceLoops = createLoops(baseServices.loopService, params.settings, flags);
+  const loops: TSpaceLoops = createLoops(baseServices.loopService, params.settings);
 
   events$.next({ name: SpaceEvents.BeforeEntitiesServicesBuilt, args: { canvas, params } });
   const services: TSpaceServices = buildEntitiesServices(sceneW, canvas, container, loops, baseServices);

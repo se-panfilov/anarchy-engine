@@ -8,7 +8,6 @@ export type TLoopParams = Readonly<{
   // You can optionally pass a "requestAnimationFrame" function you want (e.g. window.requestAnimationFrame, display.requestAnimationFrame for VR, etc.) or an amount of milliseconds (number)
   trigger: TLoopTriggerFn | number;
   maxPriority?: number;
-  showDebugInfo?: boolean;
   //In parallel mode, we run the loop in a web worker (useful for CPU-intensive tasks and to prevent setInterval suppression in background tabs)
   isParallelMode?: boolean;
 }>;

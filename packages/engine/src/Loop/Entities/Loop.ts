@@ -11,7 +11,6 @@ import type {
   TLoopWorkerStartRequestData,
   TLoopWorkerStopRequestData
 } from '@Engine/Loop/Models';
-import { enableFPSCounter } from '@Engine/Loop/Utils';
 import type { TDestroyable } from '@Engine/Mixins';
 import { destroyableMixin } from '@Engine/Mixins';
 import { isDefined, isNotDefined } from '@Engine/Utils';
@@ -21,7 +20,7 @@ import { BehaviorSubject, distinctUntilChanged, EMPTY, Subject, switchMap, takeU
 
 import { DeltaCalculator } from './DeltaCalculator';
 
-export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParallelMode }: TLoopParams): TLoop | never {
+export function Loop({ name, type, trigger, maxPriority, isParallelMode }: TLoopParams): TLoop | never {
   const id: string = `${nanoid()}_${type}`;
   const enabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   const tick$: Subject<TDelta> = new Subject<TDelta>();
@@ -35,8 +34,6 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
   if (isParallelMode && isTriggerFn) throw new Error('Loop: Trigger function is not supported in parallel mode, only interval is supported');
 
   const deltaCalc: TDeltaCalculator | null = isParallelMode ? null : DeltaCalculator(isTriggerFn);
-
-  if (showDebugInfo) enableFPSCounter(tick$);
 
   if (isParallelMode) {
     worker = new Worker(new URL('./Loop.worker.ts', import.meta.url), { type: 'module' });
