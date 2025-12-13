@@ -21,8 +21,8 @@ export function showcase(space: TSpace): void {
   const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
   const { clickLeftRelease$ } = mouseService;
 
-  const watcherRed: TIntersectionsCameraWatcher = intersectionsWatcherService.getRegistry().getByName('watcher_red');
-  const watcherBlue: TIntersectionsCameraWatcher = intersectionsWatcherService.getRegistry().getByName('watcher_blue');
+  const watcherRed: TIntersectionsCameraWatcher = intersectionsWatcherService.getCameraWatcher('watcher_red');
+  const watcherBlue: TIntersectionsCameraWatcher = intersectionsWatcherService.getCameraWatcher('watcher_blue');
 
   watcherRed.value$.subscribe((value: TIntersectionEvent): void => console.log('redWatcher', value));
   watcherBlue.value$.subscribe((value: TIntersectionEvent): void => console.log('blueWatcher', value));

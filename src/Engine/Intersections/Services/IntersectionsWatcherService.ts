@@ -8,16 +8,19 @@ import type {
   TAnyIntersectionsWatcher,
   TAnyIntersectionsWatcherConfig,
   TAnyIntersectionsWatcherParams,
+  TIntersectionsCameraWatcher,
   TIntersectionsWatcherFactory,
   TIntersectionsWatcherRegistry,
   TIntersectionsWatcherService,
   TIntersectionsWatcherServiceWithFactory,
   TIntersectionsWatcherServiceWithRegistry
 } from '@/Engine/Intersections/Models';
+import { isIntersectionsCameraWatcher, isIntersectionsDirectionWatcher } from '@/Engine/Intersections/Utils';
 import type { TLoopService } from '@/Engine/Loop';
 import type { TDisposable } from '@/Engine/Mixins';
 import { withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
 import type { TMouseService } from '@/Engine/Mouse';
+import { isDefined } from '@/Engine/Utils';
 
 export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactory, registry: TIntersectionsWatcherRegistry): TIntersectionsWatcherService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((watcher: TAnyIntersectionsWatcher): void => registry.add(watcher));
@@ -38,10 +41,42 @@ export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactor
   const withFactory: TIntersectionsWatcherServiceWithFactory = withFactoryService(factory);
   const withRegistry: TIntersectionsWatcherServiceWithRegistry = withRegistryService(registry);
 
+  function findCameraWatcher(name: string): TIntersectionsCameraWatcher | undefined | never {
+    const watcher: TAnyIntersectionsWatcher | undefined = registry.getByName(name);
+    if (isDefined(watcher) && !isIntersectionsCameraWatcher(watcher)) {
+      throw new Error(`[IntersectionsWatcherService]: Watcher "${watcher.name}" is not type of TIntersectionsCameraWatcher`);
+    }
+    return watcher;
+  }
+
+  function getCameraWatcher(name: string): TIntersectionsCameraWatcher | never {
+    const watcher: TIntersectionsCameraWatcher | undefined = findCameraWatcher(name);
+    if (watcher === undefined) throw new Error(`[IntersectionsWatcherService]: Cannot get camera watcher: "${name}" is not found`);
+    return watcher;
+  }
+
+  function findDirectionWatcher(name: string): TAnyIntersectionsWatcher | undefined | never {
+    const watcher: TAnyIntersectionsWatcher | undefined = registry.getByName(name);
+    if (isDefined(watcher) && !isIntersectionsDirectionWatcher(watcher)) {
+      throw new Error(`[IntersectionsWatcherService]: Watcher "${watcher.name}" is not type of TIntersectionsDirectionWatcher`);
+    }
+    return watcher;
+  }
+
+  function getDirectionWatcher(name: string): TAnyIntersectionsWatcher | never {
+    const watcher: TAnyIntersectionsWatcher | undefined = findDirectionWatcher(name);
+    if (watcher === undefined) throw new Error(`[IntersectionsWatcherService]: Cannot get direction watcher: "${name}" is not found`);
+    return watcher;
+  }
+
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, withFactory, withRegistry, withSerializeAllEntities<TAnyIntersectionsWatcherConfig, undefined>(registry), {
     create,
     createFromList,
-    createFromConfig
+    createFromConfig,
+    findCameraWatcher,
+    getCameraWatcher,
+    findDirectionWatcher,
+    getDirectionWatcher
   });
 }

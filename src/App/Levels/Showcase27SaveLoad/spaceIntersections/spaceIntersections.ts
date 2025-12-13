@@ -16,8 +16,8 @@ export const spaceIntersectionsData: TSpacesData = {
   container: getContainer(config.canvasSelector),
   awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
   onCreate: (space: TSpace): void | never => {
-    const watcherRed: TIntersectionsCameraWatcher = space.services.intersectionsWatcherService.getRegistry().getByName('watcher_red');
-    const watcherBlue: TIntersectionsCameraWatcher = space.services.intersectionsWatcherService.getRegistry().getByName('watcher_blue');
+    const watcherRed: TIntersectionsCameraWatcher = space.services.intersectionsWatcherService.getCameraWatcher('watcher_red');
+    const watcherBlue: TIntersectionsCameraWatcher = space.services.intersectionsWatcherService.getCameraWatcher('watcher_blue');
 
     watcherRed.value$.pipe(skip(1)).subscribe((value: TIntersectionEvent): void => {
       console.log('redWatcher', value);
@@ -26,7 +26,7 @@ export const spaceIntersectionsData: TSpacesData = {
     watcherBlue.value$.subscribe((value: TIntersectionEvent): void => console.log('blueWatcher', value));
   },
   onChange: (space: TSpace): void => {
-    const watcherRed: TIntersectionsCameraWatcher = space.services.intersectionsWatcherService.getRegistry().getByName('watcher_red');
+    const watcherRed: TIntersectionsCameraWatcher = space.services.intersectionsWatcherService.getCameraWatcher('watcher_red');
     const sphereRed2Actor: TActor = space.services.actorService.getRegistry().getByName('sphere_red_2_actor');
     // TODO 15-0-0: Prevent adding actors multiple times (same id, same name)
     watcherRed.addActor(sphereRed2Actor);

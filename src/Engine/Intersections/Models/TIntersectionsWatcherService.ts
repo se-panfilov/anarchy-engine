@@ -8,6 +8,8 @@ import type { TMouseService } from '@/Engine/Mouse';
 import type { TAnyIntersectionsWatcher } from './TAnyIntersectionsWatcher';
 import type { TAnyIntersectionsWatcherConfig } from './TAnyIntersectionsWatcherConfig';
 import type { TAnyIntersectionsWatcherParams } from './TAnyIntersectionsWatcherParams';
+import type { TIntersectionsCameraWatcher } from './TIntersectionsCameraWatcher';
+import type { TIntersectionsDirectionWatcher } from './TIntersectionsDirectionWatcher';
 import type { TIntersectionsWatcherFactory } from './TIntersectionsWatcherFactory';
 import type { TIntersectionsWatcherRegistry } from './TIntersectionsWatcherRegistry';
 
@@ -27,6 +29,10 @@ export type TIntersectionsWatcherService = TSerializableEntitiesService<TAnyInte
       actorsService: TActorService,
       loopService: TLoopService
     ) => ReadonlyArray<TAnyIntersectionsWatcher>;
+    findCameraWatcher: (name: string) => TIntersectionsCameraWatcher | undefined | never;
+    getCameraWatcher: (name: string) => TIntersectionsCameraWatcher | never;
+    findDirectionWatcher: (name: string) => TIntersectionsDirectionWatcher | undefined | never;
+    getDirectionWatcher: (name: string) => TIntersectionsDirectionWatcher | never;
   }> &
   TIntersectionsWatcherServiceWithFactory &
   TIntersectionsWatcherServiceWithRegistry;
