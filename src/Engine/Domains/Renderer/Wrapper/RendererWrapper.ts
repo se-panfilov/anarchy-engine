@@ -10,6 +10,8 @@ import type { IScreenSizeValues, IScreenSizeWatcher } from '@/Engine/Domains/Scr
 import type { IWriteable } from '@/Engine/Utils';
 import { isNotDefined, isWebGL2Available, isWebGLAvailable } from '@/Engine/Utils';
 
+import { getAccessors } from './Accessors';
+
 export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Readonly<IScreenSizeWatcher>): IRendererWrapper {
   const maxPixelRatio: number = params.maxPixelRatio ?? 2;
   if (isNotDefined(params.canvas)) throw new Error(`Canvas is not defined`);
@@ -32,10 +34,10 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
   }
 
   const entity: WebGLRenderer = new WebGLRenderer(options);
-  // eslint-disable-next-line functional/immutable-data
-  entity.shadowMap.enabled = true;
-  // eslint-disable-next-line functional/immutable-data
-  entity.shadowMap.type = PCFShadowMap;
+  const accessors = getAccessors(entity);
+
+  accessors.setShadowMapEnabled(true);
+  accessors.setShadowMapType(PCFShadowMap);
 
   // eslint-disable-next-line functional/prefer-immutable-types
   function setValues(entity: IWriteable<WebGLRenderer>, { width, height, ratio }: IScreenSizeValues): void {
@@ -60,5 +62,5 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
     screenSizeWatcher.value$.unsubscribe();
   }
 
-  return { ...wrapper, entity, destroy };
+  return { ...wrapper, ...accessors, entity, destroy };
 }
