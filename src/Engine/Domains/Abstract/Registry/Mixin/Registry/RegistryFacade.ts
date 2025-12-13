@@ -1,5 +1,4 @@
-import type { IAbstractRegistry } from '@Engine/Domains/Abstract';
-
+import type { IAbstractRegistry } from '@/Engine/Domains/Abstract';
 import type { IProtectedRegistry, IRegistrable } from '@/Engine/Mixins';
 
 export function RegistryFacade<T extends IRegistrable>(abstractRegistry: IAbstractRegistry<T>): IProtectedRegistry<T, IAbstractRegistry<T>> {

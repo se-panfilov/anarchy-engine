@@ -1,4 +1,4 @@
-import type { IVector3dConfig } from '@Engine/Domains/ThreeLib';
+import type { IVector3dConfig } from '@/Engine/Domains/ThreeLib';
 
 import type { ICameraParams } from './ICameraParams';
 

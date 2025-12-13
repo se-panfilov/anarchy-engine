@@ -1,5 +1,6 @@
-import { AbstractWrapper, WrapperType } from '@Engine/Domains/Abstract';
 import { Vector3 } from 'three';
+
+import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 
 import type { IVector3, IVector3Params, IVector3Wrapper } from './Models';
 

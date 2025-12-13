@@ -1,10 +1,9 @@
-import { AbstractWrapper, WrapperType } from '@Engine/Domains/Abstract';
-import type { ICameraWrapper } from '@Engine/Domains/Camera';
-import type { IRendererWrapper } from '@Engine/Domains/Renderer';
-import type { ISceneWrapper } from '@Engine/Domains/Scene';
-
+import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
+import type { ICameraWrapper } from '@/Engine/Domains/Camera';
 import type { IControlsRegistry, IOrbitControlsWrapper } from '@/Engine/Domains/Controls';
 import type { ILoopParams, ILoopWrapper, LoopFn } from '@/Engine/Domains/Loop/Models';
+import type { IRendererWrapper } from '@/Engine/Domains/Renderer';
+import type { ISceneWrapper } from '@/Engine/Domains/Scene';
 
 import { getUtils } from './utils';
 

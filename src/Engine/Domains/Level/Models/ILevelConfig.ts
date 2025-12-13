@@ -1,11 +1,10 @@
-import type { IActorConfig } from '@Engine/Domains/Actor';
-import type { ICameraConfig } from '@Engine/Domains/Camera';
-import type { IControlsConfig } from '@Engine/Domains/Controls';
-import type { ILightConfig } from '@Engine/Domains/Light';
-import type { ISceneConfig } from '@Engine/Domains/Scene';
-
 import type { CommonTag } from '@/Engine/Domains/Abstract';
+import type { IActorConfig } from '@/Engine/Domains/Actor';
+import type { ICameraConfig } from '@/Engine/Domains/Camera';
+import type { IControlsConfig } from '@/Engine/Domains/Controls';
 import type { LevelTag } from '@/Engine/Domains/Level/Constants';
+import type { ILightConfig } from '@/Engine/Domains/Light';
+import type { ISceneConfig } from '@/Engine/Domains/Scene';
 import type { SchemaVersion } from '@/Engine/Schemas';
 
 export type ILevelConfig = Readonly<{

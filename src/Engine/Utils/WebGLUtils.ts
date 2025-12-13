@@ -1,4 +1,4 @@
-import type { IAppCanvas } from '@Engine/Domains/App';
+import type { IAppCanvas } from '@/Engine/Domains/App';
 
 export function isWebGLAvailable(): boolean {
   let canvas: IAppCanvas | undefined = undefined;

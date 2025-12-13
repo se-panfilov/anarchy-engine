@@ -13,9 +13,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "@App/*": ["./src/App/*"],
-      "@Engine/*": ["./src/Engine/*"]
+      "@/*": ["./src/*"]
+      //      "@App/*": ["./src/App/*"],
+      //      "@Engine/*": ["./src/Engine/*"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,

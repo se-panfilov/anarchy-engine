@@ -1,5 +1,4 @@
-import { AbstractWrapper, WrapperType } from '@Engine/Domains/Abstract';
-
+import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { MOCK_INPUT_TYPE } from '@/Engine/Domains/Input/Constants';
 import type { IInputParams, IInputWrapper } from '@/Engine/Domains/Input/Models';
 

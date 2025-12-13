@@ -1,8 +1,8 @@
-import type { IEulerWrapper, IVector3Wrapper } from '@Engine/Wrappers';
 import type { MeshToonMaterialParameters } from 'three';
 
 import type { CommonTag } from '@/Engine/Domains/Abstract';
 import type { ActorTag, ActorType } from '@/Engine/Domains/Actor/Constants';
+import type { IEulerWrapper, IVector3Wrapper } from '@/Engine/Wrappers';
 
 export type IActorParams = Readonly<{
   type: ActorType;

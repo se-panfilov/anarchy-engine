@@ -1,4 +1,4 @@
-import type { IVector2Params } from '@Engine/Wrappers';
+import type { IVector2Params } from '@/Engine/Wrappers';
 
 export type IVector3Params = IVector2Params &
   Readonly<{

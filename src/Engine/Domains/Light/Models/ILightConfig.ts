@@ -1,4 +1,4 @@
-import type { IVector2dConfig, IVector3dConfig } from '@Engine/Domains/ThreeLib';
+import type { IVector2dConfig, IVector3dConfig } from '@/Engine/Domains/ThreeLib';
 
 import type { ILightParams } from './ILightParams';
 import type { ILightShadowParams } from './ILightShadowParams';

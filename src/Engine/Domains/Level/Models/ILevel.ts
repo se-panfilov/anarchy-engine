@@ -1,8 +1,8 @@
-import type { ILoopWrapper } from '@Engine/Domains/Loop';
 import type { Observable } from 'rxjs';
 
 import type { CommonTag } from '@/Engine/Domains/Abstract';
 import type { ILevelFactory, ILevelRegistry, IWithBuilt, LevelTag } from '@/Engine/Domains/Level';
+import type { ILoopWrapper } from '@/Engine/Domains/Loop';
 import type { IDestroyable } from '@/Engine/Mixins';
 
 export type ILevel = IDestroyable &

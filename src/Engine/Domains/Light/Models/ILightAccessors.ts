@@ -1,6 +1,5 @@
-import type { IVector2Wrapper, IVector3Wrapper } from '@Engine/Wrappers';
-
 import type { IMovable } from '@/Engine/Mixins';
+import type { IVector2Wrapper, IVector3Wrapper } from '@/Engine/Wrappers';
 
 export type ILightAccessors = IMovable &
   Readonly<{

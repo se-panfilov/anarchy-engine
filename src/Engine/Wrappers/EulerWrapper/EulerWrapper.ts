@@ -1,5 +1,6 @@
-import { AbstractWrapper, WrapperType } from '@Engine/Domains/Abstract';
 import { Euler } from 'three';
+
+import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 
 import type { IEuler, IEulerParams, IEulerWrapper } from './Models';
 

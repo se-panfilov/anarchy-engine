@@ -1,6 +1,5 @@
-import type { IReactiveFactory } from '@Engine/Domains/Abstract';
-import { FactoryType, ReactiveFactory } from '@Engine/Domains/Abstract';
-
+import type { IReactiveFactory } from '@/Engine/Domains/Abstract';
+import { FactoryType, ReactiveFactory } from '@/Engine/Domains/Abstract';
 import { getParams } from '@/Engine/Domains/Light/Adapter';
 import type { ILightFactory, ILightParams, ILightWrapper } from '@/Engine/Domains/Light/Models';
 import { LightWrapper } from '@/Engine/Domains/Light/Wrapper';

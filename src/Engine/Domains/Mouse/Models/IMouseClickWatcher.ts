@@ -1,3 +1,3 @@
-import type { IMultitonWatcher } from '@Engine/Domains/Abstract';
+import type { IMultitonWatcher } from '@/Engine/Domains/Abstract';
 
 export type IMouseClickWatcher = IMultitonWatcher<void>;

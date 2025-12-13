@@ -1,6 +1,6 @@
-import { AbstractWrapper, WrapperType } from '@Engine/Domains/Abstract';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
+import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { IOrbitControlsParams, IOrbitControlsWrapper } from '@/Engine/Domains/Controls/Models';
 import { isDefined } from '@/Engine/Utils';
 

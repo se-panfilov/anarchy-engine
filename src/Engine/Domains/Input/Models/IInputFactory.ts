@@ -1,5 +1,4 @@
-import type { IReactiveFactory } from '@Engine/Domains/Abstract';
-
+import type { IReactiveFactory } from '@/Engine/Domains/Abstract';
 import type { IDestroyable } from '@/Engine/Mixins';
 
 import type { IInputParams } from './IInputParams';

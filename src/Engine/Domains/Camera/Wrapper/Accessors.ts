@@ -1,7 +1,6 @@
-import type { IWriteable } from '@Engine/Utils';
-
 import type { ICameraAccessors, IPerspectiveCamera } from '@/Engine/Domains/Camera/Models';
 import { moveableMixin, rotatableMixin } from '@/Engine/Mixins';
+import type { IWriteable } from '@/Engine/Utils';
 import type { IVector3Wrapper } from '@/Engine/Wrappers';
 import { Vector3Wrapper } from '@/Engine/Wrappers';
 

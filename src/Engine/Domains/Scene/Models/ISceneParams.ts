@@ -1,7 +1,6 @@
-import type { SceneTag } from '@Engine/Domains/Scene';
-import type { IColor, ICubeTexture, ITexture } from '@Engine/Wrappers';
-
 import type { CommonTag } from '@/Engine/Domains/Abstract';
+import type { SceneTag } from '@/Engine/Domains/Scene';
+import type { IColor, ICubeTexture, ITexture } from '@/Engine/Wrappers';
 
 export type ISceneParams = Readonly<{
   name: string;

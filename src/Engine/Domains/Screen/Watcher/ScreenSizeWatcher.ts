@@ -1,6 +1,6 @@
-import type { IAbstractWatcherWithState } from '@Engine/Domains/Abstract';
-import { AbstractWatcherWithState, WatcherType } from '@Engine/Domains/Abstract';
-import type { IScreenSizeValues, IScreenSizeWatcher, IScreenSizeWatcherParams } from '@Engine/Domains/Screen/Models';
+import type { IAbstractWatcherWithState } from '@/Engine/Domains/Abstract';
+import { AbstractWatcherWithState, WatcherType } from '@/Engine/Domains/Abstract';
+import type { IScreenSizeValues, IScreenSizeWatcher, IScreenSizeWatcherParams } from '@/Engine/Domains/Screen/Models';
 
 export function ScreenSizeWatcher({ container, tags = [] }: IScreenSizeWatcherParams): IScreenSizeWatcher {
   const initialValue: IScreenSizeValues = { width: 0, height: 0, ratio: 0 };

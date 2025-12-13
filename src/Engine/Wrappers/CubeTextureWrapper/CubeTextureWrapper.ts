@@ -1,5 +1,6 @@
-import { AbstractWrapper, WrapperType } from '@Engine/Domains/Abstract';
 import { CubeTexture } from 'three';
+
+import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 
 import type { ICubeTexture, ICubeTextureParams, ICubeTextureWrapper } from './Models';
 

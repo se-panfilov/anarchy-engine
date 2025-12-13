@@ -1,6 +1,6 @@
-import type { IAbstractWatcher } from '@Engine/Domains/Abstract';
-import { AbstractWatcher, WatcherType } from '@Engine/Domains/Abstract';
-import type { IMouseEvent, IMousePosition, IMousePositionWatcher, IMousePositionWatcherParams } from '@Engine/Domains/Mouse/Models';
+import type { IAbstractWatcher } from '@/Engine/Domains/Abstract';
+import { AbstractWatcher, WatcherType } from '@/Engine/Domains/Abstract';
+import type { IMouseEvent, IMousePosition, IMousePositionWatcher, IMousePositionWatcherParams } from '@/Engine/Domains/Mouse/Models';
 
 export function MousePositionWatcher({ container, tags = [] }: IMousePositionWatcherParams): IMousePositionWatcher {
   const containerIdTag: string = `container_id_${container.id}`;

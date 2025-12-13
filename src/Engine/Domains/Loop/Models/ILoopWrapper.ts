@@ -1,5 +1,4 @@
-import type { IWrapper } from '@Engine/Domains/Abstract';
-
+import type { IWrapper } from '@/Engine/Domains/Abstract';
 import type { LoopTag } from '@/Engine/Domains/Loop/Constants';
 
 import type { ILoopUtils } from './ILoopUtils';

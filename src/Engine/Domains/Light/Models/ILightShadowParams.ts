@@ -1,4 +1,4 @@
-import type { IVector2 } from '@Engine/Wrappers';
+import type { IVector2 } from '@/Engine/Wrappers';
 
 export type ILightShadowParams = Readonly<{
   mapSize: IVector2;

@@ -1,6 +1,5 @@
-import type { IReactiveFactory } from '@Engine/Domains/Abstract';
-import { FactoryType, ReactiveFactory } from '@Engine/Domains/Abstract';
-
+import type { IReactiveFactory } from '@/Engine/Domains/Abstract';
+import { FactoryType, ReactiveFactory } from '@/Engine/Domains/Abstract';
 import { getParams } from '@/Engine/Domains/Controls/Adapter';
 import type { IControlsFactory, IControlsParams, IOrbitControlsWrapper } from '@/Engine/Domains/Controls/Models';
 import { OrbitControlsWrapper } from '@/Engine/Domains/Controls/Wrapper';

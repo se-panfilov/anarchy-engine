@@ -1,10 +1,10 @@
-import type { ICameraWrapper } from '@Engine/Domains/Camera';
-import type { IRendererWrapper } from '@Engine/Domains/Renderer';
-import type { ISceneWrapper } from '@Engine/Domains/Scene';
 import { Clock } from 'three';
 
+import type { ICameraWrapper } from '@/Engine/Domains/Camera';
 import type { IControlsRegistry } from '@/Engine/Domains/Controls';
 import type { ILoopUtils, LoopFn } from '@/Engine/Domains/Loop/Models';
+import type { IRendererWrapper } from '@/Engine/Domains/Renderer';
+import type { ISceneWrapper } from '@/Engine/Domains/Scene';
 
 export function getUtils(entity: LoopFn): ILoopUtils {
   function start(renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, camera: Readonly<ICameraWrapper>, controlsRegistry: IControlsRegistry): void {

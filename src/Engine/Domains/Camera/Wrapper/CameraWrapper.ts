@@ -1,11 +1,11 @@
-import { AbstractWrapper, WrapperType } from '@Engine/Domains/Abstract';
-import type { IScreenSizeValues, IScreenSizeWatcher } from '@Engine/Domains/Screen';
-import type { IWriteable } from '@Engine/Utils';
-import { isNotDefined } from '@Engine/Utils';
 import type { Subscription } from 'rxjs';
 import { PerspectiveCamera } from 'three';
 
+import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { ICameraParams, ICameraWrapper, IPerspectiveCamera } from '@/Engine/Domains/Camera/Models';
+import type { IScreenSizeValues, IScreenSizeWatcher } from '@/Engine/Domains/Screen';
+import type { IWriteable } from '@/Engine/Utils';
+import { isNotDefined } from '@/Engine/Utils';
 
 import { getAccessors } from './Accessors';
 

@@ -1,7 +1,6 @@
-import type { IEuler3dConfig, IVector3dConfig } from '@Engine/Domains/ThreeLib';
-
 import type { ActorType } from '@/Engine/Domains/Actor/Constants';
 import type { IActorParams } from '@/Engine/Domains/Actor/Models';
+import type { IEuler3dConfig, IVector3dConfig } from '@/Engine/Domains/ThreeLib';
 
 export type IActorConfig = Omit<IActorParams, 'materialParams' | 'position' | 'rotation'> &
   Readonly<{

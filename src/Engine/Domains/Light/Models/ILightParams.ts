@@ -1,8 +1,8 @@
-import type { IVector3 } from '@Engine/Wrappers';
 import type { Color } from 'three/src/math/Color';
 
 import type { CommonTag } from '@/Engine/Domains/Abstract';
 import type { LightTag } from '@/Engine/Domains/Light/Constants';
+import type { IVector3 } from '@/Engine/Wrappers';
 
 import type { ILightShadowParams } from './ILightShadowParams';
 import type { ILightType } from './ILightType';

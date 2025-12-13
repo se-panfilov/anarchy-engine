@@ -1,6 +1,6 @@
-import { AbstractWrapper, WrapperType } from '@Engine/Domains/Abstract';
 import { Color } from 'three';
 
+import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import { isColorWrapper } from '@/Engine/Utils';
 
 import type { IColor, IColorParams, IColorWrapper } from './Models';

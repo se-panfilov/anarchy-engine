@@ -1,5 +1,6 @@
-import { AbstractWrapper, WrapperType } from '@Engine/Domains/Abstract';
 import { Texture } from 'three';
+
+import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 
 import type { ITexture, ITextureParams, ITextureWrapper } from './Models';
 

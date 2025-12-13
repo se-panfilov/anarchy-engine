@@ -1,8 +1,8 @@
-import { isDefined } from '@Engine/Utils';
 import type { MeshToonMaterialParameters } from 'three';
 import { Color } from 'three';
 
 import type { IActorConfig, IActorMaterialConfig, IActorParams } from '@/Engine/Domains/Actor/Models';
+import { isDefined } from '@/Engine/Utils';
 import { EulerWrapper, Vector3Wrapper } from '@/Engine/Wrappers';
 
 export function getParams(config: IActorConfig): IActorParams {

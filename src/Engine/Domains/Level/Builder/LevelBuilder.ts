@@ -1,19 +1,12 @@
-import type { IAppCanvas } from '@Engine/Domains/App';
-import type { ICameraConfig, ICameraFactory, ICameraRegistry, ICameraWrapper } from '@Engine/Domains/Camera';
-import { CameraFactory, CameraRegistry, CameraTag } from '@Engine/Domains/Camera';
-import type { ILoopFactory, ILoopRegistry, ILoopWrapper } from '@Engine/Domains/Loop';
-import { LoopFactory, LoopRegistry, LoopTag } from '@Engine/Domains/Loop';
-import type { IRendererFactory, IRendererRegistry, IRendererWrapper } from '@Engine/Domains/Renderer';
-import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@Engine/Domains/Renderer';
-import type { ISceneConfig, ISceneFactory, ISceneRegistry, ISceneWrapper } from '@Engine/Domains/Scene';
-import { SceneFactory, SceneRegistry, SceneTag } from '@Engine/Domains/Scene';
-import { isNotDefined, isValidLevelConfig } from '@Engine/Utils';
 import type { Subscription } from 'rxjs';
 
 import { ambientContext } from '@/Engine/Context';
 import { CommonTag } from '@/Engine/Domains/Abstract';
 import type { IActorConfig, IActorFactory, IActorRegistry, IActorWrapper } from '@/Engine/Domains/Actor';
 import { ActorFactory, ActorRegistry, ActorTag } from '@/Engine/Domains/Actor';
+import type { IAppCanvas } from '@/Engine/Domains/App';
+import type { ICameraConfig, ICameraFactory, ICameraRegistry, ICameraWrapper } from '@/Engine/Domains/Camera';
+import { CameraFactory, CameraRegistry, CameraTag } from '@/Engine/Domains/Camera';
 import type { IControlsConfig, IControlsFactory, IControlsRegistry, IOrbitControlsWrapper } from '@/Engine/Domains/Controls';
 import { ControlsFactory, ControlsRegistry } from '@/Engine/Domains/Controls';
 import type { IIntersectionsWatcher, IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '@/Engine/Domains/Intersections';
@@ -22,8 +15,15 @@ import { withBuiltMixin } from '@/Engine/Domains/Level/Mixin';
 import type { ILevel, ILevelConfig, IWithBuilt } from '@/Engine/Domains/Level/Models';
 import type { ILightConfig, ILightFactory, ILightRegistry, ILightWrapper } from '@/Engine/Domains/Light';
 import { LightFactory, LightRegistry } from '@/Engine/Domains/Light';
+import type { ILoopFactory, ILoopRegistry, ILoopWrapper } from '@/Engine/Domains/Loop';
+import { LoopFactory, LoopRegistry, LoopTag } from '@/Engine/Domains/Loop';
+import type { IRendererFactory, IRendererRegistry, IRendererWrapper } from '@/Engine/Domains/Renderer';
+import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@/Engine/Domains/Renderer';
+import type { ISceneConfig, ISceneFactory, ISceneRegistry, ISceneWrapper } from '@/Engine/Domains/Scene';
+import { SceneFactory, SceneRegistry, SceneTag } from '@/Engine/Domains/Scene';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
+import { isNotDefined, isValidLevelConfig } from '@/Engine/Utils';
 
 export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
   if (!isValidLevelConfig(config)) throw new Error('Failed to launch a level: invalid data format');

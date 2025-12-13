@@ -1,5 +1,6 @@
-import type { IWrapper } from '@Engine/Domains/Abstract';
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+
+import type { IWrapper } from '@/Engine/Domains/Abstract';
 
 export type IOrbitControlsWrapper = IWrapper<OrbitControls> &
   Readonly<{

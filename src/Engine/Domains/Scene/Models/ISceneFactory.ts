@@ -1,5 +1,4 @@
-import type { IParamsFromConfig, IReactiveFactory } from '@Engine/Domains/Abstract';
-
+import type { IParamsFromConfig, IReactiveFactory } from '@/Engine/Domains/Abstract';
 import type { IDestroyable } from '@/Engine/Mixins';
 
 import type { ISceneConfig } from './ISceneConfig';

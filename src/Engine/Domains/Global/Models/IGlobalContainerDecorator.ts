@@ -1,4 +1,4 @@
-import type { IAppCanvas } from '@Engine/Domains/App';
+import type { IAppCanvas } from '@/Engine/Domains/App';
 
 export type IGlobalContainerDecorator = Readonly<{
   id: string;

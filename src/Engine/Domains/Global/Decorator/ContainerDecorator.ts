@@ -1,6 +1,6 @@
-import type { IAppCanvas } from '@Engine/Domains/App';
 import { nanoid } from 'nanoid';
 
+import type { IAppCanvas } from '@/Engine/Domains/App';
 import type { IAppGlobalContainer, IGlobalContainerDecorator } from '@/Engine/Domains/Global/Models';
 
 export function ContainerDecorator(container: IAppGlobalContainer): IGlobalContainerDecorator {

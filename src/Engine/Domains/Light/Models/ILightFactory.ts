@@ -1,5 +1,4 @@
-import type { IParamsFromConfig, IReactiveFactory } from '@Engine/Domains/Abstract';
-
+import type { IParamsFromConfig, IReactiveFactory } from '@/Engine/Domains/Abstract';
 import type { ILightConfig, ILightParams, ILightWrapper } from '@/Engine/Domains/Light/Models';
 import type { IDestroyable } from '@/Engine/Mixins';
 

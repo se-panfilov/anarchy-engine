@@ -1,6 +1,6 @@
-import type { IAbstractWatcher } from '@Engine/Domains/Abstract';
-import { AbstractWatcher, WatcherType } from '@Engine/Domains/Abstract';
-import type { IMouseClickWatcher, IMouseClickWatcherParams } from '@Engine/Domains/Mouse/Models';
+import type { IAbstractWatcher } from '@/Engine/Domains/Abstract';
+import { AbstractWatcher, WatcherType } from '@/Engine/Domains/Abstract';
+import type { IMouseClickWatcher, IMouseClickWatcherParams } from '@/Engine/Domains/Mouse/Models';
 
 export function MouseClickWatcher({ container, tags = [] }: IMouseClickWatcherParams): IMouseClickWatcher {
   const containerIdTag: string = `container_id_${container.id}`;
