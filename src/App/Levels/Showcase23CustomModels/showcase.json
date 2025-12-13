@@ -10,36 +10,35 @@
   ],
   "resources": {
     "textures": [],
-    "envMapTextures": [],
-    "materials": [{ "name": "blue_st", "type": "standard", "params": { "color": "#E91E63" } }],
+    "envMaps": [],
+    "materials": [{ "name": "surface_material", "type": "standard", "params": { "color": "#E91E63" } }],
+    "models3d": [{ "name": "fox_glb", "url": "/Showcase/Models/Fox/Fox.glb" }]
+  },
+  "entities": {
     "models3d": [
       {
         "name": "surface_model",
-        "url": "plane",
-        "material": "blue_st",
+        "model3dSource": "plane",
+        "materialSource": "surface_material",
         "options": {
           "width": 100,
           "height": 100,
           "widthSegments": 1,
           "heightSegments": 1,
           "castShadow": false,
-          "receiveShadow": true,
-          "position": { "x": 0, "y": 0, "z": 0 },
-          "rotation": { "x": -1.57, "y": 0, "z": 0 }
-        }
+          "receiveShadow": true
+        },
+        "position": { "x": 0, "y": 0, "z": 0 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 }
       },
       {
         "name": "fox_glb_config_original",
-        "url": "/Showcase/Models/Fox/Fox.glb",
-        "options": {
-          "scale": { "x": 0.025, "y": 0.025, "z": 0.025 },
-          "position": { "x": 5, "y": 0, "z": 0 }
-        },
+        "model3dSource": "fox_glb",
+        "scale": { "x": 0.025, "y": 0.025, "z": 0.025 },
+        "position": { "x": 5, "y": 0, "z": 0 },
         "tags": ["fox", "compressed"]
       }
-    ]
-  },
-  "entities": {
+    ],
     "spatialGrids": [
       {
         "name": "main_grid",

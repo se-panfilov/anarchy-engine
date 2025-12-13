@@ -10,31 +10,34 @@
   ],
   "resources": {
     "textures": [],
-    "envMapTextures": [],
+    "envMaps": [],
     "materials": [
-      { "name": "red_st", "type": "standard", "params": { "color": "#5EDCAE" } },
-      { "name": "blue_st", "type": "standard", "params": { "color": "#E91E63" } }
+      { "name": "sphere_material", "type": "standard", "params": { "color": "#5EDCAE" } },
+      { "name": "surface_material", "type": "standard", "params": { "color": "#E91E63" } }
     ],
+    "models3d": []
+  },
+  "entities": {
     "models3d": [
       {
         "name": "surface_model",
-        "url": "plane",
-        "material": "blue_st",
+        "model3dSource": "plane",
+        "materialSource": "surface_material",
         "options": {
           "width": 100,
           "height": 100,
           "widthSegments": 1,
           "heightSegments": 1,
           "castShadow": false,
-          "receiveShadow": true,
-          "position": { "x": 0, "y": 0, "z": 0 },
-          "rotation": { "x": -1.57, "y": 0, "z": 0 }
-        }
+          "receiveShadow": true
+        },
+        "position": { "x": 0, "y": 0, "z": 0 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 }
       },
       {
         "name": "sphere_model",
-        "url": "sphere",
-        "material": "red_st",
+        "model3dSource": "sphere",
+        "materialSource": "sphere_material",
         "options": {
           "width": 1,
           "height": 1,
@@ -44,9 +47,7 @@
           "castShadow": true
         }
       }
-    ]
-  },
-  "entities": {
+    ],
     "spatialGrids": [
       {
         "name": "main_grid",
@@ -60,7 +61,7 @@
     ],
     "actors": [
       {
-        "model3d": "sphere_actor",
+        "model3dEntity": "sphere_actor",
         "position": { "x": 0, "y": 2, "z": 0 },
         "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": true },

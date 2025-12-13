@@ -29,7 +29,7 @@
       { "name": "carpet_displacement_map", "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png", "tags": ["carpet", "displacementMap"] },
       { "name": "carpet_roughness_map", "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg", "tags": ["carpet", "roughnessMap"] }
     ],
-    "envMapTextures": [],
+    "envMaps": [],
     "materials": [
       {
         "name": "standard_metal",
@@ -355,11 +355,14 @@
         "tags": ["matcap", "textile"]
       }
     ],
+    "models3d": []
+  },
+  "entities": {
     "models3d": [
       {
         "name": "sphere_standard_metal",
-        "url": "sphere",
-        "material": "standard_metal",
+        "model3dSource": "sphere",
+        "materialSource": "standard_metal",
         "options": {
           "width": 1,
           "height": 1,
@@ -372,8 +375,8 @@
       },
       {
         "name": "sphere_physical_metal",
-        "url": "sphere",
-        "material": "physical_metal",
+        "model3dSource": "sphere",
+        "materialSource": "physical_metal",
         "options": {
           "width": 1,
           "height": 1,
@@ -386,8 +389,8 @@
       },
       {
         "name": "sphere_basic_metal",
-        "url": "sphere",
-        "material": "basic_metal",
+        "model3dSource": "sphere",
+        "materialSource": "basic_metal",
         "options": {
           "width": 1,
           "height": 1,
@@ -400,8 +403,8 @@
       },
       {
         "name": "sphere_phong_metal",
-        "url": "sphere",
-        "material": "phong_metal",
+        "model3dSource": "sphere",
+        "materialSource": "phong_metal",
         "options": {
           "width": 1,
           "height": 1,
@@ -414,8 +417,8 @@
       },
       {
         "name": "sphere_lambert_metal",
-        "url": "sphere",
-        "material": "lambert_metal",
+        "model3dSource": "sphere",
+        "materialSource": "lambert_metal",
         "options": {
           "width": 1,
           "height": 1,
@@ -428,8 +431,8 @@
       },
       {
         "name": "sphere_toon_metal",
-        "url": "sphere",
-        "material": "toon_metal",
+        "model3dSource": "sphere",
+        "materialSource": "toon_metal",
         "options": {
           "width": 1,
           "height": 1,
@@ -442,8 +445,8 @@
       },
       {
         "name": "sphere_matcap_metal",
-        "url": "sphere",
-        "material": "matcap_metal",
+        "model3dSource": "sphere",
+        "materialSource": "matcap_metal",
         "options": {
           "width": 1,
           "height": 1,
@@ -456,8 +459,8 @@
       },
       {
         "name": "cube_standard_wood",
-        "url": "cube",
-        "material": "standard_wood",
+        "model3dSource": "cube",
+        "materialSource": "standard_wood",
         "options": {
           "width": 1,
           "height": 1,
@@ -469,8 +472,8 @@
       },
       {
         "name": "cube_physical_wood",
-        "url": "cube",
-        "material": "physical_wood",
+        "model3dSource": "cube",
+        "materialSource": "physical_wood",
         "options": {
           "width": 1,
           "height": 1,
@@ -482,8 +485,8 @@
       },
       {
         "name": "cube_basic_wood",
-        "url": "cube",
-        "material": "basic_wood",
+        "model3dSource": "cube",
+        "materialSource": "basic_wood",
         "options": {
           "width": 1,
           "height": 1,
@@ -495,8 +498,8 @@
       },
       {
         "name": "cube_phong_wood",
-        "url": "cube",
-        "material": "phong_wood",
+        "model3dSource": "cube",
+        "materialSource": "phong_wood",
         "options": {
           "width": 1,
           "height": 1,
@@ -508,8 +511,8 @@
       },
       {
         "name": "cube_lambert_wood",
-        "url": "cube",
-        "material": "lambert_wood",
+        "model3dSource": "cube",
+        "materialSource": "lambert_wood",
         "options": {
           "width": 1,
           "height": 1,
@@ -521,8 +524,8 @@
       },
       {
         "name": "cube_toon_wood",
-        "url": "cube",
-        "material": "toon_wood",
+        "model3dSource": "cube",
+        "materialSource": "toon_wood",
         "options": {
           "width": 1,
           "height": 1,
@@ -534,8 +537,8 @@
       },
       {
         "name": "cube_matcap_wood",
-        "url": "cube",
-        "material": "matcap_wood",
+        "model3dSource": "cube",
+        "materialSource": "matcap_wood",
         "options": {
           "width": 1,
           "height": 1,
@@ -547,8 +550,8 @@
       },
       {
         "name": "sphere_standard_glass",
-        "url": "sphere",
-        "material": "standard_glass",
+        "model3dSource": "sphere",
+        "materialSource": "standard_glass",
         "options": {
           "width": 1,
           "height": 1,
@@ -561,8 +564,8 @@
       },
       {
         "name": "sphere_physical_glass",
-        "url": "sphere",
-        "material": "physical_glass",
+        "model3dSource": "sphere",
+        "materialSource": "physical_glass",
         "options": {
           "width": 1,
           "height": 1,
@@ -575,8 +578,8 @@
       },
       {
         "name": "sphere_basic_glass",
-        "url": "sphere",
-        "material": "basic_glass",
+        "model3dSource": "sphere",
+        "materialSource": "basic_glass",
         "options": {
           "width": 1,
           "height": 1,
@@ -589,8 +592,8 @@
       },
       {
         "name": "sphere_phong_glass",
-        "url": "sphere",
-        "material": "phong_glass",
+        "model3dSource": "sphere",
+        "materialSource": "phong_glass",
         "options": {
           "width": 1,
           "height": 1,
@@ -603,8 +606,8 @@
       },
       {
         "name": "sphere_lambert_glass",
-        "url": "sphere",
-        "material": "lambert_glass",
+        "model3dSource": "sphere",
+        "materialSource": "lambert_glass",
         "options": {
           "width": 1,
           "height": 1,
@@ -617,8 +620,8 @@
       },
       {
         "name": "sphere_toon_glass",
-        "url": "sphere",
-        "material": "toon_glass",
+        "model3dSource": "sphere",
+        "materialSource": "toon_glass",
         "options": {
           "width": 1,
           "height": 1,
@@ -631,8 +634,8 @@
       },
       {
         "name": "sphere_matcap_glass",
-        "url": "sphere",
-        "material": "matcap_glass",
+        "model3dSource": "sphere",
+        "materialSource": "matcap_glass",
         "options": {
           "width": 1,
           "height": 1,
@@ -645,8 +648,8 @@
       },
       {
         "name": "sphere_standard_textile",
-        "url": "sphere",
-        "material": "standard_textile",
+        "model3dSource": "sphere",
+        "materialSource": "standard_textile",
         "options": {
           "width": 1,
           "height": 1,
@@ -659,8 +662,8 @@
       },
       {
         "name": "sphere_physical_textile",
-        "url": "sphere",
-        "material": "physical_textile",
+        "model3dSource": "sphere",
+        "materialSource": "physical_textile",
         "options": {
           "width": 1,
           "height": 1,
@@ -673,8 +676,8 @@
       },
       {
         "name": "sphere_basic_textile",
-        "url": "sphere",
-        "material": "basic_textile",
+        "model3dSource": "sphere",
+        "materialSource": "basic_textile",
         "options": {
           "width": 1,
           "height": 1,
@@ -687,8 +690,8 @@
       },
       {
         "name": "sphere_phong_textile",
-        "url": "sphere",
-        "material": "phong_textile",
+        "model3dSource": "sphere",
+        "materialSource": "phong_textile",
         "options": {
           "width": 1,
           "height": 1,
@@ -701,8 +704,8 @@
       },
       {
         "name": "sphere_lambert_textile",
-        "url": "sphere",
-        "material": "lambert_textile",
+        "model3dSource": "sphere",
+        "materialSource": "lambert_textile",
         "options": {
           "width": 1,
           "height": 1,
@@ -715,8 +718,8 @@
       },
       {
         "name": "sphere_toon_textile",
-        "url": "sphere",
-        "material": "toon_textile",
+        "model3dSource": "sphere",
+        "materialSource": "toon_textile",
         "options": {
           "width": 1,
           "height": 1,
@@ -729,8 +732,8 @@
       },
       {
         "name": "sphere_matcap_textile",
-        "url": "sphere",
-        "material": "matcap_textile",
+        "model3dSource": "sphere",
+        "materialSource": "matcap_textile",
         "options": {
           "width": 1,
           "height": 1,
@@ -741,9 +744,7 @@
         },
         "tags": ["sphere", "matcap", "textile"]
       }
-    ]
-  },
-  "entities": {
+    ],
     "spatialGrids": [
       {
         "name": "main_grid",
@@ -757,169 +758,169 @@
     ],
     "actors": [
       {
-        "model3d": "sphere_standard_metal",
+        "model3dEntity": "sphere_standard_metal",
         "position": { "x": 0, "y": 2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["standard", "metal"]
       },
       {
-        "model3d": "sphere_physical_metal",
+        "model3dEntity": "sphere_physical_metal",
         "position": { "x": 2, "y": 2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["physical", "metal"]
       },
       {
-        "model3d": "sphere_basic_metal",
+        "model3dEntity": "sphere_basic_metal",
         "position": { "x": 4, "y": 2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["basic", "metal"]
       },
       {
-        "model3d": "sphere_phong_metal",
+        "model3dEntity": "sphere_phong_metal",
         "position": { "x": 6, "y": 2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["phong", "metal"]
       },
       {
-        "model3d": "sphere_lambert_metal",
+        "model3dEntity": "sphere_lambert_metal",
         "position": { "x": 8, "y": 2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["lambert", "metal"]
       },
       {
-        "model3d": "sphere_toon_metal",
+        "model3dEntity": "sphere_toon_metal",
         "position": { "x": 10, "y": 2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["toon", "metal"]
       },
       {
-        "model3d": "sphere_matcap_metal",
+        "model3dEntity": "sphere_matcap_metal",
         "position": { "x": 12, "y": 2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["matcap", "metal"]
       },
       {
-        "model3d": "cube_standard_wood",
+        "model3dEntity": "cube_standard_wood",
         "position": { "x": 0, "y": 0, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["standard", "wood"]
       },
       {
-        "model3d": "cube_physical_wood",
+        "model3dEntity": "cube_physical_wood",
         "position": { "x": 2, "y": 0, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["physical", "wood"]
       },
       {
-        "model3d": "cube_basic_wood",
+        "model3dEntity": "cube_basic_wood",
         "position": { "x": 4, "y": 0, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["basic", "wood"]
       },
       {
-        "model3d": "cube_phong_wood",
+        "model3dEntity": "cube_phong_wood",
         "position": { "x": 6, "y": 0, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["phong", "wood"]
       },
       {
-        "model3d": "cube_lambert_wood",
+        "model3dEntity": "cube_lambert_wood",
         "position": { "x": 8, "y": 0, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["lambert", "wood"]
       },
       {
-        "model3d": "cube_toon_wood",
+        "model3dEntity": "cube_toon_wood",
         "position": { "x": 10, "y": 0, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["toon", "wood"]
       },
       {
-        "model3d": "cube_matcap_wood",
+        "model3dEntity": "cube_matcap_wood",
         "position": { "x": 12, "y": 0, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["matcap", "wood"]
       },
       {
-        "model3d": "sphere_standard_glass",
+        "model3dEntity": "sphere_standard_glass",
         "position": { "x": 0, "y": -2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["standard", "glass"]
       },
       {
-        "model3d": "sphere_physical_glass",
+        "model3dEntity": "sphere_physical_glass",
         "position": { "x": 2, "y": -2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["physical", "glass"]
       },
       {
-        "model3d": "sphere_basic_glass",
+        "model3dEntity": "sphere_basic_glass",
         "position": { "x": 4, "y": -2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["basic", "glass"]
       },
       {
-        "model3d": "sphere_phong_glass",
+        "model3dEntity": "sphere_phong_glass",
         "position": { "x": 6, "y": -2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["phong", "glass"]
       },
       {
-        "model3d": "sphere_lambert_glass",
+        "model3dEntity": "sphere_lambert_glass",
         "position": { "x": 8, "y": -2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["lambert", "glass"]
       },
       {
-        "model3d": "sphere_toon_glass",
+        "model3dEntity": "sphere_toon_glass",
         "position": { "x": 10, "y": -2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["toon", "glass"]
       },
       {
-        "model3d": "sphere_matcap_glass",
+        "model3dEntity": "sphere_matcap_glass",
         "position": { "x": 12, "y": -2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["matcap", "glass"]
       },
       {
-        "model3d": "sphere_standard_textile",
+        "model3dEntity": "sphere_standard_textile",
         "position": { "x": 0, "y": -4, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["standard", "textile"]
       },
       {
-        "model3d": "sphere_physical_textile",
+        "model3dEntity": "sphere_physical_textile",
         "position": { "x": 2, "y": -4, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["physical", "textile"]
       },
       {
-        "model3d": "sphere_basic_textile",
+        "model3dEntity": "sphere_basic_textile",
         "position": { "x": 4, "y": -4, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["basic", "textile"]
       },
       {
-        "model3d": "sphere_phong_textile",
+        "model3dEntity": "sphere_phong_textile",
         "position": { "x": 6, "y": -4, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["phong", "textile"]
       },
       {
-        "model3d": "sphere_lambert_textile",
+        "model3dEntity": "sphere_lambert_textile",
         "position": { "x": 8, "y": -4, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["lambert", "textile"]
       },
       {
-        "model3d": "sphere_toon_textile",
+        "model3dEntity": "sphere_toon_textile",
         "position": { "x": 10, "y": -4, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["toon", "textile"]
       },
       {
-        "model3d": "sphere_matcap_textile",
+        "model3dEntity": "sphere_matcap_textile",
         "position": { "x": 12, "y": -4, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["matcap", "textile"]
