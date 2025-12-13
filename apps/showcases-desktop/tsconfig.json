@@ -11,6 +11,6 @@
     "sourceMap": false,
     "noEmit": false
   },
-  "include": ["electron-main.ts"],
+  "include": ["src/electron-main.ts"],
   "exclude": ["dist", "node_modules"]
 }

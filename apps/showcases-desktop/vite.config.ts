@@ -21,7 +21,7 @@ export default defineConfig({
   build: {
     emptyOutDir: false, // Do not empty outDir, we build app there first
     lib: {
-      entry: './electron-main.ts',
+      entry: './src/electron-main.ts',
       formats: ['es'],
       fileName: (): string => 'electron-main.js'
     },
