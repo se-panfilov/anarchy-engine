@@ -50,7 +50,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   async function init(): Promise<void> {
     physicsWorldService.getDebugRenderer(physicalLoop).start();
-    physicalLoop.enabled$.next(false);
 
     // (window as any).space = space;
 
