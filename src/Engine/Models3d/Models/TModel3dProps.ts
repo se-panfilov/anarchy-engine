@@ -3,7 +3,6 @@ import type { TObject3DParams, TObject3DProps } from '@/Engine/ThreeLib';
 
 import type { TModel3dOptions } from './TModel3dOptions';
 
-// TODO 8.0.0. MODELS: apply all TObject3DProps
 export type TModel3dProps = Readonly<{
   options?: TModel3dOptions;
 }> &

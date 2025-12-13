@@ -23,8 +23,7 @@ export function Model3d(params: TModel3dParams, { animationsService, model3dRawT
   // IMPORTANT!!!: This clone() doesn't save the model3d to the registry. Consider using of clone() the models3d service instead.
   const _clone = (overrides: TOptional<TModel3dParams> = {}): TModel3d => Model3d({ ...getParams(), forceClone: true, ...overrides }, { animationsService, model3dRawToModel3dConnectionRegistry });
 
-  // TODO 8.0.0. MODELS: apply all the params from object3d (can we do it in a more generic way?)
-  // TODO 8.0.0. MODELS: Remove duplication: extract applying of params to utils
+  // Maybe we should apply all the params from object3d (can we do it in a more generic way?)
   //applying model's params
   if (isDefined(params.scale)) applyScaleToModel3d(entities.model3dSource, params.scale);
   if (isDefined(params.rotation)) applyRotationToModel3d(entities.model3dSource, params.rotation);
