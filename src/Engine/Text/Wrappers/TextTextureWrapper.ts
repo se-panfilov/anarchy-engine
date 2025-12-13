@@ -16,6 +16,7 @@ import { applyObject3dParams, isNotDefined } from '@/Engine/Utils';
 export function createTextTextureWrapper(params: TTextParams, type: TextType, dependencies: TTextServiceDependencies): TTextTextureWrapper<Mesh> {
   let canvas: HTMLCanvasElement = document.createElement('canvas');
   let context: CanvasRenderingContext2D = canvas.getContext('2d')!;
+  let text: string = params.text;
 
   const texture = new Texture(canvas);
   // eslint-disable-next-line functional/immutable-data
@@ -31,12 +32,13 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
 
   // TODO #191823 Text3dTextures doesn't update text values on textures on change
   function setText(newText: string): void {
+    text = newText;
     const fontSize: string = toPx(params.cssProps?.fontSize);
     const fontSizeNoUnits: number = stripUnits(fontSize);
     // eslint-disable-next-line functional/immutable-data
     context.font = `${fontSize} Arial`;
 
-    const textMetrics: TextMetrics = context.measureText(newText);
+    const textMetrics: TextMetrics = context.measureText(text);
     const padding: number = fontSizeNoUnits * 0.2;
     const textWidth: number = Math.ceil(textMetrics.width + padding * 2);
     const textHeight: number = Math.ceil(fontSizeNoUnits + padding * 2);
@@ -59,12 +61,12 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
 
     // eslint-disable-next-line functional/immutable-data
     context.fillStyle = params.cssProps?.color ?? '#000000';
-    context.fillText(newText, canvas.width / 2, canvas.height / 2);
+    context.fillText(text, canvas.width / 2, canvas.height / 2);
     // eslint-disable-next-line functional/immutable-data
     texture.needsUpdate = true;
 
-    const newGeometryWidth = canvas.width / 256;
-    const newGeometryHeight = canvas.height / 256;
+    const newGeometryWidth: number = canvas.width / 256;
+    const newGeometryHeight: number = canvas.height / 256;
 
     entity.geometry.dispose();
     // eslint-disable-next-line functional/immutable-data
@@ -83,6 +85,7 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
     ...withObject3d(entity),
     getElement: () => canvas,
     setText,
+    getText: (): string => text,
     serialize: (): TTextConfig => textToConfig(result)
   });
 

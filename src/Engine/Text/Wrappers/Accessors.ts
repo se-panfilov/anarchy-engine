@@ -5,6 +5,7 @@ import { camelToKebab } from '@/Engine/Utils';
 export function getCssAccessors(element: TWriteable<HTMLElement>): TElementWithCssAccessors {
   // eslint-disable-next-line functional/immutable-data
   const setText = (text: string): void => void (element.textContent = text);
+  const getText = (): string => element.textContent ?? '';
   // eslint-disable-next-line functional/immutable-data
   const setClassName = (name: string): void => void (element.className = name);
   const setCssProperty = (name: string, value: string | null, priority?: string): void => element.style.setProperty(camelToKebab(name), value, priority);
@@ -14,6 +15,7 @@ export function getCssAccessors(element: TWriteable<HTMLElement>): TElementWithC
 
   return {
     setText,
+    getText,
     setClassName,
     appendClassName,
     setCssProperty,
