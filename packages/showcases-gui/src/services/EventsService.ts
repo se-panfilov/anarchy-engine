@@ -5,7 +5,7 @@ import type { TFromGuiEvent, TToGuiEvent } from '@Showcases/Shared';
 import { FromGuiEvents, ToGuiEvents } from '@Showcases/Shared';
 import type { Observable, Subject, Subscription } from 'rxjs';
 
-const { CloseGui } = FromGuiEvents;
+const { Action, CloseGui } = FromGuiEvents;
 
 function EventsService(): TEventsService {
   let fromGuiBus$: Subject<TFromGuiEvent> | undefined;
@@ -16,11 +16,13 @@ function EventsService(): TEventsService {
 
   const noBusError = '[EventsService]: fromGuiBus$ is not defined. Call setBus() first.';
 
-  function emitCloseGui(): void | never {
+  function emitEvent(event: TFromGuiEvent): void | never {
     if (isNotDefined(fromGuiBus$)) throw new Error(noBusError);
-    console.log('[EventsService]: emitCloseGui');
-    fromGuiBus$.next({ type: CloseGui });
+    return fromGuiBus$.next(event);
   }
+
+  const emitActionEvent = (payload?: Record<string, any>): void => emitEvent({ type: Action, payload });
+  const emitCloseGui = (): void => emitEvent({ type: CloseGui });
 
   function startListeningAppEvents(): Subscription {
     if (isNotDefined(toGuiBus$)) throw new Error('[EventsService]: toGuiBus$ is not defined. Call setToGuiBus() first.');
@@ -40,7 +42,9 @@ function EventsService(): TEventsService {
   }
 
   return {
+    emitActionEvent,
     emitCloseGui,
+    emitEvent,
     setFromGuiBus,
     setToGuiBus,
     startListeningAppEvents,

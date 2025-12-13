@@ -11,17 +11,12 @@ let appEventsSub$: Subscription | undefined;
 
 onMounted((): void => {
   appEventsSub$ = eventsService.startListeningAppEvents();
-  // eventsService.emitGetCurrentGui();
 });
 
 onUnmounted((): void => {
   vueTranslationService.destroy$.next();
   appEventsSub$?.unsubscribe();
 });
-
-// function some(): void {
-// eventsService.emitSetGuiSettings(useSettingsStore().state);
-// }
 </script>
 
 <template>
