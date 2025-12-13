@@ -82,6 +82,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   mouseService.clickLeftRelease$.subscribe(() => {
     void moverService.goByPath(floatingText, circlePathXZ, { ...animationParams, easing: Easing.Linear });
+    // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
     setTimeout(() => {
       void moverService.goByPath(floatingText2, circlePathXZ2, { ...animationParams, easing: Easing.Linear });
     }, 1000);

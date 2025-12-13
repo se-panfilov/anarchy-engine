@@ -94,6 +94,7 @@ export function moveActorBounce(actorW: TActorWrapperAsync, speedMPS: number, az
   actorW.kinematic.setAutoUpdate(true);
   actorW.kinematic.setLinearSpeed(meters(speedMPS));
   actorW.kinematic.setLinearAzimuthDeg(azimuthDeg);
+  // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
   setInterval((): void => {
     actorW.kinematic.setLinearAzimuthDeg(actorW.kinematic.getLinearAzimuthDeg() + 180);
   }, duration);

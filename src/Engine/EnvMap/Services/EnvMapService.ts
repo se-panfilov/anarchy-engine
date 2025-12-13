@@ -25,7 +25,6 @@ export function EnvMapService(registry: TEnvMapAsyncRegistry): TEnvMapService {
     return envMapLoader.loadAsync(url).then((texture: TWriteable<TDataTexture>): TDataTexture => {
       // eslint-disable-next-line functional/immutable-data
       texture.mapping = EquirectangularReflectionMapping;
-      // setTimeout(() => added$.next(texture), 1000);
       added$.next({ url: url, texture: texture });
       return texture;
     });

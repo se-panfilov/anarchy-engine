@@ -98,6 +98,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       if (isClickBlocked) {
         redActor.setVisible(false);
         notification.setVisible(true);
+        // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
         setTimeout(() => notification.setVisible(false), 1000);
         return;
       }
