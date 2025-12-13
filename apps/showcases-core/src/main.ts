@@ -22,7 +22,10 @@ const settings: TAppSettings = {
 // TODO MOBILE: Detect user locale in mobile app and send it to the app settings (menu)
 // TODO MOBILE: Integrate Sentry for mobile app error tracking
 
+// TODO DESKTOP: Menu and UI should also have Sentry setup
+
 //Runs only for envs with defined VITE_SENTRY_DSN (productions for web, desktop, mobile)
+// TODO DESKTOP: Add condition to check if end platform is allow tracking (desktop app always has showcases-core in "production" mode, even if electron is in dev)
 await WebErrorTrackingService().start();
 
 setBrowserSafeguards(window);
