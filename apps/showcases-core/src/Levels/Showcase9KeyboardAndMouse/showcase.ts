@@ -1,5 +1,5 @@
-import type { TActor, TActorRegistry, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TKeysPressingEvent, TMouseWatcherEvent, TSpace, TSpaceConfig } from '@Anarchy/Engine';
-import { KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService } from '@Anarchy/Engine';
+import type { TActor, TActorRegistry, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TKeysEvent, TMouseWatcherEvent, TSpace, TSpaceConfig } from '@Anarchy/Engine';
+import { hasKey, isKeyInEvent, isPressEvent, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import GUI from 'lil-gui';
 import { withLatestFrom } from 'rxjs';
@@ -12,6 +12,16 @@ import { addGizmo, enableFPSCounter } from '@/Utils';
 import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
+
+const actionKeys = {
+  GoDown: KeyCode.S,
+  GoLeft: KeyCode.A,
+  GoRight: KeyCode.D,
+  GoUp: KeyCode.W
+};
+
+const { Every } = LookUpStrategy;
+const { GoDown, GoLeft, GoRight, GoUp } = actionKeys;
 
 export function start(settings: TAppSettings): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], settings.spaceSettings));
@@ -28,10 +38,10 @@ export function showcase(space: TSpace): void {
   const { keyboardService } = space.services;
 
   const { actorService, cameraService, intersectionsWatcherService, mouseService, scenesService } = space.services;
-  const { intersectionsLoop } = space.loops;
+  const { intersectionsLoop, kinematicLoop } = space.loops;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
   const { getByName, getByTags } = actorRegistry;
-  const { onKey } = keyboardService;
+  const { keys$ } = keyboardService;
 
   const camera: TAnyCameraWrapper = cameraService.getActive();
 
@@ -39,32 +49,32 @@ export function showcase(space: TSpace): void {
 
   const actorKeyboard: TActor = getByName('sphere_keyboard_actor');
   const actorMouse: TActor = getByName('sphere_mouse_actor');
-  const actorKeyW: TActor = getByTags(['key', 'W'], LookUpStrategy.Every);
-  const actorKeyA: TActor = getByTags(['key', 'A'], LookUpStrategy.Every);
-  const actorKeyS: TActor = getByTags(['key', 'S'], LookUpStrategy.Every);
-  const actorKeyD: TActor = getByTags(['key', 'D'], LookUpStrategy.Every);
-  const actorMkeyLeft: TActor = getByTags(['mkey', 'Left'], LookUpStrategy.Every);
-  const actorMkeyRight: TActor = getByTags(['mkey', 'Right'], LookUpStrategy.Every);
-  const actorMkeyMiddle: TActor = getByTags(['mkey', 'Middle'], LookUpStrategy.Every);
-  const actorMkeyBack: TActor = getByTags(['mkey', 'Back'], LookUpStrategy.Every);
-  const actorMkeyForward: TActor = getByTags(['mkey', 'Forward'], LookUpStrategy.Every);
-  const actorMkeyExtra: TActor = getByTags(['mkey', 'Extra'], LookUpStrategy.Every);
+  const actorKeyW: TActor = getByTags(['key', 'W'], Every);
+  const actorKeyA: TActor = getByTags(['key', 'A'], Every);
+  const actorKeyS: TActor = getByTags(['key', 'S'], Every);
+  const actorKeyD: TActor = getByTags(['key', 'D'], Every);
+  const actorMkeyLeft: TActor = getByTags(['mkey', 'Left'], Every);
+  const actorMkeyRight: TActor = getByTags(['mkey', 'Right'], Every);
+  const actorMkeyMiddle: TActor = getByTags(['mkey', 'Middle'], Every);
+  const actorMkeyBack: TActor = getByTags(['mkey', 'Back'], Every);
+  const actorMkeyForward: TActor = getByTags(['mkey', 'Forward'], Every);
+  const actorMkeyExtra: TActor = getByTags(['mkey', 'Extra'], Every);
 
-  onKey(KeyCode.W).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta)));
-  onKey(KeyCode.W).pressed$.subscribe((): void => void actorKeyW.drive.default.addY(-0.2));
-  onKey(KeyCode.W).released$.subscribe((): void => void actorKeyW.drive.default.addY(0.2));
+  keys$.subscribe((event: TKeysEvent): void => {
+    //true/false switches
+    if (isKeyInEvent(GoUp, event)) void actorKeyW.drive.default.addY(isPressEvent(event) ? -0.2 : 0.2);
+    if (isKeyInEvent(GoLeft, event)) void actorKeyA.drive.default.addY(isPressEvent(event) ? -0.2 : 0.2);
+    if (isKeyInEvent(GoDown, event)) void actorKeyS.drive.default.addY(isPressEvent(event) ? -0.2 : 0.2);
+    if (isKeyInEvent(GoRight, event)) void actorKeyD.drive.default.addY(isPressEvent(event) ? -0.2 : 0.2);
+  });
 
-  onKey(KeyCode.A).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta)));
-  onKey(KeyCode.A).pressed$.subscribe((): void => void actorKeyA.drive.default.addY(-0.2));
-  onKey(KeyCode.A).released$.subscribe((): void => void actorKeyA.drive.default.addY(0.2));
-
-  onKey(KeyCode.S).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta)));
-  onKey(KeyCode.S).pressed$.subscribe((): void => void actorKeyS.drive.default.addY(-0.2));
-  onKey(KeyCode.S).released$.subscribe((): void => void actorKeyS.drive.default.addY(0.2));
-
-  onKey(KeyCode.D).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(10), delta)));
-  onKey(KeyCode.D).pressed$.subscribe((): void => void actorKeyD.drive.default.addY(-0.2));
-  onKey(KeyCode.D).released$.subscribe((): void => void actorKeyD.drive.default.addY(0.2));
+  kinematicLoop.tick$.pipe(withLatestFrom(keys$)).subscribe(([delta, { keys }]) => {
+    //continues movement while key is pressed
+    if (hasKey(GoUp, keys)) actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta));
+    if (hasKey(GoLeft, keys)) actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta));
+    if (hasKey(GoDown, keys)) actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta));
+    if (hasKey(GoRight, keys)) actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(10), delta));
+  });
 
   const intersectionsWatcher: TIntersectionsCameraWatcher = startIntersections(camera);
   const coordsUI: { x: number; z: number } = { x: 0, z: 0 };

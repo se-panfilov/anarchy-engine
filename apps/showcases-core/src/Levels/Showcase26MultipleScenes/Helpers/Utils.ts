@@ -1,6 +1,7 @@
-import type { TActor, TActorRegistry, TKeysPressingEvent, TParticlesWrapper, TSpace, TSpaceServices } from '@Anarchy/Engine';
+import type { TActor, TActorRegistry, TParticlesWrapper, TSpace, TSpaceLoops, TSpaceServices } from '@Anarchy/Engine';
 import { ambientContext, createDomElement, KeyCode, metersPerSecond, mpsSpeed } from '@Anarchy/Engine';
 import { hasKey } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
+import { withLatestFrom } from 'rxjs';
 
 import type { TSubscriptionsData } from '@/Levels/Showcase26MultipleScenes/Helpers/TSubscriptionsData';
 import { addBtn } from '@/Utils';
@@ -40,16 +41,26 @@ export function createContainersDivs(): void {
   );
 }
 
-export function driveByKeyboard(actorName: string, { actorService, keyboardService }: TSpaceServices): void {
+const actionKeys = {
+  GoDown: KeyCode.S,
+  GoLeft: KeyCode.A,
+  GoRight: KeyCode.D,
+  GoUp: KeyCode.W
+};
+
+const { GoDown, GoLeft, GoRight, GoUp } = actionKeys;
+
+export function driveByKeyboard(actorName: string, { actorService, keyboardService }: TSpaceServices, { kinematicLoop }: TSpaceLoops): void {
   const actorRegistry: TActorRegistry = actorService.getRegistry();
   const actor: TActor = actorRegistry.getByName(actorName);
-  const { pressing$ } = keyboardService;
+  const { keys$ } = keyboardService;
 
-  pressing$.subscribe(({ keys, delta }: TKeysPressingEvent): void => {
-    if (hasKey(KeyCode.W, keys)) actor.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta));
-    if (hasKey(KeyCode.A, keys)) actor.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta));
-    if (hasKey(KeyCode.S, keys)) actor.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta));
-    if (hasKey(KeyCode.D, keys)) actor.drive.default.addX(mpsSpeed(metersPerSecond(10), delta));
+  kinematicLoop.tick$.pipe(withLatestFrom(keys$)).subscribe(([delta, { keys }]) => {
+    //continues movement while key is pressed
+    if (hasKey(GoUp, keys)) actor.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta));
+    if (hasKey(GoLeft, keys)) actor.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta));
+    if (hasKey(GoDown, keys)) actor.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta));
+    if (hasKey(GoRight, keys)) actor.drive.default.addX(mpsSpeed(metersPerSecond(10), delta));
   });
 }
 

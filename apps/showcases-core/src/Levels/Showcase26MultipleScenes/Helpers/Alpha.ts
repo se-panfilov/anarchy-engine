@@ -7,7 +7,7 @@ import { addParticles, driveByKeyboard } from './Utils';
 
 export function runAlpha(space: TSpace): void {
   moveByCircle('sphere_actor', space.services.actorService, space.loops.transformLoop, new Clock());
-  driveByKeyboard('move_actor_left', space.services);
+  driveByKeyboard('move_actor_left', space.services, space.loops);
   addParticles(space);
   space.start$.next(true);
 }

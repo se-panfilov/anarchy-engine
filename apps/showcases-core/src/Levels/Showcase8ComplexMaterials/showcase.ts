@@ -22,7 +22,7 @@ import type {
   TWithThickness,
   TWithTransmission
 } from '@Anarchy/Engine';
-import { ControlsType, getTags, isOrbitControls, KeyCode, LookUpStrategy, spaceService, TextType } from '@Anarchy/Engine';
+import { ControlsType, getTags, isOrbitControls, KeyCode, LookUpStrategy, onKey, spaceService, TextType } from '@Anarchy/Engine';
 import { asRecord, isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Controller } from 'lil-gui';
 import GUI from 'lil-gui';
@@ -93,19 +93,19 @@ export function showcase(space: TSpace): void {
     });
   }
 
-  keyboardService.onKey(KeyCode.D).pressed$.subscribe((): void => {
+  keyboardService.keys$.pipe(onKey(KeyCode.D)).subscribe((): void => {
     currentMaterialIndex$.next((currentMaterialIndex$.value + 1) % materials.length);
   });
 
-  keyboardService.onKey(KeyCode.A).pressed$.subscribe((): void => {
+  keyboardService.keys$.pipe(onKey(KeyCode.A)).subscribe((): void => {
     currentMaterialIndex$.next((currentMaterialIndex$.value - 1 + materials.length) % materials.length);
   });
 
-  keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => {
+  keyboardService.keys$.pipe(onKey(KeyCode.W)).subscribe((): void => {
     currentMaterialTypeIndex$.next((currentMaterialTypeIndex$.value + 1) % materialType.length);
   });
 
-  keyboardService.onKey(KeyCode.S).pressed$.subscribe((): void => {
+  keyboardService.keys$.pipe(onKey(KeyCode.S)).subscribe((): void => {
     currentMaterialTypeIndex$.next((currentMaterialTypeIndex$.value - 1 + materialType.length) % materialType.length);
   });
 

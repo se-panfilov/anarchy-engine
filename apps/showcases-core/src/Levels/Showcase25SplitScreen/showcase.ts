@@ -1,7 +1,7 @@
-import type { TActor, TActorRegistry, TKeysPressingEvent, TSpace, TSpaceConfig, TSpaceServices } from '@Anarchy/Engine';
-import { ambientContext, createDomElement, KeyCode, metersPerSecond, mpsSpeed, spaceService } from '@Anarchy/Engine';
+import type { TActor, TActorRegistry, TSpace, TSpaceConfig, TSpaceLoops, TSpaceServices } from '@Anarchy/Engine';
+import { ambientContext, createDomElement, hasKey, KeyCode, metersPerSecond, mpsSpeed, spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
-import { combineLatest } from 'rxjs';
+import { combineLatest, withLatestFrom } from 'rxjs';
 import { Clock } from 'three';
 
 import type { TAppSettings } from '@/Models';
@@ -12,6 +12,15 @@ import spaceBetaConfigJson from './spaceBeta.json';
 
 const spaceAlphaConfig: TSpaceConfig = spaceAlphaConfigJson as TSpaceConfig;
 const spaceBetaConfig: TSpaceConfig = spaceBetaConfigJson as TSpaceConfig;
+
+const actionKeys = {
+  GoDown: KeyCode.S,
+  GoLeft: KeyCode.A,
+  GoRight: KeyCode.D,
+  GoUp: KeyCode.W
+};
+
+const { GoDown, GoLeft, GoRight, GoUp } = actionKeys;
 
 function createContainersDivs(): void {
   createDomElement(
@@ -48,23 +57,26 @@ export function start(settings: TAppSettings): void {
 
 export function runAlpha(space: TSpace): void {
   moveByCircle('sphere_actor', space.services.actorService, space.loops.transformLoop, new Clock());
-  driveByKeyboard('move_actor_left', space.services);
+  driveByKeyboard('move_actor_left', space.services, space.loops);
   space.start$.next(true);
 }
 
 export function runBeta(space: TSpace): void {
   moveByCircle('box_actor', space.services.actorService, space.loops.transformLoop, new Clock());
-  driveByKeyboard('move_actor_right', space.services);
+  driveByKeyboard('move_actor_right', space.services, space.loops);
   space.start$.next(true);
 }
 
-function driveByKeyboard(actorName: string, { actorService, keyboardService }: TSpaceServices): void {
+function driveByKeyboard(actorName: string, { actorService, keyboardService }: TSpaceServices, { kinematicLoop }: TSpaceLoops): void {
   const actorRegistry: TActorRegistry = actorService.getRegistry();
   const actor: TActor = actorRegistry.getByName(actorName);
-  const { onKey } = keyboardService;
+  const { keys$ } = keyboardService;
 
-  onKey(KeyCode.W).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actor.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta)));
-  onKey(KeyCode.A).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actor.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta)));
-  onKey(KeyCode.S).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actor.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta)));
-  onKey(KeyCode.D).pressing$.subscribe(({ delta }: TKeysPressingEvent): void => void actor.drive.default.addX(mpsSpeed(metersPerSecond(10), delta)));
+  kinematicLoop.tick$.pipe(withLatestFrom(keys$)).subscribe(([delta, { keys }]) => {
+    //continues movement while key is pressed
+    if (hasKey(GoUp, keys)) actor.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta));
+    if (hasKey(GoLeft, keys)) actor.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta));
+    if (hasKey(GoDown, keys)) actor.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta));
+    if (hasKey(GoRight, keys)) actor.drive.default.addX(mpsSpeed(metersPerSecond(10), delta));
+  });
 }
