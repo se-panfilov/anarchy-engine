@@ -7,7 +7,7 @@ import { Audio3dTransformDrive } from '@/Engine/Audio/TransformDrive';
 import { createPositionalAudio, onAudioPositionUpdate } from '@/Engine/Audio/Utils';
 import { AbstractAudioWrapper } from '@/Engine/Audio/Wrappers/AbstractAudioWrapper';
 import { LoopUpdatePriority } from '@/Engine/Loop';
-import type { TMeters } from '@/Engine/Math';
+import type { TMeters, TMilliseconds } from '@/Engine/Math';
 import { meters } from '@/Engine/Measurements';
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
@@ -26,20 +26,13 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
 
   const sourcePositionUpdate$: Observable<TReadonlyVector3> = onAudioPositionUpdate(drive.position$, noiseThreshold);
 
-  const updateVolumeSub$: Subscription = sourcePositionUpdate$
-    .pipe(
-      sample(audioLoop.tick$)
-      // TODO 11-0-0: this filter doesn't work properly
-      // filter((): boolean => {
-      //   console.log('XXX update', updatePriority, audioLoop.shouldUpdateWithPriority(updatePriority));
-      //   return audioLoop.shouldUpdateWithPriority(updatePriority);
-      // })
-    )
-    .subscribe((position: TReadonlyVector3): void => {
-      void wrapper.entity.position.copy(position);
-      wrapper.entity.updateMatrix();
-      wrapper.entity.updateMatrixWorld(true);
-    });
+  const tickFiltered$: Observable<TMilliseconds> = audioLoop.tick$.pipe(filter((): boolean => audioLoop.shouldUpdateWithPriority(updatePriority)));
+
+  const updateVolumeSub$: Subscription = sourcePositionUpdate$.pipe(sample(tickFiltered$)).subscribe((position: TReadonlyVector3): void => {
+    void wrapper.entity.position.copy(position);
+    wrapper.entity.updateMatrix();
+    wrapper.entity.updateMatrixWorld(true);
+  });
 
   const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
