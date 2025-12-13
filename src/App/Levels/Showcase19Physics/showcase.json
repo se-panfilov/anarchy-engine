@@ -240,10 +240,8 @@
     },
     {
       "name": "ball",
-      "type": "cube",
-      "height": 4,
-      "width": 1,
-      "depth": 1,
+      "type": "sphere",
+      "radius": 1,
       "material": {
         "type": "physical",
         "params": {
@@ -268,11 +266,9 @@
         }
       },
       "physics": {
-        "presetName": "box_physics",
+        "presetName": "ball_physics",
         "shapeParams": {
-          "hx": 0.5,
-          "hy": 2,
-          "hz": 0.5
+          "radius": 1
         },
         "position": { "x": 0, "y": 6, "z": 0 }
       },
@@ -492,7 +488,7 @@
       "isActive": true
     }
   ],
-  "envMaps": [],
+  "envMaps": ["/Showcase/hdr/shanghai_bund_4k.hdr"],
   "particles": [],
   "fogs": [],
   "tags": []
