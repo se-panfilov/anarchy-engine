@@ -63,6 +63,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const sphereActorFolder: GUI = gui.addFolder('Sphere Actor');
     sphereActorFolder.add(sphereActor.drive.agent$, 'value').listen();
+    // TODO (S.Panfilov) fix this
     sphereActorFolder.add(sphereActor.drive.getPosition(), 'x').listen();
     sphereActorFolder.add(sphereActor.drive.getPosition(), 'y').listen();
     sphereActorFolder.add(sphereActor.drive.getPosition(), 'z').listen();
@@ -138,7 +139,8 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent): v
       break;
     case TransformAgent.Instant:
       // TODO (S.Panfilov) 8.0.0. MODELS: fix this
-      actor.drive.instant.setPosition(position);
+      // actor.drive.instant.setPosition(position);
+      actor.drive.position$.next(position);
       break;
     case TransformAgent.Physical:
       // TODO (S.Panfilov) 8.0.0. MODELS: Implement Physics movement
