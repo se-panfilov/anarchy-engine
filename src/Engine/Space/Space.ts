@@ -58,7 +58,7 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     activeScene.setEnvironmentMap(texture);
   });
 
-  void envMapService.loadFromConfig(envMaps);
+  void envMapService.loadFromConfigAsync(envMaps);
 
   rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2, isActive: true });
 

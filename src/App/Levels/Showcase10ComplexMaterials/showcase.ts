@@ -94,7 +94,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     orbitControls.moveToTargetSmoothly(position);
   }
 
-  void envMapService.load('/Showcase/hdr/urban_alley_01_4k.hdr');
+  void envMapService.loadAsync('/Showcase/hdr/urban_alley_01_4k.hdr');
 
   actorRegistry.added$.subscribe(addTextToActor);
 
