@@ -61,9 +61,9 @@ export function Driver(): TPlatformDriver {
     return Promise.resolve({} as any);
   }
 
-  function getReleaseName(version: string): Promise<string> {
+  function getReleaseName(): Promise<string> {
     console.log('XXX [MOBILE]', 'getReleaseName');
-    return Promise.resolve('getReleaseName' + version);
+    return Promise.resolve('getReleaseName');
   }
 
   function getPackagesVersions(): Promise<Record<string, string>> {
