@@ -1,5 +1,0 @@
-1.0.0 Initial
-2.0.0 Restructure
-
-Roadmap:
-- Replace legal _TEMPLATE docs with proper ones;

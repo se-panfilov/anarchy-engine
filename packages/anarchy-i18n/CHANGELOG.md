@@ -2,5 +2,5 @@
 1.1.0 Auto generate Locales file
 
 Roadmap:
-- Replace legal _TEMPLATE docs with proper ones;
+
 - Make a npm package out of this;

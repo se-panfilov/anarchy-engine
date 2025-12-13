@@ -9,11 +9,9 @@
 - 2.6.0 UI menu (vue) extracted to a separate package
 
 Roadmap:
+
 - 2.7.x GUI POC
 - 3.0.x Mobile Build
 - 4.0.x Steam SDK
 - 5.0.x Initial load script <500kb)
 - 7.0.x Captions
-
-Roadmap:
-- Replace legal _TEMPLATE docs with proper ones;

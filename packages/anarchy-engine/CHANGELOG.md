@@ -41,16 +41,15 @@
 - 20.3.x Extracted some code to shared package (utils, types, etc.)
 
 Roadmap:
+
 - 21.0.x Create a npm package
 - 22.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
 - 23.x.x Postprocessing
 - 24.0.x Shaders
 - 25.0.x Modules: distinct engine/rapier from engine/core. Bonus: Make possible to load engine/rapier in async way
 
-Roadmap:
-- Replace legal _TEMPLATE docs with proper ones;
-
 Thoughts:
+
 - Maybe: Add a possibility to run E2E tests against minified code (prod). Cause minification could break things;
 - Maybe: Replace all arrays (with no allowed duplicates) with Maps (for performance)?;
 - Maybe: Try to replace spread operator with Object.assign everywhere (for performance and make sure that we are not creating new objects)? Check with AbstractEntity first;
@@ -67,4 +66,5 @@ Thoughts:
 - TASK: Align types name: intersection types should start with TAny..., e.g. TAnyMaterial = TMaterial1 | TMaterial2;
 
 Won't be implemented soon:
+
 - Maybe: Split data entities from functional entities – ECS approach (too hard to migrate now);

@@ -5,5 +5,5 @@
 - 2.3.0 Load settings
 
 Roadmap:
-- Replace legal _TEMPLATE docs with proper ones;
+
 - Make sure to deliver legal docs along with the app: NOTICE, THIRD_PARTY_LICENSES, EULA, PRIVACY, THIRD_PARTY_LICENSES

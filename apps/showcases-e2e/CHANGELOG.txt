@@ -1,4 +1,0 @@
-1.0.0 Initial
-
-Roadmap:
-- Replace legal _TEMPLATE docs with proper ones;
