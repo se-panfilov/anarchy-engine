@@ -25,52 +25,32 @@
         "name": "main",
         "near": 1,
         "position": {
-          "x": 3,
-          "y": 20,
-          "z": 35
+          "x": 0,
+          "y": 30,
+          "z": 0
         },
         "rotation": {
-          "x": 0,
+          "x": -1.57,
           "y": 0,
           "z": 0
         }
       }
     ],
-    "controls": [
-      {
-        "name": "orbit_controls",
-        "cameraName": "main",
-        "enableDamping": true,
-        "isActive": true,
-        "type": "OrbitControls"
-      }
-    ],
+    "controls": [],
     "envMaps": [],
     "fogs": [],
     "fsm": [],
     "intersections": [],
-    "lights": [
-      {
-        "name": "ambient_light",
-        "color": "#ffffff",
-        "intensity": 0.5,
-        "position": {
-          "x": 0.25,
-          "y": 2,
-          "z": 2.25
-        },
-        "type": "Ambient"
-      }
-    ],
+    "lights": [],
     "models3d": [
       {
-        "castShadow": true,
+        "castShadow": false,
         "materialSource": "box_material",
         "model3dSource": "cube",
         "name": "box_model",
         "options": {
-          "depth": 20,
-          "height": 2.5,
+          "depth": 1,
+          "height": 1,
           "heightSegments": 1,
           "width": 1,
           "widthSegments": 1
@@ -100,9 +80,9 @@
       {
         "name": "box_material",
         "options": {
-          "color": "#E91E63"
+          "color": "#4638DF"
         },
-        "type": "standard"
+        "type": "basic"
       }
     ],
     "models3d": [],
@@ -111,7 +91,7 @@
   "scenes": [
     {
       "isActive": true,
-      "name": "showcase",
+      "name": "showcase_scene",
       "tags": []
     }
   ],
