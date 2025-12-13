@@ -96,8 +96,9 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     if (isNotDefined(targetActor3W)) throw new Error(`Cannot find "target_3" actor`);
 
     // TODO (S.Panfilov) CWP also sometimes bullets are going through the target (especially a distant ones) (what if we need to set radius?)
-    // TODO (S.Panfilov) CWP make sure it works properly for objects with and without BVH
     // TODO (S.Panfilov) CWP check each actor's grid name in config against spatial grids (should have at least one grid)
+    // TODO (S.Panfilov) CWP add some visual effect when bullet hits the target
+    // TODO (S.Panfilov) CWP add physical explosion on physical blocks (when hit)
     moveActorBounce(targetActor1W, 4, -270, 3000);
     setTimeout(() => moveActorBounce(targetActor2W, 4.5, -270, 3000), 500);
     setTimeout(() => moveActorBounce(targetActor3W, 5, -270, 3000), 1000);
