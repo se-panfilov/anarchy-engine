@@ -35,10 +35,8 @@ export async function launch(sceneConfig: ISceneConfig): Promise<void> {
 
   //Watchers
   const mouseClicksWatcher: IWatcher<void> = MouseClicksWatcher();
-  // mouseClicksWatcher.value$.subscribe(console.log)
   mouseClicksWatcher.start$.next();
   const mousePositionWatcher: IWatcher<IMousePosition> = MousePositionWatcher();
-  // mousePositionWatcher.value$.subscribe(console.log)
   mousePositionWatcher.start$.next();
 
   //Factories
@@ -79,7 +77,6 @@ export async function launch(sceneConfig: ISceneConfig): Promise<void> {
     }
   );
 
-  // TODO (S.Panfilov) CWP fix this loop
   combineLatest([loopFactory.latest$, rendererFactory.latest$, sceneFactory.latest$, cameraFactory.latest$]).subscribe(
     ([loop, renderer, scene, camera]: [ILoopWrapper, IRendererWrapper, ISceneWrapper, ICameraWrapper]): void => {
       loop.start(renderer, scene, camera);
@@ -92,7 +89,7 @@ export async function launch(sceneConfig: ISceneConfig): Promise<void> {
   cameras.forEach((config: ICameraConfig) => cameraFactory.createFromConfig$.next(config));
   lights.forEach((config: ILightConfig) => lightFactory.createFromConfig$.next(config));
 
-  // TODO (S.Panfilov) canvas (or something else) should come from settings
+  // TODO (S.Panfilov) canvas (or something else) should come from settings or ambient context
   const canvas: HTMLElement | null = document.querySelector('#app');
   if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
 
@@ -112,8 +109,6 @@ export async function launch(sceneConfig: ISceneConfig): Promise<void> {
   // listen clicks by intersection pointer/////////////////////
   // TODO (S.Panfilov)
   ////////////////////////////////////
-
-  // start loop (renderer, scene, camera)/////////////////////
 
   // TODO (S.Panfilov) any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
