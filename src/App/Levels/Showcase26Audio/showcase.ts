@@ -2,7 +2,21 @@ import GUI from 'lil-gui';
 import type { AnimationAction, AudioListener } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActor, TAnyAudioWrapper, TAppCanvas, TCameraWrapper, TDebugAudioRenderer, TEngine, TLoop, TModel3d, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
+import type {
+  TActor,
+  TAnyAudioWrapper,
+  TAppCanvas,
+  TAudio3dWrapper,
+  TCameraWrapper,
+  TDebugAudioRenderer,
+  TEngine,
+  TLoop,
+  TModel3d,
+  TSceneWrapper,
+  TSpace,
+  TSpaceConfig,
+  TSpaceServices
+} from '@/Engine';
 import { DebugAudioRenderer, Engine, isAudio3dWrapper, isDefined, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -56,7 +70,7 @@ function initMusicWithControls(name: string, folderName: string, gui: GUI, { aud
   const isDebugRendererEnabled: boolean = isAudio3dWrapper(audioW) && isDefined(loop) && isDefined(scene);
 
   let debugAudioRenderer: TDebugAudioRenderer | undefined;
-  if (isDebugRendererEnabled) debugAudioRenderer = DebugAudioRenderer(audioW, scene, loop);
+  if (isDebugRendererEnabled) debugAudioRenderer = DebugAudioRenderer(audioW as TAudio3dWrapper, scene as TSceneWrapper, loop as TLoop);
 
   const state = {
     playMusic: (): void => audioW.play$.next(true),
