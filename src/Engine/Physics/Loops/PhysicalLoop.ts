@@ -4,7 +4,7 @@ import type { TLoop, TLoopService } from '@/Engine/Loop';
 import type { TMilliseconds } from '@/Engine/Math';
 import { milliseconds } from '@/Engine/Measurements';
 import type { TPhysicsWorldService } from '@/Engine/Physics';
-import type { TPhysicalLoop } from '@/Engine/Space/Models';
+import type { TPhysicalLoop } from '@/Engine/Physics/Models';
 
 // TODO 10.0.0. LOOPS: add mouse loop?
 // TODO 10.0.0. LOOPS: add intersection loop?

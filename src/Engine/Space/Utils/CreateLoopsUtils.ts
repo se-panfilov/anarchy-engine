@@ -6,12 +6,12 @@ import { RenderLoop } from '@/Engine/Space/Loops';
 import type { TSpaceLoops, TSpaceServices } from '@/Engine/Space/Models';
 import { SpatialLoop } from '@/Engine/Spatial';
 
-export function createLoops(services: TSpaceServices): TSpaceLoops {
+export function createLoops({ loopService, physicsWorldService }: TSpaceServices): TSpaceLoops {
   return {
-    renderLoop: RenderLoop(services.loopService, requestAnimationFrame),
-    physicalLoop: PhysicalLoop(services.loopService, services.physicsWorldService, milliseconds(16)),
-    collisionsLoop: CollisionsLoop(services.loopService, milliseconds(16)),
-    kinematicLoop: KinematicLoop(services.loopService, milliseconds(16)),
-    spatialLoop: SpatialLoop(services.loopService, milliseconds(16))
+    renderLoop: RenderLoop(loopService, requestAnimationFrame),
+    physicalLoop: PhysicalLoop(loopService, physicsWorldService, milliseconds(16)),
+    collisionsLoop: CollisionsLoop(loopService, milliseconds(16)),
+    kinematicLoop: KinematicLoop(loopService, milliseconds(16)),
+    spatialLoop: SpatialLoop(loopService, milliseconds(16))
   };
 }

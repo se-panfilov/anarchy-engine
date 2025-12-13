@@ -118,7 +118,22 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
     physicsPresetService,
     rendererService: RendererService(RendererFactory(), RendererRegistry()),
     spatialGridService,
-    textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), Text3dTextureRegistry(), Text2dRendererRegistry(), Text3dRendererRegistry(), sceneW),
+    textService: TextService(
+      TextFactory(),
+      Text2dRegistry(),
+      Text3dRegistry(),
+      Text3dTextureRegistry(),
+      Text2dRendererRegistry(),
+      Text3dRendererRegistry(),
+      // TODO CWP
+      // TODO 10.0.0. LOOPS: Maybe instead of passings deps here, we can implement a provider for a transform drive, which provide loops?
+      {
+        kinematicLoop,
+        physicsBodyService,
+        physicsLoop
+      },
+      sceneW
+    ),
     textureService
   };
 }

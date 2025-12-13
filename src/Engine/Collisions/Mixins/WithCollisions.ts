@@ -1,9 +1,10 @@
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, EMPTY, Subject, switchMap } from 'rxjs';
+import { BehaviorSubject, EMPTY, Subject, switchMap, withLatestFrom } from 'rxjs';
 
+import type { TMilliseconds } from '@/Engine';
 import type { TActor, TActorParams } from '@/Engine/Actor';
 import { CollisionsUpdatePriority } from '@/Engine/Collisions/Constants';
-import type { TCollisionCheckResult, TCollisionsData, TCollisionsLoop, TCollisionsLoopValue, TCollisionsService, TWithCollisions } from '@/Engine/Collisions/Models';
+import type { TCollisionCheckResult, TCollisionsData, TCollisionsLoop, TCollisionsService, TWithCollisions } from '@/Engine/Collisions/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TSpatialCellWrapper } from '@/Engine/Spatial';
@@ -48,8 +49,11 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
       start(actor: TActor): void {
         const collisionsInterpolationLengthMultiplier: number = 4;
         collisionsLoopSub$ = autoUpdate$
-          .pipe(switchMap((isAutoUpdate: boolean): Subject<TCollisionsLoopValue> | Observable<never> => (isAutoUpdate ? collisionsLoop.tick$ : EMPTY)))
-          .subscribe(({ delta, priority }): void => {
+          .pipe(
+            switchMap((isAutoUpdate: boolean): Subject<TMilliseconds> | Observable<never> => (isAutoUpdate ? collisionsLoop.tick$ : EMPTY)),
+            withLatestFrom(collisionsLoop.priority$)
+          )
+          .subscribe(([delta, priority]: [TMilliseconds, CollisionsUpdatePriority]): void => {
             if (priority < this.getCollisionsUpdatePriority()) return;
 
             // TODO should be possible to check collisions against another grid

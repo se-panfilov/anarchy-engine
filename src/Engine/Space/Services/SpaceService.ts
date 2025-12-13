@@ -18,18 +18,17 @@ export function SpaceService(): TSpaceService {
   async function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig, hooks?: TSpaceHooks): Promise<TSpace> {
     hooks?.beforeConfigValidation?.(config);
     validateConfig(config);
-    hooks?.afterConfigValidation?.(config);
     screenService.setCanvas(canvas);
     hooks?.beforeServicesPrepared?.(canvas, config);
     const { services } = await prepareServices(config.name, canvas, config.scenes);
-    hooks?.afterServicesPrepared?.(canvas, config, services);
+    hooks?.beforeLoopsCreated?.(config, services);
+    const loops: TSpaceLoops = createLoops(services);
 
     hooks?.beforeResourcesLoaded?.(config, services);
     await loadResources(config.resources, services);
-    hooks?.afterResourcesLoaded?.(config, services);
     services.rendererService.create({ canvas, mode: RendererModes.WebGL2, isActive: true });
     hooks?.beforeEntitiesCreated?.(config, services);
-    createEntities(config.entities, services);
+    createEntities(config.entities, services, loops);
     hooks?.afterEntitiesCreated?.(config, services);
 
     const destroyable: TDestroyable = destroyableMixin();
@@ -44,8 +43,6 @@ export function SpaceService(): TSpaceService {
     });
 
     builtMixin.build();
-
-    const loops: TSpaceLoops = createLoops(services);
 
     return {
       name: config.name,

@@ -55,7 +55,7 @@ export function Loop(trigger: TTriggerFn | number): TLoop {
   });
 
   return {
-    tick$: tick$.asObservable(),
+    tick$,
     start: (): void => void enabled$.next(true),
     stop: (): void => void enabled$.next(false),
     enabled$,

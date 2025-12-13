@@ -1,4 +1,4 @@
-import type { Observable, Subject } from 'rxjs';
+import type { Subject } from 'rxjs';
 
 // TODO 10.0.0. LOOPS: Check if this needed or required refactoring
 export type TAbstractLoop<T> = Readonly<{
@@ -8,5 +8,5 @@ export type TAbstractLoop<T> = Readonly<{
 // TODO 10.0.0. LOOPS: Check if this needed or required refactoring
 export type TAbstractReadonlyLoopWith<T> = Omit<TAbstractLoop<T>, 'tick$'> &
   Readonly<{
-    tick$: Observable<T>;
+    tick$: Subject<T>;
   }>;

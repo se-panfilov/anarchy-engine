@@ -1,15 +1,10 @@
 import type { TCameraWrapper } from '@/Engine/Camera';
-import { CollisionsUpdatePriority } from '@/Engine/Collisions';
 import type { TControlsRegistry, TOrbitControlsWrapper } from '@/Engine/Controls';
 import type { TMilliseconds } from '@/Engine/Math';
 import type { TRendererWrapper } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
-import { SpatialUpdatePriority } from '@/Engine/Spatial';
 import type { TText2dRegistry, TText2dRenderer, TText3dRegistry, TText3dRenderer } from '@/Engine/Text';
 import { isDefined } from '@/Engine/Utils';
-
-let currentSpatialPriorityCounter: number = SpatialUpdatePriority.ASAP;
-let currentCollisionsPriorityCounter: number = CollisionsUpdatePriority.ASAP;
 
 export function spaceLoop(
   delta: TMilliseconds,
@@ -23,22 +18,15 @@ export function spaceLoop(
   controlsRegistry: TControlsRegistry
 ): void {
   if (isDefined(activeCamera)) {
+    // TODO 10.0.0. RENDERER: move to renderer loop?
     renderer.entity.render(activeScene.entity, activeCamera.entity);
+    // TODO 10.0.0. RENDERER: move to text loop? (or renderer loop?)
     // TODO update these text renderers only when there are any text (or maybe only when it's changed)
     if (!text2dRegistry?.isEmpty()) text2dRenderer?.renderer.render(activeScene.entity, activeCamera.entity);
     if (!text3dRegistry?.isEmpty()) text3dRenderer?.renderer.render(activeScene.entity, activeCamera.entity);
   }
 
-  if (spatialLoop.enabled$.value) {
-    spatialLoop.tick$.next({ delta, priority: currentSpatialPriorityCounter });
-    currentSpatialPriorityCounter = currentSpatialPriorityCounter === (SpatialUpdatePriority.IDLE as number) ? SpatialUpdatePriority.ASAP : currentSpatialPriorityCounter - 1;
-  }
-
-  if (collisionsLoop.enabled$.value) {
-    collisionsLoop.tick$.next({ delta, priority: currentCollisionsPriorityCounter });
-    currentCollisionsPriorityCounter = currentCollisionsPriorityCounter === (CollisionsUpdatePriority.IDLE as number) ? CollisionsUpdatePriority.ASAP : currentCollisionsPriorityCounter - 1;
-  }
-
+  // TODO 10.0.0. RENDERER: move to controls loop?
   // just for control's damping
   controlsRegistry.getAll().forEach((controls: TOrbitControlsWrapper): void => {
     if (controls.entity.enableDamping) controls.entity.update(delta);

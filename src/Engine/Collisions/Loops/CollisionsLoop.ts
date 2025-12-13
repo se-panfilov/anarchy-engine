@@ -1,19 +1,24 @@
 import type { Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
+import { CollisionsUpdatePriority } from '@/Engine/Collisions/Constants';
+import type { TCollisionsLoop } from '@/Engine/Collisions/Models';
 import type { TLoop, TLoopService } from '@/Engine/Loop';
 import type { TMilliseconds } from '@/Engine/Math';
 import { milliseconds } from '@/Engine/Measurements';
-import type { TCollisionsLoop } from '@/Engine/Space/Models';
 
-// TODO 10.0.0. LOOPS: this is a placeholder, fix
 export function CollisionsLoop(loopService: TLoopService, updateRate: TMilliseconds): TCollisionsLoop {
   const loop: TLoop = loopService.createIntervalLoop(milliseconds(updateRate));
-  const loopSub$: Subscription = loop.tick$.subscribe((): void => console.log('XXX TCollisionsLoop is running'));
+  const priority$: BehaviorSubject<CollisionsUpdatePriority> = new BehaviorSubject<CollisionsUpdatePriority>(CollisionsUpdatePriority.ASAP);
+
+  const loopSub$: Subscription = loop.tick$.subscribe((): void => {
+    priority$.next(priority$.value === CollisionsUpdatePriority.IDLE ? CollisionsUpdatePriority.ASAP : priority$.value - 1);
+  });
 
   const destroySub$: Subscription = loop.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
     loopSub$.unsubscribe();
   });
 
-  return loop;
+  return { ...loop, priority$ };
 }

@@ -1,8 +1,9 @@
-import type { TCollisionsLoop } from './TCollisionsLoop';
-import type { TKinematicLoop } from './TKinematicLoop';
-import type { TPhysicalLoop } from './TPhysicalLoop';
+import type { TCollisionsLoop } from '@/Engine/Collisions';
+import type { TKinematicLoop } from '@/Engine/Kinematic';
+import type { TPhysicalLoop } from '@/Engine/Physics';
+import type { TSpatialLoop } from '@/Engine/Spatial';
+
 import type { TRenderLoop } from './TRenderLoop';
-import type { TSpatialLoop } from './TSpatialLoop';
 
 export type TSpaceLoops = Readonly<{
   renderLoop: TRenderLoop;
