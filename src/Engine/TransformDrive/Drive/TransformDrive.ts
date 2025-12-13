@@ -7,14 +7,8 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import { ProtectedTransformAgentFacade } from '@/Engine/TransformDrive/Facades';
-import type {
-  TAbstractTransformAgent,
-  TProtectedTransformAgentFacade,
-  TTransformDrive,
-  TTransformDriveMandatoryFields,
-  TTransformDriveParams,
-  TWithProtectedTransformAgents
-} from '@/Engine/TransformDrive/Models';
+import type { TAbstractTransformAgent, TProtectedTransformAgentFacade, TTransformDrive, TTransformDriveMandatoryFields, TTransformDriveParams } from '@/Engine/TransformDrive/Models';
+import { getDynamicAgents } from '@/Engine/TransformDrive/Utils';
 import { isDefined, isEqualOrSimilarVector3Like, isNotDefined } from '@/Engine/Utils';
 
 // TransformDrive is an entity to move/rotate/scale other entities
@@ -168,8 +162,4 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   });
 
   return result as TTransformDrive<T>;
-}
-
-function getDynamicAgents<T extends Partial<Record<TransformAgent, TAbstractTransformAgent>>>(agents: T): TWithProtectedTransformAgents<T> {
-  return Object.fromEntries(Object.entries(agents).map((v) => [v[0], ProtectedTransformAgentFacade(v[1])])) as TWithProtectedTransformAgents<T>;
 }
