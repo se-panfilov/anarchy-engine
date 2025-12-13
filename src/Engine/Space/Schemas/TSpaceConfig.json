@@ -2030,9 +2030,6 @@
         "options": {
           "$ref": "#/definitions/TOptional%3CTModel3dLoadOptions%3E"
         },
-        "name": {
-          "type": "string"
-        },
         "url": {
           "anyOf": [
             {
@@ -2043,56 +2040,26 @@
             }
           ]
         },
-        "scale": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": ["x", "y", "z"],
-          "additionalProperties": false
+        "name": {
+          "type": "string"
         },
         "position": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": ["x", "y", "z"],
-          "additionalProperties": false
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "scale": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "rotation": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": ["x", "y", "z"],
-          "additionalProperties": false
+          "$ref": "#/definitions/TEuler3dConfig"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
-      "required": ["url"]
+      "required": ["position", "tags", "url"]
     },
     "TOptional<TModel3dLoadOptions>": {
       "type": "object",
@@ -2181,56 +2148,20 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "scale": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": ["x", "y", "z"],
-          "additionalProperties": false
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "position": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": ["x", "y", "z"],
-          "additionalProperties": false
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "scale": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "rotation": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": ["x", "y", "z"],
-          "additionalProperties": false
-        },
-        "name": {
-          "type": "string"
+          "$ref": "#/definitions/TEuler3dConfig"
         },
         "url": {
           "anyOf": [
@@ -2244,9 +2175,12 @@
         },
         "options": {
           "$ref": "#/definitions/TModel3dLoadOptions"
+        },
+        "name": {
+          "type": "string"
         }
       },
-      "required": ["options", "url"]
+      "required": ["options", "position", "tags", "url"]
     },
     "TModel3dLoadOptions": {
       "type": "object",
