@@ -1,4 +1,4 @@
-import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
+import type { Group, Mesh, Object3D } from 'three';
 
 import type { TDestroyable } from '@/Engine/Mixins';
 import type { TModel3dConfig, TModel3dFacade, TModel3dParams, TModel3dRegistry, TModel3dResourceAsyncRegistry, TModel3dResourceConfig, TModels3dFactory } from '@/Engine/Models3d/Models';
@@ -15,5 +15,5 @@ export type TModels3dService = Readonly<{
   TWithFactoryService<TModels3dFactory> &
   TWithRegistryService<TModel3dRegistry> &
   TWithResourcesRegistryService<TModel3dResourceAsyncRegistry> &
-  TWithLoadResourcesAsyncService<TModel3dResourceConfig, GLTF> &
+  TWithLoadResourcesAsyncService<TModel3dResourceConfig, Group | Mesh | Object3D> &
   TDestroyable;

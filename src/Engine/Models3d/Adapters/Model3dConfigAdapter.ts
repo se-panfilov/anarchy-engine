@@ -9,9 +9,7 @@ export function configToParams(config: TModel3dConfig, { materialRegistry, model
   const { position, rotation, materialSource, model3dSource, scale, ...rest } = config;
 
   const material: TMaterialWrapper | undefined = isDefined(materialSource) ? materialRegistry.findByName(materialSource) : undefined;
-  // TODO CWP !!!
-  // TODO 9.0.0. RESOURCES: async registry is a pain here, cause returns Promise, but we need to return the value
-  const model3d: Group | Mesh | Object3D | undefined = isDefined(model3dSource) ? model3dResourceAsyncRegistry.findByKeyAsync(model3dSource) : undefined;
+  const model3d: Group | Mesh | Object3D | undefined = isDefined(model3dSource) ? model3dResourceAsyncRegistry.findByKey(model3dSource) : undefined;
   if (isNotDefined(model3d)) throw new Error(`Model3dConfigAdapter: model3dSource not found: ${model3dSource}`);
 
   return {

@@ -1,7 +1,7 @@
-import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
+import type { Group, Mesh, Object3D } from 'three';
 
 import type { TAbstractLoader } from '@/Engine/Abstract';
 
 import type { TModel3dResourceConfig } from './TModel3dResourceConfig';
 
-export type TModels3dLoader = TAbstractLoader<GLTF, TModel3dResourceConfig>;
+export type TModels3dLoader = TAbstractLoader<Group | Mesh | Object3D, TModel3dResourceConfig>;

@@ -10,10 +10,10 @@ export function Model3dFacade(params: TModel3dParams, { animationsService }: TMo
   const entities: TModel3dEntities = createModels3dEntities(params, animationsService);
   const facade = AbstractFacade(withModel3dFacadeEntities(entities), FacadeType.Model3d, params);
 
-  // TODO 8.0.0. MODELS: Remove duplication: extract getPack to utils
+  // TODO 8.0.0. MODELS: Maybe remove duplication: extract getParams to utils
   const getParams = (): TModel3dParams => omitInObjectWithoutMutation({ ...entities, clonedFrom: facade.id }, ['actions', 'mixer']);
 
-  // TODO 8.0.0. MODELS: Remove duplication: extract _clone to utils
+  // TODO 8.0.0. MODELS: Maybe remove duplication: extract _clone to utils
   // Be aware that this clone method doesn't save the facade to the registry, use clone() method of the service instead
   function _clone(overrides: TOptional<TModel3dParams> = {}): TModel3dFacade {
     const _overrides = omitInObjectWithoutMutation(overrides, ['clonedFrom']);
