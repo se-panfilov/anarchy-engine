@@ -4080,23 +4080,23 @@
         },
         "r": {
           "type": "number",
-          "description": "Red channel value between 0 and 1. Default is 1.",
+          "description": "Red channel value between `0.0` and `1.0`. Default is `1`.",
           "default": 1
         },
         "g": {
           "type": "number",
-          "description": "Green channel value between 0 and 1. Default is 1.",
+          "description": "Green channel value between `0.0` and `1.0`. Default is `1`.",
           "default": 1
         },
         "b": {
           "type": "number",
-          "description": "Blue channel value between 0 and 1. Default is 1.",
+          "description": "Blue channel value between `0.0` and `1.0`. Default is `1`.",
           "default": 1
         }
       },
       "required": ["isColor", "r", "g", "b"],
       "additionalProperties": false,
-      "description": "Represents a color. See also  {@link  ColorUtils  } .\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Color.js src/math/Color.js }"
+      "description": "Class representing a color.\n\nA Color instance is represented by RGB components in the linear <i>working color space</i>, which defaults to `LinearSRGBColorSpace`. Inputs conventionally using `SRGBColorSpace` (such as hexadecimals and CSS strings) are converted to the working color space automatically.\n\n``` // converted automatically from SRGBColorSpace to LinearSRGBColorSpace const color = new THREE.Color().setHex( 0x112233 ); ```\n\nSource color spaces may be specified explicitly, to ensure correct conversions.\n\n``` // assumed already LinearSRGBColorSpace; no conversion const color = new THREE.Color().setRGB( 0.5, 0.5, 0.5 );\n\n// converted explicitly from SRGBColorSpace to LinearSRGBColorSpace const color = new THREE.Color().setRGB( 0.5, 0.5, 0.5, SRGBColorSpace ); ```\n\nIf THREE.ColorManagement is disabled, no conversions occur. For details, see <i>Color management</i>.\n\nIterating through a Color instance will yield its components (r, g, b) in the corresponding order."
     },
     "DepthModes": {
       "type": "number",
@@ -6816,7 +6816,7 @@
     },
     "ColorSpace": {
       "type": "string",
-      "enum": ["", "srgb", "srgb-linear", "display-p3", "display-p3-linear"]
+      "enum": ["", "srgb", "srgb-linear"]
     }
   }
 }
