@@ -4,15 +4,6 @@ import { isPlatformAction } from '@Showcases/Desktop/Utils';
 import { isLoadDocPayload, isSettings } from '@Showcases/Shared';
 import type { IpcMainInvokeEvent } from 'electron';
 
-// TODO CWP
-// TODO DESKTOP: Current task:
-//  - [DONE] Implement close app
-//  - [DONE] Implement restart app
-//  - Implement apply of desktop settings (e.g. resolution)
-//  - Implement apply of App settings (e.g. language)
-//  - Trigger applying of settings on app start and on settings save
-//  - Detect if restart is needed after settings change (and do it)
-
 // TODO DESKTOP: any
 export async function handleAppRequest(
   { settingsService, docsService, desktopAppService }: THandleRequestDependencies,
