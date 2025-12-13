@@ -5605,11 +5605,20 @@
         "linearVelocity": {
           "$ref": "#/definitions/Vector3Like"
         },
+        "ccdEnabled": {
+          "type": "boolean"
+        },
         "collisionGroups": {
           "type": "number"
         },
         "collisionShape": {
           "$ref": "#/definitions/CollisionShape"
+        },
+        "density": {
+          "type": "number"
+        },
+        "dominanceGroup": {
+          "type": "number"
         },
         "friction": {
           "type": "number"

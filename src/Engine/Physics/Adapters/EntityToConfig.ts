@@ -20,7 +20,11 @@ export function physicBodyToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
       type: entity.getPhysicsBodyType(),
       mass: rigidBody.mass(),
       gravityScale: rigidBody.gravityScale(),
-      isSleep: rigidBody.isSleeping()
+      isSleep: rigidBody.isSleeping(),
+      ccdEnabled: rigidBody.isCcdEnabled(),
+      dominanceGroup: rigidBody.dominanceGroup()
+      // enabledRotations: rigidBody.enabledRotations,
+      // enabledTranslations: rigidBody.enabledTranslations,
     };
   }
 
@@ -30,7 +34,6 @@ export function physicBodyToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
       restitution: collider.restitution(),
       friction: collider.friction(),
       collisionGroups: collider.collisionGroups(),
-      solverGroups: collider.solverGroups(),
       isSensor: collider.isSensor(),
       shapeParams: entity.getShapeParams()
     };
