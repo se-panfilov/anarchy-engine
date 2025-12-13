@@ -17,7 +17,7 @@ import type {
   TSpatialGridWrapper,
   TWithCoordsXYZ
 } from '@/Engine';
-import { ActorType, EulerWrapper, isDefined, isNotDefined, MaterialType, mpsSpeed, Vector3Wrapper } from '@/Engine';
+import { ActorType, EulerWrapper, isDefined, isNotDefined, MaterialType, mpsSpeed, SpatialUpdatePriority, Vector3Wrapper } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 export const BULLET_TAG = 'bullet';
@@ -54,7 +54,7 @@ export function getBulletsPool(count: number, actorService: TActorService, spati
           position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
           rotation: EulerWrapper({ x: 0, y: 1.57, z: 0 }),
           castShadow: false,
-          spatial: { grid, isAutoUpdate: true },
+          spatial: { grid, isAutoUpdate: true, updatePriority: SpatialUpdatePriority.ASAP },
           collisions: { radius: 0.5, isAutoUpdate: true },
           kinematic: {
             linearSpeed: meters(5),
