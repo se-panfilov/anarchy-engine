@@ -1,12 +1,12 @@
-import type { TFromMenuEvent, TToMenuEvent } from '@Showcases/Shared';
-import { initMenuApp } from '@Showcases/GUI/main';
+import { initGuiApp } from '@Showcases/GUI/main';
+import type { TFromGuiEvent, TToGuiEvent } from '@Showcases/Shared';
 import { Subject } from 'rxjs';
 
-const fromMenuBus$: Subject<TFromMenuEvent> = new Subject<TFromMenuEvent>();
-const toMenuBus$: Subject<TToMenuEvent> = new Subject<TToMenuEvent>();
+const fromGuiBus$: Subject<TFromGuiEvent> = new Subject<TFromGuiEvent>();
+const toGuiBus$: Subject<TToGuiEvent> = new Subject<TToGuiEvent>();
 
-fromMenuBus$.subscribe((event: TFromMenuEvent): void => {
+fromGuiBus$.subscribe((event: TFromGuiEvent): void => {
   console.log('[Dev Main]: Event received:', event);
 });
 
-initMenuApp('#gui', fromMenuBus$, toMenuBus$.asObservable());
+initGuiApp('#gui', fromGuiBus$, toGuiBus$.asObservable());

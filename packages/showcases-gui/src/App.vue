@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import './assets/style.scss';
 
-import RouterView from '@Showcases/Menu/components/RouterView.vue';
-import { eventsService } from '@Showcases/Menu/services';
-import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
+import RouterView from '@Showcases/GUI/components/RouterView.vue';
+import { eventsService } from '@Showcases/GUI/services';
+import { useSettingsStore } from '@Showcases/GUI/stores/SettingsStore';
 import type { Subscription } from 'rxjs';
 import { onMounted, onUnmounted } from 'vue';
 
@@ -11,13 +11,13 @@ let appEventsSub$: Subscription | undefined;
 
 onMounted((): void => {
   appEventsSub$ = eventsService.startListeningAppEvents();
-  eventsService.emitGetMenuSettings();
+  eventsService.emitGetGuiSettings();
 });
 
 onUnmounted((): void => appEventsSub$?.unsubscribe());
 
 function save(): void {
-  eventsService.emitSetMenuSettings(useSettingsStore().state);
+  eventsService.emitSetGuiSettings(useSettingsStore().state);
 }
 </script>
 
