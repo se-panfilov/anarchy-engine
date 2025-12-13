@@ -33,8 +33,8 @@ export function SpatialGridService(): TSpatialGridService {
   let _debugOutlines: Array<Line2> = [];
   let _debugOutlinesIds: Array<number> = [];
 
-  //this highlight is for debugging purposes only (only adds outlines to scene, might not remove them afterwards!!!)
-  function _debugHighlightObjects(tree: RBush<TSpatialCell>, sceneW: TSceneWrapper, x: number, z: number): void {
+  //this highlight is for debugging purposes only (only adds outlines to scene, might not remove them afterward!!!)
+  function _debugHighlightObjects(tree: RBush<TSpatialCell>, sceneW: TSceneWrapper, x: number, z: number, color: ColorRepresentation = '#0000ff'): void {
     _debugOutlines.forEach((outline: Line2): void => void sceneW.entity.remove(outline));
     _debugOutlines = [];
     _debugOutlinesIds.forEach((id: number): void => {
@@ -46,7 +46,7 @@ export function SpatialGridService(): TSpatialGridService {
     const actorsWrapperList: ReadonlyArray<TActorWrapperAsync> = getAllInCell(tree, x, z);
 
     actorsWrapperList.forEach((actorW: TActorWrapperAsync): void => {
-      const outline: Line2 = createOutline(actorW, '#ff0000', 0.1);
+      const outline: Line2 = createOutline(actorW, color, 0.1);
       sceneW.entity.add(outline);
       // eslint-disable-next-line functional/immutable-data
       _debugOutlines.push(outline);
