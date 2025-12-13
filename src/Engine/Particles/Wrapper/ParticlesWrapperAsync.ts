@@ -1,30 +1,32 @@
 import { BufferAttribute } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { IWithMaterial } from '@/Engine/Material';
-import { withMaterial } from '@/Engine/Material';
+import type { IColor } from '@/Engine/Color';
+import { isPointsMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import type { IParticlesParams, IParticlesWrapperAsync } from '@/Engine/Particles/Models';
-import { withTextures } from '@/Engine/Texture';
-import { IBufferGeometry, IPoints } from '@/Engine/ThreeLib';
+import type { IPoints } from '@/Engine/ThreeLib';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 import { createParticles } from './ParticlesUtils';
-import type { IColor } from '@/Engine/Color';
 
 export async function ParticlesWrapperAsync(params: IParticlesParams): Promise<IParticlesWrapperAsync> {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const entity: IPoints = await createParticles(params);
+  const { material, geometry } = entity;
+  if (!isPointsMaterial(material)) throw new Error('Material is not defined');
 
   // const withMaterialEntity: IWithMaterial = withMaterial(entity);
-  const setMaterialColor = (color: IColor): void => void (entity.material.color = color);
-  const getMaterialColor = (): IColor => entity.material.color;
-  const setIndividualMaterialColor = (entity: IPoints, colors: Float32Array): void => void entity.setAttribute('color', new BufferAttribute(colors, 3));
+
+  // eslint-disable-next-line functional/immutable-data
+  const setMaterialColor = (color: IColor): void => void (material.color = color);
+  const getMaterialColor = (): IColor => material.color;
+  const setIndividualMaterialColor = (colors: Float32Array): void => void geometry.setAttribute('color', new BufferAttribute(colors, 3));
   // TODO (S.Panfilov) test this if it works
-  const getIndividualMaterialColor = (): Float32Array => entity.material.getAttribute('color').array as Float32Array;
-  const setPositions = (entity: IPoints, positions: Float32Array): void => void entity.setAttribute('position', new BufferAttribute(positions, 3));
+  const getIndividualMaterialColor = (): Float32Array => geometry.getAttribute('color').array as Float32Array;
+  const setPositions = (positions: Float32Array): void => void geometry.setAttribute('position', new BufferAttribute(positions, 3));
   // TODO (S.Panfilov) test this if it works
-  const getPositions = (): Float32Array => entity.getAttribute('position').array as Float32Array;
+  const getPositions = (): Float32Array => geometry.getAttribute('position').array as Float32Array;
 
   const result = {
     ...AbstractWrapper(entity, WrapperType.Particles, params),

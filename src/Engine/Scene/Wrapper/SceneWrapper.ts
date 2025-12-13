@@ -10,6 +10,7 @@ import type { IDataTexture } from '@/Engine/EnvMap';
 import type { IFogWrapper } from '@/Engine/Fog';
 import type { IAbstractLightWrapper, ILight } from '@/Engine/Light';
 import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
+import type { IParticlesWrapperAsync } from '@/Engine/Particles';
 import type { ISceneObject, ISceneParams, ISceneWrapper } from '@/Engine/Scene/Models';
 import type { ITextAnyWrapper } from '@/Engine/Text';
 import type { ICubeTexture, ITexture } from '@/Engine/Texture';
@@ -27,6 +28,8 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
   const addCamera = (camera: Readonly<ICameraWrapper>): void => add(camera.entity);
   const addActor = (actor: Readonly<IActorWrapperAsync>): void => add(actor.entity);
   const addLight = <T extends ILight>(light: Readonly<IAbstractLightWrapper<T>>): void => add(light.entity);
+  const addParticles = (particles: Readonly<IParticlesWrapperAsync>): void => add(particles.entity);
+
   const addText = (text: Readonly<ITextAnyWrapper>): void => add(text.entity);
 
   // eslint-disable-next-line functional/immutable-data
@@ -55,6 +58,7 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
     addLight,
     setFog,
     addText,
+    addParticles,
     setBackground,
     getBackground,
     setEnvironmentMap,
