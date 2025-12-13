@@ -44,10 +44,10 @@ function initCameraRotation(space: TSpace, model3d: TModel3d | undefined, mouseS
   combineLatest([mouseService.position$, screenSizeWatcher.latest$])
     .pipe(
       distinctUntilChanged((previous, current): boolean => {
-        return previous[0].coords.x === current[0].coords.x && previous[0].coords.y === current[0].coords.y && previous[1].width === current[1].width && previous[1].height === current[1].height;
+        return previous[0].x === current[0].x && previous[0].y === current[0].y && previous[1].width === current[1].width && previous[1].height === current[1].height;
       })
     )
-    .subscribe(([{ coords }, { width, height }]): void => {
+    .subscribe(([coords, { width, height }]): void => {
       if (isNotDefined(camera)) return;
       const xRatio: number = coords.x / width - 0.5;
       const yRatio: number = -(coords.y / height - 0.5);
