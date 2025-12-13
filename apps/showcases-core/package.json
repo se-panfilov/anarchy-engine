@@ -39,7 +39,7 @@
     "prettier:check": "prettier --check .",
     "preview": "vite preview --outDir dist-web",
     "sanitize-assets": "node ../../packages/anarchy-shared/ScriptUtils/SanitizeAssets.js ./public",
-    "start:dev": "vite --mode dev",
+    "start:dev": "vite --mode dev --host",
     "start:e2e": "vite --mode e2e --port 5073 --logLevel error",
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit"
