@@ -54,19 +54,19 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     if (isNotDefined(actorMkeyForward)) throw new Error('Actor mkey Forward is not defined');
     if (isNotDefined(actorMkeyExtra)) throw new Error('Actor mkey Extra is not defined');
 
-    onKey(KeyCode.W).pressing$.subscribe((delta): void => void actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta)));
+    onKey(KeyCode.W).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta)));
     onKey(KeyCode.W).pressed$.subscribe((): void => void actorKeyW.drive.default.addY(-0.2));
     onKey(KeyCode.W).released$.subscribe((): void => void actorKeyW.drive.default.addY(0.2));
 
-    onKey(KeyCode.A).pressing$.subscribe((delta): void => void actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta)));
+    onKey(KeyCode.A).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta)));
     onKey(KeyCode.A).pressed$.subscribe((): void => void actorKeyA.drive.default.addY(-0.2));
     onKey(KeyCode.A).released$.subscribe((): void => void actorKeyA.drive.default.addY(0.2));
 
-    onKey(KeyCode.S).pressing$.subscribe((delta): void => void actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta)));
+    onKey(KeyCode.S).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta)));
     onKey(KeyCode.S).pressed$.subscribe((): void => void actorKeyS.drive.default.addY(-0.2));
     onKey(KeyCode.S).released$.subscribe((): void => void actorKeyS.drive.default.addY(0.2));
 
-    onKey(KeyCode.D).pressing$.subscribe((delta): void => void actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(10), delta)));
+    onKey(KeyCode.D).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(10), delta)));
     onKey(KeyCode.D).pressed$.subscribe((): void => void actorKeyD.drive.default.addY(-0.2));
     onKey(KeyCode.D).released$.subscribe((): void => void actorKeyD.drive.default.addY(0.2));
 
