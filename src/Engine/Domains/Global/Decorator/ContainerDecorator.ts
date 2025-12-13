@@ -1,4 +1,4 @@
-import type { IAppCanvas } from '@Engine/Models';
+import type { IAppCanvas } from '@Engine/Domains/App';
 import { nanoid } from 'nanoid';
 
 import type { IAppGlobalContainer, IGlobalContainerDecorator } from '../Models';

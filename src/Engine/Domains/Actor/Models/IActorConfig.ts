@@ -1,4 +1,4 @@
-import type { IVector3dConfig } from '@Engine/Models';
+import type { IVector3dConfig } from '@Engine/Domains/ThreeLib';
 
 import type { IActorParams, IActorType } from '../Models';
 

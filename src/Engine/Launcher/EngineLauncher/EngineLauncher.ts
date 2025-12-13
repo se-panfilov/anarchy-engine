@@ -1,5 +1,6 @@
 import { ambientContext } from '@Engine/Context';
-import type { IAppCanvas, ILaunchedEngine } from '@Engine/Models';
+import type { IAppCanvas } from '@Engine/Domains/App';
+import type { ILaunchedEngine } from '@Engine/Launcher';
 import type { IFactories } from '@Engine/Pool';
 import { FactoriesPool } from '@Engine/Pool';
 import { isNotDefined } from '@Engine/Utils';
