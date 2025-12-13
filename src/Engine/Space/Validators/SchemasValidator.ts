@@ -198,6 +198,6 @@ function validateFileUrls(configs: ReadonlyArray<TAbstractResourceConfig>): bool
 }
 
 function validateFileUrl(url: string): boolean {
-  const regex = /^(\/|[a-zA-Z]:\\)[a-zA-Z0-9_\-/\\]+\.(gltf|glb)$/;
+  const regex = /^(\/|[a-zA-Z]:\\)[a-zA-Z0-9_\-/\\]+\.([A-z0-9]{1,4})$/;
   return regex.test(url);
 }
