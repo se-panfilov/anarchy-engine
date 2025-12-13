@@ -1,5 +1,5 @@
 import type { Observable, Subscription } from 'rxjs';
-import { Subject } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 
 import { ambientContext } from '@/Engine/Context';
 import { CommonTag } from '@/Engine/Domains/Abstract';
@@ -30,7 +30,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   if (!isValidLevelConfig(config)) throw new Error('Failed to launch a level: invalid data format');
   const { name, actors, cameras, lights, controls, scenes, tags } = config;
 
-  const messages$: Subject<string> = new Subject<string>();
+  const messages$: ReplaySubject<string> = new ReplaySubject<string>();
 
   // TODO (S.Panfilov) refactor this maybe with command/strategy pattern?
   const sceneFactory: ISceneFactory = SceneFactory();
