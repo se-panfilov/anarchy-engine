@@ -1,4 +1,4 @@
-import type { TSpatialCell } from '@/Engine/Collisions/Models';
+import type { TSpatialCell } from '@/Engine/Spatial/Models';
 
 export type TWithSpatialCell = Readonly<{
   getSpatialCell: () => TSpatialCell | undefined;

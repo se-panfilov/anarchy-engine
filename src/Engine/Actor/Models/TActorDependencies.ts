@@ -1,6 +1,7 @@
 import type { TKinematicLoopService } from '@/Engine/Kinematic';
 import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack/Models';
 import type { TPhysicsBodyService, TPhysicsLoopService } from '@/Engine/Physics';
+import type { TSpatialLoopService } from '@/Engine/Spatial/Models';
 
 export type TActorDependencies = Readonly<{
   materialTextureService: TMaterialTextureService;

@@ -4,9 +4,9 @@ import { Mesh, MeshBasicMaterial, PlaneGeometry } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor';
-import type { TSpatialCell, TSpatialCellId, TSpatialGridService } from '@/Engine/Collisions/Models';
 import type { TWithCoordsXZ } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
+import type { TSpatialCell, TSpatialCellId, TSpatialGridService } from '@/Engine/Spatial/Models';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { createOutline } from './SpatialHelper';

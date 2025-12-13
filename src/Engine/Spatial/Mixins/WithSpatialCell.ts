@@ -1,4 +1,4 @@
-import type { TSpatialCell, TWithSpatialCell } from '@/Engine/Collisions/Models';
+import type { TSpatialCell, TWithSpatialCell } from '@/Engine/Spatial/Models';
 
 export function withSpatialCell(): TWithSpatialCell {
   let cell: TSpatialCell | undefined;

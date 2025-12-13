@@ -2,8 +2,8 @@ import type RBush from 'rbush';
 import type { ColorRepresentation } from 'three';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor';
-import type { TSpatialCell, TSpatialCellId } from '@/Engine/Collisions/Models';
 import type { TSceneWrapper } from '@/Engine/Scene';
+import type { TSpatialCell, TSpatialCellId } from '@/Engine/Spatial/Models';
 
 export type TSpatialGridService = Readonly<{
   createGrid: (mapWidth: number, mapHeight: number, cellSize: number, centerX: number, centerZ: number) => RBush<TSpatialCell>;

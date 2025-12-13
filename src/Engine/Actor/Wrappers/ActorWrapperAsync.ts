@@ -2,11 +2,12 @@ import type { Subscription } from 'rxjs';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActorDependencies, TActorParams, TActorWrapperAsync } from '@/Engine/Actor/Models';
-import { withSpatialCell } from '@/Engine/Collisions/Mixins';
 import { withKinematic } from '@/Engine/Kinematic';
 import type { TWithMaterial } from '@/Engine/Material';
 import { withMaterial } from '@/Engine/Material';
-import { scalableMixin, withMoveBy3dMixin, withObject3d, withReactivePosition, withReactiveRotation, withRotationByXyzMixin } from '@/Engine/Mixins';
+import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
+import { withReactivePosition, withReactiveRotation } from '@/Engine/Spatial';
+import { withSpatialCell } from '@/Engine/Spatial/Mixins';
 import { withTextures } from '@/Engine/Texture';
 import type { TMesh } from '@/Engine/ThreeLib';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
@@ -19,6 +20,16 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
   const entity: TMesh = await createActorMesh(params, { materialTextureService });
 
   const withMaterialEntity: TWithMaterial = withMaterial(entity);
+
+  const { value$: position$, update: updatePosition, stop: positionWatchStop } = withReactivePosition(entity);
+  const { value$: rotation$, update: updateRotation, stop: rotationWatchStop } = withReactiveRotation(entity);
+
+  // TODO (S.Panfilov) debug
+  //WIP: position subject
+  // position$.subscribe((newPosition) => {
+  //   if (actorW.getName() === 'sphere') console.log(`Position changed to: x=${newPosition.x}, y=${newPosition.y}, z=${newPosition.z}`);
+  // });
+  //END WIP: position subject
 
   const actorW = {
     ...AbstractWrapper(entity, WrapperType.Actor, params),
