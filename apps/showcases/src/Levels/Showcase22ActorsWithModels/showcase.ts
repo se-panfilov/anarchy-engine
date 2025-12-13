@@ -3,7 +3,7 @@ import { asRecord, isNotDefined, KeyCode, KeysExtra, SpaceEvents, spaceService }
 import { distinctUntilChanged } from 'rxjs';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import { addGizmo } from '@/Levels/Utils';
+import { addGizmo } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 import { initSolder1, initSolder2 } from './Utils';

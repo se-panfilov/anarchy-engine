@@ -2,7 +2,7 @@ import type { TActor, TActorRegistry, TMilliseconds, TModel3d, TModels3dRegistry
 import { asRecord, isNotDefined, spaceService } from '@Engine';
 import { Clock } from 'three';
 
-import { addGizmo } from '@/Levels/Utils';
+import { addGizmo } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 

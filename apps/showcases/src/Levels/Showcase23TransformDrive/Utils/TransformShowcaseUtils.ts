@@ -30,7 +30,7 @@ import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import { attachConnectorPositionToSubj, attachConnectorRotationToSubj } from '@/Levels/Utils';
+import { attachConnectorPositionToSubj, attachConnectorRotationToSubj } from '@/Utils';
 
 export function createActor(
   name: string,

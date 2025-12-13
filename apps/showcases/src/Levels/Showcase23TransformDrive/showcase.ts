@@ -50,7 +50,7 @@ import { Euler, Quaternion, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { degToRad, radToDeg } from 'three/src/math/MathUtils';
 
-import { addGizmo, attachConnectorPositionToSubj, getMemoryUsage } from '@/Levels/Utils';
+import { addGizmo, attachConnectorPositionToSubj, getMemoryUsage } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 import {

@@ -30,7 +30,7 @@ import { BehaviorSubject, combineLatest, startWith, Subject } from 'rxjs';
 import type { Mesh, MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
 import { Euler, Vector3 } from 'three';
 
-import { addGizmo } from '@/Levels/Utils';
+import { addGizmo } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 

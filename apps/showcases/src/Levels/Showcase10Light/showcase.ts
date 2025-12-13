@@ -17,7 +17,7 @@ import GUI from 'lil-gui';
 import { CameraHelper, DirectionalLightHelper, HemisphereLightHelper, PointLightHelper, SpotLightHelper } from 'three';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
 
-import { addGizmo } from '@/Levels/Utils';
+import { addGizmo } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 

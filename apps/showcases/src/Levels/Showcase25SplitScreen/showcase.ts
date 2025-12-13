@@ -3,7 +3,7 @@ import { asRecord, createDomElement, isNotDefined, KeyCode, metersPerSecond, mps
 import { combineLatest } from 'rxjs';
 import { Clock } from 'three';
 
-import { moveByCircle } from '@/Levels/Utils/MoveUtils';
+import { moveByCircle } from '@/Utils/MoveUtils';
 
 import spaceAlphaConfigJson from './spaceAlpha.json';
 import spaceBetaConfigJson from './spaceBeta.json';

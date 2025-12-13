@@ -2,7 +2,7 @@ import type { TActor, TActorRegistry, TKeyboardPressingEvent, TParticlesWrapper,
 import { createDomElement, KeyCode, metersPerSecond, mpsSpeed } from '@Engine';
 
 import type { TSubscriptionsData } from '@/Levels/Showcase26MultipleScenes/Helpers/TSubscriptionsData';
-import { addBtn } from '@/Levels/Utils';
+import { addBtn } from '@/Utils';
 
 export function createContainersDivs(): void {
   createDomElement(

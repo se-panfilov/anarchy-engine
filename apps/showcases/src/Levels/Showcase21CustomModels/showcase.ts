@@ -4,7 +4,7 @@ import type { AnimationAction } from 'three';
 import { Euler, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import { addGizmo } from '@/Levels/Utils';
+import { addGizmo } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 

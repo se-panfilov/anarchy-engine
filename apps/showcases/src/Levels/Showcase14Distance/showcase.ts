@@ -3,7 +3,7 @@ import { asRecord, isNotDefined, KeysExtra, meters, metersPerSecond, mpsSpeed, s
 import GUI from 'lil-gui';
 import { Vector3 } from 'three';
 
-import { addGizmo } from '@/Levels/Utils';
+import { addGizmo } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 

@@ -4,7 +4,7 @@ import type { TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig, 
 import { asRecord, isNotDefined, spaceService, TextType, TransformAgent } from '@Engine';
 import { Euler, Vector3 } from 'three';
 
-import { addGizmo } from '@/Levels/Utils';
+import { addGizmo } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 

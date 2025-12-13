@@ -4,7 +4,7 @@ import { distinctUntilChanged } from 'rxjs';
 import { Clock } from 'three';
 
 import { initSolder1, initSolder2 } from '@/Levels/Showcase22ActorsWithModels/Utils';
-import { moveByCircle } from '@/Levels/Utils/MoveUtils';
+import { moveByCircle } from '@/Utils/MoveUtils';
 
 import { addParticles } from './Utils';
 

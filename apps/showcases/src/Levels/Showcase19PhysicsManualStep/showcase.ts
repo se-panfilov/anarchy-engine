@@ -2,7 +2,7 @@ import type { TActor, TMilliseconds, TSpace, TSpaceConfig, TSpaceFlags } from '@
 import { asRecord, isNotDefined, KeysExtra, spaceService } from '@Engine';
 import { Clock } from 'three';
 
-import { addGizmo } from '@/Levels/Utils';
+import { addGizmo } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 

@@ -22,7 +22,7 @@ import { spacePhysicsData } from '@/Levels/Showcase27SaveLoad/spacePhysics';
 import { spaceSpatialData } from '@/Levels/Showcase27SaveLoad/spaceSpatial';
 import { spaceTextData } from '@/Levels/Showcase27SaveLoad/spaceTexts';
 import { spaceTransformDriveData } from '@/Levels/Showcase27SaveLoad/spaceTransformDrive';
-import { addBtn, addDropdown } from '@/Levels/Utils';
+import { addBtn, addDropdown } from '@/Utils';
 
 import type { TSpacesData } from './ShowcaseTypes';
 import { createContainersDivs, setContainerVisibility } from './utils';

@@ -3,7 +3,7 @@ import { asRecord, isNotDefined, spaceService } from '@Engine';
 import GUI from 'lil-gui';
 import type { Fog } from 'three';
 
-import { addGizmo } from '@/Levels/Utils';
+import { addGizmo } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 

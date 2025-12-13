@@ -4,7 +4,7 @@ import { withLatestFrom } from 'rxjs';
 import { Clock, Vector3 } from 'three';
 
 import { createReactiveLineFromActor } from '@/Levels/Showcase23TransformDrive/Utils';
-import { moveByCircle } from '@/Levels/Utils/MoveUtils';
+import { moveByCircle } from '@/Utils/MoveUtils';
 
 import { addParticles } from './Utils';
 

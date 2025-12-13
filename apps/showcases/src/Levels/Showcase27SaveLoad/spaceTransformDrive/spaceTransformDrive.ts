@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { degToRad } from 'three/src/math/MathUtils';
 import { Vector3 } from 'three/src/math/Vector3';
 
-import { attachConnectorPositionToSubj, attachConnectorRotationToSubj } from '@/Levels/Utils';
+import { attachConnectorPositionToSubj, attachConnectorRotationToSubj } from '@/Utils';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { addAwait, getContainer, removeAwait } from '../utils';

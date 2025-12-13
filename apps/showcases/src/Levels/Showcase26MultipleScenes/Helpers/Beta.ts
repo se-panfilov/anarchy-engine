@@ -2,7 +2,7 @@ import type { TModel3d, TOrbitControlsWrapper, TSceneWrapper, TSpace } from '@En
 import { isDefined, TextType } from '@Engine';
 import { Clock, Euler, Vector3 } from 'three';
 
-import { moveByCircle } from '@/Levels/Utils/MoveUtils';
+import { moveByCircle } from '@/Utils/MoveUtils';
 
 import { addParticles } from './Utils';
 

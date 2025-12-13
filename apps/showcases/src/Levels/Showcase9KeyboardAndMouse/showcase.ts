@@ -16,7 +16,7 @@ import { withLatestFrom } from 'rxjs';
 import { Vector3 } from 'three';
 
 import { createReactiveLineFromActor } from '@/Levels/Showcase23TransformDrive/Utils';
-import { addGizmo } from '@/Levels/Utils';
+import { addGizmo } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
