@@ -1,4 +1,4 @@
-import type { Intersection } from 'three';
+import type { Intersection, Mesh, Object3D } from 'three';
 import { Box3, Vector3 } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
 
@@ -16,7 +16,7 @@ import type {
   TSpaceConfig,
   TWithCoordsXYZ
 } from '@/Engine';
-import { buildSpaceFromConfig, Engine, get3DAzimuthRad, isDefined, isNotDefined, KeysExtra } from '@/Engine';
+import { buildSpaceFromConfig, collisionsService, Engine, get3DAzimuthRad, isDefined, isNotDefined, KeysExtra } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
@@ -27,11 +27,11 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { physicsLoopService, cameraService, actorService, loopService, mouseService, intersectionsWatcherService } = space.services;
+  const { physicsLoopService, cameraService, actorService, loopService, mouseService, intersectionsWatcherService, physicsWorldService } = space.services;
 
   async function init(): Promise<void> {
     // physicsWorldService.getDebugRenderer(loopService).start();
-    physicsLoopService.shouldAutoUpdate(false);
+    // physicsLoopService.shouldAutoUpdate(false);
 
     const cameraW: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
@@ -52,7 +52,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     // await buildTower(actorService, { x: -15, z: -15 }, 10, 7, 15);
 
     // TODO (S.Panfilov) temp
-    const maxBulletsSameTime: number = 5;
+    const maxBulletsSameTime: number = 15;
     const bullets: ReadonlyArray<TBullet> = await Promise.all(getBulletsPool(maxBulletsSameTime, actorService));
     actorService.getScene().entity.add(...bullets.map((b: TBullet) => b.entity));
 
@@ -68,15 +68,15 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     startMoveActorWithKeyboard(heroW, keyboardService, mouseLineIntersectionsWatcher);
 
     //enable collisions
-    // actorService.getScene().entity.traverse((object: Object3D): void => {
-    //   if ((object as Mesh).isMesh) {
-    //     collisionsService.initializeBVH(object as Mesh);
-    //     collisionsService.addObjectToGrid(object);
-    //     collisionsService.visualizeBVH(object as Mesh, actorService.getScene().entity);
-    //   }
-    // });
-    //
-    // collisionsService.visualizeRBush(collisionsService.getSpatialGrid(), actorService.getScene().entity);
+    actorService.getScene().entity.traverse((object: Object3D): void => {
+      if ((object as Mesh).isMesh) {
+        collisionsService.initializeBVH(object as Mesh);
+        collisionsService.addObjectToGrid(object);
+        collisionsService.visualizeBVH(object as Mesh, actorService.getScene().entity);
+      }
+    });
+
+    collisionsService.visualizeRBush(collisionsService.getSpatialGrid(), actorService.getScene().entity);
 
     let mouseLineIntersections: TIntersectionEvent = { point: new Vector3(), distance: 0 } as Intersection;
     mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent): void => void (mouseLineIntersections = intersection));
@@ -89,15 +89,9 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       elevation: 0
     };
 
-    // let mousePosition: TMousePosition = { coords: { x: 0, y: 0 }, normalizedCoords: { x: 0, y: 0 } };
-    // mouseService.position$.subscribe((position): void => {
-    //   mousePosition = position;
-    // });
-
     loopService.tick$.subscribe((delta): void => {
       cameraFollowingActor(cameraW, heroW);
       updateBullets(bullets, delta.delta);
-      // mouseLineIntersectionsWatcher.update(mousePosition);
 
       // TODO (S.Panfilov) this should be updated only if coords or angle are changed
       if (isDefined(mouseLineIntersections.point)) {
