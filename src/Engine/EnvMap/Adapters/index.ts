@@ -1,1 +1,1 @@
-export * from './EnvMapConfigAdapter';
+export * from './ConfigToParams';
