@@ -4,6 +4,6 @@ import type { IMaterialProps } from '@/Engine/Material';
 
 import type { IMaterialTexturePack } from './IMaterialTexturePack';
 
-export type IWithTexturesActor = {
+export type IWithTexturesActor = Readonly<{
   loadAndApplyMaterialTexturePack: (pack: IMaterialProps<IMaterialTexturePack>) => Promise<Material>;
-};
+}>;

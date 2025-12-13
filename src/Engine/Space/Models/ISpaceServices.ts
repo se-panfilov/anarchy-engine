@@ -9,7 +9,7 @@ import type { IRendererService } from '@/Engine/Renderer';
 import type { IScenesService } from '@/Engine/Scene';
 import type { ITextService } from '@/Engine/Text';
 
-export type ISpaceServices = {
+export type ISpaceServices = Readonly<{
   actorService: IActorService;
   textService: ITextService;
   cameraService: ICameraService;
@@ -20,4 +20,4 @@ export type ISpaceServices = {
   scenesService: IScenesService;
   rendererService: IRendererService;
   envMapService: IEnvMapService;
-};
+}>;
