@@ -3,6 +3,7 @@ import { platformApiName } from '@Showcases/Shared';
 
 import type { TPlatformDriver } from '@/Models';
 
+// TODO DESKTOP: Make sure ALL these methods are working correctly
 export function Driver(): TPlatformDriver {
   const saveAppSettings = (settings: TShowcaseGameSettings): Promise<void> => window[platformApiName].saveAppSettings(settings);
   const loadAppSettings = (): Promise<TShowcaseGameSettings> => window[platformApiName].loadAppSettings();
@@ -16,6 +17,7 @@ export function Driver(): TPlatformDriver {
   return {
     saveAppSettings,
     loadAppSettings,
+    loadLegalDocs,
     getNodeVersion,
     getChromeVersion,
     getPlatformVersion,

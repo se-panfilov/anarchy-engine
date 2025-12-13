@@ -2,6 +2,7 @@ import type { TShowcaseGameSettings } from '@Showcases/Shared';
 
 import type { TPlatformDriver } from '@/Models';
 
+// TODO DESKTOP: Make sure ALL these methods are working correctly
 // TODO DESKTOP: Implement the web driver
 export function Driver(): TPlatformDriver {
   function saveAppSettings(settings: TShowcaseGameSettings): Promise<void> {
@@ -13,6 +14,13 @@ export function Driver(): TPlatformDriver {
     console.log('XXX [WEB]', 'loadAppSettings');
     return Promise.resolve({} as any);
   }
+
+  // TODO DESKTOP: make sure this method is working
+  // TODO DESKTOP: fix return type of "loadLegalDocs"
+  const loadLegalDocs = (): Promise<string> => {
+    console.log('XXX [WEB]', 'loadLegalDocs');
+    return window[platformApiName].loadLegalDocs();
+  };
 
   function getNodeVersion(): string {
     console.log('XXX [WEB]', 'getNodeVersion');
@@ -37,6 +45,7 @@ export function Driver(): TPlatformDriver {
   return {
     saveAppSettings,
     loadAppSettings,
+    loadLegalDocs,
     getNodeVersion,
     getChromeVersion,
     getPlatformVersion,

@@ -2,6 +2,7 @@ import type { TShowcaseGameSettings } from '@Showcases/Shared';
 
 import type { TPlatformDriver } from '@/Models';
 
+// TODO MOBILE: Make sure ALL these methods are working correctly
 // TODO MOBILE: Implement the mobile driver
 export function Driver(): TPlatformDriver {
   function saveAppSettings(settings: TShowcaseGameSettings): Promise<void> {
@@ -13,6 +14,12 @@ export function Driver(): TPlatformDriver {
     console.log('XXX [MOBILE]', 'loadAppSettings');
     return Promise.resolve({} as any);
   }
+
+  // TODO DESKTOP: fix return type of "loadLegalDocs"
+  const loadLegalDocs = (): Promise<string> => {
+    console.log('XXX [MOBILE]', 'loadLegalDocs');
+    return window[platformApiName].loadLegalDocs();
+  };
 
   function getNodeVersion(): string {
     console.log('XXX [MOBILE]', 'getNodeVersion');
@@ -37,6 +44,7 @@ export function Driver(): TPlatformDriver {
   return {
     saveAppSettings,
     loadAppSettings,
+    loadLegalDocs,
     getNodeVersion,
     getChromeVersion,
     getPlatformVersion,
