@@ -14,13 +14,13 @@ export function SettingsService(app: App, { filesService, windowService }: TSett
   const userDataFolder: AllowedSystemFolders = AllowedSystemFolders.UserData;
   const appSettingsFileName: string = 'app-settings.json';
 
-  const readAppSettings = async (): Promise<TShowcaseGameSettings> => {
+  const getAppSettings = async (): Promise<TShowcaseGameSettings> => {
     try {
       return await filesService.readFileAsJson(appSettingsFileName, userDataFolder, isSettings);
     } catch {
       console.log(`[DESKTOP] Settings file ("${appSettingsFileName}") not found in : ${userDataFolder}. Applying default settings.`);
       const settings: TShowcaseGameSettings = buildDefaultSettings();
-      await writeAppSettings(settings);
+      await setAppSettings(settings);
       return settings;
     }
   };
@@ -51,14 +51,14 @@ export function SettingsService(app: App, { filesService, windowService }: TSett
   const getPreferredLocales = (): ReadonlyArray<TLocaleId> => Array.from(new Set([...app.getPreferredSystemLanguages(), app.getLocale()] as ReadonlyArray<TLocaleId>));
 
   async function updateAppSettings(partialSettings: Partial<TShowcaseGameSettings>): Promise<TShowcaseGameSettings> {
-    const currentSettings: TShowcaseGameSettings = await readAppSettings();
+    const currentSettings: TShowcaseGameSettings = await getAppSettings();
     const newSettings: TShowcaseGameSettings = patchObject(currentSettings, partialSettings);
-    await writeAppSettings(newSettings);
+    await setAppSettings(newSettings);
     console.log('[DESKTOP] Updated app settings');
     return newSettings;
   }
 
-  async function writeAppSettings(settings: TShowcaseGameSettings): Promise<void> {
+  async function setAppSettings(settings: TShowcaseGameSettings): Promise<void> {
     if (!isSettings(settings)) throw new Error('[DESKTOP] Attempted to save invalid app settings');
     await filesService.writeFile(appSettingsFileName, userDataFolder, JSON.stringify(settings, null, 2));
     console.log(`[DESKTOP] Saved settings file ("${appSettingsFileName}") in : ${userDataFolder}`);
@@ -80,8 +80,8 @@ export function SettingsService(app: App, { filesService, windowService }: TSett
     applyPlatformSettings,
     detectResolution,
     getPreferredLocales,
-    readAppSettings,
+    getAppSettings,
     updateAppSettings,
-    writeAppSettings
+    setAppSettings
   };
 }

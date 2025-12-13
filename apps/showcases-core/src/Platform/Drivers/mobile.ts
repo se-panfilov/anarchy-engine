@@ -29,13 +29,13 @@ export function Driver(): TPlatformDriver {
     return Promise.resolve('XXX [MOBILE] mocked wrapped app version');
   }
 
-  function readAppSettings(): Promise<TShowcaseGameSettings> {
-    console.log('XXX [MOBILE]', 'readAppSettings');
+  function getAppSettings(): Promise<TShowcaseGameSettings> {
+    console.log('XXX [MOBILE]', 'getAppSettings');
     return Promise.resolve({} as any);
   }
 
-  const loadLegalDocs = (options: TLoadDocPayload): Promise<TLegalDoc> => {
-    console.log('XXX [MOBILE]', 'loadLegalDocs', options);
+  const getLegalDocs = (options: TLoadDocPayload): Promise<TLegalDoc> => {
+    console.log('XXX [MOBILE]', 'getLegalDocs', options);
     return Promise.resolve({} as any);
   };
 
@@ -48,8 +48,8 @@ export function Driver(): TPlatformDriver {
     return Promise.resolve();
   }
 
-  function writeAppSettings(settings: TShowcaseGameSettings): Promise<void> {
-    console.log('XXX [MOBILE]', 'writeAppSettings', settings);
+  function setAppSettings(settings: TShowcaseGameSettings): Promise<void> {
+    console.log('XXX [MOBILE]', 'setAppSettings', settings);
     return Promise.resolve();
   }
 
@@ -59,10 +59,10 @@ export function Driver(): TPlatformDriver {
     getNodeVersion,
     getPlatformVersion,
     getWrappedAppVersion,
-    readAppSettings,
-    loadLegalDocs,
+    getAppSettings,
+    getLegalDocs,
     restartApp,
     setFirstRun,
-    writeAppSettings
+    setAppSettings
   };
 }

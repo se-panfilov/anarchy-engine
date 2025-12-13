@@ -17,22 +17,22 @@ export function MainMenuService(): TMainMenuService {
     mainMenuElement.classList.remove('-active');
   }
 
-  async function writeSettings(settings: TShowcaseGameSettings): Promise<void> {
-    return platformApiService.writeAppSettings(settings);
+  async function setSettings(settings: TShowcaseGameSettings): Promise<void> {
+    return platformApiService.setAppSettings(settings);
   }
 
   const closeApp = (): void => platformApiService.closeApp();
   const restartApp = (): void => platformApiService.restartApp();
-  const readSettings = async (): Promise<TShowcaseGameSettings> => platformApiService.readAppSettings();
-  const loadLegalDocs = async (options: TLoadDocPayload): Promise<TLegalDoc> => platformApiService.loadLegalDocs(options);
+  const getSettings = async (): Promise<TShowcaseGameSettings> => platformApiService.getAppSettings();
+  const getLegalDocs = async (options: TLoadDocPayload): Promise<TLegalDoc> => platformApiService.getLegalDocs(options);
 
   return {
-    openMainMenu,
-    closeMainMenu,
-    writeSettings,
     closeApp,
+    closeMainMenu,
+    getLegalDocs,
+    getSettings,
+    openMainMenu,
     restartApp,
-    readSettings,
-    loadLegalDocs
+    setSettings
   };
 }

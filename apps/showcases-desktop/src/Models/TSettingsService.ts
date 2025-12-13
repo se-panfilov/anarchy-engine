@@ -5,7 +5,7 @@ export type TSettingsService = Readonly<{
   applyPlatformSettings: (platformSettings: TShowcaseGameSettings) => boolean;
   detectResolution: () => TResolution;
   getPreferredLocales: () => ReadonlyArray<TLocaleId>;
-  readAppSettings: () => Promise<TShowcaseGameSettings>;
-  writeAppSettings: (settings: TShowcaseGameSettings) => Promise<void>;
+  getAppSettings: () => Promise<TShowcaseGameSettings>;
+  setAppSettings: (settings: TShowcaseGameSettings) => Promise<void>;
   updateAppSettings: (settings: Partial<TShowcaseGameSettings>) => Promise<TShowcaseGameSettings>;
 }>;

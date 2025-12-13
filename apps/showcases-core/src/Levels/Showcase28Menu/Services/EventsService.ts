@@ -13,7 +13,7 @@ export function EventsService({ mainMenuService, appService, settingsService }: 
     let legalDocs: TLegalDoc | undefined;
     let isRestartNeeded: boolean = false;
 
-    const { closeMainMenu, loadLegalDocs, readSettings, writeSettings } = mainMenuService;
+    const { closeMainMenu, getLegalDocs, getSettings, setSettings } = mainMenuService;
 
     fromMenuEventsBus$.subscribe(async (event: TFromMenuEvent): Promise<void> => {
       switch (event.type) {
@@ -21,40 +21,40 @@ export function EventsService({ mainMenuService, appService, settingsService }: 
           closeMainMenu();
           break;
         }
-        case FromMenuEvents.SaveSettings: {
+        case FromMenuEvents.SetSettings: {
           if (isNotDefined(event.payload)) throw new Error(`[APP] No settings provided for saving`);
           if (!isSettings(event.payload)) throw new Error('[APP] Attempted to save invalid app settings');
-          await writeSettings(event.payload as TShowcaseGameSettings);
+          await setSettings(event.payload as TShowcaseGameSettings);
           isRestartNeeded = settingsService.applyAppSettings(event.payload);
           if (isRestartNeeded) appService.restartApp();
           break;
         }
-        case FromMenuEvents.LoadSettings: {
+        case FromMenuEvents.GetSettings: {
           try {
-            settings = await readSettings();
+            settings = await getSettings();
           } catch (error) {
             throw new Error(`[APP] Failed to load settings: ${error}`);
           }
           if (isNotDefined(settings)) throw new Error(`[APP] Failed to load settings: ${settings}`);
 
           toMenuEventsBus$.next({
-            type: ToMenuEvents.SettingsLoaded,
+            type: ToMenuEvents.SettingsReceived,
             payload: settings
           });
           break;
         }
-        case FromMenuEvents.LoadLegalDocs: {
+        case FromMenuEvents.GetLegalDocs: {
           if (isNotDefined(event.payload)) throw new Error(`[APP] No legal docs params provided`);
           if (!isLoadDocPayload(event.payload)) throw new Error(`[APP] payload is not valid legal docs params: ${event.payload}`);
           try {
-            legalDocs = await loadLegalDocs(event.payload as TLoadDocPayload);
+            legalDocs = await getLegalDocs(event.payload as TLoadDocPayload);
           } catch (error) {
             throw new Error(`[APP] Failed to load legal docs: ${error}`);
           }
           if (isNotDefined(legalDocs)) throw new Error(`[APP] Failed to load legal docs: ${legalDocs}`);
 
           toMenuEventsBus$.next({
-            type: ToMenuEvents.LegalDocsLoaded,
+            type: ToMenuEvents.LegalDocsReceived,
             payload: legalDocs
           });
           break;

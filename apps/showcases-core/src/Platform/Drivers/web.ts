@@ -29,12 +29,12 @@ export function Driver(): TPlatformDriver {
     return Promise.resolve('XXX [WEB] mocked wrapped app version');
   }
 
-  function readAppSettings(): Promise<TShowcaseGameSettings> {
-    console.log('XXX [WEB]', 'readAppSettings');
+  function getAppSettings(): Promise<TShowcaseGameSettings> {
+    console.log('XXX [WEB]', 'getAppSettings');
     return Promise.resolve({} as any);
   }
 
-  async function loadLegalDocs({ name }: TLoadDocPayload): Promise<TLegalDoc> {
+  async function getLegalDocs({ name }: TLoadDocPayload): Promise<TLegalDoc> {
     const legalFolder: string = `${import.meta.env.BASE_URL}legal/`; // /public/legal/ and /legal are the same here
     const originBase: string = `${window.location.origin}${legalFolder}`;
     const response: Response = await fetch(`${originBase}${name}.md`);
@@ -54,8 +54,8 @@ export function Driver(): TPlatformDriver {
     return Promise.resolve();
   }
 
-  function writeAppSettings(settings: TShowcaseGameSettings): Promise<void> {
-    console.log('XXX [WEB]', 'writeAppSettings', settings);
+  function setAppSettings(settings: TShowcaseGameSettings): Promise<void> {
+    console.log('XXX [WEB]', 'setAppSettings', settings);
     return Promise.resolve();
   }
 
@@ -65,10 +65,10 @@ export function Driver(): TPlatformDriver {
     getNodeVersion,
     getPlatformVersion,
     getWrappedAppVersion,
-    readAppSettings,
-    loadLegalDocs,
+    getAppSettings,
+    getLegalDocs,
     restartApp,
     setFirstRun,
-    writeAppSettings
+    setAppSettings
   };
 }

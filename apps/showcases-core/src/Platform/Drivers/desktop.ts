@@ -10,11 +10,11 @@ export function Driver(): TPlatformDriver {
   const getNodeVersion = (): string => window[platformApiName].node();
   const getPlatformVersion = (): string => window[platformApiName].electron();
   const getWrappedAppVersion = (): Promise<string> => window[platformApiName].desktopAppVersion();
-  const readAppSettings = (): Promise<TShowcaseGameSettings> => window[platformApiName].readAppSettings();
-  const loadLegalDocs = (options: TLoadDocPayload): Promise<TLegalDoc> => window[platformApiName].loadLegalDocs(options);
+  const getAppSettings = (): Promise<TShowcaseGameSettings> => window[platformApiName].getAppSettings();
+  const getLegalDocs = (options: TLoadDocPayload): Promise<TLegalDoc> => window[platformApiName].getLegalDocs(options);
   const restartApp = (): void => window[platformApiName].restartApp();
   const setFirstRun: (isFirstRun: boolean) => Promise<void> = (isFirstRun: boolean): Promise<void> => window[platformApiName].setFirstRun(isFirstRun);
-  const writeAppSettings = (settings: TShowcaseGameSettings): Promise<void> => window[platformApiName].writeAppSettings(settings);
+  const setAppSettings = (settings: TShowcaseGameSettings): Promise<void> => window[platformApiName].setAppSettings(settings);
 
   return {
     closeApp,
@@ -22,10 +22,10 @@ export function Driver(): TPlatformDriver {
     getNodeVersion,
     getPlatformVersion,
     getWrappedAppVersion,
-    readAppSettings,
-    loadLegalDocs,
+    getAppSettings,
+    getLegalDocs,
     restartApp,
     setFirstRun,
-    writeAppSettings
+    setAppSettings
   };
 }

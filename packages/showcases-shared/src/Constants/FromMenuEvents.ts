@@ -2,10 +2,10 @@ export enum FromMenuEvents {
   CloseMenu = 'menu:close',
   ContinueGame = 'menu:game:continue',
   ExitApp = 'menu:app:exit',
+  GetLegalDocs = 'menu:docs:legal:get',
+  GetSettings = 'menu:settings:get',
   LoadGame = 'menu:game:load',
-  LoadLegalDocs = 'menu:docs:legal:load',
-  LoadSettings = 'menu:settings:load',
   OpenMenu = 'menu:open',
-  SaveSettings = 'menu:settings:save',
+  SetSettings = 'menu:settings:set',
   StartNewGame = 'menu:game:start-new'
 }

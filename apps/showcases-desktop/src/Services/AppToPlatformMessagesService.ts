@@ -16,19 +16,19 @@ export async function handleAppRequest(
   let isRestartNeeded: boolean = false;
 
   switch (type) {
-    case PlatformActions.WriteAppSettings:
+    case PlatformActions.SetAppSettings:
       // TODO DESKTOP: Should we let menu (and the app) know that the save is done?
       if (!isSettings(payload)) throw new Error(`[DESKTOP] Failed to save settings: Invalid payload`);
-      await settingsService.writeAppSettings(payload);
+      await settingsService.setAppSettings(payload);
       isRestartNeeded = settingsService.applyPlatformSettings(payload);
       if (isRestartNeeded) desktopAppService.restartApp();
       return null;
-    case PlatformActions.ReadAppSettings:
-      return settingsService.readAppSettings();
+    case PlatformActions.GetAppSettings:
+      return settingsService.getAppSettings();
     case PlatformActions.UpdateAppSettings:
       if (!isPartialSettings(payload)) throw new Error(`[DESKTOP] Failed to update settings: Invalid payload`);
       return settingsService.updateAppSettings(payload);
-    case PlatformActions.ReadLegalDocs:
+    case PlatformActions.GetLegalDocs:
       if (!isLoadDocPayload(payload)) throw new Error(`[DESKTOP] Failed to load legal docs: Invalid payload`);
       return docsService.load(payload);
     case PlatformActions.AppExit:

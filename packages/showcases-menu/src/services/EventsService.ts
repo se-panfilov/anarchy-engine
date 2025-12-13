@@ -22,22 +22,22 @@ function EventsService(): TEventsService {
     fromMenuBus$.next({ type: FromMenuEvents.CloseMenu });
   }
 
-  function emitSaveMenuSettings(settings: TShowcaseGameSettings): void | never {
+  function emitSetMenuSettings(settings: TShowcaseGameSettings): void | never {
     if (isNotDefined(fromMenuBus$)) throw new Error(noBusError);
-    console.log('[EventsService]: emitSaveMenuSettings');
-    fromMenuBus$.next({ type: FromMenuEvents.SaveSettings, payload: toRaw(settings) });
+    console.log('[EventsService]: emitSetMenuSettings');
+    fromMenuBus$.next({ type: FromMenuEvents.SetSettings, payload: toRaw(settings) });
   }
 
-  function emitLoadMenuSettings(): void | never {
+  function emitGetMenuSettings(): void | never {
     if (isNotDefined(fromMenuBus$)) throw new Error(noBusError);
-    console.log('[EventsService]: emitLoadMenuSettings');
-    fromMenuBus$.next({ type: FromMenuEvents.LoadSettings });
+    console.log('[EventsService]: emitGetMenuSettings');
+    fromMenuBus$.next({ type: FromMenuEvents.GetSettings });
   }
 
-  function emitLoadLegalDocs(payload: TLoadDocPayload): void | never {
+  function emitGetLegalDocs(payload: TLoadDocPayload): void | never {
     if (isNotDefined(fromMenuBus$)) throw new Error(noBusError);
-    console.log('[EventsService]: emitLoadLegalDocs');
-    fromMenuBus$.next({ type: FromMenuEvents.LoadLegalDocs, payload: toRaw(payload) });
+    console.log('[EventsService]: emitGetLegalDocs');
+    fromMenuBus$.next({ type: FromMenuEvents.GetLegalDocs, payload: toRaw(payload) });
   }
 
   function emitStartNewGame(): void | never {
@@ -71,14 +71,14 @@ function EventsService(): TEventsService {
 
   function handleToMenuEvents(event: TToMenuEvent): void {
     switch (event.type) {
-      case ToMenuEvents.SettingsLoaded: {
-        console.log('[EventsService]: Settings loaded');
+      case ToMenuEvents.SettingsReceived: {
+        console.log('[EventsService]: Settings received');
         if (!isSettings(event.payload)) throw new Error(`[EventsService]: Failed to apply settings: Invalid payload`);
         useSettingsStore().setState(event.payload);
         break;
       }
-      case ToMenuEvents.LegalDocsLoaded: {
-        console.log('[EventsService]: Legal docs loaded');
+      case ToMenuEvents.LegalDocsReceived: {
+        console.log('[EventsService]: Legal docs received');
         if (!isLoadDoc(event.payload)) throw new Error(`[EventsService]: Failed to apply legal docs: Invalid payload`);
         useLegalDocsStore().setDoc(event.payload);
         break;
@@ -93,10 +93,10 @@ function EventsService(): TEventsService {
     emitCloseMenu,
     emitContinueGame,
     emitExitApp,
+    emitGetLegalDocs,
+    emitGetMenuSettings,
     emitLoadGame,
-    emitLoadLegalDocs,
-    emitLoadMenuSettings,
-    emitSaveMenuSettings,
+    emitSetMenuSettings,
     emitStartNewGame,
     setFromMenuBus,
     setToMenuBus,

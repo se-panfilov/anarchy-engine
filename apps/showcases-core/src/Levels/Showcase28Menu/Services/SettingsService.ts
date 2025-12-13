@@ -14,7 +14,7 @@ export function SettingsService(): TSettingsService {
   const setFirstRun = (isFirstRun: boolean): Promise<void> => platformApiService.setFirstRun(isFirstRun);
 
   async function isFirstRun(): Promise<boolean> {
-    const appSettings: TShowcaseGameSettings = await platformApiService.readAppSettings();
+    const appSettings: TShowcaseGameSettings = await platformApiService.getAppSettings();
     return appSettings.internal?.isFirstRun ?? true;
   }
 

@@ -15,13 +15,13 @@ let appEventsSub$: Subscription | undefined;
 
 onMounted((): void => {
   appEventsSub$ = eventsService.startListeningAppEvents();
-  eventsService.emitLoadMenuSettings();
+  eventsService.emitGetMenuSettings();
 });
 
 onUnmounted((): void => appEventsSub$?.unsubscribe());
 
 function save(): void {
-  eventsService.emitSaveMenuSettings(useSettingsStore().state);
+  eventsService.emitSetMenuSettings(useSettingsStore().state);
 }
 </script>
 

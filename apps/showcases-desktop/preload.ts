@@ -4,7 +4,7 @@ import { platformApiChannel, platformApiName } from '@Showcases/Shared';
 import { PlatformActions } from './src/Constants';
 import type { TLegalDoc } from 'showcases-shared';
 
-const { AppExit, AppRestart, UpdateAppSettings, WriteAppSettings, ReadAppSettings, ReadLegalDocs } = PlatformActions;
+const { AppExit, AppRestart, GetAppSettings, GetLegalDocs, SetAppSettings, UpdateAppSettings } = PlatformActions;
 
 declare const __DESKTOP_APP_VERSION__: string;
 
@@ -13,12 +13,12 @@ const mapping: TShowcasesDesktopApi = {
   closeApp: (): Promise<void> => ipcRenderer.invoke(platformApiChannel, AppExit),
   desktopAppVersion: async (): Promise<string> => __DESKTOP_APP_VERSION__,
   electron: (): string => process.versions.electron,
-  readAppSettings: (): Promise<TShowcaseGameSettings> => ipcRenderer.invoke(platformApiChannel, ReadAppSettings),
-  loadLegalDocs: (options: TLoadDocPayload): Promise<TLegalDoc> => ipcRenderer.invoke(platformApiChannel, ReadLegalDocs, options),
+  getAppSettings: (): Promise<TShowcaseGameSettings> => ipcRenderer.invoke(platformApiChannel, GetAppSettings),
+  getLegalDocs: (options: TLoadDocPayload): Promise<TLegalDoc> => ipcRenderer.invoke(platformApiChannel, GetLegalDocs, options),
   node: (): string => process.versions.node,
   restartApp: (args?: ReadonlyArray<string>): Promise<void> => ipcRenderer.invoke(platformApiChannel, AppRestart, args),
-  setFirstRun: (isFirstRun: boolean): Promise<void> => ipcRenderer.invoke(platformApiChannel, UpdateAppSettings, { internal: { isFirstRun } }),
-  writeAppSettings: (settings: TShowcaseGameSettings): Promise<void> => ipcRenderer.invoke(platformApiChannel, WriteAppSettings, settings)
+  setAppSettings: (settings: TShowcaseGameSettings): Promise<void> => ipcRenderer.invoke(platformApiChannel, SetAppSettings, settings),
+  setFirstRun: (isFirstRun: boolean): Promise<void> => ipcRenderer.invoke(platformApiChannel, UpdateAppSettings, { internal: { isFirstRun } })
 };
 
 //platformApiName will be available in the main app as `window[platformApiName]`

@@ -21,13 +21,13 @@ const settingsStore = useSettingsStore();
 onMounted(() => {
   const locale = settingsStore.localization.locale.id as TShowcaseLocaleIds;
 
-  if (isNotDefined(legalDocsStore.translatedDisclaimer)) eventsService.emitLoadLegalDocs({ name: DISCLAIMER, locale });
-  if (isNotDefined(legalDocsStore.translatedEula)) eventsService.emitLoadLegalDocs({ name: EULA, locale });
-  if (isNotDefined(legalDocsStore.translatedPrivacy)) eventsService.emitLoadLegalDocs({ name: PRIVACY, locale });
-  if (isNotDefined(legalDocsStore.translatedNotice)) eventsService.emitLoadLegalDocs({ name: NOTICE, locale });
-  if (isNotDefined(legalDocsStore.translatedSupport)) eventsService.emitLoadLegalDocs({ name: SUPPORT, locale });
-  if (isNotDefined(legalDocsStore.translatedSecurity)) eventsService.emitLoadLegalDocs({ name: SECURITY, locale });
-  if (isNotDefined(legalDocsStore.translatedThirdPartyLicenses)) eventsService.emitLoadLegalDocs({ name: THIRD_PARTY_LICENSES, locale });
+  if (isNotDefined(legalDocsStore.translatedDisclaimer)) eventsService.emitGetLegalDocs({ name: DISCLAIMER, locale });
+  if (isNotDefined(legalDocsStore.translatedEula)) eventsService.emitGetLegalDocs({ name: EULA, locale });
+  if (isNotDefined(legalDocsStore.translatedPrivacy)) eventsService.emitGetLegalDocs({ name: PRIVACY, locale });
+  if (isNotDefined(legalDocsStore.translatedNotice)) eventsService.emitGetLegalDocs({ name: NOTICE, locale });
+  if (isNotDefined(legalDocsStore.translatedSupport)) eventsService.emitGetLegalDocs({ name: SUPPORT, locale });
+  if (isNotDefined(legalDocsStore.translatedSecurity)) eventsService.emitGetLegalDocs({ name: SECURITY, locale });
+  if (isNotDefined(legalDocsStore.translatedThirdPartyLicenses)) eventsService.emitGetLegalDocs({ name: THIRD_PARTY_LICENSES, locale });
 });
 
 const { $t } = vueTranslationService;
