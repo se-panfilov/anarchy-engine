@@ -2,9 +2,9 @@ import type { TMaterialPackConfig, TMaterialTexturePack } from '@/Engine/Materia
 import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TObject3DPropConfig } from '@/Engine/ThreeLib';
 
-import type { TModel3dProps } from './TModel3dProps';
+import type { TModel3dComplexProps } from './TModel3dComplexProps';
 
-export type TModel3dConfig = Omit<TModel3dProps, 'scale' | 'position' | 'rotation' | 'material'> &
+export type TModel3dComplexConfig = Omit<TModel3dComplexProps, 'scale' | 'position' | 'rotation' | 'material'> &
   Readonly<{
     material?: TMaterialPackConfig<TMaterialTexturePack>;
   }> &

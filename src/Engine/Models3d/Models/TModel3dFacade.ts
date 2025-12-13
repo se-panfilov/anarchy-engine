@@ -1,12 +1,4 @@
-import type { TFacade } from '@/Engine/Abstract';
-import type { TOptional } from '@/Engine/Utils';
+import type { TModel3dComplexFacade } from './TModel3dComplexFacade';
+import type { TModel3dPrimitiveFacade } from './TModel3dPrimitiveFacade';
 
-import type { TModel3dPack } from './TModel3dPack';
-import type { TModel3dPrimitivePack } from './TModel3dPrimitivePack';
-import type { TWithModel3dFacadeEntities } from './TWithModel3dFacadeEntities';
-
-export type TModel3dFacade = TFacade<TWithModel3dFacadeEntities> &
-  Readonly<{
-    _clone: (overrides?: TOptional<TModel3dPack | TModel3dPrimitivePack>) => TModel3dFacade;
-    getPack: () => TModel3dPack | TModel3dPrimitivePack;
-  }>;
+export type TModel3dFacade = TModel3dComplexFacade | TModel3dPrimitiveFacade;

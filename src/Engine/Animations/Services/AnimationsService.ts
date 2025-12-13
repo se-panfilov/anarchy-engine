@@ -7,7 +7,7 @@ import type { TAnimationActions, TAnimationActionsPack, TAnimationsService, TMod
 import type { TLoopService, TLoopTimes } from '@/Engine/Loop';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import type { TModel3dFacade } from '@/Engine/Models3d';
+import type { TModel3dComplexFacade } from '@/Engine/Models3d';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -23,7 +23,7 @@ export function AnimationsService(loopService: TLoopService): TAnimationsService
     return { model, mixer, actions };
   }
 
-  function startAutoUpdateMixer(modelF: TModel3dFacade, updateTick$: Observable<TLoopTimes> = loopService.tick$): TAnimationActionsPack | never {
+  function startAutoUpdateMixer(modelF: TModel3dComplexFacade, updateTick$: Observable<TLoopTimes> = loopService.tick$): TAnimationActionsPack | never {
     const mixer = modelF.getMixer();
     if (isNotDefined(mixer)) throw new Error(`Mixer is not defined for model facade (name: ${modelF.getName()}, id: ${modelF.id}})`);
 

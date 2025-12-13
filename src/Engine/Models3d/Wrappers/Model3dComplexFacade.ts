@@ -1,24 +1,24 @@
 import { FacadeType } from '@/Engine/Abstract';
 import { AbstractFacade } from '@/Engine/Abstract/Wrappers/AbstractFacade';
 import type { TAnimationsService } from '@/Engine/Animations/Models';
-import { withModel3dFacadeEntities } from '@/Engine/Models3d/Mixins';
-import type { TModel3dEntities, TModel3dFacade, TModel3dPack, TModels3dFacadeParams } from '@/Engine/Models3d/Models';
+import { withModel3dComplexFacadeEntities } from '@/Engine/Models3d/Mixins';
+import type { TModel3dComplexEntities, TModel3dComplexFacade, TModel3dComplexFacadeParams, TModel3dComplexPack } from '@/Engine/Models3d/Models';
 import { applyCastShadow, applyPosition, applyRotation, applyScale } from '@/Engine/Models3d/Services/Models3dServiceHelper';
 import type { TOptional } from '@/Engine/Utils';
 import { isDefined, omitInObjectWithoutMutation } from '@/Engine/Utils';
 
-import { createModels3dEntities } from './Model3dFacadeUtils';
+import { createModels3dEntities } from './UtilsModel3dFacade';
 
-export function Model3dFacade(params: TModels3dFacadeParams, animationsService: TAnimationsService): TModel3dFacade {
-  const entities: TModel3dEntities = createModels3dEntities(params, animationsService);
-  const facade = AbstractFacade(withModel3dFacadeEntities(entities), FacadeType.Model3d, params);
+export function Model3dComplexFacade(params: TModel3dComplexFacadeParams, animationsService: TAnimationsService): TModel3dComplexFacade {
+  const entities: TModel3dComplexEntities = createModels3dEntities(params, animationsService);
+  const facade = AbstractFacade(withModel3dComplexFacadeEntities(entities), FacadeType.Model3d, params);
 
-  const getPack = (): TModel3dPack => omitInObjectWithoutMutation({ ...entities, clonedFrom: facade.id }, ['actions', 'mixer']);
+  const getPack = (): TModel3dComplexPack => omitInObjectWithoutMutation({ ...entities, clonedFrom: facade.id }, ['actions', 'mixer']);
 
   // Be aware that this clone method doesn't save the facade to the registry, use clone() method of the service instead
-  function _clone(overrides: TOptional<TModel3dPack> = {}): TModel3dFacade {
+  function _clone(overrides: TOptional<TModel3dComplexPack> = {}): TModel3dComplexFacade {
     const _overrides = omitInObjectWithoutMutation(overrides, ['clonedFrom']);
-    return Model3dFacade({ ...getPack(), clonedFrom: facade.id, ..._overrides }, animationsService);
+    return Model3dComplexFacade({ ...getPack(), clonedFrom: facade.id, ..._overrides }, animationsService);
   }
 
   //applying model's params

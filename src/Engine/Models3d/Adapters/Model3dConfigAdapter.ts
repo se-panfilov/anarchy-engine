@@ -1,11 +1,11 @@
 import { configToParams as materialConfigToParams } from '@/Engine/Material/Adapters';
 import type { TMaterialPackParams, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
-import type { TModel3dConfig, TModel3dParams, TModel3dPrimitiveConfig, TModel3dPrimitiveParams } from '@/Engine/Models3d/Models';
+import type { TModel3dComplexConfig, TModel3dComplexParams, TModel3dPrimitiveConfig, TModel3dPrimitiveParams } from '@/Engine/Models3d/Models';
 import { isPrimitive } from '@/Engine/Models3d/Services/Models3dServiceHelper';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function model3dConfigToParams(config: TModel3dConfig | TModel3dPrimitiveConfig): TModel3dParams | TModel3dPrimitiveParams {
+export function model3dConfigToParams(config: TModel3dComplexConfig | TModel3dPrimitiveConfig): TModel3dComplexParams | TModel3dPrimitiveParams {
   const { position, rotation, material, scale, ...rest } = config;
 
   let materialParams: TMaterialPackParams<TMaterialTexturePack> | undefined;

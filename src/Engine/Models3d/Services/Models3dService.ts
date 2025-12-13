@@ -8,19 +8,21 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { model3dConfigToParams } from '@/Engine/Models3d/Adapters';
 import type {
-  TModel3dConfig,
+  TModel3dComplexConfig,
+  TModel3dComplexFacade,
+  TModel3dComplexParams,
   TModel3dFacade,
   TModel3dPack,
-  TModel3dParams,
-  TModel3dPrimitivePack,
+  TModel3dPrimitiveConfig,
+  TModel3dPrimitiveFacade,
   TModel3dPrimitiveParams,
   TModels3dAsyncRegistry,
   TModels3dService,
   TPerformLoadResult
 } from '@/Engine/Models3d/Models';
-import { isPrimitive } from '@/Engine/Models3d/Services/Models3dServiceHelper';
-import { Model3dFacade, Model3dPrimitiveFacade } from '@/Engine/Models3d/Wrappers';
-import { createPrimitiveModel3dPack } from '@/Engine/Models3d/Wrappers/PrimitiveModels3dUtils';
+import { isPrimitive, isPrimitiveFacade } from '@/Engine/Models3d/Services/Models3dServiceHelper';
+import { Model3dComplexFacade, Model3dPrimitiveFacade } from '@/Engine/Models3d/Wrappers';
+import { createPrimitiveModel3dPack } from '@/Engine/Models3d/Wrappers/UtilsPrimitiveModels3d';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TOptional } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
@@ -32,7 +34,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
   dracoLoader.setDecoderConfig({ type: 'wasm' });
   dracoLoader.preload();
   models3dLoader.setDRACOLoader(dracoLoader);
-  const loaded$: Subject<TModel3dFacade> = new Subject<TModel3dFacade>();
+  const loaded$: Subject<TModel3dComplexFacade> = new Subject<TModel3dComplexFacade>();
   const added$: Subject<TModel3dFacade> = new Subject<TModel3dFacade>();
 
   added$.subscribe((facade: TModel3dFacade): void => {
@@ -43,40 +45,33 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
 
   loaded$.subscribe((facade: TModel3dFacade): void => added$.next(facade));
 
-  function createFromPack(pack: TModel3dPack | TModel3dPrimitivePack): TModel3dFacade {
-    const facade = Model3dFacade(pack, animationsService);
+  function createFromPack(pack: TModel3dPack): TModel3dFacade {
+    const facade: TModel3dFacade = isPrimitive(pack) ? Model3dPrimitiveFacade(createPrimitiveModel3dPack(pack)) : Model3dComplexFacade(pack, animationsService);
     added$.next(facade);
     return facade;
   }
 
-  function performLoad(params: TModel3dParams): Promise<TPerformLoadResult> {
+  function performLoad(params: TModel3dComplexParams): Promise<TPerformLoadResult> {
     const { url, options } = params;
 
     if (!options.isForce) {
-      const model3dFacade: TModel3dFacade | undefined = registry.find((facade: TModel3dFacade): boolean => facade.getUrl() === url);
+      const model3dFacade: TModel3dComplexFacade | undefined = registry.find((facade: TModel3dFacade): boolean => !isPrimitiveFacade(facade) && facade.getUrl() === url) as TModel3dComplexFacade;
       if (isDefined(model3dFacade)) return Promise.resolve({ result: model3dFacade, isExisting: true });
     }
 
     return models3dLoader.loadAsync(url).then((gltf: GLTF): TPerformLoadResult => {
-      return { result: Model3dFacade({ ...params, model: gltf.scene, animations: gltf.animations }, animationsService), isExisting: false };
+      return { result: Model3dComplexFacade({ ...params, model: gltf.scene, animations: gltf.animations }, animationsService), isExisting: false };
     });
   }
 
-  const loadFromConfigAsync = (config: ReadonlyArray<TModel3dConfig>): ReadonlyArray<Promise<TModel3dFacade>> => {
-    let primitiveModels3d: ReadonlyArray<TModel3dPrimitiveParams> = [];
-    let models3d: ReadonlyArray<TModel3dParams> = [];
-    config.map(model3dConfigToParams).forEach((m: TModel3dParams | TModel3dPrimitiveParams): void => {
-      if (isPrimitive(m)) primitiveModels3d = [...primitiveModels3d, m];
-      else models3d = [...models3d, m];
-    });
-    return [...createPrimitiveAsync(primitiveModels3d), ...loadAsync(models3d)];
-  };
+  const loadFromConfigAsync = (config: ReadonlyArray<TModel3dComplexConfig>): ReadonlyArray<Promise<TModel3dComplexFacade>> => loadAsync(config.map(model3dConfigToParams));
+  const createPrimitiveFromConfig = (config: ReadonlyArray<TModel3dPrimitiveConfig>): ReadonlyArray<Promise<TModel3dPrimitiveFacade>> => createPrimitiveAsync(config.map(model3dConfigToParams));
 
-  function loadAsync(model3dList: ReadonlyArray<TModel3dParams>): ReadonlyArray<Promise<TModel3dFacade>> {
-    let promises: ReadonlyArray<Promise<TModel3dFacade>> = [];
+  function loadAsync(model3dList: ReadonlyArray<TModel3dComplexParams>): ReadonlyArray<Promise<TModel3dComplexFacade>> {
+    let promises: ReadonlyArray<Promise<TModel3dComplexFacade>> = [];
 
-    model3dList.forEach((m: TModel3dParams): void => {
-      const p: Promise<TModel3dFacade> = performLoad(m).then(({ result, isExisting }: TPerformLoadResult): TModel3dFacade => {
+    model3dList.forEach((m: TModel3dComplexParams): void => {
+      const p: Promise<TModel3dComplexFacade> = performLoad(m).then(({ result, isExisting }: TPerformLoadResult): TModel3dComplexFacade => {
         if (!isExisting) loaded$.next(result);
         return result;
       });
@@ -94,8 +89,8 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     return cloned;
   }
 
-  function createPrimitiveAsync(params: ReadonlyArray<TModel3dPrimitiveParams>): ReadonlyArray<Promise<TModel3dFacade>> {
-    return params.map((p: TModel3dPrimitiveParams): Promise<TModel3dFacade> => Promise.resolve(createFromPack(createPrimitiveModel3dPack(p))));
+  function createPrimitiveAsync(params: ReadonlyArray<TModel3dPrimitiveParams>): ReadonlyArray<Promise<TModel3dPrimitiveFacade>> {
+    return params.map((p: TModel3dPrimitiveParams): Promise<TModel3dPrimitiveFacade> => Promise.resolve(createFromPack(createPrimitiveModel3dPack(p)) as TModel3dPrimitiveFacade));
   }
 
   const destroyable: TDestroyable = destroyableMixin();
@@ -114,6 +109,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     loadFromConfigAsync,
     createFromPack,
     createPrimitiveAsync,
+    createPrimitiveFromConfig,
     added$: added$.asObservable(),
     loaded$: loaded$.asObservable(),
     getRegistry: (): TModels3dAsyncRegistry => registry,

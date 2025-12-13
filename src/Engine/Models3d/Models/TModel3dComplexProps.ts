@@ -3,7 +3,7 @@ import type { TObject3DParams, TObject3DProps } from '@/Engine/ThreeLib';
 
 import type { TModel3dLoadOptions } from './TModel3dLoadOptions';
 
-export type TModel3dProps = Readonly<{
+export type TModel3dComplexProps = Readonly<{
   url: string;
   options: TModel3dLoadOptions;
   // TODO (S.Panfilov) CWP override model's material is this field is set

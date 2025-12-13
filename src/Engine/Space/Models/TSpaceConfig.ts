@@ -5,7 +5,7 @@ import type { TFogConfig } from '@/Engine/Fog';
 import type { TIntersectionsWatcherConfig } from '@/Engine/Intersections';
 import type { TAnyLightConfig } from '@/Engine/Light';
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
-import type { TModel3dConfig } from '@/Engine/Models3d';
+import type { TModel3dComplexConfig } from '@/Engine/Models3d';
 import type { TParticlesConfig } from '@/Engine/Particles';
 import type { TPhysicsConfig } from '@/Engine/Physics';
 import type { TSceneConfig } from '@/Engine/Scene';
@@ -20,7 +20,7 @@ export type TSpaceConfig = Readonly<{
   spatialGrids: ReadonlyArray<TSpatialGridConfig>;
   actors: ReadonlyArray<TActorConfig>;
   cameras: ReadonlyArray<TCameraConfig>;
-  models3d: ReadonlyArray<TModel3dConfig>;
+  models3d: ReadonlyArray<TModel3dComplexConfig>;
   intersections: ReadonlyArray<TIntersectionsWatcherConfig>;
   lights: ReadonlyArray<TAnyLightConfig>;
   particles: ReadonlyArray<TParticlesConfig>;

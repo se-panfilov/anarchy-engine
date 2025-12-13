@@ -1,8 +1,8 @@
-import type { TModel3dParams } from './TModel3dParams';
+import type { TModel3dComplexParams } from './TModel3dComplexParams';
 import type { TPrimitiveProps } from './TPrimitiveProps';
 
-export type TModel3dPrimitiveParams = Omit<TModel3dParams, 'url'> &
-  Required<Pick<TModel3dParams, 'material'>> &
+export type TModel3dPrimitiveParams = Omit<TModel3dComplexParams, 'url'> &
+  Required<Pick<TModel3dComplexParams, 'material'>> &
   Readonly<{
     primitive: TPrimitiveProps;
   }>;

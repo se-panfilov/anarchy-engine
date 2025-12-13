@@ -7,7 +7,7 @@ import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins/Generics';
-import type { TModel3dFacade } from '@/Engine/Models3d';
+import type { TModel3dComplexFacade } from '@/Engine/Models3d';
 import { RendererModes } from '@/Engine/Renderer';
 import type { TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
@@ -70,7 +70,7 @@ export async function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceCon
   }
   if (isDefined(physics.presets)) physicsPresetService.addPresetsFromConfig(physics.presets);
 
-  const models: ReadonlyArray<Promise<TModel3dFacade>> = models3dService.loadFromConfigAsync(models3d);
+  const models: ReadonlyArray<Promise<TModel3dComplexFacade>> = models3dService.loadFromConfigAsync(models3d);
   await Promise.all(models);
 
   cameraService.createFromConfig(cameras);
