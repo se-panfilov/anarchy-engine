@@ -12,7 +12,7 @@ export const useSettingsStore = defineStore('settingsStore', () => {
       resolution: { width: 1920, height: 1080 }
     },
     audio: {
-      masterVolume: 1.0
+      masterVolume: 80
     },
     localization: {
       // TODO DESKTOP: should be an enum

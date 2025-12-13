@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, toRaw } from 'vue';
 import MenuViewActions from '@/Levels/Showcase28Menu/MainMenu/Components/MenuViewActions.vue';
 import { useSettingsStore } from '@/Levels/Showcase28Menu/MainMenu/Stores/SettingsStore';
 import type { TAudioSettings } from '@/Levels/Showcase28Menu/Models';
@@ -17,8 +17,8 @@ function cancel() {
 }
 
 function save(payload: TAudioSettings) {
-  settingsStore.audio.masterVolume = payload.masterVolume;
-  emit('save', { view: 'audio', state });
+  settingsStore.audio = { ...payload };
+  emit('save');
 }
 </script>
 
@@ -29,7 +29,8 @@ function save(payload: TAudioSettings) {
       <div class="main-menu-view__group-title">Group 1</div>
       <label class="main-menu-view__setting -masterVolume">
         <span class="main-menu-view__setting-description">MasterVolume</span>
-        <input type="range" min="0" max="100" :value="state" class="main-menu-view__setting-value -range" />
+        <input type="range" min="0" max="100" v-model="state.masterVolume" class="main-menu-view__setting-value -range" />
+        <span class="main-menu-view__setting-helper"> {{ state.masterVolume }}</span>
       </label>
     </div>
     <MenuViewActions @cancel="cancel()" @save="save(state)" />
