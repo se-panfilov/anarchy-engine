@@ -1,7 +1,6 @@
-import type { ColorSpace, MagnificationTextureFilter, MinificationTextureFilter } from 'three';
-import { LinearFilter, NearestFilter, SRGBColorSpace } from 'three';
+import type { MagnificationTextureFilter, MinificationTextureFilter } from 'three';
+import { LinearFilter, NearestFilter } from 'three';
 
-import type { TMaterialPackKeys } from '@/Engine/MaterialTexturePack';
 import type { TTexture, TTextureOptions } from '@/Engine/Texture/Models';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
@@ -9,18 +8,18 @@ import { isDefined, isNotDefined } from '@/Engine/Utils';
 export const getMagFilter = (magFilter?: MagnificationTextureFilter): MagnificationTextureFilter => (isDefined(magFilter) ? magFilter : LinearFilter);
 export const getMinFilter = (minFilter?: MinificationTextureFilter): MinificationTextureFilter => (isDefined(minFilter) ? minFilter : NearestFilter);
 
-export const applyColorSpace = (name: TMaterialPackKeys, texture: TWriteable<TTexture>, options?: TTextureOptions): void => {
-  let defaultColorSpace: ColorSpace;
-
-  if (name === 'map' || name === 'matcap') {
-    defaultColorSpace = SRGBColorSpace;
-  } else {
-    defaultColorSpace = texture.colorSpace;
-  }
-
-  // eslint-disable-next-line functional/immutable-data
-  texture.colorSpace = isDefined(options?.colorSpace) ? options.colorSpace : defaultColorSpace;
-};
+// export const applyColorSpace = (name: TMaterialPackKeys, texture: TWriteable<TTexture>, options?: TTextureOptions): void => {
+//   let defaultColorSpace: ColorSpace;
+//
+//   if (name === 'map' || name === 'matcap') {
+//     defaultColorSpace = SRGBColorSpace;
+//   } else {
+//     defaultColorSpace = texture.colorSpace;
+//   }
+//
+//   // eslint-disable-next-line functional/immutable-data
+//   texture.colorSpace = isDefined(options?.colorSpace) ? options.colorSpace : defaultColorSpace;
+// };
 
 export function applyFilters(texture: TWriteable<TTexture>, options?: TTextureOptions): void {
   if (isNotDefined(options)) return;

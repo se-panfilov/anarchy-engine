@@ -4,7 +4,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TAbstractLoader } from '@/Engine/Abstract';
 import { AbstractLoader, LoaderType } from '@/Engine/Abstract';
-import type { TModel3dOptions, TModel3dResourceAsyncRegistry, TModel3dResourceConfig, TModels3dLoader } from '@/Engine/Models3d';
+import type { TModel3dResourceAsyncRegistry, TModel3dResourceConfig, TModels3dLoader } from '@/Engine/Models3d';
 import type { TWriteable } from '@/Engine/Utils';
 
 export function Models3dLoader(registry: TModel3dResourceAsyncRegistry): TModels3dLoader {
@@ -17,7 +17,8 @@ export function Models3dLoader(registry: TModel3dResourceAsyncRegistry): TModels
 
   const loader: TAbstractLoader<GLTF, TModel3dResourceConfig> = AbstractLoader(models3dLoader, registry, LoaderType.Model3d);
 
-  function applyParamsOnLoaded(loaded: TWriteable<GLTF>, options?: TModel3dOptions): GLTF {
+  // function applyParamsOnLoaded(loaded: TWriteable<GLTF>, options?: TModel3dOptions): GLTF {
+  function applyParamsOnLoaded(loaded: TWriteable<GLTF>): GLTF {
     // const loadResult: TModel3dFacade = Model3dFacade({ ...params, model: loaded.scene, animations: loaded.animations }, animationsService);
     return loaded;
   }
