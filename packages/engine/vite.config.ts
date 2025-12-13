@@ -49,8 +49,15 @@ export default defineConfig({
       external: (id: string): boolean => id.endsWith('.spec.ts') || id.endsWith('.test.ts'),
       //  external: ['three', 'rxjs', '@dimforge/rapier3d'] — If you want to exclude some dependencies from the bundle
       output: {
-        manualChunks: {
-          'anarchy-rapier3d': ['@dimforge/rapier3d']
+        // manualChunks: {
+        //   'anarchy-rapier3d': ['@dimforge/rapier3d'],
+        //   'anarchy-three': ['three']
+        // }
+        manualChunks(id: string): string | undefined {
+          if (id === 'three' || id.includes('node_modules/three/')) return 'anarchy-three';
+          if (id.includes('@dimforge/rapier3d')) return 'anarchy-rapier3d';
+
+          return undefined;
         }
       },
       plugins: [visualizer({ open: false })]
