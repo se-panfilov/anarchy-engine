@@ -3,6 +3,6 @@ import type { TDestroyable } from '@/Engine/Mixins';
 
 import type { TPhysicsBodyWrapper } from './TPhysicsBodyWrapper';
 import type { TPhysicsConfig } from './TPhysicsConfig';
-import type { TPhysicsParams } from './TPhysicsParams';
+import type { TPhysicsPresetParams } from './TPhysicsPresetParams';
 
-export type TPhysicsBodyFactory = TReactiveFactory<TPhysicsBodyWrapper, TPhysicsParams> & TParamsFromConfig<TPhysicsConfig, TPhysicsParams> & TDestroyable;
+export type TPhysicsBodyFactory = TReactiveFactory<TPhysicsBodyWrapper, TPhysicsPresetParams> & TParamsFromConfig<TPhysicsConfig, TPhysicsPresetParams> & TDestroyable;

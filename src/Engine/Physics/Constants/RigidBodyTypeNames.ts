@@ -1,6 +1,6 @@
 export enum RigidBodyTypesNames {
-  Dynamic = 'Dynamic',
-  Fixed = 'Fixed',
-  KinematicPositionBased = 'KinematicPositionBased',
-  KinematicVelocityBased = 'KinematicVelocityBased'
+  Dynamic = 'dynamic',
+  Fixed = 'fixed',
+  KinematicPositionBased = 'kinematicPositionBased',
+  KinematicVelocityBased = 'kinematicVelocityBased'
 }

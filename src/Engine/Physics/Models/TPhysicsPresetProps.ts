@@ -1,14 +1,12 @@
-import type { RigidBodyType } from '@dimforge/rapier3d';
-
 import type { TWithName } from '@/Engine/Mixins';
-import type { CollisionShape } from '@/Engine/Physics/Constants';
+import type { CollisionShape, RigidBodyTypesNames } from '@/Engine/Physics/Constants';
 
-import type { TPhysicsObjectParams } from './TPhysicsObjectParams';
+import type { TPhysicsBodyParams } from './TPhysicsBodyParams';
 
 export type TPhysicsPresetProps = Readonly<{
-  type: RigidBodyType;
+  type: RigidBodyTypesNames;
   collisionShape: CollisionShape;
-  shapeParams: TPhysicsObjectParams;
+  shapeParams: TPhysicsBodyParams;
   mass?: number;
   restitution?: number;
   friction?: number;

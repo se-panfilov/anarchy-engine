@@ -6,6 +6,7 @@ import { configToParams } from '@/Engine/Physics/Adapters';
 import type {
   TPhysicsBodyFactory,
   TPhysicsBodyRegistry,
+  TPhysicsBodyWrapper,
   TPhysicsDebugRenderer,
   TPhysicsPresetConfig,
   TPhysicsPresetParams,
@@ -20,6 +21,14 @@ import type { TVector3Wrapper } from '@/Engine/Vector';
 
 export function PhysicsService(factory: TPhysicsBodyFactory, registry: TPhysicsBodyRegistry, physicsPresetRegistry: TPhysicsPresetRegistry, scene: TSceneWrapper): TPhysicsService {
   let world: World | undefined;
+
+  registry.added$.subscribe((wrapper: TPhysicsBodyWrapper): void => world.add(wrapper));
+  factory.entityCreated$.subscribe((wrapper: TPhysicsBodyWrapper): void => registry.add(wrapper));
+
+  const create = (params: TPhysicsPresetParams): TPhysicsBodyWrapper => factory.create(params);
+  const createFromConfig = (physics: ReadonlyArray<TPhysicsPresetConfig>): void => {
+    physics.forEach((config: TPhysicsPresetConfig): TPhysicsBodyWrapper => factory.create(factory.configToParams(config)));
+  };
 
   function createWorld({
     gravity,
@@ -66,7 +75,7 @@ export function PhysicsService(factory: TPhysicsBodyFactory, registry: TPhysicsB
     world.gravity = vector.getCoords();
   }
 
-  const addPresets = (presets: ReadonlyArray<TPhysicsPresetParams>): void => physicsPresetRegistry.add(presets);
+  const addPresets = (presets: ReadonlyArray<TPhysicsPresetParams>): void => presets.forEach((preset: TPhysicsPresetParams) => physicsPresetRegistry.add(preset.name, preset));
   const addPresetsFromConfig = (presets: ReadonlyArray<TPhysicsPresetConfig>): void => addPresets(presets.map(configToParams));
 
   const destroyable: TDestroyable = destroyableMixin();
@@ -80,6 +89,8 @@ export function PhysicsService(factory: TPhysicsBodyFactory, registry: TPhysicsB
   });
 
   return {
+    create,
+    createFromConfig,
     createWorld,
     addPresets,
     addPresetsFromConfig,
