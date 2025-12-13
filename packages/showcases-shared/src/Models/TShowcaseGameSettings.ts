@@ -14,6 +14,7 @@ export type TShowcaseGameSettings = Readonly<{
 
 export type TGraphicsPlatformSpecificSettings = Readonly<{
   isFullScreen?: boolean;
+  displayId?: number; // For multi-monitor setups, identifies which monitor to use (by index). 0 is primary monitor.
   // isBorderlessWindowed: boolean;
   resolution?: TResolution;
   // isVsync: boolean;
