@@ -27,7 +27,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
     color: '#ff0000',
     fontSize: '4rem',
-    fontFamily: './ShowcaseLevel7/font/RubikScribble-Regular.ttf',
+    fontFamily: '"RubikScribble", sans-serif',
     tags: []
   });
 
@@ -37,7 +37,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
     color: '#ff0000',
     fontSize: '4rem',
-    fontFamily: './ShowcaseLevel7/font/LongCang-Regular.ttf',
+    fontFamily: '"LongCang", sans-serif',
     tags: []
   });
 
@@ -47,7 +47,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
     color: '#ff0000',
     fontSize: '4rem',
-    fontFamily: './ShowcaseLevel7/font/VarelaRound-Regular.ttf',
+    fontFamily: '"VarelaRound", sans-serif',
     tags: []
   });
 
