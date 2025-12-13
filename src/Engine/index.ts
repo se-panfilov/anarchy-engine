@@ -4,6 +4,7 @@ export * from './Domains/Actor';
 export * from './Domains/App';
 export * from './Domains/Camera';
 export * from './Domains/Controls';
+export * from './Domains/EnvMap';
 export * from './Domains/Global';
 export * from './Domains/Input';
 export * from './Domains/Intersections';
