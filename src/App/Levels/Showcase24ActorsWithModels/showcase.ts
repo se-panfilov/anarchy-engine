@@ -125,6 +125,7 @@ function initSolder2(actorName: string, fadeDuration: number, { animationsServic
   const actions = animationsService.startAutoUpdateMixer(model3d).actions;
 
   const idleAction: AnimationAction = actions['Idle'];
+  // const danceAction: AnimationAction = actions['Dance'];
 
   const { animationsFsm } = actor.states;
   if (isNotDefined(animationsFsm)) throw new Error('Animations FSM is not defined');
