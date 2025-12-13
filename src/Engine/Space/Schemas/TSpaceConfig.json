@@ -2049,9 +2049,6 @@
           "items": {
             "$ref": "#/definitions/TPhysicsPresetConfig"
           }
-        },
-        "isAutoUpdate": {
-          "type": "boolean"
         }
       },
       "additionalProperties": false

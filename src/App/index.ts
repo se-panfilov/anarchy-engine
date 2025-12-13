@@ -25,10 +25,9 @@ import '@/App/style.css';
 // TODO 10.0.0. LOOPS: fix
 // import { showcase } from '@/App/Levels/Showcase20PhysicsSyncWithModelsTest';
 // TODO 10.0.0. LOOPS: fix manual step
-// import { showcase } from '@/App/Levels/Showcase21PhysicsManualStep';
+import { showcase } from '@/App/Levels/Showcase21PhysicsManualStep';
 // TODO 10.0.0. LOOPS: fix manual step
-// TODO 10.0.0. LOOPS: fix fps counter
-import { showcase } from '@/App/Levels/Showcase22PhysicsShooter';
+// import { showcase } from '@/App/Levels/Showcase22PhysicsShooter';
 // import { showcase } from '@/App/Levels/Showcase23CustomModels';
 // import { showcase } from '@/App/Levels/Showcase24ActorsWithModels';
 // import { showcase } from '@/App/Levels/Showcase25TransformDrive';

@@ -12,6 +12,7 @@ import { isDefined } from '@/Engine/Utils';
 import { DeltaCalculator } from './DeltaCalculator';
 
 export function Loop({ name, type, trigger, showDebugInfo }: TLoopParams): TLoop {
+  const id: string = `${nanoid()}_${type}`;
   const enabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   const tick$: Subject<TDelta> = new Subject<TDelta>();
 
@@ -58,7 +59,7 @@ export function Loop({ name, type, trigger, showDebugInfo }: TLoopParams): TLoop
   });
 
   return {
-    id: `${nanoid()}_${type}`,
+    id,
     name,
     tick$,
     type,

@@ -2,11 +2,10 @@ import { World } from '@dimforge/rapier3d';
 import type { Subscription } from 'rxjs';
 import type { Vector3 } from 'three/src/math/Vector3';
 
-import type { TLoop } from '@/Engine/Loop';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { STANDARD_GRAVITY } from '@/Engine/Physics/Constants';
-import type { TPhysicsDebugRenderer, TPhysicsWorldParams, TPhysicsWorldService } from '@/Engine/Physics/Models';
+import type { TPhysicalLoop, TPhysicsDebugRenderer, TPhysicsWorldParams, TPhysicsWorldService } from '@/Engine/Physics/Models';
 import { PhysicsDebugRenderer } from '@/Engine/Physics/Renderers';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpaceLoops } from '@/Engine/Space';
@@ -53,7 +52,7 @@ export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TSpa
   // Auto-update world on every tick of the physical loop
   const loopSub$: Subscription = physicalLoop.tick$.subscribe((): void => world?.step());
 
-  const getDebugRenderer = (loop: TLoop): TPhysicsDebugRenderer => {
+  const getDebugRenderer = (loop: TPhysicalLoop): TPhysicsDebugRenderer => {
     if (isNotDefined(world)) throw new Error('Cannot get debug renderer: world is not defined');
     return PhysicsDebugRenderer(scene, world, loop);
   };

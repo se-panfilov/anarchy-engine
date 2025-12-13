@@ -1,13 +1,11 @@
-import type { World } from '@dimforge/rapier3d';
-
 import type { TRegistryPack } from '@/Engine/Abstract';
 import { ambientContext } from '@/Engine/Context';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
-import type { TSpaceConfigEntities, TSpaceLoops, TSpaceServices } from '@/Engine/Space/Models';
+import type { TSpaceConfigEntities, TSpaceServices } from '@/Engine/Space/Models';
 import { isDefined } from '@/Engine/Utils';
 
 // TODO SPACE: Maybe we need a space service, and factory, to create from config, and to create from the code.
-export function createEntities(entities: TSpaceConfigEntities, services: TSpaceServices, loops: TSpaceLoops): void {
+export function createEntities(entities: TSpaceConfigEntities, services: TSpaceServices): void {
   const { actors, cameras, spatialGrids, controls, intersections, lights, models3d, envMaps, fogs, fsm, texts, physics, particles } = entities;
 
   const {
@@ -39,10 +37,7 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
   envMapService.createFromConfig(envMaps);
   models3dService.createFromConfig(models3d);
 
-  if (isDefined(physics.global)) {
-    const world: World = physicsWorldService.createWorld(physics.global);
-    physicalLoop.enabled$.next((isDefined(world) && physics.isAutoUpdate) ?? true);
-  }
+  if (isDefined(physics.global)) physicsWorldService.createWorld(physics.global);
   if (isDefined(physics.presets)) physicsPresetService.addPresetsFromConfig(physics.presets);
 
   cameraService.createFromConfig(cameras);

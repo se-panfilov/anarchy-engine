@@ -32,7 +32,7 @@ export function SpaceService(): TSpaceService {
     await loadResources(config.resources, services);
     services.rendererService.create({ canvas, mode: RendererModes.WebGL2, isActive: true });
     hooks?.beforeEntitiesCreated?.(config, services, loops);
-    createEntities(config.entities, services, loops);
+    createEntities(config.entities, services);
     hooks?.afterEntitiesCreated?.(config, services, loops);
 
     const destroyable: TDestroyable = destroyableMixin();
