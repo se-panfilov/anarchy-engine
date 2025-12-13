@@ -3,9 +3,15 @@ import { Routes } from '@Menu/constants';
 import { eventsService } from '@Menu/services';
 import { useRouterStore } from '@Menu/stores/RouterStore';
 
+import { runtimeEnv } from '../../env';
+
 // TODO DESKTOP: test i18n (for desktop also)
+// TODO DESKTOP: add version to html body
+// TODO DESKTOP: add init event with version and platform
 
 const menuRouterStore = useRouterStore();
+
+const shouldShowExitBtn = runtimeEnv.VITE_SHOW_EXIT_BTN;
 </script>
 
 <template>
@@ -23,7 +29,7 @@ const menuRouterStore = useRouterStore();
       <li class="menu-navigation__list-item">
         <button type="button" class="menu-navigation__button -close-menu" @click="eventsService.emitClose()">Close menu</button>
       </li>
-      <li class="menu-navigation__list-item">
+      <li v-if="shouldShowExitBtn" class="menu-navigation__list-item">
         <button type="button" class="menu-navigation__button -exit">Exit to desktop</button>
       </li>
     </ul>
