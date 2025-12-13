@@ -3,35 +3,50 @@ import { AbstractWrapper } from '@Anarchy/Engine/Abstract';
 import { withObject3d } from '@Anarchy/Engine/Mixins';
 import { textToConfig } from '@Anarchy/Engine/Text/Adapters';
 import type { TextType } from '@Anarchy/Engine/Text/Constants';
-import type { TTextConfig, TTextCssProps, TTextParams, TTextServiceDependencies, TTextTextureWrapper, TTextTransformDrive } from '@Anarchy/Engine/Text/Models';
+import type { TTextConfig, TTextCssProps, TTextParams, TTextServiceDependencies, TTextTextureWrapper, TTextTransformDrive, TTextTranslationService } from '@Anarchy/Engine/Text/Models';
 import { TextTransformDrive } from '@Anarchy/Engine/Text/TransformDrive';
 import { getWrapperTypeByTextType } from '@Anarchy/Engine/Text/Wrappers/TextWrapperHelper';
 import type { TDriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
 import { applyObject3dParams } from '@Anarchy/Engine/Utils';
-import { stripUnits, toPx, toRem } from '@Anarchy/Shared/Utils';
-import type { Subscription } from 'rxjs';
+import { isDefined, isNotDefined, stripUnits, toPx, toRem } from '@Anarchy/Shared/Utils';
+import { distinctUntilChanged, Subscription } from 'rxjs';
 import { LinearFilter, Mesh, MeshBasicMaterial, PlaneGeometry, Texture } from 'three';
 
 export function createTextTextureWrapper(params: TTextParams, type: TextType, dependencies: TTextServiceDependencies): TTextTextureWrapper<Mesh> {
   let canvas: HTMLCanvasElement = document.createElement('canvas');
   let context: CanvasRenderingContext2D = canvas.getContext('2d')!;
-  let text: string = params.text;
+  let text: string = params.text ?? '';
+  let textKey: string | undefined = params.textKey;
+  let textTranslationService: TTextTranslationService | undefined;
 
-  const texture = new Texture(canvas);
+  const texture: Texture = new Texture(canvas);
   // eslint-disable-next-line functional/immutable-data
   texture.minFilter = LinearFilter;
 
-  const material = new MeshBasicMaterial({
+  const material: MeshBasicMaterial = new MeshBasicMaterial({
     map: texture,
     transparent: true
   });
 
-  const geometry = new PlaneGeometry();
-  const entity = new Mesh(geometry, material);
+  const geometry: PlaneGeometry = new PlaneGeometry();
+  const entity: Mesh = new Mesh(geometry, material);
 
-  // TODO #191823 Text3dTextures doesn't update text values on textures on change
-  async function setText(newText: string): Promise<void> {
+  let keyChangeSub$: Subscription | undefined;
+
+  function subscribeKeyChange(textKey: string): Subscription {
+    if (isNotDefined(textTranslationService)) throw new Error(`[TextWrapper]: Translation service is not defined. Wrapper Id: ${wrapper.id}, name: "${wrapper.name}".`);
+    return textTranslationService.t$(textKey).pipe(distinctUntilChanged()).subscribe(setTextInternal);
+  }
+
+  function setTranslationService(translationService: TTextTranslationService): void {
+    textTranslationService = translationService;
+    if (isNotDefined(textKey) || textKey === '') return;
+    keyChangeSub$ = subscribeKeyChange(textKey);
+  }
+
+  async function setTextInternal(newText: string): Promise<void> {
+    console.log('XXX3', newText);
     text = newText;
     const fontSize: string = toPx(params.cssProps?.fontSize);
 
@@ -83,6 +98,22 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
     entity.geometry = new PlaneGeometry(newGeometryWidth, newGeometryHeight);
   }
 
+  async function setText(newText: string): Promise<void> {
+    if (isDefined(keyChangeSub$)) keyChangeSub$?.unsubscribe();
+    if (isDefined(textKey)) {
+      textKey = undefined;
+      console.warn(`[TextWrapper]: Text updated, translation disabled. Wrapper Id: ${wrapper.id}, name: "${wrapper.name}".`);
+    }
+
+    return setTextInternal(newText);
+  }
+
+  function setTextKey(newTextKey: string): void {
+    if (isDefined(keyChangeSub$)) keyChangeSub$?.unsubscribe();
+    textKey = newTextKey;
+    keyChangeSub$ = subscribeKeyChange(textKey);
+  }
+
   function getPropsAsCss(): Pick<TTextCssProps, 'fontSize' | 'fontFamily' | 'backgroundColor' | 'color'> {
     const font: string = context.font;
     const match = font.match(/(\d+(?:\.\d+)?)(px|pt|em|rem|%)\s+(.+)/) ?? [];
@@ -114,19 +145,24 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
     type,
     drive,
     driveToTargetConnector,
+    setTranslationService,
     ...withObject3d(entity),
     getElement: () => canvas,
     setText,
     getText: (): string => text,
+    setTextKey,
+    getTextKey: (): string | undefined => textKey,
     getPropsAsCss,
     serialize: (): TTextConfig => textToConfig(result)
   });
 
-  setText(params.text);
+  if (params.text && isNotDefined(params.textKey)) setText(params.text);
   applyObject3dParams(result, params);
 
   const destroySub$: Subscription = result.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
+    keyChangeSub$?.unsubscribe();
+
     texture.dispose();
     context?.clearRect(0, 0, canvas.width, canvas.height);
     if (canvas?.parentNode) canvas.parentNode?.removeChild(canvas);
