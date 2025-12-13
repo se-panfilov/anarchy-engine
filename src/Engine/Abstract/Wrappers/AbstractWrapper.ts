@@ -7,8 +7,7 @@ import type { TWrapper } from '@/Engine/Abstract/Models';
 import type { TDestroyable, TRegistrable, TWithEntity, TWithNameAndNameAccessorsMixin, TWithNameOptional } from '@/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import type { TWithTags } from '@/Engine/Mixins/Generics/Models/TWithTags';
-import type { TWithModel3d } from '@/Engine/Models3d';
-import { destroyGeometryInEntity, destroyMaterialInEntity, destroyTransformDriveInEntity, isDefined, isWithUserData, isWithWrapperIdAccessors, removeFromParent, stopParenting } from '@/Engine/Utils';
+import { genericEntityCleanUp, isDefined, isWithUserData, isWithWrapperIdAccessors } from '@/Engine/Utils';
 
 type TWrapperParams = TWithTags & TWithNameOptional;
 
@@ -33,28 +32,9 @@ export function AbstractWrapper<T extends TWithUserData>(entity: T, type: Wrappe
   const result: TWrapper<T> = Object.assign(partialResult, withWrapperId, withNameAndNameAccessors);
 
   const destroyableSub$: Subscription = destroyable.destroy$.subscribe((): void => {
-    removeFromParent(entity);
-    stopParenting(entity);
-
-    destroyTransformDriveInEntity(entity);
-
-    // mixer.stopAllAction() + dispose()
-
-    if (isDefined((entity as unknown as TWithModel3d).model3d)) (entity as unknown as TWithModel3d).model3d.destroy$.next();
-
-    // Destroy Threejs fields and resources
-    destroyGeometryInEntity(entity);
-    destroyMaterialInEntity(entity);
-
-    // Remove children if exists
-    (entity as any).clear?.();
-
-    // Dispose the entity itself
-    (entity as any).dispose?.();
+    genericEntityCleanUp(entity);
 
     destroyableSub$.unsubscribe();
-
-    result.destroy$.next();
     result.destroy$.complete();
     result.destroy$.unsubscribe();
   });

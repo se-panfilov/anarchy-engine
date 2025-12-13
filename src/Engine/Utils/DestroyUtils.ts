@@ -3,7 +3,7 @@ import { Mesh, Texture } from 'three';
 
 import type { TEntity } from '@/Engine/Abstract';
 import type { TAnyAudio } from '@/Engine/Audio';
-import type { TWithModel3dEntities } from '@/Engine/Models3d';
+import type { TWithModel3d, TWithModel3dEntities } from '@/Engine/Models3d';
 import { hasTransformDrive } from '@/Engine/TransformDrive/Utils';
 import { hasGeometry, hasMaterial, isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -130,4 +130,28 @@ export function destroyAudio(entity: TAnyAudio): void {
 
   entity.removeFromParent();
   entity.clear?.();
+}
+
+export function genericEntityCleanUp(entity: any): void {
+  //Remove from parent
+  removeFromParent(entity);
+
+  //Tell the children that they have no parent anymore
+  stopParenting(entity);
+
+  //Clean up transform drive
+  destroyTransformDriveInEntity(entity);
+
+  //Trigger destroy$ for model3d
+  if (isDefined((entity as unknown as TWithModel3d).model3d)) (entity as unknown as TWithModel3d).model3d.destroy$.next();
+
+  // Destroy Threejs fields and resources
+  destroyGeometryInEntity(entity);
+  destroyMaterialInEntity(entity);
+
+  // Remove children if exists
+  (entity as any).clear?.();
+
+  // Dispose the entity itself
+  (entity as any).dispose?.();
 }

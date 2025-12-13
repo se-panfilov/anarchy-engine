@@ -5,9 +5,8 @@ import type { EntityType } from '@/Engine/Abstract/Constants';
 import type { TEntity, TEntityParams } from '@/Engine/Abstract/Models';
 import type { TDestroyable, TNoSpread, TRegistrable, TWithNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
-import { isDefined } from '@/Engine/Utils';
+import { genericEntityCleanUp, isDefined } from '@/Engine/Utils';
 
-// TODO 13-0-0: AbstractEntity should do the same things that AbstractWrapper does
 // TODO 13-0-0: Services should have an abstract service with a common destroy$
 // TODO 13-0-0: Build destroy chain Services -> registries -> entities -> sub-entities
 // TODO 13-0-0: Test partial destroy of entities
@@ -21,6 +20,8 @@ export function AbstractEntity<T extends Record<string, any>>(entities: T, type:
   const destroyable: TDestroyable = destroyableMixin();
 
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    Object.values(entities).forEach((entity: any): void => genericEntityCleanUp(entity));
+
     destroySub$.unsubscribe();
     destroyable.destroy$.complete();
     destroyable.destroy$.unsubscribe();
