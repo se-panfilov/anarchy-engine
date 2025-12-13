@@ -1,5 +1,5 @@
 import GUI from 'lil-gui';
-import { DirectionalLightHelper, HemisphereLightHelper, PointLightHelper, SpotLightHelper } from 'three';
+import { CameraHelper, DirectionalLightHelper, HemisphereLightHelper, PointLightHelper, SpotLightHelper } from 'three';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
 
 import type { IShowcase } from '@/App/Levels/Models';
@@ -24,13 +24,21 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const directionalLight: IDirectionalLightWrapper | undefined = lightRegistry.getUniqByTag('directional') as IDirectionalLightWrapper | undefined;
     if (isNotDefined(directionalLight)) throw new Error('Directional light not found');
     const directionalLightHelper: DirectionalLightHelper = new DirectionalLightHelper(directionalLight.entity, 3);
+    const directionalLightCameraHelper: CameraHelper = new CameraHelper(directionalLight.entity.shadow.camera);
+    // eslint-disable-next-line functional/immutable-data
+    directionalLight.entity.shadow.camera.near = 1;
+    // eslint-disable-next-line functional/immutable-data
+    directionalLight.entity.shadow.camera.far = 6;
     scene.add(directionalLightHelper);
+    scene.add(directionalLightCameraHelper);
     const directionalFolder: GUI = gui.addFolder('Directional light');
     directionalFolder.add(directionalLight.entity.position, 'x').min(-50).max(50).step(0.5);
     directionalFolder.add(directionalLight.entity.position, 'y').min(-50).max(50).step(0.5);
     directionalFolder.add(directionalLight.entity.position, 'z').min(-50).max(50).step(0.5);
     directionalFolder.addColor(directionalLight.entity, 'color');
     directionalFolder.add(directionalLight.entity, 'intensity').min(0).max(10).step(0.1);
+    directionalFolder.add(directionalLight.entity.shadow.camera, 'near').min(0).max(10).step(1);
+    directionalFolder.add(directionalLight.entity.shadow.camera, 'far').min(0).max(10).step(1);
 
     //hemisphere light
     const hemisphereLight: IHemisphereLightWrapper | undefined = lightRegistry.getUniqByTag('hemisphere') as IHemisphereLightWrapper | undefined;
