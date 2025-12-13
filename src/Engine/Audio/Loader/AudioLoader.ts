@@ -11,7 +11,6 @@ export function AudioLoader(registry: TAudioResourceAsyncRegistry): TAudioLoader
   const loader: TAbstractLoader<AudioBuffer, TAudioResourceConfig> = AbstractLoader(audioLoader, registry, LoaderType.Audio);
 
   function applyParamsOnLoaded(loaded: TWriteable<AudioBuffer>, options?: TAudioResourceConfig['options']): AudioBuffer {
-    console.log('XXX applyParamsOnLoaded', loaded, options);
     // TODO 11.0.0: do we need this? (don't think that buffer actually has any options to adjust)
     return loaded;
   }
