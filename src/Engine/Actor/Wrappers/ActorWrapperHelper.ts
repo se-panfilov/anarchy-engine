@@ -1,8 +1,8 @@
-import type { TActorParams, TActorWrapper } from '@/Engine/Actor/Models';
+import type { TActorParams, TActor } from '@/Engine/Actor/Models';
 import type { TSpatialGridService, TSpatialGridWrapper } from '@/Engine/Spatial';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function applySpatialGrid(params: TActorParams, actorW: TActorWrapper, spatialGridService: TSpatialGridService): void {
+export function applySpatialGrid(params: TActorParams, actorW: TActor, spatialGridService: TSpatialGridService): void {
   if (isNotDefined(params.spatial.grid)) return;
 
   const gridName: string | undefined = params.spatial.grid.getName();
@@ -15,7 +15,7 @@ export function applySpatialGrid(params: TActorParams, actorW: TActorWrapper, sp
   grid.addActor(actorW);
 }
 
-export function startCollisions(actorW: TActorWrapper): void {
+export function startCollisions(actorW: TActor): void {
   if (isNotDefined(actorW.collisions) || !actorW.collisions.isAutoUpdate()) return;
   actorW.collisions.start(actorW);
 }

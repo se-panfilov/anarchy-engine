@@ -4,7 +4,7 @@ import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorWrapper, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import { Engine, getDistancePrecisely, getHorizontalAzimuthDeg, getPushCoordsFrom3dAzimuth, isActorHasPhysicsBody, isDefined, isNotDefined, KeysExtra, spaceService, TextType } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
@@ -28,11 +28,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     let azimuth: number = 0;
     let forcePower: number = 0;
 
-    const ballActorW: TActorWrapper | undefined = actorAsyncRegistry.findByName('sphere_actor');
+    const ballActorW: TActor | undefined = actorAsyncRegistry.findByName('sphere_actor');
     if (isNotDefined(ballActorW)) throw new Error(`Cannot find "ball" actor`);
     if (!isActorHasPhysicsBody(ballActorW)) throw new Error(`"ball" actor is not a physic actor`);
 
-    const surfaceActorW: TActorWrapper | undefined = actorAsyncRegistry.findByName('surface_actor');
+    const surfaceActorW: TActor | undefined = actorAsyncRegistry.findByName('surface_actor');
     if (isNotDefined(surfaceActorW)) throw new Error(`Cannot find "surfaceActor" actor`);
     if (!isActorHasPhysicsBody(surfaceActorW)) throw new Error(`"surfaceActor" actor is not a physic actor`);
 

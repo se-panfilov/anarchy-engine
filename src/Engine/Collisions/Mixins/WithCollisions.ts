@@ -1,7 +1,7 @@
 import type { Subscription } from 'rxjs';
 import { filter, Subject } from 'rxjs';
 
-import type { TActorParams, TActorWrapper } from '@/Engine/Actor';
+import type { TActorParams, TActor } from '@/Engine/Actor';
 import { CollisionsUpdatePriority } from '@/Engine/Collisions/Constants';
 import type { TCollisionCheckResult, TCollisionsData, TCollisionsLoopService, TCollisionsService, TWithCollisions } from '@/Engine/Collisions/Models';
 import type { TSpatialCellWrapper } from '@/Engine/Spatial';
@@ -12,13 +12,13 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
   let _isAutoUpdate: boolean = params.collisions?.isAutoUpdate ?? false;
   const value$: Subject<TCollisionCheckResult> = new Subject<TCollisionCheckResult>();
   let collisionsLoopServiceSub$: Subscription;
-  let filterFn: ((o: TActorWrapper) => boolean) | undefined = undefined;
+  let filterFn: ((o: TActor) => boolean) | undefined = undefined;
 
   // TODO test this code (should work)
-  function getActorsToCheck(actorW: TActorWrapper): ReadonlyArray<TActorWrapper> {
+  function getActorsToCheck(actorW: TActor): ReadonlyArray<TActor> {
     const cells: ReadonlyArray<TSpatialCellWrapper> = actorW.spatial.getSpatialCells();
     if (cells.length > 0) {
-      const objects = actorW.spatial.getSpatialCells().flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActorWrapper> => cell.getObjects());
+      const objects = actorW.spatial.getSpatialCells().flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActor> => cell.getObjects());
       return isDefined(filterFn) ? objects.filter(filterFn) : objects;
     }
     return [];
@@ -33,7 +33,7 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
       data: {
         updatePriority: params.collisions?.updatePriority ?? CollisionsUpdatePriority.LOW
       },
-      start(actorW: TActorWrapper): void {
+      start(actorW: TActor): void {
         const collisionsInterpolationLengthMultiplier: number = 4;
         collisionsLoopServiceSub$ = collisionsLoopService.tick$.pipe(filter(() => _isAutoUpdate)).subscribe(({ delta, priority }): void => {
           if (priority < this.getCollisionsUpdatePriority()) return;
@@ -53,7 +53,7 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
         // eslint-disable-next-line functional/immutable-data
         (this.data as TWriteable<TCollisionsData>).updatePriority = value;
       },
-      setCollisionsFilterFn(fn: (actorW: TActorWrapper) => boolean): void {
+      setCollisionsFilterFn(fn: (actorW: TActor) => boolean): void {
         filterFn = fn;
       },
       getCollisionsUpdatePriority(): CollisionsUpdatePriority {

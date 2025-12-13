@@ -1,4 +1,4 @@
-import type { TActorWrapper, TIntersectionsWatcher, TSceneWrapper, TSpaceServices } from '@/Engine';
+import type { TActor, TIntersectionsWatcher, TSceneWrapper, TSpaceServices } from '@/Engine';
 import type { TSpatialGridWrapper } from '@/Engine/Spatial';
 import { isNotDefined } from '@/Engine/Utils';
 
@@ -9,17 +9,17 @@ export function enableCollisions(mouseLineIntersectionsWatcher: TIntersectionsWa
   const registry = actorService.getRegistry();
   const { findByName, findAllByTag } = registry;
 
-  const sphereActorW: TActorWrapper | undefined = findByName('sphere');
-  const boxActor1W: TActorWrapper | undefined = findByName('box_static_1');
-  const boxActor2W: TActorWrapper | undefined = findByName('box_static_2');
-  const boxActor3W: TActorWrapper | undefined = findByName('box_static_3');
-  const boxActor4W: TActorWrapper | undefined = findByName('box_static_4');
-  const boxActor5W: TActorWrapper | undefined = findByName('box_static_5');
-  const boxActor6W: TActorWrapper | undefined = findByName('box_static_6');
-  const boxActor7W: TActorWrapper | undefined = findByName('box_static_7');
-  const targetActor1W: TActorWrapper | undefined = findByName('target_1');
-  const targetActor2W: TActorWrapper | undefined = findByName('target_2');
-  const targetActor3W: TActorWrapper | undefined = findByName('target_3');
+  const sphereActorW: TActor | undefined = findByName('sphere');
+  const boxActor1W: TActor | undefined = findByName('box_static_1');
+  const boxActor2W: TActor | undefined = findByName('box_static_2');
+  const boxActor3W: TActor | undefined = findByName('box_static_3');
+  const boxActor4W: TActor | undefined = findByName('box_static_4');
+  const boxActor5W: TActor | undefined = findByName('box_static_5');
+  const boxActor6W: TActor | undefined = findByName('box_static_6');
+  const boxActor7W: TActor | undefined = findByName('box_static_7');
+  const targetActor1W: TActor | undefined = findByName('target_1');
+  const targetActor2W: TActor | undefined = findByName('target_2');
+  const targetActor3W: TActor | undefined = findByName('target_3');
 
   if (
     isNotDefined(sphereActorW) ||
@@ -52,8 +52,8 @@ export function enableCollisions(mouseLineIntersectionsWatcher: TIntersectionsWa
   // collisionsService.bvh.createBvhForActor(targetActor2W);
   // collisionsService.bvh.createBvhForActor(targetActor3W);
 
-  const physicsBlocksList: ReadonlyArray<TActorWrapper> = findAllByTag('physics_block');
-  physicsBlocksList.forEach((blockW: TActorWrapper) => grid.addActor(blockW));
+  const physicsBlocksList: ReadonlyArray<TActor> = findAllByTag('physics_block');
+  physicsBlocksList.forEach((blockW: TActor) => grid.addActor(blockW));
 
   mouseLineIntersectionsWatcher.addActor(boxActor1W);
   mouseLineIntersectionsWatcher.addActor(boxActor2W);

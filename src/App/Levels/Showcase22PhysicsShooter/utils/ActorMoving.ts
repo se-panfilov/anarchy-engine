@@ -1,14 +1,14 @@
 import { BehaviorSubject, combineLatest, map, Subject } from 'rxjs';
 import type { Vector3 } from 'three';
 
-import type { TActorWrapper, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService, TRadians } from '@/Engine';
+import type { TActor, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService, TRadians } from '@/Engine';
 import { getAzimuthRadFromDirection, getElevationRadFromDirection, KeyCode } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 type TMoveKeysState = { Forward: boolean; Left: boolean; Right: boolean; Backward: boolean };
 type TIntersectionDirection = Readonly<{ azimuth: TRadians; elevation: TRadians }>;
 
-export function startMoveActorWithKeyboard(actorW: TActorWrapper, keyboardService: TKeyboardService, mouseLineIntersectionsWatcher: TIntersectionsWatcher): void {
+export function startMoveActorWithKeyboard(actorW: TActor, keyboardService: TKeyboardService, mouseLineIntersectionsWatcher: TIntersectionsWatcher): void {
   const keyStates$: BehaviorSubject<TMoveKeysState> = new BehaviorSubject<TMoveKeysState>({ Forward: false, Left: false, Right: false, Backward: false });
   const intersectionDirection$: Subject<TIntersectionDirection> = new Subject<TIntersectionDirection>();
 
@@ -90,7 +90,7 @@ function getActorMoveAzimuthRad(keyStates: TMoveKeysState): TRadians {
   return 0;
 }
 
-export function moveActorBounce(actorW: TActorWrapper, speedMPS: number, azimuthDeg: number, duration: number): void {
+export function moveActorBounce(actorW: TActor, speedMPS: number, azimuthDeg: number, duration: number): void {
   actorW.kinematic.setAutoUpdate(true);
   actorW.kinematic.setLinearSpeed(meters(speedMPS));
   actorW.kinematic.setLinearAzimuthDeg(azimuthDeg);

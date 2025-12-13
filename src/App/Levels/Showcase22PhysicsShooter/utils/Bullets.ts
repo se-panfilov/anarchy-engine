@@ -8,7 +8,7 @@ import { createFlashLight } from '@/App/Levels/Showcase22PhysicsShooter/utils/Li
 import type {
   TActorParams,
   TActorService,
-  TActorWrapper,
+  TActor,
   TCollisionCheckResult,
   TLightService,
   TMaterialService,
@@ -26,7 +26,7 @@ import { meters } from '@/Engine/Measurements/Utils';
 
 export const BULLET_TAG = 'bullet';
 
-export type TBullet = TActorWrapper &
+export type TBullet = TActor &
   Readonly<{
     setDistanceTraveled: (dist: number) => void;
     getDistanceTraveled: () => number;
@@ -96,7 +96,7 @@ export function getBulletsPool(
 }
 
 export function BulletAsync(params: TActorParams, actorService: TActorService): TBullet {
-  const actorW: TActorWrapper = actorService.create(params);
+  const actorW: TActor = actorService.create(params);
   let distanceTraveled: number = 0;
   const maxDistance: number = 50;
   let active: boolean = false;
@@ -140,7 +140,7 @@ export function BulletAsync(params: TActorParams, actorService: TActorService): 
     }
   }
 
-  actorW.collisions.setCollisionsFilterFn((actorW: TActorWrapper): boolean => !actorW.getTags().includes(BULLET_TAG));
+  actorW.collisions.setCollisionsFilterFn((actorW: TActor): boolean => !actorW.getTags().includes(BULLET_TAG));
 
   return {
     ...actorW,
@@ -155,7 +155,7 @@ export function BulletAsync(params: TActorParams, actorService: TActorService): 
 }
 
 export function shootRapidFire(
-  actorW: TActorWrapper,
+  actorW: TActor,
   mouseService: TMouseService,
   from: Readonly<{ azimuth: TRadians; elevation: TRadians }>,
   shootingParams: Readonly<{ cooldownMs: number; speed: number }>,
@@ -221,7 +221,7 @@ export function createHitEffect(position: Vector3, sceneW: TSceneWrapper, lightS
   }, 500);
 }
 
-export function applyExplosionImpulse(actorW: TActorWrapper, collisionPoint: Vector3, explosionForce: number): void {
+export function applyExplosionImpulse(actorW: TActor, collisionPoint: Vector3, explosionForce: number): void {
   const body: RigidBody | undefined = actorW.physicsBody?.getRigidBody();
   if (isNotDefined(body)) return;
 

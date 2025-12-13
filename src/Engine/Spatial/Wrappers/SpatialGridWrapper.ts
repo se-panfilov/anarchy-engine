@@ -7,7 +7,7 @@ import type { ColorRepresentation } from 'three/src/math/Color';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TActorWrapper } from '@/Engine/Actor';
+import type { TActor } from '@/Engine/Actor';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpatialCellId, TSpatialCellParams, TSpatialCellWrapper, TSpatialGrid, TSpatialGridParams, TSpatialGridWrapper } from '@/Engine/Spatial/Models';
 import { createBoundingBox, createOutline } from '@/Engine/Spatial/Services/SpatialHelper';
@@ -47,11 +47,11 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     return box;
   }
 
-  function registerActorToGrid(actorW: TActorWrapper, gridW: TSpatialGridWrapper): void {
+  function registerActorToGrid(actorW: TActor, gridW: TSpatialGridWrapper): void {
     actorW.spatial.setGrid(gridW);
   }
 
-  function addActor(this: TSpatialGridWrapper, actorW: TActorWrapper): void | never {
+  function addActor(this: TSpatialGridWrapper, actorW: TActor): void | never {
     if (isNotDefined(actorW.spatial.getGrid())) registerActorToGrid(actorW, this);
 
     const boundingBox: Box3 = getBoundingBox(actorW.entity.getModel3d());
@@ -71,10 +71,10 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
   const getAllCells = (): ReadonlyArray<TSpatialCellWrapper> => entity.all();
 
-  function getAllInCell(x: number, z: number): ReadonlyArray<TActorWrapper> {
+  function getAllInCell(x: number, z: number): ReadonlyArray<TActor> {
     const cells: ReadonlyArray<TSpatialCellWrapper> = entity.search({ minX: x, minY: z, maxX: x, maxY: z });
     if (cells.length === 1) return cells[0].getObjects();
-    if (cells.length > 1) return cells.flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActorWrapper> => cell.getObjects());
+    if (cells.length > 1) return cells.flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActor> => cell.getObjects());
     return [];
   }
 
@@ -83,13 +83,13 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     return new Vector3(x, 0, z);
   };
 
-  function getAllInCellByCellId(cellId: TSpatialCellId): ReadonlyArray<TActorWrapper> {
+  function getAllInCellByCellId(cellId: TSpatialCellId): ReadonlyArray<TActor> {
     // const cells: ReadonlyArray<TSpatialCellWrapper> = entity.all().filter((cell) => cell.id === cellId);
     const { x, z } = getCoordsFromGridId(cellId);
     return getAllInCell(x, z);
   }
 
-  function removeFromGrid(actorW: TActorWrapper): void | never {
+  function removeFromGrid(actorW: TActor): void | never {
     const cells: ReadonlyArray<TSpatialCellWrapper> = actorW.spatial.getSpatialCells();
 
     // eslint-disable-next-line functional/no-loop-statements
@@ -112,7 +112,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     // });
   }
 
-  function updateActorCell(this: TSpatialGridWrapper, actorW: TActorWrapper): void {
+  function updateActorCell(this: TSpatialGridWrapper, actorW: TActor): void {
     removeFromGrid(actorW);
     addActor.call(this, actorW);
   }
@@ -123,7 +123,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     entity.search({ minX, minY: minZ, maxX, maxY: maxZ });
 
   // TODO test this function
-  function findCellsByActorBox(actorW: TActorWrapper): ReadonlyArray<TSpatialCellWrapper> {
+  function findCellsByActorBox(actorW: TActor): ReadonlyArray<TSpatialCellWrapper> {
     const actorBox: Box3 = getBoundingBox(actorW.entity.getModel3d());
     return findCellsForBox({ minX: actorBox.min.x, minZ: actorBox.min.z, maxX: actorBox.max.x, maxZ: actorBox.max.z });
   }
@@ -161,9 +161,9 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     });
     _debugOutlinesIds = [];
 
-    const actorsWrapperList: ReadonlyArray<TActorWrapper> = getAllInCell(x, z);
+    const actorsWrapperList: ReadonlyArray<TActor> = getAllInCell(x, z);
 
-    actorsWrapperList.forEach((actorW: TActorWrapper): void => {
+    actorsWrapperList.forEach((actorW: TActor): void => {
       const outline: Line2 = createOutline(actorW, color, 0.1);
       sceneW.entity.add(outline);
       // eslint-disable-next-line functional/immutable-data

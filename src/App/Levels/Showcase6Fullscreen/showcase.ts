@@ -1,5 +1,5 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorRegistry, TActorWrapper, TAppCanvas, TEngine, TModel3dFacade, TModel3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TActorRegistry, TAppCanvas, TEngine, TModel3dFacade, TModel3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import { Engine, isNotDefined, screenService, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -21,7 +21,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     sceneW.addModel3d(planeModel3dF.getModel3d());
 
-    const actor: TActorWrapper | undefined = actorRegistry.findByName('sphere_actor');
+    const actor: TActor | undefined = actorRegistry.findByName('sphere_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not found');
     actor.setY(2);
 

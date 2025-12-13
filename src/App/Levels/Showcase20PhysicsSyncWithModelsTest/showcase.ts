@@ -1,7 +1,7 @@
 import type { Vector3 } from 'three/src/math/Vector3';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorWrapper, TActorWrapperWithPhysics, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TActorWrapperWithPhysics, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { Engine, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -14,13 +14,13 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const actorAsyncRegistry = actorService.getRegistry();
 
   function init(): void {
-    const actor1W: TActorWrapperWithPhysics | TActorWrapper | undefined = actorAsyncRegistry.findByName('actor_1');
+    const actor1W: TActorWrapperWithPhysics | TActor | undefined = actorAsyncRegistry.findByName('actor_1');
     if (isNotDefined(actor1W)) throw new Error(`Cannot find "actor_1" actor`);
 
-    const actor2W: TActorWrapperWithPhysics | TActorWrapper | undefined = actorAsyncRegistry.findByName('actor_2');
+    const actor2W: TActorWrapperWithPhysics | TActor | undefined = actorAsyncRegistry.findByName('actor_2');
     if (isNotDefined(actor2W)) throw new Error(`Cannot find "actor_2" actor`);
 
-    const actor3W: TActorWrapperWithPhysics | TActorWrapper | undefined = actorAsyncRegistry.findByName('actor_3');
+    const actor3W: TActorWrapperWithPhysics | TActor | undefined = actorAsyncRegistry.findByName('actor_3');
     if (isNotDefined(actor3W)) throw new Error(`Cannot find "actor_3" actor`);
 
     const cameraW: TCameraWrapper | undefined = cameraService.findActive();

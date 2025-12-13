@@ -1,5 +1,5 @@
 import type { TWithMandatoryPhysicsBody } from '@/Engine/Physics';
 
-import type { TActorWrapper } from './TActorWrapper';
+import type { TActor } from './TActor';
 
-export type TActorWrapperWithPhysics = TWithMandatoryPhysicsBody<TActorWrapper>;
+export type TActorWrapperWithPhysics = TWithMandatoryPhysicsBody<TActor>;

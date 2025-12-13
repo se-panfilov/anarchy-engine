@@ -1,20 +1,7 @@
 import { Euler, Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type {
-  TActorRegistry,
-  TActorWrapper,
-  TAnimationParams,
-  TAppCanvas,
-  TCameraRegistry,
-  TControlsRegistry,
-  TEngine,
-  TMoverService,
-  TSpace,
-  TSpaceConfig,
-  TText2dWrapper,
-  TTextAnyWrapper
-} from '@/Engine';
+import type { TActor, TActorRegistry, TAnimationParams, TAppCanvas, TCameraRegistry, TControlsRegistry, TEngine, TMoverService, TSpace, TSpaceConfig, TText2dWrapper, TTextAnyWrapper } from '@/Engine';
 import { createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, generateAnglesForCircle, isNotDefined, spaceService, TextType } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
@@ -34,9 +21,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
     cameraRegistry.getAll()[0]?.setPosition(new Vector3(6, 30, 0));
 
-    const redActor: TActorWrapper | undefined = actorRegistry.findByTag('red');
-    const blueActor: TActorWrapper | undefined = actorRegistry.findByTag('blue');
-    const greenActor: TActorWrapper | undefined = actorRegistry.findByTag('green');
+    const redActor: TActor | undefined = actorRegistry.findByTag('red');
+    const blueActor: TActor | undefined = actorRegistry.findByTag('blue');
+    const greenActor: TActor | undefined = actorRegistry.findByTag('green');
     if (isNotDefined(redActor) || isNotDefined(blueActor) || isNotDefined(greenActor)) throw new Error('Actors are not defined');
 
     const redText: TText2dWrapper | undefined = text2dRegistry.findByTag('red');

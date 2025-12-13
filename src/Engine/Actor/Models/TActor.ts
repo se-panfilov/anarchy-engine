@@ -9,7 +9,7 @@ import type { TModel3dFacade } from '@/Engine/Models3d';
 import type { TWithOptionalPhysicsBody } from '@/Engine/Physics';
 import type { TWithSpatial, TWithUpdateSpatialCell } from '@/Engine/Spatial/Models';
 
-export type TActorWrapper = TWrapper<TModel3dFacade> &
+export type TActor = TWrapper<TModel3dFacade> &
   TMovable3dXYZ &
   TRotatable &
   TScalable &

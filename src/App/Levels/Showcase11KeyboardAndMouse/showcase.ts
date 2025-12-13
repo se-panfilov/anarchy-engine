@@ -2,7 +2,7 @@ import GUI from 'lil-gui';
 import { withLatestFrom } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorRegistry, TActorWrapper, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorRegistry, TActor, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
 import { defaultMoverServiceConfig, Easing, Engine, isNotDefined, KeyCode, LookUpStrategy, mpsSpeed, spaceService } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
@@ -20,18 +20,18 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { onKey } = keyboardService;
 
   function init(): void {
-    const actorKeyboard: TActorWrapper | undefined = findByTag('keyboard');
-    const actorMouse: TActorWrapper | undefined = findByTag('mouse');
-    const actorKeyW: TActorWrapper | undefined = findByTags(['key', 'W'], LookUpStrategy.Every);
-    const actorKeyA: TActorWrapper | undefined = findByTags(['key', 'A'], LookUpStrategy.Every);
-    const actorKeyS: TActorWrapper | undefined = findByTags(['key', 'S'], LookUpStrategy.Every);
-    const actorKeyD: TActorWrapper | undefined = findByTags(['key', 'D'], LookUpStrategy.Every);
-    const actorMkeyLeft: TActorWrapper | undefined = findByTags(['mkey', 'Left'], LookUpStrategy.Every);
-    const actorMkeyRight: TActorWrapper | undefined = findByTags(['mkey', 'Right'], LookUpStrategy.Every);
-    const actorMkeyMiddle: TActorWrapper | undefined = findByTags(['mkey', 'Middle'], LookUpStrategy.Every);
-    const actorMkeyBack: TActorWrapper | undefined = findByTags(['mkey', 'Back'], LookUpStrategy.Every);
-    const actorMkeyForward: TActorWrapper | undefined = findByTags(['mkey', 'Forward'], LookUpStrategy.Every);
-    const actorMkeyExtra: TActorWrapper | undefined = findByTags(['mkey', 'Extra'], LookUpStrategy.Every);
+    const actorKeyboard: TActor | undefined = findByTag('keyboard');
+    const actorMouse: TActor | undefined = findByTag('mouse');
+    const actorKeyW: TActor | undefined = findByTags(['key', 'W'], LookUpStrategy.Every);
+    const actorKeyA: TActor | undefined = findByTags(['key', 'A'], LookUpStrategy.Every);
+    const actorKeyS: TActor | undefined = findByTags(['key', 'S'], LookUpStrategy.Every);
+    const actorKeyD: TActor | undefined = findByTags(['key', 'D'], LookUpStrategy.Every);
+    const actorMkeyLeft: TActor | undefined = findByTags(['mkey', 'Left'], LookUpStrategy.Every);
+    const actorMkeyRight: TActor | undefined = findByTags(['mkey', 'Right'], LookUpStrategy.Every);
+    const actorMkeyMiddle: TActor | undefined = findByTags(['mkey', 'Middle'], LookUpStrategy.Every);
+    const actorMkeyBack: TActor | undefined = findByTags(['mkey', 'Back'], LookUpStrategy.Every);
+    const actorMkeyForward: TActor | undefined = findByTags(['mkey', 'Forward'], LookUpStrategy.Every);
+    const actorMkeyExtra: TActor | undefined = findByTags(['mkey', 'Extra'], LookUpStrategy.Every);
 
     if (isNotDefined(actorKeyboard)) throw new Error('Actor keyboard is not defined');
     if (isNotDefined(actorMouse)) throw new Error('Actor mouse is not defined');
@@ -101,7 +101,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   function startIntersections(): TIntersectionsWatcher {
     const camera: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
-    const actor: TActorWrapper | undefined = findByName('surface_actor');
+    const actor: TActor | undefined = findByName('surface_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not defined');
 
     return intersectionsWatcherService.create({ actors: [actor], camera, isAutoStart: true, position$: mouseService.position$, tags: [] });

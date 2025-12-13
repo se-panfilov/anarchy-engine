@@ -1,8 +1,8 @@
 import { Vector3 } from 'three';
 
-import type { TActorWrapper, TCameraWrapper } from '@/Engine';
+import type { TActor, TCameraWrapper } from '@/Engine';
 
-export function cameraFollowingActor(cameraW: TCameraWrapper, actorW: TActorWrapper): void {
+export function cameraFollowingActor(cameraW: TCameraWrapper, actorW: TActor): void {
   const actorCoords: Vector3 = actorW.getPosition();
   cameraW.setPosition(new Vector3(actorCoords.x, actorCoords.y + 15, actorCoords.z + 20));
   // cameraW.setPosition(new Vector3(actorCoords.x, actorCoords.y + 25, actorCoords.z));

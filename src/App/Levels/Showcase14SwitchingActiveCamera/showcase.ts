@@ -1,7 +1,7 @@
 import GUI from 'lil-gui';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorRegistry, TActorWrapper, TAppCanvas, TCameraRegistry, TCameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorRegistry, TActor, TAppCanvas, TCameraRegistry, TCameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { Engine, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -17,7 +17,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { clickLeftRelease$ } = mouseService;
 
   function init(): void {
-    const actor: TActorWrapper | undefined = actorRegistry.findByName('sphere_actor');
+    const actor: TActor | undefined = actorRegistry.findByName('sphere_actor');
     if (isNotDefined(actor)) throw new Error('Cannot find actor');
     actor.setY(2);
 

@@ -1,7 +1,7 @@
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
   TActorRegistry,
-  TActorWrapper,
+  TActor,
   TAppCanvas,
   TCameraWrapper,
   TEngine,
@@ -34,7 +34,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     sceneW.addModel3d(planeModel3dF.getModel3d());
 
-    const actor: TActorWrapper | undefined = actorRegistry.findByName('sphere_actor');
+    const actor: TActor | undefined = actorRegistry.findByName('sphere_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not defined');
 
     watchIntersections([actor]);
@@ -46,7 +46,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     });
   }
 
-  function watchIntersections(actors: ReadonlyArray<TActorWrapper>): TIntersectionsWatcher {
+  function watchIntersections(actors: ReadonlyArray<TActor>): TIntersectionsWatcher {
     const camera: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
 

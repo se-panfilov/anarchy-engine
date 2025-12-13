@@ -3,7 +3,7 @@ import type { TDestroyable } from '@/Engine/Mixins';
 
 import type { TActorServiceDependencies } from './TActorDependencies';
 import type { TActorParams } from './TActorParams';
-import type { TActorWrapper } from './TActorWrapper';
+import type { TActor } from './TActor';
 import type { TParamsFromConfigActor } from './TParamsFromConfigActor';
 
-export type TActorFactory = TReactiveFactoryWithDependencies<TActorWrapper, TActorParams, TActorServiceDependencies> & TParamsFromConfigActor & TDestroyable;
+export type TActorFactory = TReactiveFactoryWithDependencies<TActor, TActorParams, TActorServiceDependencies> & TParamsFromConfigActor & TDestroyable;

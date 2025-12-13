@@ -1,5 +1,5 @@
 import type { TAbstractEntityRegistry, TProtectedRegistry } from '@/Engine/Abstract';
 
-import type { TActorWrapper } from './TActorWrapper';
+import type { TActor } from './TActor';
 
-export type TActorRegistry = TProtectedRegistry<TAbstractEntityRegistry<TActorWrapper>>;
+export type TActorRegistry = TProtectedRegistry<TAbstractEntityRegistry<TActor>>;

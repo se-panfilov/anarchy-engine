@@ -3,7 +3,7 @@ import type { Vector } from '@dimforge/rapier3d/math';
 import type { Subscription } from 'rxjs';
 import { Vector3 } from 'three';
 
-import type { TActorParams, TActorWithPhysicsDependencies, TActorWrapper, TActorWrapperWithPhysics } from '@/Engine/Actor/Models';
+import type { TActor, TActorParams, TActorWithPhysicsDependencies, TActorWrapperWithPhysics } from '@/Engine/Actor/Models';
 import type { TPhysicsBodyFacade, TPhysicsBodyService, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
 import { makeWrapperWithPhysicsBody, RigidBodyTypesNames } from '@/Engine/Physics';
 import { isNotDefined } from '@/Engine/Utils';
@@ -17,7 +17,7 @@ export function ActorWrapperWithPhysics(
   additionalParams?: Record<string, any>
 ): TActorWrapperWithPhysics | never {
   if (isNotDefined(params.physics)) throw new Error('Cannot create Actor with Physics: physics params are missing');
-  const actorW: TActorWrapper = Actor(params, deps);
+  const actorW: TActor = Actor(params, deps);
   const actorPhysicalW: TActorWrapperWithPhysics = makeWrapperWithPhysicsBody(actorW, params.physics, deps.physicsBodyService, customCreatePhysicsBodyFn, additionalParams);
 
   const sub$: Subscription = deps.physicsLoopService.tick$.subscribe((): void => {

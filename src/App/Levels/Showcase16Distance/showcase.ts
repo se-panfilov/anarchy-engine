@@ -1,5 +1,5 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorRegistry, TActorWrapper, TAppCanvas, TCameraRegistry, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TActorRegistry, TAppCanvas, TCameraRegistry, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { Engine, isNotDefined, KeyCode, mpsSpeed, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -20,7 +20,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { clickLeftRelease$ } = mouseService;
 
   function init(): void {
-    const sphereW: TActorWrapper | undefined = findByName('sphere_actor');
+    const sphereW: TActor | undefined = findByName('sphere_actor');
     if (isNotDefined(sphereW)) throw new Error('Actor "sphere_actor" is not defined');
 
     let isMove: boolean = false;

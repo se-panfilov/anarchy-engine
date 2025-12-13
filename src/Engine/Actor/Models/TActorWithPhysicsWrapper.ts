@@ -1,8 +1,8 @@
 import type { TPhysicsBodyFacade, TWithOptionalPhysicsBody } from '@/Engine/Physics';
 
-import type { TActorWrapper } from './TActorWrapper';
+import type { TActor } from './TActor';
 
-export type TActorWithPhysicsWrapper = TActorWrapper &
+export type TActorWithPhysicsWrapper = TActor &
   Omit<TWithOptionalPhysicsBody, 'physicsBody'> &
   Readonly<{
     physicsBody: TPhysicsBodyFacade;
