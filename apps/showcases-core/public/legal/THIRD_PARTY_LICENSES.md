@@ -2,11 +2,11 @@
 
 ## Application: showcases-core
 
-Production dependencies (including transition dependencies): 214
+Production dependencies (including transition dependencies): 218
 
 ---
 
-## @asamuzakjp/css-color@4.0.5
+## @asamuzakjp/css-color@4.1.0
 
 **License:** MIT
 
@@ -773,6 +773,105 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+---
+
+## @intlify/core-base@11.1.12
+
+**License:** MIT
+
+**Repository:** git+https://github.com/intlify/vue-i18n.git
+
+**URL:** https://github.com/intlify/vue-i18n/tree/master/packages/core-base#readme
+
+**Publisher:** kazuya kawaguchi <kawakazu80@gmail.com>
+
+The MIT License (MIT)
+
+Copyright (c) 2020 kazuya kawaguchi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+---
+
+## @intlify/message-compiler@11.1.12
+
+**License:** MIT
+
+**Repository:** git+https://github.com/intlify/vue-i18n.git
+
+**URL:** https://github.com/intlify/vue-i18n/tree/master/packages/message-compiler#readme
+
+**Publisher:** kazuya kawaguchi <kawakazu80@gmail.com>
+
+The MIT License (MIT)
+
+Copyright (c) 2020 kazuya kawaguchi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+---
+
+## @intlify/shared@11.1.12
+
+**License:** MIT
+
+**Repository:** git+https://github.com/intlify/vue-i18n.git
+
+**URL:** https://github.com/intlify/vue-i18n/tree/master/packages/shared#readme
+
+**Publisher:** kazuya kawaguchi <kawakazu80@gmail.com>
+
+The MIT License (MIT)
+
+Copyright (c) 2020 kazuya kawaguchi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
@@ -9149,7 +9248,7 @@ MIT License
 
 ---
 
-## @types/node@24.9.1
+## @types/node@24.10.1
 
 **License:** MIT
 
@@ -9477,7 +9576,19 @@ THE SOFTWARE.
 
 ---
 
-## @vue/devtools-api@7.7.8
+## @vue/devtools-api@6.6.4
+
+**License:** MIT
+
+**Repository:** https://github.com/vuejs/vue-devtools.git
+
+**Publisher:** Guillaume Chau
+
+_No license text file found; relying on package metadata._
+
+---
+
+## @vue/devtools-api@7.7.9
 
 **License:** MIT
 
@@ -9509,7 +9620,7 @@ SOFTWARE.
 
 ---
 
-## @vue/devtools-kit@7.7.8
+## @vue/devtools-kit@7.7.9
 
 **License:** MIT
 
@@ -9541,7 +9652,7 @@ SOFTWARE.
 
 ---
 
-## @vue/devtools-shared@7.7.8
+## @vue/devtools-shared@7.7.9
 
 **License:** MIT
 
@@ -9840,7 +9951,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## anarchy-engine@21.1.2
+## anarchy-engine@21.1.3
 
 **License:** MIT
 
@@ -9870,7 +9981,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-i18n@1.2.1
+## anarchy-i18n@1.2.2
 
 **License:** MIT
 
@@ -10263,7 +10374,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## csstype@3.1.3
+## csstype@3.2.3
 
 **License:** MIT
 
@@ -12123,7 +12234,7 @@ IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 ---
 
-## lucide-vue-next@0.553.0
+## lucide-vue-next@0.554.0
 
 **License:** ISC
 
@@ -13651,7 +13762,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ---
 
-## showcases-gui@1.0.1
+## showcases-gui@1.1.0
 
 **License:** MIT
 
@@ -13681,7 +13792,7 @@ SOFTWARE.
 
 ---
 
-## showcases-i18n@1.3.1
+## showcases-i18n@1.4.0
 
 **License:** MIT
 
@@ -13711,7 +13822,7 @@ SOFTWARE.
 
 ---
 
-## showcases-menu@1.8.2
+## showcases-menu@1.8.3
 
 **License:** MIT
 
@@ -13741,7 +13852,7 @@ SOFTWARE.
 
 ---
 
-## showcases-shared@1.7.0
+## showcases-shared@1.7.1
 
 **License:** MIT
 
@@ -14004,41 +14115,7 @@ THE SOFTWARE.
 
 ---
 
-## three@0.180.0
-
-**License:** MIT
-
-**Repository:** https://github.com/mrdoob/three.js
-
-**URL:** https://threejs.org/
-
-**Publisher:** mrdoob
-
-The MIT License
-
-Copyright © 2010-2025 three.js authors
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
----
-
-## three@0.181.1
+## three@0.181.2
 
 **License:** MIT
 
@@ -14140,7 +14217,7 @@ SOFTWARE.
 
 ---
 
-## tldts@7.0.17
+## tldts@7.0.18
 
 **License:** MIT
 
@@ -14166,7 +14243,7 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 
 ---
 
-## tldts-core@7.0.17
+## tldts-core@7.0.18
 
 **License:** MIT
 
@@ -14473,6 +14550,39 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+---
+
+## vue-i18n@11.1.12
+
+**License:** MIT
+
+**Repository:** git+https://github.com/intlify/vue-i18n.git
+
+**URL:** https://github.com/intlify/vue-i18n/tree/master/packages/vue-i18n#readme
+
+**Publisher:** kazuya kawaguchi <kawakazu80@gmail.com>
+
+The MIT License (MIT)
+
+Copyright (c) 2020 kazuya kawaguchi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 

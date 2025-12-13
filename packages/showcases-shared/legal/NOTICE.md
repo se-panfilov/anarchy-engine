@@ -11,7 +11,7 @@ Components listed: 49
 
 The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
 
-## @asamuzakjp/css-color@4.0.5
+## @asamuzakjp/css-color@4.1.0
 
 **License(s):** MIT
 
@@ -419,7 +419,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts@7.0.17
+## tldts@7.0.18
 
 **License(s):** MIT
 
@@ -431,7 +431,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts-core@7.0.17
+## tldts-core@7.0.18
 
 **License(s):** MIT
 

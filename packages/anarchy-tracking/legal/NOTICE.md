@@ -657,7 +657,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @types/node@24.9.1
+## @types/node@24.10.1
 
 **License(s):** MIT
 

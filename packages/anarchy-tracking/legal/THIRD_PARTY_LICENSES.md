@@ -8315,7 +8315,7 @@ MIT License
 
 ---
 
-## @types/node@24.9.1
+## @types/node@24.10.1
 
 **License:** MIT
 

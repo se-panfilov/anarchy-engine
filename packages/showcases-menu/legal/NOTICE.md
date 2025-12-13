@@ -5,13 +5,13 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 119
+Components listed: 123
 
 ## 1) Mandatory Attributions (verbatim)
 
 The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
 
-## @asamuzakjp/css-color@4.0.5
+## @asamuzakjp/css-color@4.1.0
 
 **License(s):** MIT
 
@@ -257,6 +257,42 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## @intlify/core-base@11.1.12
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/intlify/vue-i18n.git
+
+**URL:** https://github.com/intlify/vue-i18n/tree/master/packages/core-base#readme
+
+**Attribution:** Copyright (c) 2020 kazuya kawaguchi
+
+---
+
+## @intlify/message-compiler@11.1.12
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/intlify/vue-i18n.git
+
+**URL:** https://github.com/intlify/vue-i18n/tree/master/packages/message-compiler#readme
+
+**Attribution:** Copyright (c) 2020 kazuya kawaguchi
+
+---
+
+## @intlify/shared@11.1.12
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/intlify/vue-i18n.git
+
+**URL:** https://github.com/intlify/vue-i18n/tree/master/packages/shared#readme
+
+**Attribution:** Copyright (c) 2020 kazuya kawaguchi
+
+---
+
 ## @jridgewell/sourcemap-codec@1.5.5
 
 **License(s):** MIT
@@ -339,7 +375,17 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/devtools-api@7.7.8
+## @vue/devtools-api@6.6.4
+
+**License(s):** MIT
+
+**Repository:** https://github.com/vuejs/vue-devtools.git
+
+**Attribution:** Guillaume Chau
+
+---
+
+## @vue/devtools-api@7.7.9
 
 **License(s):** MIT
 
@@ -349,7 +395,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/devtools-kit@7.7.8
+## @vue/devtools-kit@7.7.9
 
 **License(s):** MIT
 
@@ -359,7 +405,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/devtools-shared@7.7.8
+## @vue/devtools-shared@7.7.9
 
 **License(s):** MIT
 
@@ -439,7 +485,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-engine@21.1.2
+## anarchy-engine@21.1.3
 
 **License(s):** MIT
 
@@ -447,7 +493,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-i18n@1.2.1
+## anarchy-i18n@1.2.2
 
 **License(s):** MIT
 
@@ -531,7 +577,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## csstype@3.1.3
+## csstype@3.2.3
 
 **License(s):** MIT
 
@@ -1027,7 +1073,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-i18n@1.3.1
+## showcases-i18n@1.4.0
 
 **License(s):** MIT
 
@@ -1035,7 +1081,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-shared@1.7.0
+## showcases-shared@1.7.1
 
 **License(s):** MIT
 
@@ -1101,19 +1147,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## three@0.180.0
-
-**License(s):** MIT
-
-**Repository:** https://github.com/mrdoob/three.js
-
-**URL:** https://threejs.org/
-
-**Attribution:** Copyright © 2010-2025 three.js authors
-
----
-
-## three@0.181.1
+## three@0.181.2
 
 **License(s):** MIT
 
@@ -1137,7 +1171,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts@7.0.17
+## tldts@7.0.18
 
 **License(s):** MIT
 
@@ -1149,7 +1183,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts-core@7.0.17
+## tldts-core@7.0.18
 
 **License(s):** MIT
 
@@ -1240,6 +1274,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://github.com/vuejs/core/tree/main/packages/vue#readme
 
 **Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
+
+---
+
+## vue-i18n@11.1.12
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/intlify/vue-i18n.git
+
+**URL:** https://github.com/intlify/vue-i18n/tree/master/packages/vue-i18n#readme
+
+**Attribution:** Copyright (c) 2020 kazuya kawaguchi
 
 ---
 

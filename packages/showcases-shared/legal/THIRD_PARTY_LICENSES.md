@@ -6,7 +6,7 @@ Production dependencies (including transition dependencies): 49
 
 ---
 
-## @asamuzakjp/css-color@4.0.5
+## @asamuzakjp/css-color@4.1.0
 
 **License:** MIT
 
@@ -1735,7 +1735,7 @@ THE SOFTWARE.
 
 ---
 
-## tldts@7.0.17
+## tldts@7.0.18
 
 **License:** MIT
 
@@ -1761,7 +1761,7 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 
 ---
 
-## tldts-core@7.0.17
+## tldts-core@7.0.18
 
 **License:** MIT
 

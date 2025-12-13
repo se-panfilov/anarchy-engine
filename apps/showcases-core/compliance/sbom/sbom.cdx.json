@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:91dd1404-8d74-4c1d-b2c9-a7acfeed3450",
+  "serialNumber": "urn:uuid:ed1592be-eba7-4b7e-b776-7270abd5ed2e",
   "version": 1,
   "metadata": {
-    "timestamp": "2025-11-13T23:46:10.423Z",
+    "timestamp": "2025-11-20T17:54:15.442Z",
     "lifecycles": [
       {
         "phase": "pre-build"
@@ -330,6 +330,90 @@
         {
           "alg": "SHA-512",
           "content": "5ce30ed87ba9974c1d775ef6634ea1ea42e9073e83bfe278a243cb9782cfb736ebf1feba59b228cb87aff7c101b99e992b8879c9d4cde979de4f8415a43edc74"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@intlify/core-base@11.1.12",
+      "type": "library",
+      "name": "@intlify/core-base",
+      "version": "11.1.12",
+      "scope": "required",
+      "purl": "pkg:npm/%40intlify/core-base@11.1.12",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@intlify/core-base/-/core-base-11.1.12.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "c21874b6ba91b12a952cd1140b0539f69c89658a54f009925a5f0cdc9cf632fe4448f3fa9058788ee6acd8da59d620afcbb1a53517df503d71afce2071e8a68e"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@intlify/message-compiler@11.1.12",
+      "type": "library",
+      "name": "@intlify/message-compiler",
+      "version": "11.1.12",
+      "scope": "required",
+      "purl": "pkg:npm/%40intlify/message-compiler@11.1.12",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@intlify/message-compiler/-/message-compiler-11.1.12.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "16ff6241226825a5e5e191a43823752c3337b6bcf37b4012db3473d841cb8b07a7c0beadd0a8bd2b2498972af6ef254e8f9695cf47b9e4978f3be9042c8bdf75"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@intlify/shared@11.1.12",
+      "type": "library",
+      "name": "@intlify/shared",
+      "version": "11.1.12",
+      "scope": "required",
+      "purl": "pkg:npm/%40intlify/shared@11.1.12",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@intlify/shared/-/shared-11.1.12.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "3a6f3a123b90b40ebd85d363dc641e73d642d0bd2f3d20275f307780ffe0c89efe980eedd3a77d68e022a8c67ec443acba618fe1e10195f97ccc5d8b393cdfd8"
         }
       ],
       "licenses": [
@@ -2021,23 +2105,23 @@
       ]
     },
     {
-      "bom-ref": "@vue/devtools-api@7.7.8",
+      "bom-ref": "@vue/devtools-api@6.6.4",
       "type": "library",
       "name": "@vue/devtools-api",
-      "version": "7.7.8",
+      "version": "6.6.4",
       "scope": "required",
-      "purl": "pkg:npm/%40vue/devtools-api@7.7.8",
+      "purl": "pkg:npm/%40vue/devtools-api@6.6.4",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@vue/devtools-api/-/devtools-api-7.7.8.tgz"
+          "url": "https://registry.npmjs.org/@vue/devtools-api/-/devtools-api-6.6.4.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "06d15c0260dbb571b0bab59415ff288086e067247eadc5444b54d234423c126f347c3f009eefaa4d137515cdc9eaf7511e554cddfccf575a88a3e078022a86cf"
+          "content": "b068533ccb97a99d6b54e937d91ca5ced5a47d74d186e4bbbe000abf4ce3aa4f206ec1e427bc5f15ffa36f24b1b7bb5639b109c3229a1cc8a457f5860e2426f2"
         }
       ],
       "licenses": [
@@ -2049,23 +2133,23 @@
       ]
     },
     {
-      "bom-ref": "@vue/devtools-kit@7.7.8",
+      "bom-ref": "@vue/devtools-kit@7.7.9",
       "type": "library",
       "name": "@vue/devtools-kit",
-      "version": "7.7.8",
+      "version": "7.7.9",
       "scope": "required",
-      "purl": "pkg:npm/%40vue/devtools-kit@7.7.8",
+      "purl": "pkg:npm/%40vue/devtools-kit@7.7.9",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@vue/devtools-kit/-/devtools-kit-7.7.8.tgz"
+          "url": "https://registry.npmjs.org/@vue/devtools-kit/-/devtools-kit-7.7.9.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "e18f28a7e028c4e26107d7e970417a779bdc25758a807c42dc1d32b5407ccf3d7929b3fd83d5a0573ada974e7196ec62d9f39e032eadd78d2b750f78dc670b45"
+          "content": "3f243aa1d1d28220d57788674cff9a0e4d97e209761e62c37e2c849e7dffa15f9c9050eeb3046ce086c14fbbda70cb8677063f5de9b1068877d3672d6eca6db8"
         }
       ],
       "licenses": [
@@ -2077,23 +2161,23 @@
       ]
     },
     {
-      "bom-ref": "@vue/devtools-shared@7.7.8",
+      "bom-ref": "@vue/devtools-shared@7.7.9",
       "type": "library",
       "name": "@vue/devtools-shared",
-      "version": "7.7.8",
+      "version": "7.7.9",
       "scope": "required",
-      "purl": "pkg:npm/%40vue/devtools-shared@7.7.8",
+      "purl": "pkg:npm/%40vue/devtools-shared@7.7.9",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@vue/devtools-shared/-/devtools-shared-7.7.8.tgz"
+          "url": "https://registry.npmjs.org/@vue/devtools-shared/-/devtools-shared-7.7.9.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "5c7a4ede30b99ce818af8d0cf69f19e2698a7d3bd4c4ac917149e9040620d75a44efc79a44504a6f4906e7228bae832e25e78d1fd2d698aa76ccc5392d473b08"
+          "content": "89601bd2fd9661fd105a6c421b2d2c7993433dd3b74a9e7ebbbf0e467c9ea274ba313e0f0bb54faebc97d81a4c26bc250de699e810f8bcfe172a32b4499a9a78"
         }
       ],
       "licenses": [
@@ -2579,23 +2663,23 @@
       ]
     },
     {
-      "bom-ref": "lucide-vue-next@0.553.0",
+      "bom-ref": "lucide-vue-next@0.554.0",
       "type": "library",
       "name": "lucide-vue-next",
-      "version": "0.553.0",
+      "version": "0.554.0",
       "scope": "required",
-      "purl": "pkg:npm/lucide-vue-next@0.553.0",
+      "purl": "pkg:npm/lucide-vue-next@0.554.0",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/lucide-vue-next/-/lucide-vue-next-0.553.0.tgz"
+          "url": "https://registry.npmjs.org/lucide-vue-next/-/lucide-vue-next-0.554.0.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "d2d83d5d3f950849534feec45d76c146159ed6753b0e86b7d97bff7473f9fcb0a578556057a700ab388cdc2ec07adaa6b1822c7c0b4dc1161db6fb380eceda52"
+          "content": "9c37210d59bf2779affbb698b4387b68b91e055b730cdc9a7a52843a584013430a32d0df07d7c56adc76b22a995016212c78cc2b90d99da002fce0d3f6f43add"
         }
       ],
       "licenses": [
@@ -2820,6 +2904,34 @@
         {
           "alg": "SHA-512",
           "content": "97ba6a2d415323ff844979fa9379eedf4648cd6e44d96645fcb687244a68aba12570b0fec1db99a01da404dd7d76ee8aff8143a4f31acd8db026bf889dd06d43"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@vue/devtools-api@7.7.9",
+      "type": "library",
+      "name": "@vue/devtools-api",
+      "version": "7.7.9",
+      "scope": "required",
+      "purl": "pkg:npm/%40vue/devtools-api@7.7.9",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@vue/devtools-api/-/devtools-api-7.7.9.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "90813cc2fc25719e932536cd794d8740db5ac4bc776bce1aa2d4c84d4b8bff86f37cfc736a31813a8aa3321c1927c2fda8560353f94060c1049b5d5d9d9383ea"
         }
       ],
       "licenses": [
@@ -3195,23 +3307,23 @@
       ]
     },
     {
-      "bom-ref": "three@0.181.1",
+      "bom-ref": "three@0.181.2",
       "type": "library",
       "name": "three",
-      "version": "0.181.1",
+      "version": "0.181.2",
       "scope": "required",
-      "purl": "pkg:npm/three@0.181.1",
+      "purl": "pkg:npm/three@0.181.2",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/three/-/three-0.181.1.tgz"
+          "url": "https://registry.npmjs.org/three/-/three-0.181.2.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "6f3f7165440cc37a496e32b2eeba22c175a0029fa85546bee24e68d2804043e20526eaeed71cefb64eb787a93bd9765a9d74bf4a0a04855ebddbb5606b3caadb"
+          "content": "93f0a3899f346d8b2ce90b3bfdec754c194f0f5d70853f6829f4fca131a21dadf85b82517753621ff4ebd436c7590dbfbcc532a7192c2e717609f9a598ce5715"
         }
       ],
       "licenses": [
@@ -3328,6 +3440,34 @@
       ]
     },
     {
+      "bom-ref": "vue-i18n@11.1.12",
+      "type": "library",
+      "name": "vue-i18n",
+      "version": "11.1.12",
+      "scope": "required",
+      "purl": "pkg:npm/vue-i18n@11.1.12",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/vue-i18n/-/vue-i18n-11.1.12.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "067b2d3e3dca2c72ebb2a6d553650eacf9abd3e32fd756ec5191b43f208ecec6b00a2be4f16d3418c5c77955162033a035a49c0ae65a878ec264513e5a797c9b"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "xtend@4.0.2",
       "type": "library",
       "name": "xtend",
@@ -3356,14 +3496,14 @@
       ]
     },
     {
-      "bom-ref": "anarchy-engine@21.1.2",
+      "bom-ref": "anarchy-engine@21.1.3",
       "type": "library",
       "name": "anarchy-engine",
-      "version": "21.1.2",
+      "version": "21.1.3",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Engine – a 3D game engine for web, desktop and mobile platforms. Built around three.js",
-      "purl": "pkg:npm/anarchy-engine@21.1.2",
+      "purl": "pkg:npm/anarchy-engine@21.1.3",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -3380,23 +3520,23 @@
       ]
     },
     {
-      "bom-ref": "three@0.180.0",
+      "bom-ref": "nanoid@5.1.6",
       "type": "library",
-      "name": "three",
-      "version": "0.180.0",
+      "name": "nanoid",
+      "version": "5.1.6",
       "scope": "required",
-      "purl": "pkg:npm/three@0.180.0",
+      "purl": "pkg:npm/nanoid@5.1.6",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/three/-/three-0.180.0.tgz"
+          "url": "https://registry.npmjs.org/nanoid/-/nanoid-5.1.6.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "a3eab2700319ae1f93b04d351aa594c5420a47500bd12f29abbcc3918390c3c1aa7d7f1bf15a022985281db8625f98feee1afc5ecb870d553afa09102502a0f7"
+          "content": "73bfbb450f9d301e5d3f0c02a7879ed7f895fead8fe9a2b599365c7ebd414ee565c96f6125888c3f26c909c9c1950b6e4a64c858d79ace6ff3a8da1949212506"
         }
       ],
       "licenses": [
@@ -3408,14 +3548,14 @@
       ]
     },
     {
-      "bom-ref": "anarchy-i18n@1.2.1",
+      "bom-ref": "anarchy-i18n@1.2.2",
       "type": "library",
       "name": "anarchy-i18n",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy-I18n – a library for internationalization in Anarchy Engine.",
-      "purl": "pkg:npm/anarchy-i18n@1.2.1",
+      "purl": "pkg:npm/anarchy-i18n@1.2.2",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -3504,14 +3644,14 @@
       ]
     },
     {
-      "bom-ref": "showcases-gui@1.0.1",
+      "bom-ref": "showcases-gui@1.1.0",
       "type": "library",
       "name": "showcases-gui",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Showcases-GUI – a GUI for Anarchy Engine Showcases.",
-      "purl": "pkg:npm/showcases-gui@1.0.1",
+      "purl": "pkg:npm/showcases-gui@1.1.0",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -3528,14 +3668,14 @@
       ]
     },
     {
-      "bom-ref": "showcases-i18n@1.3.1",
+      "bom-ref": "showcases-i18n@1.4.0",
       "type": "library",
       "name": "showcases-i18n",
-      "version": "1.3.1",
+      "version": "1.4.0",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Showcases i18n – translations library for Anarchy Engine Showcases.",
-      "purl": "pkg:npm/showcases-i18n@1.3.1",
+      "purl": "pkg:npm/showcases-i18n@1.4.0",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -3552,14 +3692,14 @@
       ]
     },
     {
-      "bom-ref": "showcases-menu@1.8.2",
+      "bom-ref": "showcases-menu@1.8.3",
       "type": "library",
       "name": "showcases-menu",
-      "version": "1.8.2",
+      "version": "1.8.3",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Showcases-Menu – a menu for Anarchy Engine Showcases.",
-      "purl": "pkg:npm/showcases-menu@1.8.2",
+      "purl": "pkg:npm/showcases-menu@1.8.3",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -3576,14 +3716,14 @@
       ]
     },
     {
-      "bom-ref": "showcases-shared@1.7.0",
+      "bom-ref": "showcases-shared@1.7.1",
       "type": "library",
       "name": "showcases-shared",
-      "version": "1.7.0",
+      "version": "1.7.1",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Showcases Shared – a shared library for Anarchy Engine Showcases.",
-      "purl": "pkg:npm/showcases-shared@1.7.0",
+      "purl": "pkg:npm/showcases-shared@1.7.1",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -3607,42 +3747,42 @@
         "showcases-core@2.17.1",
         "showcases-desktop@2.11.2",
         "showcases-e2e@1.0.6",
-        "anarchy-engine@21.1.2",
-        "anarchy-i18n@1.2.1",
+        "anarchy-engine@21.1.3",
+        "anarchy-i18n@1.2.2",
         "anarchy-legal@1.10.5",
         "anarchy-shared@1.4.3",
         "anarchy-tracking@1.5.1",
-        "showcases-gui@1.0.1",
-        "showcases-i18n@1.3.1",
-        "showcases-menu@1.8.2",
-        "showcases-shared@1.7.0"
+        "showcases-gui@1.1.0",
+        "showcases-i18n@1.4.0",
+        "showcases-menu@1.8.3",
+        "showcases-shared@1.7.1"
       ]
     },
     {
       "ref": "showcases-core@2.17.1",
       "dependsOn": [
-        "anarchy-engine@21.1.2",
-        "anarchy-i18n@1.2.1",
+        "anarchy-engine@21.1.3",
+        "anarchy-i18n@1.2.2",
         "anarchy-shared@1.4.3",
         "anarchy-tracking@1.5.1",
         "dexie@4.2.1",
         "lil-gui@0.21.0",
         "sanitize.css@13.0.0",
-        "showcases-gui@1.0.1",
-        "showcases-i18n@1.3.1",
-        "showcases-menu@1.8.2",
-        "showcases-shared@1.7.0",
+        "showcases-gui@1.1.0",
+        "showcases-i18n@1.4.0",
+        "showcases-menu@1.8.3",
+        "showcases-shared@1.7.1",
         "stats.js@0.17.0",
         "three-viewport-gizmo@2.2.0"
       ]
     },
     {
       "ref": "showcases-desktop@2.11.2",
-      "dependsOn": ["anarchy-shared@1.4.3", "showcases-core@2.17.1", "showcases-shared@1.7.0"]
+      "dependsOn": ["anarchy-shared@1.4.3", "showcases-core@2.17.1", "showcases-shared@1.7.1"]
     },
     {
       "ref": "showcases-e2e@1.0.6",
-      "dependsOn": ["anarchy-engine@21.1.2", "anarchy-shared@1.4.3"]
+      "dependsOn": ["anarchy-engine@21.1.3", "anarchy-shared@1.4.3"]
     },
     {
       "ref": "@cfworker/json-schema@4.1.1",
@@ -3674,6 +3814,18 @@
     },
     {
       "ref": "@formatjs/intl-localematcher@0.6.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "@intlify/core-base@11.1.12",
+      "dependsOn": ["@intlify/message-compiler@11.1.12", "@intlify/shared@11.1.12"]
+    },
+    {
+      "ref": "@intlify/message-compiler@11.1.12",
+      "dependsOn": ["@intlify/shared@11.1.12"]
+    },
+    {
+      "ref": "@intlify/shared@11.1.12",
       "dependsOn": []
     },
     {
@@ -3978,15 +4130,15 @@
       "dependsOn": []
     },
     {
-      "ref": "@vue/devtools-api@7.7.8",
-      "dependsOn": ["@vue/devtools-kit@7.7.8"]
+      "ref": "@vue/devtools-api@6.6.4",
+      "dependsOn": []
     },
     {
-      "ref": "@vue/devtools-kit@7.7.8",
-      "dependsOn": ["@vue/devtools-shared@7.7.8", "birpc@2.8.0", "hookable@5.5.3", "mitt@3.0.1", "perfect-debounce@1.0.0", "speakingurl@14.0.1", "superjson@2.2.5"]
+      "ref": "@vue/devtools-kit@7.7.9",
+      "dependsOn": ["@vue/devtools-shared@7.7.9", "birpc@2.8.0", "hookable@5.5.3", "mitt@3.0.1", "perfect-debounce@1.0.0", "speakingurl@14.0.1", "superjson@2.2.5"]
     },
     {
-      "ref": "@vue/devtools-shared@7.7.8",
+      "ref": "@vue/devtools-shared@7.7.9",
       "dependsOn": []
     },
     {
@@ -4058,7 +4210,7 @@
       "dependsOn": []
     },
     {
-      "ref": "lucide-vue-next@0.553.0",
+      "ref": "lucide-vue-next@0.554.0",
       "dependsOn": []
     },
     {
@@ -4091,7 +4243,11 @@
     },
     {
       "ref": "pinia@3.0.4",
-      "dependsOn": ["@vue/devtools-api@7.7.8"]
+      "dependsOn": ["@vue/devtools-api@7.7.9"]
+    },
+    {
+      "ref": "@vue/devtools-api@7.7.9",
+      "dependsOn": ["@vue/devtools-kit@7.7.9"]
     },
     {
       "ref": "postgres-array@2.0.0",
@@ -4146,16 +4302,16 @@
       "dependsOn": ["copy-anything@4.0.5"]
     },
     {
-      "ref": "three@0.181.1",
+      "ref": "three@0.181.2",
       "dependsOn": []
     },
     {
       "ref": "three-mesh-bvh@0.9.1",
-      "dependsOn": ["three@0.181.1"]
+      "dependsOn": ["three@0.181.2"]
     },
     {
       "ref": "three-viewport-gizmo@2.2.0",
-      "dependsOn": ["three@0.181.1"]
+      "dependsOn": ["three@0.181.2"]
     },
     {
       "ref": "ts-key-enum@3.0.13",
@@ -4166,30 +4322,35 @@
       "dependsOn": []
     },
     {
+      "ref": "vue-i18n@11.1.12",
+      "dependsOn": ["@intlify/core-base@11.1.12", "@intlify/shared@11.1.12", "@vue/devtools-api@6.6.4"]
+    },
+    {
       "ref": "xtend@4.0.2",
       "dependsOn": []
     },
     {
-      "ref": "anarchy-engine@21.1.2",
+      "ref": "anarchy-engine@21.1.3",
       "dependsOn": [
         "@cfworker/json-schema@4.1.1",
         "@dimforge/rapier3d@0.19.2",
         "@rwh/keystrokes@1.5.6",
         "anarchy-shared@1.4.3",
         "lodash-es@4.17.21",
+        "nanoid@5.1.6",
         "rbush@4.0.1",
-        "three@0.180.0",
+        "three@0.181.2",
         "three-mesh-bvh@0.9.1",
         "ts-key-enum@3.0.13",
         "typescript-fsm@1.6.0"
       ]
     },
     {
-      "ref": "three@0.180.0",
+      "ref": "nanoid@5.1.6",
       "dependsOn": []
     },
     {
-      "ref": "anarchy-i18n@1.2.1",
+      "ref": "anarchy-i18n@1.2.2",
       "dependsOn": ["@formatjs/intl@3.1.8"]
     },
     {
@@ -4205,19 +4366,39 @@
       "dependsOn": ["@sentry/browser@10.21.0", "@sentry/electron@7.2.0"]
     },
     {
-      "ref": "showcases-gui@1.0.1",
-      "dependsOn": ["anarchy-engine@21.1.2", "anarchy-i18n@1.2.1", "anarchy-shared@1.4.3", "lucide-vue-next@0.553.0", "sanitize.css@13.0.0", "showcases-i18n@1.3.1", "showcases-shared@1.7.0"]
+      "ref": "showcases-gui@1.1.0",
+      "dependsOn": [
+        "anarchy-engine@21.1.3",
+        "anarchy-i18n@1.2.2",
+        "anarchy-shared@1.4.3",
+        "lucide-vue-next@0.554.0",
+        "nanoid@5.1.6",
+        "sanitize.css@13.0.0",
+        "showcases-i18n@1.4.0",
+        "showcases-shared@1.7.1",
+        "vue-i18n@11.1.12"
+      ]
     },
     {
-      "ref": "showcases-i18n@1.3.1",
-      "dependsOn": ["anarchy-engine@21.1.2", "anarchy-i18n@1.2.1", "anarchy-shared@1.4.3", "sort-json@2.0.1"]
+      "ref": "showcases-i18n@1.4.0",
+      "dependsOn": ["anarchy-engine@21.1.3", "anarchy-i18n@1.2.2", "anarchy-shared@1.4.3", "sort-json@2.0.1", "vue-i18n@11.1.12"]
     },
     {
-      "ref": "showcases-menu@1.8.2",
-      "dependsOn": ["anarchy-engine@21.1.2", "anarchy-i18n@1.2.1", "anarchy-shared@1.4.3", "marked@17.0.0", "pinia@3.0.4", "sanitize.css@13.0.0", "showcases-i18n@1.3.1", "showcases-shared@1.7.0"]
+      "ref": "showcases-menu@1.8.3",
+      "dependsOn": [
+        "anarchy-engine@21.1.3",
+        "anarchy-i18n@1.2.2",
+        "anarchy-shared@1.4.3",
+        "marked@17.0.0",
+        "pinia@3.0.4",
+        "sanitize.css@13.0.0",
+        "showcases-i18n@1.4.0",
+        "showcases-shared@1.7.1",
+        "vue-i18n@11.1.12"
+      ]
     },
     {
-      "ref": "showcases-shared@1.7.0",
+      "ref": "showcases-shared@1.7.1",
       "dependsOn": ["dompurify@3.3.0", "isomorphic-dompurify@2.30.1"]
     }
   ]
