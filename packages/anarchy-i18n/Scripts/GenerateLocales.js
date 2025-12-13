@@ -256,7 +256,7 @@ async function writeModels(header, locales) {
 // Union type of all possible BCP47 IDs
 export type TLocaleId = ${getUnion(locales, 'id')};
 
-export type TLocaleCode = ${getUnion(locales, 'languageCode')};
+export type TLanguageCode = ${getUnion(locales, 'languageCode')};
 
 export type TRegionCode = ${getUnion(
     locales.filter((locale) => locale.regionCode),
@@ -267,6 +267,10 @@ export type TScriptCode = ${getUnion(
     locales.filter((locale) => locale.scriptCode),
     'scriptCode'
   )};
+
+export type TEnglishName = ${getUnion(locales, 'englishName')};
+
+export type TNativeName = ${getUnion(locales, 'nativeName')};
 `;
 
   await fs.mkdir(path.dirname(OUT_MODELS_PATH), { recursive: true });

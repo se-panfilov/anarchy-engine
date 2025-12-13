@@ -1,10 +1,12 @@
+import type { TEnglishName, TLanguageCode, TLocaleId, TNativeName, TRegionCode, TScriptCode } from './TLocales.gen';
+
 export type TLocale = Readonly<{
-  id: string; // BCP47, e.g. 'en-US'
-  languageCode: string; // 'en' (ISO 639-1)
-  regionCode?: string; // 'US' (ISO 3166-1 alpha-2)
+  id: TLocaleId; // BCP47, e.g. 'en-US'
+  languageCode: TLanguageCode; // 'en' (ISO 639-1)
+  regionCode?: TRegionCode; // 'US' (ISO 3166-1 alpha-2)
   // eslint-disable-next-line spellcheck/spell-checker
-  scriptCode?: string; // 'Latn' | 'Cyrl' | 'Hans' |
-  englishName: string;
-  nativeName: string;
+  scriptCode?: TScriptCode; // 'Latn' | 'Cyrl' | 'Hans' |
+  englishName: TEnglishName;
+  nativeName: TNativeName;
   direction: 'ltr' | 'rtl';
 }>;
