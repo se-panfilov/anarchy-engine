@@ -3,6 +3,8 @@ import type { TObject3DParams, TObject3DProps } from '@/Engine/ThreeLib';
 
 export type TModel3dProps = Readonly<{
   url: string;
+
+  // TODO 9.0.0. RESOURCES: "TModel3dResourceConfig" should be used here somehow
   options: TModel3dLoadOptions;
   // TODO 8.0.0. MODELS: override model's material is this field is set
   material?: TMaterialWrapper;
