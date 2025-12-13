@@ -1,35 +1,22 @@
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
+import type { ScreenParams } from '@Engine/Models';
 import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher';
 
-interface ScreenParams {
-  readonly width: number;
-  readonly height: number;
-  readonly ratio: number;
-}
+export function DeviceWatcher(): ReturnType<typeof AbstractWatcher<ScreenParams>> {
+  const value$: Subject<ScreenParams> = new Subject<ScreenParams>();
 
-export class DeviceWatcher extends AbstractWatcher {
-  public size$: BehaviorSubject<ScreenParams>;
+  // TODO (S.Panfilov) window should be global?
+  const onResize = (): void =>
+    value$.next({ width: window.innerWidth, height: window.innerHeight, ratio: window.devicePixelRatio || 1 });
 
-  //w = 1, h = 1, r = 2
-  constructor({ width, height, ratio }: ScreenParams) {
-    super();
-    this.size$ = new BehaviorSubject<ScreenParams>({ width, height, ratio });
+  // TODO (S.Panfilov) window should be global?
+  const start = (): void => window.addEventListener('resize', onResize);
 
-    this.destroyed$.subscribe(() => {
-      this.stop();
-      this.size$.complete();
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,functional/immutable-data
-      this.size$ = undefined as any;
-    });
-  }
+  // TODO (S.Panfilov) window should be global?
+  const stop = (): void => window.removeEventListener('resize', onResize);
 
-  // TODO (S.Panfilov) global?
-  public onResize = (): void =>
-    this.size$.next({ width: window.innerWidth, height: window.innerHeight, ratio: window.devicePixelRatio || 1 });
-
-  // TODO (S.Panfilov) global?
-  public start = (): void => window.addEventListener('resize', this.onResize);
-
-  // TODO (S.Panfilov) global?
-  public stop = (): void => window.removeEventListener('resize', this.onResize);
+  return {
+    ...AbstractWatcher('device', start, stop),
+    value$
+  };
 }

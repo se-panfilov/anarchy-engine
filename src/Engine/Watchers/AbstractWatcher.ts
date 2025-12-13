@@ -1,28 +1,45 @@
 import { Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
+import type { Watcher } from '@Engine/Models';
 
-interface Watcher {
-  readonly id: string;
-  readonly start: () => void;
-  readonly stop: () => void;
-  readonly destroy: () => void;
-  readonly destroyed$: Subject<void>;
-}
+export function AbstractWatcher<T>(type: string, start: () => void, stop: () => void): Watcher<T> {
+  const id: string = type + '_' + nanoid();
+  const value$: Subject<T> = new Subject<T>();
+  const start$: Subject<void> = new Subject<void>();
+  const stop$: Subject<void> = new Subject<void>();
+  const destroyed$: Subject<void> = new Subject<void>();
 
-export abstract class AbstractWatcher implements Watcher {
-  public id: string = nanoid();
-  public destroyed$ = new Subject<void>();
+  start$.subscribe(start);
+  stop$.subscribe(stop);
 
-  public abstract start(): void;
-  public abstract stop(): void;
+  destroyed$.subscribe(() => {
+    start$.unsubscribe();
+    start$.complete();
+    stop$.unsubscribe();
+    stop$.complete();
+    value$.complete();
+    destroyed$.unsubscribe();
+    destroyed$.complete();
+  });
 
-  public destroy(): void {
-    this.destroyed$.next();
-    this.destroyed$.unsubscribe();
-    this.destroyed$.complete();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,functional/immutable-data
-    this.id = undefined as any;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,functional/immutable-data
-    this.destroyed$ = undefined as any;
-  }
+  return {
+    get id(): string {
+      return id;
+    },
+    get type(): string {
+      return type;
+    },
+    get value$(): Subject<T> {
+      return value$;
+    },
+    get start$(): Subject<void> {
+      return start$;
+    },
+    get stop$(): Subject<void> {
+      return stop$;
+    },
+    get destroyed$(): Subject<void> {
+      return destroyed$;
+    }
+  };
 }

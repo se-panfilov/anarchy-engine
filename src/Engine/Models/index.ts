@@ -10,3 +10,5 @@ export * from './MousePosition';
 export * from './Registry';
 export * from './RendererParams';
 export * from './SceneParams';
+export * from './ScreenParams';
+export * from './Watcher';

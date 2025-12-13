@@ -6,12 +6,12 @@ import { isNotDefined } from '@Engine/Utils';
 
 export function AbstractFactory<T extends ReactiveWrapper<unknown>, PARAMS extends Record<string, any>>(
   // TODO (S.Panfilov) should be AbstractConfig instead of any, but doesn't work for some reason
-  // factoryType: string, create: (params: PARAMS) => T, adapterFn?: (config: AbstractConfig) => PARAMS
-  factoryType: string,
+  // type: string, create: (params: PARAMS) => T, adapterFn?: (config: AbstractConfig) => PARAMS
+  type: string,
   create: (params: PARAMS) => T,
   adapterFn?: (config: any) => PARAMS
 ): Factory<T, PARAMS> {
-  const id: string = factoryType + '_' + nanoid();
+  const id: string = type + '_' + nanoid();
   const latest$: Subject<T> = new Subject<T>();
   const create$: Subject<PARAMS> = new Subject<PARAMS>();
   const createFromConfig$: Subject<AbstractConfig> = new Subject<AbstractConfig>();
@@ -38,8 +38,8 @@ export function AbstractFactory<T extends ReactiveWrapper<unknown>, PARAMS exten
     get id(): string {
       return id;
     },
-    get factoryType(): string {
-      return factoryType;
+    get type(): string {
+      return type;
     },
     get latest$(): Subject<T> {
       return latest$;

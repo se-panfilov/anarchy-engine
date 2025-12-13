@@ -4,7 +4,7 @@ import type { AbstractConfig } from '@Engine/Launcher/Models';
 
 export interface Factory<T extends ReactiveWrapper<unknown>, PARAMS extends Record<string, any>> {
   readonly id: string;
-  readonly factoryType: string;
+  readonly type: string;
   readonly latest$: Subject<T>;
   readonly create$: Subject<PARAMS>;
   readonly createFromConfig$: Subject<AbstractConfig>;
