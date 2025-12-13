@@ -29,7 +29,6 @@ export function Model3d(params: TModel3dParams, { animationsService, model3dRawT
   // eslint-disable-next-line functional/immutable-data
   const result: TModel3d = Object.assign(preResult, abstract, {
     getParams,
-    _clone,
     // TODO 15-0-0: add serializer to the service to avoid dependencies passing
     serialize: (dependencies: TModel3dConfigToParamsDependencies): TModel3dConfig => model3dToConfig(result, dependencies)
   });
