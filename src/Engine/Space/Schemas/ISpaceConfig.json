@@ -121,7 +121,7 @@
           "type": "boolean"
         }
       },
-      "required": ["isActive", "name", "tags"]
+      "required": ["isActive", "tags"]
     },
     "IEuler3dConfig": {
       "type": "object",
@@ -210,6 +210,9 @@
         },
         "height": {
           "type": "number"
+        },
+        "name": {
+          "type": "string"
         },
         "depth": {
           "type": "number"
@@ -2359,6 +2362,9 @@
             "type": ["string"]
           }
         },
+        "name": {
+          "type": "string"
+        },
         "mapping": {
           "$ref": "#/definitions/Mapping"
         },
@@ -2716,6 +2722,9 @@
         "far": {
           "type": "number"
         },
+        "name": {
+          "type": "string"
+        },
         "isActive": {
           "type": "boolean"
         }
@@ -2775,6 +2784,9 @@
         },
         "intensity": {
           "type": "number"
+        },
+        "name": {
+          "type": "string"
         }
       },
       "required": ["color", "position", "tags", "type"]
@@ -2834,6 +2846,9 @@
         },
         "far": {
           "type": "number"
+        },
+        "name": {
+          "type": "string"
         }
       },
       "required": ["color", "tags"]
@@ -2909,6 +2924,9 @@
           "$ref": "#/definitions/ITextCssProps"
         },
         "elementType": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         }
       },
@@ -4505,6 +4523,9 @@
         },
         "autoRotateSpeed": {
           "type": "number"
+        },
+        "name": {
+          "type": "string"
         },
         "isActive": {
           "type": "boolean"
