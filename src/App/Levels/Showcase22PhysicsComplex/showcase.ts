@@ -70,7 +70,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     // await buildTower(actorService, { x: -15, z: -15 }, 10, 7, 15);
 
     // TODO (S.Panfilov) temp
-    const bullets: ReadonlyArray<TBullet> = await Promise.all(getBulletsPool(5, actorService));
+    const maxBulletsSameTime: number = 5;
+    const bullets: ReadonlyArray<TBullet> = await Promise.all(getBulletsPool(maxBulletsSameTime, actorService));
     actorService.getScene().entity.add(...bullets.map((b: TBullet) => b.entity));
 
     const raycaster: Raycaster = new Raycaster();
@@ -253,13 +254,14 @@ function getBulletsPool(count: number, actorService: TActorService): ReadonlyArr
     // bullet.active = false;
     // bullets.push(bullet);
 
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     bullets = [
       ...bullets,
       BulletAsync(
         {
           name: `bullet_${i}`,
           type: ActorType.Sphere,
-          radius: 1,
+          radius: 0.3,
           material: { type: MaterialType.Standard, params: { color: '#FF0000' } },
           // physics: {
           //   type: RigidBodyTypesNames.Dynamic,
