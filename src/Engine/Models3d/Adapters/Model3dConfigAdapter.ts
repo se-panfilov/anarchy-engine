@@ -1,4 +1,4 @@
-import type { Group, Mesh, Object3D } from 'three';
+import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TMaterialWrapper } from '@/Engine/Material';
 import type { PrimitiveModel3dType } from '@/Engine/Models3d/Constants';
@@ -11,7 +11,7 @@ export function configToParams(config: TModel3dConfig, { materialRegistry, model
   const { position, rotation, materialSource, model3dSource, scale, ...rest } = config;
 
   const material: TMaterialWrapper | undefined = isDefined(materialSource) ? materialRegistry.findByName(materialSource) : undefined;
-  let model3d: Group | Mesh | Object3D | PrimitiveModel3dType | undefined;
+  let model3d: GLTF | PrimitiveModel3dType | undefined;
 
   if (isPrimitiveModel3dData(config)) {
     model3d = config.model3dSource as PrimitiveModel3dType;

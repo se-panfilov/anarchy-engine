@@ -28,8 +28,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const models3dResourceRegistry: TModel3dResourceAsyncRegistry = models3dService.getResourceRegistry();
 
     //Adding loaded-from-js models3d to the scene
-    models3dResourceRegistry.added$.subscribe(({ key, value }: TRegistryPack<GLTF>): void => {
-      const model3dF: TModel3dFacade = models3dService.create({ name: key, model3dSource: value });
+    models3dResourceRegistry.added$.subscribe(({ key: name, value: model3dSource }: TRegistryPack<GLTF>): void => {
+      const model3dF: TModel3dFacade = models3dService.create({ name, model3dSource });
       sceneW.addModel3d(model3dF.getModel());
     });
 
