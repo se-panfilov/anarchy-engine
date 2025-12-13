@@ -45,7 +45,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     bgMusicFolder.add(state, 'playBgMusic').name('Play background music');
     bgMusicFolder.add(state, 'pauseBgMusic').name('Pause background music');
-    bgMusicFolder.add(state, 'resumeBgMusic').name('resume background music');
+    bgMusicFolder.add(state, 'resumeBgMusic').name('Resume background music');
     bgMusicFolder.add(state, 'stopBgMusic').name('Stop background music');
     bgMusicFolder.add(state, 'seekPlus').name('Seek +10s');
     bgMusicFolder.add(state, 'seekMinus').name('Seek -10s');

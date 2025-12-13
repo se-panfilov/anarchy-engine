@@ -6,7 +6,7 @@ import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TAudio3dParams, TAudio3dTransformDrive, TAudio3dWrapper, TAudioWrapperDependencies } from '@/Engine/Audio/Models';
 import { Audio3dTransformDrive } from '@/Engine/Audio/TransformDrive';
-import { createPositionalAudion, pauseAudio, resumeAudio, seekAudio } from '@/Engine/Audio/Utils';
+import { createPositionalAudion, seekAudio } from '@/Engine/Audio/Utils';
 import { LoopUpdatePriority } from '@/Engine/Loop';
 import type { TMeters } from '@/Engine/Math';
 import { meters } from '@/Engine/Measurements';
@@ -46,14 +46,29 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
     )
     .subscribe((volume: number): void => void entity.setVolume(volume));
 
+  const pauseState = {
+    isPaused: false,
+    position: 0
+  };
+
   const pauseSub$: Subscription = pause$
     .pipe(
       skipWhile((pause: boolean, index: number): boolean => index === 0 && !pause), // to avoid initial value (only if it's a default one)
       distinctUntilChanged()
     )
     .subscribe((isPause: boolean): void => {
-      if (isPause) pauseAudio(entity);
-      else resumeAudio(entity);
+      if (isPause && !pauseState.isPaused) {
+        // eslint-disable-next-line functional/immutable-data
+        pauseState.isPaused = true;
+        // eslint-disable-next-line functional/immutable-data
+        pauseState.position = entity.context.currentTime;
+        play$.next(false);
+      } else {
+        // eslint-disable-next-line functional/immutable-data
+        pauseState.isPaused = false;
+        seek$.next(pauseState.position);
+        play$.next(true);
+      }
     });
 
   const speedSub$: Subscription = speed$
@@ -62,12 +77,17 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
       distinctUntilChanged()
     )
     .subscribe((speed: number): void => void entity.setPlaybackRate(speed));
+
   const seekSub$: Subscription = seek$
     .pipe(
       skipWhile((seek: number, index: number): boolean => index === 0 && seek === 0), // to avoid initial value (only if it's a default one)
       distinctUntilChanged()
     )
-    .subscribe((seek: number): void => seekAudio(entity, seek));
+    .subscribe((seek: number): void => {
+      seekAudio(entity, seek);
+      // eslint-disable-next-line functional/immutable-data
+      pauseState.position = seek;
+    });
 
   const loopSub$: Subscription = loop$
     .pipe(

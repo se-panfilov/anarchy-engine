@@ -6,25 +6,6 @@ import { isNotDefined } from '@/Engine/Utils';
 export const isAudio3dConfig = (config: TAudioConfig | TAudio3dConfig): config is TAudio3dConfig => (config as TAudio3dConfig).position !== undefined;
 export const isAudio3dParams = (config: TAudioParams | TAudio3dParams): config is TAudio3dParams => (config as TAudio3dParams).position !== undefined;
 
-// TODO 11.0.0: implement pauseAudio
-export function pauseAudio(entity: PositionalAudio): void {
-  console.warn('pauseAudio is not implemented yet', entity);
-  // if (!entity.isPlaying) return;
-  // entity.pausedAt = entity.context.currentTime - entity.startTime;
-  // entity.stop();
-  // entity.isPaused = true;
-}
-
-// TODO 11.0.0: implement resumeAudio
-export function resumeAudio(entity: PositionalAudio): void {
-  console.warn('resumeAudio is not implemented yet', entity);
-  // if (!entity.isPaused || entity.pausedAt === null) return;
-  // entity.offset = entity.pausedAt;
-  // entity.play();
-  // entity.isPaused = false;
-  // entity.pausedAt = null;
-}
-
 export function seekAudio(entity: PositionalAudio, time: number): void {
   if (!entity.buffer) return;
   entity.stop();
