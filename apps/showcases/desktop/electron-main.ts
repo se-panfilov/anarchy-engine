@@ -7,7 +7,6 @@ import { getDisplayInfo } from './src/Utils/DisplayUtils.js';
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = dirname(__filename);
 
-// const userDataFolder: string = 'userData';
 const isOpenDevTools: boolean = true;
 
 // TODO CWP

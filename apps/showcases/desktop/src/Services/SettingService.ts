@@ -1,4 +1,6 @@
-import Store from 'electron-store';
+import * as fs from 'node:fs';
+import { join } from 'path';
+import type { App } from 'electron';
 
 type TDesktopAppSettings = Readonly<{ screen: TScreenSettings }>;
 type TScreenSettings = Readonly<{
@@ -6,28 +8,50 @@ type TScreenSettings = Readonly<{
   fullscreen: boolean;
 }>;
 
-const schema = {
-  resolution: {
-    type: 'object',
-    properties: {
-      width: { type: 'number' },
-      height: { type: 'number' }
-    },
-    default: { width: 1024, height: 768 }
-  },
-  fullscreen: { type: 'boolean', default: false }
-};
+type TAllowedFolders =
+  | 'home'
+  | 'appData'
+  | 'userData'
+  | 'sessionData'
+  | 'temp'
+  | 'exe'
+  | 'module'
+  | 'desktop'
+  | 'documents'
+  | 'downloads'
+  | 'music'
+  | 'pictures'
+  | 'videos'
+  | 'recent'
+  | 'logs'
+  | 'crashDumps';
+const userDataFolder: TAllowedFolders = 'userData';
+const appSettingsFileName: string = 'user-config.json';
 
-const settingsStore = new Store<TDesktopAppSettings>({ schema });
+export type TSettingsService = Readonly<{
+  loadAppSettings: () => TDesktopAppSettings | undefined;
+  saveAppSettings: (settings: TDesktopAppSettings) => void;
+}>;
 
-export function getSettings(): TDesktopAppSettings {
-  return {
-    screen: settingsStore.get('fullscreen')
-  };
-}
-
-export function updateSettings(patch: Partial<TDesktopAppSettings>): void {
-  for (const key of Object.keys(patch)) {
-    settingsStore.set(key as keyof TDesktopAppSettings, patch[key as keyof TDesktopAppSettings]!);
+export function SettingsService(app: App): TSettingsService {
+  function loadAppSettings(): TDesktopAppSettings | undefined {
+    try {
+      const settingsFile: string = join(app.getPath(userDataFolder), appSettingsFileName);
+      const raw: string = fs.readFileSync(settingsFile, 'utf-8');
+      return JSON.parse(raw);
+    } catch {
+      // TODO DESKTOP: Handle error (log it, show dialog, etc.)
+      return undefined;
+    }
   }
+
+  function saveAppSettings(settings: TDesktopAppSettings): void {
+    const settingsFile: string = join(app.getPath(userDataFolder), appSettingsFileName);
+    fs.writeFileSync(settingsFile, JSON.stringify(settings, null, 2), 'utf-8');
+  }
+
+  return {
+    loadAppSettings,
+    saveAppSettings
+  };
 }
