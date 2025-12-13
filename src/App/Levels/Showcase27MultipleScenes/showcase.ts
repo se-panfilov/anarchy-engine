@@ -11,6 +11,7 @@ import spaceBetaConfigJson from './spaceBeta.json';
 const spaceAlphaConfig: TSpaceConfig = spaceAlphaConfigJson as TSpaceConfig;
 const spaceBetaConfig: TSpaceConfig = spaceBetaConfigJson as TSpaceConfig;
 
+// TODO 14-0-0: Do not allow create spaces with the same name (apply the same for the all entities, add validation)
 export function start(): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig, spaceBetaConfig]));
   const spaceAlpha: TSpace = spaces[spaceAlphaConfig.name];
@@ -26,6 +27,7 @@ export function showcase(space: TSpace): void {
   const { transformLoop } = space.loops;
 
   const actorRegistry: TActorRegistry = actorService.getRegistry();
+  console.log('XXX', space);
 
   addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
 
