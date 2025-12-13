@@ -1,2 +1,2 @@
-export * from './inputTag';
+export * from './InputTag';
 export * from './mockInputType';
