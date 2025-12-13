@@ -1,12 +1,14 @@
 import Ajv from 'ajv';
 
+import type { TActorConfig } from '@/Engine/Actor';
 import type { TCameraConfig } from '@/Engine/Camera';
 import type { TControlsConfig } from '@/Engine/Controls';
 import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
-import type { TSceneConfig } from '@/Engine/Scene';
-import type { TSpaceConfig } from '@/Engine/Space';
+import type { TPhysicsPresetConfig, TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
+import type { TSceneConfig } from '@/Engine/Scene/Models';
+import type { TSpaceConfig } from '@/Engine/Space/Models';
 import TSpaceConfigSchema from '@/Engine/Space/Schemas/TSpaceConfig.json';
-import { isDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 const ajv: Ajv = new Ajv();
 
@@ -27,7 +29,7 @@ function validateJsonSchema(config: TSpaceConfig): TSchemaValidationResult {
   return { isValid, errors: validate.errors };
 }
 
-function validateData({ name, actors, cameras, scenes, controls, intersections, lights, fogs, texts, tags }: TSpaceConfig): TSchemaValidationResult {
+function validateData({ name, actors, cameras, scenes, controls, intersections, lights, fogs, texts, tags, physics }: TSpaceConfig): TSchemaValidationResult {
   let errors: ReadonlyArray<string> = [];
 
   //must be defined
@@ -42,6 +44,13 @@ function validateData({ name, actors, cameras, scenes, controls, intersections, 
   const isControlsWithoutCamera: boolean = controls.length > 0 && cameras.length === 0;
   const isEveryControlsHasCamera: boolean = controls.every((control: TControlsConfig) => cameras.some((camera: TCameraConfig): boolean => camera.name === control.cameraName));
 
+  //check actors' physics presets
+  // const actorsPresetNamesList: ReadonlyArray<string> = actors.map(({ physics }) => (physics?.presetName ? physics.presetName : undefined)).filter(isDefined);
+  // console.log('actorsPresetNamesList', actorsPresetNamesList);
+  // const presetNamesList: ReadonlyArray<string> = isDefined(physics.presets) ? physics.presets.map(({ name }) => name) : [];
+  // console.log('presetNamesList', presetNamesList);
+  const isAllActorsHasPhysicsPreset = validateAllActorsHasPhysicsPreset(actors, physics.presets);
+
   //Regexp checks (ts-json schema does not support regexp patterns atm)
   //names
   const isConfigNameValid: boolean = validate(name);
@@ -55,6 +64,8 @@ function validateData({ name, actors, cameras, scenes, controls, intersections, 
   const isEveryFogNameValid: boolean = validateNames(fogs);
   const isEveryTextNameValid: boolean = validateNames(texts);
   const isEveryControlsNameValid: boolean = validateNames(controls);
+  const isEveryPhysicsPresetNameValid: boolean = validateNames(physics.presets ?? []);
+  const isEveryActorsPhysicsPresetNameValid: boolean = validatePresetNames(actors);
   //tags
   const isConfigTagsValid: boolean = validateTags(tags);
   const isEverySceneTagsValid: boolean = validateTagsForEveryEntity(scenes);
@@ -86,6 +97,8 @@ function validateData({ name, actors, cameras, scenes, controls, intersections, 
   if (!isEveryFogNameValid) errors = [...errors, 'Fog names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryTextNameValid) errors = [...errors, 'Text names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryControlsNameValid) errors = [...errors, 'Controls names must be defined and contain only letters, numbers and underscores'];
+  if (!isEveryPhysicsPresetNameValid) errors = [...errors, 'Physics presets names must be defined and contain only letters, numbers and underscores'];
+  if (!isEveryActorsPhysicsPresetNameValid) errors = [...errors, 'Actors physics preset names must be defined and contain only letters, numbers and underscores'];
   //tags
   if (!isConfigTagsValid) errors = [...errors, 'Space config tags must contain only letters, numbers and underscores'];
   if (!isEverySceneTagsValid) errors = [...errors, 'Scene tags must contain only letters, numbers and underscores'];
@@ -97,6 +110,9 @@ function validateData({ name, actors, cameras, scenes, controls, intersections, 
   if (!isEveryTextTagsValid) errors = [...errors, 'Text tags must contain only letters, numbers and underscores'];
   if (!isEveryControlsTagsValid) errors = [...errors, 'Controls tags must contain only letters, numbers and underscores'];
 
+  //presets
+  if (!isAllActorsHasPhysicsPreset) errors = [...errors, 'Not every actor has a defined physics preset (check actors presetName against physics presets names)'];
+
   return { isValid: errors.length === 0, errors };
 }
 
@@ -104,6 +120,17 @@ const validateNames = (entities: ReadonlyArray<TWithName>): boolean => entities.
 const validateName = (entity: TWithName): boolean => validateField(entity, 'name');
 const validateCameraNames = (entities: ReadonlyArray<Readonly<{ cameraName: string }>>): boolean => entities.every(validateCameraName);
 const validateCameraName = (entity: Readonly<{ cameraName: string }>): boolean => validateField(entity, 'cameraName');
+const validatePresetName = (entity: Readonly<{ presetName: string }>): boolean => validateField(entity, 'presetName');
+
+function validatePresetNames(entities: ReadonlyArray<Readonly<{ physics?: TWithPresetNamePhysicsBodyConfig }>>): boolean {
+  return (
+    entities
+      .map((entity) => entity.physics)
+      .filter(isDefined)
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      .every((physics) => isNotDefined(physics.presetName) || validatePresetName(physics as any))
+  );
+}
 
 const validateActorNamesForEveryEntity = (entities: ReadonlyArray<Readonly<{ actorNames: ReadonlyArray<string> }>>): boolean => entities.every(validateActorNames);
 const validateActorNames = (entity: Readonly<{ actorNames: ReadonlyArray<string> }>): boolean => validateArrayField(entity, 'actorNames');
@@ -117,3 +144,7 @@ const validateField = <T extends Record<string, any>>(obj: T, field: keyof T): b
 const validateArrayField = <T extends Record<string, any>>(obj: T, field: keyof T): boolean => obj[field].every(validate);
 
 const validate = (str: string | undefined): boolean => (isDefined(str) ? str.length > 0 && /^[A-z0-9_]+$/gm.test(str) : true);
+
+function validateAllActorsHasPhysicsPreset(actors: ReadonlyArray<TActorConfig>, presets: ReadonlyArray<TPhysicsPresetConfig> | undefined): boolean {
+  return actors.every((actor: TActorConfig) => (presets || []).some((preset: TPhysicsPresetConfig): boolean => preset.name === actor.physics?.presetName));
+}
