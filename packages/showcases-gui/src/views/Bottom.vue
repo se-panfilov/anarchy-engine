@@ -3,14 +3,10 @@ import ActionButton from '@Showcases/GUI/components/ActionButton.vue';
 import ValueBar from '@Showcases/GUI/components/ValueBar.vue';
 import { useGuiButtonStore } from '@Showcases/GUI/stores/GuiButtonsStore';
 import { vueTranslationService } from '@Showcases/i18n';
-import { Heart, Sword, Zap } from 'lucide-vue-next';
-import type { ShallowRef } from 'vue';
+import { Heart, Zap } from 'lucide-vue-next';
 import { computed } from 'vue';
 
-const { $t } = vueTranslationService;
-const valueEnergyTitle: ShallowRef<string> = $t('gui.bottom.bar.energy.title');
-const valueHealthTitle: ShallowRef<string> = $t('gui.bottom.bar.health.title');
-const buttonAttackTitle: ShallowRef<string> = $t('gui.bottom.button.attack.title');
+const { $t } = vueTranslationService.useTranslations();
 
 const buttons = computed(() => {
   return useGuiButtonStore()
@@ -23,34 +19,17 @@ const buttons = computed(() => {
   <div class="bottom">
     <div class="panel -bottom">
       <div class="game-hud">
-        <ValueBar :title="valueEnergyTitle" :current="75" :max="100" color="blue">
+        <ValueBar :title="$t('gui.bottom.bar.energy.title')" :current="75" :max="100" color="blue">
           <Zap />
         </ValueBar>
 
         <div class="action-buttons">
-          <ActionButton v-for="button in buttons" :key="button.id" :title="buttonAttackTitle" :data-key="button.key">
-            {{ button.title }}
-            <Sword />
+          <ActionButton v-for="button in buttons" :key="button.id" :title="$t(button.i18n)" :is-active="button.isActive" :data-key="button.key">
+            <component :is="button.icon" />
           </ActionButton>
-
-          <!--          <ActionButton :title="buttonDefenseTitle" data-key="RMB">-->
-          <!--            <Shield />-->
-          <!--          </ActionButton>-->
-
-          <!--          <ActionButton :title="buttonInventoryTitle" data-key="I">-->
-          <!--            <Backpack />-->
-          <!--          </ActionButton>-->
-
-          <!--          <ActionButton :title="buttonMapTitle" data-key="M">-->
-          <!--            <Map />-->
-          <!--          </ActionButton>-->
-
-          <!--          <ActionButton :title="buttonSettingsTitle" data-key="Esc">-->
-          <!--            <Settings />-->
-          <!--          </ActionButton>-->
         </div>
 
-        <ValueBar :title="valueHealthTitle" :current="85" :max="100" color="red">
+        <ValueBar :title="$t('gui.bottom.bar.health.title')" :current="85" :max="100" color="red">
           <Heart />
         </ValueBar>
       </div>
