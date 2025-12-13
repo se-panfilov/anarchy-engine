@@ -20,6 +20,6 @@ export type TSpaceConfigEntities = Readonly<{
   fogs: ReadonlyArray<TFogConfig>;
   texts: ReadonlyArray<TTextConfig>;
   controls: ReadonlyArray<TControlsConfig>;
-  // TODO 9.0.0.: Duplication: env maps should do preloading from resources, but applying only from here
+  // TODO 9.0.0. RESOURCES: Duplication: env maps should do preloading from resources, but applying only from here
   envMaps: ReadonlyArray<string>;
 }>;

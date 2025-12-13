@@ -11,18 +11,18 @@ export function Model3dComplexFacade(params: TModel3dComplexFacadeParams, animat
   const entities: TModel3dComplexEntities = createModels3dEntities(params, animationsService);
   const facade = AbstractFacade(withModel3dComplexFacadeEntities(entities), FacadeType.Model3d, params);
 
-  // TODO MODELS: Remove duplication: extract getPack to utils
+  // TODO 8.0.0. MODELS: Remove duplication: extract getPack to utils
   const getPack = (): TModel3dComplexPack => omitInObjectWithoutMutation({ ...entities, clonedFrom: facade.id }, ['actions', 'mixer']);
 
-  // TODO MODELS: Remove duplication: extract _clone to utils
+  // TODO 8.0.0. MODELS: Remove duplication: extract _clone to utils
   // Be aware that this clone method doesn't save the facade to the registry, use clone() method of the service instead
   function _clone(overrides: TOptional<TModel3dComplexPack> = {}): TModel3dComplexFacade {
     const _overrides = omitInObjectWithoutMutation(overrides, ['clonedFrom']);
     return Model3dComplexFacade({ ...getPack(), clonedFrom: facade.id, ..._overrides }, animationsService);
   }
 
-  // TODO MODELS: apply all the params form object3d
-  // TODO MODELS: Remove duplication: extract applying of params to utils
+  // TODO 8.0.0. MODELS: apply all the params form object3d
+  // TODO 8.0.0. MODELS: Remove duplication: extract applying of params to utils
   //applying model's params
   if (isDefined(params.scale)) applyScaleToModel3d(entities.model, params.scale);
   if (isDefined(params.rotation)) applyRotationToModel3d(entities.model, params.rotation);

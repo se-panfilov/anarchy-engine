@@ -34,7 +34,7 @@ function validateJsonSchema(config: TSpaceConfig): TSchemaValidationResult {
 
 function validateData({ name, version, scenes, resources, entities, tags }: TSpaceConfig): TSchemaValidationResult {
   const { models3d } = resources;
-  // TODO 9.0.0.: Where is the validation of material and envConfig?
+  // TODO 9.0.0. RESOURCES: Where is the validation of material and envConfig?
   const { actors, cameras, spatialGrids, controls, intersections, lights, fogs, texts, physics } = entities;
 
   let errors: ReadonlyArray<string> = [];

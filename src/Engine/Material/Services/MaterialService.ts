@@ -20,7 +20,7 @@ export function MaterialService(factory: TMaterialFactory, registry: TMaterialRe
     const material: TMaterialWrapper | undefined = registry.findByName(config.presetName);
     if (isNotDefined(material)) return undefined;
 
-    // TODO MODELS: Overrides doesn't work, fix it
+    // TODO 8.0.0. MODELS: Overrides doesn't work, fix it
     // return create(material._clone(config.overrides));
 
     // TODO debug

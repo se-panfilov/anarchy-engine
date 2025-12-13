@@ -6,9 +6,8 @@ import type { TParticlesProps } from './TParticlesProps';
 
 export type TParticlesConfig = Omit<TParticlesProps, 'material'> &
   Readonly<{
-    // TODO 9.0.0.: Particles should use a reference to a material preset with overload
-    // material: TMaterialPackConfig<TMaterialTexturePack>;
-    material?: TWithMaterialConfigPresetWithOverrides;
+    // TODO 9.0.0. RESOURCES: Particles should use a reference to a material preset with overload
+    material: TWithMaterialConfigPresetWithOverrides;
   }> &
   TObject3DPropConfig &
   TWithReadonlyTags;

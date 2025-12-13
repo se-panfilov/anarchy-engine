@@ -10,18 +10,18 @@ export function Model3dPrimitiveFacade(params: TModel3dPrimitiveFacadeParams): T
   const entities: TModel3dPrimitiveEntities = createModels3dPrimitiveEntities(params);
   const facade = AbstractFacade(withModel3dPrimitiveFacadeEntities(entities), FacadeType.Model3d, params);
 
-  // TODO MODELS: Remove duplication: extract getPack to utils
+  // TODO 8.0.0. MODELS: Remove duplication: extract getPack to utils
   const getPack = (): TModel3dPrimitivePack => ({ ...entities, clonedFrom: facade.id });
 
-  // TODO MODELS: Remove duplication: extract _clone to utils
+  // TODO 8.0.0. MODELS: Remove duplication: extract _clone to utils
   // Be aware that this clone method doesn't save the facade to the registry, use clone() method of the service instead
   function _clone(overrides: TOptional<TModel3dPrimitivePack> = {}): TModel3dPrimitiveFacade {
     const _overrides = omitInObjectWithoutMutation(overrides, ['clonedFrom']);
     return Model3dPrimitiveFacade({ ...getPack(), clonedFrom: facade.id, ..._overrides });
   }
 
-  // TODO MODELS: apply all the params form object3d
-  // TODO MODELS: Remove duplication: extract applying of params to utils
+  // TODO 8.0.0. MODELS: apply all the params form object3d
+  // TODO 8.0.0. MODELS: Remove duplication: extract applying of params to utils
   //applying model's params
   if (isDefined(params.scale)) applyScaleToModel3d(entities.model, params.scale);
   if (isDefined(params.rotation)) applyRotationToModel3d(entities.model, params.rotation);

@@ -1,5 +1,6 @@
 export * from './TParticlesAsyncRegistry';
 export * from './TParticlesConfig';
+export * from './TParticlesConfigToParamsDependencies';
 export * from './TParticlesDependencies';
 export * from './TParticlesFactory';
 export * from './TParticlesParams';

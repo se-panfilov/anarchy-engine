@@ -106,15 +106,15 @@ export function Models3dService(registry: TModels3dAsyncRegistry, { animationsSe
     return params.map((p: TModel3dPrimitiveParams): Promise<TModel3dPrimitiveFacade> => Promise.resolve(createFromPack(createPrimitiveModel3dPack(p)) as TModel3dPrimitiveFacade));
   }
 
-  // TODO MODELS: test if model can be found by preset name
-  // TODO MODELS: test if overrides are working
+  // TODO 8.0.0. MODELS: test if model can be found by preset name
+  // TODO 8.0.0. MODELS: test if overrides are working
   // function findModel3dAndOverride(name: string, overrides?: TOptional<TModel3dConfig>): TModel3dFacade | undefined {
-  // TODO MODELS: debug signature
+  // TODO 8.0.0. MODELS: debug signature
   function findModel3dAndOverride(name: string): TModel3dFacade | undefined {
     const model3d: TModel3dFacade | undefined = registry.findByName(name);
     if (isNotDefined(model3d)) return undefined;
 
-    // TODO MODELS: Overrides doesn't work, fix: TModel3dConfig vs TModel3dPack issue
+    // TODO 8.0.0. MODELS: Overrides doesn't work, fix: TModel3dConfig vs TModel3dPack issue
     // return clone(model3d, overrides);
 
     return clone(model3d);

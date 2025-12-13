@@ -6,10 +6,10 @@ import type { TModel3dLoadOptions } from './TModel3dLoadOptions';
 export type TModel3dComplexProps = Readonly<{
   url: string;
   options: TModel3dLoadOptions;
-  // TODO MODELS: override model's material is this field is set
+  // TODO 8.0.0. MODELS: override model's material is this field is set
   material?: TMaterialWrapper;
 }> &
-  // TODO MODELS: apply all TObject3DProps
+  // TODO 8.0.0. MODELS: apply all TObject3DProps
   // We're not ready to add animations like this, so omit them for now
   Omit<TObject3DProps, 'animations' | 'position' | 'scale' | 'rotation'> &
   Pick<TObject3DParams, 'position' | 'scale' | 'rotation'>;
