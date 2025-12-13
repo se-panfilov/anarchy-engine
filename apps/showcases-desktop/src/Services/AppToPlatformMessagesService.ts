@@ -5,7 +5,7 @@ import { isSettings } from '@Showcases/Shared';
 import type { IpcMainInvokeEvent } from 'electron';
 
 // TODO DESKTOP: any
-export function handleAppRequest({ settingsService }: THandleRequestDependencies, _event: IpcMainInvokeEvent, args: [PlatformActions | string, unknown]): Promise<any> | any {
+export function handleAppRequest({ settingsService, docsService }: THandleRequestDependencies, _event: IpcMainInvokeEvent, args: [PlatformActions | string, unknown]): Promise<any> | any {
   const type: PlatformActions | string = args[0];
   if (!isPlatformAction(type)) throw new Error(`[DESKTOP]: Unknown platform action: ${type}`);
   const payload: unknown = args[1];
@@ -20,6 +20,8 @@ export function handleAppRequest({ settingsService }: THandleRequestDependencies
       return Promise.resolve();
     case PlatformActions.LoadAppSettings:
       return Promise.resolve(settingsService.loadAppSettings());
+    case PlatformActions.LoadLegalDocs:
+      return Promise.resolve(docsService.load(payload));
     default:
       throw new Error(`[DESKTOP]: Unknown platform action: ${type}`);
   }

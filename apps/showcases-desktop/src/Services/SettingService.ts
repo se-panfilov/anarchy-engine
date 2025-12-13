@@ -7,6 +7,7 @@ import type { TShowcaseGameSettings } from '@Showcases/Shared';
 import { isSettings } from '@Showcases/Shared';
 import type { App } from 'electron';
 
+// TODO DESKTOP: Add protection (allowed files list, name/extension checks, sanitization, etc)
 export function SettingsService(app: App): TSettingsService {
   const userDataFolder: AllowedFolders = AllowedFolders.UserData;
   const appSettingsFileName: string = 'user-config.json';

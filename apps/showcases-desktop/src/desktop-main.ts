@@ -1,7 +1,8 @@
 import type { PlatformActions } from '@Showcases/Desktop/Constants';
 import { appCrashHandler, appWindowAllClosedHandler, windowNavigateHandler, windowSecondInstanceHandler } from '@Showcases/Desktop/EventHandlers';
-import type { TDesktopAppConfig } from '@Showcases/Desktop/Models';
+import type { TDesktopAppConfig, TDocsService, TSettingsService, TWindowService } from '@Showcases/Desktop/Models';
 import { handleAppRequest, SettingsService, WindowService } from '@Showcases/Desktop/Services';
+import { DocsService } from '@Showcases/Desktop/Services/DocsService';
 import { getDisplayInfo, hideMenuBar, noZoom, turnOffMenuBarAndHotkeys } from '@Showcases/Desktop/Utils';
 import { platformApiChannel } from '@Showcases/Shared';
 import type { BrowserWindow, IpcMainInvokeEvent } from 'electron';
@@ -25,10 +26,11 @@ const desktopAppSettings: TDesktopAppConfig = {
 // TODO DESKTOP: Does "exit to desktop" button displayed (and works)?
 // TODO DESKTOP: Send user locale to the app (then to menu) for translations
 
-const windowService = WindowService();
-const settingsService = SettingsService(app);
+const windowService: TWindowService = WindowService();
+const settingsService: TSettingsService = SettingsService(app);
+const docsService: TDocsService = DocsService(app);
 
-ipcMain.handle(platformApiChannel, (event: IpcMainInvokeEvent, ...args: [PlatformActions | string, unknown]) => handleAppRequest({ settingsService }, event, args));
+ipcMain.handle(platformApiChannel, (event: IpcMainInvokeEvent, ...args: [PlatformActions | string, unknown]) => handleAppRequest({ settingsService, docsService }, event, args));
 
 app.whenReady().then((): void => {
   // TODO DESKTOP: use "getDisplayInfo()" as default settings, prioritize saved user settings and use hardcoded fallback settings. Same for fullscreen mode
