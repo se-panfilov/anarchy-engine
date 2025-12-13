@@ -23,7 +23,7 @@
       "tags": []
     },
     {
-      "name": "glass",
+      "name": "textile",
       "type": "sphere",
       "width": 1,
       "height": 1,
@@ -33,20 +33,16 @@
       "heightSegments": 64,
       "castShadow": true,
       "material": {
-        "type": "points",
+        "type": "physical",
         "params": {
-          "color": "#E91E63",
-          "size": 0.5,
-          "sizeAttenuation": true,
-          "transparent": true,
-          "alphaTest": 0.01,
-          "depthTest": false,
-          "depthWrite": false,
-          "blending": "AdditiveBlending",
-          "vertexColors": true
+          "displacementScale": 0.1
         },
         "textures": {
-          "alphaMap": { "url": "/Showcase/particles/2.png" }
+          "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
+          "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
+          "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
+          "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" },
+          "roughnessMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg" }
         }
       },
       "tags": []
