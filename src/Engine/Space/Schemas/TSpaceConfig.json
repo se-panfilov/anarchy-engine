@@ -2378,7 +2378,7 @@
           "$ref": "#/definitions/TKinematicConfig"
         },
         "physics": {
-          "$ref": "#/definitions/TWithPresetNamePhysicsBodyParams"
+          "$ref": "#/definitions/TWithPresetNamePhysicsBodyConfig"
         },
         "text": {
           "type": "string"
@@ -2406,109 +2406,6 @@
         }
       },
       "required": ["position", "text", "type"]
-    },
-    "TWithPresetNamePhysicsBodyParams": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "presetName": {
-          "type": "string"
-        },
-        "type": {
-          "$ref": "#/definitions/RigidBodyTypesNames"
-        },
-        "collisionShape": {
-          "$ref": "#/definitions/CollisionShape"
-        },
-        "shapeParams": {
-          "$ref": "#/definitions/TPhysicsShapeParams"
-        },
-        "mass": {
-          "type": "number"
-        },
-        "restitution": {
-          "type": "number"
-        },
-        "friction": {
-          "type": "number"
-        },
-        "collisionGroups": {
-          "type": "number"
-        },
-        "position": {
-          "$ref": "#/definitions/Vector3"
-        },
-        "rotation": {
-          "$ref": "#/definitions/Quaternion"
-        },
-        "isSleep": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "Vector3": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number",
-          "default": 0
-        },
-        "y": {
-          "type": "number",
-          "default": 0
-        },
-        "z": {
-          "type": "number",
-          "default": 0
-        },
-        "isVector3": {
-          "type": "boolean",
-          "const": true
-        }
-      },
-      "required": ["x", "y", "z", "isVector3"],
-      "additionalProperties": false,
-      "description": "3D vector.\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
-    },
-    "Quaternion": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number",
-          "default": 0
-        },
-        "y": {
-          "type": "number",
-          "default": 0
-        },
-        "z": {
-          "type": "number",
-          "default": 0
-        },
-        "w": {
-          "type": "number",
-          "default": 1
-        },
-        "isQuaternion": {
-          "type": "boolean",
-          "const": true
-        },
-        "_onChangeCallback": {
-          "$comment": "() => void"
-        }
-      },
-      "required": ["x", "y", "z", "w", "isQuaternion", "_onChangeCallback"],
-      "additionalProperties": false,
-      "description": "Implementation of a quaternion. This is used for rotating things without incurring in the dreaded gimbal lock issue, amongst other advantages."
     },
     "TextType": {
       "type": "string",
@@ -3973,15 +3870,19 @@
       "enum": ["bold", "normal"]
     },
     "TControlsConfig": {
-      "$ref": "#/definitions/TOrbitControlsConfig"
+      "anyOf": [
+        {
+          "$ref": "#/definitions/TOrbitControlsConfig"
+        },
+        {
+          "$ref": "#/definitions/TFpsControlsConfig"
+        }
+      ]
     },
     "TOrbitControlsConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "type": {
-          "$ref": "#/definitions/ControlsType"
-        },
         "cameraName": {
           "type": "string"
         },
@@ -3990,6 +3891,9 @@
         },
         "cursor": {
           "$ref": "#/definitions/Vector3Like"
+        },
+        "type": {
+          "$ref": "#/definitions/ControlsType"
         },
         "enabled": {
           "type": "boolean"
@@ -4080,7 +3984,71 @@
     },
     "ControlsType": {
       "type": "string",
-      "const": "OrbitControls"
+      "enum": ["OrbitControls", "FirstPersonControls"]
+    },
+    "TFpsControlsConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cameraName": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/ControlsType"
+        },
+        "movementSpeed": {
+          "type": "number"
+        },
+        "lookSpeed": {
+          "type": "number"
+        },
+        "lookVertical": {
+          "type": "boolean"
+        },
+        "autoForward": {
+          "type": "boolean"
+        },
+        "activeLook": {
+          "type": "boolean"
+        },
+        "heightSpeed": {
+          "type": "boolean"
+        },
+        "heightCoef": {
+          "type": "number"
+        },
+        "heightMin": {
+          "type": "number"
+        },
+        "heightMax": {
+          "type": "number"
+        },
+        "constrainVertical": {
+          "type": "boolean"
+        },
+        "verticalMin": {
+          "type": "number"
+        },
+        "verticalMax": {
+          "type": "number"
+        },
+        "mouseDragOn": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["cameraName", "isActive", "type"]
     },
     "TSpaceConfigResources": {
       "type": "object",
