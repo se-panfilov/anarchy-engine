@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { merge } from 'rxjs';
+import { BehaviorSubject, merge } from 'rxjs';
 
 import type { TRegistryPack } from '@/Engine/Abstract';
 import type { TAppGlobalContainer } from '@/Engine/Global';
@@ -50,7 +50,25 @@ export function TextService(
   const create = (params: TTextParams): TTextAnyWrapper => factory.create(params, dependencies);
   const createFromConfig = (texts: ReadonlyArray<TTextConfig>): ReadonlyArray<TTextAnyWrapper> => texts.map((text: TTextConfig): TTextAnyWrapper => create(factory.configToParams(text)));
 
-  const loopSub$: Subscription = textLoopEffect(textLoop, text2dRegistry, text3dRegistry, text2dRendererRegistry, text3dRendererRegistry, scene, dependencies.cameraService);
+  const activeText2dRenderer: BehaviorSubject<TText2dRenderer | undefined> = new BehaviorSubject<TText2dRenderer | undefined>(undefined);
+
+  function createText2dRenderer(container: TAppGlobalContainer, screenSizeWatcher: Readonly<TScreenSizeWatcher>): TText2dRenderer {
+    const renderer: TText2dRenderer = initText2dRenderer(container, screenSizeWatcher);
+    text2dRendererRegistry.add(renderer.id, renderer);
+    if (text2dRendererRegistry.getLength() === 1) activeText2dRenderer.next(renderer);
+    return renderer;
+  }
+
+  const activeText3dRenderer: BehaviorSubject<TText3dRenderer | undefined> = new BehaviorSubject<TText3dRenderer | undefined>(undefined);
+
+  function createText3dRenderer(container: TAppGlobalContainer, screenSizeWatcher: Readonly<TScreenSizeWatcher>): TText3dRenderer {
+    const renderer: TText3dRenderer = initText3dRenderer(container, screenSizeWatcher);
+    text3dRendererRegistry.add(renderer.id, renderer);
+    if (text3dRendererRegistry.getLength() === 1) activeText3dRenderer.next(renderer);
+    return renderer;
+  }
+
+  const loopSub$: Subscription = textLoopEffect(textLoop, text2dRegistry, text3dRegistry, activeText2dRenderer, activeText3dRenderer, scene, dependencies.cameraService);
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
@@ -66,18 +84,6 @@ export function TextService(
     text3dRendererRegistry.destroy$.next();
   });
 
-  function createText2dRenderer(container: TAppGlobalContainer, screenSizeWatcher: Readonly<TScreenSizeWatcher>): TText2dRenderer {
-    const renderer: TText2dRenderer = initText2dRenderer(container, screenSizeWatcher);
-    text2dRendererRegistry.add(renderer.id, renderer);
-    return renderer;
-  }
-
-  function createText3dRenderer(container: TAppGlobalContainer, screenSizeWatcher: Readonly<TScreenSizeWatcher>): TText3dRenderer {
-    const renderer: TText3dRenderer = initText3dRenderer(container, screenSizeWatcher);
-    text3dRendererRegistry.add(renderer.id, renderer);
-    return renderer;
-  }
-
   return {
     create,
     createFromConfig,
@@ -87,6 +93,10 @@ export function TextService(
     createText3dRenderer,
     getRegistries: () => ({ text2dRegistry, text3dRegistry, text3dTextureRegistry }),
     getRendererRegistries: () => ({ text2dRendererRegistry, text3dRendererRegistry }),
+    activeText2dRenderer: activeText2dRenderer.asObservable(),
+    activeText3dRenderer: activeText3dRenderer.asObservable(),
+    getActiveText2dRenderer: (): TText2dRenderer | undefined => activeText2dRenderer.value,
+    getActiveText3dRenderer: (): TText3dRenderer | undefined => activeText3dRenderer.value,
     ...destroyable
   };
 }

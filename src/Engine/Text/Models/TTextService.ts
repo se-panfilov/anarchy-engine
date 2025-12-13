@@ -1,3 +1,5 @@
+import type { Observable } from 'rxjs';
+
 import type { TAppGlobalContainer } from '@/Engine/Global';
 import type { TDestroyable } from '@/Engine/Mixins';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
@@ -23,6 +25,10 @@ export type TTextService = TWithCreateService<TTextAnyWrapper, TTextParams> &
     createText2dRenderer: (container: TAppGlobalContainer, screenSizeWatcher: Readonly<TScreenSizeWatcher>) => TText2dRenderer;
     createText3dRenderer: (container: TAppGlobalContainer, screenSizeWatcher: Readonly<TScreenSizeWatcher>) => TText3dRenderer;
     getRendererRegistries: () => { text2dRendererRegistry: TText2dRendererRegistry; text3dRendererRegistry: TText3dRendererRegistry };
+    activeText2dRenderer: Observable<TText2dRenderer | undefined>;
+    activeText3dRenderer: Observable<TText3dRenderer | undefined>;
+    getActiveText2dRenderer: () => TText2dRenderer | undefined;
+    getActiveText3dRenderer: () => TText3dRenderer | undefined;
   }> &
   TWithSceneGetterService &
   TDestroyable;
