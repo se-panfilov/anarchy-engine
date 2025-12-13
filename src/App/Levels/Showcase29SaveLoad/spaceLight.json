@@ -229,7 +229,7 @@
         },
         "shadow": {
           "camera": {
-            "far": 15
+            "far": 25
           },
           "mapSize": {
             "x": 1024,

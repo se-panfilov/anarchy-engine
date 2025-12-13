@@ -2,10 +2,11 @@ import '@public/Showcase/fonts.css';
 import './style.css';
 
 import type { Subscription } from 'rxjs';
-import { Euler, Quaternion, Vector3 } from 'three';
+import type { HemisphereLight, PointLight, SpotLight } from 'three';
+import { Color, Euler, Quaternion, Vector3 } from 'three';
 
 import { addBtn, addDropdown } from '@/App/Levels/Utils';
-import type { TCameraWrapper, TModel3d, TRegistryPack, TSpace, TSpaceConfig, TSpaceRegistry } from '@/Engine';
+import type { TCameraWrapper, THemisphereLightWrapper, TModel3d, TPointLightWrapper, TRegistryPack, TSpace, TSpaceConfig, TSpaceRegistry, TSpotLightWrapper, TWriteable } from '@/Engine';
 import { isNotDefined, spaceService } from '@/Engine';
 
 import spaceBasicConfig from './spaceBasic.json';
@@ -113,20 +114,26 @@ const spacesData: ReadonlyArray<TSpacesData> = [
     config: lightCase,
     container: getContainer(lightCase.canvasSelector),
     onChange: (space: TSpace): void => {
-      const camera: TCameraWrapper | undefined = space.services.cameraService.findActive();
-      if (isNotDefined(camera)) throw new Error(`[Showcase]: Camera is not found`);
+      const hemisphere: THemisphereLightWrapper = space.services.lightService.getRegistry().findByName('hemisphere_light') as THemisphereLightWrapper;
+      const pointLight: TPointLightWrapper = space.services.lightService.getRegistry().findByName('point_light') as TPointLightWrapper;
+      const spotlight: TSpotLightWrapper = space.services.lightService.getRegistry().findByName('spot_light') as TSpotLightWrapper;
 
-      // rotation _Euler {isEuler: true, _x: -1.319401116931643, _y: 0.008777554355123871, _z: 0.034162961826149384, _order: 'XYZ', …}
-      // showcase.ts:120 XXX position _Vector3 {x: 2.472034509556609, y: 9.873502311093498, z: 2.2628437885852426}
+      // eslint-disable-next-line functional/immutable-data
+      (hemisphere.entity as TWriteable<HemisphereLight>).color = new Color('#2121AB');
+      // eslint-disable-next-line functional/immutable-data
+      (hemisphere.entity as TWriteable<HemisphereLight>).intensity = 1.1;
 
-      console.log('XXX rotation', { x: camera.entity.rotation.x, y: camera.entity.rotation.y, z: camera.entity.rotation.z });
-      console.log('XXX position', { x: camera.entity.position.x, y: camera.entity.position.y, z: camera.entity.position.z });
+      pointLight.drive.position$.next(new Vector3(4, 15.5, 2.5));
+      // eslint-disable-next-line functional/immutable-data
+      (pointLight.entity as TWriteable<PointLight>).intensity = 16;
+      // eslint-disable-next-line functional/immutable-data
+      pointLight.entity.shadow.camera.far = 25;
 
-      // camera.setFov(100);
-      //
-      // const rotation: Euler = new Euler(-2.879975303042544, 0.8041367970357067, 2.951086186540901);
-      // camera.drive.rotation$.next(new Quaternion().setFromEuler(rotation));
-      // camera.drive.position$.next(new Vector3(28.672614163776107, 6.92408866503931, -27.63943185331239));
+      spotlight.drive.position$.next(new Vector3(4, 1.5, 2.5));
+      // eslint-disable-next-line functional/immutable-data
+      (spotlight.entity as TWriteable<SpotLight>).intensity = 5;
+      // eslint-disable-next-line functional/immutable-data
+      (spotlight.entity as TWriteable<SpotLight>).angle = 28.8;
     }
   }
 ];
