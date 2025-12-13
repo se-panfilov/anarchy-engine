@@ -14,7 +14,6 @@ export async function enableCollisions(
   // TODO (S.Panfilov) CWP 5. make bullets and actors can travel among grids
   // TODO (S.Panfilov) CWP 6. add checks for spatial config (name, etc)
   // TODO (S.Panfilov) CWP 7. make sure actors are added properly via config (grid property should work, "cell" might be need to be removed )
-  // TODO (S.Panfilov) CWP 8. check how it works when an actor is on a border of 2 cells (or more, e.g. 4)
   // TODO (S.Panfilov) CWP 9. check how it works when an actor is bigger than a cell
 
   const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
@@ -28,10 +27,17 @@ export async function enableCollisions(
   const boxActor1W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static1');
   const boxActor2W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static2');
   const boxActor3W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static3');
-  if (isNotDefined(boxActor1W) || isNotDefined(boxActor2W) || isNotDefined(boxActor3W)) throw new Error(`Cannot find "box_static" actors`);
+  const boxActor4W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static4');
+  const boxActor5W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static5');
+  const boxActor6W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static6');
+  if (isNotDefined(boxActor1W) || isNotDefined(boxActor2W) || isNotDefined(boxActor3W) || isNotDefined(boxActor4W) || isNotDefined(boxActor5W) || isNotDefined(boxActor6W))
+    throw new Error(`Cannot find "box_static" actors`);
   grid.addActor(boxActor1W);
   grid.addActor(boxActor2W);
   grid.addActor(boxActor3W);
+  grid.addActor(boxActor4W);
+  grid.addActor(boxActor5W);
+  grid.addActor(boxActor6W);
 
   mouseLineIntersectionsWatcher.value$.subscribe((value) => {
     const objects = grid.getAllInCell(value.point.x, value.point.z);
