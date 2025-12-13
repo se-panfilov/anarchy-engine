@@ -1,4 +1,4 @@
-import { isAllNotDefined, isDefined, isNotDefined, isString } from '@Anarchy/Shared/Utils';
+import { isAllNotDefined, isDefined, isNotDefined, isObject, isString } from '@Anarchy/Shared/Utils';
 import { ShowcasesLocales } from '@Showcases/i18n/Constants';
 import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared/Models';
 
@@ -11,9 +11,17 @@ export function isSettings(settings: TShowcaseGameSettings | unknown): settings 
   return true;
 }
 
-// TODO DESKTOP: Better isBuildMeta
-export function isBuildMeta(value: string): boolean {
-  return true;
+export function hasJsonStructure(str: string | Record<string, any> | Array<any> | unknown): boolean {
+  const val = isObject(str) || Array.isArray(str) ? JSON.stringify(str) : str;
+  if (typeof val !== 'string') return false;
+
+  try {
+    const result = JSON.parse(val);
+    const type: string = Object.prototype.toString.call(result);
+    return type === '[object Object]' || type === '[object Array]';
+  } catch {
+    return false;
+  }
 }
 
 export function isPartialSettings(settings: TShowcaseGameSettings | unknown): settings is Partial<TShowcaseGameSettings> {
