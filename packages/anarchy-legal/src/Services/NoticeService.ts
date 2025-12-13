@@ -2,18 +2,21 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import type { TNoticeService, TRepoUtilsService, TTemplateParsedEntry } from '@Anarchy/Legal/Models';
+import type { TNoticeService, TNoticeUtilsService, TRepoUtilsService, TTemplateParsedEntry } from '@Anarchy/Legal/Models';
 // eslint-disable-next-line spellcheck/spell-checker
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
+import { NoticeUtilsService } from './NoticeUtilsService.ts';
 import { RepoUtilsService } from './RepoUtilsService.ts';
 
 export function NoticeService(): TNoticeService {
   let isDebug: boolean = false;
   const repoUtilsService: TRepoUtilsService = RepoUtilsService();
+  const noticeUtilsService: TNoticeUtilsService = NoticeUtilsService();
 
-  const { debugLog, findMonorepoRoot, isExist, loadWorkspaces, resolveWorkspaceFromArg, collectAllHeadingIds, parseThirdPartyMarkdown, loadUpstreamNotice } = repoUtilsService;
+  const { debugLog, findMonorepoRoot, isExist, loadWorkspaces, resolveWorkspaceFromArg } = repoUtilsService;
+  const { collectAllHeadingIds, parseThirdPartyMarkdown, loadUpstreamNotice } = noticeUtilsService;
 
   function renderNotice(wsName: string, entries: ReadonlyArray<TTemplateParsedEntry>, includeUpstream: boolean): string {
     const header: string = `# NOTICE

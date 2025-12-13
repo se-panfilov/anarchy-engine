@@ -8,6 +8,7 @@ export type * from './TLegalDocumentType';
 export type * from './TLegalFilesService';
 export type * from './TLicenseEntry';
 export type * from './TNoticeService';
+export type * from './TNoticeUtilsService';
 export type * from './TRenderInput';
 export type * from './TRepoUtilsService';
 export type * from './TRootInfo';
