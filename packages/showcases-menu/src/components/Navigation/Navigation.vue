@@ -81,7 +81,6 @@ const backButtonText: ShallowRef<string> = $t('main-menu.navigation.back-button.
       background: none;
       border: none;
       padding: 0;
-      color: #007aff;
       text-decoration: underline;
     }
   }

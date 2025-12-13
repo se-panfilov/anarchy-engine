@@ -61,18 +61,6 @@ const linksOptions: ReadonlyArray<TVueNavOption> = [
     name: 'legal-view',
     label: legalButtonText,
     action: () => menuRouterStore.go(Routes.Legal)
-  },
-  {
-    id: 1,
-    name: 'mock1',
-    label: 'MOCK 1',
-    action: () => menuRouterStore.go(Routes.Legal)
-  },
-  {
-    id: 2,
-    name: 'mock2',
-    label: 'MOCK 2',
-    action: () => menuRouterStore.go(Routes.Legal)
   }
 ];
 </script>
@@ -82,7 +70,7 @@ const linksOptions: ReadonlyArray<TVueNavOption> = [
     <PageTitle class="home__title" :title="viewTitleText" />
     <Navigation class="home__navigation" :options="navOptions" />
     <div class="home__footer">
-      <Navigation :options="linksOptions" :direction="NavDirection.Horizontal" :style="NavStyle.Links" />
+      <Navigation class="home__links" :options="linksOptions" :direction="NavDirection.Horizontal" :style="NavStyle.Links" />
     </div>
   </div>
 </template>
@@ -98,8 +86,14 @@ const linksOptions: ReadonlyArray<TVueNavOption> = [
 
   &__footer {
     display: flex;
+    flex: 1;
     flex-direction: row-reverse;
     width: 100%;
+  }
+
+  &__links {
+    justify-content: flex-end;
+    padding: 0 10px;
   }
 }
 </style>
