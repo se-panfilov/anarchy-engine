@@ -11,6 +11,7 @@
 - 2.8.1 Fixes for Windows build
 - 2.8.2 CSP fixes
 - 2.9.0 Added error-tracking (Sentry) for Desktop app and improved build process (distinct dev/prod builds)
+- 2.10.0 Error-tracking sourcemaps upload (Sentry)
 
 Roadmap:
 
