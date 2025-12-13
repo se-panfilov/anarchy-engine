@@ -15,7 +15,7 @@ export type TAbstractSimpleRegistry<T> = TWithBaseAccessorsRegistry<T> &
     replace: (key: string, value: T) => void;
     registry: Map<string, T>;
     getByKey: (key: string) => T | undefined;
-    getAll: () => ReadonlyArray<T>;
+    findAll: () => ReadonlyArray<T>;
     remove: (key: string) => void;
     added$: Observable<T>;
     replaced$: Observable<T>;

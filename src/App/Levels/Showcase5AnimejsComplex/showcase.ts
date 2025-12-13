@@ -43,8 +43,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const controlsRegistry: TControlsRegistry = controlsService.getRegistry();
     const { text2dRegistry } = textService.getRegistries();
 
-    controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
-    cameraRegistry.getAll()[0]?.setPosition(Vector3Wrapper({ x: 6, y: 30, z: 0 }));
+    controlsRegistry.findAll()[0]?.entity.target.set(6, 0, 0);
+    cameraRegistry.findAll()[0]?.setPosition(Vector3Wrapper({ x: 6, y: 30, z: 0 }));
 
     const redActor: TActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('red');
     const blueActor: TActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('blue');

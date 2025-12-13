@@ -24,7 +24,7 @@ export function spaceLoop(
   }
 
   // just for control's damping
-  controlsRegistry.getAll().forEach((controls: TOrbitControlsWrapper): void => {
+  controlsRegistry.findAll().forEach((controls: TOrbitControlsWrapper): void => {
     if (controls.entity.enableDamping) controls.entity.update(delta);
   });
 }
