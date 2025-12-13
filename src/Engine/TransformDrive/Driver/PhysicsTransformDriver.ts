@@ -7,7 +7,7 @@ import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TPhysicsTransformDriver, TTransformDriveParams } from '@/Engine/TransformDrive/Models';
 
 // TODO 8.0.0. MODELS: This is a placeholder for PhysicsActorDrive
-export function PhysicsActorDriver(params: TTransformDriveParams): TPhysicsTransformDriver {
+export function PhysicsTransformDriver(params: TTransformDriveParams): TPhysicsTransformDriver {
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.position);
   const rotation$: BehaviorSubject<TReadonlyEuler> = new BehaviorSubject<TReadonlyEuler>(params.rotation);
   const scale$: BehaviorSubject<TReadonlyVector3 | undefined> = new BehaviorSubject<TReadonlyVector3 | undefined>(params.scale);

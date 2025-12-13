@@ -12,7 +12,7 @@ import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@/En
 import type { TKinematicTransformDriver, TTransformDriveParams } from '@/Engine/TransformDrive/Models';
 import type { TWriteable } from '@/Engine/Utils';
 
-export function KinematicActorDriver(params: TTransformDriveParams, kinematicLoopService: TKinematicLoopService): TKinematicTransformDriver {
+export function KinematicTransformDriver(params: TTransformDriveParams, kinematicLoopService: TKinematicLoopService): TKinematicTransformDriver {
   let _isAutoUpdate: boolean = params.kinematic?.isAutoUpdate ?? false;
   let _isEnabled: boolean = _isAutoUpdate;
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.position);

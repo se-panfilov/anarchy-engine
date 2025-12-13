@@ -12,7 +12,7 @@ import type { TInstantTransformDriver, TTransformDriveParams } from '@/Engine/Tr
 import type { TWithUndefined } from '@/Engine/Utils';
 import { updateSubjOnChange } from '@/Engine/Utils';
 
-export function InstantActorDriver(params: TTransformDriveParams): TInstantTransformDriver {
+export function InstantTransformDriver(params: TTransformDriveParams): TInstantTransformDriver {
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.position);
   const rotation$: BehaviorSubject<TReadonlyEuler> = new BehaviorSubject<TReadonlyEuler>(params.rotation);
   const scale$: BehaviorSubject<TReadonlyVector3 | undefined> = new BehaviorSubject<TReadonlyVector3 | undefined>(params.scale);
