@@ -93,7 +93,7 @@ export async function waitUntilReady(page: Page, timeout: number = 1000): Promis
   await page.waitForFunction(
     (): boolean | undefined => {
       const body: HTMLBodyElement | null = document.querySelector('body');
-      return body?.classList.contains('ready');
+      return body?.classList.contains('ready') && !body?.classList.contains('await');
     },
     { timeout }
   );

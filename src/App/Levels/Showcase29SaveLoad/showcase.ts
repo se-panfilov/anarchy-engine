@@ -89,10 +89,7 @@ function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>)
       map((s): boolean => s.size !== 0), // "true" means all awaits are done
       distinctUntilChanged()
     )
-    .subscribe((isAwaiting: boolean): void => {
-      console.log('XXX isAwaiting', isAwaiting);
-      setAwaiting(isAwaiting);
-    });
+    .subscribe((isAwaiting: boolean): void => setAwaiting(isAwaiting));
 
   currentSpaceName = space.name;
   spaceData.onCreate?.(space, subscriptions);
