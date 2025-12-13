@@ -81,7 +81,7 @@ export function MouseService(container: IGlobalContainerDecorator): IMouseServic
   wheel$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseWheelValue.WheelUp)).subscribe((event: IMouseWatcherEvent) => wheelUp$.next(event));
   wheel$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseWheelValue.WheelDown)).subscribe((event: IMouseWatcherEvent) => wheelDown$.next(event));
 
-  // TODO (S.Panfilov) CWP The subscriptions above doesnt filter events properly
+  // TODO (S.Panfilov) CWP wheel event doesnt fired
 
   mouseClickWatcher.value$.subscribe((event: IMouseWatcherEvent): void => {
     if (event.type === MouseEventType.MouseDown) clickPress$.next(event);
@@ -92,28 +92,28 @@ export function MouseService(container: IGlobalContainerDecorator): IMouseServic
 
   return {
     clickPress$: clickPress$.asObservable(),
-    clickLeftPress$: clickPress$.asObservable(),
-    clickRightPress$: clickPress$.asObservable(),
-    clickMiddlePress$: clickPress$.asObservable(),
-    clickBackPress$: clickPress$.asObservable(),
-    clickForwardPress$: clickPress$.asObservable(),
-    clickExtraPress$: clickPress$.asObservable(),
+    clickLeftPress$: clickLeftPress$.asObservable(),
+    clickRightPress$: clickRightPress$.asObservable(),
+    clickMiddlePress$: clickMiddlePress$.asObservable(),
+    clickBackPress$: clickBackPress$.asObservable(),
+    clickForwardPress$: clickForwardPress$.asObservable(),
+    clickExtraPress$: clickExtraPress$.asObservable(),
 
     clickRelease$: clickRelease$.asObservable(),
-    clickLeftRelease$: clickRelease$.asObservable(),
-    clickRightRelease$: clickRelease$.asObservable(),
-    clickMiddleRelease$: clickRelease$.asObservable(),
-    clickBackRelease$: clickRelease$.asObservable(),
-    clickForwardRelease$: clickRelease$.asObservable(),
-    clickExtraRelease$: clickRelease$.asObservable(),
+    clickLeftRelease$: clickLeftRelease$.asObservable(),
+    clickRightRelease$: clickRightRelease$.asObservable(),
+    clickMiddleRelease$: clickMiddleRelease$.asObservable(),
+    clickBackRelease$: clickBackRelease$.asObservable(),
+    clickForwardRelease$: clickForwardRelease$.asObservable(),
+    clickExtraRelease$: clickExtraRelease$.asObservable(),
 
     doubleClick$: doubleClick$.asObservable(),
-    doubleLeftClick$: doubleClick$.asObservable(),
-    doubleRightClick$: doubleClick$.asObservable(),
-    doubleMiddleClick$: doubleClick$.asObservable(),
-    doubleBackClick$: doubleClick$.asObservable(),
-    doubleForwardClick$: doubleClick$.asObservable(),
-    doubleExtraClick$: doubleClick$.asObservable(),
+    doubleLeftClick$: doubleLeftClick$.asObservable(),
+    doubleRightClick$: doubleRightClick$.asObservable(),
+    doubleMiddleClick$: doubleMiddleClick$.asObservable(),
+    doubleBackClick$: doubleBackClick$.asObservable(),
+    doubleForwardClick$: doubleForwardClick$.asObservable(),
+    doubleExtraClick$: doubleExtraClick$.asObservable(),
 
     wheel$: wheel$.asObservable(),
     wheelUp$: wheelUp$.asObservable(),

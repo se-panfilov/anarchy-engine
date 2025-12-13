@@ -8,7 +8,7 @@ export function MouseClickWatcher({ container, tags = [] }: IMouseClickWatcherPa
   const containerIdTag: string = `container_id_${container.id}`;
   const abstractWatcher: IAbstractWatcher<IMouseWatcherEvent> = AbstractWatcher<IMouseWatcherEvent>(WatcherType.MouseClickWatcher, tags);
   const onMouseListener = (event: MouseEvent | WheelEvent): void => {
-    event.preventDefault();
+    if ((event.type as MouseEventType) !== MouseEventType.Wheel && event.cancelable) event.preventDefault();
     const e: IMouseWatcherEvent = getMouseWatcherEvent(event);
     abstractWatcher.value$.next(e);
   };
