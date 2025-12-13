@@ -1,5 +1,7 @@
-// TODO DESKTOP: use proper 'Noto Sans' (subsets or smt)
-// TODO DESKTOP: make presets for asian/arabic langs
+// This file is for defining @font-face rules for all fonts used in the app.
+// You need to download the font files and place them in the same directory as this file.
+// You can get the Noto fonts from Google Fonts: https://fonts.google.com/noto
+
 // TODO DESKTOP: implement app-level translation (i18n, not fonts)
 
 // Mixin for creating font-face declarations with consistent properties
@@ -12,7 +14,7 @@
     font-display: $font-display;
   }
 }
-// This font-face (LongCang) is used only for dev purposes (to see if font change actually works), no need on the real production.
+// IMPORTANT!!!: This font-face (LongCang) is used only for dev purposes (to see if font change actually works), no need on the real production.
 // Remove it (and the font file) when not needed.
 @include font-face('LongCang', 'LongCang-Regular');
 
