@@ -19,6 +19,46 @@ import { version as showcasesI18nVersion } from '../../packages/showcases-i18n/p
 import { version as showcasesMenuVersion } from '../../packages/showcases-menu/package.json';
 import { version as showcasesSharedVersion } from '../../packages/showcases-shared/package.json';
 import { emitDefineJson } from '../../packages/anarchy-shared/src/Plugins/EmitDefineVitePlugin';
+import csp from 'vite-plugin-csp-guard';
+
+const BASE_CSP: Record<string, string[]> = {
+  'default-src': ["'self'"],
+
+  //No unsave-eval, no inline scripts/styles
+  'script-src': ["'self'"],
+  'script-src-elem': ["'self'"],
+
+  'style-src': ["'self'"],
+
+  // A compromise for libs with inline styles
+  'style-src-elem': ["'self'", "'unsafe-inline'"],
+  'img-src': ["'self'", 'data:', 'blob:'],
+  'font-src': ["'self'"],
+  'connect-src': ["'self'"],
+  'media-src': ["'self'", 'blob:'],
+
+  // Required for WebWorker/three.js/wasm
+  'worker-src': ["'self'", 'blob:'],
+
+  'child-src': ["'none'"],
+  'object-src': ["'none'"],
+  'base-uri': ["'self'"],
+  'form-action': ["'self'"],
+  'frame-ancestors': ["'none'"]
+  // "upgrade-insecure-requests": [] //If needed in the web version
+};
+
+const DEV_CSP: Record<string, string[]> = {
+  ...BASE_CSP,
+  // TODO DESKTOP: Can we have ports from config (or env)?
+  'connect-src': [...BASE_CSP['connect-src'], 'http://localhost:5173', 'ws://localhost:5173']
+};
+
+const PROD_CSP = {
+  ...BASE_CSP,
+  'connect-src': ["'self'"]
+  // maybe add 'upgrade-insecure-requests' as a separate plugin directive, if it supports
+};
 
 export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
   const root: string = process.cwd();
@@ -67,6 +107,16 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       vue(),
       vueJsx(),
       //END: FOR GUI only///////
+
+      //Issue: CSP plugin doesn't add <Meta> tag in dev mode
+      csp({
+        dev: {
+          run: true,
+          outlierSupport: ['sass']
+        },
+        // policy: PROD_CSP,
+        build: { sri: true }
+      }),
 
       //Build meta info (versions)
       emitDefineJson({ value: buildMetaInfo, fileName: 'build-meta.json' }),
