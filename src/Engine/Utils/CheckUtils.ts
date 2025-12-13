@@ -43,9 +43,9 @@ export const isVector2 = (obj: TVector2 | TVector3 | TVector4): obj is TVector2 
 export const isVector3 = (obj: TVector2 | TVector3 | TVector4): obj is TVector3 => isDefined(obj.x) && isDefined(obj.x) && isDefined((obj as TVector3).z) && isNotDefined((obj as TVector4).w);
 export const isVector4 = (obj: TVector2 | TVector3 | TVector4): obj is TVector4 => isDefined(obj.x) && isDefined(obj.x) && isDefined((obj as TVector4).z) && isDefined((obj as TVector4).w);
 
-export const isVector2Wrapper = (obj: TVector2Wrapper | TVector3Wrapper): obj is TVector2Wrapper => isVector2(obj.entity);
-export const isVector3Wrapper = (obj: TVector2Wrapper | TVector3Wrapper): obj is TVector3Wrapper => isVector3(obj.entity);
-export const isVector4Wrapper = (obj: TVector2Wrapper | TVector3Wrapper): obj is TVector4Wrapper => isVector4(obj.entity);
+export const isVector2Wrapper = (obj: TVector2Wrapper | TVector3Wrapper | TVector4Wrapper): obj is TVector2Wrapper => isVector2(obj.entity);
+export const isVector3Wrapper = (obj: TVector2Wrapper | TVector3Wrapper | TVector4Wrapper): obj is TVector3Wrapper => isVector3(obj.entity);
+export const isVector4Wrapper = (obj: TVector2Wrapper | TVector3Wrapper | TVector4Wrapper): obj is TVector4Wrapper => isVector4(obj.entity);
 
 export const isEntityWith2dPosition = (obj: TWithPositionProperty): obj is TWithPosition2dProperty => isVector2(obj.position as TVector2);
 export const isEntityWith3dPosition = (obj: TWithPositionProperty): obj is TWithPosition3dProperty => isVector3(obj.position as TVector3);
