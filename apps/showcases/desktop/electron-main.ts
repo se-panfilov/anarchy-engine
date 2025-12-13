@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import { dirname, join, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import { existsSync } from 'node:fs';
@@ -17,15 +17,15 @@ function getIndexHtmlPath(isProdMode: boolean): string {
   //   // console.log('XXX resolve', join(process.resourcesPath, 'dist', 'index.html'));
   //   const indexPath: string = false ? resolve(__dirname, '../../dist/index.html') : join(process.resourcesPath, 'dist', 'index.html');
   //   // const indexPath: string = resolve(__dirname, '../../dist/index.html');
-  //   console.log('__dirname', __dirname);
-  //   console.log('🔍 Resolved index.html path:', indexPath);
-  //   console.log('📁 Exists:', fs.existsSync(indexPath));
-
   const path: string = isProdMode ? join(process.resourcesPath, 'dist', 'index.html') : resolve(__dirname, '../../dist/index.html');
+  //   console.log('Resolved index.html path:', path);
+  //   console.log('Exists:', fs.existsSync(path));
 
   if (!existsSync(path)) {
-    console.error('[Main] index.html not found:', path);
-    app.exit(1);
+    const errMsg: string = `[Main] index.html not found at: ${path}`;
+    console.error(errMsg);
+    dialog.showErrorBox('Startup Error', errMsg);
+    app.quit();
   }
 
   return path;
