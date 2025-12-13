@@ -8,7 +8,7 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { model3dConfigToParams } from '@/Engine/Models3d/Adapters';
 import { Model3dType } from '@/Engine/Models3d/Constants';
-import type { TModel3dConfig, TModel3dFacade, TModel3dParams, TModels3dAsyncRegistry, TModels3dService, TPerformLoadResult } from '@/Engine/Models3d/Models';
+import type { TModel3dConfig, TModel3dFacade, TModel3dPack, TModel3dParams, TModels3dAsyncRegistry, TModels3dService, TPerformLoadResult } from '@/Engine/Models3d/Models';
 import { applyPosition, applyRotation, applyScale } from '@/Engine/Models3d/Services/Models3dServiceHelper';
 import { Model3dFacade } from '@/Engine/Models3d/Wrappers';
 import type { TSceneWrapper } from '@/Engine/Scene';
@@ -21,13 +21,26 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
   dracoLoader.setDecoderConfig({ type: 'wasm' });
   dracoLoader.preload();
   models3dLoader.setDRACOLoader(dracoLoader);
-  const added$: Subject<TPerformLoadResult> = new Subject<TPerformLoadResult>();
+  const loaded$: Subject<TPerformLoadResult> = new Subject<TPerformLoadResult>();
+  const added$: Subject<TModel3dFacade> = new Subject<TModel3dFacade>();
 
-  added$.subscribe(({ result, isExisting }: TPerformLoadResult): void => {
+  loaded$.subscribe(({ result, isExisting }: TPerformLoadResult): void => {
     const options = result.getOptions();
     if (options.shouldSaveToRegistry && !isExisting) registry.add(result);
     if (options.shouldAddToScene) sceneW.addModel(result.getModel());
+    added$.next(result);
   });
+
+  function createFacadeFromPack(pack: TModel3dPack): TModel3dFacade {
+    const facade = Model3dFacade(pack, animationsService);
+
+    if (pack.options.shouldSaveToRegistry) registry.add(facade);
+    if (pack.options.shouldAddToScene) sceneW.addModel(facade.getModel());
+
+    added$.next(facade);
+
+    return facade;
+  }
 
   function performLoad({ url, options }: TModel3dParams): Promise<TPerformLoadResult> {
     if ([...Object.values(Model3dType)].includes(url as Model3dType)) throw new Error(`Trying to load a primitive(e.g. cube, sphere, etc.) as an imported model: ${url}`);
@@ -55,7 +68,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
         if (isDefined(m.rotation)) applyRotation(model, m.rotation);
         if (isDefined(m.position)) applyPosition(model, m.position);
 
-        if (!isExisting) added$.next({ result, isExisting });
+        if (!isExisting) loaded$.next({ result, isExisting });
         return result;
       });
 
@@ -69,14 +82,20 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     registry.destroy();
+
     added$.complete();
     added$.unsubscribe();
+
+    loaded$.complete();
+    loaded$.unsubscribe();
   });
 
   return {
     loadAsync,
     loadFromConfigAsync,
+    createFacadeFromPack,
     added$: added$.asObservable(),
+    loaded$: loaded$.asObservable(),
     getRegistry: (): TModels3dAsyncRegistry => registry,
     getScene: (): TSceneWrapper => sceneW,
     getAnimationService: (): TAnimationsService => animationsService,

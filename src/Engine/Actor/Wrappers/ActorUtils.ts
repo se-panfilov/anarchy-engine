@@ -4,7 +4,7 @@ import type { TActorDependencies, TActorParams } from '@/Engine/Actor/Models';
 import type { TMaterials, TMaterialWrapper } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
 import type { TModel3dFacade, TModel3dPack } from '@/Engine/Models3d';
-import { Model3dFacade, Model3dType } from '@/Engine/Models3d';
+import { Model3dType } from '@/Engine/Models3d';
 import { isDefined } from '@/Engine/Utils';
 
 export async function createActorModel3d(
@@ -25,7 +25,7 @@ export async function createActorModel3d(
   if ((params.model3d.url as Model3dType) === Model3dType.Plane) result = { ...result, model: createPlane(params, materialWrapper.entity) };
   else if ((params.model3d.url as Model3dType) === Model3dType.Sphere) result = { ...result, model: createSphere(params, materialWrapper.entity) };
   else if ((params.model3d.url as Model3dType) === Model3dType.Cube) result = { ...result, model: createCube(params, materialWrapper.entity) };
-  return Model3dFacade(result, models3dService.getAnimationService());
+  return models3dService.createFacadeFromPack(result);
 }
 
 function createPlane({ width, height, widthSegments, heightSegments }: TActorParams, material: TMaterials): Mesh {
