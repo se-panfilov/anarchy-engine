@@ -12,7 +12,7 @@ declare global {
       node(): string;
       chrome(): string;
       electron(): string;
-      desktopAppVersion(): string;
+      desktopAppVersion(): Promise<string>;
     };
   }
 }
