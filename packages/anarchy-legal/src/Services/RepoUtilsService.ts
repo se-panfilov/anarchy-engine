@@ -503,9 +503,9 @@ export function RepoUtilsService(): TRepoUtilsService {
 
     if (wantRoot) {
       const pkgPath: string = path.join(rootDir, 'package.json');
-      const pkg = await readJson(pkgPath);
+      const pkg: Record<string, unknown> = await readJson(pkgPath);
       const name: string = typeof pkg.name === 'string' ? pkg.name : 'monorepo-root';
-      return { name, dir: rootDir, pkgPath, pkg };
+      return { name, dir: rootDir, pkgPath, pkg: pkg as any };
     }
 
     throw new Error(`Workspace "${arg}" not found by name or path. Tip: use "--workspace ." or "--workspace :root" to target the monorepo root.`);

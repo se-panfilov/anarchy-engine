@@ -34,7 +34,7 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
 
     if (!found) {
       debugLog(isDebug(), 'config: <none> (no JS config found)');
-      return [];
+      return {};
     }
 
     try {
@@ -42,11 +42,39 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
       // Support both ESM default export and CommonJS module.exports
       const exported = (mod && 'default' in mod ? (mod as any).default : mod) as unknown;
 
-      if (!Array.isArray(exported)) throw new Error(`Invalid config export. Expected default export to be an Array. Got: ${typeof exported}`);
+      if (!exported || typeof exported !== 'object' || Array.isArray(exported)) throw new Error('Invalid config export. Expected an object like { GENERIC: {...}, EULA: {...}, ... }.');
 
-      // Very light validation + strip falsy items
-      const config = (exported as unknown[]).filter(Boolean) as TAnarchyLegalConfig;
-      debugLog(isDebug(), 'config file:', found);
+      // Very light validation and narrowing
+      const obj = exported as Record<string, unknown>;
+      const config: TAnarchyLegalConfig = {};
+
+      const assign = (k: 'GENERIC' | TLegalDocumentType): void => {
+        const v = obj[k];
+        if (v === undefined) return;
+        if (!v || typeof v !== 'object' || Array.isArray(v)) {
+          console.warn(`[warn] anarchy-legal.config: section "${k}" must be an object; got ${typeof v}. Skipped.`);
+          return;
+        }
+        const { template, messages } = v as { template?: string; messages?: TTemplateMessages };
+        // eslint-disable-next-line functional/immutable-data
+        config[k] = {
+          ...(template ? { template } : {}),
+          ...(messages ? { messages } : {})
+        };
+      };
+
+      assign('GENERIC');
+      // eslint-disable-next-line functional/no-loop-statements
+      for (const dt of Object.values(LegalDocumentType)) assign(dt);
+
+      // Warn on unknown keys (helps catch typos)
+      const known = new Set<string>(['GENERIC', ...Object.values(LegalDocumentType)]);
+      // eslint-disable-next-line functional/no-loop-statements
+      for (const k of Object.keys(obj)) {
+        if (!known.has(k)) console.warn(`[warn] anarchy-legal.config: unknown section "${k}" ignored.`);
+      }
+
+      debugLog(isDebug(), 'config file:', found, 'keys:', Object.keys(config));
       return config;
     } catch (e) {
       const msg: string = e instanceof Error ? e.message : String(e);
@@ -253,17 +281,13 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
       outDir: string;
       templatesDir: string;
       types: ReadonlySet<TLegalDocumentType>;
-      config: ReadonlyArray<{
-        type: 'GENERIC' | TLegalDocumentType;
-        template?: string;
-        messages?: Readonly<Record<string, unknown>>;
-      }>;
+      config: TAnarchyLegalConfig;
     }>,
     docType: TLegalDocumentType,
     options: TTemplateGeneratorOptions
   ): Promise<void> {
-    const genericConfig = i.config.find((e) => e?.type === 'GENERIC');
-    const specificConfig = i.config.find((e) => e?.type === docType);
+    const genericConfig = i.config['GENERIC'];
+    const specificConfig = i.config[docType];
     const desiredBase = specificConfig?.template;
 
     const tplPath: string | undefined = await findTemplateFile(i.templatesDir, docType, options, desiredBase);

@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import type { TAnarchyLegalConfigEntry, TLegalDocumentType, TLegalFilesService, TLegalFilesUtilsService, TRepoUtilsService, TTemplateGeneratorOptions, TWorkspaceInfo } from '@Anarchy/Legal'; // eslint-disable-next-line spellcheck/spell-checker
+import type { TAnarchyLegalConfig, TLegalDocumentType, TLegalFilesService, TLegalFilesUtilsService, TRepoUtilsService, TTemplateGeneratorOptions, TWorkspaceInfo } from '@Anarchy/Legal'; // eslint-disable-next-line spellcheck/spell-checker
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
@@ -83,13 +83,9 @@ export function LegalFilesService(): TLegalFilesService {
     })();
 
     // Read config (optional)
-    const config: ReadonlyArray<TAnarchyLegalConfigEntry> = await readConfig(ws.dir);
-    if (config.length)
-      debugLog(
-        isDebug,
-        'config entries:',
-        config.map((c: TAnarchyLegalConfigEntry): TLegalDocumentType | 'GENERIC' => c.type)
-      );
+    const config: TAnarchyLegalConfig = await readConfig(ws.dir);
+    const configKeys: ReadonlyArray<string> = Object.keys(config ?? {});
+    if (configKeys.length) debugLog(isDebug, 'config keys:', configKeys);
     else debugLog(isDebug, 'config: <none>');
 
     // Go

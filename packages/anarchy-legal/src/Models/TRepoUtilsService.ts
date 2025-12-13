@@ -18,6 +18,6 @@ export type TRepoUtilsService = Readonly<{
   npmLsJson: (rootDir: string, workspace: string) => Promise<TDependencyNode | undefined>;
   readJson: <T extends Record<string, unknown>>(p: string) => Promise<T>;
   renderMarkdown: (workspaceLabel: string, items: ReadonlyArray<TLicenseEntry>, emptyNote?: string) => string;
-  resolveWorkspaceFromArg: (arg: string, workspaces: ReadonlyMap<string, TWorkspaceInfo>, rootDir: string) => TWorkspaceInfo;
+  resolveWorkspaceFromArg: (arg: string, workspaces: ReadonlyMap<string, TWorkspaceInfo>, rootDir: string) => Promise<TWorkspaceInfo>;
   setDebugMode: (isDebug: boolean) => void;
 }>;
