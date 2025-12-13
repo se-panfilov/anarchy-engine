@@ -5,7 +5,7 @@ import type { TMilliseconds } from '@/Engine/Math';
 import { isDefined } from '@/Engine/Utils';
 
 export function DeltaCalculator(useClock: boolean = true): TDeltaCalculator {
-  const clock: Clock | undefined = useClock ? new Clock() : undefined;
+  let clock: Clock | undefined = useClock ? new Clock() : undefined;
 
   const result = {
     isPaused: false,
@@ -40,6 +40,10 @@ export function DeltaCalculator(useClock: boolean = true): TDeltaCalculator {
     },
     getClock(): Clock | undefined {
       return clock;
+    },
+    destroy(): void {
+      if (isDefined(clock)) clock.stop();
+      clock = undefined;
     }
   };
 

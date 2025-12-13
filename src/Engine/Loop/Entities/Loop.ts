@@ -1,6 +1,5 @@
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, EMPTY, Subject, switchMap } from 'rxjs';
-import { Clock } from 'three';
 
 import type { TDelta, TDeltaCalculator, TLoop } from '@/Engine/Loop/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
@@ -53,7 +52,7 @@ export function Loop(trigger: TTriggerFn | number): TLoop {
 
     if (isDefined(intervalId)) clearInterval(intervalId);
 
-    // TODO DESTROY: destroy deltaCalc
+    deltaCalc.destroy();
   });
 
   return {

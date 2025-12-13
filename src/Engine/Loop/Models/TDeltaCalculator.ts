@@ -10,4 +10,5 @@ export type TDeltaCalculator = Readonly<{
   pause: () => void;
   resume: () => void;
   getClock: () => Clock | undefined;
+  destroy: () => void;
 }>;
