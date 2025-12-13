@@ -14,7 +14,7 @@ export type TSpatialMethods = Readonly<{
   setGrid: (grid: TSpatialGridWrapper) => void;
   getGrid: () => TSpatialGridWrapper | undefined;
   resetGrid: () => void;
-  getSpatialCell: () => TSpatialCell | undefined;
-  setSpatialCell: (cell: TSpatialCell | undefined) => void;
-  resetSpatialCell: () => void;
+  getSpatialCells: () => ReadonlyArray<TSpatialCell>;
+  setSpatialCells: (cells: ReadonlyArray<TSpatialCell>) => void;
+  resetSpatialCells: () => void;
 }>;

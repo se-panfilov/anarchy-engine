@@ -6,5 +6,5 @@ import type { TSpatialGridWrapper } from './TSpatialGridWrapper';
 export type TSpatialData = Readonly<{
   updatePriority: SpatialUpdatePriority;
   grid: TSpatialGridWrapper | undefined;
-  cell: TSpatialCell | undefined;
+  cells: ReadonlyArray<TSpatialCell>;
 }>;

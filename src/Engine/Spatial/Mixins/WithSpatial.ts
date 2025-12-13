@@ -11,14 +11,14 @@ export function withSpatial(params: TActorParams): TWithSpatial {
     spatial: {
       data: {
         updatePriority: params.spatial?.updatePriority ?? SpatialUpdatePriority.LOW,
-        cell: params.spatial?.cell || undefined,
-        grid: params.spatial?.grid || undefined
+        grid: params.spatial?.grid || undefined,
+        cells: params.spatial?.cells || []
       },
-      setData({ updatePriority, cell }: TSpatialData): void {
+      setData({ updatePriority, cells }: TSpatialData): void {
         // eslint-disable-next-line functional/immutable-data
         (this.data as TWriteable<TSpatialData>).updatePriority = updatePriority;
         // eslint-disable-next-line functional/immutable-data
-        (this.data as TWriteable<TSpatialData>).cell = cell;
+        (this.data as TWriteable<TSpatialData>).cells = cells;
       },
       getData(): TSpatialData {
         return this.data;
@@ -47,16 +47,16 @@ export function withSpatial(params: TActorParams): TWithSpatial {
         // eslint-disable-next-line functional/immutable-data
         (this.data as TWriteable<TSpatialData>).grid = undefined;
       },
-      getSpatialCell(): TSpatialCell | undefined {
-        return this.data.cell;
+      getSpatialCells(): ReadonlyArray<TSpatialCell> {
+        return this.data.cells;
       },
-      setSpatialCell(newCell: TSpatialCell | undefined): void {
+      setSpatialCells(cells: ReadonlyArray<TSpatialCell>): void {
         // eslint-disable-next-line functional/immutable-data
-        (this.data as TWriteable<TSpatialData>).cell = newCell;
+        (this.data as TWriteable<TSpatialData>).cells = cells;
       },
-      resetSpatialCell(): void {
+      resetSpatialCells(): void {
         // eslint-disable-next-line functional/immutable-data
-        (this.data as TWriteable<TSpatialData>).cell = undefined;
+        (this.data as TWriteable<TSpatialData>).cells = [];
       }
     }
   };
