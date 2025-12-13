@@ -6,6 +6,7 @@ import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import type { TContainerDecorator } from '@/Engine/Global';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TLoop } from '@/Engine/Loop';
+import type { TMouseClickWatcher, TMousePositionWatcher } from '@/Engine/Mouse';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
@@ -54,7 +55,14 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
     return getCanvasContainer(canvas);
   }
 
-  const space: TSpace = Object.assign(AbstractEntity(parts, EntityType.Space, { version, name, tags }), { getCanvasElement, getContainer });
+  const space: TSpace = Object.assign(
+    AbstractEntity(parts, EntityType.Space, {
+      version,
+      name,
+      tags
+    }),
+    { getCanvasElement, getContainer }
+  );
 
   start$.pipe(skip(1), distinctUntilChanged()).subscribe((value: boolean): void => {
     if (value) return Object.values(space.loops).forEach((loop: TLoop): void => loop.start());
@@ -63,13 +71,7 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
     if (isNotDefined(space)) throw new Error('Engine is not started yet (space is not defined)');
     Object.values(space.loops).forEach((loop: TLoop): void => loop.stop());
 
-    const { intersectionsWatcherService, screenService } = space.services;
-
-    screenService.watchers.getRegistry().forEach((watcher: TScreenSizeWatcher): void => watcher.stop$.next());
-    // TODO 14-0-0: stop all watchers, not only intersections
-    void intersectionsWatcherService.getRegistry().forEach((watcher: TIntersectionsWatcher): void => {
-      if (watcher.isStarted) watcher.stop$.next();
-    });
+    stopWatchers(space.services, false);
 
     return undefined;
   });
@@ -78,7 +80,7 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   const destroySub$: Subscription = space.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
-    // TODO 14-0-0: Stop all watchers on destroy
+    stopWatchers(space.services, true);
 
     built$.complete();
     built$.unsubscribe();
@@ -94,7 +96,15 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   return result;
 }
 
-function initSpaceServices(canvas: TSpaceCanvas, container: TContainerDecorator, params: TSpaceParams, hooks?: TSpaceHooks): { services: TSpaceServices; loops: TSpaceLoops } {
+function initSpaceServices(
+  canvas: TSpaceCanvas,
+  container: TContainerDecorator,
+  params: TSpaceParams,
+  hooks?: TSpaceHooks
+): {
+  services: TSpaceServices;
+  loops: TSpaceLoops;
+} {
   hooks?.beforeBaseServicesBuilt?.(canvas, params);
   const baseServices: TSpaceBaseServices = buildBaseServices();
   baseServices.screenService.setCanvas(canvas);
@@ -113,4 +123,15 @@ function initSpaceServices(canvas: TSpaceCanvas, container: TContainerDecorator,
   const services: TSpaceServices = buildEntitiesServices(sceneW, canvas, container, loops, baseServices);
 
   return { services, loops };
+}
+
+function stopWatchers({ intersectionsWatcherService, screenService, mouseService }: TSpaceServices, shouldDestroy: boolean): void {
+  mouseService.getMouseClickWatcherRegistry().forEach((watcher: TMouseClickWatcher): void => (shouldDestroy ? watcher.destroy$.next() : watcher.stop$.next()));
+  mouseService.getMousePositionWatcherRegistry().forEach((watcher: TMousePositionWatcher): void => (shouldDestroy ? watcher.destroy$.next() : watcher.stop$.next()));
+  screenService.watchers.getRegistry().forEach((watcher: TScreenSizeWatcher): void => (shouldDestroy ? watcher.destroy$.next() : watcher.stop$.next()));
+  intersectionsWatcherService.getRegistry().forEach((watcher: TIntersectionsWatcher): void => {
+    if (shouldDestroy) return watcher.destroy$.next();
+    if (watcher.isStarted) return watcher.stop$.next();
+    return undefined;
+  });
 }
