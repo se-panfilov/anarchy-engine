@@ -52,8 +52,16 @@ export function IntersectionsDirectionWatcher(params: TIntersectionsDirectionWat
 
   function getIntersection(origin: Vector3, direction: Vector3, list: Array<TSceneObject>): TIntersectionEvent | undefined | never {
     if (isNotDefined(abstractIntersectionsWatcher.raycaster)) throw new Error('[IntersectionsDirectionWatcher]: Cannot get intersection: raycaster is not defined');
-    abstractIntersectionsWatcher.raycaster.set(origin, direction);
+    abstractIntersectionsWatcher.raycaster.set(origin, direction.normalize());
     return abstractIntersectionsWatcher.raycaster.intersectObjects(list)[0];
+  }
+
+  function getDistanceToTargetPoint(origin: TReadonlyVector3, target: TReadonlyVector3): number {
+    return new Vector3(target.x - origin.x, target.y - origin.y, target.z - origin.z).length();
+  }
+
+  function targetPointToDirection(origin: TReadonlyVector3, target: TReadonlyVector3): TReadonlyVector3 {
+    return new Vector3(target.x - origin.x, target.y - origin.y, target.z - origin.z).normalize();
   }
 
   const destroySub$: Subscription = abstractIntersectionsWatcher.destroy$.subscribe((): void => {
@@ -64,6 +72,8 @@ export function IntersectionsDirectionWatcher(params: TIntersectionsDirectionWat
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractIntersectionsWatcher, {
     origin$,
-    direction$
+    direction$,
+    targetPointToDirection,
+    getDistanceToTargetPoint
   });
 }

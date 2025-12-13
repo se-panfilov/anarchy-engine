@@ -8,4 +8,6 @@ export type TIntersectionsDirectionWatcher = TAbstractIntersectionsWatcher &
   Readonly<{
     origin$: BehaviorSubject<TReadonlyVector3>;
     direction$: BehaviorSubject<TReadonlyVector3>;
+    targetPointToDirection: (origin: TReadonlyVector3, target: TReadonlyVector3) => TReadonlyVector3;
+    getDistanceToTargetPoint: (origin: TReadonlyVector3, target: TReadonlyVector3) => number;
   }>;

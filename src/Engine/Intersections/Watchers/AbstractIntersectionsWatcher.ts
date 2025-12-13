@@ -14,10 +14,11 @@ import type {
   TIntersectionsLoop
 } from '@/Engine/Intersections/Models';
 import type { TWriteable } from '@/Engine/Utils';
+import { isNotDefined } from '@/Engine/Utils';
 
 export function AbstractIntersectionsWatcher({ isAutoStart, tags, name, intersectionsLoop, ...rest }: TAnyIntersectionsWatcherParams): TAbstractIntersectionsWatcher {
   const abstractWatcher: TAbstractWatcher<TIntersectionEvent> = AbstractWatcher<TIntersectionEvent>(WatcherType.IntersectionWatcher, name, tags);
-  let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
+  let raycaster: Raycaster | undefined = new Raycaster();
   let actors: ReadonlyArray<TActor> = [];
 
   const addActors = (actorsList: ReadonlyArray<TActor>): void => void (actors = [...actors, ...actorsList]);
@@ -47,6 +48,11 @@ export function AbstractIntersectionsWatcher({ isAutoStart, tags, name, intersec
     removeActor,
     removeActors,
     raycaster,
+    setFar: (far: number): void => {
+      if (isNotDefined(raycaster)) throw new Error('[AbstractIntersectionsWatcher]: Cannot set far: raycaster is not defined');
+      // eslint-disable-next-line functional/immutable-data
+      raycaster.far = far;
+    },
     serialize: (): TAnyIntersectionsWatcherConfig => intersectionsToConfig(result as TAnyIntersectionsWatcher)
   });
 

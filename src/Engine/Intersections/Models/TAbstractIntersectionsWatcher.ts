@@ -16,5 +16,6 @@ export type TAbstractIntersectionsWatcher = TWatcher<TIntersectionEvent> &
     isStarted: boolean;
     removeActor: (actorId: string) => void;
     removeActors: (actorIds: ReadonlyArray<string>) => void;
+    setFar: (far: number) => void;
     raycaster: Readonly<Raycaster>;
   }>;
