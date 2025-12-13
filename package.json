@@ -11,8 +11,11 @@
   "license": "MIT",
   "scripts": {
     "clean:all": "rimraf ./dist ./packages/*/dist ./apps/*/dist ./node_modules ./packages/*/node_modules ./apps/*/node_modules ./package-lock.json",
-    "clean:reinstall": "npm run clean:all && npm install && git add ./package-lock.json",
     "clean:all-metadate": "npm run e2e:clean-metadate --workspace=packages/e2e && npm run sanitize-assets --workspace=apps/showcases",
+    "clean:reinstall": "npm run clean:all && npm install && git add ./package-lock.json",
+    "gitleaks:ci": "gitleaks detect --config=.gitleaks.toml --source=. --no-git --redact --report-format=json --report-path=reports/gitleaks-ci.json --verbose",
+    "gitleaks:scan:history": "gitleaks detect --config=.gitleaks.toml --report-format=table --verbose --source=.",
+    "gitleaks:scan:files": "gitleaks detect --config=.gitleaks.toml --no-git --verbose --source=.",
     "prettier:changed": "git diff --name-only --diff-filter=ACMRTUXB HEAD | grep -E '\\.(ts|tsx|js|json|css|md)$' | xargs prettier --write",
     "pretty-quick": "pretty-quick --staged"
   },

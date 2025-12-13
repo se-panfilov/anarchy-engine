@@ -4,3 +4,5 @@ pre-commit:
     prettier:
       glob: '*.{ts,tsx,js,jsx,json,css,scss,sass,txt,yaml,md}'
       run: npm run pretty-quick
+    gitleaks:
+      run: gitleaks protect --staged --verbose
