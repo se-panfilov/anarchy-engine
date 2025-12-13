@@ -4,6 +4,7 @@ import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import path from 'path';
 import { sharedAliases } from '../../vite.alias';
+import { visualizer } from 'rollup-plugin-visualizer';
 import wasm from 'vite-plugin-wasm';
 
 export default defineConfig({
@@ -14,6 +15,7 @@ export default defineConfig({
       ...sharedAliases
     }
   },
+  // minify: 'terser', //could have better compression (make sure wasm is not broken)
   plugins: [
     wasm(),
     dts({
@@ -23,13 +25,13 @@ export default defineConfig({
       ext: '.gz',
       algorithm: 'gzip',
       deleteOriginFile: false,
-      filter: /\.(js|mjs|json|css|map|html|glb|gltf|bin|wasm|txt|svg|csv|xml|shader|material)$/i
+      filter: /\.(js|mjs|json|css|map|html|glb|gltf|bin|wasm|txt|svg|csv|xml|shader|material|ttf|otf)$/i
     }),
     compression({
       ext: '.br',
       algorithm: 'brotliCompress',
       deleteOriginFile: false,
-      filter: /\.(js|mjs|json|css|map|html|glb|gltf|bin|wasm|txt|svg|csv|xml|shader|material)$/i
+      filter: /\.(js|mjs|json|css|map|html|glb|gltf|bin|wasm|txt|svg|csv|xml|shader|material|ttf|otf)$/i
     })
   ],
   worker: {
@@ -38,7 +40,21 @@ export default defineConfig({
     plugins: [wasm()]
   },
   build: {
+    assetsInlineLimit: 0, // Do not inline assets and wasm
     target: 'esnext',
-    sourcemap: true
+    sourcemap: true,
+    rollupOptions: {
+      // external: (id: string): boolean => id.endsWith('.spec.ts') || id.endsWith('.test.ts'),
+      //  external: ['three', 'rxjs', '@dimforge/rapier3d'], — If you want to exclude some dependencies from the bundle
+      output: {
+        // manualChunks: {
+        // anarchy_engine: ['@Engine']
+        // },
+        inlineDynamicImports: false //extract workers to separate bundle
+      },
+      plugins: [visualizer({ open: false })]
+    },
+    outDir: 'dist',
+    emptyOutDir: true
   }
 });
