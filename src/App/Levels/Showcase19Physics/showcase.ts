@@ -17,7 +17,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const world: World = new World(gravity);
 
   const sceneWrapper: TSceneWrapper = actorService.getScene();
-  const rapierDebugRenderer: TPhysicsDebugRenderer = PhysicsDebugRenderer(sceneWrapper.entity, world);
+  const physicsDebugRenderer: TPhysicsDebugRenderer = PhysicsDebugRenderer(sceneWrapper.entity, world);
 
   // Create the ground
   const groundColliderDesc: ColliderDesc = ColliderDesc.cuboid(10.0, 0.1, 10.0);
@@ -39,7 +39,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const position: Vector = rigidBody.translation();
     console.log('Rigid-body position: ', position.x, position.y, position.z);
 
-    rapierDebugRenderer.update();
+    physicsDebugRenderer.update();
   });
 
   async function init(): Promise<void> {
