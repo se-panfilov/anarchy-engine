@@ -24,7 +24,7 @@ export function createLoops({ create }: TLoopService): TSpaceLoops {
 
   // TODO 19-0-0: SIZE: Rapier3d must be lazy loaded
   // TODO 18-0-0: MONO: VITE_SHOW_DEBUG_INFO should come from the app config, not from the env/engine
-  const showDebugInfo: boolean = config.showDebugInfo ?? runtimeEnv.VITE_SHOW_DEBUG_INFO;
+  const showDebugInfo: boolean = false; //config.showDebugInfo ?? runtimeEnv.VITE_SHOW_DEBUG_INFO;
 
   //steps
   const audioLoopStep: number = config.audioLoopStep ?? runtimeEnv.VITE_AUDIO_LOOP_STEP;
