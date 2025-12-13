@@ -10,18 +10,18 @@ export function BvhService(): TBvhService {
   const computeBVHBoundsTree = (geometry: BufferGeometry, options?: TBvhOptions): MeshBVH => computeBoundsTree.call(geometry, options);
   const disposeBVHBoundsTree = (geometry: BufferGeometry): void => disposeBoundsTree.call(geometry);
   function raycastWithBvh(actorW: TActorWrapper, raycaster: Raycaster, intersects: Array<Intersection>): void {
-    processEntity(actorW.entity, (mesh) => {
+    processEntity(actorW.entity.getModel3d(), (mesh) => {
       acceleratedRaycast.call(mesh, raycaster, intersects);
     });
   }
 
   function createBvhForActor(actorW: TActorWrapper, options?: TBvhOptions): void {
-    processEntity(actorW.entity, (mesh: Mesh) => computeBVHBoundsTree(mesh.geometry, options));
+    processEntity(actorW.entity.getModel3d(), (mesh: Mesh) => computeBVHBoundsTree(mesh.geometry, options));
   }
 
   // this highlight is for debugging purposes only
   function _debugVisualizeBvhForActor(actorW: TActorWrapper, sceneW: TSceneWrapper, depth: number = 10): void {
-    processEntity(actorW.entity, (mesh: Mesh) => {
+    processEntity(actorW.entity.getModel3d(), (mesh: Mesh) => {
       const bvhHelper: MeshBVHHelper = new MeshBVHHelper(mesh, depth);
       sceneW.entity.add(bvhHelper);
     });

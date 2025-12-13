@@ -1,5 +1,6 @@
 import { FacadeType } from '@/Engine/Abstract';
 import { AbstractFacade } from '@/Engine/Abstract/Wrappers/AbstractFacade';
+import { withObject3d } from '@/Engine/Mixins';
 import { withModel3dFacadeEntities } from '@/Engine/Models3d/Mixins';
 import type { TModel3dEntities, TModel3dFacade, TModel3dFacadeDependencies, TModel3dParams } from '@/Engine/Models3d/Models';
 import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToModel3d, applyScaleToModel3d, createModels3dEntities } from '@/Engine/Models3d/Utils';
@@ -41,6 +42,7 @@ export function Model3dFacade(params: TModel3dParams, { animationsService, model
 
   return {
     ...facade,
+    ...withObject3d(entities.model3dSource),
     getParams,
     _clone
   };

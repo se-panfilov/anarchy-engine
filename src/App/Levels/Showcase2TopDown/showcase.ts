@@ -21,6 +21,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const actorDefaultParams: Omit<TActorParams, 'model3dSource'> = {
       position: new Vector3(),
+      rotation: new Euler(),
       spatial: { grid, isAutoUpdate: false }
     };
 
@@ -59,6 +60,8 @@ function createCube(models3dService: TModels3dService, name: string, materialW: 
     model3dSource: PrimitiveModel3dType.Cube,
     animationsSource: [],
     materialSource: materialW,
-    options: { width: 1, height: 1, depth: 1 }
+    options: { width: 1, height: 1, depth: 1 },
+    position: new Vector3(),
+    rotation: new Euler()
   });
 }

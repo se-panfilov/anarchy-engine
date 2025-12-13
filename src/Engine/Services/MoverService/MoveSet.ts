@@ -4,12 +4,12 @@ import type { Vector3 } from 'three/src/math/Vector3';
 
 import { defaultAnimationParams, Easing } from '@/Engine/Services/MoverService/Constants';
 import type { TFollowTargetFn, TFollowTargetParams, TMoveableByTick, TMoveByPathFn, TMoveByPathFnParams, TMoveFn, TMoveFnParams } from '@/Engine/Services/MoverService/Models';
-import { getAnimationWrapperForComplexPathAnimation } from '@/Engine/Services/MoverService/MoverServiceUtils';
+import { getAnimationWrapperForComplexPathAnimation, isMovableEntityWrapper } from '@/Engine/Services/MoverService/MoverServiceUtils';
 import { isVector3 } from '@/Engine/Utils';
 
 export const goStraightMove: TMoveFn = ({ obj, destination, animationParams, complete }: TMoveFnParams): anime.AnimeInstance => {
   return anime({
-    targets: obj.entity.position,
+    targets: isMovableEntityWrapper(obj) ? obj.getPosition() : obj.entity.getModel3d().position.clone(),
     x: destination.x,
     y: destination.y,
     z: destination.z,
@@ -23,7 +23,7 @@ export const goStraightMove: TMoveFn = ({ obj, destination, animationParams, com
 export const byPathMove: TMoveByPathFn = ({ obj, path, animationParams, complete }: TMoveByPathFnParams): anime.AnimeInstance => {
   return getAnimationWrapperForComplexPathAnimation(
     anime({
-      targets: obj.entity.position,
+      targets: isMovableEntityWrapper(obj) ? obj.getPosition() : obj.entity.getModel3d().position.clone(),
       keyframes: path,
       ...defaultAnimationParams,
       ...animationParams,

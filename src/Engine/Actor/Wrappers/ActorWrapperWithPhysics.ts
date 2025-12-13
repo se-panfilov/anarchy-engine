@@ -38,7 +38,7 @@ function updateActorByPhysicalBody(actorPhysicalW: TActorWrapperWithPhysics): vo
   const vector: Vector = rigidBody.translation();
   actorPhysicalW.setPosition(new Vector3(vector.x, vector.y, vector.z));
   const { x, y, z, w }: Rotation = rigidBody.rotation();
-  actorPhysicalW.entity.quaternion.set(x, y, z, w);
+  actorPhysicalW.entity.getModel3d().quaternion.set(x, y, z, w);
 }
 
 function updateMovementInfo(actorPhysicalW: TActorWrapperWithPhysics, physicsBodyService: TPhysicsBodyService): void | never {

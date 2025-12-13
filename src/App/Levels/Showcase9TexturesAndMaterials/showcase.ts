@@ -21,7 +21,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const modelF: TModel3dFacade | undefined = models3dRegistry.findByName('wood_cube_model');
     if (isNotDefined(modelF)) throw new Error('Model is not found');
 
-    sceneW.addModel3d(modelF.getModel());
+    sceneW.addModel3d(modelF.getModel3d());
 
     initCameraRotation(space, modelF, mouseService);
   }
@@ -59,7 +59,7 @@ function initCameraRotation(space: TSpace, modelF: TModel3dFacade | undefined, m
       camera.setY(yRatio * 10);
       camera.setZ(yRotation);
 
-      const vector: Vector3 | undefined = modelF?.getModel().position;
+      const vector: Vector3 | undefined = modelF?.getModel3d().position;
       if (isNotDefined(vector)) throw new Error('Model3d has no position');
       if (isDefined(modelF)) camera.lookAt(vector);
     });

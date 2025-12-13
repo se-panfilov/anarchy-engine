@@ -97,7 +97,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     mouseService.clickLeftRelease$.subscribe(() => {
       if (isClickBlocked) {
-        redActor.setVisible(false);
+        redActor.entity.setVisible(false);
         notification.setVisible(true);
         // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
         setTimeout(() => notification.setVisible(false), 1000);

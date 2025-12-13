@@ -5,7 +5,7 @@ import type { TModel3dEntities, TWithModel3dFacadeEntities } from '@/Engine/Mode
 
 export function withModel3dFacadeEntities({ model3dSource, animationsSource, mixer, actions }: TModel3dEntities): TWithModel3dFacadeEntities {
   return {
-    getModel: (): Group | Mesh | Object3D => model3dSource,
+    getModel3d: (): Group | Mesh | Object3D => model3dSource,
     getAnimations: (): ReadonlyArray<AnimationClip> => animationsSource ?? [],
     getMixer: (): AnimationMixer => mixer,
     getActions: (): TAnimationActions => actions

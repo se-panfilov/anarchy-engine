@@ -6,33 +6,34 @@ import type { TActorDependencies, TActorParams, TActorWrapper } from '@/Engine/A
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Wrappers/ActorWrapperHelper';
 import { withCollisions } from '@/Engine/Collisions';
 import { withKinematic } from '@/Engine/Kinematic';
-import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
+import { scalableMixin, withMoveBy3dMixin, withRotationByXyzMixin } from '@/Engine/Mixins';
 import type { TModel3dFacade } from '@/Engine/Models3d';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
 import { withReactivePosition, withReactiveRotation, withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import { applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
+// TODO 8.0.0. MODELS: shall we refactor TActorWrapper to TModel3dFacade?
 export function ActorWrapper(
   params: TActorParams,
   { kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService, models3dService, model3dFacadeToActorConnectionRegistry }: TActorDependencies
 ): TActorWrapper {
   const isModelAlreadyInUse: boolean = isDefined(model3dFacadeToActorConnectionRegistry.findByModel3dFacade(params.model3dSource));
-  const model3dF: TModel3dFacade = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
-  const entity: Group | Mesh | Object3D = model3dF.getModel();
+  const entity: TModel3dFacade = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
+  const model3d: Group | Mesh | Object3D = entity.getModel3d();
 
   // TODO 8.0.0. MODELS: options such as "castShadow", "receiveShadow" and etc might be not needed here
 
-  const { value$: position$, update: updatePosition } = withReactivePosition(entity);
-  const { value$: rotation$, update: updateRotation } = withReactiveRotation(entity);
+  const { value$: position$, update: updatePosition } = withReactivePosition(model3d);
+  const { value$: rotation$, update: updateRotation } = withReactiveRotation(model3d);
 
   const actorW: TActorWrapper = {
     ...AbstractWrapper(entity, WrapperType.Actor, params),
 
+    // TODO CWP find out which of these mixins are not needed here
     // TODO 8.0.0. MODELS: perhaps move these mixins to Model3dFacade
-    ...withMoveBy3dMixin(entity),
-    ...withRotationByXyzMixin(entity),
-    ...scalableMixin(entity),
-    ...withObject3d(entity),
+    ...withMoveBy3dMixin(model3d),
+    ...withRotationByXyzMixin(model3d),
+    ...scalableMixin(model3d),
 
     ...withKinematic(params),
     ...withSpatial(params),
@@ -41,9 +42,7 @@ export function ActorWrapper(
     // TODO 8.0.0. MODELS: this mixin should be work properly with Model3dFacade (check if it detects the model's size correctly)
     ...withUpdateSpatialCell(),
     position$: position$.asObservable(),
-    rotation$: rotation$.asObservable(),
-    getFacade: (): TModel3dFacade => model3dF,
-    entity
+    rotation$: rotation$.asObservable()
   };
 
   const kinematicSub$: Subscription = kinematicLoopService.tick$.subscribe((delta: number): void => {
@@ -69,8 +68,8 @@ export function ActorWrapper(
     rotation$.complete();
     actorW.spatial.destroy();
     actorW.collisions?.destroy();
-    model3dFacadeToActorConnectionRegistry.removeByModel3dFacade(model3dF);
-    model3dF.destroy();
+    model3dFacadeToActorConnectionRegistry.removeByModel3dFacade(entity);
+    entity.destroy();
   });
   // TODO 8.0.0. MODELS: check: should be applied both for actor and model3d
   applyPosition(actorW, params.position);
@@ -86,7 +85,7 @@ export function ActorWrapper(
 
   position$.subscribe((newPosition: Vector3): void => actorW.updateSpatialCells(newPosition));
 
-  model3dFacadeToActorConnectionRegistry.addModel3dFacade(model3dF, actorW);
+  model3dFacadeToActorConnectionRegistry.addModel3dFacade(entity, actorW);
 
   return actorW;
 }

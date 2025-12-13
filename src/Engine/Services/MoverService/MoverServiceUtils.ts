@@ -7,6 +7,8 @@ import type {
   TAnimationParams,
   TFullKeyframeDestination,
   TKeyframeDestination,
+  TMovableEntityWrapper,
+  TMovableWithModel3dFacade,
   TMoveableByTick,
   TMoveByPathFn,
   TMoveByPathFnParams,
@@ -15,7 +17,8 @@ import type {
   TMoveFnParams,
   TStopMoveCb
 } from '@/Engine/Services/MoverService/Models';
-import { createDeferredPromise } from '@/Engine/Utils';
+import type { TOptional } from '@/Engine/Utils';
+import { createDeferredPromise, isDefined } from '@/Engine/Utils';
 
 export function performMove(moveFn: TMoveFn | TMoveByPathFn, loopService: TLoopService, params: Omit<TMoveFnParams, 'complete'> | Omit<TMoveByPathFnParams, 'complete'>): Promise<void> {
   const { promise, resolve } = createDeferredPromise();
@@ -36,8 +39,15 @@ export function performMoveUntil<F extends (params: P) => TMoveableByTick, P>(mo
 }
 
 // Do not use this function for complex paths (with more than 1 point), it might not work as expected when partial coords are provided.
-export function addMissingCoords<T extends TKeyframeDestination | TMoveDestination>(destination: T, actor: TMovable3dXYZ): TKeyframeDestination | Required<TMoveDestination> {
-  return { ...destination, x: destination.x ?? actor.getX(), y: destination.y ?? actor.getY(), z: destination.z ?? actor.getZ() };
+export function addMissingCoords<T extends TKeyframeDestination | TMoveDestination>(
+  destination: T,
+  actor: TMovableEntityWrapper | TMovableWithModel3dFacade
+): TKeyframeDestination | Required<TMoveDestination> {
+  const x: number = destination.x ?? (isMovableEntityWrapper(actor) ? actor.getX() : actor.entity.getModel3d().position.x);
+  const y: number = destination.y ?? (isMovableEntityWrapper(actor) ? actor.getY() : actor.entity.getModel3d().position.y);
+  const z: number = destination.z ?? (isMovableEntityWrapper(actor) ? actor.getZ() : actor.entity.getModel3d().position.z);
+
+  return { ...destination, x, y, z };
 }
 
 export function getAccumulatedKeyframes(path: ReadonlyArray<TKeyframeDestination>, obj: TMovable3dXYZ): ReadonlyArray<TFullKeyframeDestination> {
@@ -54,11 +64,11 @@ export function getAccumulatedKeyframes(path: ReadonlyArray<TKeyframeDestination
   }, []);
 }
 
-export function prepareDestination(destination: TMoveDestination, obj: TMovable3dXYZ): Required<TMoveDestination> {
+export function prepareDestination(destination: TMoveDestination, obj: TMovableEntityWrapper | TMovableWithModel3dFacade): Required<TMoveDestination> {
   return addMissingCoords(destination, obj) as Required<TMoveDestination>;
 }
 
-export function preparePathList(list: ReadonlyArray<TKeyframeDestination>, obj: TMovable3dXYZ): ReadonlyArray<TFullKeyframeDestination> {
+export function preparePathList(list: ReadonlyArray<TKeyframeDestination>, obj: TMovableEntityWrapper | TMovableWithModel3dFacade): ReadonlyArray<TFullKeyframeDestination> {
   return list.map((destination: TKeyframeDestination) => addMissingCoords(destination, obj) as TFullKeyframeDestination);
 }
 
@@ -70,4 +80,12 @@ export function getAnimationWrapperForComplexPathAnimation(baseAnimation: anime.
     duration: animationParams.duration,
     update: () => baseAnimation.seek(baseAnimation.duration * (baseAnimation.progress / 100))
   });
+}
+
+export function isMovableEntityWrapper(obj: TMovableWithModel3dFacade | TMovableEntityWrapper): obj is TMovableEntityWrapper {
+  return isDefined((obj as TMovableEntityWrapper).getPosition);
+}
+
+export function isMovableModel3dFacade(obj: TMovableWithModel3dFacade | TMovableEntityWrapper): obj is TMovableWithModel3dFacade {
+  return isDefined((obj as TOptional<TMovableWithModel3dFacade>)?.entity?.getModel3d()?.position);
 }

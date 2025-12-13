@@ -35,13 +35,16 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       model3dSource: PrimitiveModel3dType.Cube,
       animationsSource: [],
       materialSource: materialW,
-      options: { width: 1, height: 1, depth: 1 }
+      options: { width: 1, height: 1, depth: 1 },
+      position: new Vector3(0, 0, 0),
+      rotation: new Euler(0, 0, 0)
     });
 
     const actorTemplate: TActorParams = {
       model3dSource: cubeModel3dF,
-      position: new Vector3(-20, 2, -2),
       spatial: { isAutoUpdate: true, grid },
+      position: new Vector3(-20, 2, -2),
+      rotation: new Euler(0, 0, 0),
       tags: [boxActorTag]
     };
 

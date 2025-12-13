@@ -99,52 +99,21 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   function addGuiToActor(actor: TActorWrapper): ReadonlyArray<GUI | Controller> {
     let controllers: ReadonlyArray<GUI | Controller> = [];
-    const isMetalness: boolean = isDefined(((actor.entity as Mesh).material as MeshStandardMaterial).metalness);
-    const isRoughness: boolean = isDefined(((actor.entity as Mesh).material as MeshStandardMaterial).roughness);
-    const isAoMap: boolean = isDefined(((actor.entity as Mesh).material as MeshStandardMaterial).aoMap);
-    const isDisplacementMap: boolean = isDefined(((actor.entity as Mesh).material as MeshStandardMaterial).displacementMap);
-    const isNormalMap: boolean = isDefined(((actor.entity as Mesh).material as MeshStandardMaterial).normalMap);
-    const isClearCoat: boolean = isDefined(((actor.entity as Mesh).material as MeshPhysicalMaterial).clearcoat);
-    const isSheen: boolean = isDefined(((actor.entity as Mesh).material as MeshPhysicalMaterial).sheen);
-    const isIridescence: boolean = isDefined(((actor.entity as Mesh).material as MeshPhysicalMaterial).iridescence);
-    const isTransmission: boolean = isDefined(((actor.entity as Mesh).material as MeshPhysicalMaterial).transmission);
+    const model3d: Mesh = actor.entity.getModel3d() as Mesh;
+    const isMetalness: boolean = isDefined((model3d.material as MeshStandardMaterial).metalness);
+    const isRoughness: boolean = isDefined((model3d.material as MeshStandardMaterial).roughness);
+    const isAoMap: boolean = isDefined((model3d.material as MeshStandardMaterial).aoMap);
+    const isDisplacementMap: boolean = isDefined((model3d.material as MeshStandardMaterial).displacementMap);
+    const isNormalMap: boolean = isDefined((model3d.material as MeshStandardMaterial).normalMap);
+    const isClearCoat: boolean = isDefined((model3d.material as MeshPhysicalMaterial).clearcoat);
+    const isSheen: boolean = isDefined((model3d.material as MeshPhysicalMaterial).sheen);
+    const isIridescence: boolean = isDefined((model3d.material as MeshPhysicalMaterial).iridescence);
+    const isTransmission: boolean = isDefined((model3d.material as MeshPhysicalMaterial).transmission);
 
-    if (isMetalness)
-      controllers = [
-        ...controllers,
-        gui
-          .add((actor.entity as Mesh).material, 'metalness')
-          .min(0)
-          .max(1)
-          .step(0.0001)
-      ];
-    if (isRoughness)
-      controllers = [
-        ...controllers,
-        gui
-          .add((actor.entity as Mesh).material, 'roughness')
-          .min(0)
-          .max(1)
-          .step(0.0001)
-      ];
-    if (isAoMap)
-      controllers = [
-        ...controllers,
-        gui
-          .add((actor.entity as Mesh).material, 'aoMapIntensity')
-          .min(0)
-          .max(1)
-          .step(0.0001)
-      ];
-    if (isDisplacementMap)
-      controllers = [
-        ...controllers,
-        gui
-          .add((actor.entity as Mesh).material, 'displacementScale')
-          .min(0)
-          .max(1)
-          .step(0.0001)
-      ];
+    if (isMetalness) controllers = [...controllers, gui.add(model3d.material, 'metalness').min(0).max(1).step(0.0001)];
+    if (isRoughness) controllers = [...controllers, gui.add(model3d.material, 'roughness').min(0).max(1).step(0.0001)];
+    if (isAoMap) controllers = [...controllers, gui.add(model3d.material, 'aoMapIntensity').min(0).max(1).step(0.0001)];
+    if (isDisplacementMap) controllers = [...controllers, gui.add(model3d.material, 'displacementScale').min(0).max(1).step(0.0001)];
     if (isNormalMap) {
       const scale = { normalScale: 1 };
       controllers = [
@@ -155,70 +124,28 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
           .max(1)
           .step(0.0001)
           .onChange((value: number): void => {
-            ((actor.entity as Mesh).material as MeshStandardMaterial).normalScale.set(value, value);
+            (model3d.material as MeshStandardMaterial).normalScale.set(value, value);
           })
       ];
     }
     if (isClearCoat) {
-      controllers = [
-        ...controllers,
-        gui
-          .add((actor.entity as Mesh).material, 'clearcoat')
-          .min(0)
-          .max(1)
-          .step(0.0001)
-      ];
-      controllers = [
-        ...controllers,
-        gui
-          .add((actor.entity as Mesh).material, 'clearcoatRoughness')
-          .min(0)
-          .max(1)
-          .step(0.0001)
-      ];
+      controllers = [...controllers, gui.add(model3d.material, 'clearcoat').min(0).max(1).step(0.0001)];
+      controllers = [...controllers, gui.add(model3d.material, 'clearcoatRoughness').min(0).max(1).step(0.0001)];
     }
 
     if (isSheen) {
-      controllers = [
-        ...controllers,
-        gui
-          .add((actor.entity as Mesh).material, 'sheen')
-          .min(0)
-          .max(1)
-          .step(0.0001)
-      ];
-      controllers = [
-        ...controllers,
-        gui
-          .add((actor.entity as Mesh).material, 'sheenRoughness')
-          .min(0)
-          .max(1)
-          .step(0.0001)
-      ];
-      controllers = [...controllers, gui.addColor((actor.entity as Mesh).material, 'sheenColor')];
+      controllers = [...controllers, gui.add(model3d.material, 'sheen').min(0).max(1).step(0.0001)];
+      controllers = [...controllers, gui.add(model3d.material, 'sheenRoughness').min(0).max(1).step(0.0001)];
+      controllers = [...controllers, gui.addColor(model3d.material, 'sheenColor')];
     }
 
     if (isIridescence) {
+      controllers = [...controllers, gui.add(model3d.material, 'iridescence').min(0).max(1).step(0.0001)];
+      controllers = [...controllers, gui.add(model3d.material, 'iridescenceIOR').min(0).max(2.333).step(0.0001)];
       controllers = [
         ...controllers,
         gui
-          .add((actor.entity as Mesh).material, 'iridescence')
-          .min(0)
-          .max(1)
-          .step(0.0001)
-      ];
-      controllers = [
-        ...controllers,
-        gui
-          .add((actor.entity as Mesh).material, 'iridescenceIOR')
-          .min(0)
-          .max(2.333)
-          .step(0.0001)
-      ];
-      controllers = [
-        ...controllers,
-        gui
-          .add(((actor.entity as Mesh).material as MeshPhysicalMaterial).iridescenceThicknessRange, '0')
+          .add((model3d.material as MeshPhysicalMaterial).iridescenceThicknessRange, '0')
           .min(0)
           .max(1000)
           .step(1)
@@ -226,7 +153,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       controllers = [
         ...controllers,
         gui
-          .add(((actor.entity as Mesh).material as MeshPhysicalMaterial).iridescenceThicknessRange, '1')
+          .add((model3d.material as MeshPhysicalMaterial).iridescenceThicknessRange, '1')
           .min(0)
           .max(1000)
           .step(1)
@@ -234,30 +161,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     }
 
     if (isTransmission) {
-      controllers = [
-        ...controllers,
-        gui
-          .add((actor.entity as Mesh).material, 'transmission')
-          .min(0)
-          .max(1)
-          .step(0.0001)
-      ];
-      controllers = [
-        ...controllers,
-        gui
-          .add((actor.entity as Mesh).material, 'ior')
-          .min(1)
-          .max(10)
-          .step(0.0001)
-      ]; //diamond ior 2.417, water 1.333, glass 1.5, air 1.0003
-      controllers = [
-        ...controllers,
-        gui
-          .add((actor.entity as Mesh).material, 'thickness')
-          .min(0)
-          .max(1)
-          .step(0.0001)
-      ];
+      controllers = [...controllers, gui.add(model3d.material, 'transmission').min(0).max(1).step(0.0001)];
+      controllers = [...controllers, gui.add(model3d.material, 'ior').min(1).max(10).step(0.0001)]; //diamond ior 2.417, water 1.333, glass 1.5, air 1.0003
+      controllers = [...controllers, gui.add(model3d.material, 'thickness').min(0).max(1).step(0.0001)];
     }
 
     return controllers;

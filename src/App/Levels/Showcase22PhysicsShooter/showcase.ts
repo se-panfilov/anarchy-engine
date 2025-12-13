@@ -15,6 +15,7 @@ import type {
   TIntersectionEvent,
   TIntersectionsWatcher,
   TRadians,
+  TSceneWrapper,
   TSpace,
   TSpaceConfig,
   TSpatialGridWrapper
@@ -71,8 +72,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const maxBulletsSameTime: number = 150;
     const bullets: ReadonlyArray<TBullet> = await Promise.all(getBulletsPool(maxBulletsSameTime, actorService, models3dService, materialService, spatialGridService));
-    const sceneW = actorService.getScene();
-    sceneW.entity.add(...bullets.map((b: TBullet) => b.entity));
+    const sceneW: TSceneWrapper = actorService.getScene();
+    sceneW.entity.add(...bullets.map((b: TBullet) => b.entity.getModel3d()));
     bullets.forEach((b: TBullet) => {
       b.hit$.subscribe((hit: TCollisionCheckResult): void => {
         console.log('hit');

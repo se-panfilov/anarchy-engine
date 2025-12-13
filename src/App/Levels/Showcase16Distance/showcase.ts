@@ -37,17 +37,17 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         console.time('move');
       }
 
-      if (sphereW.entity.position.z <= -50) {
+      if (sphereW.getPosition().z <= -50) {
         console.timeEnd('move');
         isMove = false;
         // eslint-disable-next-line functional/immutable-data
-        sphereW.entity.position.z = 50;
+        sphereW.getPosition().z = 50;
         return;
       }
 
       if (isMove) {
         // eslint-disable-next-line functional/immutable-data
-        sphereW.entity.position.z -= mpsSpeed(10, delta);
+        sphereW.getPosition().z -= mpsSpeed(10, delta);
       }
     });
 
@@ -58,15 +58,15 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         console.time('move');
       }
 
-      if (sphereW.entity.position.z <= -50) {
+      if (sphereW.getPosition().z <= -50) {
         console.timeEnd('move');
         // eslint-disable-next-line functional/immutable-data
-        sphereW.entity.position.z = 50;
+        sphereW.getPosition().z = 50;
         return;
       }
 
       // eslint-disable-next-line functional/immutable-data
-      sphereW.entity.position.z -= mpsSpeed(10, delta.delta);
+      sphereW.getPosition().z -= mpsSpeed(10, delta.delta);
     });
   }
 

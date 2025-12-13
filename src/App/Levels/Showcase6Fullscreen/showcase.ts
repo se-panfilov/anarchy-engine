@@ -19,7 +19,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const planeModel3dF: TModel3dFacade | undefined = models3dRegistry.findByName('surface_model');
     if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');
 
-    sceneW.addModel3d(planeModel3dF.getModel());
+    sceneW.addModel3d(planeModel3dF.getModel3d());
 
     const actor: TActorWrapper | undefined = actorRegistry.findByName('sphere_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not found');
