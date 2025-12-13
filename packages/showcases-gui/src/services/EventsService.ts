@@ -1,5 +1,6 @@
 import type { KeyCode, KeysExtra, MouseButtonValue } from '@Anarchy/Engine';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
+import { guiPinia } from '@Showcases/GUI/main';
 import type { TEventsService } from '@Showcases/GUI/models';
 import { useGuiButtonStore } from '@Showcases/GUI/stores/GuiButtonsStore';
 import type { TFromGuiEvent, TToGuiEvent } from '@Showcases/Shared';
@@ -32,12 +33,14 @@ function EventsService(): TEventsService {
     switch (event.type) {
       case ToGuiEvents.KeyPress: {
         if (isNotDefined(event.payload?.key)) throw new Error('[EventsService]: KeyPress event payload key is not defined');
-        useGuiButtonStore().setActiveButtonByKey(event.payload.key as KeyCode | KeysExtra | MouseButtonValue, true);
+        //Pass guiPinia explicitly to avoid issues when pinia connects to different app instance (e.g. gui vs menu)
+        useGuiButtonStore(guiPinia).setActiveButtonByKey(event.payload.key as KeyCode | KeysExtra | MouseButtonValue, true);
         break;
       }
       case ToGuiEvents.KeyRelease: {
         if (isNotDefined(event.payload?.key)) throw new Error('[EventsService]: KeyRelease event payload key is not defined');
-        useGuiButtonStore().setActiveButtonByKey(event.payload.key as KeyCode | KeysExtra | MouseButtonValue, false);
+        //Pass guiPinia explicitly to avoid issues when pinia connects to different app instance (e.g. gui vs menu)
+        useGuiButtonStore(guiPinia).setActiveButtonByKey(event.payload.key as KeyCode | KeysExtra | MouseButtonValue, false);
         break;
       }
       default: {

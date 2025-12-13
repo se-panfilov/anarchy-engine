@@ -1,4 +1,5 @@
 import { isNotDefined } from '@Anarchy/Shared/Utils';
+import { menuPinia } from '@Showcases/Menu/main';
 import type { TEventsService } from '@Showcases/Menu/models';
 import { useLegalDocsStore } from '@Showcases/Menu/stores/LegalDocsStore';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
@@ -76,13 +77,15 @@ function EventsService(): TEventsService {
       case ToMenuEvents.SettingsReceived: {
         console.log('[EventsService]: Settings received');
         if (!isSettings(event.payload)) throw new Error(`[EventsService]: Failed to apply settings: Invalid payload`);
-        useSettingsStore().setState(event.payload);
+        //Pass menuPinia explicitly to avoid issues when pinia connects to different app instance (e.g. gui vs menu)
+        useSettingsStore(menuPinia).setState(event.payload);
         break;
       }
       case ToMenuEvents.LegalDocsReceived: {
         console.log('[EventsService]: Legal docs received');
         if (!isLoadDoc(event.payload)) throw new Error(`[EventsService]: Failed to apply legal docs: Invalid payload`);
-        useLegalDocsStore().setDoc(event.payload);
+        //Pass menuPinia explicitly to avoid issues when pinia connects to different app instance (e.g. gui vs menu)
+        useLegalDocsStore(menuPinia).setDoc(event.payload);
         break;
       }
       default: {

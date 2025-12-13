@@ -11,12 +11,15 @@ import App from './App.vue';
 
 const i18n: I18n = initVueI18n();
 
+//When call any store outside of a component, we need to pass the pinia instance explicitly (to avoid issues when multiple apps are running, e.g. menu + gui)
+export const guiPinia = createPinia();
+
 export async function initGuiApp(id: string, fromGuiBus$: Subject<TFromGuiEvent>, toGuiBus$: Observable<TToGuiEvent>): Promise<void> {
   const app: VueApp<Element> = createApp(App);
   app.use(i18n);
   await vueTranslationService.waitInitialReady();
   vueTranslationService.connectVueI18n(i18n);
-  app.use(createPinia());
+  app.use(guiPinia);
   eventsService.setFromGuiBus(fromGuiBus$);
   eventsService.setToGuiBus(toGuiBus$);
   app.mount(id);

@@ -1,6 +1,7 @@
 import type { TOptional, TWriteable } from '@Anarchy/Shared/Utils';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { TShowcaseLocaleIds } from '@Showcases/i18n';
+import { menuPinia } from '@Showcases/Menu/main';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
 import type { TLegalDoc } from '@Showcases/Shared';
 import { AllowedLegalDocNames } from '@Showcases/Shared';
@@ -29,7 +30,8 @@ export const useLegalDocsStore = defineStore('legalDocsStore', () => {
     'nl-NL': {}
   });
 
-  const settingsStore = useSettingsStore();
+  //Pass menuPinia explicitly to avoid issues when pinia connects to different app instance (e.g. gui vs menu)
+  const settingsStore = useSettingsStore(menuPinia);
 
   const setDoc = (doc: TLegalDoc): void => setDocByLocale(doc, settingsStore.getLocaleId);
 

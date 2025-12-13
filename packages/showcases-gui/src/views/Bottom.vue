@@ -25,7 +25,6 @@ function toggleLocale(): void {
 
         <div class="action-buttons">
           <!-- //TODO DEBUG -->
-          <div v-for="button in useGuiButtonStore().buttonsList()" :key="button.id">{{ button.isActive }}</div>
           <div @click="toggleLocale()">toggle</div>
 
           <ActionButton v-for="button in buttons" :key="button.id" :title="$t(button.i18n)" :is-active="button.isActive" :data-key="button.key">
