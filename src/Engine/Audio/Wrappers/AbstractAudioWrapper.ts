@@ -112,7 +112,6 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
     getDuration: (): number | undefined => entity.buffer?.duration,
     volume$,
     listener$,
-    // TODO 15-0-0: add serializer to the service to avoid dependencies passing
     serialize: (dependencies: TAudioConfigToParamsDependencies): TAnyAudioConfig => audioToConfig(result, dependencies)
   });
 

@@ -31,6 +31,7 @@ import {
   withSerializeAllEntities,
   withSerializeAllResources
 } from '@/Engine/Mixins';
+import { withSerializeEntity } from '@/Engine/Mixins/Generics/WithSerializeEntity';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isDefined } from '@/Engine/Utils';
 
@@ -83,6 +84,7 @@ export function EnvMapService(
     withSceneGetterService(sceneW),
     withSerializeAllResources<TEnvMapResourceConfig, TEnvMapSerializeResourcesDependencies>(resourcesRegistry, { metaInfoRegistry }),
     withSerializeAllEntities<TEnvMapConfig, TEnvMapConfigToParamsDependencies>(registry, { resourcesRegistry }),
+    withSerializeEntity<TEnvMapWrapper, TEnvMapConfigToParamsDependencies>(),
     {
       loadAsync: envMapLoader.loadAsync,
       loadFromConfigAsync: envMapLoader.loadFromConfigAsync,

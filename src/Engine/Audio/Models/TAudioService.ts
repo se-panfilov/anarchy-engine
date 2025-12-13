@@ -8,12 +8,14 @@ import type {
   TWithLoadResourcesAsyncService,
   TWithRegistryService,
   TWithResourcesMetaInfoRegistryService,
-  TWithResourcesRegistryService
+  TWithResourcesRegistryService,
+  TWithSerializeEntity
 } from '@/Engine/Mixins';
 
 import type { TAnyAudioConfig } from './TAnyAudioConfig';
 import type { TAnyAudioParams } from './TAnyAudioParams';
 import type { TAnyAudioWrapper } from './TAnyAudioWrapper';
+import type { TAudioConfigToParamsDependencies } from './TAudioConfigToParamsDependencies';
 import type { TAudioFactory } from './TAudioFactory';
 import type { TAudioListenersRegistry } from './TAudioListenersRegistry';
 import type { TAudioRegistry } from './TAudioRegistry';
@@ -26,16 +28,17 @@ export type TAudioServiceWithCreateFromConfig = TWithCreateFromConfigService<TAn
 export type TAudioServiceWithFactory = TWithFactoryService<TAnyAudioWrapper, TAnyAudioParams, TAudioWrapperDependencies, TAudioFactory>;
 export type TAudioServiceWithRegistry = TWithRegistryService<TAudioRegistry>;
 
-export type TAudioService = TSerializableEntitiesService<TAnyAudioConfig> &
-  TSerializableResourceService<TAudioResourceConfig> &
-  TAudioServiceWithCreate &
+export type TAudioService = TAudioServiceWithCreate &
   TAudioServiceWithCreateFromConfig &
   TAudioServiceWithFactory &
   TAudioServiceWithRegistry &
-  TWithResourcesRegistryService<TAudioResourceAsyncRegistry> &
+  TSerializableEntitiesService<TAnyAudioConfig> &
+  TSerializableResourceService<TAudioResourceConfig> &
+  TWithLoadResourcesAsyncService<TAudioResourceConfig, AudioBuffer> &
   TWithResourcesMetaInfoRegistryService<TAudioResourceConfig> &
+  TWithResourcesRegistryService<TAudioResourceAsyncRegistry> &
+  TWithSerializeEntity<TAnyAudioWrapper, TAudioConfigToParamsDependencies> &
   Readonly<{
     getListenersRegistry: () => TAudioListenersRegistry;
     getMainListener: () => AudioListener | undefined;
-  }> &
-  TWithLoadResourcesAsyncService<TAudioResourceConfig, AudioBuffer>;
+  }>;

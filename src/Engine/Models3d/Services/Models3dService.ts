@@ -6,6 +6,7 @@ import type { TAnimationsResourceAsyncRegistry, TAnimationsService } from '@/Eng
 import type { TMaterialRegistry, TMaterialService } from '@/Engine/Material';
 import type { TDisposable } from '@/Engine/Mixins';
 import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities, withSerializeAllResources } from '@/Engine/Mixins';
+import { withSerializeEntity } from '@/Engine/Mixins/Generics/WithSerializeEntity';
 import { Models3dLoader } from '@/Engine/Models3d/Loaders';
 import type {
   TModel3d,
@@ -74,6 +75,7 @@ export function Models3dService(
       animationsResourceAsyncRegistry,
       model3dResourceAsyncRegistry: resourcesRegistry
     }),
+    withSerializeEntity<TModel3d, TModel3dConfigToParamsDependencies>(),
     {
       loadAsync: model3dLoader.loadAsync,
       loadFromConfigAsync: model3dLoader.loadFromConfigAsync,

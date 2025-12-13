@@ -88,7 +88,6 @@ export function FpsControlsWrapper(params: TFpsControlsParams): TFpsControlsWrap
     ...getFpsControlsAccessors(entity),
     ...withActiveMixin(),
     entity,
-    // TODO 15-0-0: add serializer to the service to avoid dependencies passing
     serialize: (dependencies: TControlsServiceDependencies): TFpsControlsConfig => controlsToConfig(result, dependencies) as TFpsControlsConfig
   });
 

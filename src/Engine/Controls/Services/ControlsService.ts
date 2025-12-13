@@ -13,10 +13,13 @@ import type {
   TControlsServiceDependencies,
   TControlsServiceWithFactory,
   TControlsServiceWithRegistry,
-  TControlsWrapper
+  TControlsWrapper,
+  TFpsControlsWrapper,
+  TOrbitControlsWrapper
 } from '@/Engine/Controls/Models';
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { withActiveEntityServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
+import { withSerializeEntity } from '@/Engine/Mixins/Generics/WithSerializeEntity';
 import type { TSpaceCanvas, TSpaceLoops } from '@/Engine/Space';
 
 export function ControlService(
@@ -59,13 +62,20 @@ export function ControlService(
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withFactory, withRegistry, withSerializeAllEntities<TControlsConfig, TControlsServiceDependencies>(registry, { cameraService }), {
-    create,
-    createFromList,
-    createFromConfig,
-    setActive: withActive.setActive,
-    findActive: withActive.findActive,
-    getActive: withActive.getActive,
-    active$: withActive.active$
-  });
+  return Object.assign(
+    abstractService,
+    withFactory,
+    withRegistry,
+    withSerializeAllEntities<TControlsConfig, TControlsServiceDependencies>(registry, { cameraService }),
+    withSerializeEntity<TOrbitControlsWrapper | TFpsControlsWrapper, TControlsServiceDependencies>(),
+    {
+      create,
+      createFromList,
+      createFromConfig,
+      setActive: withActive.setActive,
+      findActive: withActive.findActive,
+      getActive: withActive.getActive,
+      active$: withActive.active$
+    }
+  );
 }

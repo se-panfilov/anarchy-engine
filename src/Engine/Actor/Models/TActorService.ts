@@ -14,10 +14,10 @@ export type TActorServiceWithCreateFromConfig = TWithCreateFromConfigService<TAc
 export type TActorServiceWithFactory = TWithFactoryService<TActor, TActorParams, TActorServiceDependencies, TActorFactory>;
 export type TActorServiceWithRegistry = TWithRegistryService<TActorRegistry>;
 
-export type TActorService = TSerializableEntitiesService<TActorConfig> &
-  TActorServiceWithCreate &
+export type TActorService = TActorServiceWithCreate &
   TActorServiceWithCreateFromConfig &
   TActorServiceWithFactory &
   TActorServiceWithRegistry &
+  TSerializableEntitiesService<TActorConfig> &
   TWithSceneGetterService &
   TWithSerializeEntity<TActor, TActorEntityToConfigDependencies>;

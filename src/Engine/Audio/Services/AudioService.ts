@@ -26,6 +26,7 @@ import type {
 } from '@/Engine/Audio/Models';
 import type { TDisposable } from '@/Engine/Mixins';
 import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities, withSerializeAllResources } from '@/Engine/Mixins';
+import { withSerializeEntity } from '@/Engine/Mixins/Generics/WithSerializeEntity';
 import type { TSpaceLoops } from '@/Engine/Space';
 
 // TODO Audio: Maybe implement "Sound Perception Manager" for NPCs to react to a sound (if they are in a radius)
@@ -62,8 +63,13 @@ export function AudioService(
     withCreateFromConfigService,
     withFactory,
     withRegistry,
-    withSerializeAllResources<TAudioResourceConfig, TAudioSerializeResourcesDependencies>(audioResourceAsyncRegistry, { audioResourceAsyncRegistry, audioListenersRegistry, metaInfoRegistry }),
+    withSerializeAllResources<TAudioResourceConfig, TAudioSerializeResourcesDependencies>(audioResourceAsyncRegistry, {
+      audioResourceAsyncRegistry,
+      audioListenersRegistry,
+      metaInfoRegistry
+    }),
     withSerializeAllEntities<TAnyAudioConfig, TAudioConfigToParamsDependencies>(registry, { audioResourceAsyncRegistry, audioListenersRegistry }),
+    withSerializeEntity<TAnyAudioWrapper, TAudioConfigToParamsDependencies>(),
     {
       getResourceRegistry: (): TAudioResourceAsyncRegistry => audioResourceAsyncRegistry,
       getMetaInfoRegistry: (): TAudioMetaInfoRegistry => metaInfoRegistry,
