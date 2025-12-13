@@ -17,7 +17,6 @@
   "scripts": {
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
-    "prettier:staged": "pretty-quick --staged",
     "prettier:changed": "git diff --name-only --diff-filter=ACMRTUXB HEAD | grep -E '\\.(ts|tsx|js|json|css|md)$' | xargs prettier --write",
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit",
