@@ -1,12 +1,13 @@
-import type { Display, Size } from 'electron';
-import { app, BrowserWindow, dialog, ipcMain, Menu, screen } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, Menu } from 'electron';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { existsSync } from 'node:fs';
+import { getDisplayInfo } from './src/Utils/DisplayUtils.js';
 
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = dirname(__filename);
 
+// const userDataFolder: string = 'userData';
 const isOpenDevTools: boolean = true;
 
 // TODO CWP
@@ -38,7 +39,7 @@ function createWindow(width: number, height: number): BrowserWindow {
     height,
     // TODO DESKTOP: Is Fullscreen or not should depend on the app settings
     // TODO DESKTOP: Change default fullscreen mode to "true"
-    fullscreen: false,
+    fullscreen: true,
     autoHideMenuBar: true,
     useContentSize: true,
     hiddenInMissionControl: true,
@@ -139,13 +140,3 @@ app.whenReady().then((): void => {
   //   // Could try to restart the window or something
   // });
 });
-
-function getDisplayInfo(display: Display = screen.getPrimaryDisplay()): Readonly<{ width: number; height: number; dpi: number }> {
-  const workArea: Size = display.workAreaSize;
-
-  return {
-    width: workArea.width,
-    height: workArea.height,
-    dpi: display.scaleFactor
-  };
-}
