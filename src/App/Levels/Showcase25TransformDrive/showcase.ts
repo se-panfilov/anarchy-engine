@@ -52,6 +52,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const planeModel3dF: TModel3d | undefined = models3dRegistry.findByName('surface_model');
     if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');
 
+    grid._debugVisualizeCells(sceneW, '#4e0c85');
+
     console.log('Click "space" to change actor movement mode ("agent")');
 
     sceneW.addModel3d(planeModel3dF);

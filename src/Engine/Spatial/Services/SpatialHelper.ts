@@ -112,11 +112,11 @@ function getBoxEdges(min: Vector3, max: Vector3): Array<number> {
   ];
 }
 
-export function createBoundingBox(minX: number, minZ: number, maxX: number, maxZ: number, color: ColorRepresentation = '#00ff00', wireframe: boolean = true): Mesh {
+export function createBoundingBox(minX: number, minZ: number, maxX: number, maxZ: number, color: ColorRepresentation = '#00ff00', wireframe: boolean = true, height: number = 0): Mesh {
   const geometry: PlaneGeometry = new PlaneGeometry(maxX - minX, maxZ - minZ);
   const material: MeshBasicMaterial = new MeshBasicMaterial({ color, wireframe });
   const plane: Mesh = new Mesh(geometry, material);
-  plane.position.set((minX + maxX) / 2, 0, (minZ + maxZ) / 2);
+  plane.position.set((minX + maxX) / 2, height, (minZ + maxZ) / 2);
   // eslint-disable-next-line functional/immutable-data
   plane.rotation.x = -Math.PI / 2;
   return plane;

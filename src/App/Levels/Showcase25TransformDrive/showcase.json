@@ -18,8 +18,8 @@
     "spatialGrids": [
       {
         "name": "main_grid",
-        "mapWidth": 60,
-        "mapHeight": 40,
+        "mapWidth": 100,
+        "mapHeight": 100,
         "cellSize": 10,
         "centerX": 0,
         "centerZ": 0,

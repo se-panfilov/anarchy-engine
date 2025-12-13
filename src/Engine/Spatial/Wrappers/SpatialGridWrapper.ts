@@ -150,9 +150,9 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
   });
 
   // this visualization is for debugging purposes only
-  function _debugVisualizeCells(sceneW: TSceneWrapper, color: ColorRepresentation = '#00ff00', wireframe: boolean = true): void {
+  function _debugVisualizeCells(sceneW: TSceneWrapper, color: ColorRepresentation = '#00ff00', wireframe: boolean = true, height: number = 0.1): void {
     entity.all().forEach((cell: TSpatialCellWrapper): void => {
-      const box: Mesh = createBoundingBox(cell.minX, cell.minY, cell.maxX, cell.maxY, color, wireframe);
+      const box: Mesh = createBoundingBox(cell.minX, cell.minY, cell.maxX, cell.maxY, color, wireframe, height);
       sceneW.entity.add(box);
     });
   }
