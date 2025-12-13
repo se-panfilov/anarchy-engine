@@ -1,6 +1,4 @@
-import type { Group, Mesh } from 'three';
+import { AbstractEntityRegistry, RegistryFacade, RegistryType } from '@/Engine/Abstract';
+import type { TModel3dFacade, TModels3dAsyncRegistry } from '@/Engine/Models3d/Models';
 
-import { AbstractSimpleAsyncRegistry, RegistryFacade, RegistryType } from '@/Engine/Abstract';
-import type { TModels3dAsyncRegistry } from '@/Engine/Models3d/Models';
-
-export const Models3dAsyncRegistry = (): TModels3dAsyncRegistry => RegistryFacade(AbstractSimpleAsyncRegistry<Mesh | Group>(RegistryType.Model3d));
+export const Models3dAsyncRegistry = (): TModels3dAsyncRegistry => RegistryFacade(AbstractEntityRegistry<TModel3dFacade>(RegistryType.Model3d));

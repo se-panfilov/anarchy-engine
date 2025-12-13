@@ -1,6 +1,6 @@
-import type { TModel3dPack } from './TModel3dPack';
+import type { TModel3dFacade } from './TModel3dFacade';
 
 export type TPerformLoadResult = Readonly<{
-  result: TModel3dPack;
+  result: TModel3dFacade;
   isExisting: boolean;
 }>;

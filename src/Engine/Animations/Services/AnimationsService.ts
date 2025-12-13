@@ -2,9 +2,10 @@ import { Subject } from 'rxjs';
 import type { AnimationClip, Group, Mesh } from 'three';
 import { AnimationMixer } from 'three';
 
-import type { TAnimationActions, TAnimationsAsyncRegistry, TAnimationsPack, TAnimationsService, TModel3dAnimations } from '@/Engine/Animations/Models';
+import type { TAnimationActions, TAnimationActionsPack, TAnimationsAsyncRegistry, TAnimationsPack, TAnimationsService, TModel3dAnimations } from '@/Engine/Animations/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
+import type { TWriteable } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
 export function AnimationsService(registry: TAnimationsAsyncRegistry): TAnimationsService {
@@ -31,9 +32,9 @@ export function AnimationsService(registry: TAnimationsAsyncRegistry): TAnimatio
     added$.next(modelAnimations);
   }
 
-  function createActions(model: Mesh | Group, animations: TAnimationsPack = {}): AnimationMixer {
+  function createActions(model: Mesh | Group, animations: TAnimationsPack = {}): TAnimationActionsPack {
     const mixer = new AnimationMixer(model);
-    const actions: TAnimationActions = {};
+    const actions: TWriteable<TAnimationActions> = {};
     Object.entries(animations).forEach(([name, clip]: [string, AnimationClip]): void => {
       // eslint-disable-next-line functional/immutable-data
       actions[name] = mixer.clipAction(clip);

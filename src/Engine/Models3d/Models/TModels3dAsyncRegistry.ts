@@ -1,5 +1,5 @@
-import type { Group, Mesh } from 'three';
+import type { TAbstractEntityRegistry, TProtectedRegistry } from '@/Engine/Abstract';
 
-import type { TAbstractSimpleAsyncRegistry, TProtectedRegistry } from '@/Engine/Abstract';
+import type { TModel3dFacade } from './TModel3dFacade';
 
-export type TModels3dAsyncRegistry = TProtectedRegistry<TAbstractSimpleAsyncRegistry<Mesh | Group>>;
+export type TModels3dAsyncRegistry = TProtectedRegistry<TAbstractEntityRegistry<TModel3dFacade>>;
