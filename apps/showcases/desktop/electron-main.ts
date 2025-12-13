@@ -6,10 +6,9 @@ import { existsSync } from 'node:fs';
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = dirname(__filename);
 
-// TODO DESKTOP: These vars should come from .env files:
-const FAKE_ENV_WINDOW_HEIGHT: number = 720;
-const FAKE_ENV_WINDOW_WIDTH: number = 1280;
-const FAKE_ENV_IS_OPEN_DEV_TOOLS: boolean = true;
+const windowHeight: number = 720;
+const windowWidth: number = 1280;
+const isOpenDevTools: boolean = true;
 
 function getIndexHtmlPath(): string {
   const path: string = app.isPackaged ? join(app.getAppPath(), 'game-dist', 'index.html') : join(__dirname, '..', 'game-dist', 'index.html');
@@ -39,9 +38,8 @@ function createWindow(width: number, height: number): void {
   const indexPath: string = getIndexHtmlPath();
   win.loadFile(indexPath);
 
-  if (FAKE_ENV_IS_OPEN_DEV_TOOLS) win.webContents.openDevTools();
+  if (isOpenDevTools) win.webContents.openDevTools();
 
-  // TODO DESKTOP: Should come from .env file, to enable/disable dev tools.
   // TODO DESKTOP: Enable hot reloading in development mode.
   // try {
   //   require('electron-reloader')(module);
@@ -54,5 +52,4 @@ ipcMain.handle('ping', async () => {
   return 'pong';
 });
 
-// TODO DESKTOP: Should come from .env file, to enable/disable dev tools.
-app.whenReady().then((): void => createWindow(FAKE_ENV_WINDOW_WIDTH, FAKE_ENV_WINDOW_HEIGHT));
+app.whenReady().then((): void => createWindow(windowWidth, windowHeight));
