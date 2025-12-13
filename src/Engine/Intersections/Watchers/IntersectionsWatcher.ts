@@ -19,8 +19,6 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
   let actors: ReadonlyArray<TActor> = [];
   let camera: Readonly<TAnyCameraWrapper> | undefined;
 
-  // raycaster.se;
-
   const addActors = (actorsList: ReadonlyArray<TActor>): void => void (actors = [...actors, ...actorsList]);
   const addActor = (actor: TActor): void => void (actors = [...actors, actor]);
   const getActors = (): ReadonlyArray<TActor> => actors;
