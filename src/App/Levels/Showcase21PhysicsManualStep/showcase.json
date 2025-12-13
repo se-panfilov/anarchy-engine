@@ -1,0 +1,197 @@
+{
+  "name": "showcase",
+  "version": "1.0.0",
+  "scenes": [
+    {
+      "name": "showcase",
+      "tags": [],
+      "isActive": true
+    }
+  ],
+  "actors": [
+    {
+      "name": "surface",
+      "type": "plane",
+      "width": 20,
+      "height": 20,
+      "widthSegments": 1,
+      "heightSegments": 1,
+      "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
+      "physics": {
+        "presetName": "wall_physics",
+        "shapeParams": {
+          "hx": 10,
+          "hy": 0.025,
+          "hz": 10
+        },
+        "position": { "x": 0, "y": -0.025, "z": 0 },
+        "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
+      },
+      "position": { "x": 0, "y": 0, "z": 0 },
+      "rotation": { "x": -1.57, "y": 0, "z": 0 },
+      "castShadow": false,
+      "tags": []
+    },
+    {
+      "name": "actor_1",
+      "type": "sphere",
+      "radius": 1,
+      "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
+      "physics": {
+        "presetName": "ball_physics",
+        "shapeParams": {
+          "radius": 1
+        },
+        "position": { "x": 0, "y": 6, "z": 0 }
+      },
+      "position": { "x": 0, "y": 6, "z": 0 },
+      "castShadow": true,
+      "tags": []
+    },
+    {
+      "name": "actor_2",
+      "type": "cube",
+      "height": 4,
+      "width": 1,
+      "depth": 1,
+      "widthSegments": 1,
+      "heightSegments": 1,
+      "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
+      "physics": {
+        "presetName": "box_physics",
+        "shapeParams": {
+          "hx": 0.5,
+          "hy": 2,
+          "hz": 0.5
+        },
+        "position": { "x": -4, "y": 4, "z": 3 },
+        "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
+      },
+      "position": { "x": -4, "y": 4, "z": 3 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "castShadow": true,
+      "tags": []
+    },
+    {
+      "name": "actor_3",
+      "type": "cube",
+      "height": 4,
+      "width": 1,
+      "depth": 1,
+      "widthSegments": 1,
+      "heightSegments": 1,
+      "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
+      "physics": {
+        "presetName": "box_physics",
+        "shapeParams": {
+          "hx": 0.5,
+          "hy": 2,
+          "hz": 0.5
+        },
+        "position": { "x": 4, "y": 9, "z": -4 },
+        "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
+      },
+      "position": { "x": 4, "y": 9, "z": -4 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "castShadow": true,
+      "tags": []
+    },
+    {
+      "name": "actor_4",
+      "type": "sphere",
+      "radius": 1,
+      "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
+      "physics": {
+        "presetName": "ball_physics",
+        "shapeParams": {
+          "radius": 1
+        },
+        "position": { "x": 1, "y": 12, "z": 0 }
+      },
+      "position": { "x": 1, "y": 12, "z": 0 },
+      "castShadow": true,
+      "tags": []
+    },
+    {
+      "name": "actor_5",
+      "type": "sphere",
+      "radius": 1,
+      "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
+      "physics": {
+        "presetName": "ball_physics",
+        "shapeParams": {
+          "radius": 1
+        },
+        "position": { "x": 1, "y": 12, "z": 3 }
+      },
+      "position": { "x": 1, "y": 12, "z": 3 },
+      "castShadow": true,
+      "tags": []
+    }
+  ],
+  "intersections": [],
+  "physics": {
+    "global": {
+      "gravity": { "x": 0, "y": -9.81, "z": 0 }
+    },
+    "presets": [
+      {
+        "name": "wall_physics",
+        "type": "fixed",
+        "collisionShape": "cuboid"
+      },
+      {
+        "name": "ball_physics",
+        "type": "dynamic",
+        "collisionShape": "ball"
+      },
+      {
+        "name": "box_physics",
+        "type": "dynamic",
+        "collisionShape": "cuboid"
+      }
+    ],
+    "isAutoUpdate": false
+  },
+  "texts": [],
+  "cameras": [
+    {
+      "fov": 45,
+      "name": "main",
+      "near": 1,
+      "far": 10000,
+      "position": { "x": 14, "y": 5, "z": 6 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "tags": [],
+      "isActive": true
+    }
+  ],
+  "lights": [
+    {
+      "type": "Directional",
+      "color": "#ffffff",
+      "intensity": 1,
+      "castShadow": true,
+      "shadow": {
+        "mapSize": { "x": 1024, "y": 1024 },
+        "camera": { "far": 15 },
+        "normalBias": 0.05
+      },
+      "position": { "x": 0.25, "y": 2, "z": 2.25 },
+      "tags": []
+    }
+  ],
+  "controls": [
+    {
+      "type": "OrbitControls",
+      "cameraName": "main",
+      "enableDamping": true,
+      "tags": [],
+      "isActive": true
+    }
+  ],
+  "envMaps": [],
+  "particles": [],
+  "fogs": [],
+  "tags": []
+}
