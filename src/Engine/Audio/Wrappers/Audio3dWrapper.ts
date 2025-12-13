@@ -1,5 +1,5 @@
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, filter, sample, Subject, tap } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, filter, sample, skipWhile, Subject, tap } from 'rxjs';
 import type { AudioListener, PositionalAudio } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
@@ -30,23 +30,62 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
   const loop$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.loop ?? false);
   const volume$: BehaviorSubject<number> = new BehaviorSubject<number>(volume ?? 1);
 
+  // TODO 11.0.0: make Subject for play
+  // TODO 11.0.0: do not start playing music before the audio context is ready (user must interact with the page first)
+
+  // TODO debug
+  // setTimeout((): void => {
+  //   // entity.play();
+  //   // entity.setVolume(1);
+  //   console.log('XXX launched', entity.isPlaying);
+  //   // console.log('XXX launched', params.listener);
+  // }, 2000);
+
   const updatePriority: LoopUpdatePriority = performance?.updatePriority ?? LoopUpdatePriority.LOW;
   // TODO 11.0.0: maybe the default threshold should be higher?
   const noiseThreshold: TMeters = performance?.noiseThreshold ?? meters(0.000001);
 
-  const volumeSub$: Subscription = volume$.pipe(distinctUntilChanged()).subscribe((volume: number): void => void entity.setVolume(volume));
+  const volumeSub$: Subscription = volume$
+    .pipe(
+      skipWhile((volume: number, index: number): boolean => index === 0 && volume === 1), // to avoid initial value (only if it's a default one)
+      distinctUntilChanged()
+    )
+    .subscribe((volume: number): void => void entity.setVolume(volume));
 
-  const pauseSub$: Subscription = pause$.pipe(distinctUntilChanged()).subscribe((isPause: boolean): void => {
-    if (isPause) pauseAudio(entity);
-    else resumeAudio(entity);
-  });
+  const pauseSub$: Subscription = pause$
+    .pipe(
+      skipWhile((pause: boolean, index: number): boolean => index === 0 && !pause), // to avoid initial value (only if it's a default one)
+      distinctUntilChanged()
+    )
+    .subscribe((isPause: boolean): void => {
+      if (isPause) pauseAudio(entity);
+      else resumeAudio(entity);
+    });
 
   const fadeSub$: Subscription = fade$
     .pipe(distinctUntilChanged((prev: TAudioFadeParams, curr: TAudioFadeParams): boolean => prev.to === curr.to && prev.duration === curr.duration))
     .subscribe((fadeParams: TAudioFadeParams): void => fadeAudio(entity, fadeParams));
 
-  const speedSub$: Subscription = speed$.pipe(distinctUntilChanged()).subscribe((speed: number): void => void entity.setPlaybackRate(speed));
-  const seekSub$: Subscription = seek$.pipe(distinctUntilChanged()).subscribe((seek: number): void => seekAudio(entity, seek));
+  const speedSub$: Subscription = speed$
+    .pipe(
+      skipWhile((speed: number, index: number): boolean => index === 0 && speed === 1), // to avoid initial value (only if it's a default one)
+      distinctUntilChanged()
+    )
+    .subscribe((speed: number): void => void entity.setPlaybackRate(speed));
+  const seekSub$: Subscription = seek$
+    .pipe(
+      skipWhile((seek: number, index: number): boolean => index === 0 && seek === 0), // to avoid initial value (only if it's a default one)
+      distinctUntilChanged()
+    )
+    .subscribe((seek: number): void => seekAudio(entity, seek));
+
+  const loopSub$: Subscription = loop$
+    .pipe(
+      skipWhile((loop: boolean, index: number): boolean => index === 0 && !loop), // to avoid initial value (only if it's a default one)
+      distinctUntilChanged()
+    )
+    .subscribe((loop: boolean): void => void entity.setLoop(loop));
+
   const sourcePositionUpdate$: Observable<TReadonlyVector3> = onPositionUpdate(position$, noiseThreshold);
 
   const updateVolumeSub$: Subscription = sourcePositionUpdate$
@@ -73,6 +112,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
     updateVolumeSub$.unsubscribe();
     speedSub$.unsubscribe();
     seekSub$.unsubscribe();
+    loopSub$.unsubscribe();
 
     position$.complete();
     position$.unsubscribe();

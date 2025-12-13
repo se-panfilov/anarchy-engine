@@ -6,10 +6,7 @@ import { isAudio3dConfig } from '@/Engine/Audio/Utils';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-// TODO 11.0.0: CWP
-// TODO 11.0.0: debug
-// TODO 11.0.0: We should create not create a new listener every time. Instead we need a single listener with wrapper (but we need a registry, and use active$ to be able to get it) and get that listener from the registry here via "getActive"
-// TODO 11.0.0: Connect listener to the camera (test it, warn if listener is not connected to anything)
+// TODO 11.0.0: Connect listener to the camera (test 3d sound, also warn if listener is not connected to anything)
 export function configToParams(config: TAudioConfig, { audioResourceAsyncRegistry, audioListenersRegistry }: TAudioConfigToParamsDependencies): TAudioParams {
   const { position, ...rest } = config as TAudio3dConfig;
 
