@@ -1,4 +1,5 @@
 import { bindKey, bindKeyCombo, checkKey, checkKeyCombo, unbindKey, unbindKeyCombo } from '@rwh/keystrokes';
+import type { Subscription } from 'rxjs';
 import { filter, map, Subject } from 'rxjs';
 
 import type { TAbstractService } from '@/Engine/Abstract';
@@ -103,20 +104,14 @@ export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
   const removeKeyComboBinding = (key: TKeyCombo): void => removeBinding(key, true);
 
   // TODO 14-0-0: Validate that we unbind all keys on destroy (and combos) and finish pressed$, pressing$ and released$
-  abstractService.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     Object.keys(keyboardRegistry.asObject()).forEach((val: string): void => {
       removeBinding(val, false);
       removeBinding(val, true);
     });
-  });
 
-  // keyboardRegistry.destroy$.subscribe((): void => {
-  //   keyboardRegistry.forEach((val: TKeyboardRegistryValues): void => {
-  //     val.pressed$.complete();
-  //     val.pressing$.complete();
-  //     val.released$.complete();
-  //   });
-  // });
+    destroySub$.unsubscribe();
+  });
 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, {
