@@ -8,7 +8,8 @@
 
 - **Product name:** TBD until market release (the “Software”)
 - **Technical identifiers:** `showcases-core`
-- **Type / model / version:** Anarchy-Showcases — version
+- **Type / model:** (product family of TBD until market release)
+- **Version covered by this Declaration:** (baseline dated ). Subsequent **minor/patch** updates within this series are **covered** by this Declaration **provided** they do **not introduce substantial changes** that could adversely affect compliance with essential requirements. Build identifiers (e.g., commit/tag) for released binaries are recorded in the **Technical Documentation** (Annex A).
 - **Intended use:** Standalone software (product with digital elements) operating **offline** by default; no personal-data processing by default.
 
 ## Applicable Union Legislation

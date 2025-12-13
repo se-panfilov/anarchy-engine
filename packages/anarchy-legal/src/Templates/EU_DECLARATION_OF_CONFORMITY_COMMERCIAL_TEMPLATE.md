@@ -15,7 +15,8 @@
   {{#SHOW_TECH_IDENTIFIERS}}
 - **Technical identifiers:** `{{PACKAGE_NAME}}`
   {{/SHOW_TECH_IDENTIFIERS}}
-- **Type / model / version:** {{PRODUCT_TYPE_OR_MODEL}} — version {{PRODUCT_VERSION}}
+- **Type / model:** {{PRODUCT_MODEL_CODE}} (product family of {{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}})
+- **Version covered by this Declaration:** {{CONFORMITY_SERIES}} (baseline {{BASELINE_VERSION}} dated {{BASELINE_EFFECTIVE_DATE}}). Subsequent **minor/patch** updates within this series are **covered** by this Declaration **provided** they do **not introduce substantial changes** that could adversely affect compliance with essential requirements. Build identifiers (e.g., commit/tag) for released binaries are recorded in the **Technical Documentation** (Annex A).
 - **Intended use:** Standalone software (product with digital elements) operating **offline** by default; no personal-data processing by default.
 
 ## Applicable Union Legislation
