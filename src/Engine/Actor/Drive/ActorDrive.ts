@@ -5,7 +5,7 @@ import type { Euler, Vector3 } from 'three';
 import type { TAbstractDriver, TProtectedDriverFacade } from '@/Engine/Abstract';
 import { ProtectedDriverFacade } from '@/Engine/Abstract';
 import { ActorDriver } from '@/Engine/Actor/Constants';
-import type { TActorDrive, TActorDrivers, TActorParams } from '@/Engine/Actor/Models';
+import type { TActorDrive, TActorDrivers, TActorParams, TProtectedActorDrivers } from '@/Engine/Actor/Models';
 import { isEqualOrSimilar } from '@/Engine/Actor/Utils';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -55,7 +55,7 @@ export function ActorDrive(params: TActorParams, drivers: TActorDrivers): TActor
     )
     .subscribe(scale$);
 
-  const result = {
+  const result: TActorDrive = {
     ...destroyable,
     driver$,
     position$: positionRep$,
@@ -64,7 +64,7 @@ export function ActorDrive(params: TActorParams, drivers: TActorDrivers): TActor
     getRotation: (): Euler => rotation$.value.clone(),
     scale$: scaleRep$,
     getScale: (): Vector3 | undefined => scale$.value?.clone(),
-    ...Object.fromEntries(Object.entries(drivers).map((v) => [v[0], ProtectedDriverFacade(v[1])]))
+    ...getDynamicDrivers(drivers)
   };
 
   destroyable.destroy$.subscribe(() => {
@@ -85,4 +85,8 @@ export function ActorDrive(params: TActorParams, drivers: TActorDrivers): TActor
   });
 
   return result;
+}
+
+function getDynamicDrivers(drivers: TActorDrivers): TProtectedActorDrivers {
+  return Object.fromEntries(Object.entries(drivers).map((v) => [v[0], ProtectedDriverFacade(v[1])])) as TProtectedActorDrivers;
 }
