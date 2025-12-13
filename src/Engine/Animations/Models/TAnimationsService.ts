@@ -9,7 +9,7 @@ import type { TAnimationActionsPack } from './TAnimationActionsPack';
 import type { TModel3dAnimations } from './TModel3dAnimations';
 
 export type TAnimationsService = Readonly<{
-  createActions: (model: TRawModel3d, animations?: ReadonlyArray<AnimationClip>) => TAnimationActionsPack;
+  createActions: (model: TRawModel3d, animations?: ReadonlyArray<AnimationClip>, mixer?: AnimationMixer) => TAnimationActionsPack;
   added$: Observable<TModel3dAnimations>;
   startAutoUpdateMixer: (model3d: TModel3d, updateTick$?: Observable<TLoopTimes>) => TAnimationActionsPack | never;
   stopAutoUpdateMixer: (mixer: AnimationMixer) => void | never;

@@ -11,6 +11,8 @@ export type TWithModel3dEntities = Readonly<{
   setAnimations: (animations: ReadonlyArray<AnimationClip>) => void;
   getAnimations: () => ReadonlyArray<AnimationClip>;
   getMixer: () => AnimationMixer;
+  setActions: (actions: TAnimationActions) => void;
+  addActions: (actions: TAnimationActions) => void;
   getActions: () => TAnimationActions;
 }> &
   TModel3dEntities;

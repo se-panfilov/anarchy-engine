@@ -15,8 +15,9 @@ export function AnimationsService(loopService: TLoopService): TAnimationsService
   const added$: Subject<TModel3dAnimations> = new Subject<TModel3dAnimations>();
   const subscriptions: Map<AnimationMixer, Subscription> = new Map<AnimationMixer, Subscription>();
 
-  function createActions(model: TRawModel3d, animations: ReadonlyArray<AnimationClip> = []): TAnimationActionsPack {
-    const mixer = new AnimationMixer(model);
+  //If you want to create an animation action for a model that already has actions (and a mixer), provide that mixer here
+  function createActions(model: TRawModel3d, animations: ReadonlyArray<AnimationClip> = [], customMixer?: AnimationMixer): TAnimationActionsPack {
+    const mixer: AnimationMixer = customMixer ?? new AnimationMixer(model);
     const actions: TWriteable<TAnimationActions> = {};
     // eslint-disable-next-line functional/immutable-data
     animations.forEach((clip: AnimationClip): void => void (actions[clip.name] = mixer.clipAction(clip)));
@@ -30,6 +31,8 @@ export function AnimationsService(loopService: TLoopService): TAnimationsService
     const subs$: Subscription = updateTick$.subscribe(({ delta }) => mixer.update(delta));
     if (isDefined(subscriptions.get(mixer)))
       throw new Error(`AnimationsService: Cannot auto-update mixer twice: subscribe is already exist. Mixer relates to the mode3d (name: ${model3d.getName()}, id: ${model3d.id}})`);
+
+    // console.log('XXX model3d.getActions()', model3d.getActions());
 
     subscriptions.set(mixer, subs$);
     return { model: model3d.getRawModel3d(), mixer, actions: model3d.getActions() };

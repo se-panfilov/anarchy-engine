@@ -1,4 +1,4 @@
-import type { AnimationClip, AnimationMixer } from 'three';
+import type { AnimationAction, AnimationClip, AnimationMixer } from 'three';
 
 import type { TAnimationActions } from '@/Engine/Animations/Models';
 import type { TModel3dEntities, TRawModel3d, TWithModel3dEntities } from '@/Engine/Models3d/Models';
@@ -18,7 +18,19 @@ export function withModel3dEntities(entities: TModel3dEntities): TWithModel3dEnt
       (result as TWriteable<TModel3dEntities>).animationsSource = [...(result.animationsSource ?? []), ...animations];
     },
     getMixer: (): AnimationMixer => result.mixer,
+    setActions: (actions: TAnimationActions): void => {
+      // eslint-disable-next-line functional/immutable-data
+      (result as TWriteable<TModel3dEntities>).actions = actions;
+    },
+    addActions: (actions: TAnimationActions): void => {
+      Object.entries(actions).forEach(([key, value]: [string, AnimationAction]): void => {
+        // eslint-disable-next-line functional/immutable-data
+        result.actions[key] = value;
+        console.log('XXX result.actions', result.actions);
+      });
+    },
     getActions: (): TAnimationActions => result.actions
   };
+
   return result;
 }
