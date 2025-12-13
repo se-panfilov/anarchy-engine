@@ -1,15 +1,15 @@
 import type { ScreenParams, Watcher } from '@Engine/Models';
-import { DeviceWatcher } from '@Engine/Watchers';
+import { ScreenSizeWatcher } from '@Engine/Watchers';
 import type { IAmbientContext } from './Models';
 
-const deviceWatcher: Watcher<ScreenParams> = DeviceWatcher();
+const screenSizeWatcher: Watcher<ScreenParams> = ScreenSizeWatcher();
 
 export const ambientContext: IAmbientContext = {
-  get deviceWatcher(): Watcher<ScreenParams> {
-    return deviceWatcher;
+  get screenSizeWatcher(): Watcher<ScreenParams> {
+    return screenSizeWatcher;
   }
 };
 
 export function startAmbientContext(ambientContext: IAmbientContext): void {
-  ambientContext.deviceWatcher.start$.next();
+  ambientContext.screenSizeWatcher.start$.next();
 }

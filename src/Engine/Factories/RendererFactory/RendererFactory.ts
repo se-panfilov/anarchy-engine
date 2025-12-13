@@ -6,5 +6,5 @@ import { AbstractFactory } from '../AbstractFactory';
 import { ambientContext } from '@Engine/Context';
 
 const create: ICreateRendererFn = (params: RendererParams): IRendererWrapper =>
-  RendererWrapper(params, ambientContext.deviceWatcher);
+  RendererWrapper(params, ambientContext.screenSizeWatcher);
 export const RendererFactory = (): IRendererFactory => AbstractFactory('renderer', create);

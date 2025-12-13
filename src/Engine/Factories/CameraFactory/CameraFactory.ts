@@ -7,5 +7,5 @@ import { AbstractFactory } from '../AbstractFactory';
 import { ambientContext } from '@Engine/Context';
 
 const create: ICreateCameraFn = (params: CameraParams): ICameraWrapper =>
-  CameraWrapper(params, ambientContext.deviceWatcher);
+  CameraWrapper(params, ambientContext.screenSizeWatcher);
 export const CameraFactory = (): ICameraFactory => AbstractFactory('camera', create, cameraAdapter);

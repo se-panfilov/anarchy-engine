@@ -1,9 +1,9 @@
 import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatcher';
-import type { IDeviceWatcher } from '@Engine/Watchers/DeviceWatcher/Models/IDeviceWatcher';
+import type { IScreenSizeWatcher } from '@Engine/Watchers/ScreenSizeWatcher/Models/IScreenSizeWatcher';
 import type { ScreenParams } from '@Engine/Models';
 import { Subject } from 'rxjs';
 
-export function DeviceWatcher(): IDeviceWatcher {
+export function ScreenSizeWatcher(): IScreenSizeWatcher {
   const value$: Subject<ScreenParams> = new Subject<ScreenParams>();
 
   // TODO (S.Panfilov) window should be global?
