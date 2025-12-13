@@ -9,11 +9,11 @@ import type { TShowcaseGameSettings } from '@Showcases/Shared';
 import { DefaultShowcaseGameSettings, isSettings } from '@Showcases/Shared';
 import type { App } from 'electron';
 
-// TODO DESKTOP: Add protection (allowed files list, name/extension checks, sanitization, etc)
 export function SettingsService(app: App, { filesService, windowService }: TSettingsServiceDependencies): TSettingsService {
   const userDataFolder: AllowedSystemFolders = AllowedSystemFolders.UserData;
   const appSettingsFileName: string = 'app-settings.json';
 
+  // TODO DESKTOP: Would be nice to have a schema validation for the settings file
   const getAppSettings = async (): Promise<TShowcaseGameSettings> => {
     try {
       return await filesService.readFileAsJson(appSettingsFileName, userDataFolder, isSettings);

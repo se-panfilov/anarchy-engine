@@ -48,6 +48,7 @@ export function FilesService(app: App): TFilesService {
     }
   }
 
+  // TODO DESKTOP: add basic sanitize/validation
   async function readFileAsJson<T>(fileName: string, dir: AllowedSystemFolders | AllowedAppFolders, validator?: (v: unknown) => v is T): Promise<T> | never {
     const content: string = await readTextFile(fileName, dir);
     const parsed = JSON.parse(content);
