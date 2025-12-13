@@ -38,6 +38,7 @@
     "ts:check:watch": "tsc --watch --noEmit"
   },
   "dependencies": {
-    "@sentry/browser": "10.17.0"
+    "@sentry/browser": "10.17.0",
+    "dotenv": "17.2.2"
   }
 }
