@@ -1,4 +1,4 @@
-import type { Euler, Quaternion, QuaternionLike, Vector2, Vector2Like, Vector3, Vector3Like, Vector4, Vector4Like } from 'three';
+import type { BufferGeometry, Euler, Material, Quaternion, QuaternionLike, Vector2, Vector2Like, Vector3, Vector3Like, Vector4, Vector4Like } from 'three';
 import { Color } from 'three';
 
 import type { TAbstractAsyncRegistry, TAbstractEntityRegistry, TWithUserData, TWithWrapperId, TWithWrapperIdEntity } from '@/Engine/Abstract/Models';
@@ -50,3 +50,7 @@ export const isAsyncRegistry = (registry: TAbstractEntityRegistry<any> | TAbstra
   isDefined((registry as TAbstractAsyncRegistry<any>).findByTagsAsync) && isDefined((registry as TAbstractAsyncRegistry<any>).findByTagAsync);
 
 export const isBoolean = (value: unknown): value is boolean => typeof value === 'boolean';
+
+export const hasMaterial = (entity: unknown): entity is { material?: Material | Array<Material> | null } => isDefined((entity as any).material);
+
+export const hasGeometry = (entity: unknown): entity is { geometry?: BufferGeometry | null } => isDefined((entity as any).geometry);
