@@ -1,5 +1,5 @@
 declare module 'troika-three-text' {
-  import type { Color, Material, MeshBasicMaterial, MeshStandardMaterial, Vector3 } from 'three';
+  import type { Color, Material, MeshBasicMaterial, MeshStandardMaterial } from 'three';
   import { Object3D } from 'three';
 
   export class Text extends Object3D {
@@ -39,7 +39,6 @@ declare module 'troika-three-text' {
     sdfGlyphSize: number;
     textIndent: number;
     unicodeFontsUrl: string;
-    position: Vector3;
     sync: () => void;
     dispose(): void;
   }
