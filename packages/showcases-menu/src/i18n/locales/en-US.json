@@ -1,6 +1,7 @@
 {
   "main-menu.home.button.close-menu.text": "Close Menu",
   "main-menu.home.button.continue-game.text": "Continue",
+  "main-menu.home.button.legal.text": "Legal info",
   "main-menu.home.button.load-game.text": "Load Game",
   "main-menu.home.button.new-game.text": "New Game",
   "main-menu.home.button.settings.text": "Settings",
@@ -16,6 +17,7 @@
   "main-menu.settings.graphics.is-fullscreen.label": "Fullscreen",
   "main-menu.settings.graphics.resolution.label": "Resolution",
   "main-menu.settings.graphics.view.title": "Graphics Settings",
+  "main-menu.settings.legal.view.title": "Legal info",
   "main-menu.settings.localization.group.main-localization-settings.title": "Main localization settings",
   "main-menu.settings.localization.language.label": "Language",
   "main-menu.settings.localization.view.title": "Localization Settings",

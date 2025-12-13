@@ -1,6 +1,7 @@
 {
   "main-menu.home.button.close-menu.text": "Sluit Menu",
   "main-menu.home.button.continue-game.text": "Doorgaan",
+  "main-menu.home.button.legal.text": "Juridische info",
   "main-menu.home.button.load-game.text": "Laad Spel",
   "main-menu.home.button.new-game.text": "Nieuw Spel",
   "main-menu.home.button.settings.text": "Instellingen",
@@ -16,6 +17,7 @@
   "main-menu.settings.graphics.is-fullscreen.label": "Volledig scherm",
   "main-menu.settings.graphics.resolution.label": "Resolutie",
   "main-menu.settings.graphics.view.title": "Grafische instellingen",
+  "main-menu.settings.legal.view.title": "Juridische info",
   "main-menu.settings.localization.group.main-localization-settings.title": "Hoofd taalinstellingen",
   "main-menu.settings.localization.language.label": "Taal",
   "main-menu.settings.localization.view.title": "Taalinstellingen",
