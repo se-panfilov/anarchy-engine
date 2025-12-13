@@ -47,7 +47,14 @@
       }
     ],
     "envMaps": [],
-    "fogs": [],
+    "fogs": [
+      {
+        "name": "main_fog",
+        "color": "#353CA7",
+        "far": 10,
+        "near": 1
+      }
+    ],
     "fsm": [],
     "intersections": [],
     "lights": [
