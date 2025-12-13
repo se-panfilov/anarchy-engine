@@ -251,6 +251,9 @@
         },
         "driveCoordsThreshold": {
           "type": "number"
+        },
+        "model3dSettings": {
+          "$ref": "#/definitions/TActorModel3dSettings"
         }
       },
       "required": ["model3dSource", "position", "spatial"]
@@ -1051,6 +1054,55 @@
     "TransformAgent": {
       "type": "string",
       "enum": ["default", "kinematic", "physical", "connected"]
+    },
+    "TActorModel3dSettings": {
+      "type": "object",
+      "properties": {
+        "positionOffset": {
+          "$ref": "#/definitions/Vector3"
+        },
+        "rotationOffset": {
+          "$ref": "#/definitions/Euler"
+        },
+        "scaleOffset": {
+          "$ref": "#/definitions/Vector3"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Euler": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "default": 0
+        },
+        "y": {
+          "type": "number",
+          "default": 0
+        },
+        "z": {
+          "type": "number",
+          "default": 0
+        },
+        "order": {
+          "$ref": "#/definitions/EulerOrder",
+          "default": "THREE.Euler.DEFAULT_ORDER"
+        },
+        "isEuler": {
+          "type": "boolean",
+          "const": true
+        },
+        "_onChangeCallback": {
+          "$comment": "() => void"
+        }
+      },
+      "required": ["x", "y", "z", "order", "isEuler", "_onChangeCallback"],
+      "additionalProperties": false
+    },
+    "EulerOrder": {
+      "type": "string",
+      "enum": ["XYZ", "YXZ", "ZXY", "ZYX", "YZX", "XZY"]
     },
     "TCameraConfig": {
       "type": "object",
@@ -6691,40 +6743,6 @@
         }
       },
       "additionalProperties": false
-    },
-    "Euler": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number",
-          "default": 0
-        },
-        "y": {
-          "type": "number",
-          "default": 0
-        },
-        "z": {
-          "type": "number",
-          "default": 0
-        },
-        "order": {
-          "$ref": "#/definitions/EulerOrder",
-          "default": "THREE.Euler.DEFAULT_ORDER"
-        },
-        "isEuler": {
-          "type": "boolean",
-          "const": true
-        },
-        "_onChangeCallback": {
-          "$comment": "() => void"
-        }
-      },
-      "required": ["x", "y", "z", "order", "isEuler", "_onChangeCallback"],
-      "additionalProperties": false
-    },
-    "EulerOrder": {
-      "type": "string",
-      "enum": ["XYZ", "YXZ", "ZXY", "ZYX", "YZX", "XZY"]
     },
     "TTextureResourceConfig": {
       "type": "object",

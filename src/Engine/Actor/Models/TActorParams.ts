@@ -5,13 +5,11 @@ import type { TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
 import type { TSpatialDataParams } from '@/Engine/Spatial';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 
-import type { TActorModel3dSettings } from './TActorModel3dSettings';
 import type { TActorProps } from './TActorProps';
 
 export type TActorParams = TActorProps &
   Readonly<{
     model3dSource: TModel3d;
-    model3dSettings?: TActorModel3dSettings;
     physics?: TWithPresetNamePhysicsBodyParams;
     kinematic?: TKinematicDataParams;
     spatial: TSpatialDataParams;
