@@ -24,7 +24,7 @@ export function createLoops({ create }: TLoopService): TSpaceLoops {
   // TL;DR: If use parallel mode, set the "trigger" time higher.
   return {
     renderLoop: create({ name: getMainLoopNameByType(Render), type: Render, trigger: requestAnimationFrame, showDebugInfo: true }) as TRenderLoop,
-    audioLoop: create({ name: getMainLoopNameByType(Audio), type: Audio, trigger: milliseconds(16), isParallelMode: false }) as TAudioLoop,
+    audioLoop: create({ name: getMainLoopNameByType(Audio), type: Audio, trigger: milliseconds(500), isParallelMode: false, maxPriority: LoopUpdatePriority.ASAP }) as TAudioLoop,
     physicalLoop: create({ name: getMainLoopNameByType(Physical), type: Physical, trigger: milliseconds(16), isParallelMode: false }) as TPhysicalLoop,
     collisionsLoop: create({ name: getMainLoopNameByType(Collisions), type: Collisions, trigger: milliseconds(16), isParallelMode: false, maxPriority: LoopUpdatePriority.ASAP }) as TCollisionsLoop,
     kinematicLoop: create({ name: getMainLoopNameByType(Kinematic), type: Kinematic, trigger: milliseconds(16), isParallelMode: false }) as TKinematicLoop,
