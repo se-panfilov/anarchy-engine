@@ -286,7 +286,7 @@
       "isActive": true
     }
   ],
-  "envMaps": ["/Showcase/hdr/shanghai_bund_4k.hdr"],
+  "envMaps": [],
   "particles": [],
   "fogs": [],
   "tags": []

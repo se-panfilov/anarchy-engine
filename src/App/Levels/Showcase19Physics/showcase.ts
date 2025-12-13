@@ -1,4 +1,4 @@
-import type { Rotation, Vector } from '@dimforge/rapier3d';
+import type { RigidBody, Rotation, Vector } from '@dimforge/rapier3d';
 import { ColliderDesc, RigidBodyDesc, World } from '@dimforge/rapier3d';
 import type { Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
@@ -51,6 +51,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   const ballActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('ball');
   const surfaceActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('surface');
+  const obstacle1ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_1');
 
   const world: World = new World(STANDARD_GRAVITY);
   const physicsDebugRenderer: TPhysicsDebugRenderer = PhysicsDebugRenderer(sceneWrapper.entity, world);
@@ -64,6 +65,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   sceneWrapper.entity.add(line);
 
   createWallsAndFloor(world);
+  const cube1ObstacleRigidBody = createCubeObstacle(world, { x: 0, y: 2, z: 2 }, { x: 0, y: 0, z: 0 }, 0.5, 2, 0.5);
 
   let azimuth: number = 0;
   let forcePower: number = 0;
@@ -82,6 +84,9 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     const surfaceActorW: TActorWrapperAsync | undefined = await surfaceActorPromise;
     if (isNotDefined(surfaceActorW)) throw new Error(`Cannot find "surfaceActor" actor`);
+
+    const obstacle1ActorW: TActorWrapperAsync | undefined = await obstacle1ActorPromise;
+    if (isNotDefined(obstacle1ActorW)) throw new Error(`Cannot find "obstacle1Actor" actor`);
 
     const cameraW: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
@@ -134,12 +139,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
         line.computeLineDistances();
       }
 
-      // Get and print the rigid-body's position.
-      const position: Vector = ballRigidBody.translation();
-      const rotation: Rotation = ballRigidBody.rotation();
-
-      ballActorW.entity.position.set(position.x, position.y, position.z);
-      ballActorW.entity.quaternion.set(rotation.x, rotation.y, rotation.z, rotation.w);
+      updateActorByPhysics(ballRigidBody, ballActorW);
+      updateActorByPhysics(cube1ObstacleRigidBody, obstacle1ActorW);
 
       physicsDebugRenderer.update();
     });
@@ -185,4 +186,21 @@ function createWallsAndFloor(world: World): void {
     .setTranslation(0, 0, 10.5)
     .setRotation(degreesToQuaternion({ x: 0, y: 90, z: 0 }));
   world.createCollider(wallBackColliderDesc);
+}
+
+function createCubeObstacle(world: World, position: TWithCoordsXYZ, rotation: TWithCoordsXYZ, hx: number, hy: number, hz: number): RigidBody {
+  const ballRigidBodyDesc = RigidBodyDesc.dynamic().setTranslation(position.x, position.y, position.z).setRotation(degreesToQuaternion(rotation));
+  const ballRigidBody = world.createRigidBody(ballRigidBodyDesc);
+  const ballColliderDesc = ColliderDesc.cuboid(meters(hx), meters(hy), meters(hz));
+  world.createCollider(ballColliderDesc, ballRigidBody);
+
+  return ballRigidBody;
+}
+
+function updateActorByPhysics(rigidBody: RigidBody, actor: TActorWrapperAsync): void {
+  const position: Vector = rigidBody.translation();
+  const rotation: Rotation = rigidBody.rotation();
+
+  actor.setPosition(Vector3Wrapper(position));
+  actor.entity.quaternion.set(rotation.x, rotation.y, rotation.z, rotation.w);
 }
