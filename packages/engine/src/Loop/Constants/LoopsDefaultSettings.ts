@@ -1,5 +1,5 @@
-import { mergeAll } from '@Engine';
 import type { TLoopsSettings, TLoopsSettingsModes, TLoopsSettingsSteps } from '@Engine/Loop/Models';
+import { mergeAll } from '@Engine/Utils';
 
 export const LOOPS_DEFAULT_STEPS: TLoopsSettingsSteps = {
   audioLoopStep: 16,

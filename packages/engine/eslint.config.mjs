@@ -1,3 +1,4 @@
-import { CustomConfig, FunctionalConfig, ignores, ImportsConfig, JsConfig, languageOptions, plugins, TsConfig } from '../../configs/EsLint/index.mjs';
+import { CustomConfig, FunctionalConfig, ignores, ImportsConfig, languageOptions, plugins, TsConfig } from '../../configs/EsLint/index.mjs';
+import { EngineJsConfig } from './configs/EsLint/Js/JsConfig.mjs';
 
-export default [...JsConfig, ...TsConfig, ...FunctionalConfig, ...ImportsConfig, ...CustomConfig, { languageOptions }, { ignores }, { plugins }];
+export default [...EngineJsConfig, ...TsConfig, ...FunctionalConfig, ...ImportsConfig, ...CustomConfig, { languageOptions }, { ignores }, { plugins }];
