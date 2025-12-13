@@ -1,0 +1,26 @@
+import type { TWrapper } from '@/Engine/Abstract';
+import type { TPhysicsBodyFacade, TPhysicsBodyService, TWithMandatoryPhysicsBody, TWithOptionalPhysicsBody, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
+import { isPhysicsBodyParamsComplete } from '@/Engine/Physics';
+import type { TWriteable } from '@/Engine/Utils';
+import { isDefined } from '@/Engine/Utils';
+
+export function makeWrapperWithPhysicsBody<T extends TWrapper<any> & TWithOptionalPhysicsBody>(
+  wrapper: T,
+  physics: TWithPresetNamePhysicsBodyParams,
+  physicsBodyService: TPhysicsBodyService,
+  customCreatePhysicsBodyFn?: (physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService, additionalParams?: Record<string, any>) => TPhysicsBodyFacade,
+  additionalParams?: Record<string, any>
+): TWithMandatoryPhysicsBody<T> {
+  // eslint-disable-next-line functional/immutable-data
+  (wrapper as TWriteable<T>).physicsBody = customCreatePhysicsBodyFn ? customCreatePhysicsBodyFn(physics, physicsBodyService, additionalParams) : createPhysicsBody(physics, physicsBodyService);
+
+  return wrapper as TWithMandatoryPhysicsBody<T>;
+}
+
+function createPhysicsBody(physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService): TPhysicsBodyFacade {
+  const { presetName, ...rest } = physics;
+  if (isDefined(presetName)) return physicsBodyService.createWithPresetName(physics, presetName);
+  if (!isPhysicsBodyParamsComplete(rest))
+    throw new Error('Cannot create physics body: params are lacking of mandatory fields (mandatory fields must be set or a preset with such fields must be provided)');
+  return physicsBodyService.create(rest);
+}
