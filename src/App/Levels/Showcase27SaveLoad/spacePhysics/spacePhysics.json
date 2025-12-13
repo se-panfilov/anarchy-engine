@@ -34,7 +34,7 @@
         },
         "rotation": {
           "x": 0,
-          "y": 0,
+          "y": -0.75,
           "z": 0
         },
         "spatial": {
@@ -54,7 +54,7 @@
         },
         "rotation": {
           "x": 0,
-          "y": 0,
+          "y": 0.75,
           "z": 0
         },
         "spatial": {
@@ -176,7 +176,7 @@
         "model3dSource": "cube",
         "name": "cube_1_model",
         "options": {
-          "depth": 4,
+          "depth": 8,
           "height": 4,
           "heightSegments": 1,
           "width": 4,
@@ -189,7 +189,7 @@
         "model3dSource": "cube",
         "name": "cube_2_model",
         "options": {
-          "depth": 4,
+          "depth": 8,
           "height": 4,
           "heightSegments": 1,
           "width": 4,
@@ -231,13 +231,13 @@
           "restitution": 0.1,
           "rotation": {
             "x": 0,
-            "y": 0,
+            "y": -0.75,
             "z": 0
           },
           "shapeParams": {
             "hx": 2,
             "hy": 2,
-            "hz": 2
+            "hz": 4
           },
           "type": "dynamic"
         },
@@ -252,13 +252,13 @@
           "restitution": 0.1,
           "rotation": {
             "x": 0,
-            "y": 0,
+            "y": 0.75,
             "z": 0
           },
           "shapeParams": {
             "hx": 2,
             "hy": 2,
-            "hz": 2
+            "hz": 4
           },
           "type": "dynamic"
         }
