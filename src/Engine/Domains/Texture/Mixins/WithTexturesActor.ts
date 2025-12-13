@@ -46,7 +46,7 @@ export function withTexturesActor<T extends IWriteable<IMesh>>(entity: T): IWith
     const MaterialConstructor: ITypeOfMaterials = MaterialMap[mt.material];
     if (isNotDefined(MaterialConstructor)) throw new Error(`Unsupported material type: ${mt.material}`);
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,functional/immutable-data
+    // eslint-disable-next-line functional/immutable-data
     entity.material = new MaterialConstructor(params);
   }
 
