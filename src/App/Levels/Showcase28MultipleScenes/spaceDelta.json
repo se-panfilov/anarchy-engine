@@ -4,6 +4,25 @@
     "renderers": [{ "mode": "webgl2", "isActive": true, "alpha": true }],
     "actors": [
       {
+        "name": "surface_actor",
+        "model3dSource": "surface_model",
+        "position": {
+          "x": 0,
+          "y": 0.5,
+          "z": 0
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        },
+        "tags": []
+      },
+      {
         "model3dSource": "sphere_model",
         "name": "sphere_actor",
         "position": {
@@ -15,6 +34,21 @@
           "grid": "main_grid",
           "isAutoUpdate": true
         }
+      },
+      {
+        "agent": "kinematic",
+        "model3dSource": "sphere_mouse_model",
+        "name": "sphere_mouse_actor",
+        "position": {
+          "x": 4,
+          "y": 2,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        },
+        "tags": []
       }
     ],
     "audio": [
@@ -56,13 +90,52 @@
     "fogs": [],
     "fsm": [],
     "intersections": [],
-    "lights": [],
+    "lights": [
+      {
+        "name": "ambient_light",
+        "color": "#ffffff",
+        "intensity": 0.5,
+        "position": {
+          "x": 0.25,
+          "y": 2,
+          "z": 2.25
+        },
+        "type": "Ambient"
+      }
+    ],
     "models3d": [
+      {
+        "castShadow": false,
+        "materialSource": "surface_material",
+        "model3dSource": "plane",
+        "name": "surface_model",
+        "options": {
+          "height": 40,
+          "heightSegments": 1,
+          "width": 60,
+          "widthSegments": 1
+        },
+        "receiveShadow": true,
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        }
+      },
       {
         "castShadow": false,
         "materialSource": "sphere_material",
         "model3dSource": "sphere",
         "name": "sphere_model",
+        "options": {
+          "radius": 1
+        }
+      },
+      {
+        "castShadow": true,
+        "materialSource": "sphere_mouse_material",
+        "model3dSource": "sphere",
+        "name": "sphere_mouse_model",
         "options": {
           "radius": 1
         }
@@ -94,11 +167,25 @@
     "envMaps": [],
     "materials": [
       {
+        "name": "surface_material",
+        "options": {
+          "color": "#BCA3FF"
+        },
+        "type": "toon"
+      },
+      {
         "name": "sphere_material",
         "options": {
           "color": "#E91E63"
         },
         "type": "basic"
+      },
+      {
+        "name": "sphere_mouse_material",
+        "options": {
+          "color": "#E91ED8"
+        },
+        "type": "toon"
       }
     ],
     "models3d": [],
