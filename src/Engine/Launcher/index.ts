@@ -19,9 +19,7 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   const { promise, resolve } = createDeferredPromise<void>();
 
   // TODO (S.Panfilov) CWP
-  // make actor config a part of actor params (do same for camera and light)
-  // then apply position (or maybe it's not necessary, an we could apply values immediately
-  // check if the adding to a scene must go before setting position and etc
+  // debug the scene to make sure no errors and it's fully rendering
 
   //Factories
   const sceneFactory: Factory<ISceneWrapper, SceneParams> = SceneFactory();
