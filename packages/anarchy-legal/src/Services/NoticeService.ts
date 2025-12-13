@@ -23,7 +23,9 @@ export function NoticeService(): TNoticeService {
 
 ## Application: ${wsName}
 
-This product includes third-party components. Their **licenses and attributions** are listed below.
+`;
+
+    const subHeader: string = `This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see \`${sourceName}\`.
 
 Components listed: ${entries.length}
@@ -33,13 +35,13 @@ Components listed: ${entries.length}
 The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
 `;
 
-    const note: string = entries.length === 0 ? `**Note:** No third-party components were detected.` : '';
+    const noRecordsNote: string = '**Note:** No third-party components included.';
 
     const blocks: ReadonlyArray<ReadonlyArray<string>> = entries.map((v: TTemplateParsedEntry): ReadonlyArray<string> => {
       const licenses: string = v.licenses.length ? v.licenses.join(', ') + '\n' : 'UNKNOWN';
       const repository: string = v.repository ? `**Repository:** ${v.repository}\n\n` : '';
       const url: string = v.url ? `**URL:** ${v.url}\n\n` : '';
-      const inferredCopyright: string = v.inferredCopyright ? `**Attribution:** ${v.inferredCopyright}\n\n` : '';
+      const inferredCopyright: string = v.inferredCopyright ? `**Attribution:** ${v.inferredCopyright}\n` : '';
 
       const base: string = `
 ## ${v.name}@${v.version}
@@ -58,7 +60,7 @@ ${repository}${url}${inferredCopyright}
 This product incorporates open-source software. **If any term of this file or the EULA conflicts with an OSS license for a specific component, the OSS license controls for that component.**
 `;
 
-    return [header, note, ...blocks.flat(), footer].join('');
+    return entries.length !== 0 ? [header, subHeader, ...blocks.flat(), footer].join('') : [header, noRecordsNote].join('');
   }
 
   async function generate(): Promise<void> {

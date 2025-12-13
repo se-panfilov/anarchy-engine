@@ -1,7 +1,5 @@
-# NOTICE
+# Third-Party Notices
 
 ## Application: anarchy-shared
 
-Components listed: 0
-
-**Note:** No third-party components were detected.
+**Note:** No third-party components included.
