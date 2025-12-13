@@ -25,15 +25,8 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
 
   const physicsBody$: BehaviorSubject<TPhysicsBody | undefined> = new BehaviorSubject<TPhysicsBody | undefined>(undefined);
 
-  // TODO debug
-  // physicsBody$.subscribe((value: TPhysicsBody | undefined): void => {
-  //   console.log('PhysicsBody:', value);
-  // });
-
-  // TODO CWP test all of this and add a showcase
-  // TODO 8.0.0. MODELS: PhysicsTransformAgent should do nothing if actor has no "physics" field.
-  // TODO 8.0.0. MODELS: Make sure we can work with presets
-  // TODO 8.0.0. MODELS: Add physics config to text (and to adapter)
+  // TODO 8.0.0. MODELS: Set isSleep = true if physicsBody is inactive
+  // TODO 8.0.0. MODELS: apply position from an external source
 
   const agent: TPhysicsTransformAgent = {
     ...abstractTransformAgent,
@@ -76,12 +69,6 @@ function getPhysicalBodyTransform<T extends { physicsBody$: BehaviorSubject<TPhy
 
   return { position: rigidBody.translation(), rotation: rigidBody.rotation() };
 }
-
-// TODO 8.0.0. MODELS: remove?
-// function updateMovementInfo<T extends { physicsBody: TPhysicsBody }>(obj: T, physicsBodyService: TPhysicsBodyService): void | never {
-//   if (obj.physicsBody.getPhysicsBodyType() === RigidBodyTypesNames.Fixed) return;
-//   obj.drive.kinematic.setData(physicsBodyService.getKinematicDataFromPhysics(obj.physicsBody));
-// }
 
 function createPhysicsBody(physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService): TPhysicsBody | undefined {
   const { presetName, ...rest } = physics;
