@@ -31,5 +31,6 @@ function createSphere({ radius, widthSegments, heightSegments }: TActorParams, m
 function createCube({ width, height, depth, widthSegments, heightSegments, depthSegments }: TActorParams, material: TMaterials): TMesh {
   const w: number | undefined = isDefined(width) ? meters(width) : undefined;
   const h: number | undefined = isDefined(height) ? meters(height) : undefined;
-  return new Mesh(new BoxGeometry(w, h, depth, widthSegments, heightSegments, depthSegments), material);
+  const d: number | undefined = isDefined(depth) ? meters(depth) : undefined;
+  return new Mesh(new BoxGeometry(w, h, d, widthSegments, heightSegments, depthSegments), material);
 }
