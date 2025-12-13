@@ -5,10 +5,22 @@ const isMinify = process.argv.includes('--minify');
 
 /** @type {import('ts-json-schema-generator/dist/src/Config').Config} */
 const baseConfig = {
-  tsconfig: './tsconfig.json',
-  type: '*', // Or <type-name> if you want to generate schema for that one type only,
+  // additionalProperties: false,
+  // discriminatorType: "json-schema",
+  // encodeRefs: true,
+  // expose: "export",
+  // extraTags: [],
+  // fullDescription: false,
+  // functions: "comment",
+  // jsDoc: "extended",
+  // markdownDescription: false,
+  minify: isMinify ?? false,
+  // skipTypeCheck: false,
+  // sortProps: true,
+  // strictTuples: false,
   topRef: false,
-  minify: isMinify ?? false
+  tsconfig: './tsconfig.json',
+  type: '*' // Or <type-name> if you want to generate schema for that one type only,
 };
 
 function generate(config) {

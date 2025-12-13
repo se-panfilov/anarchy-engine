@@ -31,14 +31,7 @@
       }
     }
   },
-  "required": [
-    "canvasSelector",
-    "entities",
-    "name",
-    "resources",
-    "scenes",
-    "version"
-  ],
+  "required": ["canvasSelector", "entities", "name", "resources", "scenes", "version"],
   "definitions": {
     "TSceneConfig": {
       "type": "object",
@@ -94,10 +87,7 @@
           }
         }
       },
-      "required": [
-        "isActive",
-        "name"
-      ]
+      "required": ["isActive", "name"]
     },
     "TEulerLike": {
       "type": "object",
@@ -113,21 +103,10 @@
         },
         "order": {
           "type": "string",
-          "enum": [
-            "XYZ",
-            "XZY",
-            "YXZ",
-            "YZX",
-            "ZXY",
-            "ZYX"
-          ]
+          "enum": ["XYZ", "XZY", "YXZ", "YZX", "ZXY", "ZYX"]
         }
       },
-      "required": [
-        "x",
-        "y",
-        "z"
-      ],
+      "required": ["x", "y", "z"],
       "additionalProperties": false
     },
     "QuaternionLike": {
@@ -146,12 +125,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "x",
-        "y",
-        "z",
-        "w"
-      ],
+      "required": ["x", "y", "z", "w"],
       "additionalProperties": false
     },
     "Vector3Like": {
@@ -167,11 +141,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "x",
-        "y",
-        "z"
-      ],
+      "required": ["x", "y", "z"],
       "additionalProperties": false
     },
     "TSpaceConfigEntities": {
@@ -323,14 +293,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "cellSize",
-        "centerX",
-        "centerZ",
-        "mapHeight",
-        "mapWidth",
-        "name"
-      ]
+      "required": ["cellSize", "centerX", "centerZ", "mapHeight", "mapWidth", "name"]
     },
     "TActorConfig": {
       "type": "object",
@@ -386,12 +349,7 @@
           }
         }
       },
-      "required": [
-        "model3dSource",
-        "name",
-        "position",
-        "spatial"
-      ]
+      "required": ["model3dSource", "name", "position", "spatial"]
     },
     "TWithPresetNamePhysicsBodyConfig": {
       "type": "object",
@@ -529,9 +487,7 @@
           "$ref": "#/definitions/Vector"
         }
       },
-      "required": [
-        "normal"
-      ],
+      "required": ["normal"],
       "additionalProperties": false
     },
     "Vector": {
@@ -547,11 +503,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "x",
-        "y",
-        "z"
-      ],
+      "required": ["x", "y", "z"],
       "additionalProperties": false
     },
     "TPhysicsShapeCuboidParams": {
@@ -567,11 +519,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "hx",
-        "hy",
-        "hz"
-      ],
+      "required": ["hx", "hy", "hz"],
       "additionalProperties": false
     },
     "TPhysicsShapeRoundCuboidParams": {
@@ -590,12 +538,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "hx",
-        "hy",
-        "hz",
-        "borderRadius"
-      ],
+      "required": ["hx", "hy", "hz", "borderRadius"],
       "additionalProperties": false
     },
     "TPhysicsShapeCapsuleParams": {
@@ -608,10 +551,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "halfHeight",
-        "radius"
-      ],
+      "required": ["halfHeight", "radius"],
       "additionalProperties": false
     },
     "TPhysicsShapeRoundCapsuleParams": {
@@ -627,11 +567,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "halfHeight",
-        "radius",
-        "borderRadius"
-      ],
+      "required": ["halfHeight", "radius", "borderRadius"],
       "additionalProperties": false
     },
     "TPhysicsShapeSegmentParams": {
@@ -644,10 +580,7 @@
           "$ref": "#/definitions/Vector"
         }
       },
-      "required": [
-        "a",
-        "b"
-      ],
+      "required": ["a", "b"],
       "additionalProperties": false
     },
     "TPhysicsShapeTriangleParams": {
@@ -663,11 +596,7 @@
           "$ref": "#/definitions/Vector"
         }
       },
-      "required": [
-        "a",
-        "b",
-        "c"
-      ],
+      "required": ["a", "b", "c"],
       "additionalProperties": false
     },
     "TPhysicsShapeRoundTriangleParams": {
@@ -686,12 +615,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "a",
-        "b",
-        "c",
-        "borderRadius"
-      ],
+      "required": ["a", "b", "c", "borderRadius"],
       "additionalProperties": false
     },
     "TPhysicsShapePolylineParams": {
@@ -710,9 +634,7 @@
                   "type": "number"
                 }
               },
-              "required": [
-                "byteLength"
-              ],
+              "required": ["byteLength"],
               "additionalProperties": false
             },
             "byteLength": {
@@ -725,13 +647,7 @@
               "type": "number"
             }
           },
-          "required": [
-            "BYTES_PER_ELEMENT",
-            "buffer",
-            "byteLength",
-            "byteOffset",
-            "length"
-          ],
+          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
           "additionalProperties": {
             "type": "number"
           }
@@ -749,9 +665,7 @@
                   "type": "number"
                 }
               },
-              "required": [
-                "byteLength"
-              ],
+              "required": ["byteLength"],
               "additionalProperties": false
             },
             "byteLength": {
@@ -764,21 +678,13 @@
               "type": "number"
             }
           },
-          "required": [
-            "BYTES_PER_ELEMENT",
-            "buffer",
-            "byteLength",
-            "byteOffset",
-            "length"
-          ],
+          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
           "additionalProperties": {
             "type": "number"
           }
         }
       },
-      "required": [
-        "vertices"
-      ],
+      "required": ["vertices"],
       "additionalProperties": false
     },
     "TPhysicsShapeTriMeshParams": {
@@ -797,9 +703,7 @@
                   "type": "number"
                 }
               },
-              "required": [
-                "byteLength"
-              ],
+              "required": ["byteLength"],
               "additionalProperties": false
             },
             "byteLength": {
@@ -812,13 +716,7 @@
               "type": "number"
             }
           },
-          "required": [
-            "BYTES_PER_ELEMENT",
-            "buffer",
-            "byteLength",
-            "byteOffset",
-            "length"
-          ],
+          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
           "additionalProperties": {
             "type": "number"
           }
@@ -836,9 +734,7 @@
                   "type": "number"
                 }
               },
-              "required": [
-                "byteLength"
-              ],
+              "required": ["byteLength"],
               "additionalProperties": false
             },
             "byteLength": {
@@ -851,13 +747,7 @@
               "type": "number"
             }
           },
-          "required": [
-            "BYTES_PER_ELEMENT",
-            "buffer",
-            "byteLength",
-            "byteOffset",
-            "length"
-          ],
+          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
           "additionalProperties": {
             "type": "number"
           }
@@ -866,22 +756,12 @@
           "$ref": "#/definitions/TriMeshFlags"
         }
       },
-      "required": [
-        "vertices",
-        "indices"
-      ],
+      "required": ["vertices", "indices"],
       "additionalProperties": false
     },
     "TriMeshFlags": {
       "type": "number",
-      "enum": [
-        4,
-        8,
-        16,
-        32,
-        64,
-        144
-      ],
+      "enum": [4, 8, 16, 32, 64, 144],
       "description": "Flags controlling the behavior of the triangle mesh creation and of some operations involving triangle meshes."
     },
     "TPhysicsShapeConvexPolyhedronParams": {
@@ -900,9 +780,7 @@
                   "type": "number"
                 }
               },
-              "required": [
-                "byteLength"
-              ],
+              "required": ["byteLength"],
               "additionalProperties": false
             },
             "byteLength": {
@@ -915,13 +793,7 @@
               "type": "number"
             }
           },
-          "required": [
-            "BYTES_PER_ELEMENT",
-            "buffer",
-            "byteLength",
-            "byteOffset",
-            "length"
-          ],
+          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
           "additionalProperties": {
             "type": "number"
           }
@@ -941,9 +813,7 @@
                       "type": "number"
                     }
                   },
-                  "required": [
-                    "byteLength"
-                  ],
+                  "required": ["byteLength"],
                   "additionalProperties": false
                 },
                 "byteLength": {
@@ -956,13 +826,7 @@
                   "type": "number"
                 }
               },
-              "required": [
-                "BYTES_PER_ELEMENT",
-                "buffer",
-                "byteLength",
-                "byteOffset",
-                "length"
-              ],
+              "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
               "additionalProperties": {
                 "type": "number"
               }
@@ -973,9 +837,7 @@
           ]
         }
       },
-      "required": [
-        "vertices"
-      ],
+      "required": ["vertices"],
       "additionalProperties": false
     },
     "TPhysicsShapeRoundConvexPolyhedronParams": {
@@ -994,9 +856,7 @@
                   "type": "number"
                 }
               },
-              "required": [
-                "byteLength"
-              ],
+              "required": ["byteLength"],
               "additionalProperties": false
             },
             "byteLength": {
@@ -1009,13 +869,7 @@
               "type": "number"
             }
           },
-          "required": [
-            "BYTES_PER_ELEMENT",
-            "buffer",
-            "byteLength",
-            "byteOffset",
-            "length"
-          ],
+          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
           "additionalProperties": {
             "type": "number"
           }
@@ -1035,9 +889,7 @@
                       "type": "number"
                     }
                   },
-                  "required": [
-                    "byteLength"
-                  ],
+                  "required": ["byteLength"],
                   "additionalProperties": false
                 },
                 "byteLength": {
@@ -1050,13 +902,7 @@
                   "type": "number"
                 }
               },
-              "required": [
-                "BYTES_PER_ELEMENT",
-                "buffer",
-                "byteLength",
-                "byteOffset",
-                "length"
-              ],
+              "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
               "additionalProperties": {
                 "type": "number"
               }
@@ -1070,10 +916,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "vertices",
-        "borderRadius"
-      ],
+      "required": ["vertices", "borderRadius"],
       "additionalProperties": false
     },
     "TPhysicsShapeHeightfieldParams": {
@@ -1098,9 +941,7 @@
                   "type": "number"
                 }
               },
-              "required": [
-                "byteLength"
-              ],
+              "required": ["byteLength"],
               "additionalProperties": false
             },
             "byteLength": {
@@ -1113,13 +954,7 @@
               "type": "number"
             }
           },
-          "required": [
-            "BYTES_PER_ELEMENT",
-            "buffer",
-            "byteLength",
-            "byteOffset",
-            "length"
-          ],
+          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
           "additionalProperties": {
             "type": "number"
           }
@@ -1131,12 +966,7 @@
           "$ref": "#/definitions/HeightFieldFlags"
         }
       },
-      "required": [
-        "nrows",
-        "ncols",
-        "heights",
-        "scale"
-      ],
+      "required": ["nrows", "ncols", "heights", "scale"],
       "additionalProperties": false
     },
     "HeightFieldFlags": {
@@ -1154,10 +984,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "halfHeight",
-        "radius"
-      ],
+      "required": ["halfHeight", "radius"],
       "additionalProperties": false
     },
     "TPhysicsShapeRoundCylinderParams": {
@@ -1173,11 +1000,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "halfHeight",
-        "radius",
-        "borderRadius"
-      ],
+      "required": ["halfHeight", "radius", "borderRadius"],
       "additionalProperties": false
     },
     "TPhysicsShapeConeParams": {
@@ -1190,10 +1013,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "halfHeight",
-        "radius"
-      ],
+      "required": ["halfHeight", "radius"],
       "additionalProperties": false
     },
     "TPhysicsShapeRoundConeParams": {
@@ -1209,21 +1029,12 @@
           "type": "number"
         }
       },
-      "required": [
-        "halfHeight",
-        "radius",
-        "borderRadius"
-      ],
+      "required": ["halfHeight", "radius", "borderRadius"],
       "additionalProperties": false
     },
     "RigidBodyTypesNames": {
       "type": "string",
-      "enum": [
-        "dynamic",
-        "fixed",
-        "kinematicPositionBased",
-        "kinematicVelocityBased"
-      ]
+      "enum": ["dynamic", "fixed", "kinematicPositionBased", "kinematicVelocityBased"]
     },
     "TKinematicConfig": {
       "type": "object",
@@ -1239,9 +1050,7 @@
           "$ref": "#/definitions/TKinematicConfigTarget"
         }
       },
-      "required": [
-        "isAutoUpdate"
-      ]
+      "required": ["isAutoUpdate"]
     },
     "TKinematicConfigState": {
       "type": "object",
@@ -1269,15 +1078,7 @@
           "type": "boolean"
         }
       },
-      "required": [
-        "angularDirection",
-        "angularSpeed",
-        "forwardAxis",
-        "isInfiniteRotation",
-        "linearDirection",
-        "linearSpeed",
-        "radius"
-      ]
+      "required": ["angularDirection", "angularSpeed", "forwardAxis", "isInfiniteRotation", "linearDirection", "linearSpeed", "radius"]
     },
     "TMetersPerSecond": {
       "anyOf": [
@@ -1314,10 +1115,7 @@
     },
     "ForwardAxis": {
       "type": "string",
-      "enum": [
-        "X",
-        "Z"
-      ]
+      "enum": ["X", "Z"]
     },
     "TKinematicConfigTarget": {
       "type": "object",
@@ -1336,10 +1134,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "positionThreshold",
-        "rotationThreshold"
-      ]
+      "required": ["positionThreshold", "rotationThreshold"]
     },
     "TSpatialDataConfig": {
       "type": "object",
@@ -1355,21 +1150,11 @@
           "$ref": "#/definitions/LoopUpdatePriority"
         }
       },
-      "required": [
-        "grid",
-        "isAutoUpdate"
-      ]
+      "required": ["grid", "isAutoUpdate"]
     },
     "LoopUpdatePriority": {
       "type": "number",
-      "enum": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
+      "enum": [0, 1, 2, 3, 4, 5]
     },
     "TCollisionsDataConfig": {
       "type": "object",
@@ -1382,9 +1167,7 @@
           "$ref": "#/definitions/LoopUpdatePriority"
         }
       },
-      "required": [
-        "isAutoUpdate"
-      ]
+      "required": ["isAutoUpdate"]
     },
     "TActorModel3dSettingsConfig": {
       "type": "object",
@@ -1430,34 +1213,19 @@
           "$ref": "#/definitions/FsmEventsStrategy"
         }
       },
-      "required": [
-        "name"
-      ],
+      "required": ["name"],
       "additionalProperties": false
     },
     "TFsmStates": {
-      "type": [
-        "string",
-        "number"
-      ]
+      "type": ["string", "number"]
     },
     "FsmEventsStrategy": {
       "type": "string",
-      "enum": [
-        "strict_queue",
-        "skip_pending",
-        "replace_pending",
-        "run_parallel"
-      ]
+      "enum": ["strict_queue", "skip_pending", "replace_pending", "run_parallel"]
     },
     "TransformAgent": {
       "type": "string",
-      "enum": [
-        "default",
-        "kinematic",
-        "physical",
-        "connected"
-      ]
+      "enum": ["default", "kinematic", "physical", "connected"]
     },
     "TAnyAudioConfig": {
       "anyOf": [
@@ -1508,11 +1276,7 @@
         },
         "distanceModel": {
           "type": "string",
-          "enum": [
-            "linear",
-            "inverse",
-            "exponential"
-          ]
+          "enum": ["linear", "inverse", "exponential"]
         },
         "maxDistance": {
           "type": "number"
@@ -1533,11 +1297,7 @@
           }
         }
       },
-      "required": [
-        "audioSource",
-        "name",
-        "position"
-      ]
+      "required": ["audioSource", "name", "position"]
     },
     "TAudioPerformanceOptions": {
       "type": "object",
@@ -1584,11 +1344,7 @@
         },
         "distanceModel": {
           "type": "string",
-          "enum": [
-            "linear",
-            "inverse",
-            "exponential"
-          ]
+          "enum": ["linear", "inverse", "exponential"]
         },
         "maxDistance": {
           "type": "number"
@@ -1609,10 +1365,7 @@
           }
         }
       },
-      "required": [
-        "audioSource",
-        "name"
-      ]
+      "required": ["audioSource", "name"]
     },
     "TAnyCameraConfig": {
       "anyOf": [
@@ -1718,12 +1471,7 @@
           }
         }
       },
-      "required": [
-        "isActive",
-        "name",
-        "position",
-        "type"
-      ]
+      "required": ["isActive", "name", "position", "type"]
     },
     "Listeners": {
       "type": "string",
@@ -1731,10 +1479,7 @@
     },
     "CameraType": {
       "type": "string",
-      "enum": [
-        "PerspectiveCamera",
-        "OrthographicCamera"
-      ]
+      "enum": ["PerspectiveCamera", "OrthographicCamera"]
     },
     "TOrthographicCameraConfig": {
       "type": "object",
@@ -1830,12 +1575,7 @@
           }
         }
       },
-      "required": [
-        "isActive",
-        "name",
-        "position",
-        "type"
-      ]
+      "required": ["isActive", "name", "position", "type"]
     },
     "TEnvMapConfig": {
       "type": "object",
@@ -1857,11 +1597,7 @@
           }
         }
       },
-      "required": [
-        "isActive",
-        "name",
-        "texture"
-      ]
+      "required": ["isActive", "name", "texture"]
     },
     "TIntersectionsWatcherConfig": {
       "type": "object",
@@ -1895,12 +1631,7 @@
           }
         }
       },
-      "required": [
-        "actorNames",
-        "cameraName",
-        "isAutoStart",
-        "name"
-      ]
+      "required": ["actorNames", "cameraName", "isAutoStart", "name"]
     },
     "TIntersectionsWatcherPerformanceOptions": {
       "type": "object",
@@ -2002,12 +1733,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "color",
-        "name",
-        "position",
-        "type"
-      ]
+      "required": ["color", "name", "position", "type"]
     },
     "TLightShadowConfig": {
       "type": "object",
@@ -2023,11 +1749,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "camera",
-        "mapSize",
-        "normalBias"
-      ]
+      "required": ["camera", "mapSize", "normalBias"]
     },
     "Vector2Like": {
       "type": "object",
@@ -2039,10 +1761,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "x",
-        "y"
-      ],
+      "required": ["x", "y"],
       "additionalProperties": false
     },
     "TShadowCameraConfig": {
@@ -2125,14 +1844,7 @@
     },
     "LightType": {
       "type": "string",
-      "enum": [
-        "AmbientLight",
-        "DirectionalLight",
-        "HemisphereLight",
-        "PointLight",
-        "RectAreaLight",
-        "SpotLight"
-      ]
+      "enum": ["AmbientLight", "DirectionalLight", "HemisphereLight", "PointLight", "RectAreaLight", "SpotLight"]
     },
     "THemisphereLightConfig": {
       "type": "object",
@@ -2200,13 +1912,7 @@
           "$ref": "#/definitions/Vector3Like"
         }
       },
-      "required": [
-        "color",
-        "groundColor",
-        "name",
-        "position",
-        "type"
-      ]
+      "required": ["color", "groundColor", "name", "position", "type"]
     },
     "TDirectionalLightConfig": {
       "type": "object",
@@ -2271,12 +1977,7 @@
           }
         }
       },
-      "required": [
-        "color",
-        "name",
-        "position",
-        "type"
-      ]
+      "required": ["color", "name", "position", "type"]
     },
     "TLightShadowParams": {
       "type": "object",
@@ -2291,11 +1992,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "mapSize",
-        "camera",
-        "normalBias"
-      ],
+      "required": ["mapSize", "camera", "normalBias"],
       "additionalProperties": false
     },
     "Vector2": {
@@ -2320,13 +2017,7 @@
           "const": true
         }
       },
-      "required": [
-        "x",
-        "y",
-        "width",
-        "height",
-        "isVector2"
-      ],
+      "required": ["x", "y", "width", "height", "isVector2"],
       "additionalProperties": false,
       "description": "2D vector."
     },
@@ -2428,12 +2119,7 @@
           "const": true
         }
       },
-      "required": [
-        "x",
-        "y",
-        "z",
-        "isVector3"
-      ],
+      "required": ["x", "y", "z", "isVector3"],
       "additionalProperties": false,
       "description": "3D vector.\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
     },
@@ -2509,12 +2195,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "color",
-        "name",
-        "position",
-        "type"
-      ]
+      "required": ["color", "name", "position", "type"]
     },
     "TRectAreaLightConfig": {
       "$ref": "#/definitions/TAbstractLightConfig%3CTRectAreaLightParams%3E"
@@ -2588,14 +2269,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "color",
-        "height",
-        "name",
-        "position",
-        "type",
-        "width"
-      ]
+      "required": ["color", "height", "name", "position", "type", "width"]
     },
     "TSpotLightConfig": {
       "$ref": "#/definitions/TAbstractLightConfig%3CTSpotLightParams%3E"
@@ -2675,12 +2349,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "color",
-        "name",
-        "position",
-        "type"
-      ]
+      "required": ["color", "name", "position", "type"]
     },
     "TMaterialConfig": {
       "type": "object",
@@ -2705,10 +2374,7 @@
           }
         }
       },
-      "required": [
-        "name",
-        "type"
-      ]
+      "required": ["name", "type"]
     },
     "TMaterialConfigOptions": {
       "anyOf": [
@@ -2909,16 +2575,8 @@
           "type": "number"
         },
         "precision": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "highp",
-            "mediump",
-            "lowp",
-            null
-          ]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
@@ -2979,13 +2637,7 @@
     },
     "BlendEquationName": {
       "type": "string",
-      "enum": [
-        "AddEquation",
-        "MaxEquation",
-        "MinEquation",
-        "ReverseSubtractEquation",
-        "SubtractEquation"
-      ]
+      "enum": ["AddEquation", "MaxEquation", "MinEquation", "ReverseSubtractEquation", "SubtractEquation"]
     },
     "BlendingSrcFactorName": {
       "type": "string",
@@ -2993,99 +2645,39 @@
     },
     "BlendingName": {
       "type": "string",
-      "enum": [
-        "AdditiveBlending",
-        "CustomBlending",
-        "MultiplyBlending",
-        "NoBlending",
-        "NormalBlending",
-        "SubtractiveBlending"
-      ]
+      "enum": ["AdditiveBlending", "CustomBlending", "MultiplyBlending", "NoBlending", "NormalBlending", "SubtractiveBlending"]
     },
     "CombineName": {
       "type": "string",
-      "enum": [
-        "AddOperation",
-        "MixOperation",
-        "MultiplyOperation"
-      ]
+      "enum": ["AddOperation", "MixOperation", "MultiplyOperation"]
     },
     "DepthPackingStrategiesName": {
       "type": "string",
-      "enum": [
-        "BasicDepthPacking",
-        "RGBADepthPacking"
-      ]
+      "enum": ["BasicDepthPacking", "RGBADepthPacking"]
     },
     "PixelFormatName": {
       "type": "string",
-      "enum": [
-        "AlphaFormat",
-        "DepthFormat",
-        "DepthStencilFormat",
-        "RGBAFormat",
-        "RGBAIntegerFormat",
-        "RGBFormat",
-        "RGBIntegerFormat",
-        "RGFormat",
-        "RGIntegerFormat",
-        "RedFormat",
-        "RedIntegerFormat"
-      ]
+      "enum": ["AlphaFormat", "DepthFormat", "DepthStencilFormat", "RGBAFormat", "RGBAIntegerFormat", "RGBFormat", "RGBIntegerFormat", "RGFormat", "RGIntegerFormat", "RedFormat", "RedIntegerFormat"]
     },
     "NormalMapTypesName": {
       "type": "string",
-      "enum": [
-        "ObjectSpaceNormalMap",
-        "TangentSpaceNormalMap"
-      ]
+      "enum": ["ObjectSpaceNormalMap", "TangentSpaceNormalMap"]
     },
     "SideName": {
       "type": "string",
-      "enum": [
-        "BackSide",
-        "DoubleSide",
-        "FrontSide"
-      ]
+      "enum": ["BackSide", "DoubleSide", "FrontSide"]
     },
     "StencilFailName": {
       "type": "string",
-      "enum": [
-        "DecrementStencilOp",
-        "DecrementWrapStencilOp",
-        "IncrementStencilOp",
-        "IncrementWrapStencilOp",
-        "InvertStencilOp",
-        "KeepStencilOp",
-        "ReplaceStencilOp",
-        "ZeroStencilOp"
-      ]
+      "enum": ["DecrementStencilOp", "DecrementWrapStencilOp", "IncrementStencilOp", "IncrementWrapStencilOp", "InvertStencilOp", "KeepStencilOp", "ReplaceStencilOp", "ZeroStencilOp"]
     },
     "StencilFuncName": {
       "type": "string",
-      "enum": [
-        "AlwaysStencilFunc",
-        "EqualStencilFunc",
-        "GreaterEqualStencilFunc",
-        "GreaterStencilFunc",
-        "LessEqualStencilFunc",
-        "LessStencilFunc",
-        "NeverStencilFunc",
-        "NotEqualStencilFunc"
-      ]
+      "enum": ["AlwaysStencilFunc", "EqualStencilFunc", "GreaterEqualStencilFunc", "GreaterStencilFunc", "LessEqualStencilFunc", "LessStencilFunc", "NeverStencilFunc", "NotEqualStencilFunc"]
     },
     "StencilOpName": {
       "type": "string",
-      "enum": [
-        "DecrementStencilOp",
-        "DecrementWrapStencilOp",
-        "IncrementStencilOp",
-        "IncrementWrapStencilOp",
-        "InvertStencilOp",
-        "KeepStencilOp",
-        "ReplaceStencilOp",
-        "ZeroStencilOp"
-      ]
+      "enum": ["DecrementStencilOp", "DecrementWrapStencilOp", "IncrementStencilOp", "IncrementWrapStencilOp", "InvertStencilOp", "KeepStencilOp", "ReplaceStencilOp", "ZeroStencilOp"]
     },
     "ColorRepresentation": {
       "anyOf": [
@@ -3123,35 +2715,17 @@
           "default": 1
         }
       },
-      "required": [
-        "isColor",
-        "r",
-        "g",
-        "b"
-      ],
+      "required": ["isColor", "r", "g", "b"],
       "additionalProperties": false,
       "description": "Class representing a color.\n\nA Color instance is represented by RGB components in the linear <i>working color space</i>, which defaults to `LinearSRGBColorSpace`. Inputs conventionally using `SRGBColorSpace` (such as hexadecimals and CSS strings) are converted to the working color space automatically.\n\n``` // converted automatically from SRGBColorSpace to LinearSRGBColorSpace const color = new THREE.Color().setHex( 0x112233 ); ```\n\nSource color spaces may be specified explicitly, to ensure correct conversions.\n\n``` // assumed already LinearSRGBColorSpace; no conversion const color = new THREE.Color().setRGB( 0.5, 0.5, 0.5 );\n\n// converted explicitly from SRGBColorSpace to LinearSRGBColorSpace const color = new THREE.Color().setRGB( 0.5, 0.5, 0.5, SRGBColorSpace ); ```\n\nIf THREE.ColorManagement is disabled, no conversions occur. For details, see <i>Color management</i>.\n\nIterating through a Color instance will yield its components (r, g, b) in the corresponding order."
     },
     "DepthModes": {
       "type": "number",
-      "enum": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7
-      ]
+      "enum": [0, 1, 2, 3, 4, 5, 6, 7]
     },
     "Side": {
       "type": "number",
-      "enum": [
-        0,
-        1,
-        2
-      ],
+      "enum": [0, 1, 2],
       "description": "Defines which side of faces will be rendered - front, back or both. Default is  {@link  FrontSide } ."
     },
     "TDepthMaterialConfigOptions": {
@@ -3283,16 +2857,8 @@
           "type": "number"
         },
         "precision": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "highp",
-            "mediump",
-            "lowp",
-            null
-          ]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
@@ -3461,16 +3027,8 @@
           "type": "number"
         },
         "precision": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "highp",
-            "mediump",
-            "lowp",
-            null
-          ]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
@@ -3675,16 +3233,8 @@
           "type": "number"
         },
         "precision": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "highp",
-            "mediump",
-            "lowp",
-            null
-          ]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
@@ -3856,16 +3406,8 @@
           "type": "number"
         },
         "precision": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "highp",
-            "mediump",
-            "lowp",
-            null
-          ]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
@@ -4046,16 +3588,8 @@
           "type": "number"
         },
         "precision": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "highp",
-            "mediump",
-            "lowp",
-            null
-          ]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
@@ -4230,16 +3764,8 @@
           "type": "number"
         },
         "precision": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "highp",
-            "mediump",
-            "lowp",
-            null
-          ]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
@@ -4414,16 +3940,8 @@
           "type": "number"
         },
         "precision": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "highp",
-            "mediump",
-            "lowp",
-            null
-          ]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
@@ -4635,16 +4153,8 @@
           "type": "number"
         },
         "precision": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "highp",
-            "mediump",
-            "lowp",
-            null
-          ]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
@@ -4908,16 +4418,8 @@
           "type": "number"
         },
         "precision": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "highp",
-            "mediump",
-            "lowp",
-            null
-          ]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
@@ -5086,16 +4588,8 @@
           "type": "number"
         },
         "precision": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "highp",
-            "mediump",
-            "lowp",
-            null
-          ]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
@@ -5297,16 +4791,8 @@
           "type": "number"
         },
         "precision": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "highp",
-            "mediump",
-            "lowp",
-            null
-          ]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
@@ -5351,17 +4837,12 @@
       "properties": {
         "value": {}
       },
-      "required": [
-        "value"
-      ],
+      "required": ["value"],
       "additionalProperties": false
     },
     "GLSLVersion": {
       "type": "string",
-      "enum": [
-        "100",
-        "300 es"
-      ]
+      "enum": ["100", "300 es"]
     },
     "TShadowMaterialConfigOptions": {
       "type": "object",
@@ -5486,16 +4967,8 @@
           "type": "number"
         },
         "precision": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "highp",
-            "mediump",
-            "lowp",
-            null
-          ]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
@@ -5664,16 +5137,8 @@
           "type": "number"
         },
         "precision": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "highp",
-            "mediump",
-            "lowp",
-            null
-          ]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
@@ -5875,16 +5340,8 @@
           "type": "number"
         },
         "precision": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "highp",
-            "mediump",
-            "lowp",
-            null
-          ]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
@@ -6081,16 +5538,8 @@
           "type": "number"
         },
         "precision": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "highp",
-            "mediump",
-            "lowp",
-            null
-          ]
+          "type": ["string", "null"],
+          "enum": ["highp", "mediump", "lowp", null]
         },
         "premultipliedAlpha": {
           "type": "boolean"
@@ -6562,18 +6011,11 @@
           }
         }
       },
-      "required": [
-        "model3dSource",
-        "name"
-      ]
+      "required": ["model3dSource", "name"]
     },
     "PrimitiveModel3dType": {
       "type": "string",
-      "enum": [
-        "cube",
-        "plane",
-        "sphere"
-      ]
+      "enum": ["cube", "plane", "sphere"]
     },
     "TAnimationStateConfig": {
       "$ref": "#/definitions/TAnimationStateParams"
@@ -6609,18 +6051,12 @@
           "type": "boolean"
         }
       },
-      "required": [
-        "name"
-      ],
+      "required": ["name"],
       "additionalProperties": false
     },
     "AnimationActionLoopStyles": {
       "type": "number",
-      "enum": [
-        2200,
-        2201,
-        2202
-      ]
+      "enum": [2200, 2201, 2202]
     },
     "TModel3dOptions": {
       "$ref": "#/definitions/TOptional%3CTPrimitiveModel3dParams%3E"
@@ -6689,11 +6125,7 @@
         },
         "powerPreference": {
           "type": "string",
-          "enum": [
-            "default",
-            "high-performance",
-            "low-power"
-          ],
+          "enum": ["default", "high-performance", "low-power"],
           "description": "Can be \"high-performance\", \"low-power\" or \"default\""
         },
         "depth": {
@@ -6738,19 +6170,12 @@
           }
         }
       },
-      "required": [
-        "mode",
-        "isActive",
-        "name"
-      ],
+      "required": ["mode", "isActive", "name"],
       "additionalProperties": false
     },
     "RendererModes": {
       "type": "string",
-      "enum": [
-        "webgl",
-        "webgl2"
-      ]
+      "enum": ["webgl", "webgl2"]
     },
     "TParticlesConfig": {
       "type": "object",
@@ -6806,11 +6231,7 @@
           }
         }
       },
-      "required": [
-        "material",
-        "name",
-        "position"
-      ]
+      "required": ["material", "name", "position"]
     },
     "TPhysicsConfig": {
       "type": "object",
@@ -6874,9 +6295,7 @@
           "$ref": "#/definitions/RawDebugRenderPipeline"
         }
       },
-      "required": [
-        "gravity"
-      ]
+      "required": ["gravity"]
     },
     "RawIntegrationParameters": {
       "type": "object",
@@ -7042,10 +6461,7 @@
           }
         }
       },
-      "required": [
-        "color",
-        "name"
-      ]
+      "required": ["color", "name"]
     },
     "TFsmConfig": {
       "type": "object",
@@ -7096,18 +6512,10 @@
           }
         }
       },
-      "required": [
-        "initial",
-        "name",
-        "transitions",
-        "type"
-      ]
+      "required": ["initial", "name", "transitions", "type"]
     },
     "TFsmEvents": {
-      "type": [
-        "string",
-        "number"
-      ]
+      "type": ["string", "number"]
     },
     "FsmType": {
       "type": "string",
@@ -7185,20 +6593,11 @@
           }
         }
       },
-      "required": [
-        "name",
-        "position",
-        "text",
-        "type"
-      ]
+      "required": ["name", "position", "text", "type"]
     },
     "TextType": {
       "type": "string",
-      "enum": [
-        "text_2d",
-        "text_3d",
-        "text_3d_texture"
-      ]
+      "enum": ["text_2d", "text_3d", "text_3d_texture"]
     },
     "TTextCssProps": {
       "type": "object",
@@ -8636,48 +8035,27 @@
     },
     "TextAlign": {
       "type": "string",
-      "enum": [
-        "center",
-        "justify",
-        "left",
-        "right"
-      ]
+      "enum": ["center", "justify", "left", "right"]
     },
     "TextDirection": {
       "type": "string",
-      "enum": [
-        "auto",
-        "ltr",
-        "rtl"
-      ]
+      "enum": ["auto", "ltr", "rtl"]
     },
     "TextOverflowWrap": {
       "type": "string",
-      "enum": [
-        "break-word",
-        "normal"
-      ]
+      "enum": ["break-word", "normal"]
     },
     "TextWhiteSpace": {
       "type": "string",
-      "enum": [
-        "normal",
-        "nowrap"
-      ]
+      "enum": ["normal", "nowrap"]
     },
     "TextFontStyle": {
       "type": "string",
-      "enum": [
-        "italic",
-        "normal"
-      ]
+      "enum": ["italic", "normal"]
     },
     "TextFontWeight": {
       "type": "string",
-      "enum": [
-        "bold",
-        "normal"
-      ]
+      "enum": ["bold", "normal"]
     },
     "TControlsConfig": {
       "anyOf": [
@@ -8724,12 +8102,7 @@
           }
         }
       },
-      "required": [
-        "cameraName",
-        "isActive",
-        "name",
-        "type"
-      ]
+      "required": ["cameraName", "isActive", "name", "type"]
     },
     "TOrbitControlsConfigOptions": {
       "type": "object",
@@ -8814,10 +8187,7 @@
     },
     "ControlsType": {
       "type": "string",
-      "enum": [
-        "OrbitControls",
-        "FirstPersonControls"
-      ]
+      "enum": ["OrbitControls", "FirstPersonControls"]
     },
     "TFpsControlsConfig": {
       "type": "object",
@@ -8848,12 +8218,7 @@
           }
         }
       },
-      "required": [
-        "cameraName",
-        "isActive",
-        "name",
-        "type"
-      ]
+      "required": ["cameraName", "isActive", "name", "type"]
     },
     "TFpsControlsParamsOptions": {
       "type": "object",
@@ -8934,13 +8299,7 @@
           }
         }
       },
-      "required": [
-        "animations",
-        "audio",
-        "envMaps",
-        "models3d",
-        "textures"
-      ],
+      "required": ["animations", "audio", "envMaps", "models3d", "textures"],
       "additionalProperties": false
     },
     "TAnimationsResourceConfig": {
@@ -8969,10 +8328,7 @@
           "type": "object"
         }
       },
-      "required": [
-        "name",
-        "url"
-      ]
+      "required": ["name", "url"]
     },
     "TAudioResourceConfig": {
       "$ref": "#/definitions/TAbstractResourceConfig"
@@ -9000,10 +8356,7 @@
           }
         }
       },
-      "required": [
-        "name",
-        "url"
-      ]
+      "required": ["name", "url"]
     },
     "TEnvMapTextureOptions": {
       "type": "object",
@@ -9016,14 +8369,7 @@
     },
     "EnvMapMappingTypesName": {
       "type": "string",
-      "enum": [
-        "UVMapping",
-        "CubeReflectionMapping",
-        "CubeRefractionMapping",
-        "CubeUVReflectionMapping",
-        "EquirectangularReflectionMapping",
-        "EquirectangularRefractionMapping"
-      ]
+      "enum": ["UVMapping", "CubeReflectionMapping", "CubeRefractionMapping", "CubeUVReflectionMapping", "EquirectangularReflectionMapping", "EquirectangularRefractionMapping"]
     },
     "TModel3dResourceConfig": {
       "type": "object",
@@ -9048,10 +8394,7 @@
           }
         }
       },
-      "required": [
-        "name",
-        "url"
-      ]
+      "required": ["name", "url"]
     },
     "TOptional<TObject3DPropConfig>": {
       "type": "object",
@@ -9116,10 +8459,7 @@
           }
         }
       },
-      "required": [
-        "name",
-        "url"
-      ]
+      "required": ["name", "url"]
     },
     "TTextureOptions": {
       "type": "object",
@@ -9156,91 +8496,41 @@
     },
     "Mapping": {
       "type": "number",
-      "enum": [
-        300,
-        303,
-        304
-      ],
+      "enum": [300, 303, 304],
       "description": "Texture Mapping Modes for non-cube Textures"
     },
     "Wrapping": {
       "type": "number",
-      "enum": [
-        1000,
-        1001,
-        1002
-      ],
+      "enum": [1000, 1001, 1002],
       "description": "Texture Wrapping Modes"
     },
     "MagnificationTextureFilter": {
       "type": "number",
-      "enum": [
-        1003,
-        1006
-      ],
+      "enum": [1003, 1006],
       "description": "Texture Magnification Filter Modes. For use with a texture's  {@link  THREE.Texture.magFilter magFilter }  property, these define the texture magnification function to be used when the pixel being textured maps to an area less than or equal to one texture element (texel)."
     },
     "MinificationTextureFilter": {
       "type": "number",
-      "enum": [
-        1003,
-        1004,
-        1005,
-        1006,
-        1007,
-        1008
-      ],
+      "enum": [1003, 1004, 1005, 1006, 1007, 1008],
       "description": "Texture Minification Filter Modes. For use with a texture's  {@link  THREE.Texture.minFilter minFilter }  property, these define the texture minifying function that is used whenever the pixel being textured maps to an area greater than one texture element (texel)."
     },
     "PixelFormat": {
       "type": "number",
-      "enum": [
-        1021,
-        1022,
-        1023,
-        1026,
-        1027,
-        1028,
-        1029,
-        1030,
-        1031,
-        1032,
-        1033
-      ],
+      "enum": [1021, 1022, 1023, 1026, 1027, 1028, 1029, 1030, 1031, 1032, 1033],
       "description": "All Texture Pixel Formats Modes."
     },
     "TextureDataType": {
       "type": "number",
-      "enum": [
-        1009,
-        1010,
-        1011,
-        1012,
-        1013,
-        1014,
-        1015,
-        1016,
-        1017,
-        1018,
-        1020,
-        35902
-      ],
+      "enum": [1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1020, 35902],
       "description": "Texture Types."
     },
     "ColorSpace": {
       "type": "string",
-      "enum": [
-        "",
-        "srgb",
-        "srgb-linear"
-      ]
+      "enum": ["", "srgb", "srgb-linear"]
     },
     "SpaceSchemaVersion": {
       "type": "string",
-      "enum": [
-        "1.0.0",
-        "2.0.0"
-      ]
+      "enum": ["1.0.0", "2.0.0"]
     }
   }
 }
