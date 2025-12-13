@@ -1,12 +1,12 @@
-# End User License Agreement (EULA) — [GAME NAME]
+# End User License Agreement (EULA) — {{PACKAGE_NAME}}
 
-**Effective date:** [YYYY-MM-DD]
-**Publisher/Developer (Licensor):** [COMPANY LEGAL NAME], [ADDRESS / REGISTER NUMBER]
-**Contact:** support@[YOUR-DOMAIN]
+**Effective date:** {{EFFECTIVE_DATE}}
+**Publisher/Developer (Licensor):** {{PACKAGE_AUTHOR}}
+**Contact:** {{CONTACT_EMAIL}}
 
 ## 1. License Grant
 
-Subject to this EULA, Licensor grants you a **personal, non-exclusive, non-transferable, revocable** license to install and use **[GAME NAME]** (the “Game”) on devices linked to your **[STORE PLATFORM ACCOUNT]** for **personal, non-commercial** purposes.
+Subject to this EULA, Licensor grants you a **personal, non-exclusive, non-transferable, revocable** license to install and use **{{PACKAGE_NAME}}** (the “Game”) on devices linked to your **[STORE PLATFORM ACCOUNT]** for **personal, non-commercial** purposes.
 
 ## 2. Ownership
 
@@ -21,15 +21,15 @@ You **may not**:
 - reverse engineer, decompile, or disassemble the Game **except to the extent permitted by applicable law**;
 - use the Game for any unlawful purpose or in safety-critical environments.
 
-If **modding** is supported, it is subject to **[MODDING GUIDELINES URL]**. Mods must not include illegal content, infringe rights, or harm security or performance.
+If **modding** is supported, it is subject to **{{MODDING_GUIDELINES_URL}}**. Mods must not include illegal content, infringe rights, or harm security or performance.
 
 ## 4. Updates
 
-The Game may automatically update via **[STORE PLATFORM]**. Some updates may be required to continue use. Release notes are provided via **[URL/STORE NEWS]**.
+The Game may automatically update via **{{STORE_PLATFORM}}**. Some updates may be required to continue use. Release notes are provided via **{{STORE_NEWS_URL}}**.
 
 ## 5. Third-Party Services
 
-Purchases, downloads, and account management are provided by **[STORE PLATFORM]** under their own terms and privacy policy. Online features (if any) may require third-party services subject to their terms.
+Purchases, downloads, and account management are provided by **{{STORE_PLATFORM}}** under their own terms and privacy policy. Online features (if any) may require third-party services subject to their terms.
 
 ## 6. User-Generated Content (if applicable)
 
@@ -53,14 +53,14 @@ You must comply with applicable **export, re-export, and sanctions** laws. You m
 
 ## 11. Governing Law & Consumer Rights
 
-This EULA is governed by the laws of **[NETHERLANDS]**. If you are a consumer, **mandatory consumer protection laws of your country of residence remain applicable**. Disputes may be brought before the competent courts of **[COURTS / JURISDICTION]**, without prejudice to mandatory consumer forum rights.
+This EULA is governed by the laws of **{{LAWS_COUNTRY}}**. If you are a consumer, **mandatory consumer protection laws of your country of residence remain applicable**. Disputes may be brought before the competent courts of **{{COURTS_JURISDICTION}}**, without prejudice to mandatory consumer forum rights.
 
 ## 12. Third-Party Notices
 
-Third-party licenses and attributions are provided in **Third-Party Notices** (e.g., `NOTICE.txt`, `THIRD-PARTY-LICENSES.txt`) shipped with the Game or available at **[URL]**.
+Third-party licenses and attributions are provided in **Third-Party Notices** (e.g., `NOTICE.txt`, `THIRD-PARTY-LICENSES.md`) shipped with the Game or available at **{{THIRD_PARTY_NOTICES_URL}}**.
 
 ## 13. Changes
 
-We may update this EULA. Material changes will be communicated via **[STORE ANNOUNCEMENTS / WEBSITE]**. Continued use after the effective date constitutes acceptance.
+We may update this EULA. Material changes will be communicated via **{{EULA_UPDATE_COMMUNICATION}}**. Continued use after the effective date constitutes acceptance.
 
-**Contact:** For questions about this EULA, write to **legal@[YOUR-DOMAIN]**.
+**Contact:** For questions about this EULA, write to **{{CONTACT_LEGAL_EMAIL}}**.
