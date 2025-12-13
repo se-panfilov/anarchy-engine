@@ -12,7 +12,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
   // Load texture dynamically
   // const pack: IBasicMaterialTexturePack = {
-  //   map: { url: '/ShowcaseLevel9TexturesAndMaterials/Door_Wood/Door_Wood_001_basecolor.jpg' },
+  //   map: { url: '/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg' },
   //   material: MaterialType.Basic
   // };
 
