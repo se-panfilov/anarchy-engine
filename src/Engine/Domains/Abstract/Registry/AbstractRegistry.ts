@@ -1,12 +1,12 @@
-import type { IMultitonRegistrable, IRegistrable } from '@Engine/Domains/Mixins';
+import type { IDestroyable, IMultitonRegistrable, IRegistrable } from '@Engine/Domains/Mixins';
 import type { RegistryType } from '@Engine/Registries';
 import { getAll, getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag, isDestroyable, isNotDefined } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
 import type { Observable } from 'rxjs';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import type { IAbstractRegistry } from '@/Engine/Domains/Abstract/Models';
-import { withDestroyedMixin } from '@/Engine/Domains/Mixins';
+import { destroyableMixin } from '@/Engine/Domains/Mixins';
 
 export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(type: RegistryType): IAbstractRegistry<T> {
   const id: string = type + '_registry_' + nanoid();
@@ -14,7 +14,6 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
   const added$: Subject<T> = new Subject<T>();
   const replaced$: Subject<T> = new Subject<T>();
   const removed$: Subject<T> = new Subject<T>();
-  const destroyed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   function add(entity: T): void | never {
     if (registry.has(entity.id)) throw new Error(`Cannot add an entity with id "${entity.id}" to registry ${id}: already exist`);
@@ -45,9 +44,9 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     removed$.next(entity);
   }
 
-  function destroy(): void {
-    destroyed$.next(true);
-    destroyed$.complete();
+  const destroyable: IDestroyable = destroyableMixin();
+
+  destroyable.destroyed$.subscribe((): void => {
     added$.complete();
     replaced$.complete();
     removed$.complete();
@@ -55,7 +54,7 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
       if (isDestroyable(obj)) obj.destroy();
     });
     registry.clear();
-  }
+  });
 
   function getUniqWithSomeTag(tags: ReadonlyArray<string>): T | undefined | never {
     const result: ReadonlyArray<T> = getAllEntitiesWithSomeTag(tags, registry);
@@ -100,8 +99,7 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     getUniqByTag,
     registry,
     remove,
-    destroy,
-    ...withDestroyedMixin(destroyed$)
+    ...destroyable
   };
 }
 

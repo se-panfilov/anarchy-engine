@@ -1,19 +1,20 @@
 import { nanoid } from 'nanoid';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import type { CommonTag, WatcherType } from '@/Engine/Domains/Abstract/Constants';
 import type { IAbstractWatcher } from '@/Engine/Domains/Abstract/Models';
-import { withDestroyedMixin } from '@/Engine/Domains/Mixins';
+import type { IDestroyable } from '@/Engine/Domains/Mixins';
+import { destroyableMixin } from '@/Engine/Domains/Mixins';
 
 export function AbstractWatcher<T>(type: WatcherType | string, tags: ReadonlyArray<string> = []): IAbstractWatcher<T> {
   const id: string = type + '_' + nanoid();
   const value$: Subject<T> = new Subject<T>();
-  const destroyed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  function destroy(): void {
+  const destroyable: IDestroyable = destroyableMixin();
+
+  destroyable.destroyed$.subscribe((): void => {
     value$.complete();
-    destroyed$.complete();
-  }
+  });
 
   return {
     get id(): string {
@@ -31,7 +32,6 @@ export function AbstractWatcher<T>(type: WatcherType | string, tags: ReadonlyArr
     get isRegistrable(): boolean {
       return true;
     },
-    destroy,
-    ...withDestroyedMixin(destroyed$)
+    ...destroyable
   };
 }

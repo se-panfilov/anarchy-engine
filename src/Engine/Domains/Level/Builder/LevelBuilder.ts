@@ -22,7 +22,7 @@ import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry } from '@/Eng
 import type { ILevel, ILevelConfig } from '@/Engine/Domains/Level/Models';
 import type { ILightConfig, ILightFactory, ILightRegistry, ILightWrapper } from '@/Engine/Domains/Light';
 import { LightFactory, LightRegistry } from '@/Engine/Domains/Light';
-import { withDestroyedMixin } from '@/Engine/Domains/Mixins';
+import { destroyableMixin } from '@/Engine/Domains/Mixins';
 
 // TODO (S.Panfilov) CWP All factories should be self-registrable (maybe pass a registry as a param there?)
 // TODO (S.Panfilov) Registries' destroy() should kill all registered instances
@@ -31,7 +31,6 @@ import { withDestroyedMixin } from '@/Engine/Domains/Mixins';
 
 export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
   const built$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  const destroyed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   if (!isValidLevelConfig(config)) throw new Error('Failed to launch a level: invalid data format');
   const { name, actors, cameras, lights, controls, scenes, tags } = config;
@@ -91,7 +90,9 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const loopEntityCreatedSubscription: Subscription = loopFactory.entityCreated$.subscribe((loop: ILoopWrapper): void => loopRegistry.add(loop));
   const loop: ILoopWrapper = loopFactory.create({ tags: [LoopTag.Main, CommonTag.FromConfig] });
 
-  destroyed$.subscribe(() => {
+  const withDestroyed = destroyableMixin();
+
+  withDestroyed.destroyed$.subscribe(() => {
     built$.complete();
 
     sceneEntityCreatedSubscription.unsubscribe();
@@ -126,18 +127,12 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     rendererEntityCreatedSubscription.unsubscribe();
     rendererFactory.destroy();
     rendererRegistry.destroy();
-
-    destroyed$.complete();
   });
 
   const initialCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Initial);
   if (isNotDefined(initialCamera)) throw new Error(`Cannot start the main loop for the level "${name}": initial camera is not defined`);
 
   built$.next(true);
-
-  function destroy(): void {
-    destroyed$.next(true);
-  }
 
   return {
     name,
@@ -191,7 +186,6 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
       );
     },
     isBuilt: (): boolean => built$.getValue(),
-    destroy,
-    ...withDestroyedMixin(destroyed$)
+    ...withDestroyed
   };
 }

@@ -1,20 +1,13 @@
 import { nanoid } from 'nanoid';
-import { BehaviorSubject } from 'rxjs';
 
 import type { WrapperType } from '@/Engine/Domains/Abstract';
 import type { IWrapper } from '@/Engine/Domains/Abstract/Models';
-import { withDestroyedMixin } from '@/Engine/Domains/Mixins';
+import { destroyableMixin } from '@/Engine/Domains/Mixins';
 
 export function AbstractWrapper<T>(entity: T, type: string, params?: Readonly<{ tags: ReadonlyArray<string> }>): IWrapper<T> {
   const id: string = type + '_' + nanoid();
-  const destroyed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   const wrapper: IWrapper<T> = {} as IWrapper<T>;
-
-  function destroy(): void {
-    destroyed$.next(true);
-    destroyed$.complete();
-  }
 
   return {
     ...wrapper,
@@ -27,7 +20,6 @@ export function AbstractWrapper<T>(entity: T, type: string, params?: Readonly<{ 
     entity,
     tags: params?.tags ?? [],
     isRegistrable: true,
-    destroy,
-    ...withDestroyedMixin(destroyed$)
+    ...destroyableMixin()
   };
 }
