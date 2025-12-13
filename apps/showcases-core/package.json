@@ -31,7 +31,7 @@
     "generate:legal:files": "npm run -w anarchy-legal generate:files -- --workspace apps/showcases-core --out ../../apps/showcases-core",
     "generate:legal:notice": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace apps/showcases-core --source ../../apps/showcases-core/legal/THIRD_PARTY_LICENSES.md --out ../../apps/showcases-core/legal/NOTICE.md",
     "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json",
-    "copy:legal-to-public": "node ../../packages/anarchy-shared/ScriptUtils/CopyDir.js from=./legal to=./public/assets/legal",
+    "copy:legal-to-public": "node ../../packages/anarchy-shared/ScriptUtils/CopyDir.js from=./legal to=./public/legal",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "prettier --write .",
