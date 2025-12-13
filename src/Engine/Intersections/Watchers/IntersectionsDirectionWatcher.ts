@@ -1,18 +1,19 @@
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, combineLatest, distinctUntilChanged, EMPTY, identity, map, sample, switchMap, tap, withLatestFrom } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, EMPTY, filter, identity, map, sample, switchMap, tap } from 'rxjs';
 import type { Vector2Like } from 'three';
 import { Vector2 } from 'three';
 import { Vector3 } from 'three/src/math/Vector3';
 
 import type { TActor } from '@/Engine/Actor';
 import type { TAnyCameraWrapper } from '@/Engine/Camera';
-import type { TAbstractIntersectionsWatcher, TIntersectionEvent, TIntersectionsDirectionWatcher, TIntersectionsDirectionWatcherParams } from '@/Engine/Intersections/Models';
+import type { TAbstractIntersectionsWatcher, TIntersectionEvent, TIntersectionsDirectionWatcher, TIntersectionsDirectionWatcherParams, TIntersectionsLoop } from '@/Engine/Intersections/Models';
 import { AbstractIntersectionsWatcher } from '@/Engine/Intersections/Watchers/AbstractIntersectionsWatcher';
+import type { TMilliseconds } from '@/Engine/Math';
 import type { TRawModel3d } from '@/Engine/Models3d';
 import type { TSceneObject } from '@/Engine/Scene';
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TWriteable } from '@/Engine/Utils';
-import { isDefined, isEqualOrSimilarByXyCoords, isEqualOrSimilarByXyzCoords, isNotDefined } from '@/Engine/Utils';
+import { isDefined, isEqualOrSimilarByXyCoords, isNotDefined } from '@/Engine/Utils';
 
 export function IntersectionsDirectionWatcher(params: TIntersectionsDirectionWatcherParams): TIntersectionsDirectionWatcher {
   const { performance, intersectionsLoop } = params;
@@ -83,25 +84,65 @@ export function initIntersectionsWatcher(
   origin$: BehaviorSubject<TReadonlyVector3>,
   direction$: BehaviorSubject<TReadonlyVector3>,
   start$: BehaviorSubject<boolean>,
-  intersectionsLoop: { tick$: BehaviorSubject<void> },
+  intersectionsLoop: TIntersectionsLoop,
   threshold: number
 ): Subscription {
-  const filteredOrigin$: Observable<TReadonlyVector3> = origin$.pipe(
-    distinctUntilChanged((a: TReadonlyVector3, b: TReadonlyVector3): boolean => isEqualOrSimilarByXyzCoords(a.x, a.y, a.z, b.x, b.y, b.z, threshold))
-  );
-  const filteredDirection$: Observable<TReadonlyVector3> = direction$.pipe(
-    distinctUntilChanged((a: TReadonlyVector3, b: TReadonlyVector3): boolean => isEqualOrSimilarByXyzCoords(a.x, a.y, a.z, b.x, b.y, b.z, threshold))
-  );
-
-  const combined$: Observable<[TReadonlyVector3, TReadonlyVector3]> = combineLatest([filteredOrigin$, filteredDirection$]);
+  const tmpOrigin = new Float32Array(3);
+  const prevOrigin = new Float32Array(3);
+  const tmpDirection = new Float32Array(3);
+  const prevDirection = new Float32Array(3);
 
   return start$
     .pipe(
       distinctUntilChanged(),
-      switchMap((enabled: boolean): Observable<[TReadonlyVector3, TReadonlyVector3]> => (enabled ? combined$.pipe(sample(intersectionsLoop.tick$)) : EMPTY))
+      switchMap((isEnabled: boolean): Observable<TMilliseconds | never> => (isEnabled ? intersectionsLoop.tick$ : EMPTY)),
+      map((): Readonly<{ origin: TReadonlyVector3; direction: TReadonlyVector3 }> | undefined =>
+        getOriginAndDirection(tmpOrigin, tmpDirection, prevOrigin, prevDirection, origin$.value, direction$.value, threshold)
+      ),
+      filter(isDefined)
     )
-    .subscribe(([origin, direction]): void => {
+    .subscribe(({ origin, direction }: Readonly<{ origin: TReadonlyVector3; direction: TReadonlyVector3 }>): void => {
       const intersection: TIntersectionEvent | undefined = getIntersection(origin, direction);
       console.log('XXX Intersection:', intersection);
     });
+}
+
+function getOriginAndDirection(
+  tmpOrigin: Float32Array,
+  tmpDirection: Float32Array,
+  prevOrigin: Float32Array,
+  prevDirection: Float32Array,
+  origin: TReadonlyVector3,
+  direction: TReadonlyVector3,
+  threshold: number
+): Readonly<{ origin: TReadonlyVector3; direction: TReadonlyVector3 }> | undefined {
+  // eslint-disable-next-line functional/immutable-data
+  tmpOrigin[0] = origin.x;
+  // eslint-disable-next-line functional/immutable-data
+  tmpOrigin[1] = origin.y;
+  // eslint-disable-next-line functional/immutable-data
+  tmpOrigin[2] = origin.z;
+
+  // eslint-disable-next-line functional/immutable-data
+  tmpDirection[0] = direction.x;
+  // eslint-disable-next-line functional/immutable-data
+  tmpDirection[1] = direction.y;
+  // eslint-disable-next-line functional/immutable-data
+  tmpDirection[2] = direction.z;
+
+  const originChanged: boolean = Math.abs(tmpOrigin[0] - prevOrigin[0]) > threshold || Math.abs(tmpOrigin[1] - prevOrigin[1]) > threshold || Math.abs(tmpOrigin[2] - prevOrigin[2]) > threshold;
+
+  const directionChanged: boolean =
+    Math.abs(tmpDirection[0] - prevDirection[0]) > threshold || Math.abs(tmpDirection[1] - prevDirection[1]) > threshold || Math.abs(tmpDirection[2] - prevDirection[2]) > threshold;
+
+  if (!originChanged && !directionChanged) return undefined;
+
+  prevOrigin.set(tmpOrigin);
+  prevDirection.set(tmpDirection);
+
+  // TODO 15-0-0: do we really need Vector3 here?
+  return {
+    origin: new Vector3(tmpOrigin[0], tmpOrigin[1], tmpOrigin[2]) as TReadonlyVector3,
+    direction: new Vector3(tmpDirection[0], tmpDirection[1], tmpDirection[2]) as TReadonlyVector3
+  };
 }
