@@ -1,5 +1,5 @@
 import type { IActorFactory, ICameraFactory, IControlsFactory, IControlsFactoryParams, IInputFactory, ILightFactory, ILoopFactory, IRendererFactory, ISceneFactory } from '@Engine/Factories';
-import { AbstractFactory, ActorFactory, CameraFactory, ControlsFactory, InputFactory, LightFactory, LoopFactory, RendererFactory, SceneFactory } from '@Engine/Factories';
+import { AbstractWrapperFactory, ActorFactory, CameraFactory, ControlsFactory, InputFactory, LightFactory, LoopFactory, RendererFactory, SceneFactory } from '@Engine/Factories';
 import { AbstractDestroyableFactory } from '@Engine/Factories/AbstractFactory/AbstractDestroyableFactory';
 import type { IAbstractWrapperFactory, IDestroyableFactory } from '@Engine/Models';
 import { isDestroyedFactory } from '@Engine/Utils/DestroyableUtils';
@@ -11,7 +11,7 @@ describe('DestroyableUtils', () => {
 
     describe('Not destroyed factories', () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-return
-      const abstractFactory: IAbstractWrapperFactory<any, any, any> = AbstractFactory('mock', () => ({} as any));
+      const abstractFactory: IAbstractWrapperFactory<any, any, any> = AbstractWrapperFactory('mock', () => ({} as any));
       // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-return
       const abstractDestroyableFactory: IDestroyableFactory<any, any, any> = AbstractDestroyableFactory('mock', () => ({} as any));
       const actorFactory: IActorFactory = ActorFactory();

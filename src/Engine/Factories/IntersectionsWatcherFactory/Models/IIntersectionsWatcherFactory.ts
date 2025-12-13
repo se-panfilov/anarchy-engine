@@ -1,5 +1,5 @@
-import type { IGlobalContainerDecorator, IIntersectionsWatcher } from '@/Engine';
+import type { IActorWrapper, ICameraWrapper, IIntersectionsWatcher, IMousePositionWatcher } from '@/Engine';
 
 export type IIntersectionsWatcherFactory = {
-  create: (container: IGlobalContainerDecorator, tags?: ReadonlyArray<string>) => IIntersectionsWatcher;
+  create: (actors: ReadonlyArray<IActorWrapper>, camera: Readonly<ICameraWrapper>, positionWatcher: Readonly<IMousePositionWatcher>, tags?: ReadonlyArray<string>) => IIntersectionsWatcher;
 };

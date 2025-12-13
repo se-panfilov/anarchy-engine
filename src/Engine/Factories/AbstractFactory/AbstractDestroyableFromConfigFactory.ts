@@ -1,4 +1,4 @@
-import { AbstractFromConfigFactory } from '@Engine/Factories';
+import { AbstractFromConfigWrapperFactory } from '@Engine/Factories';
 import type { ICreateFN } from '@Engine/Factories/AbstractFactory/Models';
 import type { IAbstractConfig, IDestroyableFromConfigFactory, IWrapper } from '@Engine/Models';
 import { cleanObject } from '@Engine/Utils';
@@ -9,7 +9,7 @@ export function AbstractDestroyableFromConfigFactory<T extends IWrapper<ENT>, EN
   adapterFn?: (config: C) => PRMS
 ): IDestroyableFromConfigFactory<T, ENT, PRMS, C> {
   const factory: IDestroyableFromConfigFactory<T, ENT, PRMS, C> = {
-    ...AbstractFromConfigFactory(type, createFn, adapterFn),
+    ...AbstractFromConfigWrapperFactory(type, createFn, adapterFn),
     destroy
   };
 

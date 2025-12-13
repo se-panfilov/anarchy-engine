@@ -1,12 +1,12 @@
 import type { IAbstractConfig, IAbstractWrapperFactory, IAbstractFromConfigWrapperFactory, ICreateFN, IWrapper } from '@/Engine';
-import { AbstractFactory, isNotDefined } from '@/Engine';
+import { AbstractWrapperFactory, isNotDefined } from '@/Engine';
 
-export function AbstractFromConfigFactory<T extends IWrapper<ENT>, ENT, PRMS, C extends IAbstractConfig>(
+export function AbstractFromConfigWrapperFactory<T extends IWrapper<ENT>, ENT, PRMS, C extends IAbstractConfig>(
   type: string,
   createFn: ICreateFN<T, PRMS>,
   adapterFn?: (config: C) => PRMS
 ): IAbstractFromConfigWrapperFactory<T, ENT, PRMS, C> {
-  const abstractFactory: IAbstractWrapperFactory<T, ENT, PRMS> = AbstractFactory(type, createFn);
+  const abstractFactory: IAbstractWrapperFactory<T, ENT, PRMS> = AbstractWrapperFactory(type, createFn);
 
   function fromConfig(config: C): T {
     if (isNotDefined(adapterFn)) throw new Error(`Factory "${abstractFactory.id}" cannot create from config: adapter function is not provided`);

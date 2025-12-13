@@ -1,4 +1,5 @@
 export * from './IAbstractConfig';
+export * from './IAbstractFactory';
 export * from './IAbstractWrapperFactory';
 export * from './IAbstractFromConfigWrapperFactory';
 export * from './IAbstractRegistry';
