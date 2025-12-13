@@ -1,7 +1,7 @@
 import type { BehaviorSubject } from 'rxjs';
 import { Euler, Vector3 } from 'three';
 
-import type { TSpace, TSpaceConfig, TText2dRegistry, TText2dWrapper, TText3dRegistry, TText3dTextureRegistry, TText3dTextureWrapper, TText3dWrapper } from '@/Engine';
+import type { TModel3d, TSpace, TSpaceConfig, TText2dRegistry, TText2dWrapper, TText3dRegistry, TText3dTextureRegistry, TText3dTextureWrapper, TText3dWrapper } from '@/Engine';
 import { createDomElement, isNotDefined, TextType } from '@/Engine';
 
 import type { TSpacesData } from './ShowcaseTypes';
@@ -79,4 +79,10 @@ export function removeAwait(id: string, awaits$: BehaviorSubject<ReadonlySet<str
   const next = new Set(awaits$.value);
   next.delete(id);
   awaits$.next(next);
+}
+
+export function addModel3dToScene(space: TSpace, modelName: string): void | never {
+  const model3d: TModel3d | undefined = space.services.models3dService.getRegistry().findByName(modelName);
+  if (isNotDefined(model3d)) throw new Error(`[Showcase]: Model3d "${modelName}" not found`);
+  space.services.scenesService.findActive()?.addModel3d(model3d);
 }
