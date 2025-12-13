@@ -7,7 +7,7 @@ import type { IWithCoords3 } from '@/Engine/Mixins';
 import { defaultMoverServiceConfig } from '@/Engine/Services/MoverService/Constants';
 import type { IAnimationParams, IMoveFn, IMoverServiceConfig } from '@/Engine/Services/MoverService/Models';
 import type { IMoverService } from '@/Engine/Services/MoverService/Models/IMoverService';
-import { goStraightMove } from '@/Engine/Services/MoverService/MoverServiceUtils';
+import { goStraightMove } from '@/Engine/Services/MoverService/MoveSet';
 import { createDeferredPromise } from '@/Engine/Utils';
 
 export function MoverService(loopService: ILoopService, { suspendWhenDocumentHidden }: IMoverServiceConfig = defaultMoverServiceConfig): IMoverService {
