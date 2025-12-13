@@ -1,9 +1,12 @@
+import type { Observable } from 'rxjs';
+import type { Euler, Vector3 } from 'three';
+
 import type { TWrapper } from '@/Engine/Abstract';
 import type { TWithKinematic } from '@/Engine/Kinematic';
 import type { TWithMaterial } from '@/Engine/Material';
 import type { TMovable3dXYZ, TRotatable, TScalable, TWithObject3d, TWithTagsMixin } from '@/Engine/Mixins';
 import type { TWithOptionalPhysicsBody } from '@/Engine/Physics';
-import type { TWithSpatial } from '@/Engine/Spatial/Models';
+import type { TWithSpatial, TWithUpdateSpatialCell } from '@/Engine/Spatial/Models';
 import type { TWithTextures } from '@/Engine/Texture';
 import type { TMesh } from '@/Engine/ThreeLib';
 
@@ -17,4 +20,9 @@ export type TActorWrapperAsync = TWrapper<TMesh> &
   TWithOptionalPhysicsBody &
   TWithKinematic &
   TWithSpatial &
-  TWithTagsMixin;
+  TWithUpdateSpatialCell &
+  TWithTagsMixin &
+  Readonly<{
+    position$: Observable<Vector3>;
+    rotation$: Observable<Euler>;
+  }>;

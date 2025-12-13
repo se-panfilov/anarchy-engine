@@ -1,4 +1,5 @@
 import type { Subscription } from 'rxjs';
+import type { Vector3 } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActorDependencies, TActorParams, TActorWrapperAsync } from '@/Engine/Actor/Models';
@@ -7,8 +8,7 @@ import type { TWithMaterial } from '@/Engine/Material';
 import { withMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
-import { withReactivePosition, withReactiveRotation } from '@/Engine/Spatial';
-import { withSpatial } from '@/Engine/Spatial/Mixins/WithSpatial';
+import { withReactivePosition, withReactiveRotation, withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import { withTextures } from '@/Engine/Texture';
 import type { TMesh } from '@/Engine/ThreeLib';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
@@ -25,14 +25,7 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
   const { value$: position$, update: updatePosition } = withReactivePosition(entity);
   const { value$: rotation$, update: updateRotation } = withReactiveRotation(entity);
 
-  // TODO (S.Panfilov) debug
-  //WIP: position subject
-  position$.subscribe((newPosition) => {
-    if (actorW.getName() === 'sphere') console.log(`Position changed to: x=${newPosition.x}, y=${newPosition.y}, z=${newPosition.z}`);
-  });
-  //END WIP: position subject
-
-  const actorW = {
+  const actorW: TActorWrapperAsync = {
     ...AbstractWrapper(entity, WrapperType.Actor, params),
     ...withMoveBy3dMixin(entity),
     ...withRotationByXyzMixin(entity),
@@ -42,6 +35,7 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
     ...withTextures(withMaterialEntity, materialTextureService),
     ...withKinematic(params),
     ...withSpatial(params),
+    ...withUpdateSpatialCell(),
     position$: position$.asObservable(),
     rotation$: rotation$.asObservable(),
     entity
@@ -77,6 +71,15 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
   if (params.spatial?.grid) params.spatial?.grid.addActorToGrid(actorW);
   if (isDefined(params.scale)) applyScale(actorW, params.scale);
   applyObject3dParams(actorW, params);
+
+  // TODO (S.Panfilov) debug
+  //WIP: position subject
+  position$.subscribe((newPosition: Vector3): void => {
+    // if (actorW.getName() === 'sphere') console.log(`Position changed to: x=${newPosition.x}, y=${newPosition.y}, z=${newPosition.z}`);
+    // TODO (S.Panfilov) debug if
+    if (actorW.getName() === 'sphere') actorW.updateSpatialCell(newPosition, actorW.spatial.getGrid());
+  });
+  //END WIP: position subject
 
   return actorW;
 }

@@ -1,4 +1,5 @@
 import type { TActorParams } from '@/Engine/Actor';
+import type { TSpatialGridWrapper } from '@/Engine/Spatial';
 import { SpatialUpdatePriority, withSpatialCell } from '@/Engine/Spatial';
 import type { TSpatialData, TWithSpatial } from '@/Engine/Spatial/Models';
 import type { TWriteable } from '@/Engine/Utils';
@@ -34,6 +35,9 @@ export function withSpatial(params: TActorParams): TWithSpatial {
       },
       setAutoUpdate(value: boolean): void {
         _isAutoUpdate = value;
+      },
+      getGrid(): TSpatialGridWrapper | undefined {
+        return this.data.grid;
       },
       ...withSpatialCell()
     }
