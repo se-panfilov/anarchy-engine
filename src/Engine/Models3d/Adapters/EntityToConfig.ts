@@ -1,5 +1,7 @@
+import type { AnimationClip } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
+import type { TAnimations, TAnimationsResourceAsyncRegistry } from '@/Engine/Animations/Models';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { PrimitiveModel3dType } from '@/Engine/Models3d/Constants';
 import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModels3dResourceAsyncRegistry, TRawModel3d } from '@/Engine/Models3d/Models';
@@ -22,12 +24,11 @@ export function model3dToConfig(entity: TModel3d, { animationsResourceAsyncRegis
   const model3dSource: string | undefined = isPrimitive ? (params.model3dSource as PrimitiveModel3dType) : getComplexModel3dSource(entity, model3dResourceAsyncRegistry);
   if (isNotDefined(model3dSource)) throw new Error(`[Serialization] Model3d: model3dSource not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
   const materialSource: string | undefined = isDefined(params.materialSource) ? params.materialSource.name : undefined;
-  const animationsSource: ReadonlyArray<string> | undefined = isDefined(params.animationsSource) ? animationsResourceAsyncRegistry.findKeyByValue(params.animationsSource) : undefined;
 
   return filterOutEmptyFields({
     model3dSource,
     materialSource,
-    animationsSource,
+    animationsSource: getAllAnimationsSource(entity, animationsResourceAsyncRegistry),
     options: params.options,
     forceClone: entity.forceClone,
     castShadow: rawModel3d.castShadow,
@@ -43,4 +44,19 @@ function getComplexModel3dSource(entity: TModel3d, model3dResourceAsyncRegistry:
   // For cloned models we need to use the ID from the params
   const modelId: string = !entity.forceClone ? entity.getRawModel3d().uuid : (entity.getParams().model3dSource as GLTF).scene.uuid;
   return model3dResourceAsyncRegistry.findKey((val: GLTF): boolean => val.scene.uuid === modelId);
+}
+
+function getAllAnimationsSource(entity: TModel3d, animationsResourceAsyncRegistry: TAnimationsResourceAsyncRegistry): ReadonlyArray<string> | undefined {
+  const allAnimations: ReadonlyArray<AnimationClip> = entity.getAnimations();
+  const animationsSource: ReadonlyArray<string> = allAnimations
+    .map((animation: AnimationClip): string | undefined => {
+      return animationsResourceAsyncRegistry.findKey((val: TAnimations): boolean => {
+        // TODO 15-0-0: Fix this, guess we should not just check the first element of TAnimations
+        return val[0].name === animation.name;
+      });
+    })
+    .filter(isDefined);
+
+  console.log('XXX animationsSource', animationsSource);
+  return animationsSource.length > 0 ? animationsSource : undefined;
 }
