@@ -6,7 +6,7 @@ Production dependencies (including transition dependencies): 23
 
 ---
 
-## @dimforge/rapier3d@0.17.3
+## @dimforge/rapier3d@0.19.0
 
 **License:** Apache-2.0
 
@@ -284,7 +284,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-engine@21.0.0
+## anarchy-engine@21.0.1
 
 **License:** MIT
 
@@ -314,7 +314,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-shared@1.1.5
+## anarchy-shared@1.1.7
 
 **License:** MIT
 
@@ -453,7 +453,7 @@ The complete list of contributors can be found at:
 
 ---
 
-## fsevents@2.3.2
+## fsevents@2.3.3
 
 **License:** MIT
 
@@ -1346,7 +1346,7 @@ limitations under the License.
 
 ---
 
-## three@0.178.0
+## three@0.180.0
 
 **License:** MIT
 

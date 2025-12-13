@@ -448,7 +448,7 @@ PERFORMANCE OF THIS SOFTWARE.
 
 ---
 
-## typescript@5.8.3
+## typescript@5.9.2
 
 **License:** Apache-2.0
 

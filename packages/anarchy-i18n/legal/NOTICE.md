@@ -125,7 +125,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## typescript@5.8.3
+## typescript@5.9.2
 
 **License(s):** Apache-2.0
 

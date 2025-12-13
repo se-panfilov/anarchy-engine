@@ -11,7 +11,7 @@ Components listed: 23
 
 The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
 
-## @dimforge/rapier3d@0.17.3
+## @dimforge/rapier3d@0.19.0
 
 **License(s):** Apache-2.0
 
@@ -45,7 +45,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-engine@21.0.0
+## anarchy-engine@21.0.1
 
 **License(s):** MIT
 
@@ -53,7 +53,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-shared@1.1.5
+## anarchy-shared@1.1.7
 
 **License(s):** MIT
 
@@ -95,7 +95,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## fsevents@2.3.2
+## fsevents@2.3.3
 
 **License(s):** MIT
 
@@ -209,7 +209,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## three@0.178.0
+## three@0.180.0
 
 **License(s):** MIT
 

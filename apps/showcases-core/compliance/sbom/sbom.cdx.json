@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:ef9c2add-cf23-43d0-ac64-fbd1a699628b",
+  "serialNumber": "urn:uuid:a43c4367-a90d-4f66-8657-e9c7dbeb996d",
   "version": 1,
   "metadata": {
-    "timestamp": "2025-09-15T17:56:25.583Z",
+    "timestamp": "2025-09-16T20:14:35.283Z",
     "lifecycles": [
       {
         "phase": "pre-build"
@@ -19,14 +19,14 @@
       }
     ],
     "component": {
-      "bom-ref": "anarchy-monorepo@2.1.5",
+      "bom-ref": "anarchy-monorepo@2.1.6",
       "type": "library",
       "name": "three",
-      "version": "2.1.5",
+      "version": "2.1.6",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Monorepo - an infrastructure around Anarchy-Engine.",
-      "purl": "pkg:npm/anarchy-monorepo@2.1.5",
+      "purl": "pkg:npm/anarchy-monorepo@2.1.6",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -45,14 +45,14 @@
   },
   "components": [
     {
-      "bom-ref": "showcases-core@2.9.1",
+      "bom-ref": "showcases-core@2.9.3",
       "type": "library",
       "name": "showcases-core",
-      "version": "2.9.1",
+      "version": "2.9.3",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Showcases Core – an application with demos for Anarchy-Engine.",
-      "purl": "pkg:npm/showcases-core@2.9.1",
+      "purl": "pkg:npm/showcases-core@2.9.3",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -69,14 +69,14 @@
       ]
     },
     {
-      "bom-ref": "showcases-desktop@2.5.0",
+      "bom-ref": "showcases-desktop@2.5.1",
       "type": "library",
       "name": "showcases-desktop",
-      "version": "2.5.0",
+      "version": "2.5.1",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Desktop Showcases  – a desktop wrapper-application for showcases-core.",
-      "purl": "pkg:npm/showcases-desktop@2.5.0",
+      "purl": "pkg:npm/showcases-desktop@2.5.1",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -117,23 +117,23 @@
       ]
     },
     {
-      "bom-ref": "@dimforge/rapier3d@0.17.3",
+      "bom-ref": "@dimforge/rapier3d@0.19.0",
       "type": "library",
       "name": "@dimforge/rapier3d",
-      "version": "0.17.3",
+      "version": "0.19.0",
       "scope": "required",
-      "purl": "pkg:npm/%40dimforge/rapier3d@0.17.3",
+      "purl": "pkg:npm/%40dimforge/rapier3d@0.19.0",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@dimforge/rapier3d/-/rapier3d-0.17.3.tgz"
+          "url": "https://registry.npmjs.org/@dimforge/rapier3d/-/rapier3d-0.19.0.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "fff0956af526aac22feba33fd3315564162cc79bd6b8e5d502cc4485c8c15e50e236ab17d1dd08e3ff46d80ac718a5d3bc6c5c628ac9ecf6cbba694d634c1e25"
+          "content": "3dc5e539adaadb3ce21b5a0648871ad01fbea04f81c6697fdb05667959864321969c6c990ce96336313908a1fa4108acaa6723863bdfc682fe4caca0da5be5c1"
         }
       ],
       "licenses": [
@@ -675,23 +675,23 @@
       ]
     },
     {
-      "bom-ref": "marked@16.2.1",
+      "bom-ref": "marked@16.3.0",
       "type": "library",
       "name": "marked",
-      "version": "16.2.1",
+      "version": "16.3.0",
       "scope": "required",
-      "purl": "pkg:npm/marked@16.2.1",
+      "purl": "pkg:npm/marked@16.3.0",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/marked/-/marked-16.2.1.tgz"
+          "url": "https://registry.npmjs.org/marked/-/marked-16.3.0.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "af752b5c40fd94c94717dee3241cabcbdd1cc2b64106f6668c6d4bebca187ee3cc5beb834e7b8c6f2243ca6096c1b4c4f9ffb72e1a4d0ca7e94776b7b1a1728c"
+          "content": "2b7531b8abba97a6e6039154c18868f027c9065b14580a282ad74680c704452a45ee070152b086b0b1fbc0369a34ecf0ab5f09cd2503ca811bfd8b2ba8c69cdf"
         }
       ],
       "licenses": [
@@ -955,23 +955,23 @@
       ]
     },
     {
-      "bom-ref": "three@0.178.0",
+      "bom-ref": "three@0.180.0",
       "type": "library",
       "name": "three",
-      "version": "0.178.0",
+      "version": "0.180.0",
       "scope": "required",
-      "purl": "pkg:npm/three@0.178.0",
+      "purl": "pkg:npm/three@0.180.0",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/three/-/three-0.178.0.tgz"
+          "url": "https://registry.npmjs.org/three/-/three-0.180.0.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "c9b148074fb1f26cf4c27660486cb630efd608eeb166141266799fcad48fc8da4cd2c05a7c645585d6a3f9ead887953e46140e020fde5eac39b950e233606385"
+          "content": "a3eab2700319ae1f93b04d351aa594c5420a47500bd12f29abbcc3918390c3c1aa7d7f1bf15a022985281db8625f98feee1afc5ecb870d553afa09102502a0f7"
         }
       ],
       "licenses": [
@@ -1088,14 +1088,14 @@
       ]
     },
     {
-      "bom-ref": "anarchy-engine@20.3.4",
+      "bom-ref": "anarchy-engine@21.0.1",
       "type": "library",
       "name": "anarchy-engine",
-      "version": "20.3.4",
+      "version": "21.0.1",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Engine – a 3D game engine for web, desktop and mobile platforms. Built around three.js",
-      "purl": "pkg:npm/anarchy-engine@20.3.4",
+      "purl": "pkg:npm/anarchy-engine@21.0.1",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -1192,14 +1192,14 @@
       ]
     },
     {
-      "bom-ref": "anarchy-legal@1.10.3",
+      "bom-ref": "anarchy-legal@1.10.4",
       "type": "library",
       "name": "anarchy-legal",
-      "version": "1.10.3",
+      "version": "1.10.4",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy-legal – a library for generating legal files for Anarchy Engine.",
-      "purl": "pkg:npm/anarchy-legal@1.10.3",
+      "purl": "pkg:npm/anarchy-legal@1.10.4",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -1216,14 +1216,14 @@
       ]
     },
     {
-      "bom-ref": "anarchy-shared@1.1.4",
+      "bom-ref": "anarchy-shared@1.1.7",
       "type": "library",
       "name": "anarchy-shared",
-      "version": "1.1.4",
+      "version": "1.1.7",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy-shared – a library with shared utilities and scripts for Anarchy Engine.",
-      "purl": "pkg:npm/anarchy-shared@1.1.4",
+      "purl": "pkg:npm/anarchy-shared@1.1.7",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -1240,14 +1240,14 @@
       ]
     },
     {
-      "bom-ref": "showcases-i18n@1.2.0",
+      "bom-ref": "showcases-i18n@1.2.1",
       "type": "library",
       "name": "showcases-i18n",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Showcases i18n – translations library for Anarchy Engine Showcases.",
-      "purl": "pkg:npm/showcases-i18n@1.2.0",
+      "purl": "pkg:npm/showcases-i18n@1.2.1",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -1264,14 +1264,14 @@
       ]
     },
     {
-      "bom-ref": "showcases-menu@1.7.0",
+      "bom-ref": "showcases-menu@1.7.2",
       "type": "library",
       "name": "showcases-menu",
-      "version": "1.7.0",
+      "version": "1.7.2",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Showcases-Menu – a menu for Anarchy Engine Showcases.",
-      "purl": "pkg:npm/showcases-menu@1.7.0",
+      "purl": "pkg:npm/showcases-menu@1.7.2",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -1288,14 +1288,14 @@
       ]
     },
     {
-      "bom-ref": "showcases-shared@1.3.0",
+      "bom-ref": "showcases-shared@1.3.1",
       "type": "library",
       "name": "showcases-shared",
-      "version": "1.3.0",
+      "version": "1.3.1",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Showcases Shared – a shared library for Anarchy Engine Showcases.",
-      "purl": "pkg:npm/showcases-shared@1.3.0",
+      "purl": "pkg:npm/showcases-shared@1.3.1",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -1314,41 +1314,41 @@
   ],
   "dependencies": [
     {
-      "ref": "anarchy-monorepo@2.1.5",
+      "ref": "anarchy-monorepo@2.1.6",
       "dependsOn": [
-        "showcases-core@2.9.1",
-        "showcases-desktop@2.5.0",
+        "showcases-core@2.9.3",
+        "showcases-desktop@2.5.1",
         "showcases-e2e@1.0.4",
-        "anarchy-engine@20.3.4",
+        "anarchy-engine@21.0.1",
         "anarchy-i18n@1.2.0",
-        "anarchy-legal@1.10.3",
-        "showcases-i18n@1.2.0",
-        "showcases-menu@1.7.0"
+        "anarchy-legal@1.10.4",
+        "showcases-i18n@1.2.1",
+        "showcases-menu@1.7.2"
       ]
     },
     {
-      "ref": "showcases-core@2.9.1",
+      "ref": "showcases-core@2.9.3",
       "dependsOn": [
-        "anarchy-engine@20.3.4",
+        "anarchy-engine@21.0.1",
         "anarchy-i18n@1.2.0",
         "lil-gui@0.20.0",
         "sanitize.css@13.0.0",
-        "showcases-i18n@1.2.0",
-        "showcases-menu@1.7.0",
+        "showcases-i18n@1.2.1",
+        "showcases-menu@1.7.2",
         "stats.js@0.17.0",
         "three-viewport-gizmo@2.2.0"
       ]
     },
     {
-      "ref": "showcases-desktop@2.5.0",
-      "dependsOn": ["showcases-core@2.9.1"]
+      "ref": "showcases-desktop@2.5.1",
+      "dependsOn": ["showcases-core@2.9.3"]
     },
     {
       "ref": "showcases-e2e@1.0.4",
-      "dependsOn": ["anarchy-engine@20.3.4"]
+      "dependsOn": ["anarchy-engine@21.0.1"]
     },
     {
-      "ref": "@dimforge/rapier3d@0.17.3",
+      "ref": "@dimforge/rapier3d@0.19.0",
       "dependsOn": []
     },
     {
@@ -1428,7 +1428,7 @@
       "dependsOn": []
     },
     {
-      "ref": "marked@16.2.1",
+      "ref": "marked@16.3.0",
       "dependsOn": []
     },
     {
@@ -1468,16 +1468,16 @@
       "dependsOn": ["copy-anything@3.0.5"]
     },
     {
-      "ref": "three@0.178.0",
+      "ref": "three@0.180.0",
       "dependsOn": []
     },
     {
       "ref": "three-mesh-bvh@0.9.1",
-      "dependsOn": ["three@0.178.0"]
+      "dependsOn": ["three@0.180.0"]
     },
     {
       "ref": "three-viewport-gizmo@2.2.0",
-      "dependsOn": ["three@0.178.0"]
+      "dependsOn": ["three@0.180.0"]
     },
     {
       "ref": "ts-key-enum@3.0.13",
@@ -1488,14 +1488,14 @@
       "dependsOn": []
     },
     {
-      "ref": "anarchy-engine@20.3.4",
+      "ref": "anarchy-engine@21.0.1",
       "dependsOn": [
-        "@dimforge/rapier3d@0.17.3",
+        "@dimforge/rapier3d@0.19.0",
         "@rwh/keystrokes@1.5.6",
         "ajv@8.17.1",
         "lodash-es@4.17.21",
         "rbush@4.0.1",
-        "three@0.178.0",
+        "three@0.180.0",
         "three-mesh-bvh@0.9.1",
         "ts-key-enum@3.0.13",
         "typescript-fsm@1.6.0"
@@ -1514,23 +1514,23 @@
       "dependsOn": ["@formatjs/intl@3.1.6"]
     },
     {
-      "ref": "anarchy-legal@1.10.3",
+      "ref": "anarchy-legal@1.10.4",
       "dependsOn": []
     },
     {
-      "ref": "anarchy-shared@1.1.4",
+      "ref": "anarchy-shared@1.1.7",
       "dependsOn": []
     },
     {
-      "ref": "showcases-i18n@1.2.0",
-      "dependsOn": ["anarchy-engine@20.3.4", "anarchy-i18n@1.2.0"]
+      "ref": "showcases-i18n@1.2.1",
+      "dependsOn": ["anarchy-engine@21.0.1", "anarchy-i18n@1.2.0"]
     },
     {
-      "ref": "showcases-menu@1.7.0",
-      "dependsOn": ["anarchy-engine@20.3.4", "anarchy-i18n@1.2.0", "dompurify@3.2.6", "marked@16.2.1", "pinia@3.0.3", "sanitize.css@13.0.0", "showcases-i18n@1.2.0"]
+      "ref": "showcases-menu@1.7.2",
+      "dependsOn": ["anarchy-engine@21.0.1", "anarchy-i18n@1.2.0", "dompurify@3.2.6", "marked@16.3.0", "pinia@3.0.3", "sanitize.css@13.0.0", "showcases-i18n@1.2.1"]
     },
     {
-      "ref": "showcases-shared@1.3.0",
+      "ref": "showcases-shared@1.3.1",
       "dependsOn": []
     }
   ]
