@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import { Vector3 } from 'three';
 
-import type { TActorParams, TActorService, TActorWrapperAsync, TRadians, TSpatialGridWrapper, TWithCoordsXYZ } from '@/Engine';
+import type { TActorParams, TActorService, TActorWrapperAsync, TRadians, TSceneWrapper, TSpatialGridWrapper, TWithCoordsXYZ } from '@/Engine';
 import { ActorType, collisionsService, EulerWrapper, isDefined, MaterialType, mpsSpeed, Vector3Wrapper } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
@@ -12,7 +12,8 @@ export type TBullet = TActorWrapperAsync &
     setActive: (act: boolean) => void;
     isActive: () => boolean;
     reset: () => void;
-    update: (delta: number, spatialGrid: TSpatialGridWrapper) => void;
+    // TODO (S.Panfilov) debug sceneW
+    update: (delta: number, spatialGrid: TSpatialGridWrapper, sceneW: TSceneWrapper) => void;
   }>;
 
 export function getBulletsPool(count: number, actorService: TActorService): ReadonlyArray<Promise<TBullet>> {
@@ -69,7 +70,8 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
     actorW.entity.visible = false;
   }
 
-  function update(delta: number, spatialGrid: TSpatialGridWrapper): void {
+  // TODO (S.Panfilov) debug sceneW
+  function update(delta: number, spatialGrid: TSpatialGridWrapper, sceneW: TSceneWrapper): void {
     if (isActive()) {
       const azimuthRadians: TRadians = actorW.kinematic.getLinearAzimuthRad();
       const elevationRadians: TRadians = actorW.kinematic.getLinearElevationRad();
@@ -78,8 +80,9 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
 
       setDistanceTraveled(getDistanceTraveled() + mpsSpeed(actorW.kinematic.getLinearSpeed(), delta));
 
-      const collisionCheckRadius: number = 0; //meters(5); set radius make sens for explosions and etc
-      const collision = collisionsService.checkCollision(actor, collisionCheckRadius, spatialGrid);
+      const collisionCheckRadius: number = 1; //meters(5); set radius make sens for explosions and etc
+      // TODO (S.Panfilov) debug sceneW
+      const collision = collisionsService.checkCollision(actorW, collisionCheckRadius, spatialGrid, sceneW);
       if (collision) {
         console.log('Hit detected', collision);
         // reset(actorW);
@@ -112,6 +115,7 @@ export function shoot(actorPosition: TWithCoordsXYZ, toAngle: TRadians, elevatio
   }
 }
 
-export function updateBullets(bullets: ReadonlyArray<TBullet>, delta: number, spatialGrid: TSpatialGridWrapper): void {
-  bullets.forEach((bullet: TBullet): void => bullet.update(delta, spatialGrid));
+// TODO (S.Panfilov) debug sceneW
+export function updateBullets(bullets: ReadonlyArray<TBullet>, delta: number, spatialGrid: TSpatialGridWrapper, sceneW: TSceneWrapper): void {
+  bullets.forEach((bullet: TBullet): void => bullet.update(delta, spatialGrid, sceneW));
 }

@@ -12,7 +12,10 @@ import { RaycastBvhService } from './RaycastBvhService';
 export function CollisionsService(): TCollisionsService {
   const bvhService: TRaycastBvhService = RaycastBvhService();
 
-  function checkCollision(actorW: TActorWrapperAsync, radius: number, spatialGrid: TSpatialGridWrapper): TCollisionCheckResult | undefined {
+  // TODO (S.Panfilov) debug box
+  let box: any;
+
+  function checkCollision(actorW: TActorWrapperAsync, radius: number, spatialGrid: TSpatialGridWrapper, sceneW: TSceneWrapper): TCollisionCheckResult | undefined {
     const actorBox: Box3 = new Box3().setFromObject(actorW.entity);
     const queryBox = {
       minX: actorBox.min.x - radius,
@@ -22,6 +25,11 @@ export function CollisionsService(): TCollisionsService {
       maxY: actorBox.max.y + radius,
       maxZ: actorBox.max.z + radius
     };
+
+    // TODO (S.Panfilov) debug
+    if (box) sceneW.entity.remove(box);
+    box = createBoundingBox(queryBox.minX, queryBox.minZ, queryBox.maxX, queryBox.maxZ, 'red');
+    sceneW.entity.add(box);
 
     // TODO (S.Panfilov) CWP something is wrong with this box. And actually, why it's a box? Who is an actor? A bullet or a target?
     const cells: ReadonlyArray<TSpatialCellWrapper> = spatialGrid.findCellsForBox(queryBox);

@@ -94,7 +94,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     loopService.tick$.subscribe((delta): void => {
       cameraFollowingActor(cameraW, heroW);
-      updateBullets(bullets, delta.delta, spatialGrid);
+      // TODO (S.Panfilov) debug sceneW
+      updateBullets(bullets, delta.delta, spatialGrid, actorService.getScene());
 
       // TODO (S.Panfilov) this should be updated only if coords or angle are changed
       if (isDefined(mouseLineIntersections.point)) {
