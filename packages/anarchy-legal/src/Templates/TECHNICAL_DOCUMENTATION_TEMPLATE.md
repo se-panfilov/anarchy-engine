@@ -51,7 +51,7 @@
 
 ## F. SBOM
 
-- **Location & format:** **`{{SBOM_LOCATION}}` (CycloneDX JSON)**.
+- **Location & format:** **`{{SBOM_LOCATION}}` ({{SBOM_FORMAT}})**.
 - **Generation:** brief (tool, pipeline step).
 
 ## G. Labels, notices & marking

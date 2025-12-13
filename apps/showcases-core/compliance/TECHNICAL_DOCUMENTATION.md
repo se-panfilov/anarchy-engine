@@ -48,7 +48,7 @@
 
 ## F. SBOM
 
-- **Location & format:** **`./legal/sbom/` (CycloneDX JSON)**.
+- **Location & format:** **`./sbom/` (CycloneDX JSON)**.
 - **Generation:** brief (tool, pipeline step).
 
 ## G. Labels, notices & marking

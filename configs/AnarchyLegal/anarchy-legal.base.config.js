@@ -18,7 +18,6 @@ export default {
       PRODUCT_TERM: 'Software', //E.g. 'Software', 'Product', 'Game', etc.
       STORE_DISCLOSURES: true,
       LEGAL_FOLDER: './legal/',
-      SBOM_LOCATION: './legal/sbom/',
       PATH_TO_CE_MARK: 'ce-mark.png',
 
       CRASH_RETENTION_DAYS: 90, //How long crash reports are stored on servers (if any). E.g. 90 days
@@ -50,25 +49,6 @@ export default {
       EU_REPRESENTATIVE_CONTACT: 'TBD until market release',
       CHINA_REPRESENTATIVE_CONTACT: 'TBD until market release',
       ACCESSIBILITY_CONTACT: 'TBD until market release',
-
-      // EULA (commercial)
-
-      // personal and commercial — default for games/builds when you don't want to restrict usage.
-      // personal - if you want a free promo build for private use only (streamers/events may fall under "commercial").
-      // any lawful purposes – super broad formula; acceptable, but redundant (lawfulness is already required).
-      // internal business purposes —  for closed B2B tools/editors (not for games).
-      // evaluation purposes only – for demo/beta, if you want to explicitly limit to evaluation.
-      // educational and research — for educational and research editions.
-      USAGE_SCOPE: 'personal and commercial',
-      IS_GAME: false, //If it's a videogame, add game-specific messages, e.g. no cheating, etc.
-
-      //CRA (commercial)
-      HAS_NOTIFIED_BODY: false, //only for critical software, e.g. medical devices, automotive, etc.
-      CONFORMITY_ASSESSMENT_ROUTE: 'internal control',
-      IR_RECORD_RETENTION_MONTH: 24,
-      PRODUCT_SHORT_PURPOSE: 'interactive entertainment software and its platform-specific client applications, intended for personal use in non-safety-critical environments',
-
-      NETWORK_REQUIREMENT: 'not required for offline play; occasional connectivity may be needed for updates or optional online features',
 
       //SECURITY
       HAS_OFFICIAL_CHANNELS_LIST: false,
