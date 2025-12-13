@@ -6,6 +6,7 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type {
   IAppCanvas,
   IDirectionalLightWrapper,
+  IEngine,
   IHemisphereLightWrapper,
   ILightRegistry,
   IPointLightWrapper,
@@ -15,7 +16,7 @@ import type {
   ISpaceConfig,
   ISpotLightWrapper
 } from '@/Engine';
-import { buildSpaceFromConfig, isNotDefined } from '@/Engine';
+import { buildSpaceFromConfig, Engine, isNotDefined } from '@/Engine';
 
 import spaceConfig from './showcase-12.json';
 
@@ -23,7 +24,9 @@ import spaceConfig from './showcase-12.json';
 export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
+  const engine: IEngine = Engine(space);
   const { lightService, scenesService } = space.services;
+
   const lightRegistry: ILightRegistry = lightService.getRegistry();
 
   // void envMapService.load('/Showcase/hdr/urban_alley_01_4k.hdr');
@@ -104,7 +107,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   }
 
   function start(): void {
-    space.start();
+    engine.start();
     void init();
   }
 

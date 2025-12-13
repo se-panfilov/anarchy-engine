@@ -1,17 +1,18 @@
 import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ICameraWrapper, ISpace, ISpaceConfig } from '@/Engine';
-import { ambientContext, buildSpaceFromConfig, getRotationByCos, getRotationBySin, isNotDefined, mouseService } from '@/Engine';
+import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ICameraWrapper, IEngine, ISpace, ISpaceConfig } from '@/Engine';
+import { ambientContext, buildSpaceFromConfig, Engine, getRotationByCos, getRotationBySin, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase-3.json';
 
 //Showcase 3: Camera flying around the central actor
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
+  const engine: IEngine = Engine(space);
 
   function start(): void {
-    space.start();
+    engine.start();
     const { actorService, cameraService } = space.services;
     const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
 

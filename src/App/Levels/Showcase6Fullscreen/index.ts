@@ -1,13 +1,16 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ISpace, ISpaceConfig } from '@/Engine';
-import { buildSpaceFromConfig, isNotDefined, mouseService, screenService } from '@/Engine';
+import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, IEngine, ISpace, ISpaceConfig } from '@/Engine';
+import { buildSpaceFromConfig, Engine, isNotDefined, mouseService, screenService } from '@/Engine';
 
 import spaceConfig from './showcase-6.json';
 
 //Showcase 6: Go fullscreen
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { actorService, loopService } = space.services;
+  const engine: IEngine = Engine(space);
+  const { loopService } = engine.services;
+
+  const { actorService } = space.services;
   const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
 
   async function init(): Promise<void> {
@@ -26,7 +29,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   }
 
   function start(): void {
-    space.start();
+    engine.start();
     void init();
   }
 

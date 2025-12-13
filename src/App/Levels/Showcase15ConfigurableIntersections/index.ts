@@ -1,8 +1,8 @@
 import GUI from 'lil-gui';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAppCanvas, ICameraRegistry, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ISpace, ISpaceConfig } from '@/Engine';
-import { buildSpaceFromConfig, isNotDefined, mouseService } from '@/Engine';
+import type { IAppCanvas, ICameraRegistry, ICameraWrapper, IEngine, IIntersectionEvent, IIntersectionsWatcher, ISpace, ISpaceConfig } from '@/Engine';
+import { buildSpaceFromConfig, Engine, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase-15.json';
 
@@ -10,6 +10,8 @@ import spaceConfig from './showcase-15.json';
 export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
+  const engine: IEngine = Engine(space);
+
   const { cameraService, intersectionsWatcherService } = space.services;
   const cameraRegistry: ICameraRegistry = cameraService.getRegistry();
   const { clickLeftRelease$ } = mouseService;
@@ -52,7 +54,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   }
 
   function start(): void {
-    space.start();
+    engine.start();
     void init();
   }
 

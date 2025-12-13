@@ -4,8 +4,8 @@ import { BehaviorSubject, combineLatest, startWith, Subject } from 'rxjs';
 import type { MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, IControlsRegistry, IOrbitControlsWrapper, ISpace, ISpaceConfig, IVector3Wrapper } from '@/Engine';
-import { buildSpaceFromConfig, EulerWrapper, isDefined, isNotDefined, keyboardService, KeyCode, LookUpStrategy, TextType, Vector3Wrapper } from '@/Engine';
+import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, IControlsRegistry, IEngine, IOrbitControlsWrapper, ISpace, ISpaceConfig, IVector3Wrapper } from '@/Engine';
+import { buildSpaceFromConfig, Engine, EulerWrapper, isDefined, isNotDefined, KeyCode, LookUpStrategy, TextType, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase-10.json';
 
@@ -15,6 +15,10 @@ export function showcase(canvas: IAppCanvas): IShowcase {
 
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
   const { textService } = space.services;
+
+  const engine: IEngine = Engine(space);
+  const { keyboardService } = engine.services;
+
   const { actorService, controlsService, envMapService } = space.services;
   const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
   const controlsRegistry: IControlsRegistry = controlsService.getRegistry();
@@ -167,7 +171,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   }
 
   function start(): void {
-    space.start();
+    engine.start();
   }
 
   return { start, space };

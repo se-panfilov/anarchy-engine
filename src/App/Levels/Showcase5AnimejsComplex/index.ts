@@ -6,6 +6,7 @@ import type {
   IAppCanvas,
   ICameraRegistry,
   IControlsRegistry,
+  IEngine,
   IMoverService,
   ISpace,
   ISpaceConfig,
@@ -13,7 +14,19 @@ import type {
   ITextAnyWrapper,
   IWithCoordsXZ
 } from '@/Engine';
-import { buildSpaceFromConfig, createCirclePathXZ, defaultMoverServiceConfig, Easing, EulerWrapper, generateAnglesForCircle, isNotDefined, mouseService, TextType, Vector3Wrapper } from '@/Engine';
+import {
+  buildSpaceFromConfig,
+  createCirclePathXZ,
+  defaultMoverServiceConfig,
+  Easing,
+  Engine,
+  EulerWrapper,
+  generateAnglesForCircle,
+  isNotDefined,
+  mouseService,
+  TextType,
+  Vector3Wrapper
+} from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase-5.json';
@@ -21,9 +34,11 @@ import spaceConfig from './showcase-5.json';
 //Showcase 5: Anime.js animation with complex path and easing
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
+  const engine: IEngine = Engine(space);
+  const { loopService } = engine.services;
 
   async function init(): Promise<void> {
-    const { actorService, cameraService, controlsService, textService, loopService } = space.services;
+    const { actorService, cameraService, controlsService, textService } = space.services;
     const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
     const cameraRegistry: ICameraRegistry = cameraService.getRegistry();
     const controlsRegistry: IControlsRegistry = controlsService.getRegistry();
@@ -115,7 +130,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   }
 
   function start(): void {
-    space.start();
+    engine.start();
     void init();
   }
 

@@ -1,8 +1,26 @@
 import './fonts.css';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAnimationParams, IAppCanvas, IMoverService, ISpace, ISpaceConfig, ITextAnyWrapper, IWithCoordsXZ } from '@/Engine';
-import { buildSpaceFromConfig, createCirclePathXZ, defaultMoverServiceConfig, Easing, EulerWrapper, generateAnglesForCircle, mouseService, TextType, Vector3Wrapper } from '@/Engine';
+import type {
+  buildSpaceFromConfig,
+  createCirclePathXZ,
+  defaultMoverServiceConfig,
+  Easing,
+  Engine,
+  EulerWrapper,
+  generateAnglesForCircle,
+  IAnimationParams,
+  IAppCanvas,
+  IEngine,
+  IMoverService,
+  ISpace,
+  ISpaceConfig,
+  ITextAnyWrapper,
+  IWithCoordsXZ,
+  mouseService,
+  TextType,
+  Vector3Wrapper
+} from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase-7.json';
@@ -10,7 +28,9 @@ import spaceConfig from './showcase-7.json';
 //Showcase 7: Text 2d
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { textService, loopService } = space.services;
+  const engine: IEngine = Engine(space);
+  const { loopService } = engine.services;
+  const { textService } = space.services;
 
   textService.create({
     type: TextType.Text2d,
@@ -86,5 +106,5 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     }, 1000);
   });
 
-  return { start: space.start, space };
+  return { start: engine.start, space };
 }

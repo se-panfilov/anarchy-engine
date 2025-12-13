@@ -1,6 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorAsyncRegistry, IActorParams, IActorWrapperAsync, IAppCanvas, IMoverService, ISpace, ISpaceConfig } from '@/Engine';
-import { ActorType, buildSpaceFromConfig, defaultMoverServiceConfig, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, mouseService, TextType, Vector3Wrapper } from '@/Engine';
+import type { IActorAsyncRegistry, IActorParams, IActorWrapperAsync, IAppCanvas, IEngine, IMoverService, ISpace, ISpaceConfig } from '@/Engine';
+import { ActorType, buildSpaceFromConfig, defaultMoverServiceConfig, Engine, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, mouseService, TextType, Vector3Wrapper } from '@/Engine';
 import type { IAnimationParams } from '@/Engine/Services';
 import { Easing } from '@/Engine/Services';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
@@ -10,10 +10,12 @@ import spaceConfig from './showcase-4.json';
 //Showcase 4: Anime.js simple animations (easing, etc.)
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
+  const engine: IEngine = Engine(space);
+  const { loopService } = engine.services;
 
   function start(): void {
-    space.start();
-    const { actorService, textService, loopService } = space.services;
+    engine.start();
+    const { actorService, textService } = space.services;
     const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
 
     let isClickBlocked: boolean = false;

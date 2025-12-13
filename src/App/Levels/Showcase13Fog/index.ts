@@ -1,8 +1,8 @@
 import GUI from 'lil-gui';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAppCanvas, ISceneWrapper, ISpace, ISpaceConfig } from '@/Engine';
-import { buildSpaceFromConfig, isNotDefined } from '@/Engine';
+import type { IAppCanvas, IEngine, ISceneWrapper, ISpace, ISpaceConfig } from '@/Engine';
+import { buildSpaceFromConfig, Engine, isNotDefined } from '@/Engine';
 
 import spaceConfig from './showcase-13.json';
 
@@ -10,6 +10,7 @@ import spaceConfig from './showcase-13.json';
 export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
+  const engine: IEngine = Engine(space);
   const { rendererService, scenesService } = space.services;
 
   function init(): void {
@@ -28,7 +29,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   }
 
   function start(): void {
-    space.start();
+    engine.start();
     void init();
   }
 
