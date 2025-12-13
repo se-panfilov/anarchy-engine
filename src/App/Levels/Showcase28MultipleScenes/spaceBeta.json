@@ -1,7 +1,6 @@
 {
   "canvasSelector": "#right_top_container #app_beta",
   "entities": {
-    "renderers": [{ "name": "main", "mode": "webgl2", "isActive": true, "alpha": true }],
     "actors": [
       {
         "model3dSource": "box_model",
@@ -21,7 +20,6 @@
     "cameras": [
       {
         "far": 10000,
-        "type": "PerspectiveCamera",
         "fov": 45,
         "isActive": true,
         "name": "main",
@@ -35,26 +33,27 @@
           "x": -1.57,
           "y": 0,
           "z": 0
-        }
+        },
+        "type": "PerspectiveCamera"
       }
     ],
     "controls": [
       {
-        "name": "orbit_controls",
         "cameraName": "main",
+        "isActive": true,
+        "name": "orbit_controls",
         "options": {
           "enableDamping": true
         },
-        "isActive": true,
         "type": "OrbitControls"
       }
     ],
     "envMaps": [],
     "fogs": [
       {
-        "name": "main_fog",
         "color": "#353CA7",
         "far": 10,
+        "name": "main_fog",
         "near": 1
       }
     ],
@@ -62,9 +61,9 @@
     "intersections": [],
     "lights": [
       {
-        "name": "ambient_light",
         "color": "#FFFFFF",
         "intensity": 0.5,
+        "name": "ambient_light",
         "position": {
           "x": 0.25,
           "y": 2,
@@ -145,6 +144,14 @@
       }
     ],
     "physics": {},
+    "renderers": [
+      {
+        "alpha": true,
+        "isActive": true,
+        "mode": "webgl2",
+        "name": "main"
+      }
+    ],
     "spatialGrids": [
       {
         "cellSize": 10,
@@ -157,12 +164,12 @@
     ],
     "texts": [
       {
-        "name": "some_3d_text",
         "cssProps": {
           "color": "#FF0000",
           "fontFamily": "\"Roboto\", sans-serif",
           "fontSize": "0.2rem"
         },
+        "name": "some_3d_text",
         "position": {
           "x": 0,
           "y": 0,
@@ -177,12 +184,12 @@
         "type": "text_3d"
       },
       {
-        "name": "some_2d_text",
         "cssProps": {
           "color": "#FF0000",
           "fontFamily": "\"Roboto\", sans-serif",
           "fontSize": "1rem"
         },
+        "name": "some_2d_text",
         "position": {
           "x": 2,
           "y": 0,

@@ -1,7 +1,6 @@
 {
   "canvasSelector": "#app",
   "entities": {
-    "renderers": [{ "name": "main", "mode": "webgl2", "isActive": true, "alpha": true }],
     "actors": [
       {
         "agent": "physical",
@@ -271,7 +270,6 @@
     "cameras": [
       {
         "far": 10000,
-        "type": "PerspectiveCamera",
         "fov": 45,
         "isActive": true,
         "name": "main",
@@ -285,16 +283,17 @@
           "x": -1.57,
           "y": 0,
           "z": -1.57
-        }
+        },
+        "type": "PerspectiveCamera"
       }
     ],
     "controls": [],
     "envMaps": [],
     "fogs": [
       {
-        "name": "main_fog",
         "color": "#454b55",
         "far": 100,
+        "name": "main_fog",
         "near": 1
       }
     ],
@@ -302,10 +301,10 @@
     "intersections": [],
     "lights": [
       {
-        "name": "directional_light",
         "castShadow": true,
         "color": "#FFFFFF",
         "intensity": 2,
+        "name": "directional_light",
         "position": {
           "x": 40,
           "y": 4,
@@ -315,10 +314,10 @@
           "camera": {
             "bottom": -10,
             "far": 150,
-            "type": "OrthographicCamera",
             "left": -35,
             "right": 35,
-            "top": 10
+            "top": 10,
+            "type": "OrthographicCamera"
           },
           "mapSize": {
             "x": 1024,
@@ -622,6 +621,14 @@
         }
       ]
     },
+    "renderers": [
+      {
+        "alpha": true,
+        "isActive": true,
+        "mode": "webgl2",
+        "name": "main"
+      }
+    ],
     "spatialGrids": [
       {
         "cellSize": 10,

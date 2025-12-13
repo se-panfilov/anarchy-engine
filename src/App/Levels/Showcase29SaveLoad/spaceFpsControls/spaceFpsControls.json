@@ -20,7 +20,6 @@
     "cameras": [
       {
         "far": 100,
-        "type": "PerspectiveCamera",
         "fov": 45,
         "isActive": true,
         "name": "main_camera",
@@ -34,14 +33,15 @@
           "x": 0,
           "y": 0,
           "z": 0
-        }
+        },
+        "type": "PerspectiveCamera"
       }
     ],
     "controls": [
       {
-        "name": "fps_controls",
         "cameraName": "main_camera",
         "isActive": true,
+        "name": "fps_controls",
         "options": {
           "lookSpeed": 0.05,
           "lookVertical": true,
@@ -69,11 +69,11 @@
           "camera": {
             "bottom": -50,
             "far": 40,
-            "type": "OrthographicCamera",
             "left": -50,
             "near": 0.1,
             "right": 50,
-            "top": 50
+            "top": 50,
+            "type": "OrthographicCamera"
           },
           "mapSize": {
             "x": 4096,

@@ -50,13 +50,21 @@
     "cameras": [
       {
         "far": 100,
-        "type": "PerspectiveCamera",
         "fov": 45,
         "isActive": true,
         "name": "main",
         "near": 1,
-        "position": { "x": 0.9841922251964863, "y": 2.6400532850995773, "z": 2.0445412541520187 },
-        "rotation": { "x": -0.7476708028448679, "y": 0.6094718078100407, "z": 0.4879773445044666 }
+        "position": {
+          "x": 0.9841922251964863,
+          "y": 2.6400532850995773,
+          "z": 2.0445412541520187
+        },
+        "rotation": {
+          "x": -0.7476708028448679,
+          "y": 0.6094718078100407,
+          "z": 0.4879773445044666
+        },
+        "type": "PerspectiveCamera"
       }
     ],
     "controls": [],
@@ -100,11 +108,11 @@
           "camera": {
             "bottom": -50,
             "far": 40,
-            "type": "OrthographicCamera",
             "left": -50,
             "near": 0.1,
             "right": 50,
-            "top": 50
+            "top": 50,
+            "type": "OrthographicCamera"
           },
           "mapSize": {
             "x": 4096,

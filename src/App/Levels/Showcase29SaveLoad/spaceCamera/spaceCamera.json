@@ -38,7 +38,6 @@
     "cameras": [
       {
         "far": 100,
-        "type": "PerspectiveCamera",
         "fov": 45,
         "isActive": true,
         "name": "main",
@@ -52,7 +51,8 @@
           "x": -0.519146114246523,
           "y": 0.07428390319893977,
           "z": 0.04238351982512054
-        }
+        },
+        "type": "PerspectiveCamera"
       }
     ],
     "controls": [],
@@ -86,11 +86,11 @@
           "camera": {
             "bottom": -50,
             "far": 40,
-            "type": "OrthographicCamera",
             "left": -50,
             "near": 0.1,
             "right": 50,
-            "top": 50
+            "top": 50,
+            "type": "OrthographicCamera"
           },
           "mapSize": {
             "x": 4096,

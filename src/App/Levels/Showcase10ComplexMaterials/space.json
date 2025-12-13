@@ -400,7 +400,6 @@
       {
         "far": 10000,
         "fov": 45,
-        "type": "PerspectiveCamera",
         "isActive": true,
         "name": "main",
         "near": 0.1,
@@ -413,18 +412,19 @@
           "x": 0,
           "y": 0,
           "z": 0
-        }
+        },
+        "type": "PerspectiveCamera"
       }
     ],
     "controls": [
       {
         "cameraName": "main",
+        "isActive": true,
+        "name": "orbit_controls",
         "options": {
           "autoRotate": false,
           "enableDamping": true
         },
-        "isActive": true,
-        "name": "orbit_controls",
         "type": "OrbitControls"
       }
     ],

@@ -151,7 +151,6 @@
     "cameras": [
       {
         "far": 10000,
-        "type": "PerspectiveCamera",
         "fov": 45,
         "isActive": true,
         "name": "main",
@@ -165,7 +164,8 @@
           "x": -1.762810647386911,
           "y": -0.009506999202667897,
           "z": -3.0927303803188493
-        }
+        },
+        "type": "PerspectiveCamera"
       }
     ],
     "controls": [],
@@ -188,12 +188,12 @@
           "camera": {
             "bottom": -5,
             "far": 15,
-            "type": "OrthographicCamera",
             "layers": 1,
             "left": -5,
             "near": 0.5,
             "right": 5,
             "top": 5,
+            "type": "OrthographicCamera",
             "type": "OrthographicCamera",
             "up": {
               "x": 0,
@@ -253,8 +253,8 @@
         "shadow": {
           "camera": {
             "far": 20,
-            "near": 0.5,
             "layers": 1,
+            "near": 0.5,
             "type": "PerspectiveCamera",
             "up": {
               "x": 0,

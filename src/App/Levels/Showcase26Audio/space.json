@@ -128,7 +128,6 @@
       {
         "audioListener": "main_listener",
         "far": 100,
-        "type": "PerspectiveCamera",
         "fov": 45,
         "isActive": true,
         "name": "main_camera",
@@ -142,7 +141,8 @@
           "x": 0,
           "y": 3.14,
           "z": 0
-        }
+        },
+        "type": "PerspectiveCamera"
       }
     ],
     "controls": [
@@ -194,11 +194,11 @@
           "camera": {
             "bottom": -10,
             "far": 40,
-            "type": "OrthographicCamera",
             "left": -10,
             "near": 0.1,
             "right": 10,
-            "top": 10
+            "top": 10,
+            "type": "OrthographicCamera"
           },
           "mapSize": {
             "x": 2048,

@@ -1,7 +1,6 @@
 {
   "canvasSelector": "#app",
   "entities": {
-    "renderers": [{ "name": "main", "mode": "webgl2", "isActive": true, "alpha": true }],
     "actors": [
       {
         "agent": "physical",
@@ -257,7 +256,6 @@
     "cameras": [
       {
         "far": 10000,
-        "type": "PerspectiveCamera",
         "fov": 45,
         "isActive": true,
         "name": "main",
@@ -266,17 +264,18 @@
           "x": 14,
           "y": 5,
           "z": 6
-        }
+        },
+        "type": "PerspectiveCamera"
       }
     ],
     "controls": [
       {
-        "name": "orbit_controls",
         "cameraName": "main",
+        "isActive": true,
+        "name": "orbit_controls",
         "options": {
           "enableDamping": true
         },
-        "isActive": true,
         "type": "OrbitControls"
       }
     ],
@@ -292,10 +291,10 @@
     "intersections": [],
     "lights": [
       {
-        "name": "directional_light",
         "castShadow": true,
         "color": "#FFFFFF",
         "intensity": 1,
+        "name": "directional_light",
         "position": {
           "x": 0.25,
           "y": 2,
@@ -536,6 +535,14 @@
         }
       ]
     },
+    "renderers": [
+      {
+        "alpha": true,
+        "isActive": true,
+        "mode": "webgl2",
+        "name": "main"
+      }
+    ],
     "spatialGrids": [
       {
         "cellSize": 10,
