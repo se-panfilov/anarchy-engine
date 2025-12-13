@@ -1,5 +1,4 @@
 import type { ICreateFN } from '@Engine/Factories';
-import type { ILightParams } from '@Engine/Models';
-import type { ILightWrapper } from '@Engine/Wrappers';
+import type { ILightParams, ILightWrapper } from '@Engine/Domains/Light/Models';
 
 export type ICreateLightFn = ICreateFN<ILightWrapper, ILightParams>;

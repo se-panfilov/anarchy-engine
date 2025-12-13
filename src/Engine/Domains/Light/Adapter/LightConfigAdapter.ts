@@ -1,4 +1,4 @@
-import type { ILightConfig, ILightParams, ILightShadowParams, LightShadowConfig } from '@Engine/Models';
+import type { ILightConfig, ILightParams, ILightShadowParams, LightShadowConfig } from '@Engine/Domains/Light/Models';
 import { isNotDefined } from '@Engine/Utils';
 import { Color, Vector2, Vector3 } from 'three';
 

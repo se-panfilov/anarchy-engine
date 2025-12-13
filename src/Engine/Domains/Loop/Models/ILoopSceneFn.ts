@@ -1,5 +1,4 @@
 import type { ICreateFN } from '@Engine/Factories';
-import type { ILoopParams } from '@Engine/Models';
-import type { ILoopWrapper } from '@Engine/Wrappers';
+import type { ILoopWrapper, ILoopParams } from '@Engine/Domains/Loop/Models';
 
 export type ILoopLoopFn = ICreateFN<ILoopWrapper, ILoopParams>;

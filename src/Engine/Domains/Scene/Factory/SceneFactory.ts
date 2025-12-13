@@ -1,9 +1,6 @@
-import type { ISceneParams } from '@Engine/Models';
-import type { ISceneWrapper } from '@Engine/Wrappers';
-import { SceneWrapper } from '@Engine/Wrappers';
-
-import { AbstractFromConfigWrapperFactory } from '../AbstractFactory';
-import type { ICreateSceneFn, ISceneFactory } from './Models';
+import type { ICreateSceneFn, ISceneFactory, ISceneParams, ISceneWrapper } from '@Engine/Domains/Scene/Models';
+import { SceneWrapper } from '@Engine/Domains/Scene/Wrapper';
+import { AbstractFromConfigWrapperFactory } from '@Engine/Factories';
 
 const create: ICreateSceneFn = (params: ISceneParams): ISceneWrapper => SceneWrapper(params);
 export const SceneFactory = (): ISceneFactory => AbstractFromConfigWrapperFactory('scene', create);

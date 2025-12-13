@@ -1,6 +1,6 @@
-import { LightTag } from '@Engine/Constants';
 import type { IVector2, IVector3 } from '@Engine/Wrappers';
 import type { Color } from 'three/src/math/Color';
+import type { LightTag } from '@Engine/Domains/Light/Constants';
 
 export type ILightParams = Readonly<{
   type: ILightType;

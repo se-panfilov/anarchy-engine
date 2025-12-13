@@ -1,10 +1,10 @@
-import type { ILoopParams } from '@Engine/Models';
-import type { ICameraWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
 import { AbstractWrapper } from '@Engine/Wrappers';
 
-import type { ILoopWrapper } from './Models';
-import type { LoopFn } from './Models/LoopFn';
 import { getUtils } from './utils';
+import type { ILoopParams, ILoopWrapper, LoopFn } from '@Engine/Domains/Loop/Models';
+import type { IRendererWrapper } from '@Engine/Domains/Renderer/Models';
+import type { ISceneWrapper } from '@Engine/Domains/Scene/Models';
+import type { ICameraWrapper } from '@Engine/Domains/Camera/Models';
 
 export function LoopWrapper(params: ILoopParams): ILoopWrapper {
   const entity: LoopFn = (renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, camera: Readonly<ICameraWrapper>): void => {

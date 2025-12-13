@@ -1,7 +1,6 @@
-import type { IInputParams } from '@Engine/Models';
 import { AbstractWrapper } from '@Engine/Wrappers';
 
-import type { IInputWrapper, MOCK_INPUT_TYPE } from './Models';
+import type { IInputParams, IInputWrapper, MOCK_INPUT_TYPE } from '@Engine/Domains/Input/Models';
 
 export function InputWrapper(params: IInputParams): IInputWrapper {
   const entity: Readonly<MOCK_INPUT_TYPE> = {};

@@ -1,4 +1,4 @@
-import type { IRendererParams, IScreenParams, IWrapper } from '@Engine/Models';
+import type { IScreenParams, IWrapper } from '@Engine/Models';
 import type { Writeable } from '@Engine/Utils';
 import { isNotDefined, isWebGLAvailable } from '@Engine/Utils';
 import type { IScreenSizeWatcher } from '@Engine/Watchers';
@@ -6,6 +6,7 @@ import { AbstractWrapper } from '@Engine/Wrappers';
 import { PCFShadowMap, WebGLRenderer } from 'three';
 
 import type { IRendererWrapper } from './Models';
+import type { IRendererParams } from '@Engine/Domains/Renderer/Models';
 
 // TODO (S.Panfilov) Should we provide delta here?
 export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Readonly<IScreenSizeWatcher>): IRendererWrapper {

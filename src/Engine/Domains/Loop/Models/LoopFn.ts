@@ -1,3 +1,5 @@
-import type { ICameraWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
+import type { IRendererWrapper } from '@Engine/Domains/Renderer/Models';
+import type { ISceneWrapper } from '@Engine/Domains/Scene/Models';
+import type { ICameraWrapper } from '@Engine/Domains/Camera/Models';
 
 export type LoopFn = (renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, camera: Readonly<ICameraWrapper>) => void;

@@ -1,5 +1,4 @@
 import type { ICreateFN } from '@Engine/Factories';
-import type { IRendererParams } from '@Engine/Models';
-import type { IRendererWrapper } from '@Engine/Wrappers';
+import type { IRendererParams, IRendererWrapper } from '@Engine/Domains/Renderer/Models';
 
 export type ICreateRendererFn = ICreateFN<IRendererWrapper, IRendererParams>;
