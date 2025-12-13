@@ -9,18 +9,18 @@ We do **not** collect personal data through the **offline** game client. Purchas
 
 **CPRA:** we **do not sell or share** personal information for cross-context behavioral advertising.
 
-## 2. Game Client
+## 2. {{PRODUCT_TERM}} Client
 
 - **No telemetry or analytics** are collected by the client.
 - **No crash reports** are sent by default.
   {{#CRASH_OPT_IN}}
   If you **opt in**, the client may send **anonymous** crash reports limited to technical diagnostics (no direct identifiers). You can withdraw consent at any time in settings.
   {{/CRASH_OPT_IN}}
-- The game runs offline. Any optional online features will be **opt-in** and documented here.
+- The {{PRODUCT_TERM}} runs offline. Any optional online features will be **opt-in** and documented here.
 
 ## 3. Distribution Channels
 
-Your chosen Distribution Channels may process personal data necessary to provide their services (e.g., account or entitlement management). We receive only the minimal information needed to enable access to the Game (if applicable). For details on their processing, consult the terms and privacy documentation of the relevant provider.
+Your chosen Distribution Channels may process personal data necessary to provide their services (e.g., account or entitlement management). We receive only the minimal information needed to enable access to the {{PRODUCT_TERM}} (if applicable). For details on their processing, consult the terms and privacy documentation of the relevant provider.
 
 ## 4. Customer Support
 
@@ -45,10 +45,10 @@ We will respond **within timelines required by applicable law**.
 ## 8. Children
 
 {{#IS_CHILD_DIRECTED}}
-This Game is **directed to children**. Where required by law, we obtain **verifiable parental consent** before processing a child’s personal data for online features. Parents may review and request deletion via **{{PRIVACY_EMAIL}}**.
+This {{PRODUCT_TERM}} is **directed to children**. Where required by law, we obtain **verifiable parental consent** before processing a child’s personal data for online features. Parents may review and request deletion via **{{PRIVACY_EMAIL}}**.
 {{/IS_CHILD_DIRECTED}}
 {{^IS_CHILD_DIRECTED}}
-This Game is **not directed** to children below the age requiring parental consent under applicable law (e.g., EU **{{EU_CHILD_CONSENT_AGE}}**, US **{{US_CHILD_AGE}}**{{#REGION_CN}}, China **{{CN_CHILD_AGE}}**{{/REGION_CN}}). We do not knowingly process such data. If you believe we have collected such data, contact **{{PRIVACY_EMAIL}}** and we will address it in accordance with the law.
+This {{PRODUCT_TERM}} is **not directed** to children below the age requiring parental consent under applicable law (e.g., EU **{{EU_CHILD_CONSENT_AGE}}**, US **{{US_CHILD_AGE}}**{{#REGION_CN}}, China **{{CN_CHILD_AGE}}**{{/REGION_CN}}). We do not knowingly process such data. If you believe we have collected such data, contact **{{PRIVACY_EMAIL}}** and we will address it in accordance with the law.
 {{/IS_CHILD_DIRECTED}}
 
 ## 9. Security
