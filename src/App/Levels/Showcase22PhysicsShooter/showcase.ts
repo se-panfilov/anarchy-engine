@@ -22,7 +22,7 @@ import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
 import type { TBullet } from './utils';
-import { buildTower, cameraFollowingActor, createLine, getBulletsPool, shoot, startMoveActorWithKeyboard, updateBullets } from './utils';
+import { buildTower, cameraFollowingActor, createLine, getBulletsPool, moveActorBounce, shoot, startMoveActorWithKeyboard, updateBullets } from './utils';
 
 export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
@@ -43,6 +43,9 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const surface: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('surface');
     if (isNotDefined(surface)) throw new Error(`Cannot find "surface" actor`);
 
+    const sphereActorW: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('sphere');
+    if (isNotDefined(sphereActorW)) throw new Error(`Cannot find "sphere" actor`);
+
     // const gridSize: Vector3 = new Box3().setFromObject(surface?.entity).getSize(new Vector3());
     // initGridHelper(actorService, gridSize.x, gridSize.z);
 
@@ -61,7 +64,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       name: 'mouse_line_intersections_watcher',
       isAutoStart: true,
       camera: cameraW,
-      actors: [...blocks, surface],
+      actors: [...blocks, surface, sphereActorW],
       position$: mouseService.position$,
       tags: []
     });
@@ -80,6 +83,9 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       azimuth: 0,
       elevation: 0
     };
+
+    //move bouncing sphere to target practice
+    moveActorBounce(sphereActorW);
 
     loopService.tick$.subscribe((delta): void => {
       cameraFollowingActor(cameraW, heroW);

@@ -9,7 +9,8 @@ export type TKinematicMethods = Readonly<{
   getData: () => TKinematicData;
   adjustDataByLinearVelocity: (linearVelocity: Vector3) => void;
   adjustDataFromAngularVelocity: (angularVelocity: Vector3) => void;
-  isAutoUpdate: boolean;
+  isAutoUpdate: () => boolean;
+  setAutoUpdate: (value: boolean) => void;
   getLinearSpeed: () => number;
   setLinearSpeed: (speed: number) => void;
   getLinearDirection: () => Vector3;

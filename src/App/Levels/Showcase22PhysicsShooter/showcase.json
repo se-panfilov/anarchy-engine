@@ -45,6 +45,15 @@
       "position": { "x": 20, "y": 1, "z": 10 },
       "castShadow": true,
       "tags": []
+    },
+    {
+      "name": "sphere",
+      "type": "sphere",
+      "radius": 1,
+      "material": { "type": "standard", "params": { "color": "#E91E63" } },
+      "position": { "x": 10, "y": 2, "z": 10 },
+      "castShadow": true,
+      "tags": []
     }
   ],
   "intersections": [],
@@ -95,13 +104,6 @@
   "controls": [],
   "envMaps": [],
   "particles": [],
-  "fogs": [
-    {
-      "color": "#454b55",
-      "near": 1,
-      "far": 100,
-      "tags": []
-    }
-  ],
+  "fogs": [],
   "tags": []
 }

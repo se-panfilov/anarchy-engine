@@ -9,6 +9,8 @@ import type { TWriteable } from '@/Engine/Utils';
 import { Vector3Wrapper } from '@/Engine/Vector';
 
 export function withKinematic(params: TActorParams): TWithKinematic {
+  let _isAutoUpdate: boolean = params.isKinematicAutoUpdate ?? false;
+
   return {
     kinematic: {
       data: {
@@ -38,7 +40,12 @@ export function withKinematic(params: TActorParams): TWithKinematic {
         this.setAngularSpeed(angularVelocity.length());
         this.setAngularDirection(angularVelocity.clone().normalize());
       },
-      isAutoUpdate: params.isKinematicAutoUpdate ?? false,
+      isAutoUpdate(): boolean {
+        return _isAutoUpdate;
+      },
+      setAutoUpdate(value: boolean): void {
+        _isAutoUpdate = value;
+      },
       getLinearSpeed(): number {
         return this.data.linearSpeed;
       },
