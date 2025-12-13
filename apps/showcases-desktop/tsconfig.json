@@ -1,27 +1,11 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "lib": ["ESNext", "DOM", "DOM.Iterable", "WebWorker"],
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "outDir": "dist",
     "paths": {
       "@Desktop/*": ["./src/*"]
     },
-    "resolveJsonModule": true,
-    // TODO DESKTOP: Electron conflicts over "glob" and "minimatch" types with other packages (rimraf, etc.). So temporarily disable type checking for libraries.,
-    "skipLibCheck": true,
     "sourceMap": false,
-    "strict": true,
-    "strictNullChecks": true,
-    "target": "ESNext",
-    "useDefineForClassFields": true
+    "noEmit": false
   },
   "include": ["electron-main.ts"],
   "exclude": ["dist", "dist-app", "node_modules"]

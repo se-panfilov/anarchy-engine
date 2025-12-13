@@ -3,7 +3,7 @@ export {};
 
 declare global {
   interface Window {
-    //Same name as "platformApiName" in desktop/src/Constants/AppToPlatformMessagesConstants.ts
+    //Same name as "platformApiName" in showcase-desktop/src/Constants/AppToPlatformMessagesConstants.ts
     platformApi: {
       // TODO DESKTOP: Declare all platform API methods here
       // TODO DESKTOP: any (should be TAppSettings)
