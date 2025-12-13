@@ -1,3 +1,5 @@
+import { isDefined } from './CheckUtils';
+
 export function cleanObject<T extends Record<string, unknown>>(obj: T): void {
   Object.keys(obj).forEach((key: keyof T): void => {
     // eslint-disable-next-line functional/immutable-data
@@ -31,3 +33,7 @@ export const omitInObjectWithMutation = <T extends Record<string, unknown>, K ex
   keys.forEach((key: K) => delete obj[key]);
   return obj;
 };
+
+export function filterOutEmptyFields<T extends Record<string, unknown>>(obj: T): T {
+  return Object.fromEntries(Object.entries(obj).filter(([, value]: [string, unknown]): boolean => isDefined(value))) as T;
+}

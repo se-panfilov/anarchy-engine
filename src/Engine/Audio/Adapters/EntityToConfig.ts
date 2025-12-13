@@ -1,6 +1,6 @@
 import type { TAbstractAudioWrapper, TAnyAudio, TAnyAudioConfig, TAudio3dConfig, TAudioConfigToParamsDependencies } from '@/Engine/Audio/Models';
 import { isAudio3dWrapper } from '@/Engine/Audio/Utils';
-import { isNotDefined } from '@/Engine/Utils';
+import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
 export function audioToConfig<T extends TAnyAudio>(entity: TAbstractAudioWrapper<T>, { audioResourceAsyncRegistry, audioListenersRegistry }: TAudioConfigToParamsDependencies): TAnyAudioConfig {
@@ -23,7 +23,7 @@ export function audioToConfig<T extends TAnyAudio>(entity: TAbstractAudioWrapper
   const audioSource: string | undefined = audioResourceAsyncRegistry.findKeyByValue(entity.entity.buffer);
   if (isNotDefined(audioSource)) throw new Error(`EntityToConfig: audioSource not found for entity with name: "${entity.name}" (id: "${entity.id}")`);
 
-  return {
+  return filterOutEmptyFields({
     ...audio3dConfig,
     name,
     volume: volume$.value,
@@ -32,5 +32,5 @@ export function audioToConfig<T extends TAnyAudio>(entity: TAbstractAudioWrapper
     pause: pause$.value,
     seek: seek$.value,
     audioSource
-  };
+  });
 }
