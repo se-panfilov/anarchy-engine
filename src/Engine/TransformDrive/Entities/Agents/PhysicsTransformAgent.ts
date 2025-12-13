@@ -1,5 +1,6 @@
+import type { RigidBody } from '@dimforge/rapier3d';
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, combineLatest, distinctUntilChanged, EMPTY, map, scan, switchMap, takeWhile, withLatestFrom } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinctUntilChanged, EMPTY, filter, map, switchMap, takeWhile, withLatestFrom } from 'rxjs';
 import type { QuaternionLike, Vector3Like } from 'three';
 import { Quaternion, Vector3 } from 'three';
 
@@ -10,7 +11,6 @@ import { RigidBodyTypesNames } from '@/Engine/Physics';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type {
   TAbstractTransformAgent,
-  TAccumulatedRigidBodyTransformData,
   TPhysicsAgentDependencies,
   TPhysicsTransformAgent,
   TPhysicsTransformAgentInternalParams,
@@ -19,7 +19,7 @@ import type {
   TRigidBodyTransformData
 } from '@/Engine/TransformDrive/Models';
 import { applyLatestTransform, createPhysicsBody, getPhysicalBodyTransform } from '@/Engine/TransformDrive/Utils';
-import { isDefined, isEqualOrSimilarVector3Like, isEqualOrSimilarVector4Like, isEulerLike, isNotDefined } from '@/Engine/Utils';
+import { isDefined, isEulerLike, isNotDefined } from '@/Engine/Utils';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
 
@@ -81,6 +81,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
       )
     )
     .subscribe(([isEnabled, physicsBody]: [boolean, TPhysicsBody | undefined]): void | never => {
+      console.log('XXX isEnabled', isEnabled, physicsBody);
       if (isNotDefined(physicsBody?.getRigidBody())) return;
       if (!isEnabled) physicsBody.setPhysicsBodyType(RigidBodyTypesNames.KinematicPositionBased, false);
       else physicsBody?.setPhysicsBodyType(previousPhysicsBodyType, false);
@@ -99,48 +100,41 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
     physicsBody$.complete();
   });
 
+  let prevPosition: Vector3Like | undefined = undefined;
+  let prevRotation: QuaternionLike | undefined = undefined;
+
   //Watching $ticks only when agent is enabled and physics loop is auto-updating
   physicsSub$ = combineLatest([agent.enabled$, physicalLoop.enabled$])
     .pipe(
+      distinctUntilChanged(([a1, b1]: [boolean, boolean], [a2, b2]: [boolean, boolean]): boolean => a1 === a2 && b1 === b2),
       //If agent is enabled and physics loop is auto-updating, then we are switching to the physics loop ticks
-      switchMap(([isEnabled, isAutoUpdate]: ReadonlyArray<boolean>) => {
-        if (isEnabled && isAutoUpdate) return physicalLoop.tick$;
+      switchMap(([isEnabled, isLoopEnabled]: ReadonlyArray<boolean>) => {
+        if (isEnabled && isLoopEnabled) return physicalLoop.tick$;
         return EMPTY;
       }),
+      filter((): boolean => {
+        const body: TPhysicsBody | undefined = physicsBody$.value;
+        return isDefined(body) && body.getPhysicsBodyType() !== RigidBodyTypesNames.Fixed;
+      }),
       //Get the latest transform data from the physics body every physical tick
-      map((): TRigidBodyTransformData => getPhysicalBodyTransform(agent)),
-      //Collect previous and current transform data to compare values later do nothing on the same data (distinctUntilChanged is not working great here)
-      scan(
-        (prev: TAccumulatedRigidBodyTransformData, curr: TRigidBodyTransformData): TAccumulatedRigidBodyTransformData => {
-          return {
-            prevPosition: prev.currPosition,
-            currPosition: curr.position,
-            prevRotation: prev.currRotation,
-            currRotation: curr.rotation
-          };
-        },
-        {
-          prevPosition: undefined,
-          currPosition: undefined,
-          prevRotation: undefined,
-          currRotation: undefined
-        } satisfies TAccumulatedRigidBodyTransformData
-      )
+      map((): TRigidBodyTransformData | undefined => {
+        const body: RigidBody | undefined = physicsBody$.value?.getRigidBody();
+        if (isNotDefined(body)) return undefined;
+
+        return getPhysicalBodyTransform(body, prevPosition, prevRotation, positionNoiseThreshold, rotationNoiseThreshold);
+      }),
+      filter(isDefined)
     )
-    .subscribe(({ prevPosition, currPosition, prevRotation, currRotation }: TAccumulatedRigidBodyTransformData): void => {
-      if (shouldUpdatePosition(prevPosition, currPosition, positionNoiseThreshold)) agent.position$.next(new Vector3(currPosition.x, currPosition.y, currPosition.z));
-      if (shouldUpdateRotation(prevRotation, currRotation, rotationNoiseThreshold)) agent.rotation$.next(new Quaternion(currRotation.x, currRotation.y, currRotation.z, currRotation.w));
+    .subscribe(({ position, rotation }: TRigidBodyTransformData): void => {
+      if (position) {
+        agent.position$.next(new Vector3(position.x, position.y, position.z));
+        prevPosition = position;
+      }
+      if (rotation) {
+        agent.rotation$.next(new Quaternion(rotation.x, rotation.y, rotation.z, rotation.w));
+        prevRotation = rotation;
+      }
     });
 
   return agent;
-}
-
-function shouldUpdatePosition(prevPosition: Vector3Like | undefined, currPosition: Vector3Like | undefined, threshold: TMeters): currPosition is Vector3Like {
-  if (isNotDefined(currPosition)) return false;
-  return isDefined(prevPosition) ? !isEqualOrSimilarVector3Like(currPosition, prevPosition, threshold) : true;
-}
-
-function shouldUpdateRotation(prevRotation: QuaternionLike | undefined, currRotation: QuaternionLike | undefined, threshold: TRadians): currRotation is QuaternionLike {
-  if (isNotDefined(currRotation)) return false;
-  return isDefined(prevRotation) ? !isEqualOrSimilarVector4Like(currRotation, prevRotation, threshold) : true;
 }

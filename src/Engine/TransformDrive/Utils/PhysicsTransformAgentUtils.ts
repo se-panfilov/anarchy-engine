@@ -1,19 +1,33 @@
-import type { RigidBody } from '@dimforge/rapier3d';
-import type { BehaviorSubject } from 'rxjs';
+import type { RigidBody, Rotation, Vector } from '@dimforge/rapier3d';
+import type { QuaternionLike, Vector3Like } from 'three';
 
 import type { TPhysicsBody, TPhysicsBodyService, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
-import { isPhysicsBodyParamsComplete, RigidBodyTypesNames } from '@/Engine/Physics';
+import { isPhysicsBodyParamsComplete } from '@/Engine/Physics';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TRigidBodyTransformData } from '@/Engine/TransformDrive/Models';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { isDefined, isEqualOrSimilarVector3Like, isEqualOrSimilarVector4Like, isNotDefined } from '@/Engine/Utils';
 
-export function getPhysicalBodyTransform<T extends { physicsBody$: BehaviorSubject<TPhysicsBody | undefined> }>(obj: T): TRigidBodyTransformData | never {
-  if (isNotDefined(obj.physicsBody$.value)) return {};
-  if (obj.physicsBody$.value.getPhysicsBodyType() === RigidBodyTypesNames.Fixed) return {};
-  const rigidBody: RigidBody | undefined = obj.physicsBody$.value.getRigidBody();
-  if (isNotDefined(rigidBody)) throw new Error('Cannot update Actor with Physics: rigidBody is missing');
+export function getPhysicalBodyTransform(
+  body: RigidBody,
+  prevPosition: Vector3Like | undefined,
+  prevRotation: QuaternionLike | undefined,
+  thresholdPosition: number,
+  thresholdRotation: number
+): TRigidBodyTransformData | undefined {
+  if (isNotDefined(body)) return undefined;
 
-  return { position: rigidBody.translation(), rotation: rigidBody.rotation() };
+  const position: Vector = body.translation();
+  const rotation: Rotation = body.rotation();
+
+  const changedPosition: boolean = !isDefined(prevPosition) || !isEqualOrSimilarVector3Like(position, prevPosition, thresholdPosition);
+  const changedRotation: boolean = !isDefined(prevRotation) || !isEqualOrSimilarVector4Like(rotation, prevRotation, thresholdRotation);
+
+  if (!changedPosition && !changedRotation) return undefined;
+
+  return {
+    position: changedPosition ? position : undefined,
+    rotation: changedRotation ? rotation : undefined
+  };
 }
 
 export function createPhysicsBody(physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService): TPhysicsBody | undefined {
