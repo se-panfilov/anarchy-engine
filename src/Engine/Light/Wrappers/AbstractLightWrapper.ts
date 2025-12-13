@@ -1,3 +1,5 @@
+import type { Subscription } from 'rxjs';
+
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper } from '@/Engine/Abstract';
 import type { TAbstractLightWrapper, TLight, TLightParams, TLightTransformDrive } from '@/Engine/Light/Models';
@@ -21,7 +23,18 @@ export function AbstractLightWrapper<T extends TLight>(entity: T, params: TLight
     entity
   });
 
-  result.destroy$.subscribe((): void => driveToTargetConnector.destroy$.next());
+  const destroySub$: Subscription = result.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
+    //Destroy transform drive
+    drive.destroy$.next();
+    driveToTargetConnector.destroy$.next();
+
+    wrapper.destroy$.next();
+
+    (entity as any).shadow?.map?.dispose();
+    entity.dispose();
+  });
 
   applyShadowParams(params, result.entity);
   applyObject3dParams(result, params);
