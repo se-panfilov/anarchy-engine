@@ -43,12 +43,7 @@
     "audio": [
       {
         "audioSource": "persimmon_music",
-        "name": "bg_music",
-        "position": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        }
+        "name": "bg_music"
       },
       {
         "audioSource": "monster_sound",

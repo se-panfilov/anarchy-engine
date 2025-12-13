@@ -4,6 +4,7 @@ import { AudioListener } from 'three';
 import { Listeners } from '@/Engine/Audio/Constants';
 import { AudioLoader } from '@/Engine/Audio/Loader';
 import type {
+  TAnyAudioWrapper,
   TAudioConfig,
   TAudioFactory,
   TAudioListenersRegistry,
@@ -11,8 +12,7 @@ import type {
   TAudioParams,
   TAudioRegistry,
   TAudioResourceAsyncRegistry,
-  TAudioService,
-  TAudioWrapper
+  TAudioService
 } from '@/Engine/Audio/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -36,14 +36,14 @@ export function AudioService(
   { audioLoop }: TSpaceLoops
 ): TAudioService {
   const audioLoader: TAudioLoader = AudioLoader(audioResourceAsyncRegistry);
-  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TAudioWrapper): void => registry.add(wrapper));
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TAnyAudioWrapper): void => registry.add(wrapper));
 
   // Currently we have only one listener, but more could be added in the future
   audioListenersRegistry.add(Listeners.Main, new AudioListener());
 
-  const create = (params: TAudioParams): TAudioWrapper => factory.create(params, { audioLoop });
-  const createFromConfig = (models3d: ReadonlyArray<TAudioConfig>): ReadonlyArray<TAudioWrapper> =>
-    models3d.map((config: TAudioConfig): TAudioWrapper => create(factory.configToParams(config, { audioResourceAsyncRegistry, audioListenersRegistry })));
+  const create = (params: TAudioParams): TAnyAudioWrapper => factory.create(params, { audioLoop });
+  const createFromConfig = (models3d: ReadonlyArray<TAudioConfig>): ReadonlyArray<TAnyAudioWrapper> =>
+    models3d.map((config: TAudioConfig): TAnyAudioWrapper => create(factory.configToParams(config, { audioResourceAsyncRegistry, audioListenersRegistry })));
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {

@@ -2,7 +2,7 @@ import GUI from 'lil-gui';
 import type { AnimationAction, AudioListener } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActor, TAppCanvas, TAudioWrapper, TCameraWrapper, TEngine, TModel3d, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
+import type { TActor, TAnyAudioWrapper, TAppCanvas, TCameraWrapper, TEngine, TModel3d, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
 import { Engine, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -49,7 +49,7 @@ function initMutant(actorName: string, { animationsService, actorService }: TSpa
 
 function initMusicWithControls(name: string, folderName: string, gui: GUI, { audioService }: TSpaceServices): void {
   const folder: GUI = gui.addFolder(folderName);
-  const bgMusic: TAudioWrapper | undefined = audioService.getRegistry().findByName(name);
+  const bgMusic: TAnyAudioWrapper | undefined = audioService.getRegistry().findByName(name);
   if (isNotDefined(bgMusic)) throw new Error('Background music is not found');
 
   const state = {

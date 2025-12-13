@@ -1,3 +1,6 @@
+export type * from './TAbstractAudioWrapper';
+export type * from './TAnyAudio';
+export type * from './TAnyAudioWrapper';
 export type * from './TAudio3dConfig';
 export type * from './TAudio3dParams';
 export type * from './TAudio3dTransformAgents';
