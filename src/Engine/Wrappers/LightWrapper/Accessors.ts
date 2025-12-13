@@ -1,9 +1,9 @@
 import type { Vector2, Vector3 } from 'three';
 import { AmbientLight, DirectionalLight } from 'three';
 import type { OrthographicCamera } from 'three/src/cameras/OrthographicCamera';
-import { IAccessors } from './Models';
+import { ILightAccessors } from './Models';
 
-export function getAccessors(entity: AmbientLight | DirectionalLight): IAccessors {
+export function getAccessors(entity: AmbientLight | DirectionalLight): ILightAccessors {
   const setPosition = (x: number, y: number, z: number): Vector3 => entity.position.set(x, y, z);
   // eslint-disable-next-line functional/immutable-data
   const setCastShadow = (value: boolean): boolean => (entity.castShadow = value);

@@ -1,9 +1,6 @@
+import type { IInputWrapper, MOCK_INPUT_TYPE } from './Models';
 import { AbstractWrapper } from '@Engine/Wrappers';
 import type { InputParams } from '@Engine/Models';
-
-export type IInputWrapper = ReturnType<typeof AbstractWrapper<MOCK_INPUT_TYPE>>;
-
-export type MOCK_INPUT_TYPE = unknown;
 
 export function InputWrapper(params: InputParams): IInputWrapper {
   const entity: MOCK_INPUT_TYPE = {};

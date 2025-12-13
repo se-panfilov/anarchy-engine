@@ -3,8 +3,7 @@ import { isNotDefined, isWebGLAvailable } from '@Engine/Utils';
 import { AbstractWrapper } from '@Engine/Wrappers';
 import type { RendererParams } from '@Engine/Models';
 import { DeviceWatcher } from '@Engine/Watchers';
-
-export type IRendererWrapper = ReturnType<typeof AbstractWrapper<WebGL1Renderer>>;
+import type { IRendererWrapper } from './Models';
 
 // TODO (S.Panfilov) Should we provide delta here?
 export function RendererWrapper({ canvas }: RendererParams): IRendererWrapper {

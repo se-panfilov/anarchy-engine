@@ -1,2 +1,2 @@
-export * from './IAccessors';
+export * from './ILightAccessors';
 export * from './ILightWrapper';

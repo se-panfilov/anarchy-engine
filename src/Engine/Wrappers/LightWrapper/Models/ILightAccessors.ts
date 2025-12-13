@@ -1,6 +1,6 @@
 import type { Vector3, Vector2 } from 'three';
 
-export interface IAccessors {
+export interface ILightAccessors {
   readonly setPosition: (x: number, y: number, z: number) => Vector3;
   readonly setCastShadow: (value: boolean) => boolean;
   readonly setControls: (x: number, y: number, z: number) => Vector3;
