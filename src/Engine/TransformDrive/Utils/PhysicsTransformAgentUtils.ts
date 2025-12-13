@@ -31,10 +31,8 @@ export function getPhysicalBodyTransform(
 }
 
 export function createPhysicsBody(physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService): TPhysicsBody | undefined {
-  const { presetName, ...rest } = physics;
-  if (isDefined(presetName)) return physicsBodyService.createWithPresetName(physics, presetName);
-  if (!isPhysicsBodyParamsComplete(rest)) return undefined;
-  return physicsBodyService.create(rest);
+  if (!isPhysicsBodyParamsComplete(physics)) return undefined;
+  return physicsBodyService.create(physics);
 }
 
 export function applyLatestTransform(rigidBody: RigidBody | undefined, position: TReadonlyVector3, rotation: TReadonlyQuaternion): void {

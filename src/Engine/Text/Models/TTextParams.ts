@@ -2,7 +2,7 @@ import type { Vector2 } from 'three';
 
 import type { TKinematicParams } from '@/Engine/Kinematic';
 import type { TWithName, TWithTags } from '@/Engine/Mixins';
-import type { TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
+import type { TPhysicsBodyParams } from '@/Engine/Physics';
 import type { TextType } from '@/Engine/Text/Constants';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 import type { TWithTransformAgentParam } from '@/Engine/TransformDrive';
@@ -16,7 +16,7 @@ export type TTextParams = Readonly<{
   center?: Vector2;
   elementType?: string;
   kinematic?: TKinematicParams;
-  physics?: TWithPresetNamePhysicsBodyParams;
+  physics?: TPhysicsBodyParams;
 }> &
   TWithTransformAgentParam &
   TWithName &

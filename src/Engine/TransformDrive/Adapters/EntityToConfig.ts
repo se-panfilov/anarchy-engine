@@ -8,7 +8,6 @@ export function transformDriveToConfig(drive: TTransformDrive<any>): TTransformD
   const { position$, rotation$, scale$, agent$ } = drive;
 
   return {
-    // TODO 15-0-0: should we look for presetName here? (use "physicsPresetService.getPresetByName(presetName)")
     physics: drive.physical?.serialize(),
     kinematic: ignoreDefaultStateKinematic(drive.kinematic?.serialize()),
     position: vector3ToXyz(position$.value),

@@ -29,8 +29,8 @@ import type { TModel3dRawToModel3dConnectionRegistry, TModels3dService } from '@
 import { Model3dRawToModel3dConnectionRegistry, Models3dFactory, Models3dMetaInfoRegistry, Models3dRegistry, Models3dResourceAsyncRegistry, Models3dService } from '@/Engine/Models3d';
 import { MouseClickWatcherFactory, MouseClickWatcherRegistry, MousePositionWatcherFactory, MousePositionWatcherRegistry, MouseService } from '@/Engine/Mouse';
 import { ParticlesFactory, ParticlesRegistry, ParticlesService } from '@/Engine/Particles';
-import type { TPhysicsBodyService, TPhysicsPresetsService, TPhysicsWorldService } from '@/Engine/Physics';
-import { PhysicsBodyFactory, PhysicsBodyRegistry, PhysicsBodyService, PhysicsPresetRegistry, PhysicsPresetsService, PhysicsWorldService } from '@/Engine/Physics';
+import type { TPhysicsBodyService, TPhysicsWorldService } from '@/Engine/Physics';
+import { PhysicsBodyFactory, PhysicsBodyRegistry, PhysicsBodyService, PhysicsWorldService } from '@/Engine/Physics';
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
 import type { TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
@@ -60,9 +60,8 @@ export function buildEntitiesServices(
 ): TSpaceServices {
   const textureService: TTextureService = TextureService(TextureResourceAsyncRegistry(), TextureMetaInfoRegistry());
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry(), { textureService });
-  const physicsPresetService: TPhysicsPresetsService = PhysicsPresetsService(PhysicsPresetRegistry());
   const physicsWorldService: TPhysicsWorldService = PhysicsWorldService(sceneW, loops);
-  const physicsBodyService: TPhysicsBodyService = PhysicsBodyService(PhysicsBodyFactory(), PhysicsBodyRegistry(), physicsPresetService, physicsWorldService);
+  const physicsBodyService: TPhysicsBodyService = PhysicsBodyService(PhysicsBodyFactory(), PhysicsBodyRegistry(), physicsWorldService);
   const spatialGridService: TSpatialGridService = SpatialGridService(SpatialGridFactory(), SpatialGridRegistry());
   const collisionsService: TCollisionsService = CollisionsService();
   const animationsService: TAnimationsService = AnimationsService(AnimationsResourceAsyncRegistry(), AnimationsMetaInfoRegistry(), loops);
@@ -115,7 +114,6 @@ export function buildEntitiesServices(
     particlesService: ParticlesService(ParticlesFactory(), ParticlesRegistry(), { transformDriveService, materialService }, sceneW),
     physicsBodyService,
     physicsWorldService,
-    physicsPresetService,
     rendererService: RendererService(RendererFactory(), RendererRegistry(), loops, { cameraService, container }, sceneW),
     spatialGridService,
     textService: TextService(

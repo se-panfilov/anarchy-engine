@@ -14,21 +14,12 @@ import type {
   TPhysicsBodyService,
   TPhysicsBodyServiceWithFactory,
   TPhysicsBodyServiceWithRegistry,
-  TPhysicsPresetParams,
-  TPhysicsPresetsService,
-  TPhysicsWorldService,
-  TWithPresetNamePhysicsBodyConfig
+  TPhysicsWorldService
 } from '@/Engine/Physics/Models';
-import { getKinematicDataFromPhysics, isPhysicsBodyParamsComplete } from '@/Engine/Physics/Utils';
-import type { TOptional } from '@/Engine/Utils';
+import { getKinematicDataFromPhysics } from '@/Engine/Physics/Utils';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function PhysicsBodyService(
-  factory: TPhysicsBodyFactory,
-  registry: TPhysicsBodyRegistry,
-  physicsPresetService: TPhysicsPresetsService,
-  physicsWorldService: TPhysicsWorldService
-): TPhysicsBodyService {
+export function PhysicsBodyService(factory: TPhysicsBodyFactory, registry: TPhysicsBodyRegistry, physicsWorldService: TPhysicsWorldService): TPhysicsBodyService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((body: TPhysicsBody): void => registry.add(body));
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
@@ -40,18 +31,6 @@ export function PhysicsBodyService(
   };
 
   const createFromList = (list: ReadonlyArray<TPhysicsBodyParams>): ReadonlyArray<TPhysicsBody> => list.map(create);
-
-  const createWithPreset = (params: TOptional<TPhysicsBodyParams>, preset: TPhysicsPresetParams): TPhysicsBody | never => {
-    const fullParams: TPhysicsBodyParams | TOptional<TPhysicsBodyParams> = { ...preset, ...params };
-    if (!isPhysicsBodyParamsComplete(fullParams)) throw new Error('Cannot create physics body: params are lacking of mandatory fields');
-
-    return create(fullParams);
-  };
-
-  const createWithPresetName = (params: TOptional<TPhysicsBodyParams>, presetName: string): TPhysicsBody | never => {
-    const preset: TPhysicsPresetParams = physicsPresetService.getPresetByName(presetName);
-    return createWithPreset(params, preset);
-  };
 
   const createFromConfig = (physics: ReadonlyArray<TWithPresetNamePhysicsBodyConfig>): ReadonlyArray<TPhysicsBody> => {
     return physics.map((config: TWithPresetNamePhysicsBodyConfig): TPhysicsBody => {
@@ -66,8 +45,6 @@ export function PhysicsBodyService(
   return Object.assign(abstractService, withFactory, withRegistry, withSerializeAllEntities<TPhysicsBodyConfig, undefined>(registry), {
     create,
     createFromList,
-    createWithPreset,
-    createWithPresetName,
     createFromConfig,
     getKinematicDataFromPhysics
   });

@@ -20,7 +20,6 @@ export function spaceToConfig(
     materialService,
     models3dService,
     particlesService,
-    physicsPresetService,
     rendererService,
     spatialGridService,
     textService,
@@ -42,8 +41,8 @@ export function spaceToConfig(
     models3d: models3dService.serializeAllEntities(),
     particles: particlesService.serializeAllEntities(),
     physics: {
+      // TODO 15-0-0: Implement physicsWorldService.serializeAllEntities()
       // global: physicsWorldService.serializeAllEntities(),
-      presets: physicsPresetService.serializeAllEntities()
     },
     renderers: rendererService.serializeAllEntities(),
     spatialGrids: spatialGridService.serializeAllEntities(),

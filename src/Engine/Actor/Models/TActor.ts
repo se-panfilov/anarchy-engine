@@ -1,5 +1,5 @@
 import type { TEntity } from '@/Engine/Abstract';
-import type { TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
+import type { TPhysicsBodyParams } from '@/Engine/Physics';
 
 import type { TActorConfig } from './TActorConfig';
 import type { TActorConfigToParamsDependencies } from './TActorConfigToParamsDependencies';
@@ -11,5 +11,5 @@ export type TActor = Omit<TEntity<TActorEntities>, 'serialize'> &
   Readonly<{
     serialize: (dependencies: TActorConfigToParamsDependencies) => TActorConfig;
     getModel3dSettings: () => TActorModel3dSettings | undefined;
-    getPhysicsSettings: () => TWithPresetNamePhysicsBodyParams | undefined;
+    getPhysicsSettings: () => TPhysicsBodyParams | undefined;
   }>;

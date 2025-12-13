@@ -42,7 +42,6 @@ export async function createEntitiesFromConfigs(entities: TSpaceConfigEntities, 
     models3dService,
     mouseService,
     particlesService,
-    physicsPresetService,
     physicsWorldService,
     rendererService,
     spatialGridService,
@@ -68,7 +67,6 @@ export async function createEntitiesFromConfigs(entities: TSpaceConfigEntities, 
   audioService.createFromConfig(audio);
 
   if (isDefined(physics.global)) physicsWorldService.createWorld(physics.global);
-  if (isDefined(physics.presets)) physicsPresetService.addPresetsFromConfig(physics.presets);
 
   cameraService.createFromConfig(cameras);
   actorService.createFromConfig(actors);
@@ -100,7 +98,6 @@ export async function createEntitiesFromParams(entities: TSpaceParamsEntities, s
     materialService,
     models3dService,
     particlesService,
-    physicsPresetService,
     physicsWorldService,
     rendererService,
     spatialGridService,
@@ -124,7 +121,6 @@ export async function createEntitiesFromParams(entities: TSpaceParamsEntities, s
   if (isDefined(audio)) audioService.createFromList(audio);
 
   if (isDefined(physics?.global)) physicsWorldService.createWorld(physics.global);
-  if (isDefined(physics?.presets)) physicsPresetService.addPresets(physics.presets);
 
   if (isDefined(cameras)) cameraService.createFromList(cameras);
   if (isDefined(actors)) actorService.createFromList(actors);

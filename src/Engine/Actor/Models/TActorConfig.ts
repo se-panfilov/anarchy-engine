@@ -1,6 +1,6 @@
 import type { TCollisionsDataConfig } from '@/Engine/Collisions';
 import type { TKinematicConfig } from '@/Engine/Kinematic';
-import type { TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
+import type { TPhysicsBodyConfig } from '@/Engine/Physics';
 import type { TSpatialDataConfig } from '@/Engine/Spatial';
 import type { TObject3DPropConfig } from '@/Engine/ThreeLib';
 
@@ -11,7 +11,7 @@ import type { TActorStatesConfig } from './TActorStatesConfig';
 export type TActorConfig = Omit<TActorParams, 'model3dSettings' | 'model3dSource' | 'physics' | 'kinematic' | 'spatial' | 'collisions' | 'states' | 'position' | 'rotation' | 'scale'> &
   Readonly<{
     model3dSource: string;
-    physics?: TWithPresetNamePhysicsBodyConfig;
+    physics?: TPhysicsBodyConfig;
     kinematic?: TKinematicConfig;
     spatial: TSpatialDataConfig;
     collisions?: TCollisionsDataConfig;

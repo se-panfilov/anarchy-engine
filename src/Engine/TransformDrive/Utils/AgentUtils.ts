@@ -2,7 +2,7 @@ import { Quaternion, Vector3 } from 'three';
 
 import type { TKinematicData, TKinematicParams } from '@/Engine/Kinematic';
 import { DEFAULT_RADIUS, ForwardAxis } from '@/Engine/Kinematic';
-import type { TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
+import type { TPhysicsBodyParams } from '@/Engine/Physics';
 import { KinematicTransformAgent, PhysicsTransformAgent } from '@/Engine/TransformDrive/Entities/Agents';
 import type {
   TKinematicAgentDependencies,

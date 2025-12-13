@@ -21,11 +21,11 @@ import type {
   TModel3d,
   TOrbitControlsWrapper,
   TParticlesWrapper,
+  TPhysicsBodyParams,
   TReadonlyVector3,
   TSpaceServices,
   TSpatialGridWrapper,
   TWithConnectedTransformAgent,
-  TWithPresetNamePhysicsBodyParams,
   TWithTransformDrive
 } from '@/Engine';
 import { ForwardAxis, MaterialType, metersPerSecond, TransformAgent } from '@/Engine';
@@ -38,7 +38,7 @@ export function createActor(
   grid: TSpatialGridWrapper,
   position: Vector3,
   color: string,
-  physics: TWithPresetNamePhysicsBodyParams | undefined,
+  physics: TPhysicsBodyParams | undefined,
   { actorService, materialService, models3dService }: TSpaceServices
 ): TActor {
   const material: TMaterialWrapper = materialService.create({ name: `${name}_material`, type: MaterialType.Standard, options: { color } });
