@@ -1,9 +1,13 @@
 # Technical Documentation (Technical File) — {{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}
 
 **Manufacturer:** {{LEGAL_ENTITY_NAME}}
+
 **Contacts:** Reg./Legal {{LEGAL_EMAIL}} · Security {{SECURITY_EMAIL}}
+
 **Product:** {{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}} (the “{{PRODUCT_TERM}}”)
+
 **Conformity series:** {{CONFORMITY_SERIES}} (baseline **{{BASELINE_VERSION}}**, dated **{{BASELINE_EFFECTIVE_DATE}}**)
+
 **Confidentiality:** Internal; provided to competent authorities upon request.
 
 > This index points to the core artifacts that substantiate CRA conformity. The {{PRODUCT_TERM}} works **offline by default** and **does not** process personal data by default. Where optional online/diagnostic features exist, see **PRIVACY**.
@@ -31,7 +35,7 @@
 - **Default configuration / hardening:** minimal permissions; sandboxing/OS-policies where applicable (short note).
 - **Data protection by design/default:** **no personal data by default**; optional features/diagnostics → **PRIVACY** (DPIA/ROPA only if such features are enabled).
 - **Accessibility (EAA):** basic info & contact {{ACCESSIBILITY_CONTACT}} (or “N/A”).
-- **Security support period:** **{{SECURITY_SUPPORT_PERIOD_MONTH}} months** for the major version or **≤5 years** from initial commercial release (whichever is shorter) — see **SECURITY**.
+- **Security support period:** as declared in **SUPPORT.md** (“Support Period Policy (CRA)”): the **shorter** of (i) the **declared expected lifetime** per **major version** and (ii) **five (5) years** from the initial commercial release. See **SECURITY** for update delivery.
 
 ## D. Risk assessment (summary)
 

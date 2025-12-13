@@ -12,11 +12,11 @@
 
 ## Regulatory Compliance Notice
 
-This repository is an **open-source project** and **is not, by itself, a product placed on any market**. Publishing this repository does **not** make {{LEGAL_ENTITY_NAME}} a “manufacturer” under product-safety or cybersecurity regimes.
+This repository is an **open-source project** and **is not, by itself, a product placed on the market**. Publishing this repository does **not** make {{LEGAL_ENTITY_NAME}} a “manufacturer” under product-safety or cybersecurity regimes.
 
-If **you** incorporate the {{PRODUCT_TERM}} into a **commercial product** or otherwise **place a product on the market**, **you** are solely responsible for ensuring that **your product** complies with applicable law (including **product safety and cybersecurity** rules such as the EU **Cyber Resilience Act**), **privacy/data-protection** (e.g., **GDPR/UK-GDPR, CPRA, LGPD, PIPEDA, Australia Privacy Act, PIPL**), **consumer protection**, and **export/sanctions** requirements.
+If **you** incorporate the {{PRODUCT_TERM}} into a **commercial product** or otherwise **place a product on the market**, **you** are solely responsible for ensuring that **your product** complies with applicable law (including **product safety and cybersecurity** rules such as the EU **Cyber Resilience Act**), **privacy/data-protection** (e.g., **GDPR/UK-GDPR, CPRA, LGPD, PIPEDA, Australian Privacy Act, PIPL**), **consumer protection**, and **export/sanctions** requirements.
 
-Where {{LEGAL_ENTITY_NAME}} distributes **commercial binaries** of {{PACKAGE_NAME}}, security support is handled as described in `SECURITY` (see **Security Support Period**).
+Where {{LEGAL_ENTITY_NAME}} distributes **commercial binaries** of the {{PRODUCT_TERM}}, security support is handled as described in `SECURITY` (see **Security Support Period**). Conformity and manufacturer obligations (where applicable) are addressed in the accompanying documentation (e.g., **EU Declaration of Conformity**, **Instructions**).
 
 ## Export Controls and Sanctions
 

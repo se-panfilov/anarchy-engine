@@ -55,7 +55,7 @@ The {{PRODUCT_TERM}} has been assessed for conformity with the **EU Cyber Resili
 ## Essential Requirements — Summary of Compliance
 
 - **Secure development & vulnerability handling:** Implemented as described in `SECURITY` and the **Incident Response / Vulnerability Handling Plan**.
-- **Security support period:** The shorter of **(i)** the declared expected lifetime for the relevant major version (**{{SECURITY_SUPPORT_PERIOD_MONTH}} months**) and **(ii)** **five (5) years** from its initial commercial release.
+- **Security support period:** as declared in **SUPPORT.md**; in any case the **shorter** of (i) the **declared expected lifetime** for the relevant **major version** and (ii) **five (5) years** from its initial commercial release.
 - **Updates:** Delivered via distribution channels in use from time to time; no specific cadence guaranteed.
 - **Personal data protection:** No collection by default; if optional features are enabled, processing follows the **Privacy Policy**.
 - **Accessibility (EAA):** Information on accessibility and contact: {{ACCESSIBILITY_CONTACT}}.

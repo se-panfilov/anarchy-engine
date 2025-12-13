@@ -17,8 +17,8 @@ export * from './Services';
 //  - Privacy Label (Apple)
 //  - Data Safety (Google Play)
 //  - CIRCIA (USA)
-//  - EAA?
-//  - something about China, e.g. PIPL?
+//  - EAA (EU)
+//  - PIPL (China)
 
 // TODO DESKTOP: LEGAL: Add following parts:
 //  - INSTRUCTIONS.md

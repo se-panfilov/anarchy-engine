@@ -16,7 +16,7 @@ Also distributed under the following technical identifiers: `{{PACKAGE_NAME}}`.
 {{/SHOW_TECH_IDENTIFIERS}}
 
 {{#HAS_OSS_SIBLING}}
-**Open-source repository.** The open-source codebase related to this {{PRODUCT_TERM}} (if any) is governed by its open-source license (see `LICENSE` in that repository) and is **not** governed by this EULA.
+**Open-source repository.** The codebase related to this {{PRODUCT_TERM}} (if any) is governed by its license (see `LICENSE` in that repository) and is **not** governed by this EULA.
 {{/HAS_OSS_SIBLING}}
 
 {{#HAS_EU_REP}}

@@ -21,8 +21,7 @@ export default {
       SBOM_LOCATION: './legal/sbom/',
       PATH_TO_CE_MARK: 'ce-mark.png',
 
-      //DATA COLLECTION
-      CRASH_OPT_IN: false,
+      CRASH_RETENTION_DAYS: 90, //How long crash reports are stored on servers (if any). E.g. 90 days
 
       //B2B
       LIABILITY_CAP_AMOUNT: 'the total fees paid by that Business User to the Licensor for the Software in the 12 months immediately preceding the event giving rise to the claim',
@@ -79,7 +78,6 @@ export default {
       SUPPORT_EMAILS_RETAIN_PERIOD_MONTH: 24,
 
       // TBD
-      SECURITY_SUPPORT_PERIOD_MONTH: 24,
       EFFECTIVE_DATE: 'TBD until market release'
     }
   }
