@@ -34,7 +34,8 @@ if (import.meta.env.VITE_SENTRY_DSN) {
     {
       dsn: import.meta.env.VITE_SENTRY_DSN,
       environment: __PLATFORM_MODE__,
-      release: __DESKTOP_APP_VERSION__
+      release: __DESKTOP_APP_VERSION__,
+      dist: makeDistName(process.platform, process.arch)
     },
     {
       //Other meta info (versions) will be added by DesktopTrackingService ("main" layer)

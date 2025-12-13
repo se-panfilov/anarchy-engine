@@ -1,6 +1,7 @@
 import type { TTrackingService } from '@Anarchy/Tracking';
 import { DesktopTrackingService } from '@Anarchy/Tracking/Services/DesktopTrackingService';
 import type { TElectronErrorTrackingService } from '@Showcases/Desktop/Models';
+import { makeDistName } from '@Showcases/Shared';
 
 export function ElectronErrorTrackingService(): TElectronErrorTrackingService {
   function start(packagesVersions: Record<string, string>): TTrackingService | undefined {
@@ -10,7 +11,8 @@ export function ElectronErrorTrackingService(): TElectronErrorTrackingService {
       {
         dsn: import.meta.env.VITE_SENTRY_DSN,
         environment: __PLATFORM_MODE__,
-        release: __DESKTOP_APP_VERSION__
+        release: __DESKTOP_APP_VERSION__,
+        dist: makeDistName(process.platform, process.arch)
       },
       {
         ...packagesVersions,
