@@ -39,11 +39,11 @@ Done:
 - 20.0.x Configurable Space (added options)
 
 Roadmap:
-- 22.0.x Create a npm package
-- 23.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
-- 24.x.x Postprocessing
-- 25.0.x Shaders
-- 26.0.x Modules: distinct engine/rapier from engine/core. Bonus: Make possible to load engine/rapier in async way
+- 21.0.x Create a npm package
+- 22.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
+- 23.x.x Postprocessing
+- 24.0.x Shaders
+- 25.0.x Modules: distinct engine/rapier from engine/core. Bonus: Make possible to load engine/rapier in async way
 
 Thoughts:
 - Maybe: Replace all arrays (with no allowed duplicates) with Maps (for performance)?;
