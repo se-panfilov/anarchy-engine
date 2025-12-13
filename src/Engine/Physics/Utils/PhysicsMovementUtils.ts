@@ -1,9 +1,12 @@
 import type { RigidBody } from '@dimforge/rapier3d';
+import type { Vector } from '@dimforge/rapier3d/math';
 import Decimal from 'decimal.js';
 
 import { cos, degToRad, sin } from '@/Engine/Math';
 import type { TWithCoordsXYZ } from '@/Engine/Mixins';
 import { VelocityType } from '@/Engine/Physics/Constants';
+import type { TKinematicInfo, TPhysicsBodyFacade } from '@/Engine/Physics/Models';
+import { isNotDefined } from '@/Engine/Utils';
 import type { TVector3Wrapper } from '@/Engine/Vector';
 
 export function getPushCoordsFrom3dAzimuth(azimuthDeg: number, elevationDeg: number, force: number): TWithCoordsXYZ {
@@ -30,4 +33,18 @@ export function movePhysicsDynamicObjectByVelocity(rigidBody: RigidBody, type: V
     default:
       throw new Error(`Cannot move physics object with velocity: velocity type is invalid: ${type}`);
   }
+}
+
+export function getKinematicInfoFromPhysics(facade: TPhysicsBodyFacade): TKinematicInfo {
+  const rigidBody: RigidBody | undefined = facade.getRigidBody();
+  if (isNotDefined(rigidBody)) throw new Error('Cannot get movement info: rigid body is not defined');
+  const linearVelocity: Vector = rigidBody.linvel();
+  const mass: number = rigidBody.mass();
+
+  return {
+    mass,
+    linearVelocity,
+    angularVelocity: rigidBody.angvel(),
+    principalInertia: rigidBody.principalInertia()
+  };
 }

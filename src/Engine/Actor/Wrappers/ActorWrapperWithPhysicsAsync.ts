@@ -19,7 +19,10 @@ export async function ActorWrapperWithPhysicsAsync(
   const actorW: TActorWrapperAsync = await ActorWrapperAsync(params, deps);
   const actorPhysicalW: TActorWrapperWithPhysicsAsync = makeWrapperWithPhysicsBody(actorW, params.physics, deps.physicsBodyService, customCreatePhysicsBodyFn, additionalParams);
 
-  const sub$: Subscription = deps.physicsLoopService.tick$.subscribe((): void => updateActorByPhysicalBody(actorPhysicalW));
+  const sub$: Subscription = deps.physicsLoopService.tick$.subscribe((): void => {
+    updateActorByPhysicalBody(actorPhysicalW);
+    updateMovementInfo(actorPhysicalW, deps.physicsBodyService);
+  });
 
   actorPhysicalW.destroyed$.subscribe(() => sub$.unsubscribe());
 
@@ -34,4 +37,10 @@ function updateActorByPhysicalBody(actorPhysicalW: TActorWrapperWithPhysicsAsync
   actorPhysicalW.setPosition(Vector3Wrapper(rigidBody.translation()));
   const { x, y, z, w }: Rotation = rigidBody.rotation();
   actorPhysicalW.entity.quaternion.set(x, y, z, w);
+}
+
+function updateMovementInfo(actorPhysicalW: TActorWrapperWithPhysicsAsync, physicsBodyService: TPhysicsBodyService): void | never {
+  if (!actorPhysicalW.physicsBody.shouldUpdateKinematic()) return;
+  if (actorPhysicalW.physicsBody.getPhysicsBodyType() === RigidBodyTypesNames.Fixed) return;
+  actorPhysicalW.setKinematicInfo(physicsBodyService.getKinematicInfoFromPhysics(actorPhysicalW.physicsBody));
 }

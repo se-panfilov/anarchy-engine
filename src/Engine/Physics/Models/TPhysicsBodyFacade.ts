@@ -7,4 +7,6 @@ export type TPhysicsBodyFacade = TFacade<TWithPhysicsBodyFacadeEntities> &
   Readonly<{
     getPhysicsBodyType: () => RigidBodyTypesNames;
     getPhysicsBodyShape: () => CollisionShape;
+    shouldUpdateKinematic: () => boolean;
+    setShouldUpdateKinematic: (value: boolean) => void;
   }>;

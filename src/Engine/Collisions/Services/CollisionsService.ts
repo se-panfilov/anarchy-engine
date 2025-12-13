@@ -24,7 +24,6 @@ export function CollisionsService(): TCollisionsService {
     };
 
     const candidates = spatialGrid.search(queryBox);
-    console.log(candidates);
     // eslint-disable-next-line functional/no-loop-statements
     for (const candidate of candidates) {
       if (candidate.object !== actorW.entity) {

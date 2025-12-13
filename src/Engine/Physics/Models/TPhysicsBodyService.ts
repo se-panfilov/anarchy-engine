@@ -2,6 +2,7 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
 import type { TOptional } from '@/Engine/Utils';
 
+import type { TKinematicInfo } from './TKinematicInfo';
 import type { TPhysicsBodyFacade } from './TPhysicsBodyFacade';
 import type { TPhysicsBodyFactory } from './TPhysicsBodyFactory';
 import type { TPhysicsBodyParams } from './TPhysicsBodyParams';
@@ -17,4 +18,5 @@ export type TPhysicsBodyService = TWithCreateService<TPhysicsBodyFacade, TPhysic
   Readonly<{
     createWithPreset: (params: TOptional<TPhysicsBodyParams>, preset: TPhysicsPresetParams) => TPhysicsBodyFacade | never;
     createWithPresetName: (params: TOptional<TPhysicsBodyParams>, presetName: string) => TPhysicsBodyFacade | never;
+    getKinematicInfoFromPhysics: (facade: TPhysicsBodyFacade) => TKinematicInfo;
   }>;
