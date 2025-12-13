@@ -192,7 +192,21 @@
       "name": "ball",
       "type": "sphere",
       "radius": 1,
-      "material": { "type": "standard", "params": { "color": "#555555" } },
+      "material": {
+        "type": "physical",
+        "params": {
+          "clearcoat": 0.8,
+          "clearcoatRoughness": 0.09,
+          "displacementScale": 0.1,
+          "metalness": 0,
+          "roughness": 0,
+          "iridescence": 0,
+          "iridescenceIOR": 1.38,
+          "transmission": 0.77,
+          "ior": 1.26,
+          "thickness": 0.5
+        }
+      },
       "position": { "x": 0, "y": 6, "z": 0 },
       "castShadow": true,
       "tags": []
@@ -236,7 +250,7 @@
       "isActive": true
     }
   ],
-  "envMaps": [],
+  "envMaps": ["/Showcase/hdr/shanghai_bund_4k.hdr"],
   "particles": [],
   "fogs": [],
   "tags": []
