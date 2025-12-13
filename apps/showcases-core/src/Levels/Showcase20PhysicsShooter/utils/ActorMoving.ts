@@ -1,5 +1,5 @@
 import type { TActor, TIntersectionEvent, TIntersectionsCameraWatcher, TKeyboardService, TMetersPerSecond, TMilliseconds, TRadians } from '@Anarchy/Engine';
-import { getMouseAzimuthAndElevation, KeyCode, metersPerSecond } from '@Anarchy/Engine';
+import { getMouseAzimuthAndElevation, isKeyInEvent, isKeyPressed, KeyCode, metersPerSecond } from '@Anarchy/Engine';
 import { radians } from '@Anarchy/Engine/Measurements/Utils';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import { BehaviorSubject, combineLatest, map, Subject } from 'rxjs';
@@ -12,17 +12,14 @@ export function startMoveActorWithKeyboard(actor: TActor, keyboardService: TKeyb
   const keyStates$: BehaviorSubject<TMoveKeysState> = new BehaviorSubject<TMoveKeysState>({ Forward: false, Left: false, Right: false, Backward: false });
   const intersectionDirection$: Subject<TIntersectionDirection> = new Subject<TIntersectionDirection>();
 
-  const { onKey } = keyboardService;
+  const { keys$ } = keyboardService;
 
-  onKey(KeyCode.W).pressed$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Forward: true }));
-  onKey(KeyCode.A).pressed$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Left: true }));
-  onKey(KeyCode.S).pressed$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Backward: true }));
-  onKey(KeyCode.D).pressed$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Right: true }));
-
-  onKey(KeyCode.W).released$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Forward: false }));
-  onKey(KeyCode.A).released$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Left: false }));
-  onKey(KeyCode.S).released$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Backward: false }));
-  onKey(KeyCode.D).released$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Right: false }));
+  keys$.subscribe(({ keys, event }): void => {
+    if (isKeyInEvent(KeyCode.W, event)) keyStates$.next({ ...keyStates$.value, Forward: isKeyPressed(KeyCode.W, keys) });
+    if (isKeyInEvent(KeyCode.A, event)) keyStates$.next({ ...keyStates$.value, Left: isKeyPressed(KeyCode.A, keys) });
+    if (isKeyInEvent(KeyCode.S, event)) keyStates$.next({ ...keyStates$.value, Backward: isKeyPressed(KeyCode.S, keys) });
+    if (isKeyInEvent(KeyCode.D, event)) keyStates$.next({ ...keyStates$.value, Right: isKeyPressed(KeyCode.D, keys) });
+  });
 
   mouseLineIntersectionsWatcher.value$
     .pipe(
