@@ -2,6 +2,7 @@ export * from './Abstract';
 export * from './Actor';
 export * from './App';
 export * from './Camera';
+export * from './Collisions';
 export * from './Color';
 export * from './Context';
 export * from './Controls';
