@@ -1,3 +1,3 @@
-import type { TMultitonWatcher } from '@Anarchy/Engine/Abstract';
+import type { TAbstractWatcher } from '@Anarchy/Engine/Abstract';
 
-export type TKeyWatcher = TMultitonWatcher<KeyboardEvent>;
+export type TKeyWatcher = TAbstractWatcher<KeyboardEvent>;

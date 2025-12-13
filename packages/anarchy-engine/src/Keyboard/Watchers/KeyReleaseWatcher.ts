@@ -6,7 +6,6 @@ import type { TKeyWatcherParams } from '@Anarchy/Engine/Keyboard/Models';
 import { distinctUntilChanged, takeUntil } from 'rxjs';
 
 export function KeyReleaseWatcher({ container, tags }: TKeyWatcherParams): TKeyWatcher {
-  const containerIdTag: string = `container_id_${container.id}`;
   const abstractWatcher: TAbstractWatcher<KeyboardEvent> = AbstractWatcher(WatcherType.KeyReleaseWatcher, 'key_release_watcher', tags);
 
   const onChange = (event: KeyboardEvent): void => abstractWatcher.value$.next(event);
@@ -19,8 +18,5 @@ export function KeyReleaseWatcher({ container, tags }: TKeyWatcherParams): TKeyW
     }
   });
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractWatcher, {
-    key: containerIdTag
-  });
+  return abstractWatcher;
 }
