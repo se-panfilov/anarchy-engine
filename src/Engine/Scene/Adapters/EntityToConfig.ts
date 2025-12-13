@@ -2,6 +2,8 @@ import type { TSceneConfig, TSceneWrapper } from '@/Engine/Scene/Models';
 
 export function entityToConfig(entity: TSceneWrapper): TSceneConfig {
   // TODO 15-0-0: implement
+  console.log('XXX entity', entity);
 
-  return {};
+  // TODO 15-0-0: fix any
+  return {} as any;
 }

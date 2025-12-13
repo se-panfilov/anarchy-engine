@@ -7,5 +7,6 @@ export function entityToConfig(entity: TTextAnyWrapper): TTextConfig {
 
   return {
     ...drive.serialize()
-  };
+    // TODO 15-0-0: fix any
+  } as any;
 }

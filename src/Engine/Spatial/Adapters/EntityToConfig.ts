@@ -8,12 +8,14 @@ export function entityToConfigSpatialGrid(entity: TSpatialGridWrapper): TSpatial
     // mapWidth, mapHeight, cellSize, centerX, centerZ
   } = entity;
   // TODO 15-0-0: implement
+  console.log('XXX entity', entity);
 
   return {
     name,
     tags
     // mapWidth, mapHeight, cellSize, centerX, centerZ
-  };
+    // TODO 15-0-0: fix any
+  } as any;
 }
 
 export function entityToConfigSpatialCell(entity: TSpatialCellWrapper): TSpatialCellSerializedData {
@@ -22,6 +24,6 @@ export function entityToConfigSpatialCell(entity: TSpatialCellWrapper): TSpatial
   const id: string = entity.id as TSpatialCellId;
   // TODO 15-0-0: implement
   // TODO 15-0-0: Not sure if we need an adapter for SpatialCellWrapper
-
-  return { id, minX, minY, maxX, maxY, objects, version: entity.getVersion() };
+  // TODO 15-0-0: fix any
+  return { id, minX, minY, maxX, maxY, objects, version: entity.getVersion() } as any;
 }

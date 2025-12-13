@@ -3,6 +3,8 @@ import type { TOptional } from '@/Engine/Utils';
 
 export function entityToConfig<T extends Readonly<{ kinematic?: TOptional<TKinematicParams> }>>(entity: T): TKinematicConfig {
   // TODO 15-0-0: implement
+  console.log('XXX entity', entity);
 
-  return {};
+  // TODO 15-0-0: fix any
+  return {} as any;
 }

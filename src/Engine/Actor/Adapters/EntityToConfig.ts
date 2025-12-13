@@ -3,7 +3,7 @@ import type { TActor, TActorConfig } from '@/Engine/Actor/Models';
 // TODO 15-0-0: (finish 14-0-0 tasks)
 
 export function entityToConfig(entity: TActor): TActorConfig {
-  const { name, tags, drive, spatial } = entity;
+  const { name, tags, drive } = entity;
   // TODO 15-0-0: implement
 
   return {
@@ -25,5 +25,6 @@ export function entityToConfig(entity: TActor): TActorConfig {
 
     ...drive.serialize(),
     tags
-  };
+    // TODO 15-0-0: fix any
+  } as any;
 }

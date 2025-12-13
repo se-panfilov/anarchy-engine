@@ -7,12 +7,13 @@ export function entityToConfig(entity: TAnyAudioWrapper): TAnyAudioConfig {
 
   const audio3dConfig: TAudio3dConfig = isAudio3dWrapper(entity) ? { ...entity.drive.serialize() } : ({} as any);
   return {
+    ...audio3dConfig,
     name,
     volume: volume$.value,
     loop: loop$.value,
     speed: speed$.value,
     pause: pause$.value,
-    seek: seek$.value,
+    seek: seek$.value
 
     //   refDistance?: number;
     //   rolloffFactor?: number;
@@ -22,6 +23,7 @@ export function entityToConfig(entity: TAnyAudioWrapper): TAnyAudioConfig {
     //   performance?: TAudioPerformanceOptions;
     //   audioSource: string;
     //   listener?: string;
-    ...audio3dConfig
-  };
+
+    // TODO 15-0-0: fix any
+  } as any;
 }

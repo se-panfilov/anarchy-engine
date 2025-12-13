@@ -2,6 +2,8 @@ import type { TIntersectionsWatcher, TIntersectionsWatcherConfig } from '@/Engin
 
 export function entityToConfig(entity: TIntersectionsWatcher): TIntersectionsWatcherConfig {
   // TODO 15-0-0: implement
+  console.log('XXX entity', entity);
 
-  return {};
+  // TODO 15-0-0: fix any
+  return {} as any;
 }

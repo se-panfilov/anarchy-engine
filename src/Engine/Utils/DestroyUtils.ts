@@ -1,7 +1,7 @@
 import type { AnimationAction, AnimationClip, Material, Object3D, PositionalAudio } from 'three';
 import { Mesh, Texture } from 'three';
 
-import type { TEntity } from '@/Engine/Abstract';
+import type { TAbstractEntity } from '@/Engine/Abstract';
 import type { TAnyAudio } from '@/Engine/Audio';
 import type { TWithModel3d, TWithModel3dEntities } from '@/Engine/Models3d';
 import { hasTransformDrive } from '@/Engine/TransformDrive/Utils';
@@ -93,7 +93,7 @@ export function stopParenting(entity: any): void {
   }
 }
 
-export function destroyModel3dAnimationEntities({ model3dSource, mixer, actions }: TEntity<TWithModel3dEntities>): void {
+export function destroyModel3dAnimationEntities({ model3dSource, mixer, actions }: TAbstractEntity<TWithModel3dEntities>): void {
   if (isNotDefined(mixer)) return;
 
   Object.values(actions).forEach((action: AnimationAction): void => {

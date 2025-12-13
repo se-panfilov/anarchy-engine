@@ -7,5 +7,6 @@ export function entityToConfig<T extends TLight>(entity: TAbstractLightWrapper<T
 
   return {
     ...drive.serialize()
-  };
+    // TODO 15-0-0: fix any
+  } as any;
 }

@@ -2,6 +2,8 @@ import type { TFsmConfig, TFsmWrapper } from '@/Engine/Fsm/Models';
 
 export function entityToConfig(entity: TFsmWrapper): TFsmConfig {
   // TODO 15-0-0: implement
+  console.log('XXX entity', entity);
 
-  return {};
+  // TODO 15-0-0: fix any
+  return {} as any;
 }

@@ -2,6 +2,8 @@ import type { TFogConfig, TFogWrapper } from '@/Engine/Fog/Models';
 
 export function entityToConfig(entity: TFogWrapper): TFogConfig {
   // TODO 15-0-0: implement
+  console.log('XXX entity', entity);
 
-  return {};
+  // TODO 15-0-0: fix any
+  return {} as any;
 }

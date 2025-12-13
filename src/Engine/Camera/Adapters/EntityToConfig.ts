@@ -14,5 +14,6 @@ export function entityToConfig(entity: TCameraWrapper): TCameraConfig {
     //   isActive: boolean
     //   tags
     ...drive.serialize()
-  };
+    // TODO 15-0-0: fix any
+  } as any;
 }

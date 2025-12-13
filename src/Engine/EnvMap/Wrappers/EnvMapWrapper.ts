@@ -1,7 +1,8 @@
 import type { Subscription } from 'rxjs';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TEnvMapParams, TEnvMapTexture, TEnvMapWrapper } from '@/Engine/EnvMap/Models';
+import { entityToConfig } from '@/Engine/EnvMap/Adapters';
+import type { TEnvMapConfig, TEnvMapParams, TEnvMapTexture, TEnvMapWrapper } from '@/Engine/EnvMap/Models';
 import { withActiveMixin } from '@/Engine/Mixins';
 
 export function EnvMapWrapper(params: TEnvMapParams): TEnvMapWrapper {
@@ -10,7 +11,8 @@ export function EnvMapWrapper(params: TEnvMapParams): TEnvMapWrapper {
 
   const wrapper = Object.assign(AbstractWrapper(entity, WrapperType.EnvMap), {
     getName: (): string => params.name,
-    ...withActiveMixin()
+    ...withActiveMixin(),
+    serialize: (): TEnvMapConfig => entityToConfig(wrapper)
   });
 
   wrapper._setActive(isActive, true);

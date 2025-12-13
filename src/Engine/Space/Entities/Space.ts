@@ -8,8 +8,9 @@ import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TLoop } from '@/Engine/Loop';
 import type { TMouseClickWatcher, TMousePositionWatcher } from '@/Engine/Mouse';
 import type { TSceneWrapper } from '@/Engine/Scene';
+import { entityToConfig } from '@/Engine/Space/Adapters';
 import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
-import type { TSpace, TSpaceBaseServices, TSpaceCanvas, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceServices } from '@/Engine/Space/Models';
+import type { TSpace, TSpaceBaseServices, TSpaceCanvas, TSpaceConfig, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceServices } from '@/Engine/Space/Models';
 import { buildBaseServices, buildEntitiesServices, createEntities, createLoops } from '@/Engine/Space/Utils';
 import { findDomElement, getCanvasContainer, getOrCreateCanvasFromSelector, isCanvasElement, isDefined, isDestroyable, isNotDefined } from '@/Engine/Utils';
 
@@ -60,7 +61,12 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
       name,
       tags
     }),
-    { getCanvasElement, container, drop }
+    {
+      getCanvasElement,
+      container,
+      drop,
+      serialize: (): TSpaceConfig => entityToConfig(space)
+    }
   );
 
   start$.pipe(skip(1), distinctUntilChanged()).subscribe((value: boolean): void => {

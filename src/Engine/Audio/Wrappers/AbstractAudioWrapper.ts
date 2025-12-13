@@ -2,7 +2,7 @@ import type { Subscription } from 'rxjs';
 import { BehaviorSubject, skipWhile, Subject, takeUntil } from 'rxjs';
 import type { AudioListener } from 'three';
 
-import type { TAbstractWrapper, TWrapper } from '@/Engine/Abstract';
+import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import { entityToConfig } from '@/Engine/Audio/Adapters';
 import type { TAbstractAudioWrapper, TAnyAudio, TAnyAudioConfig, TAnyAudioParams, TAudioCreateFn } from '@/Engine/Audio/Models';

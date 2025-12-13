@@ -2,10 +2,11 @@ import type { RigidBodyType } from '@dimforge/rapier3d';
 import type { Subscription } from 'rxjs';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
+import { entityToConfig } from '@/Engine/Physics/Adapters';
 import type { CollisionShape, RigidBodyTypesNames } from '@/Engine/Physics/Constants';
 import { RigidBodyTypesMap } from '@/Engine/Physics/Constants';
 import { withPhysicsBodyEntities } from '@/Engine/Physics/Mixins';
-import type { TPhysicsBody, TPhysicsBodyEntities, TPhysicsBodyParams, TPhysicsDependencies } from '@/Engine/Physics/Models';
+import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsBodyEntities, TPhysicsBodyParams, TPhysicsDependencies } from '@/Engine/Physics/Models';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -31,7 +32,7 @@ export function PhysicsBody(params: TPhysicsBodyParams, { world }: TPhysicsDepen
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstract, {
+  const result = Object.assign(abstract, {
     setPhysicsBodyType: (type: RigidBodyTypesNames, wakeUp: boolean): void => {
       abstract.getRigidBody()?.setBodyType(RigidBodyTypesMap[type], wakeUp);
     },
@@ -44,6 +45,9 @@ export function PhysicsBody(params: TPhysicsBodyParams, { world }: TPhysicsDepen
       if (isNotDefined(result)) throw new Error(`PhysicsBody: RigidBody type is not defined for object with name "${params.name}"`);
       return result;
     },
-    getPhysicsBodyShape: (): CollisionShape => params.collisionShape
+    getPhysicsBodyShape: (): CollisionShape => params.collisionShape,
+    serialize: (): TPhysicsBodyConfig => entityToConfig(result)
   });
+
+  return result;
 }

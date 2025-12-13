@@ -6,5 +6,6 @@ export function entityToConfig(entity: TParticlesWrapper): TParticlesConfig {
 
   return {
     ...drive.serialize()
-  };
+    // TODO 15-0-0: fix any
+  } as any;
 }
