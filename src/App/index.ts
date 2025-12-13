@@ -1,18 +1,13 @@
 import '@App/style.css';
 
 import sceneConfig from '@App/Scenes/debug-scene.config.json';
-import { ActorTag, CameraTag } from '@Engine/Constants';
-import { ambientContext } from '@Engine/Context';
-import type { ILaunchedScene, ISceneLauncher, IVector3 } from '@Engine/Models';
-import { IntersectionsService } from '@Engine/Services';
-import { isNotDefined } from '@Engine/Utils';
-import type { IActorWrapper, ICameraWrapper } from '@Engine/Wrappers';
-import { launchEngine, SceneLauncher } from '@/Engine/Launcher';
 
-const { factories, canvas } = launchEngine('#app');
-const launcher: ISceneLauncher = SceneLauncher(sceneConfig, canvas, factories);
-const { registries }: ILaunchedScene = launcher.launch();
-const { actorRegistry, cameraRegistry } = registries;
+import type { IActorWrapper, ICameraWrapper, ILaunchedEngine, ILaunchedScene, IRegistries, IVector3 } from '@/Engine';
+import { ActorTag, ambientContext, CameraTag, IntersectionsService, isNotDefined, launchEngine, SceneLauncher } from '@/Engine';
+
+const { factories, canvas }: ILaunchedEngine = launchEngine('#app');
+const { registries }: ILaunchedScene = SceneLauncher().launch(sceneConfig, canvas, factories);
+const { actorRegistry, cameraRegistry }: IRegistries = registries;
 
 // TODO (S.Panfilov) CWP
 // TODO (S.Panfilov) UNDER CONSTRUCTION: intersections START///////////////////////////////////////////

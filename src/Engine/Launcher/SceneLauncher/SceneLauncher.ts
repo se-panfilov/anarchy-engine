@@ -8,10 +8,7 @@ import { addToRegistry, isNotDefined, isValidSceneConfig } from '@Engine/Utils';
 import type { ICameraWrapper, ILoopWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
 import { BehaviorSubject } from 'rxjs';
 
-export function SceneLauncher(sceneConfig: ISceneConfig | unknown, canvas: IAppCanvas, factories: IFactories): ISceneLauncher {
-  if (!isValidSceneConfig(sceneConfig)) throw new Error('Failed to load a scene: invalid data format');
-  const { name: sceneName, actors, cameras, lights, controls, tags: sceneTags } = sceneConfig;
-
+export function SceneLauncher(): ISceneLauncher {
   const prepared$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   const launched$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   const destroyed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -24,7 +21,7 @@ export function SceneLauncher(sceneConfig: ISceneConfig | unknown, canvas: IAppC
   let renderer: IRendererWrapper;
   let loop: ILoopWrapper;
 
-  function prepare(): void {
+  function prepare(canvas: IAppCanvas): void {
     registryPool = RegistryPool();
     registries = registryPool.pool;
     localFactoriesPool = LocalFactoriesPool({ canvas, cameraRegistry: registries.cameraRegistry });
@@ -32,8 +29,10 @@ export function SceneLauncher(sceneConfig: ISceneConfig | unknown, canvas: IAppC
     prepared$.next(true);
   }
 
-  function launch(): ILaunchedScene {
-    if (!prepared$.value) prepare();
+  function launch(sceneConfig: ISceneConfig | unknown, canvas: IAppCanvas, factories: IFactories): ILaunchedScene {
+    if (!isValidSceneConfig(sceneConfig)) throw new Error('Failed to launch a scene: invalid data format');
+    const { name: sceneName, actors, cameras, lights, controls, tags: sceneTags } = sceneConfig;
+    if (!prepared$.value) prepare(canvas);
 
     const { actorFactory, cameraFactory, lightFactory, rendererFactory, sceneFactory, loopFactory } = factories;
     const { actorRegistry, cameraRegistry, lightRegistry, controlsRegistry } = registries;
