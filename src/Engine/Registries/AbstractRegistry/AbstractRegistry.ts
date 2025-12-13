@@ -1,7 +1,6 @@
-import type { ReactiveWrapper } from '@Engine/Models';
+import type { ReactiveWrapper, Registry } from '@Engine/Models';
 import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
-import type { Registry } from '@Engine/Models';
 
 export function AbstractRegistry<T extends ReactiveWrapper<unknown>>(): Registry<T> {
   const id: string = nanoid();
