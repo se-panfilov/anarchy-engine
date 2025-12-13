@@ -1,5 +1,5 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapperAsync, IAppCanvas, ILevel, ILevelConfig, IMouseWatcherEvent } from '@/Engine';
+import { IActorWrapperAsync, IAppCanvas, type IGameKey, ILevel, ILevelConfig, IMouseWatcherEvent, keyboardService, KeyCode } from '@/Engine';
 import { buildLevelFromConfig, mouseService } from '@/Engine';
 
 import levelConfig from './showcase-11-keyboard-and-mouse.json';
@@ -12,6 +12,11 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   async function init(): Promise<void> {
     const actorKeyboard: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync('keyboard');
     const actorMouse: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync('mouse');
+
+    keyboardService.onKey(KeyCode.W).pressing$.subscribe((): void => void actorKeyboard.addZ(-0.3));
+    keyboardService.onKey(KeyCode.S).pressing$.subscribe((): void => void actorKeyboard.addZ(0.3));
+    keyboardService.onKey(KeyCode.A).pressing$.subscribe((): void => void actorKeyboard.addX(-0.3));
+    keyboardService.onKey(KeyCode.D).pressing$.subscribe((): void => void actorKeyboard.addX(0.3));
 
     mouseService.clickLeftRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click left', event));
     mouseService.clickRightRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click right', event));
