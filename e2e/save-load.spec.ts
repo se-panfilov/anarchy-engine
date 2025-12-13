@@ -97,5 +97,5 @@ export async function waitUntilReady(page: Page, timeout: number = 1000): Promis
     },
     { timeout }
   );
-  await page.waitForTimeout(400);
+  await page.waitForTimeout(500);
 }
