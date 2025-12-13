@@ -10,6 +10,8 @@ import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import wasm from 'vite-plugin-wasm';
 import { version } from './package.json';
+import csp from 'vite-plugin-csp-guard';
+import { PROD_CSP } from '../../configs/Security/Csp/CspConfig';
 
 export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
   const root: string = process.cwd();
@@ -41,6 +43,14 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       vue(),
       vueJsx(),
       // vueDevTools(),
+
+      //Issue: CSP plugin doesn't add <Meta> tag in dev mode
+      csp({
+        dev: { run: true, outlierSupport: ['sass'] },
+        policy: PROD_CSP,
+        build: { sri: true }
+      }),
+
       wasm(), //Somehow needed by rxjs
       //Compression is only for web builds (desktop and mobile cannot unpack .br/.gz files)
       ...(buildCompression

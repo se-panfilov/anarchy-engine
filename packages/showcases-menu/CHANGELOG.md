@@ -6,3 +6,4 @@
 - 1.5.0 i18n
 - 1.6.0 Legal screen
 - 1.7.0 Allow change fonts on locale change
+- 1.8.0 Added CSP
