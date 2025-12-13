@@ -3,6 +3,7 @@
 - 2.1.0 Lint/Prettier/etc.
 - 2.2.0 Save settings
 - 2.3.0 Load settings
+- 2.4.0 Async read/write files
 
 Roadmap:
 
