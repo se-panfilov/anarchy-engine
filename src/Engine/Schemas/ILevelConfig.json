@@ -38,7 +38,17 @@
     "tags": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/LevelTag"
+        "anyOf": [
+          {
+            "$ref": "#/definitions/LevelTag"
+          },
+          {
+            "$ref": "#/definitions/CommonTags"
+          },
+          {
+            "type": "string"
+          }
+        ]
       }
     }
   },
@@ -58,7 +68,17 @@
         "tags": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/SceneTag"
+            "anyOf": [
+              {
+                "$ref": "#/definitions/SceneTag"
+              },
+              {
+                "$ref": "#/definitions/CommonTags"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         }
       },
@@ -67,6 +87,10 @@
     "SceneTag": {
       "type": "string",
       "const": "current"
+    },
+    "CommonTags": {
+      "type": "string",
+      "const": "from_config"
     },
     "IActorConfig": {
       "type": "object",
@@ -111,7 +135,17 @@
         "tags": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ActorTag"
+            "anyOf": [
+              {
+                "$ref": "#/definitions/ActorTag"
+              },
+              {
+                "$ref": "#/definitions/CommonTags"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         }
       },
@@ -196,7 +230,17 @@
         "tags": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/CameraTag"
+            "anyOf": [
+              {
+                "$ref": "#/definitions/CameraTag"
+              },
+              {
+                "$ref": "#/definitions/CommonTags"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         }
       },
@@ -231,7 +275,17 @@
         "tags": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/LightTag"
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LightTag"
+              },
+              {
+                "$ref": "#/definitions/CommonTags"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         }
       },
@@ -296,7 +350,17 @@
         "tags": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ControlsTag"
+            "anyOf": [
+              {
+                "$ref": "#/definitions/ControlsTag"
+              },
+              {
+                "$ref": "#/definitions/CommonTags"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         }
       },
@@ -308,7 +372,8 @@
       "const": "OrbitControls"
     },
     "ControlsTag": {
-      "type": "string"
+      "type": "string",
+      "const": "initial"
     },
     "LevelTag": {
       "type": "string",
