@@ -4,3 +4,4 @@ Done:
 - 1.2.0 Removed tailwind
 - 1.3.0 Interactions with platform API
 - 1.4.0 Load settings
+- 1.5.0 i18n

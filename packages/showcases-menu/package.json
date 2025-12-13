@@ -2,7 +2,7 @@
   "name": "showcases_menu",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.4.1",
+  "version": "1.5.0",
   "type": "module",
   "license": "MIT",
   "scripts": {
