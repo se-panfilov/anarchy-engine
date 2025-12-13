@@ -31,13 +31,12 @@ test.describe('Desktop app Menu/GUI text tests', () => {
     await expect(page).toHaveScreenshot('plain-page.png', { fullPage: true });
   });
 
-  // test('Translations for plain page should work', async () => {
-  //   const { page } = context;
-  //
-  //   await toggleLanguage(page);
-  //   await expect(page).toHaveScreenshot('plain-page-language-toggled.png', { fullPage: true });
-  //   await toggleLanguage(page);
-  // });
+  test('Translations for plain page should work', async () => {
+    const { page } = context;
+
+    await toggleLanguage(page);
+    await expect(page).toHaveScreenshot('plain-page-language-toggled.png', { fullPage: true });
+  });
 
   // test('Open menu', async () => {
   //   const { page } = context;
