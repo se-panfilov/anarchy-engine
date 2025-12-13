@@ -1,11 +1,12 @@
-import { app, BrowserWindow, dialog, ipcMain, Menu } from 'electron';
+import { existsSync } from 'node:fs';
+
+import { platformApiChannel } from '@Desktop/Constants';
+import { handleAppRequest } from '@Desktop/Services';
+import { getDisplayInfo } from '@Desktop/Utils';
 import type { Event, WebContentsWillNavigateEventParams } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, Menu } from 'electron';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { existsSync } from 'node:fs';
-import { getDisplayInfo } from '@Desktop/Utils';
-import { handleAppRequest } from '@Desktop/Services';
-import { platformApiChannel } from '@Desktop/Constants';
 
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = dirname(__filename);
@@ -21,10 +22,7 @@ const isOpenDevTools: boolean = true;
 // TODO DESKTOP: Error forwarding to a file (with versions)
 // TODO DESKTOP: Add canvas.requestPointerLock(); on a Space level
 // TODO DESKTOP: Fix Electron Security Warning (Insecure Content-Security-Policy) https://www.electronjs.org/docs/latest/tutorial/security
-// TODO DESKTOP: TS check, lint, prettier, etc.?
-// TODO DESKTOP: npm scripts, like clean reinstall, generate licenses, before release etc?
 // TODO DESKTOP: Add readme
-// TODO DESKTOP: add "sanitize assets" script for desktop/assets and mobile/assets
 // TODO DESKTOP: We need e2e eventually
 // TODO DESKTOP: Add .env files for different platforms (macos, windows, linux).
 
