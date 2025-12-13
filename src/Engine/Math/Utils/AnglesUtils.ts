@@ -22,9 +22,10 @@ export function getHorizontalAzimuthDeg(x: number, z: number, point: Vector3Like
 
   let azimuth: Decimal = Decimal.atan2(dz, dx).times(180).div(Math.PI);
 
-  if (azimuth.isNegative()) azimuth = azimuth.plus(360);
+  azimuth = azimuth.plus(90).neg().plus(180);
 
-  azimuth = azimuth.neg().mod(360);
+  if (azimuth.isNegative()) azimuth = azimuth.plus(360);
+  if (azimuth.gte(360)) azimuth = azimuth.minus(360);
 
   return azimuth.toNumber() as TDegrees;
 }

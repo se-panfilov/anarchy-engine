@@ -158,6 +158,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       sphereText.setText(`x: ${p.x.toFixed(2)} y: ${p.y.toFixed(2)} z: ${p.z.toFixed(2)}, Rotation: ${radToDeg(r.y)}`);
     });
 
+    // TODO debug
+    console.log('XXX1', sphereActor.model3d.getRawModel3d().rotation);
+
     createRepeaterActor(sphereActor, sphereActor.model3d, { x: 0, y: 0, z: 4 }, grid, gui, space.services);
 
     const intersectionsWatcher: TIntersectionsWatcher = startIntersections(space.services);
@@ -243,7 +246,8 @@ function rotateActorTo(actor: TActor, rotation: Euler, agent: TransformAgent): v
   const rotationXYZ: Euler = rotation.clone().reorder('XYZ');
 
   // For debug reasons: here is how we can rotate the model3d without TransformDrive
-  // sphereActor.model3d.getRawModel3d().rotation.set(0, rotationXYZ.y, 0);
+  // actor.model3d.getRawModel3d().rotation.set(0, rotationXYZ.y, 0);
+  // return actor.model3d.getRawModel3d().rotation.set(0, degToRad(180), 0);
 
   switch (agent) {
     case TransformAgent.Default:
