@@ -6,7 +6,7 @@ import { withTagsMixin } from '@/Engine/Mixins/Generic/WithTagsMixin';
 import type { ISceneRegistry, ISceneWrapper } from '@/Engine/Scene';
 import { SceneRegistry, SceneWrapper } from '@/Engine/Scene';
 
-import { findActiveWrappedEntity, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, setActiveWrappedEntity } from './RegistryUtils';
+import { getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, setActiveWrappedEntity } from './RegistryUtils';
 
 describe('RegistryUtils', () => {
   const tagA: string = 'tagA';
@@ -177,31 +177,6 @@ describe('RegistryUtils', () => {
       const registry: ISceneRegistry = SceneRegistry();
       registry.add(mockObj1);
       expect(() => setActiveWrappedEntity(registry, 'whatever-id')).toThrow();
-    });
-  });
-
-  describe('findActiveWrappedEntity', () => {
-    it('should find an active entity in a registry', () => {
-      const mockObj1: ISceneWrapper = SceneWrapper({ name: 'mock-scene-1', isActive: false, tags: [] });
-      const mockObj2: ISceneWrapper = SceneWrapper({ name: 'mock-scene-2', isActive: true, tags: [] });
-      const mockObj3: ISceneWrapper = SceneWrapper({ name: 'mock-scene-3', isActive: false, tags: [] });
-      const registry: ISceneRegistry = SceneRegistry();
-      registry.add(mockObj1);
-      registry.add(mockObj2);
-      registry.add(mockObj3);
-
-      expect(findActiveWrappedEntity(registry)).toEqual(mockObj2);
-    });
-    it('should return "undefined" when no active entity', () => {
-      const mockObj1: ISceneWrapper = SceneWrapper({ name: 'mock-scene-1', isActive: false, tags: [] });
-      const mockObj2: ISceneWrapper = SceneWrapper({ name: 'mock-scene-2', isActive: false, tags: [] });
-      const mockObj3: ISceneWrapper = SceneWrapper({ name: 'mock-scene-3', isActive: false, tags: [] });
-      const registry: ISceneRegistry = SceneRegistry();
-      registry.add(mockObj1);
-      registry.add(mockObj2);
-      registry.add(mockObj3);
-
-      expect(findActiveWrappedEntity(registry)).toBeUndefined();
     });
   });
 });
