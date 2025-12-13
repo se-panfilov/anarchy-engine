@@ -1,5 +1,6 @@
 import type { TWithCoordsXYZ } from '@/Engine/Mixins';
+import type { TWriteable } from '@/Engine/Utils';
 
 export type TWithMutableRotationConnector = Readonly<{
-  rotationConnector: TWithCoordsXYZ;
+  rotationConnector: TWriteable<TWithCoordsXYZ>;
 }>;

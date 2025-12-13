@@ -72,16 +72,16 @@ export function createActor(
   });
 }
 
-export function createRepeaterActor(actor: TActor, model3d: TModel3d, offset: Vector3Like, grid: TSpatialGridWrapper, gui: GUI, services: TSpaceServices, color: string = '#1ebae9'): Subscription {
+export function createRepeaterActor(actor: TActor, model3d: TModel3d, offset: Vector3Like, grid: TSpatialGridWrapper, gui: GUI, services: TSpaceServices, color: string = '#1ebae9'): void {
   const repeaterActor: TActor = createActor('repeater', model3d, TransformAgent.Connected, grid, actor.drive.getPosition().clone().add(offset), color, undefined, services);
 
   //"repeaterActor" is connected with "positionConnector" (from "connected" agent) to "sphereActor" position
-  const subj$: Subscription = attachConnectorToSubj(repeaterActor, actor.drive.position$, offset);
+  attachConnectorPositionToSubj(repeaterActor, actor.drive.position$, offset);
+  attachConnectorRotationToSubj(repeaterActor, actor.drive.rotation$);
   addActorFolderGui(gui, repeaterActor);
-  return subj$;
 }
 
-export function attachConnectorToSubj(connectedActor: TActor, subj: Subject<Vector3> | Observable<Vector3>, offset: Vector3Like = { x: 0, y: 0, z: 0 }): Subscription {
+export function attachConnectorPositionToSubj(connectedActor: TActor, subj: Subject<Vector3> | Observable<Vector3>, offset: Vector3Like = { x: 0, y: 0, z: 0 }): Subscription {
   return subj.subscribe((position: Vector3): void => {
     // eslint-disable-next-line functional/immutable-data
     connectedActor.drive.connected.positionConnector.x = position.x + offset.x;
@@ -89,6 +89,17 @@ export function attachConnectorToSubj(connectedActor: TActor, subj: Subject<Vect
     connectedActor.drive.connected.positionConnector.y = position.y + offset.y;
     // eslint-disable-next-line functional/immutable-data
     connectedActor.drive.connected.positionConnector.z = position.z + offset.z;
+  });
+}
+
+export function attachConnectorRotationToSubj(connectedActor: TActor, subj: Subject<Euler> | Observable<Euler>): Subscription {
+  return subj.subscribe((rotation: Euler): void => {
+    // eslint-disable-next-line functional/immutable-data
+    connectedActor.drive.connected.rotationConnector.x = rotation.x;
+    // eslint-disable-next-line functional/immutable-data
+    connectedActor.drive.connected.rotationConnector.y = rotation.y;
+    // eslint-disable-next-line functional/immutable-data
+    connectedActor.drive.connected.rotationConnector.z = rotation.z;
   });
 }
 
