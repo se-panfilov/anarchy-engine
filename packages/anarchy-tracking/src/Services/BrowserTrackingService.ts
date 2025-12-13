@@ -4,10 +4,10 @@ import type { TTrackingService } from '@Anarchy/Tracking/Models';
 import { rewriteFramesIntegrationBrowser } from '@Anarchy/Tracking/Utils/IntegrationsBrowser';
 import { scrubUserPathsBrowser } from '@Anarchy/Tracking/Utils/ScrubsBrowser';
 import type { BrowserOptions, EventHint } from '@sentry/browser';
-import { captureException, init } from '@sentry/browser';
-import type { Client, ErrorEvent } from '@sentry/core';
+import { captureException, init, setTags } from '@sentry/browser';
+import type { Client, ErrorEvent, Primitive } from '@sentry/core';
 
-export function BrowserTrackingService(options?: BrowserOptions, metaData?: Record<string, any>): TTrackingService {
+export function BrowserTrackingService(options?: BrowserOptions, metaData?: Record<string, Primitive>): TTrackingService {
   let isStarted: boolean = false;
 
   const defaultOptions: BrowserOptions = {
@@ -42,9 +42,6 @@ export function BrowserTrackingService(options?: BrowserOptions, metaData?: Reco
       // eslint-disable-next-line functional/immutable-data
       if (isDefined(event.breadcrumbs)) event.breadcrumbs = undefined;
 
-      // eslint-disable-next-line functional/immutable-data
-      (event as any).tags = { ...event.tags, ...metaData, layer: 'web', errorTracker: 'BrowserTrackingService' };
-
       return scrubUserPathsBrowser(event);
     },
     integrations: [rewriteFramesIntegrationBrowser()],
@@ -56,6 +53,12 @@ export function BrowserTrackingService(options?: BrowserOptions, metaData?: Reco
   const client: Client | undefined = init({
     ...defaultOptions,
     ...options
+  });
+
+  if (isDefined(metaData)) setTags(metaData);
+  setTags({
+    layer: 'web',
+    errorTracker: 'BrowserTrackingService'
   });
 
   const onError = (ev: any): void => void captureException(ev?.error ?? ev);

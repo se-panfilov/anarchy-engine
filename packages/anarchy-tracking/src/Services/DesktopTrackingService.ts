@@ -2,11 +2,12 @@ import { isDefined } from '@Anarchy/Shared/Utils';
 import { HiddenField } from '@Anarchy/Tracking/Constants';
 import type { TTrackingService } from '@Anarchy/Tracking/Models';
 import { scrubUserPathsDesktop } from '@Anarchy/Tracking/Utils';
+import type { Primitive } from '@sentry/core';
 import type { ElectronMainOptions } from '@sentry/electron/esm/main';
 import type { ErrorEvent, EventHint } from '@sentry/electron/main';
-import { captureException, init } from '@sentry/electron/main';
+import { captureException, init, setTags } from '@sentry/electron/main';
 
-export function DesktopTrackingService(options?: ElectronMainOptions, metaData?: Readonly<Record<string, unknown>>): TTrackingService {
+export function DesktopTrackingService(options?: ElectronMainOptions, metaData?: Readonly<Record<string, Primitive>>): TTrackingService {
   let isStarted: boolean = false;
 
   const defaultOptions: ElectronMainOptions = {
@@ -41,9 +42,6 @@ export function DesktopTrackingService(options?: ElectronMainOptions, metaData?:
       // eslint-disable-next-line functional/immutable-data
       if (isDefined(event.breadcrumbs)) event.breadcrumbs = undefined;
 
-      // eslint-disable-next-line functional/immutable-data
-      (event as any).tags = { ...event.tags, ...metaData, layer: 'electron-main', errorTracker: 'DesktopTrackingService' };
-
       return scrubUserPathsDesktop(event);
     },
     // integrations: [rewriteFramesIntegrationNode()],
@@ -55,6 +53,12 @@ export function DesktopTrackingService(options?: ElectronMainOptions, metaData?:
   init({
     ...defaultOptions,
     ...options
+  });
+
+  if (isDefined(metaData)) setTags(metaData);
+  setTags({
+    layer: 'electron-main',
+    errorTracker: 'DesktopTrackingService'
   });
 
   const onError = (ev: any): void => void captureException(ev?.error ?? ev);

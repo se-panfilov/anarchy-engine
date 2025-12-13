@@ -1,10 +1,12 @@
+import { isDefined } from '@Anarchy/Shared/Utils';
 import { HiddenField } from '@Anarchy/Tracking/Constants';
 import type { TTrackingService } from '@Anarchy/Tracking/Models';
 import { scrubUserPathsBrowser } from '@Anarchy/Tracking/Utils';
+import type { Primitive } from '@sentry/core';
 import type { ErrorEvent, EventHint } from '@sentry/electron/renderer';
-import { captureException, init } from '@sentry/electron/renderer';
+import { captureException, init, setTags } from '@sentry/electron/renderer';
 
-export function DesktopPreloadTrackingService(options?: Record<string, any>, metaData?: Readonly<Record<string, unknown>>): TTrackingService {
+export function DesktopPreloadTrackingService(options?: Record<string, any>, metaData?: Readonly<Record<string, Primitive>>): TTrackingService {
   let isStarted: boolean = false;
 
   const defaultOptions = {
@@ -39,17 +41,6 @@ export function DesktopPreloadTrackingService(options?: Record<string, any>, met
       // eslint-disable-next-line functional/immutable-data
       if (!event.breadcrumbs) event.breadcrumbs = undefined;
 
-      // eslint-disable-next-line functional/immutable-data
-      (event as any).tags = {
-        ...event.tags,
-        ...metaData,
-        //layer and errorTracker could be overwritten by BrowserTrackingService so we use initLayer and errorTrackerInitializer
-        layer: 'electron-preload',
-        initLayer: 'electron-preload',
-        errorTracker: 'DesktopPreloadTrackingService',
-        errorTrackerInitializer: 'DesktopPreloadTrackingService'
-      };
-
       return scrubUserPathsBrowser(event as any) as ErrorEvent;
     },
     // integrations: [rewriteFramesIntegrationBrowser()],
@@ -61,6 +52,14 @@ export function DesktopPreloadTrackingService(options?: Record<string, any>, met
   init({
     ...defaultOptions,
     ...options
+  });
+
+  if (isDefined(metaData)) setTags(metaData);
+  setTags({
+    layer: 'electron-preload',
+    initLayer: 'electron-preload',
+    errorTracker: 'DesktopPreloadTrackingService',
+    errorTrackerInitializer: 'DesktopPreloadTrackingService'
   });
 
   const onError = (ev: any): void => void captureException(ev?.error ?? ev);
