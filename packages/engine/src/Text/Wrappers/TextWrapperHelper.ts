@@ -2,7 +2,7 @@ import { WrapperType } from '@Engine/Abstract';
 import type { TextCssClass } from '@Engine/Text/Constants';
 import { TextType } from '@Engine/Text/Constants';
 import type { TElementWithCssAccessors, TTextCssProps } from '@Engine/Text/Models';
-import type { TValueOf } from '@Engine/Utils';
+import type { TValueOf } from '@Shared/Utils';
 import { isDefined, isString } from '@Shared/Utils';
 
 export function applyHtmlElementParams(wrapper: TElementWithCssAccessors, cssProps: TTextCssProps, className: TextCssClass): void {
