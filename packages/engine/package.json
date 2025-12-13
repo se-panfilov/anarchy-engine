@@ -2,7 +2,7 @@
   "name": "anarchy_engine",
   "author": "S. Panfilov",
   "private": true,
-  "version": "20.0.1",
+  "version": "20.0.2",
   "type": "module",
   "sideEffects": false,
   "license": "MIT",
