@@ -22,7 +22,9 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const world: World = new World(STANDARD_GRAVITY);
   const physicsDebugRenderer: TPhysicsDebugRenderer = PhysicsDebugRenderer(sceneWrapper.entity, world);
 
-  const rigidBodyDesc = RigidBodyDesc.dynamic().setTranslation(0, 5, 0);
+  const rigidBodyDesc = RigidBodyDesc.dynamic()
+    .setTranslation(0, 5, 0) //should take the position of the actor
+    .setLinvel(2, 0, 0);
   const rigidBody = world.createRigidBody(rigidBodyDesc);
   const colliderDesc = ColliderDesc.ball(meters(1));
   world.createCollider(colliderDesc, rigidBody);
@@ -34,14 +36,6 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   async function init(): Promise<void> {
     const ball: TActorWrapperAsync | undefined = await ballActorPromise;
     if (isNotDefined(ball)) throw new Error(`Cannot find ball actor`);
-
-    // // Create a dynamic rigid-body.
-    // const rigidBodyDesc: RigidBodyDesc = RigidBodyDesc.dynamic().setTranslation(0.0, 1.0, 0.0);
-    // const rigidBody: RigidBody = world.createRigidBody(rigidBodyDesc);
-    //
-    // // Create a cuboid collider attached to the dynamic rigidBody.
-    // const colliderDesc: ColliderDesc = ColliderDesc.cuboid(0.5, 0.5, 0.5);
-    // const collider: Collider = world.createCollider(colliderDesc, rigidBody);
 
     // TODO (S.Panfilov) extract physics world update to  the main loop
     loopService.tick$.subscribe(({ delta }) => {

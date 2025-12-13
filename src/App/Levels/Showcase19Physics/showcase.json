@@ -26,7 +26,7 @@
       "name": "ball",
       "type": "sphere",
       "radius": 1,
-      "material": { "type": "standard", "params": { "color": "#E91E00" } },
+      "material": { "type": "standard", "params": { "color": "#E90063" } },
       "position": { "x": 0, "y": 6, "z": 0 },
       "castShadow": true,
       "tags": []
