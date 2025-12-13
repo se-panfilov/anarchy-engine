@@ -1,7 +1,7 @@
 import { Euler, Vector3 } from 'three';
 
 import type { TSpace, TSpaceConfig, TText2dRegistry, TText2dWrapper, TText3dRegistry, TText3dTextureRegistry, TText3dTextureWrapper, TText3dWrapper } from '@/Engine';
-import { createDomElement, isNotDefined } from '@/Engine';
+import { createDomElement, isNotDefined, TextType } from '@/Engine';
 
 export type TSpacesData = Readonly<{
   name: string;
@@ -46,7 +46,8 @@ export function changeText(name: string, registry: TText2dRegistry | TText3dRegi
   const text: TText2dWrapper | TText3dWrapper | TText3dTextureWrapper | undefined = registry.findByName(name);
   if (isNotDefined(text)) throw new Error(`[Showcase]: Text with name "${name}" is not found`);
 
-  text.setText(text.getText() + ' Changed!');
+  //Text3dTexture texts don't support a runtime text changing
+  if (text.type !== TextType.Text3dTexture) text.setText(text.getText() + ' Changed!');
   const position: Vector3 = text.drive.position$.value.clone();
   text.drive.position$.next(new Vector3(position.x * -1, position.y * -1, position.z * -1));
   text.drive.rotation$.next(text.drive.rotation$.value.clone().setFromEuler(new Euler(0, 0, Math.PI / 4)));
