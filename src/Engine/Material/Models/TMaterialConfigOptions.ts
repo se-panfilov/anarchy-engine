@@ -1,3 +1,6 @@
+import type { Vector2Like } from 'three';
+import type { Vector3Like } from 'three/src/math/Vector3';
+
 import type {
   BlendEquationName,
   BlendingDstFactorName,
@@ -49,13 +52,13 @@ type TOmitParamsOnlyFields<T> = Omit<
 export type TAbstractMaterialConfigOptions = TOmitParamsOnlyFields<TAbstractMaterialPropsOptions> & TMaterialConfigFields;
 export type TBasicMaterialConfigOptions = TOmitParamsOnlyFields<TBasicMaterialPropsOptions> & TMaterialConfigFields;
 export type TDepthMaterialConfigOptions = TOmitParamsOnlyFields<TDepthMaterialPropsOptions> & TMaterialConfigFields;
-export type TDistanceMaterialConfigOptions = TOmitParamsOnlyFields<TDistanceMaterialPropsOptions> & TMaterialConfigFields;
-export type TNormalMaterialConfigOptions = TOmitParamsOnlyFields<TNormalMaterialPropsOptions> & TMaterialConfigFields;
-export type TMatcapMaterialConfigOptions = TOmitParamsOnlyFields<TMatcapMaterialPropsOptions> & TMaterialConfigFields;
-export type TLambertMaterialConfigOptions = TOmitParamsOnlyFields<TLambertMaterialPropsOptions> & TMaterialConfigFields;
-export type TPhongMaterialConfigOptions = TOmitParamsOnlyFields<TPhongMaterialPropsOptions> & TMaterialConfigFields;
-export type TToonMaterialConfigOptions = TOmitParamsOnlyFields<TToonMaterialPropsOptions> & TMaterialConfigFields;
-export type TStandardMaterialConfigOptions = TOmitParamsOnlyFields<TStandardMaterialPropsOptions> & TMaterialConfigFields;
+export type TDistanceMaterialConfigOptions = TOmitParamsOnlyFields<TWithReferencePositionConfig<TDistanceMaterialPropsOptions>> & TMaterialConfigFields;
+export type TNormalMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TNormalMaterialPropsOptions>> & TMaterialConfigFields;
+export type TMatcapMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TMatcapMaterialPropsOptions>> & TMaterialConfigFields;
+export type TLambertMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TLambertMaterialPropsOptions>> & TMaterialConfigFields;
+export type TPhongMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TPhongMaterialPropsOptions>> & TMaterialConfigFields;
+export type TToonMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TToonMaterialPropsOptions>> & TMaterialConfigFields;
+export type TStandardMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TStandardMaterialPropsOptions>> & TMaterialConfigFields;
 export type TPhysicalMaterialConfigOptions = TOmitParamsOnlyFields<TPhysicalMaterialPropsOptions> & TMaterialConfigFields;
 export type TPointsMaterialConfigOptions = TOmitParamsOnlyFields<TPointsMaterialPropsOptions> & TMaterialConfigFields;
 export type TMaterialConfigOptions =
@@ -90,3 +93,6 @@ export type TMaterialConfigFields = Readonly<{
   map?: string | null;
   alphaMap?: string | null;
 }>;
+
+type TWithReferencePositionConfig<T> = Omit<T, 'referencePosition'> & Readonly<{ referencePosition?: Vector3Like }>;
+type TWithNormalScaleConfig<T> = Omit<T, 'normalScale'> & Readonly<{ normalScale?: Vector2Like }>;

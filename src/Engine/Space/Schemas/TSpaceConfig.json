@@ -4631,33 +4631,10 @@
           "type": "number"
         },
         "referencePosition": {
-          "$ref": "#/definitions/Vector3"
-        }
-      }
-    },
-    "Vector3": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number",
-          "default": 0
-        },
-        "y": {
-          "type": "number",
-          "default": 0
-        },
-        "z": {
-          "type": "number",
-          "default": 0
-        },
-        "isVector3": {
-          "type": "boolean",
-          "const": true
+          "$ref": "#/definitions/Vector3Like"
         }
       },
-      "required": ["x", "y", "z", "isVector3"],
-      "additionalProperties": false,
-      "description": "3D vector.\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
+      "required": ["referencePosition"]
     },
     "TNormalMaterialConfigOptions": {
       "type": "object",
@@ -4819,9 +4796,6 @@
         "bumpScale": {
           "type": "number"
         },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2"
-        },
         "displacementScale": {
           "type": "number"
         },
@@ -4833,34 +4807,12 @@
         },
         "wireframeLinewidth": {
           "type": "number"
-        }
-      }
-    },
-    "Vector2": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number",
-          "default": 0
         },
-        "y": {
-          "type": "number",
-          "default": 0
-        },
-        "width": {
-          "type": "number"
-        },
-        "height": {
-          "type": "number"
-        },
-        "isVector2": {
-          "type": "boolean",
-          "const": true
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
         }
       },
-      "required": ["x", "y", "width", "height", "isVector2"],
-      "additionalProperties": false,
-      "description": "2D vector."
+      "required": ["normalScale"]
     },
     "TMatcapMaterialConfigOptions": {
       "type": "object",
@@ -5025,9 +4977,6 @@
         "bumpScale": {
           "type": "number"
         },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2"
-        },
         "displacementScale": {
           "type": "number"
         },
@@ -5039,8 +4988,12 @@
         },
         "flatShading": {
           "type": "boolean"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
         }
-      }
+      },
+      "required": ["normalScale"]
     },
     "TLambertMaterialConfigOptions": {
       "type": "object",
@@ -5223,9 +5176,6 @@
         "lightMapIntensity": {
           "type": "number"
         },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2"
-        },
         "aoMapIntensity": {
           "type": "number"
         },
@@ -5249,8 +5199,12 @@
         },
         "fog": {
           "type": "boolean"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
         }
-      }
+      },
+      "required": ["normalScale"]
     },
     "TPhongMaterialConfigOptions": {
       "type": "object",
@@ -5433,9 +5387,6 @@
         "bumpScale": {
           "type": "number"
         },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2"
-        },
         "displacementScale": {
           "type": "number"
         },
@@ -5465,8 +5416,12 @@
         },
         "flatShading": {
           "type": "boolean"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
         }
-      }
+      },
+      "required": ["normalScale"]
     },
     "TToonMaterialConfigOptions": {
       "type": "object",
@@ -5643,9 +5598,6 @@
         "bumpScale": {
           "type": "number"
         },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2"
-        },
         "displacementScale": {
           "type": "number"
         },
@@ -5666,8 +5618,12 @@
         },
         "fog": {
           "type": "boolean"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
         }
-      }
+      },
+      "required": ["normalScale"]
     },
     "TStandardMaterialConfigOptions": {
       "type": "object",
@@ -5850,9 +5806,6 @@
         "bumpScale": {
           "type": "number"
         },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2"
-        },
         "displacementScale": {
           "type": "number"
         },
@@ -5873,8 +5826,12 @@
         },
         "flatShading": {
           "type": "boolean"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
         }
-      }
+      },
+      "required": ["normalScale"]
     },
     "TPhysicalMaterialConfigOptions": {
       "type": "object",
@@ -6144,6 +6101,32 @@
           "type": "number"
         }
       }
+    },
+    "Vector2": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "default": 0
+        },
+        "y": {
+          "type": "number",
+          "default": 0
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "isVector2": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "required": ["x", "y", "width", "height", "isVector2"],
+      "additionalProperties": false,
+      "description": "2D vector."
     },
     "TPointsMaterialConfigOptions": {
       "type": "object",
@@ -6709,6 +6692,30 @@
         }
       },
       "additionalProperties": false
+    },
+    "Vector3": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "default": 0
+        },
+        "y": {
+          "type": "number",
+          "default": 0
+        },
+        "z": {
+          "type": "number",
+          "default": 0
+        },
+        "isVector3": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "required": ["x", "y", "z", "isVector3"],
+      "additionalProperties": false,
+      "description": "3D vector.\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
     },
     "Euler": {
       "type": "object",
