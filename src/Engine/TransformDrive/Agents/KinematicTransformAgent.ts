@@ -3,7 +3,7 @@ import { BehaviorSubject, combineLatest, EMPTY, map, switchMap } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
 
 import type { TKinematicData } from '@/Engine/Kinematic/Models';
-import type { TMetersPerSecond, TRadians } from '@/Engine/Math';
+import type { TMetersPerSecond, TMilliseconds, TRadians } from '@/Engine/Math';
 import { getAzimuthRadFromDirection, getElevationFromDirection } from '@/Engine/Math';
 import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
