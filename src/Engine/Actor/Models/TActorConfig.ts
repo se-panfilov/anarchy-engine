@@ -5,11 +5,13 @@ import type { TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
 import type { TSpatialDataConfig } from '@/Engine/Spatial';
 import type { TObject3DPropConfig } from '@/Engine/ThreeLib';
 
-import type { TActorModel3dConfig } from './TActorModel3dConfig';
 import type { TActorProps } from './TActorProps';
 
 export type TActorConfig = TActorProps &
-  TActorModel3dConfig &
+  Readonly<{
+    // TODO 8.0.0. MODELS: check name match model's in config
+    model3d: string;
+  }> &
   Readonly<{
     physics?: TWithPresetNamePhysicsBodyConfig;
   }> &

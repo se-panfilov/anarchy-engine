@@ -9,7 +9,6 @@ import type { TObject3DParams } from '@/Engine/ThreeLib';
 import type { TActorProps } from './TActorProps';
 
 export type TActorParams = TActorProps &
-  Pick<TObject3DParams, 'position' | 'rotation' | 'scale'> &
   Readonly<{
     model3d: TModel3dFacade;
   }> &
@@ -25,4 +24,5 @@ export type TActorParams = TActorProps &
   Readonly<{
     collisions?: TCollisionsDataParams;
   }> &
+  Pick<TObject3DParams, 'position' | 'rotation' | 'scale'> &
   TWithReadonlyTags;

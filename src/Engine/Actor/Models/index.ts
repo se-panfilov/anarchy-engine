@@ -2,7 +2,6 @@ export * from './TActorConfig';
 export * from './TActorConfigToParamsDependencies';
 export * from './TActorDependencies';
 export * from './TActorFactory';
-export * from './TActorModel3dConfig';
 export * from './TActorParams';
 export * from './TActorProps';
 export * from './TActorRegistry';

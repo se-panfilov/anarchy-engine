@@ -2,15 +2,13 @@ import type { TActorConfig, TActorConfigToParamsDependencies, TActorParams } fro
 import { configToOptionalParamsBody } from '@/Engine/Physics';
 import { configToParamsSpatialData } from '@/Engine/Spatial';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { isNotDefined } from '@/Engine/Utils';
 
 export function configToParams(config: TActorConfig, dependencies: TActorConfigToParamsDependencies): TActorParams {
-  const { position, rotation, scale, physics, spatial, model3d: model3dConfig, ...rest } = config;
-  const { presetName, ...restModel3d } = model3dConfig;
+  const { position, rotation, scale, physics, spatial, model3d: model3dName, ...rest } = config;
 
-  // TODO 9.0.0. RESOURCES: Maybe no need in overrides, just create a new instance of a resource
-  const model3d = isDefined(presetName) ? dependencies.models3dService.findModel3dAndOverride(presetName, restModel3d) : undefined;
-  if (isNotDefined(model3d)) throw new Error(`Actor. ConfigToParams: Model3d "${presetName}" not found, while actor initialization`);
+  const model3d = dependencies.models3dService.getRegistry().findByName(model3dName);
+  if (isNotDefined(model3d)) throw new Error(`Actor. ConfigToParams: Model3d "${model3d}" not found, while actor initialization`);
 
   return {
     ...rest,
