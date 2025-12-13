@@ -3,10 +3,12 @@ import { routerConfig } from '@/router';
 export function addNavigationPanel(container: HTMLElement): void {
   const navPanel: HTMLElement = document.createElement('div');
   // eslint-disable-next-line functional/immutable-data
-  navPanel.className = 'navigation-panel';
+  navPanel.className = 'navigation-panel ui';
   const selectBox: HTMLSelectElement = document.createElement('select');
   // eslint-disable-next-line functional/immutable-data
   selectBox.name = 'navigation-select';
+  // eslint-disable-next-line functional/immutable-data
+  selectBox.className = 'select';
   // eslint-disable-next-line functional/immutable-data
   selectBox.id = 'navigation-select';
 
