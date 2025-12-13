@@ -1,6 +1,6 @@
 import type { TLocale, TLocaleId } from '@Anarchy/i18n';
 import { getLocaleByLocaleId, getPreferLocaleId, stringToLocaleId } from '@Anarchy/i18n';
-import { isDefined } from '@Anarchy/Shared/Utils';
+import { buildPublicUrl, isDefined } from '@Anarchy/Shared/Utils';
 import { getBrowserInfo } from '@Anarchy/Shared/Utils/DetectUtils';
 import { ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/i18n';
 import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared';
@@ -56,14 +56,8 @@ export function Driver(): TPlatformDriver {
     };
   }
 
-  function buildPublicUrl(relPath: string): string {
-    const base = new URL(import.meta.env.BASE_URL, window.location.origin);
-    const clean = relPath.replace(/^\/+/, '');
-    return new URL(clean, base).toString();
-  }
-
   async function getLegalDocs({ name }: TLoadDocPayload): Promise<TLegalDoc> {
-    const response: Response = await fetch(`${buildPublicUrl('legal')}/${name}.md`);
+    const response: Response = await fetch(`${buildPublicUrl(import.meta.env.BASE_URL, 'legal')}/${name}.md`);
 
     if (!response.ok) throw new Error(`Failed to load legal doc "${name}" from ${response.url}: ${response.status} ${response.statusText}`);
     const content: string = await response.text();
