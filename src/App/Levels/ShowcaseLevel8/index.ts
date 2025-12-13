@@ -11,6 +11,7 @@ import levelConfig from './showcase-level-8.config.json';
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
 
+  // TODO (S.Panfilov) CWP add loading of textures from config
   const textures: Record<string, ITexture> = textureService.load({ door: '/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg' });
 
   function start(): void {
