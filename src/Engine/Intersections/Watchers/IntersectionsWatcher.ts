@@ -30,7 +30,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
   const setCamera = (cam: TCameraWrapper): void => void (camera = cam);
   const getCamera = (): TCameraWrapper | undefined => camera;
 
-  let mousePos$: Subscription | undefined;
+  let positionSub$: Subscription | undefined;
 
   const threshold: number = performance?.noiseThreshold ?? 0.001;
   // shouldUseDistinct might improve performance, however won't fire an event if the mouse is not moving (and actor or scene is moving)
@@ -39,7 +39,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
   function start(): TIntersectionsWatcher {
     const prevValue: Float32Array = new Float32Array([0, 0]);
     // TODO 10.0.0. LOOPS: Intersections could have an own loop independent from frame rate (driven by time)
-    mousePos$ = position$
+    positionSub$ = position$
       .pipe(
         shouldUseDistinct ? distinctUntilChanged((_prev: Vector2Like, curr: Vector2Like): boolean => isEqualOrSimilarByXyCoords(prevValue[0], prevValue[1], curr.x, curr.y, threshold)) : identity,
         tap((value: Vector2Like): void => {
@@ -65,7 +65,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
   }
 
   function stop(): TIntersectionsWatcher {
-    mousePos$?.unsubscribe();
+    positionSub$?.unsubscribe();
     // eslint-disable-next-line functional/immutable-data
     result.isStarted = false;
     return result;
@@ -80,7 +80,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
 
   const abstractWatcherSubscription: Subscription = abstractWatcher.destroy$.subscribe((): void => {
     raycaster = undefined;
-    mousePos$?.unsubscribe();
+    positionSub$?.unsubscribe();
     abstractWatcherSubscription.unsubscribe();
   });
 
