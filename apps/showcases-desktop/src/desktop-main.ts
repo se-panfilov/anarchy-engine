@@ -10,16 +10,9 @@ import { app, ipcMain } from 'electron';
 
 const isDevToolsStr: string = app.commandLine.getSwitchValue('dev-tools');
 
-console.log('XXX isDevToolsStr', isDevToolsStr);
-console.log("XXX isDevToolsStr === 'true'", isDevToolsStr === 'true');
-console.log('XXX import.meta.env.VITE_IS_DEV_TOOL_OPEN', import.meta.env.VITE_IS_DEV_TOOL_OPEN);
-console.log("XXX import.meta.env.VITE_IS_DEV_TOOL_OPEN === 'true'", import.meta.env.VITE_IS_DEV_TOOL_OPEN === 'true');
-
 const desktopAppSettings: TDesktopAppConfig = {
   isOpenDevTools: isDevToolsStr === 'true' || import.meta.env.VITE_IS_DEV_TOOL_OPEN === 'true' || false
 };
-
-console.log('XXX desktopAppSettings.isOpenDevTools', desktopAppSettings.isOpenDevTools);
 
 // TODO DESKTOP: Linux: make sure we can build the project
 // TODO DESKTOP: Build every platform-version on any machine (use docker or something)
