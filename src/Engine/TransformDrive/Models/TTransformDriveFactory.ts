@@ -1,6 +1,6 @@
 import type { TReactiveFactory } from '@/Engine/Abstract';
 
 import type { TTransformDrive, TTransformDriveCompatibleEntity } from './TTransformDrive';
-import type { TTransformDriveParams } from './TTransformDriveParams';
+import type { TTransformDriveFactoryParams } from './TTransformDriveFactoryParams';
 
-export type TTransformDriveFactory = TReactiveFactory<TTransformDrive<TTransformDriveCompatibleEntity>, TTransformDriveParams>;
+export type TTransformDriveFactory = TReactiveFactory<TTransformDrive<TTransformDriveCompatibleEntity>, TTransformDriveFactoryParams>;

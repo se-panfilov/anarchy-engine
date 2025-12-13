@@ -17,6 +17,7 @@ export type * from './TTransformAgentPerformanceParams';
 export type * from './TTransformAgents';
 export type * from './TTransformDrive';
 export type * from './TTransformDriveFactory';
+export type * from './TTransformDriveFactoryParams';
 export type * from './TTransformDriveParams';
 export type * from './TTransformDrivePerformanceOptions';
 export type * from './TTransformDriveRegistry';
