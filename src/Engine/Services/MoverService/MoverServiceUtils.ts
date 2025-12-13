@@ -1,3 +1,4 @@
+import anime from 'animejs';
 import type { Subscription } from 'rxjs';
 
 import type { IActorWrapper } from '@/Engine/Domains/Actor';
@@ -13,7 +14,6 @@ import type {
   IMoveFnParams
 } from '@/Engine/Services/MoverService/Models';
 import { createDeferredPromise } from '@/Engine/Utils';
-import anime from 'animejs';
 
 export function performMove(moveFn: IMoveFn | IMoveByPathFn, loopService: ILoopService, params: Omit<IMoveFnParams, 'complete'> | Omit<IMoveByPathFnParams, 'complete'>): Promise<void> {
   const { promise, resolve } = createDeferredPromise();
