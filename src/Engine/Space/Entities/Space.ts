@@ -11,8 +11,7 @@ import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
 import type { TSpace, TSpaceBaseServices, TSpaceCanvas, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceServices } from '@/Engine/Space/Models';
-import { buildBaseServices, buildEntitiesServices, createEntities } from '@/Engine/Space/Utils';
-import { createLoops } from '@/Engine/Space/Utils/CreateLoopsUtils';
+import { buildBaseServices, buildEntitiesServices, createEntities, createLoops } from '@/Engine/Space/Utils';
 import { findDomElement, getCanvasContainer, getOrCreateCanvasFromSelector, isCanvasElement, isDefined, isDestroyable, isNotDefined } from '@/Engine/Utils';
 
 export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
