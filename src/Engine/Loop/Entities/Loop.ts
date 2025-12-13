@@ -89,7 +89,10 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
     enabled$.complete();
     enabled$.unsubscribe();
 
-    if (isDefined(intervalId)) clearInterval(intervalId);
+    if (isDefined(intervalId)) {
+      clearInterval(intervalId);
+      intervalId = null as any;
+    }
 
     tickCounter = 0;
 
