@@ -88,7 +88,6 @@
       "cameraName": "camera_red",
       "actorNames": ["actor_red_1", "actor_red_2"],
       "isAutoStart": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": []
     },
     {
