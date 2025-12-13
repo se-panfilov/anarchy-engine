@@ -36,7 +36,10 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
 
   const playSub$: Subscription = play$.pipe(distinctUntilChanged()).subscribe((isPlay: boolean): void => {
     if (isPlay) return void entity.play();
-    else return void entity.stop();
+    else {
+      seek$.next(0);
+      return void entity.stop();
+    }
   });
 
   const volumeSub$: Subscription = volume$
