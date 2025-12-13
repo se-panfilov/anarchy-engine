@@ -21,14 +21,14 @@
         "model3dSource": "solder_model_entity_1",
         "name": "solder_actor_1",
         "position": {
-          "x": 0,
-          "y": 0,
-          "z": 0
+          "x": -5,
+          "y": 20,
+          "z": 2
         },
         "rotation": {
-          "x": 0,
+          "x": 1.5,
           "y": 0,
-          "z": 0
+          "z": 3.14
         },
         "spatial": {
           "grid": "main_grid",
@@ -40,14 +40,14 @@
         "model3dSource": "solder_model_entity_2",
         "name": "solder_actor_2",
         "position": {
-          "x": 2,
-          "y": 0,
+          "x": 4,
+          "y": 20,
           "z": 2
         },
         "rotation": {
-          "x": 0,
-          "y": 0.8,
-          "z": 0
+          "x": 1.5,
+          "y": 0,
+          "z": 3.14
         },
         "spatial": {
           "grid": "main_grid",
@@ -100,7 +100,20 @@
       }
     ],
     "intersections": [],
-    "lights": [],
+    "lights": [
+      {
+        "name": "ambient_light",
+        "color": "#ffffff",
+        "groundColor": "#8D8D8D",
+        "intensity": 3,
+        "position": {
+          "x": 0,
+          "y": 20,
+          "z": 0
+        },
+        "type": "Hemisphere"
+      }
+    ],
     "models3d": [
       {
         "castShadow": false,
