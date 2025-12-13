@@ -63,63 +63,30 @@ export function CollisionsService(): TCollisionsService {
     box = createBoundingBox(queryBox.minX, queryBox.minZ, queryBox.maxX, queryBox.maxZ, 'red');
     (window as any).sceneW.entity.add(box);
 
-    if (!actorW.previousPosition) actorW.previousPosition = actorW.entity.position.clone();
-
-    const currentPosition = actorW.entity.position.clone();
-    const previousPosition = actorW.previousPosition.clone();
-
-    const movementVector = currentPosition.clone().sub(previousPosition);
-    const movementDistance = movementVector.length();
-
-    if (movementDistance === 0) {
-      return undefined;
-    }
-    const direction = movementVector.clone().normalize();
-
-    const stepCount = Math.ceil(movementDistance / radius);
-    const stepSize = movementDistance / stepCount;
-
-    // TODO debug (window as any).sceneW
-    // interpolatedPositions.forEach((line: Line) => (window as any).sceneW.entity.remove(line));
-    // interpolatedPositions = [...interpolatedPositions, _debugVisualizeInterpolatedPositions(previousPosition, currentPosition, stepCount)];
-
     // eslint-disable-next-line functional/no-loop-statements
-    for (let i = 0; i <= stepCount; i++) {
-      const interpolatedPosition = previousPosition.clone().add(direction.clone().multiplyScalar(i * stepSize));
+    for (const object of actorsToCheck) {
+      if (object.id !== actorW.id) {
+        const raycaster: Raycaster = new Raycaster();
+        // eslint-disable-next-line functional/immutable-data
+        raycaster.firstHitOnly = true;
+        raycaster.set(actorW.entity.position, actorW.kinematic.getLinearDirection());
 
-      // eslint-disable-next-line functional/no-loop-statements
-      for (const object of actorsToCheck) {
-        if (object.id !== actorW.id) {
-          const raycaster: Raycaster = new Raycaster();
-          // eslint-disable-next-line functional/immutable-data
-          raycaster.firstHitOnly = true;
-          raycaster.set(interpolatedPosition, direction);
-          // raycaster.far = radius * 2;
+        const intersects: Array<Intersection> = [];
+        bvhService.raycastWithBvh(object, raycaster, intersects);
 
-          // TODO debug (window as any).sceneW
-          // (window as any).sceneW.entity.remove(arrowHelper);
-          // arrowHelper = _debugVisualizeRaycaster(raycaster, raycaster.ray.direction.length());
-
-          const intersects: Array<Intersection> = [];
-          bvhService.raycastWithBvh(object, raycaster, intersects);
-
-          if (intersects.length > 0) {
-            const intersect = intersects[0];
-            if (intersect.distance <= radius) {
-              actorW.previousPosition.copy(currentPosition);
-              return {
-                object,
-                distance: intersect.distance,
-                collisionPoint: intersect.point,
-                bulletPosition: interpolatedPosition.clone()
-              };
-            }
+        if (intersects.length > 0) {
+          const intersect = intersects[0];
+          if (intersect.distance <= radius) {
+            return {
+              object,
+              distance: intersect.distance,
+              collisionPoint: intersect.point,
+              bulletPosition: actorW.entity.position.clone()
+            };
           }
         }
       }
     }
-
-    actorW.previousPosition.copy(currentPosition);
 
     return undefined;
   }
