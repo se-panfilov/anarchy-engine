@@ -8,8 +8,10 @@ import '@/App/style.css';
 // import { showcaseLevel } from '@/App/Levels/Showcase6Fullscreen'; // Go fullscreen
 // import { showcaseLevel } from '@/App/Levels/Showcase7Text2d'; // Text 2d
 // import { showcaseLevel } from '@/App/Levels/Showcase8Text3d'; // Text 3d
-// import { showcaseLevel } from '@/App/Levels/ShowcaseLevel9TexturesAndMaterials'; // Textures & Materials
-import { showcaseLevel } from '@/App/Levels/ShowcaseLevel10ComplexMaterials'; // Textures & Materials
+// import { showcaseLevel } from '@/App/Levels/Showcase9TexturesAndMaterials'; // Textures & Materials
+// import { showcaseLevel } from '@/App/Levels/Showcase10ComplexMaterials'; // Textures & Materials
+import { showcaseLevel } from '@/App/Levels/Showcase11KeyboardAndMouse'; // Keyboard and mouse
+
 import type { IAppCanvas } from '@/Engine';
 import { ambientContext, isNotDefined } from '@/Engine';
 
