@@ -14,9 +14,6 @@ export function entityToConfigSpatialGrid(entity: TSpatialGridWrapper): TSpatial
 export function entityToConfigSpatialCell(entity: TSpatialCellWrapper): TSpatialCellSerializedData {
   const { minX, minY, maxX, maxY } = entity;
   const objects: ReadonlyArray<string> = entity.getObjects().map((v: TActor): string => v.id);
-  const id: string = entity.id as TSpatialCellId;
-  // TODO 15-0-0: implement
-  // TODO 15-0-0: Not sure if we need an adapter for SpatialCellWrapper
-  // TODO 15-0-0: fix any
-  return filterOutEmptyFields({ id, minX, minY, maxX, maxY, objects, version: entity.getVersion() }) as any;
+  const id: TSpatialCellId = entity.id as TSpatialCellId;
+  return filterOutEmptyFields({ id, minX, minY, maxX, maxY, objects, version: entity.getVersion() });
 }
