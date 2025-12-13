@@ -1,6 +1,6 @@
 import { LoaderType } from '@Anarchy/Engine/Abstract';
 import type { TModel3dResourceConfig, TModels3dLoader, TModels3dMetaInfoRegistry, TModels3dResourceAsyncRegistry } from '@Anarchy/Engine/Models3d';
-import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToModel3d, applyScaleToModel3d } from '@Anarchy/Engine/Models3d';
+import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToModel3d, applyScaleToModel3d } from '@Anarchy/Engine/Models3d/Utils';
 import type { TDracoLoaderSettings } from '@Anarchy/Engine/ThreeLib';
 import type { TWriteable } from '@Anarchy/Shared/Utils';
 import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';

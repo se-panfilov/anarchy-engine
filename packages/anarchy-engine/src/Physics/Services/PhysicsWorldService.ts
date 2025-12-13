@@ -1,7 +1,7 @@
 import type { TAbstractService } from '@Anarchy/Engine/Abstract';
 import { AbstractService } from '@Anarchy/Engine/Abstract';
 import { withSceneGetterService } from '@Anarchy/Engine/Mixins';
-import { physicWorldToConfig } from '@Anarchy/Engine/Physics';
+import { physicWorldToConfig } from '@Anarchy/Engine/Physics/Adapters';
 import { STANDARD_GRAVITY } from '@Anarchy/Engine/Physics/Constants';
 import type { TPhysicsDebugRenderer, TPhysicsLoop, TPhysicsWorldConfig, TPhysicsWorldParams, TPhysicsWorldService } from '@Anarchy/Engine/Physics/Models';
 import { PhysicsDebugRenderer } from '@Anarchy/Engine/Physics/Renderers';
