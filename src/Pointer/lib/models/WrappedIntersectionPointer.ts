@@ -1,4 +1,4 @@
-import { Entity } from '../../../Models';
+import { Entity } from '@/Models';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Raycaster, Vector3 } from 'three';
 import { WrappedMousePointer } from './WrappedMousePointer';

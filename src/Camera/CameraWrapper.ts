@@ -1,5 +1,5 @@
 import { PerspectiveCamera } from 'three';
-import { deviceSize$ } from '../Store/DeviceSize';
+import { deviceSize$ } from '@/Store/DeviceSize';
 import { Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
 import { WrappedCamera } from './Models/WrappedCamera';
