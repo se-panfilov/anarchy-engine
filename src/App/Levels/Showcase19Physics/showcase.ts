@@ -60,7 +60,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     });
 
     keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => {
-      // TODO CWP: 8.0.0. MODELS: Perhaps, "applyImpulse" (and similar functions) should be available via physical drive
       ballActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse({ x: 0, y: 20, z: 0 }, true);
     });
 

@@ -26,7 +26,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const cameraW: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
 
-    // TODO CWP: 8.0.0. MODELS: Perhaps, "applyImpulse" (and similar functions) should be available via physical drive
     actor1.drive.physical.physicsBody$.value?.getRigidBody()?.addTorque({ x: -0.2, y: 0.5, z: 1 }, true);
     actor2.drive.physical.physicsBody$.value?.getRigidBody()?.addTorque({ x: -0.5, y: -0.01, z: 0.05 }, true);
     actor3.drive.physical.physicsBody$.value?.getRigidBody()?.addTorque({ x: 0.01, y: 5, z: -0.05 }, true);
@@ -38,7 +37,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     physicsWorldService.getDebugRenderer(loopService).start();
 
     loopService.tick$.subscribe(() => {
-      // TODO CWP: 8.0.0. MODELS: Perhaps, "applyImpulse" (and similar functions) should be available via physical drive
       actor3.drive.physical.physicsBody$.value?.getRigidBody()?.setAngvel({ x: 0, y: 3, z: 1 }, true);
       cameraW.drive.default.setY(actor1.drive.position$.value.y);
     });
