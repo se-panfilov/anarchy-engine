@@ -17,6 +17,7 @@ Done:
 - 10.0.x Refactor loops (physical, collision and etc) loops should be based on milliseconds, not frames. Only rendering loop should be based on frames
 - 11.0.x Sounds/Music
 - 12.0.x Fix Registries (should always return the same object)
+- 12.1.x Fixed production build (removed topLevelAsync vite plugin)
 
 Roadmap:
 - 13.0.x Deletion and resource dispose (memory management)
