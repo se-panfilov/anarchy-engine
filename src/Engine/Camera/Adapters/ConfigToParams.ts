@@ -1,24 +1,43 @@
 import type { AudioListener } from 'three';
 import { Vector3 } from 'three';
 
+import type { TAudioService } from '@/Engine/Audio';
 import type { TAnyCameraParams, TCameraServiceDependencies, TCommonCameraConfig } from '@/Engine/Camera/Models';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function configToParams(config: TCommonCameraConfig, { audioService }: TCameraServiceDependencies): TAnyCameraParams | never {
-  const { position, rotation, scale, layers, lookAt, audioListener, up, ...rest } = config;
-
   let listener: AudioListener | undefined;
-  if (isDefined(audioListener)) {
-    listener = audioService.getListenersRegistry().findByKey(audioListener);
-    if (isNotDefined(listener)) throw new Error(`Camera: cannot create camera from config: listener ("${audioListener}") is not found`);
+  if (isDefined(config.audioListener)) {
+    listener = audioService.getListenersRegistry().findByKey(config.audioListener);
+    if (isNotDefined(listener)) throw new Error(`Camera: cannot create camera from config: listener ("${config.audioListener}") is not found`);
   }
 
   return {
+    ...configToParamsAudioListener(config, audioService),
+    ...configToParamsCameraOnly(config)
+  };
+}
+
+export function configToParamsCameraOnly(config: TCommonCameraConfig): Omit<TAnyCameraParams, 'audioListener'> {
+  const { position, rotation, scale, layers, lookAt, up, ...rest } = config;
+
+  return {
     ...rest,
-    audioListener: listener,
     ...configToParamsObject3d({ position, rotation, scale, layers }),
     lookAt: lookAt ? new Vector3(lookAt.x, lookAt.y, lookAt.z) : undefined,
     up: up ? new Vector3(up.x, up.y, up.z) : undefined
+  };
+}
+
+function configToParamsAudioListener(config: TCommonCameraConfig, audioService: TAudioService): Pick<TAnyCameraParams, 'audioListener'> {
+  let listener: AudioListener | undefined;
+  if (isDefined(config.audioListener)) {
+    listener = audioService.getListenersRegistry().findByKey(config.audioListener);
+    if (isNotDefined(listener)) throw new Error(`Camera: cannot create camera from config: listener ("${config.audioListener}") is not found`);
+  }
+
+  return {
+    audioListener: listener
   };
 }
