@@ -236,8 +236,6 @@ export function LegalFilesService(): TLegalFilesService {
     });
   }
 
-  // ---------------------- Main rendering pipeline ----------------------
-
   async function generateForType(i: TRenderInput, docType: TLegalDocumentType): Promise<void> {
     const genericConfig: TAnarchyLegalConfigEntry | undefined = pickEntry(i.config, 'GENERIC');
     const specificConfig: TAnarchyLegalConfigEntry | undefined = pickEntry(i.config, docType);
@@ -264,7 +262,7 @@ export function LegalFilesService(): TLegalFilesService {
     const outPath: string = path.join(i.outDir, outName);
     await fs.mkdir(path.dirname(outPath), { recursive: true });
     await fs.writeFile(outPath, rendered, 'utf8');
-    console.log(`✔ ${docType}.md written -> ${outPath}`);
+    console.log(`${docType}.md written -> ${outPath}`);
   }
 
   async function generateAll(i: TRenderInput): Promise<void> {
@@ -275,8 +273,6 @@ export function LegalFilesService(): TLegalFilesService {
       }
     }, Promise.resolve());
   }
-
-  // ---------------------- CLI ----------------------
 
   async function generate(): Promise<void> {
     // eslint-disable-next-line spellcheck/spell-checker
@@ -299,7 +295,7 @@ export function LegalFilesService(): TLegalFilesService {
 
     // Find monorepo root
     const rootDir: string | undefined = await startCandidates.reduce<Promise<string | undefined>>(async (accP, c) => {
-      const acc = await accP;
+      const acc: string | undefined = await accP;
       if (acc) return acc;
       try {
         return await findMonorepoRoot(c);

@@ -46,7 +46,7 @@ export function RepoUtilsService(): TRepoUtilsService {
         try {
           const pkg = await readJson<any>(pkgPath);
           if (hasWorkspacesField(pkg)) {
-            debugLog(isDebug, '  ✔ found workspaces at', pkgPath);
+            debugLog(isDebug, ' found workspaces at', pkgPath);
             return dir;
           }
         } catch (e) {
