@@ -33,21 +33,25 @@ import { PhysicsBodyFactory, PhysicsBodyRegistry, PhysicsBodyService, PhysicsPre
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
 import type { TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
+import type { TScreenService } from '@/Engine/Screen';
+import { ScreenService, ScreenSizeWatcherFactory, ScreenSizeWatcherRegistry } from '@/Engine/Screen';
 import type { TSpaceBaseServices, TSpaceLoops, TSpaceServices } from '@/Engine/Space/Models';
 import type { TSpatialGridService } from '@/Engine/Spatial';
 import { SpatialGridFactory, SpatialGridRegistry, SpatialGridService } from '@/Engine/Spatial';
 import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererRegistry, Text3dTextureRegistry, TextFactory, TextService } from '@/Engine/Text';
 import type { TTextureService } from '@/Engine/Texture';
-import { TextureService } from '@/Engine/Texture';
-import { TextureAsyncRegistry } from '@/Engine/Texture/Registries/TextureAsyncRegistry';
+import { TextureAsyncRegistry, TextureService } from '@/Engine/Texture';
 
-export function buildBaseServices(): TSpaceBaseServices {
+export function buildBaseServices(canvas: TAppCanvas): TSpaceBaseServices {
   const scenesService: TScenesService = ScenesService(SceneFactory(), SceneRegistry());
   const loopService: TLoopService = LoopService(LoopFactory(), LoopRegistry());
-  return { loopService, scenesService };
+  const screenService: TScreenService = ScreenService(ScreenSizeWatcherFactory(), ScreenSizeWatcherRegistry());
+  screenService.setCanvas(canvas);
+
+  return { loopService, scenesService, screenService };
 }
 
-export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas, loops: TSpaceLoops, { loopService, scenesService }: TSpaceBaseServices): TSpaceServices {
+export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas, loops: TSpaceLoops, { loopService, scenesService, screenService }: TSpaceBaseServices): TSpaceServices {
   const textureService: TTextureService = TextureService(TextureAsyncRegistry());
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry(), { textureService });
   const physicsPresetService: TPhysicsPresetsService = PhysicsPresetsService(PhysicsPresetRegistry());
@@ -87,6 +91,7 @@ export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas,
     controlsService: ControlService(ControlsFactory(), ControlsRegistry(), loops, canvas),
     collisionsService,
     scenesService,
+    screenService,
     envMapService: EnvMapService(EnvMapFactory(), EnvMapRegistry(), EnvMapTextureAsyncRegistry(), sceneW),
     fogService: FogService(FogFactory(), FogRegistry(), sceneW),
     fsmService,

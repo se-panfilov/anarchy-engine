@@ -1,2 +1,1 @@
 export * from './MoverService';
-export * from './ScreenService';

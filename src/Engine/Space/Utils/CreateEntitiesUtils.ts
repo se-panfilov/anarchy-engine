@@ -1,9 +1,11 @@
 import type { TRegistryPack } from '@/Engine/Abstract';
+import type { TAppCanvas } from '@/Engine/App';
 import { ambientContext } from '@/Engine/Context';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
+import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
 import type { TSpaceConfigEntities, TSpaceParamsEntities, TSpaceServices } from '@/Engine/Space/Models';
-import { isDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function createEntities(entities: TSpaceConfigEntities | TSpaceParamsEntities, services: TSpaceServices, strategy: CreateEntitiesStrategy): void | never {
   switch (strategy) {
@@ -17,10 +19,13 @@ export function createEntities(entities: TSpaceConfigEntities | TSpaceParamsEnti
       throw new Error(`Space: Unknown entities creation strategy: ${strategy}`);
   }
 
-  // TODO Not the best place for this, perhaps better to do it in a wrapper (or service?)
+  // TODO 14-0-0: Move this into Space
   services.intersectionsWatcherService.getRegistry().added$.subscribe(({ value }: TRegistryPack<TIntersectionsWatcher>): void => {
     if (value.isAutoStart && !value.isStarted) value.start$.next();
   });
+
+  // TODO 14-0-0: Move this into Space
+  services.screenService.getRegistry().added$.subscribe(({ value }: TRegistryPack<TScreenSizeWatcher>): void => value.start$.next());
 }
 
 // TODO a lot of code duplication here, but doesn't worth to refactor right now
@@ -43,9 +48,14 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
     particlesService,
     physicsPresetService,
     physicsWorldService,
+    screenService,
     spatialGridService,
     textService
   } = services;
+
+  const canvas: TAppCanvas | undefined = screenService.getCanvas();
+  if (isNotDefined(canvas)) throw new Error('Space: Cannot build space, canvas not found');
+  const screenSizeWatcher: TScreenSizeWatcher = screenService.create({ canvas });
 
   // better to create FSMs before any other entities
   fsmService.createSourceFromConfig(fsm);
@@ -63,8 +73,8 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
   cameraService.createFromConfig(cameras);
   actorService.createFromConfig(actors);
 
-  textService.createText2dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
-  textService.createText3dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
+  textService.createText2dRenderer(ambientContext.container.getAppContainer(), screenSizeWatcher);
+  textService.createText3dRenderer(ambientContext.container.getAppContainer(), screenSizeWatcher);
   textService.createFromConfig(texts);
 
   controlsService.createFromConfig(controls, cameraService.getRegistry());
@@ -91,9 +101,14 @@ export function createEntitiesFromParams(entities: TSpaceParamsEntities, service
     particlesService,
     physicsPresetService,
     physicsWorldService,
+    screenService,
     spatialGridService,
     textService
   } = services;
+
+  const canvas: TAppCanvas | undefined = screenService.getCanvas();
+  if (isNotDefined(canvas)) throw new Error('Space: Cannot build space, canvas not found');
+  const screenSizeWatcher: TScreenSizeWatcher = screenService.create({ canvas });
 
   // better to create FSMs before any other entities
   if (isDefined(fsm)) fsmService.createSourceFromList(fsm);
@@ -111,8 +126,8 @@ export function createEntitiesFromParams(entities: TSpaceParamsEntities, service
   if (isDefined(cameras)) cameraService.createFromList(cameras);
   if (isDefined(actors)) actorService.createFromList(actors);
 
-  textService.createText2dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
-  textService.createText3dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
+  textService.createText2dRenderer(ambientContext.container.getAppContainer(), screenSizeWatcher);
+  textService.createText3dRenderer(ambientContext.container.getAppContainer(), screenSizeWatcher);
   if (isDefined(texts)) textService.createFromList(texts);
 
   if (isDefined(controls)) controlsService.createFromList(controls);

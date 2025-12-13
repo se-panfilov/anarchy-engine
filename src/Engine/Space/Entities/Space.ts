@@ -3,11 +3,12 @@ import { BehaviorSubject, distinctUntilChanged, filter } from 'rxjs';
 
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
+import type { TAppCanvas } from '@/Engine/App';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TLoop } from '@/Engine/Loop';
 import { RendererModes } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
-import { screenService } from '@/Engine/Services';
+import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
 import type { TSpace, TSpaceBaseServices, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceServices } from '@/Engine/Space/Models';
 import { buildBaseServices, buildEntitiesServices, createEntities } from '@/Engine/Space/Utils';
@@ -19,9 +20,7 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   const built$: BehaviorSubject<TSpace | undefined> = new BehaviorSubject<TSpace | undefined>(undefined);
   const start$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  screenService.setCanvas(params.canvas);
-
-  const { services, loops } = initSpaceServices(params);
+  const { services, loops } = initSpaceServices(canvas, params);
   hooks?.afterAllServicesInitialized?.(canvas, services, loops, params);
 
   services.rendererService.create({ canvas: params.canvas, mode: RendererModes.WebGL2, isActive: true });
@@ -46,8 +45,11 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
 
     //stop
     if (isNotDefined(space)) throw new Error('Engine is not started yet (space is not defined)');
-    const { intersectionsWatcherService } = space.services;
     Object.values(space.loops).forEach((loop: TLoop): void => loop.stop());
+
+    const { intersectionsWatcherService, screenService } = space.services;
+
+    screenService.getRegistry().forEach((watcher: TScreenSizeWatcher): void => watcher.stop$.next());
     // TODO 14-0-0: stop all watchers, not only intersections
     void intersectionsWatcherService.getRegistry().forEach((watcher: TIntersectionsWatcher): void => {
       if (watcher.isStarted) watcher.stop$.next();
@@ -59,6 +61,8 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   // TODO 14-0-0: Add possibility to drop the whole canvas on destroy
   const destroySub$: Subscription = space.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
+
+    // TODO 14-0-0: Stop all watchers on destroy
 
     built$.complete();
     built$.unsubscribe();
@@ -74,15 +78,14 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   return result;
 }
 
-function initSpaceServices(params: TSpaceParams, hooks?: TSpaceHooks): { services: TSpaceServices; loops: TSpaceLoops } {
+function initSpaceServices(canvas: TAppCanvas, params: TSpaceParams, hooks?: TSpaceHooks): { services: TSpaceServices; loops: TSpaceLoops } {
   hooks?.beforeBaseServicesBuilt?.(params.canvas, params);
-  const baseServices: TSpaceBaseServices = buildBaseServices();
+  const baseServices: TSpaceBaseServices = buildBaseServices(canvas);
 
   baseServices.scenesService.createFromList(params.scenes);
   const sceneW: TSceneWrapper | undefined = baseServices.scenesService.findActive();
   if (isNotDefined(sceneW)) throw new Error(`Cannot find an active scene for space "${params.name}" during space's services initialization.`);
 
-  // TODO create loops only from config
   hooks?.beforeLoopsCreated?.(params);
   const loops: TSpaceLoops = createLoops(baseServices.loopService);
 

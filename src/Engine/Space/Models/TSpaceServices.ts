@@ -18,16 +18,18 @@ import type { TParticlesService } from '@/Engine/Particles';
 import type { TPhysicsBodyService, TPhysicsPresetsService, TPhysicsWorldService } from '@/Engine/Physics';
 import type { TRendererService } from '@/Engine/Renderer';
 import type { TScenesService } from '@/Engine/Scene';
+import type { TScreenService } from '@/Engine/Screen';
 import type { TSpatialGridService } from '@/Engine/Spatial';
 import type { TTextService } from '@/Engine/Text';
 import type { TTextureService } from '@/Engine/Texture';
 
 export type TSpaceServices = Readonly<{
   actorService: TActorService;
+  animationsService: TAnimationsService;
   audioService: TAudioService;
   cameraService: TCameraService;
-  controlsService: TControlsService;
   collisionsService: TCollisionsService;
+  controlsService: TControlsService;
   envMapService: TEnvMapService;
   fogService: TFogService;
   fsmService: TFsmService;
@@ -37,14 +39,14 @@ export type TSpaceServices = Readonly<{
   loopService: TLoopService;
   materialService: TMaterialService;
   models3dService: TModels3dService;
-  animationsService: TAnimationsService;
   mouseService: TMouseService;
   particlesService: TParticlesService;
   physicsBodyService: TPhysicsBodyService;
-  physicsWorldService: TPhysicsWorldService;
   physicsPresetService: TPhysicsPresetsService;
+  physicsWorldService: TPhysicsWorldService;
   rendererService: TRendererService;
   scenesService: TScenesService;
+  screenService: TScreenService;
   spatialGridService: TSpatialGridService;
   textService: TTextService;
   textureService: TTextureService;
