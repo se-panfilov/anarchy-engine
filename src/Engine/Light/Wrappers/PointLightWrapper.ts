@@ -5,6 +5,6 @@ import type { TAbstractLightWrapper, TLightServiceDependencies, TPointLight, TPo
 import { AbstractLightWrapper } from './AbstractLightWrapper';
 
 export function PointLightWrapper(params: TPointLightParams, dependencies: TLightServiceDependencies): TAbstractLightWrapper<TPointLight> {
-  const entity: TPointLight = new PointLight(params.color, params.intensity);
+  const entity: TPointLight = new PointLight(params.color, params.intensity, params.distance, params.decay);
   return AbstractLightWrapper(entity, params, dependencies);
 }
