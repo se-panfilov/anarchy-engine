@@ -17,8 +17,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { clickLeftRelease$ } = mouseService;
 
   function init(): void {
-    const actor: TActorWrapper | undefined = actorRegistry.findByName('ball');
-    if (isNotDefined(actor)) throw new Error('Cannot find actor"');
+    const actor: TActorWrapper | undefined = actorRegistry.findByName('sphere_actor');
+    if (isNotDefined(actor)) throw new Error('Cannot find actor');
     actor.setY(2);
 
     let cameraFolder: GUI | undefined;

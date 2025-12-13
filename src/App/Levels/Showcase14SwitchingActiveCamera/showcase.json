@@ -8,98 +8,122 @@
       "isActive": true
     }
   ],
-  "spatialGrids": [
-    {
-      "name": "main_grid",
-      "mapWidth": 60,
-      "mapHeight": 40,
-      "cellSize": 10,
-      "centerX": 0,
-      "centerZ": 0,
-      "tags": []
-    }
-  ],
-  "actors": [
-    {
-      "width": 60,
-      "height": 40,
-      "widthSegments": 10,
-      "heightSegments": 10,
-      "material": { "type": "standard", "params": { "color": "#5EDCAE" } },
-      "model3d": {
-        "url": "plane"
+  "resources": {
+    "textures": [],
+    "envMaps": [],
+    "materials": [
+      { "name": "surface_material", "type": "standard", "options": { "color": "#5EDCAE" } },
+      { "name": "sphere_material", "type": "standard", "options": { "color": "#E91E63" } }
+    ],
+    "models3d": []
+  },
+  "entities": {
+    "spatialGrids": [
+      {
+        "name": "main_grid",
+        "mapWidth": 60,
+        "mapHeight": 40,
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "tags": []
+      }
+    ],
+    "models3d": [
+      {
+        "name": "surface_model",
+        "model3dSource": "plane",
+        "materialSource": "surface_material",
+        "options": {
+          "width": 60,
+          "height": 40,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": false,
+        "receiveShadow": true,
+        "rotation": { "x": -1.57, "y": 0, "z": 0 }
       },
-      "position": { "x": 0, "y": 2, "z": 0 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "castShadow": false,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "name": "ball",
-      "model3d": {
-        "url": "sphere"
+      {
+        "name": "sphere_model",
+        "model3dSource": "sphere",
+        "materialSource": "sphere_material",
+        "options": { "radius": 0.7 },
+        "castShadow": true
+      }
+    ],
+    "actors": [
+      {
+        "name": "surface_actor",
+        "model3dEntity": "surface_model",
+        "position": { "x": 0, "y": 2, "z": 0 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "castShadow": false,
+        "receiveShadow": true,
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true },
+        "tags": ["surface"]
       },
-      "radius": 1,
-      "material": { "type": "standard", "params": { "color": "#E91E63" } },
-      "position": { "x": 0, "y": 2, "z": 0 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    }
-  ],
-  "models3d": [],
-  "intersections": [],
-  "physics": {},
-  "texts": [],
-  "cameras": [
-    {
-      "fov": 45,
-      "name": "cam1",
-      "near": 1,
-      "far": 10000,
-      "position": { "x": 3, "y": 20, "z": 35 },
-      "rotation": { "x": -0.5, "y": 0, "z": 0 },
-      "tags": [],
-      "isActive": true
-    },
-    {
-      "fov": 45,
-      "name": "cam2",
-      "near": 1,
-      "far": 10000,
-      "position": { "x": 45, "y": 20, "z": 5.5 },
-      "rotation": { "x": 1.52, "y": 1.52, "z": 0.05 },
-      "tags": [],
-      "isActive": false
-    }
-  ],
-  "lights": [
-    {
-      "type": "Ambient",
-      "color": "#ffffff",
-      "intensity": 0.5,
-      "castShadow": false,
-      "position": { "x": 0.25, "y": 2, "z": 2.25 },
-      "tags": []
-    },
-    {
-      "type": "Directional",
-      "color": "#ffffff",
-      "intensity": 1,
-      "castShadow": true,
-      "shadow": {
-        "mapSize": { "x": 1024, "y": 1024 },
-        "camera": { "far": 15 },
-        "normalBias": 0.05
+      {
+        "name": "sphere_actor",
+        "model3dEntity": "sphere_model",
+        "position": { "x": 0, "y": 2, "z": 0 },
+        "castShadow": true,
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true },
+        "tags": ["physical", "glass"]
+      }
+    ],
+    "intersections": [],
+    "physics": {},
+    "texts": [],
+    "cameras": [
+      {
+        "fov": 45,
+        "name": "cam1",
+        "near": 1,
+        "far": 10000,
+        "position": { "x": 3, "y": 20, "z": 35 },
+        "rotation": { "x": -0.5, "y": 0, "z": 0 },
+        "tags": [],
+        "isActive": true
       },
-      "position": { "x": 0.25, "y": 2, "z": 2.25 },
-      "tags": []
-    }
-  ],
-  "controls": [],
-  "envMaps": [],
-  "particles": [],
-  "fogs": [],
+      {
+        "fov": 45,
+        "name": "cam2",
+        "near": 1,
+        "far": 10000,
+        "position": { "x": 45, "y": 20, "z": 5.5 },
+        "rotation": { "x": 1.52, "y": 1.52, "z": 0.05 },
+        "tags": [],
+        "isActive": false
+      }
+    ],
+    "lights": [
+      {
+        "type": "Ambient",
+        "color": "#ffffff",
+        "intensity": 0.5,
+        "castShadow": false,
+        "position": { "x": 0.25, "y": 2, "z": 2.25 },
+        "tags": []
+      },
+      {
+        "type": "Directional",
+        "color": "#ffffff",
+        "intensity": 1,
+        "castShadow": true,
+        "shadow": {
+          "mapSize": { "x": 1024, "y": 1024 },
+          "camera": { "far": 15 },
+          "normalBias": 0.05
+        },
+        "position": { "x": 0.25, "y": 2, "z": 2.25 },
+        "tags": []
+      }
+    ],
+    "controls": [],
+    "envMaps": [],
+    "particles": [],
+    "fogs": []
+  },
   "tags": []
 }
