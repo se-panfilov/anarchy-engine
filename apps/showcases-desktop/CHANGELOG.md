@@ -4,6 +4,7 @@
 - 2.2.0 Save settings
 - 2.3.0 Load settings
 - 2.4.0 Async read/write files
+- 2.5.0 App close/restart
 
 Roadmap:
 
