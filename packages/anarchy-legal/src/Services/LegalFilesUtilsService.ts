@@ -4,13 +4,13 @@ import { pathToFileURL } from 'node:url';
 
 import type {
   TAnarchyLegalConfig,
+  TAnarchyLegalConfigEntry,
   TLegalDocumentType,
   TLegalFilesUtilsService,
   TRenderInput,
   TRepoUtilsService,
   TTemplateGeneratorOptions,
-  TTemplateMessages,
-  TWorkspaceInfo
+  TTemplateMessages
 } from '@Anarchy/Legal/Models';
 import { UTCDate } from '@date-fns/utc';
 import { isValid, parseISO } from 'date-fns';
@@ -277,42 +277,31 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
     return processUntilConverged(input);
   }
 
-  async function generateForType(
-    i: Readonly<{
-      ws: TWorkspaceInfo;
-      outDir: string;
-      templatesDir: string;
-      types: ReadonlySet<TLegalDocumentType>;
-      config: TAnarchyLegalConfig;
-    }>,
-    docType: TLegalDocumentType,
-    options: TTemplateGeneratorOptions
-  ): Promise<void> {
-    const genericConfig = i.config['GENERIC'];
-    const specificConfig = i.config[docType];
-    const desiredBase = specificConfig?.template;
+  async function generateForType(input: TRenderInput, docType: TLegalDocumentType, options: TTemplateGeneratorOptions): Promise<void> {
+    const genericConfig = input.config['GENERIC'];
+    const specificConfig = input.config[docType];
 
-    const tplPath: string | undefined = await findTemplateFile(i.templatesDir, docType, options, desiredBase);
-    if (!tplPath) {
-      console.warn(`[warn] No template found for ${docType}. Skipping.`);
-      return;
-    }
+    if (!specificConfig?.template || specificConfig.template.trim() === '') throw new Error(`[${docType}] missing "template" in anarchy-legal.config.js`);
+
+    const desiredBase = specificConfig.template;
+
+    const tplPath: string | undefined = await findTemplateFile(input.templatesDir, docType, options, desiredBase);
+    if (!tplPath) throw new Error(`[${docType}] template "${desiredBase}" not found under templates dir: ${input.templatesDir}`);
 
     const tplText: string = await fs.readFile(tplPath, 'utf8');
 
-    const { values, raw } = buildContext(docType, tplText, i.ws.pkg, genericConfig?.messages as any, specificConfig?.messages as any);
+    const { values, raw } = buildContext(docType, tplText, input.ws.pkg, genericConfig?.messages as any, specificConfig?.messages as any);
 
     const afterSections: string = renderSections(tplText, raw);
 
     const namesAfter: ReadonlySet<string> = collectPlaceholders(afterSections);
     const missing: string[] = Array.from(namesAfter).filter((name: string): boolean => values[name] === undefined);
-
     if (missing.length) console.warn(`[warn] ${docType}: ${missing.length} placeholders had no value: ${missing.slice(0, 10).join(', ')}${missing.length > 10 ? '…' : ''}`);
 
     const rendered: string = renderVariables(afterSections, values);
 
     const outName: string = `${docType}.md`;
-    const outPath: string = path.join(i.outDir, outName);
+    const outPath: string = path.join(input.outDir, outName);
     await fs.mkdir(path.dirname(outPath), { recursive: true });
     await fs.writeFile(outPath, rendered, 'utf8');
     console.log(`${docType}.md written -> ${outPath}`);
@@ -327,8 +316,30 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
     }, Promise.resolve());
   }
 
+  // Return only those doc types that are explicitly present in the config object
+  function getConfiguredDocTypes(config: TAnarchyLegalConfig): ReadonlySet<TLegalDocumentType> {
+    const set = new Set<TLegalDocumentType>();
+    Object.values(LegalDocumentType).forEach((docType: TLegalDocumentType) => {
+      if (config[docType]) set.add(docType);
+    });
+    return set;
+  }
+
+  // Ensure every configured doc type has a non-empty "template" field
+  function assertTemplatesPresent(config: TAnarchyLegalConfig, types: ReadonlySet<TLegalDocumentType>): void | never {
+    const missing: ReadonlyArray<string> = Array.from(types).filter((t: TLegalDocumentType): boolean => {
+      const sec: TAnarchyLegalConfigEntry | undefined = config[t];
+      const tpl: string | undefined = sec?.template;
+      return typeof tpl !== 'string' || tpl.trim() === '';
+    });
+
+    if (missing.length) throw new Error(`anarchy-legal.config.js: "template" is required for sections: ${missing.join(', ')}`);
+  }
+
   return {
+    assertTemplatesPresent,
     generateAll,
+    getConfiguredDocTypes,
     readConfig
   };
 }

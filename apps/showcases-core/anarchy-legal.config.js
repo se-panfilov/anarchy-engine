@@ -12,14 +12,8 @@ export default {
       IS_GAME: true
     }
   },
-  DISCLAIMER: {},
-  EULA: {
-    template: 'EULA_COMMERCIAL_TEMPLATE'
-  },
-  PRIVACY: {
-    template: 'PRIVACY_COMMERCIAL_TEMPLATE'
-  },
-  SECURITY: {
-    template: 'SECURITY_COMMERCIAL_TEMPLATE'
-  }
+  DISCLAIMER: { template: 'DISCLAIMER_TEMPLATE' },
+  EULA: { template: 'EULA_COMMERCIAL_TEMPLATE' },
+  PRIVACY: { template: 'PRIVACY_COMMERCIAL_TEMPLATE' },
+  SECURITY: { template: 'SECURITY_COMMERCIAL_TEMPLATE' }
 };
