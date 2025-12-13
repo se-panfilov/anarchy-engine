@@ -1,5 +1,4 @@
-import * as tty from 'node:tty';
-
+import type { Vector } from '@dimforge/rapier3d/math';
 import Decimal from 'decimal.js';
 import { Euler, Quaternion } from 'three';
 
@@ -27,12 +26,14 @@ export function getHorizontalAzimuth(center: TWithCoordsXZ, point: TWithCoordsXZ
   return azimuth.toNumber();
 }
 
-// TODO (S.Panfilov) add unit tests
-export const getAzimuthByLinearVelocity = (linearVelocity: TWithCoordsXZ): number => Math.atan2(linearVelocity.z, linearVelocity.x) * (180 / Math.PI);
-// TODO (S.Panfilov) add unit tests
-export const getElevationByLinearVelocity = (linearVelocity: TWithCoordsXYZ): number => Math.atan2(linearVelocity.y, Math.sqrt(linearVelocity.x ** 2 + linearVelocity.z ** 2)) * (180 / Math.PI);
-// TODO (S.Panfilov) add unit tests
-export const getSpeedByLinearVelocity = (linearVelocity: TWithCoordsXYZ): number => Math.sqrt(linearVelocity.x ** 2 + linearVelocity.y ** 2 + linearVelocity.z ** 2);
+export const getAzimuthByLinearVelocity = (linearVelocity: Vector): number => Math.atan2(linearVelocity.z, linearVelocity.x) * (180 / Math.PI);
+export const getElevationByLinearVelocity = (linearVelocity: Vector): number => Math.atan2(linearVelocity.y, Math.sqrt(linearVelocity.x ** 2 + linearVelocity.z ** 2)) * (180 / Math.PI);
+export const getSpeedByLinearVelocity = (linearVelocity: Vector): number => Math.sqrt(linearVelocity.x ** 2 + linearVelocity.y ** 2 + linearVelocity.z ** 2);
+export const getLinearVelocity = (speed: number, azimuth: number, elevation: number): Vector => ({
+  x: speed * Math.cos(elevation) * Math.cos(azimuth),
+  y: speed * Math.sin(elevation),
+  z: speed * Math.cos(elevation) * Math.sin(azimuth)
+});
 
 // TODO (S.Panfilov) add unit tests
 export function get3DAzimuth(center: TWithCoordsXYZ, point: TWithCoordsXYZ): { azimuth: number; elevation: number } {
