@@ -16,6 +16,7 @@ import { spaceMaterialsData } from '@/App/Levels/Showcase27SaveLoad/spaceMateria
 import { spaceOrbitControlsData } from '@/App/Levels/Showcase27SaveLoad/spaceOrbitControls';
 import { spaceParticlesData } from '@/App/Levels/Showcase27SaveLoad/spaceParticles';
 import { spacePhysicsData } from '@/App/Levels/Showcase27SaveLoad/spacePhysics';
+import { spaceSpatialData } from '@/App/Levels/Showcase27SaveLoad/spaceSpatial';
 import { spaceTextData } from '@/App/Levels/Showcase27SaveLoad/spaceTexts';
 import { spaceTransformDriveData } from '@/App/Levels/Showcase27SaveLoad/spaceTransformDrive';
 import { addBtn, addDropdown } from '@/App/Levels/Utils';
@@ -48,11 +49,12 @@ const spacesData: ReadonlyArray<TSpacesData> = [
   spaceParticlesData,
   spacePhysicsData,
   spaceTextData,
+  spaceSpatialData,
   spaceTransformDriveData
 ];
 
 // const initialSpaceDataName: string = spaceBasicData.name;
-const initialSpaceDataName: string = spaceTransformDriveData.name;
+const initialSpaceDataName: string = spaceSpatialData.name;
 
 const spacesInMemoryData: Array<TSpacesData> = [];
 
