@@ -185,9 +185,8 @@ export function withKinematic(params: TActorParams, { position, rotation }: Omit
       const quaternion: Quaternion = new Quaternion().setFromAxisAngle(normalizedAngularDirection, angle);
 
       const rotation$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(new Quaternion().setFromEuler(rotation));
+      rotation$.next(rotation$.value.clone().multiply(quaternion));
 
-      // rotation$.next(rotation$.value.clone().multiply(quaternion));
-      rotation$.next(rotation$.value.multiplyQuaternions(quaternion, rotation$.value));
       // TODO 8.0.0. MODELS: move this to actor in subscription of the rotationQuaternion$
       // (this as TActor).model.getRawModel3d().quaternion.multiplyQuaternions(quaternion, (this as TActor).model.getRawModel3d().quaternion);
     }
