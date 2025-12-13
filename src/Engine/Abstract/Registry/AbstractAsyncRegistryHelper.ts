@@ -1,30 +1,32 @@
 import type { Subscription } from 'rxjs';
 import { filter } from 'rxjs';
 
-import type { IAbstractRegistry, IAsyncEntityGetter } from '@/Engine/Abstract';
+import type { IAbstractRegistry } from '@/Engine/Abstract';
 import type { IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
-import { createDeferredPromise } from '@/Engine/Utils';
+import { createDeferredPromise, isDefined } from '@/Engine/Utils';
 
-export function subscribeToValue<T extends IRegistrable | IMultitonRegistrable>(reg: IAbstractRegistry<T>, filterFn: (entity: T) => boolean): IAsyncEntityGetter<T> {
+export function subscribeToValue<T extends IRegistrable | IMultitonRegistrable>(reg: IAbstractRegistry<T>, filterFn: (entity: T) => boolean, stopCb?: (stop: () => void) => void): Promise<T> {
   const { resolve, promise, reject } = createDeferredPromise<T>();
 
-  const destrSubscription$: Subscription = reg.destroyed$.subscribe(() => {
+  const destroySub$: Subscription = reg.destroyed$.subscribe(() => {
     reject(undefined);
-    subscription$.unsubscribe();
-    destrSubscription$.unsubscribe();
+    sub$.unsubscribe();
+    destroySub$.unsubscribe();
   });
 
-  const subscription$: Subscription = reg.added$.pipe(filter(filterFn)).subscribe((entity: T): void => {
+  const sub$: Subscription = reg.added$.pipe(filter(filterFn)).subscribe((entity: T): void => {
     resolve(entity);
-    subscription$.unsubscribe();
-    destrSubscription$.unsubscribe();
+    sub$.unsubscribe();
+    destroySub$.unsubscribe();
   });
 
   function stop(): void {
     reject();
-    subscription$.unsubscribe();
-    destrSubscription$.unsubscribe();
+    sub$.unsubscribe();
+    destroySub$.unsubscribe();
   }
 
-  return { promise, stop };
+  if (isDefined(stopCb)) stopCb(stop);
+
+  return promise;
 }

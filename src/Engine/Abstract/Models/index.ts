@@ -4,7 +4,6 @@ export * from './IAbstractPool';
 export * from './IAbstractRegistry';
 export * from './IAbstractWatcher';
 export * from './IAbstractWatcherWithState';
-export * from './IAsyncEntityGetter';
 export * from './IAsyncReactiveFactory';
 export * from './IFactory';
 export * from './IHtmlElementStyleDeclaration';

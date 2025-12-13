@@ -24,7 +24,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const currentActor$: Subject<IActorWrapper> = new Subject();
   currentMaterialIndex$.subscribe((index: number): void => currentMaterial$.next(materials[index]));
   currentMaterial$.subscribe((material: string): void => {
-    const actor: IActorWrapper | undefined = actorRegistry.getUniqByTag(material);
+    const actor = actorRegistry.getUniqByTagAsync(material);
     if (isNotDefined(actor)) throw new Error(`Actor with tag "${material}" is not found`);
     currentActor$.next(actor);
   });
@@ -67,7 +67,8 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   function start(): void {
     level.start();
 
-    const actor = actorRegistry.getUniqByTag('standard');
+    const actor = actorRegistry.getUniqByTagAsync('standard');
+    console.log('111', actor);
     // console.log('standard', actor);
     // console.log('standard entity', actor?.entity);
     console.log('standard entity', actor?.entity.material);
