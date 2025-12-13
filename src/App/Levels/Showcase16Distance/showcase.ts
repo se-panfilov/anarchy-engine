@@ -1,5 +1,19 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import { buildSpaceFromConfig, Engine, IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ICameraRegistry, IEngine, isNotDefined, ISpace, ISpaceConfig, mouseService, mpsSpeed } from '@/Engine';
+import {
+  buildSpaceFromConfig,
+  Engine,
+  IActorAsyncRegistry,
+  IActorWrapperAsync,
+  IAppCanvas,
+  ICameraRegistry,
+  IEngine,
+  isNotDefined,
+  ISpace,
+  ISpaceConfig,
+  KeyCode,
+  mouseService,
+  mpsSpeed
+} from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -47,17 +61,27 @@ export function showcase(canvas: IAppCanvas): IShowcase {
 
       if (isMove) {
         // eslint-disable-next-line functional/immutable-data
-        // car.entity.position.z -= 10 * delta;
-        // eslint-disable-next-line functional/immutable-data
         car.entity.position.z -= mpsSpeed(10, delta);
       }
     });
 
     //Move by pressing
-    // onKey(KeyCode.W).pressing$.subscribe(({ delta }): void => {
-    //   console.log(mpsSpeed(-10, delta));
-    //   void car.addZ(mpsSpeed(-10, delta));
-    // });
+    onKey(KeyCode.W).pressing$.subscribe(({ delta }): void => {
+      if (!isTimerStarted) {
+        isTimerStarted = true;
+        console.time('move');
+      }
+
+      if (car.entity.position.z <= -50) {
+        console.timeEnd('move');
+        // eslint-disable-next-line functional/immutable-data
+        car.entity.position.z = 50;
+        return;
+      }
+
+      // eslint-disable-next-line functional/immutable-data
+      car.entity.position.z -= mpsSpeed(10, delta.delta);
+    });
   }
 
   function start(): void {
