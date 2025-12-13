@@ -9,19 +9,16 @@ This policy applies to commercial builds of **[GAME NAME]** distributed via **[S
 
 ## Reporting a Vulnerability
 
-Please email **security@[YOUR-DOMAIN]**. If available, include the affected version, platform, reproduction steps, impact, and a minimal PoC.
-Optional PGP: see key below.
-We ask researchers to act in good faith and avoid privacy violations, data exfiltration, or service disruption.
+Email **security@[YOUR-DOMAIN]**. Please include the affected version/platform, minimal reproduction, impact, and (if available) a small PoC.
+**Encryption is not required.** If you prefer encrypted exchange or need to share large files, contact us and we will provide a secure upload link or an OpenPGP key **on request**.
 
-## How We Handle Reports
+## Handling
 
-We **triage and prioritize** issues based on severity, exploitability, and user impact. **Response and remediation timelines may vary** depending on complexity and resource availability. We may contact you for clarification and, where appropriate, coordinate a disclosure window.
+We will make a **good-faith effort** to review and prioritize reports. **No specific response times or SLAs are promised.** Availability may be reduced during weekends, holidays, or maintainer absences.
 
-> Note: This policy **does not commit to any specific response time** and **does not provide an SLA**. Availability may be reduced during weekends, holidays, or maintenance windows.
+## Regulatory Notifications
 
-## Legal/Regulatory Notifications
-
-Where required by law, we will **notify competent authorities and/or users within the timelines mandated by applicable regulations** (for example, initial alerts for actively exploited vulnerabilities and subsequent follow-ups). Separate regulatory notices do not imply public disclosure.
+Where required by law, we will **notify competent authorities and/or users within the legally mandated timelines** for actively exploited vulnerabilities or other reportable events.
 
 ## Updates & Delivery
 
@@ -35,11 +32,3 @@ Security updates are delivered through **[STORE AUTO-UPDATES]**. Release notes a
 ## Safe Harbor
 
 If you comply with this policy and act in good faith, we **do not intend** to pursue legal action solely for your research on our game. This policy does not authorize any activity that would violate applicable law or third-party terms.
-
-## PGP Public Key
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-[YOUR ASCII-ARMORED PUBLIC KEY HERE]
-
------END PGP PUBLIC KEY BLOCK-----

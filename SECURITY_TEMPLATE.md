@@ -11,9 +11,14 @@ This policy covers the **open-source code** in **[REPO URL]**. It is provided fo
 
 Email **security@[YOUR-DOMAIN]** with a minimal reproduction, affected commit/tag, and impact if known. If you can, include a short patch or mitigation suggestion.
 
+## Reporting
+
+Email **security@[YOUR-DOMAIN]** (or use **[GitHub Private Vulnerability Reporting]** if enabled).
+**Encryption is optional.** On request we can arrange a secure channel (e.g., one-time upload link or OpenPGP key).
+
 ## Handling & Disclosure
 
-This is a volunteer-maintained project. We will make a **good-faith effort** to review reports and, where feasible, prepare a fix or mitigation and coordinate disclosure. **Timelines are indicative only** and may vary significantly based on severity and maintainer availability. We may close out-of-scope or low-risk issues without a separate advisory.
+This is a volunteer-maintained project. We’ll make a **good-faith effort** to review reports; **no SLAs or timelines are promised**. We may publish an advisory if the issue materially impacts users.
 
 ## Version Support
 
