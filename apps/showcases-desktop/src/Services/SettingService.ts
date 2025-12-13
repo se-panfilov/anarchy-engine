@@ -15,14 +15,13 @@ export function SettingsService(app: App, filesService: TFilesService): TSetting
   // TODO DESKTOP: rename load/save to read/write
   const loadAppSettings = async (): Promise<TShowcaseGameSettings> => {
     try {
-      return filesService.readFileAsJson(appSettingsFileName, userDataFolder, isSettings);
+      return await filesService.readFileAsJson(appSettingsFileName, userDataFolder, isSettings);
     } catch {
       console.log(`[DESKTOP]: Settings file ("${appSettingsFileName}") not found in : ${userDataFolder}. Applying default settings.`);
       return buildDefaultSettings();
     }
   };
 
-  // TODO DESKTOP: Test this. Make sure that detected settings (langs and resolution) are applied
   function buildDefaultSettings(): TShowcaseGameSettings {
     const availableLocales: ReadonlyArray<TLocale> = Object.values(ShowcasesLocales);
     const availableLocalesIds: ReadonlyArray<TLocaleId> = availableLocales.map((locale: TLocale): TLocaleId => locale.id);
@@ -52,8 +51,6 @@ export function SettingsService(app: App, filesService: TFilesService): TSetting
     return { width, height };
   }
 
-  // TODO DESKTOP: in showcases-shared add function to get one preferred locale (use particular match as a fallback)
-  // TODO DESKTOP: Also call getPreferredLocales() when no settings file found
   const getPreferredLocales = (): ReadonlyArray<TLocaleId> => Array.from(new Set([...app.getPreferredSystemLanguages(), app.getLocale()] as ReadonlyArray<TLocaleId>));
 
   function getScreenRatio(): number {
@@ -67,7 +64,6 @@ export function SettingsService(app: App, filesService: TFilesService): TSetting
     console.log(`[DESKTOP]: Saved settings file ("${appSettingsFileName}") in : ${userDataFolder}`);
   }
 
-  // TODO DESKTOP: Maybe split TShowcaseGameSettings into app and platform settings
   function applyPlatformSettings(platformSettings: TShowcaseGameSettings): boolean {
     console.log('[DESKTOP]: (NOT IMPLEMENTED) Applying platform settings:', platformSettings);
     // TODO DESKTOP: Apply platform-level settings (resolution, etc.)
