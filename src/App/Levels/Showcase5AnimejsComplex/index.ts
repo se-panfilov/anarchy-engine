@@ -1,5 +1,5 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapper, IAnimationParams, IAppCanvas, ILevel, ILevelConfig, ITextWrapper, IWithCoordsXZ } from '@/Engine';
+import type { IActorWrapper, IAnimationParams, IAppCanvas, ILevel, ILevelConfig, IText2dWrapper, IText3dWrapper, IWithCoordsXZ } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, isNotDefined, standardMoverService, TextType, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-5-animejs-complex.config.json';
@@ -20,9 +20,9 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const greenActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('green');
     if (isNotDefined(redActor) || isNotDefined(blueActor) || isNotDefined(greenActor)) throw new Error('Actors are not defined');
 
-    const redText: ITextWrapper | undefined = textRegistry.getUniqByTag('red');
-    const blueText: ITextWrapper | undefined = textRegistry.getUniqByTag('blue');
-    const greenText: ITextWrapper | undefined = textRegistry.getUniqByTag('green');
+    const redText: IText2dWrapper | IText3dWrapper | undefined = textRegistry.getUniqByTag('red');
+    const blueText: IText2dWrapper | IText3dWrapper | undefined = textRegistry.getUniqByTag('blue');
+    const greenText: IText2dWrapper | IText3dWrapper | undefined = textRegistry.getUniqByTag('green');
     if (isNotDefined(redText) || isNotDefined(blueText) || isNotDefined(greenText)) throw new Error('Texts are not defined');
 
     let isClickBlocked: boolean = false;
@@ -62,7 +62,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       followersCb.blue?.();
     }
 
-    const notification: ITextWrapper = textFactory.create({
+    const notification: IText2dWrapper | IText3dWrapper = textFactory.create({
       type: TextType.Text2d,
       text: 'Click is blocked',
       fontSize: '12px',

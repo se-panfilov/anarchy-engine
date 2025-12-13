@@ -6,7 +6,7 @@ import type { IActorWrapper } from '@/Engine/Domains/Actor';
 import type { ICameraWrapper } from '@/Engine/Domains/Camera';
 import type { ILightWrapper } from '@/Engine/Domains/Light';
 import type { ISceneObject, ISceneParams, ISceneWrapper } from '@/Engine/Domains/Scene/Models';
-import type { ITextWrapper } from '@/Engine/Domains/Text';
+import type { IText2dWrapper, IText3dWrapper } from '@/Engine/Domains/Text';
 import type { ITexture } from '@/Engine/Domains/Texture';
 import { withObject3d } from '@/Engine/Mixins';
 import type { IWriteable } from '@/Engine/Utils';
@@ -30,7 +30,7 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
   const addCamera = (camera: Readonly<ICameraWrapper>): void => add(camera.entity);
   const addActor = (actor: Readonly<IActorWrapper>): void => add(actor.entity);
   const addLight = (light: Readonly<ILightWrapper>): void => add(light.entity);
-  const addText = (text: Readonly<ITextWrapper>): void => add(text.entity);
+  const addText = (text: Readonly<IText2dWrapper | IText3dWrapper>): void => add(text.entity);
 
   function setBackground(color: string | IColor | ITexture | ICubeTexture): void {
     let background: string | IColor | ITexture | ICubeTexture | null = null;
