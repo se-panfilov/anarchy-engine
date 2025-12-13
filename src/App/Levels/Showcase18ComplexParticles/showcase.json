@@ -4,6 +4,7 @@
   "scenes": [
     {
       "name": "showcase",
+      "background": "#000000",
       "tags": [],
       "isActive": true
     }
