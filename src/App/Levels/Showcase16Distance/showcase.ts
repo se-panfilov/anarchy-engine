@@ -1,6 +1,6 @@
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TCameraRegistry, TEngine, TSpace, TSpaceConfig } from '@/Engine';
-import { buildSpaceFromConfig, Engine, isNotDefined, KeyCode, mouseService, mpsSpeed } from '@/Engine';
+import { buildSpaceFromConfig, Engine, isNotDefined, KeyCode, mpsSpeed } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -9,7 +9,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
 
-  const { actorService, cameraService, loopService } = space.services;
+  const { actorService, cameraService, loopService, mouseService } = space.services;
   const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
   const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
   if (isNotDefined(actorRegistry)) throw new Error('Actor registry is not defined');

@@ -2,7 +2,7 @@ import './fonts.css';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TAnimationParams, TAppCanvas, TEngine, TMoverService, TSpace, TSpaceConfig, TTextAnyWrapper, TWithCoordsXZ } from '@/Engine';
-import { buildSpaceFromConfig, createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, EulerWrapper, generateAnglesForCircle, mouseService, TextType, Vector3Wrapper } from '@/Engine';
+import { buildSpaceFromConfig, createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, EulerWrapper, generateAnglesForCircle, TextType, Vector3Wrapper } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
@@ -10,7 +10,7 @@ import spaceConfig from './showcase.json';
 export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
-  const { textService, loopService } = space.services;
+  const { textService, loopService, mouseService } = space.services;
 
   textService.create({
     type: TextType.Text2d,

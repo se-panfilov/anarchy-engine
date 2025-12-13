@@ -1,6 +1,6 @@
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
-import { buildSpaceFromConfig, Engine, isNotDefined, mouseService, screenService } from '@/Engine';
+import { buildSpaceFromConfig, Engine, isNotDefined, screenService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -8,7 +8,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
 
-  const { actorService, loopService } = space.services;
+  const { actorService, loopService, mouseService } = space.services;
   const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
 
   async function init(): Promise<void> {

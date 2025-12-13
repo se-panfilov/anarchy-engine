@@ -2,7 +2,7 @@ import { combineLatest } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorParams, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
-import { ActorType, ambientContext, buildSpaceFromConfig, Engine, EulerWrapper, isNotDefined, MaterialType, mouseService, Vector3Wrapper } from '@/Engine';
+import { ActorType, ambientContext, buildSpaceFromConfig, Engine, EulerWrapper, isNotDefined, MaterialType, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -12,7 +12,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   function start(): void {
     engine.start();
-    const { actorService, cameraService } = space.services;
+    const { actorService, cameraService, mouseService } = space.services;
 
     const actorDefaultParams: TActorParams = {
       type: ActorType.Cube,

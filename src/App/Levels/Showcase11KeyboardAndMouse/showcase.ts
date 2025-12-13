@@ -16,7 +16,7 @@ import type {
   TSpace,
   TSpaceConfig
 } from '@/Engine';
-import { buildSpaceFromConfig, defaultMoverServiceConfig, Easing, Engine, isNotDefined, KeyCode, LookUpStrategy, mouseService, mpsSpeed } from '@/Engine';
+import { buildSpaceFromConfig, defaultMoverServiceConfig, Easing, Engine, isNotDefined, KeyCode, LookUpStrategy, mpsSpeed } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
@@ -27,7 +27,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
 
-  const { actorService, cameraService, intersectionsWatcherService, loopService } = space.services;
+  const { actorService, cameraService, intersectionsWatcherService, loopService, mouseService } = space.services;
   const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
   const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
   if (isNotDefined(actorRegistry)) throw new Error('Actor registry is not defined');

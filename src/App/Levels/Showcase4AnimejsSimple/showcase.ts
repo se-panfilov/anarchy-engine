@@ -1,6 +1,6 @@
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorAsyncRegistry, TActorParams, TActorWrapperAsync, TAppCanvas, TEngine, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
-import { ActorType, buildSpaceFromConfig, defaultMoverServiceConfig, Engine, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, mouseService, TextType, Vector3Wrapper } from '@/Engine';
+import { ActorType, buildSpaceFromConfig, defaultMoverServiceConfig, Engine, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, TextType, Vector3Wrapper } from '@/Engine';
 import type { TAnimationParams } from '@/Engine/Services';
 import { Easing } from '@/Engine/Services';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
@@ -13,7 +13,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   function start(): void {
     engine.start();
-    const { actorService, textService, loopService } = space.services;
+    const { actorService, textService, loopService, mouseService } = space.services;
     const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
 
     let isClickBlocked: boolean = false;

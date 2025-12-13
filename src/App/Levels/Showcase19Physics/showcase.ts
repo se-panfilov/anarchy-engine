@@ -28,7 +28,6 @@ import {
   isDefined,
   isNotDefined,
   KeysExtra,
-  mouseService,
   TextType,
   Vector3Wrapper
 } from '@/Engine';
@@ -40,7 +39,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { actorService, cameraService, intersectionsWatcherService, loopService, textService, physicsWorldService } = space.services;
+  const { actorService, cameraService, intersectionsWatcherService, loopService, mouseService, textService, physicsWorldService } = space.services;
 
   const actorAsyncRegistry = actorService.getRegistry();
   const sceneWrapper: TSceneWrapper = actorService.getScene();

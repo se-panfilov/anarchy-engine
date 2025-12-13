@@ -2,7 +2,7 @@ import { combineLatest } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
-import { ambientContext, buildSpaceFromConfig, Engine, getRotationByCos, getRotationBySin, isNotDefined, mouseService } from '@/Engine';
+import { ambientContext, buildSpaceFromConfig, Engine, getRotationByCos, getRotationBySin, isNotDefined } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -12,7 +12,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   function start(): void {
     engine.start();
-    const { actorService, cameraService } = space.services;
+    const { actorService, cameraService, mouseService } = space.services;
     const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
 
     const camera: TCameraWrapper | undefined = cameraService.findActive();
