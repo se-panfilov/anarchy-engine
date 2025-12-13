@@ -896,7 +896,6 @@ describe('RegistryAsyncUtils', () => {
         // setup
         const name: string = simpleObj2.name;
         const registryAsync: TAbstractSimpleAsyncRegistry<TSimpeObj> = AbstractSimpleAsyncRegistry<TSimpeObj>('mockEntity' as RegistryType);
-        const expectedResult: TSimpeObj = { ...obj9Uniq2, name };
 
         // execute
         const subscription$ = firstValueFrom(getUniqEntityByKey$(name, registryAsync));
