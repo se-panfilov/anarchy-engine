@@ -2785,13 +2785,10 @@
           "items": {
             "anyOf": [
               {
-                "$ref": "#/definitions/LightTag"
+                "type": "string"
               },
               {
                 "$ref": "#/definitions/CommonTag"
-              },
-              {
-                "type": "string"
               }
             ]
           }
@@ -2836,17 +2833,13 @@
           "$ref": "#/definitions/LightShadowConfig"
         },
         "type": {
-          "$ref": "#/definitions/ILightType"
+          "$ref": "#/definitions/LightType"
         },
         "intensity": {
           "type": "number"
         }
       },
       "required": ["castShadow", "color", "position", "tags", "type"]
-    },
-    "LightTag": {
-      "type": "string",
-      "const": "ambient"
     },
     "LightShadowConfig": {
       "type": "object",
@@ -2882,9 +2875,9 @@
       },
       "required": ["x", "y"]
     },
-    "ILightType": {
+    "LightType": {
       "type": "string",
-      "enum": ["ambient", "directional"]
+      "enum": ["Ambient", "Directional", "Point"]
     },
     "ITextConfig": {
       "type": "object",
