@@ -51,7 +51,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   lightService.createFromConfig(lights);
 
   fogService.createFromConfig(fogs);
-  particlesService.createFromConfig(fogs);
+  particlesService.createFromConfig(particles);
 
   envMapService.added$.subscribe((texture: IDataTexture): void => {
     activeScene.setBackground(texture);
