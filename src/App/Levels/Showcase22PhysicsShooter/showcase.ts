@@ -71,7 +71,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     startMoveActorWithKeyboard(heroW, keyboardService, mouseLineIntersectionsWatcher);
 
-    await enableCollisions(actorService.getScene(), actorService, mouseLineIntersectionsWatcher, spatialGridService);
+    await enableCollisions(mouseLineIntersectionsWatcher, space.services);
 
     let mouseLineIntersections: TIntersectionEvent = { point: new Vector3(), distance: 0 } as Intersection;
     mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent): void => void (mouseLineIntersections = intersection));

@@ -1,19 +1,17 @@
-import type { TActorService, TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TSceneWrapper } from '@/Engine';
-import type { TSpatialGridService, TSpatialGridWrapper } from '@/Engine/Spatial';
+import type { TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TSpaceServices } from '@/Engine';
+import type { TSpatialGridWrapper } from '@/Engine/Spatial';
 import { isNotDefined } from '@/Engine/Utils';
 
-export async function enableCollisions(
-  sceneW: TSceneWrapper,
-  actorService: TActorService,
-  mouseLineIntersectionsWatcher: TIntersectionsWatcher,
-  spatialGridService: TSpatialGridService
-): Promise<void> {
+export async function enableCollisions(mouseLineIntersectionsWatcher: TIntersectionsWatcher, { actorService, spatialGridService, collisionsService }: TSpaceServices): Promise<void> {
+  const sceneW = actorService.getScene();
   const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
   if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" spatial grid`);
 
   const sphereActorW: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('sphere');
   if (isNotDefined(sphereActorW)) throw new Error(`Cannot find "sphere" actor`);
   grid.addActor(sphereActorW);
+
+  collisionsService.bvh.createBvhForActor(sphereActorW);
 
   const boxActor1W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static1');
   const boxActor2W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static2');
@@ -48,4 +46,5 @@ export async function enableCollisions(
   });
 
   grid._debugVisualizeCells(sceneW);
+  collisionsService.bvh._debugVisualizeBvh(sphereActorW, sceneW);
 }
