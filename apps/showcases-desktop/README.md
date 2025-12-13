@@ -28,11 +28,9 @@ SOFTWARE.
 
 ## Legal Disclaimer
 
-This project is provided "as is", without warranty of any kind. The authors and contributors disclaim all liability for any damages arising from its use, inability to use, or performance. Users are responsible for ensuring compliance with applicable laws and regulations in their jurisdiction, including but not limited to:
+This project is provided **“AS IS”**, **without warranty of any kind**, to the **maximum extent permitted by applicable law**. Use is at your own risk. **Statutory consumer rights (where applicable) are not affected.**
 
-- European Union: Cyber Resilience Act (CRA) and Artificial Intelligence Act (AI Act)
-- United States: Uniform Commercial Code (UCC) and Export Administration Regulations (EAR)
-- China: Cybersecurity Law
-- India: Information Technology Act
+This repository is a **non-commercial open-source project**. It is **not** a product “placed on the EU market.”
+Anyone who uses this Software **in a commercial product** is solely responsible for ensuring that **their product** complies with applicable **product safety/cybersecurity rules** (e.g., EU Cyber Resilience Act), **consumer protection laws**, and **export control and sanctions regulations**.
 
-For details, see the full [DISCLAIMER.md](DISCLAIMER.md) file.
+See the full [DISCLAIMER.md](./DISCLAIMER.md) file.

@@ -1,6 +1,6 @@
-# Anarchy engine shared package
+# Anarchy engine
 
-Shared utilities and types for the Anarchy engine.
+E2E tests (for Showcases app of the Anarchy engine).
 
 ## License
 
