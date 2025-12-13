@@ -23,6 +23,7 @@ export type TModels3dService = Readonly<{
   loadFromConfigAsync: (config: ReadonlyArray<TModel3dComplexConfig>) => ReadonlyArray<Promise<TModel3dComplexFacade>>;
   createFromPack: (pack: TModel3dPack) => TModel3dFacade;
   createPrimitiveAsync: (params: ReadonlyArray<TModel3dPrimitiveParams>) => ReadonlyArray<Promise<TModel3dPrimitiveFacade>>;
+  createFromConfigAsync: (config: ReadonlyArray<TModel3dConfig>) => ReadonlyArray<Promise<TModel3dFacade>>;
   createPrimitiveFromConfig: (config: ReadonlyArray<TModel3dPrimitiveConfig>) => ReadonlyArray<Promise<TModel3dPrimitiveFacade>>;
   findModel3dAndOverride: (name: string, overrides?: TOptional<TModel3dConfig>) => TModel3dFacade | undefined;
   getAnimationService: () => TAnimationsService;

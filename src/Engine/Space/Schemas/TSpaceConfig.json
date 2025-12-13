@@ -42,7 +42,7 @@
     "models3d": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/TModel3dComplexConfig"
+        "$ref": "#/definitions/TModel3dConfig"
       }
     },
     "intersections": {
@@ -2138,6 +2138,16 @@
       },
       "required": ["isActive", "position"]
     },
+    "TModel3dConfig": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/TModel3dComplexConfig"
+        },
+        {
+          "$ref": "#/definitions/TModel3dPrimitiveConfig"
+        }
+      ]
+    },
     "TModel3dComplexConfig": {
       "type": "object",
       "additionalProperties": false,
@@ -2201,6 +2211,58 @@
       "required": ["mask"],
       "additionalProperties": false,
       "description": "A  {@link  THREE.Layers Layers }  object assigns an  {@link  THREE.Object3D Object3D }  to 1 or more of 32 layers numbered `0` to `31` - internally the layers are stored as a  {@link  https://en.wikipedia.org/wiki/Mask_(computing) bit mask } , and by default all Object3Ds are a member of layer `0`."
+    },
+    "TModel3dPrimitiveConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "primitive": {
+          "$ref": "#/definitions/TPrimitiveProps"
+        },
+        "material": {
+          "$ref": "#/definitions/TMaterialPackConfig%3CTMaterialTexturePack%3E"
+        },
+        "options": {
+          "$ref": "#/definitions/TModel3dLoadOptions"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "layers": {
+          "type": "number"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "position": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "rotation": {
+          "$ref": "#/definitions/TEuler3dConfig"
+        },
+        "scale": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["options", "position", "primitive"]
     },
     "TIntersectionsWatcherConfig": {
       "type": "object",

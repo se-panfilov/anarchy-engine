@@ -11,6 +11,7 @@ import type {
   TModel3dComplexConfig,
   TModel3dComplexFacade,
   TModel3dComplexParams,
+  TModel3dConfig,
   TModel3dFacade,
   TModel3dPack,
   TModel3dPrimitiveConfig,
@@ -61,6 +62,16 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     return models3dLoader.loadAsync(url).then((gltf: GLTF): TPerformLoadResult => {
       return { result: Model3dComplexFacade({ ...params, model: gltf.scene, animations: gltf.animations }, animationsService), isExisting: false };
     });
+  }
+
+  function createFromConfigAsync(config: ReadonlyArray<TModel3dConfig>): ReadonlyArray<Promise<TModel3dFacade>> {
+    let primitiveModelsConfigs: ReadonlyArray<TModel3dPrimitiveConfig> = [];
+    let complexModelsConfigs: ReadonlyArray<TModel3dComplexConfig> = [];
+    config.forEach((c: TModel3dConfig) => {
+      if (isPrimitive(c)) primitiveModelsConfigs = [...primitiveModelsConfigs, c];
+      else complexModelsConfigs = [...complexModelsConfigs, c];
+    });
+    return [...loadFromConfigAsync(complexModelsConfigs), ...createPrimitiveFromConfig(primitiveModelsConfigs)];
   }
 
   const loadFromConfigAsync = (config: ReadonlyArray<TModel3dComplexConfig>): ReadonlyArray<Promise<TModel3dComplexFacade>> => loadAsync(config.map(model3dConfigComplexToParams));
@@ -123,6 +134,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     loadFromConfigAsync,
     createFromPack,
     createPrimitiveAsync,
+    createFromConfigAsync,
     createPrimitiveFromConfig,
     findModel3dAndOverride,
     added$: added$.asObservable(),

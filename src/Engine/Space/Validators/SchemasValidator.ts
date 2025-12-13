@@ -4,7 +4,8 @@ import type { TActorConfig } from '@/Engine/Actor';
 import type { TCameraConfig } from '@/Engine/Camera';
 import type { TControlsConfig } from '@/Engine/Controls';
 import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
-import type { TModel3dComplexConfig } from '@/Engine/Models3d';
+import type { TModel3dConfig } from '@/Engine/Models3d';
+import { isPrimitive } from '@/Engine/Models3d';
 import type { TPhysicsPresetConfig, TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
 import type { TSceneConfig } from '@/Engine/Scene/Models';
 import type { TSpaceConfig } from '@/Engine/Space/Models';
@@ -163,8 +164,11 @@ function validateAllActorsHasPhysicsPreset(actors: ReadonlyArray<TActorConfig>, 
   });
 }
 
-function validateFileUrls(models3d: ReadonlyArray<TModel3dComplexConfig>): boolean {
-  return models3d.every((model3d: TModel3dComplexConfig): boolean => isNotDefined(model3d.url) || validateFileUrl(model3d.url));
+function validateFileUrls(models3d: ReadonlyArray<TModel3dConfig>): boolean {
+  return models3d.every((model3d: TModel3dConfig): boolean => {
+    if (isPrimitive(model3d)) return true;
+    return validateFileUrl(model3d.url);
+  });
 }
 
 function validateFileUrl(url: string): boolean {
