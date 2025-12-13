@@ -15,7 +15,6 @@ export async function enableCollisions(
   const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
   if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" spatial grid`);
 
-  // spatialGridService.grid.addToGridBulk(actorService.getRegistry().getAll());
   const sphereActorW: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('sphere');
   if (isNotDefined(sphereActorW)) throw new Error(`Cannot find "sphere" actor`);
   grid.addActor(sphereActorW);

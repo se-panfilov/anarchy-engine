@@ -13,7 +13,6 @@ export type TSpatialGridWrapper = TWrapper<TSpatialGrid> &
   TWithTagsMixin &
   TDestroyable &
   Readonly<{
-    // addToGridBulk: (list: ReadonlyArray<TSpatialCellWrapper>) => TSpatialGrid;
     addActor: (actorW: TActorWrapperAsync) => void | never;
     getAllCells: () => ReadonlyArray<TSpatialCellWrapper>;
     getAllInCell: (x: number, z: number) => ReadonlyArray<TActorWrapperAsync>;

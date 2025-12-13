@@ -42,8 +42,6 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
   const wrapper: TWrapper<TSpatialGrid> = AbstractWrapper(entity, WrapperType.SpatialGrid, params);
 
-  // const addToGridBulk = (list: ReadonlyArray<TSpatialCell>): TSpatialGrid => entity.load(list);
-
   function getBoundingBox(mesh: Mesh): Box3 {
     const box: Box3 = new Box3();
     box.setFromObject(mesh);
@@ -180,7 +178,6 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     ...wrapper,
     entity,
     destroy,
-    // addToGridBulk,
     addActor,
     getAllCells,
     getAllInCell,
