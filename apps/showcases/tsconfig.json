@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "lib": ["ESNext", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "noImplicitAny": true,
+    "noEmit": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@engine/*": ["../../packages/engine/src/*"]
+    },
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "target": "ESNext",
+    "types": ["node", "vite/client", "three", "vitest/importMeta", "vitest/globals"],
+    "useDefineForClassFields": true,
+    "typeRoots": ["./node_modules/@types", "./node_modules", "../../node_modules/@types", "../../node_modules", "./src/Engine/Types", "./types"]
+  },
+  "include": ["src", "vite.config.ts", "types"]
+}
