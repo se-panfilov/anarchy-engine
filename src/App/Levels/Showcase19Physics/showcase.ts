@@ -217,6 +217,7 @@ function createBallObstacle(world: World, position: TWithCoordsXYZ, size: 1): Ri
   const rigidBodyDesc = RigidBodyDesc.dynamic().setTranslation(position.x, position.y, position.z);
   const rigidBody = world.createRigidBody(rigidBodyDesc);
   const colliderDesc = ColliderDesc.ball(meters(size));
+
   world.createCollider(colliderDesc, rigidBody);
 
   return rigidBody;

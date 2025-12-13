@@ -4,9 +4,9 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { configToParams } from '@/Engine/Physics/Adapters';
 import type {
+  TPhysicsBodyFacade,
   TPhysicsBodyFactory,
   TPhysicsBodyRegistry,
-  TPhysicsBodyWrapper,
   TPhysicsDebugRenderer,
   TPhysicsPresetConfig,
   TPhysicsPresetParams,
@@ -21,16 +21,11 @@ import type { TVector3Wrapper } from '@/Engine/Vector';
 
 export function PhysicsService(factory: TPhysicsBodyFactory, registry: TPhysicsBodyRegistry, physicsPresetRegistry: TPhysicsPresetRegistry, scene: TSceneWrapper): TPhysicsService {
   let world: World | undefined;
+  factory.entityCreated$.subscribe((coordinator: TPhysicsBodyFacade): void => registry.add(coordinator));
 
-  registry.added$.subscribe((wrapper: TPhysicsBodyWrapper): void => {
-    if (isNotDefined(world)) throw new Error('Cannot add collider: world is not defined');
-    world.createCollider(wrapper);
-  });
-  factory.entityCreated$.subscribe((wrapper: TPhysicsBodyWrapper): void => registry.add(wrapper));
-
-  const create = (params: TPhysicsPresetParams): TPhysicsBodyWrapper => factory.create(params);
+  const create = (params: TPhysicsPresetParams): TPhysicsBodyFacade => factory.create(params);
   const createFromConfig = (physics: ReadonlyArray<TPhysicsPresetConfig>): void => {
-    physics.forEach((config: TPhysicsPresetConfig): TPhysicsBodyWrapper => factory.create(factory.configToParams(config)));
+    physics.forEach((config: TPhysicsPresetConfig): TPhysicsBodyFacade => factory.create(factory.configToParams(config)));
   };
 
   function createWorld({

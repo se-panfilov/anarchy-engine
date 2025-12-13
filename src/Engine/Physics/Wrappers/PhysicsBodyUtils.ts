@@ -1,4 +1,4 @@
-import type { RigidBody, World } from '@dimforge/rapier3d';
+import type { Collider, RigidBody, World } from '@dimforge/rapier3d';
 import { ColliderDesc, RigidBodyDesc } from '@dimforge/rapier3d';
 import type { HeightFieldFlags, TriMeshFlags } from '@dimforge/rapier3d/geometry/shape';
 
@@ -11,6 +11,7 @@ import type {
   TPhysicsBodyCapsuleParams,
   TPhysicsBodyConeParams,
   TPhysicsBodyCuboidParams,
+  TPhysicsBodyFacadeEntities,
   TPhysicsBodyHalfSpaceParams,
   TPhysicsBodyHeightfieldParams,
   TPhysicsBodyParams,
@@ -23,15 +24,15 @@ import type {
 import type { TWithUndefined } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function createPhysicsBody(world: World, params: TPhysicsPresetParams): RigidBody {
+export function createPhysicsBody(params: TPhysicsPresetParams, world: World): TPhysicsBodyFacadeEntities {
   const rigidBodyDesc: RigidBodyDesc = RigidBodyDesc[params.type]();
-  if (isDefined(params.position)) rigidBodyDesc.setTranslation(params.position.x, params.position.y, params.position.z);
-  if (isDefined(params.rotation)) rigidBodyDesc.setRotation(params.rotation.x, params.rotation.y, params.rotation.z);
+  if (isDefined(params.position)) rigidBodyDesc.setTranslation(params.position?.x, params.position?.y, params.position?.z);
+  if (isDefined(params.rotation)) rigidBodyDesc.setRotation(params.rotation?.x, params.rotation?.y, params.rotation?.z);
   const rigidBody: RigidBody = world.createRigidBody(rigidBodyDesc);
   const colliderDesc: ColliderDesc = getColliderDesc(params);
-  world.createCollider(colliderDesc, rigidBody);
+  const collider: Collider = world.createCollider(colliderDesc, rigidBody);
 
-  return rigidBody;
+  return { rigidBody, rigidBodyDesc, colliderDesc, collider };
 }
 
 // TODO (S.Panfilov) add unit tests

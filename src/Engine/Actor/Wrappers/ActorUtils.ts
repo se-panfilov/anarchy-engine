@@ -4,7 +4,7 @@ import { ActorType } from '@/Engine/Actor/Constants';
 import type { TActorDependencies, TActorParams } from '@/Engine/Actor/Models';
 import type { TMaterials, TMaterialWrapper } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
-import type { TPhysicsBodyWrapper, TPhysicsPresetParams, TPhysicsPresetRegistry, TWithPhysicsPresetParams } from '@/Engine/Physics';
+import type { TPhysicsBodyFacade, TPhysicsPresetParams, TPhysicsPresetRegistry, TWithPhysicsPresetParams } from '@/Engine/Physics';
 import type { TMesh } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -37,7 +37,7 @@ function createCube({ width, height, depth, widthSegments, heightSegments, depth
   return new Mesh(new BoxGeometry(w, h, d, widthSegments, heightSegments, depthSegments), material);
 }
 
-export function createPhysicsBody(physics: TWithPhysicsPresetParams, { physicsService }: Pick<TActorDependencies, 'physicsService'>): TPhysicsBodyWrapper {
+export function createPhysicsBody(physics: TWithPhysicsPresetParams, { physicsService }: Pick<TActorDependencies, 'physicsService'>): TPhysicsBodyFacade {
   const { preset, ...rest } = physics;
   let presetFromRegistry: TPhysicsPresetParams | undefined;
   if (isDefined(preset)) {

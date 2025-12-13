@@ -1,3 +1,4 @@
+export * from './FacadeType';
 export * from './FactoryType';
 export * from './RegistryType';
 export * from './WatcherTag';

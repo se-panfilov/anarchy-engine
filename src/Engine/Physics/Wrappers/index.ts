@@ -1,2 +1,2 @@
 export * from './PhysicsBodyUtils';
-export * from './PhysicsBodyWrapper';
+export * from './PhysicsBodyFacade';
