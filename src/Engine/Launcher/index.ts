@@ -28,8 +28,7 @@ import type {
   ISceneWrapper
 } from '@Engine/Wrappers';
 import { combineLatest } from 'rxjs';
-import { SceneWrapper } from '@Engine/Wrappers';
-import { Scene } from 'three';
+import type { ISceneFactory, IActorFactory } from '@Engine/Factories';
 
 export async function launch(sceneConfig: SceneConfig): Promise<void> {
   const { name, actors, cameras, lights } = sceneConfig;

@@ -3,12 +3,9 @@ import { nanoid } from 'nanoid';
 import type { ReactiveWrapper, Factory } from '@Engine/Models';
 import type { AbstractConfig } from '@Engine/Launcher/Models';
 import { isNotDefined } from '@Engine/Utils';
-
-export type CreateFN<C, P> = (params: P) => C;
+import type { CreateFN } from '@Engine/Factories/AbstractFactory/Models';
 
 export function AbstractFactory<T extends ReactiveWrapper<R>, R, PARAMS>(
-  // TODO (S.Panfilov) should be AbstractConfig instead of any, but doesn't work for some reason
-  // type: string, create: (params: PARAMS) => T, adapterFn?: (config: AbstractConfig) => PARAMS
   type: string,
   create: CreateFN<T, PARAMS>,
   adapterFn?: (config: AbstractConfig) => PARAMS
@@ -46,10 +43,9 @@ export function AbstractFactory<T extends ReactiveWrapper<R>, R, PARAMS>(
     get latest$(): Subject<T> {
       return latest$;
     },
-    create$,
-    // get create$(): Subject<PARAMS> {
-    //   return create$;
-    // },
+    get create$(): Subject<PARAMS> {
+      return create$;
+    },
     get createFromConfig$(): Subject<AbstractConfig> {
       return createFromConfig$;
     },
