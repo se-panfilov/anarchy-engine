@@ -20,9 +20,9 @@ export function SpatialGridService(): TSpatialGridService {
     };
   }
 
-  const addObjectToGrid = (object: Object3D): void => spatialGrid.insert(toBoundingBox(object));
+  const addObjectToGrid = (object: Object3D): void => void spatialGrid.insert(toBoundingBox(object));
 
-  const removeObjectFromGrid = (object: Object3D): void => spatialGrid.remove(toBoundingBox(object), (a, b): boolean => a.object === b.object);
+  const removeObjectFromGrid = (object: Object3D): void => void spatialGrid.remove(toBoundingBox(object), (a, b): boolean => a.object === b.object);
 
   function updateObjectInGrid(object: Object3D): void {
     removeObjectFromGrid(object);
