@@ -1,3 +1,5 @@
+import '@Menu/assets/tailwind.css';
+
 import { isDefined } from '@Engine';
 import type { TMenuEvent, TMenuOptions } from '@Menu/models';
 import { eventsService } from '@Menu/services';

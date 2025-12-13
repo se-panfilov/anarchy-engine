@@ -34,8 +34,8 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       vue(),
       vueJsx(),
       // vueDevTools(),
-      wasm(), //Somehow needed by rxjs
       tailwindcss(),
+      wasm(), //Somehow needed by rxjs
       //Compression is only for web builds (desktop and mobile cannot unpack .br/.gz files)
       ...(buildCompression
         ? [
