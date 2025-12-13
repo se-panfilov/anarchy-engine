@@ -6,7 +6,15 @@ import { AbstractAsyncRegistry, LookUpStrategy } from '@/Engine/Abstract';
 import type { IRegistrable } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins';
 
-import { getAsyncUniqEntityByNameAsync, getAsyncUniqEntityWithTag, getUniqEntityWithTags$, getUniqEntityWithTagsAsync, getValueAsync, subscribeToValue$ } from './RegistryAsyncUtils';
+import {
+  getAsyncUniqEntityByNameAsync,
+  getAsyncUniqEntityWithTag,
+  getUniqEntityWithTag$,
+  getUniqEntityWithTags$,
+  getUniqEntityWithTagsAsync,
+  getValueAsync,
+  subscribeToValue$
+} from './RegistryAsyncUtils';
 
 const mockEntity1: IRegistrable = { id: 'mockEntityId1', name: 'mockEntity1' } as unknown as IRegistrable;
 const mockEntity2: IRegistrable = { id: 'mockEntityId2', name: 'mockEntity2' } as unknown as IRegistrable;
@@ -575,6 +583,47 @@ describe('RegistryAsyncUtils', () => {
           expect(result).toEqual(obj9Uniq2);
         }, 1000);
       });
+    });
+  });
+
+  describe('getUniqEntityWithTag$', () => {
+    describe('added before subscription started', () => {
+      describe('added after subscription started', () => {
+        it('should return an entity that was added before getting the value', async () => {
+          // setup
+          const registry: IAbstractAsyncRegistry<IRegistrable> = AbstractAsyncRegistry<IRegistrable>('mockEntity' as RegistryType);
+
+          registry.add(obj1AB);
+          registry.add(obj9Uniq2);
+          setTimeout(() => registry.add(obj2B), 50);
+
+          // execute
+          const subscription$ = firstValueFrom(getUniqEntityWithTag$(tagD, registry));
+
+          // check
+          const result: IRegistrable = await subscription$;
+          expect(result).toEqual(obj9Uniq2);
+        }, 1000);
+      });
+    });
+
+    describe('added after subscription started', () => {
+      it('should return an entity that was added before getting the value', async () => {
+        // setup
+        const registry: IAbstractAsyncRegistry<IRegistrable> = AbstractAsyncRegistry<IRegistrable>('mockEntity' as RegistryType);
+
+        // execute
+        const subscription$ = firstValueFrom(getUniqEntityWithTag$(tagC, registry));
+        // const subscription$ = firstValueFrom(getUniqEntityWithTag$([tagD, tagUniq2, tagC, tagE], registry, LookUpStrategy.Every));
+
+        setTimeout(() => registry.add(obj1AB), 50);
+        setTimeout(() => registry.add(obj9Uniq2), 50);
+        setTimeout(() => registry.add(obj2B), 50);
+
+        // check
+        const result: IRegistrable = await subscription$;
+        expect(result).toEqual(obj9Uniq2);
+      }, 1000);
     });
   });
 });

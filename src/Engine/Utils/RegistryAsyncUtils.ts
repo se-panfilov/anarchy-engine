@@ -42,16 +42,15 @@ export function getUniqEntityWithTags$<T extends IRegistrable>(tags: ReadonlyArr
   return subscribeToValue$<T>(registry, (entity: T): boolean => entity.getTags()[strategy]((tag: string) => tags.includes(tag)));
 }
 
-// TODO (S.Panfilov) add unit tests
-export function getUniqEntityWithTag$<T extends IRegistrable>(tag: string, registry: IAbstractEntityRegistry<T>): Observable<T> {
-  const result: T | undefined = registry.findByTag(tag);
+export function getUniqEntityWithTag$<T extends IRegistrable>(tag: string, registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>): Observable<T> {
+  const result: T | undefined = isDefined((registry as IAbstractEntityRegistry<T>).findByTag) ? (registry as IAbstractEntityRegistry<T>).findByTag(tag) : undefined;
   if (isDefined(result)) new BehaviorSubject(result).asObservable();
   return subscribeToValue$<T>(registry, (entity: T): boolean => entity.hasTag(tag));
 }
 
 // TODO (S.Panfilov) add unit tests
-export function getUniqEntityByName$<T extends IRegistrable>(name: string, registry: IAbstractEntityRegistry<T>): Observable<T> {
-  const result: T | undefined = registry.findByName(name);
+export function getUniqEntityByName$<T extends IRegistrable>(name: string, registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>): Observable<T> {
+  const result: T | undefined = isDefined((registry as IAbstractEntityRegistry<T>).findByName) ? (registry as IAbstractEntityRegistry<T>).findByName(name) : undefined;
   if (isDefined(result)) new BehaviorSubject(result).asObservable();
   return subscribeToValue$<T>(registry, (entity: T): boolean => entity.name === name);
 }
