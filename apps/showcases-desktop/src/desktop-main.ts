@@ -1,8 +1,7 @@
 import type { PlatformActions } from '@Showcases/Desktop/Constants';
 import { appCrashHandler, appWindowAllClosedHandler, windowNavigateHandler, windowSecondInstanceHandler } from '@Showcases/Desktop/EventHandlers';
-import type { TDesktopAppConfig, TDocsService, TSettingsService, TWindowService } from '@Showcases/Desktop/Models';
-import { handleAppRequest, SettingsService, WindowService } from '@Showcases/Desktop/Services';
-import { DocsService } from '@Showcases/Desktop/Services/DocsService';
+import type { TDesktopAppConfig, TDocsService, TFilesService, TSettingsService, TWindowService } from '@Showcases/Desktop/Models';
+import { DocsService, FilesService, handleAppRequest, SettingsService, WindowService } from '@Showcases/Desktop/Services';
 import { getDisplayInfo, hideMenuBar, noZoom, turnOffMenuBarAndHotkeys } from '@Showcases/Desktop/Utils';
 import { platformApiChannel } from '@Showcases/Shared';
 import type { BrowserWindow, IpcMainInvokeEvent } from 'electron';
@@ -27,8 +26,9 @@ const desktopAppSettings: TDesktopAppConfig = {
 // TODO DESKTOP: Send user locale to the app (then to menu) for translations
 
 const windowService: TWindowService = WindowService();
-const settingsService: TSettingsService = SettingsService(app);
-const docsService: TDocsService = DocsService(app);
+const filesService: TFilesService = FilesService(app);
+const settingsService: TSettingsService = SettingsService(filesService);
+const docsService: TDocsService = DocsService(filesService);
 
 ipcMain.handle(platformApiChannel, (event: IpcMainInvokeEvent, ...args: [PlatformActions | string, unknown]) => handleAppRequest({ settingsService, docsService }, event, args));
 
