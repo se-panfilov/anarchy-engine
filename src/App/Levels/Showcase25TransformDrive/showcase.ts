@@ -1,5 +1,5 @@
 import GUI from 'lil-gui';
-import { withLatestFrom } from 'rxjs';
+import { map, withLatestFrom } from 'rxjs';
 import { Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
@@ -20,7 +20,7 @@ import type {
 import { Engine, isNotDefined, KeysExtra, spaceService, TransformAgent } from '@/Engine';
 
 import spaceConfig from './showcase.json';
-import { addActorFolderGui, changeActorActiveAgent, createActor, createRepeaterActor, startIntersections } from './Utils';
+import { addActorFolderGui, attachConnectorToSubj, changeActorActiveAgent, createActor, createRepeaterActor, startIntersections } from './Utils';
 
 //This showcase should demonstrate the ways we can move the actor.
 // We have different "agents" (modes) which can be switched in runtime
@@ -70,6 +70,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         moveActorTo(sphereActor, intersection.point, agent, mode.isTeleportationMode);
       });
 
+    attachConnectorToSubj(sphereActor, intersectionsWatcher.value$.pipe(map((v): Vector3 => v.point)));
+
     changeActorActiveAgent(sphereActor, KeysExtra.Space, keyboardService);
   }
 
@@ -93,7 +95,7 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
       // TODO (S.Panfilov) 8.0.0. MODELS: Implement Kinematic movement
       return undefined;
     case TransformAgent.Connected:
-      // TODO (S.Panfilov) 8.0.0. MODELS: fix this
+      // TODO not needed, cause we track mouse position all the time
       return undefined;
     case TransformAgent.Physical:
       // TODO (S.Panfilov) 8.0.0. MODELS: Implement Physics movement

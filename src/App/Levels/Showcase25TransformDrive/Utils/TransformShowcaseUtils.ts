@@ -1,5 +1,5 @@
 import type GUI from 'lil-gui';
-import type { Subscription } from 'rxjs';
+import type { Observable, Subject, Subscription } from 'rxjs';
 import { Euler, Vector3 } from 'three';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
@@ -37,20 +37,24 @@ export function createActor(
   });
 }
 
-export function createRepeaterActor(actor: TActor, offset: Vector3Like, grid: TSpatialGridWrapper, gui: GUI, services: TSpaceServices, color: string = '#1ebae9'): void {
+export function createRepeaterActor(actor: TActor, offset: Vector3Like, grid: TSpatialGridWrapper, gui: GUI, services: TSpaceServices, color: string = '#1ebae9'): Subscription {
   const repeaterActor: TActor = createActor('repeater', TransformAgent.Connected, grid, actor.drive.getPosition().clone().add(offset), color, services);
 
   //"repeaterActor" is connected with "positionConnector" (from "connected" agent) to "sphereActor" position
-  actor.drive.position$.subscribe((position: Vector3): void => {
-    // eslint-disable-next-line functional/immutable-data
-    repeaterActor.drive.connected.positionConnector.x = position.x + offset.x;
-    // eslint-disable-next-line functional/immutable-data
-    repeaterActor.drive.connected.positionConnector.y = position.y + offset.y;
-    // eslint-disable-next-line functional/immutable-data
-    repeaterActor.drive.connected.positionConnector.z = position.z + offset.z;
-  });
-
+  const subj$: Subscription = attachConnectorToSubj(repeaterActor, actor.drive.position$, offset);
   addActorFolderGui(gui, repeaterActor);
+  return subj$;
+}
+
+export function attachConnectorToSubj(actor: TActor, subj: Subject<Vector3> | Observable<Vector3>, offset: Vector3Like = { x: 0, y: 0, z: 0 }): Subscription {
+  return subj.subscribe((position: Vector3): void => {
+    // eslint-disable-next-line functional/immutable-data
+    actor.drive.connected.positionConnector.x = position.x + offset.x;
+    // eslint-disable-next-line functional/immutable-data
+    actor.drive.connected.positionConnector.y = position.y + offset.y;
+    // eslint-disable-next-line functional/immutable-data
+    actor.drive.connected.positionConnector.z = position.z + offset.z;
+  });
 }
 
 export function startIntersections({ actorService, cameraService, intersectionsWatcherService, mouseService }: TSpaceServices): TIntersectionsWatcher {
