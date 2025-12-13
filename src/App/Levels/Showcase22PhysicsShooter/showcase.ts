@@ -98,7 +98,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       });
     });
 
-    // TODO 8.0.0. MODELS: Looks like mouse intersection watcher is giving us a lot of a low performance
     const mouseLineIntersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({
       name: 'mouse_line_intersections_watcher',
       isAutoStart: true,
