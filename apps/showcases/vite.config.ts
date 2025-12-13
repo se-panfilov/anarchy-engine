@@ -14,10 +14,10 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
   const root: string = process.cwd();
   const env: ImportMetaEnv = loadEnv(mode, root) as ImportMetaEnv;
-  const { VITE_BUILD_COMPRESSION, VITE_BUILD_MINIFIED, VITE_BUILD_SOURCEMAPS, VITE_BUILD_TARGET_DIR } = env;
+  const { VITE_BUILD_COMPRESSION, VITE_BUILD_MINIFIED, VITE_BUILD_SOURCEMAPS, VITE_BUILD_PLATFORM } = env;
 
-  if (command === 'build' && !VITE_BUILD_TARGET_DIR)
-    throw new Error('[BUILD] Build must be run with a target(desktop/mobile/web). So, VITE_BUILD_TARGET_DIR mast be specified in .env file, but it is not.');
+  if (command === 'build' && !VITE_BUILD_PLATFORM)
+    throw new Error('[BUILD] Build must be run with a target(desktop/mobile/web). So, VITE_BUILD_PLATFORM mast be specified in .env file, but it is not.');
 
   const toBool = (v: string): boolean => v === 'true';
   const buildCompression: boolean = toBool(VITE_BUILD_COMPRESSION);
@@ -33,7 +33,8 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
         '@Public': path.resolve(__dirname, './public'),
         '@ShowcasesShared': path.resolve(__dirname, '../../packages/showcases-shared/src'),
 
-        'platform:api': platform === 'electron' ? '/src/platform/drivers/electron.ts' : platform === 'mobile' ? '/src/platform/drivers/mobile.ts' : '/src/platform/drivers/web.ts'
+        //Virtual modules for platform API
+        'platform:api': path.resolve(__dirname, `./src/Platform/Drivers/${VITE_BUILD_PLATFORM}.ts`)
       }
     },
     plugins: [
@@ -85,7 +86,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
         },
         plugins: [visualizer({ open: false })]
       },
-      outDir: VITE_BUILD_TARGET_DIR,
+      outDir: `dist-${VITE_BUILD_PLATFORM}`,
       emptyOutDir: true
     }
   };

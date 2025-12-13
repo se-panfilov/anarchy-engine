@@ -10,7 +10,7 @@ interface ImportMetaEnv {
   VITE_BUILD_COMPRESSION: string; // should be cast to boolean
   VITE_BUILD_MINIFIED: string; // should be cast to boolean
   VITE_BUILD_SOURCEMAPS: string; // should be cast to boolean
-  VITE_BUILD_TARGET_DIR: string;
+  VITE_BUILD_PLATFORM: string;
   VITE_APP_SHOW_DEBUG_INFO: string; // should be cast to boolean
   VITE_APP_SHOW_DEV_NAV: string; // should be cast to boolean
   VITE_SHOW_EXIT_GAME_MENU_BTN: string; // should be cast to boolean
