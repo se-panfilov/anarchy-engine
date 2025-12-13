@@ -7,7 +7,7 @@ import type { IAppCanvas } from '@/Engine';
 export function ContainerDecorator(container: IAppGlobalContainer): IGlobalContainerDecorator {
   return {
     get id(): string {
-      return nanoid()
+      return nanoid();
     },
     get width(): number {
       return container.innerWidth;

@@ -8,7 +8,6 @@ export function AbstractDestroyableFromConfigFactory<T extends IWrapper<ENT>, EN
   createFn: ICreateFN<T, PRMS>,
   adapterFn?: (config: C) => PRMS
 ): IDestroyableFromConfigFactory<T, ENT, PRMS, C> {
-
   const factory: IDestroyableFromConfigFactory<T, ENT, PRMS, C> = {
     ...AbstractFromConfigFactory(type, createFn, adapterFn),
     destroy
