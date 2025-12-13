@@ -1,5 +1,5 @@
 import type { TActor, TMilliseconds, TSpace, TSpaceConfig } from '@Anarchy/Engine';
-import { KeyCode, spaceService } from '@Anarchy/Engine';
+import { KeyCode, onKey, onKeyReleased, spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import { Clock } from 'three';
 
@@ -22,6 +22,7 @@ export function start(settings: TAppSettings): void {
 export function showcase(space: TSpace): void {
   const { actorService, keyboardService, physicsWorldService } = space.services;
   const { physicsLoop, transformLoop } = space.loops;
+  const { keys$ } = keyboardService;
 
   physicsWorldService.getDebugRenderer(physicsLoop).start();
   physicsLoop.enabled$.next(false);
@@ -29,8 +30,8 @@ export function showcase(space: TSpace): void {
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 
   //run/stop physics loop
-  keyboardService.onKey(KeyCode.Space).pressed$.subscribe((): void => physicsLoop.enabled$.next(true));
-  keyboardService.onKey(KeyCode.Space).released$.subscribe((): void => physicsLoop.enabled$.next(false));
+  keys$.pipe(onKey(KeyCode.Space)).subscribe((): void => physicsLoop.enabled$.next(true));
+  keys$.pipe(onKeyReleased(KeyCode.Space)).subscribe((): void => physicsLoop.enabled$.next(false));
 
   const actor: TActor = actorService.getRegistry().getByName('sphere_4_actor');
 
