@@ -1,5 +1,5 @@
 import type { TWrapper } from '@/Engine/Abstract';
-import type { TPhysicsBodyFacade, TPhysicsBodyService, TWithMandatoryPhysicsBody, TWithOptionalPhysicsBody, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
+import type { TPhysicsBody, TPhysicsBodyService, TWithMandatoryPhysicsBody, TWithOptionalPhysicsBody, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
 import { isPhysicsBodyParamsComplete } from '@/Engine/Physics';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
@@ -8,7 +8,7 @@ export function makeWrapperWithPhysicsBody<T extends TWrapper<any> & TWithOption
   wrapper: T,
   physics: TWithPresetNamePhysicsBodyParams,
   physicsBodyService: TPhysicsBodyService,
-  customCreatePhysicsBodyFn?: (physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService, additionalParams?: Record<string, any>) => TPhysicsBodyFacade,
+  customCreatePhysicsBodyFn?: (physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService, additionalParams?: Record<string, any>) => TPhysicsBody,
   additionalParams?: Record<string, any>
 ): TWithMandatoryPhysicsBody<T> {
   // eslint-disable-next-line functional/immutable-data
@@ -17,7 +17,7 @@ export function makeWrapperWithPhysicsBody<T extends TWrapper<any> & TWithOption
   return wrapper as TWithMandatoryPhysicsBody<T>;
 }
 
-function createPhysicsBody(physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService): TPhysicsBodyFacade {
+function createPhysicsBody(physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService): TPhysicsBody {
   const { presetName, ...rest } = physics;
   if (isDefined(presetName)) return physicsBodyService.createWithPresetName(physics, presetName);
   if (!isPhysicsBodyParamsComplete(rest))

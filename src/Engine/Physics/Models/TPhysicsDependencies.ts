@@ -1,5 +1,5 @@
 import type { World } from '@dimforge/rapier3d';
 
-export type TPhysicsFacadeDependencies = Readonly<{
+export type TPhysicsDependencies = Readonly<{
   world: World;
 }>;

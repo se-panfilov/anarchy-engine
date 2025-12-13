@@ -1,1 +1,1 @@
-export * from './WithPhysicsBodyFacadeEntities';
+export * from './WithPhysicsBodyEntities';

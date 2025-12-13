@@ -1,7 +1,7 @@
-import type { TPhysicsBodyFacade } from './TPhysicsBodyFacade';
+import type { TPhysicsBody } from './TPhysicsBody';
 
 export type TWithOptionalPhysicsBody = Readonly<{
-  physicsBody?: TPhysicsBodyFacade | undefined;
+  physicsBody?: TPhysicsBody | undefined;
 }>;
 
-export type TWithMandatoryPhysicsBody<T> = Omit<T, 'physicsBody'> & { physicsBody: TPhysicsBodyFacade };
+export type TWithMandatoryPhysicsBody<T> = Omit<T, 'physicsBody'> & { physicsBody: TPhysicsBody };

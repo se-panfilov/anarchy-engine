@@ -1,2 +1,2 @@
-export * from './PhysicsBodyFacade';
+export * from './PhysicsBody';
 export * from './PhysicsBodyUtils';

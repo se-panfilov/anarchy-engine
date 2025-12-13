@@ -1,9 +1,9 @@
 import type { TEntity } from '@/Engine/Abstract';
 import type { CollisionShape, RigidBodyTypesNames } from '@/Engine/Physics/Constants';
 
-import type { TWithPhysicsBodyFacadeEntities } from './TWithPhysicsBodyFacadeEntities';
+import type { TWithPhysicsBodyEntities } from './TWithPhysicsBodyEntities';
 
-export type TPhysicsBodyFacade = TEntity<TWithPhysicsBodyFacadeEntities> &
+export type TPhysicsBody = TEntity<TWithPhysicsBodyEntities> &
   Readonly<{
     getPhysicsBodyType: () => RigidBodyTypesNames;
     getPhysicsBodyShape: () => CollisionShape;

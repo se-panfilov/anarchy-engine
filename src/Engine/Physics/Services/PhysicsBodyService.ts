@@ -3,7 +3,7 @@ import type { World } from '@dimforge/rapier3d';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type {
-  TPhysicsBodyFacade,
+  TPhysicsBody,
   TPhysicsBodyFactory,
   TPhysicsBodyParams,
   TPhysicsBodyRegistry,
@@ -23,29 +23,29 @@ export function PhysicsBodyService(
   physicsPresetService: TPhysicsPresetsService,
   physicsWorldService: TPhysicsWorldService
 ): TPhysicsBodyService {
-  factory.entityCreated$.subscribe((facade: TPhysicsBodyFacade): void => registry.add(facade));
+  factory.entityCreated$.subscribe((body: TPhysicsBody): void => registry.add(body));
 
-  const create = (params: TPhysicsBodyParams): TPhysicsBodyFacade | never => {
+  const create = (params: TPhysicsBodyParams): TPhysicsBody | never => {
     const world: World | undefined = physicsWorldService.getWorld();
     if (isNotDefined(world)) throw new Error('Cannot create physics body: physical world is not defined');
     return factory.create(params, { world });
   };
 
-  const createWithPreset = (params: TOptional<TPhysicsBodyParams>, preset: TPhysicsPresetParams): TPhysicsBodyFacade | never => {
+  const createWithPreset = (params: TOptional<TPhysicsBodyParams>, preset: TPhysicsPresetParams): TPhysicsBody | never => {
     const fullParams: TPhysicsBodyParams | TOptional<TPhysicsBodyParams> = { ...preset, ...params };
     if (!isPhysicsBodyParamsComplete(fullParams)) throw new Error('Cannot create physics body: params are lacking of mandatory fields');
 
     return create(fullParams);
   };
 
-  const createWithPresetName = (params: TOptional<TPhysicsBodyParams>, presetName: string): TPhysicsBodyFacade | never => {
+  const createWithPresetName = (params: TOptional<TPhysicsBodyParams>, presetName: string): TPhysicsBody | never => {
     const preset: TPhysicsPresetParams | undefined = physicsPresetService.getPresetByName(presetName);
     if (isNotDefined(preset)) throw new Error(`Cannot create physics body: preset with name "${presetName}" not found`);
     return createWithPreset(params, preset);
   };
 
-  const createFromConfig = (physics: ReadonlyArray<TWithPresetNamePhysicsBodyConfig>): ReadonlyArray<TPhysicsBodyFacade> => {
-    return physics.map((config: TWithPresetNamePhysicsBodyConfig): TPhysicsBodyFacade => {
+  const createFromConfig = (physics: ReadonlyArray<TWithPresetNamePhysicsBodyConfig>): ReadonlyArray<TPhysicsBody> => {
+    return physics.map((config: TWithPresetNamePhysicsBodyConfig): TPhysicsBody => {
       return create(physicsPresetService.getMergedConfigWithPresetParams(config, factory));
     });
   };
