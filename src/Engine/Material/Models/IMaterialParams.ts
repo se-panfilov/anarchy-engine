@@ -169,29 +169,6 @@ export type IPhongMaterialParams = IAbstractMaterialParams &
     flatShading?: boolean;
   }>;
 
-export type IPhysicalMaterialParams = IAbstractMaterialParams &
-  Readonly<{
-    clearcoat?: number;
-    clearcoatRoughness?: number;
-    clearcoatNormalScale?: IVector2;
-    reflectivity?: number;
-    ior?: number;
-    sheen?: number;
-    sheenColor?: ColorRepresentation;
-    sheenRoughness?: number;
-    transmission?: number;
-    thickness?: number;
-    attenuationDistance?: number;
-    attenuationColor?: ColorRepresentation;
-    specularIntensity?: number;
-    specularColor?: ColorRepresentation;
-    iridescenceIOR?: number;
-    iridescence?: number;
-    iridescenceThicknessRange?: [number, number];
-    anisotropy?: number;
-    anisotropyRotation?: number;
-  }>;
-
 export type IToonMaterialParams = IAbstractMaterialParams &
   Readonly<{
     color?: ColorRepresentation;
@@ -231,6 +208,29 @@ export type IStandardMaterialParams = IAbstractMaterialParams &
     wireframeLinewidth?: number;
     fog?: boolean;
     flatShading?: boolean;
+  }>;
+
+export type IPhysicalMaterialParams = IStandardMaterialParams &
+  Readonly<{
+    clearcoat?: number;
+    clearcoatRoughness?: number;
+    clearcoatNormalScale?: IVector2;
+    reflectivity?: number;
+    ior?: number;
+    sheen?: number;
+    sheenColor?: ColorRepresentation;
+    sheenRoughness?: number;
+    transmission?: number;
+    thickness?: number;
+    attenuationDistance?: number;
+    attenuationColor?: ColorRepresentation;
+    specularIntensity?: number;
+    specularColor?: ColorRepresentation;
+    iridescenceIOR?: number;
+    iridescence?: number;
+    iridescenceThicknessRange?: [number, number];
+    anisotropy?: number;
+    anisotropyRotation?: number;
   }>;
 
 export type IMaterialParams =

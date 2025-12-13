@@ -338,7 +338,8 @@
       "material": {
         "type": "standard",
         "params": {
-          "displacementScale": 0.1
+          "metalness": 0,
+          "roughness": 0
         }
       },
       "tags": ["standard", "glass"]
@@ -355,7 +356,16 @@
       "material": {
         "type": "physical",
         "params": {
-          "displacementScale": 0.1
+          "clearcoat": 0.8,
+          "clearcoatRoughness": 0.09,
+          "displacementScale": 0.1,
+          "metalness": 0,
+          "roughness": 0,
+          "iridescence": 0,
+          "iridescenceIOR": 1.38,
+          "transmission": 0.77,
+          "ior": 1.26,
+          "thickness": 0.5
         }
       },
       "tags": ["physical", "glass"]

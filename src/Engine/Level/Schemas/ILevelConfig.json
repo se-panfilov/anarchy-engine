@@ -1791,6 +1791,57 @@
         "anisotropyRotation": {
           "type": "number"
         },
+        "color": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "roughness": {
+          "type": "number"
+        },
+        "metalness": {
+          "type": "number"
+        },
+        "lightMapIntensity": {
+          "type": "number"
+        },
+        "aoMapIntensity": {
+          "type": "number"
+        },
+        "emissive": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "emissiveIntensity": {
+          "type": "number"
+        },
+        "bumpScale": {
+          "type": "number"
+        },
+        "normalMapType": {
+          "$ref": "#/definitions/NormalMapTypes"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/IVector2"
+        },
+        "displacementScale": {
+          "type": "number"
+        },
+        "displacementBias": {
+          "type": "number"
+        },
+        "envMapIntensity": {
+          "type": "number"
+        },
+        "wireframe": {
+          "type": "boolean"
+        },
+        "wireframeLinewidth": {
+          "type": "number"
+        },
+        "fog": {
+          "type": "boolean"
+        },
+        "flatShading": {
+          "type": "boolean"
+        },
         "alphaHash": {
           "type": "boolean"
         },
@@ -2603,6 +2654,39 @@
     "IPhysicalMaterialTexturePack": {
       "type": "object",
       "properties": {
+        "map": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "lightMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "aoMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "emissiveMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "bumpMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "normalMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "displacementMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "roughnessMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "metalnessMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "alphaMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "envMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
         "clearcoatMap": {
           "$ref": "#/definitions/ITexturePackParams"
         },
