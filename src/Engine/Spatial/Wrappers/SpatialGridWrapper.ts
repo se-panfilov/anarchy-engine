@@ -1,4 +1,5 @@
 import RBush from 'rbush';
+import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 import type { Group, Mesh, Object3D } from 'three';
 import { Box3, Vector3 } from 'three';
@@ -8,6 +9,8 @@ import type { ColorRepresentation } from 'three/src/math/Color';
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor';
+import type { TDestroyable } from '@/Engine/Mixins';
+import { destroyableMixin } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpatialCellId, TSpatialCellParams, TSpatialCellWrapper, TSpatialGrid, TSpatialGridParams, TSpatialGridWrapper } from '@/Engine/Spatial/Models';
 import { createBoundingBox, createOutline } from '@/Engine/Spatial/Services/SpatialHelper';
@@ -54,7 +57,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
   function addActor(this: TSpatialGridWrapper, actor: TActor): void | never {
     if (isNotDefined(actor.spatial.getGrid())) registerActorToGrid(actor, this);
 
-    const boundingBox: Box3 = getBoundingBox(actor.model.getRawModel3d());
+    const boundingBox: Box3 = getBoundingBox(actor.model3d.model3d.getRawModel3d());
     const min: Vector3 = boundingBox.min;
     const max: Vector3 = boundingBox.max;
 
@@ -124,7 +127,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
   // TODO test this function
   function findCellsByActorBox(actor: TActor): ReadonlyArray<TSpatialCellWrapper> {
-    const actorBox: Box3 = getBoundingBox(actor.model.getRawModel3d());
+    const actorBox: Box3 = getBoundingBox(actor.model3d.model3d.getRawModel3d());
     return findCellsForBox({ minX: actorBox.min.x, minZ: actorBox.min.z, maxX: actorBox.max.x, maxZ: actorBox.max.z });
   }
 
@@ -132,7 +135,10 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     return entity.all().filter((cell: TSpatialCellWrapper): boolean => cell.id === id)[0];
   }
 
-  function destroy(): void {
+  const destroyable: TDestroyable = destroyableMixin();
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
     update$.complete();
     update$.unsubscribe();
     wrapper.destroy$.next();
@@ -141,7 +147,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
     // TODO DESTROY: implement destroy
     throw new Error('SpatialGrid destroy not implemented');
-  }
+  });
 
   // this visualization is for debugging purposes only
   function _debugVisualizeCells(sceneW: TSceneWrapper, color: ColorRepresentation = '#00ff00', wireframe: boolean = true): void {
@@ -177,7 +183,6 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
   return {
     ...wrapper,
     entity,
-    destroy,
     addActor,
     getAllCells,
     getAllInCell,
@@ -191,6 +196,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     _debugVisualizeCells,
     _debugHighlightObjects,
     updateActorCell,
+    ...destroyable,
     update$: update$.asObservable()
   };
 }

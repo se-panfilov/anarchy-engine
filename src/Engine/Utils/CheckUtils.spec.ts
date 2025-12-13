@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Vector2, Vector3, Vector4 } from 'three';
 
 import { ColorWrapper } from '@/Engine/Color';
@@ -310,17 +310,17 @@ describe('CheckUtils', () => {
 
   describe('isDestroyable', () => {
     it('should return "true" if "destroy" and "destriyed$" is defined', () => {
-      const obj: TDestroyable = { destroy: () => undefined, destroy$: new Observable<void>(), isDestroyed: (): boolean => false };
+      const obj: TDestroyable = { destroy$: new Subject<void>(), isDestroyed: (): boolean => false };
       expect(isDestroyable(obj)).toBe(true);
     });
 
     it('should return "false" if "destroy" is NOT defined', () => {
-      const obj: Omit<TDestroyable, 'destroy'> = { destroy$: new Observable<void>(), isDestroyed: (): boolean => false };
+      const obj: Omit<TDestroyable, 'destroy'> = { destroy$: new Subject<void>(), isDestroyed: (): boolean => false };
       expect(isDestroyable(obj)).toBe(false);
     });
 
     it('should return "false" if "destroy$" is NOT defined', () => {
-      const obj: Omit<TDestroyable, 'destroy$'> = { destroy: () => undefined, isDestroyed: (): boolean => false };
+      const obj: Omit<TDestroyable, 'destroy$'> = { isDestroyed: (): boolean => false };
       expect(isDestroyable(obj)).toBe(false);
     });
 
