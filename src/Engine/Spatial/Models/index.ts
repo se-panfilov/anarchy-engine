@@ -10,7 +10,6 @@ export type * from './TSpatialGrid';
 export type * from './TSpatialGridConfig';
 export type * from './TSpatialGridFactory';
 export type * from './TSpatialGridParams';
-export type * from './TSpatialGridProps';
 export type * from './TSpatialGridRegistry';
 export type * from './TSpatialGridService';
 export type * from './TSpatialGridWrapper';

@@ -1,5 +1,3 @@
-import type { TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TSpatialGridParams } from './TSpatialGridParams';
 
-import type { TSpatialGridProps } from './TSpatialGridProps';
-
-export type TSpatialGridConfig = TSpatialGridProps & TWithReadonlyTags;
+export type TSpatialGridConfig = TSpatialGridParams;

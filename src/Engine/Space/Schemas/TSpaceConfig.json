@@ -228,6 +228,9 @@
       "additionalProperties": false
     },
     "TSpatialGridConfig": {
+      "$ref": "#/definitions/TSpatialGridParams"
+    },
+    "TSpatialGridParams": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
