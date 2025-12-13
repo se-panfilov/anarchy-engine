@@ -3,7 +3,7 @@ import type { Subscription } from 'rxjs';
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
-import { withActiveEntityServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
+import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
 import { renderLoopEffect } from '@/Engine/Renderer/Loop';
 import type {
   TRendererFactory,
@@ -11,6 +11,7 @@ import type {
   TRendererService,
   TRendererServiceDependencies,
   TRendererServiceWithCreate,
+  TRendererServiceWithCreateFromConfig,
   TRendererServiceWithFactory,
   TRendererServiceWithRegistry,
   TRendererWrapper
@@ -36,6 +37,7 @@ export function RendererService(
   const abstractService: TAbstractService = AbstractService(disposable);
 
   const withCreateService: TRendererServiceWithCreate = withCreateServiceMixin(factory, { screenService });
+  const withCreateFromConfigService: TRendererServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, { cameraService, screenService });
   const withFactory: TRendererServiceWithFactory = withFactoryService(factory);
   const withRegistry: TRendererServiceWithRegistry = withRegistryService(registry);
 
@@ -50,7 +52,7 @@ export function RendererService(
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withFactory, withRegistry, {
+  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, {
     setActive: withActive.setActive,
     findActive: withActive.findActive,
     active$: withActive.active$

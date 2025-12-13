@@ -1,4 +1,5 @@
 export type * from './TRendererAccessors';
+export type * from './TRendererConfig';
 export type * from './TRendererFactory';
 export type * from './TRendererParams';
 export type * from './TRendererRegistry';

@@ -195,6 +195,12 @@
             "$ref": "#/definitions/TModel3dConfig"
           }
         },
+        "renderers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TRendererConfig"
+          }
+        },
         "particles": {
           "type": "array",
           "items": {
@@ -229,7 +235,7 @@
           }
         }
       },
-      "required": ["spatialGrids", "actors", "audio", "cameras", "envMaps", "intersections", "lights", "models3d", "particles", "physics", "fogs", "fsm", "texts", "controls"],
+      "required": ["spatialGrids", "actors", "audio", "cameras", "envMaps", "intersections", "lights", "models3d", "renderers", "particles", "physics", "fogs", "fsm", "texts", "controls"],
       "additionalProperties": false
     },
     "TSpatialGridConfig": {
@@ -2127,6 +2133,65 @@
       "required": ["mask"],
       "additionalProperties": false,
       "description": "A  {@link  THREE.Layers Layers }  object assigns an  {@link  THREE.Object3D Object3D }  to 1 or more of 32 layers numbered `0` to `31` - internally the layers are stored as a  {@link  https://en.wikipedia.org/wiki/Mask_(computing) bit mask } , and by default all Object3Ds are a member of layer `0`."
+    },
+    "TRendererConfig": {
+      "type": "object",
+      "properties": {
+        "precision": {
+          "type": "string"
+        },
+        "alpha": {
+          "type": "boolean"
+        },
+        "premultipliedAlpha": {
+          "type": "boolean"
+        },
+        "antialias": {
+          "type": "boolean"
+        },
+        "stencil": {
+          "type": "boolean"
+        },
+        "preserveDrawingBuffer": {
+          "type": "boolean"
+        },
+        "powerPreference": {
+          "type": "string"
+        },
+        "depth": {
+          "type": "boolean"
+        },
+        "logarithmicDepthBuffer": {
+          "type": "boolean"
+        },
+        "failIfMajorPerformanceCaveat": {
+          "type": "boolean"
+        },
+        "mode": {
+          "$ref": "#/definitions/RendererModes"
+        },
+        "isShadowMapEnabled": {
+          "type": "boolean"
+        },
+        "maxPixelRatio": {
+          "type": "number"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["mode", "isActive"],
+      "additionalProperties": false
+    },
+    "RendererModes": {
+      "type": "string",
+      "enum": ["webgl", "webgl2"]
     },
     "TParticlesConfig": {
       "type": "object",

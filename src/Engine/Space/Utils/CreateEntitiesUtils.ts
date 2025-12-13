@@ -19,7 +19,7 @@ export function createEntities(entities: TSpaceConfigEntities | TSpaceParamsEnti
 
 // TODO a lot of code duplication here, but doesn't worth to refactor right now
 export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, services: TSpaceServices, container: TContainerDecorator): void {
-  const { actors, audio, cameras, spatialGrids, controls, intersections, lights, models3d, envMaps, fogs, fsm, texts, physics, particles } = entities;
+  const { actors, audio, cameras, spatialGrids, controls, intersections, lights, models3d, renderers, envMaps, fogs, fsm, texts, physics, particles } = entities;
 
   const {
     actorService,
@@ -37,12 +37,15 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
     particlesService,
     physicsPresetService,
     physicsWorldService,
+    rendererService,
     screenService,
     spatialGridService,
     textService
   } = services;
 
   const appContainer: TAppGlobalContainer = container.getAppContainer();
+
+  rendererService.createFromConfig(renderers);
 
   const screenSizeWatcher: TScreenSizeWatcher | undefined = screenService.watchers.default$.value;
   if (isNotDefined(screenSizeWatcher)) throw new Error(`Space: ScreenSizeWatcher is not defined`);
@@ -75,7 +78,7 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
 }
 
 export function createEntitiesFromParams(entities: TSpaceParamsEntities, services: TSpaceServices, container: TContainerDecorator): void {
-  const { actors, audio, cameras, spatialGrids, controls, intersections, lights, models3d, envMaps, fogs, fsm, texts, physics, particles } = entities;
+  const { actors, audio, cameras, spatialGrids, controls, intersections, lights, models3d, renderers, envMaps, fogs, fsm, texts, physics, particles } = entities;
 
   const {
     actorService,
@@ -91,12 +94,15 @@ export function createEntitiesFromParams(entities: TSpaceParamsEntities, service
     particlesService,
     physicsPresetService,
     physicsWorldService,
+    rendererService,
     screenService,
     spatialGridService,
     textService
   } = services;
 
   const appContainer: TAppGlobalContainer = container.getAppContainer();
+
+  if (isDefined(renderers)) rendererService.createFromList(renderers);
 
   const screenSizeWatcher: TScreenSizeWatcher | undefined = screenService.watchers.default$.value;
   if (isNotDefined(screenSizeWatcher)) throw new Error(`Space: ScreenSizeWatcher is not defined`);

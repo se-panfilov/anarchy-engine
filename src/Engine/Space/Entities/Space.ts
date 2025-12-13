@@ -6,7 +6,6 @@ import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import type { TContainerDecorator } from '@/Engine/Global';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TLoop } from '@/Engine/Loop';
-import { RendererModes } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
@@ -25,8 +24,6 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
 
   const { services, loops } = initSpaceServices(canvas, container, params);
   hooks?.afterAllServicesInitialized?.(canvas, services, loops, params);
-
-  services.rendererService.create({ canvas, mode: RendererModes.WebGL2, isActive: true });
 
   if (isDefined(params.entities) && Object.values(params.entities).length > 0) {
     hooks?.beforeEntitiesCreated?.(params, services, loops);

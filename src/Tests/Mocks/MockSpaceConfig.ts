@@ -18,6 +18,7 @@ export const mockConfig: TSpaceConfig = {
     models3d: [],
     particles: [],
     physics: {},
+    renderers: [],
     spatialGrids: [mockSpatialGridConfig],
     texts: []
   },

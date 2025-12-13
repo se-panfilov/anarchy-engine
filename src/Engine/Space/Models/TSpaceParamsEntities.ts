@@ -10,6 +10,7 @@ import type { TAnyLightParams } from '@/Engine/Light';
 import type { TModel3dParams } from '@/Engine/Models3d';
 import type { TParticlesParams } from '@/Engine/Particles';
 import type { TPhysicsParams } from '@/Engine/Physics';
+import type { TRendererParams } from '@/Engine/Renderer';
 import type { TSpatialGridParams } from '@/Engine/Spatial';
 import type { TTextParams } from '@/Engine/Text';
 
@@ -24,6 +25,7 @@ export type TSpaceParamsEntities = Readonly<{
   intersections?: ReadonlyArray<TIntersectionsWatcherParams>;
   lights?: ReadonlyArray<TAnyLightParams>;
   models3d?: ReadonlyArray<TModel3dParams>;
+  renderers?: ReadonlyArray<TRendererParams>;
   particles?: ReadonlyArray<TParticlesParams>;
   physics?: TPhysicsParams;
   spatialGrids?: ReadonlyArray<TSpatialGridParams>;

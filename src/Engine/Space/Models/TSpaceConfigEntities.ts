@@ -10,6 +10,7 @@ import type { TAnyLightConfig } from '@/Engine/Light';
 import type { TModel3dConfig } from '@/Engine/Models3d';
 import type { TParticlesConfig } from '@/Engine/Particles';
 import type { TPhysicsConfig } from '@/Engine/Physics';
+import type { TRendererConfig } from '@/Engine/Renderer';
 import type { TSpatialGridConfig } from '@/Engine/Spatial';
 import type { TTextConfig } from '@/Engine/Text';
 
@@ -22,6 +23,7 @@ export type TSpaceConfigEntities = Readonly<{
   intersections: ReadonlyArray<TIntersectionsWatcherConfig>;
   lights: ReadonlyArray<TAnyLightConfig>;
   models3d: ReadonlyArray<TModel3dConfig>;
+  renderers: ReadonlyArray<TRendererConfig>;
   particles: ReadonlyArray<TParticlesConfig>;
   physics: TPhysicsConfig;
   fogs: ReadonlyArray<TFogConfig>;
