@@ -247,8 +247,6 @@
         },
         "position": { "x": 0, "y": 0, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
-        "castShadow": false,
-        "receiveShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
       },
       {
@@ -266,8 +264,6 @@
         },
         "position": { "x": -10.5, "y": 1, "z": 0 },
         "rotation": { "x": 0, "y": 0, "z": 0 },
-        "castShadow": true,
-        "receiveShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
       },
       {
@@ -285,8 +281,6 @@
         },
         "position": { "x": 10.5, "y": 1, "z": 0 },
         "rotation": { "x": 0, "y": 0, "z": 0 },
-        "castShadow": true,
-        "receiveShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
       },
       {
@@ -304,8 +298,6 @@
         },
         "position": { "x": 0, "y": 1, "z": -10.5 },
         "rotation": { "x": 0, "y": -1.57, "z": 0 },
-        "castShadow": true,
-        "receiveShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
       },
       {
@@ -323,8 +315,6 @@
         },
         "position": { "x": 0, "y": 1, "z": 10.5 },
         "rotation": { "x": 0, "y": -1.57, "z": 0 },
-        "castShadow": true,
-        "receiveShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
       },
       {
@@ -338,8 +328,6 @@
           "position": { "x": 0, "y": 6, "z": 0 }
         },
         "position": { "x": 0, "y": 6, "z": 0 },
-        "castShadow": true,
-        "receiveShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
       },
       {
@@ -357,8 +345,6 @@
         },
         "position": { "x": -4, "y": 2, "z": 2 },
         "rotation": { "x": 0, "y": 0, "z": 0 },
-        "castShadow": true,
-        "receiveShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
       },
       {
@@ -376,8 +362,6 @@
         },
         "position": { "x": 4, "y": 2, "z": 1 },
         "rotation": { "x": 0, "y": 0, "z": 0 },
-        "castShadow": true,
-        "receiveShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
       },
       {
@@ -391,8 +375,6 @@
           "position": { "x": 1, "y": 8, "z": -4 }
         },
         "position": { "x": 1, "y": 8, "z": -4 },
-        "castShadow": true,
-        "receiveShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
       },
       {
@@ -406,8 +388,6 @@
           "position": { "x": 2, "y": 12, "z": -4 }
         },
         "position": { "x": 2, "y": 12, "z": -4 },
-        "castShadow": true,
-        "receiveShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
       }
     ],

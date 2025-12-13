@@ -117,22 +117,18 @@
         "model3dSource": "surface_model",
         "position": { "x": 0, "y": -4, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
-        "castShadow": false,
-        "receiveShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": true }
       },
       {
         "name": "textile_actor",
         "model3dSource": "sphere_textile_model",
         "position": { "x": 0, "y": 0, "z": 0 },
-        "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": true }
       },
       {
         "name": "glass_actor",
         "model3dSource": "sphere_glass_model",
         "position": { "x": 0, "y": 2, "z": 0 },
-        "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": true }
       }
     ],

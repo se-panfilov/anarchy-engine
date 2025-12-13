@@ -73,8 +73,6 @@
         "model3dSource": "surface_model",
         "position": { "x": 0, "y": 0, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
-        "castShadow": false,
-        "receiveShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": true },
         "tags": ["surface"]
       },
@@ -82,7 +80,6 @@
         "name": "sphere_actor",
         "model3dSource": "sphere_model",
         "position": { "x": 2, "y": 6, "z": -2 },
-        "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": true },
         "tags": ["physical", "glass"]
       }
