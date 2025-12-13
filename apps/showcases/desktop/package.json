@@ -1,0 +1,53 @@
+{
+  "name": "anarchy_engine_showcases_desktop",
+  "author": "S. Panfilov",
+  "private": true,
+  "version": "1.0.0",
+  "main": "dist/electron-main.js",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build:electron": "tsc && electron .",
+    "build:desktop": "electron-builder"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "37.2.0",
+    "electron-builder": "26.0.12"
+  },
+  "build": {
+    "appId": "com.yourdomain.mygame",
+    "productName": "MyGame",
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "files": [
+      "dist/electron-main.js",
+      "dist/preload.js",
+      "../dist/**"
+    ],
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "assets/icon.icns"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "tar.gz"
+      ],
+      "icon": "assets/icon.png"
+    }
+  }
+}

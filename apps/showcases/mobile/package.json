@@ -1,0 +1,11 @@
+{
+  "name": "anarchy_engine_showcases_mobile",
+  "author": "S. Panfilov",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {}
+}
