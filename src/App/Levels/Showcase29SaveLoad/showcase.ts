@@ -60,8 +60,7 @@ export function start(): void {
   );
 
   //Initial space
-  // loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceBasicData.name)?.name, spacesData);
-  loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceAnimationsData.name)?.name, spacesData);
+  loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceBasicData.name)?.name, spacesData);
 }
 
 function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>): void {
