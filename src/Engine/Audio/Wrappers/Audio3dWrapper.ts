@@ -2,7 +2,7 @@ import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, sample, takeUntil } from 'rxjs';
 import type { AudioListener, PositionalAudio, Vector3Like } from 'three';
 
-import type { TAbstractAudioWrapper, TAudio3dParams, TAudio3dTransformDrive, TAudio3dWrapper, TAudioCreateFn, TAudioWrapperDependencies } from '@/Engine/Audio/Models';
+import type { TAbstractAudioWrapper, TAudio3dParams, TAudio3dPerformanceOptions, TAudio3dTransformDrive, TAudio3dWrapper, TAudioCreateFn, TAudioWrapperDependencies } from '@/Engine/Audio/Models';
 import { Audio3dTransformDrive } from '@/Engine/Audio/TransformDrive';
 import { createPositionalAudio, onAudioPositionUpdate } from '@/Engine/Audio/Utils';
 import { AbstractAudioWrapper } from '@/Engine/Audio/Wrappers/AbstractAudioWrapper';
@@ -59,6 +59,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop, transformDri
     drive,
     driveToTargetConnector,
     listener$,
-    directionalCone$
+    directionalCone$,
+    getPerformance: (): TAudio3dPerformanceOptions | undefined => performance
   });
 }

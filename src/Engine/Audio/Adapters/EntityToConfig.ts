@@ -2,9 +2,9 @@ import type { TAnyAudioConfig, TAnyAudioWrapper, TAudio3dConfig, TAudioConfigToP
 import { isAudio3dWrapper } from '@/Engine/Audio/Utils';
 import { isNotDefined } from '@/Engine/Utils';
 
+// TODO 15-0-0: validate result
 export function audioToConfig(entity: TAnyAudioWrapper, { audioResourceAsyncRegistry, audioListenersRegistry }: TAudioConfigToParamsDependencies): TAnyAudioConfig {
   const { name, volume$, loop$, speed$, pause$, seek$ } = entity;
-  // TODO 15-0-0: implement
 
   const audio3dConfig: TAudio3dConfig = isAudio3dWrapper(entity)
     ? {
@@ -13,7 +13,7 @@ export function audioToConfig(entity: TAnyAudioWrapper, { audioResourceAsyncRegi
         maxDistance: entity.entity.getMaxDistance(),
         directionalCone: entity.directionalCone$.value,
         distanceModel: entity.entity.getDistanceModel(),
-        //   performance?: TAudioPerformanceOptions;
+        performance: entity.getPerformance(),
         listener: audioListenersRegistry.findKeyByValue(entity.entity.listener),
         ...entity.drive.serialize()
       }
