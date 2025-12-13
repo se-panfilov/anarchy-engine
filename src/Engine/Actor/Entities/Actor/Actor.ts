@@ -32,15 +32,17 @@ export function Actor(
   const drive: TActorTransformDrive = ActorTransformDrive(params, { transformDriveService }, id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d(), params.model3dSettings);
 
-  const entities: TActorEntities = {
-    drive,
-    driveToTargetConnector,
-    model3d,
-    ...withActorStates(params),
-    ...withSpatial(params),
-    ...withCollisions(params, collisionsService, loopService.getCollisionsLoop()),
-    ...withUpdateSpatialCell()
-  };
+  const entities: TActorEntities = Object.assign(
+    {
+      drive,
+      driveToTargetConnector,
+      model3d
+    },
+    withActorStates(params),
+    withSpatial(params),
+    withCollisions(params, collisionsService, loopService.getCollisionsLoop()),
+    withUpdateSpatialCell()
+  );
 
   const actor: TActor = Object.assign(AbstractEntity(entities, EntityType.Actor, { name: params.name, id }), {
     serialize: (dependencies: TActorConfigToParamsDependencies): TActorConfig => actorToConfig(actor, dependencies)

@@ -30,8 +30,7 @@ export function actorToConfig(entity: TActor, { fsmService, models3dService }: T
     spatial: getSpatial(entity),
     // collisions?: TCollisionsDataConfig,
     // model3dSettings?: TActorModel3dSettingsConfig,
-
-    // states?: TActorStatesConfig //Can we have a generic serialization for FSM?
+    states: getStates(entity),
 
     ...extractSerializableRegistrableFields(entity),
     ...drive.serialize()
@@ -42,4 +41,14 @@ function getSpatial(entity: TActor): TSpatialDataConfig {
   const { grid, updatePriority } = entity.spatial.data;
   if (isNotDefined(grid)) throw new Error(`[Serialization] Actor: spatial grid not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
   return { isAutoUpdate: entity.spatial.autoUpdate$.value, grid: grid.name, updatePriority };
+}
+
+function getStates(entity: TActor): TActorStates {
+  let result = {};
+  Object.entries(entity.states).forEach((state) => {
+    const [key, value] = state;
+    result = { ...result, [key]: value.name };
+  });
+
+  return result;
 }
