@@ -46,6 +46,6 @@ export type TWithLoadResourcesService<C extends TAbstractResourceConfig, T> = Re
 }>;
 
 export type TWithLoadResourcesAsyncService<C extends TAbstractResourceConfig, T> = Readonly<{
-  loadAsync: (config: C, ...rest: any) => Promise<T>;
+  loadAsync: (config: C, onProgress?: (event: ProgressEvent) => void) => Promise<T>;
   loadFromConfigAsync: (configs: ReadonlyArray<C>) => Promise<ReadonlyArray<T>>;
 }>;

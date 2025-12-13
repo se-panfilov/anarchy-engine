@@ -20,7 +20,7 @@ export function AbstractLoader<L extends Loader<any>, R extends TProtectedRegist
 
   const loadFromConfigAsync = (configs: ReadonlyArray<C>): Promise<ReadonlyArray<T>> => Promise.all(configs.map((config: C): Promise<T> => loadAsync(config)));
 
-  function loadAsync(config: C): Promise<T> {
+  function loadAsync(config: C, onProgress?: (event: ProgressEvent) => void): Promise<T> {
     const { url, isForce, name, options } = config;
 
     if (!isForce) {
@@ -28,7 +28,7 @@ export function AbstractLoader<L extends Loader<any>, R extends TProtectedRegist
       if (isDefined(resource)) return Promise.resolve(resource);
     }
 
-    return loader.loadAsync(url).then((loaded: TWriteable<T>): T => {
+    return loader.loadAsync(url, onProgress).then((loaded: TWriteable<T>): T => {
       const res: T = isDefined(onLoadedFn) ? onLoadedFn(loaded, options) : loaded;
       registry.add(name, res);
       loaded$.next({ resource: res, options: config });
