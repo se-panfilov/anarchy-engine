@@ -1,6 +1,6 @@
-import { PlatformActions } from '@Desktop/Constants';
-import type { THandleRequestDependencies } from '@Desktop/Models';
-import { isPlatformAction } from '@Desktop/Utils';
+import { PlatformActions } from '@Showcases/Desktop/Constants';
+import type { THandleRequestDependencies } from '@Showcases/Desktop/Models';
+import { isPlatformAction } from '@Showcases/Desktop/Utils';
 import { isSettings } from '@Showcases/Shared';
 import type { IpcMainInvokeEvent } from 'electron';
 

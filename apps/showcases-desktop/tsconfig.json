@@ -6,7 +6,7 @@
       "@Anarchy/Shared": ["packages/anarchy-shared/src/index.ts"],
       "@Showcases/Shared/*": ["packages/showcases-shared/src/*"],
       "@Showcases/Shared": ["packages/showcases-shared/src/index.ts"],
-      "@Desktop/*": ["apps/showcases-desktop/src/*"]
+      "@Showcases/Desktop/*": ["apps/showcases-desktop/src/*"]
     },
     "sourceMap": false,
     "noEmit": false

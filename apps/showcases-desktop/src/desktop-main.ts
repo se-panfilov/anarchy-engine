@@ -1,8 +1,8 @@
-import type { PlatformActions } from '@Desktop/Constants';
-import { appCrashHandler, appWindowAllClosedHandler, windowNavigateHandler, windowSecondInstanceHandler } from '@Desktop/EventHandlers';
-import type { TDesktopAppConfig } from '@Desktop/Models';
-import { handleAppRequest, SettingsService, WindowService } from '@Desktop/Services';
-import { getDisplayInfo, hideMenuBar, noZoom, turnOffMenuBarAndHotkeys } from '@Desktop/Utils';
+import type { PlatformActions } from '@Showcases/Desktop/Constants';
+import { appCrashHandler, appWindowAllClosedHandler, windowNavigateHandler, windowSecondInstanceHandler } from '@Showcases/Desktop/EventHandlers';
+import type { TDesktopAppConfig } from '@Showcases/Desktop/Models';
+import { handleAppRequest, SettingsService, WindowService } from '@Showcases/Desktop/Services';
+import { getDisplayInfo, hideMenuBar, noZoom, turnOffMenuBarAndHotkeys } from '@Showcases/Desktop/Utils';
 import { platformApiChannel } from '@Showcases/Shared';
 import type { BrowserWindow, IpcMainInvokeEvent } from 'electron';
 import { app, ipcMain } from 'electron';

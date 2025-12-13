@@ -8,7 +8,7 @@
       "@Anarchy/Shared": ["packages/anarchy-shared/src/index.ts"],
       "showcases-shared/*": ["packages/showcases-shared/src/*"],
       "showcases-shared": ["packages/showcases-shared/src/index.ts"],
-      "@Desktop/*": ["./src/*"]
+      "@Showcases/Desktop/*": ["./src/*"]
     }
   },
   "include": ["preload.ts"],

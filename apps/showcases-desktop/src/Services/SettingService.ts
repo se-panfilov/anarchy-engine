@@ -1,8 +1,8 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
-import { AllowedFolders } from '@Desktop/Constants';
-import type { TSettingsService } from '@Desktop/Models';
+import { AllowedFolders } from '@Showcases/Desktop/Constants';
+import type { TSettingsService } from '@Showcases/Desktop/Models';
 import type { TShowcaseGameSettings } from '@Showcases/Shared';
 import { isSettings } from '@Showcases/Shared';
 import type { App } from 'electron';

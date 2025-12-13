@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 
-import type { TDesktopAppConfig, TWindowService } from '@Desktop/Models';
+import type { TDesktopAppConfig, TWindowService } from '@Showcases/Desktop/Models';
 import { app, BrowserWindow, dialog } from 'electron';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
