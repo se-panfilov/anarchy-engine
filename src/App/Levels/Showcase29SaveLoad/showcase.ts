@@ -1,7 +1,7 @@
 import './style.css';
 
-import { addBtn, addDropdown } from '@/App/Levels/Utils';
-import type { TSpace, TSpaceConfig, TSpaceRegistry } from '@/Engine';
+import { addDropdown } from '@/App/Levels/Utils';
+import type { TModel3d, TRegistryPack, TSpace, TSpaceConfig, TSpaceRegistry } from '@/Engine';
 import { createDomElement, isNotDefined, spaceService } from '@/Engine';
 
 import space from './space.json';
@@ -14,18 +14,28 @@ const spaceTextsConfig: TSpaceConfig = spaceTexts as TSpaceConfig;
 
 const getContainer = (canvasSelector: string): string => canvasSelector.split('#')[1].trim();
 
-type TSpacesData = Readonly<{ name: string; config: TSpaceConfig; container: string }>;
+type TSpacesData = Readonly<{ name: string; config: TSpaceConfig; container: string; init?: (space: TSpace) => void }>;
 
 const spacesData: ReadonlyArray<TSpacesData> = [
   { name: spaceBasicConfig.name, config: spaceBasicConfig, container: getContainer(spaceBasicConfig.canvasSelector) },
-  { name: spaceCustomModelsConfig.name, config: spaceCustomModelsConfig, container: getContainer(spaceCustomModelsConfig.canvasSelector) },
+  {
+    name: spaceCustomModelsConfig.name,
+    config: spaceCustomModelsConfig,
+    container: getContainer(spaceCustomModelsConfig.canvasSelector),
+    init: (space: TSpace): void => {
+      space.services.models3dService.getRegistry().added$.subscribe(({ key, value: model3dSource }: TRegistryPack<TModel3d>): void => {
+        console.log(`Model "${model3dSource.name}" is created (${key})`);
+        space.services.scenesService.findActive()?.addModel3d(model3dSource);
+      });
+    }
+  },
   { name: spaceTextsConfig.name, config: spaceTextsConfig, container: getContainer(spaceTextsConfig.canvasSelector) }
 ];
 
 let currentSpaceName: string | undefined;
 
 function createContainersDivs(): void {
-  spacesData.forEach(({ container }) => createDomElement('div', undefined, ['container'], container));
+  spacesData.forEach(({ container }): HTMLElement => createDomElement('div', undefined, ['container'], container));
 }
 
 function setContainerVisibility(name: string, isVisible: boolean): void {
@@ -47,10 +57,10 @@ export function start(): void {
     spacesData.map((space: TSpacesData): string => space.name)
   );
 
-  runSpace(spaceBasicConfig.name);
+  loadSpace(spaceBasicConfig.name);
 }
 
-function runSpace(name: string): void {
+function loadSpace(name: string): void {
   const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
 
@@ -59,11 +69,12 @@ function runSpace(name: string): void {
   if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot create the space "${name}"`);
 
   currentSpaceName = space.name;
+  spaceData.init?.(space);
   space.start$.next(true);
   setContainerVisibility(name, true);
 }
 
-function destroySpace(name: string | undefined, spaceRegistry: TSpaceRegistry): void {
+function unloadSpace(name: string | undefined, spaceRegistry: TSpaceRegistry): void {
   if (isNotDefined(name)) return;
   const space: TSpace | undefined = spaceRegistry.findByName(name);
   if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot destroy the space "${name}"`);
@@ -97,8 +108,8 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
     'Spaces',
     containerId,
     (name: string): void => {
-      destroySpace(currentSpaceName, spaceRegistry);
-      runSpace(name);
+      unloadSpace(currentSpaceName, spaceRegistry);
+      loadSpace(name);
     },
     options,
     { right, top }
