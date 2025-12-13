@@ -43,9 +43,11 @@ function getSpatial(entity: TActor): TSpatialDataConfig {
 function getStates(entity: TActor): TActorStates {
   let result: TActorStates = {};
 
-  Object.entries(entity.states).forEach((state: [string, TFsmWrapper]): void => {
-    const [key, value] = state;
-    result = { ...result, [key]: value.name };
+  Object.entries(entity.states).forEach((entry: [string, TFsmWrapper]): void => {
+    const [key, state] = entry;
+    const serialized: TFsmConfig = state.serialize();
+    const { name, currentState } = serialized;
+    result = { ...result, [key]: { name, currentState } };
   });
 
   return result;

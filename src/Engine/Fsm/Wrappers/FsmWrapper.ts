@@ -11,14 +11,14 @@ import type { TFsmConfig, TFsmEvents, TFsmMachine, TFsmParams, TFsmStates, TFsmW
 type TStrategyType = typeof concatMap | typeof exhaustMap | typeof switchMap | typeof mergeMap;
 
 export function FsmWrapper(params: TFsmParams): TFsmWrapper {
-  const changed$: BehaviorSubject<TFsmStates> = new BehaviorSubject<TFsmStates>(params.initial);
+  const changed$: BehaviorSubject<TFsmStates> = new BehaviorSubject<TFsmStates>(params.currentState ?? params.initial);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { name, ...machineParams } = params;
 
   const onChange = (val: TFsmStates): void => changed$.next(val);
 
   const entity: TFsmMachine = new StateMachine<TFsmStates, TFsmEvents>(
-    machineParams.initial,
+    machineParams.currentState ?? machineParams.initial,
     machineParams.transitions.map(([from, to, event]) => {
       return t(from, to, event, (): void => onChange(to));
     })
@@ -81,6 +81,7 @@ export function FsmWrapper(params: TFsmParams): TFsmWrapper {
     send$,
     strategy$,
     getState,
+    getInitial: (): TFsmStates => params.initial,
     serialize: (): TFsmConfig => fsmToConfig(result)
   });
 

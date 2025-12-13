@@ -32,7 +32,7 @@ export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: 
     if (isDefined(source) && !force) {
       if (!isParamsEqualsToSource(params, source))
         throw new Error(
-          `FsmService. Can't create a fsm instance with name ${params.name}: Source already existed, but params are different. Maybe an accident. (Params should be the same, or use "force")`
+          `[FsmService]. Can't create a fsm instance with name ${params.name}: Source already existed, but params are different. Maybe an accident. (Params should be the same, or use "force" option)`
         );
       return instanceFactory.create(source, undefined);
     }

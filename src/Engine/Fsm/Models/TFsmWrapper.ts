@@ -13,4 +13,5 @@ export type TFsmWrapper = TWrapper<TFsmMachine> &
     send$: BehaviorSubject<TFsmStates>;
     strategy$: BehaviorSubject<FsmEventsStrategy>;
     getState: () => TFsmStates;
+    getInitial: () => TFsmStates;
   }>;

@@ -335,15 +335,6 @@
         "presetName": {
           "type": "string"
         },
-        "type": {
-          "$ref": "#/definitions/RigidBodyTypesNames"
-        },
-        "position": {
-          "$ref": "#/definitions/Vector3Like"
-        },
-        "rotation": {
-          "$ref": "#/definitions/QuaternionLike"
-        },
         "collisionShape": {
           "$ref": "#/definitions/CollisionShape"
         },
@@ -365,17 +356,16 @@
         "isSleep": {
           "type": "boolean"
         },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "type": {
+          "$ref": "#/definitions/RigidBodyTypesNames"
+        },
+        "position": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "rotation": {
+          "$ref": "#/definitions/QuaternionLike"
         }
       }
-    },
-    "RigidBodyTypesNames": {
-      "type": "string",
-      "enum": ["dynamic", "fixed", "kinematicPositionBased", "kinematicVelocityBased"]
     },
     "CollisionShape": {
       "type": "string",
@@ -1018,6 +1008,10 @@
       },
       "required": ["halfHeight", "radius", "borderRadius"],
       "additionalProperties": false
+    },
+    "RigidBodyTypesNames": {
+      "type": "string",
+      "enum": ["dynamic", "fixed", "kinematicPositionBased", "kinematicVelocityBased"]
     },
     "TKinematicConfig": {
       "type": "object",
@@ -2522,6 +2516,9 @@
           ]
         },
         "initial": {
+          "$ref": "#/definitions/TFsmStates"
+        },
+        "currentState": {
           "$ref": "#/definitions/TFsmStates"
         },
         "strategy": {
