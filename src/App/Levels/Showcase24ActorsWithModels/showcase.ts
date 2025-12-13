@@ -4,7 +4,7 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TFsmStates, TFsmWrapper, TModel3d, TModels3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
-import { ambientContext, isNotDefined, KeyCode, KeysExtra, spaceService } from '@/Engine';
+import { ambientContext, asRecord, isNotDefined, KeyCode, KeysExtra, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
 
@@ -20,9 +20,8 @@ function beforeResourcesLoaded(_config: TSpaceConfig, { models3dService, scenesS
 }
 
 export function start(): void {
-  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig], { beforeResourcesLoaded });
-  // TODO 14-0-0: implement spaceService.findActive()
-  const space: TSpace = spaces[0];
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], { beforeResourcesLoaded }));
+  const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
 
   space.built$.subscribe(showcase);
