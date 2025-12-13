@@ -1,1 +1,3 @@
-export type InputTag = string;
+export enum InputTag {
+  Initial = 'initial'
+}

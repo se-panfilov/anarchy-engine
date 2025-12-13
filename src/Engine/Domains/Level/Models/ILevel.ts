@@ -1,6 +1,7 @@
 import type { ILoopFactory, ILoopRegistry, ILoopWrapper } from '@Engine/Domains/Loop';
 import type { Observable } from 'rxjs';
 
+import type { CommonTags } from '@/Engine/Domains/Abstract';
 import type { IActorFactory, IActorRegistry } from '@/Engine/Domains/Actor';
 import type { ICameraFactory, ICameraRegistry } from '@/Engine/Domains/Camera';
 import type { IControlsFactory, IControlsRegistry } from '@/Engine/Domains/Controls';
@@ -25,7 +26,7 @@ export type ILevel = IReactiveDestroyable &
     loop: DomainTools<ILoopFactory, ILoopRegistry>;
     scenes: DomainTools<ISceneFactory, ISceneRegistry>;
     renderer: DomainTools<IRendererFactory, IRendererRegistry>;
-    tags: ReadonlyArray<LevelTag>;
+    tags: ReadonlyArray<LevelTag | CommonTags | string>;
   }>;
 
 export type DomainTools<F, R> = {

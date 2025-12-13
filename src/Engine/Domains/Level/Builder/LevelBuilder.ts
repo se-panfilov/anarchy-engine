@@ -12,6 +12,7 @@ import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 
 import { ambientContext } from '@/Engine/Context';
+import { CommonTags } from '@/Engine/Domains/Abstract';
 import type { IActorConfig, IActorFactory, IActorRegistry, IActorWrapper } from '@/Engine/Domains/Actor';
 import { ActorFactory, ActorRegistry, ActorTag } from '@/Engine/Domains/Actor';
 import type { IControlsConfig, IControlsFactory, IControlsRegistry, IOrbitControlsWrapper } from '@/Engine/Domains/Controls';
@@ -40,7 +41,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const sceneFactory: ISceneFactory = SceneFactory();
   const sceneRegistry: ISceneRegistry = SceneRegistry();
   const sceneEntityCreatedSubscription: Subscription = sceneFactory.entityCreated$.subscribe((instance: ISceneWrapper): void => sceneRegistry.add(instance));
-  scenes.forEach((scene: ISceneConfig): ISceneWrapper => sceneFactory.create(sceneFactory.getParams(scene)));
+  scenes.forEach((scene: ISceneConfig): ISceneWrapper => sceneFactory.create(sceneFactory.getParams({ ...scene, tags: [...scene.tags, CommonTags.FromConfig] })));
 
   const scene: ISceneWrapper | undefined = sceneRegistry.getUniqByTag(SceneTag.Current);
   if (isNotDefined(scene)) throw new Error(`Cannot find the current scene for level "${name}" during the level building.`);
@@ -150,7 +151,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     },
     stop(): void {
       intersectionsWatcher.stop();
-      // TODO (S.Panfilov)
+      // TODO (S.Panfilov) implement stop
       // loop.stop(renderer, scene, initialCamera, controlsRegistry);
     },
     built$,

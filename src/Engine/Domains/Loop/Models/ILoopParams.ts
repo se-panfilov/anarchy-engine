@@ -1,5 +1,6 @@
-import type { LoopTag } from '../Constants';
+import type { CommonTags } from '@/Engine/Domains/Abstract';
+import type { LoopTag } from '@/Engine/Domains/Loop/Constants';
 
 export type ILoopParams = Readonly<{
-  tags: ReadonlyArray<LoopTag | string>;
+  tags: ReadonlyArray<LoopTag | CommonTags | string>;
 }>;
