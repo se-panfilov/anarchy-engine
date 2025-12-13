@@ -5,7 +5,7 @@ import type { TControlsConfig } from '@/Engine/Controls';
 import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TSceneConfig } from '@/Engine/Scene';
 import type { TSpaceConfig } from '@/Engine/Space';
-import ISpaceConfigSchema from '@/Engine/Space/Schemas/ISpaceConfig.json';
+import TSpaceConfigSchema from '@/Engine/Space/Schemas/TSpaceConfig.json';
 
 import { isDefined } from './CheckUtils';
 
@@ -23,7 +23,7 @@ export function validLevelConfig(config: TSpaceConfig): TSchemaValidationResult 
 }
 
 function validateJsonSchema(config: TSpaceConfig): TSchemaValidationResult {
-  const validate = ajv.compile(ISpaceConfigSchema);
+  const validate = ajv.compile(TSpaceConfigSchema);
   const isValid: boolean = validate(config);
   return { isValid, errors: validate.errors };
 }

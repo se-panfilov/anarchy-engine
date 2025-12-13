@@ -18,55 +18,55 @@
     "scenes": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/ISceneConfig"
+        "$ref": "#/definitions/TSceneConfig"
       }
     },
     "actors": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/IActorConfig"
+        "$ref": "#/definitions/TActorConfig"
       }
     },
     "cameras": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/ICameraConfig"
+        "$ref": "#/definitions/TCameraConfig"
       }
     },
     "intersections": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/IIntersectionsWatcherConfig"
+        "$ref": "#/definitions/TIntersectionsWatcherConfig"
       }
     },
     "lights": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/IAnyLightConfig"
+        "$ref": "#/definitions/TAnyLightConfig"
       }
     },
     "particles": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/IParticlesConfig"
+        "$ref": "#/definitions/TParticlesConfig"
       }
     },
     "fogs": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/IFogConfig"
+        "$ref": "#/definitions/TFogConfig"
       }
     },
     "texts": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/ITextConfig"
+        "$ref": "#/definitions/TTextConfig"
       }
     },
     "controls": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/IControlsConfig"
+        "$ref": "#/definitions/TControlsConfig"
       }
     },
     "envMaps": {
@@ -82,7 +82,7 @@
       "type": "string",
       "const": "1.0.0"
     },
-    "ISceneConfig": {
+    "TSceneConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -117,13 +117,13 @@
           }
         },
         "rotation": {
-          "$ref": "#/definitions/IEuler3dConfig"
+          "$ref": "#/definitions/TEuler3dConfig"
         },
         "scale": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "position": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "background": {
           "type": "string"
@@ -137,7 +137,7 @@
       },
       "required": ["isActive", "tags"]
     },
-    "IEuler3dConfig": {
+    "TEuler3dConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -159,7 +159,7 @@
       "type": "string",
       "enum": ["XYZ", "YXZ", "ZXY", "ZYX", "YZX", "XZY"]
     },
-    "IWithCoordsXYZ": {
+    "TWithCoordsXYZ": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -175,7 +175,7 @@
       },
       "required": ["x", "y", "z"]
     },
-    "IActorConfig": {
+    "TActorConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -195,13 +195,13 @@
           }
         },
         "position": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "rotation": {
-          "$ref": "#/definitions/IEuler3dConfig"
+          "$ref": "#/definitions/TEuler3dConfig"
         },
         "scale": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "visible": {
           "type": "boolean"
@@ -228,7 +228,7 @@
           "type": "number"
         },
         "material": {
-          "$ref": "#/definitions/IMaterialPackConfig%3CIMaterialTexturePack%3E"
+          "$ref": "#/definitions/TMaterialPackConfig%3CTMaterialTexturePack%3E"
         },
         "depth": {
           "type": "number"
@@ -255,7 +255,7 @@
       "type": "string",
       "enum": ["sphere", "plane", "cube"]
     },
-    "IMaterialPackConfig<IMaterialTexturePack>": {
+    "TMaterialPackConfig<TMaterialTexturePack>": {
       "type": "object",
       "properties": {
         "type": {
@@ -454,13 +454,13 @@
               "type": "number"
             },
             "referencePosition": {
-              "$ref": "#/definitions/IVector3"
+              "$ref": "#/definitions/TVector3"
             },
             "bumpScale": {
               "type": "number"
             },
             "normalScale": {
-              "$ref": "#/definitions/IVector2"
+              "$ref": "#/definitions/TVector2"
             },
             "flatShading": {
               "type": "boolean"
@@ -493,7 +493,7 @@
               "type": "number"
             },
             "clearcoatNormalScale": {
-              "$ref": "#/definitions/IVector2"
+              "$ref": "#/definitions/TVector2"
             },
             "ior": {
               "type": "number"
@@ -548,7 +548,7 @@
             "map": {
               "anyOf": [
                 {
-                  "$ref": "#/definitions/ITexture"
+                  "$ref": "#/definitions/TTexture"
                 },
                 {
                   "type": "null"
@@ -558,7 +558,7 @@
             "alphaMap": {
               "anyOf": [
                 {
-                  "$ref": "#/definitions/ITexture"
+                  "$ref": "#/definitions/TTexture"
                 },
                 {
                   "type": "null"
@@ -575,7 +575,7 @@
           "additionalProperties": false
         },
         "textures": {
-          "$ref": "#/definitions/IMaterialTexturePack"
+          "$ref": "#/definitions/TMaterialTexturePack"
         }
       },
       "required": ["type"],
@@ -706,7 +706,7 @@
       "type": "string",
       "enum": ["TangentSpaceNormalMap", "ObjectSpaceNormalMap"]
     },
-    "IVector3": {
+    "TVector3": {
       "type": "object",
       "properties": {
         "x": {
@@ -729,7 +729,7 @@
       "required": ["x", "y", "z", "isVector3"],
       "additionalProperties": false
     },
-    "IVector2": {
+    "TVector2": {
       "type": "object",
       "properties": {
         "x": {
@@ -754,7 +754,7 @@
       "required": ["x", "y", "width", "height", "isVector2"],
       "additionalProperties": false
     },
-    "ITexture": {
+    "TTexture": {
       "type": "object",
       "properties": {
         "isTexture": {
@@ -1149,81 +1149,81 @@
       "type": "string",
       "enum": ["", "srgb", "srgb-linear", "display-p3", "display-p3-linear"]
     },
-    "IMaterialTexturePack": {
+    "TMaterialTexturePack": {
       "anyOf": [
         {
-          "$ref": "#/definitions/IBasicMaterialTexturePack"
+          "$ref": "#/definitions/TBasicMaterialTexturePack"
         },
         {
-          "$ref": "#/definitions/IDepthMaterialTexturePack"
+          "$ref": "#/definitions/TDepthMaterialTexturePack"
         },
         {
-          "$ref": "#/definitions/IDistanceMaterialTexturePack"
+          "$ref": "#/definitions/TDistanceMaterialTexturePack"
         },
         {
-          "$ref": "#/definitions/INormalMaterialTexturePack"
+          "$ref": "#/definitions/TNormalMaterialTexturePack"
         },
         {
-          "$ref": "#/definitions/IMatcapMaterialTexturePack"
+          "$ref": "#/definitions/TMatcapMaterialTexturePack"
         },
         {
-          "$ref": "#/definitions/ILambertMaterialTexturePack"
+          "$ref": "#/definitions/TLambertMaterialTexturePack"
         },
         {
-          "$ref": "#/definitions/IPhongMaterialTexturePack"
+          "$ref": "#/definitions/TPhongMaterialTexturePack"
         },
         {
-          "$ref": "#/definitions/IPhysicalMaterialTexturePack"
+          "$ref": "#/definitions/TPhysicalMaterialTexturePack"
         },
         {
-          "$ref": "#/definitions/IToonMaterialTexturePack"
+          "$ref": "#/definitions/TToonMaterialTexturePack"
         },
         {
-          "$ref": "#/definitions/IStandardMaterialTexturePack"
+          "$ref": "#/definitions/TStandardMaterialTexturePack"
         },
         {
-          "$ref": "#/definitions/IPointsMaterialTexturePack"
+          "$ref": "#/definitions/TPointsMaterialTexturePack"
         }
       ]
     },
-    "IBasicMaterialTexturePack": {
+    "TBasicMaterialTexturePack": {
       "type": "object",
       "properties": {
         "map": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "aoMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "specularMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "alphaMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "envMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "lightMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         }
       },
       "additionalProperties": false
     },
-    "ITexturePackParams": {
+    "TTexturePackParams": {
       "type": "object",
       "properties": {
         "url": {
           "type": "string"
         },
         "params": {
-          "$ref": "#/definitions/ITextureParams"
+          "$ref": "#/definitions/TTextureParams"
         }
       },
       "required": ["url"],
       "additionalProperties": false
     },
-    "ITextureParams": {
+    "TTextureParams": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -1266,277 +1266,277 @@
       },
       "required": ["tags"]
     },
-    "IDepthMaterialTexturePack": {
+    "TDepthMaterialTexturePack": {
       "type": "object",
       "properties": {
         "map": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "alphaMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "displacementMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         }
       },
       "additionalProperties": false
     },
-    "IDistanceMaterialTexturePack": {
+    "TDistanceMaterialTexturePack": {
       "type": "object",
       "properties": {
         "map": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "alphaMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         }
       },
       "additionalProperties": false
     },
-    "INormalMaterialTexturePack": {
+    "TNormalMaterialTexturePack": {
       "type": "object",
       "properties": {
         "bumpMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "normalMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "displacementMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         }
       },
       "additionalProperties": false
     },
-    "IMatcapMaterialTexturePack": {
+    "TMatcapMaterialTexturePack": {
       "type": "object",
       "properties": {
         "map": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "matcap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "bumpMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "normalMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "displacementMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "alphaMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         }
       },
       "additionalProperties": false
     },
-    "ILambertMaterialTexturePack": {
+    "TLambertMaterialTexturePack": {
       "type": "object",
       "properties": {
         "map": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "bumpMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "displacementMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "emissiveMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "lightMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "normalMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "aoMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "specularMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "alphaMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "envMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         }
       },
       "additionalProperties": false
     },
-    "IPhongMaterialTexturePack": {
+    "TPhongMaterialTexturePack": {
       "type": "object",
       "properties": {
         "map": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "lightMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "aoMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "emissiveMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "bumpMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "normalMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "displacementMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "specularMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "alphaMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "envMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         }
       },
       "additionalProperties": false
     },
-    "IPhysicalMaterialTexturePack": {
+    "TPhysicalMaterialTexturePack": {
       "type": "object",
       "properties": {
         "map": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "lightMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "aoMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "emissiveMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "bumpMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "normalMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "displacementMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "roughnessMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "metalnessMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "alphaMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "envMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "clearcoatMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "clearcoatRoughnessMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "clearcoatNormalMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         }
       },
       "additionalProperties": false
     },
-    "IToonMaterialTexturePack": {
+    "TToonMaterialTexturePack": {
       "type": "object",
       "properties": {
         "map": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "gradientMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "lightMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "aoMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "emissiveMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "bumpMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "normalMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "displacementMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "alphaMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         }
       },
       "additionalProperties": false
     },
-    "IStandardMaterialTexturePack": {
+    "TStandardMaterialTexturePack": {
       "type": "object",
       "properties": {
         "map": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "lightMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "aoMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "emissiveMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "bumpMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "normalMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "displacementMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "roughnessMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "metalnessMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "alphaMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "envMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         }
       },
       "additionalProperties": false
     },
-    "IPointsMaterialTexturePack": {
+    "TPointsMaterialTexturePack": {
       "type": "object",
       "properties": {
         "map": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         },
         "alphaMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+          "$ref": "#/definitions/TTexturePackParams"
         }
       },
       "additionalProperties": false
     },
-    "ICameraConfig": {
+    "TCameraConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -1556,13 +1556,13 @@
           }
         },
         "position": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "rotation": {
-          "$ref": "#/definitions/IEuler3dConfig"
+          "$ref": "#/definitions/TEuler3dConfig"
         },
         "scale": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "visible": {
           "type": "boolean"
@@ -1580,7 +1580,7 @@
           "type": "number"
         },
         "lookAt": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "fov": {
           "type": "number"
@@ -1600,7 +1600,7 @@
       },
       "required": ["isActive", "position", "tags"]
     },
-    "IIntersectionsWatcherConfig": {
+    "TIntersectionsWatcherConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -1628,32 +1628,32 @@
       },
       "required": ["actorNames", "cameraName", "isAutoStart", "tags"]
     },
-    "IAnyLightConfig": {
+    "TAnyLightConfig": {
       "anyOf": [
         {
-          "$ref": "#/definitions/IAmbientLightConfig"
+          "$ref": "#/definitions/TAmbientLightConfig"
         },
         {
-          "$ref": "#/definitions/IHemisphereLightConfig"
+          "$ref": "#/definitions/THemisphereLightConfig"
         },
         {
-          "$ref": "#/definitions/IDirectionalLightConfig"
+          "$ref": "#/definitions/TDirectionalLightConfig"
         },
         {
-          "$ref": "#/definitions/IPointLightConfig"
+          "$ref": "#/definitions/TPointLightConfig"
         },
         {
-          "$ref": "#/definitions/IRectAreaLightConfig"
+          "$ref": "#/definitions/TRectAreaLightConfig"
         },
         {
-          "$ref": "#/definitions/ISpotLightConfig"
+          "$ref": "#/definitions/TSpotLightConfig"
         }
       ]
     },
-    "IAmbientLightConfig": {
-      "$ref": "#/definitions/IAbstractLightConfig%3CIAmbientLightProps%3E"
+    "TAmbientLightConfig": {
+      "$ref": "#/definitions/TAbstractLightConfig%3CTAmbientLightProps%3E"
     },
-    "IAbstractLightConfig<IAmbientLightProps>": {
+    "TAbstractLightConfig<TAmbientLightProps>": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -1673,13 +1673,13 @@
           }
         },
         "position": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "rotation": {
-          "$ref": "#/definitions/IEuler3dConfig"
+          "$ref": "#/definitions/TEuler3dConfig"
         },
         "scale": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "visible": {
           "type": "boolean"
@@ -1700,7 +1700,7 @@
           "type": "string"
         },
         "shadow": {
-          "$ref": "#/definitions/LightShadowConfig"
+          "$ref": "#/definitions/TLightShadowConfig"
         },
         "type": {
           "$ref": "#/definitions/LightType"
@@ -1714,12 +1714,12 @@
       },
       "required": ["color", "position", "tags", "type"]
     },
-    "LightShadowConfig": {
+    "TLightShadowConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "mapSize": {
-          "$ref": "#/definitions/IWithCoordsXY"
+          "$ref": "#/definitions/TWithCoordsXY"
         },
         "camera": {
           "type": "object",
@@ -1737,7 +1737,7 @@
       },
       "required": ["camera", "mapSize", "normalBias"]
     },
-    "IWithCoordsXY": {
+    "TWithCoordsXY": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -1754,7 +1754,7 @@
       "type": "string",
       "enum": ["Ambient", "Directional", "Point", "Hemisphere", "RectArea", "Spot"]
     },
-    "IHemisphereLightConfig": {
+    "THemisphereLightConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -1774,7 +1774,7 @@
           "type": "string"
         },
         "shadow": {
-          "$ref": "#/definitions/LightShadowConfig"
+          "$ref": "#/definitions/TLightShadowConfig"
         },
         "visible": {
           "type": "boolean"
@@ -1801,13 +1801,13 @@
           }
         },
         "position": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "rotation": {
-          "$ref": "#/definitions/IEuler3dConfig"
+          "$ref": "#/definitions/TEuler3dConfig"
         },
         "scale": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "tags": {
           "type": "array",
@@ -1818,10 +1818,10 @@
       },
       "required": ["color", "groundColor", "position", "tags", "type"]
     },
-    "IDirectionalLightConfig": {
-      "$ref": "#/definitions/IAbstractLightConfig%3CIDirectionalLightProps%3E"
+    "TDirectionalLightConfig": {
+      "$ref": "#/definitions/TAbstractLightConfig%3CTDirectionalLightProps%3E"
     },
-    "IAbstractLightConfig<IDirectionalLightProps>": {
+    "TAbstractLightConfig<TDirectionalLightProps>": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -1841,13 +1841,13 @@
           }
         },
         "position": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "rotation": {
-          "$ref": "#/definitions/IEuler3dConfig"
+          "$ref": "#/definitions/TEuler3dConfig"
         },
         "scale": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "visible": {
           "type": "boolean"
@@ -1868,7 +1868,7 @@
           "type": "string"
         },
         "shadow": {
-          "$ref": "#/definitions/LightShadowConfig"
+          "$ref": "#/definitions/TLightShadowConfig"
         },
         "type": {
           "$ref": "#/definitions/LightType"
@@ -1882,10 +1882,10 @@
       },
       "required": ["color", "position", "tags", "type"]
     },
-    "IPointLightConfig": {
-      "$ref": "#/definitions/IAbstractLightConfig%3CIPointLightProps%3E"
+    "TPointLightConfig": {
+      "$ref": "#/definitions/TAbstractLightConfig%3CTPointLightProps%3E"
     },
-    "IAbstractLightConfig<IPointLightProps>": {
+    "TAbstractLightConfig<TPointLightProps>": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -1905,13 +1905,13 @@
           }
         },
         "position": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "rotation": {
-          "$ref": "#/definitions/IEuler3dConfig"
+          "$ref": "#/definitions/TEuler3dConfig"
         },
         "scale": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "visible": {
           "type": "boolean"
@@ -1932,7 +1932,7 @@
           "type": "string"
         },
         "shadow": {
-          "$ref": "#/definitions/LightShadowConfig"
+          "$ref": "#/definitions/TLightShadowConfig"
         },
         "type": {
           "$ref": "#/definitions/LightType"
@@ -1952,10 +1952,10 @@
       },
       "required": ["color", "position", "tags", "type"]
     },
-    "IRectAreaLightConfig": {
-      "$ref": "#/definitions/IAbstractLightConfig%3CIRectAreaLightProps%3E"
+    "TRectAreaLightConfig": {
+      "$ref": "#/definitions/TAbstractLightConfig%3CTRectAreaLightProps%3E"
     },
-    "IAbstractLightConfig<IRectAreaLightProps>": {
+    "TAbstractLightConfig<TRectAreaLightProps>": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -1975,13 +1975,13 @@
           }
         },
         "position": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "rotation": {
-          "$ref": "#/definitions/IEuler3dConfig"
+          "$ref": "#/definitions/TEuler3dConfig"
         },
         "scale": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "visible": {
           "type": "boolean"
@@ -2002,7 +2002,7 @@
           "type": "string"
         },
         "shadow": {
-          "$ref": "#/definitions/LightShadowConfig"
+          "$ref": "#/definitions/TLightShadowConfig"
         },
         "type": {
           "$ref": "#/definitions/LightType"
@@ -2022,10 +2022,10 @@
       },
       "required": ["color", "height", "position", "tags", "type", "width"]
     },
-    "ISpotLightConfig": {
-      "$ref": "#/definitions/IAbstractLightConfig%3CISpotLightProps%3E"
+    "TSpotLightConfig": {
+      "$ref": "#/definitions/TAbstractLightConfig%3CTSpotLightProps%3E"
     },
-    "IAbstractLightConfig<ISpotLightProps>": {
+    "TAbstractLightConfig<TSpotLightProps>": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -2045,13 +2045,13 @@
           }
         },
         "position": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "rotation": {
-          "$ref": "#/definitions/IEuler3dConfig"
+          "$ref": "#/definitions/TEuler3dConfig"
         },
         "scale": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "visible": {
           "type": "boolean"
@@ -2072,7 +2072,7 @@
           "type": "string"
         },
         "shadow": {
-          "$ref": "#/definitions/LightShadowConfig"
+          "$ref": "#/definitions/TLightShadowConfig"
         },
         "type": {
           "$ref": "#/definitions/LightType"
@@ -2098,7 +2098,7 @@
       },
       "required": ["color", "position", "tags", "type"]
     },
-    "IParticlesConfig": {
+    "TParticlesConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -2118,13 +2118,13 @@
           }
         },
         "position": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "rotation": {
-          "$ref": "#/definitions/IEuler3dConfig"
+          "$ref": "#/definitions/TEuler3dConfig"
         },
         "scale": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "visible": {
           "type": "boolean"
@@ -2142,7 +2142,7 @@
           "type": "number"
         },
         "material": {
-          "$ref": "#/definitions/IMaterialPackConfig%3CIMaterialTexturePack%3E"
+          "$ref": "#/definitions/TMaterialPackConfig%3CTMaterialTexturePack%3E"
         },
         "name": {
           "type": "string"
@@ -2150,7 +2150,7 @@
       },
       "required": ["material", "position", "tags"]
     },
-    "IFogConfig": {
+    "TFogConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -2175,7 +2175,7 @@
       },
       "required": ["color", "tags"]
     },
-    "ITextConfig": {
+    "TTextConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -2195,13 +2195,13 @@
           }
         },
         "position": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "rotation": {
-          "$ref": "#/definitions/IEuler3dConfig"
+          "$ref": "#/definitions/TEuler3dConfig"
         },
         "scale": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "visible": {
           "type": "boolean"
@@ -2238,7 +2238,7 @@
           "$ref": "#/definitions/TextType"
         },
         "cssProps": {
-          "$ref": "#/definitions/ITextCssProps"
+          "$ref": "#/definitions/TTextCssProps"
         },
         "elementType": {
           "type": "string"
@@ -2253,7 +2253,7 @@
       "type": "string",
       "enum": ["2d", "3d"]
     },
-    "ITextCssProps": {
+    "TTextCssProps": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -3711,10 +3711,10 @@
       "type": "string",
       "enum": ["normal", "bold"]
     },
-    "IControlsConfig": {
-      "$ref": "#/definitions/IOrbitControlsConfig"
+    "TControlsConfig": {
+      "$ref": "#/definitions/TOrbitControlsConfig"
     },
-    "IOrbitControlsConfig": {
+    "TOrbitControlsConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
