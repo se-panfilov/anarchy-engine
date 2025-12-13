@@ -1,21 +1,25 @@
-import type { TCameraWrapper } from '@/Engine/Camera';
+import type { TCamera, TCameraWrapper } from '@/Engine/Camera';
 import type { TControlsConfig, TControlsServiceDependencies, TControlsWrapper, TFpsControlsConfig, TFpsControlsWrapper, TOrbitControlsConfig, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
 export function controlsToConfig(entity: TControlsWrapper, { cameraService }: TControlsServiceDependencies): TControlsConfig {
-  console.log('XXX entity', entity);
-  console.log('XXX entity.entity', entity.entity);
+  // console.log('XXX entity', entity);
+  // console.log('XXX entity.entity', entity.entity);
+  // console.log('XXX registry', cameraService.getRegistry().asObject());
+  // console.log('XXX entity.entity.object', entity.entity.object);
 
-  // const camera: TCameraWrapper | undefined = cameraRegistry.find((camera: TCameraWrapper): boolean => camera.getName() === control.cameraName);
-  // if (isNotDefined(camera)) throw new Error(`Cannot find camera for controls (${control.type}) initialization`);
+  const camera: TCamera | undefined = entity.entity.object as TCamera;
+  if (isNotDefined(camera)) throw new Error(`[Serialization] Controls: camera not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
+  const cameraName: string | undefined = cameraService.getRegistry().findKey((cameraWrapper: TCameraWrapper): boolean => cameraWrapper.entity === camera);
+  if (isNotDefined(cameraName)) throw new Error(`[Serialization] Controls: camera with name "${cameraName}" not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
 
   return filterOutEmptyFields({
     enabled: entity.isEnable(),
     type: entity.getType(),
     isActive: entity.isActive(),
-    cameraName: entity.getCamera(),
+    cameraName,
     ...getFpsControlsFields(entity as TFpsControlsWrapper),
     ...getOrbitControlsFields(entity as TOrbitControlsWrapper),
     ...extractSerializableRegistrableFields(entity)
