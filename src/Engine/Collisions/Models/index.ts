@@ -4,6 +4,7 @@ export type * from './TCollisionCheckResult';
 export type * from './TCollisionsData';
 export type * from './TCollisionsDataConfig';
 export type * from './TCollisionsDataParams';
+export type * from './TCollisionsLoop';
 export type * from './TCollisionsLoopValue';
 export type * from './TCollisionsMethods';
 export type * from './TCollisionsService';

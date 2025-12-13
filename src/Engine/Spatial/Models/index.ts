@@ -13,6 +13,7 @@ export type * from './TSpatialGridParams';
 export type * from './TSpatialGridRegistry';
 export type * from './TSpatialGridService';
 export type * from './TSpatialGridWrapper';
+export type * from './TSpatialLoop';
 export type * from './TSpatialMethods';
 export type * from './TSpatialPerformanceOptions';
 export type * from './TWithReactivePosition';

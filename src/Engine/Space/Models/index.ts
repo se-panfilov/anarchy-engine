@@ -1,6 +1,3 @@
-export type * from './TCollisionsLoop';
-export type * from './TKinematicLoop';
-export type * from './TPhysicalLoop';
 export type * from './TRenderLoop';
 export type * from './TSpace';
 export type * from './TSpaceConfig';
@@ -11,5 +8,4 @@ export type * from './TSpaceLoops';
 export type * from './TSpaceService';
 export type * from './TSpaceServiceMixins';
 export type * from './TSpaceServices';
-export type * from './TSpatialLoop';
 export type * from './TWithBuilt';

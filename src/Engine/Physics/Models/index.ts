@@ -1,3 +1,4 @@
+export type * from './TPhysicalLoop';
 export type * from './TPhysicsBody';
 export type * from './TPhysicsBodyConfig';
 export type * from './TPhysicsBodyEntities';
