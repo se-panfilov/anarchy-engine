@@ -3,7 +3,7 @@ import { combineLatest } from 'rxjs';
 import { Clock } from 'three';
 
 import type { TActor, TActorRegistry, TActorService, TMilliseconds, TSpace, TSpaceConfig, TTransformLoop } from '@/Engine';
-import { asRecord, createDomElement, isDefined, isNotDefined, spaceService } from '@/Engine';
+import { asRecord, createDomElement, isNotDefined, spaceService } from '@/Engine';
 
 import spaceAlphaConfigJson from './spaceAlpha.json';
 import spaceBetaConfigJson from './spaceBeta.json';
@@ -24,9 +24,10 @@ export function start(): void {
   if (isNotDefined(spaceAlpha)) throw new Error(`Showcase: Space "${spaceAlphaConfig.name}" is not defined`);
   if (isNotDefined(spaceBeta)) throw new Error(`Showcase: Space "${spaceBetaConfig.name}" is not defined`);
 
-  combineLatest([spaceAlpha.built$, spaceBeta.built$]).subscribe((): void => showcase(spaceAlpha));
-
-  addBtn('Next space', (): void => nextSpace([spaceAlpha, spaceBeta]));
+  combineLatest([spaceAlpha.built$, spaceBeta.built$]).subscribe(([alpha, beta]: ReadonlyArray<TSpace>): void => {
+    runAlpha(alpha);
+    runBeta(beta);
+  });
 
   addBtn('Start Alpha', (): void => spaceAlpha.start$.next(true));
   addBtn('Stop Alpha', (): void => spaceAlpha.start$.next(false));
@@ -37,34 +38,14 @@ export function start(): void {
   addBtn('Destroy Beta', (): void => spaceBeta.destroy$.next());
 }
 
-let currentSpaceId: string | undefined = undefined;
-
-export function showcase(space: TSpace): void {
-  switch (space.name) {
-    case spaceAlphaConfig.name:
-      runAlpha(space);
-      break;
-    case spaceBetaConfig.name:
-      runBeta(space);
-      break;
-    default:
-      throw new Error(`Showcase: Space "${space.name}" is not defined`);
-  }
-
-  currentSpaceId = space.id;
-  space.start$.next(true);
-}
-
 export function runAlpha(space: TSpace): void {
-  // const container = space.getCanvasElement().parentElement!;
-  // const width = container.clientWidth;
-  // const height = container.clientHeight;
-  // space.services.rendererService.findActive()?.setSize(width, height);
   moveCircle('sphere_actor', space.services.actorService, space.loops.transformLoop, new Clock());
+  space.start$.next(true);
 }
 
 export function runBeta(space: TSpace): void {
   moveCircle('box_actor', space.services.actorService, space.loops.transformLoop, new Clock());
+  space.start$.next(true);
 }
 
 function moveCircle(actorName: string, actorService: TActorService, transformLoop: TTransformLoop, clock: Clock): Subscription {
@@ -106,15 +87,4 @@ function addBtn(text: string, cb: (...rest: ReadonlyArray<any>) => void): void {
 
   button.addEventListener('click', cb);
   container.appendChild(button);
-}
-
-function nextSpace(spaces: ReadonlyArray<TSpace>): void {
-  const currIdx: number = isDefined(currentSpaceId) ? spaces.findIndex((s: TSpace): boolean => s.id === currentSpaceId) : 0;
-  const nextIdx: number = currIdx >= spaces.length - 1 ? 0 : currIdx + 1;
-
-  const currSpace: TSpace = spaces[currIdx];
-  const nextSpace: TSpace = spaces[nextIdx];
-  currSpace.start$.next(false);
-  nextSpace.start$.next(true);
-  currentSpaceId = nextSpace.id;
 }
