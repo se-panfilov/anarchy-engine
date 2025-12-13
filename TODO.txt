@@ -42,6 +42,7 @@ Thoughts:
 - BUG: #191823 Text3dTextures doesn't update text values on textures on change;
 - TASK: Check every function in the engine that it's not calling every second (with adding console.log everywhere);
 - TASK: Check performance (make sure materials and env maps are async)
+- TASK: Take a look on entities in runtime (console.log) to see what fields are there, what are values, etc.;
 
 Won't be implemented soon:
 - GUI/UI/HUD/Menus: Leave it to the app (don't want to build a generic solution);
