@@ -4,6 +4,7 @@ import { BoxGeometry, Mesh, PlaneGeometry, SphereGeometry } from 'three';
 import { ActorType } from '@/Engine/Actor/Constants';
 import type { IActorParams, IMesh } from '@/Engine/Actor/Models';
 import { materialService } from '@/Engine/Material';
+import { meters } from '@/Engine/Measurements/Utils';
 import { textureService } from '@/Engine/Texture';
 import { isDefined } from '@/Engine/Utils';
 
@@ -25,13 +26,18 @@ async function getMaterial(params: IActorParams): Promise<Material> {
 }
 
 function createPlane({ width, height, widthSegments, heightSegments }: IActorParams, material: Material): IMesh {
-  return new Mesh(new PlaneGeometry(width, height, widthSegments, heightSegments), material);
+  const w: number | undefined = isDefined(width) ? meters(width) : undefined;
+  const h: number | undefined = isDefined(height) ? meters(height) : undefined;
+  return new Mesh(new PlaneGeometry(w, h, widthSegments, heightSegments), material);
 }
 
 function createSphere({ radius, widthSegments, heightSegments }: IActorParams, material: Material): IMesh {
-  return new Mesh(new SphereGeometry(radius, widthSegments, heightSegments), material);
+  const r: number | undefined = isDefined(radius) ? meters(radius) : undefined;
+  return new Mesh(new SphereGeometry(r, widthSegments, heightSegments), material);
 }
 
 function createCube({ width, height, depth, widthSegments, heightSegments, depthSegments }: IActorParams, material: Material): IMesh {
-  return new Mesh(new BoxGeometry(width, height, depth, widthSegments, heightSegments, depthSegments), material);
+  const w: number | undefined = isDefined(width) ? meters(width) : undefined;
+  const h: number | undefined = isDefined(height) ? meters(height) : undefined;
+  return new Mesh(new BoxGeometry(w, h, depth, widthSegments, heightSegments, depthSegments), material);
 }

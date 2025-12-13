@@ -46,6 +46,7 @@ function getLoopFn(tick$: Subject<ILoopTimes>, state: ILoopServiceState): (time:
     // (fpsGraph as any).begin();
     if (!state.isLooping) return;
     const elapsedTime: number = clock.getElapsedTime();
+    // TODO (S.Panfilov) MATH: need precision calculations??? (or not? how performant they are?)
     const delta: number = elapsedTime - lastElapsedTime;
     lastElapsedTime = elapsedTime;
     tick$.next({ delta, frameTime, elapsedTime });
