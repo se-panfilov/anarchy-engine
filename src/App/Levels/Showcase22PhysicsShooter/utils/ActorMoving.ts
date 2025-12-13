@@ -2,7 +2,7 @@ import { BehaviorSubject, combineLatest, map, Subject } from 'rxjs';
 import type { Vector3 } from 'three';
 
 import type { TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService, TRadians } from '@/Engine';
-import { getAzimuthRadFromDirection, getElevationRadFromDirection, KeyCode, METER } from '@/Engine';
+import { getAzimuthRadFromDirection, getElevationRadFromDirection, KeyCode } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 type TMoveKeysState = { Forward: boolean; Left: boolean; Right: boolean; Backward: boolean };
