@@ -8,7 +8,7 @@ import { asRecord, createDomElement, isDefined, isNotDefined, spaceService } fro
 import spaceAlphaConfigJson from './spaceAlpha.json';
 import spaceBetaConfigJson from './spaceBeta.json';
 
-const tracked = new Set<Subscription>();
+const tracked = new Map<Subscription, { sub: Subscription; stack: any }>();
 hackRxJsSubscriptions(tracked);
 
 const spaceAlphaConfig: TSpaceConfig = spaceAlphaConfigJson as TSpaceConfig;
@@ -41,6 +41,7 @@ export function start(): void {
     console.log('Cleaning up...');
     spaceAlpha.destroy$.next();
     setTimeout(() => console.log('Subscriptions after destroy:', tracked.size), 1000);
+    setTimeout(() => console.log(tracked), 1000);
   });
 
   addBtn('Start Beta', rightContainerId, (): void => spaceBeta.start$.next(true), '4px');
@@ -92,7 +93,7 @@ function addBtn(text: string, containerId: string, cb: (...rest: ReadonlyArray<a
   container.appendChild(button);
 }
 
-function hackRxJsSubscriptions(tracked: Set<Subscription>): void {
+function hackRxJsSubscriptions(tracked: Map<Subscription, { sub: Subscription; stack: any }>): void {
   //Hack RxJS to track subscriptions to prevent memory leaks (DO NOT USE IN PRODUCTION);
   const originalUnsubscribe = Subscription.prototype.unsubscribe;
 
@@ -106,8 +107,9 @@ function hackRxJsSubscriptions(tracked: Set<Subscription>): void {
 
   // eslint-disable-next-line functional/immutable-data
   Observable.prototype.subscribe = function (...args: any[]): Subscription {
+    const stack = new Error('Subscription created here').stack;
     const sub$: Subscription = originalSubscribe.apply(this, args as any);
-    tracked.add(sub$);
+    tracked.set(sub$, { sub: sub$, stack });
     return sub$;
   };
 }
