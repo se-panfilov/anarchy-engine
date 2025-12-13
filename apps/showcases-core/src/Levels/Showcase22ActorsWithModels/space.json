@@ -171,7 +171,8 @@
         "options": {
           "color": "#CBCBCB",
           "depthWrite": false,
-          "opacity": 1
+          "opacity": 0.9,
+          "transparent": true
         },
         "type": "MeshPhongMaterial"
       }
