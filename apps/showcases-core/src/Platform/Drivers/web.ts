@@ -5,6 +5,10 @@ import type { TPlatformDriver } from '@/Models';
 // TODO DESKTOP: Make sure ALL these methods are working correctly
 // TODO DESKTOP: Implement the web driver
 export function Driver(): TPlatformDriver {
+  function closeApp(): void {
+    throw new Error('[WEB] closeApp is not supported on this platform');
+  }
+
   function getChromeVersion(): string {
     console.log('XXX [WEB]', 'getChromeVersion');
     return 'XXX [WEB] mocked chrome version';
@@ -41,18 +45,24 @@ export function Driver(): TPlatformDriver {
     return { name, content: result };
   }
 
+  function restartApp(): void {
+    console.log('XXX [WEB]', 'restartApp');
+  }
+
   function saveAppSettings(settings: TShowcaseGameSettings): Promise<void> {
     console.log('XXX [WEB]', 'saveAppSettings', settings);
     return Promise.resolve();
   }
 
   return {
+    closeApp,
     getChromeVersion,
     getNodeVersion,
     getPlatformVersion,
     getWrappedAppVersion,
     loadAppSettings,
     loadLegalDocs,
+    restartApp,
     saveAppSettings
   };
 }
