@@ -1,4 +1,4 @@
-import type { IAbstractEntityRegistry, IProtectedRegistry } from '@/Engine/Abstract';
+import type { IAbstractEntityRegistry, IProtectedRegistry } from '@/Engine/Abstract/Models';
 import type { LookUpStrategy } from '@/Engine/Abstract/Registry';
 import type { IRegistrable, IWithActiveMixin } from '@/Engine/Mixins';
 import { isNotDefined } from '@/Engine/Utils';

@@ -1,7 +1,7 @@
 import type { Observable, Subscription } from 'rxjs';
 import { catchError, filter, take, timeout } from 'rxjs';
 
-import type { IAbstractEntityRegistry } from '@/Engine/Abstract';
+import type { IAbstractEntityRegistry } from '@/Engine/Abstract/Models';
 import type { IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
 import { createDeferredPromise, isDefined } from '@/Engine/Utils';
 

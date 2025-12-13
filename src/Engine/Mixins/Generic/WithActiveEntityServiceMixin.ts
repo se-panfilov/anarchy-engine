@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 
-import type { IAbstractEntityRegistry, IProtectedRegistry } from '@/Engine/Abstract';
+import type { IAbstractEntityRegistry, IProtectedRegistry } from '@/Engine/Abstract/Models';
 import type { IRegistrable, IWithActiveMixin, IWithActiveMixinResult } from '@/Engine/Mixins/Generic/Models';
 import { setActiveWrappedEntity } from '@/Engine/Utils';
 

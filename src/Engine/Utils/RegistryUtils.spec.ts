@@ -7,6 +7,7 @@ import type { ISceneRegistry, ISceneWrapper } from '@/Engine/Scene';
 import { SceneRegistry, SceneWrapper } from '@/Engine/Scene';
 
 import { getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, setActiveWrappedEntity } from './RegistryUtils';
+import { expect } from 'vitest';
 
 describe('RegistryUtils', () => {
   const tagA: string = 'tagA';
@@ -124,7 +125,7 @@ describe('RegistryUtils', () => {
       const registry: ISceneRegistry = SceneRegistry();
       registry.add(mockObj);
       setActiveWrappedEntity(registry, mockObj.id);
-      expect(mockObj.isActive).toBe(true);
+      expect(mockObj.isActive()).toBe(true);
     });
 
     it('should set "isActive" to "true" for an entity in a registry', () => {
@@ -132,7 +133,7 @@ describe('RegistryUtils', () => {
       const registry: ICameraRegistry = CameraRegistry();
       registry.add(mockObj);
       setActiveWrappedEntity(registry, mockObj.id);
-      expect(registry.find((w: ICameraWrapper): boolean => w.id === mockObj.id)?.isActive).toBe(true);
+      expect(registry.find((w: ICameraWrapper): boolean => w.id === mockObj.id)?.isActive()).toBe(true);
     });
 
     it('should set "isActive" to "false" for all entities in a registry but the target entity', () => {
@@ -144,9 +145,9 @@ describe('RegistryUtils', () => {
       registry.add(mockObjTarget);
       registry.add(mockObj2);
       setActiveWrappedEntity(registry, mockObjTarget.id);
-      expect(registry.find((w: ISceneWrapper): boolean => w.id === mockObj1.id)?.isActive).toBe(false);
-      expect(registry.find((w: ISceneWrapper): boolean => w.id === mockObj2.id)?.isActive).toBe(false);
-      expect(registry.find((w: ISceneWrapper): boolean => w.id === mockObjTarget.id)?.isActive).toBe(true);
+      expect(registry.find((w: ISceneWrapper): boolean => w.id === mockObj1.id)?.isActive()).toBe(false);
+      expect(registry.find((w: ISceneWrapper): boolean => w.id === mockObj2.id)?.isActive()).toBe(false);
+      expect(registry.find((w: ISceneWrapper): boolean => w.id === mockObjTarget.id)?.isActive()).toBe(true);
     });
 
     it('should change "isActive" status of entities', () => {
@@ -156,8 +157,8 @@ describe('RegistryUtils', () => {
       registry.add(mockObj1);
       registry.add(mockObjTarget);
       setActiveWrappedEntity(registry, mockObjTarget.id);
-      expect(registry.find((w: ISceneWrapper): boolean => w.id === mockObj1.id)?.isActive).toBe(false);
-      expect(registry.find((w: ISceneWrapper): boolean => w.id === mockObjTarget.id)?.isActive).toBe(true);
+      expect(registry.find((w: ISceneWrapper): boolean => w.id === mockObj1.id)?.isActive()).toBe(false);
+      expect(registry.find((w: ISceneWrapper): boolean => w.id === mockObjTarget.id)?.isActive()).toBe(true);
     });
 
     it('should return an active entity', () => {

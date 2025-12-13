@@ -1,4 +1,4 @@
-import type { IAbstractEntityRegistry, IProtectedRegistry } from '@/Engine/Abstract';
+import type { IAbstractEntityRegistry, IProtectedRegistry } from '@/Engine/Abstract/Models';
 
 import type { IRendererWrapper } from './IRendererWrapper';
 
