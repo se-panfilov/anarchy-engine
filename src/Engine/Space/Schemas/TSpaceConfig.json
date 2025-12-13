@@ -3645,6 +3645,12 @@
         },
         "name": {
           "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["url"]
@@ -4491,6 +4497,9 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "material": {
+          "type": "string"
+        },
         "options": {
           "$ref": "#/definitions/TModel3dOptions"
         },
@@ -4502,6 +4511,12 @@
         },
         "name": {
           "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["url"]
@@ -4524,6 +4539,12 @@
         },
         "name": {
           "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["url"]
