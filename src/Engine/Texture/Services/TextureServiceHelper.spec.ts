@@ -1,5 +1,5 @@
 import { MaterialType } from '@/Engine/Material';
-import type { TTexturePackParams } from '@/Engine/MaterialTexturePack';
+import type { TTexturePackParams } from '@/Engine/Texture';
 import { isMaterialProps, isMaterialType } from '@/Engine/Texture/Services/TextureServiceHelper';
 
 describe('TextureServiceHelper', () => {
