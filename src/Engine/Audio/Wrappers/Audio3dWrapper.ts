@@ -21,7 +21,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
   const { audioSource, volume, position, performance } = params;
   const entity: PositionalAudio = createPositionalAudion(audioSource, params);
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(position);
-  const listener$: BehaviorSubject<AudioListener> = new BehaviorSubject<AudioListener>(params.listener);
+  const listener$: BehaviorSubject<AudioListener | undefined> = new BehaviorSubject<AudioListener | undefined>(params.listener);
 
   const pause$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.pause ?? false);
   const fade$: Subject<TAudioFadeParams> = new Subject<TAudioFadeParams>();

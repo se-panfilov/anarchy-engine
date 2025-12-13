@@ -21,6 +21,6 @@ export type TAudio3dWrapper = TWrapper<PositionalAudio> &
     stop: () => void;
     volume$: BehaviorSubject<number>;
     position$: BehaviorSubject<TReadonlyVector3>;
-    listener$: BehaviorSubject<AudioListener>;
+    listener$: BehaviorSubject<AudioListener | undefined>;
   }> &
   TWithTransformDrive<TAudio3dTransformAgents>;

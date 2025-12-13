@@ -1,7 +1,7 @@
 import type { Subscription } from 'rxjs';
 import { AudioListener } from 'three';
 
-import { Listeners } from '@/Engine';
+import { Listeners } from '@/Engine/Audio/Constants';
 import { AudioLoader } from '@/Engine/Audio/Loader';
 import type {
   TAudioConfig,

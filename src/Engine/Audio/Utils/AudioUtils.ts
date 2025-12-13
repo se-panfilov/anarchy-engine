@@ -1,6 +1,7 @@
 import { PositionalAudio } from 'three';
 
 import type { TAudio3dConfig, TAudio3dParams, TAudioConfig, TAudioFadeParams, TAudioParams } from '@/Engine/Audio/Models';
+import { isNotDefined } from '@/Engine/Utils';
 
 export const isAudio3dConfig = (config: TAudioConfig | TAudio3dConfig): config is TAudio3dConfig => (config as TAudio3dConfig).position !== undefined;
 export const isAudio3dParams = (config: TAudioParams | TAudio3dParams): config is TAudio3dParams => (config as TAudio3dParams).position !== undefined;
@@ -41,7 +42,8 @@ export function seekAudio(entity: PositionalAudio, time: number): void {
   entity.play();
 }
 
-export function createPositionalAudion(audioSource: AudioBuffer, params: TAudioParams): PositionalAudio {
+export function createPositionalAudion(audioSource: AudioBuffer, params: TAudioParams): PositionalAudio | never {
+  if (isNotDefined(params.listener)) throw new Error('Audio: cannot create positional audio without a listener');
   const positionalAudio = new PositionalAudio(params.listener);
 
   positionalAudio.setBuffer(audioSource!);

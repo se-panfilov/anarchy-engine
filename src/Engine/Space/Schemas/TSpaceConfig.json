@@ -1255,7 +1255,7 @@
           "$ref": "#/definitions/TransformAgent"
         }
       },
-      "required": ["audioSource", "listener", "position"]
+      "required": ["audioSource", "position"]
     },
     "TAudioPerformanceOptions": {
       "type": "object",
@@ -1323,7 +1323,7 @@
           "$ref": "#/definitions/TransformAgent"
         }
       },
-      "required": ["audioSource", "listener"]
+      "required": ["audioSource"]
     },
     "TCameraConfig": {
       "type": "object",
