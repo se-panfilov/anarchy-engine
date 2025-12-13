@@ -13,7 +13,7 @@ import type {
 } from '@/Engine/MaterialTexturePack/Models';
 import type { TDestroyable, TWithCreateAsync } from '@/Engine/Mixins';
 import type { TWithCreateFromConfigAsyncService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
-import type { TTexture, TTexturePackConfig, TTexturePackParams } from '@/Engine/Texture';
+import type { TTextureLoadedPack, TTexturePackConfig, TTexturePackParams } from '@/Engine/Texture';
 
 import type { TTextureAsyncRegistry } from './TTextureAsyncRegistry';
 import type { TTextureFactory } from './TTextureFactory';
@@ -52,20 +52,24 @@ export type TPhysicalMaterialTextureService = TWithPhysicalMaterialTextureLoader
 export type TToonMaterialTextureService = TWithToonMaterialTextureLoader;
 export type TStandardMaterialTextureService = TWithStandardMaterialTextureLoader;
 
-export type TTextureService = (
-  | TBasicMaterialTextureService
-  | TDepthMaterialTextureService
-  | TDistanceMaterialTextureService
-  | TNormalMaterialTextureService
-  | TMatcapMaterialTextureService
-  | TLamberMaterialTextureService
-  | TPhongMaterialTextureService
-  | TPhysicalMaterialTextureService
-  | TToonMaterialTextureService
-  | TStandardMaterialTextureService
-) &
-  TWithCreateAsync<TTexture, TTexturePackParams> &
-  TWithCreateFromConfigAsyncService<TTexturePackConfig, ReadonlyArray<TTexture>> &
+export type TTextureService = Readonly<{
+  load: (pack: TTexturePackParams) => Promise<TTextureLoadedPack>;
+  loadList: (packs: ReadonlyArray<TTexturePackParams>) => ReadonlyArray<Promise<TTextureLoadedPack>>;
+}> &
+  (
+    | TBasicMaterialTextureService
+    | TDepthMaterialTextureService
+    | TDistanceMaterialTextureService
+    | TNormalMaterialTextureService
+    | TMatcapMaterialTextureService
+    | TLamberMaterialTextureService
+    | TPhongMaterialTextureService
+    | TPhysicalMaterialTextureService
+    | TToonMaterialTextureService
+    | TStandardMaterialTextureService
+  ) &
+  TWithCreateAsync<TTextureLoadedPack, TTexturePackParams> &
+  TWithCreateFromConfigAsyncService<TTexturePackConfig, ReadonlyArray<TTextureLoadedPack>> &
   TWithFactoryService<TTextureFactory> &
   TWithRegistryService<TTextureAsyncRegistry> &
   TDestroyable;

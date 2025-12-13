@@ -1,3 +1,5 @@
+import type { TTexturePackParams } from '@/Engine/Texture/Models';
+
 import type {
   TBasicMaterialPackKeys,
   TDepthMaterialPackKeys,
@@ -11,7 +13,6 @@ import type {
   TStandardMaterialPackKeys,
   TToonMaterialPackKeys
 } from './TMaterialPackKeys';
-import type { TTexturePackParams } from './TTexturePackParams';
 
 export type TBasicMaterialTexturePack = Readonly<{ [key in TBasicMaterialPackKeys]?: TTexturePackParams }>;
 export type TDepthMaterialTexturePack = Readonly<{ [key in TDepthMaterialPackKeys]?: TTexturePackParams }>;

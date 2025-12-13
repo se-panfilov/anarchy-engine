@@ -3,6 +3,7 @@ export * from './TTexture';
 export * from './TTextureAsyncRegistry';
 export * from './TTextureConfig';
 export * from './TTextureFactory';
+export * from './TTextureLoadedPack';
 export * from './TTexturePackConfig';
 export * from './TTexturePackParams';
 export * from './TTextureParams';

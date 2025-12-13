@@ -39,6 +39,7 @@ import type {
   TTexture,
   TTextureAsyncRegistry,
   TTextureFactory,
+  TTextureLoadedPack,
   TTexturePackConfig,
   TTexturePackParams,
   TTextureService,
@@ -49,16 +50,16 @@ import type {
 } from '@/Engine/Texture/Models';
 import { applyColorSpace, applyFilters, applyTextureParams } from '@/Engine/Texture/Services/TextureServiceHelper';
 import type { TWriteable } from '@/Engine/Utils';
-import { isNotDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function TextureService(factory: TTextureFactory, registry: TTextureAsyncRegistry): TTextureService {
   const textureLoader: TextureLoader = new TextureLoader();
-  factory.entityCreated$.subscribe((texture: TTexture): void => registry.add(texture));
+  factory.entityCreated$.subscribe((pack: TTextureLoadedPack): void => registry.add(pack.url, pack.texture));
 
-  const createAsync = (params: TTexturePackParams): Promise<TTexture> => factory.createAsync(params, { materialTextureService });
+  const createAsync = (params: TTexturePackParams): Promise<TTextureLoadedPack> => factory.createAsync(params, { materialTextureService });
 
-  function createFromConfigAsync(textures: ReadonlyArray<TTexturePackConfig>): Promise<ReadonlyArray<TTexture>> {
-    return textures.map((config: TTexturePackConfig): Promise<TTexture> => factory.createAsync(factory.configToParams(config), { materialTextureService }));
+  function createFromConfigAsync(textures: ReadonlyArray<TTexturePackConfig>): Promise<ReadonlyArray<TTextureLoadedPack>> {
+    return textures.map((config: TTexturePackConfig): Promise<TTextureLoadedPack> => factory.createAsync(factory.configToParams(config), { materialTextureService }));
   }
 
   function loadMaterialPack(m: TMaterialPackParams<TBasicMaterialTexturePack>): TBasicTextureUploadPromises;
@@ -76,14 +77,8 @@ export function TextureService(factory: TTextureFactory, registry: TTextureAsync
     if (isNotDefined(m.textures)) return { ...promises, all };
 
     Object.entries(m.textures).forEach(([key, packParams]: [string, TTexturePackParams]): void => {
-      // TODO 9.0.0. RESOURCES: Do not load texture if already loaded to the scene (check registry)
       const { url, params }: TTexturePackParams = packParams;
-      const p: Promise<TTexture> = textureLoader.loadAsync(url).then((texture: TWriteable<TTexture>): TTexture => {
-        applyTextureParams(texture, params);
-        applyColorSpace(key as TMaterialPackKeys, texture, params);
-        applyFilters(texture, params);
-        return texture;
-      });
+      const p: Promise<TTextureLoadedPack> = load({ url, params });
 
       promises = { ...promises, [key]: p };
     });
@@ -110,6 +105,20 @@ export function TextureService(factory: TTextureFactory, registry: TTextureAsync
     return { ...promises, all };
   }
 
+  function load({ url, params }: TTexturePackParams, colorSpace?: TMaterialPackKeys): Promise<TTextureLoadedPack> {
+    // TODO 9.0.0. RESOURCES: Do not load texture if already loaded to the scene (check registry)
+    return textureLoader.loadAsync(url).then((texture: TWriteable<TTexture>): TTextureLoadedPack => {
+      applyTextureParams(texture, params);
+      if (isDefined(colorSpace)) applyColorSpace(colorSpace as TMaterialPackKeys, texture, params);
+      applyFilters(texture, params);
+      return { url, texture };
+    });
+  }
+
+  function loadList(packs: ReadonlyArray<TTexturePackParams>): ReadonlyArray<Promise<TTextureLoadedPack>> {
+    return packs.map((pack: TTexturePackParams): Promise<TTextureLoadedPack> => load(pack));
+  }
+
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     factory.destroy();
@@ -120,6 +129,8 @@ export function TextureService(factory: TTextureFactory, registry: TTextureAsync
   return {
     createAsync,
     createFromConfigAsync,
+    load,
+    loadList,
     loadMaterialPack,
     getFactory: (): TTextureFactory => factory,
     getRegistry: (): TTextureAsyncRegistry => registry,
