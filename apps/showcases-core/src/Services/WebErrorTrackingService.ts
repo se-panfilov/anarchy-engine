@@ -27,10 +27,11 @@ export function WebErrorTrackingService(): TWebErrorTrackingService {
       wrappedAppVersion: await platformApiService.getWrappedAppVersion()
     };
 
+    // TODO DESKTOP: Anonymize this data
+    // TODO DESKTOP: Do the same at the Desktop app level
+    // TODO DESKTOP: And some "state of the game" (current level, quest, etc)
     const dynamicDataGetters = (): Record<string, any> => ({ settings: platformApiService.getCachedAppSettings() });
 
-    // TODO DESKTOP: Useful to get app's settings (resolution, locale, etc). But should not break GDPR
-    // TODO DESKTOP: And maybe add some "state in the game" (level, quest, etc). But we have to apply it dynamically guess, not here.
     return BrowserTrackingService(options, metaData, dynamicDataGetters);
   }
 
