@@ -1,22 +1,7 @@
 import { Clock } from 'three';
 
-import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type {
-  TActor,
-  TActorRegistry,
-  TCameraWrapper,
-  TIntersectionEvent,
-  TIntersectionsWatcher,
-  TMilliseconds,
-  TModel3d,
-  TModels3dRegistry,
-  TSceneWrapper,
-  TSpace,
-  TSpaceConfig,
-  TSpaceLoops,
-  TSpaceServices
-} from '@/Engine';
+import type { TActor, TActorRegistry, TMilliseconds, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import { ambientContext, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfigJson from './showcase.json';
@@ -32,8 +17,7 @@ export function start(): void {
   space.built$.subscribe(showcase);
 }
 
-export function showcase(space: TSpace): TShowcase {
-  console.log('XXX123 showcase');
+export function showcase(space: TSpace): void {
   const { actorService, models3dService, scenesService } = space.services;
   const { transformLoop } = space.loops;
 
@@ -53,8 +37,6 @@ export function showcase(space: TSpace): TShowcase {
   const actor: TActor | undefined = actorRegistry.findByName('sphere_actor');
   if (isNotDefined(actor)) throw new Error('Actor is not defined');
 
-  watchIntersections([actor], space.services, space.loops);
-
   const clock: Clock = new Clock();
   transformLoop.tick$.subscribe((): void => {
     const elapsedTime: TMilliseconds = clock.getElapsedTime() as TMilliseconds;
@@ -63,17 +45,5 @@ export function showcase(space: TSpace): TShowcase {
     // actor.drive.position$.next(new Vector3(Math.sin(elapsedTime) * 8, actor.drive.position$.value.y, Math.cos(elapsedTime) * 8));
   });
 
-  return { start, space };
-}
-
-function watchIntersections(actors: ReadonlyArray<TActor>, { cameraService, intersectionsWatcherService, mouseService }: TSpaceServices, { intersectionsLoop }: TSpaceLoops): void {
-  const camera: TCameraWrapper | undefined = cameraService.findActive();
-  if (isNotDefined(camera)) throw new Error('Camera is not defined');
-
-  const intersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({ camera, actors, position$: mouseService.position$, isAutoStart: true, intersectionsLoop });
-
-  intersectionsWatcher.value$.subscribe((obj: TIntersectionEvent): void => console.log('intersect obj', obj));
-  mouseService.clickLeftRelease$.subscribe((): void => console.log('int click:'));
-
-  return intersectionsWatcher.start$.next();
+  space.start$.next(true);
 }
