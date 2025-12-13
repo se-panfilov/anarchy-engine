@@ -22,7 +22,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     if (isNotDefined(actor)) throw new Error('Actor is not found');
 
     //apply textures async, without blocking the main thread (game might be started before textures are loaded)
-    // void actor.loadTexturePack(pack);
+    // void actor.loadMaterialTexturePack(pack);
     initCameraRotation(level, actor);
   }
 

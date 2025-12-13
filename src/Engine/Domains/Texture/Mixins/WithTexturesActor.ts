@@ -28,23 +28,23 @@ export function withTexturesActor<T extends IWriteable<IMesh>>(entity: T): IWith
     entity.material = new MeshBasicMaterial(maps);
   }
 
-  function loadTexturePack(pack: IBasicMaterialTexturePack): Promise<void>;
-  function loadTexturePack(pack: IDepthMaterialTexturePack): Promise<void>;
-  function loadTexturePack(pack: IDistanceMaterialTexturePack): Promise<void>;
-  function loadTexturePack(pack: INormalMaterialTexturePack): Promise<void>;
-  function loadTexturePack(pack: IMatcapMaterialTexturePack): Promise<void>;
-  function loadTexturePack(pack: ILamberMaterialTexturePack): Promise<void>;
-  function loadTexturePack(pack: IPhongMaterialTexturePack): Promise<void>;
-  function loadTexturePack(pack: IPhysicalMaterialTexturePack): Promise<void>;
-  function loadTexturePack(pack: IToonMaterialTexturePack): Promise<void>;
-  function loadTexturePack(pack: IStandardMaterialTexturePack): Promise<void>;
-  function loadTexturePack(pack: IMaterialTexturePack): Promise<void> {
+  function loadMaterialTexturePack(pack: IBasicMaterialTexturePack): Promise<void>;
+  function loadMaterialTexturePack(pack: IDepthMaterialTexturePack): Promise<void>;
+  function loadMaterialTexturePack(pack: IDistanceMaterialTexturePack): Promise<void>;
+  function loadMaterialTexturePack(pack: INormalMaterialTexturePack): Promise<void>;
+  function loadMaterialTexturePack(pack: IMatcapMaterialTexturePack): Promise<void>;
+  function loadMaterialTexturePack(pack: ILamberMaterialTexturePack): Promise<void>;
+  function loadMaterialTexturePack(pack: IPhongMaterialTexturePack): Promise<void>;
+  function loadMaterialTexturePack(pack: IPhysicalMaterialTexturePack): Promise<void>;
+  function loadMaterialTexturePack(pack: IToonMaterialTexturePack): Promise<void>;
+  function loadMaterialTexturePack(pack: IStandardMaterialTexturePack): Promise<void>;
+  function loadMaterialTexturePack(pack: IMaterialTexturePack): Promise<void> {
     const textures: IMaterialTextureUploadPromises = textureService.load(pack);
     return textures.all().then((textures: IMaterialTextureUploaded) => useTextureAsMaterial({ ...textures }));
   }
 
   return {
     useTextureAsMaterial,
-    loadTexturePack
+    loadMaterialTexturePack
   };
 }

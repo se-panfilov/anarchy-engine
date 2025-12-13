@@ -17,7 +17,7 @@ export function applyPosition(obj: IMovableXYZ, position?: IVector3Wrapper): voi
 }
 
 export function applyTexturePack(obj: IWithTexturesActor, pack: IMaterialTexturePack): Promise<void> {
-  return obj.loadTexturePack({ ...pack });
+  return obj.loadMaterialTexturePack({ ...pack });
 }
 
 export function applyRotation(obj: IRotatable, rotation?: IEulerWrapper): void {
