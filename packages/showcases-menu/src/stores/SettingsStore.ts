@@ -1,6 +1,7 @@
+import type { TLocale } from '@Anarchy/i18n';
 import type { TDeepWriteable } from '@Anarchy/Shared/Utils';
-import { Languages } from '@Showcases/Menu/constants';
-import type { TAudioSettings, TDebugSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TResolution, TShowcaseGameSettings } from '@Showcases/Shared';
+import type { TAudioSettings, TDebugSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TResolution, TShowcaseGameSettings, TShowcaseLocaleIds } from '@Showcases/Shared';
+import { ShowcasesLocales } from '@Showcases/Shared';
 import { defineStore } from 'pinia';
 import { computed, reactive } from 'vue';
 
@@ -15,7 +16,7 @@ export const useSettingsStore = defineStore('settingsStore', () => {
       masterVolume: 80
     },
     localization: {
-      language: Languages.EN
+      locale: ShowcasesLocales['en-US'] // TODO DESKTOP: should be set by platform (desktop/mobile/web) or from .env
     },
     debug: {
       isDebugMode: false
@@ -43,6 +44,11 @@ export const useSettingsStore = defineStore('settingsStore', () => {
   const setGraphics = (newGraphics: Partial<TGraphicsSettings>): void => void Object.assign(state.graphics, { ...newGraphics });
   const setAudio = (newAudio: Partial<TAudioSettings>): void => void Object.assign(state.audio, { ...newAudio });
   const setLocalization = (newLocalization: Partial<TLocalizationSettings>): void => void Object.assign(state.localization, { ...newLocalization });
+  function setLocaleById(id: TShowcaseLocaleIds): void | never {
+    const newLocale = ShowcasesLocales[id] as TLocale;
+    if (!newLocale) throw new Error(`[Settings store] Locale with id "${id}" not found in ShowcasesLocales`);
+    setLocalization({ locale: newLocale });
+  }
   const setDebug = (newDebug: Partial<TDebugSettings>): void => void Object.assign(state.debug, { ...newDebug });
   const setInternal = (newInternal: Partial<TInternalSettings>): void => void Object.assign(state.internal, { ...newInternal });
   const setState = (newState: Partial<TShowcaseGameSettings>): void => void Object.assign(state, { ...newState });
@@ -56,6 +62,7 @@ export const useSettingsStore = defineStore('settingsStore', () => {
     setAudio,
     localization,
     setLocalization,
+    setLocaleById,
     debug,
     setDebug,
     internal,

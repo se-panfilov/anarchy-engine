@@ -1,5 +1,7 @@
 // TODO DESKTOP: All fields (including nested) should be optional.
 //  So it it's not defined, it means that certain setting is not allowed on a certain platform (e.g. no resolution change in browser)
+import type { TLocale } from '@Anarchy/i18n';
+
 export type TShowcaseGameSettings = Readonly<{
   graphics: TGraphicsSettings;
   audio: TAudioSettings;
@@ -36,7 +38,7 @@ export type TAudioSettings = Readonly<{
 }>;
 
 export type TLocalizationSettings = Readonly<{
-  language: string; /// TODO should be an enum
+  locale: TLocale;
   // isSubtitlesEnabled: boolean;
   // subtitleSize: 'small' | 'normal' | 'large'; // TODO should be an enum
 }>;
