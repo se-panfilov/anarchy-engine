@@ -69,7 +69,6 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   // TODO (S.Panfilov) CWP
   // TODO (S.Panfilov) turn off intersections watcher for inactive cameras (then turn on again on active)
   // TODO (S.Panfilov) add validation for intersections config (names, uniq, patterns, etc)
-  // TODO (S.Panfilov) stop watching actors after all the intersections are ready
   void intersectionsWatcherService.createFromConfigAsync(intersections, mouseService, cameraService, actorService);
 
   intersectionsWatcherService.getRegistry().added$.subscribe((watcher: IIntersectionsWatcher): void => {
