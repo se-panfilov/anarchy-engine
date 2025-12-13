@@ -1,7 +1,7 @@
 import type { World } from '@dimforge/rapier3d';
 import type { Vector3 } from 'three/src/math/Vector3';
 
-import type { TAbstractLoop, TAbstractReadonlyLoopWith } from '@/Engine/Abstract';
+import type { TLoop } from '@/Engine/Loop';
 import type { TDestroyable } from '@/Engine/Mixins';
 import type { TWithSceneGetterService } from '@/Engine/Space';
 
@@ -12,7 +12,7 @@ export type TPhysicsWorldService = TDestroyable &
   TWithSceneGetterService &
   Readonly<{
     createWorld: (physicsWorldParams: TPhysicsWorldParams) => World;
-    getDebugRenderer: (loopService: TAbstractLoop<unknown> | TAbstractReadonlyLoopWith<unknown>) => TPhysicsDebugRenderer;
+    getDebugRenderer: (loopService: TLoop) => TPhysicsDebugRenderer;
     setGravity: (vector: Vector3) => void;
     getWorld: () => World | undefined;
   }>;

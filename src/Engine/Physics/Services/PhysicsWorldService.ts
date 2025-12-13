@@ -2,7 +2,7 @@ import { World } from '@dimforge/rapier3d';
 import type { Subscription } from 'rxjs';
 import type { Vector3 } from 'three/src/math/Vector3';
 
-import type { TAbstractLoop, TAbstractReadonlyLoopWith } from '@/Engine/Abstract';
+import type { TLoop } from '@/Engine/Loop';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { STANDARD_GRAVITY } from '@/Engine/Physics/Constants';
@@ -53,9 +53,9 @@ export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TSpa
   // Auto-update world on every tick of the physical loop
   const loopSub$: Subscription = physicalLoop.tick$.subscribe((): void => world?.step());
 
-  const getDebugRenderer = (loopService: TAbstractLoop<unknown> | TAbstractReadonlyLoopWith<unknown>): TPhysicsDebugRenderer => {
+  const getDebugRenderer = (loop: TLoop): TPhysicsDebugRenderer => {
     if (isNotDefined(world)) throw new Error('Cannot get debug renderer: world is not defined');
-    return PhysicsDebugRenderer(scene, world, loopService);
+    return PhysicsDebugRenderer(scene, world, loop);
   };
 
   function setGravity(vector: Vector3): void {
