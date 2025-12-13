@@ -4,7 +4,7 @@ import { BehaviorSubject, distinctUntilChanged, filter, skip } from 'rxjs';
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import { ambientContext } from '@/Engine/Context';
-import type { TGlobalContainerDecorator } from '@/Engine/Global';
+import type { TContainerDecorator } from '@/Engine/Global';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TLoop } from '@/Engine/Loop';
 import { RendererModes } from '@/Engine/Renderer';
@@ -97,7 +97,7 @@ function initSpaceServices(canvas: TSpaceCanvas, params: TSpaceParams, hooks?: T
   hooks?.beforeBaseServicesBuilt?.(canvas, params);
   const baseServices: TSpaceBaseServices = buildBaseServices();
   baseServices.screenService.setCanvas(canvas);
-  const container: TGlobalContainerDecorator = ambientContext.container;
+  const container: TContainerDecorator = ambientContext.container;
   const screenSizeWatcher: TScreenSizeWatcher = baseServices.screenService.watchers.create({ container });
 
   screenSizeWatcher.start$.next();

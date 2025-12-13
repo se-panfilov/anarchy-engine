@@ -1,7 +1,7 @@
 import type { TAppGlobalContainer } from '@/Engine/Global';
 import type { TNoSpread, TWithId } from '@/Engine/Mixins';
 
-export type TGlobalContainerDecorator = Readonly<{
+export type TContainerDecorator = Readonly<{
   getWidth: () => number;
   getHeight: () => number;
   getRatio: () => number;

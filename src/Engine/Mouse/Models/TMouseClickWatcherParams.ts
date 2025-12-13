@@ -1,7 +1,7 @@
 import type { WatcherTag } from '@/Engine/Abstract';
-import type { TGlobalContainerDecorator } from '@/Engine/Global';
+import type { TContainerDecorator } from '@/Engine/Global';
 
 export type TMouseClickWatcherParams = Readonly<{
-  container: TGlobalContainerDecorator;
+  container: TContainerDecorator;
   tags?: ReadonlyArray<WatcherTag | string>;
 }>;

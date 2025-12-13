@@ -3,7 +3,7 @@ import { EMPTY, filter, map, merge, mergeMap, Subject } from 'rxjs';
 
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService, WatcherTag } from '@/Engine/Abstract';
-import type { TGlobalContainerDecorator } from '@/Engine/Global';
+import type { TContainerDecorator } from '@/Engine/Global';
 import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@/Engine/Mouse/Constants';
 import type {
   TMouseClickWatcher,
@@ -19,7 +19,7 @@ import type {
 import type { TSpaceLoops } from '@/Engine/Space';
 
 export function MouseService(
-  container: TGlobalContainerDecorator,
+  container: TContainerDecorator,
   mouseClickWatcherFactory: TMouseClickWatcherFactory,
   mouseClickWatcherRegistry: TMouseClickWatcherRegistry,
   mousePositionWatcherFactory: TMousePositionWatcherFactory,

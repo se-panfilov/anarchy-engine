@@ -1,5 +1,5 @@
 import { ambientContext } from '@/Engine/Context';
-import type { TAppGlobalContainer, TGlobalContainerDecorator } from '@/Engine/Global';
+import type { TAppGlobalContainer, TContainerDecorator } from '@/Engine/Global';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
 import type { TSpaceConfigEntities, TSpaceParamsEntities, TSpaceServices } from '@/Engine/Space/Models';
@@ -43,7 +43,7 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
     textService
   } = services;
 
-  const container: TGlobalContainerDecorator = ambientContext.container;
+  const container: TContainerDecorator = ambientContext.container;
   const appContainer: TAppGlobalContainer = container.getAppContainer();
 
   const screenSizeWatcher: TScreenSizeWatcher | undefined = screenService.watchers.default$.value;
@@ -98,7 +98,7 @@ export function createEntitiesFromParams(entities: TSpaceParamsEntities, service
     textService
   } = services;
 
-  const container: TGlobalContainerDecorator = ambientContext.container;
+  const container: TContainerDecorator = ambientContext.container;
   const appContainer: TAppGlobalContainer = container.getAppContainer();
 
   const screenSizeWatcher: TScreenSizeWatcher | undefined = screenService.watchers.default$.value;
