@@ -30,5 +30,10 @@
     "stats.js": "0.17.0",
     "three-viewport-gizmo": "2.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "concurrently": "9.2.0",
+    "electron": "37.2.0",
+    "electron-builder": "26.0.12",
+    "wait-on": "8.0.3"
+  }
 }
