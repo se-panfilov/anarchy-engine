@@ -16,7 +16,7 @@ export function isLoadDocPayload(payload: TLoadDocPayload | unknown): payload is
   const { name, locale } = payload as TLoadDocPayload;
   if (isAllNotDefined([name])) return false;
   if (!isString(name)) return false;
-  if (isDefined(locale) && isNotDefined(ShowcasesLocales[locale])) return true;
+  if (isDefined(locale) && isNotDefined(ShowcasesLocales[locale])) return false;
 
   return true;
 }

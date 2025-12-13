@@ -19,7 +19,7 @@ import { onMounted } from 'vue';
 // Render .md files in a scrollable view
 
 onMounted(() => {
-  const val = eventsService.emitLoadLegalDocs();
+  const val = eventsService.emitLoadLegalDocs({ name: 'EULA', locale: 'en-US' });
   console.log('XXX legal docs', val);
 });
 

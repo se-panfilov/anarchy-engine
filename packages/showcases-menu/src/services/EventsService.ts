@@ -1,7 +1,7 @@
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { TEventsService } from '@Showcases/Menu/models';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
-import type { TFromMenuEvent, TShowcaseGameSettings, TToMenuEvent } from '@Showcases/Shared';
+import type { TFromMenuEvent, TLoadDocPayload, TShowcaseGameSettings, TToMenuEvent } from '@Showcases/Shared';
 import { FromMenuEvents, isSettings, ToMenuEvents } from '@Showcases/Shared';
 import type { Observable, Subject, Subscription } from 'rxjs';
 import { toRaw } from 'vue';
@@ -33,10 +33,10 @@ function EventsService(): TEventsService {
     fromMenuBus$.next({ type: FromMenuEvents.LoadSettings });
   }
 
-  function emitLoadLegalDocs(): void | never {
+  function emitLoadLegalDocs(payload: TLoadDocPayload): void | never {
     if (isNotDefined(fromMenuBus$)) throw new Error(noBusError);
     console.log('[EventsService]: emitLoadLegalDocs');
-    fromMenuBus$.next({ type: FromMenuEvents.LoadLegalDocs });
+    fromMenuBus$.next({ type: FromMenuEvents.LoadLegalDocs, payload: toRaw(payload) });
   }
 
   function emitStartNewGame(): void | never {

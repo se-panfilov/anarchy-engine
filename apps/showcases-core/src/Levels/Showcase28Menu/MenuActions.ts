@@ -43,7 +43,7 @@ export function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEve
         // TODO DESKTOP: this code is async, hmm... What should we do with the UI?
 
         if (isNotDefined(event.payload)) throw new Error(`[Showcase]: No legal docs params provided`);
-        if (isLoadDocPayload(event.payload)) throw new Error(`[Showcase]: payload is not valid legal docs params: ${event.payload}`);
+        if (!isLoadDocPayload(event.payload)) throw new Error(`[Showcase]: payload is not valid legal docs params: ${event.payload}`);
         try {
           legalDocs = await loadLegalDocs(event.payload as TLoadDocPayload);
         } catch (error) {

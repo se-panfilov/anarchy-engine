@@ -1,4 +1,4 @@
-import type { TFromMenuEvent, TShowcaseGameSettings, TToMenuEvent } from '@Showcases/Shared';
+import type { TFromMenuEvent, TLoadDocPayload, TShowcaseGameSettings, TToMenuEvent } from '@Showcases/Shared';
 import type { Observable, Subject, Subscription } from 'rxjs';
 
 export type TEventsService = Readonly<{
@@ -7,7 +7,7 @@ export type TEventsService = Readonly<{
   emitCloseMenu: () => void | never;
   emitSaveMenuSettings: (settings: TShowcaseGameSettings) => void | never;
   emitLoadMenuSettings: () => void | never;
-  emitLoadLegalDocs: () => void | never;
+  emitLoadLegalDocs: (payload: TLoadDocPayload) => void | never;
   emitStartNewGame: () => void | never;
   emitContinueGame: () => void | never;
   emitLoadGame: () => void | never;
