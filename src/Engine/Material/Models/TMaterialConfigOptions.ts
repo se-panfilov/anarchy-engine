@@ -59,7 +59,7 @@ export type TLambertMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalSca
 export type TPhongMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TPhongMaterialPropsOptions>> & TMaterialConfigFields;
 export type TToonMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TToonMaterialPropsOptions>> & TMaterialConfigFields;
 export type TStandardMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TStandardMaterialPropsOptions>> & TMaterialConfigFields;
-export type TPhysicalMaterialConfigOptions = TOmitParamsOnlyFields<TPhysicalMaterialPropsOptions> & TMaterialConfigFields;
+export type TPhysicalMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TWithClearCoatNormalScaleConfig<TPhysicalMaterialPropsOptions>>> & TMaterialConfigFields;
 export type TPointsMaterialConfigOptions = TOmitParamsOnlyFields<TPointsMaterialPropsOptions> & TMaterialConfigFields;
 export type TMaterialConfigOptions =
   | TAbstractMaterialConfigOptions
@@ -96,3 +96,4 @@ export type TMaterialConfigFields = Readonly<{
 
 type TWithReferencePositionConfig<T> = Omit<T, 'referencePosition'> & Readonly<{ referencePosition?: Vector3Like }>;
 type TWithNormalScaleConfig<T> = Omit<T, 'normalScale'> & Readonly<{ normalScale?: Vector2Like }>;
+type TWithClearCoatNormalScaleConfig<T> = Omit<T, 'clearcoatNormalScale'> & Readonly<{ clearcoatNormalScale?: Vector2Like }>;

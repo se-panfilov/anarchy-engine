@@ -6007,9 +6007,6 @@
         "bumpScale": {
           "type": "number"
         },
-        "normalScale": {
-          "$ref": "#/definitions/Vector2"
-        },
         "displacementScale": {
           "type": "number"
         },
@@ -6036,9 +6033,6 @@
         },
         "clearcoatRoughness": {
           "type": "number"
-        },
-        "clearcoatNormalScale": {
-          "$ref": "#/definitions/Vector2"
         },
         "reflectivity": {
           "type": "number"
@@ -6092,34 +6086,14 @@
         },
         "anisotropyRotation": {
           "type": "number"
+        },
+        "clearcoatNormalScale": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "normalScale": {
+          "$ref": "#/definitions/Vector2Like"
         }
       }
-    },
-    "Vector2": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number",
-          "default": 0
-        },
-        "y": {
-          "type": "number",
-          "default": 0
-        },
-        "width": {
-          "type": "number"
-        },
-        "height": {
-          "type": "number"
-        },
-        "isVector2": {
-          "type": "boolean",
-          "const": true
-        }
-      },
-      "required": ["x", "y", "width", "height", "isVector2"],
-      "additionalProperties": false,
-      "description": "2D vector."
     },
     "TPointsMaterialConfigOptions": {
       "type": "object",
