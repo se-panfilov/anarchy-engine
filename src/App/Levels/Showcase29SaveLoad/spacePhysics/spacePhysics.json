@@ -36,14 +36,14 @@
         "physics": {
           "presetName": "box_physics",
           "shapeParams": {
-            "hx": 0.5,
+            "hx": 2,
             "hy": 2,
-            "hz": 0.5
+            "hz": 2
           }
         },
         "position": {
           "x": -4,
-          "y": 4,
+          "y": 2,
           "z": 3
         },
         "rotation": {
@@ -63,14 +63,14 @@
         "physics": {
           "presetName": "box_physics",
           "shapeParams": {
-            "hx": 0.5,
+            "hx": 2,
             "hy": 2,
-            "hz": 0.5
+            "hz": 2
           }
         },
         "position": {
           "x": 4,
-          "y": 9,
+          "y": 2,
           "z": -4
         },
         "rotation": {
@@ -197,10 +197,10 @@
         "model3dSource": "cube",
         "name": "cube_1_model",
         "options": {
-          "depth": 1,
+          "depth": 4,
           "height": 4,
           "heightSegments": 1,
-          "width": 1,
+          "width": 4,
           "widthSegments": 1
         }
       },
@@ -210,10 +210,10 @@
         "model3dSource": "cube",
         "name": "cube_2_model",
         "options": {
-          "depth": 1,
+          "depth": 4,
           "height": 4,
           "heightSegments": 1,
-          "width": 1,
+          "width": 4,
           "widthSegments": 1
         }
       }
