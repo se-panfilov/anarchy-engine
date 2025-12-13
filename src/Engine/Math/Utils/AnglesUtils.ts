@@ -1,6 +1,8 @@
 import Decimal from 'decimal.js';
+import type { QuaternionLike } from 'three';
 import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad, radToDeg } from 'three/src/math/MathUtils';
+import type { Vector3Like } from 'three/src/math/Vector3';
 
 import type { TDegrees, TRadians } from '@/Engine/Math';
 
@@ -14,7 +16,7 @@ export const sinPrecise = (value: Decimal): Decimal => Decimal.sin(value);
 export const radiansToDegreesPrecise = (radians: TRadians): Decimal => new Decimal(radians).times(180).div(Math.PI);
 
 // TODO add unit tests
-export function getHorizontalAzimuthDeg(x: number, z: number, point: Vector3): TDegrees {
+export function getHorizontalAzimuthDeg(x: number, z: number, point: Vector3Like): TDegrees {
   const dx: Decimal = new Decimal(point.x).minus(x);
   const dz: Decimal = new Decimal(point.z).minus(z);
 
@@ -26,17 +28,17 @@ export function getHorizontalAzimuthDeg(x: number, z: number, point: Vector3): T
 }
 
 // TODO add unit tests
-export const getAzimuthRadFromDirection = (direction: Vector3): TRadians => {
+export const getAzimuthRadFromDirection = (direction: Vector3Like): TRadians => {
   let azimuth: TRadians = Math.atan2(direction.z, direction.x);
   if (azimuth < 0) azimuth += 2 * Math.PI;
   return azimuth;
 };
 // TODO add unit tests
-export const getAzimuthDegFromDirection = (direction: Vector3): TDegrees => radToDeg(getAzimuthRadFromDirection(direction));
+export const getAzimuthDegFromDirection = (direction: Vector3Like): TDegrees => radToDeg(getAzimuthRadFromDirection(direction));
 // TODO add unit tests
-export const getElevationRadFromDirection = (direction: Vector3): TRadians => Math.atan2(direction.y, Math.sqrt(direction.x ** 2 + direction.z ** 2));
+export const getElevationRadFromDirection = (direction: Vector3Like): TRadians => Math.atan2(direction.y, Math.sqrt(direction.x ** 2 + direction.z ** 2));
 // TODO add unit tests
-export const getElevationDegFromDirection = (direction: Vector3): TDegrees => radToDeg(getElevationRadFromDirection(direction));
+export const getElevationDegFromDirection = (direction: Vector3Like): TDegrees => radToDeg(getElevationRadFromDirection(direction));
 // TODO add unit tests
 export const getDirectionFromLinearVelocity = (linearVelocity: Vector3): Vector3 => linearVelocity.clone().normalize();
 // TODO add unit tests
@@ -59,7 +61,7 @@ export const getSpeedFromAngularVelocity = (angularVelocity: Vector3): number =>
 export const getDirectionFromAngularVelocity = (angularVelocity: Vector3): Vector3 => angularVelocity.clone().normalize();
 
 // TODO add unit tests
-export function get3DAzimuthDeg(center: Vector3, point: Vector3): { azimuth: TDegrees; elevation: TDegrees } {
+export function get3DAzimuthDeg(center: Vector3Like, point: Vector3Like): { azimuth: TDegrees; elevation: TDegrees } {
   const dx: Decimal = new Decimal(point.x).minus(center.x);
   const dy: Decimal = new Decimal(point.y).minus(center.y);
   const dz: Decimal = new Decimal(point.z).minus(center.z);
@@ -78,7 +80,7 @@ export function get3DAzimuthDeg(center: Vector3, point: Vector3): { azimuth: TDe
 }
 
 // TODO add unit tests
-export function get3DAzimuthRad(center: Vector3, point: Vector3): { azimuth: TRadians; elevation: TRadians } {
+export function get3DAzimuthRad(center: Vector3Like, point: Vector3Like): { azimuth: TRadians; elevation: TRadians } {
   const dx: Decimal = new Decimal(point.x).minus(center.x);
   const dy: Decimal = new Decimal(point.y).minus(center.y);
   const dz: Decimal = new Decimal(point.z).minus(center.z);
@@ -97,7 +99,7 @@ export function get3DAzimuthRad(center: Vector3, point: Vector3): { azimuth: TRa
 }
 
 // TODO add unit tests
-export function degreesToEuler(degrees: Vector3): Vector3 {
+export function degreesToEuler(degrees: Vector3Like): Vector3 {
   const radians = {
     x: degToRad(degrees.x),
     y: degToRad(degrees.y),
@@ -108,7 +110,7 @@ export function degreesToEuler(degrees: Vector3): Vector3 {
 }
 
 // TODO add unit tests
-export function degreesToQuaternion(degrees: Vector3): Quaternion {
+export function degreesToQuaternion(degrees: Vector3Like): Quaternion {
   const radians = {
     x: degToRad(degrees.x),
     y: degToRad(degrees.y),
@@ -120,7 +122,7 @@ export function degreesToQuaternion(degrees: Vector3): Quaternion {
 }
 
 // TODO add unit tests
-export function quaternionToDegrees(quaternion: Quaternion): Vector3 {
+export function quaternionToDegrees(quaternion: QuaternionLike): Vector3 {
   const q: Quaternion = new Quaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
   const euler: Euler = new Euler().setFromQuaternion(q, 'XYZ');
 
