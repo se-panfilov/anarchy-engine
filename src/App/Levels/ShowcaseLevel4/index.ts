@@ -6,7 +6,7 @@ import { standardMoverService } from '@/Engine/Services';
 
 import levelConfig from './showcase-level-4.config.json';
 
-//Showcase 4: Anime.js animations (easing, etc.)
+//Showcase 4: Anime.js simple animations (easing, etc.)
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
 
@@ -43,8 +43,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
         isClickBlocked = false;
       });
       void standardMoverService.goToPosition(centralActor, { x: 20 }, { ...animationParams, easing: 'linear' });
-      // void standardMoverService.goToPosition(bottomActor, { x: 20 }, { ...animationParams, easing: 'easeInOutQuad' });
-      void standardMoverService.goByPath(bottomActor, [{ x: 10 }, { z: -10 }, { x: -20 }, { z: 2 }], { ...animationParams, easing: 'linear' });
+      void standardMoverService.goToPosition(bottomActor, { x: 20 }, { ...animationParams, easing: 'easeInOutQuad' });
     });
   }
 
