@@ -38,7 +38,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
   const onDeactivated$Sub: Subscription = abstractTransformAgent.onDeactivated$.pipe(takeWhile((): boolean => isNotDefined(params.onDeactivated))).subscribe((): void => {
     if (isNotDefined(params.onDeactivated)) {
       console.warn(
-        'PhysicsTransformAgent: onDeactivated is not defined. The physics body remains at the position it was the moment of deactivation. Please handle this (remove, move to a safe place), cause if left it as is could produce unexpected behavior.'
+        'PhysicsTransformAgent: onDeactivated is not defined. The physic body remains at the position it was the moment of deactivation. Please handle this (remove, move to a safe place), cause if left it as is could produce unexpected behavior.'
       );
     }
   });
@@ -58,7 +58,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
     physicsBody$,
     serialize: (): TPhysicsBodyConfig => {
       const body: TPhysicsBody | undefined = physicsBody$.value;
-      if (isNotDefined(body)) throw new Error(`[Serialization] [PhysicsTransformAgent]: physics body is not defined for agent with name: "${params.name}", (id: "${agent.id}")`);
+      if (isNotDefined(body)) throw new Error(`[Serialization] [PhysicsTransformAgent]: physic body is not defined for agent with name: "${params.name}", (id: "${agent.id}")`);
 
       return body.serialize();
     }

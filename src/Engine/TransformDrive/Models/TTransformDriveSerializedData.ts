@@ -6,7 +6,7 @@ import type { TEulerLike } from '@/Engine/ThreeLib';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 
 export type TTransformDriveSerializedData = Readonly<{
-  physics?: TPhysicsBodyConfig;
+  physicBody?: TPhysicsBodyConfig;
   kinematic?: TKinematicConfig;
   agent: TransformAgent;
   position: Vector3Like;

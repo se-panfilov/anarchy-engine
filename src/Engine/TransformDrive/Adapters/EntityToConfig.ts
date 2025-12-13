@@ -8,7 +8,7 @@ export function transformDriveToConfig(drive: TTransformDrive<any>): TTransformD
   const { position$, rotation$, scale$, agent$ } = drive;
 
   return {
-    physics: drive.physical?.serialize(),
+    physicBody: drive.physical?.serialize(),
     kinematic: ignoreDefaultStateKinematic(drive.kinematic?.serialize()),
     position: vector3ToXyz(position$.value),
     rotation: eulerToXyz(new Euler().setFromQuaternion(rotation$.value)),
