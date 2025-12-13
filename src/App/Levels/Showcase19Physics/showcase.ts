@@ -62,6 +62,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const cameraW: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
 
+    const initialBallCoords = ballActorW.getPosition().getCoords();
+
     const mouseLineIntersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({
       name: 'mouse_line_intersections_watcher',
       isAutoStart: true,
@@ -82,12 +84,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       world.step();
 
       if (isDefined(mouseLineIntersectionsCoords)) {
-        console.log(mouseLineIntersectionsCoords);
-        // line.geometry.setFromPoints([new Vector3(0, 0, 0), mouseLineIntersectionsCoords]);
-        line.geometry.setPositions([0, 0, 0, mouseLineIntersectionsCoords.x, mouseLineIntersectionsCoords.y, mouseLineIntersectionsCoords.z]);
+        line.geometry.setPositions([initialBallCoords.x, initialBallCoords.y, initialBallCoords.z, mouseLineIntersectionsCoords.x, mouseLineIntersectionsCoords.y, mouseLineIntersectionsCoords.z]);
         line.computeLineDistances();
-        // eslint-disable-next-line functional/immutable-data
-        line.geometry.attributes.position.needsUpdate = true;
       }
 
       // Get and print the rigid-body's position.
