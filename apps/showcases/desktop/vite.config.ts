@@ -1,28 +1,24 @@
-// We need vite for preload.ts, when we want to use imports.
-// In the current version of electron, preload.ts can be CommonJS only (not ESM).
-// And it hardly supports imports (and node modules such as path, fs, etc.).
-// So the recommended way is to use a bundler for preload.ts.
-
-import { resolve } from 'path';
 import { defineConfig } from 'vite';
-import tsconfigPaths from 'vite-tsconfig-paths';
-const tsconfigPath: string = resolve(__dirname, 'tsconfig.preload.json');
+import path from 'path';
 
+// Frankly, we can build electron-main.ts without Vite (just with tsc).
+// But imports are such a pain, so it's easier to use a bundler.
 export default defineConfig({
-  plugins: [tsconfigPaths({ projects: [tsconfigPath] })],
+  resolve: {
+    alias: {
+      '@Desktop': path.resolve(__dirname, './src')
+    }
+  },
   build: {
+    ssr: true, // This is a build for node, not for browser
     outDir: 'dist',
-    emptyOutDir: false, // Do not empty outDir, we build electron-main.ts first there
     lib: {
-      entry: './preload.ts',
-      formats: ['cjs'], //prebuild.ts must be CommonJs module in the current electron version (otherwise we can get rid of Vite here)
-      fileName: (): string => 'preload.js'
+      entry: './electron-main.ts',
+      formats: ['es'],
+      fileName: (): string => 'electron-main.js'
     },
     rollupOptions: {
-      external: ['electron'], // Prevent bundling electron module
-      output: {
-        exports: 'named'
-      }
+      external: ['electron'] // Prevent bundling electron module
     }
   }
 });

@@ -4,13 +4,16 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "lib": ["ESNext", "DOM", "DOM.Iterable", "WebWorker"],
-    "module": "NodeNext",
-    "moduleResolution": "nodenext",
+    "module": "ESNext",
+    "moduleResolution": "node",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "dist",
+    "paths": {
+      "@Desktop/*": ["./src/*"]
+    },
     "resolveJsonModule": true,
     // TODO DESKTOP: Electron conflicts over "glob" and "minimatch" types with other packages (rimraf, etc.). So temporarily disable type checking for libraries.,
     "skipLibCheck": true,

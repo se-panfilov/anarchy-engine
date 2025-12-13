@@ -27,8 +27,8 @@
     "copy:dist-app": "node ../../../packages/shared/ScriptUtils/CopyDir.js -- from=../dist-desktop to=dist-app",
     "copy:draco": "node ../../../packages/shared/ScriptUtils/CopyFiles.js ../../../node_modules/three/examples/jsm/libs/draco/draco_decoder.js ../../../node_modules/three/examples/jsm/libs/draco/draco_wasm_wrapper.js ../../../node_modules/three/examples/jsm/libs/draco/draco_decoder.wasm to=dist-app/three/examples/jsm/libs/draco/",
     "prebuild": "npm run prebuild:ts && npm run prebuild:preload",
-    "prebuild:preload": "vite build",
-    "prebuild:ts": "npm run generate:versions-file && tsc",
+    "prebuild:preload": "vite build --config vite.preload.config.ts",
+    "prebuild:ts": "npm run generate:versions-file && vite build",
     "reload-and-prebuild": "npm run reload:dist-app && npm run prebuild",
     "reload:dist-app": "npm run clean && npm run copy:dist-app && npm run copy:draco",
     "start": "npm run reload-and-prebuild && electron ."

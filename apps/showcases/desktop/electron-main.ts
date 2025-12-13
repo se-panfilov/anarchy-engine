@@ -3,9 +3,9 @@ import type { Event, WebContentsWillNavigateEventParams } from 'electron';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { existsSync } from 'node:fs';
-import { getDisplayInfo } from './src/Utils/DisplayUtils.js';
-import { handleAppRequest } from './src/Services/AppToPlatformMessagesService.js';
-import { APP_TO_PLATFORM_CHANNEL } from './src/Constants/AppToPlatformMessagesConstants.js';
+import { getDisplayInfo } from '@Desktop/Utils';
+import { handleAppRequest } from '@Desktop/Services';
+import { APP_TO_PLATFORM_CHANNEL } from '@Desktop/Constants';
 
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = dirname(__filename);
