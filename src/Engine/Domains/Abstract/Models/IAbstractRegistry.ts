@@ -12,7 +12,7 @@ export type IAbstractRegistry<T extends IRegistrable> = Readonly<{
   replaced$: Observable<T>;
   registry: Map<string, T>;
   getById: (id: string) => T | undefined;
-  getAll: () => ReadonlyArray<T | undefined>;
+  getAll: () => ReadonlyArray<T>;
   getAllWithSomeTag: (tags: ReadonlyArray<string>) => ReadonlyArray<T> | never;
   getAllWithEveryTag: (tags: ReadonlyArray<string>) => ReadonlyArray<T> | never;
   getUniqWithSomeTag: (tags: ReadonlyArray<string>) => T | undefined | never;
