@@ -1,6 +1,6 @@
 import { AbstractRegistry, RegistryFacade } from '@Engine/Domains/Abstract';
-import { RegistryName } from '@Engine/Registries';
+import { RegistryType } from '@Engine/Registries';
 
 import type { IScreenSizeWatcher, IScreenSizeWatcherRegistry } from '../Models';
 
-export const ScreenSizeWatcherRegistry = (): IScreenSizeWatcherRegistry => RegistryFacade(AbstractRegistry<IScreenSizeWatcher>(RegistryName.ScreenSizeWatcher));
+export const ScreenSizeWatcherRegistry = (): IScreenSizeWatcherRegistry => RegistryFacade(AbstractRegistry<IScreenSizeWatcher>(RegistryType.ScreenSizeWatcher));

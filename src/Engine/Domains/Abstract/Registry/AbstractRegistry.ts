@@ -1,13 +1,13 @@
 import type { IMultitonRegistrable, IRegistrable } from '@Engine/Domains/Mixins';
-import type { RegistryName } from '@Engine/Registries';
+import type { RegistryType } from '@Engine/Registries';
 import { getAll, getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag, isDestroyable, isNotDefined } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
 
 import type { IAbstractRegistry } from '../Models';
 
-export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(name: RegistryName): IAbstractRegistry<T> {
-  const id: string = nanoid();
+export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(type: RegistryType): IAbstractRegistry<T> {
+  const id: string = type + '_registry_' + nanoid();
   const registry: Map<string, T> = new Map();
   const added$: Subject<T> = new Subject<T>();
   const replaced$: Subject<T> = new Subject<T>();
@@ -57,13 +57,13 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
 
   function getUniqWithSomeTag(tags: ReadonlyArray<string>): T | undefined | never {
     const result: ReadonlyArray<T> = getAllEntitiesWithSomeTag(tags, registry);
-    if (result.length > 1) throw new Error(`Entity with tags "${tags.toString()}" is not uniq in "${name}"`);
+    if (result.length > 1) throw new Error(`Entity with tags "${tags.toString()}" is not uniq in "${type}"`);
     return result[0];
   }
 
   function getUniqWithEveryTag(tags: ReadonlyArray<string>): T | undefined | never {
     const result: ReadonlyArray<T> = getAllEntitiesWithEveryTag(tags, registry);
-    if (result.length > 1) throw new Error(`Entity with tags "${tags.toString()}" is not uniq in "${name}"`);
+    if (result.length > 1) throw new Error(`Entity with tags "${tags.toString()}" is not uniq in "${type}"`);
     return result[0];
   }
 
@@ -72,11 +72,11 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
   }
 
   return {
-    get name(): RegistryName {
-      return name;
-    },
     get id(): string {
       return id;
+    },
+    get type(): RegistryType {
+      return type;
     },
     get added$(): Subject<T> {
       return added$;
