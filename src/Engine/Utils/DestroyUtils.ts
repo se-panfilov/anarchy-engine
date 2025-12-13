@@ -1,8 +1,8 @@
 import type { AnimationAction, AnimationClip, Material, Object3D, PositionalAudio } from 'three';
 import { Mesh, Texture } from 'three';
 
-import type { TAnyAudio } from '@/Engine';
 import type { TEntity } from '@/Engine/Abstract';
+import type { TAnyAudio } from '@/Engine/Audio';
 import type { TWithModel3dEntities } from '@/Engine/Models3d';
 import { hasTransformDrive } from '@/Engine/TransformDrive/Utils';
 import { hasGeometry, hasMaterial, isDefined, isNotDefined } from '@/Engine/Utils';
@@ -74,7 +74,7 @@ export function destroyGeometryInEntity(entity: unknown): void {
 
 export function removeFromParent(entity: any): void {
   if (isDefined(entity.removeFromParent)) return entity.removeFromParent();
-  entity.parent.remove(entity);
+  return entity.parent.remove(entity);
 }
 
 export function stopParenting(entity: any): void {

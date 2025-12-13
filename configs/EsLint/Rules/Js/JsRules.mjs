@@ -19,6 +19,7 @@ export const JsRules = {
         'Animejs',
         'Antialias',
         'Ao',
+        'uncache',
         'Backface',
         'Backquote',
         'Bidi',
