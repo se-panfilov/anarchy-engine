@@ -1,8 +1,10 @@
 import type { TLocale, TLocaleId } from '@Anarchy/i18n';
 import type { TDeepWriteable } from '@Anarchy/Shared/Utils';
+import type { TShowcaseLocaleIds } from '@Showcases/i18n';
+import { ShowcasesLocales } from '@Showcases/i18n';
 import { vueTranslationService } from '@Showcases/Menu/services';
-import type { TAudioSettings, TDebugSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TShowcaseGameSettings, TShowcaseLocaleIds } from '@Showcases/Shared';
-import { DefaultShowcaseGameSettings, ShowcasesLocales } from '@Showcases/Shared';
+import type { TAudioSettings, TDebugSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TShowcaseGameSettings } from '@Showcases/Shared';
+import { DefaultShowcaseGameSettings } from '@Showcases/Shared';
 import { defineStore } from 'pinia';
 import type { ComputedRef } from 'vue';
 import { computed, reactive, watch } from 'vue';

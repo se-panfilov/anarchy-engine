@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TShowcaseLocaleIds } from '@Showcases/i18n';
 import MdRenderer from '@Showcases/Menu/components/MdRenderer.vue';
 import Navigation from '@Showcases/Menu/components/Navigation/Navigation.vue';
 import View from '@Showcases/Menu/components/View.vue';
@@ -7,7 +8,6 @@ import ViewForm from '@Showcases/Menu/components/ViewForm.vue';
 import { eventsService, vueTranslationService } from '@Showcases/Menu/services';
 import { useLegalDocsStore } from '@Showcases/Menu/stores/LegalDocsStore';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
-import type { TShowcaseLocaleIds } from '@Showcases/Shared';
 import { AllowedLegalDocNames } from '@Showcases/Shared';
 import type { ShallowRef } from 'vue';
 import { onMounted } from 'vue';

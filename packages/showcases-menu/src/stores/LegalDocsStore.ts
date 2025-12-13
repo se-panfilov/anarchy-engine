@@ -1,7 +1,8 @@
 import type { TOptional, TWriteable } from '@Anarchy/Shared/Utils';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TShowcaseLocaleIds } from '@Showcases/i18n';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
-import type { TLegalDoc, TShowcaseLocaleIds } from '@Showcases/Shared';
+import type { TLegalDoc } from '@Showcases/Shared';
 import { AllowedLegalDocNames } from '@Showcases/Shared';
 import { defineStore } from 'pinia';
 import type { ComputedRef } from 'vue';

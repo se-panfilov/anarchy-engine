@@ -1,4 +1,4 @@
-import { enUs } from '@Anarchy/i18n';
+import { ShowcasesLocales } from '@Showcases/i18n';
 import type { TShowcaseGameSettings } from '@Showcases/Shared/Models';
 
 export const DefaultShowcaseGameSettings: TShowcaseGameSettings = {
@@ -12,7 +12,7 @@ export const DefaultShowcaseGameSettings: TShowcaseGameSettings = {
     masterVolume: 80
   },
   localization: {
-    locale: enUs
+    locale: ShowcasesLocales['en-US']
   },
   debug: {
     isDebugMode: false
