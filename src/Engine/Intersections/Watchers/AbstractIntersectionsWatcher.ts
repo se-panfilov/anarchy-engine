@@ -8,7 +8,7 @@ import { intersectionsToConfig } from '@/Engine/Intersections/Adapters';
 import type { TAbstractIntersectionsWatcher, TAnyIntersectionsWatcherConfig, TAnyIntersectionsWatcherParams, TIntersectionEvent, TIntersectionsLoop } from '@/Engine/Intersections/Models';
 import type { TWriteable } from '@/Engine/Utils';
 
-export function AbstractIntersectionsWatcher({ onStart, isAutoStart, tags, name, performance, intersectionsLoop, ...rest }: TAnyIntersectionsWatcherParams): TAbstractIntersectionsWatcher {
+export function AbstractIntersectionsWatcher({ isAutoStart, tags, name, intersectionsLoop, ...rest }: TAnyIntersectionsWatcherParams): TAbstractIntersectionsWatcher {
   const abstractWatcher: TAbstractWatcher<TIntersectionEvent> = AbstractWatcher<TIntersectionEvent>(WatcherType.IntersectionWatcher, name, tags);
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
   let actors: ReadonlyArray<TActor> = [];
@@ -21,20 +21,12 @@ export function AbstractIntersectionsWatcher({ onStart, isAutoStart, tags, name,
 
   const getIntersectionsLoop = (): TIntersectionsLoop => intersectionsLoop;
 
-  let positionSub$: Subscription | undefined;
-
-  const threshold: number = performance?.noiseThreshold ?? 0.001;
-  // shouldUseDistinct might improve performance, however, won't fire an event if the mouse (position$) is not moving (and actor or scene is moving)
-  const shouldUseDistinct: boolean = performance?.shouldUseDistinct ?? false;
-
   const startSub$: Subscription = abstractWatcher.start$.subscribe((): void => {
-    onStart({ threshold, shouldUseDistinct });
     // eslint-disable-next-line functional/immutable-data
     result.isStarted = true;
   });
 
   const stopSub$: Subscription = abstractWatcher.stop$.subscribe((): void => {
-    positionSub$?.unsubscribe();
     // eslint-disable-next-line functional/immutable-data
     result.isStarted = false;
   });
@@ -44,7 +36,6 @@ export function AbstractIntersectionsWatcher({ onStart, isAutoStart, tags, name,
     // eslint-disable-next-line functional/immutable-data
     (actors as Array<TActor>).length = 0;
 
-    positionSub$?.unsubscribe();
     destroySub$.unsubscribe();
     startSub$.unsubscribe();
     stopSub$.unsubscribe();
@@ -60,6 +51,7 @@ export function AbstractIntersectionsWatcher({ onStart, isAutoStart, tags, name,
     isStarted: false,
     removeActor,
     removeActors,
+    raycaster,
     serialize: (): TAnyIntersectionsWatcherConfig => intersectionsToConfig(result)
   });
 

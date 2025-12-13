@@ -5,14 +5,7 @@ import { Vector2 } from 'three';
 
 import type { TActor } from '@/Engine/Actor';
 import type { TAnyCameraWrapper } from '@/Engine/Camera';
-import { intersectionsToConfig } from '@/Engine/Intersections/Adapters';
-import type {
-  TAbstractIntersectionsWatcher,
-  TIntersectionEvent,
-  TIntersectionsCameraWatcher,
-  TIntersectionsCameraWatcherConfig,
-  TIntersectionsCameraWatcherParams
-} from '@/Engine/Intersections/Models';
+import type { TAbstractIntersectionsWatcher, TIntersectionEvent, TIntersectionsCameraWatcher, TIntersectionsCameraWatcherParams } from '@/Engine/Intersections/Models';
 import { AbstractIntersectionsWatcher } from '@/Engine/Intersections/Watchers/AbstractIntersectionsWatcher';
 import type { TRawModel3d } from '@/Engine/Models3d';
 import type { TSceneObject } from '@/Engine/Scene';
@@ -20,7 +13,7 @@ import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isEqualOrSimilarByXyCoords, isNotDefined } from '@/Engine/Utils';
 
 export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherParams): TIntersectionsCameraWatcher {
-  const { position$, isAutoStart, tags, name, performance, intersectionsLoop, ...rest } = params;
+  const { position$, performance, intersectionsLoop } = params;
   const abstractIntersectionsWatcher: TAbstractIntersectionsWatcher = AbstractIntersectionsWatcher(params);
   let camera: Readonly<TAnyCameraWrapper> | undefined;
 
@@ -30,6 +23,12 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
     if (isNotDefined(camera)) throw new Error('[IntersectionsWatcher]: Cannot get camera: not defined');
     return camera;
   };
+
+  let positionSub$: Subscription | undefined;
+
+  const threshold: number = performance?.noiseThreshold ?? 0.001;
+  // shouldUseDistinct might improve performance, however, won't fire an event if the mouse (position$) is not moving (and actor or scene is moving)
+  const shouldUseDistinct: boolean = performance?.shouldUseDistinct ?? false;
 
   const startSub$: Subscription = abstractIntersectionsWatcher.start$.subscribe((): void => {
     const prevValue: Float32Array = new Float32Array([0, 0]);
@@ -49,10 +48,10 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
         const intersection: TIntersectionEvent | undefined = getIntersection(
           position,
           camera,
-          actors.map((a: TActor): TRawModel3d => a.model3d.getRawModel3d())
+          abstractIntersectionsWatcher.getActors().map((a: TActor): TRawModel3d => a.model3d.getRawModel3d())
         );
 
-        if (isDefined(intersection)) abstractWatcher.value$.next(intersection);
+        if (isDefined(intersection)) abstractIntersectionsWatcher.value$.next(intersection);
       });
     // eslint-disable-next-line functional/immutable-data
     result.isStarted = true;
@@ -60,19 +59,18 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
 
   const stopSub$: Subscription = abstractIntersectionsWatcher.stop$.subscribe((): void => {
     positionSub$?.unsubscribe();
-    // eslint-disable-next-line functional/immutable-data
-    result.isStarted = false;
   });
 
   function getIntersection(coords: Vector2Like, cameraWrapper: Readonly<TAnyCameraWrapper>, list: Array<TSceneObject>): TIntersectionEvent | undefined | never {
-    if (isNotDefined(raycaster)) throw new Error('[IntersectionsWatcher]: Cannot get intersection: raycaster is not defined');
-    raycaster.setFromCamera(new Vector2(coords.x, coords.y), cameraWrapper.entity);
-    return raycaster.intersectObjects(list)[0];
+    if (isNotDefined(abstractIntersectionsWatcher.raycaster)) throw new Error('[IntersectionsWatcher]: Cannot get intersection: raycaster is not defined');
+    abstractIntersectionsWatcher.raycaster.setFromCamera(new Vector2(coords.x, coords.y), cameraWrapper.entity);
+    return abstractIntersectionsWatcher.raycaster.intersectObjects(list)[0];
   }
 
   const destroySub$: Subscription = abstractIntersectionsWatcher.destroy$.subscribe((): void => {
-    abstractIntersectionsWatcher.destroy$.next();
-
+    positionSub$?.unsubscribe();
+    startSub$.unsubscribe();
+    stopSub$.unsubscribe();
     destroySub$.unsubscribe();
   });
 
@@ -80,13 +78,11 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
   const result: TWriteable<TIntersectionsCameraWatcher> = Object.assign(abstractIntersectionsWatcher, {
     findCamera,
     getCamera,
-    isAutoStart,
     isStarted: false,
-    serialize: (): TIntersectionsCameraWatcherConfig => intersectionsToConfig(result),
     setCamera
   });
 
-  setCamera(camera);
+  setCamera(getCamera());
 
   return result;
 }

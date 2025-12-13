@@ -1,3 +1,5 @@
+import type { Raycaster } from 'three';
+
 import type { TWatcher } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor';
 
@@ -14,4 +16,5 @@ export type TAbstractIntersectionsWatcher = TWatcher<TIntersectionEvent> &
     isStarted: boolean;
     removeActor: (actorId: string) => void;
     removeActors: (actorIds: ReadonlyArray<string>) => void;
+    raycaster: Readonly<Raycaster>;
   }>;
