@@ -1,1 +1,1 @@
-export * from './ActorWrapperWithPhysics';
+export * from './ActorWithPhysics';

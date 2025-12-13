@@ -1,14 +1,14 @@
 import type { TReactiveFactoryWithDependencies } from '@/Engine/Abstract';
 import { FactoryType, ReactiveFactoryWithDependencies } from '@/Engine/Abstract';
 import { configToParams } from '@/Engine/Actor/Adapters';
-import type { TActor, TActorDependencies, TActorFactory, TActorParams, TActorServiceDependencies, TActorWithPhysicsDependencies, TActorWrapperWithPhysics } from '@/Engine/Actor/Models';
+import type { TActor, TActorDependencies, TActorFactory, TActorParams, TActorServiceDependencies, TActorWithPhysics, TActorWithPhysicsDependencies } from '@/Engine/Actor/Models';
 import { isBodyServiceDependency } from '@/Engine/Actor/Utils';
-import { Actor, ActorWrapperWithPhysics } from '@/Engine/Actor/Wrappers';
+import { Actor, ActorWithPhysics } from '@/Engine/Actor/Wrappers';
 import { isDefined } from '@/Engine/Utils';
 
-function createActor(params: TActorParams, dependencies: TActorDependencies | TActorWithPhysicsDependencies): TActor | TActorWrapperWithPhysics {
+function createActor(params: TActorParams, dependencies: TActorDependencies | TActorWithPhysicsDependencies): TActor | TActorWithPhysics {
   if (isDefined(params.physics) && isBodyServiceDependency(dependencies)) {
-    return ActorWrapperWithPhysics(params, dependencies);
+    return ActorWithPhysics(params, dependencies);
   }
   return Actor(params, dependencies);
 }

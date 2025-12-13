@@ -1,8 +1,8 @@
-import type { TActor, TActorDependencies, TActorParams, TActorWithPhysicsDependencies, TActorWrapperWithPhysics } from '@/Engine/Actor/Models';
+import type { TActor, TActorDependencies, TActorParams, TActorWithPhysics, TActorWithPhysicsDependencies } from '@/Engine/Actor/Models';
 import type { TSpatialGridService, TSpatialGridWrapper } from '@/Engine/Spatial';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export const isActorHasPhysicsBody = (actor: TActor | TActorWrapperWithPhysics): actor is TActorWrapperWithPhysics => isDefined(actor.physicsBody);
+export const isActorHasPhysicsBody = (actor: TActor | TActorWithPhysics): actor is TActorWithPhysics => isDefined(actor.physicsBody);
 
 export function isBodyServiceDependency(dependencies: TActorDependencies | TActorWithPhysicsDependencies): dependencies is TActorWithPhysicsDependencies {
   return isDefined((dependencies as TActorWithPhysicsDependencies).physicsBodyService);

@@ -6,10 +6,10 @@ import type { TActorConfig } from './TActorConfig';
 import type { TActorFactory } from './TActorFactory';
 import type { TActorParams } from './TActorParams';
 import type { TActorRegistry } from './TActorRegistry';
-import type { TActorWrapperWithPhysics } from './TActorWrapperWithPhysics';
+import type { TActorWithPhysics } from './TActorWithPhysics';
 
-export type TActorService = TWithCreateService<TActor | TActorWrapperWithPhysics, TActorParams> &
-  TWithCreateFromConfigService<TActorConfig, TActor | TActorWrapperWithPhysics> &
+export type TActorService = TWithCreateService<TActor | TActorWithPhysics, TActorParams> &
+  TWithCreateFromConfigService<TActorConfig, TActor | TActorWithPhysics> &
   TWithFactoryService<TActorFactory> &
   TWithRegistryService<TActorRegistry> &
   TWithSceneGetterService &
