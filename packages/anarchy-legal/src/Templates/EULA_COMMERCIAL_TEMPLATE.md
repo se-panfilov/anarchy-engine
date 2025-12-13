@@ -29,11 +29,11 @@ Also distributed under the following technical identifiers: `{{PACKAGE_NAME}}`.
 
 ## Defined Terms
 
-**“Distribution Channels”** means any store, marketplace, platform, launcher, website, installer, physical media, or other mechanism used now or in the future to distribute the {{PRODUCT_TERM}}, regardless of provider.
+“**Distribution Channels**” means any store, marketplace, platform, launcher, website, installer, physical media, or other mechanism used now or in the future to distribute the {{PRODUCT_TERM}}, regardless of provider.
 
-**“Consumer”** means an individual acting wholly or mainly outside their trade, business, craft or profession.
+“**Consumer**” means an individual acting wholly or mainly outside their trade, business, craft or profession.
 
-**“Business User”** means a user who is not a Consumer.
+“**Business User**” means a user who is not a Consumer.
 
 ## Severability
 
@@ -85,7 +85,7 @@ You may create, use, and distribute mods for the {{PRODUCT_TERM}} **at your own 
 
 We **do not** provide support, tools, or compatibility commitments for mods. Updates may break mods, and we are **not liable** for any loss or damage arising from mods. We may restrict or disable mods in online/competitive modes or where required for legal, safety, anti-cheat, or compliance reasons.
 
-You retain rights in your mods. This EULA does **not** grant you any rights to our IP beyond what is necessary to interoperate with the {{PRODUCT_TERM}}. Do not include or redistribute our proprietary content unless expressly permitted.
+You retain rights in your mods. This EULA does **not** grant rights to our IP beyond what is necessary to interoperate with the {{PRODUCT_TERM}}.
 
 {{#MOD_HOSTING}}
 If we choose to host, feature, or distribute a mod, you grant us a worldwide, non-exclusive, royalty-free license to host, display, and redistribute that mod; you remain solely responsible for it.
@@ -95,9 +95,9 @@ If we choose to host, feature, or distribute a mod, you grant us a worldwide, no
 
 The {{PRODUCT_TERM}} may receive updates, patches, bug fixes, or content changes (“Updates”). Updates may be delivered through any Distribution Channels in use from time to time, including automatic updates where supported, or by including updated files in the distribution package. Some Updates may be required to continue use.
 
-Where we provide release notes or advisories, they may be delivered within the product, in the update package, or via the applicable Distribution Channel. No specific location or publication cadence is guaranteed.
+Where provided, release notes/advisories may be delivered within the product, in the update package, or via the applicable Distribution Channel. No specific location or cadence is guaranteed.
 
-We do **not** commit to any service levels, availability targets, or ongoing support unless expressly agreed in a separate written agreement.
+We do **not** commit to service levels, availability targets, or ongoing support unless expressly agreed in a separate written agreement.
 
 ## 6. Third-Party Services
 
@@ -110,49 +110,53 @@ Where UGC features exist for the {{PRODUCT_TERM}}, you remain responsible for yo
 ## 8. Children & Age Ratings
 
 {{#IS_CHILD_DIRECTED}}
-This {{PRODUCT_TERM}} is **directed to children**. We implement measures required by applicable law (e.g., **parental consent/notice** where necessary). By using online features (if any), you confirm that **parental consent** has been provided where required. See **Privacy Policy** for details.
+This {{PRODUCT_TERM}} is **directed to children**. We implement measures required by applicable law (e.g., **parental consent/notice** where necessary). By using online features (if any), you confirm that **parental consent** has been provided where required.
 {{/IS_CHILD_DIRECTED}}
 {{^IS_CHILD_DIRECTED}}
 This {{PRODUCT_TERM}} is not directed to children below the age requiring parental consent under applicable law (e.g., EU {{EU_CHILD_CONSENT_AGE}}, US {{US_CHILD_AGE}}{{#REGION_CN}}, China {{CN_CHILD_AGE}}{{/REGION_CN}}). We do not knowingly collect personal data from such children.
 {{/IS_CHILD_DIRECTED}}
 
-## 9. Term & Termination
+## 9. Accessibility
+
+Where required by applicable law (e.g., the **EU Accessibility Act**), we aim to address **accessibility feedback** for consumer-facing builds **within reasonable and proportionate limits**. You may send accessibility requests to **{{SUPPORT_EMAIL}}**. This section does **not** create service levels or guarantees.
+
+## 10. Term & Termination
 
 This EULA is effective until terminated. It terminates automatically if you materially breach it. Upon termination, cease use and uninstall the {{PRODUCT_TERM}}. Sections intended to survive (Ownership, OSS, Disclaimers, Liability, Governing Law) shall survive.
 
-## 10. Disclaimer of Warranties
+## 11. Disclaimer of Warranties
 
 The {{PRODUCT_TERM}} is provided **“AS IS”**, **to the maximum extent permitted by applicable law**, without warranties of any kind, express or implied, including **merchantability, fitness for a particular purpose, and non-infringement**. **Statutory consumer rights are not affected.**
 
-## 11. Limitation of Liability
+## 12. Limitation of Liability
 
 To the fullest extent permitted by law, Licensor shall **not** be liable for any indirect, incidental, special, exemplary, or consequential damages.
 
-**Nothing in this EULA excludes or limits liability where such exclusion or limitation is unlawful, including for death or personal injury caused by negligence, fraud, or wilful misconduct.**
+**Nothing in this EULA excludes or limits liability where such exclusion or limitation is unlawful (including for death or personal injury, fraud, or wilful misconduct).**
 
-## 11A. Liability Cap (Business Users Only)
+## 12A. Liability Cap (Business Users Only)
 
 This clause applies **only** to Business Users. To the extent permitted by applicable law, the Licensor’s aggregate liability for all claims relating to the {{PRODUCT_TERM}} shall not exceed **{{LIABILITY_CAP_AMOUNT}}**.
 
-Nothing in this clause applies to Consumers, nor does it limit liability where such limitation is unlawful (including for death or personal injury caused by negligence, fraud or wilful misconduct).
+This clause does not apply to Consumers and does not limit liability where such limitation is unlawful.
 
-## 12. Export Controls & Sanctions
+## 13. Export Controls & Sanctions
 
 You must comply with applicable **export, re-export, and sanctions** laws. You may not use or transfer the {{PRODUCT_TERM}} to restricted persons, entities, destinations, or for prohibited end uses.
 
-## 13. Open-Source Components (OSS Precedence)
+## 14. Open-Source Components (OSS Precedence)
 
 The {{PRODUCT_TERM}} includes **open-source software**. **To the extent of any conflict between this EULA and the license terms of an OSS component, the OSS license controls for that component.** Third-party notices and licenses are provided in the distribution package (see `NOTICE` and `THIRD_PARTY_LICENSES`).
 
-## 14. Governing Law & Consumer Rights
+## 15. Governing Law & Consumer Rights
 
 This EULA is governed by the laws of **{{GOVERNING_LAW_COUNTRY}}** with venue in **{{GOVERNING_VENUE}}**.
 
-If you are a consumer, **mandatory consumer protection laws of your country of residence remain applicable**.
+If you are a Consumer, **mandatory consumer protection laws of your country of residence remain applicable**.
 
-## 15. Changes
+## 16. Changes
 
-We may update this EULA. Material changes may be communicated **within the product or the update package** (for example, via an in-product notice, a prompt to review the EULA on update, or release notes included with the distribution), or via the applicable Distribution Channel. Continued use after the effective date constitutes acceptance.
+We may update this EULA. Material changes may be communicated **within the product or the update package** (e.g., in-product notice, prompt to review the EULA on update, or release notes included with the distribution), or via the applicable Distribution Channel. Continued use after the effective date constitutes acceptance.
 
 ## Governing Language
 
