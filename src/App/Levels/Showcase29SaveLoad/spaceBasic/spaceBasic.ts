@@ -1,4 +1,5 @@
 import type { Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import type { TModel3d, TRegistryPack, TSpace, TSpaceConfig } from '@/Engine';
 import { isNotDefined } from '@/Engine';
@@ -13,7 +14,7 @@ export const spaceBasicData: TSpacesData = {
   name: config.name,
   config: config,
   container: getContainer(config.canvasSelector),
-  awaits: [],
+  awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
   onCreate: (space: TSpace, subscriptions?: Record<string, Subscription>): void | never => {
     const sub$: Subscription = space.services.models3dService.getRegistry().added$.subscribe(({ value: model3dSource }: TRegistryPack<TModel3d>): void => {
       if (model3dSource.name === 'surface_model') space.services.scenesService.findActive()?.addModel3d(model3dSource);

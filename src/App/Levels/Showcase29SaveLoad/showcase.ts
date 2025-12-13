@@ -2,6 +2,7 @@ import '@public/Showcase/fonts.css';
 import './style.css';
 
 import type { Subscription } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs';
 
 import { spaceActorData } from '@/App/Levels/Showcase29SaveLoad/spaceActor';
 import { spaceAnimationsData } from '@/App/Levels/Showcase29SaveLoad/spaceAnimations';
@@ -73,15 +74,25 @@ function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>)
   const space: TSpace = spaces.find((s: TSpace): boolean => s.name === name) as TSpace;
   if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot create the space "${name}"`);
 
-  space.built$.subscribe(() => {
-    spaceData.onSpaceReady?.(space, subscriptions);
-  });
+  // eslint-disable-next-line functional/immutable-data
+  subscriptions[`built$_${space.name}`] = space.built$.subscribe((): void => spaceData.onSpaceReady?.(space, subscriptions));
 
   // eslint-disable-next-line functional/immutable-data
   subscriptions[`serializationInProgress$_${space.name}`] = space.serializationInProgress$.subscribe((isInProgress: boolean): void => setSpaceReady(!isInProgress));
 
   // eslint-disable-next-line functional/immutable-data, functional/prefer-tacit
   subscriptions[`start$_${space.name}`] = space.start$.subscribe((isStarted: boolean): void => setSpaceReady(isStarted));
+
+  // eslint-disable-next-line functional/immutable-data
+  subscriptions[`awaits$_${space.name}`] = spaceData.awaits$
+    .pipe(
+      map((s): boolean => s.size !== 0), // "true" means all awaits are done
+      distinctUntilChanged()
+    )
+    .subscribe((isAwaiting: boolean): void => {
+      console.log('XXX isAwaiting', isAwaiting);
+      setAwaiting(isAwaiting);
+    });
 
   currentSpaceName = space.name;
   spaceData.onCreate?.(space, subscriptions);
@@ -99,6 +110,7 @@ function unloadSpace(name: string | undefined, spaceRegistry: TSpaceRegistry): v
   Object.values(subscriptions).forEach((sub: Subscription): void => sub.unsubscribe());
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
   spaceData.onUnload?.(space, subscriptions);
+  spaceData.awaits$.complete();
   setSpaceReady(false);
   space.drop();
 }
@@ -115,14 +127,14 @@ function saveSpaceConfigInMemory(name: string | undefined, spaceRegistry: TSpace
 
   const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
-  const { onSpaceReady, onChange, onUnload, onCreate, awaits } = spaceData;
+  const { onSpaceReady, onChange, onUnload, onCreate, awaits$ } = spaceData;
 
   // eslint-disable-next-line functional/immutable-data
   spacesInMemoryData[index > -1 ? index : 0] = {
     name: space.name,
     config,
     container: config.canvasSelector,
-    awaits,
+    awaits$,
     onCreate,
     onSpaceReady,
     onChange,
@@ -168,18 +180,17 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
 }
 
 function setSpaceReady(isReady: boolean): void | never {
-  const readyClass: string = 'ready';
-  const notReadyClass: string = 'awaiting';
+  toggleClass(isReady, 'ready');
+}
 
-  const elem: Element | null = document.querySelector('body');
+function setAwaiting(isAwaiting: boolean): void | never {
+  toggleClass(isAwaiting, 'await');
+}
+
+function toggleClass(isSet: boolean, className: string, selector: string = 'body'): void | never {
+  const elem: Element | null = document.querySelector(selector);
   if (!elem) throw new Error(`[Showcase]: Element "body" is not found`);
 
-  if (isReady) {
-    if (elem.classList.contains(notReadyClass)) elem.classList.remove(notReadyClass);
-    if (!elem.classList.contains(readyClass)) elem.classList.add(readyClass);
-  }
-  if (!isReady) {
-    if (elem.classList.contains(readyClass)) elem.classList.remove(readyClass);
-    if (!elem.classList.contains(notReadyClass)) elem.classList.add(notReadyClass);
-  }
+  if (isSet && !elem.classList.contains(className)) elem.classList.add(className);
+  if (!isSet && elem.classList.contains(className)) elem.classList.remove(className);
 }

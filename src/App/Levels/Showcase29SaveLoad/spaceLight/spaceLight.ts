@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import type { HemisphereLight, PointLight, SpotLight } from 'three';
 import { Color, Vector3 } from 'three';
 
@@ -13,7 +14,7 @@ export const spaceLightData: TSpacesData = {
   name: config.name,
   config: config,
   container: getContainer(config.canvasSelector),
-  awaits: [],
+  awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
   onChange: (space: TSpace): void => {
     const hemisphere: THemisphereLightWrapper = space.services.lightService.getRegistry().findByName('hemisphere_light') as THemisphereLightWrapper;
     const pointLight: TPointLightWrapper = space.services.lightService.getRegistry().findByName('point_light') as TPointLightWrapper;

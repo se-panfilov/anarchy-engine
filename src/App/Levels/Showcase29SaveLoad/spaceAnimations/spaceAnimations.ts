@@ -1,11 +1,12 @@
+import { BehaviorSubject } from 'rxjs';
 import type { AnimationAction, AnimationClip, AnimationMixer } from 'three';
 import { LoopOnce } from 'three';
 
 import type { TActor, TSpace, TSpaceConfig } from '@/Engine';
-import { createDeferredPromise, isNotDefined } from '@/Engine';
+import { isNotDefined } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
-import { getContainer } from '../utils';
+import { addAwait, getContainer, removeAwait } from '../utils';
 import spaceConfig from './spaceAnimations.json';
 
 const config: TSpaceConfig = spaceConfig as TSpaceConfig;
@@ -24,7 +25,7 @@ export const spaceAnimationsData: TSpacesData = {
   name: config.name,
   config: config,
   container: getContainer(config.canvasSelector),
-  awaits: [],
+  awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
   onSpaceReady(space: TSpace): void {
     const solder: TActor | undefined = space.services.actorService.getRegistry().findByName('solder_actor_1');
     if (isNotDefined(solder)) throw new Error('[Showcase]: Solder actor not found');
@@ -36,11 +37,11 @@ export const spaceAnimationsData: TSpacesData = {
 
     runAction.fadeOut(fadeDuration);
     idleAction.reset().fadeIn(fadeDuration).play();
+    // eslint-disable-next-line functional/immutable-data
+    idleAction.paused = true;
   },
   onChange: (space: TSpace): void => {
-    const { promise, resolve } = createDeferredPromise();
-    // eslint-disable-next-line functional/immutable-data
-    spaceAnimationsData.awaits.push(promise);
+    addAwait('onChange', spaceAnimationsData.awaits$);
 
     const solder: TActor | undefined = space.services.actorService.getRegistry().findByName('solder_actor_1');
     if (isNotDefined(solder)) throw new Error('[Showcase]: Solder actor not found');
@@ -50,7 +51,7 @@ export const spaceAnimationsData: TSpacesData = {
 
     idleAction.fadeOut(fadeDuration);
     playAnimationUntilFrame(solder.model3d.getMixer(), runAction, 15, 30);
-    resolve(true);
+    removeAwait('onChange', spaceAnimationsData.awaits$);
   }
 };
 

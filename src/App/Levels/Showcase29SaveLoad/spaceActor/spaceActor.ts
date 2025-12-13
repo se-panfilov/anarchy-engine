@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { distinctUntilChanged } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged } from 'rxjs';
 import type { AnimationAction } from 'three';
 import { Vector3 } from 'three';
 
@@ -23,7 +23,7 @@ export const spaceActorData: TSpacesData = {
   name: config.name,
   config: config,
   container: getContainer(config.canvasSelector),
-  awaits: [],
+  awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
   onSpaceReady(space: TSpace, subscriptions?: Record<string, Subscription>): void {
     const fadeDuration = 0.3;
 

@@ -1,3 +1,5 @@
+import { BehaviorSubject } from 'rxjs';
+
 import type { TSpace, TSpaceConfig } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
@@ -10,7 +12,7 @@ export const spaceTextData: TSpacesData = {
   name: config.name,
   config: config,
   container: getContainer(config.canvasSelector),
-  awaits: [],
+  awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
   onChange: (space: TSpace): void => {
     const { text2dRegistry, text3dRegistry, text3dTextureRegistry } = space.services.textService.getRegistries();
     changeText('text_2d', text2dRegistry);

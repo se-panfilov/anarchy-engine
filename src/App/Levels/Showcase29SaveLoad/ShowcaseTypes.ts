@@ -1,4 +1,4 @@
-import type { Subscription } from 'rxjs';
+import type { BehaviorSubject, Subscription } from 'rxjs';
 
 import type { TSpace, TSpaceConfig } from '@/Engine';
 
@@ -10,5 +10,5 @@ export type TSpacesData = Readonly<{
   onSpaceReady?: (space: TSpace, subscriptions?: Record<string, Subscription>) => void;
   onChange?: (space: TSpace, subscriptions?: Record<string, Subscription>) => void;
   onUnload?: (space: TSpace, subscriptions?: Record<string, Subscription>) => void;
-  awaits: Array<Promise<any>>;
+  awaits$: BehaviorSubject<ReadonlySet<string>>;
 }>;

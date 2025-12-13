@@ -1,3 +1,5 @@
+import { BehaviorSubject } from 'rxjs';
+
 import type { TMaterialConfigOptions, TPhysicalMaterialWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import { isNotDefined } from '@/Engine';
 
@@ -14,7 +16,7 @@ export const spaceMaterialsData: TSpacesData = {
   name: config.name,
   config: config,
   container: getContainer(config.canvasSelector),
-  awaits: [],
+  awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
   onChange: (space: TSpace): void => {
     // TODO 15-0-0: test textures change
 

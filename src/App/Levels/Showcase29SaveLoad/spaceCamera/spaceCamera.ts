@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
 
 import type { TPerspectiveCameraWrapper, TSpace, TSpaceConfig } from '@/Engine';
@@ -13,7 +14,7 @@ export const spaceCameraData: TSpacesData = {
   name: config.name,
   config: config,
   container: getContainer(config.canvasSelector),
-  awaits: [],
+  awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
   onChange: (space: TSpace): void => {
     const camera: TPerspectiveCameraWrapper | undefined = space.services.cameraService.findActive() as TPerspectiveCameraWrapper | undefined;
     if (isNotDefined(camera)) throw new Error(`[Showcase]: Camera is not found`);

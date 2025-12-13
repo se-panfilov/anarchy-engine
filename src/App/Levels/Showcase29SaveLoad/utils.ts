@@ -1,3 +1,4 @@
+import type { BehaviorSubject } from 'rxjs';
 import { Euler, Vector3 } from 'three';
 
 import type { TSpace, TSpaceConfig, TText2dRegistry, TText2dWrapper, TText3dRegistry, TText3dTextureRegistry, TText3dTextureWrapper, TText3dWrapper } from '@/Engine';
@@ -68,4 +69,14 @@ export function toggleElementClass(selector: string, className: string): void | 
   } else {
     return elem.classList.add(className);
   }
+}
+
+export function addAwait(id: string, awaits$: BehaviorSubject<ReadonlySet<string>>): void {
+  awaits$.next(new Set(awaits$.value).add(id));
+}
+
+export function removeAwait(id: string, awaits$: BehaviorSubject<ReadonlySet<string>>): void {
+  const next = new Set(awaits$.value);
+  next.delete(id);
+  awaits$.next(next);
 }
