@@ -1,7 +1,5 @@
-import { CameraHelper } from 'three';
-
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAppCanvas, TDirectionalLightWrapper, TEngine, TModel3dLoadOptions, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
+import type { TAppCanvas, TEngine, TModel3dLoadOptions, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
 import { buildSpaceFromConfig, Engine, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -9,7 +7,7 @@ import spaceConfig from './showcase.json';
 export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
-  const { scenesService, models3dService, lightService } = space.services;
+  const { models3dService } = space.services;
 
   async function init(): Promise<void> {
     const scale: TVector3Wrapper = Vector3Wrapper({ x: 1, y: 1, z: 1 });
@@ -19,8 +17,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   }
 
   // TODO debug light
-  const dirLightW: TDirectionalLightWrapper = lightService.getRegistry().findByName('dir_light') as unknown as TDirectionalLightWrapper;
-  scenesService.findActive()?.entity.add(new CameraHelper(dirLightW.entity.shadow.camera));
+  // const dirLightW: TDirectionalLightWrapper = lightService.getRegistry().findByName('dir_light') as unknown as TDirectionalLightWrapper;
+  // scenesService.findActive()?.entity.add(new CameraHelper(dirLightW.entity.shadow.camera));
 
   // TODO debug camera coors
   // setInterval(() => {
