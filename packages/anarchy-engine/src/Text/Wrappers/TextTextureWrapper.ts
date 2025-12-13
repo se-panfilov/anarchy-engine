@@ -10,7 +10,7 @@ import type { TDriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
 import { applyObject3dParams } from '@Anarchy/Engine/Utils';
 import { FallBackFonts } from '@Anarchy/Shared/Constants';
-import { isDefined, isNotDefined, stripUnits, toPx, toRem } from '@Anarchy/Shared/Utils';
+import { filterOutEmptyFields, isDefined, isNotDefined, stripUnits, toPx, toRem } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs';
 import { CanvasTexture, LinearFilter, Mesh, MeshBasicMaterial, PlaneGeometry, SRGBColorSpace } from 'three';
@@ -183,12 +183,12 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
     let backgroundColor: string | undefined = `rgba(${r}, ${g}, ${b}, ${(a / 255).toFixed(3)})`;
     if (r === 0 && g === 0 && b === 0 && a === 0) backgroundColor = undefined;
 
-    return {
+    return filterOutEmptyFields({
       fontSize,
       fontFamily,
       color,
       backgroundColor
-    };
+    });
   }
 
   const wrapper: TAbstractWrapper<Mesh> = AbstractWrapper(entity, getWrapperTypeByTextType(type), params);

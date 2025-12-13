@@ -37,5 +37,5 @@ function extractInlineStyles(element: HTMLElement | undefined): TTextCssProps | 
     result[propName] = element.style.getPropertyValue(prop);
   }
   if (Object.keys(result).length === 0) return undefined;
-  return result;
+  return filterOutEmptyFields(result);
 }
