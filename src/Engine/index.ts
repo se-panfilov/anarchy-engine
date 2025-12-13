@@ -8,7 +8,6 @@ export * from './Controls';
 export * from './EnvMap';
 export * from './Euler';
 export * from './Global';
-export * from './Input';
 export * from './Intersections';
 export * from './Keyboard';
 export * from './Level';
