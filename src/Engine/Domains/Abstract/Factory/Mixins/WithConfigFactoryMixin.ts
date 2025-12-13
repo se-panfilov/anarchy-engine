@@ -3,6 +3,7 @@ import { isNotDefined } from '@Engine/Utils';
 import type { IFactory } from '../../Models';
 import type { IFromConfig, IFromConfigFn } from './Models';
 
+// TODO (S.Panfilov) CWP  withConfigFactoryMixin should be completely removed
 export function withConfigFactoryMixin<T, C extends Record<string, any>, F extends IFactory>(factory: F, fromConfig: IFromConfigFn<T, C>): F & IFromConfig<T, C> {
   return {
     ...factory,
