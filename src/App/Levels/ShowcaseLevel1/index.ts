@@ -1,6 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapper, IAppCanvas, IIntersectionsWatcher, ILevel, ILevelConfig, IVector3 } from '@/Engine';
-import { ActorTag, ambientContext, buildLevelFromConfig, CommonTag, isNotDefined } from '@/Engine';
+import { ActorTag, ambientContext, buildLevelFromConfig, CommonTag, isNotDefined, standardLoopService } from '@/Engine';
 
 import levelConfig from './showcase-level-1.config.json';
 
@@ -26,20 +26,11 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
     const actor: IActorWrapper = actorRegistry.getAllWithSomeTag([ActorTag.Intersectable])[0];
     actor.setY(2);
-    const loop: ILoopWrapper | undefined = loopRegistry.getUniqByTag(LoopTag.Main);
 
-    function moveActor(): void {
-      //normally we should not use requestAnimationFrame outside of the loop
-      requestAnimationFrame((): void => {
-        if (isNotDefined(loop)) throw new Error(`Cannot start the main loop for the level: loop with tag "${LoopTag.Main}" is not defined`);
-        const delta: number = loop.delta;
-        actor.setX(Math.sin(delta) * 8);
-        actor.setZ(Math.cos(delta) * 8);
-        moveActor();
-      });
-    }
-
-    moveActor();
+    standardLoopService.tick$.subscribe(({ elapsedTime }) => {
+      actor.setX(Math.sin(elapsedTime) * 8);
+      actor.setZ(Math.cos(elapsedTime) * 8);
+    });
   }
 
   return { start, level };
