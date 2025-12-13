@@ -1,4 +1,3 @@
-// TODO 10.0.0. LOOPS: check if all values are used
 export enum LoopType {
   Collisions = 'collisions',
   Controls = 'controls',

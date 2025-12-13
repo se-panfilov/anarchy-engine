@@ -20,7 +20,6 @@ export function createLoops({ create }: TLoopService): TSpaceLoops {
   // TODO 10.0.0. LOOPS: add priority in every loop
   // TODO 10.0.0. LOOPS: 16ms is hardcoded here, should be configurable
   // TODO 10.0.0. LOOPS: showDebugInfo is hardcoded here, should be configurable
-  // TODO 10.0.0. LOOPS: Make sure to make use of all of these loops
   const { RenderMain, IntersectionsMain, SpatialMain, MouseMain, TextMain, KinematicMain, CollisionsMain, ControlsMain, TransformMain, KeyboardMain, PhysicalMain } = SpaceLoopNames;
   const { Render, Intersections, Spatial, Mouse, Text, Kinematic, Collisions, Controls, Transform, Keyboard, Physical } = LoopType;
 

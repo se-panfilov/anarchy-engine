@@ -38,7 +38,6 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
 
   function start(): TIntersectionsWatcher {
     const prevValue: Float32Array = new Float32Array([0, 0]);
-    // TODO 10.0.0. LOOPS: Intersections could have an own loop independent from frame rate (driven by time)
     positionSub$ = intersectionsLoop.tick$
       .pipe(
         withLatestFrom(position$),
