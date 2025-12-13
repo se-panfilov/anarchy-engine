@@ -327,6 +327,7 @@ function updateBullets(bullets: ReadonlyArray<TBullet>, delta: number): void {
       const vectorDirection: Vector3 = new Vector3(Math.cos(azimuthRadians), elevationRadians, Math.sin(azimuthRadians));
       bullet.entity.position.add(vectorDirection.clone().multiplyScalar(bulletSpeed * delta));
       bullet.setDistanceTraveled(bullet.getDistanceTraveled() + bulletSpeed * delta);
+
       // const collision = checkCollision(bullet);
       // if (collision) {
       //   console.log('Hit detected', collision);
