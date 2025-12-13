@@ -183,6 +183,7 @@ export const JsRules = {
         '[N-n]umpad[0-9]?',
         '[O-o]bj[0-9]?',
         '[O-o]bservable[s]?',
+        '[O-o]klab',
         '[Q-q]uaternion[s]?',
         '[R-r]adian[s]?',
         '[R-r]aycast[s]?',
