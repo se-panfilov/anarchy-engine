@@ -1,5 +1,5 @@
-import type { Intersection, Mesh, Object3D } from 'three';
-import { Vector3 } from 'three';
+import type { Intersection } from 'three';
+import { Box3, Mesh, Object3D, Vector3 } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
 
 import type { TShowcase } from '@/App/Levels/Models';
@@ -21,7 +21,7 @@ import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
 import type { TBullet } from './utils';
-import { buildTower, cameraFollowingActor, createLine, getBulletsPool, shoot, startMoveActorWithKeyboard, updateBullets } from './utils';
+import { buildTower, cameraFollowingActor, createLine, getBulletsPool, initGridHelper, shoot, startMoveActorWithKeyboard, updateBullets } from './utils';
 
 export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
@@ -42,8 +42,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const surface: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('surface');
     if (isNotDefined(surface)) throw new Error(`Cannot find "surface" actor`);
 
-    // const gridSize: Vector3 = new Box3().setFromObject(surface?.entity).getSize(new Vector3());
-    // initGridHelper(actorService, gridSize.x, gridSize.z);
+    const gridSize: Vector3 = new Box3().setFromObject(surface?.entity).getSize(new Vector3());
+    initGridHelper(actorService, gridSize.x, gridSize.z);
 
     const blocks = await buildTower(actorService, { x: 0, z: 0 }, 10, 10, 20);
     // const blocks2 = await buildTower(actorService, { x: 20, z: 0 }, 5, 5, 15);
@@ -68,15 +68,15 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     startMoveActorWithKeyboard(heroW, keyboardService, mouseLineIntersectionsWatcher);
 
     //enable collisions
-    actorService.getScene().entity.traverse((object: Object3D): void => {
-      if ((object as Mesh).isMesh) {
-        collisionsService.initializeBVH(object as Mesh);
-        collisionsService.addObjectToGrid(object);
-        collisionsService.visualizeBVH(object as Mesh, actorService.getScene().entity);
-      }
-    });
-
-    collisionsService.visualizeRBush(collisionsService.getSpatialGrid(), actorService.getScene().entity);
+    // actorService.getScene().entity.traverse((object: Object3D): void => {
+    //   if ((object as Mesh).isMesh) {
+    //     collisionsService.initializeBVH(object as Mesh);
+    //     collisionsService.addObjectToGrid(object);
+    //     collisionsService.visualizeBVH(object as Mesh, actorService.getScene().entity);
+    //   }
+    // });
+    //
+    // collisionsService.visualizeRBush(collisionsService.getSpatialGrid(), actorService.getScene().entity);
 
     let mouseLineIntersections: TIntersectionEvent = { point: new Vector3(), distance: 0 } as Intersection;
     mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent): void => void (mouseLineIntersections = intersection));
@@ -88,11 +88,6 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       azimuth: 0,
       elevation: 0
     };
-
-    // TODO (S.Panfilov) debug
-    // setInterval((): void => {
-    //   console.log(heroW.kinematic);
-    // }, 300);
 
     loopService.tick$.subscribe((delta): void => {
       cameraFollowingActor(cameraW, heroW);

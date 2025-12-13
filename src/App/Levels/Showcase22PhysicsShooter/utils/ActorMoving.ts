@@ -1,6 +1,6 @@
 import { distinctUntilChanged, map } from 'rxjs';
 import type { Vector3 } from 'three';
-import { degToRad, radToDeg } from 'three/src/math/MathUtils';
+import { degToRad } from 'three/src/math/MathUtils';
 
 import type { TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService, TRadians } from '@/Engine';
 import { getAzimuthRadFromDirection, getElevationRadFromDirection, KeyCode } from '@/Engine';
@@ -11,11 +11,12 @@ export function startMoveActorWithKeyboard(actorW: TActorWrapperAsync, keyboardS
   const speed: number = 5;
   let keyStates: TMoveKeys = { Forward: false, Left: false, Right: false, Backward: false };
 
+  const azimuthAngleDeviationRad: TRadians = degToRad(45);
   let azimuthDeviationLeft: TRadians = 0;
-  // let azimuthDeviationRight: TRadians = 0;
+  let azimuthDeviationRight: TRadians = 0;
 
   function getAzimuthDeviation(): TRadians {
-    return azimuthDeviationLeft; // + azimuthDeviationRight;
+    return azimuthDeviationLeft + azimuthDeviationRight;
   }
 
   keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => void (keyStates = { ...keyStates, Forward: true }));
@@ -36,15 +37,21 @@ export function startMoveActorWithKeyboard(actorW: TActorWrapperAsync, keyboardS
     .subscribe(({ azimuth, elevation }: Readonly<{ azimuth: TRadians; elevation: TRadians }>): void => {
       // actorW.kinematic.setLinearDirectionFromParamsRad(azimuth, elevation);
       // actorW.kinematic.setLinearAzimuthRad(azimuth);
-      console.log(`result: ${radToDeg(azimuth + getAzimuthDeviation())}, azimuth: ${radToDeg(azimuth)}, deviation: ${radToDeg(getAzimuthDeviation())}`);
+      // console.log(`result: ${radToDeg(azimuth + getAzimuthDeviation())}, azimuth: ${radToDeg(azimuth)}, deviation: ${radToDeg(getAzimuthDeviation())}`);
       actorW.kinematic.setLinearAzimuthRad(azimuth + getAzimuthDeviation());
     });
 
   keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => actorW.kinematic.setLinearSpeed(speed));
   keyboardService.onKey(KeyCode.W).released$.subscribe((): void => actorW.kinematic.setLinearSpeed(0));
 
-  keyboardService.onKey(KeyCode.A).pressed$.subscribe((): void => void (azimuthDeviationLeft += degToRad(45)));
-  keyboardService.onKey(KeyCode.A).released$.subscribe((): void => void (azimuthDeviationLeft -= degToRad(45)));
+  keyboardService.onKey(KeyCode.A).pressed$.subscribe((): void => {
+    actorW.kinematic.setLinearSpeed(speed);
+    azimuthDeviationLeft = -azimuthAngleDeviationRad;
+  });
+  keyboardService.onKey(KeyCode.A).released$.subscribe((): void => void (azimuthDeviationLeft = 0));
+
+  keyboardService.onKey(KeyCode.D).pressed$.subscribe((): void => void (azimuthDeviationRight = azimuthAngleDeviationRad));
+  keyboardService.onKey(KeyCode.D).released$.subscribe((): void => void (azimuthDeviationRight = 0));
 }
 
 function getMouseAzimuthAndElevation(mousePosition: Vector3, playerPosition: Vector3): Readonly<{ azimuth: TRadians; elevation: TRadians }> {
@@ -54,17 +61,3 @@ function getMouseAzimuthAndElevation(mousePosition: Vector3, playerPosition: Vec
 
   return { azimuth, elevation };
 }
-
-// function getUpdatedLinearVelocity(keyStates: TMoveKeys, direction: Vector3, azimuth: number, elevation: number, speed: number): Vector3 {
-//   // if (keyStates.Forward) direction.add(new Vector3(Math.cos(azimuth) * Math.cos(elevation), Math.sin(elevation), Math.sin(azimuth) * Math.cos(elevation)));
-//   if (keyStates.Left) direction.add(new Vector3(-Math.cos(azimuth) * Math.cos(elevation), -Math.sin(elevation), -Math.sin(azimuth) * Math.cos(elevation)));
-//   if (keyStates.Right) direction.add(new Vector3(Math.sin(azimuth), 0, -Math.cos(azimuth)));
-//   if (keyStates.Backward) direction.add(new Vector3(-Math.sin(azimuth), 0, Math.cos(azimuth)));
-//
-//   // if (keyStates.W) direction.add(new Vector3(Math.cos(azimuth), 0, Math.sin(azimuth)));
-//   // if (keyStates.S) direction.add(new Vector3(-Math.cos(azimuth), 0, -Math.sin(azimuth)));
-//   // if (keyStates.A) direction.add(new Vector3(Math.sin(azimuth), 0, -Math.cos(azimuth)));
-//   // if (keyStates.D) direction.add(new Vector3(-Math.sin(azimuth), 0, Math.cos(azimuth)));
-//
-//   return direction.normalize().multiplyScalar(speed);
-// }
