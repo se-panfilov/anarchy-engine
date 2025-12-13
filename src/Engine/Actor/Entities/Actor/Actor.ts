@@ -27,11 +27,8 @@ export function Actor(
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d(), params.model3dSettings);
 
   // TODO CWP:
-  // TODO 8.0.0. MODELS: Make sure, rotations are working for kinematics (add some methods to move to a point, rotate to a point)
-  // TODO 8.0.0. MODELS: Kinematic drive needs additional methods: go to position (and stop), rotate to angle (and stop), move to point (calculate azimuth, elevation by itelf)
   // TODO 8.0.0. MODELS: Check if ReplaySubject is a really good solution for position$ and rotation$
 
-  // TODO 8.0.0. MODELS: Replace all rotations with Quaternions (kill TEulerLike)
   // TODO 8.0.0. MODELS: In showcase 25, physics x and z seems to be swapped unintentionally, fix
   // TODO 8.0.0. MODELS: test rotations offsets again (now with quaternions)
   // TODO 8.0.0. MODELS: close all issues (todoes) with tag 8.0.0
