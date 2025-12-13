@@ -5,9 +5,9 @@ const state = reactive({
   some: 1
 });
 
-setInterval(() => {
-  state.some += 1;
-}, 1000);
+// setInterval(() => {
+//   state.some += 1;
+// }, 1000);
 </script>
 
 <template>
