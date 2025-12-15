@@ -1,0 +1,32 @@
+#Runs web E2E by "button"
+
+name: E2E Desktop (mac)
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Branch / tag / sha to test (e.g. your PR branch name)"
+        required: true
+        default: "main"
+      arch:
+        description: "arm64 | x64 | universal"
+        required: true
+        default: "arm64"
+
+permissions:
+  contents: read
+
+jobs:
+  e2e:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm ci
+      - run: npm run --workspace apps/showcases-core build:prod:desktop
+      - run: npm run --workspace apps/showcases-desktop build:e2e:mac:app:${{ inputs.arch }}
+      - run: npm run --workspace apps/showcases-e2e e2e:desktop
