@@ -2,7 +2,7 @@
   "name": "showcases-e2e",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.0.6",
+  "version": "1.0.7",
   "type": "module",
   "license": "MIT",
   "description": "Anarchy Showcase-E2E  – end-to-end tests for Anarchy Showcases.",
@@ -47,8 +47,8 @@
     "ts:check:watch": "tsc --watch --noEmit"
   },
   "dependencies": {
-    "anarchy-engine": "*",
-    "anarchy-shared": "*",
+    "@hellpig/anarchy-engine": "*",
+    "@hellpig/anarchy-shared": "*",
     "playwright": "1.53.1"
   },
   "devDependencies": {

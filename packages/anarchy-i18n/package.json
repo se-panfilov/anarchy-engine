@@ -1,8 +1,8 @@
 {
-  "name": "anarchy-i18n",
+  "name": "@hellpig/anarchy-i18n",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.2.2",
+  "version": "1.2.3",
   "type": "module",
   "sideEffects": false,
   "license": "MIT",

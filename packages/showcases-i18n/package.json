@@ -2,7 +2,7 @@
   "name": "showcases-i18n",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.4.1",
+  "version": "1.4.3",
   "type": "module",
   "sideEffects": false,
   "license": "MIT",
@@ -44,9 +44,9 @@
     "unit:watch": "vitest"
   },
   "dependencies": {
-    "anarchy-engine": "*",
-    "anarchy-i18n": "*",
-    "anarchy-shared": "*",
+    "@hellpig/anarchy-engine": "*",
+    "@hellpig/anarchy-i18n": "*",
+    "@hellpig/anarchy-shared": "*",
     "sort-json": "2.0.1",
     "vue-i18n": "11.1.12"
   }

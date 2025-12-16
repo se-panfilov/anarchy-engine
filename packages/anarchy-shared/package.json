@@ -1,8 +1,8 @@
 {
-  "name": "anarchy-shared",
+  "name": "@hellpig/anarchy-shared",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.4.3",
+  "version": "1.4.4",
   "type": "module",
   "sideEffects": false,
   "license": "MIT",

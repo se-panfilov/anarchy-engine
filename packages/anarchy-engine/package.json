@@ -1,8 +1,8 @@
 {
-  "name": "anarchy-engine",
+  "name": "@hellpig/anarchy-engine",
   "author": "S. Panfilov",
   "private": true,
-  "version": "21.2.3",
+  "version": "21.2.4",
   "type": "module",
   "sideEffects": false,
   "license": "MIT",
@@ -58,7 +58,7 @@
   "dependencies": {
     "@cfworker/json-schema": "4.1.1",
     "@dimforge/rapier3d": "0.19.2",
-    "anarchy-shared": "*",
+    "@hellpig/anarchy-shared": "*",
     "date-fns": "4.1.0",
     "lodash-es": "4.17.21",
     "nanoid": "5.1.6",

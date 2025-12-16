@@ -1,8 +1,8 @@
 {
-  "name": "anarchy-legal",
+  "name": "@hellpig/anarchy-legal",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.10.5",
+  "version": "1.10.6",
   "type": "module",
   "sideEffects": false,
   "license": "MIT",

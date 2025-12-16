@@ -2,7 +2,7 @@
   "name": "showcases-menu",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.8.4",
+  "version": "1.8.6",
   "type": "module",
   "license": "MIT",
   "description": "Anarchy Showcases-Menu – a menu for Anarchy Engine Showcases.",
@@ -47,9 +47,9 @@
     "unit:watch": "vitest"
   },
   "dependencies": {
-    "anarchy-engine": "*",
-    "anarchy-i18n": "*",
-    "anarchy-shared": "*",
+    "@hellpig/anarchy-engine": "*",
+    "@hellpig/anarchy-i18n": "*",
+    "@hellpig/anarchy-shared": "*",
     "marked": "17.0.0",
     "pinia": "3.0.4",
     "rxjs": "7.8.2",
