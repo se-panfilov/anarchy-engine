@@ -1,5 +1,5 @@
 import { execSync, spawn } from 'node:child_process';
-import { normalizeMode, resolveDryRun, resolveMode } from 'anarchy-shared/ScriptUtils/ModeUtils.js';
+import { normalizeMode, resolveDryRun, resolveMode } from '@hellpig/anarchy-shared/ScriptUtils/ModeUtils.js';
 import path from 'node:path';
 import fs from 'node:fs';
 import { writeDistInfo } from './utils.js';
