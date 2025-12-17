@@ -149,6 +149,42 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## @hellpig/anarchy-engine@21.2.4
+
+**License(s):** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/anarchy-engine#readme
+
+**Attribution:** Copyright (c) 2025 Sergei Panfilov
+
+---
+
+## @hellpig/anarchy-i18n@1.2.3
+
+**License(s):** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/anarchy-i18n#readme
+
+**Attribution:** Copyright (c) 2025 Sergei Panfilov
+
+---
+
+## @hellpig/anarchy-shared@1.4.4
+
+**License(s):** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/anarchy-shared#readme
+
+**Attribution:** Copyright (c) 2025 Sergei Panfilov
+
+---
+
 ## @intlify/core-base@11.1.12
 
 **License(s):** MIT
@@ -312,30 +348,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://github.com/vuejs/core/tree/main/packages/shared#readme
 
 **Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
-
----
-
-## anarchy-engine@21.2.3
-
-**License(s):** MIT
-
-**Attribution:** Copyright (c) 2025 Sergei Panfilov
-
----
-
-## anarchy-i18n@1.2.2
-
-**License(s):** MIT
-
-**Attribution:** Copyright (c) 2025 Sergei Panfilov
-
----
-
-## anarchy-shared@1.4.3
-
-**License(s):** MIT
-
-**Attribution:** Copyright (c) 2025 Sergei Panfilov
 
 ---
 

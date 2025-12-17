@@ -1,6 +1,6 @@
 # Third-Party Licenses
 
-## Application: anarchy-i18n
+## Application: @hellpig/anarchy-i18n
 
 Production dependencies (including transition dependencies): 11
 

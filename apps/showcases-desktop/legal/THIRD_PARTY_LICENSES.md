@@ -6,7 +6,7 @@ Production dependencies (including transition dependencies): 218
 
 ---
 
-## @asamuzakjp/css-color@4.1.0
+## @asamuzakjp/css-color@4.1.1
 
 **License:** MIT
 
@@ -40,7 +40,7 @@ SOFTWARE.
 
 ---
 
-## @asamuzakjp/dom-selector@6.7.5
+## @asamuzakjp/dom-selector@6.7.6
 
 **License:** MIT
 
@@ -380,7 +380,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.20
+## @csstools/css-syntax-patches-for-csstree@1.0.21
 
 **License:** MIT-0
 
@@ -773,6 +773,142 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+---
+
+## @hellpig/anarchy-engine@21.2.4
+
+**License:** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/anarchy-engine#readme
+
+**Publisher:** S. Panfilov
+
+MIT License
+
+Copyright (c) 2025 Sergei Panfilov
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## @hellpig/anarchy-i18n@1.2.3
+
+**License:** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/anarchy-i18n#readme
+
+**Publisher:** S. Panfilov
+
+MIT License
+
+Copyright (c) 2025 Sergei Panfilov
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## @hellpig/anarchy-shared@1.4.4
+
+**License:** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/anarchy-shared#readme
+
+**Publisher:** S. Panfilov
+
+MIT License
+
+Copyright (c) 2025 Sergei Panfilov
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## @hellpig/anarchy-tracking@1.5.2
+
+**License:** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/anarchy-tracking#readme
+
+**Publisher:** S. Panfilov
+
+MIT License
+
+Copyright (c) 2025 Sergei Panfilov
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 ---
 
@@ -9919,126 +10055,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## anarchy-engine@21.2.3
-
-**License:** MIT
-
-**Publisher:** S. Panfilov
-
-MIT License
-
-Copyright (c) 2025 Sergei Panfilov
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
----
-
-## anarchy-i18n@1.2.2
-
-**License:** MIT
-
-**Publisher:** S. Panfilov
-
-MIT License
-
-Copyright (c) 2025 Sergei Panfilov
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
----
-
-## anarchy-shared@1.4.3
-
-**License:** MIT
-
-**Publisher:** S. Panfilov
-
-MIT License
-
-Copyright (c) 2025 Sergei Panfilov
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
----
-
-## anarchy-tracking@1.5.1
-
-**License:** MIT
-
-**Publisher:** S. Panfilov
-
-MIT License
-
-Copyright (c) 2025 Sergei Panfilov
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
----
-
 ## balanced-match@1.0.2
 
 **License:** MIT
@@ -10311,7 +10327,7 @@ THE SOFTWARE.
 
 ---
 
-## cssstyle@5.3.3
+## cssstyle@5.3.5
 
 **License:** MIT
 
@@ -13000,7 +13016,7 @@ THE SOFTWARE.
 
 ---
 
-## postgres-bytea@1.0.0
+## postgres-bytea@1.0.1
 
 **License:** MIT
 
@@ -13770,9 +13786,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ---
 
-## showcases-core@2.18.0
+## showcases-core@2.18.1
 
 **License:** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/apps/showcases-core#readme
 
 **Publisher:** S. Panfilov
 
@@ -13800,9 +13820,13 @@ SOFTWARE.
 
 ---
 
-## showcases-gui@1.1.3
+## showcases-gui@1.1.4
 
 **License:** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/showcases-gui#readme
 
 **Publisher:** S. Panfilov
 
@@ -13830,9 +13854,13 @@ SOFTWARE.
 
 ---
 
-## showcases-i18n@1.4.1
+## showcases-i18n@1.4.3
 
 **License:** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/showcases-i18n#readme
 
 **Publisher:** S. Panfilov
 
@@ -13860,9 +13888,13 @@ SOFTWARE.
 
 ---
 
-## showcases-menu@1.8.4
+## showcases-menu@1.8.6
 
 **License:** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/showcases-menu#readme
 
 **Publisher:** S. Panfilov
 
@@ -13893,6 +13925,10 @@ SOFTWARE.
 ## showcases-shared@1.7.2
 
 **License:** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/showcases-shared#readme
 
 **Publisher:** S. Panfilov
 

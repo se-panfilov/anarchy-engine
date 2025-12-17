@@ -1,4 +1,4 @@
-# End User License Terms — anarchy-shared
+# End User License Terms — @hellpig/anarchy-shared
 
 **Effective date:** TBD until market release
 This repository is provided under **MIT** (see `LICENSE`).

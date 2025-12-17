@@ -1,4 +1,4 @@
-# Disclaimer of Warranty and Liability — anarchy-i18n
+# Disclaimer of Warranty and Liability — @hellpig/anarchy-i18n
 
 **Scope.** “Project” means the software, source code, binaries, documentation, and other materials in this repository or distribution package.
 

@@ -1,11 +1,11 @@
 # Third-Party Notices
 
-## Application: anarchy-tracking
+## Application: @hellpig/anarchy-tracking
 
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 89
+Components listed: 90
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -739,6 +739,12 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## Application:@hellpig/anarchy-tracking
+
+**License(s):** UNKNOWN
+
+---
+
 ## balanced-match@1.0.2
 
 **License(s):** MIT
@@ -943,7 +949,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## postgres-bytea@1.0.0
+## postgres-bytea@1.0.1
 
 **License(s):** MIT
 

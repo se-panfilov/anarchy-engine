@@ -1,10 +1,10 @@
-# Privacy Notice — anarchy-tracking
+# Privacy Notice — @hellpig/anarchy-tracking
 
 **Effective date:** TBD until market release
 
 **Controller:** Sergei Panfilov — Contact: TBD until market release
 
-**Scope / Identification.** This notice applies to the **open-source project** **anarchy-tracking** (hosted on or mirrored to **public code hosting platform(s)**). We do **not** operate a consumer service through this repository.
+**Scope / Identification.** This notice applies to the **open-source project** **@hellpig/anarchy-tracking** (hosted on or mirrored to **public code hosting platform(s)**). We do **not** operate a consumer service through this repository.
 
 **CPRA (California):** we **do not sell or share** personal information for cross-context behavioral advertising and we do **not** process **sensitive personal information** in this repository context.
 

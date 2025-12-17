@@ -36,9 +36,9 @@
   "scripts": {
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/index.ts",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
-    "generate:legal:3rd-party-licenses": "npm run -w anarchy-legal generate:licenses -- --workspace packages/anarchy-tracking --out ../../packages/anarchy-tracking/legal/THIRD_PARTY_LICENSES.md",
-    "generate:legal:files": "npm run -w anarchy-legal generate:files -- --workspace packages/anarchy-tracking --out ../../packages/anarchy-tracking",
-    "generate:legal:notice": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace packages/anarchy-tracking --source ../../packages/anarchy-tracking/legal/THIRD_PARTY_LICENSES.md --out ../../packages/anarchy-tracking/legal/NOTICE.md",
+    "generate:legal:3rd-party-licenses": "npm run -w @hellpig/anarchy-legal generate:licenses -- --workspace packages/anarchy-tracking --out ../../packages/anarchy-tracking/legal/THIRD_PARTY_LICENSES.md",
+    "generate:legal:files": "npm run -w @hellpig/anarchy-legal generate:files -- --workspace packages/anarchy-tracking --out ../../packages/anarchy-tracking",
+    "generate:legal:notice": "npm run -w @hellpig/anarchy-legal generate:notice -- --audit --strict --workspace packages/anarchy-tracking --source ../../packages/anarchy-tracking/legal/THIRD_PARTY_LICENSES.md --out ../../packages/anarchy-tracking/legal/NOTICE.md",
     "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",

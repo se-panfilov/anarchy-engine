@@ -1,4 +1,4 @@
-# Disclaimer of Warranty and Liability — anarchy-legal
+# Disclaimer of Warranty and Liability — @hellpig/anarchy-legal
 
 **Scope.** “Project” means the software, source code, binaries, documentation, and other materials in this repository or distribution package.
 

@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 19
+Components listed: 18
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -35,17 +35,25 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-engine@21.2.3
+## @hellpig/anarchy-engine@21.2.4
 
 **License(s):** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/anarchy-engine#readme
 
 **Attribution:** Copyright (c) 2025 Sergei Panfilov
 
 ---
 
-## anarchy-shared@1.4.3
+## @hellpig/anarchy-shared@1.4.4
 
 **License(s):** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/anarchy-shared#readme
 
 **Attribution:** Copyright (c) 2025 Sergei Panfilov
 
@@ -70,18 +78,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** https://github.com/date-fns/date-fns
 
 **Attribution:** Copyright (c) 2021 Sasha Koss and Lesha Koss https://kossnocorp.mit-license.org
-
----
-
-## fsevents@2.3.2
-
-**License(s):** MIT
-
-**Repository:** https://github.com/fsevents/fsevents.git
-
-**URL:** https://github.com/fsevents/fsevents
-
-**Attribution:** Copyright (C) 2010-2020 by Philipp Dunkel, Ben Noordhuis, Elan Shankar, Paul Miller
 
 ---
 

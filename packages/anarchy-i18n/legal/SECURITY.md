@@ -1,4 +1,4 @@
-# Security Policy — anarchy-i18n
+# Security Policy — @hellpig/anarchy-i18n
 
 **Effective date:** TBD until market release
 
@@ -6,10 +6,10 @@
 
 ## Scope
 
-This policy applies to the open-source project **anarchy-i18n** (the “Project”). It is provided for community coordination only and **does not create service levels (SLAs), warranties, or contractual obligations**.
+This policy applies to the open-source project **@hellpig/anarchy-i18n** (the “Project”). It is provided for community coordination only and **does not create service levels (SLAs), warranties, or contractual obligations**.
 It covers the Project’s **source code** and our **officially published release artifacts** (e.g., package registries, release archives, documentation sites, **container images**, or **CDN bundles**) that **we** publish. It does **not** cover third-party repackaging, unofficial builds, downstream products, hosting-platform infrastructure, or **commercial editions**.
 
-**Technical identifiers (optional):** `anarchy-i18n`.
+**Technical identifiers (optional):** `@hellpig/anarchy-i18n`.
 
 ## Reporting (CVD)
 

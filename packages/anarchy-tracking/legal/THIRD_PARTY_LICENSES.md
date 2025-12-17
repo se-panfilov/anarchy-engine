@@ -1,6 +1,6 @@
 # Third-Party Licenses
 
-## Application: anarchy-tracking
+## Application: @hellpig/anarchy-tracking
 
 Production dependencies (including transition dependencies): 89
 
@@ -9260,7 +9260,7 @@ THE SOFTWARE.
 
 ---
 
-## postgres-bytea@1.0.0
+## postgres-bytea@1.0.1
 
 **License:** MIT
 

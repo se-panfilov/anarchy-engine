@@ -1,11 +1,11 @@
 # Third-Party Notices
 
-## Application: anarchy-i18n
+## Application: @hellpig/anarchy-i18n
 
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 11
+Components listed: 12
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -76,6 +76,12 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://github.com/formatjs/formatjs#readme
 
 **Attribution:** Copyright (c) 2023 FormatJS
+
+---
+
+## Application:@hellpig/anarchy-i18n
+
+**License(s):** UNKNOWN
 
 ---
 

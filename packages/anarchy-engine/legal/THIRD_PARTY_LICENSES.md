@@ -1,6 +1,6 @@
 # Third-Party Licenses
 
-## Application: anarchy-engine
+## Application: @hellpig/anarchy-engine
 
 Production dependencies (including transition dependencies): 15
 
@@ -232,9 +232,13 @@ limitations under the License.
 
 ---
 
-## anarchy-shared@1.4.3
+## @hellpig/anarchy-shared@1.4.4
 
 **License:** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/anarchy-shared#readme
 
 **Publisher:** S. Panfilov
 
