@@ -8,6 +8,9 @@
     "type": "git",
     "url": "git@github.com:se-panfilov/anarchy-engine.git"
   },
+  "bugs": {
+    "url": "https://github.com/se-panfilov/anarchy-engine/issues"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"

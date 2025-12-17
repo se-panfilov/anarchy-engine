@@ -9,6 +9,9 @@
     "url": "git@github.com:se-panfilov/anarchy-engine.git",
     "directory": "packages/showcases-i18n"
   },
+  "bugs": {
+    "url": "https://github.com/se-panfilov/anarchy-engine/issues"
+  },
   "sideEffects": false,
   "license": "MIT",
   "description": "Anarchy Showcases i18n – translations library for Anarchy Engine Showcases.",

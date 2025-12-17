@@ -9,6 +9,9 @@
     "url": "git@github.com:se-panfilov/anarchy-engine.git",
     "directory": "packages/anarchy-tracking"
   },
+  "bugs": {
+    "url": "https://github.com/se-panfilov/anarchy-engine/issues"
+  },
   "sideEffects": false,
   "license": "MIT",
   "description": "Anarchy-Tracking – a library error monitoring in Anarchy Engine's based projects.",

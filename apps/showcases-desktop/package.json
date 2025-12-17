@@ -17,6 +17,9 @@
     "url": "git@github.com:se-panfilov/anarchy-engine.git",
     "directory": "apps/showcases-desktop"
   },
+  "bugs": {
+    "url": "https://github.com/se-panfilov/anarchy-engine/issues"
+  },
   "license": "MIT",
   "scripts": {
     "after:release": "npm run tracking:sourcemaps:prod",

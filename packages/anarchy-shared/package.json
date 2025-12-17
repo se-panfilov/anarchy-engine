@@ -9,6 +9,9 @@
     "url": "git@github.com:se-panfilov/anarchy-engine.git",
     "directory": "packages/anarchy-shared"
   },
+  "bugs": {
+    "url": "https://github.com/se-panfilov/anarchy-engine/issues"
+  },
   "sideEffects": false,
   "license": "MIT",
   "description": "Anarchy-shared – a library with shared utilities and scripts for Anarchy Engine.",

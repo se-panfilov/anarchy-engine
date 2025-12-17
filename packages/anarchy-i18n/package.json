@@ -9,6 +9,9 @@
     "url": "git@github.com:se-panfilov/anarchy-engine.git",
     "directory": "packages/anarchy-i18n"
   },
+  "bugs": {
+    "url": "https://github.com/se-panfilov/anarchy-engine/issues"
+  },
   "sideEffects": false,
   "license": "MIT",
   "description": "Anarchy-I18n – a library for internationalization in Anarchy Engine.",

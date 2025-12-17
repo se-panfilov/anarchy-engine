@@ -9,6 +9,9 @@
     "url": "git@github.com:se-panfilov/anarchy-engine.git",
     "directory": "packages/showcases-menu"
   },
+  "bugs": {
+    "url": "https://github.com/se-panfilov/anarchy-engine/issues"
+  },
   "license": "MIT",
   "description": "Anarchy Showcases-Menu – a menu for Anarchy Engine Showcases.",
   "keywords": [

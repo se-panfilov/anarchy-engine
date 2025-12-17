@@ -9,6 +9,9 @@
     "url": "git@github.com:se-panfilov/anarchy-engine.git",
     "directory": "packages/showcases-gui"
   },
+  "bugs": {
+    "url": "https://github.com/se-panfilov/anarchy-engine/issues"
+  },
   "license": "MIT",
   "description": "Anarchy Showcases-GUI – a GUI for Anarchy Engine Showcases.",
   "keywords": [
