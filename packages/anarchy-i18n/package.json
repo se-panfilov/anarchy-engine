@@ -37,8 +37,6 @@
     "dist/"
   ],
   "scripts": {
-    "before:release": "npm run before:release:check",
-    "before:release:check": "npm run ts:check && npm run check:circular-dependencies && npm run lint",
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/index.ts",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
     "generate:legal:3rd-party-licenses": "npm run -w anarchy-legal generate:licenses -- --workspace packages/anarchy-i18n --out ../../packages/anarchy-i18n/legal/THIRD_PARTY_LICENSES.md",
@@ -48,6 +46,7 @@
     "generate:locales": "node Scripts/GenerateLocales.js --config src/Configs/locales.config.jsonc --out-const src/Constants/Locales.gen.ts --out-models src/Models/TLocales.gen.ts",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
+    "pr:guard:ci": "npm run ts:check && npm run check:circular-dependencies && npm run lint",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "ts:check": "tsc --noEmit",

@@ -23,8 +23,8 @@
   ],
   "license": "MIT",
   "scripts": {
-    "before:release": "npm run generate:legal:all && npm run sanitize:all && npm run before:release:ci",
-    "before:release:ci": "npm run prettier:check && npm run --workspaces --if-present before:release:check",
+    "before:release": "npm run generate:legal:all && npm run sanitize:all",
+    "pr:guard:ci": "npm run prettier:check && npm run --workspaces --if-present pr:guard:ci",
     "clean:all": "rimraf packages/**/package-lock.json -g packages/**/node_modules -g packages/**/dist -g apps/**/package-lock.json -g apps/**/node_modules -g  ./node_modules  ./package-lock.json ",
     "clean:all-metadate": "npm run e2e:clean-metadate --workspace=apps/showcases-e2e && npm run sanitize-assets --workspace=apps/showcases-desktop ** npm run sanitize-assets --workspace=apps/showcases-core && npm run sanitize-assets --workspace=packages/showcases- && npm run sanitize-assets --workspace=packages/showcases-gui",
     "clean:all:restore": "git add ./package-lock.json && find packages -type d -name node_modules -prune -false -o -type f -name package-lock.json -exec git add {} +\n",

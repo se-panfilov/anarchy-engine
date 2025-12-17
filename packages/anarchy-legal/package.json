@@ -37,8 +37,6 @@
     "dist/"
   ],
   "scripts": {
-    "before:release": "npm run before:release:check",
-    "before:release:check": "npm run ts:check && npm run check:circular-dependencies && npm run lint",
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/index.ts",
     "generate:files": "node ./src/Generators/LegalFilesGenerator.ts",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
@@ -50,6 +48,7 @@
     "generate:notice": "node src/Generators/NoticeGenerator.ts",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
+    "pr:guard:ci": "npm run ts:check && npm run check:circular-dependencies && npm run lint",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "ts:check": "tsc --noEmit",

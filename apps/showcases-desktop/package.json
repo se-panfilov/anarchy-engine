@@ -24,8 +24,6 @@
   "license": "MIT",
   "scripts": {
     "after:release": "npm run tracking:sourcemaps:prod",
-    "before:release": "npm run before:release:check && npm run sanitize-assets",
-    "before:release:check": "npm run ts:check && npm run check:circular-dependencies && npm run lint",
     "build:dev:linux:app:arm64": "npm run pack -- --mode=dev.linux dir --arm64",
     "build:dev:linux:app:x64": "npm run pack -- --mode=dev.linux dir --x64",
     "build:dev:linux:appimage:arm64": "npm run pack -- --mode=dev.linux AppImage --arm64",
@@ -82,6 +80,7 @@
     "lint:fix": "npm run lint -- --fix",
     "make:png-to-ico": "node ../../packages/anarchy-shared/ScriptUtils/MakeIcoFromPng --in assets/icon.png --out assets/icon.ico --size 256",
     "pack": "node ./scripts/package.js",
+    "pr:guard:ci": "npm run ts:check && npm run check:circular-dependencies && npm run lint",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "preview": "vite preview --outDir dist-web",

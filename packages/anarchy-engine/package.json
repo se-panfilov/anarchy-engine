@@ -39,8 +39,6 @@
     "dist/"
   ],
   "scripts": {
-    "before:release": "npm run build && npm run before:release:check",
-    "before:release:check": "npm run ts:check && npm run check:ts-morph && npm run check:circular-dependencies && npm run lint && npm run unit:coverage",
     "build": "rimraf ./dist && vite build",
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/index.ts",
     "check:minified-assets": "../anarchy-shared/ScriptUtils/CheckMinify.sh dist/anarchy-engine.es.js dist/anarchy-engine.es.js.map",
@@ -58,6 +56,7 @@
     "generate:schemas:minify": "node ./utils/JsonUtils.js --minify",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
+    "pr:guard:ci": "npm run ts:check && npm run check:ts-morph && npm run check:circular-dependencies && npm run lint && npm run unit:coverage",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "ts:check": "tsc --noEmit",

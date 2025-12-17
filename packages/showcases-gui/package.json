@@ -30,8 +30,6 @@
     "dist/"
   ],
   "scripts": {
-    "before:release": "npm run build:all && npm run before:release:check",
-    "before:release:check": "npm run ts:check && npm run check:circular-dependencies && npm run lint",
     "build:all": "npm run build:desktop && npm run build:mobile && npm run build:web",
     "build:desktop": "rimraf dist-desktop && vite build --mode production.desktop",
     "build:mobile": "rimraf dist-mobile && vite build --mode production.mobile",
@@ -44,6 +42,7 @@
     "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
+    "pr:guard:ci": "npm run ts:check && npm run check:circular-dependencies && npm run lint",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "preview": "vite preview",
