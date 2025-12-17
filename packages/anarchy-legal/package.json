@@ -1,7 +1,7 @@
 {
   "name": "@hellpig/anarchy-legal",
   "author": "S. Panfilov",
-  "private": true,
+  "private": false,
   "version": "1.10.6",
   "type": "module",
   "repository": {

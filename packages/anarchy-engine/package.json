@@ -1,7 +1,7 @@
 {
   "name": "@hellpig/anarchy-engine",
   "author": "S. Panfilov",
-  "private": true,
+  "private": false,
   "version": "21.2.4",
   "type": "module",
   "repository": {

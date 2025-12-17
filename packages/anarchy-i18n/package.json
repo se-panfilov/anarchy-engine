@@ -1,7 +1,7 @@
 {
   "name": "@hellpig/anarchy-i18n",
   "author": "S. Panfilov",
-  "private": true,
+  "private": false,
   "version": "1.2.3",
   "type": "module",
   "repository": {
