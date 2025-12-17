@@ -5,7 +5,8 @@ import semver from 'semver';
 
 const repoRoot = process.cwd();
 
-//Calculates "what to release" based on tags name@x.y.z and current package.json.
+// Calculates "what to release" based on tags name@x.y.z and current package.json.
+// Applies only for packages/anarchy-*
 
 function runCapture(cmd, args) {
   const r = spawnSync(cmd, args, { encoding: 'utf8', cwd: repoRoot });

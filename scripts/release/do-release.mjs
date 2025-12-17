@@ -52,11 +52,8 @@ function main() {
   }
   if (!dryRun) run('git', ['push', '--tags']);
 
-  // GitHub Releases: only anarchy-* and showcases-desktop
+  // GitHub release (text-only)
   for (const r of releases) {
-    const shouldCreateGhRelease = r.isAnarchy || r.isDesktop;
-    if (!shouldCreateGhRelease) continue;
-
     const tag = `${r.key}@${r.version}`;
     if (ghReleaseExists(tag)) continue;
 
@@ -66,23 +63,17 @@ function main() {
       `- Version: \`${r.prev ?? 'none'}\` → \`${r.version}\``,
       `- Workspace: \`${r.path}\``,
       ``,
-      `_Manual release (button-driven)._`
+      `_Engine monorepo: release is npm publish (no platform artifacts)._`
     ].join('\n');
 
     if (dryRun) console.log(`[dry] gh release create ${tag} --title "${r.key} v${r.version}"`);
     else run('gh', ['release', 'create', tag, '--title', `${r.key} v${r.version}`, '--notes', notes]);
   }
 
-  // npm publish only packages/anarchy-*
+  // npm publish (Trusted Publishing / OIDC)
   for (const r of releases) {
-    if (!r.isAnarchy) continue;
-    if (r.private) continue;
-
-    if (dryRun) {
-      console.log(`[dry] npm publish --workspace ${r.path} --access public`);
-    } else {
-      run('npm', ['publish', '--workspace', r.path, '--access', 'public']);
-    }
+    if (dryRun) console.log(`[dry] npm publish --workspace ${r.path} --access public`);
+    else run('npm', ['publish', '--workspace', r.path, '--access', 'public']);
   }
 
   console.log('Release done.');

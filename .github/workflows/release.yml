@@ -1,54 +1,38 @@
-name: Release (button)
+# Do release of Anarchy packages based on git tags
+# Important!!!: for Trusted Publishing: on npm in trusted publisher you will need to specify workflow filename = release.yml.
+
+name: Release anarchy packages (button)
 
 on:
   workflow_dispatch:
     inputs:
       mode:
         type: choice
-        description: "Release mode"
         required: true
-        options: [all, one]
+        options: [ all, one ]
         default: all
-
+        description: "Release mode: all packages or just one"
       workspace:
         type: string
-        description: "Workspace key if mode=one (folder name, e.g. anarchy-engine, showcases-desktop)."
         required: false
-
+        description: "Folder key if mode=one (e.g. anarchy-engine)"
       dryRun:
         type: boolean
-        description: "Dry run (no tags/releases/publish/build uploads)"
         required: true
         default: false
-
-      desktopEnv:
-        type: choice
-        description: "Desktop build env"
-        required: true
-        options: [prod, dev, e2e]
-        default: prod
-
-      desktopTargets:
-        type: string
-        description: "Desktop targets: mac:dmg:arm64,win:nsis:x64,linux:appimage:x64 (empty = skip)"
-        required: false
-        default: "mac:dmg:arm64,win:nsis:x64"
+        description: "Do not publish, just simulate"
 
 permissions:
   contents: write
   id-token: write
 
 concurrency:
-  group: manual-release
+  group: release-anarchy
   cancel-in-progress: false
 
 jobs:
-  plan_and_release:
+  release:
     runs-on: ubuntu-latest
-    outputs:
-      plan: ${{ steps.plan.outputs.plan }}
-      desktopMatrix: ${{ steps.desktopMatrix.outputs.matrix }}
-      hasDesktopRelease: ${{ steps.hasDesktop.outputs.value }}
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
@@ -65,85 +49,17 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Build release plan from tags
+      - name: Build release plan
         id: plan
         run: |
-          PLAN="$(RELEASE_MODE='${{ inputs.mode }}' RELEASE_WORKSPACE='${{ inputs.workspace }}' node ./scripts/release/plan-from-tags.mjs)"
+          PLAN="$(RELEASE_MODE='${{ inputs.mode }}' RELEASE_WORKSPACE='${{ inputs.workspace }}' node ./scripts/release/anarchy-plan-from-tags.mjs)"
           echo "plan<<EOF" >> $GITHUB_OUTPUT
           echo "$PLAN" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Compute hasDesktopRelease
-        id: hasDesktop
-        run: |
-          node -e "const p=JSON.parse(process.env.PLAN); const has=(p.releases||[]).some(r=>r.key==='showcases-desktop'); process.stdout.write(String(has));" \
-          | awk '{print "value="$0}' >> $GITHUB_OUTPUT
-        env:
-          PLAN: ${{ steps.plan.outputs.plan }}
-
-      - name: Build desktop matrix from inputs
-        id: desktopMatrix
-        run: |
-          MATRIX="$(DESKTOP_TARGETS='${{ inputs.desktopTargets }}' DESKTOP_ENV='${{ inputs.desktopEnv }}' node ./scripts/release/desktop-targets-to-matrix.mjs)"
-          echo "matrix<<EOF" >> $GITHUB_OUTPUT
-          echo "$MATRIX" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-
-      - name: Execute release (tags, GH releases, npm publish)
-        if: ${{ inputs.dryRun == false }}
+      - name: Execute release (tags + GitHub release + npm publish)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_PLAN_JSON: ${{ steps.plan.outputs.plan }}
-          DRY_RUN: "false"
-        run: node ./scripts/release/do-release.mjs
-
-      - name: Dry-run release (print actions)
-        if: ${{ inputs.dryRun == true }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_PLAN_JSON: ${{ steps.plan.outputs.plan }}
-          DRY_RUN: "true"
-        run: node ./scripts/release/do-release.mjs
-
-  desktop_builds:
-    needs: [plan_and_release]
-    if: ${{ inputs.dryRun == false && inputs.mode == 'one' && inputs.workspace == 'showcases-desktop' && needs.plan_and_release.outputs.hasDesktopRelease == 'true' && needs.plan_and_release.outputs.desktopMatrix != '[]' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        target: ${{ fromJson(needs.plan_and_release.outputs.desktopMatrix) }}
-    runs-on: ${{ matrix.target.os }}
-    steps:
-      - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24
-
-      - run: npm ci
-
-      - name: Build desktop
-        shell: bash
-        run: |
-          set -euo pipefail
-          ENV="${{ matrix.target.env }}"
-          PLATFORM="${{ matrix.target.platform }}"
-          ARTIFACT="${{ matrix.target.artifact }}"
-          ARCH="${{ matrix.target.arch }}"
-
-          npm run --workspace apps/showcases-core build:prod:desktop
-          npm run --workspace apps/showcases-desktop "build:${ENV}:${PLATFORM}:${ARTIFACT}:${ARCH}"
-
-      - name: Upload desktop assets to GitHub Release
-        shell: bash
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          set -euo pipefail
-
-          VERSION="$(node -p "require('./apps/showcases-desktop/package.json').version")"
-          TAG="showcases-desktop@${VERSION}"
-
-          mapfile -t FILES < <(node ./scripts/release/collect-desktop-assets.mjs)
-          gh release upload "$TAG" "${FILES[@]}" --clobber
+          DRY_RUN: ${{ inputs.dryRun && 'true' || 'false' }}
+        run: node ./scripts/release/anarchy-do-release.mjs
