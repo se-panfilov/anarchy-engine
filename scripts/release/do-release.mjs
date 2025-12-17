@@ -42,34 +42,35 @@ function main() {
     return;
   }
 
-  // Tags
+  // Tags: key@version
   for (const r of releases) {
-    const tag = `${r.name}@${r.version}`;
+    const tag = `${r.key}@${r.version}`;
     if (hasTag(tag)) continue;
 
-    if (dryRun) {
-      console.log(`[dry] git tag -a ${tag} -m "${r.name} v${r.version}"`);
-    } else {
-      run('git', ['tag', '-a', tag, '-m', `${r.name} v${r.version}`]);
-    }
+    if (dryRun) console.log(`[dry] git tag -a ${tag} -m "${r.key} v${r.version}"`);
+    else run('git', ['tag', '-a', tag, '-m', `${r.key} v${r.version}`]);
   }
   if (!dryRun) run('git', ['push', '--tags']);
 
-  // GitHub Releases (only anarchy-* and showcases-desktop)
+  // GitHub Releases: only anarchy-* and showcases-desktop
   for (const r of releases) {
     const shouldCreateGhRelease = r.isAnarchy || r.isDesktop;
     if (!shouldCreateGhRelease) continue;
 
-    const tag = `${r.name}@${r.version}`;
+    const tag = `${r.key}@${r.version}`;
     if (ghReleaseExists(tag)) continue;
 
-    const notes = [`**${r.name}**`, ``, `- Version: \`${r.prev ?? 'none'}\` → \`${r.version}\``, `- Workspace: \`${r.path}\``, ``, `_Manual release (button-driven)._`].join('\n');
+    const notes = [
+      `**${r.npmName}**`,
+      ``,
+      `- Version: \`${r.prev ?? 'none'}\` → \`${r.version}\``,
+      `- Workspace: \`${r.path}\``,
+      ``,
+      `_Manual release (button-driven)._`
+    ].join('\n');
 
-    if (dryRun) {
-      console.log(`[dry] gh release create ${tag} --title "${r.name} v${r.version}"`);
-    } else {
-      run('gh', ['release', 'create', tag, '--title', `${r.name} v${r.version}`, '--notes', notes]);
-    }
+    if (dryRun) console.log(`[dry] gh release create ${tag} --title "${r.key} v${r.version}"`);
+    else run('gh', ['release', 'create', tag, '--title', `${r.key} v${r.version}`, '--notes', notes]);
   }
 
   // npm publish only packages/anarchy-*
@@ -78,9 +79,9 @@ function main() {
     if (r.private) continue;
 
     if (dryRun) {
-      console.log(`[dry] npm publish --workspace ${r.name} --access public`);
+      console.log(`[dry] npm publish --workspace ${r.path} --access public`);
     } else {
-      run('npm', ['publish', '--workspace', r.name, '--access', 'public']);
+      run('npm', ['publish', '--workspace', r.path, '--access', 'public']);
     }
   }
 

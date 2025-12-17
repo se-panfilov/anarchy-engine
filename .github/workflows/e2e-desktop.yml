@@ -25,7 +25,7 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
       - uses: actions/setup-node@v4
-        with: { node-version: 22 }
+        with: { node-version: 24 }
       - run: npm ci
       - run: npm run --workspace apps/showcases-core build:prod:desktop
       - run: npm run --workspace apps/showcases-desktop build:e2e:mac:app:${{ inputs.arch }}

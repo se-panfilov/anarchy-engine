@@ -12,7 +12,7 @@ on:
 
       workspace:
         type: string
-        description: "Workspace name if mode=one (e.g. anarchy-engine, showcases-desktop)."
+        description: "Workspace key if mode=one (folder name, e.g. anarchy-engine, showcases-desktop)."
         required: false
 
       dryRun:
@@ -36,6 +36,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 concurrency:
   group: manual-release
@@ -53,7 +54,9 @@ jobs:
         with: { fetch-depth: 0 }
 
       - uses: actions/setup-node@v4
-        with: { node-version: 22 }
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
 
       - run: npm ci
 
@@ -61,15 +64,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Execute release (tags, GH releases, npm publish)
-        if: ${{ inputs.dryRun == false }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_PLAN_JSON: ${{ steps.plan.outputs.plan }}
-          DRY_RUN: "false"
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: node ./scripts/release/do-release.mjs
 
       - name: Build release plan from tags
         id: plan
@@ -82,7 +76,7 @@ jobs:
       - name: Compute hasDesktopRelease
         id: hasDesktop
         run: |
-          node -e "const p=JSON.parse(process.env.PLAN); const has=(p.releases||[]).some(r=>r.name==='showcases-desktop'); process.stdout.write(String(has));" \
+          node -e "const p=JSON.parse(process.env.PLAN); const has=(p.releases||[]).some(r=>r.key==='showcases-desktop'); process.stdout.write(String(has));" \
           | awk '{print "value="$0}' >> $GITHUB_OUTPUT
         env:
           PLAN: ${{ steps.plan.outputs.plan }}
@@ -124,7 +118,8 @@ jobs:
         with: { fetch-depth: 0 }
 
       - uses: actions/setup-node@v4
-        with: { node-version: 22 }
+        with:
+          node-version: 24
 
       - run: npm ci
 
@@ -136,8 +131,6 @@ jobs:
           PLATFORM="${{ matrix.target.platform }}"
           ARTIFACT="${{ matrix.target.artifact }}"
           ARCH="${{ matrix.target.arch }}"
-
-          echo "Building desktop: env=$ENV platform=$PLATFORM artifact=$ARTIFACT arch=$ARCH"
 
           npm run --workspace apps/showcases-core build:prod:desktop
           npm run --workspace apps/showcases-desktop "build:${ENV}:${PLATFORM}:${ARTIFACT}:${ARCH}"
@@ -153,5 +146,4 @@ jobs:
           TAG="showcases-desktop@${VERSION}"
 
           mapfile -t FILES < <(node ./scripts/release/collect-desktop-assets.mjs)
-          echo "Uploading ${#FILES[@]} files to release: $TAG"
           gh release upload "$TAG" "${FILES[@]}" --clobber
