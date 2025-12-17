@@ -17,6 +17,7 @@
     "url": "git@github.com:se-panfilov/anarchy-engine.git",
     "directory": "apps/showcases-desktop"
   },
+  "homepage": "https://github.com/se-panfilov/anarchy-engine/tree/main/apps/showcases-desktop#readme",
   "bugs": {
     "url": "https://github.com/se-panfilov/anarchy-engine/issues"
   },

@@ -9,6 +9,7 @@
     "url": "git@github.com:se-panfilov/anarchy-engine.git",
     "directory": "apps/showcases-e2e"
   },
+  "homepage": "https://github.com/se-panfilov/anarchy-engine/tree/main/apps/showcases-e2e#readme",
   "bugs": {
     "url": "https://github.com/se-panfilov/anarchy-engine/issues"
   },

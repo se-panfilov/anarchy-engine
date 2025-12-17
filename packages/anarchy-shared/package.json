@@ -9,6 +9,7 @@
     "url": "git@github.com:se-panfilov/anarchy-engine.git",
     "directory": "packages/anarchy-shared"
   },
+  "homepage": "https://github.com/se-panfilov/anarchy-engine/tree/main/packages/anarchy-shared#readme",
   "bugs": {
     "url": "https://github.com/se-panfilov/anarchy-engine/issues"
   },

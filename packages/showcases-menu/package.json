@@ -9,6 +9,7 @@
     "url": "git@github.com:se-panfilov/anarchy-engine.git",
     "directory": "packages/showcases-menu"
   },
+  "homepage": "https://github.com/se-panfilov/anarchy-engine/tree/main/packages/showcases-menu#readme",
   "bugs": {
     "url": "https://github.com/se-panfilov/anarchy-engine/issues"
   },

@@ -8,6 +8,7 @@
     "type": "git",
     "url": "git@github.com:se-panfilov/anarchy-engine.git"
   },
+  "homepage": "https://github.com/se-panfilov/anarchy-engine/tree/main#readme",
   "bugs": {
     "url": "https://github.com/se-panfilov/anarchy-engine/issues"
   },
