@@ -1,4 +1,4 @@
-# End User License Terms — anarchy-engine
+# End User License Terms — @hellpig/anarchy-engine
 
 **Effective date:** TBD until market release
 This repository is provided under **MIT** (see `LICENSE`).

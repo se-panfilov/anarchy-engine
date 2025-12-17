@@ -1,4 +1,4 @@
-# End User License Terms — anarchy-i18n
+# End User License Terms — @hellpig/anarchy-i18n
 
 **Effective date:** TBD until market release
 This repository is provided under **MIT** (see `LICENSE`).

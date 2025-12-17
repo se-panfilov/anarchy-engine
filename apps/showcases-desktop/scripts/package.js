@@ -1,5 +1,5 @@
-import { loadModeEnv, parseBoolEnv, parseListEnv } from 'anarchy-shared/ScriptUtils/EnvUtils.js';
-import { normalizeMode, resolveDryRun, resolveMode } from 'anarchy-shared/ScriptUtils/ModeUtils.js';
+import { loadModeEnv, parseBoolEnv, parseListEnv } from '@hellpig/anarchy-shared/ScriptUtils/EnvUtils.js';
+import { normalizeMode, resolveDryRun, resolveMode } from '@hellpig/anarchy-shared/ScriptUtils/ModeUtils.js';
 import { execSync } from 'node:child_process';
 import { mkdirSync } from 'node:fs';
 import path from 'node:path';

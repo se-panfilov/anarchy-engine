@@ -11,7 +11,7 @@ Components listed: 49
 
 The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
 
-## @asamuzakjp/css-color@4.1.0
+## @asamuzakjp/css-color@4.1.1
 
 **License(s):** MIT
 
@@ -23,7 +23,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/dom-selector@6.7.5
+## @asamuzakjp/dom-selector@6.7.6
 
 **License(s):** MIT
 
@@ -95,7 +95,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.20
+## @csstools/css-syntax-patches-for-csstree@1.0.21
 
 **License(s):** MIT-0
 
@@ -161,7 +161,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## cssstyle@5.3.3
+## cssstyle@5.3.5
 
 **License(s):** MIT
 

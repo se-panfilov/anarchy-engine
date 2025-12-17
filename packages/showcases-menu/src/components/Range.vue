@@ -25,8 +25,8 @@ const [modelValue] = defineModel<number>({ set: Number });
 </template>
 
 <style scoped lang="scss">
-@use 'anarchy-shared/src/assets/_utils' as anarchy_utils;
-@use 'anarchy-shared/src/assets/_constants' as anarchy_constants;
+@use '@hellpig/anarchy-shared/src/assets/_utils' as anarchy_utils;
+@use '@hellpig/anarchy-shared/src/assets/_constants' as anarchy_constants;
 
 .range {
   display: flex;

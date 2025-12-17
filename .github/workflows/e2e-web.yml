@@ -1,0 +1,58 @@
+#Runs web E2E by "button"
+
+name: E2E Web (button)
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        type: string
+        required: true
+        default: main
+        description: "Branch/tag/sha to test"
+      updateSnapshots:
+        type: boolean
+        required: true
+        default: false
+        description: "If true, runs E2E in snapshot-update mode (if your scripts support it)"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: e2e-web-${{ inputs.ref }}
+  cancel-in-progress: false
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: ${{ inputs.ref }} }
+
+      - uses: actions/setup-node@v4
+        with: { node-version: 24 }
+
+      - run: npm ci
+
+      - name: Build showcases-core (web)
+        run: npm run --workspace apps/showcases-core build:prod
+
+      - name: Run E2E web
+        run: |
+          if [ "${{ inputs.updateSnapshots }}" = "true" ]; then
+            npm run --workspace apps/showcases-e2e e2e:web -- --update-snapshots
+          else
+            npm run --workspace apps/showcases-e2e e2e:web
+          fi
+
+      - name: Upload Playwright report (if exists)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-web-${{ github.run_id }}
+          path: |
+            apps/showcases-e2e/playwright-report/**
+            apps/showcases-e2e/test-results/**
+          if-no-files-found: ignore
+          retention-days: 14

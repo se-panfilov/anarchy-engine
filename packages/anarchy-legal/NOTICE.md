@@ -1,6 +1,6 @@
 # Third-Party Notices (Pointer)
 
-This distribution of **anarchy-legal** may include **third-party components**.
+This distribution of **@hellpig/anarchy-legal** may include **third-party components**.
 
 Full attributions and license texts are provided **offline** at:
 

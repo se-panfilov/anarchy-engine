@@ -46,7 +46,7 @@ const filteredOptions: ComputedRef<ReadonlyArray<TVueNavOption>> = computed(
 </template>
 
 <style scoped lang="scss">
-@use 'anarchy-shared/src/assets/_utils' as anarchy_utils;
+@use '@hellpig/anarchy-shared/src/assets/_utils' as anarchy_utils;
 
 .navigation {
   display: flex;

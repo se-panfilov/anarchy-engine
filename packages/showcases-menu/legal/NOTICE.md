@@ -11,7 +11,7 @@ Components listed: 122
 
 The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
 
-## @asamuzakjp/css-color@4.1.0
+## @asamuzakjp/css-color@4.1.1
 
 **License(s):** MIT
 
@@ -23,7 +23,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/dom-selector@6.7.5
+## @asamuzakjp/dom-selector@6.7.6
 
 **License(s):** MIT
 
@@ -153,7 +153,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.20
+## @csstools/css-syntax-patches-for-csstree@1.0.21
 
 **License(s):** MIT-0
 
@@ -254,6 +254,42 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://github.com/formatjs/formatjs#readme
 
 **Attribution:** Copyright (c) 2023 FormatJS
+
+---
+
+## @hellpig/anarchy-engine@21.2.4
+
+**License(s):** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/anarchy-engine#readme
+
+**Attribution:** Copyright (c) 2025 Sergei Panfilov
+
+---
+
+## @hellpig/anarchy-i18n@1.2.3
+
+**License(s):** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/anarchy-i18n#readme
+
+**Attribution:** Copyright (c) 2025 Sergei Panfilov
+
+---
+
+## @hellpig/anarchy-shared@1.4.4
+
+**License(s):** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/anarchy-shared#readme
+
+**Attribution:** Copyright (c) 2025 Sergei Panfilov
 
 ---
 
@@ -475,30 +511,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-engine@21.2.3
-
-**License(s):** MIT
-
-**Attribution:** Copyright (c) 2025 Sergei Panfilov
-
----
-
-## anarchy-i18n@1.2.2
-
-**License(s):** MIT
-
-**Attribution:** Copyright (c) 2025 Sergei Panfilov
-
----
-
-## anarchy-shared@1.4.3
-
-**License(s):** MIT
-
-**Attribution:** Copyright (c) 2025 Sergei Panfilov
-
----
-
 ## bidi-js@1.0.3
 
 **License(s):** MIT
@@ -555,7 +567,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## cssstyle@5.3.3
+## cssstyle@5.3.5
 
 **License(s):** MIT
 
@@ -1063,9 +1075,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-i18n@1.4.1
+## showcases-i18n@1.4.3
 
 **License(s):** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/showcases-i18n#readme
 
 **Attribution:** Copyright (c) 2025 Sergei Panfilov
 
@@ -1074,6 +1090,10 @@ The following notices are reproduced as provided by the respective licensors (e.
 ## showcases-shared@1.7.2
 
 **License(s):** MIT
+
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/showcases-shared#readme
 
 **Attribution:** Copyright (c) 2025 Sergei Panfilov
 

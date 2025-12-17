@@ -1,9 +1,21 @@
 {
-  "name": "anarchy-i18n",
+  "name": "@hellpig/anarchy-i18n",
   "author": "S. Panfilov",
-  "private": true,
-  "version": "1.2.2",
+  "private": false,
+  "version": "1.2.3",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:se-panfilov/anarchy-engine.git",
+    "directory": "packages/anarchy-i18n"
+  },
+  "homepage": "https://github.com/se-panfilov/anarchy-engine/tree/main/packages/anarchy-i18n#readme",
+  "bugs": {
+    "url": "https://github.com/se-panfilov/anarchy-engine/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "sideEffects": false,
   "license": "MIT",
   "description": "Anarchy-I18n – a library for internationalization in Anarchy Engine.",
@@ -25,17 +37,16 @@
     "dist/"
   ],
   "scripts": {
-    "before:release": "npm run before:release:check",
-    "before:release:check": "npm run ts:check && npm run check:circular-dependencies && npm run lint",
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/index.ts",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
-    "generate:legal:3rd-party-licenses": "npm run -w anarchy-legal generate:licenses -- --workspace packages/anarchy-i18n --out ../../packages/anarchy-i18n/legal/THIRD_PARTY_LICENSES.md",
-    "generate:legal:files": "npm run -w anarchy-legal generate:files -- --workspace packages/anarchy-i18n --out ../../packages/anarchy-i18n",
-    "generate:legal:notice": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace packages/anarchy-i18n --source ../../packages/anarchy-i18n/legal/THIRD_PARTY_LICENSES.md --out ../../packages/anarchy-i18n/legal/NOTICE.md",
+    "generate:legal:3rd-party-licenses": "npm run -w @hellpig/anarchy-legal generate:licenses -- --workspace packages/anarchy-i18n --out ../../packages/anarchy-i18n/legal/THIRD_PARTY_LICENSES.md",
+    "generate:legal:files": "npm run -w @hellpig/anarchy-legal generate:files -- --workspace packages/anarchy-i18n --out ../../packages/anarchy-i18n",
+    "generate:legal:notice": "npm run -w @hellpig/anarchy-legal generate:notice -- --audit --strict --workspace packages/anarchy-i18n --source ../../packages/anarchy-i18n/legal/THIRD_PARTY_LICENSES.md --out ../../packages/anarchy-i18n/legal/NOTICE.md",
     "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json",
     "generate:locales": "node Scripts/GenerateLocales.js --config src/Configs/locales.config.jsonc --out-const src/Constants/Locales.gen.ts --out-models src/Models/TLocales.gen.ts",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
+    "pr:guard:ci": "npm run ts:check && npm run check:circular-dependencies && npm run lint",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "ts:check": "tsc --noEmit",

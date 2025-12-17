@@ -1,9 +1,21 @@
 {
-  "name": "anarchy-engine",
+  "name": "@hellpig/anarchy-engine",
   "author": "S. Panfilov",
-  "private": true,
-  "version": "21.2.3",
+  "private": false,
+  "version": "21.2.4",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:se-panfilov/anarchy-engine.git",
+    "directory": "packages/anarchy-engine"
+  },
+  "homepage": "https://github.com/se-panfilov/anarchy-engine/tree/main/packages/anarchy-engine#readme",
+  "bugs": {
+    "url": "https://github.com/se-panfilov/anarchy-engine/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "sideEffects": false,
   "license": "MIT",
   "description": "Anarchy Engine – a 3D game engine for web, desktop and mobile platforms. Built around three.js",
@@ -27,8 +39,6 @@
     "dist/"
   ],
   "scripts": {
-    "before:release": "npm run build && npm run before:release:check",
-    "before:release:check": "npm run ts:check && npm run check:ts-morph && npm run check:circular-dependencies && npm run lint && npm run unit:coverage",
     "build": "rimraf ./dist && vite build",
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/index.ts",
     "check:minified-assets": "../anarchy-shared/ScriptUtils/CheckMinify.sh dist/anarchy-engine.es.js dist/anarchy-engine.es.js.map",
@@ -38,14 +48,15 @@
     "check:ts-morph:fix": "npm run check:no-spread-brand -- --fix",
     "generate:dependency-graph": "npx madge src/index.ts --extensions ts --image graph.svg",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
-    "generate:legal:3rd-party-licenses": "npm run -w anarchy-legal generate:licenses -- --workspace packages/anarchy-engine --out ../../packages/anarchy-engine/legal/THIRD_PARTY_LICENSES.md",
-    "generate:legal:files": "npm run -w anarchy-legal generate:files -- --workspace packages/anarchy-engine --out ../../packages/anarchy-engine",
-    "generate:legal:notice": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace packages/anarchy-engine --source ../../packages/anarchy-engine/legal/THIRD_PARTY_LICENSES.md --out ../../packages/anarchy-engine/legal/NOTICE.md",
+    "generate:legal:3rd-party-licenses": "npm run -w @hellpig/anarchy-legal generate:licenses -- --workspace packages/anarchy-engine --out ../../packages/anarchy-engine/legal/THIRD_PARTY_LICENSES.md",
+    "generate:legal:files": "npm run -w @hellpig/anarchy-legal generate:files -- --workspace packages/anarchy-engine --out ../../packages/anarchy-engine",
+    "generate:legal:notice": "npm run -w @hellpig/anarchy-legal generate:notice -- --audit --strict --workspace packages/anarchy-engine --source ../../packages/anarchy-engine/legal/THIRD_PARTY_LICENSES.md --out ../../packages/anarchy-engine/legal/NOTICE.md",
     "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json",
     "generate:schemas": "node ./utils/JsonUtils.js",
     "generate:schemas:minify": "node ./utils/JsonUtils.js --minify",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
+    "pr:guard:ci": "npm run ts:check && npm run check:ts-morph && npm run check:circular-dependencies && npm run lint && npm run unit:coverage",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "ts:check": "tsc --noEmit",
@@ -58,7 +69,7 @@
   "dependencies": {
     "@cfworker/json-schema": "4.1.1",
     "@dimforge/rapier3d": "0.19.2",
-    "anarchy-shared": "*",
+    "@hellpig/anarchy-shared": "*",
     "date-fns": "4.1.0",
     "lodash-es": "4.17.21",
     "nanoid": "5.1.6",

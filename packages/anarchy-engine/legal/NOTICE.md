@@ -1,11 +1,11 @@
 # Third-Party Notices
 
-## Application: anarchy-engine
+## Application: @hellpig/anarchy-engine
 
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 15
+Components listed: 16
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -35,11 +35,21 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-shared@1.4.3
+## @hellpig/anarchy-shared@1.4.4
 
 **License(s):** MIT
 
+**Repository:** git@github.com:se-panfilov/anarchy-engine.git
+
+**URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/anarchy-shared#readme
+
 **Attribution:** Copyright (c) 2025 Sergei Panfilov
+
+---
+
+## Application:@hellpig/anarchy-engine
+
+**License(s):** UNKNOWN
 
 ---
 

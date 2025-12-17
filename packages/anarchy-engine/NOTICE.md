@@ -1,6 +1,6 @@
 # Third-Party Notices (Pointer)
 
-This distribution of **anarchy-engine** may include **third-party components**.
+This distribution of **@hellpig/anarchy-engine** may include **third-party components**.
 
 Full attributions and license texts are provided **offline** at:
 

@@ -1,9 +1,21 @@
 {
-  "name": "anarchy-legal",
+  "name": "@hellpig/anarchy-legal",
   "author": "S. Panfilov",
-  "private": true,
-  "version": "1.10.5",
+  "private": false,
+  "version": "1.10.6",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:se-panfilov/anarchy-engine.git",
+    "directory": "packages/anarchy-legal"
+  },
+  "homepage": "https://github.com/se-panfilov/anarchy-engine/tree/main/packages/anarchy-legal#readme",
+  "bugs": {
+    "url": "https://github.com/se-panfilov/anarchy-engine/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "sideEffects": false,
   "license": "MIT",
   "description": "Anarchy-legal – a library for generating legal files for Anarchy Engine.",
@@ -25,19 +37,18 @@
     "dist/"
   ],
   "scripts": {
-    "before:release": "npm run before:release:check",
-    "before:release:check": "npm run ts:check && npm run check:circular-dependencies && npm run lint",
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/index.ts",
     "generate:files": "node ./src/Generators/LegalFilesGenerator.ts",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
-    "generate:legal:3rd-party-licenses": "npm run -w anarchy-legal generate:licenses -- --workspace packages/anarchy-legal --out ./legal/THIRD_PARTY_LICENSES.md",
-    "generate:legal:files": "npm run -w anarchy-legal generate:files -- --workspace packages/anarchy-legal --out ./",
-    "generate:legal:notice": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace packages/anarchy-legal --source ./legal/THIRD_PARTY_LICENSES.md --out ./legal/NOTICE.md",
+    "generate:legal:3rd-party-licenses": "npm run -w @hellpig/anarchy-legal generate:licenses -- --workspace packages/anarchy-legal --out ./legal/THIRD_PARTY_LICENSES.md",
+    "generate:legal:files": "npm run -w @hellpig/anarchy-legal generate:files -- --workspace packages/anarchy-legal --out ./",
+    "generate:legal:notice": "npm run -w @hellpig/anarchy-legal generate:notice -- --audit --strict --workspace packages/anarchy-legal --source ./legal/THIRD_PARTY_LICENSES.md --out ./legal/NOTICE.md",
     "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json",
     "generate:licenses": "node src/Generators/ThirdPartyLicensesGenerator.ts",
     "generate:notice": "node src/Generators/NoticeGenerator.ts",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
+    "pr:guard:ci": "npm run ts:check && npm run check:circular-dependencies && npm run lint",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "ts:check": "tsc --noEmit",

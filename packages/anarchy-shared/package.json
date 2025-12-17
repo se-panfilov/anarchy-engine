@@ -1,9 +1,21 @@
 {
-  "name": "anarchy-shared",
+  "name": "@hellpig/anarchy-shared",
   "author": "S. Panfilov",
-  "private": true,
-  "version": "1.4.3",
+  "private": false,
+  "version": "1.4.4",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:se-panfilov/anarchy-engine.git",
+    "directory": "packages/anarchy-shared"
+  },
+  "homepage": "https://github.com/se-panfilov/anarchy-engine/tree/main/packages/anarchy-shared#readme",
+  "bugs": {
+    "url": "https://github.com/se-panfilov/anarchy-engine/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "sideEffects": false,
   "license": "MIT",
   "description": "Anarchy-shared – a library with shared utilities and scripts for Anarchy Engine.",
@@ -21,15 +33,14 @@
     "dist/"
   ],
   "scripts": {
-    "before:release": "npm run before:release:check",
-    "before:release:check": "npm run ts:check && npm run lint && npm run unit:coverage",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
-    "generate:legal:3rd-party-licenses": "npm run -w anarchy-legal generate:licenses -- --workspace packages/anarchy-shared --out ../../packages/anarchy-shared/legal/THIRD_PARTY_LICENSES.md",
-    "generate:legal:files": "npm run -w anarchy-legal generate:files -- --workspace packages/anarchy-shared --out ../../packages/anarchy-shared",
-    "generate:legal:notice": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace packages/anarchy-shared --source ../../packages/anarchy-shared/legal/THIRD_PARTY_LICENSES.md --out ../../packages/anarchy-shared/legal/NOTICE.md",
+    "generate:legal:3rd-party-licenses": "npm run -w @hellpig/anarchy-legal generate:licenses -- --workspace packages/anarchy-shared --out ../../packages/anarchy-shared/legal/THIRD_PARTY_LICENSES.md",
+    "generate:legal:files": "npm run -w @hellpig/anarchy-legal generate:files -- --workspace packages/anarchy-shared --out ../../packages/anarchy-shared",
+    "generate:legal:notice": "npm run -w @hellpig/anarchy-legal generate:notice -- --audit --strict --workspace packages/anarchy-shared --source ../../packages/anarchy-shared/legal/THIRD_PARTY_LICENSES.md --out ../../packages/anarchy-shared/legal/NOTICE.md",
     "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
+    "pr:guard:ci": "npm run ts:check && npm run lint && npm run unit:coverage",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "ts:check": "tsc --noEmit",

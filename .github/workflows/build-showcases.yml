@@ -1,0 +1,133 @@
+name: Build showcases artifacts (button)
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        type: string
+        required: true
+        default: main
+        description: "Branch/tag/sha to build"
+      app:
+        type: choice
+        required: true
+        options: [showcases-core, showcases-desktop]
+        default: showcases-core
+
+      coreVariant:
+        type: choice
+        required: true
+        options: [web, desktop]
+        default: web
+        description: "Only used when app=showcases-core"
+
+      desktopEnv:
+        type: choice
+        required: true
+        options: [prod, dev, e2e]
+        default: prod
+        description: "Only used when app=showcases-desktop"
+
+      desktopTargets:
+        type: string
+        required: false
+        default: "mac:dmg:arm64,win:nsis:x64"
+        description: "Only used when app=showcases-desktop. Format: mac:dmg:arm64,win:nsis:x64"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-showcases-${{ inputs.app }}-${{ inputs.ref }}
+  cancel-in-progress: false
+
+jobs:
+  core:
+    if: ${{ inputs.app == 'showcases-core' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: ${{ inputs.ref }} }
+
+      - uses: actions/setup-node@v4
+        with: { node-version: 24 }
+
+      - run: npm ci
+
+      - name: Build showcases-core
+        run: |
+          if [ "${{ inputs.coreVariant }}" = "web" ]; then
+            npm run --workspace apps/showcases-core build:prod
+          else
+            npm run --workspace apps/showcases-core build:prod:desktop
+          fi
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: showcases-core-${{ inputs.coreVariant }}-${{ github.run_id }}
+          path: apps/showcases-core/dist-web/**
+          if-no-files-found: error
+          retention-days: 14
+
+  desktop_matrix_prep:
+    if: ${{ inputs.app == 'showcases-desktop' }}
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: ${{ inputs.ref }} }
+
+      - uses: actions/setup-node@v4
+        with: { node-version: 24 }
+
+      - run: npm ci
+
+      - name: Build matrix
+        id: m
+        run: |
+          MATRIX="$(DESKTOP_TARGETS='${{ inputs.desktopTargets }}' DESKTOP_ENV='${{ inputs.desktopEnv }}' node ./scripts/release/desktop-targets-to-matrix.mjs)"
+          echo "matrix<<EOF" >> $GITHUB_OUTPUT
+          echo "$MATRIX" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+  desktop:
+    if: ${{ inputs.app == 'showcases-desktop' }}
+    needs: [desktop_matrix_prep]
+    strategy:
+      fail-fast: false
+      matrix:
+        target: ${{ fromJson(needs.desktop_matrix_prep.outputs.matrix) }}
+    runs-on: ${{ matrix.target.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: ${{ inputs.ref }} }
+
+      - uses: actions/setup-node@v4
+        with: { node-version: 24 }
+
+      - run: npm ci
+
+      - name: Build desktop wrapper
+        shell: bash
+        run: |
+          set -euo pipefail
+          ENV="${{ matrix.target.env }}"
+          PLATFORM="${{ matrix.target.platform }}"
+          ARTIFACT="${{ matrix.target.artifact }}"
+          ARCH="${{ matrix.target.arch }}"
+
+          # 1) build core for desktop (writes ./dist inside this job only)
+          npm run --workspace apps/showcases-core build:prod:desktop
+
+          # 2) build electron wrapper
+          npm run --workspace apps/showcases-desktop "build:${ENV}:${PLATFORM}:${ARTIFACT}:${ARCH}"
+
+      - name: Upload artifact (dist folder)
+        uses: actions/upload-artifact@v4
+        with:
+          name: showcases-desktop-${{ matrix.target.platform }}-${{ matrix.target.artifact }}-${{ matrix.target.arch }}-${{ github.run_id }}
+          path: apps/showcases-desktop/dist/**
+          if-no-files-found: error
+          retention-days: 14

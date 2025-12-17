@@ -2,8 +2,17 @@
   "name": "showcases-gui",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.1.3",
+  "version": "1.1.4",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:se-panfilov/anarchy-engine.git",
+    "directory": "packages/showcases-gui"
+  },
+  "homepage": "https://github.com/se-panfilov/anarchy-engine/tree/main/packages/showcases-gui#readme",
+  "bugs": {
+    "url": "https://github.com/se-panfilov/anarchy-engine/issues"
+  },
   "license": "MIT",
   "description": "Anarchy Showcases-GUI – a GUI for Anarchy Engine Showcases.",
   "keywords": [
@@ -21,20 +30,19 @@
     "dist/"
   ],
   "scripts": {
-    "before:release": "npm run build:all && npm run before:release:check",
-    "before:release:check": "npm run ts:check && npm run check:circular-dependencies && npm run lint",
     "build:all": "npm run build:desktop && npm run build:mobile && npm run build:web",
     "build:desktop": "rimraf dist-desktop && vite build --mode production.desktop",
     "build:mobile": "rimraf dist-mobile && vite build --mode production.mobile",
     "build:web": "rimraf dist-web && vite build --mode production.web",
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/main.ts",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
-    "generate:legal:3rd-party-licenses": "npm run -w anarchy-legal generate:licenses -- --workspace packages/showcases-gui --out /legal/THIRD_PARTY_LICENSES.md",
-    "generate:legal:files": "npm run -w anarchy-legal generate:files -- --workspace packages/showcases-gui --out ",
-    "generate:legal:notice": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace packages/showcases-gui --source /legal/THIRD_PARTY_LICENSES.md --out /legal/NOTICE.md",
+    "generate:legal:3rd-party-licenses": "npm run -w @hellpig/anarchy-legal generate:licenses -- --workspace packages/showcases-gui --out /legal/THIRD_PARTY_LICENSES.md",
+    "generate:legal:files": "npm run -w @hellpig/anarchy-legal generate:files -- --workspace packages/showcases-gui --out ",
+    "generate:legal:notice": "npm run -w @hellpig/anarchy-legal generate:notice -- --audit --strict --workspace packages/showcases-gui --source /legal/THIRD_PARTY_LICENSES.md --out /legal/NOTICE.md",
     "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
+    "pr:guard:ci": "npm run ts:check && npm run check:circular-dependencies && npm run lint",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "preview": "vite preview",
@@ -47,9 +55,9 @@
     "unit:watch": "vitest"
   },
   "dependencies": {
-    "anarchy-engine": "*",
-    "anarchy-i18n": "*",
-    "anarchy-shared": "*",
+    "@hellpig/anarchy-engine": "*",
+    "@hellpig/anarchy-i18n": "*",
+    "@hellpig/anarchy-shared": "*",
     "lucide-vue-next": "0.554.0",
     "nanoid": "5.1.6",
     "sanitize.css": "13.0.0",

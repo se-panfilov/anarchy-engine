@@ -6,7 +6,7 @@ Production dependencies (including transition dependencies): 49
 
 ---
 
-## @asamuzakjp/css-color@4.1.0
+## @asamuzakjp/css-color@4.1.1
 
 **License:** MIT
 
@@ -40,7 +40,7 @@ SOFTWARE.
 
 ---
 
-## @asamuzakjp/dom-selector@6.7.5
+## @asamuzakjp/dom-selector@6.7.6
 
 **License:** MIT
 
@@ -231,7 +231,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.20
+## @csstools/css-syntax-patches-for-csstree@1.0.21
 
 **License:** MIT-0
 
@@ -419,7 +419,7 @@ THE SOFTWARE.
 
 ---
 
-## cssstyle@5.3.3
+## cssstyle@5.3.5
 
 **License:** MIT
 

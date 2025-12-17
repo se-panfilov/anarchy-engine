@@ -1,6 +1,6 @@
 # Third-Party Licenses
 
-## Application: anarchy-shared
+## Application: @hellpig/anarchy-shared
 
 Production dependencies (including transition dependencies): 1
 

@@ -1,6 +1,6 @@
 # Third-Party Licenses
 
-## Application: anarchy-legal
+## Application: @hellpig/anarchy-legal
 
 Production dependencies (including transition dependencies): 0
 

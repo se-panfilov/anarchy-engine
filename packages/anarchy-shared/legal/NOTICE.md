@@ -1,15 +1,21 @@
 # Third-Party Notices
 
-## Application: anarchy-shared
+## Application: @hellpig/anarchy-shared
 
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 1
+Components listed: 2
 
 ## 1) Mandatory Attributions (verbatim)
 
 The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
+
+## Application:@hellpig/anarchy-shared
+
+**License(s):** UNKNOWN
+
+---
 
 ## bowser@2.12.1
 
