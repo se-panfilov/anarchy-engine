@@ -4,6 +4,11 @@
   "private": true,
   "version": "1.1.4",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:se-panfilov/anarchy-engine.git",
+    "directory": "packages/showcases-gui"
+  },
   "license": "MIT",
   "description": "Anarchy Showcases-GUI – a GUI for Anarchy Engine Showcases.",
   "keywords": [

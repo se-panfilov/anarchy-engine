@@ -4,6 +4,11 @@
   "private": true,
   "version": "21.2.4",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:se-panfilov/anarchy-engine.git",
+    "directory": "packages/anarchy-engine"
+  },
   "sideEffects": false,
   "license": "MIT",
   "description": "Anarchy Engine – a 3D game engine for web, desktop and mobile platforms. Built around three.js",

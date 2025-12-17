@@ -4,6 +4,11 @@
   "private": true,
   "version": "1.8.6",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:se-panfilov/anarchy-engine.git",
+    "directory": "packages/showcases-menu"
+  },
   "license": "MIT",
   "description": "Anarchy Showcases-Menu – a menu for Anarchy Engine Showcases.",
   "keywords": [

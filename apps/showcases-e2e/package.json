@@ -4,6 +4,11 @@
   "private": true,
   "version": "1.0.7",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:se-panfilov/anarchy-engine.git",
+    "directory": "apps/showcases-e2e"
+  },
   "license": "MIT",
   "description": "Anarchy Showcase-E2E  – end-to-end tests for Anarchy Showcases.",
   "keywords": [

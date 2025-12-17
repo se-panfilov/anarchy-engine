@@ -4,6 +4,11 @@
   "private": true,
   "version": "1.4.4",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:se-panfilov/anarchy-engine.git",
+    "directory": "packages/anarchy-shared"
+  },
   "sideEffects": false,
   "license": "MIT",
   "description": "Anarchy-shared – a library with shared utilities and scripts for Anarchy Engine.",

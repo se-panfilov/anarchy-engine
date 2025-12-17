@@ -12,6 +12,11 @@
   ],
   "main": "dist/desktop-main.js",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:se-panfilov/anarchy-engine.git",
+    "directory": "apps/showcases-desktop"
+  },
   "license": "MIT",
   "scripts": {
     "after:release": "npm run tracking:sourcemaps:prod",

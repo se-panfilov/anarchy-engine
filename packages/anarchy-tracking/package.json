@@ -4,6 +4,11 @@
   "private": true,
   "version": "1.5.2",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:se-panfilov/anarchy-engine.git",
+    "directory": "packages/anarchy-tracking"
+  },
   "sideEffects": false,
   "license": "MIT",
   "description": "Anarchy-Tracking – a library error monitoring in Anarchy Engine's based projects.",
