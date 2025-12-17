@@ -13,6 +13,9 @@
   "bugs": {
     "url": "https://github.com/se-panfilov/anarchy-engine/issues"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "sideEffects": false,
   "license": "MIT",
   "description": "Anarchy Engine – a 3D game engine for web, desktop and mobile platforms. Built around three.js",
