@@ -1,32 +1,102 @@
 #Runs web E2E by "button"
 
-name: E2E Desktop (mac)
+name: E2E Desktop (button)
 
 on:
   workflow_dispatch:
     inputs:
       ref:
-        description: "Branch / tag / sha to test (e.g. your PR branch name)"
+        type: string
         required: true
-        default: "main"
-      arch:
-        description: "arm64 | x64 | universal"
+        default: main
+        description: "Branch/tag/sha to test"
+
+      e2eTargets:
+        type: string
         required: true
-        default: "arm64"
+        default: "mac:app:arm64"
+        description: "Targets for E2E build: mac:app:arm64,win:app:x64,linux:app:x64 (format: platform:artifact:arch)"
+
+      updateSnapshots:
+        type: boolean
+        required: true
+        default: false
+        description: "If true, runs E2E in snapshot-update mode (if your scripts support it)"
 
 permissions:
   contents: read
 
+concurrency:
+  group: e2e-desktop-${{ inputs.ref }}
+  cancel-in-progress: false
+
 jobs:
-  e2e:
-    runs-on: macos-latest
+  matrix_prep:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.ref }}
+        with: { ref: ${{ inputs.ref }} }
+
+      - uses: actions/setup-node@v4
+        with: { node-version: 24 }
+
+      - run: npm ci
+
+      - name: Build matrix from input
+        id: m
+        run: |
+          MATRIX="$(DESKTOP_TARGETS='${{ inputs.e2eTargets }}' DESKTOP_ENV='e2e' node ./scripts/release/desktop-targets-to-matrix.mjs)"
+          echo "matrix<<EOF" >> $GITHUB_OUTPUT
+          echo "$MATRIX" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+  e2e:
+    needs: [matrix_prep]
+    strategy:
+      fail-fast: false
+      matrix:
+        target: ${{ fromJson(needs.matrix_prep.outputs.matrix) }}
+    runs-on: ${{ matrix.target.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: ${{ inputs.ref }} }
+
       - uses: actions/setup-node@v4
         with: { node-version: 24 }
       - run: npm ci
-      - run: npm run --workspace apps/showcases-core build:prod:desktop
-      - run: npm run --workspace apps/showcases-desktop build:e2e:mac:app:${{ inputs.arch }}
-      - run: npm run --workspace apps/showcases-e2e e2e:desktop
+
+      - name: Build showcases-core (desktop)
+        shell: bash
+        run: npm run --workspace apps/showcases-core build:prod:desktop
+
+      - name: Build showcases-desktop (E2E build)
+        shell: bash
+        run: |
+          set -euo pipefail
+          PLATFORM="${{ matrix.target.platform }}"
+          ARTIFACT="${{ matrix.target.artifact }}"
+          ARCH="${{ matrix.target.arch }}"
+          npm run --workspace apps/showcases-desktop "build:e2e:${PLATFORM}:${ARTIFACT}:${ARCH}"
+
+      - name: Run E2E desktop
+        shell: bash
+        run: |
+          if [ "${{ inputs.updateSnapshots }}" = "true" ]; then
+            npm run --workspace apps/showcases-e2e e2e:desktop -- --update-snapshots
+          else
+            npm run --workspace apps/showcases-e2e e2e:desktop
+          fi
+
+      - name: Upload Playwright report (if exists)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-desktop-${{ matrix.target.platform }}-${{ matrix.target.arch }}-${{ github.run_id }}
+          path: |
+            apps/showcases-e2e/playwright-report/**
+            apps/showcases-e2e/test-results/**
+          if-no-files-found: ignore
+          retention-days: 14
