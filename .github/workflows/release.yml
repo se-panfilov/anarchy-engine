@@ -9,18 +9,18 @@ on:
       mode:
         type: choice
         required: true
-        options: [ all, one ]
+        options: [all, one]
         default: all
-        description: "Release mode: all packages or just one"
+        description: 'Release mode: all packages or just one'
       workspace:
         type: string
         required: false
-        description: "Folder key if mode=one (e.g. anarchy-engine)"
+        description: 'Folder key if mode=one (e.g. anarchy-engine)'
       dryRun:
         type: boolean
         required: true
         default: false
-        description: "Do not publish, just simulate"
+        description: 'Do not publish, just simulate'
 
 permissions:
   contents: write

@@ -2,8 +2,8 @@
 import { join, resolve } from 'path';
 import { spawnSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
-import { loadModeEnv } from 'anarchy-shared/ScriptUtils/EnvUtils.js';
-import { parseModeArg } from 'anarchy-shared/ScriptUtils/ModeUtils.js';
+import { loadModeEnv } from '@hellpig/anarchy-shared/ScriptUtils/EnvUtils.js';
+import { parseModeArg } from '@hellpig/anarchy-shared/ScriptUtils/ModeUtils.js';
 
 /* Minimal Sentry sourcemaps uploader for Vite/Electron builds.
  * Features:
