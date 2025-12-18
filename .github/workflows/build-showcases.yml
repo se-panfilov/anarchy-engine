@@ -1,4 +1,5 @@
 name: Build showcases artifacts (button)
+run-name: Build showcases (app=${{ inputs.app }}, ref=${{ inputs.ref }})
 
 on:
   workflow_dispatch:
@@ -39,26 +40,28 @@ permissions:
   contents: read
 
 concurrency:
-  group: build-showcases-${{ inputs.app }}-${{ inputs.ref }}
+  group: build-showcases-${{ inputs.app }}-${{ github.event.inputs.ref || github.ref_name }}
   cancel-in-progress: false
 
 jobs:
   core:
-    if: ${{ inputs.app == 'showcases-core' }}
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.app == 'showcases-core' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with: { ref: ${{ inputs.ref }} }
+        with:
+          ref: ${{ inputs.ref }}
 
       - uses: actions/setup-node@v4
-        with: { node-version: 24 }
+        with:
+          node-version: 24
 
       - run: npm ci
 
       - name: Build showcases-core
         run: |
           if [ "${{ inputs.coreVariant }}" = "web" ]; then
-            npm run --workspace apps/showcases-core build:prod
+            npm run --workspace apps/showcases-core build:prod:web
           else
             npm run --workspace apps/showcases-core build:prod:desktop
           fi
@@ -72,16 +75,18 @@ jobs:
           retention-days: 14
 
   desktop_matrix_prep:
-    if: ${{ inputs.app == 'showcases-desktop' }}
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.app == 'showcases-desktop' }}
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.m.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
-        with: { ref: ${{ inputs.ref }} }
+        with:
+          ref: ${{ inputs.ref }}
 
       - uses: actions/setup-node@v4
-        with: { node-version: 24 }
+        with:
+          node-version: 24
 
       - run: npm ci
 
@@ -94,7 +99,7 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
   desktop:
-    if: ${{ inputs.app == 'showcases-desktop' }}
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.app == 'showcases-desktop' }}
     needs: [desktop_matrix_prep]
     strategy:
       fail-fast: false
@@ -103,10 +108,12 @@ jobs:
     runs-on: ${{ matrix.target.os }}
     steps:
       - uses: actions/checkout@v4
-        with: { ref: ${{ inputs.ref }} }
+        with:
+          ref: ${{ inputs.ref }}
 
       - uses: actions/setup-node@v4
-        with: { node-version: 24 }
+        with:
+          node-version: 24
 
       - run: npm ci
 

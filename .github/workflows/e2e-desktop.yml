@@ -1,6 +1,7 @@
 #Runs web E2E by "button"
 
 name: E2E Desktop (button)
+run-name: E2E Desktop (ref=${{ inputs.ref }}, updateSnapshots=${{ inputs.updateSnapshots }})
 
 on:
   workflow_dispatch:
@@ -27,20 +28,23 @@ permissions:
   contents: read
 
 concurrency:
-  group: e2e-desktop-${{ inputs.ref }}
+  group: e2e-desktop-${{ github.event.inputs.ref || github.ref_name }}
   cancel-in-progress: false
 
 jobs:
   matrix_prep:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.m.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
-        with: { ref: ${{ inputs.ref }} }
+        with:
+          ref: ${{ inputs.ref }}
 
       - uses: actions/setup-node@v4
-        with: { node-version: 24 }
+        with:
+          node-version: 24
 
       - run: npm ci
 
@@ -53,6 +57,7 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
   e2e:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     needs: [matrix_prep]
     strategy:
       fail-fast: false
@@ -62,10 +67,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with: { ref: ${{ inputs.ref }} }
+        with:
+          ref: ${{ inputs.ref }}
 
       - uses: actions/setup-node@v4
-        with: { node-version: 24 }
+        with:
+          node-version: 24
+
       - run: npm ci
 
       - name: Build showcases-core (desktop)
