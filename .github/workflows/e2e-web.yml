@@ -1,6 +1,6 @@
 #Runs web E2E by "button"
 
-name: E2E Web Manual
+name: E2E Web (button)
 run-name: E2E Web (ref=${{ inputs.ref }}, updateSnapshots=${{ inputs.updateSnapshots }})
 
 on:
@@ -21,7 +21,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: e2e-web-manual-${{ github.event.inputs.ref || github.ref_name }}
+  group: e2e-web-${{ github.event.inputs.ref || github.ref_name }}
   cancel-in-progress: false
 
 jobs:
