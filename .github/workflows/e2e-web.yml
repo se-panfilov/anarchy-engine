@@ -1,7 +1,7 @@
 #Runs web E2E by "button"
 
 name: E2E Web (button)
-run-name: E2E Web (ref=${{ inputs.ref }}, updateSnapshots=${{ inputs.updateSnapshots }})
+run-name: E2E Web (ref=${{ github.event.inputs.ref }}, updateSnapshots=${{ github.event.inputs.updateSnapshots }})
 
 on:
   workflow_dispatch:
@@ -21,11 +21,12 @@ permissions:
   contents: read
 
 concurrency:
-  group: e2e-web-${{ github.event.inputs.ref || github.ref_name }}
-  cancel-in-progress: false
+  group: e2e-web-${{ github.event.inputs.ref }}
+  cancel-in-progress: true
 
 jobs:
   e2e:
+    timeout-minutes: 30
     # Extra safety: this workflow must only run via the manual button
     if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
@@ -41,14 +42,41 @@ jobs:
 
       - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.ref }}
+          ref: ${{ github.event.inputs.ref }}
 
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
 
-      - run: npm ci
+      - name: Install deps
+        run: npm ci
+
+      - name: Detect Playwright version
+        id: pw
+        shell: bash
+        run: |
+          set -euo pipefail
+          node - <<'NODE' >> "$GITHUB_OUTPUT"
+          const p = require('./apps/showcases-e2e/package.json');
+          const v =
+            (p.devDependencies && (p.devDependencies['@playwright/test'] || p.devDependencies['playwright'])) ||
+            (p.dependencies && (p.dependencies['@playwright/test'] || p.dependencies['playwright'])) ||
+            'unknown';
+          console.log(`version=${v}`);
+          NODE
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-pw-${{ steps.pw.outputs.version }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-pw-${{ steps.pw.outputs.version }}-
+
+      - name: Install Playwright browsers (chromium only)
+        working-directory: apps/showcases-e2e
+        run: npx playwright install chromium --with-deps
 
       - name: Build showcases-core (web)
         run: npm run --workspace apps/showcases-core build:prod:web
@@ -57,7 +85,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [ "${{ inputs.updateSnapshots }}" = "true" ]; then
+          if [ "${{ github.event.inputs.updateSnapshots }}" = "true" ]; then
             npm run --workspace apps/showcases-e2e e2e:web -- --update-snapshots
           else
             npm run --workspace apps/showcases-e2e e2e:web
