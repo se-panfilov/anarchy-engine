@@ -26,8 +26,10 @@ concurrency:
 
 jobs:
   e2e:
+    # Extra safety: this workflow must only run via the manual button
     if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
+
     steps:
       - name: Debug trigger
         run: |
@@ -38,7 +40,8 @@ jobs:
           echo "input.updateSnapshots=${{ github.event.inputs.updateSnapshots }}"
 
       - uses: actions/checkout@v4
-        with: { ref: ${{ inputs.ref }} }
+        with:
+          ref: ${{ inputs.ref }}
 
       - uses: actions/setup-node@v4
         with:
