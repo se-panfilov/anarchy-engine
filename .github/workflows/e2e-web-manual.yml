@@ -20,11 +20,12 @@ permissions:
   contents: read
 
 concurrency:
-  group: e2e-web-manual-${{ inputs.ref }}
+  group: e2e-web-manual-${{ github.event.inputs.ref || github.ref_name }}
   cancel-in-progress: false
 
 jobs:
   e2e:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
       - name: Debug trigger
