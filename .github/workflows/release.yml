@@ -52,7 +52,7 @@ jobs:
       - name: Build release plan
         id: plan
         run: |
-          PLAN="$(RELEASE_MODE='${{ inputs.mode }}' RELEASE_WORKSPACE='${{ inputs.workspace }}' node ./scripts/release/anarchy-plan-from-tags.mjs)"
+          PLAN="$(RELEASE_MODE='${{ inputs.mode }}' RELEASE_WORKSPACE='${{ inputs.workspace }}' node ./scripts/release/plan-from-tags.mjs)"
           echo "plan<<EOF" >> $GITHUB_OUTPUT
           echo "$PLAN" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
@@ -62,4 +62,4 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_PLAN_JSON: ${{ steps.plan.outputs.plan }}
           DRY_RUN: ${{ inputs.dryRun && 'true' || 'false' }}
-        run: node ./scripts/release/anarchy-do-release.mjs
+        run: node ./scripts/release/do-release.mjs
