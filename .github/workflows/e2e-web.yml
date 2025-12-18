@@ -1,7 +1,7 @@
 #Runs web E2E by "button"
 
 name: E2E Web (button)
-run-name: E2E Web (ref=${{ inputs.ref }}, updateSnapshots=${{ inputs.updateSnapshots }})
+run-name: E2E Web (ref=${{ github.event.inputs.ref }}, updateSnapshots=${{ github.event.inputs.updateSnapshots }})
 
 on:
   workflow_dispatch:
@@ -22,10 +22,11 @@ permissions:
 
 concurrency:
   group: e2e-web-${{ github.event.inputs.ref || github.ref_name }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   e2e:
+    timeout-minutes: 30
     # Extra safety: this workflow must only run via the manual button
     if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
@@ -41,7 +42,7 @@ jobs:
 
       - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.ref }}
+          ref: ${{ github.event.inputs.ref }}
 
       - uses: actions/setup-node@v4
         with:
@@ -57,7 +58,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [ "${{ inputs.updateSnapshots }}" = "true" ]; then
+          if [ "${{ github.event.inputs.updateSnapshots }}" = "true" ]; then
             npm run --workspace apps/showcases-e2e e2e:web -- --update-snapshots
           else
             npm run --workspace apps/showcases-e2e e2e:web
