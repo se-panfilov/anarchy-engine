@@ -8,7 +8,7 @@ on:
       ref:
         type: string
         required: true
-        default: main
+        default: "main"
         description: "Branch/tag/sha to test"
       updateSnapshots:
         type: boolean
@@ -27,11 +27,21 @@ jobs:
   e2e:
     runs-on: ubuntu-latest
     steps:
+      - name: Debug trigger
+        run: |
+          echo "event=${{ github.event_name }}"
+          echo "actor=${{ github.actor }}"
+          echo "ref=${{ github.ref }}"
+          echo "input.ref=${{ github.event.inputs.ref }}"
+          echo "input.updateSnapshots=${{ github.event.inputs.updateSnapshots }}"
+
       - uses: actions/checkout@v4
         with: { ref: ${{ inputs.ref }} }
 
       - uses: actions/setup-node@v4
-        with: { node-version: 24 }
+        with:
+          node-version: 24
+          cache: npm
 
       - run: npm ci
 
@@ -39,7 +49,9 @@ jobs:
         run: npm run --workspace apps/showcases-core build:prod
 
       - name: Run E2E web
+        shell: bash
         run: |
+          set -euo pipefail
           if [ "${{ inputs.updateSnapshots }}" = "true" ]; then
             npm run --workspace apps/showcases-e2e e2e:web -- --update-snapshots
           else
