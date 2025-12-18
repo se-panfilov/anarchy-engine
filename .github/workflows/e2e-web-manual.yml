@@ -1,6 +1,7 @@
 #Runs web E2E by "button"
 
 name: E2E Web Manual
+run-name: E2E Web (ref=${{ inputs.ref }}, updateSnapshots=${{ inputs.updateSnapshots }})
 
 on:
   workflow_dispatch:
