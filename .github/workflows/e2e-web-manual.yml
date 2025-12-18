@@ -1,6 +1,6 @@
 #Runs web E2E by "button"
 
-name: E2E Web (button)
+name: E2E Web Manual
 
 on:
   workflow_dispatch:
@@ -20,7 +20,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: e2e-web-${{ inputs.ref }}
+  group: e2e-web-manual-${{ inputs.ref }}
   cancel-in-progress: false
 
 jobs:
