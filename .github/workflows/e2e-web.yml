@@ -1,7 +1,7 @@
 #Runs web E2E by "button"
 
 name: E2E Web (button)
-run-name: E2E Web (ref=${{ github.event.inputs.ref }}, updateSnapshots=${{ github.event.inputs.updateSnapshots }})
+run-name: E2E Web (ref=${{ github.event.inputs.ref }}, updateSnapshots=${{ github.event.inputs.updateSnapshots }}, failFast=${{ github.event.inputs.failFast }})
 
 on:
   workflow_dispatch:
@@ -16,6 +16,11 @@ on:
         required: true
         default: false
         description: "If true, runs E2E in snapshot-update mode (if your scripts support it)"
+      failFast:
+        type: boolean
+        required: true
+        default: true
+        description: "If true, stops the test run after the first failure (Playwright: --max-failures=1)"
 
 permissions:
   contents: read
@@ -39,6 +44,7 @@ jobs:
           echo "ref=${{ github.ref }}"
           echo "input.ref=${{ github.event.inputs.ref }}"
           echo "input.updateSnapshots=${{ github.event.inputs.updateSnapshots }}"
+          echo "input.failFast=${{ github.event.inputs.failFast }}"
 
       - uses: actions/checkout@v4
         with:
@@ -85,10 +91,16 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+
+          EXTRA_ARGS=()
+          if [ "${{ github.event.inputs.failFast }}" = "true" ]; then
+            EXTRA_ARGS+=("--max-failures=1")
+          fi
+
           if [ "${{ github.event.inputs.updateSnapshots }}" = "true" ]; then
-            npm run --workspace apps/showcases-e2e e2e:web -- --update-snapshots
+            npm run --workspace apps/showcases-e2e e2e:web -- --update-snapshots "${EXTRA_ARGS[@]}"
           else
-            npm run --workspace apps/showcases-e2e e2e:web
+            npm run --workspace apps/showcases-e2e e2e:web -- "${EXTRA_ARGS[@]}"
           fi
 
       - name: Upload Playwright report (if exists)
