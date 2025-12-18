@@ -12,6 +12,7 @@ on:
       - "**/node_modules/**"
   pull_request:
     branches: [ "main" ]
+    types: [opened, reopened, synchronize, ready_for_review]
     paths-ignore:
       - "**/compliance/**"
       - "**/legal/**"
@@ -28,6 +29,8 @@ concurrency:
 
 jobs:
   analyze:
+    # Skip draft PRs
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.draft == false }}
     name: Analyze (${{ matrix.language }})
     runs-on: ubuntu-latest
 
