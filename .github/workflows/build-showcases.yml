@@ -61,7 +61,7 @@ jobs:
       - name: Build showcases-core
         run: |
           if [ "${{ inputs.coreVariant }}" = "web" ]; then
-            npm run --workspace apps/showcases-core build:prod
+            npm run --workspace apps/showcases-core build:prod:web
           else
             npm run --workspace apps/showcases-core build:prod:desktop
           fi

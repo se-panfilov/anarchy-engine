@@ -51,7 +51,7 @@ jobs:
       - run: npm ci
 
       - name: Build showcases-core (web)
-        run: npm run --workspace apps/showcases-core build:prod
+        run: npm run --workspace apps/showcases-core build:prod:web
 
       - name: Run E2E web
         shell: bash
