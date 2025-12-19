@@ -150,7 +150,7 @@ jobs:
         with:
           name: playwright-report-web-${{ github.run_id }}
           path: |
-            apps/showcases-e2e/playwright-report/**
-            apps/showcases-e2e/test-results/**
+            apps/showcases-e2e/reports/playwright-report/**
+            apps/showcases-e2e/reports/test-results/**
           if-no-files-found: ignore
           retention-days: 14
