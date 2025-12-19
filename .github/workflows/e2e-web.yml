@@ -1,7 +1,7 @@
 #Runs web E2E by "button"
 
 name: E2E Web (button)
-run-name: E2E Web (ref=${{ github.event.inputs.ref }}, updateSnapshots=${{ github.event.inputs.updateSnapshots }}, failFast=${{ github.event.inputs.failFast }})
+run-name: E2E Web (ref=${{ github.event.inputs.ref }}, updateSnapshots=${{ github.event.inputs.updateSnapshots }}, failFast=${{ github.event.inputs.failFast }}, deepDebug=${{ github.event.inputs.deepDebug }})
 
 on:
   workflow_dispatch:
@@ -15,18 +15,23 @@ on:
         type: boolean
         required: true
         default: false
-        description: "If true, runs E2E in snapshot-update mode (if your scripts support it)"
+        description: "Snapshot-update mode"
       failFast:
         type: boolean
         required: true
         default: true
-        description: "If true, stops the test run after the first failure (Playwright: --max-failures=1)"
+        description: "Stop after the first failure"
+      deepDebug:
+        type: boolean
+        required: true
+        default: false
+        description: "Deep debug (very verbose)"
       reporter:
         type: choice
         required: true
         default: line
         options: [ line, list, dot ]
-        description: "Playwright reporter for console output"
+        description: "Reporter (console output)"
 
 permissions:
   contents: read
@@ -51,6 +56,7 @@ jobs:
           echo "input.ref=${{ github.event.inputs.ref }}"
           echo "input.updateSnapshots=${{ github.event.inputs.updateSnapshots }}"
           echo "input.failFast=${{ github.event.inputs.failFast }}"
+          echo "input.deepDebug=${{ github.event.inputs.deepDebug }}"
 
       - uses: actions/checkout@v4
         with:
@@ -60,35 +66,56 @@ jobs:
         with:
           node-version: 24
           cache: npm
+          # Explicit for workspaces/monorepos: use the same lockfile that `npm ci` consumes
+          cache-dependency-path: package-lock.json
 
       - name: Install deps
         run: npm ci
 
-      - name: Detect Playwright version
+      - name: Detect installed Playwright version
         id: pw
         shell: bash
         run: |
           set -euo pipefail
           node - <<'NODE' >> "$GITHUB_OUTPUT"
-          const p = require('./apps/showcases-e2e/package.json');
-          const v =
-            (p.devDependencies && (p.devDependencies['@playwright/test'] || p.devDependencies['playwright'])) ||
-            (p.dependencies && (p.dependencies['@playwright/test'] || p.dependencies['playwright'])) ||
-            'unknown';
+          const fs = require('fs');
+          const path = require('path');
+
+          function readVersion(pkgName) {
+            try {
+              const pkgPath = require.resolve(path.posix.join(pkgName, 'package.json'));
+              return JSON.parse(fs.readFileSync(pkgPath, 'utf8')).version;
+            } catch {
+              return null;
+            }
+          }
+
+          // Prefer @playwright/test when present, otherwise fall back to playwright.
+          const v = readVersion('@playwright/test') || readVersion('playwright') || 'unknown';
           console.log(`version=${v}`);
           NODE
 
       - name: Cache Playwright browsers
         uses: actions/cache@v4
         with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-pw-${{ steps.pw.outputs.version }}-${{ hashFiles('**/package-lock.json') }}
+          # Cache browsers under a repo-local path so it works consistently across OSes.
+          path: .playwright-browsers
+          key: ${{ runner.os }}-node24-pw-${{ steps.pw.outputs.version }}-${{ hashFiles('package-lock.json', 'apps/showcases-e2e/playwright.config.ts') }}
           restore-keys: |
-            ${{ runner.os }}-pw-${{ steps.pw.outputs.version }}-
+            ${{ runner.os }}-node24-pw-${{ steps.pw.outputs.version }}-
+            ${{ runner.os }}-node24-pw-
 
       - name: Install Playwright browsers (chromium only)
         working-directory: apps/showcases-e2e
-        run: npx playwright install chromium --with-deps
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.playwright-browsers
+        run: |
+          set -euo pipefail
+          if [ "${RUNNER_OS}" = "Linux" ]; then
+            npx playwright install chromium --with-deps
+          else
+            npx playwright install chromium
+          fi
 
       - name: Build showcases-core (web)
         run: npm run --workspace apps/showcases-core build:prod:web
@@ -96,11 +123,14 @@ jobs:
       - name: Run E2E web
         shell: bash
         env:
-          # Optional: uncomment when you need deep debug (VERY noisy)
-          # DEBUG: pw:api
           FORCE_COLOR: "1"
+          PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.playwright-browsers
         run: |
           set -euo pipefail
+
+          if [ "${{ github.event.inputs.deepDebug }}" = "true" ]; then
+            export DEBUG="pw:api"
+          fi
 
           EXTRA_ARGS=("--reporter=${{ github.event.inputs.reporter }}")
 
