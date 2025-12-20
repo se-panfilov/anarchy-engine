@@ -30,6 +30,13 @@ export default defineConfig({
     trace: 'on-first-retry'
   },
 
+  expect: {
+    toHaveScreenshot: {
+      // Make sure screenshots will be compared the same way regardless of monitor's scale factor (retina, etc.)
+      scale: 'css'
+    }
+  },
+
   /* Configure projects for major browsers */
   projects: [
     {
