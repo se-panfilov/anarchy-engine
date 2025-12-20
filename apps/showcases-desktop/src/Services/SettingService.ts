@@ -120,9 +120,9 @@ export function SettingsService(app: App, { filesService, windowService }: TSett
   return {
     applyPlatformSettings,
     detectResolution,
-    getPreferredLocales,
     getAppSettings,
-    updateAppSettings,
-    setAppSettings
+    getPreferredLocales,
+    setAppSettings,
+    updateAppSettings
   };
 }

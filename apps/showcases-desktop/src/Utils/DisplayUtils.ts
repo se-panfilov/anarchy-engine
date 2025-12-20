@@ -26,7 +26,7 @@ export function getDisplayInfo(display: Display = screen.getPrimaryDisplay()): T
 
 export function getWindowSizeSafe(display: Display = screen.getPrimaryDisplay(), scale: number = 0.88, min: TResolution = { width: 320, height: 200 }): TResolution {
   const { width, height } = getDisplayInfo(display);
-  const safeScale = clamp(scale, 0.5, 1.0);
+  const safeScale: number = clamp(scale, 0.5, 1.0);
 
   const targetW: number = Math.floor(width * safeScale);
   const targetH: number = Math.floor(height * safeScale);

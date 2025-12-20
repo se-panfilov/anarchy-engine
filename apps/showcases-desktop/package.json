@@ -2,7 +2,7 @@
   "name": "showcases-desktop",
   "author": "S. Panfilov",
   "private": true,
-  "version": "2.12.1",
+  "version": "2.12.2",
   "description": "Anarchy Desktop Showcases  – a desktop wrapper-application for showcases-core.",
   "keywords": [
     "anarchy",
@@ -89,6 +89,7 @@
     "start:dev:linux": "node ./scripts/start.js --mode=dev.linux",
     "start:dev:mac": "node ./scripts/start.js --mode=dev.mac",
     "start:dev:win": "node ./scripts/start.js --mode=dev.win",
+    "start:e2e:mac": "node ./scripts/start.js --mode=e2e.mac",
     "start:prod:linux": "node ./scripts/start.js --mode=prod.linux",
     "start:prod:mac": "node ./scripts/start.js --mode=prod.mac",
     "start:prod:win": "node ./scripts/start.js --mode=prod.win",
