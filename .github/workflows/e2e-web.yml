@@ -1,6 +1,6 @@
 #Runs web E2E by "button"
 
-name: E2E Web (button)
+name: E2E Web (manual run)
 run-name: E2E Web (ref=${{ github.event.inputs.ref }}, updateSnapshots=${{ github.event.inputs.updateSnapshots }}, failFast=${{ github.event.inputs.failFast }}, deepDebug=${{ github.event.inputs.deepDebug }})
 
 on:
@@ -34,7 +34,8 @@ on:
         description: "Reporter (console output)"
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
 
 concurrency:
   group: e2e-web-${{ github.event.inputs.ref }}
@@ -57,10 +58,44 @@ jobs:
           echo "input.updateSnapshots=${{ github.event.inputs.updateSnapshots }}"
           echo "input.failFast=${{ github.event.inputs.failFast }}"
           echo "input.deepDebug=${{ github.event.inputs.deepDebug }}"
+          echo "input.reporter=${{ github.event.inputs.reporter }}"
+
+      - name: Verify actor permission (must be collaborator with write+)
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          perm="$(gh api "repos/${{ github.repository }}/collaborators/${{ github.actor }}/permission" --jq .permission || true)"
+          echo "actor_permission=$perm"
+          case "$perm" in
+            admin|maintain|write) ;;
+            *)
+              echo "::error::Actor '${{ github.actor }}' is not allowed to run snapshot PR workflow (need write/maintain/admin)."
+              exit 1
+              ;;
+          esac
+
+      - name: Verify ref is a branch (required for snapshot PR)
+        if: ${{ github.event.inputs.updateSnapshots == 'true' }}
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          ref="${{ github.event.inputs.ref }}"
+          if gh api "repos/${{ github.repository }}/git/ref/heads/${ref}" >/dev/null 2>&1; then
+            echo "Ref is a branch: $ref"
+          else
+            echo "::error::updateSnapshots=true requires 'ref' to be a BRANCH name (not tag/sha). Got: $ref"
+            exit 1
+          fi
 
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.ref }}
+          fetch-depth: 0
+          persist-credentials: true
 
       - uses: actions/setup-node@v4
         with:
@@ -143,6 +178,45 @@ jobs:
           else
             npm run --workspace apps/showcases-e2e e2e:web -- "${EXTRA_ARGS[@]}"
           fi
+
+      - name: Create PR with updated snapshots (web)
+        if: ${{ success() && github.event.inputs.updateSnapshots == 'true' }}
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          REF="${{ github.event.inputs.ref }}"
+          SAFE_REF="$(echo "$REF" | tr '/' '-' | tr -cd 'A-Za-z0-9._-')"
+          BRANCH="bot/snapshots/web/${SAFE_REF}/run-${{ github.run_id }}"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git switch -c "$BRANCH"
+
+          # Add only snapshot-related area (adjust later if you move snapshots elsewhere)
+          git add apps/showcases-e2e/src/web
+
+          if git diff --cached --quiet; then
+            echo "No snapshot changes detected. Skipping PR."
+            exit 0
+          fi
+
+          git commit -m "chore(e2e): update web snapshots (ref=${REF}, run=${{ github.run_id }})"
+          git push --set-upstream origin "$BRANCH"
+
+          TITLE="chore(e2e): update web snapshots (${REF})"
+          BODY=$'Automated snapshot update from CI.\n\n'
+          BODY+=$'- Ref: '"${REF}"$'\n'
+          BODY+=$'- Run: '"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"$'\n'
+
+          gh pr create \
+            --base "$REF" \
+            --head "$BRANCH" \
+            --title "$TITLE" \
+            --body "$BODY"
 
       - name: Upload Playwright report (if exists)
         if: always()
