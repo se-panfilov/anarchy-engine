@@ -148,7 +148,7 @@ jobs:
           console.log(`version=${v}`);
           NODE
 
-      - name: Cache Playwright browsers
+      - name: Cache Playwright browsers (optional)
         uses: actions/cache@v4
         with:
           path: .playwright-browsers
@@ -157,18 +157,23 @@ jobs:
             ${{ runner.os }}-node24-pw-${{ steps.pw.outputs.version }}-
             ${{ runner.os }}-node24-pw-
 
-      - name: Install Playwright browsers (chromium only)
-        working-directory: apps/showcases-e2e
-        shell: bash
-        env:
-          PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.playwright-browsers
-        run: |
-          set -euo pipefail
-          if [ "${RUNNER_OS}" = "Linux" ]; then
-            npx playwright install chromium --with-deps
-          else
-            npx playwright install chromium
-          fi
+      # NOTE:
+      # Desktop E2E may not require Playwright browser downloads (depends on your setup).
+      # If you see errors like "browserType.launch: Executable doesn't exist" or missing Chromium,
+      # uncomment this block.
+      #
+      # - name: Install Playwright browsers (chromium only) [OPTIONAL]
+      #   working-directory: apps/showcases-e2e
+      #   shell: bash
+      #   env:
+      #     PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.playwright-browsers
+      #   run: |
+      #     set -euo pipefail
+      #     if [ "${RUNNER_OS}" = "Linux" ]; then
+      #       npx playwright install chromium --with-deps
+      #     else
+      #       npx playwright install chromium
+      #     fi
 
       - name: Build showcases-core (desktop)
         shell: bash
@@ -187,6 +192,7 @@ jobs:
         shell: bash
         env:
           FORCE_COLOR: "1"
+          # Safe even if browsers aren't installed/used.
           PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.playwright-browsers
         run: |
           set -euo pipefail
