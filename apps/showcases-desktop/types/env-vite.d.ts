@@ -11,6 +11,8 @@ interface ImportMetaEnv {
   VITE_RELEASE_NAME_PREFIX: string;
   VITE_IS_DEV_TOOL_OPEN: string | undefined; // should be cast to boolean
   VITE_DIST_NAME: string;
+  VITE_IS_FORCE_DPR: string; // should be cast to boolean
+  VITE_HIGH_DPI_SUPPORT: string; // should be cast to number
 }
 
 interface ImportMeta {

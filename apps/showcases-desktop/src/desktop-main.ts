@@ -12,7 +12,9 @@ import { app, ipcMain } from 'electron';
 const isDevToolsStr: string = app.commandLine.getSwitchValue('dev-tools');
 
 const desktopAppSettings: TDesktopAppConfig = {
-  isOpenDevTools: isDevToolsStr === 'true' || import.meta.env.VITE_IS_DEV_TOOL_OPEN === 'true' || false
+  isOpenDevTools: isDevToolsStr === 'true' || import.meta.env.VITE_IS_DEV_TOOL_OPEN === 'true' || false,
+  isForceDpr: import.meta.env.VITE_IS_FORCE_DPR === 'true' || false,
+  highDpiSupport: import.meta.env.VITE_HIGH_DPI_SUPPORT ? Number(import.meta.env.VITE_HIGH_DPI_SUPPORT) : undefined
 };
 
 // TODO DESKTOP: Linux: make sure we can build the project
@@ -38,6 +40,12 @@ const settingsService: TSettingsService = SettingsService(app, { filesService, w
 const docsService: TDocsService = DocsService(filesService);
 
 ipcMain.handle(platformApiChannel, (event: IpcMainInvokeEvent, ...args: [PlatformActions | string, unknown]) => handleAppRequest({ settingsService, docsService, desktopAppService }, event, args));
+
+// Set DPR and High DPI support if needed (mostly for E2E-screenshots tests, to make them the same on different devices)
+if (desktopAppSettings.isForceDpr) {
+  app.commandLine.appendSwitch('force-device-scale-factor', String(desktopAppSettings.isForceDpr));
+  app.commandLine.appendSwitch('high-dpi-support', String(desktopAppSettings.highDpiSupport));
+}
 
 app.whenReady().then(async (): Promise<void> => {
   const initialWindowSize: TResolution = getWindowSizeSafe();
