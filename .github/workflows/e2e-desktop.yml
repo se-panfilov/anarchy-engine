@@ -47,8 +47,9 @@ permissions:
   contents: read
 
 concurrency:
-  group: e2e-desktop-${{ github.event.inputs.ref }}
-  cancel-in-progress: true
+  group: e2e-desktop-${{ github.event.inputs.ref }}-${{ github.event.inputs.e2eTargets }}
+  cancel-in-progress: false
+
 
 jobs:
   matrix_prep:
