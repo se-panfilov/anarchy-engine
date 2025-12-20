@@ -1,6 +1,11 @@
 import { defineConfig, devices } from '@playwright/test';
+import path from 'node:path';
 
 import { nodeEnv } from './src/env';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -42,12 +47,19 @@ export default defineConfig({
     {
       name: 'web', //chromium
       testDir: './src/web',
-      use: { ...devices['Desktop Chrome'] }
+      use: { ...devices['Desktop Chrome'] },
+
+      snapshotDir: path.resolve(__dirname, 'src', 'web')
     },
 
     {
       name: 'desktop',
-      testDir: './src/desktop'
+      testDir: './src/desktop',
+      // Screenshots go under src/desktop/<win|mac|linux>/...
+      snapshotDir: path.resolve(__dirname, 'src', 'desktop', resolveDesktopSnapshotPlatform()),
+
+      // Safety: ignore snapshot folders if they exist under src/desktop
+      testIgnore: ['**/win/**', '**/mac/**', '**/linux/**']
     }
 
     // {
@@ -96,3 +108,23 @@ export default defineConfig({
     reuseExistingServer: !nodeEnv.CI
   }
 });
+
+function resolveDesktopSnapshotPlatform(): 'win' | 'mac' | 'linux' {
+  const raw = (process.env.E2E_SNAPSHOT_PLATFORM || '').toLowerCase().trim();
+
+  // Prefer explicit env (from CI), fall back to runtime platform (local runs).
+  if (raw) {
+    if (raw === 'win' || raw === 'windows' || raw === 'win32') return 'win';
+    if (raw === 'mac' || raw === 'osx' || raw === 'darwin') return 'mac';
+    if (raw === 'linux') return 'linux';
+  }
+
+  switch (process.platform) {
+    case 'win32':
+      return 'win';
+    case 'darwin':
+      return 'mac';
+    default:
+      return 'linux';
+  }
+}
