@@ -23,8 +23,18 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: `http://localhost:${nodeEnv.PORT}`,
 
+    // Make sure screenshots will have the same size, regardless of monitor's scale factor (retina, etc.)
+    deviceScaleFactor: 1,
+
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry'
+  },
+
+  expect: {
+    toHaveScreenshot: {
+      // Make sure screenshots will be compared the same way regardless of monitor's scale factor (retina, etc.)
+      scale: 'css'
+    }
   },
 
   /* Configure projects for major browsers */
