@@ -3,6 +3,7 @@ import { existsSync } from 'node:fs';
 import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import { FullScreenMode } from '@Showcases/Desktop/Constants/FullScreenModes';
 import type { TDesktopAppConfig, TWindowService } from '@Showcases/Desktop/Models';
+import type { TResolution } from '@Showcases/Shared';
 import { app, BrowserWindow, dialog } from 'electron';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
@@ -99,6 +100,11 @@ export function WindowService(): TWindowService {
     }
   }
 
+  function setWindowSize({ width, height }: TResolution): void {
+    const win: BrowserWindow = getWindow();
+    win.setSize(width, height);
+  }
+
   function isFullScreen(): boolean {
     const win: BrowserWindow = getWindow();
     const mode: FullScreenMode = getFullScreenMode();
@@ -120,6 +126,7 @@ export function WindowService(): TWindowService {
     getIndexHtmlPath,
     getWindow,
     isFullScreen,
-    setFullScreen
+    setFullScreen,
+    setWindowSize
   };
 }

@@ -1,3 +1,4 @@
+import { isDefined } from '@Anarchy/Shared/Utils';
 import type { PlatformActions } from '@Showcases/Desktop/Constants';
 import { appBeforeQuitHandler, appCrashHandler, appWindowAllClosedHandler, windowNavigateHandler, windowReadyToShow, windowSecondInstanceHandler } from '@Showcases/Desktop/EventHandlers';
 import type { TDesktopAppConfig, TDesktopAppService, TDocsService, TFilesService, TSettingsService, TWindowService } from '@Showcases/Desktop/Models';
@@ -44,6 +45,7 @@ app.whenReady().then(async (): Promise<void> => {
 
   //Note: Do not "await" before window creation (cause problems in production – invisible window)
   const settings: TShowcaseGameSettings = await settingsService.getAppSettings();
+  if (isDefined(settings.graphics.resolution)) windowService.setWindowSize(settings.graphics.resolution);
 
   windowReadyToShow(win, settings, windowService);
   appWindowAllClosedHandler(app);
