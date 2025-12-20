@@ -4,8 +4,8 @@ import path from 'node:path';
 import { nodeEnv } from './src/env';
 import { fileURLToPath } from 'node:url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename: string = fileURLToPath(import.meta.url);
+const __dirname: string = path.dirname(__filename);
 
 /**
  * See https://playwright.dev/docs/test-configuration.
