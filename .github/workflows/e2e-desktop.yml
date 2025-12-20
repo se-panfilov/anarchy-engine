@@ -1,7 +1,7 @@
-#Runs web E2E by "button"
+# Runs desktop E2E by "button"
 
 name: E2E Desktop (button)
-run-name: E2E Desktop (ref=${{ inputs.ref }}, updateSnapshots=${{ inputs.updateSnapshots }})
+run-name: E2E Desktop (ref=${{ github.event.inputs.ref }}, targets=${{ github.event.inputs.e2eTargets }}, updateSnapshots=${{ github.event.inputs.updateSnapshots }}, failFast=${{ github.event.inputs.failFast }}, deepDebug=${{ github.event.inputs.deepDebug }})
 
 on:
   workflow_dispatch:
@@ -16,49 +16,88 @@ on:
         type: string
         required: true
         default: "mac:app:arm64"
-        description: "Targets for E2E build: mac:app:arm64,win:app:x64,linux:app:x64 (format: platform:artifact:arch)"
+        description: "Targets: platform:artifact:arch (e.g. mac:app:arm64,win:app:x64,linux:app:x64)"
 
       updateSnapshots:
         type: boolean
         required: true
         default: false
-        description: "If true, runs E2E in snapshot-update mode (if your scripts support it)"
+        description: "Snapshot-update mode"
+
+      failFast:
+        type: boolean
+        required: true
+        default: true
+        description: "Stop after the first failure"
+
+      deepDebug:
+        type: boolean
+        required: true
+        default: false
+        description: "Deep debug (very verbose)"
+
+      reporter:
+        type: choice
+        required: true
+        default: line
+        options: [ line, list, dot ]
+        description: "Reporter (console output)"
 
 permissions:
   contents: read
 
 concurrency:
-  group: e2e-desktop-${{ github.event.inputs.ref || github.ref_name }}
-  cancel-in-progress: false
+  group: e2e-desktop-${{ github.event.inputs.ref }}
+  cancel-in-progress: true
 
 jobs:
   matrix_prep:
+    # Extra safety: this workflow must only run via the manual button
     if: ${{ github.event_name == 'workflow_dispatch' }}
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.m.outputs.matrix }}
     steps:
+      - name: Debug trigger
+        run: |
+          echo "event=${{ github.event_name }}"
+          echo "actor=${{ github.actor }}"
+          echo "ref=${{ github.ref }}"
+          echo "input.ref=${{ github.event.inputs.ref }}"
+          echo "input.e2eTargets=${{ github.event.inputs.e2eTargets }}"
+          echo "input.updateSnapshots=${{ github.event.inputs.updateSnapshots }}"
+          echo "input.failFast=${{ github.event.inputs.failFast }}"
+          echo "input.deepDebug=${{ github.event.inputs.deepDebug }}"
+          echo "input.reporter=${{ github.event.inputs.reporter }}"
+
       - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.ref }}
+          ref: ${{ github.event.inputs.ref }}
 
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+          cache: npm
+          cache-dependency-path: package-lock.json
 
-      - run: npm ci
+      - name: Install deps
+        run: npm ci
 
       - name: Build matrix from input
         id: m
+        shell: bash
         run: |
-          MATRIX="$(DESKTOP_TARGETS='${{ inputs.e2eTargets }}' DESKTOP_ENV='e2e' node ./scripts/release/desktop-targets-to-matrix.mjs)"
-          echo "matrix<<EOF" >> $GITHUB_OUTPUT
-          echo "$MATRIX" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          set -euo pipefail
+          MATRIX="$(DESKTOP_TARGETS='${{ github.event.inputs.e2eTargets }}' DESKTOP_ENV='e2e' node ./scripts/release/desktop-targets-to-matrix.mjs)"
+          echo "matrix<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$MATRIX" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
 
   e2e:
     if: ${{ github.event_name == 'workflow_dispatch' }}
     needs: [matrix_prep]
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
@@ -66,15 +105,75 @@ jobs:
     runs-on: ${{ matrix.target.os }}
 
     steps:
+      - name: Debug target
+        run: |
+          echo "os=${{ matrix.target.os }}"
+          echo "platform=${{ matrix.target.platform }}"
+          echo "artifact=${{ matrix.target.artifact }}"
+          echo "arch=${{ matrix.target.arch }}"
+          echo "ref=${{ github.event.inputs.ref }}"
+
       - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.ref }}
+          ref: ${{ github.event.inputs.ref }}
 
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+          cache: npm
+          cache-dependency-path: package-lock.json
 
-      - run: npm ci
+      - name: Install deps
+        run: npm ci
+
+      - name: Detect installed Playwright version
+        id: pw
+        shell: bash
+        run: |
+          set -euo pipefail
+          node - <<'NODE' >> "$GITHUB_OUTPUT"
+          const fs = require('fs');
+          const path = require('path');
+
+          function readVersion(pkgName) {
+            try {
+              const pkgPath = require.resolve(path.posix.join(pkgName, 'package.json'));
+              return JSON.parse(fs.readFileSync(pkgPath, 'utf8')).version;
+            } catch {
+              return null;
+            }
+          }
+
+          const v = readVersion('@playwright/test') || readVersion('playwright') || 'unknown';
+          console.log(`version=${v}`);
+          NODE
+
+      - name: Cache Playwright browsers (optional)
+        uses: actions/cache@v4
+        with:
+          path: .playwright-browsers
+          key: ${{ runner.os }}-node24-pw-${{ steps.pw.outputs.version }}-${{ hashFiles('package-lock.json', 'apps/showcases-e2e/playwright.config.ts') }}
+          restore-keys: |
+            ${{ runner.os }}-node24-pw-${{ steps.pw.outputs.version }}-
+            ${{ runner.os }}-node24-pw-
+
+      # NOTE:
+      # Desktop E2E may not require Playwright browser downloads (depends on your setup).
+      # If you see errors like "browserType.launch: Executable doesn't exist" or missing Chromium,
+      # uncomment this block.
+      #
+      # - name: Install Playwright browsers (chromium only) [OPTIONAL]
+      #   working-directory: apps/showcases-e2e
+      #   shell: bash
+      #   env:
+      #     PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.playwright-browsers
+      #   run: |
+      #     set -euo pipefail
+      #     if [ "${RUNNER_OS}" = "Linux" ]; then
+      #       npx playwright install chromium --with-deps
+      #     else
+      #       npx playwright install chromium
+      #     fi
 
       - name: Build showcases-core (desktop)
         shell: bash
@@ -91,11 +190,27 @@ jobs:
 
       - name: Run E2E desktop
         shell: bash
+        env:
+          FORCE_COLOR: "1"
+          # Safe even if browsers aren't installed/used.
+          PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.playwright-browsers
         run: |
-          if [ "${{ inputs.updateSnapshots }}" = "true" ]; then
-            npm run --workspace apps/showcases-e2e e2e:desktop -- --update-snapshots
+          set -euo pipefail
+
+          if [ "${{ github.event.inputs.deepDebug }}" = "true" ]; then
+            export DEBUG="pw:api"
+          fi
+
+          EXTRA_ARGS=("--reporter=${{ github.event.inputs.reporter }}")
+
+          if [ "${{ github.event.inputs.failFast }}" = "true" ]; then
+            EXTRA_ARGS+=("--max-failures=1")
+          fi
+
+          if [ "${{ github.event.inputs.updateSnapshots }}" = "true" ]; then
+            npm run --workspace apps/showcases-e2e e2e:desktop -- --update-snapshots "${EXTRA_ARGS[@]}"
           else
-            npm run --workspace apps/showcases-e2e e2e:desktop
+            npm run --workspace apps/showcases-e2e e2e:desktop -- "${EXTRA_ARGS[@]}"
           fi
 
       - name: Upload Playwright report (if exists)
@@ -104,7 +219,7 @@ jobs:
         with:
           name: playwright-report-desktop-${{ matrix.target.platform }}-${{ matrix.target.arch }}-${{ github.run_id }}
           path: |
-            apps/showcases-e2e/playwright-report/**
-            apps/showcases-e2e/test-results/**
+            apps/showcases-e2e/reports/e2e/playwright-report/**
+            apps/showcases-e2e/reports/e2e/test-results/**
           if-no-files-found: ignore
           retention-days: 14
