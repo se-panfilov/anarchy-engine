@@ -13,10 +13,25 @@ on:
         description: "Branch/tag/sha to test"
 
       e2eTargets:
-        type: string
+        type: choice
         required: true
         default: "mac:app:arm64"
-        description: "Targets: platform:artifact:arch (e.g. mac:app:arm64,win:app:x64,linux:app:x64)"
+        options:
+          - "linux:app:arm64"
+          - "linux:app:x64"
+          - "linux:appimage:arm64"
+          - "linux:appimage:x64"
+          - "mac:app:arm64"
+          - "mac:app:universal"
+          - "mac:app:x64"
+          - "mac:dmg:arm64"
+          - "mac:dmg:universal"
+          - "mac:dmg:x64"
+          - "win:app:arm64"
+          - "win:app:x64"
+          - "win:nsis:arm64"
+          - "win:nsis:x64"
+        description: "Target: platform:artifact:arch"
 
       updateSnapshots:
         type: boolean
