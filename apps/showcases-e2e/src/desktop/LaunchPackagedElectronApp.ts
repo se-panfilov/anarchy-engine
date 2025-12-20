@@ -5,7 +5,7 @@ import type { TDesktopAppLaunchResult } from '@Showcases/E2E/Models';
 const VIEWPORT = { width: 800, height: 600 };
 
 export async function launchPackagedElectronApp(): Promise<TDesktopAppLaunchResult> {
-  const executablePath: string | undefined = process.env.DESKTOP_E2E_APP_PATH;
+  const executablePath: string | undefined = process.env.DESKTOP_E2E_MAC_APP_PATH;
   if (!executablePath) throw new Error('DESKTOP_E2E_APP_PATH env variable is required for packaged Electron tests');
 
   const args = [`--width=${VIEWPORT.width}`, `--height=${VIEWPORT.height}`, '--fullscreen=false', '--dev-tools=false'];
