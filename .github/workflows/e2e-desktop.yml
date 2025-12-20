@@ -247,6 +247,7 @@ jobs:
           FORCE_COLOR: "1"
           # Safe even if browsers aren't installed/used.
           PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.playwright-browsers
+          E2E_SNAPSHOT_PLATFORM: ${{ matrix.target.platform }}
         run: |
           set -euo pipefail
 
