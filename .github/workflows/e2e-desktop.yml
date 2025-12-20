@@ -1,6 +1,6 @@
 # Runs desktop E2E by "button"
 
-name: E2E Desktop (button)
+name: E2E Desktop (manual run)
 run-name: E2E Desktop (ref=${{ github.event.inputs.ref }}, targets=${{ github.event.inputs.e2eTargets }}, updateSnapshots=${{ github.event.inputs.updateSnapshots }}, failFast=${{ github.event.inputs.failFast }}, deepDebug=${{ github.event.inputs.deepDebug }})
 
 on:
@@ -59,9 +59,11 @@ on:
         description: "Reporter (console output)"
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
 
 concurrency:
+  # Important: do NOT cancel previous runs; allow parallel runs for different targets
   group: e2e-desktop-${{ github.event.inputs.ref }}-${{ github.event.inputs.e2eTargets }}
   cancel-in-progress: false
 
@@ -87,9 +89,42 @@ jobs:
           echo "input.deepDebug=${{ github.event.inputs.deepDebug }}"
           echo "input.reporter=${{ github.event.inputs.reporter }}"
 
+      - name: Verify actor permission (must be collaborator with write+)
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          perm="$(gh api "repos/${{ github.repository }}/collaborators/${{ github.actor }}/permission" --jq .permission || true)"
+          echo "actor_permission=$perm"
+          case "$perm" in
+            admin|maintain|write) ;;
+            *)
+              echo "::error::Actor '${{ github.actor }}' is not allowed to run snapshot PR workflow (need write/maintain/admin)."
+              exit 1
+              ;;
+          esac
+
+      - name: Verify ref is a branch (required for snapshot PR)
+        if: ${{ github.event.inputs.updateSnapshots == 'true' }}
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          ref="${{ github.event.inputs.ref }}"
+          if gh api "repos/${{ github.repository }}/git/ref/heads/${ref}" >/dev/null 2>&1; then
+            echo "Ref is a branch: $ref"
+          else
+            echo "::error::updateSnapshots=true requires 'ref' to be a BRANCH name (not tag/sha). Got: $ref"
+            exit 1
+          fi
+
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.ref }}
+          fetch-depth: 0
+          persist-credentials: true
 
       - uses: actions/setup-node@v4
         with:
@@ -112,7 +147,7 @@ jobs:
 
   e2e:
     if: ${{ github.event_name == 'workflow_dispatch' }}
-    needs: [matrix_prep]
+    needs: [ matrix_prep ]
     timeout-minutes: 30
     strategy:
       fail-fast: false
@@ -132,6 +167,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.ref }}
+          fetch-depth: 0
+          persist-credentials: true
 
       - uses: actions/setup-node@v4
         with:
@@ -210,6 +247,7 @@ jobs:
           FORCE_COLOR: "1"
           # Safe even if browsers aren't installed/used.
           PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.playwright-browsers
+          E2E_SNAPSHOT_PLATFORM: ${{ matrix.target.platform }}
         run: |
           set -euo pipefail
 
@@ -228,6 +266,50 @@ jobs:
           else
             npm run --workspace apps/showcases-e2e e2e:desktop -- "${EXTRA_ARGS[@]}"
           fi
+
+      - name: Create PR with updated snapshots (desktop)
+        if: ${{ success() && github.event.inputs.updateSnapshots == 'true' }}
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          REF="${{ github.event.inputs.ref }}"
+          SAFE_REF="$(echo "$REF" | tr '/' '-' | tr -cd 'A-Za-z0-9._-')"
+
+          TARGET="${{ matrix.target.platform }}-${{ matrix.target.artifact }}-${{ matrix.target.arch }}"
+          SAFE_TARGET="$(echo "$TARGET" | tr '/' '-' | tr -cd 'A-Za-z0-9._-')"
+
+          BRANCH="bot/snapshots/desktop/${SAFE_REF}/${SAFE_TARGET}/run-${{ github.run_id }}"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git switch -c "$BRANCH"
+
+          # Add only desktop snapshot area
+          git add apps/showcases-e2e/src/desktop
+
+          if git diff --cached --quiet; then
+            echo "No snapshot changes detected. Skipping PR."
+            exit 0
+          fi
+
+          git commit -m "chore(e2e): update desktop snapshots (${TARGET}, ref=${REF}, run=${{ github.run_id }})"
+          git push --set-upstream origin "$BRANCH"
+
+          TITLE="chore(e2e): update desktop snapshots (${TARGET})"
+          BODY=$'Automated snapshot update from CI.\n\n'
+          BODY+=$'- Ref: '"${REF}"$'\n'
+          BODY+=$'- Target: '"${TARGET}"$'\n'
+          BODY+=$'- Run: '"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"$'\n'
+
+          gh pr create \
+            --base "$REF" \
+            --head "$BRANCH" \
+            --title "$TITLE" \
+            --body "$BODY"
 
       - name: Upload Playwright report (if exists)
         if: always()
