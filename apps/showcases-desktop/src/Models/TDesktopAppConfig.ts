@@ -5,4 +5,6 @@ export type TDesktopAppConfig = Readonly<{
   isResizable?: boolean;
   isFullScreenable?: boolean;
   isFullScreen?: boolean;
+  isForceDpr?: boolean;
+  highDpiSupport?: number;
 }>;
