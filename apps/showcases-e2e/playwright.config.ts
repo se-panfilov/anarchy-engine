@@ -4,8 +4,8 @@ import path from 'node:path';
 import { nodeEnv } from './src/env';
 import { fileURLToPath } from 'node:url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename: string = fileURLToPath(import.meta.url);
+const __dirname: string = path.dirname(__filename);
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -110,7 +110,7 @@ export default defineConfig({
 });
 
 function resolveDesktopSnapshotPlatform(): 'win' | 'mac' | 'linux' {
-  const raw = (process.env.E2E_SNAPSHOT_PLATFORM || '').toLowerCase().trim();
+  const raw: string = (process.env.E2E_DESKTOP_PLATFORM || '').toLowerCase().trim();
 
   // Prefer explicit env (from CI), fall back to runtime platform (local runs).
   if (raw) {
