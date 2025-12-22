@@ -20,7 +20,6 @@ on:
           - "linux:app:arm64"
           - "linux:app:x64"
           - "mac:app:arm64"
-          - "mac:app:universal"
           - "mac:app:x64"
           - "win:app:arm64"
           - "win:app:x64"
@@ -238,7 +237,6 @@ jobs:
         shell: bash
         env:
           FORCE_COLOR: "1"
-          # Safe even if browsers aren't installed/used.
           PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.playwright-browsers
           E2E_SNAPSHOT_PLATFORM: ${{ matrix.target.platform }}
         run: |
