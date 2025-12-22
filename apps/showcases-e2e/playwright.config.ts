@@ -110,7 +110,7 @@ export default defineConfig({
 });
 
 function resolveDesktopSnapshotPlatform(): 'win' | 'mac' | 'linux' {
-  const raw = (process.env.E2E_SNAPSHOT_PLATFORM || '').toLowerCase().trim();
+  const raw: string = (process.env.E2E_DESKTOP_PLATFORM || '').toLowerCase().trim();
 
   // Prefer explicit env (from CI), fall back to runtime platform (local runs).
   if (raw) {

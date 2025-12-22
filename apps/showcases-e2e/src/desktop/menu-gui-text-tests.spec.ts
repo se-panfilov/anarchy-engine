@@ -2,7 +2,7 @@ import type { Locator, Page } from '@playwright/test';
 import { expect, test } from '@playwright/test';
 import type { TLaunchContext } from '@Showcases/E2E/Models/TLaunchContext';
 
-import { launchPackagedElectronApp } from './LaunchPackagedElectronApp';
+import { launchPackagedElectronApp } from './DesktopE2eUtils';
 
 const GAME_URL: string = `http://localhost:${process.env.PORT ?? '4173'}?path=menu`;
 
