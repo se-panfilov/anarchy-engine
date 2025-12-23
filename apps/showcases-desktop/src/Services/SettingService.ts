@@ -14,16 +14,23 @@ export function SettingsService(app: App, { filesService, windowService }: TSett
   const appSettingsFileName: string = 'app-settings.json';
 
   const getAppSettings = async (): Promise<TShowcaseGameSettings> => {
+    const isE2E: boolean = import.meta.env.VITE_IS_E2E === 'true' || false;
+    if (isE2E) return setDefaultSettings({ message: '[DESKTOP][E2E] Forced default desktop app settings (VITE_IS_E2E)' } as Error);
+
     try {
       const settings: TShowcaseGameSettings = await filesService.readFileAsJson(appSettingsFileName, userDataFolder, isSettings);
       return mergeCliSettingsWithDetected(settings);
     } catch (e) {
-      console.warn(`[DESKTOP] Cannot read settings file ("${appSettingsFileName}") from : ${userDataFolder}. Damaged or not existed. Applying default settings. Error: ${(e as Error).message}`);
-      const settings: TShowcaseGameSettings = buildDefaultSettings();
-      await setAppSettings(settings);
-      return settings;
+      return setDefaultSettings(e as Error);
     }
   };
+
+  async function setDefaultSettings(e: Error): Promise<TShowcaseGameSettings> {
+    console.warn(`[DESKTOP] Cannot read settings file ("${appSettingsFileName}") from : ${userDataFolder}. Damaged or not existed. Applying default settings. Error: ${e.message}`);
+    const settings: TShowcaseGameSettings = buildDefaultSettings();
+    await setAppSettings(settings);
+    return settings;
+  }
 
   function getResolutionFromCommandLine(): TResolution | undefined {
     const widthStr: string = app.commandLine.getSwitchValue('width');
