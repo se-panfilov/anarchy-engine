@@ -33,6 +33,8 @@ export async function launchPackagedElectronApp(): Promise<TDesktopAppLaunchResu
 
   const page: Page = await electronApp.firstWindow();
   await page.waitForLoadState('domcontentloaded');
+  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('load');
 
   return { electronApp, page };
 }
