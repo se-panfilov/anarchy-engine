@@ -204,10 +204,10 @@ jobs:
             exit 0
           fi
 
-          git commit -m "chore(e2e): update web snapshots (ref=${REF}, run=${{ github.run_id }})"
+          git commit -m "[E2E]: Update screenshots (web) (ref=${REF}, run=${{ github.run_id }})"
           git push --set-upstream origin "$BRANCH"
 
-          TITLE="chore(e2e): update web snapshots (${REF})"
+          TITLE="[E2E]: Update screenshots (web) (${REF})"
           BODY=$'Automated snapshot update from CI.\n\n'
           BODY+=$'- Ref: '"${REF}"$'\n'
           BODY+=$'- Run: '"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"$'\n'
