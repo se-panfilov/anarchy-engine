@@ -13,6 +13,7 @@ interface ImportMetaEnv {
   VITE_DIST_NAME: string;
   VITE_IS_FORCE_DPR: string; // should be cast to boolean
   VITE_HIGH_DPI_SUPPORT: string; // should be cast to number
+  VITE_IS_E2E: string | undefined; // should be cast to number
 }
 
 interface ImportMeta {

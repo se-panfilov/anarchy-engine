@@ -1,7 +1,7 @@
 #Runs web E2E by "button"
 
 name: E2E Web (manual run)
-run-name: E2E Web (ref=${{ github.event.inputs.ref }}, updateSnapshots=${{ github.event.inputs.updateSnapshots }}, failFast=${{ github.event.inputs.failFast }}, deepDebug=${{ github.event.inputs.deepDebug }})
+run-name: E2E Web (ref=${{ github.event.inputs.ref }}, os=${{ github.event.inputs.runnerOs }}, updateSnapshots=${{ github.event.inputs.updateSnapshots }}, failFast=${{ github.event.inputs.failFast }}, deepDebug=${{ github.event.inputs.deepDebug }})
 
 on:
   workflow_dispatch:
@@ -11,6 +11,17 @@ on:
         required: true
         default: "main"
         description: "Branch/tag/sha to test"
+
+      runnerOs:
+        type: choice
+        required: true
+        default: ubuntu-latest
+        options:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+        description: "Runner OS for web E2E"
+
       updateSnapshots:
         type: boolean
         required: true
@@ -38,7 +49,8 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: e2e-web-${{ github.event.inputs.ref }}
+  # Include OS so different OS runs don't cancel each other.
+  group: e2e-web-${{ github.event.inputs.ref }}-${{ github.event.inputs.runnerOs }}
   cancel-in-progress: true
 
 jobs:
@@ -46,7 +58,7 @@ jobs:
     timeout-minutes: 30
     # Extra safety: this workflow must only run via the manual button
     if: ${{ github.event_name == 'workflow_dispatch' }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ github.event.inputs.runnerOs }}
 
     steps:
       - name: Debug trigger
@@ -55,10 +67,12 @@ jobs:
           echo "actor=${{ github.actor }}"
           echo "ref=${{ github.ref }}"
           echo "input.ref=${{ github.event.inputs.ref }}"
+          echo "input.runnerOs=${{ github.event.inputs.runnerOs }}"
           echo "input.updateSnapshots=${{ github.event.inputs.updateSnapshots }}"
           echo "input.failFast=${{ github.event.inputs.failFast }}"
           echo "input.deepDebug=${{ github.event.inputs.deepDebug }}"
           echo "input.reporter=${{ github.event.inputs.reporter }}"
+          echo "runner.os=${{ runner.os }}"
 
       - name: Verify actor permission (must be collaborator with write+)
         shell: bash
@@ -125,7 +139,6 @@ jobs:
             }
           }
 
-          // Prefer @playwright/test when present, otherwise fall back to playwright.
           const v = readVersion('@playwright/test') || readVersion('playwright') || 'unknown';
           console.log(`version=${v}`);
           NODE
@@ -189,14 +202,15 @@ jobs:
 
           REF="${{ github.event.inputs.ref }}"
           SAFE_REF="$(echo "$REF" | tr '/' '-' | tr -cd 'A-Za-z0-9._-')"
-          BRANCH="bot/snapshots/web/${SAFE_REF}/run-${{ github.run_id }}"
+          SAFE_OS="$(echo "${{ github.event.inputs.runnerOs }}" | tr '/' '-' | tr -cd 'A-Za-z0-9._-')"
+
+          BRANCH="bot/snapshots/web/${SAFE_REF}/${SAFE_OS}/run-${{ github.run_id }}"
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git switch -c "$BRANCH"
 
-          # Add only snapshot-related area (adjust later if you move snapshots elsewhere)
           git add apps/showcases-e2e/src/web
 
           if git diff --cached --quiet; then
@@ -204,12 +218,13 @@ jobs:
             exit 0
           fi
 
-          git commit -m "chore(e2e): update web snapshots (ref=${REF}, run=${{ github.run_id }})"
+          git commit -m "[E2E]: Update screenshots (web) (os=${{ github.event.inputs.runnerOs }}, ref=${REF}, run=${{ github.run_id }})"
           git push --set-upstream origin "$BRANCH"
 
-          TITLE="chore(e2e): update web snapshots (${REF})"
+          TITLE="[E2E]: Update screenshots (web) (${REF}, os=${{ github.event.inputs.runnerOs }})"
           BODY=$'Automated snapshot update from CI.\n\n'
           BODY+=$'- Ref: '"${REF}"$'\n'
+          BODY+=$'- OS: '"${{ github.event.inputs.runnerOs }}"$'\n'
           BODY+=$'- Run: '"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"$'\n'
 
           gh pr create \
@@ -222,7 +237,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report-web-${{ github.run_id }}
+          name: playwright-report-web-${{ github.run_id }}-${{ github.event.inputs.runnerOs }}
           path: |
             apps/showcases-e2e/reports/e2e/playwright-report/**
             apps/showcases-e2e/reports/e2e/test-results/**

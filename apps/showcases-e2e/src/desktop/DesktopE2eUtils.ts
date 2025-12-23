@@ -33,6 +33,9 @@ export async function launchPackagedElectronApp(): Promise<TDesktopAppLaunchResu
 
   const page: Page = await electronApp.firstWindow();
   await page.waitForLoadState('domcontentloaded');
+  // eslint-disable-next-line spellcheck/spell-checker
+  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('load');
 
   return { electronApp, page };
 }
@@ -69,4 +72,12 @@ function detectArchFromNode(): Architectures {
   if (process.arch === 'x64') return Architectures.X64;
   if (process.arch === 'arm64') return Architectures.ARM64;
   throw new Error(`[E2E] Unsupported process.arch: ${process.arch}`);
+}
+
+export async function waitFontsReady(page: Page): Promise<void> {
+  await page.evaluate(async () => {
+    if (document.fonts?.ready) await document.fonts.ready;
+  });
+
+  await page.evaluate(() => new Promise<void>((r) => requestAnimationFrame(() => requestAnimationFrame(() => r()))));
 }
