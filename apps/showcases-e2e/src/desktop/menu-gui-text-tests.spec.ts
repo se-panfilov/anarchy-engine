@@ -2,7 +2,7 @@ import type { Locator, Page } from '@playwright/test';
 import { expect, test } from '@playwright/test';
 import type { TLaunchContext } from '@Showcases/E2E/Models/TLaunchContext';
 
-import { launchPackagedElectronApp } from './DesktopE2eUtils';
+import { launchPackagedElectronApp, waitFontsReady } from './DesktopE2eUtils';
 
 const GAME_URL: string = `http://localhost:${process.env.PORT ?? '4173'}?path=menu`;
 
@@ -19,6 +19,10 @@ test.describe('Desktop app Menu/GUI text tests', () => {
 
     await page.goto(GAME_URL);
     await page.waitForLoadState('domcontentloaded');
+    // eslint-disable-next-line spellcheck/spell-checker
+    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('load');
+    await waitFontsReady(page);
   });
 
   test.afterAll(async () => {

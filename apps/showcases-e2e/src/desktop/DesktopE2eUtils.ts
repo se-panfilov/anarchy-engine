@@ -73,3 +73,11 @@ function detectArchFromNode(): Architectures {
   if (process.arch === 'arm64') return Architectures.ARM64;
   throw new Error(`[E2E] Unsupported process.arch: ${process.arch}`);
 }
+
+export async function waitFontsReady(page: Page): Promise<void> {
+  await page.evaluate(async () => {
+    if (document.fonts?.ready) await document.fonts.ready;
+  });
+
+  await page.evaluate(() => new Promise<void>((r) => requestAnimationFrame(() => requestAnimationFrame(() => r()))));
+}
