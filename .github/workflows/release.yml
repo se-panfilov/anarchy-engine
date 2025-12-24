@@ -153,6 +153,27 @@ jobs:
             fi
           fi
 
+      - name: Debug npm publish config (DEBUG)
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "user_npmrc=$(npm config get userconfig)"
+          echo "registry=$(npm config get registry)"
+          echo "always_auth=$(npm config get always-auth || true)"
+
+          # show whether npm thinks it has auth for npmjs (without printing it)
+          if npm config list -l 2>/dev/null | grep -qi 'registry\.npmjs\.org'; then
+            echo "npm_config_mentions_registry=YES"
+          else
+            echo "npm_config_mentions_registry=NO"
+          fi
+
+          # detect presence of token-like env vars without printing their names
+          if env | grep -q '^NODE_AUTH_'; then echo "env_node_auth_prefix=YES"; else echo "env_node_auth_prefix=NO"; fi
+          if env | grep -q '^NPM_'; then echo "env_npm_prefix=YES"; else echo "env_npm_prefix=NO"; fi
+
+
       - name: Execute release (tags + npm publish)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
