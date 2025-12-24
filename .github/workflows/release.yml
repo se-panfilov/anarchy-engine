@@ -1,7 +1,7 @@
 # Do release of Anarchy packages based on git tags
 # Important!!!: for Trusted Publishing: on npm in trusted publisher you will need to specify workflow filename = release.yml.
 
-name: Release anarchy packages (button)
+name: Release anarchy-* packages (manual)
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ on:
       mode:
         type: choice
         required: true
-        options: [all, one]
+        options: [ all, one ]
         default: all
         description: 'Release mode: all packages or just one'
       workspace:
@@ -27,39 +27,84 @@ permissions:
   id-token: write
 
 concurrency:
-  group: release-anarchy
+  # Allow parallel releases in mode=one for different workspaces.
+  # Keep mode=all serialized.
+  group: release-anarchy-${{ inputs.mode }}-${{ inputs.mode == 'one' && (inputs.workspace || 'missing-workspace') || 'all' }}
   cancel-in-progress: false
 
 jobs:
   release:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+
     steps:
+      - name: Debug trigger
+        run: |
+          echo "event=${{ github.event_name }}"
+          echo "actor=${{ github.actor }}"
+          echo "ref=${{ github.ref }}"
+          echo "input.mode=${{ inputs.mode }}"
+          echo "input.workspace=${{ inputs.workspace }}"
+          echo "input.dryRun=${{ inputs.dryRun }}"
+
+      - name: Verify actor permission (must be collaborator with write+)
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          perm="$(gh api "repos/${{ github.repository }}/collaborators/${{ github.actor }}/permission" --jq .permission || true)"
+          echo "actor_permission=$perm"
+          case "$perm" in
+            admin|maintain|write) ;;
+            *)
+              echo "::error::Actor '${{ github.actor }}' is not allowed to run release workflow (need write/maintain/admin)."
+              exit 1
+              ;;
+          esac
+
       - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
+        with:
+          fetch-depth: 0
+          persist-credentials: true
 
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
+          cache: npm
+          cache-dependency-path: package-lock.json
 
-      - run: npm ci
+      - name: Install deps
+        run: npm ci
 
       - name: Configure git identity for tagging
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Build release plan
+      - name: Build release plan (anarchy-* only)
         id: plan
+        shell: bash
         run: |
+          set -euo pipefail
           PLAN="$(RELEASE_MODE='${{ inputs.mode }}' RELEASE_WORKSPACE='${{ inputs.workspace }}' node ./scripts/release/plan-from-tags.mjs)"
-          echo "plan<<EOF" >> $GITHUB_OUTPUT
-          echo "$PLAN" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          echo "plan<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$PLAN" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
 
-      - name: Execute release (tags + GitHub release + npm publish)
+      - name: Execute release (tags + npm publish)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_PLAN_JSON: ${{ steps.plan.outputs.plan }}
           DRY_RUN: ${{ inputs.dryRun && 'true' || 'false' }}
+
+          RELEASE_MODE: ${{ inputs.mode }}
+          RELEASE_WORKSPACE: ${{ inputs.workspace }}
+
+          # Default behavior:
+          # - mode=all: do not fail if package already published (skip)
+          # - mode=one: also skip (you can make strict later if you want)
+          RELEASE_SKIP_ALREADY_PUBLISHED: "true"
         run: node ./scripts/release/do-release.mjs

@@ -5,8 +5,9 @@ import semver from 'semver';
 
 const repoRoot = process.cwd();
 
-// Calculates "what to release" based on tags name@x.y.z and current package.json.
-// Applies only for packages/anarchy-*
+// Calculates "what to release" based on tags key@x.y.z and current package.json.
+// Scope: ONLY packages/anarchy-*
+// (showcases-* and other apps/packages are ignored completely)
 
 function runCapture(cmd, args) {
   const r = spawnSync(cmd, args, { encoding: 'utf8', cwd: repoRoot });
@@ -18,34 +19,35 @@ function readJson(p) {
   return JSON.parse(fs.readFileSync(p, 'utf8'));
 }
 
-function listWorkspaces() {
+function listAnarchyWorkspaces() {
   const out = [];
-  for (const base of ['apps', 'packages']) {
-    const baseDir = path.join(repoRoot, base);
-    if (!fs.existsSync(baseDir)) continue;
+  const baseDir = path.join(repoRoot, 'packages');
+  if (!fs.existsSync(baseDir)) return out;
 
-    for (const ent of fs.readdirSync(baseDir, { withFileTypes: true })) {
-      if (!ent.isDirectory()) continue;
+  for (const ent of fs.readdirSync(baseDir, { withFileTypes: true })) {
+    if (!ent.isDirectory()) continue;
 
-      const wsKey = ent.name; // folder name, e.g. anarchy-engine
-      const wsPath = path.join(base, ent.name);
-      const pkgPath = path.join(wsPath, 'package.json');
-      if (!fs.existsSync(pkgPath)) continue;
+    const wsKey = ent.name; // folder name, e.g. anarchy-engine
+    if (!wsKey.startsWith('anarchy-')) continue;
 
-      const pkg = readJson(pkgPath);
-      if (!pkg?.version) continue;
+    const wsPath = path.join('packages', ent.name);
+    const pkgPath = path.join(repoRoot, wsPath, 'package.json');
+    if (!fs.existsSync(pkgPath)) continue;
 
-      out.push({
-        key: wsKey,
-        path: wsPath.replaceAll('\\', '/'),
-        npmName: String(pkg.name ?? wsKey),
-        version: String(pkg.version),
-        private: pkg.private === true,
-        isAnarchy: wsPath.replaceAll('\\', '/').startsWith('packages/anarchy-'),
-        isDesktop: wsPath.replaceAll('\\', '/') === 'apps/showcases-desktop'
-      });
-    }
+    const pkg = readJson(pkgPath);
+    if (!pkg?.version) continue;
+
+    const wsPathNorm = wsPath.replaceAll('\\', '/');
+
+    out.push({
+      key: wsKey,
+      path: wsPathNorm,
+      npmName: String(pkg.name ?? wsKey),
+      version: String(pkg.version),
+      private: pkg.private === true
+    });
   }
+
   return out;
 }
 
@@ -71,12 +73,12 @@ function main() {
   if (mode !== 'all' && mode !== 'one') throw new Error(`Invalid RELEASE_MODE: ${mode}`);
   if (mode === 'one' && !targetKey) throw new Error(`mode=one requires RELEASE_WORKSPACE (workspace key)`);
 
-  const workspaces = listWorkspaces();
+  const workspaces = listAnarchyWorkspaces().filter((w) => !w.private);
   const selected = mode === 'one' ? workspaces.filter((w) => w.key === targetKey) : workspaces;
 
   if (mode === 'one' && selected.length === 0) {
     const keys = workspaces.map((w) => w.key).sort();
-    throw new Error(`Workspace key not found: "${targetKey}". Available:\n- ${keys.join('\n- ')}`);
+    throw new Error(`Workspace key not found or not eligible: "${targetKey}". Available:\n- ${keys.join('\n- ')}`);
   }
 
   const releases = [];
@@ -91,9 +93,7 @@ function main() {
       path: w.path,
       version: w.version,
       prev: last ?? null,
-      private: w.private,
-      isAnarchy: w.isAnarchy,
-      isDesktop: w.isDesktop
+      private: w.private
     });
   }
 
