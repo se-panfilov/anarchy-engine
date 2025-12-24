@@ -1,7 +1,7 @@
 # Do release of Anarchy packages based on git tags
 # Important!!!: for Trusted Publishing: on npm in trusted publisher you will need to specify workflow filename = release.yml.
 
-name: Release anarchy-* packages (manual)
+name: Release (manual run). Only "anarchy-*" packages.
 
 on:
   workflow_dispatch:
@@ -99,6 +99,16 @@ jobs:
           echo "plan<<EOF" >> "$GITHUB_OUTPUT"
           echo "$PLAN" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Debug OIDC availability (safe)
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "npm=$(npm -v) node=$(node -v)"
+          echo "ACTIONS_ID_TOKEN_REQUEST_URL is ${ACTIONS_ID_TOKEN_REQUEST_URL:+SET}${ACTIONS_ID_TOKEN_REQUEST_URL:-MISSING}"
+          echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN is ${ACTIONS_ID_TOKEN_REQUEST_TOKEN:+SET}${ACTIONS_ID_TOKEN_REQUEST_TOKEN:-MISSING}"
+          echo "NODE_AUTH_TOKEN is ${NODE_AUTH_TOKEN:+SET}${NODE_AUTH_TOKEN:-MISSING}"
+          echo "NPM_TOKEN is ${NPM_TOKEN:+SET}${NPM_TOKEN:-MISSING}
 
       - name: Execute release (tags + npm publish)
         env:
