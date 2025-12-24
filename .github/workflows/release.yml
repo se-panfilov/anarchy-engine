@@ -76,6 +76,12 @@ jobs:
           cache: npm
           cache-dependency-path: package-lock.json
 
+      - name: Print Node.js and npm versions
+        shell: bash
+        run: |
+          echo "node: $(node -v)"
+          echo "npm:  $(npm -v)"
+
       - name: Install deps
         run: npm ci
 
