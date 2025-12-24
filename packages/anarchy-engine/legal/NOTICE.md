@@ -35,7 +35,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-shared@1.4.4
+## @hellpig/anarchy-shared@1.4.5
 
 **License(s):** MIT
 
