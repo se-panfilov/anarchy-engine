@@ -1,7 +1,7 @@
 # Do release of Anarchy packages based on git tags
 # Important!!!: for Trusted Publishing: on npm in trusted publisher you will need to specify workflow filename = release.yml.
 
-name: Release anarchy packages (button)
+name: Release anarchy packages (manual)
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ on:
       mode:
         type: choice
         required: true
-        options: [all, one]
+        options: [ all, one ]
         default: all
         description: 'Release mode: all packages or just one'
       workspace:
@@ -27,22 +27,57 @@ permissions:
   id-token: write
 
 concurrency:
-  group: release-anarchy
+  # Goal:
+  # - allow parallel releases for mode=one across different workspaces
+  # - keep mode=all serialized to avoid tag/release races
+  group: >-
+    release-anarchy-${{ github.event.inputs.mode }}-${{
+      github.event.inputs.mode == 'one'
+        && (github.event.inputs.workspace != '' && github.event.inputs.workspace || 'missing-workspace')
+        || 'all'
+    }}
   cancel-in-progress: false
 
 jobs:
   release:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+
     steps:
+      - name: Debug trigger
+        run: |
+          echo "event=${{ github.event_name }}"
+          echo "actor=${{ github.actor }}"
+          echo "ref=${{ github.ref }}"
+          echo "input.mode=${{ github.event.inputs.mode }}"
+          echo "input.workspace=${{ github.event.inputs.workspace }}"
+          echo "input.dryRun=${{ github.event.inputs.dryRun }}"
+
+      - name: Validate inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event.inputs.mode }}" = "one" ]; then
+            if [ -z "${{ github.event.inputs.workspace }}" ]; then
+              echo "::error::mode=one requires 'workspace' input"
+              exit 1
+            fi
+          fi
+
       - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
+          cache: npm
+          cache-dependency-path: package-lock.json
 
-      - run: npm ci
+      - name: Install deps
+        run: npm ci
 
       - name: Configure git identity for tagging
         run: |
@@ -51,15 +86,22 @@ jobs:
 
       - name: Build release plan
         id: plan
+        shell: bash
         run: |
-          PLAN="$(RELEASE_MODE='${{ inputs.mode }}' RELEASE_WORKSPACE='${{ inputs.workspace }}' node ./scripts/release/plan-from-tags.mjs)"
-          echo "plan<<EOF" >> $GITHUB_OUTPUT
-          echo "$PLAN" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          set -euo pipefail
+          PLAN="$(RELEASE_MODE='${{ github.event.inputs.mode }}' RELEASE_WORKSPACE='${{ github.event.inputs.workspace }}' node ./scripts/release/plan-from-tags.mjs)"
+          echo "plan<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$PLAN" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
 
       - name: Execute release (tags + GitHub release + npm publish)
+        shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_PLAN_JSON: ${{ steps.plan.outputs.plan }}
-          DRY_RUN: ${{ inputs.dryRun && 'true' || 'false' }}
-        run: node ./scripts/release/do-release.mjs
+          DRY_RUN: ${{ github.event.inputs.dryRun && 'true' || 'false' }}
+          # Recommended: make do-release idempotent (see section below).
+          RELEASE_SKIP_ALREADY_PUBLISHED: "true"
+        run: |
+          set -euo pipefail
+          node ./scripts/release/do-release.mjs
