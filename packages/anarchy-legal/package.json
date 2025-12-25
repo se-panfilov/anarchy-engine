@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-legal",
   "author": "S. Panfilov",
   "private": false,
-  "version": "1.10.6",
+  "version": "1.11.0",
   "type": "module",
   "repository": {
     "type": "git",
@@ -38,6 +38,7 @@
     "dist/"
   ],
   "scripts": {
+    "build": "rimraf ./dist && vite build",
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/index.ts",
     "generate:files": "node ./src/Generators/LegalFilesGenerator.ts",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
@@ -64,6 +65,7 @@
     "@types/yargs": "17.0.33",
     "date-fns": "4.1.0",
     "globby": "15.0.0",
+    "rollup-plugin-terser": "7.0.2",
     "yargs": "18.0.0"
   }
 }
