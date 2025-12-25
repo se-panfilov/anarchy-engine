@@ -35,6 +35,7 @@
     "dist/"
   ],
   "scripts": {
+    "build": "rimraf ./dist && vite build",
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/index.ts",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
     "generate:legal:3rd-party-licenses": "npm run -w @hellpig/anarchy-legal generate:licenses -- --workspace packages/anarchy-tracking --out ../../packages/anarchy-tracking/legal/THIRD_PARTY_LICENSES.md",
