@@ -2,6 +2,7 @@
 # Important!!!: for Trusted Publishing: on npm in trusted publisher you will need to specify workflow filename = release.yml.
 
 name: Release (manual run). Only "anarchy-*" packages.
+run-name: Release (mode=${{ inputs.mode }}, workspace=${{ inputs.mode == 'one' && (inputs.workspace || 'missing-workspace') || 'all' }}, dryRun=${{ inputs.dryRun }})
 
 on:
   workflow_dispatch:
