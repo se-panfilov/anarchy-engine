@@ -3,3 +3,4 @@
 - 1.2.0 More Object utils
 - 1.3.0 Vite plugin: emit json
 - 1.4.0 Json validation utils
+- 1.5.0 Added proper building and npm packaging

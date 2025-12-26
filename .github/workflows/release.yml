@@ -2,6 +2,7 @@
 # Important!!!: for Trusted Publishing: on npm in trusted publisher you will need to specify workflow filename = release.yml.
 
 name: Release (manual run). Only "anarchy-*" packages.
+run-name: Release (mode=${{ inputs.mode }}, workspace=${{ inputs.mode == 'one' && (inputs.workspace || 'missing-workspace') || 'all' }}, dryRun=${{ inputs.dryRun }})
 
 on:
   workflow_dispatch:
@@ -100,81 +101,7 @@ jobs:
           echo "$PLAN" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
 
-      - name: Debug auth wiring (DEBUG)
-        shell: bash
-        run: |
-          set -euo pipefail
-          echo "npm=$(npm -v) node=$(node -v)"
-
-          # Avoid printing or naming sensitive env vars directly (gitleaks regex).
-          # We only check presence via `env` output and fixed prefixes.
-
-          if env | grep -q '^ACTIONS_ID_TOKEN_REQUEST_URL='; then
-            echo "oidc_request_url=SET"
-          else
-            echo "oidc_request_url=MISSING"
-          fi
-
-          # Check that *some* Actions OIDC bearer header exists without spelling it.
-          # (It is the sibling variable next to the URL.)
-          if env | grep -q '^ACTIONS_ID_TOKEN_REQUEST_'; then
-            echo "oidc_request_pair_present=YES"
-          else
-            echo "oidc_request_pair_present=NO"
-          fi
-
-          # Check npm auth env presence without spelling the exact var name.
-          if env | grep -q '^NODE_AUTH_'; then
-            echo "npm_auth_env_present=YES"
-          else
-            echo "npm_auth_env_present=NO"
-          fi
-
-          if env | grep -q '^NPM_'; then
-            echo "npm_prefixed_env_present=YES"
-          else
-            echo "npm_prefixed_env_present=NO"
-          fi
-
-      - name: Locate npm auth config (DEBUG)
-        shell: bash
-        run: |
-          set -euo pipefail
-          echo "repo_npmrc_exists=$( [ -f .npmrc ] && echo yes || echo no )"
-          echo "user_npmrc=$(npm config get userconfig)"
-          echo "global_npmrc=$(npm config get globalconfig)"
-
-          if [ -f .npmrc ]; then
-            # Don't print token-like keys; just report whether the file contains any auth-ish hints.
-            if grep -Eqi '(_auth|authToken|registry\.npmjs\.org|always-auth)' .npmrc; then
-              echo "repo_npmrc_has_auth_related_lines=YES"
-            else
-              echo "repo_npmrc_has_auth_related_lines=NO"
-            fi
-          fi
-
-      - name: Debug npm publish config (DEBUG)
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          echo "user_npmrc=$(npm config get userconfig)"
-          echo "registry=$(npm config get registry)"
-          echo "always_auth=$(npm config get always-auth || true)"
-
-          # show whether npm thinks it has auth for npmjs (without printing it)
-          if npm config list -l 2>/dev/null | grep -qi 'registry\.npmjs\.org'; then
-            echo "npm_config_mentions_registry=YES"
-          else
-            echo "npm_config_mentions_registry=NO"
-          fi
-
-          # detect presence of token-like env vars without printing their names
-          if env | grep -q '^NODE_AUTH_'; then echo "env_node_auth_prefix=YES"; else echo "env_node_auth_prefix=NO"; fi
-          if env | grep -q '^NPM_'; then echo "env_npm_prefix=YES"; else echo "env_npm_prefix=NO"; fi
-
-
-      - name: Execute release (tags + npm publish)
+      - name: Execute release (build + pack + tag + GitHub release + npm publish)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_PLAN_JSON: ${{ steps.plan.outputs.plan }}
@@ -184,7 +111,7 @@ jobs:
           RELEASE_WORKSPACE: ${{ inputs.workspace }}
 
           # Default behavior:
-          # - mode=all: do not fail if package already published (skip)
-          # - mode=one: also skip (you can make strict later if you want)
+          # - mode=all: do not fail if package already published (skip publish)
+          # - mode=one: also skip publish by default (you can make strict later)
           RELEASE_SKIP_ALREADY_PUBLISHED: "true"
         run: node ./scripts/release/do-release.mjs

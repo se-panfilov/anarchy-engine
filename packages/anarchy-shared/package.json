@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-shared",
   "author": "S. Panfilov",
   "private": false,
-  "version": "1.4.5",
+  "version": "1.5.0",
   "type": "module",
   "repository": {
     "type": "git",
@@ -33,7 +33,31 @@
     "README.md",
     "dist/"
   ],
+  "exports": {
+    "./Utils": {
+      "types": "./dist/Utils/index.d.ts",
+      "import": "./dist/Utils/index.es.js"
+    },
+    "./Constants": {
+      "types": "./dist/Constants/index.d.ts",
+      "import": "./dist/Constants/index.es.js"
+    },
+    "./Models": {
+      "types": "./dist/Models/index.d.ts",
+      "import": "./dist/Models/index.es.js"
+    },
+    "./Plugins": {
+      "types": "./dist/Plugins/index.d.ts",
+      "import": "./dist/Plugins/index.es.js"
+    },
+    "./assets": {
+      "types": "./dist/assets/index.d.ts",
+      "import": "./dist/assets/index.es.js"
+    },
+    "./assets/*": "./dist/assets/*"
+  },
   "scripts": {
+    "build": "rimraf ./dist && vite build",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
     "generate:legal:3rd-party-licenses": "npm run -w @hellpig/anarchy-legal generate:licenses -- --workspace packages/anarchy-shared --out ../../packages/anarchy-shared/legal/THIRD_PARTY_LICENSES.md",
     "generate:legal:files": "npm run -w @hellpig/anarchy-legal generate:files -- --workspace packages/anarchy-shared --out ../../packages/anarchy-shared",
@@ -60,6 +84,7 @@
     "png-to-ico": "3.0.1",
     "sharp": "0.34.4",
     "svgo": "4.0.0",
-    "ts-json-schema-generator": "2.4.0"
+    "ts-json-schema-generator": "2.4.0",
+    "vite-plugin-static-copy": "3.1.4"
   }
 }

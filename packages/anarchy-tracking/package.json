@@ -34,7 +34,46 @@
     "README.md",
     "dist/"
   ],
+  "main": "./dist/anarchy-tracking.es.js",
+  "module": "./dist/anarchy-tracking.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/anarchy-tracking.es.js"
+    },
+    "./browser": {
+      "types": "./dist/browser.d.ts",
+      "import": "./dist/browser.es.js"
+    },
+    "./desktop": {
+      "types": "./dist/desktop.d.ts",
+      "import": "./dist/desktop.es.js"
+    },
+    "./desktop-preload": {
+      "types": "./dist/desktop-preload.d.ts",
+      "import": "./dist/desktop-preload.es.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "browser": [
+        "./dist/browser.d.ts"
+      ],
+      "desktop": [
+        "./dist/desktop.d.ts"
+      ],
+      "desktop-preload": [
+        "./dist/desktop-preload.d.ts"
+      ],
+      "*": [
+        "./dist/index.d.ts"
+      ]
+    }
+  },
   "scripts": {
+    "build": "rimraf ./dist && vite build",
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/index.ts",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
     "generate:legal:3rd-party-licenses": "npm run -w @hellpig/anarchy-legal generate:licenses -- --workspace packages/anarchy-tracking --out ../../packages/anarchy-tracking/legal/THIRD_PARTY_LICENSES.md",
@@ -55,6 +94,7 @@
     "dotenv": "17.2.3"
   },
   "devDependencies": {
+    "rollup-plugin-terser": "7.0.2",
     "@sentry/cli": "2.57.0"
   }
 }
