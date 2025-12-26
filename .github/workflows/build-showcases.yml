@@ -1,5 +1,5 @@
-name: Build showcases artifacts (button)
-run-name: Build showcases (app=${{ inputs.app }}, ref=${{ inputs.ref }})
+name: Build App (manual run)
+run-name: Build (ref=${{ inputs.ref }}, app=${{ inputs.app }}, mode=${{ inputs.mode }}, target=${{ inputs.target }})
 
 on:
   workflow_dispatch:
@@ -8,134 +8,219 @@ on:
         type: string
         required: true
         default: main
-        description: "Branch/tag/sha to build"
+        description: "Branch"
       app:
         type: choice
         required: true
-        options: [showcases-core, showcases-desktop]
-        default: showcases-core
-        description: "Which app to build"
-
-      coreVariant:
+        default: showcases-desktop
+        options:
+          - showcases-core
+          - showcases-desktop
+        description: "App to build"
+      mode:
         type: choice
         required: true
-        options: [web, desktop]
-        default: web
-        description: "Only used when app=showcases-core"
-
-      desktopEnv:
-        type: choice
-        required: true
-        options: [prod, dev, e2e]
         default: prod
-        description: "Only used when app=showcases-desktop"
-
-      desktopTargets:
-        type: string
-        required: false
-        default: "mac:dmg:arm64,win:nsis:x64"
-        description: "Only used when app=showcases-desktop. Format: mac:dmg:arm64,win:nsis:x64"
+        options:
+          - prod
+          - e2e
+          - dev
+        description: "Build mode"
+      target:
+        type: choice
+        required: true
+        default: "mac:app:arm64"
+        options:
+          - "linux:app:arm64"
+          - "linux:app:x64"
+          - "linux:appimage:arm64"
+          - "linux:appimage:x64"
+          - "mac:app:arm64"
+          - "mac:app:universal"
+          - "mac:app:x64"
+          - "mac:dmg:arm64"
+          - "mac:dmg:universal"
+          - "mac:dmg:x64"
+          - "win:app:arm64"
+          - "win:app:x64"
+          - "win:nsis:arm64"
+          - "win:nsis:x64"
+        description: "Target: platform:artifact:arch"
 
 permissions:
   contents: read
 
 concurrency:
-  group: build-showcases-${{ inputs.app }}-${{ github.event.inputs.ref || github.ref_name }}
-  cancel-in-progress: false
+  # Group by ref+app+mode+target, but do NOT mix targets (win build won't cancel linux build).
+  group: build-app-${{ inputs.ref }}-${{ inputs.app }}-${{ inputs.mode }}-${{ inputs.target }}
+  # Cancel only duplicates of the EXACT same group (saves runner time).
+  cancel-in-progress: true
 
 jobs:
-  core:
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.app == 'showcases-core' }}
-    runs-on: ubuntu-latest
+  build:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    name: Build (${{ inputs.app }} / ${{ inputs.mode }} / ${{ inputs.target }})
+    runs-on: ${{ startsWith(inputs.target, 'win:') && 'windows-latest' || startsWith(inputs.target, 'mac:') && 'macos-latest' || 'ubuntu-latest' }}
+    timeout-minutes: 30
+
+    env:
+      NODE_VERSION: "24"
+      TARGET: ${{ inputs.target }}
+      MODE: ${{ inputs.mode }}
+      APP: ${{ inputs.app }}
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Debug inputs + runner
+        shell: bash
+        run: |
+          echo "runner.os=${RUNNER_OS}"
+          echo "ref=${{ inputs.ref }}"
+          echo "app=${{ inputs.app }}"
+          echo "mode=${{ inputs.mode }}"
+          echo "target=${{ inputs.target }}"
+
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           ref: ${{ inputs.ref }}
+          fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 24
+          cache: npm
+          cache-dependency-path: package-lock.json
 
-      - run: npm ci
+      - name: Install deps
+        shell: bash
+        run: npm ci
 
-      - name: Build showcases-core
+      # ---- Optional caches for big Electron-related downloads (huge win in CI) ----
+      - name: Cache Electron / electron-builder downloads
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/electron
+            ~/.cache/electron-builder
+            ~/Library/Caches/electron
+            ~/Library/Caches/electron-builder
+            C:\Users\runneradmin\AppData\Local\electron\Cache
+            C:\Users\runneradmin\AppData\Local\electron-builder\Cache
+          key: ${{ runner.os }}-electron-cache-node24-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-electron-cache-node24-
+            ${{ runner.os }}-electron-cache-
+
+      - name: Parse target
+        id: t
+        shell: bash
         run: |
-          if [ "${{ inputs.coreVariant }}" = "web" ]; then
+          set -euo pipefail
+          platform="${TARGET%%:*}"
+          rest="${TARGET#*:}"
+          artifact="${rest%%:*}"
+          arch="${rest#*:}"
+
+          echo "platform=$platform" >> "$GITHUB_OUTPUT"
+          echo "artifact=$artifact" >> "$GITHUB_OUTPUT"
+          echo "arch=$arch" >> "$GITHUB_OUTPUT"
+
+          echo "platform=$platform"
+          echo "artifact=$artifact"
+          echo "arch=$arch"
+
+      # ---- Showcases-core build cache (careful: keyed by sources hash) ----
+      # We keep it per OS, because minor toolchain differences do happen.
+      # For app=showcases-desktop we cache *desktop* core build (dist-desktop),
+      # for app=showcases-core we cache *web* build (dist-web).
+      - name: Restore showcases-core build cache
+        id: corecache
+        uses: actions/cache@v4
+        with:
+          path: |
+            apps/showcases-core/dist-web
+            apps/showcases-core/dist-desktop
+          key: ${{ runner.os }}-core-${{ inputs.app }}-${{ inputs.mode }}-${{ hashFiles('package-lock.json', 'apps/showcases-core/**/*', 'packages/**/*', 'tsconfig*.json', 'vite.config.*', 'apps/showcases-core/vite.config.*') }}
+          restore-keys: |
+            ${{ runner.os }}-core-${{ inputs.app }}-${{ inputs.mode }}-
+            ${{ runner.os }}-core-
+
+      # ---- Build showcases-core (web) ----
+      - name: Build showcases-core (web)
+        if: ${{ inputs.app == 'showcases-core' && steps.corecache.outputs.cache-hit != 'true' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # Assumption: you have build:dev:web and build:prod:web.
+          # If you don't, switch dev -> prod below.
+          if [ "${MODE}" = "dev" ]; then
+            npm run --workspace apps/showcases-core build:dev:web
+          else
             npm run --workspace apps/showcases-core build:prod:web
+          fi
+
+      # ---- Build showcases-core (desktop variant) before desktop packaging ----
+      - name: Build showcases-core (desktop)
+        if: ${{ inputs.app == 'showcases-desktop' && steps.corecache.outputs.cache-hit != 'true' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # For desktop packaging:
+          # - dev -> build:dev:desktop
+          # - prod/e2e -> build:prod:desktop (e2e commonly aligns with prod build)
+          if [ "${MODE}" = "dev" ]; then
+            npm run --workspace apps/showcases-core build:dev:desktop
           else
             npm run --workspace apps/showcases-core build:prod:desktop
           fi
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: showcases-core-${{ inputs.coreVariant }}-${{ github.run_id }}
-          path: apps/showcases-core/dist-web/**
-          if-no-files-found: error
-          retention-days: 14
-
-  desktop_matrix_prep:
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.app == 'showcases-desktop' }}
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.m.outputs.matrix }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.ref }}
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24
-
-      - run: npm ci
-
-      - name: Build matrix
-        id: m
-        run: |
-          MATRIX="$(DESKTOP_TARGETS='${{ inputs.desktopTargets }}' DESKTOP_ENV='${{ inputs.desktopEnv }}' node ./scripts/release/desktop-targets-to-matrix.mjs)"
-          echo "matrix<<EOF" >> $GITHUB_OUTPUT
-          echo "$MATRIX" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-
-  desktop:
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.app == 'showcases-desktop' }}
-    needs: [desktop_matrix_prep]
-    strategy:
-      fail-fast: false
-      matrix:
-        target: ${{ fromJson(needs.desktop_matrix_prep.outputs.matrix) }}
-    runs-on: ${{ matrix.target.os }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.ref }}
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24
-
-      - run: npm ci
-
-      - name: Build desktop wrapper
+      # ---- Build showcases-desktop artifact ----
+      - name: Build showcases-desktop (${{ inputs.mode }} / ${{ inputs.target }})
+        if: ${{ inputs.app == 'showcases-desktop' }}
         shell: bash
         run: |
           set -euo pipefail
-          ENV="${{ matrix.target.env }}"
-          PLATFORM="${{ matrix.target.platform }}"
-          ARTIFACT="${{ matrix.target.artifact }}"
-          ARCH="${{ matrix.target.arch }}"
+          PLATFORM="${{ steps.t.outputs.platform }}"
+          ARTIFACT="${{ steps.t.outputs.artifact }}"
+          ARCH="${{ steps.t.outputs.arch }}"
+          npm run --workspace apps/showcases-desktop "build:${MODE}:${PLATFORM}:${ARTIFACT}:${ARCH}"
 
-          # 1) build core for desktop (writes ./dist inside this job only)
-          npm run --workspace apps/showcases-core build:prod:desktop
-
-          # 2) build electron wrapper
-          npm run --workspace apps/showcases-desktop "build:${ENV}:${PLATFORM}:${ARTIFACT}:${ARCH}"
-
-      - name: Upload artifact (dist folder)
+      # ---- Upload artifacts ----
+      # Keep retention low because artifacts are huge.
+      - name: Upload artifact (showcases-core)
+        if: ${{ inputs.app == 'showcases-core' }}
         uses: actions/upload-artifact@v4
         with:
-          name: showcases-desktop-${{ matrix.target.platform }}-${{ matrix.target.artifact }}-${{ matrix.target.arch }}-${{ github.run_id }}
-          path: apps/showcases-desktop/dist/**
+          name: build-${{ inputs.app }}-${{ inputs.mode }}-${{ inputs.target }}-${{ github.run_id }}
+          path: |
+            apps/showcases-core/dist-web/**
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 3
+
+      - name: Upload artifact (showcases-desktop)
+        if: ${{ inputs.app == 'showcases-desktop' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ inputs.app }}-${{ inputs.mode }}-${{ inputs.target }}-${{ github.run_id }}
+          path: |
+            apps/showcases-desktop/dist/**
+          if-no-files-found: error
+          retention-days: 3
+
+      - name: Summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## Build artifacts"
+            echo ""
+            echo "- App: **${APP}**"
+            echo "- Mode: **${MODE}**"
+            echo "- Target: **${TARGET}**"
+            echo "- Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            echo ""
+            echo "Artifacts are attached to this run (see the **Artifacts** section on the run page)."
+          } >> "$GITHUB_STEP_SUMMARY"
