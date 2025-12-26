@@ -5,8 +5,8 @@ import semver from 'semver';
 
 const repoRoot = process.cwd();
 
-// Calculates "what to release" based on tags key@x.y.z and current package.json.
-// Scope: ONLY packages/anarchy-*
+// Calculates "what to release" based on tags name@x.y.z and current package.json.
+// Applies only for packages/anarchy-*
 // (showcases-* and other apps/packages are ignored completely)
 
 function runCapture(cmd, args) {
@@ -21,27 +21,29 @@ function readJson(p) {
 
 function listAnarchyWorkspaces() {
   const out = [];
-  const baseDir = path.join(repoRoot, 'packages');
+  const base = 'packages';
+  const baseDir = path.join(repoRoot, base);
   if (!fs.existsSync(baseDir)) return out;
 
   for (const ent of fs.readdirSync(baseDir, { withFileTypes: true })) {
     if (!ent.isDirectory()) continue;
 
     const wsKey = ent.name; // folder name, e.g. anarchy-engine
-    if (!wsKey.startsWith('anarchy-')) continue;
+    const wsPath = path.join(base, ent.name);
+    const wsPathPosix = wsPath.replaceAll('\\', '/');
 
-    const wsPath = path.join('packages', ent.name);
-    const pkgPath = path.join(repoRoot, wsPath, 'package.json');
+    // Only packages/anarchy-*
+    if (!wsPathPosix.startsWith('packages/anarchy-')) continue;
+
+    const pkgPath = path.join(wsPath, 'package.json');
     if (!fs.existsSync(pkgPath)) continue;
 
     const pkg = readJson(pkgPath);
     if (!pkg?.version) continue;
 
-    const wsPathNorm = wsPath.replaceAll('\\', '/');
-
     out.push({
       key: wsKey,
-      path: wsPathNorm,
+      path: wsPathPosix,
       npmName: String(pkg.name ?? wsKey),
       version: String(pkg.version),
       private: pkg.private === true
@@ -73,16 +75,18 @@ function main() {
   if (mode !== 'all' && mode !== 'one') throw new Error(`Invalid RELEASE_MODE: ${mode}`);
   if (mode === 'one' && !targetKey) throw new Error(`mode=one requires RELEASE_WORKSPACE (workspace key)`);
 
-  const workspaces = listAnarchyWorkspaces().filter((w) => !w.private);
+  const workspaces = listAnarchyWorkspaces();
   const selected = mode === 'one' ? workspaces.filter((w) => w.key === targetKey) : workspaces;
 
   if (mode === 'one' && selected.length === 0) {
     const keys = workspaces.map((w) => w.key).sort();
-    throw new Error(`Workspace key not found or not eligible: "${targetKey}". Available:\n- ${keys.join('\n- ')}`);
+    throw new Error(`Workspace key not found: "${targetKey}". Available:\n- ${keys.join('\n- ')}`);
   }
 
   const releases = [];
   for (const w of selected) {
+    if (w.private) continue;
+
     const last = latestTagVersionFor(w.key);
     const shouldRelease = !last || semver.neq(w.version, last);
     if (!shouldRelease) continue;
