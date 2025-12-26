@@ -16,8 +16,7 @@ defineProps<{
         </div>
         <span class="value-bar__label">{{ title }}</span>
         <span class="value-bar__value">
-          <span class="value-bar__current">{{ current }}</span
-          >/<span class="value-bar__max">{{ max }}</span>
+          <span class="value-bar__current">{{ current }}</span> / <span class="value-bar__max">{{ max }}</span>
         </span>
       </div>
       <div class="value-bar__bar-container">
