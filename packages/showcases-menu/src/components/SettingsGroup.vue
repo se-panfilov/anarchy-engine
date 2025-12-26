@@ -10,8 +10,8 @@ defineProps<{ title: string }>();
 </template>
 
 <style scoped lang="scss">
-@use '@hellpig/anarchy-shared/src/assets/_utils' as anarchy_utils;
-@use '@hellpig/anarchy-shared/src/assets/_constants' as anarchy_constants;
+@use '@hellpig/anarchy-shared/assets/_utils.scss' as anarchy_utils;
+@use '@hellpig/anarchy-shared/assets/_constants.scss' as anarchy_constants;
 
 .settings-group {
   display: flex;
