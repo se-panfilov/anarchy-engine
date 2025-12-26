@@ -4,3 +4,4 @@
 - 1.3.0 Sentry integrations for sourcemaps and better anonymous user tracking
 - 1.4.0 Sentry release+dist tagging for better sourcemap handling
 - 1.5.0 Added optional dynamic context (and tags) to data (beforeSend)
+- 1.6.0 Added proper building and npm packaging
