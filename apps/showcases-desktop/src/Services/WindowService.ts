@@ -14,7 +14,9 @@ export const windowDefaultSettings: Required<TDesktopAppConfig> = {
   isBorderless: false,
   isResizable: true,
   isFullScreenable: true,
-  isFullScreen: false
+  isFullScreen: false,
+  isForceDpr: false,
+  highDpiSupport: undefined as any
 };
 
 export function WindowService(): TWindowService {
