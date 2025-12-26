@@ -100,8 +100,10 @@ jobs:
           echo "plan<<EOF" >> "$GITHUB_OUTPUT"
           echo "$PLAN" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
+          echo "Plan:"
+          echo "$PLAN"
 
-      - name: Execute release (build + pack + tag + GitHub release + npm publish)
+      - name: Execute release (build + pack + tags + GitHub releases + npm publish)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_PLAN_JSON: ${{ steps.plan.outputs.plan }}
@@ -111,7 +113,7 @@ jobs:
           RELEASE_WORKSPACE: ${{ inputs.workspace }}
 
           # Default behavior:
-          # - mode=all: do not fail if package already published (skip publish)
-          # - mode=one: also skip publish by default (you can make strict later)
+          # - mode=all: do not fail if package already published (skip)
+          # - mode=one: also skip by default
           RELEASE_SKIP_ALREADY_PUBLISHED: "true"
         run: node ./scripts/release/do-release.mjs
