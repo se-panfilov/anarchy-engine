@@ -20,7 +20,7 @@ on:
       mode:
         type: choice
         required: true
-        default: prod
+        default: dev
         options:
           - prod
           - e2e
