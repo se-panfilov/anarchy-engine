@@ -197,6 +197,17 @@ jobs:
           echo "artifact=$artifact"
           echo "arch=$arch"
 
+      - name: Make safe strings for artifact name
+        id: safe
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Replace forbidden chars with '-'
+          safe_target="$(echo "${TARGET}" | tr '":<>|*?/\\' '-' | tr ':' '-')"
+          safe_ref="$(echo "${{ inputs.ref }}" | tr '":<>|*?/\\' '-' | tr ':' '-')"
+          echo "target=${safe_target}" >> "$GITHUB_OUTPUT"
+          echo "ref=${safe_ref}" >> "$GITHUB_OUTPUT"
+
       # ---- Showcases-core build caches ----
       # Split caches so we don't accidentally skip web build due to a desktop cache hit (and vice versa).
       - name: Restore showcases-core build cache (web)
@@ -306,7 +317,7 @@ jobs:
         if: ${{ inputs.app == 'showcases-core' }}
         uses: actions/upload-artifact@v4
         with:
-          name: build-${{ inputs.app }}-${{ inputs.mode }}-${{ inputs.target }}-${{ github.run_id }}
+          name: build-${{ inputs.app }}-${{ inputs.mode }}-${{ steps.safe.outputs.target }}-${{ github.run_id }}
           path: |
             apps/showcases-core/dist-web/**
           if-no-files-found: error
@@ -316,7 +327,7 @@ jobs:
         if: ${{ inputs.app == 'showcases-desktop' }}
         uses: actions/upload-artifact@v4
         with:
-          name: build-${{ inputs.app }}-${{ inputs.mode }}-${{ inputs.target }}-${{ github.run_id }}
+          name: build-${{ inputs.app }}-${{ inputs.mode }}-${{ steps.safe.outputs.target }}-${{ github.run_id }}
           path: |
             apps/showcases-desktop/dist-artifacts/**
           if-no-files-found: error
