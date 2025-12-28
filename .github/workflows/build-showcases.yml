@@ -333,6 +333,30 @@ jobs:
           if-no-files-found: error
           retention-days: 3
 
+      - name: macOS quarantine warning (mac:app:* only)
+        if: ${{ steps.t.outputs.platform == 'mac' && steps.t.outputs.artifact == 'app' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # Yellow-highlighted warning in logs
+          echo "::warning title=macOS Gatekeeper quarantine::This build is likely quarantined after download. Run: xattr -dr com.apple.quarantine \"/path/to/AnarchyDemo.app\""
+
+          # Big + visible warning in the Step Summary
+          {
+            echo ""
+            echo "# 🚨 IMPORTANT (macOS .app from CI)"
+            echo ""
+            echo "> **This CI-built macOS `.app` is likely placed into _quarantine_ after download.**"
+            echo ""
+            echo "Run this locally to unblock it:"
+            echo ""
+            echo '```bash'
+            echo 'xattr -dr com.apple.quarantine "/path/to/AppName.app"'
+            echo '```'
+            echo ""
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Summary
         if: always()
         shell: bash
