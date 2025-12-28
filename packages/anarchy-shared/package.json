@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-shared",
   "author": "S. Panfilov",
   "private": false,
-  "version": "1.5.0",
+  "version": "1.5.1",
   "type": "module",
   "repository": {
     "type": "git",
@@ -54,7 +54,7 @@
       "types": "./dist/assets/index.d.ts",
       "import": "./dist/assets/index.es.js"
     },
-    "./assets/*": "./dist/assets/*",
+    "./assets/*": "./src/assets/*",
     "./ScriptUtils/*": "./ScriptUtils/*"
   },
   "scripts": {
