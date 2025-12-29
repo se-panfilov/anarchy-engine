@@ -70,9 +70,9 @@
   },
   "devDependencies": {
     "@date-fns/utc": "2.1.1",
-    "@types/yargs": "17.0.33",
+    "@types/yargs": "17.0.35",
     "date-fns": "4.1.0",
-    "globby": "15.0.0",
+    "globby": "16.1.0",
     "yargs": "18.0.0"
   }
 }

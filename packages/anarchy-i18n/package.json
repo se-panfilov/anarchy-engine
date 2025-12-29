@@ -55,7 +55,7 @@
     "ts:check:watch": "tsc --watch --noEmit"
   },
   "dependencies": {
-    "@formatjs/intl": "3.1.8",
+    "@formatjs/intl": "4.0.7",
     "rxjs": "7.8.2"
   },
   "devDependencies": {
