@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 19
+Components listed: 18
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -35,7 +35,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-engine@21.2.5
+## @hellpig/anarchy-engine@21.2.6
 
 **License(s):** MIT
 
@@ -47,7 +47,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-shared@1.4.5
+## @hellpig/anarchy-shared@1.5.1
 
 **License(s):** MIT
 
@@ -78,18 +78,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** https://github.com/date-fns/date-fns
 
 **Attribution:** Copyright (c) 2021 Sasha Koss and Lesha Koss https://kossnocorp.mit-license.org
-
----
-
-## fsevents@2.3.2
-
-**License(s):** MIT
-
-**Repository:** https://github.com/fsevents/fsevents.git
-
-**URL:** https://github.com/fsevents/fsevents
-
-**Attribution:** Copyright (C) 2010-2020 by Philipp Dunkel, Ben Noordhuis, Elan Shankar, Paul Miller
 
 ---
 

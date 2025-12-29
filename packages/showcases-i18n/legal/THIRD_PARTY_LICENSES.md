@@ -491,7 +491,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @hellpig/anarchy-engine@21.2.5
+## @hellpig/anarchy-engine@21.2.6
 
 **License:** MIT
 
@@ -525,7 +525,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-i18n@1.2.3
+## @hellpig/anarchy-i18n@1.3.0
 
 **License:** MIT
 
@@ -559,7 +559,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-shared@1.4.5
+## @hellpig/anarchy-shared@1.5.1
 
 **License:** MIT
 
