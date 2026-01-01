@@ -2,7 +2,38 @@
 
 ## Application: showcases-menu
 
-Production dependencies (including transition dependencies): 122
+Production dependencies (including transition dependencies): 120
+
+---
+
+## @acemir/cssom@0.9.30
+
+**License:** MIT
+
+**Repository:** acemir/CSSOM
+
+**Publisher:** Nikita Vasilyev <me@elv1s.ru>
+
+Copyright (c) Nikita Vasilyev
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
@@ -440,7 +471,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @dimforge/rapier3d@0.19.2
+## @dimforge/rapier3d@0.19.3
 
 **License:** Apache-2.0
 
@@ -652,7 +683,41 @@ limitations under the License.
 
 ---
 
-## @formatjs/ecma402-abstract@2.3.6
+## @exodus/bytes@1.7.0
+
+**License:** MIT
+
+**Repository:** git+https://github.com/ExodusOSS/bytes.git
+
+**URL:** https://github.com/ExodusOSS/bytes#readme
+
+**Publisher:** Exodus Movement, Inc.
+
+MIT License
+
+Copyright (c) 2024-2025 Exodus Movement
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## @formatjs/ecma402-abstract@3.0.6
 
 **License:** MIT
 
@@ -674,7 +739,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @formatjs/fast-memoize@2.2.7
+## @formatjs/fast-memoize@3.0.1
 
 **License:** MIT
 
@@ -696,7 +761,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @formatjs/icu-messageformat-parser@2.11.4
+## @formatjs/icu-messageformat-parser@3.2.0
 
 **License:** MIT
 
@@ -714,7 +779,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @formatjs/icu-skeleton-parser@1.8.16
+## @formatjs/icu-skeleton-parser@2.0.6
 
 **License:** MIT
 
@@ -732,7 +797,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @formatjs/intl@3.1.8
+## @formatjs/intl@4.0.7
 
 **License:** MIT
 
@@ -754,7 +819,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @formatjs/intl-localematcher@0.6.2
+## @formatjs/intl-localematcher@0.7.3
 
 **License:** MIT
 
@@ -878,7 +943,7 @@ SOFTWARE.
 
 ---
 
-## @intlify/core-base@11.1.12
+## @intlify/core-base@11.2.7
 
 **License:** MIT
 
@@ -911,7 +976,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @intlify/message-compiler@11.1.12
+## @intlify/message-compiler@11.2.7
 
 **License:** MIT
 
@@ -944,7 +1009,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @intlify/shared@11.1.12
+## @intlify/shared@11.2.7
 
 **License:** MIT
 
@@ -1041,7 +1106,7 @@ MIT License
 
 ---
 
-## @vue/compiler-core@3.5.24
+## @vue/compiler-core@3.5.26
 
 **License:** MIT
 
@@ -1075,7 +1140,7 @@ THE SOFTWARE.
 
 ---
 
-## @vue/compiler-dom@3.5.24
+## @vue/compiler-dom@3.5.26
 
 **License:** MIT
 
@@ -1109,7 +1174,7 @@ THE SOFTWARE.
 
 ---
 
-## @vue/compiler-sfc@3.5.24
+## @vue/compiler-sfc@3.5.26
 
 **License:** MIT
 
@@ -1143,7 +1208,7 @@ THE SOFTWARE.
 
 ---
 
-## @vue/compiler-ssr@3.5.24
+## @vue/compiler-ssr@3.5.26
 
 **License:** MIT
 
@@ -1285,7 +1350,7 @@ SOFTWARE.
 
 ---
 
-## @vue/reactivity@3.5.24
+## @vue/reactivity@3.5.26
 
 **License:** MIT
 
@@ -1319,7 +1384,7 @@ THE SOFTWARE.
 
 ---
 
-## @vue/runtime-core@3.5.24
+## @vue/runtime-core@3.5.26
 
 **License:** MIT
 
@@ -1353,7 +1418,7 @@ THE SOFTWARE.
 
 ---
 
-## @vue/runtime-dom@3.5.24
+## @vue/runtime-dom@3.5.26
 
 **License:** MIT
 
@@ -1387,7 +1452,7 @@ THE SOFTWARE.
 
 ---
 
-## @vue/server-renderer@3.5.24
+## @vue/server-renderer@3.5.26
 
 **License:** MIT
 
@@ -1421,7 +1486,7 @@ THE SOFTWARE.
 
 ---
 
-## @vue/shared@3.5.24
+## @vue/shared@3.5.26
 
 **License:** MIT
 
@@ -1555,7 +1620,7 @@ SOFTWARE.
 
 ---
 
-## bowser@2.12.1
+## bowser@2.13.1
 
 **License:** MIT
 
@@ -1906,7 +1971,7 @@ THE SOFTWARE.
 
 ---
 
-## dompurify@3.3.0
+## dompurify@3.3.1
 
 **License:** (MPL-2.0 OR Apache-2.0)
 
@@ -2484,7 +2549,7 @@ Exhibit B - “Incompatible With Secondary Licenses” Notice
 
 ---
 
-## entities@4.5.0
+## entities@6.0.1
 
 **License:** BSD-2-Clause
 
@@ -2506,11 +2571,11 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ---
 
-## entities@6.0.1
+## entities@7.0.0
 
 **License:** BSD-2-Clause
 
-**Repository:** git://github.com/fb55/entities.git
+**Repository:** https://github.com/fb55/entities.git
 
 **Publisher:** Felix Boehm <me@feedic.com>
 
@@ -2576,11 +2641,11 @@ SOFTWARE.
 
 ---
 
-## html-encoding-sniffer@4.0.0
+## html-encoding-sniffer@6.0.0
 
 **License:** MIT
 
-**Repository:** jsdom/html-encoding-sniffer
+**Repository:** git+https://github.com/jsdom/html-encoding-sniffer.git
 
 **Publisher:** Domenic Denicola <d@domenic.me> (https://domenic.me/)
 
@@ -2660,40 +2725,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## iconv-lite@0.6.3
-
-**License:** MIT
-
-**Repository:** git://github.com/ashtuchkin/iconv-lite.git
-
-**URL:** https://github.com/ashtuchkin/iconv-lite
-
-**Publisher:** Alexander Shtuchkin <ashtuchkin@gmail.com>
-
-Copyright (c) 2011 Alexander Shtuchkin
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
----
-
-## intl-messageformat@10.7.18
+## intl-messageformat@11.0.7
 
 **License:** BSD-3-Clause
 
@@ -2787,7 +2819,7 @@ SOFTWARE.
 
 ---
 
-## isomorphic-dompurify@2.30.1
+## isomorphic-dompurify@2.35.0
 
 **License:** MIT
 
@@ -2817,7 +2849,7 @@ SOFTWARE.
 
 ---
 
-## jsdom@27.0.1
+## jsdom@27.4.0
 
 **License:** MIT
 
@@ -2848,7 +2880,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## lodash-es@4.17.21
+## lodash-es@4.17.22
 
 **License:** MIT
 
@@ -2992,7 +3024,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## marked@17.0.0
+## marked@17.0.1
 
 **License:** MIT
 
@@ -3622,37 +3654,6 @@ IN THE SOFTWARE.
 
 ---
 
-## rrweb-cssom@0.8.0
-
-**License:** MIT
-
-**Repository:** rrweb-io/CSSOM
-
-**Publisher:** Nikita Vasilyev <me@elv1s.ru>
-
-Copyright (c) Nikita Vasilyev
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
----
-
 ## rxjs@7.8.2
 
 **License:** Apache-2.0
@@ -3864,38 +3865,6 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
----
-
-## safer-buffer@2.1.2
-
-**License:** MIT
-
-**Repository:** git+https://github.com/ChALkeR/safer-buffer.git
-
-**Publisher:** Nikita Skovoroda <chalkerx@gmail.com>
-
-MIT License
-
-Copyright (c) 2018 Nikita Skovoroda <chalkerx@gmail.com>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 
 ---
 
@@ -4265,7 +4234,7 @@ THE SOFTWARE.
 
 ---
 
-## three@0.181.2
+## three@0.182.0
 
 **License:** MIT
 
@@ -4299,7 +4268,7 @@ THE SOFTWARE.
 
 ---
 
-## three-mesh-bvh@0.9.1
+## three-mesh-bvh@0.9.4
 
 **License:** MIT
 
@@ -4603,7 +4572,7 @@ SOFTWARE.
 
 ---
 
-## vue@3.5.24
+## vue@3.5.26
 
 **License:** MIT
 
@@ -4637,7 +4606,7 @@ THE SOFTWARE.
 
 ---
 
-## vue-i18n@11.1.12
+## vue-i18n@11.2.7
 
 **License:** MIT
 
@@ -4723,24 +4692,6 @@ Redistribution and use in source and binary forms, with or without modification,
 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
----
-
-## whatwg-encoding@3.1.1
-
-**License:** MIT
-
-**Repository:** jsdom/whatwg-encoding
-
-**Publisher:** Domenic Denicola <d@domenic.me> (https://domenic.me/)
-
-Copyright © Domenic Denicola <d@domenic.me>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 

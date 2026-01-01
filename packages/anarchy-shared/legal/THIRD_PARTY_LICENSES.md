@@ -6,7 +6,7 @@ Production dependencies (including transition dependencies): 1
 
 ---
 
-## bowser@2.12.1
+## bowser@2.13.1
 
 **License:** MIT
 
