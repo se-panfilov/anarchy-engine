@@ -18,7 +18,7 @@ import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function FogService(factory: TFogFactory, registry: TFogRegistry, scene: TSceneWrapper): TFogService {
-  const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TFogWrapper>) => scene.setFog(value));
+  const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TFogWrapper>): void => scene.setFog(value));
   const factorySub$: Subscription = factory.entityCreated$.subscribe((fog: TFogWrapper): void => registry.add(fog));
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, registrySub$, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
