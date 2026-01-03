@@ -4,14 +4,10 @@ import type { TLoadingManager, TLoadingManagerParams, TLoadingManagerWrapper } f
 import { LoadingManager } from 'three';
 
 export function LoadingManagerWrapper(params: TLoadingManagerParams): TLoadingManagerWrapper {
-  const entity: TLoadingManager = new LoadingManager(params);
+  const entity: TLoadingManager = new LoadingManager(params.onLoad, params.onProgress, params.onError);
 
   const wrapper: TAbstractWrapper<TLoadingManager> = AbstractWrapper(entity, WrapperType.LoadingManager, params);
 
   // eslint-disable-next-line functional/immutable-data
-  const result = Object.assign(wrapper, {
-    entity
-  });
-
-  return result;
+  return Object.assign(wrapper, { entity });
 }
