@@ -22,16 +22,17 @@ import type { TWriteable } from '@Anarchy/Shared/Utils';
 import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
-import type { AnimationClip } from 'three';
+import type { AnimationClip, LoadingManager } from 'three';
 import { AnimationMixer } from 'three';
 
 export function AnimationsService(
   resourcesRegistry: TAnimationsResourceAsyncRegistry,
   metaInfoRegistry: TAnimationsMetaInfoRegistry,
   { renderLoop }: TSpaceLoops,
+  loadingManager: LoadingManager,
   settings: TSpaceSettings
 ): TAnimationsService {
-  const animationsLoader: TAnimationsLoader = AnimationsLoader(resourcesRegistry, metaInfoRegistry, settings.threeJsSettings?.draco);
+  const animationsLoader: TAnimationsLoader = AnimationsLoader(resourcesRegistry, metaInfoRegistry, loadingManager, settings.threeJsSettings?.draco);
   const added$: Subject<TModel3dAnimations> = new Subject<TModel3dAnimations>();
   const subscriptions: Map<AnimationMixer, Subscription> = new Map<AnimationMixer, Subscription>();
   const disposable: ReadonlyArray<TDisposable> = [resourcesRegistry, animationsLoader];
