@@ -8,7 +8,7 @@ import type {
   TLoadingManagerServiceWithFactory,
   TLoadingManagerServiceWithRegistry,
   TLoadingManagerWrapper
-} from '@Anarchy/Engine/Loading/Models';
+} from '@Anarchy/Engine/LoadingManager/Models';
 import type { TDisposable } from '@Anarchy/Engine/Mixins';
 import { withCreateServiceMixin, withFactoryService, withRegistryService } from '@Anarchy/Engine/Mixins';
 import { mergeAll } from '@Anarchy/Engine/Utils';

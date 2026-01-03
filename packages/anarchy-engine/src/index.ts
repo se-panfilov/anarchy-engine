@@ -16,7 +16,7 @@ export * from './Intersections';
 export * from './Keyboard';
 export * from './Kinematic';
 export * from './Light';
-export * from './Loading';
+export * from './LoadingManager';
 export * from './Loop';
 export * from './Material';
 export * from './Math';
