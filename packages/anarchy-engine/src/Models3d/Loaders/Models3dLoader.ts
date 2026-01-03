@@ -4,12 +4,18 @@ import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToMo
 import type { TDracoLoaderSettings } from '@Anarchy/Engine/ThreeLib';
 import type { TWriteable } from '@Anarchy/Shared/Utils';
 import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { LoadingManager } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import { Loader3dCore } from './Loader3dCore';
 
-export function Models3dLoader(registry: TModels3dResourceAsyncRegistry, metaInfoRegistry: TModels3dMetaInfoRegistry, settings: TDracoLoaderSettings = {}): TModels3dLoader {
-  const loader: TModels3dLoader = Loader3dCore(registry, metaInfoRegistry, LoaderType.Model3d, settings);
+export function Models3dLoader(
+  registry: TModels3dResourceAsyncRegistry,
+  metaInfoRegistry: TModels3dMetaInfoRegistry,
+  loadingManager: LoadingManager,
+  settings: TDracoLoaderSettings = {}
+): TModels3dLoader {
+  const loader: TModels3dLoader = Loader3dCore(registry, metaInfoRegistry, LoaderType.Model3d, loadingManager, settings);
 
   function applyParamsOnLoaded(loaded: TWriteable<GLTF>, options?: TModel3dResourceConfig['options']): GLTF {
     if (isNotDefined(options)) return loaded;

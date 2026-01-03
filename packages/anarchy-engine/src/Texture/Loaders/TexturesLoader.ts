@@ -3,10 +3,11 @@ import type { TTexture, TTextureAsyncRegistry, TTextureMetaInfoRegistry, TTextur
 import { applyColorSpace, applyFilters, applyTextureParams } from '@Anarchy/Engine/Texture/Utils';
 import type { TWriteable } from '@Anarchy/Shared/Utils';
 import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { LoadingManager } from 'three';
 import { TextureLoader } from 'three';
 
-export function TexturesLoader(registry: TTextureAsyncRegistry, metaInfoRegistry: TTextureMetaInfoRegistry): TTexturesLoader {
-  const textureLoader: TextureLoader = new TextureLoader();
+export function TexturesLoader(registry: TTextureAsyncRegistry, metaInfoRegistry: TTextureMetaInfoRegistry, loadingManager: LoadingManager): TTexturesLoader {
+  const textureLoader: TextureLoader = new TextureLoader(loadingManager);
   const loader: TTexturesLoader = AbstractLoader(textureLoader, registry, metaInfoRegistry, LoaderType.Texture);
 
   function applyParamsOnLoaded(loaded: TWriteable<TTexture>, options?: TTextureResourceConfig['options']): TTexture {
