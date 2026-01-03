@@ -42,14 +42,13 @@
 - 21.0.0 Texts now support translations (i18n)
 - 21.1.0 Security: better CSP: no need for "unsafe-eval" (get rid of AJV)
 - 21.2.0 Reworked keyboard service (no external dependencies)
+- 21.3.0 Added LoadingManager
 
 Roadmap:
 
-- 22.0.x Create a npm package
-- 23.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
-- 24.x.x Postprocessing
-- 25.0.x Shaders
-- 26.0.x Modules: distinct engine/rapier from engine/core. Bonus: Make possible to load engine/rapier in async way
+- 22.x.x Postprocessing
+- 23.0.x Shaders
+- 24.0.x Modules: distinct engine/rapier from engine/core. Bonus: Make possible to load engine/rapier in async way
 
 Thoughts:
 
@@ -70,7 +69,7 @@ Thoughts:
 
 Known bugs:
 
-- 3d texts doesn't work in Safari (might be scale/LOD issue)
+- 3d texts doesn't work in Safari (might be scale/LOD issue) and in some windows-builds (via CI)
 
 Won't be implemented soon:
 
