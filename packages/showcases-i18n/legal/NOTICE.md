@@ -69,7 +69,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @dimforge/rapier3d@0.19.2
+## @dimforge/rapier3d@0.19.3
 
 **License(s):** Apache-2.0
 
@@ -81,7 +81,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/ecma402-abstract@2.3.6
+## @formatjs/ecma402-abstract@3.0.6
 
 **License(s):** MIT
 
@@ -93,7 +93,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/fast-memoize@2.2.7
+## @formatjs/fast-memoize@3.0.1
 
 **License(s):** MIT
 
@@ -105,7 +105,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/icu-messageformat-parser@2.11.4
+## @formatjs/icu-messageformat-parser@3.2.0
 
 **License(s):** MIT
 
@@ -115,7 +115,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/icu-skeleton-parser@1.8.16
+## @formatjs/icu-skeleton-parser@2.0.6
 
 **License(s):** MIT
 
@@ -125,7 +125,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/intl@3.1.8
+## @formatjs/intl@4.0.7
 
 **License(s):** MIT
 
@@ -137,7 +137,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/intl-localematcher@0.6.2
+## @formatjs/intl-localematcher@0.7.3
 
 **License(s):** MIT
 
@@ -185,7 +185,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @intlify/core-base@11.1.12
+## @intlify/core-base@11.2.7
 
 **License(s):** MIT
 
@@ -197,7 +197,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @intlify/message-compiler@11.1.12
+## @intlify/message-compiler@11.2.7
 
 **License(s):** MIT
 
@@ -209,7 +209,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @intlify/shared@11.1.12
+## @intlify/shared@11.2.7
 
 **License(s):** MIT
 
@@ -233,7 +233,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/compiler-core@3.5.24
+## @vue/compiler-core@3.5.26
 
 **License(s):** MIT
 
@@ -245,7 +245,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/compiler-dom@3.5.24
+## @vue/compiler-dom@3.5.26
 
 **License(s):** MIT
 
@@ -257,7 +257,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/compiler-sfc@3.5.24
+## @vue/compiler-sfc@3.5.26
 
 **License(s):** MIT
 
@@ -269,7 +269,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/compiler-ssr@3.5.24
+## @vue/compiler-ssr@3.5.26
 
 **License(s):** MIT
 
@@ -291,7 +291,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/reactivity@3.5.24
+## @vue/reactivity@3.5.26
 
 **License(s):** MIT
 
@@ -303,7 +303,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/runtime-core@3.5.24
+## @vue/runtime-core@3.5.26
 
 **License(s):** MIT
 
@@ -315,7 +315,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/runtime-dom@3.5.24
+## @vue/runtime-dom@3.5.26
 
 **License(s):** MIT
 
@@ -327,7 +327,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/server-renderer@3.5.24
+## @vue/server-renderer@3.5.26
 
 **License(s):** MIT
 
@@ -339,7 +339,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/shared@3.5.24
+## @vue/shared@3.5.26
 
 **License(s):** MIT
 
@@ -351,7 +351,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## bowser@2.12.1
+## bowser@2.13.1
 
 **License(s):** MIT
 
@@ -413,11 +413,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## entities@4.5.0
+## entities@7.0.0
 
 **License(s):** BSD-2-Clause
 
-**Repository:** git://github.com/fb55/entities.git
+**Repository:** https://github.com/fb55/entities.git
 
 **Attribution:** Copyright (c) Felix Böhm
 
@@ -433,7 +433,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## intl-messageformat@10.7.18
+## intl-messageformat@11.0.7
 
 **License(s):** BSD-3-Clause
 
@@ -445,7 +445,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## lodash-es@4.17.21
+## lodash-es@4.17.22
 
 **License(s):** MIT
 
@@ -579,7 +579,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## three@0.181.2
+## three@0.182.0
 
 **License(s):** MIT
 
@@ -591,7 +591,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## three-mesh-bvh@0.9.1
+## three-mesh-bvh@0.9.4
 
 **License(s):** MIT
 
@@ -651,7 +651,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## vue@3.5.24
+## vue@3.5.26
 
 **License(s):** MIT
 
@@ -663,7 +663,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## vue-i18n@11.1.12
+## vue-i18n@11.2.7
 
 **License(s):** MIT
 

@@ -89,12 +89,12 @@
     "ts:check:watch": "tsc --watch --noEmit"
   },
   "dependencies": {
-    "@sentry/browser": "10.21.0",
-    "@sentry/electron": "7.2.0",
+    "@sentry/browser": "10.32.1",
+    "@sentry/electron": "7.5.0",
     "dotenv": "17.2.3"
   },
   "devDependencies": {
     "rollup-plugin-terser": "7.0.2",
-    "@sentry/cli": "2.57.0"
+    "@sentry/cli": "3.0.1"
   }
 }

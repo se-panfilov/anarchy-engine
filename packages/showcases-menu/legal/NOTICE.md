@@ -5,11 +5,21 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 122
+Components listed: 120
 
 ## 1) Mandatory Attributions (verbatim)
 
 The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
+
+## @acemir/cssom@0.9.30
+
+**License(s):** MIT
+
+**Repository:** acemir/CSSOM
+
+**Attribution:** Copyright (c) Nikita Vasilyev
+
+---
 
 ## @asamuzakjp/css-color@4.1.1
 
@@ -177,7 +187,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @dimforge/rapier3d@0.19.2
+## @dimforge/rapier3d@0.19.3
 
 **License(s):** Apache-2.0
 
@@ -189,7 +199,19 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/ecma402-abstract@2.3.6
+## @exodus/bytes@1.7.0
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/ExodusOSS/bytes.git
+
+**URL:** https://github.com/ExodusOSS/bytes#readme
+
+**Attribution:** Copyright (c) 2024-2025 Exodus Movement
+
+---
+
+## @formatjs/ecma402-abstract@3.0.6
 
 **License(s):** MIT
 
@@ -201,7 +223,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/fast-memoize@2.2.7
+## @formatjs/fast-memoize@3.0.1
 
 **License(s):** MIT
 
@@ -213,7 +235,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/icu-messageformat-parser@2.11.4
+## @formatjs/icu-messageformat-parser@3.2.0
 
 **License(s):** MIT
 
@@ -223,7 +245,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/icu-skeleton-parser@1.8.16
+## @formatjs/icu-skeleton-parser@2.0.6
 
 **License(s):** MIT
 
@@ -233,7 +255,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/intl@3.1.8
+## @formatjs/intl@4.0.7
 
 **License(s):** MIT
 
@@ -245,7 +267,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/intl-localematcher@0.6.2
+## @formatjs/intl-localematcher@0.7.3
 
 **License(s):** MIT
 
@@ -293,7 +315,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @intlify/core-base@11.1.12
+## @intlify/core-base@11.2.7
 
 **License(s):** MIT
 
@@ -305,7 +327,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @intlify/message-compiler@11.1.12
+## @intlify/message-compiler@11.2.7
 
 **License(s):** MIT
 
@@ -317,7 +339,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @intlify/shared@11.1.12
+## @intlify/shared@11.2.7
 
 **License(s):** MIT
 
@@ -353,7 +375,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/compiler-core@3.5.24
+## @vue/compiler-core@3.5.26
 
 **License(s):** MIT
 
@@ -365,7 +387,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/compiler-dom@3.5.24
+## @vue/compiler-dom@3.5.26
 
 **License(s):** MIT
 
@@ -377,7 +399,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/compiler-sfc@3.5.24
+## @vue/compiler-sfc@3.5.26
 
 **License(s):** MIT
 
@@ -389,7 +411,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/compiler-ssr@3.5.24
+## @vue/compiler-ssr@3.5.26
 
 **License(s):** MIT
 
@@ -441,7 +463,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/reactivity@3.5.24
+## @vue/reactivity@3.5.26
 
 **License(s):** MIT
 
@@ -453,7 +475,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/runtime-core@3.5.24
+## @vue/runtime-core@3.5.26
 
 **License(s):** MIT
 
@@ -465,7 +487,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/runtime-dom@3.5.24
+## @vue/runtime-dom@3.5.26
 
 **License(s):** MIT
 
@@ -477,7 +499,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/server-renderer@3.5.24
+## @vue/server-renderer@3.5.26
 
 **License(s):** MIT
 
@@ -489,7 +511,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/shared@3.5.24
+## @vue/shared@3.5.26
 
 **License(s):** MIT
 
@@ -533,7 +555,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## bowser@2.12.1
+## bowser@2.13.1
 
 **License(s):** MIT
 
@@ -649,7 +671,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## dompurify@3.3.0
+## dompurify@3.3.1
 
 **License(s):** (MPL-2.0 OR Apache-2.0)
 
@@ -661,7 +683,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## entities@4.5.0
+## entities@6.0.1
 
 **License(s):** BSD-2-Clause
 
@@ -671,11 +693,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## entities@6.0.1
+## entities@7.0.0
 
 **License(s):** BSD-2-Clause
 
-**Repository:** git://github.com/fb55/entities.git
+**Repository:** https://github.com/fb55/entities.git
 
 **Attribution:** Copyright (c) Felix Böhm
 
@@ -701,11 +723,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## html-encoding-sniffer@4.0.0
+## html-encoding-sniffer@6.0.0
 
 **License(s):** MIT
 
-**Repository:** jsdom/html-encoding-sniffer
+**Repository:** git+https://github.com/jsdom/html-encoding-sniffer.git
 
 **Attribution:** Copyright © Domenic Denicola <d@domenic.me>
 
@@ -731,19 +753,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## iconv-lite@0.6.3
-
-**License(s):** MIT
-
-**Repository:** git://github.com/ashtuchkin/iconv-lite.git
-
-**URL:** https://github.com/ashtuchkin/iconv-lite
-
-**Attribution:** Copyright (c) 2011 Alexander Shtuchkin
-
----
-
-## intl-messageformat@10.7.18
+## intl-messageformat@11.0.7
 
 **License(s):** BSD-3-Clause
 
@@ -779,7 +789,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## isomorphic-dompurify@2.30.1
+## isomorphic-dompurify@2.35.0
 
 **License(s):** MIT
 
@@ -789,7 +799,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## jsdom@27.0.1
+## jsdom@27.4.0
 
 **License(s):** MIT
 
@@ -799,7 +809,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## lodash-es@4.17.21
+## lodash-es@4.17.22
 
 **License(s):** MIT
 
@@ -831,7 +841,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## marked@17.0.0
+## marked@17.0.1
 
 **License(s):** MIT
 
@@ -1021,16 +1031,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## rrweb-cssom@0.8.0
-
-**License(s):** MIT
-
-**Repository:** rrweb-io/CSSOM
-
-**Attribution:** Copyright (c) Nikita Vasilyev
-
----
-
 ## rxjs@7.8.2
 
 **License(s):** Apache-2.0
@@ -1040,16 +1040,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://rxjs.dev
 
 **Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## safer-buffer@2.1.2
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/ChALkeR/safer-buffer.git
-
-**Attribution:** Copyright (c) 2018 Nikita Skovoroda <chalkerx@gmail.com>
 
 ---
 
@@ -1157,7 +1147,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## three@0.181.2
+## three@0.182.0
 
 **License(s):** MIT
 
@@ -1169,7 +1159,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## three-mesh-bvh@0.9.1
+## three-mesh-bvh@0.9.4
 
 **License(s):** MIT
 
@@ -1275,7 +1265,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## vue@3.5.24
+## vue@3.5.26
 
 **License(s):** MIT
 
@@ -1287,7 +1277,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## vue-i18n@11.1.12
+## vue-i18n@11.2.7
 
 **License(s):** MIT
 
@@ -1316,16 +1306,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** git+https://github.com/jsdom/webidl-conversions.git
 
 **Attribution:** Copyright (c) 2014, Domenic Denicola
-
----
-
-## whatwg-encoding@3.1.1
-
-**License(s):** MIT
-
-**Repository:** jsdom/whatwg-encoding
-
-**Attribution:** Copyright © Domenic Denicola <d@domenic.me>
 
 ---
 

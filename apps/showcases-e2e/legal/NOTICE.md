@@ -23,7 +23,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @dimforge/rapier3d@0.19.2
+## @dimforge/rapier3d@0.19.3
 
 **License(s):** Apache-2.0
 
@@ -59,7 +59,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## bowser@2.12.1
+## bowser@2.13.1
 
 **License(s):** MIT
 
@@ -81,7 +81,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## lodash-es@4.17.21
+## lodash-es@4.17.22
 
 **License(s):** MIT
 
@@ -103,7 +103,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## playwright@1.53.1
+## playwright@1.57.0
 
 **License(s):** Apache-2.0
 
@@ -115,7 +115,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## playwright-core@1.53.1
+## playwright-core@1.57.0
 
 **License(s):** Apache-2.0
 
@@ -161,7 +161,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## three@0.181.2
+## three@0.182.0
 
 **License(s):** MIT
 
@@ -173,7 +173,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## three-mesh-bvh@0.9.1
+## three-mesh-bvh@0.9.4
 
 **License(s):** MIT
 
