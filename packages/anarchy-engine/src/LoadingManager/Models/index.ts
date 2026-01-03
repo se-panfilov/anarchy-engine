@@ -1,4 +1,3 @@
-export type * from './TLoadingManager';
 export type * from './TLoadingManagerFactory';
 export type * from './TLoadingManagerParams';
 export type * from './TLoadingManagerRegistry';

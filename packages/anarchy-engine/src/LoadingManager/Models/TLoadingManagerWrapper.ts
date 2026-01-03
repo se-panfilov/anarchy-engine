@@ -1,7 +1,6 @@
 import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
 import type { TDestroyable } from '@Anarchy/Engine/Mixins';
-
-import type { TLoadingManager } from './TLoadingManager';
+import type { LoadingManager } from 'three';
 
 //No need for serialization, so we use TAbstractWrapper instead of TWrapper
-export type TLoadingManagerWrapper = TAbstractWrapper<TLoadingManager> & TDestroyable;
+export type TLoadingManagerWrapper = TAbstractWrapper<LoadingManager> & TDestroyable;

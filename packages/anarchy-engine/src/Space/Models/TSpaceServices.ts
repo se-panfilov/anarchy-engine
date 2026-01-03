@@ -10,6 +10,7 @@ import type { TFsmService } from '@Anarchy/Engine/Fsm';
 import type { TIntersectionsWatcherService } from '@Anarchy/Engine/Intersections';
 import type { TKeyboardService } from '@Anarchy/Engine/Keyboard';
 import type { TLightService } from '@Anarchy/Engine/Light';
+import type { TLoadingManagerService } from '@Anarchy/Engine/LoadingManager';
 import type { TLoopService } from '@Anarchy/Engine/Loop';
 import type { TMaterialService } from '@Anarchy/Engine/Material';
 import type { TModels3dService } from '@Anarchy/Engine/Models3d';
@@ -36,6 +37,7 @@ export type TSpaceServices = Readonly<{
   intersectionsWatcherService: TIntersectionsWatcherService;
   keyboardService: TKeyboardService;
   lightService: TLightService;
+  loadingManagerService: TLoadingManagerService;
   loopService: TLoopService;
   materialService: TMaterialService;
   models3dService: TModels3dService;

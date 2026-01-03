@@ -21,12 +21,12 @@ import type {
   TAudioServiceWithFactory,
   TAudioServiceWithRegistry
 } from '@Anarchy/Engine/Audio/Models';
+import type { TLoadingManagerWrapper } from '@Anarchy/Engine/LoadingManager';
 import type { TDisposable } from '@Anarchy/Engine/Mixins';
 import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities, withSerializeAllResources } from '@Anarchy/Engine/Mixins';
 import type { TSpaceLoops } from '@Anarchy/Engine/Space';
 import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
-import type { LoadingManager } from 'three';
 import { AudioListener } from 'three';
 
 // TODO Audio: Maybe implement "Sound Perception Manager" for NPCs to react to a sound (if they are in a radius)
@@ -38,9 +38,9 @@ export function AudioService(
   metaInfoRegistry: TAudioMetaInfoRegistry,
   dependencies: TAudioServiceDependencies,
   { audioLoop }: TSpaceLoops,
-  loadingManager: LoadingManager
+  loadingManagerWrapper: TLoadingManagerWrapper
 ): TAudioService {
-  const audioLoader: TAudioLoader = AudioLoader(audioResourceAsyncRegistry, metaInfoRegistry, loadingManager);
+  const audioLoader: TAudioLoader = AudioLoader(audioResourceAsyncRegistry, metaInfoRegistry, loadingManagerWrapper);
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TAnyAudioWrapper): void => registry.add(wrapper));
 
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, audioResourceAsyncRegistry, audioListenersRegistry, factorySub$, audioLoader];
