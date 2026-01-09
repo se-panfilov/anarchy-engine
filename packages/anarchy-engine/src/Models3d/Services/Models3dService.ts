@@ -1,6 +1,7 @@
 import type { TAbstractService } from '@Anarchy/Engine/Abstract';
 import { AbstractService } from '@Anarchy/Engine/Abstract';
 import type { TAnimationsResourceAsyncRegistry, TAnimationsService } from '@Anarchy/Engine/Animations';
+import type { TLoadingManagerWrapper } from '@Anarchy/Engine/LoadingManager';
 import type { TMaterialRegistry, TMaterialService } from '@Anarchy/Engine/Material';
 import type { TDisposable } from '@Anarchy/Engine/Mixins';
 import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities, withSerializeAllResources } from '@Anarchy/Engine/Mixins';
@@ -29,7 +30,6 @@ import type { TSpaceSettings } from '@Anarchy/Engine/Space';
 import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { TOptional } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
-import type { LoadingManager } from 'three';
 
 export function Models3dService(
   factory: TModels3dFactory,
@@ -37,11 +37,11 @@ export function Models3dService(
   resourcesRegistry: TModels3dResourceAsyncRegistry,
   metaInfoRegistry: TModels3dMetaInfoRegistry,
   { materialService, animationsService, model3dRawToModel3dConnectionRegistry }: TModels3dServiceDependencies,
-  loadingManager: LoadingManager,
+  loadingManagerWrapper: TLoadingManagerWrapper,
   settings: TSpaceSettings
 ): TModels3dService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((model3d: TModel3d): void => registry.add(model3d));
-  const model3dLoader: TModels3dLoader = Models3dLoader(resourcesRegistry, metaInfoRegistry, loadingManager, settings.threeJsSettings?.draco);
+  const model3dLoader: TModels3dLoader = Models3dLoader(resourcesRegistry, metaInfoRegistry, loadingManagerWrapper, settings.threeJsSettings?.draco);
   const materialRegistry: TMaterialRegistry = materialService.getRegistry();
   const animationsResourceAsyncRegistry: TAnimationsResourceAsyncRegistry = animationsService.getResourceRegistry();
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, resourcesRegistry, model3dRawToModel3dConnectionRegistry, factorySub$, model3dLoader];
