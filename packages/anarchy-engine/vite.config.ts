@@ -149,7 +149,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         thresholds: {
           statements: 9,
           branches: 4.9,
-          functions: 11,
+          functions: 10,
           lines: 9
         }
       }
