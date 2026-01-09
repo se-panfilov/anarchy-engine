@@ -15,6 +15,12 @@ import { PCFShadowMap, WebGLRenderer } from 'three';
 import { getAccessors } from './Accessors';
 
 export function RendererWrapper(params: TRendererParams, { container, renderLoop }: TRendererWrapperDependencies): TRendererWrapper {
+  const isRendererReady$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  isRendererReady$.subscribe((value: boolean): void => {
+    console.log(`XXX [RendererWrapper][${params.name}]: isRendererReady changed to ${value}`);
+  });
+
   const maxPixelRatio: number = params.maxPixelRatio ?? 2;
   if (isNotDefined(params.canvas)) throw new Error(`Canvas is not defined`);
   if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');
@@ -43,7 +49,7 @@ export function RendererWrapper(params: TRendererParams, { container, renderLoop
   accessors.setShadowMapType(PCFShadowMap);
 
   //When "isRendererReady" is true, you can assume that the scene is loaded and ready.
-  const isRendererReady$: BehaviorSubject<boolean> = new BehaviorSubject(entity.info.render.frame > 0);
+  if (isRendererReady$.value !== entity.info.render.frame > 0) isRendererReady$.next(entity.info.render.frame > 0);
 
   const rendererLoopSub$: Subscription = renderLoop.tick$.subscribe((): void => {
     const isRendererReady: boolean = entity.info.render.frame > 0;
