@@ -33,13 +33,15 @@ import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
 import { mergeAll } from '@Anarchy/Engine/Utils';
 import { isDefined } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
+import type { LoadingManager } from 'three';
 
 export function EnvMapService(
   factory: TEnvMapFactory,
   registry: TEnvMapRegistry,
   resourcesRegistry: TEnvMapTextureAsyncRegistry,
   metaInfoRegistry: TEnvMapMetaInfoRegistry,
-  sceneW: TSceneWrapper
+  sceneW: TSceneWrapper,
+  loadingManager: LoadingManager
 ): TEnvMapService {
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TEnvMapWrapper>): void => {
     if (value.isActive()) withActive.active$.next(value);
@@ -48,7 +50,7 @@ export function EnvMapService(
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TEnvMapWrapper): void => registry.add(wrapper));
 
   const withActive: TWithActiveMixinResult<TEnvMapWrapper> = withActiveEntityServiceMixin<TEnvMapWrapper>(registry);
-  const envMapLoader: TEnvMapLoader = EnvMapLoader(resourcesRegistry, metaInfoRegistry);
+  const envMapLoader: TEnvMapLoader = EnvMapLoader(resourcesRegistry, metaInfoRegistry, loadingManager);
 
   const disposable: ReadonlyArray<TDisposable> = [registry, resourcesRegistry, factory, envMapLoader, registrySub$, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);

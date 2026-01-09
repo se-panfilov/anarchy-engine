@@ -3,7 +3,8 @@ import { EnvMapMappingTypesMap, EnvMapMappingTypesName } from '@Anarchy/Engine/E
 import type { TEnvMapLoader, TEnvMapMetaInfoRegistry, TEnvMapResourceConfig, TEnvMapTexture, TEnvMapTextureAsyncRegistry } from '@Anarchy/Engine/EnvMap/Models';
 import type { TWriteable } from '@Anarchy/Shared/Utils';
 import { isDefined } from '@Anarchy/Shared/Utils';
-import { EquirectangularReflectionMapping, LoadingManager } from 'three';
+import type { LoadingManager } from 'three';
+import { EquirectangularReflectionMapping } from 'three';
 import { HDRLoader } from 'three/examples/jsm/loaders/HDRLoader';
 
 export function EnvMapLoader(registry: TEnvMapTextureAsyncRegistry, metaInfoRegistry: TEnvMapMetaInfoRegistry, loadingManager: LoadingManager): TEnvMapLoader {
