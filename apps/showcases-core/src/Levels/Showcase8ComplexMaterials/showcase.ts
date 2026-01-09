@@ -31,7 +31,7 @@ import type { Mesh, MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
 import { Euler, Vector3 } from 'three';
 
 import type { TAppSettings } from '@/Models';
-import { addGizmo, enableFPSCounter } from '@/Utils';
+import { addGizmo, enableFPSCounter, watchResourceLoading } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
@@ -42,19 +42,7 @@ export function start(settings: TAppSettings): void {
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
   if (settings.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
-
-  // TODO DEBUG CODE
-  const loadingManagerWrapper = space.services.loadingManagerService.getRegistry().getByName('DefaultSpaceLoadingManager');
-
-  loadingManagerWrapper.progress$.subscribe((value) => {
-    console.log('XXX', value);
-  });
-
-  loadingManagerWrapper.ready$.subscribe((value) => {
-    console.log('XXX', value);
-  });
-  // TODO DEBUG CODE END
-
+  watchResourceLoading(space);
   space.built$.subscribe(showcase);
 }
 

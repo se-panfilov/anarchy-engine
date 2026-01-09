@@ -6,7 +6,7 @@ import { distinctUntilChanged } from 'rxjs';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TAppSettings } from '@/Models';
-import { addGizmo, enableFPSCounter } from '@/Utils';
+import { addGizmo, enableFPSCounter, watchResourceLoading } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 import { initSolder1, initSolder2 } from './Utils';
@@ -23,15 +23,7 @@ function beforeResourcesLoaded(_config: TSpaceConfig, { models3dService }: TSpac
 export function start(settings: TAppSettings): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], settings.spaceSettings));
   const space: TSpace = spaces[spaceConfig.name];
-
-  // TODO DEBUG CODE
-  const loadingManagerWrapper = space.services.loadingManagerService.getRegistry().getByName('DefaultSpaceLoadingManager');
-
-  loadingManagerWrapper.progress$.subscribe((value) => {
-    console.log('XXX', value);
-  });
-  // TODO DEBUG CODE END
-
+  watchResourceLoading(space);
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
   space.events$.subscribe((event: TSpaceAnyEvent): void => {
     if (event.name === SpaceEvents.BeforeResourcesLoaded) beforeResourcesLoaded(event.args.config, event.args.services);

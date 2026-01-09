@@ -4,6 +4,7 @@ import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 
 import type { TAppSettings } from '@/Models';
+import { watchResourceLoading } from '@/Utils';
 
 import type { TSubscriptionsData } from './Helpers';
 import { runAlpha, runBeta, runDelta, runGamma } from './Helpers';
@@ -37,6 +38,11 @@ export function start(settings: TAppSettings): void {
   if (isNotDefined(spaceBeta)) throw new Error(`Showcase: Space "${spaceBetaConfig.name}" is not defined`);
   if (isNotDefined(spaceGamma)) throw new Error(`Showcase: Space "${spaceGammaConfig.name}" is not defined`);
   if (isNotDefined(spaceDelta)) throw new Error(`Showcase: Space "${spaceDeltaConfig.name}" is not defined`);
+
+  watchResourceLoading(spaceAlpha);
+  watchResourceLoading(spaceBeta);
+  watchResourceLoading(spaceDelta);
+  watchResourceLoading(spaceGamma);
 
   combineLatest([spaceAlpha.built$, spaceBeta.built$, spaceGamma.built$, spaceDelta.built$]).subscribe(([alpha, beta, gamma, delta]: ReadonlyArray<TSpace>): void => {
     runAlpha(alpha);
