@@ -1,10 +1,9 @@
 import type { TWithName, TWithTags } from '@Anarchy/Engine/Mixins';
-import type { Color } from 'three';
 
 export type TLoadingManagerParams = Readonly<{
-  color: Color;
-  near?: number;
-  far?: number;
+  onLoad?: () => void;
+  onProgress?: (url: string, loaded: number, total: number) => void;
+  onError?: (url: string) => void;
 }> &
   TWithName &
   TWithTags;
