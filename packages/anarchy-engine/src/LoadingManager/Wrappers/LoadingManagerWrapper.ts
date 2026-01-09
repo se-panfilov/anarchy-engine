@@ -10,6 +10,9 @@ import { LoadingManager } from 'three';
 const { NOT_STARTED, START, PROGRESS, ERROR, DONE } = LoadingEventType;
 
 export function LoadingManagerWrapper(params: TLoadingManagerParams): TLoadingManagerWrapper {
+  let lastLoaded: number = 0;
+  let lastTotal: number = 0;
+
   const onProgress = (url: string, loaded: number, total: number): void => {
     setLastCounters(loaded, total);
     value$.next({ type: PROGRESS, url, loaded, total, progress: getProgress(loaded, total) });
@@ -24,7 +27,6 @@ export function LoadingManagerWrapper(params: TLoadingManagerParams): TLoadingMa
   };
 
   const onError = (url: string): void => {
-    // Preserve counts up to the error so UI can show partial progress.
     value$.next({ type: ERROR, url, loaded: lastLoaded, total: lastTotal, progress: getProgress(lastLoaded, lastTotal) });
     params.onError?.(url);
   };
@@ -32,14 +34,15 @@ export function LoadingManagerWrapper(params: TLoadingManagerParams): TLoadingMa
   const entity: LoadingManager = new LoadingManager(onLoad, onProgress, onError);
   const value$: BehaviorSubject<TLoadingEvent> = new BehaviorSubject<TLoadingEvent>({ type: NOT_STARTED, loaded: 0, total: 0, progress: 0 });
 
-  let lastLoaded: number = 0;
-  let lastTotal: number = 0;
-
   function getProgress(loaded: number, total: number): number {
     if (total <= 0) return 0;
 
-    const percent: number = (loaded / total) * 100;
-    return Number.isFinite(percent) ? Math.max(0, Math.min(100, percent)) : 0;
+    const percentRaw: number = (loaded / total) * 100;
+    if (!Number.isFinite(percentRaw)) return 0;
+
+    const percentClamped: number = Math.max(0, Math.min(100, percentRaw));
+
+    return Number(percentClamped.toFixed(2));
   }
 
   function setLastCounters(loaded: number, total: number): void {
