@@ -9,4 +9,9 @@ export type TLoadingManagerServiceWithCreate = TWithCreateService<TLoadingManage
 export type TLoadingManagerServiceWithFactory = TWithFactoryService<TLoadingManagerWrapper, TLoadingManagerParams, undefined, TLoadingManagerFactory>;
 export type TLoadingManagerServiceWithRegistry = TWithRegistryService<TLoadingManagerRegistry>;
 
-export type TLoadingManagerService = TLoadingManagerServiceWithCreate & TLoadingManagerServiceWithFactory & TLoadingManagerServiceWithRegistry;
+export type TLoadingManagerService = TLoadingManagerServiceWithCreate &
+  TLoadingManagerServiceWithFactory &
+  TLoadingManagerServiceWithRegistry &
+  Readonly<{
+    getDefault: () => TLoadingManagerWrapper;
+  }>;

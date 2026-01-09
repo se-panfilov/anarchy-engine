@@ -22,7 +22,7 @@ import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry, Intersection
 import { KeyboardService, KeyWatcherFactory, KeyWatcherRegistry } from '@Anarchy/Engine/Keyboard';
 import { LightFactory, LightRegistry, LightService } from '@Anarchy/Engine/Light';
 import type { TLoadingManagerService, TLoadingManagerWrapper } from '@Anarchy/Engine/LoadingManager';
-import { LoadingManagerFactory, LoadingManagerRegistry, LoadingManagerService } from '@Anarchy/Engine/LoadingManager';
+import { DEFAULT_SPACE_LOADING_MANAGER_NAME, LoadingManagerFactory, LoadingManagerRegistry, LoadingManagerService } from '@Anarchy/Engine/LoadingManager';
 import type { TLoopService } from '@Anarchy/Engine/Loop';
 import { LoopFactory, LoopRegistry, LoopService } from '@Anarchy/Engine/Loop';
 import type { TMaterialService } from '@Anarchy/Engine/Material';
@@ -61,7 +61,7 @@ export function buildEntitiesServices(
   settings: TSpaceSettings
 ): TSpaceServices {
   const loadingManagerService: TLoadingManagerService = LoadingManagerService(LoadingManagerFactory(), LoadingManagerRegistry());
-  const loadingManagerW: TLoadingManagerWrapper = loadingManagerService.create({ name: 'DefaultSpaceLoadingManager' });
+  const loadingManagerW: TLoadingManagerWrapper = loadingManagerService.create({ name: DEFAULT_SPACE_LOADING_MANAGER_NAME });
 
   const textureService: TTextureService = TextureService(TextureResourceAsyncRegistry(), TextureMetaInfoRegistry(), loadingManagerW);
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry(), { textureService });

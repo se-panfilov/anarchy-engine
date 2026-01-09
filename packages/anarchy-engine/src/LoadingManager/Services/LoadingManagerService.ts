@@ -1,5 +1,6 @@
 import type { TAbstractService } from '@Anarchy/Engine/Abstract';
 import { AbstractService } from '@Anarchy/Engine/Abstract';
+import { DEFAULT_SPACE_LOADING_MANAGER_NAME } from '@Anarchy/Engine/LoadingManager/Constants';
 import type {
   TLoadingManagerFactory,
   TLoadingManagerRegistry,
@@ -23,5 +24,9 @@ export function LoadingManagerService(factory: TLoadingManagerFactory, registry:
   const withFactory: TLoadingManagerServiceWithFactory = withFactoryService(factory);
   const withRegistry: TLoadingManagerServiceWithRegistry = withRegistryService(registry);
 
-  return mergeAll(abstractService, withCreateService, withFactory, withRegistry);
+  function getDefault(): TLoadingManagerWrapper {
+    return registry.getByName(DEFAULT_SPACE_LOADING_MANAGER_NAME);
+  }
+
+  return mergeAll(abstractService, withCreateService, withFactory, withRegistry, { getDefault });
 }
