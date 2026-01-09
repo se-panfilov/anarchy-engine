@@ -49,7 +49,7 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { degToRad, radToDeg } from 'three/src/math/MathUtils';
 
 import type { TAppSettings } from '@/Models';
-import { addGizmo, attachConnectorPositionToSubj, enableFPSCounter, getMemoryUsage } from '@/Utils';
+import { addGizmo, attachConnectorPositionToSubj, enableFPSCounter, getMemoryUsage, watchActiveRendererReady, watchResourceLoading } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 import {
@@ -72,6 +72,7 @@ export function start(settings: TAppSettings): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], settings.spaceSettings));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
+  watchResourceLoading(space);
   if (settings.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
   space.built$.subscribe(showcase);
@@ -85,6 +86,7 @@ export function start(settings: TAppSettings): void {
 // - Default agent is providing almost nothing, but setters. Recommended for static objects.
 // - Also: with every mode you can do position$.next() to "teleport" the object to the new position
 export async function showcase(space: TSpace): Promise<void> {
+  watchActiveRendererReady(space);
   const gui: GUI = new GUI();
   const { cameraService, controlsService, keyboardService, lightService, models3dService, mouseService, particlesService, physicsWorldService, scenesService, spatialGridService, textService } =
     space.services;

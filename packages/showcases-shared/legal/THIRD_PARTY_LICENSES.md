@@ -262,7 +262,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.22
+## @csstools/css-syntax-patches-for-csstree@1.0.23
 
 **License:** MIT-0
 
@@ -322,7 +322,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @exodus/bytes@1.7.0
+## @exodus/bytes@1.8.0
 
 **License:** MIT
 
@@ -484,13 +484,11 @@ THE SOFTWARE.
 
 ---
 
-## cssstyle@5.3.5
+## cssstyle@5.3.7
 
 **License:** MIT
 
-**Repository:** jsdom/cssstyle
-
-**URL:** https://github.com/jsdom/cssstyle
+**Repository:** git+https://github.com/jsdom/cssstyle.git
 
 Copyright (c) Chad Walker
 
@@ -1886,7 +1884,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## webidl-conversions@8.0.0
+## webidl-conversions@8.0.1
 
 **License:** BSD-2-Clause
 
@@ -1959,7 +1957,7 @@ THE SOFTWARE.
 
 ---
 
-## ws@8.18.3
+## ws@8.19.0
 
 **License:** MIT
 

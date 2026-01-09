@@ -21,6 +21,7 @@ import type {
   TAudioServiceWithFactory,
   TAudioServiceWithRegistry
 } from '@Anarchy/Engine/Audio/Models';
+import type { TLoadingManagerWrapper } from '@Anarchy/Engine/LoadingManager';
 import type { TDisposable } from '@Anarchy/Engine/Mixins';
 import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities, withSerializeAllResources } from '@Anarchy/Engine/Mixins';
 import type { TSpaceLoops } from '@Anarchy/Engine/Space';
@@ -36,9 +37,10 @@ export function AudioService(
   audioListenersRegistry: TAudioListenersRegistry,
   metaInfoRegistry: TAudioMetaInfoRegistry,
   dependencies: TAudioServiceDependencies,
-  { audioLoop }: TSpaceLoops
+  { audioLoop }: TSpaceLoops,
+  loadingManagerWrapper: TLoadingManagerWrapper
 ): TAudioService {
-  const audioLoader: TAudioLoader = AudioLoader(audioResourceAsyncRegistry, metaInfoRegistry);
+  const audioLoader: TAudioLoader = AudioLoader(audioResourceAsyncRegistry, metaInfoRegistry, loadingManagerWrapper);
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TAnyAudioWrapper): void => registry.add(wrapper));
 
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, audioResourceAsyncRegistry, audioListenersRegistry, factorySub$, audioLoader];

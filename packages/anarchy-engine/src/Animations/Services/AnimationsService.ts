@@ -12,6 +12,7 @@ import type {
   TAnimationsService,
   TModel3dAnimations
 } from '@Anarchy/Engine/Animations/Models';
+import type { TLoadingManagerWrapper } from '@Anarchy/Engine/LoadingManager';
 import type { TDelta } from '@Anarchy/Engine/Loop';
 import type { TDisposable } from '@Anarchy/Engine/Mixins';
 import { withSerializeAllResources } from '@Anarchy/Engine/Mixins';
@@ -29,9 +30,10 @@ export function AnimationsService(
   resourcesRegistry: TAnimationsResourceAsyncRegistry,
   metaInfoRegistry: TAnimationsMetaInfoRegistry,
   { renderLoop }: TSpaceLoops,
+  loadingManagerWrapper: TLoadingManagerWrapper,
   settings: TSpaceSettings
 ): TAnimationsService {
-  const animationsLoader: TAnimationsLoader = AnimationsLoader(resourcesRegistry, metaInfoRegistry, settings.threeJsSettings?.draco);
+  const animationsLoader: TAnimationsLoader = AnimationsLoader(resourcesRegistry, metaInfoRegistry, loadingManagerWrapper, settings.threeJsSettings?.draco);
   const added$: Subject<TModel3dAnimations> = new Subject<TModel3dAnimations>();
   const subscriptions: Map<AnimationMixer, Subscription> = new Map<AnimationMixer, Subscription>();
   const disposable: ReadonlyArray<TDisposable> = [resourcesRegistry, animationsLoader];

@@ -16,9 +16,9 @@ reports/
 coverage/
 stats.html
 graph.svg
-./__temp.txt
+./__temp*
 *.tsbuildinfo
-__temp.txt
+__temp*
 
 # Editor directories and files
 .vscode/*

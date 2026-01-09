@@ -1,4 +1,5 @@
 import { LoaderType } from '@Anarchy/Engine/Abstract';
+import type { TLoadingManagerWrapper } from '@Anarchy/Engine/LoadingManager';
 import type { TModel3dResourceConfig, TModels3dLoader, TModels3dMetaInfoRegistry, TModels3dResourceAsyncRegistry } from '@Anarchy/Engine/Models3d/Models';
 import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToModel3d, applyScaleToModel3d } from '@Anarchy/Engine/Models3d/Utils';
 import type { TDracoLoaderSettings } from '@Anarchy/Engine/ThreeLib';
@@ -8,8 +9,13 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import { Loader3dCore } from './Loader3dCore';
 
-export function Models3dLoader(registry: TModels3dResourceAsyncRegistry, metaInfoRegistry: TModels3dMetaInfoRegistry, settings: TDracoLoaderSettings = {}): TModels3dLoader {
-  const loader: TModels3dLoader = Loader3dCore(registry, metaInfoRegistry, LoaderType.Model3d, settings);
+export function Models3dLoader(
+  registry: TModels3dResourceAsyncRegistry,
+  metaInfoRegistry: TModels3dMetaInfoRegistry,
+  loadingManagerWrapper: TLoadingManagerWrapper,
+  settings: TDracoLoaderSettings = {}
+): TModels3dLoader {
+  const loader: TModels3dLoader = Loader3dCore(registry, metaInfoRegistry, LoaderType.Model3d, loadingManagerWrapper, settings);
 
   function applyParamsOnLoaded(loaded: TWriteable<GLTF>, options?: TModel3dResourceConfig['options']): GLTF {
     if (isNotDefined(options)) return loaded;

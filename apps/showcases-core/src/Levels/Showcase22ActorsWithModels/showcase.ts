@@ -6,7 +6,7 @@ import { distinctUntilChanged } from 'rxjs';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TAppSettings } from '@/Models';
-import { addGizmo, enableFPSCounter } from '@/Utils';
+import { addGizmo, enableFPSCounter, watchActiveRendererReady, watchResourceLoading } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 import { initSolder1, initSolder2 } from './Utils';
@@ -24,6 +24,7 @@ export function start(settings: TAppSettings): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], settings.spaceSettings));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
+  watchResourceLoading(space);
   space.events$.subscribe((event: TSpaceAnyEvent): void => {
     if (event.name === SpaceEvents.BeforeResourcesLoaded) beforeResourcesLoaded(event.args.config, event.args.services);
   });
@@ -33,6 +34,7 @@ export function start(settings: TAppSettings): void {
 }
 
 export function showcase(space: TSpace): void {
+  watchActiveRendererReady(space);
   const { keyboardService } = space.services;
   const { keys$ } = keyboardService;
 

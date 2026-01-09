@@ -5,11 +5,13 @@ import { distinctUntilChanged } from 'rxjs';
 import { Clock } from 'three';
 
 import { initSolder1, initSolder2 } from '@/Levels/Showcase22ActorsWithModels/Utils';
+import { watchActiveRendererReady } from '@/Utils';
 import { moveByCircle } from '@/Utils/MoveUtils';
 
 import { addParticles } from './Utils';
 
 export function runGamma(space: TSpace): void {
+  watchActiveRendererReady(space);
   addActors(space);
   addParticles(space);
 

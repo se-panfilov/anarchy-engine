@@ -14,7 +14,7 @@ import { initGuiEvents, initInputActors } from '@/Levels/Showcase28Menu/Helpers'
 import type { TAppService, TEventsService, TGuiService, TMainMenuService, TSettingsService } from '@/Levels/Showcase28Menu/Models';
 import { AppService, EventsService, GuiService, MainMenuService, SettingsService } from '@/Levels/Showcase28Menu/Services';
 import type { TAppSettings } from '@/Models';
-import { addGizmo } from '@/Utils';
+import { addGizmo, watchActiveRendererReady, watchResourceLoading } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
@@ -24,11 +24,13 @@ export function start(settings: TAppSettings): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], settings.spaceSettings));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`[APP] Space "${spaceConfig.name}" is not defined`);
+  watchResourceLoading(space);
 
   space.built$.subscribe(showcase);
 }
 
 export function showcase(space: TSpace): void {
+  watchActiveRendererReady(space);
   const { actorService, models3dService, keyboardService, scenesService, textService, intersectionsWatcherService, mouseService } = space.services;
   const { kinematicLoop } = space.loops;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();

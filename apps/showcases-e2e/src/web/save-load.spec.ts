@@ -37,7 +37,7 @@ const scenes: ReadonlyArray<string> = [
 test.describe('Space save/load persistence', (): void => {
   const thresholds = {
     // threshold: 0.01,
-    // timeout: 30000,
+    timeout: 50000,
     maxDiffPixelRatio: 0.01
   };
 
@@ -109,7 +109,7 @@ test.describe('Space save/load persistence', (): void => {
   });
 });
 
-export async function waitUntilReady(actionName: string, page: Page, timeout: number = 1000): Promise<void> {
+export async function waitUntilReady(actionName: string, page: Page, timeout: number = 25000): Promise<void> {
   await page.waitForFunction(
     ({ actionName }): boolean | undefined => {
       console.log(`[E2E] is ${actionName} ready:  ${(window as any)._isReady}. Is Renderer ready: ${(window as any)._isRendererReady}`);
@@ -117,9 +117,11 @@ export async function waitUntilReady(actionName: string, page: Page, timeout: nu
       const loaded: boolean = !!body?.classList.contains('ready');
       const isReady: boolean = !!(window as any)._isReady;
       const isRendererReady: boolean = !!(window as any)._isRendererReady;
-      return loaded && isReady && isRendererReady;
+      const isResourcesReady: boolean = !!(window as any)._isResourcesReady;
+      const isActiveRendererReady: boolean = !!(window as any)._isActiveRendererReady;
+      return loaded && isReady && isRendererReady && isResourcesReady && isActiveRendererReady;
     },
     { timeout, actionName }
   );
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(100);
 }

@@ -5,6 +5,7 @@ import { combineLatest, withLatestFrom } from 'rxjs';
 import { Clock } from 'three';
 
 import type { TAppSettings } from '@/Models';
+import { watchActiveRendererReady, watchResourceLoading } from '@/Utils';
 import { moveByCircle } from '@/Utils/MoveUtils';
 
 import spaceAlphaConfigJson from './spaceAlpha.json';
@@ -48,6 +49,8 @@ export function start(settings: TAppSettings): void {
   const spaceBeta: TSpace = spaces[spaceBetaConfig.name];
   if (isNotDefined(spaceAlpha)) throw new Error(`[APP] Space "${spaceAlphaConfig.name}" is not defined`);
   if (isNotDefined(spaceBeta)) throw new Error(`[APP] Space "${spaceBetaConfig.name}" is not defined`);
+  watchResourceLoading(spaceAlpha);
+  watchResourceLoading(spaceBeta);
 
   combineLatest([spaceAlpha.built$, spaceBeta.built$]).subscribe(([alpha, beta]: ReadonlyArray<TSpace>): void => {
     runAlpha(alpha);
@@ -56,12 +59,14 @@ export function start(settings: TAppSettings): void {
 }
 
 export function runAlpha(space: TSpace): void {
+  watchActiveRendererReady(space);
   moveByCircle('sphere_actor', space.services.actorService, space.loops.transformLoop, new Clock());
   driveByKeyboard('move_actor_left', space.services, space.loops);
   space.start$.next(true);
 }
 
 export function runBeta(space: TSpace): void {
+  watchActiveRendererReady(space);
   moveByCircle('box_actor', space.services.actorService, space.loops.transformLoop, new Clock());
   driveByKeyboard('move_actor_right', space.services, space.loops);
   space.start$.next(true);

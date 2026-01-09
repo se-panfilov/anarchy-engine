@@ -105,7 +105,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.22
+## @csstools/css-syntax-patches-for-csstree@1.0.23
 
 **License(s):** MIT-0
 
@@ -129,7 +129,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @exodus/bytes@1.7.0
+## @exodus/bytes@1.8.0
 
 **License(s):** MIT
 
@@ -183,13 +183,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## cssstyle@5.3.5
+## cssstyle@5.3.7
 
 **License(s):** MIT
 
-**Repository:** jsdom/cssstyle
-
-**URL:** https://github.com/jsdom/cssstyle
+**Repository:** git+https://github.com/jsdom/cssstyle.git
 
 **Attribution:** Copyright (c) Chad Walker
 
@@ -465,7 +463,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## webidl-conversions@8.0.0
+## webidl-conversions@8.0.1
 
 **License(s):** BSD-2-Clause
 
@@ -495,7 +493,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## ws@8.18.3
+## ws@8.19.0
 
 **License(s):** MIT
 

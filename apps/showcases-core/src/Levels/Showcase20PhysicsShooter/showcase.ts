@@ -24,7 +24,7 @@ import { degToRad } from 'three/src/math/MathUtils';
 import { enableCollisions } from '@/Levels/Showcase20PhysicsShooter/utils/Collisions';
 import { initLight } from '@/Levels/Showcase20PhysicsShooter/utils/Light';
 import type { TAppSettings } from '@/Models';
-import { enableFPSCounter } from '@/Utils';
+import { enableFPSCounter, watchActiveRendererReady, watchResourceLoading } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 import type { TBullet } from './utils';
@@ -48,12 +48,14 @@ export function start(settings: TAppSettings): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], settings.spaceSettings));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
+  watchResourceLoading(space);
   if (settings.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
   space.built$.subscribe(showcase);
 }
 
 export function showcase(space: TSpace): void {
+  watchActiveRendererReady(space);
   const {
     cameraService,
     physicsWorldService,

@@ -35,14 +35,16 @@ test.describe('Space Transform Drive save/load Special tests', (): void => {
   });
 });
 
-export async function waitUntilReady(actionName: string, page: Page, timeout: number = 1000): Promise<void> {
+export async function waitUntilReady(actionName: string, page: Page, timeout: number = 25000): Promise<void> {
   await page.waitForFunction(
     ({ actionName }): boolean | undefined => {
       console.log(`[E2E] is ${actionName} ready: `, (window as any)._isReady);
       const body: HTMLBodyElement | null = document.querySelector('body');
       const loaded: boolean = !!body?.classList.contains('ready');
       const isReady: boolean = !!(window as any)._isReady;
-      return loaded && isReady;
+      const isResourcesReady: boolean = !!(window as any)._isResourcesReady;
+      const isActiveRendererReady: boolean = !!(window as any)._isActiveRendererReady;
+      return loaded && isReady && isResourcesReady && isActiveRendererReady;
     },
     { timeout, actionName }
   );

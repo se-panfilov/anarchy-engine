@@ -21,6 +21,8 @@ import type { TContainerDecorator } from '@Anarchy/Engine/Global';
 import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry, IntersectionsWatcherService } from '@Anarchy/Engine/Intersections';
 import { KeyboardService, KeyWatcherFactory, KeyWatcherRegistry } from '@Anarchy/Engine/Keyboard';
 import { LightFactory, LightRegistry, LightService } from '@Anarchy/Engine/Light';
+import type { TLoadingManagerService, TLoadingManagerWrapper } from '@Anarchy/Engine/LoadingManager';
+import { DEFAULT_SPACE_LOADING_MANAGER_NAME, LoadingManagerFactory, LoadingManagerRegistry, LoadingManagerService } from '@Anarchy/Engine/LoadingManager';
 import type { TLoopService } from '@Anarchy/Engine/Loop';
 import { LoopFactory, LoopRegistry, LoopService } from '@Anarchy/Engine/Loop';
 import type { TMaterialService } from '@Anarchy/Engine/Material';
@@ -58,13 +60,16 @@ export function buildEntitiesServices(
   { loopService, scenesService }: TSpaceBaseServices,
   settings: TSpaceSettings
 ): TSpaceServices {
-  const textureService: TTextureService = TextureService(TextureResourceAsyncRegistry(), TextureMetaInfoRegistry());
+  const loadingManagerService: TLoadingManagerService = LoadingManagerService(LoadingManagerFactory(), LoadingManagerRegistry());
+  const loadingManagerW: TLoadingManagerWrapper = loadingManagerService.create({ name: DEFAULT_SPACE_LOADING_MANAGER_NAME });
+
+  const textureService: TTextureService = TextureService(TextureResourceAsyncRegistry(), TextureMetaInfoRegistry(), loadingManagerW);
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry(), { textureService });
   const physicsWorldService: TPhysicsWorldService = PhysicsWorldService(sceneW, loops);
   const physicsBodyService: TPhysicsBodyService = PhysicsBodyService(PhysicsBodyFactory(), PhysicsBodyRegistry(), physicsWorldService);
   const spatialGridService: TSpatialGridService = SpatialGridService(SpatialGridFactory(), SpatialGridRegistry());
   const collisionsService: TCollisionsService = CollisionsService();
-  const animationsService: TAnimationsService = AnimationsService(AnimationsResourceAsyncRegistry(), AnimationsMetaInfoRegistry(), loops, settings);
+  const animationsService: TAnimationsService = AnimationsService(AnimationsResourceAsyncRegistry(), AnimationsMetaInfoRegistry(), loops, loadingManagerW, settings);
   const model3dToActorConnectionRegistry: TModel3dToActorConnectionRegistry = Model3dToActorConnectionRegistry();
   const model3dRawToModel3dConnectionRegistry: TModel3dRawToModel3dConnectionRegistry = Model3dRawToModel3dConnectionRegistry();
   const models3dService: TModels3dService = Models3dService(
@@ -77,11 +82,21 @@ export function buildEntitiesServices(
       animationsService,
       model3dRawToModel3dConnectionRegistry
     },
+    loadingManagerW,
     settings
   );
   const fsmService: TFsmService = FsmService(FsmInstanceFactory(), FsmSourceFactory(), FsmInstanceRegistry(), FsmSourceRegistry());
   const transformDriveService: TTransformDriveService = TransformDriveService(TransformDriveFactory(), TransformDriveRegistry(), { loopService });
-  const audioService: TAudioService = AudioService(AudioFactory(), AudioRegistry(), AudioResourceAsyncRegistry(), AudioListenersRegistry(), AudioMetaInfoRegistry(), { transformDriveService }, loops);
+  const audioService: TAudioService = AudioService(
+    AudioFactory(),
+    AudioRegistry(),
+    AudioResourceAsyncRegistry(),
+    AudioListenersRegistry(),
+    AudioMetaInfoRegistry(),
+    { transformDriveService },
+    loops,
+    loadingManagerW
+  );
   const cameraService: TCameraService = CameraService(CameraFactory(), CameraRegistry(), sceneW, { audioService, transformDriveService, container });
 
   return {
@@ -105,12 +120,13 @@ export function buildEntitiesServices(
     controlsService: ControlService(ControlsFactory(), ControlsRegistry(), loops, { cameraService }, canvas),
     collisionsService,
     scenesService,
-    envMapService: EnvMapService(EnvMapFactory(), EnvMapRegistry(), EnvMapTextureAsyncRegistry(), EnvMapMetaInfoRegistry(), sceneW),
+    envMapService: EnvMapService(EnvMapFactory(), EnvMapRegistry(), EnvMapTextureAsyncRegistry(), EnvMapMetaInfoRegistry(), sceneW, loadingManagerW),
     fogService: FogService(FogFactory(), FogRegistry(), sceneW),
     fsmService,
     intersectionsWatcherService: IntersectionsWatcherService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),
     keyboardService: KeyboardService(container, KeyWatcherFactory(), KeyWatcherRegistry()),
     lightService: LightService(LightFactory(), LightRegistry(), { transformDriveService }, sceneW),
+    loadingManagerService,
     loopService,
     materialService,
     models3dService,

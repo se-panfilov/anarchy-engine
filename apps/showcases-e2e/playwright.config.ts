@@ -14,6 +14,7 @@ export default defineConfig({
   testDir: './src',
   /* Run tests in files in parallel */
   fullyParallel: true,
+  timeout: 120_000,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: nodeEnv.CI,
   /* Retry on CI only */

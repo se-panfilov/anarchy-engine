@@ -5,11 +5,13 @@ import { withLatestFrom } from 'rxjs';
 import { Clock, Vector3 } from 'three';
 
 import { createReactiveLineFromActor } from '@/Levels/Showcase23TransformDrive/Utils';
+import { watchActiveRendererReady } from '@/Utils';
 import { moveByCircle } from '@/Utils/MoveUtils';
 
 import { addParticles } from './Utils';
 
 export function runDelta(space: TSpace): void {
+  watchActiveRendererReady(space);
   initAudio(space);
   initKinematic(space);
   addParticles(space);

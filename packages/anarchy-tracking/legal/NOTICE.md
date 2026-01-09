@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 80
+Components listed: 81
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -55,7 +55,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/context-async-hooks@2.2.0
+## @opentelemetry/context-async-hooks@2.3.0
 
 **License(s):** Apache-2.0
 
@@ -68,6 +68,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 ---
 
 ## @opentelemetry/core@2.2.0
+
+**License(s):** Apache-2.0
+
+**Repository:** open-telemetry/opentelemetry-js
+
+**URL:** https://github.com/open-telemetry/opentelemetry-js/tree/main/packages/opentelemetry-core
+
+**Attribution:** copyright notice that is included in or attached to the work
+
+---
+
+## @opentelemetry/core@2.3.0
 
 **License(s):** Apache-2.0
 
@@ -367,7 +379,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/resources@2.2.0
+## @opentelemetry/resources@2.3.0
 
 **License(s):** Apache-2.0
 
@@ -379,7 +391,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/sdk-trace-base@2.2.0
+## @opentelemetry/sdk-trace-base@2.3.0
 
 **License(s):** Apache-2.0
 

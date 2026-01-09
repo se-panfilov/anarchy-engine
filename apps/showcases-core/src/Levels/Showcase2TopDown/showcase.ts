@@ -6,7 +6,7 @@ import type { Vector2Like } from 'three';
 import { Euler, Vector3 } from 'three';
 
 import type { TAppSettings } from '@/Models';
-import { enableFPSCounter } from '@/Utils';
+import { enableFPSCounter, watchActiveRendererReady, watchResourceLoading } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
@@ -16,12 +16,14 @@ export function start(settings: TAppSettings): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], settings.spaceSettings));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
+  watchResourceLoading(space);
   if (settings.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
   space.built$.subscribe(showcase);
 }
 
 export function showcase(space: TSpace): void {
+  watchActiveRendererReady(space);
   const { actorService, spatialGridService, cameraService, materialService, models3dService, mouseService } = space.services;
   const grid: TSpatialGridWrapper = spatialGridService.getRegistry().getByName('main_grid');
   const materialW: TAnyMaterialWrapper = materialService.create({ name: 'model_material', type: MaterialType.Toon, options: { color: '#5177ff' } });

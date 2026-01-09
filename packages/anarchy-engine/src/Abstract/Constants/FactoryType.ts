@@ -11,6 +11,7 @@ export enum FactoryType {
   IntersectionsWatcher = 'intersections_watcher_factory',
   KeyWatcher = 'key_watcher_factory',
   Light = 'light_factory',
+  LoadingManager = 'loading_manager_factory',
   Loop = 'loop_factory',
   Material = 'material_factory',
   Models3d = 'models_3d_factory',

@@ -5,7 +5,7 @@ import { combineLatest, distinctUntilChanged } from 'rxjs';
 import type { Vector2Like, Vector3 } from 'three';
 
 import type { TAppSettings } from '@/Models';
-import { enableFPSCounter } from '@/Utils';
+import { enableFPSCounter, watchActiveRendererReady, watchResourceLoading } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
@@ -15,12 +15,14 @@ export function start(settings: TAppSettings): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], settings.spaceSettings));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
+  watchResourceLoading(space);
   if (settings.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
   space.built$.subscribe(showcase);
 }
 
 export function showcase(space: TSpace): void {
+  watchActiveRendererReady(space);
   const { actorService, cameraService, mouseService } = space.services;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
 
