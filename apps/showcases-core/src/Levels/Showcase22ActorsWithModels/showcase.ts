@@ -6,7 +6,7 @@ import { distinctUntilChanged } from 'rxjs';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TAppSettings } from '@/Models';
-import { addGizmo, enableFPSCounter, watchResourceLoading } from '@/Utils';
+import { addGizmo, enableFPSCounter, watchActiveRendererReady, watchResourceLoading } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 import { initSolder1, initSolder2 } from './Utils';
@@ -34,6 +34,7 @@ export function start(settings: TAppSettings): void {
 }
 
 export function showcase(space: TSpace): void {
+  watchActiveRendererReady(space);
   const { keyboardService } = space.services;
   const { keys$ } = keyboardService;
 

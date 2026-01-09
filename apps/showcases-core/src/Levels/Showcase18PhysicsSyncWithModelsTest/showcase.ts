@@ -4,7 +4,7 @@ import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Vector3 } from 'three';
 
 import type { TAppSettings } from '@/Models';
-import { enableFPSCounter, watchResourceLoading } from '@/Utils';
+import { enableFPSCounter, watchActiveRendererReady, watchResourceLoading } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
@@ -21,6 +21,7 @@ export function start(settings: TAppSettings): void {
 }
 
 export function showcase(space: TSpace): void {
+  watchActiveRendererReady(space);
   const { actorService, cameraService, physicsWorldService } = space.services;
   const { physicsLoop } = space.loops;
 

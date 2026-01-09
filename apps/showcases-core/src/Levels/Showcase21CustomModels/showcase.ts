@@ -6,7 +6,7 @@ import { Euler, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TAppSettings } from '@/Models';
-import { addGizmo, enableFPSCounter, watchResourceLoading } from '@/Utils';
+import { addGizmo, enableFPSCounter, watchActiveRendererReady, watchResourceLoading } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
@@ -46,6 +46,7 @@ export function start(settings: TAppSettings): void {
 }
 
 export async function showcase(space: TSpace): Promise<void> {
+  watchActiveRendererReady(space);
   console.log('Press keys 1..3 to play animations of related models');
 
   const originalName: string = 'fox_gltf_original';

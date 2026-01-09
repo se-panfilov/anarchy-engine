@@ -18,7 +18,7 @@ import { CameraHelper, DirectionalLightHelper, HemisphereLightHelper, PointLight
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
 
 import type { TAppSettings } from '@/Models';
-import { addGizmo, enableFPSCounter, watchResourceLoading } from '@/Utils';
+import { addGizmo, enableFPSCounter, watchActiveRendererReady, watchResourceLoading } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
@@ -35,6 +35,7 @@ export function start(settings: TAppSettings): void {
 }
 
 export function showcase(space: TSpace): void {
+  watchActiveRendererReady(space);
   const gui: GUI = new GUI();
 
   const { lightService, scenesService, models3dService } = space.services;

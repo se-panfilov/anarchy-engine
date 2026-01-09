@@ -10,7 +10,7 @@ export function watchResourceLoading(space: TSpace): Subscription {
       // eslint-disable-next-line functional/immutable-data
       (window as any)._isResourcesReady = value;
       (space.container.getElement() as HTMLElement)?.classList[value ? 'add' : 'remove']('-resources-ready');
-      if (value) console.log(`[APP][Loading manager]: Resources ready ("${space.name}")`);
+      if (value) console.log(`[APP][Loading manager]: Resources are ready ("${space.name}")`);
     });
 }
 
@@ -19,10 +19,6 @@ export function watchActiveRendererReady(space: TSpace): Subscription {
     // eslint-disable-next-line functional/immutable-data
     (window as any)._isActiveRendererReady = value;
     (space.container.getElement() as HTMLElement)?.classList[value ? 'add' : 'remove']('-active-renderer-ready');
-    console.log(`[APP][Renderer]: renderer is ready ("${space.name}")`);
+    if (value) console.log(`[APP][Renderer]: Renderer is ready ("${space.name}")`);
   });
-}
-
-export function watchSceneReady(space: TSpace): ReadonlyArray<Subscription> {
-  return [watchResourceLoading(space), watchActiveRendererReady(space)];
 }

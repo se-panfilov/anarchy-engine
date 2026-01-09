@@ -5,7 +5,7 @@ import GUI from 'lil-gui';
 import { Clock } from 'three';
 
 import type { TAppSettings } from '@/Models';
-import { enableFPSCounter, watchResourceLoading } from '@/Utils';
+import { enableFPSCounter, watchActiveRendererReady, watchResourceLoading } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
@@ -22,6 +22,7 @@ export function start(settings: TAppSettings): void {
 }
 
 export function showcase(space: TSpace): void {
+  watchActiveRendererReady(space);
   const gui: GUI = new GUI();
   const { actorService, cameraService, mouseService } = space.services;
   const { transformLoop } = space.loops;

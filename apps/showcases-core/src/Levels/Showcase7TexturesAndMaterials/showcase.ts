@@ -5,7 +5,7 @@ import { combineLatest, distinctUntilChanged, tap } from 'rxjs';
 import type { Vector2Like, Vector3 } from 'three';
 
 import type { TAppSettings } from '@/Models';
-import { enableFPSCounter, watchResourceLoading } from '@/Utils';
+import { enableFPSCounter, watchActiveRendererReady, watchResourceLoading } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
@@ -22,6 +22,7 @@ export function start(settings: TAppSettings): void {
 }
 
 export function showcase(space: TSpace): void {
+  watchActiveRendererReady(space);
   const { models3dService, mouseService, scenesService } = space.services;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
   const sceneW: TSceneWrapper = scenesService.getActive();

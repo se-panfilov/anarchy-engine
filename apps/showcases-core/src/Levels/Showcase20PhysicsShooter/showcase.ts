@@ -24,7 +24,7 @@ import { degToRad } from 'three/src/math/MathUtils';
 import { enableCollisions } from '@/Levels/Showcase20PhysicsShooter/utils/Collisions';
 import { initLight } from '@/Levels/Showcase20PhysicsShooter/utils/Light';
 import type { TAppSettings } from '@/Models';
-import { enableFPSCounter, watchResourceLoading } from '@/Utils';
+import { enableFPSCounter, watchActiveRendererReady, watchResourceLoading } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 import type { TBullet } from './utils';
@@ -55,6 +55,7 @@ export function start(settings: TAppSettings): void {
 }
 
 export function showcase(space: TSpace): void {
+  watchActiveRendererReady(space);
   const {
     cameraService,
     physicsWorldService,

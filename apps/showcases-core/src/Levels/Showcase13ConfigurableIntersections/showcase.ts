@@ -4,7 +4,7 @@ import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import GUI from 'lil-gui';
 
 import type { TAppSettings } from '@/Models';
-import { enableFPSCounter, watchResourceLoading } from '@/Utils';
+import { enableFPSCounter, watchActiveRendererReady, watchResourceLoading } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
@@ -21,6 +21,7 @@ export function start(settings: TAppSettings): void {
 }
 
 export function showcase(space: TSpace): void {
+  watchActiveRendererReady(space);
   const gui: GUI = new GUI();
   const { cameraService, intersectionsWatcherService, mouseService } = space.services;
   const cameraRegistry: TCameraRegistry = cameraService.getRegistry();

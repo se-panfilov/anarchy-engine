@@ -3,11 +3,13 @@ import { TextType } from '@Anarchy/Engine';
 import { isDefined } from '@Anarchy/Shared/Utils';
 import { Clock, Euler, Vector3 } from 'three';
 
+import { watchActiveRendererReady } from '@/Utils';
 import { moveByCircle } from '@/Utils/MoveUtils';
 
 import { addParticles } from './Utils';
 
 export function runBeta(space: TSpace): void {
+  watchActiveRendererReady(space);
   addModel3d(space);
   addText(space);
   addParticles(space);

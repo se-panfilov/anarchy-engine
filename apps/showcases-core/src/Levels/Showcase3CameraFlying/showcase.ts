@@ -5,7 +5,7 @@ import { combineLatest, distinctUntilChanged } from 'rxjs';
 import type { Vector2Like, Vector3 } from 'three';
 
 import type { TAppSettings } from '@/Models';
-import { enableFPSCounter, watchResourceLoading } from '@/Utils';
+import { enableFPSCounter, watchActiveRendererReady, watchResourceLoading } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
@@ -22,6 +22,7 @@ export function start(settings: TAppSettings): void {
 }
 
 export function showcase(space: TSpace): void {
+  watchActiveRendererReady(space);
   const { actorService, cameraService, mouseService } = space.services;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
 

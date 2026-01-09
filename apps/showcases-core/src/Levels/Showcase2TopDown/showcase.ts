@@ -6,7 +6,7 @@ import type { Vector2Like } from 'three';
 import { Euler, Vector3 } from 'three';
 
 import type { TAppSettings } from '@/Models';
-import { enableFPSCounter, watchResourceLoading } from '@/Utils';
+import { enableFPSCounter, watchActiveRendererReady, watchResourceLoading } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
@@ -23,6 +23,7 @@ export function start(settings: TAppSettings): void {
 }
 
 export function showcase(space: TSpace): void {
+  watchActiveRendererReady(space);
   const { actorService, spatialGridService, cameraService, materialService, models3dService, mouseService } = space.services;
   const grid: TSpatialGridWrapper = spatialGridService.getRegistry().getByName('main_grid');
   const materialW: TAnyMaterialWrapper = materialService.create({ name: 'model_material', type: MaterialType.Toon, options: { color: '#5177ff' } });
