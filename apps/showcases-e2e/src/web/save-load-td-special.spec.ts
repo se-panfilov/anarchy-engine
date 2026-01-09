@@ -43,7 +43,8 @@ export async function waitUntilReady(actionName: string, page: Page, timeout: nu
       const loaded: boolean = !!body?.classList.contains('ready');
       const isReady: boolean = !!(window as any)._isReady;
       const isResourcesReady: boolean = !!(window as any)._isResourcesReady;
-      return loaded && isReady && isResourcesReady;
+      const isActiveRendererReady: boolean = !!(window as any)._isActiveRendererReady;
+      return loaded && isReady && isResourcesReady && isActiveRendererReady;
     },
     { timeout, actionName }
   );
