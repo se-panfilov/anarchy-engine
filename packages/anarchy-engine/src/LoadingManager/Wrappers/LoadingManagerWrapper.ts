@@ -29,6 +29,7 @@ export function LoadingManagerWrapper(params: TLoadingManagerParams): TLoadingMa
 
   const onError = (url: string): void => {
     progress$.next({ type: ERROR, url, loaded: lastLoaded, total: lastTotal, progress: getProgress(lastLoaded, lastTotal) });
+    ready$.next(true);
     params.onError?.(url);
   };
 
