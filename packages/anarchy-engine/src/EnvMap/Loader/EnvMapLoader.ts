@@ -3,11 +3,11 @@ import { EnvMapMappingTypesMap, EnvMapMappingTypesName } from '@Anarchy/Engine/E
 import type { TEnvMapLoader, TEnvMapMetaInfoRegistry, TEnvMapResourceConfig, TEnvMapTexture, TEnvMapTextureAsyncRegistry } from '@Anarchy/Engine/EnvMap/Models';
 import type { TWriteable } from '@Anarchy/Shared/Utils';
 import { isDefined } from '@Anarchy/Shared/Utils';
-import { EquirectangularReflectionMapping } from 'three';
+import { EquirectangularReflectionMapping, LoadingManager } from 'three';
 import { HDRLoader } from 'three/examples/jsm/loaders/HDRLoader';
 
-export function EnvMapLoader(registry: TEnvMapTextureAsyncRegistry, metaInfoRegistry: TEnvMapMetaInfoRegistry): TEnvMapLoader {
-  const envMapLoader: HDRLoader = new HDRLoader();
+export function EnvMapLoader(registry: TEnvMapTextureAsyncRegistry, metaInfoRegistry: TEnvMapMetaInfoRegistry, loadingManager: LoadingManager): TEnvMapLoader {
+  const envMapLoader: HDRLoader = new HDRLoader(loadingManager);
   const loader: TEnvMapLoader = AbstractLoader(envMapLoader, registry, metaInfoRegistry, LoaderType.EnvMap);
 
   function applyParamsOnLoaded(loaded: TWriteable<TEnvMapTexture>, options?: TEnvMapResourceConfig['options']): TEnvMapTexture {
