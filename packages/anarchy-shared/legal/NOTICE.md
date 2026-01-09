@@ -17,7 +17,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## bowser@2.12.1
+## bowser@2.13.1
 
 **License(s):** MIT
 

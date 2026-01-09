@@ -113,7 +113,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version-file: .nvmrc
           cache: npm
           # Explicit for workspaces/monorepos: use the same lockfile that `npm ci` consumes
           cache-dependency-path: package-lock.json

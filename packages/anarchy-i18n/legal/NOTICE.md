@@ -11,7 +11,7 @@ Components listed: 12
 
 The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
 
-## @formatjs/ecma402-abstract@2.3.6
+## @formatjs/ecma402-abstract@3.0.6
 
 **License(s):** MIT
 
@@ -23,7 +23,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/fast-memoize@2.2.7
+## @formatjs/fast-memoize@3.0.1
 
 **License(s):** MIT
 
@@ -35,7 +35,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/icu-messageformat-parser@2.11.4
+## @formatjs/icu-messageformat-parser@3.2.0
 
 **License(s):** MIT
 
@@ -45,7 +45,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/icu-skeleton-parser@1.8.16
+## @formatjs/icu-skeleton-parser@2.0.6
 
 **License(s):** MIT
 
@@ -55,7 +55,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/intl@3.1.8
+## @formatjs/intl@4.0.7
 
 **License(s):** MIT
 
@@ -67,7 +67,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/intl-localematcher@0.6.2
+## @formatjs/intl-localematcher@0.7.3
 
 **License(s):** MIT
 
@@ -95,7 +95,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## intl-messageformat@10.7.18
+## intl-messageformat@11.0.7
 
 **License(s):** BSD-3-Clause
 

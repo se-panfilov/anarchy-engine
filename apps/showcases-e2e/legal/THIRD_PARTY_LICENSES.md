@@ -20,7 +20,7 @@ _No license text file found; relying on package metadata._
 
 ---
 
-## @dimforge/rapier3d@0.19.2
+## @dimforge/rapier3d@0.19.3
 
 **License:** Apache-2.0
 
@@ -300,7 +300,7 @@ SOFTWARE.
 
 ---
 
-## bowser@2.12.1
+## bowser@2.13.1
 
 **License:** MIT
 
@@ -381,7 +381,7 @@ SOFTWARE.
 
 ---
 
-## lodash-es@4.17.21
+## lodash-es@4.17.22
 
 **License:** MIT
 
@@ -472,7 +472,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## playwright@1.53.1
+## playwright@1.57.0
 
 **License:** Apache-2.0
 
@@ -687,7 +687,7 @@ limitations under the License.
 
 ---
 
-## playwright-core@1.53.1
+## playwright-core@1.57.0
 
 **License:** Apache-2.0
 
@@ -1176,7 +1176,7 @@ limitations under the License.
 
 ---
 
-## three@0.181.2
+## three@0.182.0
 
 **License:** MIT
 
@@ -1210,7 +1210,7 @@ THE SOFTWARE.
 
 ---
 
-## three-mesh-bvh@0.9.1
+## three-mesh-bvh@0.9.4
 
 **License:** MIT
 
