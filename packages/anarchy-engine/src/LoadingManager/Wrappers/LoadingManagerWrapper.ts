@@ -1,6 +1,6 @@
 import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
-import { LoadingEventType } from '@Anarchy/Engine/LoadingManager';
+import { LoadingEventType } from '@Anarchy/Engine/LoadingManager/Constants';
 import type { TLoadingEvent, TLoadingManagerParams, TLoadingManagerWrapper } from '@Anarchy/Engine/LoadingManager/Models';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
