@@ -19,6 +19,7 @@
 - 2.16.0 Muliplatform build improvements and sentry tracking (release+distName)
 - 2.17.0 More data sent to Sentry, and store cahced user settings
 - 2.18.0 Using new keyboard service
+- 2.19.0 Better wait for app to load (+utils)
 
 Roadmap:
 
