@@ -15,24 +15,26 @@ export function LoadingManagerWrapper(params: TLoadingManagerParams): TLoadingMa
 
   const onProgress = (url: string, loaded: number, total: number): void => {
     setLastCounters(loaded, total);
-    value$.next({ type: PROGRESS, url, loaded, total, progress: getProgress(loaded, total) });
+    progress$.next({ type: PROGRESS, url, loaded, total, progress: getProgress(loaded, total) });
     params.onProgress?.(url, loaded, total);
   };
 
   const onLoad = (): void => {
     const loaded: number = lastTotal > 0 ? lastTotal : lastLoaded;
     const total: number = lastTotal;
-    value$.next({ type: DONE, loaded, total, progress: getProgress(loaded, total) });
+    progress$.next({ type: DONE, loaded, total, progress: getProgress(loaded, total) });
+    ready$.next(true);
     params.onLoad?.();
   };
 
   const onError = (url: string): void => {
-    value$.next({ type: ERROR, url, loaded: lastLoaded, total: lastTotal, progress: getProgress(lastLoaded, lastTotal) });
+    progress$.next({ type: ERROR, url, loaded: lastLoaded, total: lastTotal, progress: getProgress(lastLoaded, lastTotal) });
     params.onError?.(url);
   };
 
   const entity: LoadingManager = new LoadingManager(onLoad, onProgress, onError);
-  const value$: BehaviorSubject<TLoadingEvent> = new BehaviorSubject<TLoadingEvent>({ type: NOT_STARTED, loaded: 0, total: 0, progress: 0 });
+  const progress$: BehaviorSubject<TLoadingEvent> = new BehaviorSubject<TLoadingEvent>({ type: NOT_STARTED, loaded: 0, total: 0, progress: 0 });
+  const ready$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   function getProgress(loaded: number, total: number): number {
     if (total <= 0) return 0;
@@ -53,7 +55,8 @@ export function LoadingManagerWrapper(params: TLoadingManagerParams): TLoadingMa
   // eslint-disable-next-line functional/immutable-data
   entity.onStart = (url: string, loaded: number, total: number): void => {
     setLastCounters(loaded, total);
-    value$.next({ type: START, url, loaded, total, progress: getProgress(loaded, total) });
+    progress$.next({ type: START, url, loaded, total, progress: getProgress(loaded, total) });
+    ready$.next(false);
   };
 
   async function waitLoading<T>(label: string, loadingTask: () => Promise<T>): Promise<T> {
@@ -67,7 +70,7 @@ export function LoadingManagerWrapper(params: TLoadingManagerParams): TLoadingMa
       // Mark as ended (otherwise manager might hang "loading" forever)
       entity.itemError(label);
       entity.itemEnd(label);
-      value$.next({ type: ERROR, url: label, loaded: lastLoaded, total: lastTotal, progress: getProgress(lastLoaded, lastTotal) });
+      progress$.next({ type: ERROR, url: label, loaded: lastLoaded, total: lastTotal, progress: getProgress(lastLoaded, lastTotal) });
       throw e;
     }
   }
@@ -83,8 +86,15 @@ export function LoadingManagerWrapper(params: TLoadingManagerParams): TLoadingMa
   const wrapper: TAbstractWrapper<LoadingManager> = AbstractWrapper(entity, WrapperType.LoadingManager, params);
 
   const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
-    value$.complete();
+    progress$.complete();
+    ready$.complete();
     destroySub$.unsubscribe();
+    // eslint-disable-next-line functional/immutable-data
+    entity.onLoad = (): null => null;
+    // eslint-disable-next-line functional/immutable-data
+    entity.onProgress = (): null => null;
+    // eslint-disable-next-line functional/immutable-data
+    entity.onError = (): null => null;
   });
 
   waitFontsLoading();
@@ -92,8 +102,9 @@ export function LoadingManagerWrapper(params: TLoadingManagerParams): TLoadingMa
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(wrapper, {
     entity,
-    waitLoading,
+    progress$,
+    ready$,
     waitFontsLoading,
-    value$
+    waitLoading
   });
 }

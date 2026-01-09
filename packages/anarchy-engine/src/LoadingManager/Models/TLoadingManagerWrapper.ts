@@ -7,8 +7,9 @@ import type { LoadingManager } from 'three';
 //No need for serialization, so we use TAbstractWrapper instead of TWrapper
 export type TLoadingManagerWrapper = TAbstractWrapper<LoadingManager> &
   Readonly<{
-    waitLoading: <T>(label: string, loadingTask: () => Promise<T>) => Promise<T>;
+    progress$: BehaviorSubject<TLoadingEvent>;
+    ready$: BehaviorSubject<boolean>;
     waitFontsLoading: (label?: string) => Promise<void>;
-    value$: BehaviorSubject<TLoadingEvent>;
+    waitLoading: <T>(label: string, loadingTask: () => Promise<T>) => Promise<T>;
   }> &
   TDestroyable;

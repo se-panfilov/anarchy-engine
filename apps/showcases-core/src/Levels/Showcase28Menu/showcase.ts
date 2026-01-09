@@ -34,7 +34,7 @@ export function showcase(space: TSpace): void {
   // TODO DEBUG CODE
   const loadingManagerWrapper = loadingManagerService.getRegistry().getByName('DefaultSpaceLoadingManager');
 
-  loadingManagerWrapper.value$.subscribe((value) => {
+  loadingManagerWrapper.progress$.subscribe((value) => {
     console.log('XXX', value);
   });
   // TODO DEBUG CODE END

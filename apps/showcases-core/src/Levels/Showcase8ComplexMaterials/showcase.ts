@@ -46,7 +46,11 @@ export function start(settings: TAppSettings): void {
   // TODO DEBUG CODE
   const loadingManagerWrapper = space.services.loadingManagerService.getRegistry().getByName('DefaultSpaceLoadingManager');
 
-  loadingManagerWrapper.value$.subscribe((value) => {
+  loadingManagerWrapper.progress$.subscribe((value) => {
+    console.log('XXX', value);
+  });
+
+  loadingManagerWrapper.ready$.subscribe((value) => {
     console.log('XXX', value);
   });
   // TODO DEBUG CODE END
