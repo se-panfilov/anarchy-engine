@@ -1,3 +1,4 @@
+export type * from './TLoadingEvent';
 export type * from './TLoadingManagerFactory';
 export type * from './TLoadingManagerParams';
 export type * from './TLoadingManagerRegistry';
