@@ -13,3 +13,12 @@ export function watchResourceLoading(space: TSpace): Subscription {
       if (value) console.log(`[APP][Loading manager]: Resources ready ("${space.name}")`);
     });
 }
+
+export function isRendererReady(space: TSpace): Subscription {
+  return space.services.rendererService.getActive().isRendererReady$.subscribe((value: boolean): void => {
+    // eslint-disable-next-line functional/immutable-data
+    (window as any)._isActiveRendererReady = value;
+    (space.container.getElement() as HTMLElement)?.classList[value ? 'add' : 'remove']('-active-renderer-ready');
+    console.log(`[APP][Renderer]: renderer is ready ("${space.name}")`);
+  });
+}
