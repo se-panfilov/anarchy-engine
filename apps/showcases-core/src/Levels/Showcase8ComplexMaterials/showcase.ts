@@ -43,6 +43,14 @@ export function start(settings: TAppSettings): void {
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
   if (settings.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
+  // TODO DEBUG CODE
+  const loadingManagerWrapper = space.services.loadingManagerService.getRegistry().getByName('DefaultSpaceLoadingManager');
+
+  loadingManagerWrapper.value$.subscribe((value) => {
+    console.log('XXX', value);
+  });
+  // TODO DEBUG CODE END
+
   space.built$.subscribe(showcase);
 }
 
