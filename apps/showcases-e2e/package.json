@@ -62,9 +62,9 @@
   "dependencies": {
     "@hellpig/anarchy-engine": "*",
     "@hellpig/anarchy-shared": "*",
-    "playwright": "1.53.1"
+    "playwright": "1.57.0"
   },
   "devDependencies": {
-    "@playwright/test": "1.53.1"
+    "@playwright/test": "1.57.0"
   }
 }

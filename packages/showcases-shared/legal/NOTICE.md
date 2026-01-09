@@ -5,11 +5,21 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 49
+Components listed: 47
 
 ## 1) Mandatory Attributions (verbatim)
 
 The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
+
+## @acemir/cssom@0.9.30
+
+**License(s):** MIT
+
+**Repository:** acemir/CSSOM
+
+**Attribution:** Copyright (c) Nikita Vasilyev
+
+---
 
 ## @asamuzakjp/css-color@4.1.1
 
@@ -119,6 +129,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## @exodus/bytes@1.7.0
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/ExodusOSS/bytes.git
+
+**URL:** https://github.com/ExodusOSS/bytes#readme
+
+**Attribution:** Copyright (c) 2024-2025 Exodus Movement
+
+---
+
 ## @types/trusted-types@2.0.7
 
 **License(s):** MIT
@@ -203,7 +225,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## dompurify@3.3.0
+## dompurify@3.3.1
 
 **License(s):** (MPL-2.0 OR Apache-2.0)
 
@@ -225,11 +247,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## html-encoding-sniffer@4.0.0
+## html-encoding-sniffer@6.0.0
 
 **License(s):** MIT
 
-**Repository:** jsdom/html-encoding-sniffer
+**Repository:** git+https://github.com/jsdom/html-encoding-sniffer.git
 
 **Attribution:** Copyright © Domenic Denicola <d@domenic.me>
 
@@ -255,18 +277,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## iconv-lite@0.6.3
-
-**License(s):** MIT
-
-**Repository:** git://github.com/ashtuchkin/iconv-lite.git
-
-**URL:** https://github.com/ashtuchkin/iconv-lite
-
-**Attribution:** Copyright (c) 2011 Alexander Shtuchkin
-
----
-
 ## is-potential-custom-element-name@1.0.1
 
 **License(s):** MIT
@@ -279,7 +289,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## isomorphic-dompurify@2.30.1
+## isomorphic-dompurify@2.35.0
 
 **License(s):** MIT
 
@@ -289,7 +299,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## jsdom@27.0.1
+## jsdom@27.4.0
 
 **License(s):** MIT
 
@@ -362,26 +372,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** floatdrop/require-from-string
 
 **Attribution:** Copyright (c) Vsevolod Strukchinsky <floatdrop@gmail.com> (github.com/floatdrop)
-
----
-
-## rrweb-cssom@0.8.0
-
-**License(s):** MIT
-
-**Repository:** rrweb-io/CSSOM
-
-**Attribution:** Copyright (c) Nikita Vasilyev
-
----
-
-## safer-buffer@2.1.2
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/ChALkeR/safer-buffer.git
-
-**Attribution:** Copyright (c) 2018 Nikita Skovoroda <chalkerx@gmail.com>
 
 ---
 
@@ -482,16 +472,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** git+https://github.com/jsdom/webidl-conversions.git
 
 **Attribution:** Copyright (c) 2014, Domenic Denicola
-
----
-
-## whatwg-encoding@3.1.1
-
-**License(s):** MIT
-
-**Repository:** jsdom/whatwg-encoding
-
-**Attribution:** Copyright © Domenic Denicola <d@domenic.me>
 
 ---
 

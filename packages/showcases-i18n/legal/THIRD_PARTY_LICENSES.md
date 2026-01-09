@@ -155,7 +155,7 @@ _No license text file found; relying on package metadata._
 
 ---
 
-## @dimforge/rapier3d@0.19.2
+## @dimforge/rapier3d@0.19.3
 
 **License:** Apache-2.0
 
@@ -367,7 +367,7 @@ limitations under the License.
 
 ---
 
-## @formatjs/ecma402-abstract@2.3.6
+## @formatjs/ecma402-abstract@3.0.6
 
 **License:** MIT
 
@@ -389,7 +389,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @formatjs/fast-memoize@2.2.7
+## @formatjs/fast-memoize@3.0.1
 
 **License:** MIT
 
@@ -411,7 +411,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @formatjs/icu-messageformat-parser@2.11.4
+## @formatjs/icu-messageformat-parser@3.2.0
 
 **License:** MIT
 
@@ -429,7 +429,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @formatjs/icu-skeleton-parser@1.8.16
+## @formatjs/icu-skeleton-parser@2.0.6
 
 **License:** MIT
 
@@ -447,7 +447,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @formatjs/intl@3.1.8
+## @formatjs/intl@4.0.7
 
 **License:** MIT
 
@@ -469,7 +469,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @formatjs/intl-localematcher@0.6.2
+## @formatjs/intl-localematcher@0.7.3
 
 **License:** MIT
 
@@ -593,7 +593,7 @@ SOFTWARE.
 
 ---
 
-## @intlify/core-base@11.1.12
+## @intlify/core-base@11.2.7
 
 **License:** MIT
 
@@ -626,7 +626,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @intlify/message-compiler@11.1.12
+## @intlify/message-compiler@11.2.7
 
 **License:** MIT
 
@@ -659,7 +659,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @intlify/shared@11.1.12
+## @intlify/shared@11.2.7
 
 **License:** MIT
 
@@ -724,7 +724,7 @@ SOFTWARE.
 
 ---
 
-## @vue/compiler-core@3.5.24
+## @vue/compiler-core@3.5.26
 
 **License:** MIT
 
@@ -758,7 +758,7 @@ THE SOFTWARE.
 
 ---
 
-## @vue/compiler-dom@3.5.24
+## @vue/compiler-dom@3.5.26
 
 **License:** MIT
 
@@ -792,7 +792,7 @@ THE SOFTWARE.
 
 ---
 
-## @vue/compiler-sfc@3.5.24
+## @vue/compiler-sfc@3.5.26
 
 **License:** MIT
 
@@ -826,7 +826,7 @@ THE SOFTWARE.
 
 ---
 
-## @vue/compiler-ssr@3.5.24
+## @vue/compiler-ssr@3.5.26
 
 **License:** MIT
 
@@ -872,7 +872,7 @@ _No license text file found; relying on package metadata._
 
 ---
 
-## @vue/reactivity@3.5.24
+## @vue/reactivity@3.5.26
 
 **License:** MIT
 
@@ -906,7 +906,7 @@ THE SOFTWARE.
 
 ---
 
-## @vue/runtime-core@3.5.24
+## @vue/runtime-core@3.5.26
 
 **License:** MIT
 
@@ -940,7 +940,7 @@ THE SOFTWARE.
 
 ---
 
-## @vue/runtime-dom@3.5.24
+## @vue/runtime-dom@3.5.26
 
 **License:** MIT
 
@@ -974,7 +974,7 @@ THE SOFTWARE.
 
 ---
 
-## @vue/server-renderer@3.5.24
+## @vue/server-renderer@3.5.26
 
 **License:** MIT
 
@@ -1008,7 +1008,7 @@ THE SOFTWARE.
 
 ---
 
-## @vue/shared@3.5.24
+## @vue/shared@3.5.26
 
 **License:** MIT
 
@@ -1042,7 +1042,7 @@ THE SOFTWARE.
 
 ---
 
-## bowser@2.12.1
+## bowser@2.13.1
 
 **License:** MIT
 
@@ -1250,11 +1250,11 @@ THE SOFTWARE.
 
 ---
 
-## entities@4.5.0
+## entities@7.0.0
 
 **License:** BSD-2-Clause
 
-**Repository:** git://github.com/fb55/entities.git
+**Repository:** https://github.com/fb55/entities.git
 
 **Publisher:** Felix Boehm <me@feedic.com>
 
@@ -1290,7 +1290,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## intl-messageformat@10.7.18
+## intl-messageformat@11.0.7
 
 **License:** BSD-3-Clause
 
@@ -1336,7 +1336,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ---
 
-## lodash-es@4.17.21
+## lodash-es@4.17.22
 
 **License:** MIT
 
@@ -1914,7 +1914,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ---
 
-## three@0.181.2
+## three@0.182.0
 
 **License:** MIT
 
@@ -1948,7 +1948,7 @@ THE SOFTWARE.
 
 ---
 
-## three-mesh-bvh@0.9.1
+## three-mesh-bvh@0.9.4
 
 **License:** MIT
 
@@ -2143,7 +2143,7 @@ SOFTWARE.
 
 ---
 
-## vue@3.5.24
+## vue@3.5.26
 
 **License:** MIT
 
@@ -2177,7 +2177,7 @@ THE SOFTWARE.
 
 ---
 
-## vue-i18n@11.1.12
+## vue-i18n@11.2.7
 
 **License:** MIT
 
