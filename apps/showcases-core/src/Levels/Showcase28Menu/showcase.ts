@@ -29,7 +29,16 @@ export function start(settings: TAppSettings): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { actorService, models3dService, keyboardService, scenesService, textService, intersectionsWatcherService, mouseService } = space.services;
+  const { actorService, models3dService, keyboardService, scenesService, textService, intersectionsWatcherService, loadingManagerService, mouseService } = space.services;
+
+  // TODO DEBUG CODE
+  const loadingManagerWrapper = loadingManagerService.getRegistry().getByName('DefaultSpaceLoadingManager');
+
+  loadingManagerWrapper.value$.subscribe((value) => {
+    console.log('XXX', value);
+  });
+  // TODO DEBUG CODE END
+
   const { kinematicLoop } = space.loops;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
   const { clickLeftRelease$ } = mouseService;
