@@ -1,3 +1,4 @@
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
 import type { TWithCreateService, TWithFactoryService, TWithRegistryService } from '@Anarchy/Engine/Mixins';
 
 import type { TLoadingManagerFactory } from './TLoadingManagerFactory';
@@ -9,7 +10,8 @@ export type TLoadingManagerServiceWithCreate = TWithCreateService<TLoadingManage
 export type TLoadingManagerServiceWithFactory = TWithFactoryService<TLoadingManagerWrapper, TLoadingManagerParams, undefined, TLoadingManagerFactory>;
 export type TLoadingManagerServiceWithRegistry = TWithRegistryService<TLoadingManagerRegistry>;
 
-export type TLoadingManagerService = TLoadingManagerServiceWithCreate &
+export type TLoadingManagerService = TAbstractService &
+  TLoadingManagerServiceWithCreate &
   TLoadingManagerServiceWithFactory &
   TLoadingManagerServiceWithRegistry &
   Readonly<{
