@@ -14,11 +14,15 @@ export function watchResourceLoading(space: TSpace): Subscription {
     });
 }
 
-export function isRendererReady(space: TSpace): Subscription {
+export function watchActiveRendererReady(space: TSpace): Subscription {
   return space.services.rendererService.getActive().isRendererReady$.subscribe((value: boolean): void => {
     // eslint-disable-next-line functional/immutable-data
     (window as any)._isActiveRendererReady = value;
     (space.container.getElement() as HTMLElement)?.classList[value ? 'add' : 'remove']('-active-renderer-ready');
     console.log(`[APP][Renderer]: renderer is ready ("${space.name}")`);
   });
+}
+
+export function watchSceneReady(space: TSpace): ReadonlyArray<Subscription> {
+  return [watchResourceLoading(space), watchActiveRendererReady(space)];
 }
