@@ -79,5 +79,9 @@ export async function waitFontsReady(page: Page): Promise<void> {
     if (document.fonts?.ready) await document.fonts.ready;
   });
 
-  await page.evaluate(() => new Promise<void>((r) => requestAnimationFrame(() => requestAnimationFrame(() => r()))));
+  await page.evaluate((): Promise<void> => new Promise<void>((r: (value: PromiseLike<void> | void) => void): number => requestAnimationFrame((): number => requestAnimationFrame((): void => r()))));
+}
+
+export async function waitResourcesReady(page: Page, timeout: number = 1000): Promise<void> {
+  await page.waitForFunction((): boolean | undefined => !!(window as any)._isResourcesReady, { timeout });
 }
