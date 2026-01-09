@@ -2,6 +2,7 @@ import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
 import { LoadingEventType } from '@Anarchy/Engine/LoadingManager';
 import type { TLoadingEvent, TLoadingManagerParams, TLoadingManagerWrapper } from '@Anarchy/Engine/LoadingManager/Models';
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { LoadingManager } from 'three';
@@ -52,6 +53,30 @@ export function LoadingManagerWrapper(params: TLoadingManagerParams): TLoadingMa
     value$.next({ type: START, url, loaded, total, progress: getProgress(loaded, total) });
   };
 
+  async function waitLoading<T>(label: string, loadingTask: () => Promise<T>): Promise<T> {
+    entity.itemStart(label);
+
+    try {
+      const res = await loadingTask();
+      entity.itemEnd(label);
+      return res;
+    } catch (e) {
+      // Mark as ended (otherwise manager might hang "loading" forever)
+      entity.itemError(label);
+      entity.itemEnd(label);
+      value$.next({ type: ERROR, url: label, loaded: lastLoaded, total: lastTotal, progress: getProgress(lastLoaded, lastTotal) });
+      throw e;
+    }
+  }
+
+  function waitFontsLoading(label = 'fonts:document.fonts.ready'): Promise<void> {
+    return waitLoading(label, async (): Promise<void> => {
+      const fontsAny: FontFaceSet | undefined = (document as unknown as { fonts?: FontFaceSet }).fonts;
+      if (isNotDefined(fontsAny)) return;
+      await fontsAny.ready;
+    });
+  }
+
   const wrapper: TAbstractWrapper<LoadingManager> = AbstractWrapper(entity, WrapperType.LoadingManager, params);
 
   const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
@@ -59,9 +84,13 @@ export function LoadingManagerWrapper(params: TLoadingManagerParams): TLoadingMa
     destroySub$.unsubscribe();
   });
 
+  waitFontsLoading();
+
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(wrapper, {
     entity,
+    waitLoading,
+    waitFontsLoading,
     value$
   });
 }
