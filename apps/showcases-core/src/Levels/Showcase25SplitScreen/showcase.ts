@@ -5,6 +5,7 @@ import { combineLatest, withLatestFrom } from 'rxjs';
 import { Clock } from 'three';
 
 import type { TAppSettings } from '@/Models';
+import { watchResourceLoading } from '@/Utils';
 import { moveByCircle } from '@/Utils/MoveUtils';
 
 import spaceAlphaConfigJson from './spaceAlpha.json';
@@ -48,6 +49,8 @@ export function start(settings: TAppSettings): void {
   const spaceBeta: TSpace = spaces[spaceBetaConfig.name];
   if (isNotDefined(spaceAlpha)) throw new Error(`[APP] Space "${spaceAlphaConfig.name}" is not defined`);
   if (isNotDefined(spaceBeta)) throw new Error(`[APP] Space "${spaceBetaConfig.name}" is not defined`);
+  watchResourceLoading(spaceAlpha);
+  watchResourceLoading(spaceBeta);
 
   combineLatest([spaceAlpha.built$, spaceBeta.built$]).subscribe(([alpha, beta]: ReadonlyArray<TSpace>): void => {
     runAlpha(alpha);

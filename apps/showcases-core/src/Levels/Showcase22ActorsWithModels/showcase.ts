@@ -23,8 +23,8 @@ function beforeResourcesLoaded(_config: TSpaceConfig, { models3dService }: TSpac
 export function start(settings: TAppSettings): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], settings.spaceSettings));
   const space: TSpace = spaces[spaceConfig.name];
-  watchResourceLoading(space);
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
+  watchResourceLoading(space);
   space.events$.subscribe((event: TSpaceAnyEvent): void => {
     if (event.name === SpaceEvents.BeforeResourcesLoaded) beforeResourcesLoaded(event.args.config, event.args.services);
   });

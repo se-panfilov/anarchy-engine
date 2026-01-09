@@ -24,7 +24,7 @@ import { spaceSpatialData } from '@/Levels/Showcase27SaveLoad/spaceSpatial';
 import { spaceTextData } from '@/Levels/Showcase27SaveLoad/spaceTexts';
 import { spaceTransformDriveData } from '@/Levels/Showcase27SaveLoad/spaceTransformDrive';
 import type { TAppSettings } from '@/Models';
-import { addBtn, addDropdown, enableFPSCounter } from '@/Utils';
+import { addBtn, addDropdown, enableFPSCounter, watchResourceLoading } from '@/Utils';
 
 import type { TSpacesData } from './ShowcaseTypes';
 import { createContainersDivs, setContainerVisibility } from './utils';
@@ -88,6 +88,7 @@ function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>,
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceData.config], settings.spaceSettings);
   const space: TSpace = spaces.find((s: TSpace): boolean => s.name === name) as TSpace;
   if (isNotDefined(space)) throw new Error(`[APP] Cannot create the space "${name}"`);
+  watchResourceLoading(space);
 
   if (settings.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 

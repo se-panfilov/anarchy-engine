@@ -49,7 +49,7 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { degToRad, radToDeg } from 'three/src/math/MathUtils';
 
 import type { TAppSettings } from '@/Models';
-import { addGizmo, attachConnectorPositionToSubj, enableFPSCounter, getMemoryUsage } from '@/Utils';
+import { addGizmo, attachConnectorPositionToSubj, enableFPSCounter, getMemoryUsage, watchResourceLoading } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 import {
@@ -72,6 +72,7 @@ export function start(settings: TAppSettings): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], settings.spaceSettings));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
+  watchResourceLoading(space);
   if (settings.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
   space.built$.subscribe(showcase);
