@@ -59,6 +59,7 @@ export function buildEntitiesServices(
   { loopService, scenesService }: TSpaceBaseServices,
   settings: TSpaceSettings
 ): TSpaceServices {
+  // TODO CWP get loading state, and  maybe wrap a manager (and pass loading manager here)
   const loadingManager: LoadingManager = new LoadingManager();
   const textureService: TTextureService = TextureService(TextureResourceAsyncRegistry(), TextureMetaInfoRegistry(), loadingManager);
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry(), { textureService });
