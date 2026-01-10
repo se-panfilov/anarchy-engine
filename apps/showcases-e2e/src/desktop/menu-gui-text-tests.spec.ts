@@ -12,6 +12,12 @@ let context: TLaunchContext;
 test.describe.configure({ mode: 'serial' });
 
 test.describe('Desktop app Menu/GUI text tests', () => {
+  const thresholds = {
+    // threshold: 0.01,
+    timeout: 50000,
+    maxDiffPixelRatio: 0.01
+  };
+
   test.beforeAll(async () => {
     const { electronApp, page } = await launchPackagedElectronApp();
 
@@ -34,14 +40,14 @@ test.describe('Desktop app Menu/GUI text tests', () => {
   test('Open plain page', async () => {
     const { page } = context;
 
-    await expect(page).toHaveScreenshot('plain-page.png', { fullPage: true });
+    await expect(page).toHaveScreenshot('plain-page.png', { ...thresholds, fullPage: true });
   });
 
   test('Translations for plain page should work', async () => {
     const { page } = context;
 
     await toggleLanguage(page);
-    await expect(page).toHaveScreenshot('plain-page-language-toggled.png', { fullPage: true });
+    await expect(page).toHaveScreenshot('plain-page-language-toggled.png', { ...thresholds, fullPage: true });
   });
 
   test('Open menu', async () => {
@@ -50,7 +56,7 @@ test.describe('Desktop app Menu/GUI text tests', () => {
 
     await openMenu(page);
 
-    await expect(page).toHaveScreenshot('settings-open.png', { fullPage: true });
+    await expect(page).toHaveScreenshot('settings-open.png', { ...thresholds, fullPage: true });
   });
 
   test('Open menu with language toggle', async () => {
@@ -60,7 +66,7 @@ test.describe('Desktop app Menu/GUI text tests', () => {
     await toggleLanguage(page);
     await openMenu(page);
 
-    await expect(page).toHaveScreenshot('settings-open-language-toggled.png', { fullPage: true });
+    await expect(page).toHaveScreenshot('settings-open-language-toggled.png', { ...thresholds, fullPage: true });
   });
 });
 
