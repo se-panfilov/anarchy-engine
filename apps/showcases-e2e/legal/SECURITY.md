@@ -1,6 +1,6 @@
 # Security Policy — showcases-e2e
 
-**Effective date:** TBD until market release
+**Effective date:** 11 January 2026
 
 **Security Contact:** pnf036+anarchy_security@gmail.com (email preferred for sensitive reports)
 

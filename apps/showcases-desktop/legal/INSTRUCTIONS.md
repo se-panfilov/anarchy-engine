@@ -1,6 +1,6 @@
 # Instructions & Support — TBD until market release
 
-**Effective date:** TBD until market release
+**Effective date:** 11 January 2026
 
 **Publisher/Developer:** Sergei Panfilov
 

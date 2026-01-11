@@ -1,6 +1,6 @@
 # End User License Terms — @hellpig/anarchy-shared
 
-**Effective date:** TBD until market release
+**Effective date:** 11 January 2026
 This repository is provided under **MIT** (see `LICENSE`).
 
 1. **License & Ownership.** The code is licensed, not sold. Copyrights remain with the authors.

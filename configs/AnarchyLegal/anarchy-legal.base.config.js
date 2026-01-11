@@ -57,7 +57,7 @@ export default {
       SUPPORT_EMAILS_RETAIN_PERIOD_MONTH: 24,
 
       // TBD
-      EFFECTIVE_DATE: 'TBD until market release'
+      EFFECTIVE_DATE: '11 January 2026'
     }
   }
 };

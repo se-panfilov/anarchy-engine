@@ -1,6 +1,6 @@
 # End User License Agreement (EULA) — TBD until market release
 
-**Effective date:** TBD until market release
+**Effective date:** 11 January 2026
 
 _This EULA applies to copies acquired on or after the Effective date. For earlier copies, the version bundled with that copy governs until you update._
 

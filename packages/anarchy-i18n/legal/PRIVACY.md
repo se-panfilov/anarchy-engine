@@ -1,6 +1,6 @@
 # Privacy Notice — @hellpig/anarchy-i18n
 
-**Effective date:** TBD until market release
+**Effective date:** 11 January 2026
 
 **Controller:** Sergei Panfilov — Contact: pnf036+anarchy@gmail.com
 
