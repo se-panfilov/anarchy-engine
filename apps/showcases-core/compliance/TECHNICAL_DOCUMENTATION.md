@@ -1,10 +1,10 @@
-# Technical Documentation (Technical File) — TBD until market release
+# Technical Documentation (Technical File) — Anarchy Engine Showcases
 
 **Manufacturer:** Sergei Panfilov
 
 **Contacts:** Reg./Legal pnf036+anarchy@gmail.com · Security pnf036+anarchy_security@gmail.com
 
-**Product:** TBD until market release (the “Software”)
+**Product:** Anarchy Engine Showcases (the “Software”)
 
 **Conformity series:** TBD until market release (2.0.0) (baseline **TBD until market release**, dated **TBD until market release**)
 

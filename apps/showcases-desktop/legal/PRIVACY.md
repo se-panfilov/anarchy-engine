@@ -1,10 +1,10 @@
-# Privacy Policy — TBD until market release
+# Privacy Policy — Anarchy Engine Showcases
 
 **Effective date:** 11 January 2026
 
 **Controller:** Sergei Panfilov — Contact: pnf036+anarchy@gmail.com
 
-**Scope / Identification.** This policy applies to **TBD until market release** (the “Software”) and related distributions under the following technical identifiers: `showcases-desktop`.
+**Scope / Identification.** This policy applies to **Anarchy Engine Showcases** (the “Software”) and related distributions under the following technical identifiers: `showcases-desktop`.
 
 ## 1. Summary
 

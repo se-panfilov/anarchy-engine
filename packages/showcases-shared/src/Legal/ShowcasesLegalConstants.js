@@ -54,5 +54,5 @@ export const ShowcasesSystemRequirements = {
 
 export const ShowcasesSoftwareFamilyName = 'anarchy-showcases';
 
-//The brand name of the product (registered trademark)
-export const ShowcasesDisplayName = 'TBD until market release';
+//The brand name of the product (usually registered trademark)
+export const ShowcasesDisplayName = 'Anarchy Engine Showcases';

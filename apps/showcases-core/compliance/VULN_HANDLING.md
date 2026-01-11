@@ -1,4 +1,4 @@
-# Incident Response & Vulnerability Handling Plan — TBD until market release
+# Incident Response & Vulnerability Handling Plan — Anarchy Engine Showcases
 
 **Contacts:** Security pnf036+anarchy_security@gmail.com · Legal pnf036+anarchy@gmail.com · Support pnf036+anarchy@gmail.com
 

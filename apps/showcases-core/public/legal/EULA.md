@@ -1,4 +1,4 @@
-# End User License Agreement (EULA) — TBD until market release
+# End User License Agreement (EULA) — Anarchy Engine Showcases
 
 **Effective date:** 11 January 2026
 
@@ -10,7 +10,7 @@ _This EULA applies to copies acquired on or after the Effective date. For earlie
 
 ## Identification
 
-This EULA applies to **TBD until market release** (the “Software”).
+This EULA applies to **Anarchy Engine Showcases** (the “Software”).
 
 Also distributed under the following technical identifiers: `showcases-core`.
 
@@ -137,6 +137,6 @@ This agreement is drafted in English. Translations may be provided for convenien
 
 **Contact:** pnf036+anarchy@gmail.com
 
-Trademarks. TBD until market release is a trademark of Sergei Panfilov.
+Trademarks. Anarchy Engine Showcases is a trademark of Sergei Panfilov.
 
 All other trademarks are the property of their respective owners.

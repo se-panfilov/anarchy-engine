@@ -1,4 +1,4 @@
-# EU Declaration of Conformity — TBD until market release
+# EU Declaration of Conformity — Anarchy Engine Showcases
 
 **Declaration No.:** DoC-showcases-core-TBD until market release (2.0.0)
 
@@ -10,9 +10,9 @@
 
 ## Product Identification
 
-- **Product name:** TBD until market release (the “Software”)
+- **Product name:** Anarchy Engine Showcases (the “Software”)
 - **Technical identifiers:** `showcases-core`
-- **Type / model:** anarchy-showcases (product family of TBD until market release)
+- **Type / model:** anarchy-showcases (product family of Anarchy Engine Showcases)
 - **Intended use:** Standalone software (product with digital elements) operating **offline** by default; no personal-data processing by default.
 
 ## Versioning / Series Covered by this Declaration

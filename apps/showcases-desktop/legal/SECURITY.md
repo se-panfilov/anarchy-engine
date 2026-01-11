@@ -1,4 +1,4 @@
-# Security Policy — TBD until market release
+# Security Policy — Anarchy Engine Showcases
 
 **Effective date:** 11 January 2026
 
@@ -6,7 +6,7 @@
 
 ## Scope
 
-This policy applies to commercial builds of **TBD until market release** (the “Software”). It explains how to report potential security issues and how we handle them. **It does not create service levels, warranties, or contractual obligations.** Distribution and updates may occur via any **distribution channels** in use from time to time (including installers, physical media, or package archives).
+This policy applies to commercial builds of **Anarchy Engine Showcases** (the “Software”). It explains how to report potential security issues and how we handle them. **It does not create service levels, warranties, or contractual obligations.** Distribution and updates may occur via any **distribution channels** in use from time to time (including installers, physical media, or package archives).
 
 ## Coordinated Vulnerability Disclosure (CVD)
 

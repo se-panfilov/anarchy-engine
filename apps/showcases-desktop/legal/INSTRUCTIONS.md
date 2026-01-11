@@ -1,4 +1,4 @@
-# Instructions & Support — TBD until market release
+# Instructions & Support — Anarchy Engine Showcases
 
 **Effective date:** 11 January 2026
 
@@ -6,7 +6,7 @@
 
 **Support contact:** pnf036+anarchy@gmail.com
 
-> This document provides basic use, safety, and compliance information for **TBD until market release** (the “Software”). It does **not** create service levels, warranties, or contractual obligations. For license terms, see **EULA** (`EULA.*`). For privacy, see **Privacy Policy** (`PRIVACY.*`). For security and updates, see **Security Policy** (`SECURITY.*`).
+> This document provides basic use, safety, and compliance information for **Anarchy Engine Showcases** (the “Software”). It does **not** create service levels, warranties, or contractual obligations. For license terms, see **EULA** (`EULA.*`). For privacy, see **Privacy Policy** (`PRIVACY.*`). For security and updates, see **Security Policy** (`SECURITY.*`).
 
 ---
 
