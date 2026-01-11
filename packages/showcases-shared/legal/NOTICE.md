@@ -105,7 +105,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.23
+## @csstools/css-syntax-patches-for-csstree@1.0.24
 
 **License(s):** MIT-0
 

@@ -183,7 +183,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.23
+## @csstools/css-syntax-patches-for-csstree@1.0.24
 
 **License(s):** MIT-0
 
@@ -299,7 +299,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-engine@21.3.0
+## @hellpig/anarchy-engine@21.3.1
 
 **License(s):** MIT
 
@@ -311,7 +311,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-i18n@1.3.0
+## @hellpig/anarchy-i18n@1.3.1
 
 **License(s):** MIT
 
@@ -323,7 +323,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-shared@1.5.1
+## @hellpig/anarchy-shared@1.5.2
 
 **License(s):** MIT
 
@@ -335,7 +335,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-tracking@1.6.0
+## @hellpig/anarchy-tracking@1.6.1
 
 **License(s):** MIT
 
@@ -2001,7 +2001,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-core@2.19.0
+## showcases-core@2.19.1
 
 **License(s):** MIT
 
@@ -2013,7 +2013,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-gui@1.1.5
+## showcases-gui@1.1.6
 
 **License(s):** MIT
 
@@ -2025,7 +2025,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-i18n@1.4.3
+## showcases-i18n@1.4.4
 
 **License(s):** MIT
 
@@ -2037,7 +2037,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-menu@1.8.7
+## showcases-menu@1.8.8
 
 **License(s):** MIT
 
@@ -2049,7 +2049,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-shared@1.7.2
+## showcases-shared@1.7.3
 
 **License(s):** MIT
 

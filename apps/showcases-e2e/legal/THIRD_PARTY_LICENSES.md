@@ -232,7 +232,7 @@ limitations under the License.
 
 ---
 
-## @hellpig/anarchy-engine@21.3.0
+## @hellpig/anarchy-engine@21.3.1
 
 **License:** MIT
 
@@ -266,7 +266,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-shared@1.5.1
+## @hellpig/anarchy-shared@1.5.2
 
 **License:** MIT
 

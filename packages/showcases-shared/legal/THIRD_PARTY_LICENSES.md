@@ -262,7 +262,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.23
+## @csstools/css-syntax-patches-for-csstree@1.0.24
 
 **License:** MIT-0
 
