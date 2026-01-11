@@ -2,7 +2,7 @@
 
 **Effective date:** TBD until market release
 
-**Controller:** Sergei Panfilov — Contact: TBD until market release
+**Controller:** Sergei Panfilov — Contact: pnf036+anarchy@gmail.com
 
 **Scope / Identification.** This policy applies to **TBD until market release** (the “Software”) and related distributions under the following technical identifiers: `showcases-desktop`.
 
@@ -26,7 +26,7 @@ Your chosen distribution channels may process personal data necessary to provide
 
 ## 4. Customer Support
 
-If you contact us at **TBD until market release**, we process your **email address**, **message content**, and any information you provide to respond.
+If you contact us at **pnf036+anarchy@gmail.com**, we process your **email address**, **message content**, and any information you provide to respond.
 
 **Legal basis:** our **legitimate interests** in responding to inquiries (or your consent where applicable). **LGPD:** legitimate interest of the controller (Art. 7, IX).
 
@@ -42,11 +42,11 @@ Where data is transferred outside your jurisdiction, we rely on applicable trans
 
 ## 7. Your Rights
 
-Subject to law, you may request **access**, **rectification**, **erasure**, **restriction**, **objection**, **portability**, and **withdrawal of consent** (for processing based on consent) at **TBD until market release**. You may also lodge a complaint with your local supervisory authority (e.g., the Dutch **Autoriteit Persoonsgegevens**, Brazil’s **ANPD**, Canada’s **OPC**, Australia’s **OAIC**). We may request reasonable information to **verify your identity** before acting on a request. We will respond **within timelines required by applicable law**.
+Subject to law, you may request **access**, **rectification**, **erasure**, **restriction**, **objection**, **portability**, and **withdrawal of consent** (for processing based on consent) at **pnf036+anarchy@gmail.com**. You may also lodge a complaint with your local supervisory authority (e.g., the Dutch **Autoriteit Persoonsgegevens**, Brazil’s **ANPD**, Canada’s **OPC**, Australia’s **OAIC**). We may request reasonable information to **verify your identity** before acting on a request. We will respond **within timelines required by applicable law**.
 
 ## 8. Children
 
-This Software is **not directed** to children below the age requiring parental consent under applicable law (e.g., EU **16**, US **13**, China **14**). We do not knowingly process such data. If you believe we have collected such data, contact **TBD until market release** and we will address it in accordance with the law.
+This Software is **not directed** to children below the age requiring parental consent under applicable law (e.g., EU **16**, US **13**, China **14**). We do not knowingly process such data. If you believe we have collected such data, contact **pnf036+anarchy@gmail.com** and we will address it in accordance with the law.
 
 ## 9. Security
 
@@ -67,4 +67,4 @@ We may update this policy. Material changes may be communicated **within the pro
 
 This policy is drafted in English. Translations may be provided for convenience. In consumer markets where local-language versions are required by law for clarity and fairness, the local-language version controls to the extent required by applicable law; otherwise, the English version controls.
 
-**Contact:** TBD until market release
+**Contact:** pnf036+anarchy@gmail.com

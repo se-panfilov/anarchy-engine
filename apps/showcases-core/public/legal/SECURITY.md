@@ -2,7 +2,7 @@
 
 **Effective date:** TBD until market release
 
-**Security Contact:** TBD until market release
+**Security Contact:** pnf036+anarchy_security@gmail.com
 
 ## Scope
 
@@ -10,7 +10,7 @@ This policy applies to commercial builds of **TBD until market release** (the â€
 
 ## Coordinated Vulnerability Disclosure (CVD)
 
-- **Report:** email **TBD until market release**. Include affected version/platform, minimal reproduction steps, impact, and (if possible) a small PoC.
+- **Report:** email **pnf036+anarchy_security@gmail.com**. Include affected version/platform, minimal reproduction steps, impact, and (if possible) a small PoC.
 - **File exchange:** if you need to share large files or sensitive artifacts, contact us first to arrange a secure channel.
 - **Public disclosure:** please coordinate timing with us to allow a fix or mitigation to be available where reasonably possible.
 

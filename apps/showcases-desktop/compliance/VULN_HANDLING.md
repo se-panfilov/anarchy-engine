@@ -1,12 +1,12 @@
 # Incident Response & Vulnerability Handling Plan — TBD until market release
 
-**Contacts:** Security TBD until market release · Legal TBD until market release · Support TBD until market release
+**Contacts:** Security pnf036+anarchy_security@gmail.com · Legal pnf036+anarchy@gmail.com · Support pnf036+anarchy@gmail.com
 
 **Scope:** This plan applies to the Software and its officially published artifacts. It complements the public `SECURITY` policy and is designed to meet CRA vulnerability-handling expectations while remaining feasible for a solo indie developer.
 
 ## 1. Intake
 
-- **Primary channel:** the **Security Contact** email listed in `./legal/SECURITY.*` (currently: **TBD until market release**).
+- **Primary channel:** the **Security Contact** email listed in `./legal/SECURITY.*` (currently: **pnf036+anarchy_security@gmail.com**).
 - **Optional backup:** the **Support** contact in `./legal/INSTRUCTIONS.*`.
 - **Minimum report content:** affected version/platform, steps to reproduce, impact, PoC (if feasible).
 - **Acknowledgement:** best-effort; no SLA.

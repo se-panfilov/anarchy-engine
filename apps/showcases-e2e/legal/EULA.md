@@ -9,7 +9,7 @@ This repository is provided under **MIT** (see `LICENSE`).
 4. **Third-Party Components (License Precedence).** Dependencies retain their own licenses and notices. **If this text ever conflicts with a third-party license for a specific component, that third-party license governs for that component.** See `NOTICE` / `THIRD_PARTY_LICENSES`.
 5. **No Warranty / Liability.** Provided **“AS IS”**, **to the extent permitted by law**, without warranties; **statutory consumer rights (if any) are not affected**.
 
-**Accessibility.** Where required by law, we aim to address **accessibility feedback** for officially published artifacts **within reasonable and proportionate limits**. Contact: **TBD until market release**. This section does **not** create service levels or guarantees.
+**Accessibility.** Where required by law, we aim to address **accessibility feedback** for officially published artifacts **within reasonable and proportionate limits**. Contact: **pnf036+anarchy@gmail.com**. This section does **not** create service levels or guarantees.
 
 ## Governing Language
 
