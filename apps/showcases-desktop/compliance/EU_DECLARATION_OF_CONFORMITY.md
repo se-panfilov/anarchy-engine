@@ -1,6 +1,6 @@
 # EU Declaration of Conformity — Anarchy Engine Showcases
 
-**Declaration No.:** DoC-showcases-desktop-TBD until market release (2.0.0)
+**Declaration No.:** DoC-showcases-desktop-2.x.x (pre-market, no placement)
 
 **Manufacturer (Legal Entity):** Sergei Panfilov
 
@@ -17,9 +17,9 @@
 
 ## Versioning / Series Covered by this Declaration
 
-- **Conformity series:** TBD until market release (2.0.0) (baseline **TBD until market release**, dated **TBD until market release**).
+- **Conformity series:** 2.x.x (pre-market, no placement) (baseline **2.12.6**, dated **TBD until market release**).
 - Subsequent **minor/patch** releases **within this series** are covered **provided** they do **not** introduce **substantial changes** that could adversely affect compliance with essential requirements.
-- Internal pre-release builds prior to **TBD until market release** were **not** placed on the market and fall **outside** the scope of this Declaration.
+- Internal pre-release builds prior to **2.12.6** were **not** placed on the market and fall **outside** the scope of this Declaration.
 - Build identifiers (e.g., commit/tag) for released binaries are retained in internal records and will be **made available to competent authorities upon request**.
 
 ## Applicable Union Legislation

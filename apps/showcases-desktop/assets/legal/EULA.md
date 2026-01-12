@@ -1,16 +1,16 @@
-# End User License Agreement (EULA) — TBD until market release
+# End User License Agreement (EULA) — Anarchy Engine Showcases
 
-**Effective date:** TBD until market release
+**Effective date:** 11 January 2026
 
 _This EULA applies to copies acquired on or after the Effective date. For earlier copies, the version bundled with that copy governs until you update._
 
-**Licensor (Developer):** Sergei Aleksandrovich Panfilov
+**Licensor (Developer):** Sergei Panfilov
 
-**Support/Legal Contact:** TBD until market release / TBD until market release
+**Support/Legal Contact:** pnf036+anarchy@gmail.com / pnf036+anarchy@gmail.com
 
 ## Identification
 
-This EULA applies to **TBD until market release** (the “Software”).
+This EULA applies to **Anarchy Engine Showcases** (the “Software”).
 
 Also distributed under the following technical identifiers: `showcases-desktop`.
 
@@ -32,7 +32,7 @@ Subject to this EULA, Licensor grants you a personal, non-exclusive, revocable l
 
 ## 2. Ownership
 
-The Software is licensed, not sold. Sergei Aleksandrovich Panfilov and its licensors retain all title and IP rights. **Third-party components** are licensed under their respective terms.
+The Software is licensed, not sold. Sergei Panfilov and its licensors retain all title and IP rights. **Third-party components** are licensed under their respective terms.
 
 ## 3. Permitted Use, Sharing & Reverse Engineering
 
@@ -91,7 +91,7 @@ This Software is not directed to children below the age requiring parental conse
 
 ## 9. Accessibility
 
-Where required by applicable law (e.g., the **EU Accessibility Act**), we aim to address **accessibility feedback** for consumer-facing builds **within reasonable and proportionate limits**. Contact: **TBD until market release**. This section does **not** create service levels or guarantees.
+Where required by applicable law (e.g., the **EU Accessibility Act**), we aim to address **accessibility feedback** for consumer-facing builds **within reasonable and proportionate limits**. Contact: **pnf036+anarchy@gmail.com**. This section does **not** create service levels or guarantees.
 
 ## 10. Term & Termination
 
@@ -135,8 +135,8 @@ We may update this EULA. Material changes may be communicated **within the produ
 
 This agreement is drafted in English. Translations may be provided for convenience. In consumer markets where local-language versions are required by law for clarity and fairness, the local-language version controls to the extent required by applicable law; otherwise, the English version controls.
 
-**Contact:** TBD until market release
+**Contact:** pnf036+anarchy@gmail.com
 
-Trademarks. TBD until market release is a trademark of Sergei Aleksandrovich Panfilov.
+Trademarks. Anarchy Engine Showcases is a trademark of Sergei Panfilov.
 
 All other trademarks are the property of their respective owners.
