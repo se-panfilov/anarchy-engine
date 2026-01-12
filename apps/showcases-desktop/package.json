@@ -65,7 +65,7 @@
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/desktop-main.ts",
     "clean:prebuild": "node ./scripts/clean.js",
     "copy:legal-to-assets": "node ../../packages/anarchy-shared/ScriptUtils/CopyDir.js from=./legal to=./assets/legal",
-    "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
+    "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom && npm run copy:legal-to-assets",
     "generate:legal:3rd-party-licenses": "npm run -w @hellpig/anarchy-legal generate:licenses -- --workspace apps/showcases-desktop --out ../../apps/showcases-desktop/legal/THIRD_PARTY_LICENSES.md",
     "generate:legal:files": "npm run -w @hellpig/anarchy-legal generate:files -- --workspace apps/showcases-desktop --out ../../apps/showcases-desktop",
     "generate:legal:notice": "npm run -w @hellpig/anarchy-legal generate:notice -- --audit --strict --workspace apps/showcases-desktop --source ../../apps/showcases-desktop/legal/THIRD_PARTY_LICENSES.md --out ../../apps/showcases-desktop/legal/NOTICE.md",

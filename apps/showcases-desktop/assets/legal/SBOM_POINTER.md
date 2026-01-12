@@ -4,4 +4,4 @@ A Software Bill of Materials (SBOM) for this product is maintained by the manufa
 
 - **Format:** CycloneDX JSON
 - **Location (internal):** `../compliance/sbom/`
-- **Availability:** available **on request** from TBD until market release / TBD until market release
+- **Availability:** available **on request** from pnf036+anarchy_security@gmail.com / pnf036+anarchy@gmail.com

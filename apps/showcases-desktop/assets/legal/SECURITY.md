@@ -1,16 +1,16 @@
-# Security Policy — TBD until market release
+# Security Policy — Anarchy Engine Showcases
 
-**Effective date:** TBD until market release
+**Effective date:** 11 January 2026
 
-**Security Contact:** TBD until market release
+**Security Contact:** pnf036+anarchy_security@gmail.com
 
 ## Scope
 
-This policy applies to commercial builds of **TBD until market release** (the “Software”). It explains how to report potential security issues and how we handle them. **It does not create service levels, warranties, or contractual obligations.** Distribution and updates may occur via any **distribution channels** in use from time to time (including installers, physical media, or package archives).
+This policy applies to commercial builds of **Anarchy Engine Showcases** (the “Software”). It explains how to report potential security issues and how we handle them. **It does not create service levels, warranties, or contractual obligations.** Distribution and updates may occur via any **distribution channels** in use from time to time (including installers, physical media, or package archives).
 
 ## Coordinated Vulnerability Disclosure (CVD)
 
-- **Report:** email **TBD until market release**. Include affected version/platform, minimal reproduction steps, impact, and (if possible) a small PoC.
+- **Report:** email **pnf036+anarchy_security@gmail.com**. Include affected version/platform, minimal reproduction steps, impact, and (if possible) a small PoC.
 - **File exchange:** if you need to share large files or sensitive artifacts, contact us first to arrange a secure channel.
 - **Public disclosure:** please coordinate timing with us to allow a fix or mitigation to be available where reasonably possible.
 

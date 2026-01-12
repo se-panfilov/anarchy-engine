@@ -1,12 +1,12 @@
-# Instructions & Support — TBD until market release
+# Instructions & Support — Anarchy Engine Showcases
 
-**Effective date:** TBD until market release
+**Effective date:** 11 January 2026
 
-**Publisher/Developer:** Sergei Aleksandrovich Panfilov
+**Publisher/Developer:** Sergei Panfilov
 
-**Support contact:** TBD until market release
+**Support contact:** pnf036+anarchy@gmail.com
 
-> This document provides basic use, safety, and compliance information for **TBD until market release** (the “Software”). It does **not** create service levels, warranties, or contractual obligations. For license terms, see **EULA** (`EULA.*`). For privacy, see **Privacy Policy** (`PRIVACY.*`). For security and updates, see **Security Policy** (`SECURITY.*`).
+> This document provides basic use, safety, and compliance information for **Anarchy Engine Showcases** (the “Software”). It does **not** create service levels, warranties, or contractual obligations. For license terms, see **EULA** (`EULA.*`). For privacy, see **Privacy Policy** (`PRIVACY.*`). For security and updates, see **Security Policy** (`SECURITY.*`).
 
 ---
 
@@ -109,7 +109,7 @@ Below is the CE mark included for electronic placement in these instructions:
 
 ## 9) Support
 
-- **Email:** TBD until market release
+- **Email:** pnf036+anarchy@gmail.com
 - We will make a **good-faith effort** to review support messages; **no SLAs** are provided unless agreed separately.
 
 ---
