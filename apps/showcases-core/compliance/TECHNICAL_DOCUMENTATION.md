@@ -1,12 +1,12 @@
-# Technical Documentation (Technical File) — TBD until market release
+# Technical Documentation (Technical File) — Anarchy Engine Showcases
 
 **Manufacturer:** Sergei Panfilov
 
-**Contacts:** Reg./Legal TBD until market release · Security TBD until market release
+**Contacts:** Reg./Legal pnf036+anarchy@gmail.com · Security pnf036+anarchy_security@gmail.com
 
-**Product:** TBD until market release (the “Software”)
+**Product:** Anarchy Engine Showcases (the “Software”)
 
-**Conformity series:** TBD until market release (2.0.0) (baseline **TBD until market release**, dated **TBD until market release**)
+**Conformity series:** 2.x.x (pre-market, no placement) (baseline **2.19.1**, dated **TBD until market release**)
 
 **Confidentiality:** Internal; provided to competent authorities upon request.
 
@@ -31,7 +31,7 @@
 - **Vulnerability handling & updates:** see **SECURITY** (delivery via distribution channels; **no SLA/cadence**).
 - **Default configuration / hardening:** minimal permissions; sandboxing/OS-policies where applicable (short note).
 - **Data protection by design/default:** **no personal data by default**; optional features/diagnostics → **PRIVACY** (DPIA/ROPA only if such features are enabled).
-- **Accessibility (EAA):** basic info & contact **TBD until market release** (or “N/A”).
+- **Accessibility (EAA):** basic info & contact **pnf036+anarchy@gmail.com** (or “N/A”).
 - **Security support period:** as declared in **SUPPORT.md** (Support Period Policy): the **shorter** of the **declared expected lifetime** per **major version** and **five (5) years** from initial commercial release.
 
 ## D. Risk assessment (summary)
@@ -50,7 +50,7 @@
 
 - **Location & format:** **`./sbom/` (CycloneDX JSON)**.
 - **Generation:** Generated automatically at release time in CI as **CycloneDX JSON**. **Scope:** runtime dependencies of the shipped artifact based on lockfiles/bundle manifests; **excludes** dev/test/build tools and OS/platform components not bundled with the release. **If** a release bundles **native or platform-specific components**, we **may complement** the BOM with a lightweight file-level scan of the final package; otherwise the **primary runtime BOM** is the authoritative inventory. Stored under `./sbom/`; **SHA-256** recorded; retained ≥10 years; available on request.
-- **Availability:** available on request from TBD until market release / TBD until market release
+- **Availability:** available on request from pnf036+anarchy_security@gmail.com / pnf036+anarchy@gmail.com
 
 ## G. Labels, notices & marking
 

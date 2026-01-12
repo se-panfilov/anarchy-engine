@@ -1,6 +1,6 @@
 # Security Support Period Policy (CRA)
 
-**Product:** TBD until market release (the “Software”)
+**Product:** Anarchy Engine Showcases (the “Software”)
 
 **First EU placement on the market:** TBD until market release
 

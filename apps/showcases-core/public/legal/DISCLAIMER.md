@@ -32,7 +32,7 @@ The Software may include or interface with **third-party open-source components*
 
 ## Accessibility (EAA and similar)
 
-Where required by applicable law (e.g., the **EU Accessibility Act**), we aim to address **accessibility feedback** for distributed binaries **within reasonable and proportionate limits**. Contact: **TBD until market release**. This section **does not** create service levels or guarantees.
+Where required by applicable law (e.g., the **EU Accessibility Act**), we aim to address **accessibility feedback** for distributed binaries **within reasonable and proportionate limits**. Contact: **pnf036+anarchy@gmail.com**. This section **does not** create service levels or guarantees.
 
 ## Security and Support
 

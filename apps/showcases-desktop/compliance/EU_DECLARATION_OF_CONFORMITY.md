@@ -1,18 +1,18 @@
-# EU Declaration of Conformity — TBD until market release
+# EU Declaration of Conformity — Anarchy Engine Showcases
 
 **Declaration No.:** DoC-showcases-desktop-TBD until market release (2.0.0)
 
 **Manufacturer (Legal Entity):** Sergei Panfilov
 
-**Contact (regulatory):** TBD until market release
+**Contact (regulatory):** pnf036+anarchy@gmail.com
 
 > **We, Sergei Panfilov, declare under our sole responsibility** that the object of this declaration described below is in conformity with the relevant Union legislation identified herein.
 
 ## Product Identification
 
-- **Product name:** TBD until market release (the “Software”)
+- **Product name:** Anarchy Engine Showcases (the “Software”)
 - **Technical identifiers:** `showcases-desktop`
-- **Type / model:** anarchy-showcases (product family of TBD until market release)
+- **Type / model:** anarchy-showcases (product family of Anarchy Engine Showcases)
 - **Intended use:** Standalone software (product with digital elements) operating **offline** by default; no personal-data processing by default.
 
 ## Versioning / Series Covered by this Declaration
@@ -36,7 +36,7 @@ _None applied; conformity established via internal control and documentation ref
 - **Security support period:** as declared in the **Support Period Policy (SUPPORT.md)**; in any case the **shorter** of **(i)** the **declared expected lifetime** for the relevant **major version** and **(ii)** **five (5) years** from its initial commercial release.
 - **Updates:** Delivered via distribution channels in use from time to time; no specific cadence guaranteed.
 - **Personal data protection:** No collection by default; if optional features are enabled, processing follows the **Privacy Policy**.
-- **Accessibility (EAA):** Accessibility information and contact: TBD until market release.
+- **Accessibility (EAA):** Accessibility information and contact: pnf036+anarchy@gmail.com.
 
 ## CE Marking
 

@@ -1,25 +1,25 @@
-# EU Declaration of Conformity — TBD until market release
+# EU Declaration of Conformity — Anarchy Engine Showcases
 
-**Declaration No.:** DoC-showcases-core-TBD until market release (2.0.0)
+**Declaration No.:** DoC-showcases-core-2.x.x (pre-market, no placement)
 
 **Manufacturer (Legal Entity):** Sergei Panfilov
 
-**Contact (regulatory):** TBD until market release
+**Contact (regulatory):** pnf036+anarchy@gmail.com
 
 > **We, Sergei Panfilov, declare under our sole responsibility** that the object of this declaration described below is in conformity with the relevant Union legislation identified herein.
 
 ## Product Identification
 
-- **Product name:** TBD until market release (the “Software”)
+- **Product name:** Anarchy Engine Showcases (the “Software”)
 - **Technical identifiers:** `showcases-core`
-- **Type / model:** anarchy-showcases (product family of TBD until market release)
+- **Type / model:** anarchy-showcases (product family of Anarchy Engine Showcases)
 - **Intended use:** Standalone software (product with digital elements) operating **offline** by default; no personal-data processing by default.
 
 ## Versioning / Series Covered by this Declaration
 
-- **Conformity series:** TBD until market release (2.0.0) (baseline **TBD until market release**, dated **TBD until market release**).
+- **Conformity series:** 2.x.x (pre-market, no placement) (baseline **2.19.1**, dated **TBD until market release**).
 - Subsequent **minor/patch** releases **within this series** are covered **provided** they do **not** introduce **substantial changes** that could adversely affect compliance with essential requirements.
-- Internal pre-release builds prior to **TBD until market release** were **not** placed on the market and fall **outside** the scope of this Declaration.
+- Internal pre-release builds prior to **2.19.1** were **not** placed on the market and fall **outside** the scope of this Declaration.
 - Build identifiers (e.g., commit/tag) for released binaries are retained in internal records and will be **made available to competent authorities upon request**.
 
 ## Applicable Union Legislation
@@ -36,7 +36,7 @@ _None applied; conformity established via internal control and documentation ref
 - **Security support period:** as declared in the **Support Period Policy (SUPPORT.md)**; in any case the **shorter** of **(i)** the **declared expected lifetime** for the relevant **major version** and **(ii)** **five (5) years** from its initial commercial release.
 - **Updates:** Delivered via distribution channels in use from time to time; no specific cadence guaranteed.
 - **Personal data protection:** No collection by default; if optional features are enabled, processing follows the **Privacy Policy**.
-- **Accessibility (EAA):** Accessibility information and contact: TBD until market release.
+- **Accessibility (EAA):** Accessibility information and contact: pnf036+anarchy@gmail.com.
 
 ## CE Marking
 

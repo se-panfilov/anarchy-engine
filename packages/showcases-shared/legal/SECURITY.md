@@ -1,8 +1,8 @@
 # Security Policy — showcases-shared
 
-**Effective date:** TBD until market release
+**Effective date:** 11 January 2026
 
-**Security Contact:** TBD until market release (email preferred for sensitive reports)
+**Security Contact:** pnf036+anarchy_security@gmail.com (email preferred for sensitive reports)
 
 ## Scope
 
@@ -13,7 +13,7 @@ It covers the Project’s **source code** and our **officially published release
 
 ## Reporting (CVD)
 
-- **Report:** email **TBD until market release** with steps to reproduce, affected commit/tag, and impact (if known). If possible, include a short patch or mitigation suggestion.
+- **Report:** email **pnf036+anarchy_security@gmail.com** with steps to reproduce, affected commit/tag, and impact (if known). If possible, include a short patch or mitigation suggestion.
 - **Public disclosure:** please **do not file public issues with exploit details**; coordinate timing with us to allow a fix or mitigation to be available where reasonably possible.
 
 ## Handling & Disclosure

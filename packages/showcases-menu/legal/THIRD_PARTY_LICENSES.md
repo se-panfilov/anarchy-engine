@@ -411,7 +411,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.23
+## @csstools/css-syntax-patches-for-csstree@1.0.24
 
 **License:** MIT-0
 
@@ -841,7 +841,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @hellpig/anarchy-engine@21.3.0
+## @hellpig/anarchy-engine@21.3.1
 
 **License:** MIT
 
@@ -875,7 +875,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-i18n@1.3.0
+## @hellpig/anarchy-i18n@1.3.1
 
 **License:** MIT
 
@@ -909,7 +909,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-shared@1.5.1
+## @hellpig/anarchy-shared@1.5.2
 
 **License:** MIT
 
@@ -3999,7 +3999,7 @@ _No license text file found; relying on package metadata._
 
 ---
 
-## showcases-i18n@1.4.3
+## showcases-i18n@1.4.4
 
 **License:** MIT
 
@@ -4033,7 +4033,7 @@ SOFTWARE.
 
 ---
 
-## showcases-shared@1.7.2
+## showcases-shared@1.7.3
 
 **License:** MIT
 

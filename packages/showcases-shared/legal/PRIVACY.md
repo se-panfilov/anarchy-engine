@@ -1,8 +1,8 @@
 # Privacy Notice — showcases-shared
 
-**Effective date:** TBD until market release
+**Effective date:** 11 January 2026
 
-**Controller:** Sergei Panfilov — Contact: TBD until market release
+**Controller:** Sergei Panfilov — Contact: pnf036+anarchy@gmail.com
 
 **Scope / Identification.** This notice applies to the **open-source project** **showcases-shared** (hosted on or mirrored to **public code hosting platform(s)**). We do **not** operate a consumer service through this repository.
 
@@ -19,7 +19,7 @@ Copies of public content may also appear in mirrors, forks, caches, archival cop
 
 ## 2. Communications
 
-If you email **TBD until market release**, we process your **email address**, **message content**, and any information you provide to respond.
+If you email **pnf036+anarchy@gmail.com**, we process your **email address**, **message content**, and any information you provide to respond.
 
 **Legal basis:** our **legitimate interests** in responding to inquiries (or your **consent**, where applicable).
 
@@ -31,7 +31,7 @@ We may use service providers (e.g., email or CI hosting) as **processors**, boun
 
 ## 4. Your Rights
 
-Where applicable, you may request **access**, **rectification**, **erasure**, **restriction**, **objection**, **portability**, and **withdrawal of consent** (for processing based on consent) at **TBD until market release**. You may also contact your local supervisory authority (e.g., the Dutch **Autoriteit Persoonsgegevens**, Brazil’s **ANPD**, Canada’s **OPC**, Australia’s **OAIC**). We may request reasonable information to **verify your identity** before acting on a request and will respond **within timelines required by applicable law**.
+Where applicable, you may request **access**, **rectification**, **erasure**, **restriction**, **objection**, **portability**, and **withdrawal of consent** (for processing based on consent) at **pnf036+anarchy@gmail.com**. You may also contact your local supervisory authority (e.g., the Dutch **Autoriteit Persoonsgegevens**, Brazil’s **ANPD**, Canada’s **OPC**, Australia’s **OAIC**). We may request reasonable information to **verify your identity** before acting on a request and will respond **within timelines required by applicable law**.
 
 ## 5. Security
 
@@ -49,4 +49,4 @@ We may update this notice by committing changes to the repository (the commit hi
 
 This **notice** is drafted in English. Translations may be provided for convenience. In markets where local-language versions are required by law for clarity and fairness, the local-language version controls to the extent required by applicable law; otherwise, the English version controls.
 
-**Contact:** TBD until market release
+**Contact:** pnf036+anarchy@gmail.com

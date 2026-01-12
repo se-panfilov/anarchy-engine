@@ -41,14 +41,14 @@ export default {
       LEGAL_ENTITY_NAME: 'Sergei Panfilov',
 
       //CONTACTS
-      SUPPORT_EMAIL: 'TBD until market release',
-      LEGAL_EMAIL: 'TBD until market release',
-      PRIVACY_EMAIL: 'TBD until market release',
-      SECURITY_EMAIL: 'TBD until market release',
-      DPO_EMAIL: 'TBD until market release',
-      EU_REPRESENTATIVE_CONTACT: 'TBD until market release',
-      CHINA_REPRESENTATIVE_CONTACT: 'TBD until market release',
-      ACCESSIBILITY_CONTACT: 'TBD until market release',
+      SUPPORT_EMAIL: 'pnf036+anarchy@gmail.com',
+      LEGAL_EMAIL: 'pnf036+anarchy@gmail.com',
+      PRIVACY_EMAIL: 'pnf036+anarchy@gmail.com',
+      SECURITY_EMAIL: 'pnf036+anarchy_security@gmail.com',
+      DPO_EMAIL: 'none',
+      EU_REPRESENTATIVE_CONTACT: 'none',
+      CHINA_REPRESENTATIVE_CONTACT: 'none',
+      ACCESSIBILITY_CONTACT: 'pnf036+anarchy@gmail.com',
 
       //SECURITY
       HAS_OFFICIAL_CHANNELS_LIST: false,
@@ -57,7 +57,7 @@ export default {
       SUPPORT_EMAILS_RETAIN_PERIOD_MONTH: 24,
 
       // TBD
-      EFFECTIVE_DATE: 'TBD until market release'
+      EFFECTIVE_DATE: '11 January 2026'
     }
   }
 };
