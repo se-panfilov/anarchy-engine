@@ -6,7 +6,7 @@
 
 **Product:** Anarchy Engine Showcases (the “Software”)
 
-**Conformity series:** 2.0.0 (pre-market, no placement) (baseline **2.19.1**, dated **TBD until market release**)
+**Conformity series:** 2.x.x (pre-market, no placement) (baseline **2.19.1**, dated **TBD until market release**)
 
 **Confidentiality:** Internal; provided to competent authorities upon request.
 

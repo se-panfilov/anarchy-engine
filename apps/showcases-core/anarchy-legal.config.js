@@ -16,7 +16,7 @@ export default {
       MIN_SYSTEM_REQUIREMENTS: ShowcasesSystemRequirements.Web.Minimum,
       REC_SYSTEM_REQUIREMENTS: ShowcasesSystemRequirements.Web.Recommended,
       PRODUCT_MODEL_CODE: ShowcasesSoftwareFamilyName,
-      CONFORMITY_SERIES: '2.0.0 (pre-market, no placement)', //A range of versions (major version) that matches of package.json, which were published commercially
+      CONFORMITY_SERIES: '2.x.x (pre-market, no placement)', //A range of versions (major version) that matches of package.json, which were published commercially
       BASELINE_VERSION: '2.19.1', //First CE-market release version
       BASELINE_EFFECTIVE_DATE: 'TBD until market release', //The date of the first CE-market release
       INITIAL_RELEASE_DATE: 'TBD until market release' //The date of the first release (at lest in EU)
