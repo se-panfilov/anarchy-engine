@@ -18,7 +18,6 @@ const desktopAppSettings: TDesktopAppConfig = {
 };
 
 // TODO DESKTOP: Linux: make sure we can build the project
-// TODO DESKTOP: Build every platform-version on any machine (use docker or something)
 // TODO DESKTOP: Steam integration (manifest, cloud_sync.vdf, cloud saves, achievements, layer, etc.)
 // TODO DESKTOP: Other integrations (epic, gog, etc.)
 
