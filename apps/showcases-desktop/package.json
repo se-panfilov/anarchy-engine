@@ -115,8 +115,8 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "ADD-YOUR-GITHUB-USERNAME",
-        "repo": "ADD-YOUR-REPO-NAME",
+        "owner": "se-panfilov",
+        "repo": "anarchy-engine",
         "private": false
       }
     ],
