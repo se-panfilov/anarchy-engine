@@ -71,6 +71,51 @@ const resolvedArchs = hasArchFlags ? parseArchsFromCli() : envArchs.length > 0 ?
 // Parse installers/targets using shared util (handles dir, portable, etc.)
 const { installers: parsedInstallers, hasDirTokenInCli } = parseInstallersFromCli(cliArgs, { envDir });
 
+// === electron-builder CLI compatibility ===
+// electron-builder doesn't accept targets like "AppImage" as bare positional args.
+// Targets must be passed via platform option syntax, e.g.: "--linux appimage".
+// We support legacy scripts that pass targets positionally by translating them here.
+const PLATFORM_TO_FLAG = {
+  mac: '--mac',
+  win: '--win',
+  linux: '--linux'
+};
+
+const pickDefaultPlatformForTargets = () => {
+  // Prefer explicit platform flags, then resolvedPlatforms (derived from CLI/env/mode).
+  if (resolvedPlatforms.length > 0) return resolvedPlatforms[0];
+  return process.platform === 'darwin' ? 'mac' : process.platform === 'win32' ? 'win' : 'linux';
+};
+
+const targetsToAppend = (() => {
+  if (!Array.isArray(parsedInstallers) || parsedInstallers.length === 0) return [];
+
+  // "dir" is special: electron-builder expects --dir, not a target.
+  const asTargets = parsedInstallers.filter((t) => t && t !== 'dir');
+  if (asTargets.length === 0) return [];
+
+  const platform = pickDefaultPlatformForTargets();
+  const platformFlag = PLATFORM_TO_FLAG[platform] || `--${platform}`;
+
+  // If user already passed e.g. "--linux <target>" in CLI, don't add duplicates.
+  const existingTargets = new Set();
+  for (let i = 0; i < cliArgs.length; i++) {
+    const a = cliArgs[i];
+    if (a === '--linux' || a === '--mac' || a === '--win') {
+      const maybeTarget = cliArgs[i + 1];
+      if (maybeTarget && !maybeTarget.startsWith('-')) existingTargets.add(String(maybeTarget).toLowerCase());
+    }
+  }
+
+  const out = [];
+  for (const t of asTargets) {
+    const lower = String(t).toLowerCase();
+    if (existingTargets.has(lower)) continue;
+    out.push(platformFlag, lower);
+  }
+  return out;
+})();
+
 // Synthesize args from resolution (dedup platform/arch/dir)
 const envArgs = [];
 for (const p of resolvedPlatforms) envArgs.push(`--${p}`);
@@ -78,13 +123,34 @@ for (const a of resolvedArchs) envArgs.push(`--${a}`);
 if (hasDirTokenInCli || envDir) envArgs.push('--dir');
 
 // Remove platform/arch/dir flags from CLI to avoid duplicates; also strip '--portable' (we'll add bare 'portable' token below if needed)
-const filteredCli = cliArgs.filter((a) => !platformFlags.includes(a) && !archFlags.includes(a) && a !== '--dir' && a !== 'dir' && a !== '--portable');
+// Also strip any positional installer tokens (like "AppImage") because electron-builder won't accept them as free args.
+const filteredCli = cliArgs.filter((a, i, arr) => {
+  // Drop platform/arch selector flags (we'll re-add via envArgs).
+  // IMPORTANT: if a platform flag is used with a target ("--linux appimage"), keep the pair.
+  if (platformFlags.includes(a)) {
+    const next = arr[i + 1];
+    if (next && !next.startsWith('-')) return true;
+    return false;
+  }
+  if (archFlags.includes(a)) return false;
+
+  if (a === '--dir' || a === 'dir') return false;
+  if (a === '--portable') return false;
+
+  // strip known installer tokens passed positionally (case-insensitive)
+  if (!a.startsWith('-')) {
+    const lower = String(a).toLowerCase();
+    if (parsedInstallers.includes(lower)) return false;
+  }
+
+  return true;
+});
 
 // If user passed --portable (flag), convert to 'portable' token for EB
 const needsPortableToken = cliArgs.includes('--portable') && !cliArgs.includes('portable'); //gitleaks:allow
 const extraTargets = needsPortableToken ? ['portable'] : [];
 
-const ebArgs = [...envArgs, ...filteredCli, ...extraTargets].join(' ').trim();
+const ebArgs = [...envArgs, ...filteredCli, ...targetsToAppend, ...extraTargets].join(' ').trim();
 
 const run = (cmd, opts = {}) => {
   if (process.env.DRY_RUN === '1') {
