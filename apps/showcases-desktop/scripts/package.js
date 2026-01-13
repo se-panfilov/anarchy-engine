@@ -87,6 +87,17 @@ const pickDefaultPlatformForTargets = () => {
   return process.platform === 'darwin' ? 'mac' : process.platform === 'win32' ? 'win' : 'linux';
 };
 
+// Helper: check whether user provided explicit targets for a platform ("--linux appimage")
+const platformHasExplicitTargets = (platform) => {
+  const flag = PLATFORM_TO_FLAG[platform] || `--${platform}`;
+  for (let i = 0; i < cliArgs.length; i++) {
+    if (cliArgs[i] !== flag) continue;
+    const next = cliArgs[i + 1];
+    if (next && !next.startsWith('-')) return true;
+  }
+  return false;
+};
+
 const targetsToAppend = (() => {
   if (!Array.isArray(parsedInstallers) || parsedInstallers.length === 0) return [];
 
@@ -118,26 +129,55 @@ const targetsToAppend = (() => {
 
 // Synthesize args from resolution (dedup platform/arch/dir)
 const envArgs = [];
-for (const p of resolvedPlatforms) envArgs.push(`--${p}`);
+
+// Platforms:
+// - If the user already provided an explicit target list (e.g. "--linux appimage"),
+//   we should NOT add a bare "--linux" from resolvedPlatforms.
+// - If the user provided legacy installer tokens (e.g. "AppImage"), we will translate them
+//   to "--linux appimage". In that case we also must not add a bare "--linux".
+// NOTE: platformHasExplicitTargets is defined above (also used by targetsToAppend).
+const legacyTargetsProvided = parsedInstallers.some((t) => t && t !== 'dir');
+
+for (const p of resolvedPlatforms) {
+  if (platformHasExplicitTargets(p)) continue;
+
+  // If legacy installer tokens were used (AppImage/deb/rpm/...), do not add a bare "--linux".
+  // The explicit "--linux <target>" pair(s) will be provided via targetsToAppend.
+  if (legacyTargetsProvided && p === pickDefaultPlatformForTargets()) continue;
+
+  envArgs.push(`--${p}`);
+}
+
+// Archs / dir
 for (const a of resolvedArchs) envArgs.push(`--${a}`);
 if (hasDirTokenInCli || envDir) envArgs.push('--dir');
 
 // Remove platform/arch/dir flags from CLI to avoid duplicates; also strip '--portable' (we'll add bare 'portable' token below if needed)
 // Also strip any positional installer tokens (like "AppImage") because electron-builder won't accept them as free args.
 const filteredCli = cliArgs.filter((a, i, arr) => {
-  // Drop platform/arch selector flags (we'll re-add via envArgs).
-  // IMPORTANT: if a platform flag is used with a target ("--linux appimage"), keep the pair.
+  // Drop arch selector flags (we'll re-add via envArgs).
+  if (archFlags.includes(a)) return false;
+
+  // For platform flags:
+  // - If standalone ("--linux"), drop (we'll re-add via envArgs).
+  // - If it has a target ("--linux appimage"), keep BOTH the flag and its target.
   if (platformFlags.includes(a)) {
     const next = arr[i + 1];
-    if (next && !next.startsWith('-')) return true;
-    return false;
+    return Boolean(next && !next.startsWith('-'));
   }
-  if (archFlags.includes(a)) return false;
+  if (platformFlags.includes(arr[i - 1])) {
+    const prev = arr[i - 1];
+    if ((prev === '--linux' || prev === '--mac' || prev === '--win') && !a.startsWith('-')) {
+      // keep the target token that belongs to the platform flag
+      return true;
+    }
+  }
 
   if (a === '--dir' || a === 'dir') return false;
   if (a === '--portable') return false;
 
   // strip known installer tokens passed positionally (case-insensitive)
+  // BUT don't strip the token if it is a value for a platform flag (handled above).
   if (!a.startsWith('-')) {
     const lower = String(a).toLowerCase();
     if (parsedInstallers.includes(lower)) return false;
