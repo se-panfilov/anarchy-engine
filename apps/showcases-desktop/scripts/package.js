@@ -197,7 +197,22 @@ const run = (cmd, opts = {}) => {
     console.log(`[DRY_RUN] ${cmd}`);
     return;
   }
-  execSync(cmd, { stdio: 'inherit', env: process.env, shell: true, ...opts });
+  try {
+    execSync(cmd, { stdio: 'inherit', env: process.env, shell: true, ...opts });
+  } catch (err) {
+    // In some CI environments stdout/stderr may be null in the thrown error.
+    // Try to re-run with pipe to surface the underlying electron-builder issue.
+    try {
+      const out = execSync(cmd, { stdio: 'pipe', encoding: 'utf8', env: process.env, shell: true, ...opts });
+      if (out) console.error(out);
+    } catch (err2) {
+      const stdout = err2?.stdout ? String(err2.stdout) : '';
+      const stderr = err2?.stderr ? String(err2.stderr) : '';
+      if (stdout) console.error(stdout);
+      if (stderr) console.error(stderr);
+    }
+    throw err;
+  }
 };
 
 console.log(`[package] mode: ${mode}`);
