@@ -71,20 +71,63 @@ const resolvedArchs = hasArchFlags ? parseArchsFromCli() : envArchs.length > 0 ?
 // Parse installers/targets using shared util (handles dir, portable, etc.)
 const { installers: parsedInstallers, hasDirTokenInCli } = parseInstallersFromCli(cliArgs, { envDir });
 
-// Synthesize args from resolution (dedup platform/arch/dir)
-const envArgs = [];
-for (const p of resolvedPlatforms) envArgs.push(`--${p}`);
-for (const a of resolvedArchs) envArgs.push(`--${a}`);
-if (hasDirTokenInCli || envDir) envArgs.push('--dir');
+// If user passed --portable (flag), convert to 'portable' target for EB
+const needsPortableTarget = cliArgs.includes('--portable') && !cliArgs.includes('portable'); //gitleaks:allow
 
-// Remove platform/arch/dir flags from CLI to avoid duplicates; also strip '--portable' (we'll add bare 'portable' token below if needed)
-const filteredCli = cliArgs.filter((a) => !platformFlags.includes(a) && !archFlags.includes(a) && a !== '--dir' && a !== 'dir' && a !== '--portable');
+// Build final target list (for electron-builder platform option values)
+const finalTargets = [...parsedInstallers];
 
-// If user passed --portable (flag), convert to 'portable' token for EB
-const needsPortableToken = cliArgs.includes('--portable') && !cliArgs.includes('portable'); //gitleaks:allow
-const extraTargets = needsPortableToken ? ['portable'] : [];
+// Ensure dir target is present if requested by token or env
+if ((hasDirTokenInCli || envDir) && !finalTargets.includes('dir')) {
+  finalTargets.push('dir');
+}
 
-const ebArgs = [...envArgs, ...filteredCli, ...extraTargets].join(' ').trim();
+// Ensure portable target is present if requested via flag
+if (needsPortableTarget && !finalTargets.includes('portable')) {
+  finalTargets.push('portable');
+}
+
+// Remove platform/arch/dir/portable flags & tokens from CLI to avoid duplicates.
+// Important: targets like "AppImage" MUST be placed right after --linux/--win/--mac,
+// not left as positional args at the end.
+const filteredCli = cliArgs.filter((a) => {
+  if (platformFlags.includes(a)) return false;
+  if (archFlags.includes(a)) return false;
+
+  // strip dir forms
+  if (a === '--dir' || a === 'dir') return false;
+
+  // strip portable forms
+  if (a === '--portable' || a === 'portable') return false;
+
+  // strip known/parsed targets (e.g. AppImage, dmg, nsis, zip, deb, rpm, etc.)
+  if (finalTargets.includes(a)) return false;
+
+  return true;
+});
+
+// === Build electron-builder args in the correct order ===
+// For electron-builder CLI: --linux/--win/--mac accept a target list (array).
+// So we must do: --linux AppImage (not: --linux --x64 AppImage).
+const ebArgsList = [];
+
+// platform + targets (targets must be adjacent to the platform option)
+for (const p of resolvedPlatforms) {
+  ebArgsList.push(`--${p}`);
+  for (const t of finalTargets) {
+    ebArgsList.push(t);
+  }
+}
+
+// arch flags
+for (const a of resolvedArchs) {
+  ebArgsList.push(`--${a}`);
+}
+
+// rest of cli args
+ebArgsList.push(...filteredCli);
+
+const ebArgs = ebArgsList.join(' ').trim();
 
 const run = (cmd, opts = {}) => {
   if (process.env.DRY_RUN === '1') {
@@ -95,6 +138,9 @@ const run = (cmd, opts = {}) => {
 };
 
 console.log(`[package] mode: ${mode}`);
+console.log(`[package] platforms: ${resolvedPlatforms.join(', ')}`);
+console.log(`[package] archs: ${resolvedArchs.join(', ')}`);
+console.log(`[package] targets: ${finalTargets.join(', ') || '(default from config)'}`);
 
 // Clean prebuild artifacts via npm script
 let cleanCmd = '';
@@ -116,7 +162,7 @@ try {
     mode,
     platforms: platformsForInfo,
     archs: resolvedArchs,
-    installers: parsedInstallers,
+    installers: finalTargets.length ? finalTargets : parsedInstallers,
     outDir
   });
   console.log(`[package] wrote ${path.relative(process.cwd(), infoPath)}`);
@@ -127,8 +173,5 @@ try {
 // Package with electron-builder and merged args
 const ebCmd = `npm run build:electron -- ${ebArgs}`.trim();
 run(ebCmd);
-
-// Clean postbuild artifacts via npm script
-// run('npm run clean:postbuild'); //Do not clean, since we need sourcemaps for Sentry
 
 console.log('[package] done');
