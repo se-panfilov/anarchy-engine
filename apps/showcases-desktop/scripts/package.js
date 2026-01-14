@@ -1,6 +1,6 @@
 import { loadModeEnv, parseBoolEnv, parseListEnv } from '@hellpig/anarchy-shared/ScriptUtils/EnvUtils.js';
 import { normalizeMode, resolveDryRun, resolveMode } from '@hellpig/anarchy-shared/ScriptUtils/ModeUtils.js';
-import { execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 import { mkdirSync } from 'node:fs';
 import path from 'node:path';
 import { parseInstallersFromCli, writeDistInfo } from './utils.js';
@@ -68,72 +68,63 @@ const resolvedPlatforms = hasPlatformFlags
 
 const resolvedArchs = hasArchFlags ? parseArchsFromCli() : envArchs.length > 0 ? envArchs : modeArchs.length > 0 ? modeArchs : [process.arch === 'arm64' ? 'arm64' : 'x64'];
 
-// Parse installers/targets (handles dir, portable, etc.)
+// Parse installers/targets using shared util (handles dir, portable, etc.)
 const { installers: parsedInstallers, hasDirTokenInCli } = parseInstallersFromCli(cliArgs, { envDir });
 
-// --- IMPORTANT FIX ---
-// electron-builder expects targets (AppImage/dmg/nsis/...) to appear *after* the platform flag,
-// e.g. `--linux appimage`.
-// Also: if user passed `AppImage` as a positional arg, we MUST NOT forward it again as a "free arg".
-const normalizedTargets = parsedInstallers.map((t) => String(t).toLowerCase()).filter((t) => t !== 'dir' && t !== 'portable'); // "dir" is handled by --dir, "portable" by token conversion below
-
-const isInstallerTkn = (arg) => {
-  // Anything non-flag (positional) could be an installer token; we'll remove only those we recognize.
-  // Use parsedInstallers as "truth" so we don't need to know every possible EB target.
-  if (!arg || String(arg).startsWith('-')) return false;
-  const lower = String(arg).toLowerCase();
-  return parsedInstallers.map((x) => String(x).toLowerCase()).includes(lower);
-};
-
-// Synthesize args from resolution (platform/arch/dir + targets)
-// Note: in your usage you build one platform at a time, but this still behaves sensibly if multiple.
+// Synthesize args from resolution (dedup platform/arch/dir)
 const envArgs = [];
-for (const p of resolvedPlatforms) {
-  envArgs.push(`--${p}`);
-  if (normalizedTargets.length > 0) {
-    envArgs.push(...normalizedTargets);
-  }
-}
+for (const p of resolvedPlatforms) envArgs.push(`--${p}`);
 for (const a of resolvedArchs) envArgs.push(`--${a}`);
 if (hasDirTokenInCli || envDir) envArgs.push('--dir');
 
-// Remove platform/arch/dir flags from CLI to avoid duplicates;
-// ALSO remove installer tokens like AppImage to avoid "Unknown argument: AppImage" in EB.
-const filteredCli = cliArgs.filter((a) => {
-  if (platformFlags.includes(a)) return false;
-  if (archFlags.includes(a)) return false;
-  if (a === '--dir' || a === 'dir') return false;
-  if (a === '--portable') return false;
-  if (isInstallerTkn(a)) return false;
-  return true;
-});
+// Remove platform/arch/dir flags from CLI to avoid duplicates; also strip '--portable' (we'll add bare 'portable' token below if needed)
+const filteredCli = cliArgs.filter((a) => !platformFlags.includes(a) && !archFlags.includes(a) && a !== '--dir' && a !== 'dir' && a !== '--portable');
 
-// If user passed --portable (flag), convert to 'portable' token for EB (positional token)
+// If user passed --portable (flag), convert to 'portable' token for EB
 const needsPortableToken = cliArgs.includes('--portable') && !cliArgs.includes('portable'); //gitleaks:allow
 const extraTargets = needsPortableToken ? ['portable'] : [];
 
-const ebArgs = [...envArgs, ...filteredCli, ...extraTargets].join(' ').trim();
+// ---- Publish control ----
+// By default, DON'T publish in CI/manual packaging (we upload workflow artifacts ourselves).
+// Enable publish only when PACK_PUBLISH=1 explicitly.
+const packPublish = String(process.env.PACK_PUBLISH || '').trim();
+const wantsPublish = packPublish === '1' || packPublish.toLowerCase() === 'true';
+const isCi = String(process.env.CI || '').toLowerCase() === 'true' || !!process.env.GITHUB_ACTIONS;
 
-const run = (cmd, opts = {}) => {
+// If user didn't pass any --publish, enforce our default.
+const hasPublishInCli = filteredCli.includes('--publish') || filteredCli.some((x) => x.startsWith('--publish='));
+
+const publishArgs = [];
+if (!wantsPublish && !hasPublishInCli) {
+  // This prevents: "GitHub Personal Access Token is not set ... GH_TOKEN"
+  publishArgs.push('--publish', 'never');
+}
+
+const ebArgsList = [...envArgs, ...publishArgs, ...filteredCli, ...extraTargets].filter(Boolean);
+
+const npmBin = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+
+const run = (cmd, args = [], opts = {}) => {
   if (process.env.DRY_RUN === '1') {
-    console.log(`[DRY_RUN] ${cmd}`);
+    console.log(`[DRY_RUN] ${cmd} ${args.join(' ')}`.trim());
     return;
   }
-  execSync(cmd, { stdio: 'inherit', env: process.env, shell: true, ...opts });
+  execFileSync(cmd, args, { stdio: 'inherit', env: process.env, ...opts });
 };
 
 console.log(`[package] mode: ${mode}`);
 console.log(`[package] resolved platforms: ${resolvedPlatforms.join(',')}`);
 console.log(`[package] resolved archs: ${resolvedArchs.join(',')}`);
 console.log(`[package] parsed installers: ${parsedInstallers.join(',')}`);
-console.log(`[package] electron-builder args: ${ebArgs}`);
+console.log(`[package] electron-builder args: ${ebArgsList.join(' ')}`);
 
 // Clean prebuild artifacts via npm script
-let cleanCmd = '';
-if (!dryRun) cleanCmd = 'npm run clean:prebuild && ';
+if (!dryRun) {
+  run(npmBin, ['run', 'clean:prebuild']);
+}
 
 // Prebuild for the selected mode
-run(`${cleanCmd}node ./scripts/prebuild.js --mode=${mode}${dryRun ? ' --dry-run' : ''}`);
+run('node', ['./scripts/prebuild.js', `--mode=${mode}`, ...(dryRun ? ['--dry-run'] : [])]);
 
 // === Write dist-info.json early for downstream tools (e.g., Sentry sourcemaps) ===
 try {
@@ -157,10 +148,6 @@ try {
 }
 
 // Package with electron-builder and merged args
-const ebCmd = `npm run build:electron -- ${ebArgs}`.trim();
-run(ebCmd);
-
-// Clean postbuild artifacts via npm script
-// run('npm run clean:postbuild'); //Do not clean, since we need sourcemaps for Sentry
+run(npmBin, ['run', 'build:electron', '--', ...ebArgsList]);
 
 console.log('[package] done');
