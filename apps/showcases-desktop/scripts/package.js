@@ -68,66 +68,51 @@ const resolvedPlatforms = hasPlatformFlags
 
 const resolvedArchs = hasArchFlags ? parseArchsFromCli() : envArchs.length > 0 ? envArchs : modeArchs.length > 0 ? modeArchs : [process.arch === 'arm64' ? 'arm64' : 'x64'];
 
-// Parse installers/targets using shared util (handles dir, portable, etc.)
+// Parse installers/targets (handles dir, portable, etc.)
 const { installers: parsedInstallers, hasDirTokenInCli } = parseInstallersFromCli(cliArgs, { envDir });
 
-// If user passed --portable (flag), convert to 'portable' target for EB
-const needsPortableTarget = cliArgs.includes('--portable') && !cliArgs.includes('portable'); //gitleaks:allow
+// --- IMPORTANT FIX ---
+// electron-builder expects targets (AppImage/dmg/nsis/...) to appear *after* the platform flag,
+// e.g. `--linux appimage`.
+// Also: if user passed `AppImage` as a positional arg, we MUST NOT forward it again as a "free arg".
+const normalizedTargets = parsedInstallers.map((t) => String(t).toLowerCase()).filter((t) => t !== 'dir' && t !== 'portable'); // "dir" is handled by --dir, "portable" by token conversion below
 
-// Build final target list (for electron-builder platform option values)
-const finalTargets = [...parsedInstallers];
+const isInstallerTkn = (arg) => {
+  // Anything non-flag (positional) could be an installer token; we'll remove only those we recognize.
+  // Use parsedInstallers as "truth" so we don't need to know every possible EB target.
+  if (!arg || String(arg).startsWith('-')) return false;
+  const lower = String(arg).toLowerCase();
+  return parsedInstallers.map((x) => String(x).toLowerCase()).includes(lower);
+};
 
-// Ensure dir target is present if requested by token or env
-if ((hasDirTokenInCli || envDir) && !finalTargets.includes('dir')) {
-  finalTargets.push('dir');
+// Synthesize args from resolution (platform/arch/dir + targets)
+// Note: in your usage you build one platform at a time, but this still behaves sensibly if multiple.
+const envArgs = [];
+for (const p of resolvedPlatforms) {
+  envArgs.push(`--${p}`);
+  if (normalizedTargets.length > 0) {
+    envArgs.push(...normalizedTargets);
+  }
 }
+for (const a of resolvedArchs) envArgs.push(`--${a}`);
+if (hasDirTokenInCli || envDir) envArgs.push('--dir');
 
-// Ensure portable target is present if requested via flag
-if (needsPortableTarget && !finalTargets.includes('portable')) {
-  finalTargets.push('portable');
-}
-
-// Remove platform/arch/dir/portable flags & tokens from CLI to avoid duplicates.
-// Important: targets like "AppImage" MUST be placed right after --linux/--win/--mac,
-// not left as positional args at the end.
+// Remove platform/arch/dir flags from CLI to avoid duplicates;
+// ALSO remove installer tokens like AppImage to avoid "Unknown argument: AppImage" in EB.
 const filteredCli = cliArgs.filter((a) => {
   if (platformFlags.includes(a)) return false;
   if (archFlags.includes(a)) return false;
-
-  // strip dir forms
   if (a === '--dir' || a === 'dir') return false;
-
-  // strip portable forms
-  if (a === '--portable' || a === 'portable') return false;
-
-  // strip known/parsed targets (e.g. AppImage, dmg, nsis, zip, deb, rpm, etc.)
-  if (finalTargets.includes(a)) return false;
-
+  if (a === '--portable') return false;
+  if (isInstallerTkn(a)) return false;
   return true;
 });
 
-// === Build electron-builder args in the correct order ===
-// For electron-builder CLI: --linux/--win/--mac accept a target list (array).
-// So we must do: --linux AppImage (not: --linux --x64 AppImage).
-const ebArgsList = [];
+// If user passed --portable (flag), convert to 'portable' token for EB (positional token)
+const needsPortableToken = cliArgs.includes('--portable') && !cliArgs.includes('portable'); //gitleaks:allow
+const extraTargets = needsPortableToken ? ['portable'] : [];
 
-// platform + targets (targets must be adjacent to the platform option)
-for (const p of resolvedPlatforms) {
-  ebArgsList.push(`--${p}`);
-  for (const t of finalTargets) {
-    ebArgsList.push(t);
-  }
-}
-
-// arch flags
-for (const a of resolvedArchs) {
-  ebArgsList.push(`--${a}`);
-}
-
-// rest of cli args
-ebArgsList.push(...filteredCli);
-
-const ebArgs = ebArgsList.join(' ').trim();
+const ebArgs = [...envArgs, ...filteredCli, ...extraTargets].join(' ').trim();
 
 const run = (cmd, opts = {}) => {
   if (process.env.DRY_RUN === '1') {
@@ -138,9 +123,10 @@ const run = (cmd, opts = {}) => {
 };
 
 console.log(`[package] mode: ${mode}`);
-console.log(`[package] platforms: ${resolvedPlatforms.join(', ')}`);
-console.log(`[package] archs: ${resolvedArchs.join(', ')}`);
-console.log(`[package] targets: ${finalTargets.join(', ') || '(default from config)'}`);
+console.log(`[package] resolved platforms: ${resolvedPlatforms.join(',')}`);
+console.log(`[package] resolved archs: ${resolvedArchs.join(',')}`);
+console.log(`[package] parsed installers: ${parsedInstallers.join(',')}`);
+console.log(`[package] electron-builder args: ${ebArgs}`);
 
 // Clean prebuild artifacts via npm script
 let cleanCmd = '';
@@ -162,7 +148,7 @@ try {
     mode,
     platforms: platformsForInfo,
     archs: resolvedArchs,
-    installers: finalTargets.length ? finalTargets : parsedInstallers,
+    installers: parsedInstallers,
     outDir
   });
   console.log(`[package] wrote ${path.relative(process.cwd(), infoPath)}`);
@@ -173,5 +159,8 @@ try {
 // Package with electron-builder and merged args
 const ebCmd = `npm run build:electron -- ${ebArgs}`.trim();
 run(ebCmd);
+
+// Clean postbuild artifacts via npm script
+// run('npm run clean:postbuild'); //Do not clean, since we need sourcemaps for Sentry
 
 console.log('[package] done');
