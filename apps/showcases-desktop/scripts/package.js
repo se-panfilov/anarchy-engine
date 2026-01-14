@@ -1,9 +1,10 @@
-import { execSync, spawnSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { mkdirSync } from 'node:fs';
 import path from 'node:path';
 
 import { loadModeEnv, parseBoolEnv, parseListEnv } from '@hellpig/anarchy-shared/ScriptUtils/EnvUtils.js';
 import { normalizeMode, resolveDryRun, resolveMode } from '@hellpig/anarchy-shared/ScriptUtils/ModeUtils.js';
+
 import { parseInstallersFromCli, writeDistInfo } from './utils.js';
 
 const argv = process.argv.slice(2);
@@ -22,20 +23,25 @@ loadModeEnv(mode);
 const cliArgs = argv.filter((a, i, arr) => {
   if (a === '--mode' || arr[i - 1] === '--mode') return false;
   if (a.startsWith('--mode=')) return false;
+
   if (a === '--dry-run' || a === '--dryrun' || a === '--dry') return false;
+  if (a.startsWith('--dry-run=')) return false;
+
   return true;
 });
 
 const hasAny = (list) => list.some((f) => cliArgs.includes(f));
 const platformFlags = ['--mac', '--win', '--linux'];
 const archFlags = ['--x64', '--arm64', '--universal'];
+
 const hasPlatformFlags = hasAny(platformFlags);
 const hasArchFlags = hasAny(archFlags);
 
 // Derive defaults from MODE tokens if env not set and CLI not overriding
-const tokens = String(mode).toLowerCase().split('.').filter(Boolean);
-const modePlatform = tokens.includes('mac') ? 'mac' : tokens.includes('win') ? 'win' : tokens.includes('linux') ? 'linux' : undefined;
-const modeArchs = ['x64', 'arm64', 'universal'].filter((a) => tokens.includes(a));
+const tkns = String(mode).toLowerCase().split('.').filter(Boolean);
+const modePlatform = tkns.includes('mac') ? 'mac' : tkns.includes('win') ? 'win' : tkns.includes('linux') ? 'linux' : undefined;
+
+const modeArchs = ['x64', 'arm64', 'universal'].filter((a) => tkns.includes(a));
 
 // Read from env
 const envPlatforms = parseListEnv(process.env.PACK_PLATFORMS || process.env.PACK_PLATFORM);
@@ -50,6 +56,7 @@ const parsePlatformsFromCli = () => {
   if (cliArgs.includes('--linux')) out.push('linux');
   return out;
 };
+
 const parseArchsFromCli = () => {
   const out = [];
   if (cliArgs.includes('--x64')) out.push('x64');
@@ -72,11 +79,8 @@ const resolvedArchs = hasArchFlags ? parseArchsFromCli() : envArchs.length > 0 ?
 // Parse installers/targets using shared util (handles dir, portable, etc.)
 const { installers: parsedInstallers, hasDirTokenInCli } = parseInstallersFromCli(cliArgs, { envDir });
 
-// ---- IMPORTANT FIX ----
-// electron-builder CLI accepts `--dir`, but *does NOT* accept `nsis` / `AppImage` / etc as a bare arg in your setup.
-// So we convert those tokens into `--config.<platform>.target=<Target>` overrides.
+// ---------- Target normalization & override strategy ----------
 const normalizeTargetForEB = (t) => {
-  // keep canonical casing for common targets
   const map = {
     appimage: 'AppImage',
     dmg: 'dmg',
@@ -97,34 +101,33 @@ const normalizeTargetForEB = (t) => {
 const wantsDir = parsedInstallers.includes('dir');
 const wantedTargets = parsedInstallers.filter((x) => x !== 'dir').map(normalizeTargetForEB);
 
-// Synthesize args from resolution (dedup platform/arch/dir)
-const envArgs = [];
-for (const p of resolvedPlatforms) envArgs.push(`--${p}`);
-for (const a of resolvedArchs) envArgs.push(`--${a}`);
-if (hasDirTokenInCli || envDir || wantsDir) envArgs.push('--dir');
-
-// Remove platform/arch/dir flags from CLI to avoid duplicates; also strip tokens like "nsis/AppImage/..." from CLI
-// because we now set targets via --config.*.target
+// Identify “target tokens” in CLI so we can strip them (avoid passing bare `nsis`, `AppImage`, etc.)
 const isTargetTkn = (a) => {
   if (a.startsWith('-')) return false;
   const n = normalizeTargetForEB(a).toLowerCase();
   return ['nsis', 'appimage', 'deb', 'rpm', 'dmg', 'zip', 'tar.gz', 'portable', 'dir'].includes(n);
 };
 
+// Synthesize args from platform/arch resolution (dedup platform/arch/dir)
+const envArgs = [];
+for (const p of resolvedPlatforms) envArgs.push(`--${p}`);
+for (const a of resolvedArchs) envArgs.push(`--${a}`);
+if (hasDirTokenInCli || envDir || wantsDir) envArgs.push('--dir');
+
+// Remove platform/arch/dir flags from CLI to avoid duplicates;
+// also strip '--portable' (we treat it as target via parseInstallersFromCli -> 'portable');
 const filteredCli = cliArgs.filter((a) => {
   if (platformFlags.includes(a)) return false;
   if (archFlags.includes(a)) return false;
   if (a === '--dir' || a === 'dir') return false;
-  if (a === '--portable') return false; // handled as target override
-  if (isTargetTkn(a)) return false; // <-- key change
+  if (a === '--portable') return false;
+  if (isTargetTkn(a)) return false;
   return true;
 });
 
 // Build target overrides (only if user explicitly asked for targets other than dir)
 const configOverrides = [];
 if (wantedTargets.length > 0) {
-  // If multiple targets requested, EB expects array in config; CLI override with JSON works too,
-  // but simplest is single-target builds per invocation.
   if (wantedTargets.length > 1) {
     console.warn(`[package] WARN: multiple targets requested (${wantedTargets.join(', ')}). Will build only the first one.`);
   }
@@ -132,53 +135,91 @@ if (wantedTargets.length > 0) {
 
   // Choose platform for override:
   // - if exactly one platform resolved: override that platform
-  // - else: pick based on target type heuristic
-  const p = resolvedPlatforms.length === 1 ? resolvedPlatforms[0] : first.toLowerCase() === 'dmg' ? 'mac' : first.toLowerCase() === 'nsis' || first.toLowerCase() === 'portable' ? 'win' : 'linux';
+  // - else: heuristic based on target type
+  const lower = first.toLowerCase();
+  const inferred = lower === 'dmg' ? 'mac' : lower === 'nsis' || lower === 'portable' ? 'win' : 'linux';
 
+  const p = resolvedPlatforms.length === 1 ? resolvedPlatforms[0] : inferred;
   configOverrides.push(`--config.${p}.target=${first}`);
 }
 
-// Compose final EB args
-const ebArgs = [...envArgs, ...filteredCli, ...configOverrides].join(' ').trim();
+// ---- publish policy (important for CI stability) ----
+// If user explicitly provided --publish (or PACK_PUBLISH), we respect it.
+// Otherwise default to '--publish=never' to prevent accidental publishing.
+const userProvidedPublish = cliArgs.some((a) => a === '--publish' || a.startsWith('--publish=')) || typeof process.env.PACK_PUBLISH === 'string';
 
-const run = (cmdLine, opts = {}) => {
+const publishArgs = userProvidedPublish ? [] : ['--publish=never'];
+
+const ebArgsList = [...envArgs, ...filteredCli, ...configOverrides, ...publishArgs].filter(Boolean);
+
+// ---------- Cross-platform command runner ----------
+const isWin = process.platform === 'win32';
+
+function quoteCmdArgWindows(s) {
+  // Minimal safe quoting for cmd.exe
+  if (s === '') return '""';
+  if (!/[ \t&()[]{}^=;!'+,`~|<>"]/g.test(s)) return s;
+  return `"${s.replaceAll('"', '""')}"`;
+}
+
+function run(cmd, args = [], opts = {}) {
   if (process.env.DRY_RUN === '1') {
-    console.log(`[DRY_RUN] ${cmdLine}`);
+    console.log(`[DRY_RUN] ${cmd} ${args.join(' ')}`);
     return;
   }
 
-  // Cross-platform robust runner:
-  // - On Windows, spawnSync with shell helps with npm.cmd resolution.
-  // - On *nix, execSync is fine, but spawnSync also works.
-  const isWin = process.platform === 'win32';
+  const env = { ...process.env, ...(opts.env ?? {}) };
+  const cwd = opts.cwd ?? process.cwd();
+
   if (isWin) {
-    const res = spawnSync(cmdLine, {
+    // IMPORTANT: run via cmd.exe so .cmd/.bat work reliably.
+    const cmdLine = [cmd, ...args].map(quoteCmdArgWindows).join(' ');
+    const res = spawnSync('cmd.exe', ['/d', '/s', '/c', cmdLine], {
       stdio: 'inherit',
-      env: process.env,
-      shell: true,
-      ...opts
+      env,
+      cwd
     });
+
+    if (res.error) {
+      throw new Error(`Command failed to start: ${cmdLine}\nerror: ${res.error.message}`);
+    }
     if (res.status !== 0) {
       throw new Error(`Command failed (${res.status}): ${cmdLine}`);
     }
     return;
   }
 
-  execSync(cmdLine, { stdio: 'inherit', env: process.env, shell: true, ...opts });
-};
+  // POSIX
+  const res = spawnSync(cmd, args, {
+    stdio: 'inherit',
+    env,
+    cwd
+  });
 
+  if (res.error) {
+    throw new Error(`Command failed to start: ${cmd} ${args.join(' ')}\nerror: ${res.error.message}`);
+  }
+  if (res.status !== 0) {
+    throw new Error(`Command failed (${res.status}): ${cmd} ${args.join(' ')}`);
+  }
+}
+
+// ----------------- Main flow -----------------
 console.log(`[package] mode: ${mode}`);
-console.log(`[package] platforms: ${resolvedPlatforms.join(', ')}`);
-console.log(`[package] archs: ${resolvedArchs.join(', ')}`);
+console.log(`[package] platforms: ${resolvedPlatforms.join(', ') || '(none)'}`);
+console.log(`[package] archs: ${resolvedArchs.join(', ') || '(none)'}`);
 console.log(`[package] targets: ${wantedTargets.length ? wantedTargets.join(', ') : '(none)'}`);
-console.log(`[package] dir: ${wantsDir ? 'yes' : 'no'}`);
+console.log(`[package] dir: ${hasDirTokenInCli || envDir || wantsDir ? 'yes' : 'no'}`);
+console.log(`[package] publish: ${userProvidedPublish ? '(user provided)' : 'never (default)'}`);
+console.log(`[package] eb args: ${ebArgsList.join(' ')}`);
 
 // Clean prebuild artifacts via npm script
-let cleanCmd = '';
-if (!dryRun) cleanCmd = 'npm run clean:prebuild && ';
+if (!dryRun) {
+  run('npm', ['run', 'clean:prebuild']);
+}
 
 // Prebuild for the selected mode
-run(`${cleanCmd}node ./scripts/prebuild.js --mode=${mode}${dryRun ? ' --dry-run' : ''}`);
+run('node', ['./scripts/prebuild.js', `--mode=${mode}`, ...(dryRun ? ['--dry-run'] : [])]);
 
 // === Write dist-info.json early for downstream tools (e.g., Sentry sourcemaps) ===
 try {
@@ -196,13 +237,13 @@ try {
     installers: parsedInstallers,
     outDir
   });
+
   console.log(`[package] wrote ${path.relative(process.cwd(), infoPath)}`);
 } catch (err) {
   console.warn('[package] WARN: failed to write dist-info.json', err);
 }
 
 // Package with electron-builder and merged args
-const ebCmd = `npm run build:electron -- ${ebArgs}`.trim();
-run(ebCmd);
+run('npm', ['run', 'build:electron', '--', ...ebArgsList]);
 
 console.log('[package] done');
