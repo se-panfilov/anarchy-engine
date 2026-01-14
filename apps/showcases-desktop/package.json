@@ -2,7 +2,7 @@
   "name": "showcases-desktop",
   "author": "S. Panfilov",
   "private": true,
-  "version": "2.12.6",
+  "version": "2.12.7",
   "description": "Anarchy Desktop Showcases  – a desktop wrapper-application for showcases-core.",
   "keywords": [
     "anarchy",
@@ -115,8 +115,8 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "ADD-YOUR-GITHUB-USERNAME",
-        "repo": "ADD-YOUR-REPO-NAME",
+        "owner": "se-panfilov",
+        "repo": "anarchy-engine",
         "private": false
       }
     ],
