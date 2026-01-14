@@ -1,8 +1,10 @@
-import { loadModeEnv, parseBoolEnv, parseListEnv } from '@hellpig/anarchy-shared/ScriptUtils/EnvUtils.js';
-import { normalizeMode, resolveDryRun, resolveMode } from '@hellpig/anarchy-shared/ScriptUtils/ModeUtils.js';
 import { spawnSync } from 'node:child_process';
 import { mkdirSync } from 'node:fs';
 import path from 'node:path';
+
+import { loadModeEnv, parseBoolEnv, parseListEnv } from '@hellpig/anarchy-shared/ScriptUtils/EnvUtils.js';
+import { normalizeMode, resolveDryRun, resolveMode } from '@hellpig/anarchy-shared/ScriptUtils/ModeUtils.js';
+
 import { parseInstallersFromCli, writeDistInfo } from './utils.js';
 
 const argv = process.argv.slice(2);
@@ -21,13 +23,16 @@ loadModeEnv(mode);
 const cliArgs = argv.filter((a, i, arr) => {
   if (a === '--mode' || arr[i - 1] === '--mode') return false;
   if (a.startsWith('--mode=')) return false;
+
   if (a === '--dry-run' || a === '--dryrun' || a === '--dry') return false;
+  if (a.startsWith('--dry-run=')) return false;
   return true;
 });
 
 const hasAny = (list) => list.some((f) => cliArgs.includes(f));
 const platformFlags = ['--mac', '--win', '--linux'];
 const archFlags = ['--x64', '--arm64', '--universal'];
+
 const hasPlatformFlags = hasAny(platformFlags);
 const hasArchFlags = hasAny(archFlags);
 
@@ -71,93 +76,93 @@ const resolvedArchs = hasArchFlags ? parseArchsFromCli() : envArchs.length > 0 ?
 // Parse installers/targets using shared util (handles dir, portable, etc.)
 const { installers: parsedInstallers, hasDirTokenInCli } = parseInstallersFromCli(cliArgs, { envDir });
 
-// Determine whether we need --dir
-const wantsDir = hasDirTokenInCli || envDir || parsedInstallers.includes('dir');
+// Synthesize args from resolution (dedup platform/arch/dir)
+const envArgs = [];
+for (const p of resolvedPlatforms) envArgs.push(`--${p}`);
+for (const a of resolvedArchs) envArgs.push(`--${a}`);
+if (hasDirTokenInCli || envDir) envArgs.push('--dir');
 
-// Convert "--portable" flag (if present) into "portable" target token (for EB)
-const needsPortableToken = cliArgs.includes('--portable') && !cliArgs.includes('portable'); //gitleaks:allow
-const normalizedTargets = [...parsedInstallers.filter((t) => t !== 'dir'), ...(needsPortableToken ? ['portable'] : [])];
+// Remove platform/arch/dir flags from CLI to avoid duplicates; also strip '--portable' (we'll add bare 'portable' token below if needed)
+const filteredCli = cliArgs.filter((a) => !platformFlags.includes(a) && !archFlags.includes(a) && a !== '--dir' && a !== 'dir' && a !== '--portable');
 
-// Remove platform/arch/dir/portable flags and bare target tokens from CLI to avoid duplicates.
-// Important: we will place targets right after platform flag instead (e.g. "--linux AppImage").
-const filteredCli = cliArgs.filter((a) => {
-  if (platformFlags.includes(a)) return false;
-  if (archFlags.includes(a)) return false;
-  if (a === '--dir' || a === 'dir') return false;
-  if (a === '--portable') return false;
+// If user passed --portable (flag), convert to 'portable' token for EB
+const needsPortableToken = cliArgs.includes('--portable') && !cliArgs.includes('portable'); // gitleaks:allow
+const extraTargets = needsPortableToken ? ['portable'] : [];
 
-  // Also strip any explicit target tokens (non-dash) because we will re-add them in correct position.
-  // parseInstallersFromCli treats non-dash tokens as explicitTokens.
-  if (!a.startsWith('-')) return false;
+// ---- publish policy (important for CI stability) ----
+// If user explicitly provided --publish (or PACK_PUBLISH), we respect it.
+// Otherwise default to '--publish never' to prevent accidental publishing.
+const userProvidedPublish = cliArgs.some((a) => a === '--publish' || a.startsWith('--publish=')) || typeof process.env.PACK_PUBLISH === 'string';
 
-  return true;
-});
+const publishArgs = userProvidedPublish ? [] : ['--publish', 'never'];
 
-// Ensure we don't accidentally publish from CI/manual runs.
-// If user explicitly passed "--publish ..." keep it.
-const hasPublishInCli = filteredCli.some((a) => a === '--publish' || a.startsWith('--publish='));
-const publishArgs = hasPublishInCli ? [] : ['--publish', 'never'];
+const ebArgsList = [...envArgs, ...filteredCli, ...extraTargets, ...publishArgs].filter(Boolean);
 
-// Build electron-builder args as ARRAY in correct order:
-// 1) platform flag + its targets (if any)  2) arch flags  3) --dir (if needed)  4) publish  5) remaining flags
-const buildEbArgsArray = () => {
-  const args = [];
+// ---------- Cross-platform command runner ----------
+const isWin = process.platform === 'win32';
 
-  // Platform flags with targets immediately after them (this fixes AppImage parsing)
-  for (const p of resolvedPlatforms) {
-    args.push(`--${p}`);
-    // Apply the same targets to the chosen platform(s).
-    // In your current usage you build one platform at a time, so this is correct.
-    for (const t of normalizedTargets) args.push(t);
-  }
+function quoteCmdArgWindows(s) {
+  // Minimal safe quoting for cmd.exe
+  // Wrap in quotes if contains spaces or special chars
+  if (s === '') return '""';
+  if (!/[ \t&()[]{}^=;!'+,`~|<>"]/g.test(s)) return s;
+  // Escape inner quotes by doubling
+  return `"${s.replaceAll('"', '""')}"`;
+}
 
-  // Arch flags
-  for (const a of resolvedArchs) args.push(`--${a}`);
-
-  // Dir mode
-  if (wantsDir) args.push('--dir');
-
-  // Publish control
-  args.push(...publishArgs);
-
-  // Remaining flags (e.g. --config, --projectDir, etc.)
-  args.push(...filteredCli);
-
-  // De-dup adjacent duplicates just in case
-  const out = [];
-  for (const x of args) {
-    if (out.length === 0 || out[out.length - 1] !== x) out.push(x);
-  }
-  return out;
-};
-
-const run = (cmd, args, opts = {}) => {
+function run(cmd, args = [], opts = {}) {
   if (process.env.DRY_RUN === '1') {
-    console.log('[DRY_RUN]', cmd, ...args);
+    console.log(`[DRY_RUN] ${cmd} ${args.join(' ')}`);
     return;
   }
+
+  const env = { ...process.env, ...(opts.env ?? {}) };
+  const cwd = opts.cwd ?? process.cwd();
+
+  if (isWin) {
+    // IMPORTANT: run via cmd.exe so .cmd/.bat work reliably.
+    const cmdLine = [cmd, ...args].map(quoteCmdArgWindows).join(' ');
+    const res = spawnSync('cmd.exe', ['/d', '/s', '/c', cmdLine], {
+      stdio: 'inherit',
+      env,
+      cwd
+    });
+
+    if (res.error) {
+      throw new Error(`Command failed to start: ${cmdLine}\nerror: ${res.error.message}`);
+    }
+    if (res.status !== 0) {
+      throw new Error(`Command failed (${res.status}): ${cmdLine}`);
+    }
+    return;
+  }
+
+  // POSIX
   const res = spawnSync(cmd, args, {
     stdio: 'inherit',
-    env: process.env,
-    ...opts
+    env,
+    cwd
   });
+
+  if (res.error) {
+    throw new Error(`Command failed to start: ${cmd} ${args.join(' ')}\nerror: ${res.error.message}`);
+  }
   if (res.status !== 0) {
     throw new Error(`Command failed (${res.status}): ${cmd} ${args.join(' ')}`);
   }
-};
+}
 
-// npm executable name differs on Windows
-const npmCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm';
-
+// ----------------- Main flow -----------------
 console.log(`[package] mode: ${mode}`);
-console.log(`[package] platforms: ${resolvedPlatforms.join(', ')}`);
-console.log(`[package] archs: ${resolvedArchs.join(', ')}`);
-console.log(`[package] targets: ${normalizedTargets.join(', ') || '(none)'}`);
-console.log(`[package] dir: ${wantsDir ? 'yes' : 'no'}`);
+console.log(`[package] platforms: ${resolvedPlatforms.join(', ') || '(none)'}`);
+console.log(`[package] archs: ${resolvedArchs.join(', ') || '(none)'}`);
+console.log(`[package] targets: ${parsedInstallers.length ? parsedInstallers.join(', ') : '(none)'}`);
+console.log(`[package] dir: ${hasDirTokenInCli || envDir ? 'yes' : 'no'}`);
 
 // Clean prebuild artifacts via npm script
+// NOTE: we call `npm` (NOT npm.cmd) and on Windows it runs through cmd.exe /c
 if (!dryRun) {
-  run(npmCmd, ['run', 'clean:prebuild']);
+  run('npm', ['run', 'clean:prebuild']);
 }
 
 // Prebuild for the selected mode
@@ -176,19 +181,17 @@ try {
     mode,
     platforms: platformsForInfo,
     archs: resolvedArchs,
-    installers: [...normalizedTargets, ...(wantsDir ? ['dir'] : [])],
+    installers: parsedInstallers,
     outDir
   });
+
   console.log(`[package] wrote ${path.relative(process.cwd(), infoPath)}`);
 } catch (err) {
   console.warn('[package] WARN: failed to write dist-info.json', err);
 }
 
-// Package with electron-builder
-const ebArgs = buildEbArgsArray();
-console.log('[package] electron-builder args:', ebArgs.join(' '));
-
-// npm run build:electron -- <args...>
-run(npmCmd, ['run', 'build:electron', '--', ...ebArgs]);
+// Package with electron-builder and merged args
+// We intentionally run via npm script to keep environment consistent with workspace tooling.
+run('npm', ['run', 'build:electron', '--', ...ebArgsList]);
 
 console.log('[package] done');
