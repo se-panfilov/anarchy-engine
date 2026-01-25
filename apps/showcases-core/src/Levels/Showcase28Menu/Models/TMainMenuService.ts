@@ -1,12 +1,12 @@
-import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared';
+import type { TLegalDoc, TLoadDocPayload, TShowcasesGameSettings } from '@Showcases/Shared';
 
 export type TMainMenuService = Readonly<{
   closeApp: () => void;
   closeMainMenu: () => void | never;
   getLegalDocs: (options: TLoadDocPayload) => Promise<TLegalDoc>;
-  getSettings: () => Promise<TShowcaseGameSettings>;
+  getSettings: () => Promise<TShowcasesGameSettings>;
   isMenuActive: () => boolean;
   openMainMenu: () => void | never;
   restartApp: () => void;
-  setSettings: (settings: TShowcaseGameSettings) => Promise<void>;
+  setSettings: (settings: TShowcasesGameSettings) => Promise<void>;
 }>;

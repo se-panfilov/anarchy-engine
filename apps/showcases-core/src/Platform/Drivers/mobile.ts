@@ -1,6 +1,6 @@
 import type { TLocaleId } from '@Anarchy/i18n';
 import type { TBrowserInfo } from '@Anarchy/Shared/Models';
-import type { TDistName, TLegalDoc, TLoadDocPayload, TReleaseName, TShowcaseGameSettings } from '@Showcases/Shared';
+import type { TDistName, TLegalDoc, TLoadDocPayload, TReleaseName, TShowcasesGameSettings } from '@Showcases/Shared';
 import { makeDistName, makeReleaseName } from '@Showcases/Shared';
 
 import type { TPlatformDriver } from '@/Models';
@@ -8,7 +8,7 @@ import type { TPlatformDriver } from '@/Models';
 // TODO MOBILE: Make sure ALL these methods are working correctly
 // TODO MOBILE: Implement the mobile driver
 export function Driver(): TPlatformDriver {
-  let cachedAppSettings: TShowcaseGameSettings | undefined;
+  let cachedAppSettings: TShowcasesGameSettings | undefined;
 
   function closeApp(): void {
     throw new Error('[MOBILE] closeApp is not supported on this platform');
@@ -19,7 +19,7 @@ export function Driver(): TPlatformDriver {
     return {} as TBrowserInfo;
   }
 
-  const getCachedAppSettings = (): TShowcaseGameSettings | undefined => cachedAppSettings;
+  const getCachedAppSettings = (): TShowcasesGameSettings | undefined => cachedAppSettings;
 
   function getDistName(): Promise<TDistName> {
     console.log('TODO [MOBILE]', 'getDistName');
@@ -41,7 +41,7 @@ export function Driver(): TPlatformDriver {
     return Promise.resolve('TODO [MOBILE] mocked wrapped app version');
   }
 
-  function getAppSettings(): Promise<TShowcaseGameSettings> {
+  function getAppSettings(): Promise<TShowcasesGameSettings> {
     // TODO UPDATE cachedAppSettings
     console.log('TODO [MOBILE]', 'getAppSettings');
     return Promise.resolve({} as any);
@@ -62,7 +62,7 @@ export function Driver(): TPlatformDriver {
     return Promise.resolve();
   }
 
-  function setAppSettings(settings: TShowcaseGameSettings): Promise<void> {
+  function setAppSettings(settings: TShowcasesGameSettings): Promise<void> {
     // TODO UPDATE cachedAppSettings
     console.log('TODO [MOBILE]', 'setAppSettings', settings);
     return Promise.resolve();

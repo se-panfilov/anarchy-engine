@@ -2,14 +2,14 @@ import type { TLocale, TLocaleId } from '@Anarchy/i18n';
 import type { TDeepWriteable } from '@Anarchy/Shared/Utils';
 import type { TShowcaseLocaleIds } from '@Showcases/i18n';
 import { ShowcasesLocales, vueTranslationService } from '@Showcases/i18n';
-import type { TAudioSettings, TDebugSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TShowcaseGameSettings } from '@Showcases/Shared';
+import type { TAudioSettings, TDebugSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TShowcasesGameSettings } from '@Showcases/Shared';
 import { DefaultShowcaseGameSettings } from '@Showcases/Shared';
 import { defineStore } from 'pinia';
 import type { ComputedRef } from 'vue';
 import { computed, reactive, watch } from 'vue';
 
 export const useSettingsStore = defineStore('settingsStore', () => {
-  const state: TDeepWriteable<TShowcaseGameSettings> = reactive({
+  const state: TDeepWriteable<TShowcasesGameSettings> = reactive({
     ...DefaultShowcaseGameSettings
   });
 
@@ -42,7 +42,7 @@ export const useSettingsStore = defineStore('settingsStore', () => {
   }
   const setDebug = (newDebug: Partial<TDebugSettings>): void => void Object.assign(state.debug, { ...newDebug });
   const setInternal = (newInternal: Partial<TInternalSettings>): void => void Object.assign(state.internal, { ...newInternal });
-  const setState = (newState: Partial<TShowcaseGameSettings>): void => void Object.assign(state, { ...newState });
+  const setState = (newState: Partial<TShowcasesGameSettings>): void => void Object.assign(state, { ...newState });
 
   const getLocaleId: ComputedRef<TShowcaseLocaleIds> = computed(() => state.localization.locale.id as TShowcaseLocaleIds);
 

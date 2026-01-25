@@ -1,5 +1,5 @@
 import { isNotDefined } from '@Anarchy/Shared/Utils';
-import type { TFromMenuEvent, TLegalDoc, TLoadDocPayload, TShowcaseGameSettings, TToMenuEvent } from '@Showcases/Shared';
+import type { TFromMenuEvent, TLegalDoc, TLoadDocPayload, TShowcasesGameSettings, TToMenuEvent } from '@Showcases/Shared';
 import { FromMenuEvents, isLoadDocPayload, isSettings, ToMenuEvents } from '@Showcases/Shared';
 import type { Observable, Subject } from 'rxjs';
 
@@ -9,7 +9,7 @@ const { CloseMenu, ExitApp, GetLegalDocs, GetSettings, SetSettings } = FromMenuE
 
 export function EventsService({ mainMenuService, appService, settingsService }: TEventsServiceDependencies): TEventsService {
   function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEvent>, toMenuEventsBus$: Subject<TToMenuEvent>): void {
-    let settings: TShowcaseGameSettings | undefined;
+    let settings: TShowcasesGameSettings | undefined;
     let legalDocs: TLegalDoc | undefined;
     let isRestartNeeded: boolean = false;
 
@@ -24,7 +24,7 @@ export function EventsService({ mainMenuService, appService, settingsService }: 
         case SetSettings: {
           if (isNotDefined(event.payload)) throw new Error(`[APP] No settings provided for saving`);
           if (!isSettings(event.payload)) throw new Error('[APP] Attempted to save invalid app settings');
-          await setSettings(event.payload as TShowcaseGameSettings);
+          await setSettings(event.payload as TShowcasesGameSettings);
           isRestartNeeded = settingsService.applyAppSettings(event.payload);
           if (isRestartNeeded) appService.restartApp();
           break;

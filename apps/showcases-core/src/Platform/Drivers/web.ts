@@ -3,14 +3,14 @@ import { getLocaleByLocaleId, getPreferLocaleId, stringToLocaleId } from '@Anarc
 import { buildPublicUrl, isDefined } from '@Anarchy/Shared/Utils';
 import { getBrowserInfo } from '@Anarchy/Shared/Utils/DetectUtils';
 import { ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/i18n';
-import type { TDistName, TLegalDoc, TLoadDocPayload, TReleaseName, TShowcaseGameSettings } from '@Showcases/Shared';
+import type { TDistName, TLegalDoc, TLoadDocPayload, TReleaseName, TShowcasesGameSettings } from '@Showcases/Shared';
 import { DefaultShowcaseGameSettings, makeDistName, makeReleaseName, sanitizeMarkDown } from '@Showcases/Shared';
 
 import type { TPlatformDriver } from '@/Models';
 import { settingsWebDbService } from '@/Services/SettingsWebDbService';
 
 export function Driver(): TPlatformDriver {
-  let cachedAppSettings: TShowcaseGameSettings | undefined;
+  let cachedAppSettings: TShowcasesGameSettings | undefined;
   function closeApp(): void {
     throw new Error('[WEB] closeApp is not supported on this platform');
   }
@@ -23,21 +23,21 @@ export function Driver(): TPlatformDriver {
 
   const getPackagesVersions = (): Promise<Record<string, string>> => Promise.resolve(__BUILD_META_INFO__);
 
-  async function getAppSettings(): Promise<TShowcaseGameSettings> {
-    const settings: TShowcaseGameSettings | undefined = await settingsWebDbService.findSettings();
+  async function getAppSettings(): Promise<TShowcasesGameSettings> {
+    const settings: TShowcasesGameSettings | undefined = await settingsWebDbService.findSettings();
     if (isDefined(settings)) {
       cachedAppSettings = settings;
       return settings;
     }
 
     console.warn(`[WEB] Settings not found. Applying default settings.`);
-    const defaultSettings: TShowcaseGameSettings = await buildDefaultSettings();
+    const defaultSettings: TShowcasesGameSettings = await buildDefaultSettings();
     cachedAppSettings = settings;
     await setAppSettings(defaultSettings);
     return defaultSettings;
   }
 
-  const getCachedAppSettings = (): TShowcaseGameSettings | undefined => cachedAppSettings;
+  const getCachedAppSettings = (): TShowcasesGameSettings | undefined => cachedAppSettings;
 
   function getPreferredLocales(): Promise<ReadonlyArray<TLocaleId>> {
     const navigatorLanguages: ReadonlyArray<string> = Array.isArray(navigator.languages) ? navigator.languages : [];
@@ -45,12 +45,12 @@ export function Driver(): TPlatformDriver {
     return Promise.resolve(Array.from(new Set(languages.map(stringToLocaleId))));
   }
 
-  async function buildDefaultSettings(): Promise<TShowcaseGameSettings> {
+  async function buildDefaultSettings(): Promise<TShowcasesGameSettings> {
     const availableLocales: ReadonlyArray<TLocale> = Object.values(ShowcasesLocales);
     const availableLocalesIds: ReadonlyArray<TLocaleId> = availableLocales.map((locale: TLocale): TLocaleId => locale.id);
     const locale: TLocale = getLocaleByLocaleId(getPreferLocaleId(await getPreferredLocales(), availableLocalesIds, ShowcasesFallbackLocale.id), availableLocales);
 
-    const platformDetectedSettings: Partial<TShowcaseGameSettings> = {
+    const platformDetectedSettings: Partial<TShowcasesGameSettings> = {
       localization: {
         ...DefaultShowcaseGameSettings.localization,
         locale
@@ -76,7 +76,7 @@ export function Driver(): TPlatformDriver {
 
   const setFirstRun = (isFirstRun: boolean): Promise<void> => settingsWebDbService.updateSettings({ internal: { isFirstRun } });
 
-  async function setAppSettings(settings: TShowcaseGameSettings): Promise<void> {
+  async function setAppSettings(settings: TShowcasesGameSettings): Promise<void> {
     cachedAppSettings = settings;
     return settingsWebDbService.setSettings(settings);
   }

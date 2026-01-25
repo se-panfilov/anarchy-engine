@@ -1,6 +1,6 @@
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { TEventsEmitterService } from '@Showcases/Menu/models';
-import type { TFromMenuEvent, TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared';
+import type { TFromMenuEvent, TLoadDocPayload, TShowcasesGameSettings } from '@Showcases/Shared';
 import { FromMenuEvents } from '@Showcases/Shared';
 import type { Subject } from 'rxjs';
 import { toRaw } from 'vue';
@@ -20,7 +20,7 @@ function EventsEmitterService(): TEventsEmitterService {
     fromMenuBus$.next({ type: CloseMenu });
   }
 
-  function emitSetMenuSettings(settings: TShowcaseGameSettings): void | never {
+  function emitSetMenuSettings(settings: TShowcasesGameSettings): void | never {
     if (isNotDefined(fromMenuBus$)) throw new Error(noBusError);
     console.log('[EventsService]: emitSetMenuSettings');
     fromMenuBus$.next({ type: SetSettings, payload: toRaw(settings) });

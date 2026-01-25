@@ -23,8 +23,5 @@
 
 Roadmap:
 
-- 2.7.x GUI POC
 - 3.0.x Mobile Build
-- 4.0.x Steam SDK
-- 5.0.x Initial load script <500kb) for mobule
-- 7.0.x Captions
+- 4.0.x Captions

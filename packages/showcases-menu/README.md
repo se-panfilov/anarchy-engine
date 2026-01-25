@@ -1,6 +1,4 @@
-# Anarchy engine showcases-shared package
-
-UI menu for showcases of Anarchy engine.
+# UI menu for showcases of Anarchy engine.
 
 ## License
 
@@ -31,4 +29,4 @@ SOFTWARE.
 See local files `LICENSE`, `CHANGELOG`, `NOTICE` (pointer), and files in `./legal`:
 `DISCLAIMER`, `EULA`, `PRIVACY`, `SECURITY`, `NOTICE` (full), `THIRD_PARTY_LICENSES`.
 
-Contacts — Privacy: {{PRIVACY_EMAIL}}, Security: {{SECURITY_EMAIL}}.
+Contacts — Privacy: pnf036+anarchy@gmail.com, Security: pnf036+anarchy_security@gmail.com.

@@ -1,11 +1,11 @@
 import { isAllNotDefined, isDefined, isNotDefined, isObject, isString } from '@Anarchy/Shared/Utils';
 import { ShowcasesLocales } from '@Showcases/i18n/Constants';
-import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared/Models';
+import type { TLegalDoc, TLoadDocPayload, TShowcasesGameSettings } from '@Showcases/Shared/Models';
 
-export function isSettings(settings: TShowcaseGameSettings | unknown): settings is TShowcaseGameSettings {
+export function isSettings(settings: TShowcasesGameSettings | unknown): settings is TShowcasesGameSettings {
   if (isNotDefined(settings)) return false;
   if (typeof settings !== 'object') return false;
-  const { graphics, localization, debug, internal, audio } = settings as TShowcaseGameSettings;
+  const { graphics, localization, debug, internal, audio } = settings as TShowcasesGameSettings;
   if (isAllNotDefined([graphics, audio, localization, debug, internal])) return false;
 
   return true;
@@ -24,11 +24,11 @@ export function hasJsonStructure(str: string | Record<string, any> | Array<any> 
   }
 }
 
-export function isPartialSettings(settings: TShowcaseGameSettings | unknown): settings is Partial<TShowcaseGameSettings> {
+export function isPartialSettings(settings: TShowcasesGameSettings | unknown): settings is Partial<TShowcasesGameSettings> {
   if (isNotDefined(settings)) return false;
   if (typeof settings !== 'object') return false;
   if (isSettings(settings)) return true;
-  const { graphics, localization, debug, internal, audio } = settings as Partial<TShowcaseGameSettings>;
+  const { graphics, localization, debug, internal, audio } = settings as Partial<TShowcasesGameSettings>;
   if (isDefined(graphics) || isDefined(audio) || isDefined(localization) || isDefined(debug) || isDefined(internal)) return true;
 
   return false;

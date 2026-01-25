@@ -4,7 +4,7 @@ import { appBeforeQuitHandler, appCrashHandler, appWindowAllClosedHandler, windo
 import type { TDesktopAppConfig, TDesktopAppService, TDocsService, TFilesService, TSettingsService, TWindowService } from '@Showcases/Desktop/Models';
 import { DesktopAppService, DocsService, ElectronErrorTrackingService, FilesService, handleAppRequest, SettingsService, WindowService } from '@Showcases/Desktop/Services';
 import { getWindowSizeSafe, hideMenuBar, noZoom, turnOffMenuBarAndHotkeys } from '@Showcases/Desktop/Utils';
-import type { TResolution, TShowcaseGameSettings } from '@Showcases/Shared';
+import type { TResolution, TShowcasesGameSettings } from '@Showcases/Shared';
 import { platformApiChannel } from '@Showcases/Shared';
 import type { BrowserWindow, IpcMainInvokeEvent } from 'electron';
 import { app, ipcMain } from 'electron';
@@ -16,10 +16,6 @@ const desktopAppSettings: TDesktopAppConfig = {
   isForceDpr: import.meta.env.VITE_IS_FORCE_DPR === 'true' || false,
   highDpiSupport: import.meta.env.VITE_HIGH_DPI_SUPPORT ? Number(import.meta.env.VITE_HIGH_DPI_SUPPORT) : undefined
 };
-
-// TODO DESKTOP: Linux: make sure we can build the project
-// TODO DESKTOP: Steam integration (manifest, cloud_sync.vdf, cloud saves, achievements, layer, etc.)
-// TODO DESKTOP: Other integrations (epic, gog, etc.)
 
 const filesService: TFilesService = FilesService(app);
 const desktopAppService: TDesktopAppService = DesktopAppService(app, { filesService });
@@ -51,7 +47,7 @@ app.whenReady().then(async (): Promise<void> => {
   const win: BrowserWindow = windowService.createWindow(initialWindowSize.width, initialWindowSize.height, desktopAppSettings);
 
   //Note: Do not "await" before window creation (cause problems in production – invisible window)
-  const settings: TShowcaseGameSettings = await settingsService.getAppSettings();
+  const settings: TShowcasesGameSettings = await settingsService.getAppSettings();
   if (isDefined(settings.graphics.resolution)) windowService.setWindowSize(settings.graphics.resolution);
 
   windowReadyToShow(win, settings, windowService);

@@ -4,7 +4,7 @@ import { isDefined } from '@Anarchy/Shared/Utils';
 import type { TMetaData, TTrackingService } from '@Anarchy/Tracking';
 import { BrowserTrackingService } from '@Anarchy/Tracking/Services/BrowserTrackingService';
 import type { BrowserOptions } from '@sentry/browser';
-import type { TShowcaseGameSettings } from '@Showcases/Shared';
+import type { TShowcasesGameSettings } from '@Showcases/Shared';
 import { getAnonymizedSettings } from '@Showcases/Shared';
 
 import { runtimeEnv } from '@/env';
@@ -33,7 +33,7 @@ export function WebErrorTrackingService(): TWebErrorTrackingService {
     };
 
     const dynamicContext = (): Record<string, any> => {
-      const settings: TShowcaseGameSettings | undefined = platformApiService.getCachedAppSettings();
+      const settings: TShowcasesGameSettings | undefined = platformApiService.getCachedAppSettings();
 
       return {
         settings: isDefined(settings) ? getAnonymizedSettings(settings) : undefined
