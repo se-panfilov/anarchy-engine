@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 19
+Components listed: 18
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -23,19 +23,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @dimforge/rapier3d@0.19.3
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/dimforge/rapier.js
-
-**URL:** https://rapier.rs
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @hellpig/anarchy-engine@21.4.1
+## @hellpig/anarchy-engine@22.0.0
 
 **License(s):** MIT
 

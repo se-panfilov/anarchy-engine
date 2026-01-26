@@ -1103,13 +1103,13 @@ limitations under the License.
 
 ---
 
-## @exodus/bytes@1.9.0
+## @exodus/bytes@1.10.0
 
 **License:** MIT
 
 **Repository:** git+https://github.com/ExodusOSS/bytes.git
 
-**URL:** https://github.com/ExodusOSS/bytes#readme
+**URL:** https://github.com/ExodusOSS/bytes
 
 **Publisher:** Exodus Movement, Inc.
 
@@ -1261,7 +1261,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @hellpig/anarchy-engine@21.4.1
+## @hellpig/anarchy-engine@22.0.0
 
 **License:** MIT
 
@@ -1295,7 +1295,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-i18n@1.4.1
+## @hellpig/anarchy-i18n@1.4.2
 
 **License:** MIT
 
@@ -13486,7 +13486,7 @@ _No license text file found; relying on package metadata._
 
 ---
 
-## showcases-gui@1.1.7
+## showcases-gui@1.1.8
 
 **License:** MIT
 
@@ -13554,7 +13554,7 @@ SOFTWARE.
 
 ---
 
-## showcases-menu@1.8.9
+## showcases-menu@1.8.10
 
 **License:** MIT
 

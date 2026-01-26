@@ -129,13 +129,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @exodus/bytes@1.9.0
+## @exodus/bytes@1.10.0
 
 **License(s):** MIT
 
 **Repository:** git+https://github.com/ExodusOSS/bytes.git
 
-**URL:** https://github.com/ExodusOSS/bytes#readme
+**URL:** https://github.com/ExodusOSS/bytes
 
 **Attribution:** Copyright (c) 2024-2025 Exodus Movement
 
