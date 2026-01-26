@@ -4,7 +4,7 @@ import { defineConfig, loadEnv } from 'vite';
 import compression from 'vite-plugin-compression';
 import dts from 'vite-plugin-dts';
 import { terser } from 'rollup-plugin-terser';
-import path from 'path';
+import path from 'node:path';
 import wasm from 'vite-plugin-wasm';
 import { sharedAliases } from '../../vite.alias';
 import { visualizer } from 'rollup-plugin-visualizer';
@@ -28,7 +28,12 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     plugins: [
       wasm(),
       dts({
-        exclude: ['**/*.spec.ts', '**/*.test.ts', 'vite.config.ts']
+        entryRoot: 'src',
+        outDir: 'dist',
+        tsconfigPath: path.resolve(__dirname, 'tsconfig.json'),
+        exclude: ['**/*.spec.ts', '**/*.test.ts', 'vite.config.ts'],
+        // Important: creates dist/index.d.ts automatically when you have src/index.ts
+        insertTypesEntry: true
       }),
       //Compression is only for web builds (desktop and mobile cannot unpack .br/.gz files)
       ...(buildCompression
@@ -61,8 +66,6 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       minify: enableMangle,
       lib: {
         entry: path.resolve(__dirname, 'src/index.ts'),
-        name: 'AnarchyEngine',
-        fileName: (format): string => `anarchy-engine.${format}.js`,
         formats: ['es']
       },
 
@@ -70,6 +73,12 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         external: (id: string): boolean => id.endsWith('.spec.ts') || id.endsWith('.test.ts'),
         //  external: ['three', 'rxjs', '@dimforge/rapier3d'] — If you want to exclude some dependencies from the bundle
         output: {
+          preserveModules: true,
+          preserveModulesRoot: 'src',
+
+          entryFileNames: `[name].js`,
+          chunkFileNames: `chunks/[name]-[hash].js`,
+          assetFileNames: `assets/[name]-[hash][extname]`,
           inlineDynamicImports: false //extract workers to separate bundle
 
           // Perhaps it's better not to use manualChunks for a lib build (also could be problems with minify)

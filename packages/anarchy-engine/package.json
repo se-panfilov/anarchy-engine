@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-engine",
   "author": "S. Panfilov",
   "private": false,
-  "version": "21.3.1",
+  "version": "21.4.0",
   "type": "module",
   "repository": {
     "type": "git",
@@ -17,6 +17,20 @@
     "access": "public"
   },
   "sideEffects": false,
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
+    },
+    "./assets/*": "./dist/assets/*",
+    "./legal/*": "./legal/*",
+    "./package.json": "./package.json"
+  },
   "license": "MIT",
   "description": "Anarchy Engine – a 3D game engine for web, desktop and mobile platforms. Built around three.js",
   "keywords": [
