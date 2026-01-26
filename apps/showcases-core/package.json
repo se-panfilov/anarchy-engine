@@ -2,7 +2,7 @@
   "name": "showcases-core",
   "author": "S. Panfilov",
   "private": true,
-  "version": "2.19.3",
+  "version": "2.20.0",
   "type": "module",
   "repository": {
     "type": "git",
