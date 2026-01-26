@@ -74,7 +74,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @babel/parser@7.28.5
+## @babel/parser@7.28.6
 
 **License:** MIT
 
@@ -106,7 +106,7 @@ THE SOFTWARE.
 
 ---
 
-## @babel/types@7.28.5
+## @babel/types@7.28.6
 
 **License:** MIT
 
@@ -491,7 +491,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @hellpig/anarchy-engine@21.3.1
+## @hellpig/anarchy-engine@21.4.0
 
 **License:** MIT
 
@@ -525,7 +525,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-i18n@1.3.1
+## @hellpig/anarchy-i18n@1.4.0
 
 **License:** MIT
 
@@ -559,7 +559,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-shared@1.5.2
+## @hellpig/anarchy-shared@1.6.0
 
 **License:** MIT
 
@@ -1250,7 +1250,7 @@ THE SOFTWARE.
 
 ---
 
-## entities@7.0.0
+## entities@7.0.1
 
 **License:** BSD-2-Clause
 

@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-i18n",
   "author": "S. Panfilov",
   "private": false,
-  "version": "1.3.1",
+  "version": "1.4.0",
   "type": "module",
   "repository": {
     "type": "git",
@@ -17,6 +17,18 @@
     "access": "public"
   },
   "sideEffects": false,
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
+    },
+    "./assets/*": "./dist/assets/*"
+  },
   "license": "MIT",
   "description": "Anarchy-I18n – a library for internationalization in Anarchy Engine.",
   "keywords": [

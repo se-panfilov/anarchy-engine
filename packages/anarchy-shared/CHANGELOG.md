@@ -4,3 +4,4 @@
 - 1.3.0 Vite plugin: emit json
 - 1.4.0 Json validation utils
 - 1.5.0 Added proper building and npm packaging
+- 1.6.0 Fixes npm package

@@ -854,7 +854,7 @@ limitations under the License.
 
 ---
 
-## @opentelemetry/context-async-hooks@2.3.0
+## @opentelemetry/context-async-hooks@2.5.0
 
 **License:** Apache-2.0
 
@@ -1282,7 +1282,7 @@ limitations under the License.
 
 ---
 
-## @opentelemetry/core@2.3.0
+## @opentelemetry/core@2.5.0
 
 **License:** Apache-2.0
 
@@ -6632,7 +6632,7 @@ limitations under the License.
 
 ---
 
-## @opentelemetry/resources@2.3.0
+## @opentelemetry/resources@2.5.0
 
 **License:** Apache-2.0
 
@@ -6846,7 +6846,7 @@ limitations under the License.
 
 ---
 
-## @opentelemetry/sdk-trace-base@2.3.0
+## @opentelemetry/sdk-trace-base@2.5.0
 
 **License:** Apache-2.0
 
@@ -7060,7 +7060,7 @@ limitations under the License.
 
 ---
 
-## @opentelemetry/semantic-conventions@1.38.0
+## @opentelemetry/semantic-conventions@1.39.0
 
 **License:** Apache-2.0
 
@@ -8567,7 +8567,7 @@ SOFTWARE.
 
 ---
 
-## cjs-module-lexer@1.4.3
+## cjs-module-lexer@2.2.0
 
 **License:** MIT
 
@@ -8685,7 +8685,7 @@ THE SOFTWARE.
 
 ---
 
-## import-in-the-middle@2.0.1
+## import-in-the-middle@2.0.5
 
 **License:** Apache-2.0
 
@@ -9011,7 +9011,7 @@ PERFORMANCE OF THIS SOFTWARE.
 
 ---
 
-## pg-protocol@1.10.3
+## pg-protocol@1.11.0
 
 **License:** MIT
 

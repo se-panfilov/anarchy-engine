@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-shared",
   "author": "S. Panfilov",
   "private": false,
-  "version": "1.5.2",
+  "version": "1.6.0",
   "type": "module",
   "repository": {
     "type": "git",
@@ -16,7 +16,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.scss"
+  ],
   "license": "MIT",
   "description": "Anarchy-shared – a library with shared utilities and scripts for Anarchy Engine.",
   "keywords": [
@@ -31,7 +33,8 @@
     "NOTICE.md",
     "LICENSE",
     "README.md",
-    "dist/"
+    "dist/",
+    "ScriptUtils/"
   ],
   "exports": {
     "./Utils": {
@@ -49,10 +52,6 @@
     "./Plugins": {
       "types": "./dist/Plugins/index.d.ts",
       "import": "./dist/Plugins/index.es.js"
-    },
-    "./assets": {
-      "types": "./dist/assets/index.d.ts",
-      "import": "./dist/assets/index.es.js"
     },
     "./assets/*": "./src/assets/*",
     "./ScriptUtils/*": "./ScriptUtils/*"

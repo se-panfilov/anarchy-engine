@@ -2,11 +2,11 @@
 
 ## Application: showcases-desktop
 
-Production dependencies (including transition dependencies): 207
+Production dependencies (including transition dependencies): 208
 
 ---
 
-## @acemir/cssom@0.9.30
+## @acemir/cssom@0.9.31
 
 **License:** MIT
 
@@ -628,7 +628,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @babel/parser@7.28.5
+## @babel/parser@7.28.6
 
 **License:** MIT
 
@@ -660,7 +660,7 @@ THE SOFTWARE.
 
 ---
 
-## @babel/types@7.28.5
+## @babel/types@7.28.6
 
 **License:** MIT
 
@@ -831,7 +831,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.24
+## @csstools/css-syntax-patches-for-csstree@1.0.26
 
 **License:** MIT-0
 
@@ -1103,7 +1103,7 @@ limitations under the License.
 
 ---
 
-## @exodus/bytes@1.8.0
+## @exodus/bytes@1.9.0
 
 **License:** MIT
 
@@ -1261,7 +1261,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @hellpig/anarchy-engine@21.3.1
+## @hellpig/anarchy-engine@21.4.0
 
 **License:** MIT
 
@@ -1295,7 +1295,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-i18n@1.3.1
+## @hellpig/anarchy-i18n@1.4.0
 
 **License:** MIT
 
@@ -1329,7 +1329,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-shared@1.5.2
+## @hellpig/anarchy-shared@1.6.0
 
 **License:** MIT
 
@@ -1363,7 +1363,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-tracking@1.6.1
+## @hellpig/anarchy-tracking@1.7.0
 
 **License:** MIT
 
@@ -1956,7 +1956,7 @@ limitations under the License.
 
 ---
 
-## @opentelemetry/context-async-hooks@2.3.0
+## @opentelemetry/context-async-hooks@2.5.0
 
 **License:** Apache-2.0
 
@@ -2384,7 +2384,7 @@ limitations under the License.
 
 ---
 
-## @opentelemetry/core@2.3.0
+## @opentelemetry/core@2.5.0
 
 **License:** Apache-2.0
 
@@ -7734,7 +7734,7 @@ limitations under the License.
 
 ---
 
-## @opentelemetry/resources@2.3.0
+## @opentelemetry/resources@2.5.0
 
 **License:** Apache-2.0
 
@@ -7948,7 +7948,7 @@ limitations under the License.
 
 ---
 
-## @opentelemetry/sdk-trace-base@2.3.0
+## @opentelemetry/sdk-trace-base@2.5.0
 
 **License:** Apache-2.0
 
@@ -8162,7 +8162,7 @@ limitations under the License.
 
 ---
 
-## @opentelemetry/semantic-conventions@1.38.0
+## @opentelemetry/semantic-conventions@1.39.0
 
 **License:** Apache-2.0
 
@@ -10266,7 +10266,7 @@ SOFTWARE.
 
 ---
 
-## cjs-module-lexer@1.4.3
+## cjs-module-lexer@2.2.0
 
 **License:** MIT
 
@@ -10411,7 +10411,7 @@ SOFTWARE.
 
 ---
 
-## data-urls@6.0.0
+## data-urls@6.0.1
 
 **License:** MIT
 
@@ -11434,7 +11434,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ---
 
-## entities@7.0.0
+## entities@7.0.1
 
 **License:** BSD-2-Clause
 
@@ -11620,7 +11620,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## import-in-the-middle@2.0.1
+## import-in-the-middle@2.0.5
 
 **License:** Apache-2.0
 
@@ -12083,11 +12083,11 @@ terms above.
 
 ---
 
-## lru-cache@11.2.4
+## lru-cache@11.2.5
 
 **License:** BlueOak-1.0.0
 
-**Repository:** git://github.com/isaacs/node-lru-cache.git
+**Repository:** git+ssh://git@github.com/isaacs/node-lru-cache.git
 
 **Publisher:** Isaac Z. Schlueter <i@izs.me>
 
@@ -12704,7 +12704,7 @@ PERFORMANCE OF THIS SOFTWARE.
 
 ---
 
-## pg-protocol@1.10.3
+## pg-protocol@1.11.0
 
 **License:** MIT
 
@@ -13486,7 +13486,7 @@ _No license text file found; relying on package metadata._
 
 ---
 
-## showcases-core@2.19.1
+## showcases-core@2.19.2
 
 **License:** MIT
 
@@ -14383,6 +14383,24 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 ---
 
 ## whatwg-mimetype@4.0.0
+
+**License:** MIT
+
+**Repository:** jsdom/whatwg-mimetype
+
+**Publisher:** Domenic Denicola <d@domenic.me> (https://domenic.me/)
+
+Copyright © Domenic Denicola <d@domenic.me>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+---
+
+## whatwg-mimetype@5.0.0
 
 **License:** MIT
 

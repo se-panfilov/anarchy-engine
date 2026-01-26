@@ -5,3 +5,4 @@
 - 1.4.0 Sentry release+dist tagging for better sourcemap handling
 - 1.5.0 Added optional dynamic context (and tags) to data (beforeSend)
 - 1.6.0 Added proper building and npm packaging
+- 1.7.0 Fixes npm package
