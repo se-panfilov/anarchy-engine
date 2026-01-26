@@ -20,6 +20,7 @@
 - 2.17.0 More data sent to Sentry, and store cahced user settings
 - 2.18.0 Using new keyboard service
 - 2.19.0 Better wait for app to load (+utils)
+- 2.20.0 Use own threejs and rapier3d (as deps)
 
 Roadmap:
 
