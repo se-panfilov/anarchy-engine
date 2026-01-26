@@ -2,7 +2,7 @@
 import compression from 'vite-plugin-compression';
 import { ConfigEnv, defineConfig, loadEnv, UserConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import path from 'path';
+import path from 'node:path';
 import { sharedAliases } from '../../vite.alias';
 import { visualizer } from 'rollup-plugin-visualizer';
 import wasm from 'vite-plugin-wasm';

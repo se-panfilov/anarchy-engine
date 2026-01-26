@@ -1,6 +1,6 @@
 import type { ConfigEnv, UserConfig } from 'vite';
 import { defineConfig } from 'vite';
-import path from 'path';
+import path from 'node:path';
 import { sharedAliases } from '../../vite.alias';
 import { version } from './package.json';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
