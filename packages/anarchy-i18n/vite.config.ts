@@ -2,7 +2,7 @@
 import type { ConfigEnv, UserConfig } from 'vite';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import path from 'path';
+import path from 'node:path';
 import { sharedAliases } from '../../vite.alias';
 import { terser } from 'rollup-plugin-terser';
 
@@ -16,7 +16,12 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
     },
     plugins: [
       dts({
-        exclude: ['**/*.spec.ts', '**/*.test.ts', 'vite.config.ts', 'src/Styles/OptionalStyles.ts']
+        entryRoot: 'src',
+        outDir: 'dist',
+        tsconfigPath: path.resolve(__dirname, 'tsconfig.json'),
+        exclude: ['**/*.spec.ts', '**/*.test.ts', 'vite.config.ts', 'src/Styles/OptionalStyles.ts'],
+        // Important: creates dist/index.d.ts automatically when you have src/index.ts
+        insertTypesEntry: true
       })
     ],
     build: {
@@ -40,6 +45,21 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
 
       rollupOptions: {
         external: (id: string): boolean => id.endsWith('.spec.ts') || id.endsWith('.test.ts'),
+        output: {
+          preserveModules: true,
+          preserveModulesRoot: 'src',
+          entryFileNames: `[name].js`,
+          chunkFileNames: `chunks/[name]-[hash].js`,
+          // assetFileNames: (assetInfo): string => {
+          //   const ai = assetInfo as unknown as Readonly<{ name?: string; names?: ReadonlyArray<string> }>;
+          //   const n: string = ai.names?.[0] ?? ai.name ?? '';
+          //
+          //   if (n.endsWith('.css')) return 'styles/[name][extname]';
+          //   if (n.endsWith('.css.map')) return 'styles/[name][extname]';
+          //   return 'assets/[name]-[hash][extname]';
+          // },
+          inlineDynamicImports: false //extract workers to separate bundle
+        },
         plugins: [
           terser({
             compress: {
@@ -59,17 +79,7 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
               ascii_only: true // To prevent emoji/unicode problems
             }
           }) as Plugin
-        ],
-        output: {
-          assetFileNames: (assetInfo): string => {
-            const ai = assetInfo as unknown as Readonly<{ name?: string; names?: ReadonlyArray<string> }>;
-            const n: string = ai.names?.[0] ?? ai.name ?? '';
-
-            if (n.endsWith('.css')) return 'styles/[name][extname]';
-            if (n.endsWith('.css.map')) return 'styles/[name][extname]';
-            return 'assets/[name]-[hash][extname]';
-          }
-        }
+        ]
       },
       outDir: 'dist',
       emptyOutDir: true
