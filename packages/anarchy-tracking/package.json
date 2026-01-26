@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-tracking",
   "author": "S. Panfilov",
   "private": false,
-  "version": "1.6.1",
+  "version": "1.7.0",
   "type": "module",
   "repository": {
     "type": "git",
@@ -53,8 +53,7 @@
     "./desktop-preload": {
       "types": "./dist/desktop-preload.d.ts",
       "import": "./dist/desktop-preload.es.js"
-    },
-    "./package.json": "./package.json"
+    }
   },
   "typesVersions": {
     "*": {

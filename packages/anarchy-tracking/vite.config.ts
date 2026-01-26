@@ -2,7 +2,7 @@
 import type { ConfigEnv, UserConfig } from 'vite';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import path from 'path';
+import path from 'node:path';
 import { sharedAliases } from '../../vite.alias';
 import { terser } from 'rollup-plugin-terser';
 
@@ -32,7 +32,11 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
     },
     plugins: [
       dts({
-        exclude: ['**/*.spec.ts', '**/*.test.ts', 'vite.config.ts', 'src/Styles/OptionalStyles.ts']
+        entryRoot: 'src',
+        outDir: 'dist',
+        tsconfigPath: path.resolve(__dirname, 'tsconfig.json'),
+        exclude: ['**/*.spec.ts', '**/*.test.ts', 'vite.config.ts', 'src/Styles/OptionalStyles.ts'],
+        insertTypesEntry: true
       })
     ],
     build: {
@@ -87,9 +91,14 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
           }) as Plugin
         ],
         output: {
+          preserveModules: true,
+          preserveModulesRoot: 'src',
+          assetFileNames: `assets/[name]-[hash][extname]`,
+          inlineDynamicImports: false, //extract workers to separate bundle
+
           // Make filenames deterministic / readable for library consumers.
           entryFileNames: '[name]/index.[format].js',
-          chunkFileNames: 'chunks/[name].js'
+          chunkFileNames: `chunks/[name]-[hash].js`
         }
       },
       outDir: 'dist',
