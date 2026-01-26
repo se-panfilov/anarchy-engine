@@ -19,6 +19,7 @@ graph.svg
 ./__temp*
 *.tsbuildinfo
 __temp*
+*.tgz
 
 # Editor directories and files
 .vscode/*
