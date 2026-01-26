@@ -232,7 +232,7 @@ limitations under the License.
 
 ---
 
-## @hellpig/anarchy-shared@1.6.0
+## @hellpig/anarchy-shared@1.6.1
 
 **License:** MIT
 

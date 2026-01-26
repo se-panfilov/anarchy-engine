@@ -149,7 +149,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-engine@21.4.0
+## @hellpig/anarchy-engine@21.4.1
 
 **License(s):** MIT
 
@@ -161,7 +161,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-i18n@1.4.0
+## @hellpig/anarchy-i18n@1.4.1
 
 **License(s):** MIT
 
@@ -173,7 +173,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-shared@1.6.0
+## @hellpig/anarchy-shared@1.6.1
 
 **License(s):** MIT
 
