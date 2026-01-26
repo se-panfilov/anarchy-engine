@@ -2,6 +2,15 @@
 
 A framework around three.js for game development.
 
+## Installation / Peer dependencies
+
+`@hellpig/anarchy-engine` expects the host app to provide these packages (they are **peerDependencies**):
+
+- `three` (required`)
+- `@dimforge/rapier3d` (required)
+
+This prevents bundling an extra copy of Three.js / Rapier into your app and avoids issues caused by having multiple versions/instances in the same runtime.
+
 ## License
 
 MIT License

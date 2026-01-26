@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-engine",
   "author": "S. Panfilov",
   "private": false,
-  "version": "21.4.1",
+  "version": "22.0.0",
   "type": "module",
   "repository": {
     "type": "git",
@@ -81,19 +81,30 @@
   },
   "dependencies": {
     "@cfworker/json-schema": "4.1.1",
-    "@dimforge/rapier3d": "0.19.3",
     "@hellpig/anarchy-shared": "*",
     "date-fns": "4.1.0",
     "lodash-es": "4.17.22",
     "nanoid": "5.1.6",
     "rbush": "4.0.1",
     "rxjs": "7.8.2",
-    "three": "0.182.0",
     "three-mesh-bvh": "0.9.4",
     "ts-key-enum": "3.0.13",
     "typescript-fsm": "1.6.0"
   },
+  "peerDependencies": {
+    "@dimforge/rapier3d": "^0.19.3",
+    "three": "^0.182.0"
+  },
+  "peerDependenciesMeta": {
+    "@dimforge/rapier3d": {
+      "optional": false
+    },
+    "three": {
+      "optional": false
+    }
+  },
   "devDependencies": {
+    "@dimforge/rapier3d": "0.19.3",
     "@dimforge/rapier3d-compat": "0.19.3",
     "@gltf-transform/cli": "4.2.1",
     "@types/lodash-es": "4.17.12",
@@ -103,6 +114,7 @@
     "rollup-plugin-esbuild-minify": "1.3.0",
     "rollup-plugin-terser": "7.0.2",
     "source-map-explorer": "2.5.3",
+    "three": "0.182.0",
     "ts-morph": "27.0.2"
   }
 }

@@ -44,12 +44,13 @@
 - 21.2.0 Reworked keyboard service (no external dependencies)
 - 21.3.0 Added LoadingManager
 - 21.4.0 Fixes npm package
+- 22.0.0 Extracted threejs and rapier3d to peerDependencies
 
 Roadmap:
 
-- 22.x.x Postprocessing
-- 23.0.x Shaders
-- 24.0.x Modules: distinct engine/rapier from engine/core. Bonus: Make possible to load engine/rapier in async way
+- 23.x.x Postprocessing
+- 24.0.x Shaders
+- 25.0.x Modules: distinct engine/rapier from engine/core. Bonus: Make possible to load engine/rapier in async way
 
 Thoughts:
 
