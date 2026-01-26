@@ -43,7 +43,7 @@
 - 21.1.0 Security: better CSP: no need for "unsafe-eval" (get rid of AJV)
 - 21.2.0 Reworked keyboard service (no external dependencies)
 - 21.3.0 Added LoadingManager
-- 21.4.0 Fixes for import via as npm package
+- 21.4.0 Fixes npm package
 
 Roadmap:
 

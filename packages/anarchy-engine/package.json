@@ -27,9 +27,7 @@
       "types": "./dist/*.d.ts",
       "import": "./dist/*.js"
     },
-    "./assets/*": "./dist/assets/*",
-    "./legal/*": "./legal/*",
-    "./package.json": "./package.json"
+    "./assets/*": "./dist/assets/*"
   },
   "license": "MIT",
   "description": "Anarchy Engine – a 3D game engine for web, desktop and mobile platforms. Built around three.js",
