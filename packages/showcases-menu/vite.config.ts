@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
 import compression from 'vite-plugin-compression';
 import { ConfigEnv, defineConfig, loadEnv, UserConfig } from 'vite';
-import path from 'path';
+import path from 'node:path';
 import { sharedAliases } from '../../vite.alias';
 import { visualizer } from 'rollup-plugin-visualizer';
 // @ts-expect-error: no type declarations
@@ -70,10 +70,14 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
         // external: (id: string): boolean => id.endsWith('.spec.ts') || id.endsWith('.test.ts'),
         //  external: ['three', 'rxjs', '@dimforge/rapier3d'], — If you want to exclude some dependencies from the bundle
         output: {
-          // manualChunks: {
-          // anarchy-engine: ['@Anarchy/Engine']
-          // },
-          inlineDynamicImports: false //extract workers to separate bundle
+          preserveModules: true,
+          preserveModulesRoot: 'src',
+          assetFileNames: `assets/[name]-[hash][extname]`,
+          inlineDynamicImports: false, //extract workers to separate bundle
+
+          // Make filenames deterministic / readable for library consumers.
+          entryFileNames: '[name]/index.[format].js',
+          chunkFileNames: `chunks/[name]-[hash].js`
         },
         plugins: [visualizer({ open: false })]
       },
