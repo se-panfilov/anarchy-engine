@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 
 export const sharedAliases = {
   '@Showcases/E2E': path.resolve(__dirname, 'apps/showcases-e2e/src'),
