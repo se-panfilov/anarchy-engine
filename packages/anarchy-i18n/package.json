@@ -16,7 +16,10 @@
   "publishConfig": {
     "access": "public"
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {

@@ -5,6 +5,7 @@ import dts from 'vite-plugin-dts';
 import path from 'node:path';
 import { sharedAliases } from '../../vite.alias';
 import { terser } from 'rollup-plugin-terser';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig((_config: ConfigEnv): UserConfig => {
   return {
@@ -22,6 +23,14 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
         exclude: ['**/*.spec.ts', '**/*.test.ts', 'vite.config.ts', 'src/Styles/OptionalStyles.ts'],
         // Important: creates dist/index.d.ts automatically when you have src/index.ts
         insertTypesEntry: true
+      }),
+      viteStaticCopy({
+        targets: [
+          {
+            src: 'src/assets/**/*',
+            dest: 'assets'
+          }
+        ]
       })
     ],
     build: {
