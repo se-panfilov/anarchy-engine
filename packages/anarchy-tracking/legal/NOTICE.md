@@ -55,7 +55,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/context-async-hooks@2.3.0
+## @opentelemetry/context-async-hooks@2.5.0
 
 **License(s):** Apache-2.0
 
@@ -79,7 +79,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/core@2.3.0
+## @opentelemetry/core@2.5.0
 
 **License(s):** Apache-2.0
 
@@ -379,7 +379,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/resources@2.3.0
+## @opentelemetry/resources@2.5.0
 
 **License(s):** Apache-2.0
 
@@ -391,7 +391,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/sdk-trace-base@2.3.0
+## @opentelemetry/sdk-trace-base@2.5.0
 
 **License(s):** Apache-2.0
 
@@ -403,7 +403,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/semantic-conventions@1.38.0
+## @opentelemetry/semantic-conventions@1.39.0
 
 **License(s):** Apache-2.0
 
@@ -753,7 +753,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## cjs-module-lexer@1.4.3
+## cjs-module-lexer@2.2.0
 
 **License(s):** MIT
 
@@ -799,7 +799,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## import-in-the-middle@2.0.1
+## import-in-the-middle@2.0.5
 
 **License(s):** Apache-2.0
 
@@ -853,7 +853,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## pg-protocol@1.10.3
+## pg-protocol@1.11.0
 
 **License(s):** MIT
 

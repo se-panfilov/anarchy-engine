@@ -5,13 +5,13 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 47
+Components listed: 48
 
 ## 1) Mandatory Attributions (verbatim)
 
 The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
 
-## @acemir/cssom@0.9.30
+## @acemir/cssom@0.9.31
 
 **License(s):** MIT
 
@@ -105,7 +105,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.24
+## @csstools/css-syntax-patches-for-csstree@1.0.26
 
 **License(s):** MIT-0
 
@@ -129,7 +129,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @exodus/bytes@1.8.0
+## @exodus/bytes@1.9.0
 
 **License(s):** MIT
 
@@ -193,7 +193,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## data-urls@6.0.0
+## data-urls@6.0.1
 
 **License(s):** MIT
 
@@ -307,11 +307,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## lru-cache@11.2.4
+## lru-cache@11.2.5
 
 **License(s):** BlueOak-1.0.0
 
-**Repository:** git://github.com/isaacs/node-lru-cache.git
+**Repository:** git+ssh://git@github.com/isaacs/node-lru-cache.git
 
 **Attribution:** copyright in it.
 
@@ -474,6 +474,16 @@ The following notices are reproduced as provided by the respective licensors (e.
 ---
 
 ## whatwg-mimetype@4.0.0
+
+**License(s):** MIT
+
+**Repository:** jsdom/whatwg-mimetype
+
+**Attribution:** Copyright © Domenic Denicola <d@domenic.me>
+
+---
+
+## whatwg-mimetype@5.0.0
 
 **License(s):** MIT
 

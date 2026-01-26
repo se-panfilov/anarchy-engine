@@ -6,3 +6,4 @@
 1.9.0 Distinct output for each file ("relativeOutput" config param)
 1.10.0 Allow to generate any files (not only DISCLAIMER, EULA and etc.). Added "outputName" config param.
 1.11.0 Added proper building and npm packaging
+1.12.0 Fixes npm package

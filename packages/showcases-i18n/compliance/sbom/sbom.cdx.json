@@ -5,7 +5,7 @@
   "serialNumber": "urn:uuid:***",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-01-11T01:47:39.552Z",
+    "timestamp": "2026-01-26T17:42:07.257Z",
     "lifecycles": [
       {
         "phase": "pre-build"
@@ -58,14 +58,14 @@
   },
   "components": [
     {
-      "bom-ref": "showcases-core@2.19.1",
+      "bom-ref": "showcases-core@2.19.2",
       "type": "library",
       "name": "showcases-core",
-      "version": "2.19.1",
+      "version": "2.19.2",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Showcases Core – an application with demos for Anarchy-Engine.",
-      "purl": "pkg:npm/showcases-core@2.19.1",
+      "purl": "pkg:npm/showcases-core@2.19.2",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -95,14 +95,14 @@
       ]
     },
     {
-      "bom-ref": "showcases-desktop@2.12.6",
+      "bom-ref": "showcases-desktop@2.12.7",
       "type": "library",
       "name": "showcases-desktop",
-      "version": "2.12.6",
+      "version": "2.12.7",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Desktop Showcases  – a desktop wrapper-application for showcases-core.",
-      "purl": "pkg:npm/showcases-desktop@2.12.6",
+      "purl": "pkg:npm/showcases-desktop@2.12.7",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -561,23 +561,23 @@
       ]
     },
     {
-      "bom-ref": "@opentelemetry/context-async-hooks@2.3.0",
+      "bom-ref": "@opentelemetry/context-async-hooks@2.5.0",
       "type": "library",
       "name": "@opentelemetry/context-async-hooks",
-      "version": "2.3.0",
+      "version": "2.5.0",
       "scope": "required",
-      "purl": "pkg:npm/%40opentelemetry/context-async-hooks@2.3.0",
+      "purl": "pkg:npm/%40opentelemetry/context-async-hooks@2.5.0",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@opentelemetry/context-async-hooks/-/context-async-hooks-2.3.0.tgz"
+          "url": "https://registry.npmjs.org/@opentelemetry/context-async-hooks/-/context-async-hooks-2.5.0.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "84672c4f4a833fb225d4bfaa4f7245a621a5d5d0a317bf7805be3209109876bed70b43701ed385de7805f3a1a4e93527b1a91bc90b0343413f4b8094d05e1de2"
+          "content": "b8e5e9557d198ceee1792563861796d9710fae14005abd8149c0cfa19f540f2725e62b871be52cc9cdc021f1ba919782d46c8ba4c227a50e97e7ef67ebdc8e17"
         }
       ],
       "licenses": [
@@ -589,23 +589,23 @@
       ]
     },
     {
-      "bom-ref": "@opentelemetry/core@2.3.0",
+      "bom-ref": "@opentelemetry/core@2.5.0",
       "type": "library",
       "name": "@opentelemetry/core",
-      "version": "2.3.0",
+      "version": "2.5.0",
       "scope": "required",
-      "purl": "pkg:npm/%40opentelemetry/core@2.3.0",
+      "purl": "pkg:npm/%40opentelemetry/core@2.5.0",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@opentelemetry/core/-/core-2.3.0.tgz"
+          "url": "https://registry.npmjs.org/@opentelemetry/core/-/core-2.5.0.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "3dc9b1250cecdf571f0f4476744f7560615c2f1392378071cfb81ecf95304948c26a2f01c07fc62391dc85f56c847916753914b34a9c68f260547297529ec8dc"
+          "content": "91ae07f0e33af83954852019a4e36ed1c3c1b4f3d340ac5bc55cc2e02cd5c79f8ae099eba09541b43ccb00cc78ff70834c95d1bd5161a458ed97849a893368c9"
         }
       ],
       "licenses": [
@@ -1317,23 +1317,23 @@
       ]
     },
     {
-      "bom-ref": "@opentelemetry/resources@2.3.0",
+      "bom-ref": "@opentelemetry/resources@2.5.0",
       "type": "library",
       "name": "@opentelemetry/resources",
-      "version": "2.3.0",
+      "version": "2.5.0",
       "scope": "required",
-      "purl": "pkg:npm/%40opentelemetry/resources@2.3.0",
+      "purl": "pkg:npm/%40opentelemetry/resources@2.5.0",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@opentelemetry/resources/-/resources-2.3.0.tgz"
+          "url": "https://registry.npmjs.org/@opentelemetry/resources/-/resources-2.5.0.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "b2196bda5e60fbcec9f30a9896c2f2694b2029544eed1b57ef40a47790ad0ce5ad2266606940e67f8676a33b922902ccdb03c34744c4ff76cf541349b519bf71"
+          "content": "17c5b9d80a5e3ec869a12adfb129351f6c899fd68a8c2adba5017533d4228b4187cdb7d5785501fab7375f86a0832643f31f46bb74a5b9afacea4ae6aba0edf2"
         }
       ],
       "licenses": [
@@ -1345,23 +1345,23 @@
       ]
     },
     {
-      "bom-ref": "@opentelemetry/sdk-trace-base@2.3.0",
+      "bom-ref": "@opentelemetry/sdk-trace-base@2.5.0",
       "type": "library",
       "name": "@opentelemetry/sdk-trace-base",
-      "version": "2.3.0",
+      "version": "2.5.0",
       "scope": "required",
-      "purl": "pkg:npm/%40opentelemetry/sdk-trace-base@2.3.0",
+      "purl": "pkg:npm/%40opentelemetry/sdk-trace-base@2.5.0",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@opentelemetry/sdk-trace-base/-/sdk-trace-base-2.3.0.tgz"
+          "url": "https://registry.npmjs.org/@opentelemetry/sdk-trace-base/-/sdk-trace-base-2.5.0.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "0744d0d9ef61d044e3a48f9e1a60b3f0e8dbfa59d89acd121378c5c042ab37f3cae1a4951d4dbc0009a73a80667ee6fe2378df80fc2f0c98289810396bb41e85"
+          "content": "57345ff0bce8b40484c8d0d4c5375a27d211275fe1ebdd96c80ac30489dfe69b8b0a3c5b2020fa5e41e0a6eb9d8ace7a1277724bb2d8166b53327cba50004d75"
         }
       ],
       "licenses": [
@@ -1373,23 +1373,23 @@
       ]
     },
     {
-      "bom-ref": "@opentelemetry/semantic-conventions@1.38.0",
+      "bom-ref": "@opentelemetry/semantic-conventions@1.39.0",
       "type": "library",
       "name": "@opentelemetry/semantic-conventions",
-      "version": "1.38.0",
+      "version": "1.39.0",
       "scope": "required",
-      "purl": "pkg:npm/%40opentelemetry/semantic-conventions@1.38.0",
+      "purl": "pkg:npm/%40opentelemetry/semantic-conventions@1.39.0",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@opentelemetry/semantic-conventions/-/semantic-conventions-1.38.0.tgz"
+          "url": "https://registry.npmjs.org/@opentelemetry/semantic-conventions/-/semantic-conventions-1.39.0.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "9287238b1fbfb128207c98705ea0a56778bd63f308d1fa7b6fe83b902466ea9b32d9db1ff2e0294d1725c06d7c87c02f9bb0bdf9f9edf8edfa3eca49fcece85a"
+          "content": "47947db5bd805ecd8844b34a2c1243ca78647e6c7b997d2f8bc3648596f781490f5879fa1d793927c890fddaa5d14dc0a5f5b29b89175e60434463bea1e39f8e"
         }
       ],
       "licenses": [
@@ -2241,23 +2241,23 @@
       ]
     },
     {
-      "bom-ref": "cjs-module-lexer@1.4.3",
+      "bom-ref": "cjs-module-lexer@2.2.0",
       "type": "library",
       "name": "cjs-module-lexer",
-      "version": "1.4.3",
+      "version": "2.2.0",
       "scope": "required",
-      "purl": "pkg:npm/cjs-module-lexer@1.4.3",
+      "purl": "pkg:npm/cjs-module-lexer@2.2.0",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/cjs-module-lexer/-/cjs-module-lexer-1.4.3.tgz"
+          "url": "https://registry.npmjs.org/cjs-module-lexer/-/cjs-module-lexer-2.2.0.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "f73f1365a18cd697ecc18797ad4a733eb931f149d661d849725b2260c9bac7fc39fa737ef137ff2e70207cb1900a6e7da803b153c5b01c4ab6bcdc05ea2e23f9"
+          "content": "e1b1d34b662ecd4beda0b8ddcbef7cca46cd0798d2d3ed3b12f14d5deaea65027cf45ec323a113ece428fc726e5ba2b4695b0a03d863f7f4556f691054eacf0d"
         }
       ],
       "licenses": [
@@ -2463,23 +2463,23 @@
       ]
     },
     {
-      "bom-ref": "import-in-the-middle@2.0.1",
+      "bom-ref": "import-in-the-middle@2.0.5",
       "type": "library",
       "name": "import-in-the-middle",
-      "version": "2.0.1",
+      "version": "2.0.5",
       "scope": "required",
-      "purl": "pkg:npm/import-in-the-middle@2.0.1",
+      "purl": "pkg:npm/import-in-the-middle@2.0.5",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/import-in-the-middle/-/import-in-the-middle-2.0.1.tgz"
+          "url": "https://registry.npmjs.org/import-in-the-middle/-/import-in-the-middle-2.0.5.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "6ebb8ca49ef1cfef63c06cebc0485682f46b94a4580910c1adf53ebabdc571ab185cb243c53aee27fffc8363688fe405c9105ea9ba63f01867e056f0e878ef84"
+          "content": "d089c7f7fe280c2051cd65e1a4eaaeb2ca4b06b55f2b5bcfbdb9fd5b197c0c043ccb2c797d62511132024b092200c6989ed8c900c04fd51e01e9c42711461510"
         }
       ],
       "licenses": [
@@ -2799,23 +2799,23 @@
       ]
     },
     {
-      "bom-ref": "pg-protocol@1.10.3",
+      "bom-ref": "pg-protocol@1.11.0",
       "type": "library",
       "name": "pg-protocol",
-      "version": "1.10.3",
+      "version": "1.11.0",
       "scope": "required",
-      "purl": "pkg:npm/pg-protocol@1.10.3",
+      "purl": "pkg:npm/pg-protocol@1.11.0",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/pg-protocol/-/pg-protocol-1.10.3.tgz"
+          "url": "https://registry.npmjs.org/pg-protocol/-/pg-protocol-1.11.0.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "e8320180141a4ca0c9cb19d768b88b47cc01a5041c196b80112911057fede8ec00f18b2a3fe8954a2a27776103cba63f76c1a4f2b87f8ed6b1de3b3935e57b25"
+          "content": "a5fb3193633d33706e1a00ce7eecb7ed5351457de398a80c8dcbc0716a8d0e96527f87149aff0748e97956245016c7c04459f42ae5104e02f154c6cdab9356de"
         }
       ],
       "licenses": [
@@ -3436,14 +3436,14 @@
       ]
     },
     {
-      "bom-ref": "@hellpig/anarchy-engine@21.3.1",
+      "bom-ref": "@hellpig/anarchy-engine@21.4.0",
       "type": "library",
       "name": "anarchy-engine",
-      "version": "21.3.1",
+      "version": "21.4.0",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Engine – a 3D game engine for web, desktop and mobile platforms. Built around three.js",
-      "purl": "pkg:npm/%40hellpig/anarchy-engine@21.3.1",
+      "purl": "pkg:npm/%40hellpig/anarchy-engine@21.4.0",
       "properties": [],
       "externalReferences": [
         {
@@ -3496,14 +3496,14 @@
       ]
     },
     {
-      "bom-ref": "@hellpig/anarchy-i18n@1.3.1",
+      "bom-ref": "@hellpig/anarchy-i18n@1.4.0",
       "type": "library",
       "name": "anarchy-i18n",
-      "version": "1.3.1",
+      "version": "1.4.0",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy-I18n – a library for internationalization in Anarchy Engine.",
-      "purl": "pkg:npm/%40hellpig/anarchy-i18n@1.3.1",
+      "purl": "pkg:npm/%40hellpig/anarchy-i18n@1.4.0",
       "properties": [],
       "externalReferences": [
         {
@@ -3528,14 +3528,14 @@
       ]
     },
     {
-      "bom-ref": "@hellpig/anarchy-legal@1.11.1",
+      "bom-ref": "@hellpig/anarchy-legal@1.12.1",
       "type": "library",
       "name": "anarchy-legal",
-      "version": "1.11.1",
+      "version": "1.12.1",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy-legal – a library for generating legal files for Anarchy Engine.",
-      "purl": "pkg:npm/%40hellpig/anarchy-legal@1.11.1",
+      "purl": "pkg:npm/%40hellpig/anarchy-legal@1.12.1",
       "properties": [],
       "externalReferences": [
         {
@@ -3560,14 +3560,14 @@
       ]
     },
     {
-      "bom-ref": "@hellpig/anarchy-shared@1.5.2",
+      "bom-ref": "@hellpig/anarchy-shared@1.6.0",
       "type": "library",
       "name": "anarchy-shared",
-      "version": "1.5.2",
+      "version": "1.6.0",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy-shared – a library with shared utilities and scripts for Anarchy Engine.",
-      "purl": "pkg:npm/%40hellpig/anarchy-shared@1.5.2",
+      "purl": "pkg:npm/%40hellpig/anarchy-shared@1.6.0",
       "properties": [],
       "externalReferences": [
         {
@@ -3592,14 +3592,14 @@
       ]
     },
     {
-      "bom-ref": "@hellpig/anarchy-tracking@1.6.1",
+      "bom-ref": "@hellpig/anarchy-tracking@1.7.0",
       "type": "library",
       "name": "anarchy-tracking",
-      "version": "1.6.1",
+      "version": "1.7.0",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy-Tracking – a library error monitoring in Anarchy Engine's based projects.",
-      "purl": "pkg:npm/%40hellpig/anarchy-tracking@1.6.1",
+      "purl": "pkg:npm/%40hellpig/anarchy-tracking@1.7.0",
       "properties": [],
       "externalReferences": [
         {
@@ -3776,14 +3776,14 @@
     {
       "ref": "anarchy-monorepo@2.1.5",
       "dependsOn": [
-        "showcases-core@2.19.1",
-        "showcases-desktop@2.12.6",
+        "showcases-core@2.19.2",
+        "showcases-desktop@2.12.7",
         "showcases-e2e@1.1.3",
-        "@hellpig/anarchy-engine@21.3.1",
-        "@hellpig/anarchy-i18n@1.3.1",
-        "@hellpig/anarchy-legal@1.11.1",
-        "@hellpig/anarchy-shared@1.5.2",
-        "@hellpig/anarchy-tracking@1.6.1",
+        "@hellpig/anarchy-engine@21.4.0",
+        "@hellpig/anarchy-i18n@1.4.0",
+        "@hellpig/anarchy-legal@1.12.1",
+        "@hellpig/anarchy-shared@1.6.0",
+        "@hellpig/anarchy-tracking@1.7.0",
         "showcases-gui@1.1.6",
         "showcases-i18n@1.4.4",
         "showcases-menu@1.8.8",
@@ -3791,12 +3791,12 @@
       ]
     },
     {
-      "ref": "showcases-core@2.19.1",
+      "ref": "showcases-core@2.19.2",
       "dependsOn": [
-        "@hellpig/anarchy-engine@21.3.1",
-        "@hellpig/anarchy-i18n@1.3.1",
-        "@hellpig/anarchy-shared@1.5.2",
-        "@hellpig/anarchy-tracking@1.6.1",
+        "@hellpig/anarchy-engine@21.4.0",
+        "@hellpig/anarchy-i18n@1.4.0",
+        "@hellpig/anarchy-shared@1.6.0",
+        "@hellpig/anarchy-tracking@1.7.0",
         "dexie@4.2.1",
         "lil-gui@0.21.0",
         "sanitize.css@13.0.0",
@@ -3809,12 +3809,12 @@
       ]
     },
     {
-      "ref": "showcases-desktop@2.12.6",
-      "dependsOn": ["@hellpig/anarchy-shared@1.5.2", "showcases-core@2.19.1", "showcases-shared@1.7.3"]
+      "ref": "showcases-desktop@2.12.7",
+      "dependsOn": ["@hellpig/anarchy-shared@1.6.0", "showcases-core@2.19.2", "showcases-shared@1.7.3"]
     },
     {
       "ref": "showcases-e2e@1.1.3",
-      "dependsOn": ["@hellpig/anarchy-engine@21.3.1", "@hellpig/anarchy-shared@1.5.2"]
+      "dependsOn": ["@hellpig/anarchy-engine@21.4.0", "@hellpig/anarchy-shared@1.6.0"]
     },
     {
       "ref": "@apm-js-collab/code-transformer@0.8.2",
@@ -3873,24 +3873,24 @@
       "dependsOn": []
     },
     {
-      "ref": "@opentelemetry/context-async-hooks@2.3.0",
+      "ref": "@opentelemetry/context-async-hooks@2.5.0",
       "dependsOn": []
     },
     {
-      "ref": "@opentelemetry/core@2.3.0",
-      "dependsOn": ["@opentelemetry/semantic-conventions@1.38.0"]
+      "ref": "@opentelemetry/core@2.5.0",
+      "dependsOn": ["@opentelemetry/semantic-conventions@1.39.0"]
     },
     {
       "ref": "@opentelemetry/instrumentation@0.208.0",
-      "dependsOn": ["@opentelemetry/api-logs@0.208.0", "import-in-the-middle@2.0.1", "require-in-the-middle@8.0.1"]
+      "dependsOn": ["@opentelemetry/api-logs@0.208.0", "import-in-the-middle@2.0.5", "require-in-the-middle@8.0.1"]
     },
     {
       "ref": "@opentelemetry/instrumentation-amqplib@0.55.0",
-      "dependsOn": ["@opentelemetry/core@2.3.0", "@opentelemetry/instrumentation@0.208.0"]
+      "dependsOn": ["@opentelemetry/core@2.5.0", "@opentelemetry/instrumentation@0.208.0"]
     },
     {
       "ref": "@opentelemetry/instrumentation-connect@0.52.0",
-      "dependsOn": ["@opentelemetry/core@2.3.0", "@opentelemetry/instrumentation@0.208.0", "@opentelemetry/semantic-conventions@1.38.0", "@types/connect@3.4.38"]
+      "dependsOn": ["@opentelemetry/core@2.5.0", "@opentelemetry/instrumentation@0.208.0", "@opentelemetry/semantic-conventions@1.39.0", "@types/connect@3.4.38"]
     },
     {
       "ref": "@opentelemetry/instrumentation-dataloader@0.26.0",
@@ -3898,11 +3898,11 @@
     },
     {
       "ref": "@opentelemetry/instrumentation-express@0.57.0",
-      "dependsOn": ["@opentelemetry/core@2.3.0", "@opentelemetry/instrumentation@0.208.0", "@opentelemetry/semantic-conventions@1.38.0"]
+      "dependsOn": ["@opentelemetry/core@2.5.0", "@opentelemetry/instrumentation@0.208.0", "@opentelemetry/semantic-conventions@1.39.0"]
     },
     {
       "ref": "@opentelemetry/instrumentation-fs@0.28.0",
-      "dependsOn": ["@opentelemetry/core@2.3.0", "@opentelemetry/instrumentation@0.208.0"]
+      "dependsOn": ["@opentelemetry/core@2.5.0", "@opentelemetry/instrumentation@0.208.0"]
     },
     {
       "ref": "@opentelemetry/instrumentation-generic-pool@0.52.0",
@@ -3914,15 +3914,15 @@
     },
     {
       "ref": "@opentelemetry/instrumentation-hapi@0.55.0",
-      "dependsOn": ["@opentelemetry/core@2.3.0", "@opentelemetry/instrumentation@0.208.0", "@opentelemetry/semantic-conventions@1.38.0"]
+      "dependsOn": ["@opentelemetry/core@2.5.0", "@opentelemetry/instrumentation@0.208.0", "@opentelemetry/semantic-conventions@1.39.0"]
     },
     {
       "ref": "@opentelemetry/instrumentation-http@0.208.0",
-      "dependsOn": ["@opentelemetry/core@2.2.0", "@opentelemetry/instrumentation@0.208.0", "@opentelemetry/semantic-conventions@1.38.0", "forwarded-parse@2.1.2"]
+      "dependsOn": ["@opentelemetry/core@2.2.0", "@opentelemetry/instrumentation@0.208.0", "@opentelemetry/semantic-conventions@1.39.0", "forwarded-parse@2.1.2"]
     },
     {
       "ref": "@opentelemetry/core@2.2.0",
-      "dependsOn": ["@opentelemetry/semantic-conventions@1.38.0"]
+      "dependsOn": ["@opentelemetry/semantic-conventions@1.39.0"]
     },
     {
       "ref": "@opentelemetry/instrumentation-ioredis@0.56.0",
@@ -3930,15 +3930,15 @@
     },
     {
       "ref": "@opentelemetry/instrumentation-kafkajs@0.18.0",
-      "dependsOn": ["@opentelemetry/instrumentation@0.208.0", "@opentelemetry/semantic-conventions@1.38.0"]
+      "dependsOn": ["@opentelemetry/instrumentation@0.208.0", "@opentelemetry/semantic-conventions@1.39.0"]
     },
     {
       "ref": "@opentelemetry/instrumentation-knex@0.53.0",
-      "dependsOn": ["@opentelemetry/instrumentation@0.208.0", "@opentelemetry/semantic-conventions@1.38.0"]
+      "dependsOn": ["@opentelemetry/instrumentation@0.208.0", "@opentelemetry/semantic-conventions@1.39.0"]
     },
     {
       "ref": "@opentelemetry/instrumentation-koa@0.57.0",
-      "dependsOn": ["@opentelemetry/core@2.3.0", "@opentelemetry/instrumentation@0.208.0", "@opentelemetry/semantic-conventions@1.38.0"]
+      "dependsOn": ["@opentelemetry/core@2.5.0", "@opentelemetry/instrumentation@0.208.0", "@opentelemetry/semantic-conventions@1.39.0"]
     },
     {
       "ref": "@opentelemetry/instrumentation-lru-memoizer@0.53.0",
@@ -3950,7 +3950,7 @@
     },
     {
       "ref": "@opentelemetry/instrumentation-mongoose@0.55.0",
-      "dependsOn": ["@opentelemetry/core@2.3.0", "@opentelemetry/instrumentation@0.208.0"]
+      "dependsOn": ["@opentelemetry/core@2.5.0", "@opentelemetry/instrumentation@0.208.0"]
     },
     {
       "ref": "@opentelemetry/instrumentation-mysql@0.54.0",
@@ -3958,14 +3958,14 @@
     },
     {
       "ref": "@opentelemetry/instrumentation-mysql2@0.55.0",
-      "dependsOn": ["@opentelemetry/instrumentation@0.208.0", "@opentelemetry/semantic-conventions@1.38.0", "@opentelemetry/sql-common@0.41.2"]
+      "dependsOn": ["@opentelemetry/instrumentation@0.208.0", "@opentelemetry/semantic-conventions@1.39.0", "@opentelemetry/sql-common@0.41.2"]
     },
     {
       "ref": "@opentelemetry/instrumentation-pg@0.61.0",
       "dependsOn": [
-        "@opentelemetry/core@2.3.0",
+        "@opentelemetry/core@2.5.0",
         "@opentelemetry/instrumentation@0.208.0",
-        "@opentelemetry/semantic-conventions@1.38.0",
+        "@opentelemetry/semantic-conventions@1.39.0",
         "@opentelemetry/sql-common@0.41.2",
         "@types/pg@8.15.6",
         "@types/pg-pool@2.0.6"
@@ -3973,7 +3973,7 @@
     },
     {
       "ref": "@opentelemetry/instrumentation-redis@0.57.0",
-      "dependsOn": ["@opentelemetry/instrumentation@0.208.0", "@opentelemetry/redis-common@0.38.2", "@opentelemetry/semantic-conventions@1.38.0"]
+      "dependsOn": ["@opentelemetry/instrumentation@0.208.0", "@opentelemetry/redis-common@0.38.2", "@opentelemetry/semantic-conventions@1.39.0"]
     },
     {
       "ref": "@opentelemetry/instrumentation-tedious@0.27.0",
@@ -3981,27 +3981,27 @@
     },
     {
       "ref": "@opentelemetry/instrumentation-undici@0.19.0",
-      "dependsOn": ["@opentelemetry/core@2.3.0", "@opentelemetry/instrumentation@0.208.0", "@opentelemetry/semantic-conventions@1.38.0"]
+      "dependsOn": ["@opentelemetry/core@2.5.0", "@opentelemetry/instrumentation@0.208.0", "@opentelemetry/semantic-conventions@1.39.0"]
     },
     {
       "ref": "@opentelemetry/redis-common@0.38.2",
       "dependsOn": []
     },
     {
-      "ref": "@opentelemetry/resources@2.3.0",
-      "dependsOn": ["@opentelemetry/core@2.3.0", "@opentelemetry/semantic-conventions@1.38.0"]
+      "ref": "@opentelemetry/resources@2.5.0",
+      "dependsOn": ["@opentelemetry/core@2.5.0", "@opentelemetry/semantic-conventions@1.39.0"]
     },
     {
-      "ref": "@opentelemetry/sdk-trace-base@2.3.0",
-      "dependsOn": ["@opentelemetry/core@2.3.0", "@opentelemetry/resources@2.3.0", "@opentelemetry/semantic-conventions@1.38.0"]
+      "ref": "@opentelemetry/sdk-trace-base@2.5.0",
+      "dependsOn": ["@opentelemetry/core@2.5.0", "@opentelemetry/resources@2.5.0", "@opentelemetry/semantic-conventions@1.39.0"]
     },
     {
-      "ref": "@opentelemetry/semantic-conventions@1.38.0",
+      "ref": "@opentelemetry/semantic-conventions@1.39.0",
       "dependsOn": []
     },
     {
       "ref": "@opentelemetry/sql-common@0.41.2",
-      "dependsOn": ["@opentelemetry/core@2.3.0"]
+      "dependsOn": ["@opentelemetry/core@2.5.0"]
     },
     {
       "ref": "@prisma/instrumentation@6.19.0",
@@ -4062,8 +4062,8 @@
     {
       "ref": "@sentry/node@10.29.0",
       "dependsOn": [
-        "@opentelemetry/context-async-hooks@2.3.0",
-        "@opentelemetry/core@2.3.0",
+        "@opentelemetry/context-async-hooks@2.5.0",
+        "@opentelemetry/core@2.5.0",
         "@opentelemetry/instrumentation@0.208.0",
         "@opentelemetry/instrumentation-amqplib@0.55.0",
         "@opentelemetry/instrumentation-connect@0.52.0",
@@ -4087,38 +4087,38 @@
         "@opentelemetry/instrumentation-redis@0.57.0",
         "@opentelemetry/instrumentation-tedious@0.27.0",
         "@opentelemetry/instrumentation-undici@0.19.0",
-        "@opentelemetry/resources@2.3.0",
-        "@opentelemetry/sdk-trace-base@2.3.0",
-        "@opentelemetry/semantic-conventions@1.38.0",
+        "@opentelemetry/resources@2.5.0",
+        "@opentelemetry/sdk-trace-base@2.5.0",
+        "@opentelemetry/semantic-conventions@1.39.0",
         "@prisma/instrumentation@6.19.0",
         "@sentry/core@10.29.0",
         "@sentry/node-core@10.29.0",
         "@sentry/opentelemetry@10.29.0",
-        "import-in-the-middle@2.0.1"
+        "import-in-the-middle@2.0.5"
       ]
     },
     {
       "ref": "@sentry/node-core@10.29.0",
       "dependsOn": [
-        "@opentelemetry/context-async-hooks@2.3.0",
-        "@opentelemetry/core@2.3.0",
+        "@opentelemetry/context-async-hooks@2.5.0",
+        "@opentelemetry/core@2.5.0",
         "@opentelemetry/instrumentation@0.208.0",
-        "@opentelemetry/resources@2.3.0",
-        "@opentelemetry/sdk-trace-base@2.3.0",
-        "@opentelemetry/semantic-conventions@1.38.0",
+        "@opentelemetry/resources@2.5.0",
+        "@opentelemetry/sdk-trace-base@2.5.0",
+        "@opentelemetry/semantic-conventions@1.39.0",
         "@apm-js-collab/tracing-hooks@0.3.1",
         "@sentry/core@10.29.0",
         "@sentry/opentelemetry@10.29.0",
-        "import-in-the-middle@2.0.1"
+        "import-in-the-middle@2.0.5"
       ]
     },
     {
       "ref": "@sentry/opentelemetry@10.29.0",
       "dependsOn": [
-        "@opentelemetry/context-async-hooks@2.3.0",
-        "@opentelemetry/core@2.3.0",
-        "@opentelemetry/sdk-trace-base@2.3.0",
-        "@opentelemetry/semantic-conventions@1.38.0",
+        "@opentelemetry/context-async-hooks@2.5.0",
+        "@opentelemetry/core@2.5.0",
+        "@opentelemetry/sdk-trace-base@2.5.0",
+        "@opentelemetry/semantic-conventions@1.39.0",
         "@sentry/core@10.29.0"
       ]
     },
@@ -4132,7 +4132,7 @@
     },
     {
       "ref": "@types/pg@8.15.6",
-      "dependsOn": ["pg-protocol@1.10.3", "pg-types@2.2.0"]
+      "dependsOn": ["pg-protocol@1.11.0", "pg-types@2.2.0"]
     },
     {
       "ref": "@types/pg-pool@2.0.6",
@@ -4171,7 +4171,7 @@
       "dependsOn": []
     },
     {
-      "ref": "cjs-module-lexer@1.4.3",
+      "ref": "cjs-module-lexer@2.2.0",
       "dependsOn": []
     },
     {
@@ -4203,8 +4203,8 @@
       "dependsOn": []
     },
     {
-      "ref": "import-in-the-middle@2.0.1",
-      "dependsOn": ["acorn-import-attributes@1.9.5", "cjs-module-lexer@1.4.3", "module-details-from-path@1.0.4"]
+      "ref": "import-in-the-middle@2.0.5",
+      "dependsOn": ["acorn-import-attributes@1.9.5", "cjs-module-lexer@2.2.0", "module-details-from-path@1.0.4"]
     },
     {
       "ref": "intl-messageformat@11.0.7",
@@ -4251,7 +4251,7 @@
       "dependsOn": []
     },
     {
-      "ref": "pg-protocol@1.10.3",
+      "ref": "pg-protocol@1.11.0",
       "dependsOn": []
     },
     {
@@ -4343,11 +4343,11 @@
       "dependsOn": []
     },
     {
-      "ref": "@hellpig/anarchy-engine@21.3.1",
+      "ref": "@hellpig/anarchy-engine@21.4.0",
       "dependsOn": [
         "@cfworker/json-schema@4.1.1",
         "@dimforge/rapier3d@0.19.3",
-        "@hellpig/anarchy-shared@1.5.2",
+        "@hellpig/anarchy-shared@1.6.0",
         "lodash-es@4.17.22",
         "nanoid@5.1.6",
         "rbush@4.0.1",
@@ -4362,27 +4362,27 @@
       "dependsOn": []
     },
     {
-      "ref": "@hellpig/anarchy-i18n@1.3.1",
+      "ref": "@hellpig/anarchy-i18n@1.4.0",
       "dependsOn": ["@formatjs/intl@4.0.7"]
     },
     {
-      "ref": "@hellpig/anarchy-legal@1.11.1",
+      "ref": "@hellpig/anarchy-legal@1.12.1",
       "dependsOn": []
     },
     {
-      "ref": "@hellpig/anarchy-shared@1.5.2",
+      "ref": "@hellpig/anarchy-shared@1.6.0",
       "dependsOn": ["bowser@2.13.1"]
     },
     {
-      "ref": "@hellpig/anarchy-tracking@1.6.1",
+      "ref": "@hellpig/anarchy-tracking@1.7.0",
       "dependsOn": ["@sentry/browser@10.32.1", "@sentry/electron@7.5.0"]
     },
     {
       "ref": "showcases-gui@1.1.6",
       "dependsOn": [
-        "@hellpig/anarchy-engine@21.3.1",
-        "@hellpig/anarchy-i18n@1.3.1",
-        "@hellpig/anarchy-shared@1.5.2",
+        "@hellpig/anarchy-engine@21.4.0",
+        "@hellpig/anarchy-i18n@1.4.0",
+        "@hellpig/anarchy-shared@1.6.0",
         "lucide-vue-next@0.562.0",
         "nanoid@5.1.6",
         "sanitize.css@13.0.0",
@@ -4393,14 +4393,14 @@
     },
     {
       "ref": "showcases-i18n@1.4.4",
-      "dependsOn": ["@hellpig/anarchy-engine@21.3.1", "@hellpig/anarchy-i18n@1.3.1", "@hellpig/anarchy-shared@1.5.2", "sort-json@2.0.1", "vue-i18n@11.2.7"]
+      "dependsOn": ["@hellpig/anarchy-engine@21.4.0", "@hellpig/anarchy-i18n@1.4.0", "@hellpig/anarchy-shared@1.6.0", "sort-json@2.0.1", "vue-i18n@11.2.7"]
     },
     {
       "ref": "showcases-menu@1.8.8",
       "dependsOn": [
-        "@hellpig/anarchy-engine@21.3.1",
-        "@hellpig/anarchy-i18n@1.3.1",
-        "@hellpig/anarchy-shared@1.5.2",
+        "@hellpig/anarchy-engine@21.4.0",
+        "@hellpig/anarchy-i18n@1.4.0",
+        "@hellpig/anarchy-shared@1.6.0",
         "marked@17.0.1",
         "pinia@3.0.4",
         "sanitize.css@13.0.0",

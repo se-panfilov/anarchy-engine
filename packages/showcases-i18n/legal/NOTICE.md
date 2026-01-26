@@ -33,7 +33,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @babel/parser@7.28.5
+## @babel/parser@7.28.6
 
 **License(s):** MIT
 
@@ -45,7 +45,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @babel/types@7.28.5
+## @babel/types@7.28.6
 
 **License(s):** MIT
 
@@ -149,7 +149,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-engine@21.3.1
+## @hellpig/anarchy-engine@21.4.0
 
 **License(s):** MIT
 
@@ -161,7 +161,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-i18n@1.3.1
+## @hellpig/anarchy-i18n@1.4.0
 
 **License(s):** MIT
 
@@ -173,7 +173,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-shared@1.5.2
+## @hellpig/anarchy-shared@1.6.0
 
 **License(s):** MIT
 
@@ -413,7 +413,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## entities@7.0.0
+## entities@7.0.1
 
 **License(s):** BSD-2-Clause
 

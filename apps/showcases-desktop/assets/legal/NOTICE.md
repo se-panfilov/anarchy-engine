@@ -5,13 +5,13 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 207
+Components listed: 208
 
 ## 1) Mandatory Attributions (verbatim)
 
 The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
 
-## @acemir/cssom@0.9.30
+## @acemir/cssom@0.9.31
 
 **License(s):** MIT
 
@@ -99,7 +99,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @babel/parser@7.28.5
+## @babel/parser@7.28.6
 
 **License(s):** MIT
 
@@ -111,7 +111,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @babel/types@7.28.5
+## @babel/types@7.28.6
 
 **License(s):** MIT
 
@@ -183,7 +183,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.24
+## @csstools/css-syntax-patches-for-csstree@1.0.26
 
 **License(s):** MIT-0
 
@@ -219,7 +219,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @exodus/bytes@1.8.0
+## @exodus/bytes@1.9.0
 
 **License(s):** MIT
 
@@ -299,7 +299,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-engine@21.3.1
+## @hellpig/anarchy-engine@21.4.0
 
 **License(s):** MIT
 
@@ -311,7 +311,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-i18n@1.3.1
+## @hellpig/anarchy-i18n@1.4.0
 
 **License(s):** MIT
 
@@ -323,7 +323,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-shared@1.5.2
+## @hellpig/anarchy-shared@1.6.0
 
 **License(s):** MIT
 
@@ -335,7 +335,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-tracking@1.6.1
+## @hellpig/anarchy-tracking@1.7.0
 
 **License(s):** MIT
 
@@ -419,7 +419,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/context-async-hooks@2.3.0
+## @opentelemetry/context-async-hooks@2.5.0
 
 **License(s):** Apache-2.0
 
@@ -443,7 +443,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/core@2.3.0
+## @opentelemetry/core@2.5.0
 
 **License(s):** Apache-2.0
 
@@ -743,7 +743,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/resources@2.3.0
+## @opentelemetry/resources@2.5.0
 
 **License(s):** Apache-2.0
 
@@ -755,7 +755,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/sdk-trace-base@2.3.0
+## @opentelemetry/sdk-trace-base@2.5.0
 
 **License(s):** Apache-2.0
 
@@ -767,7 +767,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/semantic-conventions@1.38.0
+## @opentelemetry/semantic-conventions@1.39.0
 
 **License(s):** Apache-2.0
 
@@ -1315,7 +1315,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## cjs-module-lexer@1.4.3
+## cjs-module-lexer@2.2.0
 
 **License(s):** MIT
 
@@ -1369,7 +1369,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## data-urls@6.0.0
+## data-urls@6.0.1
 
 **License(s):** MIT
 
@@ -1475,7 +1475,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## entities@7.0.0
+## entities@7.0.1
 
 **License(s):** BSD-2-Clause
 
@@ -1547,7 +1547,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## import-in-the-middle@2.0.1
+## import-in-the-middle@2.0.5
 
 **License(s):** Apache-2.0
 
@@ -1639,11 +1639,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## lru-cache@11.2.4
+## lru-cache@11.2.5
 
 **License(s):** BlueOak-1.0.0
 
-**Repository:** git://github.com/isaacs/node-lru-cache.git
+**Repository:** git+ssh://git@github.com/isaacs/node-lru-cache.git
 
 **Attribution:** copyright in it.
 
@@ -1803,7 +1803,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## pg-protocol@1.10.3
+## pg-protocol@1.11.0
 
 **License(s):** MIT
 
@@ -2001,7 +2001,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-core@2.19.1
+## showcases-core@2.19.2
 
 **License(s):** MIT
 
@@ -2318,6 +2318,16 @@ The following notices are reproduced as provided by the respective licensors (e.
 ---
 
 ## whatwg-mimetype@4.0.0
+
+**License(s):** MIT
+
+**Repository:** jsdom/whatwg-mimetype
+
+**Attribution:** Copyright © Domenic Denicola <d@domenic.me>
+
+---
+
+## whatwg-mimetype@5.0.0
 
 **License(s):** MIT
 
