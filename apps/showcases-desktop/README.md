@@ -31,4 +31,4 @@ SOFTWARE.
 See local files `LICENSE`, `CHANGELOG`, `NOTICE` (pointer), and files in `./legal`:
 `DISCLAIMER`, `EULA`, `PRIVACY`, `SECURITY`, `EU_DECLARATION_OF_CONFORMITY`, `INSTRUCTIONS`, `SUPPORT`, `THIRD_PARTY_LICENSES`, `NOTICE` (full), `sbom/`.
 
-Contacts — Privacy: {{PRIVACY_EMAIL}}, Security: {{SECURITY_EMAIL}}.
+Contacts — Privacy: pnf036+anarchy@gmail.com, Security: pnf036+anarchy_security@gmail.com.

@@ -1,11 +1,11 @@
 import type { TLocaleId } from '@Anarchy/i18n';
-import type { TResolution, TShowcaseGameSettings } from '@Showcases/Shared';
+import type { TResolution, TShowcasesGameSettings } from '@Showcases/Shared';
 
 export type TSettingsService = Readonly<{
-  applyPlatformSettings: (platformSettings: TShowcaseGameSettings) => boolean;
+  applyPlatformSettings: (platformSettings: TShowcasesGameSettings) => boolean;
   detectResolution: () => TResolution;
-  getAppSettings: () => Promise<TShowcaseGameSettings>;
+  getAppSettings: () => Promise<TShowcasesGameSettings>;
   getPreferredLocales: () => ReadonlyArray<TLocaleId>;
-  setAppSettings: (settings: TShowcaseGameSettings) => Promise<void>;
-  updateAppSettings: (settings: Partial<TShowcaseGameSettings>) => Promise<TShowcaseGameSettings>;
+  setAppSettings: (settings: TShowcasesGameSettings) => Promise<void>;
+  updateAppSettings: (settings: Partial<TShowcasesGameSettings>) => Promise<TShowcasesGameSettings>;
 }>;

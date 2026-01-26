@@ -1,21 +1,21 @@
 import type { TLocaleId } from '@Anarchy/i18n';
 import type { TBrowserInfo } from '@Anarchy/Shared/Models';
-import type { TDistName, TLegalDoc, TLoadDocPayload, TReleaseName, TShowcaseGameSettings } from '@Showcases/Shared';
+import type { TDistName, TLegalDoc, TLoadDocPayload, TReleaseName, TShowcasesGameSettings } from '@Showcases/Shared';
 import { platformApiName } from '@Showcases/Shared';
 
 import type { TPlatformDriver } from '@/Models';
 
 export function Driver(): TPlatformDriver {
-  let cachedAppSettings: TShowcaseGameSettings | undefined;
+  let cachedAppSettings: TShowcasesGameSettings | undefined;
 
   const closeApp = (): void => window[platformApiName].closeApp();
-  const getAppSettings = (): Promise<TShowcaseGameSettings> => {
-    const settingsPromise: Promise<TShowcaseGameSettings> = window[platformApiName].getAppSettings();
-    settingsPromise.then((settings: TShowcaseGameSettings) => (cachedAppSettings = settings));
+  const getAppSettings = (): Promise<TShowcasesGameSettings> => {
+    const settingsPromise: Promise<TShowcasesGameSettings> = window[platformApiName].getAppSettings();
+    settingsPromise.then((settings: TShowcasesGameSettings) => (cachedAppSettings = settings));
     return settingsPromise;
   };
   const getBrowserInfo = (): TBrowserInfo => window[platformApiName].getBrowserInfo();
-  const getCachedAppSettings = (): TShowcaseGameSettings | undefined => cachedAppSettings;
+  const getCachedAppSettings = (): TShowcasesGameSettings | undefined => cachedAppSettings;
   const getDistName = (): Promise<TDistName> => window[platformApiName].getDistName();
   const getLegalDocs = (options: TLoadDocPayload): Promise<TLegalDoc> => window[platformApiName].getLegalDocs(options);
   const getNodeVersion = (): string => window[platformApiName].node();
@@ -25,7 +25,7 @@ export function Driver(): TPlatformDriver {
   const getReleaseName = (): Promise<TReleaseName> => window[platformApiName].getReleaseName();
   const getWrappedAppVersion = (): Promise<string> => window[platformApiName].desktopAppVersion();
   const restartApp = (): void => window[platformApiName].restartApp();
-  const setAppSettings = (settings: TShowcaseGameSettings): Promise<void> => {
+  const setAppSettings = (settings: TShowcasesGameSettings): Promise<void> => {
     cachedAppSettings = settings;
     return window[platformApiName].setAppSettings(settings);
   };

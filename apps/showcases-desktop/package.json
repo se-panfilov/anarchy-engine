@@ -2,7 +2,7 @@
   "name": "showcases-desktop",
   "author": "S. Panfilov",
   "private": true,
-  "version": "2.12.7",
+  "version": "2.12.8",
   "description": "Anarchy Desktop Showcases  – a desktop wrapper-application for showcases-core.",
   "keywords": [
     "anarchy",
@@ -173,7 +173,7 @@
         "tar.gz"
       ],
       "icon": "assets/icon.png",
-      "maintainer": "ADD YOUR NAME <ADD YOUR EMAIL>",
+      "maintainer": "Sergei Panfilov <pnf036+anarchy@gmail.com>",
       "synopsis": "ADD YOUR GAME SYNOPSIS",
       "description": "ADD YOUR GAME DESCRIPTION",
       "category": "Game",

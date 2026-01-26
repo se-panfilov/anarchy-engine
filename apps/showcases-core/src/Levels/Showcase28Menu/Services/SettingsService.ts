@@ -1,10 +1,10 @@
-import type { TShowcaseGameSettings } from '@Showcases/Shared';
+import type { TShowcasesGameSettings } from '@Showcases/Shared';
 
 import type { TSettingsService } from '@/Levels/Showcase28Menu/Models';
 import { platformApiService } from '@/Services';
 
 export function SettingsService(): TSettingsService {
-  function applyAppSettings(appSettings: TShowcaseGameSettings): boolean {
+  function applyAppSettings(appSettings: TShowcasesGameSettings): boolean {
     console.log('[SettingsService]: (NOT IMPLEMENTED) Applying app settings:', appSettings);
     //  Apply app-level settings (lang, etc.)
     //  return "true" if app restart is needed
@@ -14,7 +14,7 @@ export function SettingsService(): TSettingsService {
   const setFirstRun = (isFirstRun: boolean): Promise<void> => platformApiService.setFirstRun(isFirstRun);
 
   async function isFirstRun(): Promise<boolean> {
-    const appSettings: TShowcaseGameSettings = await platformApiService.getAppSettings();
+    const appSettings: TShowcasesGameSettings = await platformApiService.getAppSettings();
     return appSettings.internal?.isFirstRun ?? true;
   }
 

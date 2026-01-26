@@ -1261,7 +1261,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @hellpig/anarchy-engine@21.4.0
+## @hellpig/anarchy-engine@21.4.1
 
 **License:** MIT
 
@@ -1295,7 +1295,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-i18n@1.4.0
+## @hellpig/anarchy-i18n@1.4.1
 
 **License:** MIT
 
@@ -1329,7 +1329,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-shared@1.6.0
+## @hellpig/anarchy-shared@1.6.1
 
 **License:** MIT
 
@@ -1363,7 +1363,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-tracking@1.7.0
+## @hellpig/anarchy-tracking@1.7.1
 
 **License:** MIT
 
@@ -13486,7 +13486,7 @@ _No license text file found; relying on package metadata._
 
 ---
 
-## showcases-core@2.19.2
+## showcases-core@2.19.3
 
 **License:** MIT
 
@@ -13520,7 +13520,7 @@ SOFTWARE.
 
 ---
 
-## showcases-gui@1.1.6
+## showcases-gui@1.1.7
 
 **License:** MIT
 
@@ -13554,7 +13554,7 @@ SOFTWARE.
 
 ---
 
-## showcases-i18n@1.4.4
+## showcases-i18n@1.4.5
 
 **License:** MIT
 
@@ -13588,7 +13588,7 @@ SOFTWARE.
 
 ---
 
-## showcases-menu@1.8.8
+## showcases-menu@1.8.9
 
 **License:** MIT
 
@@ -13622,7 +13622,7 @@ SOFTWARE.
 
 ---
 
-## showcases-shared@1.7.3
+## showcases-shared@1.7.4
 
 **License:** MIT
 

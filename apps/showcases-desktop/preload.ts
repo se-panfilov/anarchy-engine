@@ -1,7 +1,7 @@
 import type { TLocaleId } from '@Anarchy/i18n';
 import { getBrowserInfo } from '@Anarchy/Shared/Utils';
 import { DesktopPreloadTrackingService } from '@Anarchy/Tracking/Services/DesktopPreloadTrackingService';
-import type { TDistName, TLegalDoc, TLoadDocPayload, TReleaseName, TShowcaseGameSettings, TShowcasesDesktopApi } from '@Showcases/Shared';
+import type { TDistName, TLegalDoc, TLoadDocPayload, TReleaseName, TShowcasesDesktopApi, TShowcasesGameSettings } from '@Showcases/Shared';
 import { makeDistName, platformApiChannel, platformApiName } from '@Showcases/Shared';
 import { contextBridge, ipcRenderer } from 'electron';
 
@@ -13,7 +13,7 @@ const mapping: TShowcasesDesktopApi = {
   closeApp: (): Promise<void> => ipcRenderer.invoke(platformApiChannel, AppExit),
   desktopAppVersion: async (): Promise<string> => __DESKTOP_APP_VERSION__,
   electron: (): string => process.versions.electron,
-  getAppSettings: (): Promise<TShowcaseGameSettings> => ipcRenderer.invoke(platformApiChannel, GetAppSettings),
+  getAppSettings: (): Promise<TShowcasesGameSettings> => ipcRenderer.invoke(platformApiChannel, GetAppSettings),
   getBrowserInfo,
   getDistName: async (): Promise<TDistName> => makeDistName(process.platform, process.arch),
   getLegalDocs: (options: TLoadDocPayload): Promise<TLegalDoc> => ipcRenderer.invoke(platformApiChannel, GetLegalDocs, options),
@@ -22,7 +22,7 @@ const mapping: TShowcasesDesktopApi = {
   getReleaseName: (): Promise<TReleaseName> => ipcRenderer.invoke(platformApiChannel, GetReleaseName),
   node: (): string => process.versions.node,
   restartApp: (args?: ReadonlyArray<string>): Promise<void> => ipcRenderer.invoke(platformApiChannel, AppRestart, args),
-  setAppSettings: (settings: TShowcaseGameSettings): Promise<void> => ipcRenderer.invoke(platformApiChannel, SetAppSettings, settings),
+  setAppSettings: (settings: TShowcasesGameSettings): Promise<void> => ipcRenderer.invoke(platformApiChannel, SetAppSettings, settings),
   setFirstRun: (isFirstRun: boolean): Promise<void> => ipcRenderer.invoke(platformApiChannel, UpdateAppSettings, { internal: { isFirstRun } })
 };
 
