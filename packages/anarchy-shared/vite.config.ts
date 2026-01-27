@@ -2,7 +2,6 @@
 import type { ConfigEnv, UserConfig } from 'vite';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
 import path from 'node:path';
 import { sharedAliases } from '../../vite.alias';
 import { builtinModules } from 'node:module';
@@ -26,14 +25,6 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
         exclude: ['**/*.spec.ts', '**/*.test.ts', 'vite.config.ts', 'src/Styles/OptionalStyles.ts'],
         // We don't need a root index.d.ts because package has no "." entry
         insertTypesEntry: false
-      }),
-      viteStaticCopy({
-        targets: [
-          {
-            src: 'src/assets/**/*',
-            dest: 'assets'
-          }
-        ]
       })
     ],
     build: {
