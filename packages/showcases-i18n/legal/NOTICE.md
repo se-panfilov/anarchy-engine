@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 58
+Components listed: 57
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -66,18 +66,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://github.com/cfworker/cfworker/tree/master/packages/json-schema/README.md
 
 **Attribution:** Jeremy Danyow
-
----
-
-## @dimforge/rapier3d@0.19.3
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/dimforge/rapier.js
-
-**URL:** https://rapier.rs
-
-**Attribution:** copyright notice that is included in or attached to the work
 
 ---
 
@@ -149,7 +137,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-engine@21.4.1
+## @hellpig/anarchy-engine@22.0.0
 
 **License(s):** MIT
 
@@ -161,7 +149,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-i18n@1.4.1
+## @hellpig/anarchy-i18n@1.4.2
 
 **License(s):** MIT
 

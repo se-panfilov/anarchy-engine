@@ -219,13 +219,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @exodus/bytes@1.9.0
+## @exodus/bytes@1.10.0
 
 **License(s):** MIT
 
 **Repository:** git+https://github.com/ExodusOSS/bytes.git
 
-**URL:** https://github.com/ExodusOSS/bytes#readme
+**URL:** https://github.com/ExodusOSS/bytes
 
 **Attribution:** Copyright (c) 2024-2025 Exodus Movement
 
@@ -299,7 +299,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-engine@21.4.1
+## @hellpig/anarchy-engine@22.0.0
 
 **License(s):** MIT
 
@@ -311,7 +311,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-i18n@1.4.1
+## @hellpig/anarchy-i18n@1.4.2
 
 **License(s):** MIT
 
@@ -2001,7 +2001,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-gui@1.1.7
+## showcases-gui@1.1.8
 
 **License(s):** MIT
 
@@ -2025,7 +2025,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-menu@1.8.9
+## showcases-menu@1.8.10
 
 **License(s):** MIT
 

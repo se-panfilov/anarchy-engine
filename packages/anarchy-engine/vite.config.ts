@@ -70,7 +70,16 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       },
 
       rollupOptions: {
-        external: (id: string): boolean => id.endsWith('.spec.ts') || id.endsWith('.test.ts'),
+        external: (id: string): boolean => {
+          // keep excluding tests from the lib build
+          if (id.endsWith('.spec.ts') || id.endsWith('.test.ts')) return true;
+
+          // peer deps: don't bundle into the library output
+          if (id === 'three' || id.startsWith('three/')) return true;
+          if (id === '@dimforge/rapier3d' || id.startsWith('@dimforge/rapier3d/')) return true;
+
+          return false;
+        },
         //  external: ['three', 'rxjs', '@dimforge/rapier3d'] — If you want to exclude some dependencies from the bundle
         output: {
           preserveModules: true,

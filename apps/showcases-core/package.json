@@ -2,7 +2,7 @@
   "name": "showcases-core",
   "author": "S. Panfilov",
   "private": true,
-  "version": "2.19.3",
+  "version": "2.20.0",
   "type": "module",
   "repository": {
     "type": "git",
@@ -74,6 +74,7 @@
     "ts:check:watch": "tsc --watch --noEmit"
   },
   "dependencies": {
+    "@dimforge/rapier3d": "0.19.3",
     "@hellpig/anarchy-engine": "*",
     "@hellpig/anarchy-i18n": "*",
     "@hellpig/anarchy-shared": "*",
@@ -87,6 +88,7 @@
     "showcases-menu": "*",
     "showcases-shared": "*",
     "stats.js": "0.17.0",
+    "three": "0.182.0",
     "three-viewport-gizmo": "2.2.0"
   },
   "devDependencies": {

@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 108
+Components listed: 107
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -187,25 +187,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @dimforge/rapier3d@0.19.3
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/dimforge/rapier.js
-
-**URL:** https://rapier.rs
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @exodus/bytes@1.9.0
+## @exodus/bytes@1.10.0
 
 **License(s):** MIT
 
 **Repository:** git+https://github.com/ExodusOSS/bytes.git
 
-**URL:** https://github.com/ExodusOSS/bytes#readme
+**URL:** https://github.com/ExodusOSS/bytes
 
 **Attribution:** Copyright (c) 2024-2025 Exodus Movement
 
@@ -279,7 +267,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-engine@21.4.1
+## @hellpig/anarchy-engine@22.0.0
 
 **License(s):** MIT
 
@@ -291,7 +279,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-i18n@1.4.1
+## @hellpig/anarchy-i18n@1.4.2
 
 **License(s):** MIT
 

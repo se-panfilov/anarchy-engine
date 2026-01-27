@@ -1,6 +1,6 @@
 @use '@hellpig/anarchy-shared/assets/_constants.scss' as anarchy_constants;
 //Adds dynamic font-family (changed on locale/lang change)
-@use '@hellpig/anarchy-i18n/assets/_i18n.css';
+@use '@hellpig/anarchy-i18n/assets/_i18n.scss';
 @use 'showcases-i18n/src/assets/_fonts';
 @import url(sanitize.css);
 

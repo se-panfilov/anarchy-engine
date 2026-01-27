@@ -322,13 +322,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @exodus/bytes@1.9.0
+## @exodus/bytes@1.10.0
 
 **License:** MIT
 
 **Repository:** git+https://github.com/ExodusOSS/bytes.git
 
-**URL:** https://github.com/ExodusOSS/bytes#readme
+**URL:** https://github.com/ExodusOSS/bytes
 
 **Publisher:** Exodus Movement, Inc.
 
