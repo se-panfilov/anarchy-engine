@@ -1329,7 +1329,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-shared@1.6.1
+## @hellpig/anarchy-shared@1.6.2
 
 **License:** MIT
 
