@@ -21,17 +21,6 @@
     "**/*.scss"
   ],
   "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    },
-    "./*": {
-      "types": "./dist/*.d.ts",
-      "import": "./dist/*.js"
-    },
-    "./assets/*": "./src/assets/*"
-  },
   "license": "MIT",
   "description": "Anarchy-I18n – a library for internationalization in Anarchy Engine.",
   "keywords": [
@@ -53,6 +42,17 @@
     "dist/",
     "src/assets/"
   ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
+    },
+    "./assets/*": "./src/assets/*"
+  },
   "scripts": {
     "build": "rimraf ./dist && vite build",
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/index.ts",
