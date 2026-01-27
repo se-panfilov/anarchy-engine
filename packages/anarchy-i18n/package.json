@@ -30,7 +30,7 @@
       "types": "./dist/*.d.ts",
       "import": "./dist/*.js"
     },
-    "./assets/*": "./dist/assets/*"
+    "./assets/*": "./src/assets/*"
   },
   "license": "MIT",
   "description": "Anarchy-I18n – a library for internationalization in Anarchy Engine.",
@@ -50,7 +50,8 @@
     "NOTICE.md",
     "LICENSE",
     "README.md",
-    "dist/"
+    "dist/",
+    "src/assets/"
   ],
   "scripts": {
     "build": "rimraf ./dist && vite build",
