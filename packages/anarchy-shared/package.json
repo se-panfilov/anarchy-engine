@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-shared",
   "author": "S. Panfilov",
   "private": false,
-  "version": "1.6.1",
+  "version": "1.6.2",
   "type": "module",
   "repository": {
     "type": "git",
@@ -34,7 +34,8 @@
     "LICENSE",
     "README.md",
     "dist/",
-    "ScriptUtils/"
+    "ScriptUtils/",
+    "src/assets/"
   ],
   "exports": {
     "./Utils": {
