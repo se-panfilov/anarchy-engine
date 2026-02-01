@@ -15,6 +15,7 @@ import { version as engineVersion } from '../../packages/anarchy-engine/package.
 import { version as anarchySharedVersion } from '../../packages/anarchy-shared/package.json';
 import { version as anarchyI18nVersion } from '../../packages/anarchy-i18n/package.json';
 import { version as anarchyLegalVersion } from '../../packages/anarchy-legal/package.json';
+import { version as anarchyTrackingVersion } from '../../packages/anarchy-tracking/package.json';
 import { version as showcasesI18nVersion } from '../../packages/showcases-i18n/package.json';
 import { version as showcasesMenuVersion } from '../../packages/showcases-menu/package.json';
 import { version as showcasesGuiVersion } from '../../packages/showcases-gui/package.json';
@@ -42,6 +43,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
     'anarchy-shared': anarchySharedVersion,
     'anarchy-i18n': anarchyI18nVersion,
     'anarchy-legal': anarchyLegalVersion,
+    'anarchy-tracking': anarchyTrackingVersion,
     'showcases-i18n': showcasesI18nVersion,
     'showcases-menu': showcasesMenuVersion,
     'showcases-gui': showcasesGuiVersion,
