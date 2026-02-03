@@ -3,7 +3,7 @@ import type { TActorConfig, TActorConfigToParamsDependencies, TActorParams } fro
 import { kinematicConfigToParams } from '@Anarchy/Engine/Kinematic';
 import type { TModel3d } from '@Anarchy/Engine/Models3d';
 import { spatialDataConfigToParams } from '@Anarchy/Engine/Spatial';
-import { configToParamsObject3d } from '@Anarchy/Engine/ThreeLib';
+import { object3dConfigToParams } from '@Anarchy/Engine/ThreeLib';
 import { isDefined } from '@Anarchy/Shared/Utils';
 
 export function actorConfigToParams(config: TActorConfig, dependencies: TActorConfigToParamsDependencies): TActorParams {
@@ -19,6 +19,6 @@ export function actorConfigToParams(config: TActorConfig, dependencies: TActorCo
     physicsBody: isDefined(physicsBodyName) ? dependencies.physicsBodyService.getRegistry().getByName(physicsBodyName) : undefined,
     spatial: spatialDataConfigToParams(spatial, dependencies),
     states: states ? actorStatesConfigToParams(states, dependencies) : undefined,
-    ...configToParamsObject3d({ position, rotation, scale })
+    ...object3dConfigToParams({ position, rotation, scale })
   };
 }

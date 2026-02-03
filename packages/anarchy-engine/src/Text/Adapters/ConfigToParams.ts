@@ -1,6 +1,6 @@
 import { kinematicConfigToParams } from '@Anarchy/Engine/Kinematic';
 import type { TTextConfig, TTextParams, TTextServiceDependencies } from '@Anarchy/Engine/Text/Models';
-import { configToParamsObject3d } from '@Anarchy/Engine/ThreeLib';
+import { object3dConfigToParams } from '@Anarchy/Engine/ThreeLib';
 import { isDefined } from '@Anarchy/Shared/Utils';
 import { Vector2 } from 'three';
 
@@ -10,7 +10,7 @@ export function textConfigToParams(config: TTextConfig, dependencies: TTextServi
   let result: TTextParams = {
     ...rest,
     physicsBody: isDefined(physicsBodyName) ? dependencies.physicsBodyService.getRegistry().getByName(physicsBodyName) : undefined,
-    ...configToParamsObject3d({ position, rotation, scale, layers }),
+    ...object3dConfigToParams({ position, rotation, scale, layers }),
     kinematic: kinematic ? kinematicConfigToParams(kinematic) : undefined
   };
 
