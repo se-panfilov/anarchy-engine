@@ -6,7 +6,7 @@ import { configToParamsSpatialData } from '@Anarchy/Engine/Spatial';
 import { configToParamsObject3d } from '@Anarchy/Engine/ThreeLib';
 import { isDefined } from '@Anarchy/Shared/Utils';
 
-export function configToParams(config: TActorConfig, dependencies: TActorConfigToParamsDependencies): TActorParams {
+export function actorConfigToParams(config: TActorConfig, dependencies: TActorConfigToParamsDependencies): TActorParams {
   const { position, rotation, scale, physicsBodyName, spatial, states, model3dSource, kinematic, model3dSettings, ...rest } = config;
 
   const model3d: TModel3d = dependencies.models3dService.getRegistry().getByName(model3dSource);

@@ -1,5 +1,5 @@
 import { AbstractEntity, EntityType } from '@Anarchy/Engine/Abstract';
-import { actorToConfig } from '@Anarchy/Engine/Actor/Adapters';
+import { actorEntityToConfig } from '@Anarchy/Engine/Actor/Adapters';
 import { withActorStates } from '@Anarchy/Engine/Actor/Mixins';
 import type {
   TActor,
@@ -55,7 +55,7 @@ export function Actor(
   );
 
   const actor: TActor = mergeAll(AbstractEntity(entities, EntityType.Actor, { name: params.name, tags: params.tags, id }), {
-    serialize: (dependencies: TActorEntityToConfigDependencies): TActorConfig => actorToConfig(actor, dependencies),
+    serialize: (dependencies: TActorEntityToConfigDependencies): TActorConfig => actorEntityToConfig(actor, dependencies),
     getModel3dSettings: (): TActorModel3dSettings | undefined => params.model3dSettings,
     getPhysicsBody: (): TPhysicsBody | undefined => params.physicsBody
   });
