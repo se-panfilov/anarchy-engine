@@ -3,7 +3,7 @@ import { toQuaternion } from '@Anarchy/Engine/Math';
 import { isDefined } from '@Anarchy/Shared/Utils';
 import { Quaternion, Vector3 } from 'three';
 
-export function configToParams(config: TKinematicConfig): TKinematicParams {
+export function kinematicConfigToParams(config: TKinematicConfig): TKinematicParams {
   const { state, target, ...rest } = config;
   const { linearDirection, angularDirection, ...stateRest } = state ?? {};
   const { positionThreshold, position, rotationThreshold, rotation, ...targetRest } = target ?? {};

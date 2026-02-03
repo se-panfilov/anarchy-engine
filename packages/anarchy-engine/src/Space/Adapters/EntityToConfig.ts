@@ -3,7 +3,7 @@ import type { SpaceSchemaVersion } from '@Anarchy/Engine/Space/Constants';
 import type { TSpace, TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources, TSpaceServices } from '@Anarchy/Engine/Space/Models';
 import { filterOutEmptyFieldsRecursive, isDefined } from '@Anarchy/Shared/Utils';
 
-export function spaceToConfig(
+export function spaceEntityToConfig(
   entity: TSpace,
   {
     actorService,

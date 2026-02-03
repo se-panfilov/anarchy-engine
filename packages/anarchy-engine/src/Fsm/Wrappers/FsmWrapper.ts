@@ -1,6 +1,6 @@
 import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
-import { fsmToConfig } from '@Anarchy/Engine/Fsm/Adapters';
+import { fsmEntityToConfig } from '@Anarchy/Engine/Fsm/Adapters';
 import { FsmEventsStrategy } from '@Anarchy/Engine/Fsm/Constants';
 import type { TFsmConfig, TFsmEvents, TFsmMachine, TFsmParams, TFsmStates, TFsmWrapper } from '@Anarchy/Engine/Fsm/Models';
 import type { Subscription } from 'rxjs';
@@ -81,7 +81,7 @@ export function FsmWrapper(params: TFsmParams): TFsmWrapper {
     strategy$,
     getState,
     getInitial: (): TFsmStates => params.initial,
-    serialize: (): TFsmConfig => fsmToConfig(result),
+    serialize: (): TFsmConfig => fsmEntityToConfig(result),
     getTransitions: (): ReadonlyArray<readonly [TFsmStates, TFsmEvents, TFsmStates]> => params.transitions
   });
 

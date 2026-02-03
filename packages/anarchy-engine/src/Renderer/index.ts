@@ -1,4 +1,4 @@
-export { configToParams as rendererConfigToParams } from './Adapters';
+export * from './Adapters';
 export * from './Constants';
 export * from './Factories';
 export * from './Loop';

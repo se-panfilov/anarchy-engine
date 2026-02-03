@@ -6,7 +6,7 @@ import type { TModel3d, TModels3dRegistry } from '@Anarchy/Engine/Models3d';
 import type { TSpatialDataConfig } from '@Anarchy/Engine/Spatial';
 import { filterOutEmptyFields, isNotDefined } from '@Anarchy/Shared/Utils';
 
-export function actorToConfig(entity: TActor, { models3dService }: TActorEntityToConfigDependencies): TActorConfig {
+export function actorEntityToConfig(entity: TActor, { models3dService }: TActorEntityToConfigDependencies): TActorConfig {
   const { drive } = entity;
 
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();

@@ -1,12 +1,12 @@
 import type { TAudioService } from '@Anarchy/Engine/Audio';
 import type { TAnyCameraParams, TCameraServiceDependencies, TCommonCameraConfig } from '@Anarchy/Engine/Camera/Models';
 import type { TShadowCameraConfig, TShadowCameraParams } from '@Anarchy/Engine/Light';
-import { configToParamsObject3d } from '@Anarchy/Engine/ThreeLib';
+import { object3dConfigToParams } from '@Anarchy/Engine/ThreeLib';
 import { isDefined, isNotDefined, omitInObjectWithoutMutation } from '@Anarchy/Shared/Utils';
 import type { AudioListener } from 'three';
 import { Vector3 } from 'three';
 
-export function configToParams(config: TCommonCameraConfig, { audioService }: TCameraServiceDependencies): TAnyCameraParams | never {
+export function cameraConfigToParams(config: TCommonCameraConfig, { audioService }: TCameraServiceDependencies): TAnyCameraParams | never {
   let listener: AudioListener | undefined;
   if (isDefined(config.audioListener)) {
     listener = audioService.getListenersRegistry().findByKey(config.audioListener);
@@ -27,7 +27,7 @@ export function configToParamsCameraOnly(config: TCommonCameraConfig): Omit<TAny
     isActive,
     type,
     ...configToParamsCameraOptionsOnly(config),
-    ...configToParamsObject3d({ position, rotation, scale, layers })
+    ...object3dConfigToParams({ position, rotation, scale, layers })
   };
 }
 
@@ -38,7 +38,7 @@ export function configToParamsCameraOptionsOnly(config: TCommonCameraConfig | TS
 
   return {
     ...rest,
-    ...configToParamsObject3d({ scale, layers }),
+    ...object3dConfigToParams({ scale, layers }),
     lookAt: lookAt ? new Vector3(lookAt.x, lookAt.y, lookAt.z) : undefined,
     up: up ? new Vector3(up.x, up.y, up.z) : undefined
   };

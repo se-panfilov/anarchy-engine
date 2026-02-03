@@ -1,6 +1,6 @@
 import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
-import { cameraToConfig } from '@Anarchy/Engine/Camera/Adapters';
+import { cameraEntityToConfig } from '@Anarchy/Engine/Camera/Adapters';
 import type { CameraType } from '@Anarchy/Engine/Camera/Constants';
 import type {
   TAnyCamera,
@@ -46,7 +46,7 @@ export function OrthographicCameraWrapper(params: TOrthographicCameraParams, { c
     getType: (): CameraType => entity.type as CameraType,
     ...withObject3d(entity),
     ...withActiveMixin(),
-    serialize: (): TOrthographicCameraConfig => cameraToConfig(result, { audioService })
+    serialize: (): TOrthographicCameraConfig => cameraEntityToConfig(result, { audioService })
   });
 
   applyObject3dParams(result, params);

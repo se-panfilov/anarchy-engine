@@ -3,7 +3,7 @@ import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
 import type { TSpatialCellId, TSpatialCellSerializedData, TSpatialCellWrapper, TSpatialGridConfig, TSpatialGridWrapper } from '@Anarchy/Engine/Spatial/Models';
 import { filterOutEmptyFields } from '@Anarchy/Shared/Utils';
 
-export function entityToConfigSpatialGrid(entity: TSpatialGridWrapper): TSpatialGridConfig {
+export function spatialGridEntityToConfig(entity: TSpatialGridWrapper): TSpatialGridConfig {
   return filterOutEmptyFields({
     ...entity.getParams(),
     ...extractSerializableRegistrableFields(entity)

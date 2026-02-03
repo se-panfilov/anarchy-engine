@@ -4,7 +4,7 @@ import { isAudio3dConfig } from '@Anarchy/Engine/Audio/Utils';
 import type { TWriteable } from '@Anarchy/Shared/Utils';
 import { Vector3 } from 'three';
 
-export function configToParams(config: TAnyAudioConfig, { audioResourceAsyncRegistry, audioListenersRegistry }: TAudioConfigToParamsDependencies): TAnyAudioParams {
+export function audioConfigToParams(config: TAnyAudioConfig, { audioResourceAsyncRegistry, audioListenersRegistry }: TAudioConfigToParamsDependencies): TAnyAudioParams {
   const { position, ...rest } = config as TAudio3dConfig;
 
   const result: TAnyAudioParams = {

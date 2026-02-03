@@ -1,6 +1,6 @@
 import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
 import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
-import { configToParamsSpatial as configToParams } from '@Anarchy/Engine/Spatial/Adapters';
+import { spatialConfigToParams as configToParams } from '@Anarchy/Engine/Spatial/Adapters';
 import type { TSpatialGridFactory, TSpatialGridParams, TSpatialGridWrapper } from '@Anarchy/Engine/Spatial/Models';
 import { SpatialGridWrapper } from '@Anarchy/Engine/Spatial/Wrappers';
 

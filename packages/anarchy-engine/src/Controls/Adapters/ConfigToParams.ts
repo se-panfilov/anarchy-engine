@@ -14,7 +14,7 @@ import type {
 import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import { Vector3 } from 'three';
 
-export const configToParams: TGetParamsFn<TControlsParams, TControlsConfig> = (config: TControlsConfig, additional: TAdditionalControlsConfigParams): TControlsParams | never => {
+export const controlsConfigToParams: TGetParamsFn<TControlsParams, TControlsConfig> = (config: TControlsConfig, additional: TAdditionalControlsConfigParams): TControlsParams | never => {
   if (config.type === ControlsType.OrbitControls) return getOrbitControlsParams(config as TOrbitControlsConfig, additional);
   if (config.type === ControlsType.FirstPersonControls) return getFpsControlsParams(config as TFpsControlsConfig, additional);
   throw new Error(`Cannot create controls of unknown type "${config.type}"`);

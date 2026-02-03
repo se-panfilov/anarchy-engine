@@ -1,4 +1,4 @@
-export { configToParams as envMapConfigToParams } from './Adapters';
+export * from './Adapters';
 export * from './Constants';
 export * from './Factories';
 export * from './Loader';

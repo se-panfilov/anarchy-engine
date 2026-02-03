@@ -2,7 +2,7 @@ import type { TObject3DParams, TObject3DPropConfig } from '@Anarchy/Engine/Three
 import { isDefined } from '@Anarchy/Shared/Utils';
 import { Euler, Vector3 } from 'three';
 
-export function configToParamsObject3d(config: Partial<TObject3DPropConfig>): TObject3DParams {
+export function object3dConfigToParams(config: Partial<TObject3DPropConfig>): TObject3DParams {
   const { position, rotation, scale } = config;
   const result = { ...config } as TObject3DParams;
 

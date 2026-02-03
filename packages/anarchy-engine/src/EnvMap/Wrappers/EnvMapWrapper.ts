@@ -1,5 +1,5 @@
 import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
-import { envMapToConfig } from '@Anarchy/Engine/EnvMap/Adapters';
+import { envMapEntityToConfig } from '@Anarchy/Engine/EnvMap/Adapters';
 import type { TEnvMapConfig, TEnvMapConfigToParamsDependencies, TEnvMapParams, TEnvMapTexture, TEnvMapWrapper } from '@Anarchy/Engine/EnvMap/Models';
 import { withActiveMixin } from '@Anarchy/Engine/Mixins';
 import type { Subscription } from 'rxjs';
@@ -11,7 +11,7 @@ export function EnvMapWrapper(params: TEnvMapParams): TEnvMapWrapper {
   const wrapper = Object.assign(AbstractWrapper(entity, WrapperType.EnvMap, params), {
     getName: (): string => params.name,
     ...withActiveMixin(),
-    serialize: (dependencies: TEnvMapConfigToParamsDependencies): TEnvMapConfig => envMapToConfig(wrapper, dependencies)
+    serialize: (dependencies: TEnvMapConfigToParamsDependencies): TEnvMapConfig => envMapEntityToConfig(wrapper, dependencies)
   });
 
   wrapper._setActive(isActive, true);

@@ -1,6 +1,6 @@
 import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
-import { audioToConfig } from '@Anarchy/Engine/Audio/Adapters';
+import { audioEntityToConfig } from '@Anarchy/Engine/Audio/Adapters';
 import type { TAbstractAudioWrapper, TAnyAudio, TAnyAudioConfig, TAnyAudioParams, TAudioConfigToParamsDependencies, TAudioCreateFn } from '@Anarchy/Engine/Audio/Models';
 import { disposeAudio, seekAudio } from '@Anarchy/Engine/Audio/Utils';
 import { destroyAudio } from '@Anarchy/Engine/Utils';
@@ -111,7 +111,7 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
     getDuration: (): number | undefined => entity.buffer?.duration,
     volume$,
     listener$,
-    serialize: (dependencies: TAudioConfigToParamsDependencies): TAnyAudioConfig => audioToConfig(result, dependencies)
+    serialize: (dependencies: TAudioConfigToParamsDependencies): TAnyAudioConfig => audioEntityToConfig(result, dependencies)
   });
 
   return result;

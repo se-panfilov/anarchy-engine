@@ -41,7 +41,7 @@ import type {
 } from 'three';
 import type { SpriteNodeMaterial } from 'three/src/materials/nodes/NodeMaterials';
 
-export function materialToConfig(entity: TAnyMaterialWrapper, { textureResourceRegistry }: TMaterialEntityToConfigDependencies): TMaterialConfig {
+export function materialEntityToConfig(entity: TAnyMaterialWrapper, { textureResourceRegistry }: TMaterialEntityToConfigDependencies): TMaterialConfig {
   const options: TMaterialConfigOptions | undefined = getMaterialOptions(entity);
   const textures: TMaterialConfigTextures | undefined = getMaterialTextures(entity, textureResourceRegistry);
 

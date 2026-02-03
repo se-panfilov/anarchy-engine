@@ -2,17 +2,17 @@ import type { TAnimations, TAnimationsResourceAsyncRegistry } from '@Anarchy/Eng
 import type { PrimitiveModel3dType } from '@Anarchy/Engine/Models3d/Constants';
 import type { TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModels3dResourceAsyncRegistry } from '@Anarchy/Engine/Models3d/Models';
 import { isPrimitiveModel3dData } from '@Anarchy/Engine/Models3d/Utils';
-import { configToParamsObject3d } from '@Anarchy/Engine/ThreeLib';
+import { object3dConfigToParams } from '@Anarchy/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { AnimationClip } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-export function configToParams(config: TModel3dConfig, { animationsResourceAsyncRegistry, materialRegistry, model3dResourceAsyncRegistry }: TModel3dConfigToParamsDependencies): TModel3dParams {
+export function model3dConfigToParams(config: TModel3dConfig, { animationsResourceAsyncRegistry, materialRegistry, model3dResourceAsyncRegistry }: TModel3dConfigToParamsDependencies): TModel3dParams {
   const { position, rotation, material, scale, ...rest } = config;
 
   return {
     ...rest,
-    ...configToParamsObject3d({ position, rotation, scale }),
+    ...object3dConfigToParams({ position, rotation, scale }),
     animationsSource: getAnimationsSource(config, animationsResourceAsyncRegistry),
     model3dSource: getModel3d(config, model3dResourceAsyncRegistry),
     material: isDefined(material) ? materialRegistry.getByName(material) : undefined

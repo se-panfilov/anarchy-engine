@@ -4,7 +4,7 @@ import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
 import type { TSceneConfig, TSceneWrapper } from '@Anarchy/Engine/Scene/Models';
 import { filterOutEmptyFields, isDefined } from '@Anarchy/Shared/Utils';
 
-export function sceneToConfig(entity: TSceneWrapper): TSceneConfig {
+export function sceneEntityToConfig(entity: TSceneWrapper): TSceneConfig {
   const background: TColor | undefined = entity.getBackground() as TColor | undefined;
   // TODO we cannot serialize other backgrounds than Color at the moment
   const hexString: string | undefined = isDefined(background) && background.isColor ? serializeColor(background) : undefined;

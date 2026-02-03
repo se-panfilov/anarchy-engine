@@ -1,6 +1,6 @@
 import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
 import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
-import { configToParams } from '@Anarchy/Engine/Intersections/Adapters';
+import { intersectionsWatcherConfigToParams } from '@Anarchy/Engine/Intersections/Adapters';
 import type { TAnyIntersectionsWatcher, TAnyIntersectionsWatcherParams, TIntersectionsWatcherFactory } from '@Anarchy/Engine/Intersections/Models';
 import { isIntersectionsCameraWatcherParams, isIntersectionsDirectionWatcherParams } from '@Anarchy/Engine/Intersections/Utils';
 import { IntersectionsCameraWatcher, IntersectionsDirectionWatcher } from '@Anarchy/Engine/Intersections/Watchers';
@@ -14,5 +14,5 @@ function create(params: TAnyIntersectionsWatcherParams): TAnyIntersectionsWatche
 export function IntersectionsWatcherFactory(): TIntersectionsWatcherFactory {
   const factory: TReactiveFactory<TAnyIntersectionsWatcher, TAnyIntersectionsWatcherParams> = ReactiveFactory(FactoryType.IntersectionsWatcher, create);
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(factory, { configToParams });
+  return Object.assign(factory, { configToParams: intersectionsWatcherConfigToParams });
 }

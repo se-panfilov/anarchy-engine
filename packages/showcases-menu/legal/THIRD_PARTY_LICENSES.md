@@ -71,7 +71,7 @@ SOFTWARE.
 
 ---
 
-## @asamuzakjp/dom-selector@6.7.6
+## @asamuzakjp/dom-selector@6.7.7
 
 **License:** MIT
 
@@ -208,7 +208,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @babel/parser@7.28.6
+## @babel/parser@7.29.0
 
 **License:** MIT
 
@@ -240,7 +240,7 @@ THE SOFTWARE.
 
 ---
 
-## @babel/types@7.28.6
+## @babel/types@7.29.0
 
 **License:** MIT
 
@@ -471,7 +471,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @exodus/bytes@1.10.0
+## @exodus/bytes@1.11.0
 
 **License:** MIT
 
@@ -629,7 +629,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @hellpig/anarchy-engine@22.0.0
+## @hellpig/anarchy-engine@22.0.1
 
 **License:** MIT
 
@@ -4088,7 +4088,7 @@ SOFTWARE.
 
 ---
 
-## tldts@7.0.19
+## tldts@7.0.22
 
 **License:** MIT
 
@@ -4114,7 +4114,7 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 
 ---
 
-## tldts-core@7.0.19
+## tldts-core@7.0.22
 
 **License:** MIT
 

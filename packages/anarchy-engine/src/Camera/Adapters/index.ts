@@ -1,2 +1,2 @@
-export { configToParams as configToParamsCamera, configToParamsCameraOnly } from './ConfigToParams';
+export { cameraConfigToParams as configToParamsCamera, configToParamsCameraOnly } from './ConfigToParams';
 export * from './EntityToConfig';

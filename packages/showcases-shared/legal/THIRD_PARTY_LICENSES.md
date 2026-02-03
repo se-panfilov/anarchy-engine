@@ -71,7 +71,7 @@ SOFTWARE.
 
 ---
 
-## @asamuzakjp/dom-selector@6.7.6
+## @asamuzakjp/dom-selector@6.7.7
 
 **License:** MIT
 
@@ -322,7 +322,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @exodus/bytes@1.10.0
+## @exodus/bytes@1.11.0
 
 **License:** MIT
 
@@ -1742,7 +1742,7 @@ THE SOFTWARE.
 
 ---
 
-## tldts@7.0.19
+## tldts@7.0.22
 
 **License:** MIT
 
@@ -1768,7 +1768,7 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 
 ---
 
-## tldts-core@7.0.19
+## tldts-core@7.0.22
 
 **License:** MIT
 

@@ -1,5 +1,5 @@
 import { AbstractEntity, EntityType } from '@Anarchy/Engine/Abstract';
-import { physicsBodyToConfig } from '@Anarchy/Engine/Physics/Adapters';
+import { physicsBodyEntityToConfig } from '@Anarchy/Engine/Physics/Adapters';
 import type { CollisionShape, RigidBodyTypesNames } from '@Anarchy/Engine/Physics/Constants';
 import { RigidBodyTypesMap } from '@Anarchy/Engine/Physics/Constants';
 import { withPhysicsBodyEntities } from '@Anarchy/Engine/Physics/Mixins';
@@ -47,7 +47,7 @@ export function PhysicsBody(params: TPhysicsBodyParams, { physicsWorldService }:
     },
     getPhysicsBodyShape: (): CollisionShape => params.collisionShape,
     getShapeParams: (): TPhysicsShapeParams => params.shapeParams,
-    serialize: (): TPhysicsBodyConfig => physicsBodyToConfig(result)
+    serialize: (): TPhysicsBodyConfig => physicsBodyEntityToConfig(result)
   });
 
   return result;

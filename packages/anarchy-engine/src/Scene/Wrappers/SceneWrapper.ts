@@ -11,7 +11,7 @@ import type { TDestroyable } from '@Anarchy/Engine/Mixins';
 import { withActiveMixin, withObject3d } from '@Anarchy/Engine/Mixins';
 import type { TModel3d } from '@Anarchy/Engine/Models3d';
 import type { TParticlesWrapper } from '@Anarchy/Engine/Particles';
-import { sceneToConfig } from '@Anarchy/Engine/Scene/Adapters';
+import { sceneEntityToConfig } from '@Anarchy/Engine/Scene/Adapters';
 import type { TSceneConfig, TSceneObject, TSceneParams, TSceneWrapper } from '@Anarchy/Engine/Scene/Models';
 import type { TTextAnyWrapper } from '@Anarchy/Engine/Text';
 import type { TTexture } from '@Anarchy/Engine/Texture';
@@ -72,7 +72,7 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
     ...withObject3d(entity),
     ...withActiveMixin(),
     entity,
-    serialize: (): TSceneConfig => sceneToConfig(result)
+    serialize: (): TSceneConfig => sceneEntityToConfig(result)
   });
 
   const destroySub$: Subscription = result.destroy$.subscribe((): void => {
