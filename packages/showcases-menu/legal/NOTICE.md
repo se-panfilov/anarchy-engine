@@ -33,7 +33,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/dom-selector@6.7.6
+## @asamuzakjp/dom-selector@6.7.7
 
 **License(s):** MIT
 
@@ -79,7 +79,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @babel/parser@7.28.6
+## @babel/parser@7.29.0
 
 **License(s):** MIT
 
@@ -91,7 +91,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @babel/types@7.28.6
+## @babel/types@7.29.0
 
 **License(s):** MIT
 
@@ -187,7 +187,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @exodus/bytes@1.10.0
+## @exodus/bytes@1.11.0
 
 **License(s):** MIT
 
@@ -267,7 +267,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-engine@22.0.0
+## @hellpig/anarchy-engine@22.0.1
 
 **License(s):** MIT
 
@@ -1157,7 +1157,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts@7.0.19
+## tldts@7.0.22
 
 **License(s):** MIT
 
@@ -1169,7 +1169,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts-core@7.0.19
+## tldts-core@7.0.22
 
 **License(s):** MIT
 

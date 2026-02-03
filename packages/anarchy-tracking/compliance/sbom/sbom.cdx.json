@@ -5,7 +5,7 @@
   "serialNumber": "urn:uuid:***",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-01-27T22:18:45.426Z",
+    "timestamp": "2026-02-03T23:38:23.007Z",
     "lifecycles": [
       {
         "phase": "pre-build"
@@ -58,14 +58,14 @@
   },
   "components": [
     {
-      "bom-ref": "showcases-core@2.20.0",
+      "bom-ref": "showcases-core@2.20.1",
       "type": "library",
       "name": "showcases-core",
-      "version": "2.20.0",
+      "version": "2.20.1",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Showcases Core – an application with demos for Anarchy-Engine.",
-      "purl": "pkg:npm/showcases-core@2.20.0",
+      "purl": "pkg:npm/showcases-core@2.20.1",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -2435,23 +2435,23 @@
       ]
     },
     {
-      "bom-ref": "import-in-the-middle@2.0.5",
+      "bom-ref": "import-in-the-middle@2.0.6",
       "type": "library",
       "name": "import-in-the-middle",
-      "version": "2.0.5",
+      "version": "2.0.6",
       "scope": "required",
-      "purl": "pkg:npm/import-in-the-middle@2.0.5",
+      "purl": "pkg:npm/import-in-the-middle@2.0.6",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/import-in-the-middle/-/import-in-the-middle-2.0.5.tgz"
+          "url": "https://registry.npmjs.org/import-in-the-middle/-/import-in-the-middle-2.0.6.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "d089c7f7fe280c2051cd65e1a4eaaeb2ca4b06b55f2b5bcfbdb9fd5b197c0c043ccb2c797d62511132024b092200c6989ed8c900c04fd51e01e9c42711461510"
+          "content": "def655de35f45d1156dc42434f0cd6a196be447d5bf1e4d3c7a60e0a3825acbc8fb9ea70a01b62d64dcbd9d2b074252b9d511f7390ae46e1acb5a0bfb902496b"
         }
       ],
       "licenses": [
@@ -3380,14 +3380,14 @@
       ]
     },
     {
-      "bom-ref": "@hellpig/anarchy-engine@22.0.0",
+      "bom-ref": "@hellpig/anarchy-engine@22.0.1",
       "type": "library",
       "name": "anarchy-engine",
-      "version": "22.0.0",
+      "version": "22.0.1",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Engine – a 3D game engine for web, desktop and mobile platforms. Built around three.js",
-      "purl": "pkg:npm/%40hellpig/anarchy-engine@22.0.0",
+      "purl": "pkg:npm/%40hellpig/anarchy-engine@22.0.1",
       "properties": [],
       "externalReferences": [
         {
@@ -3720,10 +3720,10 @@
     {
       "ref": "anarchy-monorepo@2.1.5",
       "dependsOn": [
-        "showcases-core@2.20.0",
+        "showcases-core@2.20.1",
         "showcases-desktop@2.12.8",
         "showcases-e2e@1.1.4",
-        "@hellpig/anarchy-engine@22.0.0",
+        "@hellpig/anarchy-engine@22.0.1",
         "@hellpig/anarchy-i18n@1.4.2",
         "@hellpig/anarchy-legal@1.12.2",
         "@hellpig/anarchy-shared@1.6.2",
@@ -3735,9 +3735,9 @@
       ]
     },
     {
-      "ref": "showcases-core@2.20.0",
+      "ref": "showcases-core@2.20.1",
       "dependsOn": [
-        "@hellpig/anarchy-engine@22.0.0",
+        "@hellpig/anarchy-engine@22.0.1",
         "@hellpig/anarchy-i18n@1.4.2",
         "@hellpig/anarchy-shared@1.6.2",
         "@hellpig/anarchy-tracking@1.7.1",
@@ -3754,11 +3754,11 @@
     },
     {
       "ref": "showcases-desktop@2.12.8",
-      "dependsOn": ["@hellpig/anarchy-shared@1.6.2", "showcases-core@2.20.0", "showcases-shared@1.7.4"]
+      "dependsOn": ["@hellpig/anarchy-shared@1.6.2", "showcases-core@2.20.1", "showcases-shared@1.7.4"]
     },
     {
       "ref": "showcases-e2e@1.1.4",
-      "dependsOn": ["@hellpig/anarchy-engine@22.0.0", "@hellpig/anarchy-shared@1.6.2"]
+      "dependsOn": ["@hellpig/anarchy-engine@22.0.1", "@hellpig/anarchy-shared@1.6.2"]
     },
     {
       "ref": "@apm-js-collab/code-transformer@0.8.2",
@@ -3822,7 +3822,7 @@
     },
     {
       "ref": "@opentelemetry/instrumentation@0.208.0",
-      "dependsOn": ["@opentelemetry/api-logs@0.208.0", "import-in-the-middle@2.0.5", "require-in-the-middle@8.0.1"]
+      "dependsOn": ["@opentelemetry/api-logs@0.208.0", "import-in-the-middle@2.0.6", "require-in-the-middle@8.0.1"]
     },
     {
       "ref": "@opentelemetry/instrumentation-amqplib@0.55.0",
@@ -4034,7 +4034,7 @@
         "@sentry/core@10.29.0",
         "@sentry/node-core@10.29.0",
         "@sentry/opentelemetry@10.29.0",
-        "import-in-the-middle@2.0.5"
+        "import-in-the-middle@2.0.6"
       ]
     },
     {
@@ -4049,7 +4049,7 @@
         "@apm-js-collab/tracing-hooks@0.3.1",
         "@sentry/core@10.29.0",
         "@sentry/opentelemetry@10.29.0",
-        "import-in-the-middle@2.0.5"
+        "import-in-the-middle@2.0.6"
       ]
     },
     {
@@ -4143,7 +4143,7 @@
       "dependsOn": []
     },
     {
-      "ref": "import-in-the-middle@2.0.5",
+      "ref": "import-in-the-middle@2.0.6",
       "dependsOn": ["acorn-import-attributes@1.9.5", "cjs-module-lexer@2.2.0", "module-details-from-path@1.0.4"]
     },
     {
@@ -4279,7 +4279,7 @@
       "dependsOn": []
     },
     {
-      "ref": "@hellpig/anarchy-engine@22.0.0",
+      "ref": "@hellpig/anarchy-engine@22.0.1",
       "dependsOn": [
         "@cfworker/json-schema@4.1.1",
         "@hellpig/anarchy-shared@1.6.2",
@@ -4314,7 +4314,7 @@
     {
       "ref": "showcases-gui@1.1.8",
       "dependsOn": [
-        "@hellpig/anarchy-engine@22.0.0",
+        "@hellpig/anarchy-engine@22.0.1",
         "@hellpig/anarchy-i18n@1.4.2",
         "@hellpig/anarchy-shared@1.6.2",
         "lucide-vue-next@0.562.0",
@@ -4327,12 +4327,12 @@
     },
     {
       "ref": "showcases-i18n@1.4.5",
-      "dependsOn": ["@hellpig/anarchy-engine@22.0.0", "@hellpig/anarchy-i18n@1.4.2", "@hellpig/anarchy-shared@1.6.2", "sort-json@2.0.1", "vue-i18n@11.2.7"]
+      "dependsOn": ["@hellpig/anarchy-engine@22.0.1", "@hellpig/anarchy-i18n@1.4.2", "@hellpig/anarchy-shared@1.6.2", "sort-json@2.0.1", "vue-i18n@11.2.7"]
     },
     {
       "ref": "showcases-menu@1.8.10",
       "dependsOn": [
-        "@hellpig/anarchy-engine@22.0.0",
+        "@hellpig/anarchy-engine@22.0.1",
         "@hellpig/anarchy-i18n@1.4.2",
         "@hellpig/anarchy-shared@1.6.2",
         "marked@17.0.1",

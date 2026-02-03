@@ -33,7 +33,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/dom-selector@6.7.6
+## @asamuzakjp/dom-selector@6.7.7
 
 **License(s):** MIT
 
@@ -129,7 +129,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @exodus/bytes@1.10.0
+## @exodus/bytes@1.11.0
 
 **License(s):** MIT
 
@@ -407,7 +407,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts@7.0.19
+## tldts@7.0.22
 
 **License(s):** MIT
 
@@ -419,7 +419,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts-core@7.0.19
+## tldts-core@7.0.22
 
 **License(s):** MIT
 

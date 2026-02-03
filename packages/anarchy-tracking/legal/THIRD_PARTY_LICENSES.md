@@ -8685,7 +8685,7 @@ THE SOFTWARE.
 
 ---
 
-## import-in-the-middle@2.0.5
+## import-in-the-middle@2.0.6
 
 **License:** Apache-2.0
 

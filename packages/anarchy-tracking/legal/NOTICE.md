@@ -799,7 +799,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## import-in-the-middle@2.0.5
+## import-in-the-middle@2.0.6
 
 **License(s):** Apache-2.0
 
