@@ -1,2 +1,2 @@
-export * from './ConfigToParams';
+export * from './AudioConfigToParams';
 export * from './EntityToConfig';
