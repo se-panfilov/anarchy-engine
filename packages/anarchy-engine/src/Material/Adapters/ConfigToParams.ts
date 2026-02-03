@@ -16,7 +16,7 @@ import { isDefined } from '@Anarchy/Shared/Utils';
 import type { Vector2Like } from 'three';
 import { Vector2 } from 'three';
 
-export function configToParams(config: TMaterialConfig, { textureService }: TMaterialConfigToParamsDependencies): TMaterialParams {
+export function materialConfigToParams(config: TMaterialConfig, { textureService }: TMaterialConfigToParamsDependencies): TMaterialParams {
   let options: TMaterialParamsOptions = {} as TMaterialParamsOptions;
 
   if (isDefined(config.options)) {
