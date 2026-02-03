@@ -4,7 +4,7 @@ import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
 import { filterOutEmptyFields } from '@Anarchy/Shared/Utils';
 import type { FogJSON } from 'three';
 
-export function fogToConfig(entity: TFogWrapper): TFogConfig {
+export function fogEntityToConfig(entity: TFogWrapper): TFogConfig {
   const json: FogJSON = entity.entity.toJSON();
 
   return filterOutEmptyFields({
