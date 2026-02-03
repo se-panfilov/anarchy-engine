@@ -2,7 +2,7 @@ import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
 import type { TActor } from '@Anarchy/Engine/Actor';
 import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
-import { entityToConfigSpatialGrid } from '@Anarchy/Engine/Spatial/Adapters/EntityToConfig';
+import { spatialGridEntityToConfig } from '@Anarchy/Engine/Spatial/Adapters/EntityToConfig';
 import type { TSpatialCellId, TSpatialCellParams, TSpatialCellWrapper, TSpatialGrid, TSpatialGridConfig, TSpatialGridParams, TSpatialGridWrapper } from '@Anarchy/Engine/Spatial/Models';
 import { createBoundingBox, createOutline } from '@Anarchy/Engine/Spatial/Services/SpatialHelper';
 import { SpatialCellWrapper } from '@Anarchy/Engine/Spatial/Wrappers/SpatialCellWrapper';
@@ -217,7 +217,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     updateActorCell,
     getParams: (): TSpatialGridParams => params,
     update$: update$.asObservable(),
-    serialize: (): TSpatialGridConfig => entityToConfigSpatialGrid(result)
+    serialize: (): TSpatialGridConfig => spatialGridEntityToConfig(result)
   });
 
   return result;
