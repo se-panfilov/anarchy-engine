@@ -1,6 +1,6 @@
 import type { TEnvMapConfig, TEnvMapConfigToParamsDependencies, TEnvMapParams, TEnvMapTexture } from '@Anarchy/Engine/EnvMap/Models';
 
-export function configToParams(config: TEnvMapConfig, { resourcesRegistry }: TEnvMapConfigToParamsDependencies): TEnvMapParams | never {
+export function envMapConfigToParams(config: TEnvMapConfig, { resourcesRegistry }: TEnvMapConfigToParamsDependencies): TEnvMapParams | never {
   const texture: TEnvMapTexture | undefined = resourcesRegistry.getByKey(config.texture);
 
   return {
