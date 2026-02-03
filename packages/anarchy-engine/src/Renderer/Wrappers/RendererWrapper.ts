@@ -1,7 +1,7 @@
 import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
 import { withActiveMixin } from '@Anarchy/Engine/Mixins';
-import { rendererToConfig } from '@Anarchy/Engine/Renderer/Adapters';
+import { rendererEntityToConfig } from '@Anarchy/Engine/Renderer/Adapters';
 import { RendererModes } from '@Anarchy/Engine/Renderer/Constants';
 import type { TRendererAccessors, TRendererConfig, TRendererParams, TRendererWrapper, TRendererWrapperDependencies } from '@Anarchy/Engine/Renderer/Models';
 import { mergeAll } from '@Anarchy/Engine/Utils';
@@ -81,7 +81,7 @@ export function RendererWrapper(params: TRendererParams, { container, renderLoop
 
   const result = mergeAll(wrapper, accessors, withActiveMixin(), {
     getParams: (): TRendererParams => params,
-    serialize: (): TRendererConfig => rendererToConfig(result),
+    serialize: (): TRendererConfig => rendererEntityToConfig(result),
     isRendererReady$
   });
 

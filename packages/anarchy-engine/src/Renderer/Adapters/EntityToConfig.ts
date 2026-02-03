@@ -2,7 +2,7 @@ import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
 import type { TRendererConfig, TRendererParams, TRendererWrapper } from '@Anarchy/Engine/Renderer/Models';
 import { filterOutEmptyFields } from '@Anarchy/Shared/Utils';
 
-export function rendererToConfig(entity: TRendererWrapper): TRendererConfig {
+export function rendererEntityToConfig(entity: TRendererWrapper): TRendererConfig {
   const params: TRendererParams = entity.getParams();
 
   return filterOutEmptyFields({

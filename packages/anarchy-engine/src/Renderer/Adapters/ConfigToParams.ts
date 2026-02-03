@@ -2,7 +2,7 @@ import type { TRendererConfig, TRendererParams, TRendererServiceDependencies } f
 import type { TSpaceCanvas } from '@Anarchy/Engine/Space';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 
-export function configToParams(config: TRendererConfig, { container }: TRendererServiceDependencies): TRendererParams | never {
+export function rendererConfigToParams(config: TRendererConfig, { container }: TRendererServiceDependencies): TRendererParams | never {
   const { ...rest } = config;
 
   const canvas: TSpaceCanvas | undefined = container.canvas$.value;
