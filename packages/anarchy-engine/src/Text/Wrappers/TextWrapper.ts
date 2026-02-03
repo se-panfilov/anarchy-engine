@@ -1,7 +1,7 @@
 import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
 import { AbstractWrapper } from '@Anarchy/Engine/Abstract';
 import { withObject3d } from '@Anarchy/Engine/Mixins';
-import { textToConfig } from '@Anarchy/Engine/Text/Adapters';
+import { textEntityToConfig } from '@Anarchy/Engine/Text/Adapters';
 import { RelatedEntityAttribute, TextCssClass, TextType } from '@Anarchy/Engine/Text/Constants';
 import type { TTextConfig, TTextParams, TTextServiceDependencies, TTextTransformDrive, TTextTranslationService, TTextWrapper } from '@Anarchy/Engine/Text/Models';
 import { TextTransformDrive } from '@Anarchy/Engine/Text/TransformDrive';
@@ -76,7 +76,7 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: T
     ...withObject3d(entity),
     getElement: (): HTMLElement => element,
     setTranslationService,
-    serialize: (): TTextConfig => textToConfig(result)
+    serialize: (): TTextConfig => textEntityToConfig(result)
   });
 
   element.setAttribute(RelatedEntityAttribute, result.id.toString());

@@ -1,7 +1,7 @@
 import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
 import { AbstractWrapper } from '@Anarchy/Engine/Abstract';
 import { withObject3d } from '@Anarchy/Engine/Mixins';
-import { textToConfig } from '@Anarchy/Engine/Text/Adapters';
+import { textEntityToConfig } from '@Anarchy/Engine/Text/Adapters';
 import type { TextType } from '@Anarchy/Engine/Text/Constants';
 import type { TTextConfig, TTextCssProps, TTextParams, TTextServiceDependencies, TTextTextureWrapper, TTextTransformDrive, TTextTranslationService } from '@Anarchy/Engine/Text/Models';
 import { TextTransformDrive } from '@Anarchy/Engine/Text/TransformDrive';
@@ -208,7 +208,7 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
     setTextKey,
     getTextKey: (): string | undefined => textKey,
     getPropsAsCss,
-    serialize: (): TTextConfig => textToConfig(result)
+    serialize: (): TTextConfig => textEntityToConfig(result)
   });
 
   if (params.text && isNotDefined(params.textKey)) setText(params.text);

@@ -4,7 +4,7 @@ import { vector2ToXy } from '@Anarchy/Engine/Utils';
 import { filterOutEmptyFields, isNotDefined, kebabToCamel } from '@Anarchy/Shared/Utils';
 import type { Vector2 } from 'three';
 
-export function textToConfig(entity: TTextAnyWrapper): TTextConfig {
+export function textEntityToConfig(entity: TTextAnyWrapper): TTextConfig {
   const { drive } = entity;
 
   const center: Vector2 | undefined = (entity as TText2dWrapper).entity.center;

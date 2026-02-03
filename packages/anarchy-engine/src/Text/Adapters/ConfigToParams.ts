@@ -4,7 +4,7 @@ import { configToParamsObject3d } from '@Anarchy/Engine/ThreeLib';
 import { isDefined } from '@Anarchy/Shared/Utils';
 import { Vector2 } from 'three';
 
-export function configToParams(config: TTextConfig, dependencies: TTextServiceDependencies): TTextParams {
+export function textConfigToParams(config: TTextConfig, dependencies: TTextServiceDependencies): TTextParams {
   const { position, center, rotation, scale, layers, physicsBodyName, kinematic, ...rest } = config;
 
   let result: TTextParams = {
