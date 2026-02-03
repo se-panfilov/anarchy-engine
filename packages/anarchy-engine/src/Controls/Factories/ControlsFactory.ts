@@ -1,6 +1,6 @@
 import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
 import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
-import { configToParams } from '@Anarchy/Engine/Controls/Adapters';
+import { controlsConfigToParams } from '@Anarchy/Engine/Controls/Adapters';
 import { ControlsType } from '@Anarchy/Engine/Controls/Constants';
 import type { TAnyControlsWrapper, TControlsFactory, TControlsParams, TFpsControlsParams, TOrbitControlsParams } from '@Anarchy/Engine/Controls/Models';
 import { FpsControlsWrapper, OrbitControlsWrapper } from '@Anarchy/Engine/Controls/Wrappers';
@@ -19,5 +19,5 @@ function create(params: TControlsParams): TAnyControlsWrapper | never {
 export function ControlsFactory(): TControlsFactory {
   const factory: TReactiveFactory<TAnyControlsWrapper, TControlsParams> = ReactiveFactory(FactoryType.Controls, create);
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(factory, { configToParams });
+  return Object.assign(factory, { configToParams: controlsConfigToParams });
 }
