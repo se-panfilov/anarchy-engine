@@ -1,7 +1,7 @@
 import type { TSceneConfig, TSceneParams } from '@Anarchy/Engine/Scene/Models';
 import { configToParamsObject3d } from '@Anarchy/Engine/ThreeLib';
 
-export function configToParams(config: TSceneConfig): TSceneParams {
+export function sceneConfigToParams(config: TSceneConfig): TSceneParams {
   const { position, rotation, scale, layers, ...rest } = config;
 
   return {

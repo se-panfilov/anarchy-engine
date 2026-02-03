@@ -1,4 +1,4 @@
-import { configToParams as sceneConfigAdapter } from '@Anarchy/Engine/Scene/Adapters';
+import { sceneConfigToParams } from '@Anarchy/Engine/Scene/Adapters';
 import type { TSpaceConfig, TSpaceParams } from '@Anarchy/Engine/Space/Models';
 
 export function configToParams(config: TSpaceConfig): TSpaceParams | never {
@@ -6,7 +6,7 @@ export function configToParams(config: TSpaceConfig): TSpaceParams | never {
 
   return {
     ...rest,
-    scenes: scenes.map(sceneConfigAdapter),
+    scenes: scenes.map(sceneConfigToParams),
     //we can't get entities here, services must be initialized first
     entities: undefined
   };
