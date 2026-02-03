@@ -6,7 +6,7 @@ import { isDefined, isNotDefined, omitInObjectWithoutMutation } from '@Anarchy/S
 import type { AudioListener } from 'three';
 import { Vector3 } from 'three';
 
-export function configToParams(config: TCommonCameraConfig, { audioService }: TCameraServiceDependencies): TAnyCameraParams | never {
+export function cameraConfigToParams(config: TCommonCameraConfig, { audioService }: TCameraServiceDependencies): TAnyCameraParams | never {
   let listener: AudioListener | undefined;
   if (isDefined(config.audioListener)) {
     listener = audioService.getListenersRegistry().findByKey(config.audioListener);

@@ -18,7 +18,7 @@ import { filterOutEmptyFields, isDefined } from '@Anarchy/Shared/Utils';
 import type { AudioListener, OrthographicCameraJSONObject, PerspectiveCameraJSONObject, Vector3Like } from 'three';
 
 // Sometimes Camera's "drive" might hold old values (position, rotation), cause controls might not update it (they are update values directly)
-export function cameraToConfig(entity: TAnyCameraWrapper, { audioService }: Pick<TCameraWrapperDependencies, 'audioService'>): TAnyCameraConfig {
+export function cameraEntityToConfig(entity: TAnyCameraWrapper, { audioService }: Pick<TCameraWrapperDependencies, 'audioService'>): TAnyCameraConfig {
   const { drive } = entity;
 
   const json: PerspectiveCameraJSONObject | OrthographicCameraJSONObject = entity.entity.toJSON().object;
