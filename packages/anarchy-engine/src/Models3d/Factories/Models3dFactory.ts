@@ -1,6 +1,6 @@
 import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
 import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
-import { configToParams } from '@Anarchy/Engine/Models3d/Adapters';
+import { model3dConfigToParams } from '@Anarchy/Engine/Models3d/Adapters';
 import { Model3d } from '@Anarchy/Engine/Models3d/Entities';
 import type { TModel3d, TModel3dParams, TModels3dFactory, TModels3dServiceDependencies } from '@Anarchy/Engine/Models3d/Models';
 
@@ -11,5 +11,5 @@ export function Models3dFactory(): TModels3dFactory {
   );
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(factory, { configToParams });
+  return Object.assign(factory, { configToParams: model3dConfigToParams });
 }

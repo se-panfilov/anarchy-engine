@@ -7,7 +7,7 @@ import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { AnimationClip } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-export function configToParams(config: TModel3dConfig, { animationsResourceAsyncRegistry, materialRegistry, model3dResourceAsyncRegistry }: TModel3dConfigToParamsDependencies): TModel3dParams {
+export function model3dConfigToParams(config: TModel3dConfig, { animationsResourceAsyncRegistry, materialRegistry, model3dResourceAsyncRegistry }: TModel3dConfigToParamsDependencies): TModel3dParams {
   const { position, rotation, material, scale, ...rest } = config;
 
   return {

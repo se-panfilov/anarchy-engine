@@ -1,7 +1,7 @@
 import type { TAbstractEntity } from '@Anarchy/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@Anarchy/Engine/Abstract';
 import { withObject3d } from '@Anarchy/Engine/Mixins';
-import { model3dToConfig } from '@Anarchy/Engine/Models3d/Adapters';
+import { model3dEntityToConfig } from '@Anarchy/Engine/Models3d/Adapters';
 import { withModel3dEntities } from '@Anarchy/Engine/Models3d/Mixins';
 import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dDependencies, TModel3dEntities, TModel3dParams, TWithModel3dEntities } from '@Anarchy/Engine/Models3d/Models';
 import {
@@ -36,7 +36,7 @@ export function Model3d(params: TModel3dParams, { animationsService, model3dRawT
   const preResult = withObject3d(abstract.getRawModel3d());
   const result: TModel3d = mergeAll(preResult, abstract, {
     getParams,
-    serialize: (dependencies: TModel3dConfigToParamsDependencies): TModel3dConfig => model3dToConfig(result, dependencies)
+    serialize: (dependencies: TModel3dConfigToParamsDependencies): TModel3dConfig => model3dEntityToConfig(result, dependencies)
   });
 
   const destroySub$: Subscription = abstract.destroy$.subscribe((): void => {

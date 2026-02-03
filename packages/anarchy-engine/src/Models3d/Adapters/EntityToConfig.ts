@@ -10,7 +10,7 @@ import { filterOutEmptyFields, isDefined, isNotDefined } from '@Anarchy/Shared/U
 import type { AnimationAction, AnimationClip } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-export function model3dToConfig(
+export function model3dEntityToConfig(
   entity: TModel3d,
   { animationsResourceAsyncRegistry, model3dResourceAsyncRegistry }: Pick<TModel3dConfigToParamsDependencies, 'animationsResourceAsyncRegistry' | 'model3dResourceAsyncRegistry'>
 ): TModel3dConfig {
