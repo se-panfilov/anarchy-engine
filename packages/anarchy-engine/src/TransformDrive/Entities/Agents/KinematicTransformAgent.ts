@@ -1,5 +1,5 @@
 import { metersPerSecond } from '@Anarchy/Engine/Distance';
-import { DefaultIsAutoUpdate, DefaultKinematicState, DefaultKinematicTarget, kinematicToConfig } from '@Anarchy/Engine/Kinematic';
+import { DefaultIsAutoUpdate, DefaultKinematicState, DefaultKinematicTarget, kinematicEntityToConfig } from '@Anarchy/Engine/Kinematic';
 import { ForwardAxis } from '@Anarchy/Engine/Kinematic/Constants';
 import type { TKinematicConfig, TKinematicData, TKinematicWritableData } from '@Anarchy/Engine/Kinematic/Models';
 import type { TMeters, TMetersPerSecond, TMilliseconds, TRadians, TRadiansPerSecond } from '@Anarchy/Engine/Math';
@@ -286,7 +286,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       if (resetDirection) agent.setAngularDirection(new Quaternion());
     },
     serialize(): TKinematicConfig {
-      return kinematicToConfig(agent);
+      return kinematicEntityToConfig(agent);
     },
     autoUpdate$
   });

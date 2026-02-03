@@ -4,7 +4,7 @@ import { eulerToXyz, quaternionToXyzw, vector3ToXyz } from '@Anarchy/Engine/Util
 import { filterOutEmptyFields, isDefined } from '@Anarchy/Shared/Utils';
 import { Euler } from 'three';
 
-export function kinematicToConfig(entity: TKinematicTransformAgent): TKinematicConfig {
+export function kinematicEntityToConfig(entity: TKinematicTransformAgent): TKinematicConfig {
   const { linearSpeed, linearDirection, angularSpeed, angularDirection, radius, forwardAxis, isInfiniteRotation } = entity.data.state;
 
   let target: TKinematicConfigTarget | undefined = undefined;
