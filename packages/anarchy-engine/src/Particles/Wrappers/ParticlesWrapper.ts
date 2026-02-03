@@ -4,7 +4,7 @@ import type { TColor } from '@Anarchy/Engine/Color';
 import type { TWithMaterial } from '@Anarchy/Engine/Material';
 import { isPointsMaterial, withMaterial } from '@Anarchy/Engine/Material';
 import { withObject3d } from '@Anarchy/Engine/Mixins';
-import { particlesToConfig } from '@Anarchy/Engine/Particles/Adapters';
+import { particlesEntityToConfig } from '@Anarchy/Engine/Particles/Adapters';
 import type { TParticlesConfig, TParticlesParams, TParticlesServiceDependencies, TParticlesTransformDrive, TParticlesWrapper } from '@Anarchy/Engine/Particles/Models';
 import { ParticlesTransformDrive } from '@Anarchy/Engine/Particles/TransformDrive';
 import type { TBufferGeometry, TPoints } from '@Anarchy/Engine/ThreeLib';
@@ -49,7 +49,7 @@ export function ParticlesWrapper(params: TParticlesParams, dependencies: TPartic
     setIndividualPositions,
     getIndividualPositions,
     entity,
-    serialize: (): TParticlesConfig => particlesToConfig(result, { materialRegistry: dependencies.materialService.getRegistry() })
+    serialize: (): TParticlesConfig => particlesEntityToConfig(result, { materialRegistry: dependencies.materialService.getRegistry() })
   });
 
   applyObject3dParams(result, params);
