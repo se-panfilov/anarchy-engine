@@ -1,7 +1,7 @@
 import { sceneConfigToParams } from '@Anarchy/Engine/Scene/Adapters';
 import type { TSpaceConfig, TSpaceParams } from '@Anarchy/Engine/Space/Models';
 
-export function configToParams(config: TSpaceConfig): TSpaceParams | never {
+export function spaceConfigToParams(config: TSpaceConfig): TSpaceParams | never {
   const { scenes, ...rest } = config;
 
   return {

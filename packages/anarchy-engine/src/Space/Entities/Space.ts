@@ -7,7 +7,7 @@ import type { TAnyIntersectionsWatcher } from '@Anarchy/Engine/Intersections';
 import type { TLoop } from '@Anarchy/Engine/Loop';
 import type { TMouseClickWatcher, TMousePositionWatcher } from '@Anarchy/Engine/Mouse';
 import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
-import { spaceToConfig } from '@Anarchy/Engine/Space/Adapters';
+import { spaceEntityToConfig } from '@Anarchy/Engine/Space/Adapters';
 import { CreateEntitiesStrategy, SpaceEvents } from '@Anarchy/Engine/Space/Constants';
 import type {
   TSpace,
@@ -87,7 +87,7 @@ export function Space(params: TSpaceParams, registry: TSpaceRegistry, settings?:
       serializationInProgress$: serializationInProgress$.asObservable(),
       serialize: (): TSpaceConfig => {
         serializationInProgress$.next(true);
-        const config: TSpaceConfig = spaceToConfig(space, space.services);
+        const config: TSpaceConfig = spaceEntityToConfig(space, space.services);
         serializationInProgress$.next(false);
         return config;
       }
