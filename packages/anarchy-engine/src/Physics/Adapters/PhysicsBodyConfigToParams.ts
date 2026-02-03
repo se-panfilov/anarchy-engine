@@ -5,7 +5,7 @@ import { isDefined } from '@Anarchy/Shared/Utils';
 import { Euler, Quaternion } from 'three';
 import { Vector3 } from 'three/src/math/Vector3';
 
-export function configToParamsBody(config: TPhysicsBodyConfig): TPhysicsBodyParams | never {
+export function physicsBodyConfigToParams(config: TPhysicsBodyConfig): TPhysicsBodyParams | never {
   const { position, rotation, angularVelocity, linearVelocity, ...rest } = config;
 
   const result: TPhysicsBodyParams | TOptional<TPhysicsBodyParams> = {
