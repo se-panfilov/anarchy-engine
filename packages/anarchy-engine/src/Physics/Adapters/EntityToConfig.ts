@@ -6,7 +6,7 @@ import type { Collider, RigidBody, Rotation, World } from '@dimforge/rapier3d';
 import type { Vector3Like } from 'three';
 import { Euler, Quaternion } from 'three';
 
-export function physicsBodyToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
+export function physicsBodyEntityToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
   const rigidBody: RigidBody | undefined = entity.getRigidBody();
   const collider: Collider | undefined = rigidBody?.collider(0);
 
