@@ -1,7 +1,7 @@
 import type { TAbstractWatcher } from '@Anarchy/Engine/Abstract';
 import { AbstractWatcher, WatcherType } from '@Anarchy/Engine/Abstract';
 import type { TActor } from '@Anarchy/Engine/Actor';
-import { intersectionsToConfig } from '@Anarchy/Engine/Intersections/Adapters';
+import { intersectionsEntityToConfig } from '@Anarchy/Engine/Intersections/Adapters';
 import type {
   TAbstractIntersectionsWatcher,
   TAnyIntersectionsWatcher,
@@ -72,7 +72,7 @@ export function AbstractIntersectionsWatcher({ isAutoStart, tags, name, intersec
       // eslint-disable-next-line functional/immutable-data
       raycaster.far = far;
     },
-    serialize: (): TAnyIntersectionsWatcherConfig => intersectionsToConfig(result as TAnyIntersectionsWatcher)
+    serialize: (): TAnyIntersectionsWatcherConfig => intersectionsEntityToConfig(result as TAnyIntersectionsWatcher)
   });
 
   // eslint-disable-next-line functional/immutable-data

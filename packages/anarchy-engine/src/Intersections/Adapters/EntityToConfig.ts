@@ -15,7 +15,7 @@ import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
 import { vector3ToXyz } from '@Anarchy/Engine/Utils';
 import { filterOutEmptyFields } from '@Anarchy/Shared/Utils';
 
-export function intersectionsToConfig(entity: TAnyIntersectionsWatcher): TAnyIntersectionsWatcherConfig {
+export function intersectionsEntityToConfig(entity: TAnyIntersectionsWatcher): TAnyIntersectionsWatcherConfig {
   const config: TIntersectionsWatcherConfig = intersectionsAbstractToConfig(entity);
   let result: TAnyIntersectionsWatcherConfig;
 

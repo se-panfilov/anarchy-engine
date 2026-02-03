@@ -16,7 +16,7 @@ import type { TMouseService } from '@Anarchy/Engine/Mouse';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import { Vector3 } from 'three';
 
-export function configToParams(
+export function intersectionsWatcherConfigToParams(
   config: TAnyIntersectionsWatcherConfig,
   mouseService: TMouseService,
   cameraService: TCameraService,
