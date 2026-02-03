@@ -1,6 +1,6 @@
 import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
 import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
-import { configToParams } from '@Anarchy/Engine/Light/Adapters';
+import { lightConfigToParams } from '@Anarchy/Engine/Light/Adapters';
 import { LightType } from '@Anarchy/Engine/Light/Constants';
 import type { TLightFactory, TLightParams, TLightServiceDependencies, TLightWrapper } from '@Anarchy/Engine/Light/Models';
 import { isAmbientLightParams, isDirectionalLightParams, isHemisphereLightParams, isPointLightParams, isRectAreaLightParams, isSpotLightParams } from '@Anarchy/Engine/Light/Utils';
@@ -20,5 +20,5 @@ export function LightFactory(): TLightFactory {
   const factory: TReactiveFactory<TLightWrapper, TLightParams, TLightServiceDependencies> = ReactiveFactory(FactoryType.Light, create);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(factory, { configToParams });
+  return Object.assign(factory, { configToParams: lightConfigToParams });
 }

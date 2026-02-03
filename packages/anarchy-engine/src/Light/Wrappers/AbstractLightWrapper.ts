@@ -1,6 +1,6 @@
 import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
 import { AbstractWrapper } from '@Anarchy/Engine/Abstract';
-import { lightToConfig } from '@Anarchy/Engine/Light/Adapters';
+import { lightEntityToConfig } from '@Anarchy/Engine/Light/Adapters';
 import type { LightType } from '@Anarchy/Engine/Light/Constants';
 import type { TAbstractLightConfig, TAbstractLightWrapper, TAnyLight, TLightParams, TLightServiceDependencies, TLightTransformDrive } from '@Anarchy/Engine/Light/Models';
 import { LightTransformDrive } from '@Anarchy/Engine/Light/TransformDrive';
@@ -24,7 +24,7 @@ export function AbstractLightWrapper<T extends TAnyLight>(entity: T, params: TLi
     ...withObject3d(entity),
     entity,
     getType: (): LightType => entity.type as LightType,
-    serialize: (): TAbstractLightConfig<T> => lightToConfig(result) as TAbstractLightConfig<T>
+    serialize: (): TAbstractLightConfig<T> => lightEntityToConfig(result) as TAbstractLightConfig<T>
   });
 
   const destroySub$: Subscription = result.destroy$.subscribe((): void => {

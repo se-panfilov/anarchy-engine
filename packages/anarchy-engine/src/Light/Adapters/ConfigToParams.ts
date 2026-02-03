@@ -4,7 +4,7 @@ import { configToParamsObject3d } from '@Anarchy/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import { Color, Vector2 } from 'three';
 
-export function configToParams(config: TAnyLightConfig): TLightParams {
+export function lightConfigToParams(config: TAnyLightConfig): TLightParams {
   const { position, rotation, scale, layers, color, shadow, ...rest } = config;
 
   return {

@@ -31,7 +31,9 @@ import { filterOutEmptyFields, isDefined, isNotDefined } from '@Anarchy/Shared/U
 import type { DirectionalLightShadow, Object3DJSONObject, PointLightShadow, SpotLightShadow, Vector2Like } from 'three';
 import { Vector2 } from 'three';
 
-export function lightToConfig<T extends TAnyLight>(entity: TAbstractLightWrapper<T>): TDirectionalLightConfig | THemisphereLightConfig | TRectAreaLightConfig | TAmbientLightConfig | TSpotLightConfig {
+export function lightEntityToConfig<T extends TAnyLight>(
+  entity: TAbstractLightWrapper<T>
+): TDirectionalLightConfig | THemisphereLightConfig | TRectAreaLightConfig | TAmbientLightConfig | TSpotLightConfig {
   const { drive } = entity;
 
   const json: Object3DJSONObject = entity.entity.toJSON().object;
