@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-shared",
   "author": "S. Panfilov",
   "private": false,
-  "version": "1.6.2",
+  "version": "1.6.3",
   "type": "module",
   "repository": {
     "type": "git",
@@ -42,6 +42,7 @@
       "types": "./dist/Utils/index.d.ts",
       "import": "./dist/Utils/index.es.js"
     },
+    "./package.json": "./package.json",
     "./Constants": {
       "types": "./dist/Constants/index.d.ts",
       "import": "./dist/Constants/index.es.js"
