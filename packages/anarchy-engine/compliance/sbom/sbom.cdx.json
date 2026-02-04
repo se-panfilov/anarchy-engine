@@ -5,7 +5,7 @@
   "serialNumber": "urn:uuid:***",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-02-03T23:38:18.394Z",
+    "timestamp": "2026-02-04T00:13:53.226Z",
     "lifecycles": [
       {
         "phase": "pre-build"
@@ -3380,14 +3380,14 @@
       ]
     },
     {
-      "bom-ref": "@hellpig/anarchy-engine@22.0.1",
+      "bom-ref": "@hellpig/anarchy-engine@22.0.2",
       "type": "library",
       "name": "anarchy-engine",
-      "version": "22.0.1",
+      "version": "22.0.2",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Engine – a 3D game engine for web, desktop and mobile platforms. Built around three.js",
-      "purl": "pkg:npm/%40hellpig/anarchy-engine@22.0.1",
+      "purl": "pkg:npm/%40hellpig/anarchy-engine@22.0.2",
       "properties": [],
       "externalReferences": [
         {
@@ -3440,14 +3440,14 @@
       ]
     },
     {
-      "bom-ref": "@hellpig/anarchy-i18n@1.4.2",
+      "bom-ref": "@hellpig/anarchy-i18n@1.4.3",
       "type": "library",
       "name": "anarchy-i18n",
-      "version": "1.4.2",
+      "version": "1.4.3",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy-I18n – a library for internationalization in Anarchy Engine.",
-      "purl": "pkg:npm/%40hellpig/anarchy-i18n@1.4.2",
+      "purl": "pkg:npm/%40hellpig/anarchy-i18n@1.4.3",
       "properties": [],
       "externalReferences": [
         {
@@ -3472,14 +3472,14 @@
       ]
     },
     {
-      "bom-ref": "@hellpig/anarchy-legal@1.12.2",
+      "bom-ref": "@hellpig/anarchy-legal@1.12.4",
       "type": "library",
       "name": "anarchy-legal",
-      "version": "1.12.2",
+      "version": "1.12.4",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy-legal – a library for generating legal files for Anarchy Engine.",
-      "purl": "pkg:npm/%40hellpig/anarchy-legal@1.12.2",
+      "purl": "pkg:npm/%40hellpig/anarchy-legal@1.12.4",
       "properties": [],
       "externalReferences": [
         {
@@ -3504,14 +3504,14 @@
       ]
     },
     {
-      "bom-ref": "@hellpig/anarchy-shared@1.6.2",
+      "bom-ref": "@hellpig/anarchy-shared@1.6.3",
       "type": "library",
       "name": "anarchy-shared",
-      "version": "1.6.2",
+      "version": "1.6.3",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy-shared – a library with shared utilities and scripts for Anarchy Engine.",
-      "purl": "pkg:npm/%40hellpig/anarchy-shared@1.6.2",
+      "purl": "pkg:npm/%40hellpig/anarchy-shared@1.6.3",
       "properties": [],
       "externalReferences": [
         {
@@ -3536,14 +3536,14 @@
       ]
     },
     {
-      "bom-ref": "@hellpig/anarchy-tracking@1.7.1",
+      "bom-ref": "@hellpig/anarchy-tracking@1.7.2",
       "type": "library",
       "name": "anarchy-tracking",
-      "version": "1.7.1",
+      "version": "1.7.2",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy-Tracking – a library error monitoring in Anarchy Engine's based projects.",
-      "purl": "pkg:npm/%40hellpig/anarchy-tracking@1.7.1",
+      "purl": "pkg:npm/%40hellpig/anarchy-tracking@1.7.2",
       "properties": [],
       "externalReferences": [
         {
@@ -3723,11 +3723,11 @@
         "showcases-core@2.20.1",
         "showcases-desktop@2.12.8",
         "showcases-e2e@1.1.4",
-        "@hellpig/anarchy-engine@22.0.1",
-        "@hellpig/anarchy-i18n@1.4.2",
-        "@hellpig/anarchy-legal@1.12.2",
-        "@hellpig/anarchy-shared@1.6.2",
-        "@hellpig/anarchy-tracking@1.7.1",
+        "@hellpig/anarchy-engine@22.0.2",
+        "@hellpig/anarchy-i18n@1.4.3",
+        "@hellpig/anarchy-legal@1.12.4",
+        "@hellpig/anarchy-shared@1.6.3",
+        "@hellpig/anarchy-tracking@1.7.2",
         "showcases-gui@1.1.8",
         "showcases-i18n@1.4.5",
         "showcases-menu@1.8.10",
@@ -3737,10 +3737,10 @@
     {
       "ref": "showcases-core@2.20.1",
       "dependsOn": [
-        "@hellpig/anarchy-engine@22.0.1",
-        "@hellpig/anarchy-i18n@1.4.2",
-        "@hellpig/anarchy-shared@1.6.2",
-        "@hellpig/anarchy-tracking@1.7.1",
+        "@hellpig/anarchy-engine@22.0.2",
+        "@hellpig/anarchy-i18n@1.4.3",
+        "@hellpig/anarchy-shared@1.6.3",
+        "@hellpig/anarchy-tracking@1.7.2",
         "dexie@4.2.1",
         "lil-gui@0.21.0",
         "sanitize.css@13.0.0",
@@ -3754,11 +3754,11 @@
     },
     {
       "ref": "showcases-desktop@2.12.8",
-      "dependsOn": ["@hellpig/anarchy-shared@1.6.2", "showcases-core@2.20.1", "showcases-shared@1.7.4"]
+      "dependsOn": ["@hellpig/anarchy-shared@1.6.3", "showcases-core@2.20.1", "showcases-shared@1.7.4"]
     },
     {
       "ref": "showcases-e2e@1.1.4",
-      "dependsOn": ["@hellpig/anarchy-engine@22.0.1", "@hellpig/anarchy-shared@1.6.2"]
+      "dependsOn": ["@hellpig/anarchy-engine@22.0.2", "@hellpig/anarchy-shared@1.6.3"]
     },
     {
       "ref": "@apm-js-collab/code-transformer@0.8.2",
@@ -4279,10 +4279,10 @@
       "dependsOn": []
     },
     {
-      "ref": "@hellpig/anarchy-engine@22.0.1",
+      "ref": "@hellpig/anarchy-engine@22.0.2",
       "dependsOn": [
         "@cfworker/json-schema@4.1.1",
-        "@hellpig/anarchy-shared@1.6.2",
+        "@hellpig/anarchy-shared@1.6.3",
         "lodash-es@4.17.22",
         "nanoid@5.1.6",
         "rbush@4.0.1",
@@ -4296,27 +4296,27 @@
       "dependsOn": []
     },
     {
-      "ref": "@hellpig/anarchy-i18n@1.4.2",
+      "ref": "@hellpig/anarchy-i18n@1.4.3",
       "dependsOn": ["@formatjs/intl@4.0.7"]
     },
     {
-      "ref": "@hellpig/anarchy-legal@1.12.2",
+      "ref": "@hellpig/anarchy-legal@1.12.4",
       "dependsOn": []
     },
     {
-      "ref": "@hellpig/anarchy-shared@1.6.2",
+      "ref": "@hellpig/anarchy-shared@1.6.3",
       "dependsOn": ["bowser@2.13.1"]
     },
     {
-      "ref": "@hellpig/anarchy-tracking@1.7.1",
+      "ref": "@hellpig/anarchy-tracking@1.7.2",
       "dependsOn": ["@sentry/browser@10.32.1", "@sentry/electron@7.5.0"]
     },
     {
       "ref": "showcases-gui@1.1.8",
       "dependsOn": [
-        "@hellpig/anarchy-engine@22.0.1",
-        "@hellpig/anarchy-i18n@1.4.2",
-        "@hellpig/anarchy-shared@1.6.2",
+        "@hellpig/anarchy-engine@22.0.2",
+        "@hellpig/anarchy-i18n@1.4.3",
+        "@hellpig/anarchy-shared@1.6.3",
         "lucide-vue-next@0.562.0",
         "nanoid@5.1.6",
         "sanitize.css@13.0.0",
@@ -4327,14 +4327,14 @@
     },
     {
       "ref": "showcases-i18n@1.4.5",
-      "dependsOn": ["@hellpig/anarchy-engine@22.0.1", "@hellpig/anarchy-i18n@1.4.2", "@hellpig/anarchy-shared@1.6.2", "sort-json@2.0.1", "vue-i18n@11.2.7"]
+      "dependsOn": ["@hellpig/anarchy-engine@22.0.2", "@hellpig/anarchy-i18n@1.4.3", "@hellpig/anarchy-shared@1.6.3", "sort-json@2.0.1", "vue-i18n@11.2.7"]
     },
     {
       "ref": "showcases-menu@1.8.10",
       "dependsOn": [
-        "@hellpig/anarchy-engine@22.0.1",
-        "@hellpig/anarchy-i18n@1.4.2",
-        "@hellpig/anarchy-shared@1.6.2",
+        "@hellpig/anarchy-engine@22.0.2",
+        "@hellpig/anarchy-i18n@1.4.3",
+        "@hellpig/anarchy-shared@1.6.3",
         "marked@17.0.1",
         "pinia@3.0.4",
         "sanitize.css@13.0.0",
