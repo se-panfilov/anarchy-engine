@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-tracking",
   "author": "S. Panfilov",
   "private": false,
-  "version": "1.7.1",
+  "version": "1.7.2",
   "type": "module",
   "repository": {
     "type": "git",
@@ -42,6 +42,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/anarchy-tracking.es.js"
     },
+    "./package.json": "./package.json",
     "./browser": {
       "types": "./dist/browser.d.ts",
       "import": "./dist/browser.es.js"

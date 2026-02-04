@@ -20,7 +20,7 @@ _No license text file found; relying on package metadata._
 
 ---
 
-## @hellpig/anarchy-engine@22.0.1
+## @hellpig/anarchy-engine@22.0.2
 
 **License:** MIT
 
@@ -54,7 +54,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-shared@1.6.2
+## @hellpig/anarchy-shared@1.6.3
 
 **License:** MIT
 

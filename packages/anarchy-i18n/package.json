@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-i18n",
   "author": "S. Panfilov",
   "private": false,
-  "version": "1.4.2",
+  "version": "1.4.3",
   "type": "module",
   "repository": {
     "type": "git",
@@ -47,6 +47,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./package.json": "./package.json",
     "./*": {
       "types": "./dist/*.d.ts",
       "import": "./dist/*.js"
