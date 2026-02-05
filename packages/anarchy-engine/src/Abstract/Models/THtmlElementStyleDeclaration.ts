@@ -194,7 +194,7 @@ export type THtmlElementStyleDeclaration = {
   gridGap: string;
   gridRow: string;
   gridRowEnd: string;
-  /** @hellpig/anarchy-engined eprecated This is a legacy alias of `rowGap`. */
+  /** @hellpig/anarchy-engined deprecated This is a legacy alias of `rowGap`. */
   gridRowGap: string;
   gridRowStart: string;
   gridTemplate: string;
