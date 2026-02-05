@@ -1,4 +1,4 @@
-import type { TSerializableEntitiesService, TSerializableResourceService } from '@Anarchy/Engine/Abstract';
+import type { TSerializableEntitiesService, TSerializableResourceService } from '@hellpig/anarchy-engine/Abstract';
 import type {
   TWithCreateFromConfigService,
   TWithCreateService,
@@ -7,7 +7,7 @@ import type {
   TWithRegistryService,
   TWithResourcesMetaInfoRegistryService,
   TWithResourcesRegistryService
-} from '@Anarchy/Engine/Mixins';
+} from '@hellpig/anarchy-engine/Mixins';
 import type { AudioListener } from 'three';
 
 import type { TAnyAudioConfig } from './TAnyAudioConfig';

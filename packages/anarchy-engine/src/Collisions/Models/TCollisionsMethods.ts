@@ -1,5 +1,5 @@
-import type { TActor } from '@Anarchy/Engine/Actor';
-import type { LoopUpdatePriority } from '@Anarchy/Engine/Loop';
+import type { TActor } from '@hellpig/anarchy-engine/Actor';
+import type { LoopUpdatePriority } from '@hellpig/anarchy-engine/Loop';
 
 import type { TCollisionsData } from './TCollisionsData';
 

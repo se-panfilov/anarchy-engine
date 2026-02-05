@@ -1,8 +1,8 @@
-import type { TKinematicData, TKinematicParams } from '@Anarchy/Engine/Kinematic';
-import { DEFAULT_RADIUS, ForwardAxis } from '@Anarchy/Engine/Kinematic';
-import { KinematicTransformAgent } from '@Anarchy/Engine/TransformDrive/Entities/Agents/KinematicTransformAgent';
-import type { TKinematicAgentDependencies, TKinematicTransformAgent, TKinematicTransformAgentParams, TTransformAgentParams } from '@Anarchy/Engine/TransformDrive/Models';
-import type { TOptional } from '@Anarchy/Shared/Utils';
+import type { TKinematicData, TKinematicParams } from '@hellpig/anarchy-engine/Kinematic';
+import { DEFAULT_RADIUS, ForwardAxis } from '@hellpig/anarchy-engine/Kinematic';
+import { KinematicTransformAgent } from '@hellpig/anarchy-engine/TransformDrive/Entities/Agents/KinematicTransformAgent';
+import type { TKinematicAgentDependencies, TKinematicTransformAgent, TKinematicTransformAgentParams, TTransformAgentParams } from '@hellpig/anarchy-engine/TransformDrive/Models';
+import type { TOptional } from '@hellpig/anarchy-shared/Utils';
 import { Quaternion, Vector3 } from 'three';
 
 export function getKinematicTransformAgent(params: TTransformAgentParams, kinematic: TOptional<TKinematicParams> | undefined, dependencies: TKinematicAgentDependencies): TKinematicTransformAgent {

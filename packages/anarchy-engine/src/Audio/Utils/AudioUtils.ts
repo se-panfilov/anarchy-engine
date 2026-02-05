@@ -1,7 +1,17 @@
-import type { TAbstractAudioWrapper, TAnyAudio, TAnyAudioConfig, TAnyAudioParams, TAnyAudioWrapper, TAudio3dConfig, TAudio3dParams, TAudio3dWrapper, TAudioParams } from '@Anarchy/Engine/Audio/Models';
-import type { TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
-import { isEqualOrSimilarByXyzCoords } from '@Anarchy/Engine/Utils';
-import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import type {
+  TAbstractAudioWrapper,
+  TAnyAudio,
+  TAnyAudioConfig,
+  TAnyAudioParams,
+  TAnyAudioWrapper,
+  TAudio3dConfig,
+  TAudio3dParams,
+  TAudio3dWrapper,
+  TAudioParams
+} from '@hellpig/anarchy-engine/Audio/Models';
+import type { TReadonlyVector3 } from '@hellpig/anarchy-engine/ThreeLib';
+import { isEqualOrSimilarByXyzCoords } from '@hellpig/anarchy-engine/Utils';
+import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, tap } from 'rxjs';
 import { Audio, PositionalAudio } from 'three';

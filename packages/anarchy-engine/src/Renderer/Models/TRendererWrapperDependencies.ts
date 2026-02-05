@@ -1,5 +1,5 @@
-import type { TContainerDecorator } from '@Anarchy/Engine/Global';
-import type { TRenderLoop } from '@Anarchy/Engine/Space';
+import type { TContainerDecorator } from '@hellpig/anarchy-engine/Global';
+import type { TRenderLoop } from '@hellpig/anarchy-engine/Space';
 
 export type TRendererWrapperDependencies = Readonly<{
   container: TContainerDecorator;

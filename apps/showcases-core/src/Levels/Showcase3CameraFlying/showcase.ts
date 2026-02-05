@@ -1,6 +1,6 @@
-import type { TActor, TActorRegistry, TAnyCameraWrapper, TSpace, TSpaceConfig } from '@Anarchy/Engine';
-import { getRotationByCos, getRotationBySin, spaceService } from '@Anarchy/Engine';
-import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TActor, TActorRegistry, TAnyCameraWrapper, TSpace, TSpaceConfig } from '@hellpig/anarchy-engine';
+import { getRotationByCos, getRotationBySin, spaceService } from '@hellpig/anarchy-engine';
+import { asRecord, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { combineLatest, distinctUntilChanged } from 'rxjs';
 import type { Vector2Like, Vector3 } from 'three';
 

@@ -1,7 +1,7 @@
-import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
-import { materialEntityToConfig } from '@Anarchy/Engine/Material/Adapters';
-import type { TAnyMaterialWrapper, TMaterialConfig, TMaterialEntityToConfigDependencies, TMaterialParams, TMaterials } from '@Anarchy/Engine/Material/Models';
-import { buildMaterial } from '@Anarchy/Engine/Material/Utils';
+import { AbstractWrapper, WrapperType } from '@hellpig/anarchy-engine/Abstract';
+import { materialEntityToConfig } from '@hellpig/anarchy-engine/Material/Adapters';
+import type { TAnyMaterialWrapper, TMaterialConfig, TMaterialEntityToConfigDependencies, TMaterialParams, TMaterials } from '@hellpig/anarchy-engine/Material/Models';
+import { buildMaterial } from '@hellpig/anarchy-engine/Material/Utils';
 
 export function MaterialWrapper(params: TMaterialParams): TAnyMaterialWrapper {
   const entity: TMaterials = buildMaterial(params);

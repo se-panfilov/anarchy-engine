@@ -1,5 +1,5 @@
-import type { FactoryType } from '@Anarchy/Engine/Abstract/Constants';
-import type { TNoSpread, TWithId } from '@Anarchy/Engine/Mixins';
+import type { FactoryType } from '@hellpig/anarchy-engine/Abstract/Constants';
+import type { TNoSpread, TWithId } from '@hellpig/anarchy-engine/Mixins';
 
 import type { TCreateEntityFactoryFn } from './TCreateEntityFactoryFn';
 

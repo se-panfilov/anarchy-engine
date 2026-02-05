@@ -1,5 +1,5 @@
-import { serializeColorWhenPossible } from '@Anarchy/Engine/Color';
-import type { MaterialType } from '@Anarchy/Engine/Material/Constants';
+import { serializeColorWhenPossible } from '@hellpig/anarchy-engine/Color';
+import type { MaterialType } from '@hellpig/anarchy-engine/Material/Constants';
 import {
   BlendEquationMap,
   BlendingDstFactorMap,
@@ -12,7 +12,7 @@ import {
   StencilFailMap,
   StencilFuncMap,
   StencilOpMap
-} from '@Anarchy/Engine/Material/Constants';
+} from '@hellpig/anarchy-engine/Material/Constants';
 import type {
   TAnyMaterialWrapper,
   TMaterialConfig,
@@ -21,12 +21,12 @@ import type {
   TMaterialEntityToConfigDependencies,
   TMaterialParamsTextures,
   TMaterials
-} from '@Anarchy/Engine/Material/Models';
-import { eulerToXyzIfPossible, getOptionNameIfPossible, vector2ToXyIfPossible } from '@Anarchy/Engine/Material/Utils';
-import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
-import type { TTexture, TTextureAsyncRegistry } from '@Anarchy/Engine/Texture';
-import type { TOptional } from '@Anarchy/Shared/Utils';
-import { filterOutEmptyFields, nullsToUndefined } from '@Anarchy/Shared/Utils';
+} from '@hellpig/anarchy-engine/Material/Models';
+import { eulerToXyzIfPossible, getOptionNameIfPossible, vector2ToXyIfPossible } from '@hellpig/anarchy-engine/Material/Utils';
+import { extractSerializableRegistrableFields } from '@hellpig/anarchy-engine/Mixins';
+import type { TTexture, TTextureAsyncRegistry } from '@hellpig/anarchy-engine/Texture';
+import type { TOptional } from '@hellpig/anarchy-shared/Utils';
+import { filterOutEmptyFields, nullsToUndefined } from '@hellpig/anarchy-shared/Utils';
 import { isEmpty } from 'lodash-es';
 import type {
   LineDashedMaterial,

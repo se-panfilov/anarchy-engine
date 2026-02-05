@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import type { TNoticeUtilsService, TTemplateParsedEntry } from '@Anarchy/Legal/Models';
+import type { TNoticeUtilsService, TTemplateParsedEntry } from '@hellpig/anarchy-legal/Models';
 
 export function NoticeUtilsService(): TNoticeUtilsService {
   function splitEntriesFromMarkdown(md: string): ReadonlyArray<string> {

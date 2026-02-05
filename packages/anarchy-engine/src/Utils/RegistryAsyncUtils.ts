@@ -1,6 +1,6 @@
-import type { LookUpStrategy, TAbstractAsyncEntityRegistry, TAbstractEntityRegistry, TAbstractResourceAsyncRegistry, TAbstractSimpleRegistry, TRegistryPack } from '@Anarchy/Engine/Abstract';
-import type { TMultitonRegistrable, TRegistrable } from '@Anarchy/Engine/Mixins';
-import { createDeferredPromise, isDefined } from '@Anarchy/Shared/Utils';
+import type { LookUpStrategy, TAbstractAsyncEntityRegistry, TAbstractEntityRegistry, TAbstractResourceAsyncRegistry, TAbstractSimpleRegistry, TRegistryPack } from '@hellpig/anarchy-engine/Abstract';
+import type { TMultitonRegistrable, TRegistrable } from '@hellpig/anarchy-engine/Mixins';
+import { createDeferredPromise, isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, catchError, filter, map, of, take, takeUntil, timeout } from 'rxjs';
 

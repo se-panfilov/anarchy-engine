@@ -1,12 +1,12 @@
-import type { TAnimationStateConfig } from '@Anarchy/Engine/Animations';
-import { animationActionToConfig } from '@Anarchy/Engine/Animations/Adapters';
-import type { TAnimations, TAnimationsResourceAsyncRegistry } from '@Anarchy/Engine/Animations/Models';
-import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
-import type { PrimitiveModel3dType } from '@Anarchy/Engine/Models3d/Constants';
-import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModels3dResourceAsyncRegistry, TRawModel3d } from '@Anarchy/Engine/Models3d/Models';
-import { isPrimitiveModel3dSource } from '@Anarchy/Engine/Models3d/Utils';
-import { eulerToXyz, vector3ToXyz } from '@Anarchy/Engine/Utils';
-import { filterOutEmptyFields, isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TAnimationStateConfig } from '@hellpig/anarchy-engine/Animations';
+import { animationActionToConfig } from '@hellpig/anarchy-engine/Animations/Adapters';
+import type { TAnimations, TAnimationsResourceAsyncRegistry } from '@hellpig/anarchy-engine/Animations/Models';
+import { extractSerializableRegistrableFields } from '@hellpig/anarchy-engine/Mixins';
+import type { PrimitiveModel3dType } from '@hellpig/anarchy-engine/Models3d/Constants';
+import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModels3dResourceAsyncRegistry, TRawModel3d } from '@hellpig/anarchy-engine/Models3d/Models';
+import { isPrimitiveModel3dSource } from '@hellpig/anarchy-engine/Models3d/Utils';
+import { eulerToXyz, vector3ToXyz } from '@hellpig/anarchy-engine/Utils';
+import { filterOutEmptyFields, isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { AnimationAction, AnimationClip } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 

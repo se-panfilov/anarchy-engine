@@ -1,4 +1,4 @@
-import { isAllNotDefined, isDefined, isNotDefined, isObject, isString } from '@Anarchy/Shared/Utils';
+import { isAllNotDefined, isDefined, isNotDefined, isObject, isString } from '@hellpig/anarchy-shared/Utils';
 import { ShowcasesLocales } from '@Showcases/i18n/Constants';
 import type { TLegalDoc, TLoadDocPayload, TShowcasesGameSettings } from '@Showcases/Shared/Models';
 

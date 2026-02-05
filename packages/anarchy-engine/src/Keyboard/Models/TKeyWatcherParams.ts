@@ -1,6 +1,6 @@
-import type { WatcherTag } from '@Anarchy/Engine/Abstract';
-import type { TContainerDecorator } from '@Anarchy/Engine/Global';
-import type { KeyWatcherType } from '@Anarchy/Engine/Keyboard/Constants';
+import type { WatcherTag } from '@hellpig/anarchy-engine/Abstract';
+import type { TContainerDecorator } from '@hellpig/anarchy-engine/Global';
+import type { KeyWatcherType } from '@hellpig/anarchy-engine/Keyboard/Constants';
 
 export type TKeyWatcherParams = Readonly<{
   type: KeyWatcherType;

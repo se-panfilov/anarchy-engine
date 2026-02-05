@@ -1,9 +1,9 @@
-import { MaterialMap, MaterialType } from '@Anarchy/Engine/Material/Constants';
-import type { TMaterialParams, TMaterialParamsOptions, TMaterials, TTypeOfMaterials } from '@Anarchy/Engine/Material/Models';
-import type { TEulerLike, TEulerString } from '@Anarchy/Engine/ThreeLib';
-import { eulerToXyz, vector2ToXy, vector3ToXyz } from '@Anarchy/Engine/Utils';
-import type { TWithoutNull } from '@Anarchy/Shared/Utils';
-import { isNotDefined } from '@Anarchy/Shared/Utils';
+import { MaterialMap, MaterialType } from '@hellpig/anarchy-engine/Material/Constants';
+import type { TMaterialParams, TMaterialParamsOptions, TMaterials, TTypeOfMaterials } from '@hellpig/anarchy-engine/Material/Models';
+import type { TEulerLike, TEulerString } from '@hellpig/anarchy-engine/ThreeLib';
+import { eulerToXyz, vector2ToXy, vector3ToXyz } from '@hellpig/anarchy-engine/Utils';
+import type { TWithoutNull } from '@hellpig/anarchy-shared/Utils';
+import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type {
   LineDashedMaterial,
   Material,

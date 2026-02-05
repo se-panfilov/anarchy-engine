@@ -1,8 +1,8 @@
-import type { TAbstractEntity } from '@Anarchy/Engine/Abstract';
-import type { TAnyAudio } from '@Anarchy/Engine/Audio';
-import type { TAnyMaterialWrapper, TMaterials } from '@Anarchy/Engine/Material';
-import type { TWithModel3d, TWithModel3dEntities } from '@Anarchy/Engine/Models3d';
-import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TAbstractEntity } from '@hellpig/anarchy-engine/Abstract';
+import type { TAnyAudio } from '@hellpig/anarchy-engine/Audio';
+import type { TAnyMaterialWrapper, TMaterials } from '@hellpig/anarchy-engine/Material';
+import type { TWithModel3d, TWithModel3dEntities } from '@hellpig/anarchy-engine/Models3d';
+import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { AnimationAction, AnimationClip, Material, Object3D, PositionalAudio } from 'three';
 import { Mesh, Texture } from 'three';
 

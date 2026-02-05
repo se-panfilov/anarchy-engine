@@ -1,7 +1,7 @@
-import type { TActorParams, TActorStates, TWithActorStates } from '@Anarchy/Engine/Actor/Models';
-import type { TFsmWrapper } from '@Anarchy/Engine/Fsm';
-import type { TWriteable } from '@Anarchy/Shared/Utils';
-import { isDefined } from '@Anarchy/Shared/Utils';
+import type { TActorParams, TActorStates, TWithActorStates } from '@hellpig/anarchy-engine/Actor/Models';
+import type { TFsmWrapper } from '@hellpig/anarchy-engine/Fsm';
+import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 
 export function withActorStates(params: TActorParams): TWithActorStates {
   const states: TWriteable<TActorStates> = params.states ?? {};

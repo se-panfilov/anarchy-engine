@@ -1,12 +1,12 @@
-import type { TActor, TActorParams } from '@Anarchy/Engine/Actor';
-import type { TCollisionCheckResult, TCollisionsData, TCollisionsLoop, TCollisionsService, TWithCollisions } from '@Anarchy/Engine/Collisions/Models';
-import { LoopUpdatePriority } from '@Anarchy/Engine/Loop';
-import type { TMilliseconds } from '@Anarchy/Engine/Math';
-import type { TDestroyable } from '@Anarchy/Engine/Mixins';
-import { destroyableMixin } from '@Anarchy/Engine/Mixins';
-import type { TSpatialCellWrapper } from '@Anarchy/Engine/Spatial';
-import type { TWriteable } from '@Anarchy/Shared/Utils';
-import { isDefined, removeDuplicates } from '@Anarchy/Shared/Utils';
+import type { TActor, TActorParams } from '@hellpig/anarchy-engine/Actor';
+import type { TCollisionCheckResult, TCollisionsData, TCollisionsLoop, TCollisionsService, TWithCollisions } from '@hellpig/anarchy-engine/Collisions/Models';
+import { LoopUpdatePriority } from '@hellpig/anarchy-engine/Loop';
+import type { TMilliseconds } from '@hellpig/anarchy-engine/Math';
+import type { TDestroyable } from '@hellpig/anarchy-engine/Mixins';
+import { destroyableMixin } from '@hellpig/anarchy-engine/Mixins';
+import type { TSpatialCellWrapper } from '@hellpig/anarchy-engine/Spatial';
+import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
+import { isDefined, removeDuplicates } from '@hellpig/anarchy-shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, EMPTY, filter, Subject, switchMap } from 'rxjs';
 

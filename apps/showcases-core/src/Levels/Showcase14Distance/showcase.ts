@@ -1,6 +1,6 @@
-import type { TActor, TActorRegistry, TMetersPerSecond, TMilliseconds, TReadonlyVector3, TSpace, TSpaceConfig } from '@Anarchy/Engine';
-import { KeyCode, meters, metersPerSecond, mpsSpeed, onKeyReleased, spaceService, TransformAgent } from '@Anarchy/Engine';
-import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TActor, TActorRegistry, TMetersPerSecond, TMilliseconds, TReadonlyVector3, TSpace, TSpaceConfig } from '@hellpig/anarchy-engine';
+import { KeyCode, meters, metersPerSecond, mpsSpeed, onKeyReleased, spaceService, TransformAgent } from '@hellpig/anarchy-engine';
+import { asRecord, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import GUI from 'lil-gui';
 import { Vector3 } from 'three';
 

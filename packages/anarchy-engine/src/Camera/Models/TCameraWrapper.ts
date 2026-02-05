@@ -1,7 +1,7 @@
-import type { TWrapper } from '@Anarchy/Engine/Abstract';
-import type { CameraType } from '@Anarchy/Engine/Camera/Constants';
-import type { TWithActiveMixin, TWithObject3d } from '@Anarchy/Engine/Mixins';
-import type { TWithTransformDrive } from '@Anarchy/Engine/TransformDrive';
+import type { TWrapper } from '@hellpig/anarchy-engine/Abstract';
+import type { CameraType } from '@hellpig/anarchy-engine/Camera/Constants';
+import type { TWithActiveMixin, TWithObject3d } from '@hellpig/anarchy-engine/Mixins';
+import type { TWithTransformDrive } from '@hellpig/anarchy-engine/TransformDrive';
 
 import type { TAnyCamera } from './TAnyCamera';
 import type { TCameraTransformAgents } from './TCameraTransformAgents';

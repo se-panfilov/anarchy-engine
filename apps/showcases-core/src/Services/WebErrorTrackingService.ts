@@ -1,8 +1,8 @@
-import type { TLocaleId } from '@Anarchy/i18n';
-import { getLangFromLocaleId } from '@Anarchy/i18n';
-import { isDefined } from '@Anarchy/Shared/Utils';
-import type { TMetaData, TTrackingService } from '@Anarchy/Tracking';
-import { BrowserTrackingService } from '@Anarchy/Tracking/Services/BrowserTrackingService';
+import type { TLocaleId } from '@hellpig/anarchy-i18n';
+import { getLangFromLocaleId } from '@hellpig/anarchy-i18n';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
+import type { TMetaData, TTrackingService } from '@hellpig/anarchy-tracking';
+import { BrowserTrackingService } from '@hellpig/anarchy-tracking/Services/BrowserTrackingService';
 import type { BrowserOptions } from '@sentry/browser';
 import type { TShowcasesGameSettings } from '@Showcases/Shared';
 import { getAnonymizedSettings } from '@Showcases/Shared';

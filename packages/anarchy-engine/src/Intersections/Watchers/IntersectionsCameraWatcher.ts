@@ -1,18 +1,18 @@
-import type { TAnyCameraWrapper } from '@Anarchy/Engine/Camera';
+import type { TAnyCameraWrapper } from '@hellpig/anarchy-engine/Camera';
 import type {
   TAbstractIntersectionsWatcher,
   TIntersectionEvent,
   TIntersectionsCameraWatcher,
   TIntersectionsCameraWatcherParams,
   TIntersectionsWatcherPerformanceOptions
-} from '@Anarchy/Engine/Intersections/Models';
-import { getChangedPosition } from '@Anarchy/Engine/Intersections/Utils';
-import { AbstractIntersectionsWatcher } from '@Anarchy/Engine/Intersections/Watchers/AbstractIntersectionsWatcher';
-import type { TMilliseconds } from '@Anarchy/Engine/Math';
-import type { TSceneObject } from '@Anarchy/Engine/Scene';
-import type { TReadonlyVector2 } from '@Anarchy/Engine/ThreeLib';
-import type { TWriteable } from '@Anarchy/Shared/Utils';
-import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+} from '@hellpig/anarchy-engine/Intersections/Models';
+import { getChangedPosition } from '@hellpig/anarchy-engine/Intersections/Utils';
+import { AbstractIntersectionsWatcher } from '@hellpig/anarchy-engine/Intersections/Watchers/AbstractIntersectionsWatcher';
+import type { TMilliseconds } from '@hellpig/anarchy-engine/Math';
+import type { TSceneObject } from '@hellpig/anarchy-engine/Scene';
+import type { TReadonlyVector2 } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
+import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, EMPTY, filter, map, switchMap } from 'rxjs';
 import type { Vector2Like } from 'three';

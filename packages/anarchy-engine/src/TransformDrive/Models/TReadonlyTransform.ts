@@ -1,4 +1,4 @@
-import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@hellpig/anarchy-engine/ThreeLib';
 
 export type TReadonlyTransform = Readonly<{
   position: TReadonlyVector3;

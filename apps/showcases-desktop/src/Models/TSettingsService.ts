@@ -1,4 +1,4 @@
-import type { TLocaleId } from '@Anarchy/i18n';
+import type { TLocaleId } from '@hellpig/anarchy-i18n';
 import type { TResolution, TShowcasesGameSettings } from '@Showcases/Shared';
 
 export type TSettingsService = Readonly<{

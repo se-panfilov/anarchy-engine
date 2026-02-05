@@ -1,7 +1,7 @@
-import type { TWrapper } from '@Anarchy/Engine/Abstract';
-import type { LightType } from '@Anarchy/Engine/Light/Constants';
-import type { TWithObject3d } from '@Anarchy/Engine/Mixins';
-import type { TWithTransformDrive } from '@Anarchy/Engine/TransformDrive';
+import type { TWrapper } from '@hellpig/anarchy-engine/Abstract';
+import type { LightType } from '@hellpig/anarchy-engine/Light/Constants';
+import type { TWithObject3d } from '@hellpig/anarchy-engine/Mixins';
+import type { TWithTransformDrive } from '@hellpig/anarchy-engine/TransformDrive';
 
 import type { TAnyLight } from './TAnyLight';
 import type { TLightTransformAgents } from './TLightTransformAgents';

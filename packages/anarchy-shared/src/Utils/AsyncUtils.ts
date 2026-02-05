@@ -1,4 +1,4 @@
-import type { TDeferredPromise } from '@Anarchy/Shared/Models';
+import type { TDeferredPromise } from '@hellpig/anarchy-shared/Models';
 
 export function createDeferredPromise<T>(): TDeferredPromise<T> {
   let resolve: (value: T | PromiseLike<T>) => void;

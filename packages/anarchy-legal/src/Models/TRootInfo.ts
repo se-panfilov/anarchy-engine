@@ -1,4 +1,4 @@
-import type { TWorkspaceInfo } from '@Anarchy/Legal/Models/TWorkspaceInfo';
+import type { TWorkspaceInfo } from '@hellpig/anarchy-legal/Models/TWorkspaceInfo';
 
 export type TRootInfo = Readonly<{
   rootDir: string;

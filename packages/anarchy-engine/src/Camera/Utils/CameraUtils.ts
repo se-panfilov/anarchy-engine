@@ -1,4 +1,4 @@
-import { CameraType } from '@Anarchy/Engine/Camera/Constants';
+import { CameraType } from '@hellpig/anarchy-engine/Camera/Constants';
 import type {
   TOrthographicCamera,
   TOrthographicCameraParams,
@@ -6,10 +6,10 @@ import type {
   TPerspectiveCamera,
   TPerspectiveCameraParams,
   TPerspectiveCameraWrapper
-} from '@Anarchy/Engine/Camera/Models';
-import type { TShadowCameraParams } from '@Anarchy/Engine/Light';
-import type { TWriteable } from '@Anarchy/Shared/Utils';
-import { isDefined } from '@Anarchy/Shared/Utils';
+} from '@hellpig/anarchy-engine/Camera/Models';
+import type { TShadowCameraParams } from '@hellpig/anarchy-engine/Light';
+import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 
 export const isPerspectiveCamera = (camera: TOrthographicCamera | TPerspectiveCamera): camera is TPerspectiveCamera => camera.type === CameraType.Perspective;
 export const isPerspectiveCameraWrapper = (camera: TOrthographicCameraWrapper | TPerspectiveCameraWrapper): camera is TPerspectiveCameraWrapper => isPerspectiveCamera(camera.entity);

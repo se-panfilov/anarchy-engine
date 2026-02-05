@@ -1,5 +1,5 @@
-import type { TDestroyable, TWithId } from '@Anarchy/Engine/Mixins';
-import type { TextRendererType } from '@Anarchy/Engine/Text/Constants';
+import type { TDestroyable, TWithId } from '@hellpig/anarchy-engine/Mixins';
+import type { TextRendererType } from '@hellpig/anarchy-engine/Text/Constants';
 import type { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import type { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 

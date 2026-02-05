@@ -1,4 +1,4 @@
-import type { MouseButtonValue, TGameKey } from '@Anarchy/Engine';
+import type { MouseButtonValue, TGameKey } from '@hellpig/anarchy-engine';
 import type { GuiActionType } from '@Showcases/GUI/constants';
 import type { FunctionalComponent } from 'vue';
 

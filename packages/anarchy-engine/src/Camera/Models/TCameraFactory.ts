@@ -1,4 +1,4 @@
-import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@Anarchy/Engine/Abstract';
+import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
 
 import type { TAnyCameraWrapper } from './TAnyCameraWrapper';
 import type { TCameraServiceDependencies } from './TCameraServiceDependencies';

@@ -1,5 +1,5 @@
-import type { TLoopService } from '@Anarchy/Engine/Loop';
-import type { TPhysicsBodyService } from '@Anarchy/Engine/Physics';
+import type { TLoopService } from '@hellpig/anarchy-engine/Loop';
+import type { TPhysicsBodyService } from '@hellpig/anarchy-engine/Physics';
 
 export type TTextTransformDriveDependencies = Readonly<{
   physicsBodyService: TPhysicsBodyService;

@@ -1,4 +1,4 @@
-import type { TPerspectiveCameraWrapper, TSpace, TSpaceConfig } from '@Anarchy/Engine';
+import type { TPerspectiveCameraWrapper, TSpace, TSpaceConfig } from '@hellpig/anarchy-engine';
 import { BehaviorSubject } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
 

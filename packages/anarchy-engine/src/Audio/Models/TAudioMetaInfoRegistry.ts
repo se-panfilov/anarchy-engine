@@ -1,4 +1,4 @@
-import type { TAbstractSimpleRegistry } from '@Anarchy/Engine/Abstract';
+import type { TAbstractSimpleRegistry } from '@hellpig/anarchy-engine/Abstract';
 
 import type { TAudioResourceConfig } from './TAudioResourceConfig';
 

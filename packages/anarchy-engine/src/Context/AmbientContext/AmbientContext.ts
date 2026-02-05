@@ -1,4 +1,4 @@
-import { ContainerDecorator } from '@Anarchy/Engine/Global';
+import { ContainerDecorator } from '@hellpig/anarchy-engine/Global';
 
 import type { TAmbientContext } from './Models';
 

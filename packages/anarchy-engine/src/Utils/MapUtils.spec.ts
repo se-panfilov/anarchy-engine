@@ -1,4 +1,4 @@
-import { findInMap } from '@Anarchy/Shared/Utils/MapUtils';
+import { findInMap } from '@hellpig/anarchy-shared/Utils/MapUtils';
 import { describe, expect, it } from 'vitest';
 
 describe('MapUtils', () => {

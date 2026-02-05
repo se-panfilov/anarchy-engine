@@ -1,4 +1,4 @@
-import type { TLocale } from '@Anarchy/i18n';
+import type { TLocale } from '@hellpig/anarchy-i18n';
 
 import type { TFullLocaleIds, TShowcaseLocaleIds } from './TShowcaseLocaleIds';
 

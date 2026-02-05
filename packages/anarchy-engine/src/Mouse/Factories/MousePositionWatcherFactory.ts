@@ -1,6 +1,6 @@
-import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
-import type { TMousePositionWatcher, TMousePositionWatcherDependencies, TMousePositionWatcherFactory, TMousePositionWatcherParams } from '@Anarchy/Engine/Mouse/Models';
-import { MousePositionWatcher } from '@Anarchy/Engine/Mouse/Watchers';
+import { FactoryType, ReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
+import type { TMousePositionWatcher, TMousePositionWatcherDependencies, TMousePositionWatcherFactory, TMousePositionWatcherParams } from '@hellpig/anarchy-engine/Mouse/Models';
+import { MousePositionWatcher } from '@hellpig/anarchy-engine/Mouse/Watchers';
 
 const createMousePositionWatcher = (params: TMousePositionWatcherParams, { mouseLoop }: TMousePositionWatcherDependencies): TMousePositionWatcher => MousePositionWatcher(params, mouseLoop);
 

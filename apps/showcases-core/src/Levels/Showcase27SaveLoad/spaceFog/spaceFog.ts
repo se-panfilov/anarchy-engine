@@ -1,5 +1,5 @@
-import type { TFogWrapper, TSpace, TSpaceConfig } from '@Anarchy/Engine';
-import type { TWriteable } from '@Anarchy/Shared/Utils';
+import type { TFogWrapper, TSpace, TSpaceConfig } from '@hellpig/anarchy-engine';
+import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 import { BehaviorSubject } from 'rxjs';
 import type { Fog } from 'three';
 import { Color } from 'three';

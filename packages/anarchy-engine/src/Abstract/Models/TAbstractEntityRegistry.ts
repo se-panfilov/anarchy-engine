@@ -1,5 +1,5 @@
-import type { LookUpStrategy } from '@Anarchy/Engine/Abstract/Registries/Constants';
-import type { TDestroyable, TRegistrable } from '@Anarchy/Engine/Mixins';
+import type { LookUpStrategy } from '@hellpig/anarchy-engine/Abstract/Registries/Constants';
+import type { TDestroyable, TRegistrable } from '@hellpig/anarchy-engine/Mixins';
 
 import type { TAbstractSimpleRegistry } from './TAbstractSimpleRegistry';
 

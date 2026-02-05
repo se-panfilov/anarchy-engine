@@ -1,8 +1,8 @@
-import type { TAnyCameraWrapper, TCameraService } from '@Anarchy/Engine/Camera';
-import type { TMilliseconds } from '@Anarchy/Engine/Math';
-import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
-import type { TText2dRegistry, TText2dRenderer, TText3dRegistry, TText3dRenderer, TTextLoop } from '@Anarchy/Engine/Text/Models';
-import { isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TAnyCameraWrapper, TCameraService } from '@hellpig/anarchy-engine/Camera';
+import type { TMilliseconds } from '@hellpig/anarchy-engine/Math';
+import type { TSceneWrapper } from '@hellpig/anarchy-engine/Scene';
+import type { TText2dRegistry, TText2dRenderer, TText3dRegistry, TText3dRenderer, TTextLoop } from '@hellpig/anarchy-engine/Text/Models';
+import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { BehaviorSubject, Subscription } from 'rxjs';
 import { withLatestFrom } from 'rxjs';
 

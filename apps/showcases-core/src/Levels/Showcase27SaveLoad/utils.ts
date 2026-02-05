@@ -1,6 +1,6 @@
-import type { TModel3d, TSpace, TSpaceConfig, TText2dRegistry, TText2dWrapper, TText3dRegistry, TText3dTextureRegistry, TText3dTextureWrapper, TText3dWrapper } from '@Anarchy/Engine';
-import { ambientContext, createDomElement, TextType } from '@Anarchy/Engine';
-import { isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TModel3d, TSpace, TSpaceConfig, TText2dRegistry, TText2dWrapper, TText3dRegistry, TText3dTextureRegistry, TText3dTextureWrapper, TText3dWrapper } from '@hellpig/anarchy-engine';
+import { ambientContext, createDomElement, TextType } from '@hellpig/anarchy-engine';
+import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { BehaviorSubject } from 'rxjs';
 import { Euler, Vector3 } from 'three';
 

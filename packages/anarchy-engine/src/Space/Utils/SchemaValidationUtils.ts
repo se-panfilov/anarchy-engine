@@ -1,11 +1,11 @@
-import type { TAbstractResourceConfig } from '@Anarchy/Engine/Abstract';
-import type { TActorConfig } from '@Anarchy/Engine/Actor';
-import type { TAnyAudioConfig, TAudioResourceConfig } from '@Anarchy/Engine/Audio';
-import type { TWithName, TWithNameOptional, TWithTags } from '@Anarchy/Engine/Mixins';
-import type { TModel3dConfig, TModel3dResourceConfig } from '@Anarchy/Engine/Models3d';
-import { isPrimitiveModel3dResourceConfig, isPrimitiveModel3dSource } from '@Anarchy/Engine/Models3d';
-import type { TPhysicsBodyConfig, TPhysicsConfig } from '@Anarchy/Engine/Physics';
-import { findDuplicateString, isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TAbstractResourceConfig } from '@hellpig/anarchy-engine/Abstract';
+import type { TActorConfig } from '@hellpig/anarchy-engine/Actor';
+import type { TAnyAudioConfig, TAudioResourceConfig } from '@hellpig/anarchy-engine/Audio';
+import type { TWithName, TWithNameOptional, TWithTags } from '@hellpig/anarchy-engine/Mixins';
+import type { TModel3dConfig, TModel3dResourceConfig } from '@hellpig/anarchy-engine/Models3d';
+import { isPrimitiveModel3dResourceConfig, isPrimitiveModel3dSource } from '@hellpig/anarchy-engine/Models3d';
+import type { TPhysicsBodyConfig, TPhysicsConfig } from '@hellpig/anarchy-engine/Physics';
+import { findDuplicateString, isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 
 export const validateNames = (entities: ReadonlyArray<TWithNameOptional>): boolean => entities.every(validateName);
 export const validateName = (entity: TWithNameOptional): boolean => validateField(entity, 'name');

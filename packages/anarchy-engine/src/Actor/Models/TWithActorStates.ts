@@ -1,4 +1,4 @@
-import type { TFsmWrapper } from '@Anarchy/Engine/Fsm';
+import type { TFsmWrapper } from '@hellpig/anarchy-engine/Fsm';
 
 import type { TActorStates } from './TActorStates';
 

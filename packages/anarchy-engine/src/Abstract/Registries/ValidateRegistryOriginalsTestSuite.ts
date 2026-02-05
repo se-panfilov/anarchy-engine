@@ -1,4 +1,4 @@
-import type { TRegistrable, TWithName } from '@Anarchy/Engine/Mixins';
+import type { TRegistrable, TWithName } from '@hellpig/anarchy-engine/Mixins';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 import { firstValueFrom } from 'rxjs';

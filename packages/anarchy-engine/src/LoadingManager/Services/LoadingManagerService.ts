@@ -1,6 +1,6 @@
-import type { TAbstractService } from '@Anarchy/Engine/Abstract';
-import { AbstractService } from '@Anarchy/Engine/Abstract';
-import { DEFAULT_SPACE_LOADING_MANAGER_NAME } from '@Anarchy/Engine/LoadingManager/Constants';
+import type { TAbstractService } from '@hellpig/anarchy-engine/Abstract';
+import { AbstractService } from '@hellpig/anarchy-engine/Abstract';
+import { DEFAULT_SPACE_LOADING_MANAGER_NAME } from '@hellpig/anarchy-engine/LoadingManager/Constants';
 import type {
   TLoadingManagerFactory,
   TLoadingManagerRegistry,
@@ -9,10 +9,10 @@ import type {
   TLoadingManagerServiceWithFactory,
   TLoadingManagerServiceWithRegistry,
   TLoadingManagerWrapper
-} from '@Anarchy/Engine/LoadingManager/Models';
-import type { TDisposable } from '@Anarchy/Engine/Mixins';
-import { withCreateServiceMixin, withFactoryService, withRegistryService } from '@Anarchy/Engine/Mixins';
-import { mergeAll } from '@Anarchy/Engine/Utils';
+} from '@hellpig/anarchy-engine/LoadingManager/Models';
+import type { TDisposable } from '@hellpig/anarchy-engine/Mixins';
+import { withCreateServiceMixin, withFactoryService, withRegistryService } from '@hellpig/anarchy-engine/Mixins';
+import { mergeAll } from '@hellpig/anarchy-engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function LoadingManagerService(factory: TLoadingManagerFactory, registry: TLoadingManagerRegistry): TLoadingManagerService {

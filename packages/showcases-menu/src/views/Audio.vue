@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TWriteable } from '@Anarchy/Shared/Utils';
+import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 import Navigation from '@Showcases/Menu/components/Navigation/Navigation.vue';
 import Range from '@Showcases/Menu/components/Range.vue';
 import SettingsGroup from '@Showcases/Menu/components/SettingsGroup.vue';

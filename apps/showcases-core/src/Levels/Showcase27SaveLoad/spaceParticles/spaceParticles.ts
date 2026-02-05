@@ -1,4 +1,4 @@
-import type { TParticlesWrapper, TSpace, TSpaceConfig } from '@Anarchy/Engine';
+import type { TParticlesWrapper, TSpace, TSpaceConfig } from '@hellpig/anarchy-engine';
 import { BehaviorSubject } from 'rxjs';
 
 import type { TSpacesData } from '../ShowcaseTypes';

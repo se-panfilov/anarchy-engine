@@ -37,7 +37,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @asamuzakjp/css-color@4.1.1
+## @asamuzakjp/css-color@4.1.2
 
 **License:** MIT
 
@@ -71,7 +71,7 @@ SOFTWARE.
 
 ---
 
-## @asamuzakjp/dom-selector@6.7.7
+## @asamuzakjp/dom-selector@6.7.8
 
 **License:** MIT
 
@@ -289,7 +289,7 @@ _No license text file found; relying on package metadata._
 
 ---
 
-## @csstools/color-helpers@5.1.0
+## @csstools/color-helpers@6.0.1
 
 **License:** MIT-0
 
@@ -318,7 +318,7 @@ SOFTWARE.
 
 ---
 
-## @csstools/css-calc@2.1.4
+## @csstools/css-calc@3.0.0
 
 **License:** MIT
 
@@ -349,7 +349,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @csstools/css-color-parser@3.1.0
+## @csstools/css-color-parser@4.0.1
 
 **License:** MIT
 
@@ -380,7 +380,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @csstools/css-parser-algorithms@3.0.5
+## @csstools/css-parser-algorithms@4.0.0
 
 **License:** MIT
 
@@ -440,7 +440,7 @@ SOFTWARE.
 
 ---
 
-## @csstools/css-tokenizer@3.0.4
+## @csstools/css-tokenizer@4.0.0
 
 **License:** MIT
 
@@ -629,7 +629,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @hellpig/anarchy-engine@22.0.2
+## @hellpig/anarchy-engine@22.0.3
 
 **License:** MIT
 
@@ -663,7 +663,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-i18n@1.4.3
+## @hellpig/anarchy-i18n@1.4.4
 
 **License:** MIT
 
@@ -697,7 +697,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-shared@1.6.3
+## @hellpig/anarchy-shared@1.6.4
 
 **License:** MIT
 
@@ -3430,7 +3430,7 @@ _No license text file found; relying on package metadata._
 
 ---
 
-## showcases-i18n@1.4.5
+## showcases-i18n@1.4.6
 
 **License:** MIT
 
@@ -3464,7 +3464,7 @@ SOFTWARE.
 
 ---
 
-## showcases-shared@1.7.4
+## showcases-shared@1.7.5
 
 **License:** MIT
 

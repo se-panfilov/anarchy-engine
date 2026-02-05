@@ -1,4 +1,4 @@
-import type { TParamsFromConfig } from '@Anarchy/Engine/Abstract';
+import type { TParamsFromConfig } from '@hellpig/anarchy-engine/Abstract';
 
 import type { TActorConfig } from './TActorConfig';
 import type { TActorConfigToParamsDependencies } from './TActorConfigToParamsDependencies';

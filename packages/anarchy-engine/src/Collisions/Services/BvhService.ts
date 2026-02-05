@@ -1,9 +1,9 @@
-import type { TAbstractService } from '@Anarchy/Engine/Abstract';
-import { AbstractService } from '@Anarchy/Engine/Abstract';
-import type { TActor } from '@Anarchy/Engine/Actor';
-import type { TBvhOptions, TBvhService } from '@Anarchy/Engine/Collisions/Models';
-import type { TRawModel3d } from '@Anarchy/Engine/Models3d';
-import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
+import type { TAbstractService } from '@hellpig/anarchy-engine/Abstract';
+import { AbstractService } from '@hellpig/anarchy-engine/Abstract';
+import type { TActor } from '@hellpig/anarchy-engine/Actor';
+import type { TBvhOptions, TBvhService } from '@hellpig/anarchy-engine/Collisions/Models';
+import type { TRawModel3d } from '@hellpig/anarchy-engine/Models3d';
+import type { TSceneWrapper } from '@hellpig/anarchy-engine/Scene';
 import type { BufferGeometry, Group, Intersection, Mesh, Object3D, Raycaster } from 'three';
 import type { MeshBVH } from 'three-mesh-bvh';
 import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree, MeshBVHHelper } from 'three-mesh-bvh';

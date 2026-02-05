@@ -1,4 +1,4 @@
-import type { TMeters } from '@Anarchy/Engine/Math/Types';
+import type { TMeters } from '@hellpig/anarchy-engine/Math/Types';
 
 export type TBoxGeometryParams = Readonly<{
   width?: TMeters;

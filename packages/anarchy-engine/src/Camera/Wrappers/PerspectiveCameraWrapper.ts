@@ -1,7 +1,7 @@
-import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
-import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
-import { cameraEntityToConfig } from '@Anarchy/Engine/Camera/Adapters';
-import type { CameraType } from '@Anarchy/Engine/Camera/Constants';
+import type { TAbstractWrapper } from '@hellpig/anarchy-engine/Abstract';
+import { AbstractWrapper, WrapperType } from '@hellpig/anarchy-engine/Abstract';
+import { cameraEntityToConfig } from '@hellpig/anarchy-engine/Camera/Adapters';
+import type { CameraType } from '@hellpig/anarchy-engine/Camera/Constants';
 import type {
   TAnyCamera,
   TCameraTransformDrive,
@@ -12,15 +12,15 @@ import type {
   TPerspectiveCameraConfig,
   TPerspectiveCameraParams,
   TPerspectiveCameraWrapper
-} from '@Anarchy/Engine/Camera/Models';
-import { CameraTransformDrive } from '@Anarchy/Engine/Camera/TransformDrive';
-import { applyPerspectiveCameraParams } from '@Anarchy/Engine/Camera/Utils';
-import { withActiveMixin, withObject3d } from '@Anarchy/Engine/Mixins';
-import type { TDriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
-import { DriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
-import { applyObject3dParams, mergeAll } from '@Anarchy/Engine/Utils';
-import type { TOptional, TWriteable } from '@Anarchy/Shared/Utils';
-import { isDefined } from '@Anarchy/Shared/Utils';
+} from '@hellpig/anarchy-engine/Camera/Models';
+import { CameraTransformDrive } from '@hellpig/anarchy-engine/Camera/TransformDrive';
+import { applyPerspectiveCameraParams } from '@hellpig/anarchy-engine/Camera/Utils';
+import { withActiveMixin, withObject3d } from '@hellpig/anarchy-engine/Mixins';
+import type { TDriveToTargetConnector } from '@hellpig/anarchy-engine/TransformDrive';
+import { DriveToTargetConnector } from '@hellpig/anarchy-engine/TransformDrive';
+import { applyObject3dParams, mergeAll } from '@hellpig/anarchy-engine/Utils';
+import type { TOptional, TWriteable } from '@hellpig/anarchy-shared/Utils';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs';
 import { PerspectiveCamera, Vector3 } from 'three';

@@ -1,12 +1,12 @@
-import type { RegistryType } from '@Anarchy/Engine/Abstract/Constants';
-import type { TAbstractEntityRegistry, TWithBaseAccessorsRegistry, TWithReactiveRegistry } from '@Anarchy/Engine/Abstract/Models';
-import type { LookUpStrategy } from '@Anarchy/Engine/Abstract/Registries/Constants';
-import { withBaseAccessorsRegistry } from '@Anarchy/Engine/Abstract/Registries/Mixin';
-import { withReactiveRegistry } from '@Anarchy/Engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
-import type { TDestroyable, TMultitonRegistrable, TRegistrable } from '@Anarchy/Engine/Mixins';
-import { destroyableMixin } from '@Anarchy/Engine/Mixins';
-import { getAllEntitiesWithNames, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, mergeAll } from '@Anarchy/Engine/Utils';
-import { findInMap, findKeyWithValue, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { RegistryType } from '@hellpig/anarchy-engine/Abstract/Constants';
+import type { TAbstractEntityRegistry, TWithBaseAccessorsRegistry, TWithReactiveRegistry } from '@hellpig/anarchy-engine/Abstract/Models';
+import type { LookUpStrategy } from '@hellpig/anarchy-engine/Abstract/Registries/Constants';
+import { withBaseAccessorsRegistry } from '@hellpig/anarchy-engine/Abstract/Registries/Mixin';
+import { withReactiveRegistry } from '@hellpig/anarchy-engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
+import type { TDestroyable, TMultitonRegistrable, TRegistrable } from '@hellpig/anarchy-engine/Mixins';
+import { destroyableMixin } from '@hellpig/anarchy-engine/Mixins';
+import { getAllEntitiesWithNames, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, mergeAll } from '@hellpig/anarchy-engine/Utils';
+import { findInMap, findKeyWithValue, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { nanoid } from 'nanoid';
 
 export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistrable>(type: RegistryType): TAbstractEntityRegistry<T> {

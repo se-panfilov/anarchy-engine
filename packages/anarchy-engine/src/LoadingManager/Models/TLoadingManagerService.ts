@@ -1,5 +1,5 @@
-import type { TAbstractService } from '@Anarchy/Engine/Abstract';
-import type { TWithCreateService, TWithFactoryService, TWithRegistryService } from '@Anarchy/Engine/Mixins';
+import type { TAbstractService } from '@hellpig/anarchy-engine/Abstract';
+import type { TWithCreateService, TWithFactoryService, TWithRegistryService } from '@hellpig/anarchy-engine/Mixins';
 
 import type { TLoadingManagerFactory } from './TLoadingManagerFactory';
 import type { TLoadingManagerParams } from './TLoadingManagerParams';

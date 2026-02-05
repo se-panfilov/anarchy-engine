@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 
-import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { FullScreenMode } from '@Showcases/Desktop/Constants/FullScreenModes';
 import type { TDesktopAppConfig, TWindowService } from '@Showcases/Desktop/Models';
 import type { TResolution } from '@Showcases/Shared';

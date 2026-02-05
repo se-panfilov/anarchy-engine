@@ -1,5 +1,5 @@
-import type { TSerializableEntitiesService } from '@Anarchy/Engine/Abstract';
-import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@Anarchy/Engine/Mixins';
+import type { TSerializableEntitiesService } from '@hellpig/anarchy-engine/Abstract';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@hellpig/anarchy-engine/Mixins';
 
 import type { TAnyMaterialWrapper } from './TAnyMaterialWrapper';
 import type { TMaterialConfig } from './TMaterialConfig';

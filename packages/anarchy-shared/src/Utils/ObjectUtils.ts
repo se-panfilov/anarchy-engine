@@ -1,4 +1,4 @@
-import type { TDeepPartial } from '@Anarchy/Shared/Utils/TypesUtils';
+import type { TDeepPartial } from '@hellpig/anarchy-shared/Utils/TypesUtils';
 import { cloneDeepWith, isPlainObject } from 'lodash-es';
 
 export function cleanObject<T extends Record<string, unknown>>(obj: T): void {

@@ -1,6 +1,6 @@
-import type { TActor, TActorRegistry, TSpace, TSpaceConfig, TSpaceLoops, TSpaceServices } from '@Anarchy/Engine';
-import { ambientContext, createDomElement, hasKey, KeyCode, metersPerSecond, mpsSpeed, spaceService } from '@Anarchy/Engine';
-import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TActor, TActorRegistry, TSpace, TSpaceConfig, TSpaceLoops, TSpaceServices } from '@hellpig/anarchy-engine';
+import { ambientContext, createDomElement, hasKey, KeyCode, metersPerSecond, mpsSpeed, spaceService } from '@hellpig/anarchy-engine';
+import { asRecord, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { combineLatest, withLatestFrom } from 'rxjs';
 import { Clock } from 'three';
 

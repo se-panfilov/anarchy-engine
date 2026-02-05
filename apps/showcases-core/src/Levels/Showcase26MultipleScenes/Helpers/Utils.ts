@@ -1,6 +1,6 @@
-import type { TActor, TActorRegistry, TParticlesWrapper, TSpace, TSpaceLoops, TSpaceServices } from '@Anarchy/Engine';
-import { ambientContext, createDomElement, KeyCode, metersPerSecond, mpsSpeed } from '@Anarchy/Engine';
-import { hasKey } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
+import type { TActor, TActorRegistry, TParticlesWrapper, TSpace, TSpaceLoops, TSpaceServices } from '@hellpig/anarchy-engine';
+import { ambientContext, createDomElement, KeyCode, metersPerSecond, mpsSpeed } from '@hellpig/anarchy-engine';
+import { hasKey } from '@hellpig/anarchy-engine/Keyboard/Utils/KeysUtils';
 import { withLatestFrom } from 'rxjs';
 
 import type { TSubscriptionsData } from '@/Levels/Showcase26MultipleScenes/Helpers/TSubscriptionsData';

@@ -1,4 +1,4 @@
-import type { CameraType, TAnyCameraParams, TOrthographicCameraParams, TPerspectiveCameraParams } from '@Anarchy/Engine/Camera';
+import type { CameraType, TAnyCameraParams, TOrthographicCameraParams, TPerspectiveCameraParams } from '@hellpig/anarchy-engine/Camera';
 
 export type TShadowCameraParams = Omit<TAnyCameraParams, 'audioListener' | 'position' | 'rotation' | 'name' | 'isActive' | 'type'> &
   Readonly<{

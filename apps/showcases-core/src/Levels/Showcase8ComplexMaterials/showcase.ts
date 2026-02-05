@@ -21,9 +21,9 @@ import type {
   TWithSheenRoughness,
   TWithThickness,
   TWithTransmission
-} from '@Anarchy/Engine';
-import { ControlsType, getTags, isOrbitControls, KeyCode, LookUpStrategy, onKey, spaceService, TextType } from '@Anarchy/Engine';
-import { asRecord, isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+} from '@hellpig/anarchy-engine';
+import { ControlsType, getTags, isOrbitControls, KeyCode, LookUpStrategy, onKey, spaceService, TextType } from '@hellpig/anarchy-engine';
+import { asRecord, isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Controller } from 'lil-gui';
 import GUI from 'lil-gui';
 import { BehaviorSubject, combineLatest, startWith, Subject } from 'rxjs';

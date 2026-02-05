@@ -1,4 +1,4 @@
-import { clamp } from '@Anarchy/Shared/Utils';
+import { clamp } from '@hellpig/anarchy-shared/Utils';
 import type { TResolution } from '@Showcases/Shared';
 import type { Display, Size } from 'electron';
 import { screen } from 'electron';

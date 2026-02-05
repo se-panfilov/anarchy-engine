@@ -1,7 +1,18 @@
-import type { TActor, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TRadians, TReadonlyVector3, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper } from '@Anarchy/Engine';
-import { ForwardAxis, getDistance, getHorizontalAzimuth, getPushCoordsFrom3dAzimuth, isActorHasPhysicsBody, KeyCode, onKey, spaceService, TextType } from '@Anarchy/Engine';
-import { meters, radians } from '@Anarchy/Engine/Measurements/Utils';
-import { asRecord, isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import type {
+  TActor,
+  TAnyCameraWrapper,
+  TIntersectionEvent,
+  TIntersectionsCameraWatcher,
+  TRadians,
+  TReadonlyVector3,
+  TSceneWrapper,
+  TSpace,
+  TSpaceConfig,
+  TTextAnyWrapper
+} from '@hellpig/anarchy-engine';
+import { ForwardAxis, getDistance, getHorizontalAzimuth, getPushCoordsFrom3dAzimuth, isActorHasPhysicsBody, KeyCode, onKey, spaceService, TextType } from '@hellpig/anarchy-engine';
+import { meters, radians } from '@hellpig/anarchy-engine/Measurements/Utils';
+import { asRecord, isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { Euler, Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';

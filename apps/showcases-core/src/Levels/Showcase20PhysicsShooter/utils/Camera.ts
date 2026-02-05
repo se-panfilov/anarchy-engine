@@ -1,4 +1,4 @@
-import type { TActor, TAnyCameraWrapper, TReadonlyVector3 } from '@Anarchy/Engine';
+import type { TActor, TAnyCameraWrapper, TReadonlyVector3 } from '@hellpig/anarchy-engine';
 import { Vector3 } from 'three';
 
 export function cameraFollowingActor(cameraW: TAnyCameraWrapper, actor: TActor): void {

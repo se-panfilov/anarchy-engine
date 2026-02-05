@@ -1,8 +1,8 @@
-import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
-import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
-import { physicsBodyConfigToParams } from '@Anarchy/Engine/Physics/Adapters';
-import { PhysicsBody } from '@Anarchy/Engine/Physics/Entities';
-import type { TPhysicsBody, TPhysicsBodyFactory, TPhysicsBodyParams, TPhysicsDependencies } from '@Anarchy/Engine/Physics/Models';
+import type { TReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
+import { FactoryType, ReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
+import { physicsBodyConfigToParams } from '@hellpig/anarchy-engine/Physics/Adapters';
+import { PhysicsBody } from '@hellpig/anarchy-engine/Physics/Entities';
+import type { TPhysicsBody, TPhysicsBodyFactory, TPhysicsBodyParams, TPhysicsDependencies } from '@hellpig/anarchy-engine/Physics/Models';
 
 export function PhysicsBodyFactory(): TPhysicsBodyFactory {
   const factory: TReactiveFactory<TPhysicsBody, TPhysicsBodyParams, TPhysicsDependencies> = ReactiveFactory(FactoryType.PhysicsBody, PhysicsBody);

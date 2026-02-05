@@ -1,4 +1,4 @@
-import type { TSceneConfig } from '@Anarchy/Engine/Scene';
+import type { TSceneConfig } from '@hellpig/anarchy-engine/Scene';
 
 import type { TSpaceConfigEntities } from './TSpaceConfigEntities';
 import type { TSpaceConfigResources } from './TSpaceConfigResources';

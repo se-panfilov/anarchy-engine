@@ -1,4 +1,4 @@
-import { FileSizes } from '@Anarchy/Shared/Constants';
+import { FileSizes } from '@hellpig/anarchy-shared/Constants';
 
 import { isDefined } from './CheckUtils';
 

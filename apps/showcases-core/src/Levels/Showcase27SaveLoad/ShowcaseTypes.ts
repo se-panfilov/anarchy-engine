@@ -1,4 +1,4 @@
-import type { TSpace, TSpaceConfig } from '@Anarchy/Engine';
+import type { TSpace, TSpaceConfig } from '@hellpig/anarchy-engine';
 import type { BehaviorSubject, Subscription } from 'rxjs';
 
 export type TSpacesData = Readonly<{

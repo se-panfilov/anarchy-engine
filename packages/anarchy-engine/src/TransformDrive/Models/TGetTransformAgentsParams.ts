@@ -1,7 +1,7 @@
-import type { TKinematicParams } from '@Anarchy/Engine/Kinematic';
-import type { TPhysicsBody } from '@Anarchy/Engine/Physics';
-import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
-import type { TOptional } from '@Anarchy/Shared/Utils';
+import type { TKinematicParams } from '@hellpig/anarchy-engine/Kinematic';
+import type { TPhysicsBody } from '@hellpig/anarchy-engine/Physics';
+import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TOptional } from '@hellpig/anarchy-shared/Utils';
 
 export type TGetTransformAgentsParams = Readonly<{
   position: TReadonlyVector3;

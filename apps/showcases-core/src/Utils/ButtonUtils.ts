@@ -1,4 +1,4 @@
-import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 
 export function addBtn(
   text: string,

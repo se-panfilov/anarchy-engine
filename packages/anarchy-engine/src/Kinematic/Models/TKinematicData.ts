@@ -1,4 +1,4 @@
-import type { TOptional, TWriteable } from '@Anarchy/Shared/Utils';
+import type { TOptional, TWriteable } from '@hellpig/anarchy-shared/Utils';
 
 import type { TKinematicState } from './TKinematicState';
 import type { TKinematicTarget } from './TKinematicTarget';

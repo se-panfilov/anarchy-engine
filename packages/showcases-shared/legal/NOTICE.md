@@ -21,7 +21,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/css-color@4.1.1
+## @asamuzakjp/css-color@4.1.2
 
 **License(s):** MIT
 
@@ -33,7 +33,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/dom-selector@6.7.7
+## @asamuzakjp/dom-selector@6.7.8
 
 **License(s):** MIT
 
@@ -57,7 +57,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/color-helpers@5.1.0
+## @csstools/color-helpers@6.0.1
 
 **License(s):** MIT-0
 
@@ -69,7 +69,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-calc@2.1.4
+## @csstools/css-calc@3.0.0
 
 **License(s):** MIT
 
@@ -81,7 +81,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-color-parser@3.1.0
+## @csstools/css-color-parser@4.0.1
 
 **License(s):** MIT
 
@@ -93,7 +93,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-parser-algorithms@3.0.5
+## @csstools/css-parser-algorithms@4.0.0
 
 **License(s):** MIT
 
@@ -117,7 +117,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-tokenizer@3.0.4
+## @csstools/css-tokenizer@4.0.0
 
 **License(s):** MIT
 

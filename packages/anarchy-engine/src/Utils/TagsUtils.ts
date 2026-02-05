@@ -1,6 +1,6 @@
-import type { TWithTags } from '@Anarchy/Engine/Mixins';
-import type { TWriteable } from '@Anarchy/Shared/Utils';
-import { omitInArray } from '@Anarchy/Shared/Utils';
+import type { TWithTags } from '@hellpig/anarchy-engine/Mixins';
+import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
+import { omitInArray } from '@hellpig/anarchy-shared/Utils';
 
 export function setTags<T extends TWithTags>(entity: T, tagsList: ReadonlyArray<string>): void {
   // eslint-disable-next-line functional/immutable-data

@@ -1,5 +1,5 @@
-import type { TSceneConfig, TSceneParams } from '@Anarchy/Engine/Scene/Models';
-import { object3dConfigToParams } from '@Anarchy/Engine/ThreeLib';
+import type { TSceneConfig, TSceneParams } from '@hellpig/anarchy-engine/Scene/Models';
+import { object3dConfigToParams } from '@hellpig/anarchy-engine/ThreeLib';
 
 export function sceneConfigToParams(config: TSceneConfig): TSceneParams {
   const { position, rotation, scale, layers, ...rest } = config;

@@ -8,11 +8,11 @@ import {
   NormalMapTypesMap,
   SideMap,
   StencilOpMap
-} from '@Anarchy/Engine/Material/Constants';
-import { StencilFuncMap } from '@Anarchy/Engine/Material/Constants/StencilFuncName';
-import type { TMaterialConfig, TMaterialConfigToParamsDependencies, TMaterialParams, TMaterialParamsOptions, TMaterialParamsTextures } from '@Anarchy/Engine/Material/Models';
-import type { TTexture } from '@Anarchy/Engine/Texture';
-import { isDefined } from '@Anarchy/Shared/Utils';
+} from '@hellpig/anarchy-engine/Material/Constants';
+import { StencilFuncMap } from '@hellpig/anarchy-engine/Material/Constants/StencilFuncName';
+import type { TMaterialConfig, TMaterialConfigToParamsDependencies, TMaterialParams, TMaterialParamsOptions, TMaterialParamsTextures } from '@hellpig/anarchy-engine/Material/Models';
+import type { TTexture } from '@hellpig/anarchy-engine/Texture';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Vector2Like } from 'three';
 import { Vector2 } from 'three';
 

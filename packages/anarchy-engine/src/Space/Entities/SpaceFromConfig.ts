@@ -1,8 +1,8 @@
-import { CreateEntitiesStrategy, SpaceEvents } from '@Anarchy/Engine/Space/Constants';
-import type { TSpace, TSpaceConfig, TSpaceParams, TSpaceRegistry, TSpaceSettings } from '@Anarchy/Engine/Space/Models';
-import { createEntities, loadResourcesFromConfig } from '@Anarchy/Engine/Space/Utils';
-import type { TWriteable } from '@Anarchy/Shared/Utils';
-import { isDefined } from '@Anarchy/Shared/Utils';
+import { CreateEntitiesStrategy, SpaceEvents } from '@hellpig/anarchy-engine/Space/Constants';
+import type { TSpace, TSpaceConfig, TSpaceParams, TSpaceRegistry, TSpaceSettings } from '@hellpig/anarchy-engine/Space/Models';
+import { createEntities, loadResourcesFromConfig } from '@hellpig/anarchy-engine/Space/Utils';
+import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, exhaustMap, filter, takeUntil } from 'rxjs';
 

@@ -1,4 +1,4 @@
-import type { TNoticeService } from '@Anarchy/Legal';
+import type { TNoticeService } from '@hellpig/anarchy-legal';
 
 import { NoticeService } from '../Services/NoticeService.ts';
 

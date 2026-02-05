@@ -1,9 +1,9 @@
-import type { TDestroyable } from '@Anarchy/Engine/Mixins';
-import { destroyableMixin } from '@Anarchy/Engine/Mixins';
-import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
-import type { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
-import type { TAbstractTransformAgent, TReadonlyTransform, TSerializedTransform, TTransformAgentParams } from '@Anarchy/Engine/TransformDrive/Models';
-import { isDefined } from '@Anarchy/Shared/Utils';
+import type { TDestroyable } from '@hellpig/anarchy-engine/Mixins';
+import { destroyableMixin } from '@hellpig/anarchy-engine/Mixins';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TransformAgent } from '@hellpig/anarchy-engine/TransformDrive/Constants';
+import type { TAbstractTransformAgent, TReadonlyTransform, TSerializedTransform, TTransformAgentParams } from '@hellpig/anarchy-engine/TransformDrive/Models';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, Subject } from 'rxjs';

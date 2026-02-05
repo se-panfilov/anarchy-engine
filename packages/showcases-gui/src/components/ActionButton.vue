@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { MouseButtonValue, TGameKey } from '@Anarchy/Engine';
-import { isDefined } from '@Anarchy/Shared/Utils';
+import type { MouseButtonValue, TGameKey } from '@hellpig/anarchy-engine';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 
 defineProps<{
   title: string;

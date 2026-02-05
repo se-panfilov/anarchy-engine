@@ -1,4 +1,4 @@
-import type { TOrbitControlsWrapper, TSpace, TSpaceConfig } from '@Anarchy/Engine';
+import type { TOrbitControlsWrapper, TSpace, TSpaceConfig } from '@hellpig/anarchy-engine';
 import { BehaviorSubject } from 'rxjs';
 import { Euler } from 'three';
 

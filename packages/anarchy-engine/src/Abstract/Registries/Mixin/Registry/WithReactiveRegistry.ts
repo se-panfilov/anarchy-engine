@@ -1,6 +1,6 @@
-import type { TRegistryPack, TWithReactiveRegistry } from '@Anarchy/Engine/Abstract/Models';
-import type { TDestroyable } from '@Anarchy/Engine/Mixins';
-import { isDestroyable } from '@Anarchy/Engine/Utils';
+import type { TRegistryPack, TWithReactiveRegistry } from '@hellpig/anarchy-engine/Abstract/Models';
+import type { TDestroyable } from '@hellpig/anarchy-engine/Mixins';
+import { isDestroyable } from '@hellpig/anarchy-engine/Utils';
 import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 

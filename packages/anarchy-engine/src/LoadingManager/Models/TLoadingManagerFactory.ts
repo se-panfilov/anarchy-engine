@@ -1,4 +1,4 @@
-import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
+import type { TReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
 
 import type { TLoadingManagerParams } from './TLoadingManagerParams';
 import type { TLoadingManagerWrapper } from './TLoadingManagerWrapper';

@@ -1,8 +1,8 @@
-import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
-import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
-import { rendererConfigToParams } from '@Anarchy/Engine/Renderer/Adapters';
-import type { TRendererFactory, TRendererParams, TRendererWrapper, TRendererWrapperDependencies } from '@Anarchy/Engine/Renderer/Models';
-import { RendererWrapper } from '@Anarchy/Engine/Renderer/Wrappers';
+import type { TReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
+import { FactoryType, ReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
+import { rendererConfigToParams } from '@hellpig/anarchy-engine/Renderer/Adapters';
+import type { TRendererFactory, TRendererParams, TRendererWrapper, TRendererWrapperDependencies } from '@hellpig/anarchy-engine/Renderer/Models';
+import { RendererWrapper } from '@hellpig/anarchy-engine/Renderer/Wrappers';
 
 export function RendererFactory(): TRendererFactory {
   const factory: TReactiveFactory<TRendererWrapper, TRendererParams, TRendererWrapperDependencies> = ReactiveFactory(FactoryType.Renderer, RendererWrapper);

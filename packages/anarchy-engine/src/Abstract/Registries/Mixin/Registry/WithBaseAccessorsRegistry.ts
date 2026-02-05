@@ -1,7 +1,7 @@
-import type { TWithBaseAccessorsRegistry } from '@Anarchy/Engine/Abstract/Models';
-import type { TSerializable } from '@Anarchy/Engine/Mixins';
-import { asArray } from '@Anarchy/Engine/Utils';
-import { findInMap, findKeyInMap, isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TWithBaseAccessorsRegistry } from '@hellpig/anarchy-engine/Abstract/Models';
+import type { TSerializable } from '@hellpig/anarchy-engine/Mixins';
+import { asArray } from '@hellpig/anarchy-engine/Utils';
+import { findInMap, findKeyInMap, isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 
 export function withBaseAccessorsRegistry<T>(registry: Map<string, T>): TWithBaseAccessorsRegistry<T> {
   const isEmpty = (): boolean => registry.size === 0;

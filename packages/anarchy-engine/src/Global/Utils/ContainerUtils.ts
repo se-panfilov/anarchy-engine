@@ -1,6 +1,6 @@
-import { ContainerDecorator } from '@Anarchy/Engine/Global/Decorators';
-import type { TContainerDecorator } from '@Anarchy/Engine/Global/Models';
-import { isNotDefined } from '@Anarchy/Shared/Utils';
+import { ContainerDecorator } from '@hellpig/anarchy-engine/Global/Decorators';
+import type { TContainerDecorator } from '@hellpig/anarchy-engine/Global/Models';
+import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 
 export function getCanvasContainer(canvas: HTMLCanvasElement): TContainerDecorator | never {
   const parent: HTMLElement | null = canvas.parentElement;

@@ -1,4 +1,4 @@
-import { HiddenField } from '@Anarchy/Tracking/Constants';
+import { HiddenField } from '@hellpig/anarchy-tracking/Constants';
 import type { ErrorEvent } from '@sentry/browser';
 
 const pathRegexps: ReadonlyArray<[RegExp, string]> = [

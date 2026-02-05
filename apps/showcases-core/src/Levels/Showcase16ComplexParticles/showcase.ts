@@ -1,6 +1,6 @@
-import type { TMaterialConfig, TMaterialParams, TMilliseconds, TParticlesConfig, TParticlesWrapper, TSpace, TSpaceConfig, TSpaceConfigEntities } from '@Anarchy/Engine';
-import { materialConfigToParams, spaceService } from '@Anarchy/Engine';
-import { asRecord, isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TMaterialConfig, TMaterialParams, TMilliseconds, TParticlesConfig, TParticlesWrapper, TSpace, TSpaceConfig, TSpaceConfigEntities } from '@hellpig/anarchy-engine';
+import { materialConfigToParams, spaceService } from '@hellpig/anarchy-engine';
+import { asRecord, isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import GUI from 'lil-gui';
 import { BufferGeometry, Color, PointsMaterial } from 'three';
 

@@ -1,10 +1,10 @@
-import { LoaderType } from '@Anarchy/Engine/Abstract';
-import type { TAnimations, TAnimationsLoader, TAnimationsMetaInfoRegistry, TAnimationsResourceAsyncRegistry, TAnimationsResourceConfig } from '@Anarchy/Engine/Animations/Models';
-import type { TLoadingManagerWrapper } from '@Anarchy/Engine/LoadingManager';
-import { Loader3dCore } from '@Anarchy/Engine/Models3d';
-import type { TDracoLoaderSettings } from '@Anarchy/Engine/ThreeLib';
-import type { TWriteable } from '@Anarchy/Shared/Utils';
-import { isNotDefined } from '@Anarchy/Shared/Utils';
+import { LoaderType } from '@hellpig/anarchy-engine/Abstract';
+import type { TAnimations, TAnimationsLoader, TAnimationsMetaInfoRegistry, TAnimationsResourceAsyncRegistry, TAnimationsResourceConfig } from '@hellpig/anarchy-engine/Animations/Models';
+import type { TLoadingManagerWrapper } from '@hellpig/anarchy-engine/LoadingManager';
+import { Loader3dCore } from '@hellpig/anarchy-engine/Models3d';
+import type { TDracoLoaderSettings } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
+import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 export function AnimationsLoader(

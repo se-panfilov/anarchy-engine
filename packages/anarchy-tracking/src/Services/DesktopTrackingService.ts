@@ -1,9 +1,9 @@
-import { isDefined, parseDistName } from '@Anarchy/Shared/Utils';
-import type { TMetaData, TTrackingService } from '@Anarchy/Tracking/Models';
-import { mutateEventWithDynamicData } from '@Anarchy/Tracking/Utils/DynamicDataUtils';
-import { rewriteFramesIntegrationNode } from '@Anarchy/Tracking/Utils/IntegrationsNode';
-import { scrubEvent } from '@Anarchy/Tracking/Utils/ScrubEvent';
-import { scrubUserPathsDesktop } from '@Anarchy/Tracking/Utils/ScrubsDesktop';
+import { isDefined, parseDistName } from '@hellpig/anarchy-shared/Utils';
+import type { TMetaData, TTrackingService } from '@hellpig/anarchy-tracking/Models';
+import { mutateEventWithDynamicData } from '@hellpig/anarchy-tracking/Utils/DynamicDataUtils';
+import { rewriteFramesIntegrationNode } from '@hellpig/anarchy-tracking/Utils/IntegrationsNode';
+import { scrubEvent } from '@hellpig/anarchy-tracking/Utils/ScrubEvent';
+import { scrubUserPathsDesktop } from '@hellpig/anarchy-tracking/Utils/ScrubsDesktop';
 import type { Primitive } from '@sentry/core';
 import type { ElectronMainOptions } from '@sentry/electron/esm/main';
 import type { ErrorEvent, EventHint } from '@sentry/electron/main';

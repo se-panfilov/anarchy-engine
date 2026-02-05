@@ -1,7 +1,7 @@
-import type { FactoryType } from '@Anarchy/Engine/Abstract/Constants';
-import type { TCreateEntityFactoryFn, TReactiveFactory } from '@Anarchy/Engine/Abstract/Models';
-import type { TDestroyable } from '@Anarchy/Engine/Mixins';
-import { destroyableMixin } from '@Anarchy/Engine/Mixins';
+import type { FactoryType } from '@hellpig/anarchy-engine/Abstract/Constants';
+import type { TCreateEntityFactoryFn, TReactiveFactory } from '@hellpig/anarchy-engine/Abstract/Models';
+import type { TDestroyable } from '@hellpig/anarchy-engine/Mixins';
+import { destroyableMixin } from '@hellpig/anarchy-engine/Mixins';
 import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 

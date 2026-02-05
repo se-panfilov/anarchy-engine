@@ -1,6 +1,6 @@
-import type { TSerializableEntitiesService } from '@Anarchy/Engine/Abstract';
-import type { TContainerDecorator } from '@Anarchy/Engine/Global';
-import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithSceneGetterService } from '@Anarchy/Engine/Mixins';
+import type { TSerializableEntitiesService } from '@hellpig/anarchy-engine/Abstract';
+import type { TContainerDecorator } from '@hellpig/anarchy-engine/Global';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithSceneGetterService } from '@hellpig/anarchy-engine/Mixins';
 import type { Observable } from 'rxjs';
 
 import type { TText2dRegistry } from './TText2dRegistry';

@@ -1,4 +1,4 @@
-import { DefaultBannedInJsonKeys, JsonSpecialCharactersAscii, JsonSpecialCharactersUnicode } from '@Anarchy/Shared/Constants';
+import { DefaultBannedInJsonKeys, JsonSpecialCharactersAscii, JsonSpecialCharactersUnicode } from '@hellpig/anarchy-shared/Constants';
 
 const { TAB, DEL, LF, CR, MAX_CONTROL } = JsonSpecialCharactersAscii;
 const { BOM, QUOTE, LINE_SEPARATOR, PARAGRAPH_SEPARATOR, BACKSLASH } = JsonSpecialCharactersUnicode;

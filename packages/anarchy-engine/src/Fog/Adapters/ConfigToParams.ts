@@ -1,4 +1,4 @@
-import type { TFogConfig, TFogParams } from '@Anarchy/Engine/Fog/Models';
+import type { TFogConfig, TFogParams } from '@hellpig/anarchy-engine/Fog/Models';
 import { Color } from 'three';
 
 export function fogConfigToParams(config: TFogConfig): TFogParams {

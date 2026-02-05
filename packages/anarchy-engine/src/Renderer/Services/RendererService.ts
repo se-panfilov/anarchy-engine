@@ -1,8 +1,15 @@
-import type { TAbstractService, TRegistryPack } from '@Anarchy/Engine/Abstract';
-import { AbstractService } from '@Anarchy/Engine/Abstract';
-import type { TDisposable, TWithActiveMixinResult } from '@Anarchy/Engine/Mixins';
-import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
-import { renderLoopEffect } from '@Anarchy/Engine/Renderer/Loop';
+import type { TAbstractService, TRegistryPack } from '@hellpig/anarchy-engine/Abstract';
+import { AbstractService } from '@hellpig/anarchy-engine/Abstract';
+import type { TDisposable, TWithActiveMixinResult } from '@hellpig/anarchy-engine/Mixins';
+import {
+  withActiveEntityServiceMixin,
+  withCreateFromConfigServiceMixin,
+  withCreateServiceMixin,
+  withFactoryService,
+  withRegistryService,
+  withSerializableEntities
+} from '@hellpig/anarchy-engine/Mixins';
+import { renderLoopEffect } from '@hellpig/anarchy-engine/Renderer/Loop';
 import type {
   TRendererConfig,
   TRendererFactory,
@@ -14,10 +21,10 @@ import type {
   TRendererServiceWithFactory,
   TRendererServiceWithRegistry,
   TRendererWrapper
-} from '@Anarchy/Engine/Renderer/Models';
-import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
-import type { TSpaceLoops } from '@Anarchy/Engine/Space';
-import { mergeAll } from '@Anarchy/Engine/Utils';
+} from '@hellpig/anarchy-engine/Renderer/Models';
+import type { TSceneWrapper } from '@hellpig/anarchy-engine/Scene';
+import type { TSpaceLoops } from '@hellpig/anarchy-engine/Space';
+import { mergeAll } from '@hellpig/anarchy-engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function RendererService(

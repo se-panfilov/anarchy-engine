@@ -1,4 +1,4 @@
-import { toBool, toInt } from '@Anarchy/Shared/Utils';
+import { toBool, toInt } from '@hellpig/anarchy-shared/Utils';
 import { object } from 'valibot';
 
 // export const runtimeSchema = object({

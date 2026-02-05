@@ -1,4 +1,4 @@
-import type { TAbstractEntityRegistry } from '@Anarchy/Engine/Abstract';
-import type { TEnvMapWrapper } from '@Anarchy/Engine/EnvMap/Models';
+import type { TAbstractEntityRegistry } from '@hellpig/anarchy-engine/Abstract';
+import type { TEnvMapWrapper } from '@hellpig/anarchy-engine/EnvMap/Models';
 
 export type TEnvMapRegistry = TAbstractEntityRegistry<TEnvMapWrapper>;

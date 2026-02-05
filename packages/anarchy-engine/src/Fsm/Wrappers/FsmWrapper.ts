@@ -1,8 +1,8 @@
-import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
-import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
-import { fsmEntityToConfig } from '@Anarchy/Engine/Fsm/Adapters';
-import { FsmEventsStrategy } from '@Anarchy/Engine/Fsm/Constants';
-import type { TFsmConfig, TFsmEvents, TFsmMachine, TFsmParams, TFsmStates, TFsmWrapper } from '@Anarchy/Engine/Fsm/Models';
+import type { TAbstractWrapper } from '@hellpig/anarchy-engine/Abstract';
+import { AbstractWrapper, WrapperType } from '@hellpig/anarchy-engine/Abstract';
+import { fsmEntityToConfig } from '@hellpig/anarchy-engine/Fsm/Adapters';
+import { FsmEventsStrategy } from '@hellpig/anarchy-engine/Fsm/Constants';
+import type { TFsmConfig, TFsmEvents, TFsmMachine, TFsmParams, TFsmStates, TFsmWrapper } from '@hellpig/anarchy-engine/Fsm/Models';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, concatMap, exhaustMap, filter, mergeMap, switchMap, takeUntil } from 'rxjs';
 import { StateMachine, t } from 'typescript-fsm';

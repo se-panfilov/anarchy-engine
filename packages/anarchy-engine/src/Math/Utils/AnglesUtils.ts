@@ -1,8 +1,8 @@
-import { metersPerSecond, radiansPerSecond } from '@Anarchy/Engine/Distance';
-import { ForwardAxis } from '@Anarchy/Engine/Kinematic/Constants';
-import type { TDegrees, TMetersPerSecond, TRadians, TRadiansPerSecond } from '@Anarchy/Engine/Math/Types';
-import type { TEulerLike } from '@Anarchy/Engine/ThreeLib';
-import { isEulerLike, isQuaternionLike } from '@Anarchy/Engine/Utils/CheckUtils';
+import { metersPerSecond, radiansPerSecond } from '@hellpig/anarchy-engine/Distance';
+import { ForwardAxis } from '@hellpig/anarchy-engine/Kinematic/Constants';
+import type { TDegrees, TMetersPerSecond, TRadians, TRadiansPerSecond } from '@hellpig/anarchy-engine/Math/Types';
+import type { TEulerLike } from '@hellpig/anarchy-engine/ThreeLib';
+import { isEulerLike, isQuaternionLike } from '@hellpig/anarchy-engine/Utils/CheckUtils';
 import type { EulerOrder, QuaternionLike, Vector3Like } from 'three';
 import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad, euclideanModulo, radToDeg } from 'three/src/math/MathUtils';

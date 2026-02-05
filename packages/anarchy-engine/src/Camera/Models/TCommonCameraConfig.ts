@@ -1,5 +1,5 @@
-import type { Listeners } from '@Anarchy/Engine/Audio';
-import type { TObject3DParams, TObject3DPropConfig } from '@Anarchy/Engine/ThreeLib';
+import type { Listeners } from '@hellpig/anarchy-engine/Audio';
+import type { TObject3DParams, TObject3DPropConfig } from '@hellpig/anarchy-engine/ThreeLib';
 import type { Vector3Like } from 'three';
 
 import type { TCommonCameraParams } from './TCommonCameraParams';

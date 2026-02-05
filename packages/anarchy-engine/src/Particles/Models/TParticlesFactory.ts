@@ -1,4 +1,4 @@
-import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@Anarchy/Engine/Abstract';
+import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
 
 import type { TParticlesConfig } from './TParticlesConfig';
 import type { TParticlesConfigToParamsDependencies } from './TParticlesConfigToParamsDependencies';

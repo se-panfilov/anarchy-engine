@@ -1,9 +1,9 @@
-import { AbstractLoader, LoaderType } from '@Anarchy/Engine/Abstract';
-import { EnvMapMappingTypesMap, EnvMapMappingTypesName } from '@Anarchy/Engine/EnvMap/Constants';
-import type { TEnvMapLoader, TEnvMapMetaInfoRegistry, TEnvMapResourceConfig, TEnvMapTexture, TEnvMapTextureAsyncRegistry } from '@Anarchy/Engine/EnvMap/Models';
-import type { TLoadingManagerWrapper } from '@Anarchy/Engine/LoadingManager';
-import type { TWriteable } from '@Anarchy/Shared/Utils';
-import { isDefined } from '@Anarchy/Shared/Utils';
+import { AbstractLoader, LoaderType } from '@hellpig/anarchy-engine/Abstract';
+import { EnvMapMappingTypesMap, EnvMapMappingTypesName } from '@hellpig/anarchy-engine/EnvMap/Constants';
+import type { TEnvMapLoader, TEnvMapMetaInfoRegistry, TEnvMapResourceConfig, TEnvMapTexture, TEnvMapTextureAsyncRegistry } from '@hellpig/anarchy-engine/EnvMap/Models';
+import type { TLoadingManagerWrapper } from '@hellpig/anarchy-engine/LoadingManager';
+import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import { EquirectangularReflectionMapping } from 'three';
 import { HDRLoader } from 'three/examples/jsm/loaders/HDRLoader';
 
