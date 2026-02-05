@@ -1,10 +1,10 @@
-import type { TActor, TActorConfig, TActorEntityToConfigDependencies, TActorStates } from '@Anarchy/Engine/Actor/Models';
-import type { TCollisionsDataConfig } from '@Anarchy/Engine/Collisions';
-import type { TFsmConfig, TFsmWrapper } from '@Anarchy/Engine/Fsm';
-import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
-import type { TModel3d, TModels3dRegistry } from '@Anarchy/Engine/Models3d';
-import type { TSpatialDataConfig } from '@Anarchy/Engine/Spatial';
-import { filterOutEmptyFields, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TActor, TActorConfig, TActorEntityToConfigDependencies, TActorStates } from '@hellpig/anarchy-engine/Actor/Models';
+import type { TCollisionsDataConfig } from '@hellpig/anarchy-engine/Collisions';
+import type { TFsmConfig, TFsmWrapper } from '@hellpig/anarchy-engine/Fsm';
+import { extractSerializableRegistrableFields } from '@hellpig/anarchy-engine/Mixins';
+import type { TModel3d, TModels3dRegistry } from '@hellpig/anarchy-engine/Models3d';
+import type { TSpatialDataConfig } from '@hellpig/anarchy-engine/Spatial';
+import { filterOutEmptyFields, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 
 export function actorEntityToConfig(entity: TActor, { models3dService }: TActorEntityToConfigDependencies): TActorConfig {
   const { drive } = entity;

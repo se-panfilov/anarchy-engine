@@ -7,8 +7,8 @@ export const JsOverrides = [
         {
           paths: [
             {
-              name: '@Anarchy/Engine',
-              message: "Please import a certain module instead of a whole folder, e.g. '@Anarchy/Engine/Foo' instead of '@Anarchy/Engine'"
+              name: '@hellpig/anarchy-engine',
+              message: "Please import a certain module instead of a whole folder, e.g. '@hellpig/anarchy-engine/Foo' instead of '@hellpig/anarchy-engine'"
             },
             {
               name: 'lodash',

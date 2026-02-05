@@ -1,7 +1,7 @@
-import type { TAbstractAudioWrapper, TAnyAudio, TAnyAudioConfig, TAudio3dConfig, TAudioConfigToParamsDependencies } from '@Anarchy/Engine/Audio/Models';
-import { isAudio3dWrapper } from '@Anarchy/Engine/Audio/Utils';
-import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
-import { filterOutEmptyFields, isNotDefined, omitInObjectWithoutMutation } from '@Anarchy/Shared/Utils';
+import type { TAbstractAudioWrapper, TAnyAudio, TAnyAudioConfig, TAudio3dConfig, TAudioConfigToParamsDependencies } from '@hellpig/anarchy-engine/Audio/Models';
+import { isAudio3dWrapper } from '@hellpig/anarchy-engine/Audio/Utils';
+import { extractSerializableRegistrableFields } from '@hellpig/anarchy-engine/Mixins';
+import { filterOutEmptyFields, isNotDefined, omitInObjectWithoutMutation } from '@hellpig/anarchy-shared/Utils';
 
 export function audioEntityToConfig<T extends TAnyAudio>(entity: TAbstractAudioWrapper<T>, { audioResourceAsyncRegistry, audioListenersRegistry }: TAudioConfigToParamsDependencies): TAnyAudioConfig {
   const { volume$, loop$, speed$, pause$, seek$ } = entity;

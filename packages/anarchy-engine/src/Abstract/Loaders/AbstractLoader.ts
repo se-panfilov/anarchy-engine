@@ -1,4 +1,4 @@
-import type { LoaderType } from '@Anarchy/Engine/Abstract/Constants';
+import type { LoaderType } from '@hellpig/anarchy-engine/Abstract/Constants';
 import type {
   TAbstractLoadedResourcePack,
   TAbstractLoader,
@@ -6,11 +6,11 @@ import type {
   TAbstractResourceAsyncRegistry,
   TAbstractResourceConfig,
   TAbstractSimpleRegistry
-} from '@Anarchy/Engine/Abstract/Models';
-import type { TDestroyable } from '@Anarchy/Engine/Mixins';
-import { destroyableMixin } from '@Anarchy/Engine/Mixins';
-import type { TWriteable } from '@Anarchy/Shared/Utils';
-import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+} from '@hellpig/anarchy-engine/Abstract/Models';
+import type { TDestroyable } from '@hellpig/anarchy-engine/Mixins';
+import { destroyableMixin } from '@hellpig/anarchy-engine/Mixins';
+import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
+import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';

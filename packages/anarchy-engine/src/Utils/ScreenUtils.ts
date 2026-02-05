@@ -1,6 +1,6 @@
-import type { TAppGlobalContainer } from '@Anarchy/Engine/Global';
-import type { TSpaceCanvas } from '@Anarchy/Engine/Space';
-import { isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TAppGlobalContainer } from '@hellpig/anarchy-engine/Global';
+import type { TSpaceCanvas } from '@hellpig/anarchy-engine/Space';
+import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 
 export function isFullScreen(container: TAppGlobalContainer | undefined): boolean {
   if (isNotDefined(container)) throw new Error('Container (window?) is not defined');

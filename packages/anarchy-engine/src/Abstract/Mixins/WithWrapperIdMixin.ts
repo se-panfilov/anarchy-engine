@@ -1,6 +1,6 @@
-import type { TWithUserData, TWithWrapperId } from '@Anarchy/Engine/Abstract/Models';
-import type { TWriteable } from '@Anarchy/Shared/Utils';
-import { isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TWithUserData, TWithWrapperId } from '@hellpig/anarchy-engine/Abstract/Models';
+import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
+import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 
 export function withWrapperIdMixin<T extends TWriteable<TWithUserData>>(entity: T): TWithWrapperId {
   function setWrapperId(id: string): void {

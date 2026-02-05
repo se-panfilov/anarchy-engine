@@ -1,7 +1,7 @@
-import type { TSerializableEntitiesService, TSerializableResourceService } from '@Anarchy/Engine/Abstract';
-import type { FsmEventsStrategy } from '@Anarchy/Engine/Fsm/Constants';
-import type { TFsmConfig, TFsmInstanceRegistry, TFsmParams, TFsmSource, TFsmStates, TFsmWrapper } from '@Anarchy/Engine/Fsm/Models';
-import type { TWithFactoryService } from '@Anarchy/Engine/Mixins';
+import type { TSerializableEntitiesService, TSerializableResourceService } from '@hellpig/anarchy-engine/Abstract';
+import type { FsmEventsStrategy } from '@hellpig/anarchy-engine/Fsm/Constants';
+import type { TFsmConfig, TFsmInstanceRegistry, TFsmParams, TFsmSource, TFsmStates, TFsmWrapper } from '@hellpig/anarchy-engine/Fsm/Models';
+import type { TWithFactoryService } from '@hellpig/anarchy-engine/Mixins';
 
 import type { TFsmInstanceFactory } from './TFsmInstanceFactory';
 import type { TFsmSourceRegistry } from './TFsmSourceRegistry';

@@ -1,4 +1,4 @@
-import type { TSpace } from '@Anarchy/Engine';
+import type { TSpace } from '@hellpig/anarchy-engine';
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs';
 

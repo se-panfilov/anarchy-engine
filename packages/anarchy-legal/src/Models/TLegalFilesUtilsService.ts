@@ -1,4 +1,4 @@
-import type { TAnarchyLegalConfig, TLegalDocumentType, TRenderInput, TTemplateGeneratorOptions } from '@Anarchy/Legal/Models';
+import type { TAnarchyLegalConfig, TLegalDocumentType, TRenderInput, TTemplateGeneratorOptions } from '@hellpig/anarchy-legal/Models';
 
 export type TLegalFilesUtilsService = Readonly<{
   assertTemplatesPresent: (config: TAnarchyLegalConfig, types: ReadonlySet<string>) => void | never;

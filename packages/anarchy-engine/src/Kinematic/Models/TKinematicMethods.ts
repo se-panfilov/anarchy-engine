@@ -1,7 +1,7 @@
-import type { ForwardAxis } from '@Anarchy/Engine/Kinematic/Constants';
-import type { TMeters, TMetersPerSecond, TRadians, TRadiansPerSecond } from '@Anarchy/Engine/Math';
-import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
-import type { TKinematicSpeed } from '@Anarchy/Engine/TransformDrive/Models';
+import type { ForwardAxis } from '@hellpig/anarchy-engine/Kinematic/Constants';
+import type { TMeters, TMetersPerSecond, TRadians, TRadiansPerSecond } from '@hellpig/anarchy-engine/Math';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TKinematicSpeed } from '@hellpig/anarchy-engine/TransformDrive/Models';
 import type { QuaternionLike, Vector3Like } from 'three';
 
 import type { TKinematicData } from './TKinematicData';

@@ -1,4 +1,4 @@
-import type { TDestroyable } from '@Anarchy/Engine/Mixins';
+import type { TDestroyable } from '@hellpig/anarchy-engine/Mixins';
 import type { BehaviorSubject, Observable } from 'rxjs';
 
 import type { TSpatialCellWrapper } from './TSpatialCellWrapper';

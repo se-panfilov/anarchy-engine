@@ -1,5 +1,5 @@
-import type { LoaderType } from '@Anarchy/Engine/Abstract/Constants';
-import type { TDestroyable, TNoSpread, TWithId } from '@Anarchy/Engine/Mixins';
+import type { LoaderType } from '@hellpig/anarchy-engine/Abstract/Constants';
+import type { TDestroyable, TNoSpread, TWithId } from '@hellpig/anarchy-engine/Mixins';
 import type { Observable } from 'rxjs';
 
 import type { TAbstractLoadedResourcePack } from './TAbstractLoadedResourcePack';

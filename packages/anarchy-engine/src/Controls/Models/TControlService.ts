@@ -1,5 +1,5 @@
-import type { TSerializableEntitiesService } from '@Anarchy/Engine/Abstract';
-import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@Anarchy/Engine/Mixins';
+import type { TSerializableEntitiesService } from '@hellpig/anarchy-engine/Abstract';
+import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@hellpig/anarchy-engine/Mixins';
 
 import type { TAnyControlsWrapper } from './TAnyControlsWrapper';
 import type { TControlsConfig } from './TControlsConfig';

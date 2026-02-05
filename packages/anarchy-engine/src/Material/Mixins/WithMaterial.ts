@@ -1,7 +1,7 @@
-import type { TWithMaterial } from '@Anarchy/Engine/Material/Models';
-import type { TRawModel3d } from '@Anarchy/Engine/Models3d';
-import type { TWriteable } from '@Anarchy/Shared/Utils';
-import { isDefined } from '@Anarchy/Shared/Utils';
+import type { TWithMaterial } from '@hellpig/anarchy-engine/Material/Models';
+import type { TRawModel3d } from '@hellpig/anarchy-engine/Models3d';
+import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Group, Material, Mesh, Object3D } from 'three';
 import type { Points } from 'three/src/objects/Points';
 

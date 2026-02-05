@@ -1,4 +1,4 @@
-import { isNotDefined } from '@Anarchy/Shared/Utils';
+import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { TEventsListenerService, TToGuiActionEvent } from '@Showcases/GUI/models';
 import { keyActionsService } from '@Showcases/GUI/services/KeyActionsService';
 import type { TToGuiEvent } from '@Showcases/Shared';

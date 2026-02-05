@@ -1,6 +1,6 @@
-import type { TTexture, TTextureOptions } from '@Anarchy/Engine/Texture/Models';
-import type { TWriteable } from '@Anarchy/Shared/Utils';
-import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TTexture, TTextureOptions } from '@hellpig/anarchy-engine/Texture/Models';
+import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
+import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { MagnificationTextureFilter, MinificationTextureFilter } from 'three';
 import { LinearFilter, NearestFilter } from 'three';
 

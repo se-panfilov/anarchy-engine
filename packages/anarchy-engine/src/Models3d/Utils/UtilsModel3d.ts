@@ -1,7 +1,7 @@
-import type { TAnimationsService } from '@Anarchy/Engine/Animations/Models';
-import type { PrimitiveModel3dType } from '@Anarchy/Engine/Models3d/Constants';
-import type { TModel3dEntities, TModel3dParams, TModel3dRawToModel3dConnectionRegistry } from '@Anarchy/Engine/Models3d/Models';
-import { isDefined } from '@Anarchy/Shared/Utils';
+import type { TAnimationsService } from '@hellpig/anarchy-engine/Animations/Models';
+import type { PrimitiveModel3dType } from '@hellpig/anarchy-engine/Models3d/Constants';
+import type { TModel3dEntities, TModel3dParams, TModel3dRawToModel3dConnectionRegistry } from '@hellpig/anarchy-engine/Models3d/Models';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { AnimationClip, Object3D } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils';

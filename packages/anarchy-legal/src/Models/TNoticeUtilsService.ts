@@ -1,4 +1,4 @@
-import type { TTemplateParsedEntry } from '@Anarchy/Legal/Models';
+import type { TTemplateParsedEntry } from '@hellpig/anarchy-legal/Models';
 
 export type TNoticeUtilsService = Readonly<{
   collectAllHeadingIds: (md: string) => ReadonlySet<string>;

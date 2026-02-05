@@ -1,14 +1,14 @@
-import type { TAbstractService, TRegistryPack } from '@Anarchy/Engine/Abstract';
-import { AbstractEntity, EntityType } from '@Anarchy/Engine/Abstract';
-import { ambientContext } from '@Anarchy/Engine/Context';
-import type { TContainerDecorator } from '@Anarchy/Engine/Global';
-import { getCanvasContainer } from '@Anarchy/Engine/Global';
-import type { TAnyIntersectionsWatcher } from '@Anarchy/Engine/Intersections';
-import type { TLoop } from '@Anarchy/Engine/Loop';
-import type { TMouseClickWatcher, TMousePositionWatcher } from '@Anarchy/Engine/Mouse';
-import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
-import { spaceEntityToConfig } from '@Anarchy/Engine/Space/Adapters';
-import { CreateEntitiesStrategy, SpaceEvents } from '@Anarchy/Engine/Space/Constants';
+import type { TAbstractService, TRegistryPack } from '@hellpig/anarchy-engine/Abstract';
+import { AbstractEntity, EntityType } from '@hellpig/anarchy-engine/Abstract';
+import { ambientContext } from '@hellpig/anarchy-engine/Context';
+import type { TContainerDecorator } from '@hellpig/anarchy-engine/Global';
+import { getCanvasContainer } from '@hellpig/anarchy-engine/Global';
+import type { TAnyIntersectionsWatcher } from '@hellpig/anarchy-engine/Intersections';
+import type { TLoop } from '@hellpig/anarchy-engine/Loop';
+import type { TMouseClickWatcher, TMousePositionWatcher } from '@hellpig/anarchy-engine/Mouse';
+import type { TSceneWrapper } from '@hellpig/anarchy-engine/Scene';
+import { spaceEntityToConfig } from '@hellpig/anarchy-engine/Space/Adapters';
+import { CreateEntitiesStrategy, SpaceEvents } from '@hellpig/anarchy-engine/Space/Constants';
 import type {
   TSpace,
   TSpaceAnyEvent,
@@ -21,10 +21,10 @@ import type {
   TSpaceRegistry,
   TSpaceServices,
   TSpaceSettings
-} from '@Anarchy/Engine/Space/Models';
-import { buildBaseServices, buildEntitiesServices, createEntities, createLoops } from '@Anarchy/Engine/Space/Utils';
-import { findDomElement, getOrCreateCanvasFromSelector, isCanvasElement, isDestroyable, mergeAll } from '@Anarchy/Engine/Utils';
-import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+} from '@hellpig/anarchy-engine/Space/Models';
+import { buildBaseServices, buildEntitiesServices, createEntities, createLoops } from '@hellpig/anarchy-engine/Space/Utils';
+import { findDomElement, getOrCreateCanvasFromSelector, isCanvasElement, isDestroyable, mergeAll } from '@hellpig/anarchy-engine/Utils';
+import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, skip, Subject } from 'rxjs';
 

@@ -187,14 +187,14 @@ export type THtmlElementStyleDeclaration = {
   gridAutoRows: string;
   gridColumn: string;
   gridColumnEnd: string;
-  /** @Anarchy/Enginedeprecated This is a legacy alias of `columnGap`. */
+  /** @hellpig/anarchy-engine deprecated This is a legacy alias of `columnGap`. */
   gridColumnGap: string;
   gridColumnStart: string;
-  /** @Anarchy/Enginedeprecated This is a legacy alias of `gap`. */
+  /** @hellpig/anarchy-engine deprecated This is a legacy alias of `gap`. */
   gridGap: string;
   gridRow: string;
   gridRowEnd: string;
-  /** @Anarchy/Enginedeprecated This is a legacy alias of `rowGap`. */
+  /** @hellpig/anarchy-engined eprecated This is a legacy alias of `rowGap`. */
   gridRowGap: string;
   gridRowStart: string;
   gridTemplate: string;
@@ -205,7 +205,7 @@ export type THtmlElementStyleDeclaration = {
   hyphenateCharacter: string;
   hyphens: string;
   /**
-   * @Anarchy/Enginedeprecated
+   * @hellpig/anarchy-engine deprecated
    *
    * [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/image-orientation)
    */

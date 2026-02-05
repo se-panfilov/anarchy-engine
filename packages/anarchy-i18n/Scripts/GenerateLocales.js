@@ -231,7 +231,7 @@ await generate(config);
 // Helpers
 async function writeConstants(header, locales) {
   const body = `
-import type { TLocale } from '@Anarchy/i18n/Models';
+import type { TLocale } from '@hellpig/anarchy-i18n/Models';
 
 ${locales.map((locale) => `export const ${kebabToCamel(locale.id)}: TLocale =  ` + toTs(locale)).join(';\n')};
 

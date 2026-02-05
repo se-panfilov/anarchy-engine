@@ -1,5 +1,5 @@
-import type { TTrackingService } from '@Anarchy/Tracking';
-import { DesktopTrackingService } from '@Anarchy/Tracking/Services/DesktopTrackingService';
+import type { TTrackingService } from '@hellpig/anarchy-tracking';
+import { DesktopTrackingService } from '@hellpig/anarchy-tracking/Services/DesktopTrackingService';
 import type { TElectronErrorTrackingService } from '@Showcases/Desktop/Models';
 import { makeDistName } from '@Showcases/Shared';
 

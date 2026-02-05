@@ -1,9 +1,9 @@
-import { WrapperType } from '@Anarchy/Engine/Abstract';
-import type { TextCssClass } from '@Anarchy/Engine/Text/Constants';
-import { TextType } from '@Anarchy/Engine/Text/Constants';
-import type { TElementWithCssAccessors, TTextCssProps } from '@Anarchy/Engine/Text/Models';
-import type { TValueOf } from '@Anarchy/Shared/Utils';
-import { isDefined, isString } from '@Anarchy/Shared/Utils';
+import { WrapperType } from '@hellpig/anarchy-engine/Abstract';
+import type { TextCssClass } from '@hellpig/anarchy-engine/Text/Constants';
+import { TextType } from '@hellpig/anarchy-engine/Text/Constants';
+import type { TElementWithCssAccessors, TTextCssProps } from '@hellpig/anarchy-engine/Text/Models';
+import type { TValueOf } from '@hellpig/anarchy-shared/Utils';
+import { isDefined, isString } from '@hellpig/anarchy-shared/Utils';
 
 export function applyHtmlElementParams(wrapper: TElementWithCssAccessors, cssProps: TTextCssProps, className: TextCssClass): void {
   Object.keys(cssProps).forEach((paramName: string): void => {

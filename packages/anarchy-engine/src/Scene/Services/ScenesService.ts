@@ -1,7 +1,14 @@
-import type { TAbstractService, TRegistryPack } from '@Anarchy/Engine/Abstract';
-import { AbstractService } from '@Anarchy/Engine/Abstract';
-import type { TDisposable, TWithActiveMixinResult } from '@Anarchy/Engine/Mixins';
-import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
+import type { TAbstractService, TRegistryPack } from '@hellpig/anarchy-engine/Abstract';
+import { AbstractService } from '@hellpig/anarchy-engine/Abstract';
+import type { TDisposable, TWithActiveMixinResult } from '@hellpig/anarchy-engine/Mixins';
+import {
+  withActiveEntityServiceMixin,
+  withCreateFromConfigServiceMixin,
+  withCreateServiceMixin,
+  withFactoryService,
+  withRegistryService,
+  withSerializableEntities
+} from '@hellpig/anarchy-engine/Mixins';
 import type {
   TSceneConfig,
   TSceneFactory,
@@ -12,8 +19,8 @@ import type {
   TScenesServiceWithFactory,
   TScenesServiceWithRegistry,
   TSceneWrapper
-} from '@Anarchy/Engine/Scene/Models';
-import { mergeAll } from '@Anarchy/Engine/Utils';
+} from '@hellpig/anarchy-engine/Scene/Models';
+import { mergeAll } from '@hellpig/anarchy-engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry): TScenesService {

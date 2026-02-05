@@ -1,4 +1,4 @@
-import type { TOptional } from '@Anarchy/Shared/Utils';
+import type { TOptional } from '@hellpig/anarchy-shared/Utils';
 
 import type { TCollisionsData } from './TCollisionsData';
 

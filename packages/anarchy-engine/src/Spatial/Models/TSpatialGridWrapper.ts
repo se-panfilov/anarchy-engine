@@ -1,7 +1,7 @@
-import type { TWrapper } from '@Anarchy/Engine/Abstract';
-import type { TActor } from '@Anarchy/Engine/Actor';
-import type { TDestroyable } from '@Anarchy/Engine/Mixins';
-import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
+import type { TWrapper } from '@hellpig/anarchy-engine/Abstract';
+import type { TActor } from '@hellpig/anarchy-engine/Actor';
+import type { TDestroyable } from '@hellpig/anarchy-engine/Mixins';
+import type { TSceneWrapper } from '@hellpig/anarchy-engine/Scene';
 import type { Observable } from 'rxjs';
 import type { ColorRepresentation } from 'three';
 

@@ -1,3 +1,4 @@
+import type { RigidBody } from '@dimforge/rapier3d';
 import type {
   TActor,
   TActorParams,
@@ -19,11 +20,10 @@ import type {
   TSceneWrapper,
   TSpatialGridService,
   TSpatialGridWrapper
-} from '@Anarchy/Engine';
-import { getTags, LoopUpdatePriority, MaterialType, metersPerSecond, mpsSpeed, PrimitiveModel3dType, TransformAgent } from '@Anarchy/Engine';
-import { meters } from '@Anarchy/Engine/Measurements/Utils';
-import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
-import type { RigidBody } from '@dimforge/rapier3d';
+} from '@hellpig/anarchy-engine';
+import { getTags, LoopUpdatePriority, MaterialType, metersPerSecond, mpsSpeed, PrimitiveModel3dType, TransformAgent } from '@hellpig/anarchy-engine';
+import { meters } from '@hellpig/anarchy-engine/Measurements/Utils';
+import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Observable } from 'rxjs';
 import { withLatestFrom } from 'rxjs';

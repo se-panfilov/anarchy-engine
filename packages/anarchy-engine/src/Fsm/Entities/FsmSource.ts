@@ -1,5 +1,5 @@
-import type { TFsmConfig, TFsmParams, TFsmSource } from '@Anarchy/Engine/Fsm/Models';
-import { omitInObjectWithoutMutation } from '@Anarchy/Shared/Utils';
+import type { TFsmConfig, TFsmParams, TFsmSource } from '@hellpig/anarchy-engine/Fsm/Models';
+import { omitInObjectWithoutMutation } from '@hellpig/anarchy-shared/Utils';
 import { nanoid } from 'nanoid';
 
 export function FsmSource(params: TFsmParams): TFsmSource {

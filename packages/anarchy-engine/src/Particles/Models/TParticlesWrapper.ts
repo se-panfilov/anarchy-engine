@@ -1,9 +1,9 @@
-import type { TWrapper } from '@Anarchy/Engine/Abstract';
-import type { TColor } from '@Anarchy/Engine/Color';
-import type { TWithMaterial } from '@Anarchy/Engine/Material';
-import type { TWithObject3d } from '@Anarchy/Engine/Mixins';
-import type { TPoints } from '@Anarchy/Engine/ThreeLib';
-import type { TWithTransformDrive } from '@Anarchy/Engine/TransformDrive';
+import type { TWrapper } from '@hellpig/anarchy-engine/Abstract';
+import type { TColor } from '@hellpig/anarchy-engine/Color';
+import type { TWithMaterial } from '@hellpig/anarchy-engine/Material';
+import type { TWithObject3d } from '@hellpig/anarchy-engine/Mixins';
+import type { TPoints } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TWithTransformDrive } from '@hellpig/anarchy-engine/TransformDrive';
 
 import type { TParticlesTransformAgents } from './TParticlesTransformAgents';
 

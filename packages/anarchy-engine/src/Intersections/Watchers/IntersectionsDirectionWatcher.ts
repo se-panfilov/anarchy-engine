@@ -1,17 +1,17 @@
-import type { TContainerDecorator } from '@Anarchy/Engine/Global';
+import type { TContainerDecorator } from '@hellpig/anarchy-engine/Global';
 import type {
   TAbstractIntersectionsWatcher,
   TIntersectionEvent,
   TIntersectionsDirectionWatcher,
   TIntersectionsDirectionWatcherParams,
   TIntersectionsWatcherPerformanceOptions
-} from '@Anarchy/Engine/Intersections/Models';
-import { getChangedOriginAndDirection } from '@Anarchy/Engine/Intersections/Utils';
-import { AbstractIntersectionsWatcher } from '@Anarchy/Engine/Intersections/Watchers/AbstractIntersectionsWatcher';
-import type { TMilliseconds } from '@Anarchy/Engine/Math';
-import type { TSceneObject } from '@Anarchy/Engine/Scene';
-import type { TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
-import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+} from '@hellpig/anarchy-engine/Intersections/Models';
+import { getChangedOriginAndDirection } from '@hellpig/anarchy-engine/Intersections/Utils';
+import { AbstractIntersectionsWatcher } from '@hellpig/anarchy-engine/Intersections/Watchers/AbstractIntersectionsWatcher';
+import type { TMilliseconds } from '@hellpig/anarchy-engine/Math';
+import type { TSceneObject } from '@hellpig/anarchy-engine/Scene';
+import type { TReadonlyVector3 } from '@hellpig/anarchy-engine/ThreeLib';
+import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, EMPTY, filter, map, switchMap } from 'rxjs';
 import type { ColorRepresentation, Vector3Like } from 'three';

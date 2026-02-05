@@ -1,10 +1,10 @@
-import type { TCollisionsService } from '@Anarchy/Engine/Collisions';
-import type { TFsmService } from '@Anarchy/Engine/Fsm';
-import type { TLoopService } from '@Anarchy/Engine/Loop';
-import type { TModels3dService } from '@Anarchy/Engine/Models3d';
-import type { TPhysicsBodyService } from '@Anarchy/Engine/Physics';
-import type { TSpatialGridService } from '@Anarchy/Engine/Spatial';
-import type { TTransformDriveService } from '@Anarchy/Engine/TransformDrive';
+import type { TCollisionsService } from '@hellpig/anarchy-engine/Collisions';
+import type { TFsmService } from '@hellpig/anarchy-engine/Fsm';
+import type { TLoopService } from '@hellpig/anarchy-engine/Loop';
+import type { TModels3dService } from '@hellpig/anarchy-engine/Models3d';
+import type { TPhysicsBodyService } from '@hellpig/anarchy-engine/Physics';
+import type { TSpatialGridService } from '@hellpig/anarchy-engine/Spatial';
+import type { TTransformDriveService } from '@hellpig/anarchy-engine/TransformDrive';
 
 import type { TModel3dToActorConnectionRegistry } from './TModel3dToActorConnectionRegistry';
 

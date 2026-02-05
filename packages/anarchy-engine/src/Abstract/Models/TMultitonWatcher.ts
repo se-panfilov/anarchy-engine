@@ -1,4 +1,4 @@
-import type { TMultitonRegistrable } from '@Anarchy/Engine/Mixins';
+import type { TMultitonRegistrable } from '@hellpig/anarchy-engine/Mixins';
 
 import type { TAbstractWatcher } from './TAbstractWatcher';
 

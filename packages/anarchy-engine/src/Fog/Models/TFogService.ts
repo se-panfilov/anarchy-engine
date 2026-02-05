@@ -1,5 +1,5 @@
-import type { TSerializableEntitiesService } from '@Anarchy/Engine/Abstract';
-import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@Anarchy/Engine/Mixins';
+import type { TSerializableEntitiesService } from '@hellpig/anarchy-engine/Abstract';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@hellpig/anarchy-engine/Mixins';
 
 import type { TFogConfig } from './TFogConfig';
 import type { TFogFactory } from './TFogFactory';

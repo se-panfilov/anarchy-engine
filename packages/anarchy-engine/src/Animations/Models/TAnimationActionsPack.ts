@@ -1,4 +1,4 @@
-import type { TRawModel3d } from '@Anarchy/Engine/Models3d';
+import type { TRawModel3d } from '@hellpig/anarchy-engine/Models3d';
 import type { AnimationMixer } from 'three';
 
 import type { TAnimationActions } from './TAnimationActions';

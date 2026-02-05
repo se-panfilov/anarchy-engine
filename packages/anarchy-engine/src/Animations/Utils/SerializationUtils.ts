@@ -1,5 +1,5 @@
-import type { TAnimationStateParams } from '@Anarchy/Engine/Animations/Models';
-import { isDefined } from '@Anarchy/Shared/Utils';
+import type { TAnimationStateParams } from '@hellpig/anarchy-engine/Animations/Models';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { AnimationAction } from 'three';
 
 export function applyAnimationActionProperties(action: AnimationAction, { enabled, weight, loop, repetitions, clampWhenFinished, timeScale, time, paused }: TAnimationStateParams): void {

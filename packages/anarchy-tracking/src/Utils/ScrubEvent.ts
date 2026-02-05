@@ -1,4 +1,4 @@
-import { HiddenField } from '@Anarchy/Tracking/Constants';
+import { HiddenField } from '@hellpig/anarchy-tracking/Constants';
 import type { ErrorEvent } from '@sentry/core';
 
 export function scrubEvent(event: ErrorEvent): ErrorEvent {

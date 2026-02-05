@@ -1,7 +1,7 @@
-import { LoopWorkerActions } from '@Anarchy/Engine/Loop/Constants';
-import type { TDeltaCalculator, TLoopWorkerResponseData, TLoopWorkerStartRequestData, TLoopWorkerStopRequestData } from '@Anarchy/Engine/Loop/Models';
-import type { TMilliseconds } from '@Anarchy/Engine/Math';
-import { isDefined } from '@Anarchy/Shared/Utils/CheckUtils';
+import { LoopWorkerActions } from '@hellpig/anarchy-engine/Loop/Constants';
+import type { TDeltaCalculator, TLoopWorkerResponseData, TLoopWorkerStartRequestData, TLoopWorkerStopRequestData } from '@hellpig/anarchy-engine/Loop/Models';
+import type { TMilliseconds } from '@hellpig/anarchy-engine/Math';
+import { isDefined } from '@hellpig/anarchy-shared/Utils/CheckUtils';
 
 import { DeltaCalculator } from './DeltaCalculator';
 

@@ -1,7 +1,7 @@
-import type { TAbstractWatcher } from '@Anarchy/Engine/Abstract';
-import { AbstractWatcher, WatcherType } from '@Anarchy/Engine/Abstract';
-import type { TActor } from '@Anarchy/Engine/Actor';
-import { intersectionsEntityToConfig } from '@Anarchy/Engine/Intersections/Adapters';
+import type { TAbstractWatcher } from '@hellpig/anarchy-engine/Abstract';
+import { AbstractWatcher, WatcherType } from '@hellpig/anarchy-engine/Abstract';
+import type { TActor } from '@hellpig/anarchy-engine/Actor';
+import { intersectionsEntityToConfig } from '@hellpig/anarchy-engine/Intersections/Adapters';
 import type {
   TAbstractIntersectionsWatcher,
   TAnyIntersectionsWatcher,
@@ -9,10 +9,10 @@ import type {
   TAnyIntersectionsWatcherParams,
   TIntersectionEvent,
   TIntersectionsLoop
-} from '@Anarchy/Engine/Intersections/Models';
-import type { TRawModel3d } from '@Anarchy/Engine/Models3d';
-import type { TWriteable } from '@Anarchy/Shared/Utils';
-import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+} from '@hellpig/anarchy-engine/Intersections/Models';
+import type { TRawModel3d } from '@hellpig/anarchy-engine/Models3d';
+import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
+import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Subscription } from 'rxjs';
 import { Raycaster } from 'three';
 

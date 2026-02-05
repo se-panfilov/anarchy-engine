@@ -1,4 +1,4 @@
-import type { LoopWorkerActions } from '@Anarchy/Engine/Loop/Constants';
+import type { LoopWorkerActions } from '@hellpig/anarchy-engine/Loop/Constants';
 
 export type TLoopWorkerStopRequestData = Readonly<{
   action: LoopWorkerActions;

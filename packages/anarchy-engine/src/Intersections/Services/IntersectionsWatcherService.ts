@@ -1,7 +1,7 @@
-import type { TAbstractService } from '@Anarchy/Engine/Abstract';
-import { AbstractService } from '@Anarchy/Engine/Abstract';
-import type { TActorService } from '@Anarchy/Engine/Actor';
-import type { TCameraService } from '@Anarchy/Engine/Camera';
+import type { TAbstractService } from '@hellpig/anarchy-engine/Abstract';
+import { AbstractService } from '@hellpig/anarchy-engine/Abstract';
+import type { TActorService } from '@hellpig/anarchy-engine/Actor';
+import type { TCameraService } from '@hellpig/anarchy-engine/Camera';
 import type {
   TAnyIntersectionsWatcher,
   TAnyIntersectionsWatcherConfig,
@@ -13,14 +13,14 @@ import type {
   TIntersectionsWatcherService,
   TIntersectionsWatcherServiceWithFactory,
   TIntersectionsWatcherServiceWithRegistry
-} from '@Anarchy/Engine/Intersections/Models';
-import { isIntersectionsCameraWatcher, isIntersectionsDirectionWatcher } from '@Anarchy/Engine/Intersections/Utils';
-import type { TLoopService } from '@Anarchy/Engine/Loop';
-import type { TDisposable } from '@Anarchy/Engine/Mixins';
-import { withFactoryService, withRegistryService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
-import type { TMouseService } from '@Anarchy/Engine/Mouse';
-import { mergeAll } from '@Anarchy/Engine/Utils';
-import { isDefined } from '@Anarchy/Shared/Utils';
+} from '@hellpig/anarchy-engine/Intersections/Models';
+import { isIntersectionsCameraWatcher, isIntersectionsDirectionWatcher } from '@hellpig/anarchy-engine/Intersections/Utils';
+import type { TLoopService } from '@hellpig/anarchy-engine/Loop';
+import type { TDisposable } from '@hellpig/anarchy-engine/Mixins';
+import { withFactoryService, withRegistryService, withSerializableEntities } from '@hellpig/anarchy-engine/Mixins';
+import type { TMouseService } from '@hellpig/anarchy-engine/Mouse';
+import { mergeAll } from '@hellpig/anarchy-engine/Utils';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Subscription } from 'rxjs';
 
 export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactory, registry: TIntersectionsWatcherRegistry): TIntersectionsWatcherService {

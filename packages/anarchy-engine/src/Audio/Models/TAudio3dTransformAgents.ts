@@ -1,5 +1,5 @@
-import type { TConnectedTransformAgent, TDefaultTransformAgent } from '@Anarchy/Engine/TransformDrive';
-import type { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
+import type { TConnectedTransformAgent, TDefaultTransformAgent } from '@hellpig/anarchy-engine/TransformDrive';
+import type { TransformAgent } from '@hellpig/anarchy-engine/TransformDrive/Constants';
 
 export type TAudio3dTransformAgents = Readonly<{
   [TransformAgent.Connected]: TConnectedTransformAgent;

@@ -1,7 +1,7 @@
-import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
-import type { SpaceSchemaVersion } from '@Anarchy/Engine/Space/Constants';
-import type { TSpace, TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources, TSpaceServices } from '@Anarchy/Engine/Space/Models';
-import { filterOutEmptyFieldsRecursive, isDefined } from '@Anarchy/Shared/Utils';
+import { extractSerializableRegistrableFields } from '@hellpig/anarchy-engine/Mixins';
+import type { SpaceSchemaVersion } from '@hellpig/anarchy-engine/Space/Constants';
+import type { TSpace, TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources, TSpaceServices } from '@hellpig/anarchy-engine/Space/Models';
+import { filterOutEmptyFieldsRecursive, isDefined } from '@hellpig/anarchy-shared/Utils';
 
 export function spaceEntityToConfig(
   entity: TSpace,

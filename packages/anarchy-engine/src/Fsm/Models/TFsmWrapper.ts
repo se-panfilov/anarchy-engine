@@ -1,6 +1,6 @@
-import type { TWrapper } from '@Anarchy/Engine/Abstract';
-import type { FsmEventsStrategy, FsmType } from '@Anarchy/Engine/Fsm/Constants';
-import type { TFsmEvents, TFsmStates } from '@Anarchy/Engine/Fsm/Models';
+import type { TWrapper } from '@hellpig/anarchy-engine/Abstract';
+import type { FsmEventsStrategy, FsmType } from '@hellpig/anarchy-engine/Fsm/Constants';
+import type { TFsmEvents, TFsmStates } from '@hellpig/anarchy-engine/Fsm/Models';
 import type { BehaviorSubject, Observable } from 'rxjs';
 
 import type { TFsmMachine } from './TFsmMachine';

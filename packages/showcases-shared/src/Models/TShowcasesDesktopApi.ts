@@ -1,5 +1,5 @@
-import type { TLocaleId } from '@Anarchy/i18n';
-import type { TBrowserInfo } from '@Anarchy/Shared/Models';
+import type { TLocaleId } from '@hellpig/anarchy-i18n';
+import type { TBrowserInfo } from '@hellpig/anarchy-shared/Models';
 
 import type { TDistName } from './TDistName';
 import type { TLegalDoc } from './TLegalDoc';

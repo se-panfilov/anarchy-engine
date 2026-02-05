@@ -1,6 +1,6 @@
-import type { TWithObject3d } from '@Anarchy/Engine/Mixins/GameObjects/Models';
-import type { TObject3D } from '@Anarchy/Engine/ThreeLib';
-import type { TWriteable } from '@Anarchy/Shared/Utils';
+import type { TWithObject3d } from '@hellpig/anarchy-engine/Mixins/GameObjects/Models';
+import type { TObject3D } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 
 export function withObject3d<T extends TObject3D>(entity: T): TWithObject3d {
   // eslint-disable-next-line functional/immutable-data

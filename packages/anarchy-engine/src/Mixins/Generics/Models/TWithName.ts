@@ -1,4 +1,4 @@
-import type { TOptional, TWriteable } from '@Anarchy/Shared/Utils';
+import type { TOptional, TWriteable } from '@hellpig/anarchy-shared/Utils';
 
 export type TWithNameOptional = TOptional<TWithName>;
 export type TWithName = Readonly<{ name: string }>;

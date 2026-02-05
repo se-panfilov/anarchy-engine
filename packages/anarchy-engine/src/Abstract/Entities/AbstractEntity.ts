@@ -1,9 +1,9 @@
-import type { EntityType } from '@Anarchy/Engine/Abstract/Constants';
-import type { TAbstractEntity, TEntityParams } from '@Anarchy/Engine/Abstract/Models';
-import type { TDestroyable, TNoSpread, TRegistrable, TWithName } from '@Anarchy/Engine/Mixins';
-import { destroyableMixin, withNameAndNameAccessorsMixin } from '@Anarchy/Engine/Mixins';
-import { genericEntityCleanUp, mergeAll } from '@Anarchy/Engine/Utils';
-import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { EntityType } from '@hellpig/anarchy-engine/Abstract/Constants';
+import type { TAbstractEntity, TEntityParams } from '@hellpig/anarchy-engine/Abstract/Models';
+import type { TDestroyable, TNoSpread, TRegistrable, TWithName } from '@hellpig/anarchy-engine/Mixins';
+import { destroyableMixin, withNameAndNameAccessorsMixin } from '@hellpig/anarchy-engine/Mixins';
+import { genericEntityCleanUp, mergeAll } from '@hellpig/anarchy-engine/Utils';
+import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 

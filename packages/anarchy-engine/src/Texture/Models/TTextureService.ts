@@ -1,5 +1,5 @@
-import type { TSerializableResourceService } from '@Anarchy/Engine/Abstract';
-import type { TWithLoadResourcesAsyncService, TWithResourcesMetaInfoRegistryService, TWithResourcesRegistryService } from '@Anarchy/Engine/Mixins';
+import type { TSerializableResourceService } from '@hellpig/anarchy-engine/Abstract';
+import type { TWithLoadResourcesAsyncService, TWithResourcesMetaInfoRegistryService, TWithResourcesRegistryService } from '@hellpig/anarchy-engine/Mixins';
 
 import type { TTexture } from './TTexture';
 import type { TTextureAsyncRegistry } from './TTextureAsyncRegistry';

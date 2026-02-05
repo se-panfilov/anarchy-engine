@@ -1,5 +1,5 @@
-import type { TAbstractService } from '@Anarchy/Engine/Abstract';
-import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { TAbstractService } from '@hellpig/anarchy-engine/Abstract';
+import { AbstractService } from '@hellpig/anarchy-engine/Abstract';
 import type {
   TFsmConfig,
   TFsmSource,
@@ -10,10 +10,10 @@ import type {
   TFsmSourceServiceWithCreateFromConfig,
   TFsmSourceServiceWithFactory,
   TFsmSourceServiceWithRegistry
-} from '@Anarchy/Engine/Fsm/Models';
-import type { TDisposable } from '@Anarchy/Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
-import { mergeAll } from '@Anarchy/Engine/Utils';
+} from '@hellpig/anarchy-engine/Fsm/Models';
+import type { TDisposable } from '@hellpig/anarchy-engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@hellpig/anarchy-engine/Mixins';
+import { mergeAll } from '@hellpig/anarchy-engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function FsmSourceService(factory: TFsmSourceFactory, registry: TFsmSourceRegistry): TFsmSourceService {

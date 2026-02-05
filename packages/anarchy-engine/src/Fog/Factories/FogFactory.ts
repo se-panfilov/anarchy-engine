@@ -1,8 +1,8 @@
-import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
-import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
-import { fogConfigToParams } from '@Anarchy/Engine/Fog/Adapters';
-import type { TFogFactory, TFogParams, TFogWrapper } from '@Anarchy/Engine/Fog/Models';
-import { FogWrapper } from '@Anarchy/Engine/Fog/Wrappers';
+import type { TReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
+import { FactoryType, ReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
+import { fogConfigToParams } from '@hellpig/anarchy-engine/Fog/Adapters';
+import type { TFogFactory, TFogParams, TFogWrapper } from '@hellpig/anarchy-engine/Fog/Models';
+import { FogWrapper } from '@hellpig/anarchy-engine/Fog/Wrappers';
 
 export function FogFactory(): TFogFactory {
   const factory: TReactiveFactory<TFogWrapper, TFogParams> = ReactiveFactory(FactoryType.Fog, FogWrapper);

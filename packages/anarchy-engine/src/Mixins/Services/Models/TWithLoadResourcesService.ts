@@ -1,4 +1,4 @@
-import type { TAbstractResourceConfig } from '@Anarchy/Engine/Abstract';
+import type { TAbstractResourceConfig } from '@hellpig/anarchy-engine/Abstract';
 
 export type TWithLoadResourcesService<C extends TAbstractResourceConfig, T> = Readonly<{
   load: (config: C, ...rest: any) => T;

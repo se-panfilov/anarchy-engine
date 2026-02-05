@@ -1,10 +1,10 @@
-import type { TAnyMaterialWrapper, TMaterials } from '@Anarchy/Engine/Material';
-import type { TMeters } from '@Anarchy/Engine/Math';
-import { meters } from '@Anarchy/Engine/Measurements/Utils';
-import { PrimitiveModel3dType } from '@Anarchy/Engine/Models3d/Constants';
-import type { TModel3dConfig, TModel3dParams, TModel3dResourceConfig, TRawModel3d } from '@Anarchy/Engine/Models3d/Models';
-import type { TBoxGeometryParams, TPlaneGeometryParams, TSphereGeometryParams } from '@Anarchy/Engine/ThreeLib';
-import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TAnyMaterialWrapper, TMaterials } from '@hellpig/anarchy-engine/Material';
+import type { TMeters } from '@hellpig/anarchy-engine/Math';
+import { meters } from '@hellpig/anarchy-engine/Measurements/Utils';
+import { PrimitiveModel3dType } from '@hellpig/anarchy-engine/Models3d/Constants';
+import type { TModel3dConfig, TModel3dParams, TModel3dResourceConfig, TRawModel3d } from '@hellpig/anarchy-engine/Models3d/Models';
+import type { TBoxGeometryParams, TPlaneGeometryParams, TSphereGeometryParams } from '@hellpig/anarchy-engine/ThreeLib';
+import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { BoxGeometry, Mesh, PlaneGeometry, SphereGeometry } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 

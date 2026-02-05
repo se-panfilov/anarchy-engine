@@ -1,7 +1,7 @@
-import type { TReactiveTranslationMixin, TTranslationService } from '@Anarchy/i18n/Models';
-import { isDefined, toObservable$ } from '@Anarchy/Shared/Utils';
 import type { FormatNumberOptions, IntlShape } from '@formatjs/intl';
 import type { FormatDateOptions } from '@formatjs/intl/src/types';
+import type { TReactiveTranslationMixin, TTranslationService } from '@hellpig/anarchy-i18n/Models';
+import { isDefined, toObservable$ } from '@hellpig/anarchy-shared/Utils';
 import type { Observable } from 'rxjs';
 import { combineLatest, distinctUntilChanged, filter, map, shareReplay, tap } from 'rxjs';
 

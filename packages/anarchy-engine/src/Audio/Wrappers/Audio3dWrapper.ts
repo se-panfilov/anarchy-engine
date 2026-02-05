@@ -6,17 +6,17 @@ import type {
   TAudio3dWrapper,
   TAudioCreateFn,
   TAudioWrapperDependencies
-} from '@Anarchy/Engine/Audio/Models';
-import { Audio3dTransformDrive } from '@Anarchy/Engine/Audio/TransformDrive';
-import { createPositionalAudio, onAudioPositionUpdate } from '@Anarchy/Engine/Audio/Utils';
-import { AbstractAudioWrapper } from '@Anarchy/Engine/Audio/Wrappers/AbstractAudioWrapper';
-import { LoopUpdatePriority } from '@Anarchy/Engine/Loop';
-import type { TMeters, TMilliseconds } from '@Anarchy/Engine/Math';
-import { meters } from '@Anarchy/Engine/Measurements';
-import type { TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
-import type { TDriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
-import { DriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
-import { isDefined } from '@Anarchy/Shared/Utils';
+} from '@hellpig/anarchy-engine/Audio/Models';
+import { Audio3dTransformDrive } from '@hellpig/anarchy-engine/Audio/TransformDrive';
+import { createPositionalAudio, onAudioPositionUpdate } from '@hellpig/anarchy-engine/Audio/Utils';
+import { AbstractAudioWrapper } from '@hellpig/anarchy-engine/Audio/Wrappers/AbstractAudioWrapper';
+import { LoopUpdatePriority } from '@hellpig/anarchy-engine/Loop';
+import type { TMeters, TMilliseconds } from '@hellpig/anarchy-engine/Math';
+import { meters } from '@hellpig/anarchy-engine/Measurements';
+import type { TReadonlyVector3 } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TDriveToTargetConnector } from '@hellpig/anarchy-engine/TransformDrive';
+import { DriveToTargetConnector } from '@hellpig/anarchy-engine/TransformDrive';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, sample, takeUntil } from 'rxjs';
 import type { AudioListener, PositionalAudio, Vector3Like } from 'three';

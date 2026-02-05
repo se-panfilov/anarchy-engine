@@ -1,4 +1,4 @@
-import type { TSpace, TSpaceConfig, TSpatialGridWrapper } from '@Anarchy/Engine';
+import type { TSpace, TSpaceConfig, TSpatialGridWrapper } from '@hellpig/anarchy-engine';
 import { BehaviorSubject } from 'rxjs';
 
 import type { TSpacesData } from '../ShowcaseTypes';

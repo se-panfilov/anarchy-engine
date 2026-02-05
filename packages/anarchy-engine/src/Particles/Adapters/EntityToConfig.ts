@@ -1,7 +1,7 @@
-import type { TAnyMaterialWrapper } from '@Anarchy/Engine/Material';
-import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
-import type { TParticlesConfig, TParticlesConfigToParamsDependencies, TParticlesWrapper } from '@Anarchy/Engine/Particles/Models';
-import { filterOutEmptyFields } from '@Anarchy/Shared/Utils';
+import type { TAnyMaterialWrapper } from '@hellpig/anarchy-engine/Material';
+import { extractSerializableRegistrableFields } from '@hellpig/anarchy-engine/Mixins';
+import type { TParticlesConfig, TParticlesConfigToParamsDependencies, TParticlesWrapper } from '@hellpig/anarchy-engine/Particles/Models';
+import { filterOutEmptyFields } from '@hellpig/anarchy-shared/Utils';
 
 export function particlesEntityToConfig(entity: TParticlesWrapper, { materialRegistry }: TParticlesConfigToParamsDependencies): TParticlesConfig {
   const { drive } = entity;

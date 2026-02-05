@@ -1,5 +1,5 @@
-import type { TGameKey, TKeyEvent } from '@Anarchy/Engine/Keyboard/Models';
-import { hasKey, hasKeys } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
+import type { TGameKey, TKeyEvent } from '@hellpig/anarchy-engine/Keyboard/Models';
+import { hasKey, hasKeys } from '@hellpig/anarchy-engine/Keyboard/Utils/KeysUtils';
 import type { Observable, OperatorFunction } from 'rxjs';
 import { filter } from 'rxjs';
 

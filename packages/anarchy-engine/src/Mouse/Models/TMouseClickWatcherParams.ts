@@ -1,5 +1,5 @@
-import type { WatcherTag } from '@Anarchy/Engine/Abstract';
-import type { TContainerDecorator } from '@Anarchy/Engine/Global';
+import type { WatcherTag } from '@hellpig/anarchy-engine/Abstract';
+import type { TContainerDecorator } from '@hellpig/anarchy-engine/Global';
 
 export type TMouseClickWatcherParams = Readonly<{
   container: TContainerDecorator;

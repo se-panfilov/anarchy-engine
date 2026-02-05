@@ -1,5 +1,5 @@
-import type { TMaterialConfigOptions, TPhysicalMaterialWrapper, TSpace, TSpaceConfig } from '@Anarchy/Engine';
-import { isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TMaterialConfigOptions, TPhysicalMaterialWrapper, TSpace, TSpaceConfig } from '@hellpig/anarchy-engine';
+import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { BehaviorSubject } from 'rxjs';
 
 import type { TSpacesData } from '../ShowcaseTypes';

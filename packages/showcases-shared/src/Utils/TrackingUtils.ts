@@ -1,5 +1,5 @@
-import { getLangFromLocaleId } from '@Anarchy/i18n';
-import { isDefined } from '@Anarchy/Shared/Utils';
+import { getLangFromLocaleId } from '@hellpig/anarchy-i18n';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import type {
   TAnonymizedAudioSettings,
   TAnonymizedDebugSettings,

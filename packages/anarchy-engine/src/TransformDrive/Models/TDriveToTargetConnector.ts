@@ -1,3 +1,3 @@
-import type { TDestroyable, TNoSpread } from '@Anarchy/Engine/Mixins';
+import type { TDestroyable, TNoSpread } from '@hellpig/anarchy-engine/Mixins';
 
 export type TDriveToTargetConnector = TNoSpread & TDestroyable;

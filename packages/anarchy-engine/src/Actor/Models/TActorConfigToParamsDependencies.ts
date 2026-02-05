@@ -1,7 +1,7 @@
-import type { TFsmService } from '@Anarchy/Engine/Fsm';
-import type { TModels3dService } from '@Anarchy/Engine/Models3d';
-import type { TPhysicsBodyService } from '@Anarchy/Engine/Physics';
-import type { TSpatialGridRegistry } from '@Anarchy/Engine/Spatial';
+import type { TFsmService } from '@hellpig/anarchy-engine/Fsm';
+import type { TModels3dService } from '@hellpig/anarchy-engine/Models3d';
+import type { TPhysicsBodyService } from '@hellpig/anarchy-engine/Physics';
+import type { TSpatialGridRegistry } from '@hellpig/anarchy-engine/Spatial';
 
 export type TActorConfigToParamsDependencies = Readonly<{
   fsmService: TFsmService;

@@ -1,7 +1,7 @@
-import type { TAnimationStateConfig } from '@Anarchy/Engine/Animations';
-import type { PrimitiveModel3dType } from '@Anarchy/Engine/Models3d/Constants';
-import type { TObject3DPropConfig } from '@Anarchy/Engine/ThreeLib';
-import type { TOptional } from '@Anarchy/Shared/Utils';
+import type { TAnimationStateConfig } from '@hellpig/anarchy-engine/Animations';
+import type { PrimitiveModel3dType } from '@hellpig/anarchy-engine/Models3d/Constants';
+import type { TObject3DPropConfig } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TOptional } from '@hellpig/anarchy-shared/Utils';
 
 import type { TModel3dParams } from './TModel3dParams';
 

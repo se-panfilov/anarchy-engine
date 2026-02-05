@@ -1,7 +1,7 @@
-import type { RegistryType } from '@Anarchy/Engine/Abstract/Constants';
-import type { TAbstractResourceAsyncRegistry, TAbstractResourceConfig, TAbstractSerializeDependencies, TAbstractSimpleRegistry } from '@Anarchy/Engine/Abstract/Models';
-import { getAsyncUniqEntityByKeyAsync, getUniqEntityByKey$ } from '@Anarchy/Engine/Utils';
-import { isNotDefined } from '@Anarchy/Shared/Utils';
+import type { RegistryType } from '@hellpig/anarchy-engine/Abstract/Constants';
+import type { TAbstractResourceAsyncRegistry, TAbstractResourceConfig, TAbstractSerializeDependencies, TAbstractSimpleRegistry } from '@hellpig/anarchy-engine/Abstract/Models';
+import { getAsyncUniqEntityByKeyAsync, getUniqEntityByKey$ } from '@hellpig/anarchy-engine/Utils';
+import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Observable } from 'rxjs';
 
 import { AbstractSimpleRegistry } from './AbstractSimpleRegistry';

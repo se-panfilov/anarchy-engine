@@ -1,6 +1,6 @@
-import type { TKinematicConfig, TKinematicParams } from '@Anarchy/Engine/Kinematic/Models';
-import { toQuaternion } from '@Anarchy/Engine/Math';
-import { isDefined } from '@Anarchy/Shared/Utils';
+import type { TKinematicConfig, TKinematicParams } from '@hellpig/anarchy-engine/Kinematic/Models';
+import { toQuaternion } from '@hellpig/anarchy-engine/Math';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import { Quaternion, Vector3 } from 'three';
 
 export function kinematicConfigToParams(config: TKinematicConfig): TKinematicParams {

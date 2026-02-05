@@ -1,5 +1,5 @@
-import type { TActor, TActorService } from '@Anarchy/Engine/Actor';
-import type { TAnyCameraWrapper, TCameraService } from '@Anarchy/Engine/Camera';
+import type { TActor, TActorService } from '@hellpig/anarchy-engine/Actor';
+import type { TAnyCameraWrapper, TCameraService } from '@hellpig/anarchy-engine/Camera';
 import type {
   TAbstractIntersectionsWatcherParams,
   TAnyIntersectionsWatcherConfig,
@@ -9,11 +9,11 @@ import type {
   TIntersectionsDirectionWatcherConfig,
   TIntersectionsDirectionWatcherParams,
   TIntersectionsLoop
-} from '@Anarchy/Engine/Intersections/Models';
-import { isIntersectionsCameraWatcherConfig, isIntersectionsDirectionWatcherConfig } from '@Anarchy/Engine/Intersections/Utils';
-import type { TLoopService } from '@Anarchy/Engine/Loop';
-import type { TMouseService } from '@Anarchy/Engine/Mouse';
-import { isNotDefined } from '@Anarchy/Shared/Utils';
+} from '@hellpig/anarchy-engine/Intersections/Models';
+import { isIntersectionsCameraWatcherConfig, isIntersectionsDirectionWatcherConfig } from '@hellpig/anarchy-engine/Intersections/Utils';
+import type { TLoopService } from '@hellpig/anarchy-engine/Loop';
+import type { TMouseService } from '@hellpig/anarchy-engine/Mouse';
+import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { Vector3 } from 'three';
 
 export function intersectionsWatcherConfigToParams(

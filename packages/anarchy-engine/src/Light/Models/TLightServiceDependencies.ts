@@ -1,4 +1,4 @@
-import type { TTransformDriveService } from '@Anarchy/Engine/TransformDrive';
+import type { TTransformDriveService } from '@hellpig/anarchy-engine/TransformDrive';
 
 export type TLightServiceDependencies = Readonly<{
   transformDriveService: TTransformDriveService;

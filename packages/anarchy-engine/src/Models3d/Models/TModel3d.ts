@@ -1,5 +1,5 @@
-import type { TEntity } from '@Anarchy/Engine/Abstract';
-import type { TWithObject3d } from '@Anarchy/Engine/Mixins';
+import type { TEntity } from '@hellpig/anarchy-engine/Abstract';
+import type { TWithObject3d } from '@hellpig/anarchy-engine/Mixins';
 
 import type { TModel3dConfig } from './TModel3dConfig';
 import type { TModel3dConfigToParamsDependencies } from './TModel3dConfigToParamsDependencies';

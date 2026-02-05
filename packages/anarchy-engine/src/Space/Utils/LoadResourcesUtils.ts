@@ -1,5 +1,5 @@
-import type { TEnvMapTexture } from '@Anarchy/Engine/EnvMap/Models';
-import type { TSpaceConfigResources, TSpaceServices } from '@Anarchy/Engine/Space/Models';
+import type { TEnvMapTexture } from '@hellpig/anarchy-engine/EnvMap/Models';
+import type { TSpaceConfigResources, TSpaceServices } from '@hellpig/anarchy-engine/Space/Models';
 
 export async function loadResourcesFromConfig(resources: TSpaceConfigResources, { animationsService, audioService, models3dService, envMapService, textureService }: TSpaceServices): Promise<unknown> {
   const { animations, audio, models3d, envMaps, textures } = resources;

@@ -1,6 +1,6 @@
-import type { TKinematicConfig } from '@Anarchy/Engine/Kinematic';
-import type { TEulerLike } from '@Anarchy/Engine/ThreeLib';
-import type { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
+import type { TKinematicConfig } from '@hellpig/anarchy-engine/Kinematic';
+import type { TEulerLike } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TransformAgent } from '@hellpig/anarchy-engine/TransformDrive/Constants';
 import type { Vector3Like } from 'three';
 
 export type TTransformDriveSerializedData = Readonly<{

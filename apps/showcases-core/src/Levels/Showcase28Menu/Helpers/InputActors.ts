@@ -8,11 +8,11 @@ import type {
   TKinematicLoop,
   TMouseService,
   TMouseWatcherEvent
-} from '@Anarchy/Engine';
-import { isPressEvent, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed } from '@Anarchy/Engine';
-import type { TKeyEvent } from '@Anarchy/Engine/Keyboard/Models';
-import { hasKey, isKeyInEvent } from '@Anarchy/Engine/Keyboard/Utils';
-import { isNotDefined } from '@Anarchy/Shared/Utils';
+} from '@hellpig/anarchy-engine';
+import { isPressEvent, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed } from '@hellpig/anarchy-engine';
+import type { TKeyEvent } from '@hellpig/anarchy-engine/Keyboard/Models';
+import { hasKey, isKeyInEvent } from '@hellpig/anarchy-engine/Keyboard/Utils';
+import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { withLatestFrom } from 'rxjs';
 import { Vector3 } from 'three';
 

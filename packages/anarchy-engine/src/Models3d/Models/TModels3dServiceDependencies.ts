@@ -1,5 +1,5 @@
-import type { TAnimationsService } from '@Anarchy/Engine/Animations';
-import type { TMaterialService } from '@Anarchy/Engine/Material';
+import type { TAnimationsService } from '@hellpig/anarchy-engine/Animations';
+import type { TMaterialService } from '@hellpig/anarchy-engine/Material';
 
 import type { TModel3dRawToModel3dConnectionRegistry } from './TModel3dRawToModel3dConnectionRegistry';
 

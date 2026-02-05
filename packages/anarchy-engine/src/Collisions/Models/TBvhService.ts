@@ -1,6 +1,6 @@
-import type { TAbstractService } from '@Anarchy/Engine/Abstract';
-import type { TActor } from '@Anarchy/Engine/Actor';
-import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
+import type { TAbstractService } from '@hellpig/anarchy-engine/Abstract';
+import type { TActor } from '@hellpig/anarchy-engine/Actor';
+import type { TSceneWrapper } from '@hellpig/anarchy-engine/Scene';
 import type { BufferGeometry, Intersection, Raycaster } from 'three';
 import type { MeshBVH } from 'three-mesh-bvh';
 

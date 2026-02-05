@@ -1,8 +1,8 @@
-import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
-import type { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
-import type { TAbstractTransformAgent } from '@Anarchy/Engine/TransformDrive/Models';
-import { isEqualOrSimilarByXyzCoords } from '@Anarchy/Engine/Utils';
-import { isDefined } from '@Anarchy/Shared/Utils';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TransformAgent } from '@hellpig/anarchy-engine/TransformDrive/Constants';
+import type { TAbstractTransformAgent } from '@hellpig/anarchy-engine/TransformDrive/Models';
+import { isEqualOrSimilarByXyzCoords } from '@hellpig/anarchy-engine/Utils';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, EMPTY, switchMap, tap } from 'rxjs';
 

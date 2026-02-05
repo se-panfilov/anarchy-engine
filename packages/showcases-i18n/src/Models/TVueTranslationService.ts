@@ -1,4 +1,4 @@
-import type { TTranslationService } from '@Anarchy/i18n';
+import type { TTranslationService } from '@hellpig/anarchy-i18n';
 import type { Observable } from 'rxjs';
 import type { ShallowRef } from 'vue';
 import type { I18n } from 'vue-i18n';

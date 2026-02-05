@@ -1,7 +1,7 @@
-import type { TCollisionsDataConfig } from '@Anarchy/Engine/Collisions';
-import type { TKinematicConfig } from '@Anarchy/Engine/Kinematic';
-import type { TSpatialDataConfig } from '@Anarchy/Engine/Spatial';
-import type { TObject3DPropConfig } from '@Anarchy/Engine/ThreeLib';
+import type { TCollisionsDataConfig } from '@hellpig/anarchy-engine/Collisions';
+import type { TKinematicConfig } from '@hellpig/anarchy-engine/Kinematic';
+import type { TSpatialDataConfig } from '@hellpig/anarchy-engine/Spatial';
+import type { TObject3DPropConfig } from '@hellpig/anarchy-engine/ThreeLib';
 
 import type { TActorModel3dSettingsConfig } from './TActorModel3dSettingsConfig';
 import type { TActorParams } from './TActorParams';

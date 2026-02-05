@@ -1,8 +1,8 @@
-import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
-import { KeyWatcherType } from '@Anarchy/Engine/Keyboard/Constants';
-import type { TKeyComboWatcher, TKeyComboWatcherDependencies, TKeyComboWatcherParams, TKeyWatcher, TKeyWatcherFactory, TKeyWatcherParams } from '@Anarchy/Engine/Keyboard/Models';
-import { KeyPressWatcher, KeyReleaseWatcher } from '@Anarchy/Engine/Keyboard/Watchers';
-import { KeyComboWatcher } from '@Anarchy/Engine/Keyboard/Watchers/KeyComboWatcher';
+import { FactoryType, ReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
+import { KeyWatcherType } from '@hellpig/anarchy-engine/Keyboard/Constants';
+import type { TKeyComboWatcher, TKeyComboWatcherDependencies, TKeyComboWatcherParams, TKeyWatcher, TKeyWatcherFactory, TKeyWatcherParams } from '@hellpig/anarchy-engine/Keyboard/Models';
+import { KeyPressWatcher, KeyReleaseWatcher } from '@hellpig/anarchy-engine/Keyboard/Watchers';
+import { KeyComboWatcher } from '@hellpig/anarchy-engine/Keyboard/Watchers/KeyComboWatcher';
 
 function create(params: TKeyWatcherParams | TKeyComboWatcherParams, deps?: TKeyComboWatcherDependencies): TKeyWatcher | TKeyComboWatcher | never {
   if (params.type === KeyWatcherType.Press) return KeyPressWatcher(params as TKeyWatcherParams);

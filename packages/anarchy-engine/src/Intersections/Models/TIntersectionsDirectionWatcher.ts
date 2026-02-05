@@ -1,5 +1,5 @@
-import type { TContainerDecorator } from '@Anarchy/Engine/Global';
-import type { TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
+import type { TContainerDecorator } from '@hellpig/anarchy-engine/Global';
+import type { TReadonlyVector3 } from '@hellpig/anarchy-engine/ThreeLib';
 import type { BehaviorSubject } from 'rxjs';
 import type { ColorRepresentation, Vector3Like } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';

@@ -1,4 +1,4 @@
-import { isNotDefined } from '@Anarchy/Shared/Utils';
+import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { TFromGuiEvent } from '@Showcases/Shared';
 import { FromGuiActionEvents, FromGuiEvents } from '@Showcases/Shared';
 import type { TFromGuiActionEvent, TFromGuiActionPayload } from 'showcases-gui/src/models/TFromGuiActionEvent';

@@ -1,4 +1,4 @@
-import type { TEulerLike } from '@Anarchy/Engine/ThreeLib';
+import type { TEulerLike } from '@hellpig/anarchy-engine/ThreeLib';
 import type { Vector3Like } from 'three';
 
 import type { TPhysicsBodyParams } from './TPhysicsBodyParams';

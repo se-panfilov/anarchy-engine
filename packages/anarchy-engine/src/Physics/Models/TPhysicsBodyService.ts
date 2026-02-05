@@ -1,6 +1,6 @@
-import type { TSerializableEntitiesService } from '@Anarchy/Engine/Abstract';
-import type { TKinematicState } from '@Anarchy/Engine/Kinematic';
-import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@Anarchy/Engine/Mixins';
+import type { TSerializableEntitiesService } from '@hellpig/anarchy-engine/Abstract';
+import type { TKinematicState } from '@hellpig/anarchy-engine/Kinematic';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@hellpig/anarchy-engine/Mixins';
 
 import type { TPhysicsBody } from './TPhysicsBody';
 import type { TPhysicsBodyConfig } from './TPhysicsBodyConfig';

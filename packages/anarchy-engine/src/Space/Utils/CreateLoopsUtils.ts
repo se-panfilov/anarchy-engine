@@ -1,17 +1,17 @@
-import type { TAudioLoop } from '@Anarchy/Engine/Audio';
-import type { TCollisionsLoop } from '@Anarchy/Engine/Collisions';
-import type { TControlsLoop } from '@Anarchy/Engine/Controls';
-import type { TIntersectionsLoop } from '@Anarchy/Engine/Intersections';
-import type { TKinematicLoop } from '@Anarchy/Engine/Kinematic';
-import type { TLoopService, TLoopsSettings } from '@Anarchy/Engine/Loop';
-import { getMainLoopNameByType, LOOPS_DEFAULT_SETTINGS, LoopType, LoopUpdatePriority } from '@Anarchy/Engine/Loop';
-import { milliseconds } from '@Anarchy/Engine/Measurements';
-import type { TMouseLoop } from '@Anarchy/Engine/Mouse';
-import type { TPhysicsLoop } from '@Anarchy/Engine/Physics';
-import type { TRenderLoop, TSpaceLoops, TSpaceSettings } from '@Anarchy/Engine/Space/Models';
-import type { TSpatialLoop } from '@Anarchy/Engine/Spatial';
-import type { TTextLoop } from '@Anarchy/Engine/Text';
-import type { TTransformLoop } from '@Anarchy/Engine/TransformDrive';
+import type { TAudioLoop } from '@hellpig/anarchy-engine/Audio';
+import type { TCollisionsLoop } from '@hellpig/anarchy-engine/Collisions';
+import type { TControlsLoop } from '@hellpig/anarchy-engine/Controls';
+import type { TIntersectionsLoop } from '@hellpig/anarchy-engine/Intersections';
+import type { TKinematicLoop } from '@hellpig/anarchy-engine/Kinematic';
+import type { TLoopService, TLoopsSettings } from '@hellpig/anarchy-engine/Loop';
+import { getMainLoopNameByType, LOOPS_DEFAULT_SETTINGS, LoopType, LoopUpdatePriority } from '@hellpig/anarchy-engine/Loop';
+import { milliseconds } from '@hellpig/anarchy-engine/Measurements';
+import type { TMouseLoop } from '@hellpig/anarchy-engine/Mouse';
+import type { TPhysicsLoop } from '@hellpig/anarchy-engine/Physics';
+import type { TRenderLoop, TSpaceLoops, TSpaceSettings } from '@hellpig/anarchy-engine/Space/Models';
+import type { TSpatialLoop } from '@hellpig/anarchy-engine/Spatial';
+import type { TTextLoop } from '@hellpig/anarchy-engine/Text';
+import type { TTransformLoop } from '@hellpig/anarchy-engine/TransformDrive';
 
 export function createLoops({ create }: TLoopService, spaceSettings: TSpaceSettings = {}): TSpaceLoops {
   const { Audio, Render, Intersections, Spatial, Mouse, Text, Kinematic, Collisions, Controls, Transform, Physics } = LoopType;

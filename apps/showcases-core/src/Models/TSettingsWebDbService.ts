@@ -1,4 +1,4 @@
-import type { TDeepPartial } from '@Anarchy/Shared/Utils';
+import type { TDeepPartial } from '@hellpig/anarchy-shared/Utils';
 import type { TShowcasesGameSettings } from '@Showcases/Shared';
 import type { Dexie, EntityTable } from 'dexie';
 

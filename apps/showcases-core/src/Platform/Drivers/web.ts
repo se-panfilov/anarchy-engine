@@ -1,7 +1,7 @@
-import type { TLocale, TLocaleId } from '@Anarchy/i18n';
-import { getLocaleByLocaleId, getPreferLocaleId, stringToLocaleId } from '@Anarchy/i18n';
-import { buildPublicUrl, isDefined } from '@Anarchy/Shared/Utils';
-import { getBrowserInfo } from '@Anarchy/Shared/Utils/DetectUtils';
+import type { TLocale, TLocaleId } from '@hellpig/anarchy-i18n';
+import { getLocaleByLocaleId, getPreferLocaleId, stringToLocaleId } from '@hellpig/anarchy-i18n';
+import { buildPublicUrl, isDefined } from '@hellpig/anarchy-shared/Utils';
+import { getBrowserInfo } from '@hellpig/anarchy-shared/Utils/DetectUtils';
 import { ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/i18n';
 import type { TDistName, TLegalDoc, TLoadDocPayload, TReleaseName, TShowcasesGameSettings } from '@Showcases/Shared';
 import { DefaultShowcaseGameSettings, makeDistName, makeReleaseName, sanitizeMarkDown } from '@Showcases/Shared';

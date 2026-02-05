@@ -1,7 +1,7 @@
-import type { TPhysicsBodyConfig, TPhysicsBodyParams } from '@Anarchy/Engine/Physics/Models';
-import { isPhysicsBodyParamsComplete } from '@Anarchy/Engine/Physics/Utils';
-import type { TOptional } from '@Anarchy/Shared/Utils';
-import { isDefined } from '@Anarchy/Shared/Utils';
+import type { TPhysicsBodyConfig, TPhysicsBodyParams } from '@hellpig/anarchy-engine/Physics/Models';
+import { isPhysicsBodyParamsComplete } from '@hellpig/anarchy-engine/Physics/Utils';
+import type { TOptional } from '@hellpig/anarchy-shared/Utils';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import { Euler, Quaternion } from 'three';
 import { Vector3 } from 'three/src/math/Vector3';
 

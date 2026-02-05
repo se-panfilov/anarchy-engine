@@ -1,9 +1,9 @@
-import type { TAbstractWatcherWithState } from '@Anarchy/Engine/Abstract';
-import { AbstractWatcherWithState, WatcherType } from '@Anarchy/Engine/Abstract';
-import type { TMouseEvent, TMouseLoop, TMousePositionWatcher, TMousePositionWatcherParams } from '@Anarchy/Engine/Mouse/Models';
-import { getNormalizedMousePosition } from '@Anarchy/Engine/Mouse/Utils';
-import { isEqualOrSimilarByXyCoords } from '@Anarchy/Engine/Utils';
-import { isDefined } from '@Anarchy/Shared/Utils';
+import type { TAbstractWatcherWithState } from '@hellpig/anarchy-engine/Abstract';
+import { AbstractWatcherWithState, WatcherType } from '@hellpig/anarchy-engine/Abstract';
+import type { TMouseEvent, TMouseLoop, TMousePositionWatcher, TMousePositionWatcherParams } from '@hellpig/anarchy-engine/Mouse/Models';
+import { getNormalizedMousePosition } from '@hellpig/anarchy-engine/Mouse/Utils';
+import { isEqualOrSimilarByXyCoords } from '@hellpig/anarchy-engine/Utils';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, identity, map, takeUntil, tap, withLatestFrom } from 'rxjs';
 import type { Vector2Like } from 'three';

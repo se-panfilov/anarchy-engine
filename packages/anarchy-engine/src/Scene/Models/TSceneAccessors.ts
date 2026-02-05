@@ -1,13 +1,13 @@
-import type { TActor } from '@Anarchy/Engine/Actor';
-import type { TAnyCameraWrapper } from '@Anarchy/Engine/Camera';
-import type { TColor } from '@Anarchy/Engine/Color';
-import type { TEnvMapTexture } from '@Anarchy/Engine/EnvMap';
-import type { TFogWrapper } from '@Anarchy/Engine/Fog';
-import type { TAbstractLightWrapper, TAnyLight } from '@Anarchy/Engine/Light';
-import type { TModel3d } from '@Anarchy/Engine/Models3d';
-import type { TParticlesWrapper } from '@Anarchy/Engine/Particles';
-import type { TTextAnyWrapper } from '@Anarchy/Engine/Text';
-import type { TTexture } from '@Anarchy/Engine/Texture';
+import type { TActor } from '@hellpig/anarchy-engine/Actor';
+import type { TAnyCameraWrapper } from '@hellpig/anarchy-engine/Camera';
+import type { TColor } from '@hellpig/anarchy-engine/Color';
+import type { TEnvMapTexture } from '@hellpig/anarchy-engine/EnvMap';
+import type { TFogWrapper } from '@hellpig/anarchy-engine/Fog';
+import type { TAbstractLightWrapper, TAnyLight } from '@hellpig/anarchy-engine/Light';
+import type { TModel3d } from '@hellpig/anarchy-engine/Models3d';
+import type { TParticlesWrapper } from '@hellpig/anarchy-engine/Particles';
+import type { TTextAnyWrapper } from '@hellpig/anarchy-engine/Text';
+import type { TTexture } from '@hellpig/anarchy-engine/Texture';
 import type { CubeTexture } from 'three';
 
 export type TSceneAccessors = Readonly<{

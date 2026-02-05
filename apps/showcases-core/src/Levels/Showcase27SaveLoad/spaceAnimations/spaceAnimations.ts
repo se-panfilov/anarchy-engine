@@ -1,4 +1,4 @@
-import type { TActor, TSpace, TSpaceConfig } from '@Anarchy/Engine';
+import type { TActor, TSpace, TSpaceConfig } from '@hellpig/anarchy-engine';
 import { BehaviorSubject } from 'rxjs';
 import type { AnimationAction, AnimationClip, AnimationMixer } from 'three';
 import { LoopOnce } from 'three';

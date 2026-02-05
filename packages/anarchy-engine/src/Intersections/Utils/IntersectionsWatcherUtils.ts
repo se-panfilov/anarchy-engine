@@ -5,9 +5,9 @@ import type {
   TIntersectionsDirectionWatcher,
   TIntersectionsDirectionWatcherConfig,
   TIntersectionsDirectionWatcherParams
-} from '@Anarchy/Engine/Intersections/Models';
-import type { TReadonlyVector2, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
-import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+} from '@hellpig/anarchy-engine/Intersections/Models';
+import type { TReadonlyVector2, TReadonlyVector3 } from '@hellpig/anarchy-engine/ThreeLib';
+import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { Vector2, Vector3 } from 'three';
 
 export function isIntersectionsDirectionWatcherConfig(config: TIntersectionsCameraWatcherConfig | TIntersectionsDirectionWatcherConfig): config is TIntersectionsDirectionWatcherConfig {

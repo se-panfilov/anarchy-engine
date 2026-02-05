@@ -1,3 +1,3 @@
-import type { TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
+import type { TReadonlyVector3 } from '@hellpig/anarchy-engine/ThreeLib';
 
 export type TWithUpdateSpatialCell = Readonly<{ updateSpatialCells: (newPosition: TReadonlyVector3) => void | never }>;

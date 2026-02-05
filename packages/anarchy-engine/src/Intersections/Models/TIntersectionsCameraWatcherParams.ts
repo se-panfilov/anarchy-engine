@@ -1,4 +1,4 @@
-import type { TAnyCameraWrapper } from '@Anarchy/Engine/Camera';
+import type { TAnyCameraWrapper } from '@hellpig/anarchy-engine/Camera';
 import type { Observable } from 'rxjs';
 import type { Vector2Like } from 'three';
 

@@ -1,4 +1,4 @@
-import type { TRotatableW, TWithQuaternionRotationProperty } from '@Anarchy/Engine/Mixins/GameObjects/Models';
+import type { TRotatableW, TWithQuaternionRotationProperty } from '@hellpig/anarchy-engine/Mixins/GameObjects/Models';
 
 export function withQuaternionRotationByWMixin(entity: TWithQuaternionRotationProperty): TRotatableW {
   const setRotationW = (w: number): void => void entity.rotation.set(entity.rotation.x, entity.rotation.y, entity.rotation.z, w);

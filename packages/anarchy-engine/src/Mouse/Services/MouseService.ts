@@ -1,7 +1,7 @@
-import type { TAbstractService } from '@Anarchy/Engine/Abstract';
-import { AbstractService, WatcherTag } from '@Anarchy/Engine/Abstract';
-import type { TContainerDecorator } from '@Anarchy/Engine/Global';
-import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@Anarchy/Engine/Mouse/Constants';
+import type { TAbstractService } from '@hellpig/anarchy-engine/Abstract';
+import { AbstractService, WatcherTag } from '@hellpig/anarchy-engine/Abstract';
+import type { TContainerDecorator } from '@hellpig/anarchy-engine/Global';
+import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@hellpig/anarchy-engine/Mouse/Constants';
 import type {
   TMouseClickWatcher,
   TMouseClickWatcherFactory,
@@ -12,8 +12,8 @@ import type {
   TMouseService,
   TMouseStateUpdate,
   TMouseWatcherEvent
-} from '@Anarchy/Engine/Mouse/Models';
-import type { TSpaceLoops } from '@Anarchy/Engine/Space';
+} from '@hellpig/anarchy-engine/Mouse/Models';
+import type { TSpaceLoops } from '@hellpig/anarchy-engine/Space';
 import type { Observable, Subscription } from 'rxjs';
 import { EMPTY, filter, map, merge, mergeMap, Subject } from 'rxjs';
 

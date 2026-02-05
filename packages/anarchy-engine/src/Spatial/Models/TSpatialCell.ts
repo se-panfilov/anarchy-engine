@@ -1,4 +1,4 @@
-import type { TActor } from '@Anarchy/Engine/Actor';
+import type { TActor } from '@hellpig/anarchy-engine/Actor';
 import type { BBox } from 'rbush';
 
 import type { TSpatialCellId } from './TSpatialCellId';

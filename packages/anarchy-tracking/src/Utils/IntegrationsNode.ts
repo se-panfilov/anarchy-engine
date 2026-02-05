@@ -1,4 +1,4 @@
-import { toPosix } from '@Anarchy/Shared/Utils';
+import { toPosix } from '@hellpig/anarchy-shared/Utils';
 import type { StackFrame } from '@sentry/core';
 import { rewriteFramesIntegration } from '@sentry/core';
 

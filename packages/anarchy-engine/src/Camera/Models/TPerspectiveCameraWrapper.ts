@@ -1,4 +1,4 @@
-import type { TSerializable } from '@Anarchy/Engine/Mixins';
+import type { TSerializable } from '@hellpig/anarchy-engine/Mixins';
 
 import type { TCameraWrapper } from './TCameraWrapper';
 import type { TPerspectiveCamera } from './TPerspectiveCamera';

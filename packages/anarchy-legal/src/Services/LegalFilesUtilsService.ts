@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
+import { UTCDate } from '@date-fns/utc';
 import type {
   TAnarchyLegalConfig,
   TAnarchyLegalConfigEntry,
@@ -11,8 +12,7 @@ import type {
   TRepoUtilsService,
   TTemplateGeneratorOptions,
   TTemplateMessages
-} from '@Anarchy/Legal/Models';
-import { UTCDate } from '@date-fns/utc';
+} from '@hellpig/anarchy-legal/Models';
 import { isValid, parseISO } from 'date-fns';
 import { format as dfFormat } from 'date-fns/format';
 // eslint-disable-next-line spellcheck/spell-checker

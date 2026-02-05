@@ -1,5 +1,5 @@
-import type { TGetParamsFn } from '@Anarchy/Engine/Abstract';
-import { ControlsType } from '@Anarchy/Engine/Controls/Constants';
+import type { TGetParamsFn } from '@hellpig/anarchy-engine/Abstract';
+import { ControlsType } from '@hellpig/anarchy-engine/Controls/Constants';
 import type {
   TAdditionalControlsConfigParams,
   TControlsConfig,
@@ -10,8 +10,8 @@ import type {
   TOrbitControlsConfigOptions,
   TOrbitControlsParams,
   TOrbitControlsParamsOptions
-} from '@Anarchy/Engine/Controls/Models';
-import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+} from '@hellpig/anarchy-engine/Controls/Models';
+import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { Vector3 } from 'three';
 
 export const controlsConfigToParams: TGetParamsFn<TControlsParams, TControlsConfig> = (config: TControlsConfig, additional: TAdditionalControlsConfigParams): TControlsParams | never => {

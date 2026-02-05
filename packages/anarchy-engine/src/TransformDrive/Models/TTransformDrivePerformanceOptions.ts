@@ -1,4 +1,4 @@
-import type { TMeters, TRadians } from '@Anarchy/Engine/Math';
+import type { TMeters, TRadians } from '@hellpig/anarchy-engine/Math';
 
 export type TTransformDrivePerformanceOptions = Readonly<{
   positionNoiseThreshold?: TMeters;

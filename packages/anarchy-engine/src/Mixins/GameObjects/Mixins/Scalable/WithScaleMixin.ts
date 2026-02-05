@@ -1,4 +1,4 @@
-import type { TScaleMixin, TWithScaleProperty } from '@Anarchy/Engine/Mixins/GameObjects/Models';
+import type { TScaleMixin, TWithScaleProperty } from '@hellpig/anarchy-engine/Mixins/GameObjects/Models';
 
 export function withScaleMixin(entity: TWithScaleProperty): TScaleMixin {
   const setScaleX = (x: number): void => void entity.scale.set(x, entity.scale.y, entity.scale.z);

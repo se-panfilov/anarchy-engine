@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TLocale } from '@Anarchy/i18n';
+import type { TLocale } from '@hellpig/anarchy-i18n';
 import type { TShowcaseLocaleIds } from '@Showcases/i18n';
 import { ShowcasesLocales } from '@Showcases/i18n';
 import Dropdown from '@Showcases/Menu/components/Dropdown.vue';

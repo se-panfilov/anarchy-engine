@@ -1,4 +1,4 @@
-import type { TSerializable, TWithSerializableEntities } from '@Anarchy/Engine/Mixins';
+import type { TSerializable, TWithSerializableEntities } from '@hellpig/anarchy-engine/Mixins';
 
 import type { TAbstractService } from './TAbstractService';
 

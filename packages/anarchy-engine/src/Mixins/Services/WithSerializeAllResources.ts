@@ -1,5 +1,5 @@
-import type { TAbstractResourceAsyncRegistry, TAbstractResourceConfig, TAbstractSerializeDependencies } from '@Anarchy/Engine/Abstract';
-import type { TWithSerializeAllResources } from '@Anarchy/Engine/Mixins/Services/Models';
+import type { TAbstractResourceAsyncRegistry, TAbstractResourceConfig, TAbstractSerializeDependencies } from '@hellpig/anarchy-engine/Abstract';
+import type { TWithSerializeAllResources } from '@hellpig/anarchy-engine/Mixins/Services/Models';
 
 export function withSerializeAllResources<C extends TAbstractResourceConfig, D extends TAbstractSerializeDependencies<C>>(
   registry: TAbstractResourceAsyncRegistry<any>,

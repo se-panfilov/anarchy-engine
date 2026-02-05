@@ -1,7 +1,7 @@
 import { mkdir, open, readFile, rename, rm } from 'node:fs/promises';
 import * as path from 'node:path';
 
-import { validateJson } from '@Anarchy/Shared/Utils';
+import { validateJson } from '@hellpig/anarchy-shared/Utils';
 import type { AllowedSystemFolders } from '@Showcases/Desktop/Constants';
 import { AllowedAppFolders } from '@Showcases/Desktop/Constants';
 import type { TFilesService } from '@Showcases/Desktop/Models';

@@ -1,13 +1,13 @@
-import type { TAudioLoop } from '@Anarchy/Engine/Audio';
-import type { TCollisionsLoop } from '@Anarchy/Engine/Collisions';
-import type { TControlsLoop } from '@Anarchy/Engine/Controls';
-import type { TIntersectionsLoop } from '@Anarchy/Engine/Intersections';
-import type { TKinematicLoop } from '@Anarchy/Engine/Kinematic';
-import type { TMouseLoop } from '@Anarchy/Engine/Mouse';
-import type { TPhysicsLoop } from '@Anarchy/Engine/Physics';
-import type { TSpatialLoop } from '@Anarchy/Engine/Spatial';
-import type { TTextLoop } from '@Anarchy/Engine/Text';
-import type { TTransformLoop } from '@Anarchy/Engine/TransformDrive';
+import type { TAudioLoop } from '@hellpig/anarchy-engine/Audio';
+import type { TCollisionsLoop } from '@hellpig/anarchy-engine/Collisions';
+import type { TControlsLoop } from '@hellpig/anarchy-engine/Controls';
+import type { TIntersectionsLoop } from '@hellpig/anarchy-engine/Intersections';
+import type { TKinematicLoop } from '@hellpig/anarchy-engine/Kinematic';
+import type { TMouseLoop } from '@hellpig/anarchy-engine/Mouse';
+import type { TPhysicsLoop } from '@hellpig/anarchy-engine/Physics';
+import type { TSpatialLoop } from '@hellpig/anarchy-engine/Spatial';
+import type { TTextLoop } from '@hellpig/anarchy-engine/Text';
+import type { TTransformLoop } from '@hellpig/anarchy-engine/TransformDrive';
 
 import type { TRenderLoop } from './TRenderLoop';
 

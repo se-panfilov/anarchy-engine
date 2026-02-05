@@ -1,8 +1,8 @@
-import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
-import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
-import { LoadingEventType } from '@Anarchy/Engine/LoadingManager/Constants';
-import type { TLoadingEvent, TLoadingManagerParams, TLoadingManagerWrapper } from '@Anarchy/Engine/LoadingManager/Models';
-import { isNotDefined } from '@Anarchy/Shared/Utils';
+import type { TAbstractWrapper } from '@hellpig/anarchy-engine/Abstract';
+import { AbstractWrapper, WrapperType } from '@hellpig/anarchy-engine/Abstract';
+import { LoadingEventType } from '@hellpig/anarchy-engine/LoadingManager/Constants';
+import type { TLoadingEvent, TLoadingManagerParams, TLoadingManagerWrapper } from '@hellpig/anarchy-engine/LoadingManager/Models';
+import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { LoadingManager } from 'three';

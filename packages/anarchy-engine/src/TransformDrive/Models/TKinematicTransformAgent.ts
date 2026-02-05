@@ -1,5 +1,5 @@
-import type { TKinematicConfig, TKinematicData, TKinematicMethods } from '@Anarchy/Engine/Kinematic';
-import type { TSerializable } from '@Anarchy/Engine/Mixins';
+import type { TKinematicConfig, TKinematicData, TKinematicMethods } from '@hellpig/anarchy-engine/Kinematic';
+import type { TSerializable } from '@hellpig/anarchy-engine/Mixins';
 import type { BehaviorSubject } from 'rxjs';
 
 import type { TAbstractTransformAgent } from './TAbstractTransformAgent';

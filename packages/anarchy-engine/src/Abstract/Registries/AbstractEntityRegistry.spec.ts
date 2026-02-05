@@ -1,6 +1,6 @@
-import type { RegistryType } from '@Anarchy/Engine/Abstract/Constants';
-import { createMockEntity, validateEntityRegistryReturnsOriginalObjects } from '@Anarchy/Engine/Abstract/Registries/ValidateRegistryOriginalsTestSuite';
-import type { TRegistrable } from '@Anarchy/Engine/Mixins';
+import type { RegistryType } from '@hellpig/anarchy-engine/Abstract/Constants';
+import { createMockEntity, validateEntityRegistryReturnsOriginalObjects } from '@hellpig/anarchy-engine/Abstract/Registries/ValidateRegistryOriginalsTestSuite';
+import type { TRegistrable } from '@hellpig/anarchy-engine/Mixins';
 import { describe } from 'vitest';
 
 import { AbstractEntityAsyncRegistry } from './AbstractEntityAsyncRegistry';

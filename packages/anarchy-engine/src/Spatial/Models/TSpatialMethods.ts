@@ -1,4 +1,4 @@
-import type { LoopUpdatePriority } from '@Anarchy/Engine/Loop';
+import type { LoopUpdatePriority } from '@hellpig/anarchy-engine/Loop';
 
 import type { TSpatialCellWrapper } from './TSpatialCellWrapper';
 import type { TSpatialData } from './TSpatialData';

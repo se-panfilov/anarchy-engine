@@ -1,6 +1,6 @@
-import type { TLocale, TLocaleId } from '@Anarchy/i18n';
-import { getLocaleByLocaleId, getPreferLocaleId } from '@Anarchy/i18n';
-import { isDefined, patchObject } from '@Anarchy/Shared/Utils';
+import type { TLocale, TLocaleId } from '@hellpig/anarchy-i18n';
+import { getLocaleByLocaleId, getPreferLocaleId } from '@hellpig/anarchy-i18n';
+import { isDefined, patchObject } from '@hellpig/anarchy-shared/Utils';
 import { AllowedSystemFolders } from '@Showcases/Desktop/Constants';
 import type { TSettingsService, TSettingsServiceDependencies } from '@Showcases/Desktop/Models';
 import { detectResolution } from '@Showcases/Desktop/Utils';

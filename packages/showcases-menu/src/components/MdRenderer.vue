@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isNotDefined } from '@Anarchy/Shared/Utils';
+import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { sanitizeMarkDown } from '@Showcases/Shared';
 import { reactive, watch } from 'vue';
 

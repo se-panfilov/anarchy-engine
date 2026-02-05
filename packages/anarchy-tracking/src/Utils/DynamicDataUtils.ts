@@ -1,4 +1,4 @@
-import { isDefined } from '@Anarchy/Shared/Utils';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { ErrorEvent, Primitive } from '@sentry/core';
 
 export function mutateEventWithDynamicData(result: ErrorEvent, dynamicContextFn?: () => Record<string, any>, dynamicTagsFn?: () => Record<string, Primitive>): void {

@@ -1,6 +1,6 @@
-import { AbstractEntity, EntityType } from '@Anarchy/Engine/Abstract';
-import { actorEntityToConfig } from '@Anarchy/Engine/Actor/Adapters';
-import { withActorStates } from '@Anarchy/Engine/Actor/Mixins';
+import { AbstractEntity, EntityType } from '@hellpig/anarchy-engine/Abstract';
+import { actorEntityToConfig } from '@hellpig/anarchy-engine/Actor/Adapters';
+import { withActorStates } from '@hellpig/anarchy-engine/Actor/Mixins';
 import type {
   TActor,
   TActorConfig,
@@ -10,21 +10,21 @@ import type {
   TActorModel3dSettings,
   TActorParams,
   TActorTransformDrive
-} from '@Anarchy/Engine/Actor/Models';
-import { ActorTransformDrive } from '@Anarchy/Engine/Actor/TransformDrive';
-import { applySpatialGrid, startCollisions } from '@Anarchy/Engine/Actor/Utils';
-import { withCollisions } from '@Anarchy/Engine/Collisions';
-import type { TFsmWrapper } from '@Anarchy/Engine/Fsm';
-import type { TModel3d } from '@Anarchy/Engine/Models3d';
-import type { TPhysicsBody } from '@Anarchy/Engine/Physics';
-import type { TSpatialLoop } from '@Anarchy/Engine/Spatial';
-import { withSpatial, withUpdateSpatialCell } from '@Anarchy/Engine/Spatial';
-import type { TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
-import type { TDriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
-import { DriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
-import { isEqualOrSimilarByXyzCoords, mergeAll } from '@Anarchy/Engine/Utils';
-import type { TWriteable } from '@Anarchy/Shared/Utils';
-import { isDefined } from '@Anarchy/Shared/Utils';
+} from '@hellpig/anarchy-engine/Actor/Models';
+import { ActorTransformDrive } from '@hellpig/anarchy-engine/Actor/TransformDrive';
+import { applySpatialGrid, startCollisions } from '@hellpig/anarchy-engine/Actor/Utils';
+import { withCollisions } from '@hellpig/anarchy-engine/Collisions';
+import type { TFsmWrapper } from '@hellpig/anarchy-engine/Fsm';
+import type { TModel3d } from '@hellpig/anarchy-engine/Models3d';
+import type { TPhysicsBody } from '@hellpig/anarchy-engine/Physics';
+import type { TSpatialLoop } from '@hellpig/anarchy-engine/Spatial';
+import { withSpatial, withUpdateSpatialCell } from '@hellpig/anarchy-engine/Spatial';
+import type { TReadonlyVector3 } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TDriveToTargetConnector } from '@hellpig/anarchy-engine/TransformDrive';
+import { DriveToTargetConnector } from '@hellpig/anarchy-engine/TransformDrive';
+import { isEqualOrSimilarByXyzCoords, mergeAll } from '@hellpig/anarchy-engine/Utils';
+import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
+import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import { nanoid } from 'nanoid';
 import type { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, sample, takeUntil, tap } from 'rxjs';

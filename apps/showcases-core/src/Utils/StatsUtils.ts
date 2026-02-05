@@ -1,4 +1,4 @@
-import type { TMilliseconds } from '@Anarchy/Engine';
+import type { TMilliseconds } from '@hellpig/anarchy-engine';
 import type { Observable, Subscription } from 'rxjs';
 import Stats from 'stats.js';
 

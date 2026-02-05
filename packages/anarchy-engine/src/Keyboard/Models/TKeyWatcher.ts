@@ -1,3 +1,3 @@
-import type { TAbstractWatcher } from '@Anarchy/Engine/Abstract';
+import type { TAbstractWatcher } from '@hellpig/anarchy-engine/Abstract';
 
 export type TKeyWatcher = TAbstractWatcher<KeyboardEvent>;
