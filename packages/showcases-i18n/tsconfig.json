@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.bundler.json",
   "compilerOptions": {
     "paths": {
       "@Showcases/Shared": ["packages/showcases-shared/src/index.ts"],
