@@ -2,6 +2,10 @@
   "extends": "../../tsconfig.bundler.json",
   "compilerOptions": {
     "paths": {
+      "three/examples/jsm/*": ["node_modules/@types/three/examples/jsm/*"],
+      "three/src/*": ["node_modules/@types/three/src/*"],
+      "date-fns/locale/types": ["node_modules/date-fns/locale/types.d.ts"],
+      "@formatjs/intl/src/types": ["node_modules/@formatjs/intl/src/types.d.ts"],
       "@/*": ["apps/showcases-core/src/*"],
       "@Public/*": ["apps/showcases-core/public/*"],
       "@Showcases/E2E": ["apps/showcases-e2e/src/index.ts"],

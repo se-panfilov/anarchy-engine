@@ -3,12 +3,12 @@
   "compilerOptions": {
     "baseUrl": "../../",
     "lib": ["ESNext"],
-    "module": "NodeNext",
-    "moduleResolution": "nodenext",
     "module": "CommonJS",
     "moduleResolution": "node",
     "types": ["node", "three", "vitest/importMeta", "vitest/globals"],
     "paths": {
+      "three/examples/jsm/*": ["node_modules/@types/three/examples/jsm/*"],
+      "three/src/*": ["node_modules/@types/three/src/*"],
       "@Showcases/Desktop/*": ["apps/showcases-desktop/src/*"],
       "@Showcases/Shared": ["packages/showcases-shared/src/index.ts"],
       "@Showcases/Shared/*": ["packages/showcases-shared/src/*"],

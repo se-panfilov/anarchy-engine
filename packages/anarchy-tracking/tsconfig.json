@@ -2,6 +2,10 @@
   "extends": "../../tsconfig.bundler.json",
   "compilerOptions": {
     "paths": {
+      "three/examples/jsm/*": ["node_modules/@types/three/examples/jsm/*"],
+      "three/src/*": ["node_modules/@types/three/src/*"],
+      "date-fns/locale/types": ["node_modules/date-fns/locale/types.d.ts"],
+      "@formatjs/intl/src/types": ["node_modules/@formatjs/intl/src/types.d.ts"],
       "@Showcases/Shared": ["packages/showcases-shared/src/index.ts"],
       "@Showcases/Shared/*": ["packages/showcases-shared/src/*"],
       "@hellpig/anarchy-i18n": ["packages/anarchy-i18n/src/index.ts"],
