@@ -17,9 +17,8 @@ import { KeyCode, metersPerSecond, milliseconds, onKey, spaceService } from '@he
 import { radians } from '@hellpig/anarchy-engine/Measurements/Utils';
 import { asRecord, isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Intersection } from 'three';
-import { Vector3 } from 'three';
+import { MathUtils, Vector3 } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
-import { degToRad } from 'three/src/math/MathUtils';
 
 import { enableCollisions } from '@/Levels/Showcase20PhysicsShooter/utils/Collisions';
 import { initLight } from '@/Levels/Showcase20PhysicsShooter/utils/Light';
@@ -41,6 +40,8 @@ import {
   startMoveActorWithKeyboard,
   updateBullets
 } from './utils';
+
+const { degToRad } = MathUtils;
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 

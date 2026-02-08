@@ -1,10 +1,11 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "types": ["vite/client", "node"],
     "baseUrl": "../../",
+    "lib": ["ESNext"],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "types": ["node", "three", "vitest/importMeta", "vitest/globals"],
     "paths": {
       "@Showcases/Desktop/*": ["apps/showcases-desktop/src/*"],
       "@Showcases/Shared": ["packages/showcases-shared/src/index.ts"],
@@ -16,7 +17,10 @@
       "@hellpig/anarchy-shared": ["packages/anarchy-shared/src/index.ts"],
       "@hellpig/anarchy-shared/*": ["packages/anarchy-shared/src/*"],
       "@hellpig/anarchy-tracking": ["packages/anarchy-tracking/src/index.ts"],
-      "@hellpig/anarchy-tracking/*": ["packages/anarchy-tracking/src/*"]
+      "@hellpig/anarchy-tracking/*": ["packages/anarchy-tracking/src/*"],
+
+      "three/examples/jsm/*": ["node_modules/@types/three/examples/jsm/*"],
+      "three/src/*": ["node_modules/@types/three/src/*"]
     }
   },
   "include": ["preload.ts", "types"],

@@ -2,7 +2,7 @@
   "name": "anarchy-monorepo",
   "author": "S. Panfilov",
   "private": true,
-  "version": "2.1.6",
+  "version": "2.1.7",
   "type": "module",
   "repository": {
     "type": "git",
@@ -48,12 +48,14 @@
     "gitleaks:ci": "gitleaks detect --config=.gitleaks.toml --source=. --no-git --redact --report-format=json --report-path=reports/gitleaks-ci.json --verbose",
     "gitleaks:scan:files": "gitleaks detect --config=.gitleaks.toml --no-git --verbose --source=.",
     "gitleaks:scan:history": "gitleaks detect --config=.gitleaks.toml --report-format=table --verbose --source=.",
+    "lint:fix:all": "npm run --workspaces --if-present lint:fix",
     "pr:guard:ci": "npm run prettier:check && npm run --workspaces --if-present pr:guard:ci",
     "prettier": "prettier --write .",
     "prettier:changed": "git diff --name-only --diff-filter=ACMRTUXB HEAD | grep -E '\\.(ts|tsx|js|json|css|scss|md)$' | xargs prettier --write",
     "prettier:check": "prettier --check .",
     "pretty-quick": "pretty-quick --staged",
-    "sanitize:all": "npm run --workspaces --if-present sanitize-assets"
+    "sanitize:all": "npm run --workspaces --if-present sanitize-assets",
+    "ts:check:all": "npm run --workspaces --if-present ts:check"
   },
   "devDependencies": {
     "@eslint/js": "9.39.2",

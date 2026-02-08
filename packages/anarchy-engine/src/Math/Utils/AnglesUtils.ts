@@ -4,8 +4,9 @@ import type { TDegrees, TMetersPerSecond, TRadians, TRadiansPerSecond } from '@h
 import type { TEulerLike } from '@hellpig/anarchy-engine/ThreeLib';
 import { isEulerLike, isQuaternionLike } from '@hellpig/anarchy-engine/Utils/CheckUtils';
 import type { EulerOrder, QuaternionLike, Vector3Like } from 'three';
-import { Euler, Quaternion, Vector3 } from 'three';
-import { degToRad, euclideanModulo, radToDeg } from 'three/src/math/MathUtils';
+import { Euler, MathUtils, Quaternion, Vector3 } from 'three';
+
+const { degToRad, euclideanModulo, radToDeg } = MathUtils;
 
 export function getHorizontalAzimuth(x: number, z: number, point: Vector3Like, forwardAxis: ForwardAxis): TRadians {
   const dx: number = point.x - x;

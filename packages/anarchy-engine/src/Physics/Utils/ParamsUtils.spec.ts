@@ -1,8 +1,7 @@
 import type { TPhysicsBodyParams } from '@hellpig/anarchy-engine/Physics';
 import { CollisionShape, RigidBodyTypesNames } from '@hellpig/anarchy-engine/Physics';
 import type { TOptional } from '@hellpig/anarchy-shared/Utils';
-import { Quaternion } from 'three';
-import { Vector3 } from 'three/src/math/Vector3';
+import { Quaternion, Vector3 } from 'three';
 import { describe, expect, it } from 'vitest';
 
 import { isPhysicsBodyParamsComplete } from './ParamsUtils';

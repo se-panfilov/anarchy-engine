@@ -4,9 +4,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "lib": ["ESNext", "DOM", "DOM.Iterable", "WebWorker"],
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "verbatimModuleSyntax": true,
     "noEmit": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -28,7 +26,12 @@
       "@hellpig/anarchy-shared": ["packages/anarchy-shared/src/index.ts"],
       "@hellpig/anarchy-shared/*": ["packages/anarchy-shared/src/*"],
       "@hellpig/anarchy-tracking": ["packages/anarchy-tracking/src/index.ts"],
-      "@hellpig/anarchy-tracking/*": ["packages/anarchy-tracking/src/*"]
+      "@hellpig/anarchy-tracking/*": ["packages/anarchy-tracking/src/*"],
+
+      "three/examples/jsm/*": ["node_modules/@types/three/examples/jsm/*"],
+      "three/src/*": ["node_modules/@types/three/src/*"],
+      "date-fns/locale/types": ["node_modules/date-fns/locale/types.d.ts"],
+      "@formatjs/intl/src/types": ["node_modules/@formatjs/intl/src/types.d.ts"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
@@ -36,8 +39,6 @@
     "strict": true,
     "strictNullChecks": true,
     "target": "ESNext",
-    "types": ["node", "vite/client", "three", "vitest/importMeta", "vitest/globals"],
     "useDefineForClassFields": true
-  },
-  "include": ["vite.config.ts"]
+  }
 }

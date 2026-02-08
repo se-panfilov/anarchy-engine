@@ -1,14 +1,13 @@
 /// <reference types="vitest" />
 import compression from 'vite-plugin-compression';
-import { ConfigEnv, defineConfig, loadEnv, UserConfig } from 'vite';
+import type { ConfigEnv, UserConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import dts from 'vite-plugin-dts';
 import path from 'node:path';
 import { sharedAliases } from '../../vite.alias';
 import { visualizer } from 'rollup-plugin-visualizer';
 import wasm from 'vite-plugin-wasm';
-// @ts-expect-error: no type declarations
 import vue from '@vitejs/plugin-vue';
-// @ts-expect-error: no type declarations
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import { version } from './package.json';
 import { version as engineVersion } from '../../packages/anarchy-engine/package.json';
@@ -22,7 +21,8 @@ import { version as showcasesGuiVersion } from '../../packages/showcases-gui/pac
 import { version as showcasesSharedVersion } from '../../packages/showcases-shared/package.json';
 import { emitDefineJson } from '../../packages/anarchy-shared/src/Plugins/EmitDefineVitePlugin';
 import csp from 'vite-plugin-csp-guard';
-import { BASE_CSP, DESKTOP_CSP, TCspRulles } from '../../configs/Security/Csp/CspConfig';
+import type { TCspRulles } from '../../configs/Security/Csp/CspConfig';
+import { BASE_CSP, DESKTOP_CSP } from '../../configs/Security/Csp/CspConfig';
 
 export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
   const root: string = process.cwd();

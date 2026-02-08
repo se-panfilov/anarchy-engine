@@ -2,8 +2,7 @@ import type { TPhysicsBodyConfig, TPhysicsBodyParams } from '@hellpig/anarchy-en
 import { isPhysicsBodyParamsComplete } from '@hellpig/anarchy-engine/Physics/Utils';
 import type { TOptional } from '@hellpig/anarchy-shared/Utils';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
-import { Euler, Quaternion } from 'three';
-import { Vector3 } from 'three/src/math/Vector3';
+import { Euler, Quaternion, Vector3 } from 'three';
 
 export function physicsBodyConfigToParams(config: TPhysicsBodyConfig): TPhysicsBodyParams | never {
   const { position, rotation, angularVelocity, linearVelocity, ...rest } = config;

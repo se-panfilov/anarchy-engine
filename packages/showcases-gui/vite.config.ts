@@ -1,12 +1,11 @@
 /// <reference types="vitest" />
 import compression from 'vite-plugin-compression';
-import { ConfigEnv, defineConfig, loadEnv, UserConfig } from 'vite';
+import type { ConfigEnv, UserConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import path from 'node:path';
 import { sharedAliases } from '../../vite.alias';
 import { visualizer } from 'rollup-plugin-visualizer';
-// @ts-expect-error: no type declarations
 import vue from '@vitejs/plugin-vue';
-// @ts-expect-error: no type declarations
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import wasm from 'vite-plugin-wasm';
 import { version } from './package.json';
