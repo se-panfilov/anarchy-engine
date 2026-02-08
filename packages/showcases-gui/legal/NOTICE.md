@@ -187,7 +187,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @exodus/bytes@1.11.0
+## @exodus/bytes@1.12.0
 
 **License(s):** MIT
 
@@ -267,7 +267,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-engine@22.0.4
+## @hellpig/anarchy-engine@22.0.5
 
 **License(s):** MIT
 
@@ -279,7 +279,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-i18n@1.4.5
+## @hellpig/anarchy-i18n@1.4.6
 
 **License(s):** MIT
 
@@ -291,7 +291,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-shared@1.6.5
+## @hellpig/anarchy-shared@1.6.6
 
 **License(s):** MIT
 
@@ -1013,7 +1013,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts@7.0.22
+## tldts@7.0.23
 
 **License(s):** MIT
 
@@ -1025,7 +1025,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts-core@7.0.22
+## tldts-core@7.0.23
 
 **License(s):** MIT
 

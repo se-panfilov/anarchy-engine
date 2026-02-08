@@ -23,6 +23,8 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
         outDir: 'dist',
         tsconfigPath: path.resolve(__dirname, 'tsconfig.json'),
         exclude: ['**/*.spec.ts', '**/*.test.ts', 'vite.config.ts', 'src/Styles/OptionalStyles.ts'],
+        // Prevent npm package aliases from being resolved to relative paths in .d.ts files
+        aliasesExclude: [/^@hellpig\/anarchy-/],
         // We don't need a root index.d.ts because package has no "." entry
         insertTypesEntry: false
       })

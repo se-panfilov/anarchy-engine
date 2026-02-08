@@ -322,7 +322,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @exodus/bytes@1.11.0
+## @exodus/bytes@1.12.0
 
 **License:** MIT
 
@@ -1742,7 +1742,7 @@ THE SOFTWARE.
 
 ---
 
-## tldts@7.0.22
+## tldts@7.0.23
 
 **License:** MIT
 
@@ -1768,7 +1768,7 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 
 ---
 
-## tldts-core@7.0.22
+## tldts-core@7.0.23
 
 **License:** MIT
 
