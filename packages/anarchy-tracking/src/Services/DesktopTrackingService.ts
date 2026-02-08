@@ -5,8 +5,7 @@ import { rewriteFramesIntegrationNode } from '@hellpig/anarchy-tracking/Utils/In
 import { scrubEvent } from '@hellpig/anarchy-tracking/Utils/ScrubEvent';
 import { scrubUserPathsDesktop } from '@hellpig/anarchy-tracking/Utils/ScrubsDesktop';
 import type { Primitive } from '@sentry/core';
-import type { ElectronMainOptions } from '@sentry/electron/esm/main';
-import type { ErrorEvent, EventHint } from '@sentry/electron/main';
+import type { ElectronMainOptions, ErrorEvent, EventHint } from '@sentry/electron/main';
 import { captureException, init, setTags } from '@sentry/electron/main';
 
 export function DesktopTrackingService(

@@ -26,7 +26,12 @@
       "@hellpig/anarchy-shared": ["packages/anarchy-shared/src/index.ts"],
       "@hellpig/anarchy-shared/*": ["packages/anarchy-shared/src/*"],
       "@hellpig/anarchy-tracking": ["packages/anarchy-tracking/src/index.ts"],
-      "@hellpig/anarchy-tracking/*": ["packages/anarchy-tracking/src/*"]
+      "@hellpig/anarchy-tracking/*": ["packages/anarchy-tracking/src/*"],
+
+      "three/examples/jsm/*": ["node_modules/@types/three/examples/jsm/*"],
+      "three/src/*": ["node_modules/@types/three/src/*"],
+      "date-fns/locale/types": ["node_modules/date-fns/locale/types.d.ts"],
+      "@formatjs/intl/src/types": ["node_modules/@formatjs/intl/src/types.d.ts"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
