@@ -471,7 +471,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @exodus/bytes@1.11.0
+## @exodus/bytes@1.12.0
 
 **License:** MIT
 
@@ -629,7 +629,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @hellpig/anarchy-engine@22.0.4
+## @hellpig/anarchy-engine@22.0.5
 
 **License:** MIT
 
@@ -663,7 +663,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-i18n@1.4.5
+## @hellpig/anarchy-i18n@1.4.6
 
 **License:** MIT
 
@@ -697,7 +697,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-shared@1.6.5
+## @hellpig/anarchy-shared@1.6.6
 
 **License:** MIT
 
@@ -3674,7 +3674,7 @@ SOFTWARE.
 
 ---
 
-## tldts@7.0.22
+## tldts@7.0.23
 
 **License:** MIT
 
@@ -3700,7 +3700,7 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 
 ---
 
-## tldts-core@7.0.22
+## tldts-core@7.0.23
 
 **License:** MIT
 
