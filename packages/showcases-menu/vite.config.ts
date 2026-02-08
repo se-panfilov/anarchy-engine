@@ -1,6 +1,7 @@
 /// <reference types="vitest" />
 import compression from 'vite-plugin-compression';
-import { ConfigEnv, defineConfig, loadEnv, UserConfig } from 'vite';
+import type { ConfigEnv, UserConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import path from 'node:path';
 import { sharedAliases } from '../../vite.alias';
 import { visualizer } from 'rollup-plugin-visualizer';

@@ -4,6 +4,7 @@ import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import path from 'node:path';
 import { sharedAliases } from '../../vite.alias';
+// @ts-ignore
 import { terser } from 'rollup-plugin-terser';
 
 export default defineConfig((_config: ConfigEnv): UserConfig => {

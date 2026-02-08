@@ -3,6 +3,7 @@ import type { ConfigEnv, Plugin, UserConfig } from 'vite';
 import { defineConfig, loadEnv } from 'vite';
 import compression from 'vite-plugin-compression';
 import dts from 'vite-plugin-dts';
+// @ts-ignore
 import { terser } from 'rollup-plugin-terser';
 import path from 'node:path';
 import wasm from 'vite-plugin-wasm';
