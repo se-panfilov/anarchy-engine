@@ -27,8 +27,7 @@ import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Observable } from 'rxjs';
 import { withLatestFrom } from 'rxjs';
-import { BufferAttribute, BufferGeometry, Color, Euler, PointsMaterial, Vector3 } from 'three';
-import { Points } from 'three/src/objects/Points';
+import { BufferAttribute, BufferGeometry, Color, Euler, Points, PointsMaterial, Vector3 } from 'three';
 
 import { createFlashLight } from '@/Levels/Showcase20PhysicsShooter/utils/Light';
 

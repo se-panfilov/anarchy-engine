@@ -1,22 +1,22 @@
 import type {
   LineBasicMaterialParameters,
   LineDashedMaterialParameters,
+  MaterialParameters,
   MeshBasicMaterialParameters,
   MeshDepthMaterialParameters,
   MeshDistanceMaterialParameters,
   MeshLambertMaterialParameters,
   MeshMatcapMaterialParameters,
   MeshNormalMaterialParameters,
+  MeshPhongMaterialParameters,
   MeshPhysicalMaterialParameters,
   MeshStandardMaterialParameters,
   MeshToonMaterialParameters,
+  PointsMaterialParameters,
   ShaderMaterialParameters,
   ShadowMaterialParameters,
   SpriteMaterialParameters
 } from 'three';
-import type { MaterialParameters } from 'three/src/materials/Material';
-import type { MeshPhongMaterialParameters } from 'three/src/materials/MeshPhongMaterial';
-import type { PointsMaterialParameters } from 'three/src/materials/PointsMaterial';
 
 export type TOmitNonMaterialOptionsFields<T extends MaterialParameters> = Omit<T, 'allowOverride' | 'defines' | 'id' | 'isMaterial' | 'name' | 'type' | 'userData' | 'uuid' | 'version'>;
 

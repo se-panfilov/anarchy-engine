@@ -1,7 +1,7 @@
 import type { TDirectionalLightWrapper, TLightService, TPointLightWrapper } from '@hellpig/anarchy-engine';
 import { LightType } from '@hellpig/anarchy-engine';
+import type { Color } from 'three';
 import { CameraHelper, DirectionalLightHelper, Euler, Vector2, Vector3 } from 'three';
-import type { Color } from 'three/src/math/Color';
 
 export function initLight(lightService: TLightService): void {
   const directionalLight: TDirectionalLightWrapper = lightService.getRegistry().getByName('directional_light') as TDirectionalLightWrapper;

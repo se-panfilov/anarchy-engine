@@ -2,14 +2,15 @@ import type { TActor, TCameraWrapper, TLightWrapper, TLoop, TSpace, TSpaceConfig
 import { degrees, ForwardAxis, getPushCoordsFrom3dAzimuth, metersPerSecond, radians } from '@hellpig/anarchy-engine';
 import { getQueryParams, isDefined } from '@hellpig/anarchy-shared/Utils';
 import { BehaviorSubject } from 'rxjs';
-import { degToRad } from 'three/src/math/MathUtils';
-import { Vector3 } from 'three/src/math/Vector3';
+import { MathUtils, Vector3 } from 'three';
 
 import { attachConnectorPositionToSubj, attachConnectorRotationToSubj } from '@/Utils';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { addAwait, getContainer, removeAwait } from '../utils';
 import spaceConfig from './spaceTransformDrive.json';
+
+const { degToRad } = MathUtils;
 
 const config: TSpaceConfig = spaceConfig as TSpaceConfig;
 

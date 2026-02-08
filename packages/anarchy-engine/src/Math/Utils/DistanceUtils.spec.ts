@@ -1,4 +1,4 @@
-import { Vector3 } from 'three/src/math/Vector3';
+import { Vector3 } from 'three';
 import { describe, expect, it } from 'vitest';
 
 import { getDistance } from './DistanceUtils';

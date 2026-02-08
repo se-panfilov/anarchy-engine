@@ -3,7 +3,9 @@ import { getMouseAzimuthAndElevation, isKeyInEvent, isPressEvent, KeyCode, meter
 import { radians } from '@hellpig/anarchy-engine/Measurements/Utils';
 import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { BehaviorSubject, combineLatest, map, Subject } from 'rxjs';
-import { degToRad } from 'three/src/math/MathUtils';
+import { MathUtils } from 'three';
+
+const { degToRad } = MathUtils;
 
 type TMoveKeysState = { Forward: boolean; Left: boolean; Right: boolean; Backward: boolean };
 type TIntersectionDirection = Readonly<{ azimuth: TRadians; elevation: TRadians }>;

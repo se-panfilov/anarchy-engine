@@ -3,8 +3,6 @@
   "compilerOptions": {
     "baseUrl": "../../",
     "lib": ["ESNext"],
-    "module": "NodeNext",
-    "moduleResolution": "nodenext",
     "module": "CommonJS",
     "moduleResolution": "node",
     "types": ["node", "three", "vitest/importMeta", "vitest/globals"],

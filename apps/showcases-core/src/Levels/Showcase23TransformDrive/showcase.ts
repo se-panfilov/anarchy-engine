@@ -44,9 +44,8 @@ import {
 import { asRecord, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import GUI from 'lil-gui';
 import { BehaviorSubject, combineLatest, map, withLatestFrom } from 'rxjs';
-import { Euler, Quaternion, Vector3 } from 'three';
+import { Euler, MathUtils, Quaternion, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-import { degToRad, radToDeg } from 'three/src/math/MathUtils';
 
 import type { TAppSettings } from '@/Models';
 import { addGizmo, attachConnectorPositionToSubj, enableFPSCounter, getMemoryUsage, watchActiveRendererReady, watchResourceLoading } from '@/Utils';
@@ -65,6 +64,8 @@ import {
   setParticles,
   startIntersections
 } from './Utils';
+
+const { degToRad, radToDeg } = MathUtils;
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
