@@ -49,6 +49,7 @@
     "gitleaks:scan:files": "gitleaks detect --config=.gitleaks.toml --no-git --verbose --source=.",
     "gitleaks:scan:history": "gitleaks detect --config=.gitleaks.toml --report-format=table --verbose --source=.",
     "pr:guard:ci": "npm run prettier:check && npm run --workspaces --if-present pr:guard:ci",
+    "lint:fix:all": "npm run --workspaces --if-present lint:fix",
     "prettier": "prettier --write .",
     "prettier:changed": "git diff --name-only --diff-filter=ACMRTUXB HEAD | grep -E '\\.(ts|tsx|js|json|css|scss|md)$' | xargs prettier --write",
     "prettier:check": "prettier --check .",
