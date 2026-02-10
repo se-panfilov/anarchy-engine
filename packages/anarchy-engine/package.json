@@ -53,7 +53,8 @@
     "dist/"
   ],
   "scripts": {
-    "build": "rimraf ./dist && vite build",
+    "build": "rimraf ./dist && vite build && npm run build:after",
+    "build:after": "npm run check:dts-exports",
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/index.ts",
     "check:dts-exports": "node ../../scripts/release/check-dts-exports.mjs .",
     "check:minified-assets": "../anarchy-shared/ScriptUtils/CheckMinify.sh dist/anarchy-engine.es.js dist/anarchy-engine.es.js.map",
