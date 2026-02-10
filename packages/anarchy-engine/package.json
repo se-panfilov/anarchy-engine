@@ -25,8 +25,8 @@
     },
     "./package.json": "./package.json",
     "./*": {
-      "types": "./dist/*.d.ts",
-      "import": "./dist/*.js"
+      "types": "./dist/*/index.d.ts",
+      "import": "./dist/*/index.js"
     },
     "./assets/*": "./dist/assets/*"
   },
@@ -55,6 +55,7 @@
   "scripts": {
     "build": "rimraf ./dist && vite build",
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/index.ts",
+    "check:dts-exports": "node ../../scripts/release/check-dts-exports.mjs .",
     "check:minified-assets": "../anarchy-shared/ScriptUtils/CheckMinify.sh dist/anarchy-engine.es.js dist/anarchy-engine.es.js.map",
     "check:no-mangle-unsafe": "node ../../configs/TsMorph/check-object-keys-mangle-safe.js",
     "check:no-spread-brand": "node ../../configs/TsMorph/check-no-spread-brand.js",
