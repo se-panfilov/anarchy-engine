@@ -51,8 +51,10 @@
     }
   },
   "scripts": {
-    "build": "rimraf ./dist && vite build",
+    "build": "rimraf ./dist && vite build && npm run build:after",
+    "build:after": "npm run check:dts-exports",
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/index.ts",
+    "check:dts-exports": "node ../../scripts/release/check-dts-exports.mjs .",
     "generate:files": "node ./src/Generators/LegalFilesGenerator.ts",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
     "generate:legal:3rd-party-licenses": "npm run -w @hellpig/anarchy-legal generate:licenses -- --workspace packages/anarchy-legal --out ./legal/THIRD_PARTY_LICENSES.md",
