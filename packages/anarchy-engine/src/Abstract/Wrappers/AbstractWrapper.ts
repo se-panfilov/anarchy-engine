@@ -11,9 +11,6 @@ import type { Subscription } from 'rxjs';
 
 type TWrapperParams = TWithTags & TWithName;
 
-// TODO CWP: Add internal-only TS aliases for apps/packages, to avoid circular dependencies and keep wildcards working
-// Check with script that all apps are working
-
 export function AbstractWrapper<T>(entity: T, type: WrapperType | string, params?: TWrapperParams): TAbstractWrapper<T>;
 export function AbstractWrapper<T extends TWithUserData>(entity: T, type: WrapperType | string, params?: TWrapperParams): TAbstractWrapper<TWithWrapperIdEntity<T>>;
 export function AbstractWrapper<T extends TWithUserData>(entity: T, type: WrapperType | string, params?: TWrapperParams): TAbstractWrapper<TWithWrapperIdEntity<any>> | TAbstractWrapper<T> {
