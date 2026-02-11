@@ -9,10 +9,10 @@ import type {
   TCommonCameraAccessors,
   TOrthographicCamera,
   TOrthographicCameraAccessors,
+  TOrthographicCameraConfig,
   TOrthographicCameraParams,
   TOrthographicCameraWrapper
 } from '@hellpig/anarchy-engine/Camera/Models';
-import type { TOrthographicCameraConfig } from '@hellpig/anarchy-engine/Camera/Models/TOrthographicCameraConfig';
 import { CameraTransformDrive } from '@hellpig/anarchy-engine/Camera/TransformDrive';
 import { applyOrthographicCameraParams } from '@hellpig/anarchy-engine/Camera/Utils';
 import { withActiveMixin, withObject3d } from '@hellpig/anarchy-engine/Mixins';

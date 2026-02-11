@@ -1,7 +1,6 @@
 import type { TWrapper } from '@hellpig/anarchy-engine/Abstract';
 import type { TextType } from '@hellpig/anarchy-engine/Text/Constants';
-import type { TElementWithCssAccessors } from '@hellpig/anarchy-engine/Text/Models';
-import type { TAbstractTextWrapper } from '@hellpig/anarchy-engine/Text/Models/TAbstractTextWrapper';
+import type { TAbstractTextWrapper, TElementWithCssAccessors } from '@hellpig/anarchy-engine/Text/Models';
 import type { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import type { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 

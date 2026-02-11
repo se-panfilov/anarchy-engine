@@ -7,9 +7,9 @@ import type {
   TIntersectionsCameraWatcherConfig,
   TIntersectionsDirectionWatcher,
   TIntersectionsDirectionWatcherConfig,
-  TIntersectionsWatcher
+  TIntersectionsWatcher,
+  TIntersectionsWatcherConfig
 } from '@hellpig/anarchy-engine/Intersections/Models';
-import type { TIntersectionsWatcherConfig } from '@hellpig/anarchy-engine/Intersections/Models/TIntersectionsWatcherConfig';
 import { isIntersectionsCameraWatcher, isIntersectionsDirectionWatcher } from '@hellpig/anarchy-engine/Intersections/Utils';
 import { extractSerializableRegistrableFields } from '@hellpig/anarchy-engine/Mixins';
 import { vector3ToXyz } from '@hellpig/anarchy-engine/Utils';

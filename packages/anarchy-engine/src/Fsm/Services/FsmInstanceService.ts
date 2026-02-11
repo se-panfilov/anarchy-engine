@@ -4,12 +4,12 @@ import type {
   TFsmConfig,
   TFsmInstanceFactory,
   TFsmInstanceRegistry,
+  TFsmInstanceService,
   TFsmInstanceServiceWithCreate,
   TFsmInstanceServiceWithFactory,
   TFsmInstanceServiceWithRegistry,
   TFsmWrapper
 } from '@hellpig/anarchy-engine/Fsm/Models';
-import type { TFsmInstanceService } from '@hellpig/anarchy-engine/Fsm/Models/TFsmInstanceService';
 import type { TDisposable } from '@hellpig/anarchy-engine/Mixins';
 import { withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@hellpig/anarchy-engine/Mixins';
 import { mergeAll } from '@hellpig/anarchy-engine/Utils';

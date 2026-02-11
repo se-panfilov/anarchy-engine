@@ -1,4 +1,4 @@
-import type { TLegalDocumentType } from '@hellpig/anarchy-legal/Models/TLegalDocumentType.ts';
+import type { TLegalDocumentType } from '@hellpig/anarchy-legal/Models';
 
 import type { TAnarchyLegalConfigEntry } from './TAnarchyLegalConfigEntry';
 

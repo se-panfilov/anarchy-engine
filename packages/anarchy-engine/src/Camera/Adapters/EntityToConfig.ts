@@ -5,11 +5,11 @@ import type {
   TCameraWrapperDependencies,
   TCommonCameraConfig,
   TCommonCameraParams,
+  TOrthographicCameraOnlyConfig,
   TOrthographicCameraParams,
   TPerspectiveCameraOnlyConfig,
   TPerspectiveCameraParams
 } from '@hellpig/anarchy-engine/Camera/Models';
-import type { TOrthographicCameraOnlyConfig } from '@hellpig/anarchy-engine/Camera/Models/TOrthographicCameraConfig';
 import { isOrthographicCameraWrapper, isPerspectiveCameraWrapper } from '@hellpig/anarchy-engine/Camera/Utils';
 import type { TShadowCameraParams } from '@hellpig/anarchy-engine/Light';
 import { extractSerializableRegistrableFields } from '@hellpig/anarchy-engine/Mixins';
