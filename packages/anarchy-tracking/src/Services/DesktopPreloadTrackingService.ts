@@ -1,9 +1,9 @@
+import type { TMetaData, TTrackingService } from '@Anarchy/Tracking/Models';
+import { mutateEventWithDynamicData } from '@Anarchy/Tracking/Utils/DynamicDataUtils';
+import { rewriteFramesIntegrationBrowser } from '@Anarchy/Tracking/Utils/IntegrationsBrowser';
+import { scrubEvent } from '@Anarchy/Tracking/Utils/ScrubEvent';
+import { scrubUserPathsBrowser } from '@Anarchy/Tracking/Utils/ScrubsBrowser';
 import { isDefined, parseDistName } from '@hellpig/anarchy-shared/Utils';
-import type { TMetaData, TTrackingService } from '@hellpig/anarchy-tracking/Models';
-import { mutateEventWithDynamicData } from '@hellpig/anarchy-tracking/Utils/DynamicDataUtils';
-import { rewriteFramesIntegrationBrowser } from '@hellpig/anarchy-tracking/Utils/IntegrationsBrowser';
-import { scrubEvent } from '@hellpig/anarchy-tracking/Utils/ScrubEvent';
-import { scrubUserPathsBrowser } from '@hellpig/anarchy-tracking/Utils/ScrubsBrowser';
 import type { Integration, Primitive } from '@sentry/core';
 import type { ErrorEvent, EventHint } from '@sentry/electron/renderer';
 import { captureException, init, setTags } from '@sentry/electron/renderer';
