@@ -1,4 +1,4 @@
-import type { TLocale, TLocaleId } from '@hellpig/anarchy-i18n/Models';
+import type { TLocale, TLocaleId } from '@Anarchy/I18N/Models';
 import { isDefined, isNotDefined, removeDuplicatesStr } from '@hellpig/anarchy-shared/Utils';
 
 export const getLangFromLocaleId = (localeId: TLocaleId): string => localeId.split('-')[0].toLowerCase();

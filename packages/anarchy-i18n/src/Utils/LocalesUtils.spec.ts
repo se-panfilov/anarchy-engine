@@ -1,4 +1,4 @@
-import type { TLocaleId } from '@hellpig/anarchy-i18n';
+import type { TLocaleId } from '@Anarchy/I18N';
 import { describe, expect, it } from 'vitest';
 
 import { getPreferLocaleId } from './LocalesUtils';

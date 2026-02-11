@@ -1,4 +1,4 @@
-import type { TLocale } from '@hellpig/anarchy-i18n/Models/TLocale';
+import type { TLocale } from '@Anarchy/I18N/Models/TLocale';
 
 import type { TMessages } from './TMessages';
 
