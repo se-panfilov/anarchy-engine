@@ -19,7 +19,7 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
       alias: {
         //Do not refer inside the package to the alias of the package, otherwise it will cause problems with .d.ts files.
         ...omitInObjectWithoutMutation(sharedAliases, ['@hellpig/anarchy-legal']),
-        '@Anarchy/Legal': path.resolve(__dirname, 'packages/anarchy-legal/src')
+        '@Anarchy/Legal': path.resolve(__dirname, '../../packages/anarchy-legal/src')
       }
     },
     plugins: [
