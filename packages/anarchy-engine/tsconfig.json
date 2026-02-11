@@ -1,6 +1,23 @@
 {
   "extends": "../../tsconfig.bundler.json",
   "compilerOptions": {
+    "paths": {
+      "@Anarchy/Engine": ["packages/anarchy-engine/src/index.ts"],
+      "@Anarchy/Engine/*": ["packages/anarchy-engine/src/*"],
+      "@hellpig/anarchy-i18n": ["packages/anarchy-i18n/src/index.ts"],
+      "@hellpig/anarchy-i18n/*": ["packages/anarchy-i18n/src/*"],
+      "@hellpig/anarchy-legal": ["packages/anarchy-legal/src/index.ts"],
+      "@hellpig/anarchy-legal/*": ["packages/anarchy-legal/src/*"],
+      "@hellpig/anarchy-shared": ["packages/anarchy-shared/src/index.ts"],
+      "@hellpig/anarchy-shared/*": ["packages/anarchy-shared/src/*"],
+      "@hellpig/anarchy-tracking": ["packages/anarchy-tracking/src/index.ts"],
+      "@hellpig/anarchy-tracking/*": ["packages/anarchy-tracking/src/*"],
+
+      "three/examples/jsm/*": ["node_modules/@types/three/examples/jsm/*"],
+      "three/src/*": ["node_modules/@types/three/src/*"],
+      "date-fns/locale/types": ["node_modules/date-fns/locale/types.d.ts"],
+      "@formatjs/intl/src/types": ["node_modules/@formatjs/intl/src/types.d.ts"]
+    },
     "typeRoots": ["./node_modules/@types", "./node_modules", "../../node_modules/@types", "../../node_modules", "./src/Engine/Types", "./types"]
   },
   "include": ["src", "vite.config.ts", "types"]

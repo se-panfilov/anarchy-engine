@@ -9,6 +9,7 @@ import path from 'node:path';
 import wasm from 'vite-plugin-wasm';
 import { sharedAliases } from '../../vite.alias';
 import { visualizer } from 'rollup-plugin-visualizer';
+import { omitInObjectWithoutMutation } from '@hellpig/anarchy-shared/Utils';
 
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   const root: string = process.cwd();
@@ -23,7 +24,9 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     base: './',
     resolve: {
       alias: {
-        ...sharedAliases
+        //Do not refer inside the package to the alias of the package, otherwise it will cause problems with .d.ts files.
+        ...omitInObjectWithoutMutation(sharedAliases, ['@hellpig/anarchy-engine']),
+        '@Anarchy/Engine': path.resolve(__dirname, 'packages/anarchy-engine/src')
       }
     },
     plugins: [
