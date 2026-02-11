@@ -5,7 +5,7 @@ import dts from 'vite-plugin-dts';
 import path from 'node:path';
 import { sharedAliases } from '../../vite.alias';
 import { builtinModules } from 'node:module';
-import { omitInObjectWithoutMutation } from '@Anarchy/shared/Utils';
+import { omitInObjectWithoutMutation } from '@Anarchy/Shared/Utils';
 
 export default defineConfig((_config: ConfigEnv): UserConfig => {
   const builtins = new Set([...builtinModules, ...builtinModules.map((m: string): string => `node:${m}`)]);
