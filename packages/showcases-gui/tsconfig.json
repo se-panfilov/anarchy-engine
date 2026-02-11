@@ -5,8 +5,6 @@
       "@Public/*": ["packages/showcases-gui/public/*"],
       "@Showcases/GUI": ["packages/showcases-gui/src/index.ts"],
       "@Showcases/GUI/*": ["packages/showcases-gui/src/*"],
-      "@Showcases/Menu": ["packages/showcases-menu/src/index.ts"],
-      "@Showcases/Menu/*": ["packages/showcases-menu/src/*"],
       "@Showcases/Shared": ["packages/showcases-shared/src/index.ts"],
       "@Showcases/Shared/*": ["packages/showcases-shared/src/*"],
       "@Showcases/I18N": ["packages/showcases-i18n/src/index.ts"],
