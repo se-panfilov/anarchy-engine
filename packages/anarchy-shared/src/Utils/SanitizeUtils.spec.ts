@@ -1,4 +1,4 @@
-import { DefaultBannedInJsonKeys } from '@hellpig/anarchy-shared/Constants';
+import { DefaultBannedInJsonKeys } from '@Anarchy/Shared/Constants';
 import { describe, expect, it } from 'vitest';
 
 import { validateJson } from './SanitizeUtils';

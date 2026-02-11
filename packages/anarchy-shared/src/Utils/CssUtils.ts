@@ -1,4 +1,4 @@
-import { CssUnits } from '@hellpig/anarchy-shared/Constants';
+import { CssUnits } from '@Anarchy/Shared/Constants';
 
 import { isNotDefined } from './CheckUtils';
 
