@@ -1,4 +1,4 @@
-import type { TAbstractMetaInfoRegistry, TAbstractResourceConfig } from '@hellpig/anarchy-engine/Abstract';
+import type { TAbstractMetaInfoRegistry, TAbstractResourceConfig } from '@Anarchy/Engine/Abstract';
 
 export type TWithResourcesMetaInfoRegistryService<RC extends TAbstractResourceConfig> = Readonly<{
   getMetaInfoRegistry: () => TAbstractMetaInfoRegistry<RC>;

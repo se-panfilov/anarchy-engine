@@ -1,7 +1,5 @@
-import type { Collider, RigidBody, TriMeshFlags, World } from '@dimforge/rapier3d';
-import { ColliderDesc, RigidBodyDesc } from '@dimforge/rapier3d';
-import { coordsXYZToMeters, meters } from '@hellpig/anarchy-engine/Measurements/Utils';
-import { CollisionShape, RigidBodyTypesNames } from '@hellpig/anarchy-engine/Physics/Constants';
+import { coordsXYZToMeters, meters } from '@Anarchy/Engine/Measurements/Utils';
+import { CollisionShape, RigidBodyTypesNames } from '@Anarchy/Engine/Physics/Constants';
 import type {
   TAllPhysicsShapeParams,
   TPhysicsBodyEntities,
@@ -17,7 +15,9 @@ import type {
   TPhysicsShapeRoundTriangleParams,
   TPhysicsShapeTriangleParams,
   TPhysicsShapeTriMeshParams
-} from '@hellpig/anarchy-engine/Physics/Models';
+} from '@Anarchy/Engine/Physics/Models';
+import type { Collider, RigidBody, TriMeshFlags, World } from '@dimforge/rapier3d';
+import { ColliderDesc, RigidBodyDesc } from '@dimforge/rapier3d';
 import type { TOptional } from '@hellpig/anarchy-shared/Utils';
 import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Vector3 } from 'three';

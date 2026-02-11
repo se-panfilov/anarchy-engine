@@ -1,5 +1,5 @@
-import type { TDeltaCalculator } from '@hellpig/anarchy-engine/Loop/Models';
-import type { TMilliseconds } from '@hellpig/anarchy-engine/Math';
+import type { TDeltaCalculator } from '@Anarchy/Engine/Loop/Models';
+import type { TMilliseconds } from '@Anarchy/Engine/Math';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import { Clock } from 'three';
 

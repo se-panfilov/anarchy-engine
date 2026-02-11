@@ -1,7 +1,7 @@
+import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsWorldConfig } from '@Anarchy/Engine/Physics/Models';
+import type { TEulerLike } from '@Anarchy/Engine/ThreeLib';
+import { eulerToXyz, vector3ToXyz } from '@Anarchy/Engine/Utils';
 import type { Collider, RigidBody, Rotation, World } from '@dimforge/rapier3d';
-import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsWorldConfig } from '@hellpig/anarchy-engine/Physics/Models';
-import type { TEulerLike } from '@hellpig/anarchy-engine/ThreeLib';
-import { eulerToXyz, vector3ToXyz } from '@hellpig/anarchy-engine/Utils';
 import { filterOutEmptyFields, isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Vector3Like } from 'three';
 import { Euler, Quaternion } from 'three';

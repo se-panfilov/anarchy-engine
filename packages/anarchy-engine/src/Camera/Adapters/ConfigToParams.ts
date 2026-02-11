@@ -1,7 +1,7 @@
-import type { TAudioService } from '@hellpig/anarchy-engine/Audio';
-import type { TAnyCameraParams, TCameraServiceDependencies, TCommonCameraConfig } from '@hellpig/anarchy-engine/Camera/Models';
-import type { TShadowCameraConfig, TShadowCameraParams } from '@hellpig/anarchy-engine/Light';
-import { object3dConfigToParams } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TAudioService } from '@Anarchy/Engine/Audio';
+import type { TAnyCameraParams, TCameraServiceDependencies, TCommonCameraConfig } from '@Anarchy/Engine/Camera/Models';
+import type { TShadowCameraConfig, TShadowCameraParams } from '@Anarchy/Engine/Light';
+import { object3dConfigToParams } from '@Anarchy/Engine/ThreeLib';
 import { isDefined, isNotDefined, omitInObjectWithoutMutation } from '@hellpig/anarchy-shared/Utils';
 import type { AudioListener } from 'three';
 import { Vector3 } from 'three';

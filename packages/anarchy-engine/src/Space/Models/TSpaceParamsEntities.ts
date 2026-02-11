@@ -1,19 +1,19 @@
-import type { TActorParams } from '@hellpig/anarchy-engine/Actor';
-import type { TAnyAudioParams } from '@hellpig/anarchy-engine/Audio';
-import type { TAnyCameraParams } from '@hellpig/anarchy-engine/Camera';
-import type { TControlsParams } from '@hellpig/anarchy-engine/Controls';
-import type { TEnvMapParams } from '@hellpig/anarchy-engine/EnvMap';
-import type { TFogParams } from '@hellpig/anarchy-engine/Fog';
-import type { TFsmParams } from '@hellpig/anarchy-engine/Fsm';
-import type { TAnyIntersectionsWatcherParams } from '@hellpig/anarchy-engine/Intersections';
-import type { TAnyLightParams } from '@hellpig/anarchy-engine/Light';
-import type { TMaterialParams } from '@hellpig/anarchy-engine/Material';
-import type { TModel3dParams } from '@hellpig/anarchy-engine/Models3d';
-import type { TParticlesParams } from '@hellpig/anarchy-engine/Particles';
-import type { TPhysicsParams } from '@hellpig/anarchy-engine/Physics';
-import type { TRendererParams } from '@hellpig/anarchy-engine/Renderer';
-import type { TSpatialGridParams } from '@hellpig/anarchy-engine/Spatial';
-import type { TTextParams } from '@hellpig/anarchy-engine/Text';
+import type { TActorParams } from '@Anarchy/Engine/Actor';
+import type { TAnyAudioParams } from '@Anarchy/Engine/Audio';
+import type { TAnyCameraParams } from '@Anarchy/Engine/Camera';
+import type { TControlsParams } from '@Anarchy/Engine/Controls';
+import type { TEnvMapParams } from '@Anarchy/Engine/EnvMap';
+import type { TFogParams } from '@Anarchy/Engine/Fog';
+import type { TFsmParams } from '@Anarchy/Engine/Fsm';
+import type { TAnyIntersectionsWatcherParams } from '@Anarchy/Engine/Intersections';
+import type { TAnyLightParams } from '@Anarchy/Engine/Light';
+import type { TMaterialParams } from '@Anarchy/Engine/Material';
+import type { TModel3dParams } from '@Anarchy/Engine/Models3d';
+import type { TParticlesParams } from '@Anarchy/Engine/Particles';
+import type { TPhysicsParams } from '@Anarchy/Engine/Physics';
+import type { TRendererParams } from '@Anarchy/Engine/Renderer';
+import type { TSpatialGridParams } from '@Anarchy/Engine/Spatial';
+import type { TTextParams } from '@Anarchy/Engine/Text';
 
 export type TSpaceParamsEntities = Readonly<{
   actors?: ReadonlyArray<TActorParams>;

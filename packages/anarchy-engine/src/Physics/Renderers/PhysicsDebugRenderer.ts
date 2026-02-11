@@ -1,8 +1,8 @@
+import type { TDestroyable } from '@Anarchy/Engine/Mixins';
+import { destroyableMixin } from '@Anarchy/Engine/Mixins';
+import type { TPhysicsDebugRenderer, TPhysicsLoop } from '@Anarchy/Engine/Physics/Models';
+import type { TSceneWrapper } from '@Anarchy/Engine/Scene/Models';
 import type { World } from '@dimforge/rapier3d';
-import type { TDestroyable } from '@hellpig/anarchy-engine/Mixins';
-import { destroyableMixin } from '@hellpig/anarchy-engine/Mixins';
-import type { TPhysicsDebugRenderer, TPhysicsLoop } from '@hellpig/anarchy-engine/Physics/Models';
-import type { TSceneWrapper } from '@hellpig/anarchy-engine/Scene/Models';
 import type { Subscription } from 'rxjs';
 import { BufferAttribute, BufferGeometry, LineBasicMaterial, LineSegments } from 'three';
 

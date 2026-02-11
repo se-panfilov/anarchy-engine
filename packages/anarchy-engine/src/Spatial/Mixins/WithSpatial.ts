@@ -1,8 +1,8 @@
-import type { TActorParams } from '@hellpig/anarchy-engine/Actor';
-import { LoopUpdatePriority } from '@hellpig/anarchy-engine/Loop';
-import type { TDestroyable } from '@hellpig/anarchy-engine/Mixins';
-import { destroyableMixin } from '@hellpig/anarchy-engine/Mixins';
-import type { TSpatialCellWrapper, TSpatialData, TSpatialGridWrapper, TWithSpatial } from '@hellpig/anarchy-engine/Spatial/Models';
+import type { TActorParams } from '@Anarchy/Engine/Actor';
+import { LoopUpdatePriority } from '@Anarchy/Engine/Loop';
+import type { TDestroyable } from '@Anarchy/Engine/Mixins';
+import { destroyableMixin } from '@Anarchy/Engine/Mixins';
+import type { TSpatialCellWrapper, TSpatialData, TSpatialGridWrapper, TWithSpatial } from '@Anarchy/Engine/Spatial/Models';
 import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, Subject } from 'rxjs';

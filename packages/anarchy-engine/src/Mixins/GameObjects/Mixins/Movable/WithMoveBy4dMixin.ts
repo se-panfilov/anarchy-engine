@@ -1,4 +1,4 @@
-import type { TMovableXYZW, TWithPosition4dProperty } from '@hellpig/anarchy-engine/Mixins/GameObjects/Models';
+import type { TMovableXYZW, TWithPosition4dProperty } from '@Anarchy/Engine/Mixins/GameObjects/Models';
 
 import { withMoveByWMixin } from './WithMoveByWMixin';
 import { withMoveByXMixin } from './WithMoveByXMixin';

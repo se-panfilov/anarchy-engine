@@ -1,7 +1,7 @@
-import { AbstractWrapper, WrapperType } from '@hellpig/anarchy-engine/Abstract';
-import { envMapEntityToConfig } from '@hellpig/anarchy-engine/EnvMap/Adapters';
-import type { TEnvMapConfig, TEnvMapConfigToParamsDependencies, TEnvMapParams, TEnvMapTexture, TEnvMapWrapper } from '@hellpig/anarchy-engine/EnvMap/Models';
-import { withActiveMixin } from '@hellpig/anarchy-engine/Mixins';
+import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
+import { envMapEntityToConfig } from '@Anarchy/Engine/EnvMap/Adapters';
+import type { TEnvMapConfig, TEnvMapConfigToParamsDependencies, TEnvMapParams, TEnvMapTexture, TEnvMapWrapper } from '@Anarchy/Engine/EnvMap/Models';
+import { withActiveMixin } from '@Anarchy/Engine/Mixins';
 import type { Subscription } from 'rxjs';
 
 export function EnvMapWrapper(params: TEnvMapParams): TEnvMapWrapper {

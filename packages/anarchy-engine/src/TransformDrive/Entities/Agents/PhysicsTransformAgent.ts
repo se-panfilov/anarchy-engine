@@ -1,8 +1,8 @@
-import type { TMeters, TMilliseconds, TRadians } from '@hellpig/anarchy-engine/Math';
-import { meters, radians } from '@hellpig/anarchy-engine/Measurements';
-import type { TPhysicsBody, TPhysicsBodyConfig } from '@hellpig/anarchy-engine/Physics';
-import { RigidBodyTypesNames } from '@hellpig/anarchy-engine/Physics';
-import { TransformAgent } from '@hellpig/anarchy-engine/TransformDrive/Constants';
+import type { TMeters, TMilliseconds, TRadians } from '@Anarchy/Engine/Math';
+import { meters, radians } from '@Anarchy/Engine/Measurements';
+import type { TPhysicsBody, TPhysicsBodyConfig } from '@Anarchy/Engine/Physics';
+import { RigidBodyTypesNames } from '@Anarchy/Engine/Physics';
+import { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
 import type {
   TAbstractTransformAgent,
   TPhysicsAgentDependencies,
@@ -10,8 +10,8 @@ import type {
   TPhysicsTransformAgentParams,
   TReadonlyTransform,
   TRigidBodyTransformData
-} from '@hellpig/anarchy-engine/TransformDrive/Models';
-import { applyLatestTransform, getPhysicsBodyTransform } from '@hellpig/anarchy-engine/TransformDrive/Utils';
+} from '@Anarchy/Engine/TransformDrive/Models';
+import { applyLatestTransform, getPhysicsBodyTransform } from '@Anarchy/Engine/TransformDrive/Utils';
 import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, EMPTY, filter, map, switchMap, takeWhile, withLatestFrom } from 'rxjs';

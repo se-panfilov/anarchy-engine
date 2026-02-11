@@ -1,6 +1,6 @@
-import type { TKinematicConfig, TKinematicConfigTarget } from '@hellpig/anarchy-engine/Kinematic/Models';
-import type { TKinematicTransformAgent } from '@hellpig/anarchy-engine/TransformDrive';
-import { eulerToXyz, quaternionToXyzw, vector3ToXyz } from '@hellpig/anarchy-engine/Utils';
+import type { TKinematicConfig, TKinematicConfigTarget } from '@Anarchy/Engine/Kinematic/Models';
+import type { TKinematicTransformAgent } from '@Anarchy/Engine/TransformDrive';
+import { eulerToXyz, quaternionToXyzw, vector3ToXyz } from '@Anarchy/Engine/Utils';
 import { filterOutEmptyFields, isDefined } from '@hellpig/anarchy-shared/Utils';
 import { Euler } from 'three';
 

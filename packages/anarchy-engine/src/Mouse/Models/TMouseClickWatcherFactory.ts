@@ -1,4 +1,4 @@
-import type { TReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
+import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
 
 import type { TMouseClickWatcher } from './TMouseClickWatcher';
 import type { TMouseClickWatcherParams } from './TMouseClickWatcherParams';

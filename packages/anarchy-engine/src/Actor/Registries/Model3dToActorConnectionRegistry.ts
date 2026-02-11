@@ -1,7 +1,7 @@
-import type { TAbstractSimpleRegistry } from '@hellpig/anarchy-engine/Abstract';
-import { AbstractSimpleRegistry, RegistryType } from '@hellpig/anarchy-engine/Abstract';
-import type { TActor, TModel3dToActorConnectionRegistry, TModel3dToActorConnectionRegistryExtension } from '@hellpig/anarchy-engine/Actor/Models';
-import type { TModel3d } from '@hellpig/anarchy-engine/Models3d';
+import type { TAbstractSimpleRegistry } from '@Anarchy/Engine/Abstract';
+import { AbstractSimpleRegistry, RegistryType } from '@Anarchy/Engine/Abstract';
+import type { TActor, TModel3dToActorConnectionRegistry, TModel3dToActorConnectionRegistryExtension } from '@Anarchy/Engine/Actor/Models';
+import type { TModel3d } from '@Anarchy/Engine/Models3d';
 import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 

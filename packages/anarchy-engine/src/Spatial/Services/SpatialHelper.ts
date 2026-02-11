@@ -1,5 +1,5 @@
-import type { TActor } from '@hellpig/anarchy-engine/Actor';
-import { meters } from '@hellpig/anarchy-engine/Measurements/Utils';
+import type { TActor } from '@Anarchy/Engine/Actor';
+import { meters } from '@Anarchy/Engine/Measurements/Utils';
 import type { ColorRepresentation, Vector3 } from 'three';
 import { Box3, Mesh, MeshBasicMaterial, PlaneGeometry } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';

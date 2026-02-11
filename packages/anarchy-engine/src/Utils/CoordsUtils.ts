@@ -1,6 +1,6 @@
-import type { TMeters, TRadians } from '@hellpig/anarchy-engine/Math';
-import { getAzimuthFromDirection, getElevationFromDirection } from '@hellpig/anarchy-engine/Math';
-import type { TReadonlyVector3 } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TMeters, TRadians } from '@Anarchy/Engine/Math';
+import { getAzimuthFromDirection, getElevationFromDirection } from '@Anarchy/Engine/Math';
+import type { TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 import { Vector3 } from 'three';
 
 type TTempCoords = Readonly<{

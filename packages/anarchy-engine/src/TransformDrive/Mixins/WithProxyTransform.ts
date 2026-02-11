@@ -1,6 +1,6 @@
-import type { TMovableXYZ, TQuaternionRotatable, TScaleMixin, TWithPosition3dProperty, TWithQuaternionRotationProperty, TWithScaleProperty } from '@hellpig/anarchy-engine/Mixins';
-import { withMoveBy3dMixin, withQuaternionRotationByXyzMixin, withScaleMixin } from '@hellpig/anarchy-engine/Mixins';
-import type { TAbstractTransformAgent } from '@hellpig/anarchy-engine/TransformDrive/Models';
+import type { TMovableXYZ, TQuaternionRotatable, TScaleMixin, TWithPosition3dProperty, TWithQuaternionRotationProperty, TWithScaleProperty } from '@Anarchy/Engine/Mixins';
+import { withMoveBy3dMixin, withQuaternionRotationByXyzMixin, withScaleMixin } from '@Anarchy/Engine/Mixins';
+import type { TAbstractTransformAgent } from '@Anarchy/Engine/TransformDrive/Models';
 
 export function withProxyTransform(
   abstractTransformAgent: TAbstractTransformAgent,

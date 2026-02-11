@@ -1,5 +1,5 @@
-import { DefaultIsAutoUpdate, DefaultKinematicConfigState, DefaultKinematicTarget } from '@hellpig/anarchy-engine/Kinematic/Constants';
-import type { TKinematicConfig } from '@hellpig/anarchy-engine/Kinematic/Models';
+import { DefaultIsAutoUpdate, DefaultKinematicConfigState, DefaultKinematicTarget } from '@Anarchy/Engine/Kinematic/Constants';
+import type { TKinematicConfig } from '@Anarchy/Engine/Kinematic/Models';
 import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { isEqual } from 'lodash-es';
 

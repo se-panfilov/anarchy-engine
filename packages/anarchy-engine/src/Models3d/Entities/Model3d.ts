@@ -1,17 +1,9 @@
-import type { TAbstractEntity } from '@hellpig/anarchy-engine/Abstract';
-import { AbstractEntity, EntityType } from '@hellpig/anarchy-engine/Abstract';
-import { withObject3d } from '@hellpig/anarchy-engine/Mixins';
-import { model3dEntityToConfig } from '@hellpig/anarchy-engine/Models3d/Adapters';
-import { withModel3dEntities } from '@hellpig/anarchy-engine/Models3d/Mixins';
-import type {
-  TModel3d,
-  TModel3dConfig,
-  TModel3dConfigToParamsDependencies,
-  TModel3dDependencies,
-  TModel3dEntities,
-  TModel3dParams,
-  TWithModel3dEntities
-} from '@hellpig/anarchy-engine/Models3d/Models';
+import type { TAbstractEntity } from '@Anarchy/Engine/Abstract';
+import { AbstractEntity, EntityType } from '@Anarchy/Engine/Abstract';
+import { withObject3d } from '@Anarchy/Engine/Mixins';
+import { model3dEntityToConfig } from '@Anarchy/Engine/Models3d/Adapters';
+import { withModel3dEntities } from '@Anarchy/Engine/Models3d/Mixins';
+import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dDependencies, TModel3dEntities, TModel3dParams, TWithModel3dEntities } from '@Anarchy/Engine/Models3d/Models';
 import {
   applyAnimationsState,
   applyObject3dParamsToModel3d,
@@ -20,8 +12,8 @@ import {
   applyScaleToModel3d,
   createModels3dEntities,
   isModel3dAlreadyInUse
-} from '@hellpig/anarchy-engine/Models3d/Utils';
-import { applyObject3dParams, destroyModel3dAnimationEntities, disposeGltf, mergeAll } from '@hellpig/anarchy-engine/Utils';
+} from '@Anarchy/Engine/Models3d/Utils';
+import { applyObject3dParams, destroyModel3dAnimationEntities, disposeGltf, mergeAll } from '@Anarchy/Engine/Utils';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Subscription } from 'rxjs';
 

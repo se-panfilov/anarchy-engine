@@ -1,4 +1,4 @@
-import type { TPhysicsBody, TPhysicsBodyParams } from '@hellpig/anarchy-engine/Physics';
+import type { TPhysicsBody, TPhysicsBodyParams } from '@Anarchy/Engine/Physics';
 import type { TWithMandatoryField } from '@hellpig/anarchy-shared/Utils';
 
 import type { TTransformAgentParams } from './TTransformAgentParams';

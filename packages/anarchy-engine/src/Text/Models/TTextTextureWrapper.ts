@@ -1,6 +1,6 @@
-import type { TWrapper } from '@hellpig/anarchy-engine/Abstract';
-import type { TextType } from '@hellpig/anarchy-engine/Text/Constants';
-import type { TAbstractTextWrapper } from '@hellpig/anarchy-engine/Text/Models/TAbstractTextWrapper';
+import type { TWrapper } from '@Anarchy/Engine/Abstract';
+import type { TextType } from '@Anarchy/Engine/Text/Constants';
+import type { TAbstractTextWrapper } from '@Anarchy/Engine/Text/Models/TAbstractTextWrapper';
 import type { Mesh } from 'three';
 
 import type { TTextCssProps } from './TTextCssProps';

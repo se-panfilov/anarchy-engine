@@ -1,7 +1,7 @@
-import type { TAnyCameraWrapper } from '@hellpig/anarchy-engine/Camera';
-import { ControlsType } from '@hellpig/anarchy-engine/Controls/Constants';
-import type { TAnyControlsWrapper, TFpsControlsWrapper, TOrbitControlsWrapper } from '@hellpig/anarchy-engine/Controls/Models';
-import type { TMilliseconds } from '@hellpig/anarchy-engine/Math';
+import type { TAnyCameraWrapper } from '@Anarchy/Engine/Camera';
+import { ControlsType } from '@Anarchy/Engine/Controls/Constants';
+import type { TAnyControlsWrapper, TFpsControlsWrapper, TOrbitControlsWrapper } from '@Anarchy/Engine/Controls/Models';
+import type { TMilliseconds } from '@Anarchy/Engine/Math';
 import type { Subscription } from 'rxjs';
 import type { Controls } from 'three';
 import { EventDispatcher, Quaternion } from 'three';

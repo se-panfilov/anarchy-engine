@@ -1,4 +1,4 @@
-import type { TAbstractSimpleRegistry } from '@hellpig/anarchy-engine/Abstract/Models';
+import type { TAbstractSimpleRegistry } from '@Anarchy/Engine/Abstract/Models';
 
 import type { TTextAnyRenderer } from './TTextAnyRenderer';
 

@@ -1,18 +1,11 @@
-import type { TAbstractService } from '@hellpig/anarchy-engine/Abstract';
-import { AbstractService } from '@hellpig/anarchy-engine/Abstract';
-import type { TLoadingManagerWrapper } from '@hellpig/anarchy-engine/LoadingManager';
-import type { TDisposable } from '@hellpig/anarchy-engine/Mixins';
-import { withSerializeAllResources } from '@hellpig/anarchy-engine/Mixins';
-import { TexturesLoader } from '@hellpig/anarchy-engine/Texture/Loaders';
-import type {
-  TTextureAsyncRegistry,
-  TTextureMetaInfoRegistry,
-  TTextureResourceConfig,
-  TTextureSerializeResourcesDependencies,
-  TTextureService,
-  TTexturesLoader
-} from '@hellpig/anarchy-engine/Texture/Models';
-import { mergeAll } from '@hellpig/anarchy-engine/Utils';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { TLoadingManagerWrapper } from '@Anarchy/Engine/LoadingManager';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withSerializeAllResources } from '@Anarchy/Engine/Mixins';
+import { TexturesLoader } from '@Anarchy/Engine/Texture/Loaders';
+import type { TTextureAsyncRegistry, TTextureMetaInfoRegistry, TTextureResourceConfig, TTextureSerializeResourcesDependencies, TTextureService, TTexturesLoader } from '@Anarchy/Engine/Texture/Models';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 
 export function TextureService(resourcesRegistry: TTextureAsyncRegistry, metaInfoRegistry: TTextureMetaInfoRegistry, loadingManagerWrapper: TLoadingManagerWrapper): TTextureService {
   const texturesLoader: TTexturesLoader = TexturesLoader(resourcesRegistry, metaInfoRegistry, loadingManagerWrapper);

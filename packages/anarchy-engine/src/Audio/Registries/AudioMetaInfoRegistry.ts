@@ -1,5 +1,5 @@
-import { AbstractSimpleRegistry, RegistryType } from '@hellpig/anarchy-engine/Abstract';
-import type { TAudioMetaInfoRegistry, TAudioResourceConfig } from '@hellpig/anarchy-engine/Audio/Models';
+import { AbstractSimpleRegistry, RegistryType } from '@Anarchy/Engine/Abstract';
+import type { TAudioMetaInfoRegistry, TAudioResourceConfig } from '@Anarchy/Engine/Audio/Models';
 
 export function AudioMetaInfoRegistry(): TAudioMetaInfoRegistry {
   return AbstractSimpleRegistry<TAudioResourceConfig>(RegistryType.AudioMetaInfo);

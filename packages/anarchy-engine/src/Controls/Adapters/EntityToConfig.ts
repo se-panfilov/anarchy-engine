@@ -1,16 +1,9 @@
-import type { TAnyCamera, TAnyCameraWrapper } from '@hellpig/anarchy-engine/Camera';
-import type {
-  TAnyControlsWrapper,
-  TControlsConfig,
-  TControlsServiceDependencies,
-  TFpsControlsWrapper,
-  TOrbitControlsConfigOptions,
-  TOrbitControlsWrapper
-} from '@hellpig/anarchy-engine/Controls/Models';
-import type { TFpsControlsConfigOptions } from '@hellpig/anarchy-engine/Controls/Models/TFpsControlsConfigOptions';
-import { isFpsControls, isOrbitControls } from '@hellpig/anarchy-engine/Controls/Utils';
-import { extractSerializableRegistrableFields } from '@hellpig/anarchy-engine/Mixins';
-import { vector3ToXyz } from '@hellpig/anarchy-engine/Utils';
+import type { TAnyCamera, TAnyCameraWrapper } from '@Anarchy/Engine/Camera';
+import type { TAnyControlsWrapper, TControlsConfig, TControlsServiceDependencies, TFpsControlsWrapper, TOrbitControlsConfigOptions, TOrbitControlsWrapper } from '@Anarchy/Engine/Controls/Models';
+import type { TFpsControlsConfigOptions } from '@Anarchy/Engine/Controls/Models/TFpsControlsConfigOptions';
+import { isFpsControls, isOrbitControls } from '@Anarchy/Engine/Controls/Utils';
+import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
+import { vector3ToXyz } from '@Anarchy/Engine/Utils';
 import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 import { filterOutEmptyFields, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 

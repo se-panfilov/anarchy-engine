@@ -1,4 +1,4 @@
-import type { TSerializable, TWithId, TWithTags } from '@hellpig/anarchy-engine/Mixins';
+import type { TSerializable, TWithId, TWithTags } from '@Anarchy/Engine/Mixins';
 
 import type { TFsmParams } from './TFsmParams';
 

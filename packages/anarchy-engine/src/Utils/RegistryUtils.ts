@@ -1,6 +1,6 @@
-import type { TAbstractEntityRegistry } from '@hellpig/anarchy-engine/Abstract/Models';
-import type { LookUpStrategy } from '@hellpig/anarchy-engine/Abstract/Registries';
-import type { TRegistrable, TWithActiveMixin } from '@hellpig/anarchy-engine/Mixins';
+import type { TAbstractEntityRegistry } from '@Anarchy/Engine/Abstract/Models';
+import type { LookUpStrategy } from '@Anarchy/Engine/Abstract/Registries';
+import type { TRegistrable, TWithActiveMixin } from '@Anarchy/Engine/Mixins';
 import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 
 import { hasTag } from './TagsUtils';

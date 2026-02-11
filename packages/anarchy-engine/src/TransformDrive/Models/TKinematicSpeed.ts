@@ -1,4 +1,4 @@
-import type { KinematicSpeed } from '@hellpig/anarchy-engine/Kinematic';
-import type { TMetersPerSecond } from '@hellpig/anarchy-engine/Math/Types';
+import type { KinematicSpeed } from '@Anarchy/Engine/Kinematic';
+import type { TMetersPerSecond } from '@Anarchy/Engine/Math/Types';
 
 export type TKinematicSpeed = TMetersPerSecond | KinematicSpeed;

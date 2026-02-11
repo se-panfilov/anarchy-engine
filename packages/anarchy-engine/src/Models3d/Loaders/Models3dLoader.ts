@@ -1,8 +1,8 @@
-import { LoaderType } from '@hellpig/anarchy-engine/Abstract';
-import type { TLoadingManagerWrapper } from '@hellpig/anarchy-engine/LoadingManager';
-import type { TModel3dResourceConfig, TModels3dLoader, TModels3dMetaInfoRegistry, TModels3dResourceAsyncRegistry } from '@hellpig/anarchy-engine/Models3d/Models';
-import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToModel3d, applyScaleToModel3d } from '@hellpig/anarchy-engine/Models3d/Utils';
-import type { TDracoLoaderSettings } from '@hellpig/anarchy-engine/ThreeLib';
+import { LoaderType } from '@Anarchy/Engine/Abstract';
+import type { TLoadingManagerWrapper } from '@Anarchy/Engine/LoadingManager';
+import type { TModel3dResourceConfig, TModels3dLoader, TModels3dMetaInfoRegistry, TModels3dResourceAsyncRegistry } from '@Anarchy/Engine/Models3d/Models';
+import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToModel3d, applyScaleToModel3d } from '@Anarchy/Engine/Models3d/Utils';
+import type { TDracoLoaderSettings } from '@Anarchy/Engine/ThreeLib';
 import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';

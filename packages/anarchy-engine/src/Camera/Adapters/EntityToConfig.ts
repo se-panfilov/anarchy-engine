@@ -1,4 +1,4 @@
-import type { TAudioService } from '@hellpig/anarchy-engine/Audio';
+import type { TAudioService } from '@Anarchy/Engine/Audio';
 import type {
   TAnyCameraConfig,
   TAnyCameraWrapper,
@@ -8,12 +8,12 @@ import type {
   TOrthographicCameraParams,
   TPerspectiveCameraOnlyConfig,
   TPerspectiveCameraParams
-} from '@hellpig/anarchy-engine/Camera/Models';
-import type { TOrthographicCameraOnlyConfig } from '@hellpig/anarchy-engine/Camera/Models/TOrthographicCameraConfig';
-import { isOrthographicCameraWrapper, isPerspectiveCameraWrapper } from '@hellpig/anarchy-engine/Camera/Utils';
-import type { TShadowCameraParams } from '@hellpig/anarchy-engine/Light';
-import { extractSerializableRegistrableFields } from '@hellpig/anarchy-engine/Mixins';
-import { isVector3Like } from '@hellpig/anarchy-engine/Utils';
+} from '@Anarchy/Engine/Camera/Models';
+import type { TOrthographicCameraOnlyConfig } from '@Anarchy/Engine/Camera/Models/TOrthographicCameraConfig';
+import { isOrthographicCameraWrapper, isPerspectiveCameraWrapper } from '@Anarchy/Engine/Camera/Utils';
+import type { TShadowCameraParams } from '@Anarchy/Engine/Light';
+import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
+import { isVector3Like } from '@Anarchy/Engine/Utils';
 import { filterOutEmptyFields, isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { AudioListener, OrthographicCameraJSONObject, PerspectiveCameraJSONObject, Vector3Like } from 'three';
 

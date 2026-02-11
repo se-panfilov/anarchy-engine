@@ -1,6 +1,6 @@
-import type { TWithObject3d, TWithTags } from '@hellpig/anarchy-engine/Mixins';
-import type { TTextTranslationService } from '@hellpig/anarchy-engine/Text/Models';
-import type { TWithTransformDrive } from '@hellpig/anarchy-engine/TransformDrive';
+import type { TWithObject3d, TWithTags } from '@Anarchy/Engine/Mixins';
+import type { TTextTranslationService } from '@Anarchy/Engine/Text/Models';
+import type { TWithTransformDrive } from '@Anarchy/Engine/TransformDrive';
 
 import type { TTextTransformAgents } from './TTextTransformAgents';
 

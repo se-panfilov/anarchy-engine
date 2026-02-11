@@ -1,4 +1,4 @@
-import type { TTransformDriveService } from '@hellpig/anarchy-engine/TransformDrive';
+import type { TTransformDriveService } from '@Anarchy/Engine/TransformDrive';
 
 export type TAudioServiceDependencies = Readonly<{
   transformDriveService: TTransformDriveService;

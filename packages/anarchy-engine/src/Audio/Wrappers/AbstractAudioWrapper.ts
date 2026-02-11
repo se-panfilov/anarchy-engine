@@ -1,9 +1,9 @@
-import type { TAbstractWrapper } from '@hellpig/anarchy-engine/Abstract';
-import { AbstractWrapper, WrapperType } from '@hellpig/anarchy-engine/Abstract';
-import { audioEntityToConfig } from '@hellpig/anarchy-engine/Audio/Adapters';
-import type { TAbstractAudioWrapper, TAnyAudio, TAnyAudioConfig, TAnyAudioParams, TAudioConfigToParamsDependencies, TAudioCreateFn } from '@hellpig/anarchy-engine/Audio/Models';
-import { disposeAudio, seekAudio } from '@hellpig/anarchy-engine/Audio/Utils';
-import { destroyAudio } from '@hellpig/anarchy-engine/Utils';
+import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
+import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
+import { audioEntityToConfig } from '@Anarchy/Engine/Audio/Adapters';
+import type { TAbstractAudioWrapper, TAnyAudio, TAnyAudioConfig, TAnyAudioParams, TAudioConfigToParamsDependencies, TAudioCreateFn } from '@Anarchy/Engine/Audio/Models';
+import { disposeAudio, seekAudio } from '@Anarchy/Engine/Audio/Utils';
+import { destroyAudio } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, skipWhile, Subject, takeUntil } from 'rxjs';
 import type { AudioListener } from 'three';

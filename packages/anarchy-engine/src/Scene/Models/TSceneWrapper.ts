@@ -1,5 +1,5 @@
-import type { TWrapper } from '@hellpig/anarchy-engine/Abstract';
-import type { TWithActiveMixin, TWithObject3d } from '@hellpig/anarchy-engine/Mixins';
+import type { TWrapper } from '@Anarchy/Engine/Abstract';
+import type { TWithActiveMixin, TWithObject3d } from '@Anarchy/Engine/Mixins';
 import type { Scene } from 'three';
 
 import type { TSceneAccessors } from './TSceneAccessors';

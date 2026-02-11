@@ -1,7 +1,7 @@
-import { AbstractWrapper, WrapperType } from '@hellpig/anarchy-engine/Abstract';
-import { colorEntityToConfig } from '@hellpig/anarchy-engine/Color/Adapters';
-import type { TColor, TColorParams, TColorWrapper } from '@hellpig/anarchy-engine/Color/Models';
-import { isColorWrapper } from '@hellpig/anarchy-engine/Utils';
+import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
+import { colorEntityToConfig } from '@Anarchy/Engine/Color/Adapters';
+import type { TColor, TColorParams, TColorWrapper } from '@Anarchy/Engine/Color/Models';
+import { isColorWrapper } from '@Anarchy/Engine/Utils';
 import type { ColorRepresentation } from 'three';
 import { Color } from 'three';
 

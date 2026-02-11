@@ -1,5 +1,5 @@
-import type { TActorModel3dSettings, TActorModel3dSettingsConfig } from '@hellpig/anarchy-engine/Actor/Models';
-import { toQuaternion } from '@hellpig/anarchy-engine/Math';
+import type { TActorModel3dSettings, TActorModel3dSettingsConfig } from '@Anarchy/Engine/Actor/Models';
+import { toQuaternion } from '@Anarchy/Engine/Math';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import { Vector3 } from 'three';
 

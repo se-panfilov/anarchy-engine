@@ -1,5 +1,5 @@
-import type { TAbstractSimpleRegistry } from '@hellpig/anarchy-engine/Abstract';
-import type { TModel3d } from '@hellpig/anarchy-engine/Models3d';
+import type { TAbstractSimpleRegistry } from '@Anarchy/Engine/Abstract';
+import type { TModel3d } from '@Anarchy/Engine/Models3d';
 
 import type { TActor } from './TActor';
 

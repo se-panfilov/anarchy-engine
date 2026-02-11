@@ -1,19 +1,19 @@
-import type { TActorConfig } from '@hellpig/anarchy-engine/Actor';
-import type { TAnyAudioConfig } from '@hellpig/anarchy-engine/Audio';
-import type { TAnyCameraConfig } from '@hellpig/anarchy-engine/Camera';
-import type { TControlsConfig } from '@hellpig/anarchy-engine/Controls';
-import type { TEnvMapConfig } from '@hellpig/anarchy-engine/EnvMap';
-import type { TFogConfig } from '@hellpig/anarchy-engine/Fog';
-import type { TFsmConfig } from '@hellpig/anarchy-engine/Fsm';
-import type { TAnyIntersectionsWatcherConfig } from '@hellpig/anarchy-engine/Intersections';
-import type { TAnyLightConfig } from '@hellpig/anarchy-engine/Light';
-import type { TMaterialConfig } from '@hellpig/anarchy-engine/Material';
-import type { TModel3dConfig } from '@hellpig/anarchy-engine/Models3d';
-import type { TParticlesConfig } from '@hellpig/anarchy-engine/Particles';
-import type { TPhysicsConfig } from '@hellpig/anarchy-engine/Physics';
-import type { TRendererConfig } from '@hellpig/anarchy-engine/Renderer';
-import type { TSpatialGridConfig } from '@hellpig/anarchy-engine/Spatial';
-import type { TTextConfig } from '@hellpig/anarchy-engine/Text';
+import type { TActorConfig } from '@Anarchy/Engine/Actor';
+import type { TAnyAudioConfig } from '@Anarchy/Engine/Audio';
+import type { TAnyCameraConfig } from '@Anarchy/Engine/Camera';
+import type { TControlsConfig } from '@Anarchy/Engine/Controls';
+import type { TEnvMapConfig } from '@Anarchy/Engine/EnvMap';
+import type { TFogConfig } from '@Anarchy/Engine/Fog';
+import type { TFsmConfig } from '@Anarchy/Engine/Fsm';
+import type { TAnyIntersectionsWatcherConfig } from '@Anarchy/Engine/Intersections';
+import type { TAnyLightConfig } from '@Anarchy/Engine/Light';
+import type { TMaterialConfig } from '@Anarchy/Engine/Material';
+import type { TModel3dConfig } from '@Anarchy/Engine/Models3d';
+import type { TParticlesConfig } from '@Anarchy/Engine/Particles';
+import type { TPhysicsConfig } from '@Anarchy/Engine/Physics';
+import type { TRendererConfig } from '@Anarchy/Engine/Renderer';
+import type { TSpatialGridConfig } from '@Anarchy/Engine/Spatial';
+import type { TTextConfig } from '@Anarchy/Engine/Text';
 
 export type TSpaceConfigEntities = Readonly<{
   spatialGrids: ReadonlyArray<TSpatialGridConfig>;

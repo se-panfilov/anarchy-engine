@@ -1,4 +1,4 @@
-import type { TThreeJsRendererParamsAccessors } from '@hellpig/anarchy-engine/Renderer/Models';
+import type { TThreeJsRendererParamsAccessors } from '@Anarchy/Engine/Renderer/Models';
 import type { WebGLRenderer } from 'three';
 
 export function withThreeJsRendererParamsAccessors(entity: WebGLRenderer): TThreeJsRendererParamsAccessors {

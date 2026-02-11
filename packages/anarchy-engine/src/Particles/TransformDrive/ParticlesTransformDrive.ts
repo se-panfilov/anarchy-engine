@@ -1,5 +1,5 @@
-import type { TParticlesParams, TParticlesServiceDependencies, TParticlesTransformAgents, TParticlesTransformDrive } from '@hellpig/anarchy-engine/Particles/Models';
-import type { TTransformDriveParams } from '@hellpig/anarchy-engine/TransformDrive';
+import type { TParticlesParams, TParticlesServiceDependencies, TParticlesTransformAgents, TParticlesTransformDrive } from '@Anarchy/Engine/Particles/Models';
+import type { TTransformDriveParams } from '@Anarchy/Engine/TransformDrive';
 
 export function ParticlesTransformDrive(
   params: TParticlesParams,

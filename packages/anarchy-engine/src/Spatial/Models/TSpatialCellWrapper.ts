@@ -1,6 +1,6 @@
-import type { TWrapper } from '@hellpig/anarchy-engine/Abstract';
-import type { TActor } from '@hellpig/anarchy-engine/Actor';
-import type { TWithName } from '@hellpig/anarchy-engine/Mixins';
+import type { TWrapper } from '@Anarchy/Engine/Abstract';
+import type { TActor } from '@Anarchy/Engine/Actor';
+import type { TWithName } from '@Anarchy/Engine/Mixins';
 import type { Observable } from 'rxjs';
 
 import type { TSpatialCell } from './TSpatialCell';

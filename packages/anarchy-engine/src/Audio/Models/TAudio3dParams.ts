@@ -1,4 +1,4 @@
-import type { TReadonlyVector3 } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 
 import type { TAudio3dPerformanceOptions } from './TAudio3dPerformanceOptions';
 import type { TAudioParams } from './TAudioParams';

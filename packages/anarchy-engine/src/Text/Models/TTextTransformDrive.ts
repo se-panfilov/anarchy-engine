@@ -1,4 +1,4 @@
-import type { TTransformDrive } from '@hellpig/anarchy-engine/TransformDrive';
+import type { TTransformDrive } from '@Anarchy/Engine/TransformDrive';
 
 import type { TTextTransformAgents } from './TTextTransformAgents';
 

@@ -1,4 +1,4 @@
-import type { TCommonCameraAccessors, TOrthographicCamera, TOrthographicCameraAccessors, TPerspectiveCamera, TPerspectiveCameraAccessors } from '@hellpig/anarchy-engine/Camera/Models';
+import type { TCommonCameraAccessors, TOrthographicCamera, TOrthographicCameraAccessors, TPerspectiveCamera, TPerspectiveCameraAccessors } from '@Anarchy/Engine/Camera/Models';
 import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 import type { AudioListener, Vector3 } from 'three';
 

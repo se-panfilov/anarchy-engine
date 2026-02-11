@@ -1,5 +1,5 @@
-import type { TSerializable } from '@hellpig/anarchy-engine/Mixins';
-import type { TPhysicsBody, TPhysicsBodyConfig } from '@hellpig/anarchy-engine/Physics';
+import type { TSerializable } from '@Anarchy/Engine/Mixins';
+import type { TPhysicsBody, TPhysicsBodyConfig } from '@Anarchy/Engine/Physics';
 import type { BehaviorSubject } from 'rxjs';
 
 import type { TAbstractTransformAgent } from './TAbstractTransformAgent';

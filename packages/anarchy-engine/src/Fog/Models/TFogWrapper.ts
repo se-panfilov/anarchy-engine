@@ -1,5 +1,5 @@
-import type { TWrapper } from '@hellpig/anarchy-engine/Abstract';
-import type { TDestroyable } from '@hellpig/anarchy-engine/Mixins';
+import type { TWrapper } from '@Anarchy/Engine/Abstract';
+import type { TDestroyable } from '@Anarchy/Engine/Mixins';
 
 import type { TFog } from './TFog';
 

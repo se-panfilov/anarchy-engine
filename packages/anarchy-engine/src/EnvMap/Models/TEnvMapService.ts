@@ -1,14 +1,5 @@
-import type { TSerializableEntitiesService, TSerializableResourceService } from '@hellpig/anarchy-engine/Abstract';
-import type {
-  TEnvMapConfig,
-  TEnvMapFactory,
-  TEnvMapParams,
-  TEnvMapRegistry,
-  TEnvMapResourceConfig,
-  TEnvMapTexture,
-  TEnvMapTextureAsyncRegistry,
-  TEnvMapWrapper
-} from '@hellpig/anarchy-engine/EnvMap/Models';
+import type { TSerializableEntitiesService, TSerializableResourceService } from '@Anarchy/Engine/Abstract';
+import type { TEnvMapConfig, TEnvMapFactory, TEnvMapParams, TEnvMapRegistry, TEnvMapResourceConfig, TEnvMapTexture, TEnvMapTextureAsyncRegistry, TEnvMapWrapper } from '@Anarchy/Engine/EnvMap/Models';
 import type {
   TWithActiveAccessorsService,
   TWithCreateFromConfigService,
@@ -19,7 +10,7 @@ import type {
   TWithResourcesMetaInfoRegistryService,
   TWithResourcesRegistryService,
   TWithSceneGetterService
-} from '@hellpig/anarchy-engine/Mixins';
+} from '@Anarchy/Engine/Mixins';
 
 export type TEnvMapServiceWithCreate = TWithCreateService<TEnvMapWrapper, TEnvMapParams>;
 export type TEnvMapServiceWithCreateFromConfig = TWithCreateFromConfigService<TEnvMapConfig, TEnvMapWrapper>;

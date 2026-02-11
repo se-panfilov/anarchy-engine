@@ -1,8 +1,8 @@
-import type { TAbstractService } from '@hellpig/anarchy-engine/Abstract';
-import { AbstractService, WatcherTag } from '@hellpig/anarchy-engine/Abstract';
-import type { TContainerDecorator } from '@hellpig/anarchy-engine/Global';
-import { KeyWatcherType } from '@hellpig/anarchy-engine/Keyboard/Constants';
-import type { TKeyboardService, TKeyComboWatcher, TKeyWatcher, TKeyWatcherFactory, TKeyWatcherRegistry } from '@hellpig/anarchy-engine/Keyboard/Models';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService, WatcherTag } from '@Anarchy/Engine/Abstract';
+import type { TContainerDecorator } from '@Anarchy/Engine/Global';
+import { KeyWatcherType } from '@Anarchy/Engine/Keyboard/Constants';
+import type { TKeyboardService, TKeyComboWatcher, TKeyWatcher, TKeyWatcherFactory, TKeyWatcherRegistry } from '@Anarchy/Engine/Keyboard/Models';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Subscription } from 'rxjs';
 

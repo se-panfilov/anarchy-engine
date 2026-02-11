@@ -1,4 +1,4 @@
-import type { LoadingEventType } from '@hellpig/anarchy-engine/LoadingManager/Constants';
+import type { LoadingEventType } from '@Anarchy/Engine/LoadingManager/Constants';
 
 export type TLoadingEvent = Readonly<{
   type: LoadingEventType;

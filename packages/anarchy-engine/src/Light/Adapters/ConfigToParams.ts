@@ -1,6 +1,6 @@
-import { configToParamsCameraOptionsOnly } from '@hellpig/anarchy-engine/Camera/Adapters/ConfigToParams';
-import type { TAnyLightConfig, TLightParams, TLightShadowConfig, TLightShadowParams, TShadowCameraConfig, TShadowCameraParams } from '@hellpig/anarchy-engine/Light/Models';
-import { object3dConfigToParams } from '@hellpig/anarchy-engine/ThreeLib';
+import { configToParamsCameraOptionsOnly } from '@Anarchy/Engine/Camera/Adapters/ConfigToParams';
+import type { TAnyLightConfig, TLightParams, TLightShadowConfig, TLightShadowParams, TShadowCameraConfig, TShadowCameraParams } from '@Anarchy/Engine/Light/Models';
+import { object3dConfigToParams } from '@Anarchy/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { Color, Vector2 } from 'three';
 

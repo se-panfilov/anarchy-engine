@@ -1,8 +1,8 @@
-import type { TReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
-import { FactoryType, ReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
-import { spatialConfigToParams as configToParams } from '@hellpig/anarchy-engine/Spatial/Adapters';
-import type { TSpatialGridFactory, TSpatialGridParams, TSpatialGridWrapper } from '@hellpig/anarchy-engine/Spatial/Models';
-import { SpatialGridWrapper } from '@hellpig/anarchy-engine/Spatial/Wrappers';
+import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
+import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
+import { spatialConfigToParams as configToParams } from '@Anarchy/Engine/Spatial/Adapters';
+import type { TSpatialGridFactory, TSpatialGridParams, TSpatialGridWrapper } from '@Anarchy/Engine/Spatial/Models';
+import { SpatialGridWrapper } from '@Anarchy/Engine/Spatial/Wrappers';
 
 export function SpatialGridFactory(): TSpatialGridFactory {
   const factory: TReactiveFactory<TSpatialGridWrapper, TSpatialGridParams> = ReactiveFactory(FactoryType.SpatialGrid, SpatialGridWrapper);

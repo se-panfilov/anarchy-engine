@@ -1,5 +1,5 @@
-import type { TAbstractService, TRegistryPack } from '@hellpig/anarchy-engine/Abstract';
-import { AbstractService } from '@hellpig/anarchy-engine/Abstract';
+import type { TAbstractService, TRegistryPack } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
 import type {
   TAnyCameraConfig,
   TAnyCameraWrapper,
@@ -12,9 +12,9 @@ import type {
   TCameraServiceWithFactory,
   TCameraServiceWithRegistry,
   TCameraWrapperDependencies
-} from '@hellpig/anarchy-engine/Camera/Models';
-import { isOrthographicCameraWrapper, isPerspectiveCameraWrapper } from '@hellpig/anarchy-engine/Camera/Utils';
-import type { TDisposable, TWithActiveMixinResult } from '@hellpig/anarchy-engine/Mixins';
+} from '@Anarchy/Engine/Camera/Models';
+import { isOrthographicCameraWrapper, isPerspectiveCameraWrapper } from '@Anarchy/Engine/Camera/Utils';
+import type { TDisposable, TWithActiveMixinResult } from '@Anarchy/Engine/Mixins';
 import {
   withActiveEntityServiceMixin,
   withCreateFromConfigServiceMixin,
@@ -23,9 +23,9 @@ import {
   withRegistryService,
   withSceneGetterService,
   withSerializableEntities
-} from '@hellpig/anarchy-engine/Mixins';
-import type { TSceneWrapper } from '@hellpig/anarchy-engine/Scene';
-import { mergeAll } from '@hellpig/anarchy-engine/Utils';
+} from '@Anarchy/Engine/Mixins';
+import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs';

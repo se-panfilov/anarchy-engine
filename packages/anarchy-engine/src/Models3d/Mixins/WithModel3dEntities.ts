@@ -1,5 +1,5 @@
-import type { TAnimationActions } from '@hellpig/anarchy-engine/Animations/Models';
-import type { TModel3dEntities, TRawModel3d, TWithModel3dEntities } from '@hellpig/anarchy-engine/Models3d/Models';
+import type { TAnimationActions } from '@Anarchy/Engine/Animations/Models';
+import type { TModel3dEntities, TRawModel3d, TWithModel3dEntities } from '@Anarchy/Engine/Models3d/Models';
 import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { AnimationAction, AnimationClip, AnimationMixer } from 'three';

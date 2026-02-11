@@ -1,5 +1,5 @@
-import type { TMaterialService } from '@hellpig/anarchy-engine/Material';
-import type { TTransformDriveService } from '@hellpig/anarchy-engine/TransformDrive';
+import type { TMaterialService } from '@Anarchy/Engine/Material';
+import type { TTransformDriveService } from '@Anarchy/Engine/TransformDrive';
 
 export type TParticlesServiceDependencies = Readonly<{
   materialService: TMaterialService;

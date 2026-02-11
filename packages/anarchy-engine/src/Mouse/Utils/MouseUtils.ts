@@ -1,5 +1,5 @@
-import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@hellpig/anarchy-engine/Mouse/Constants';
-import type { TMouseWatcherEvent } from '@hellpig/anarchy-engine/Mouse/Models';
+import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@Anarchy/Engine/Mouse/Constants';
+import type { TMouseWatcherEvent } from '@Anarchy/Engine/Mouse/Models';
 import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Vector2Like } from 'three';
 

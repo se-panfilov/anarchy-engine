@@ -1,4 +1,4 @@
-import type { TWithNameOptional } from '@hellpig/anarchy-engine/Mixins';
+import type { TWithNameOptional } from '@Anarchy/Engine/Mixins';
 
 export type TSpatialCellParams = Readonly<{
   minX: number;

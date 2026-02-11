@@ -1,4 +1,4 @@
-import type { TTexture, TTextureOptions } from '@hellpig/anarchy-engine/Texture/Models';
+import type { TTexture, TTextureOptions } from '@Anarchy/Engine/Texture/Models';
 import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { MagnificationTextureFilter, MinificationTextureFilter } from 'three';

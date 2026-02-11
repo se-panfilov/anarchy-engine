@@ -1,4 +1,4 @@
-import type { TDestroyable, TNoSpread, TRegistrable, TWithEntity, TWithNameAndNameAccessorsMixin, TWithTags } from '@hellpig/anarchy-engine/Mixins';
+import type { TDestroyable, TNoSpread, TRegistrable, TWithEntity, TWithNameAndNameAccessorsMixin, TWithTags } from '@Anarchy/Engine/Mixins';
 
 import type { TWithWrapperId } from './TWithWrapperId';
 

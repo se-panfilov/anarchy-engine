@@ -1,9 +1,9 @@
-import type { TWithPosition3dProperty, TWithQuaternionRotationProperty, TWithScaleProperty } from '@hellpig/anarchy-engine/Mixins';
-import type { TReadonlyQuaternion, TReadonlyVector3 } from '@hellpig/anarchy-engine/ThreeLib';
-import { TransformAgent } from '@hellpig/anarchy-engine/TransformDrive/Constants';
-import { withProxyTransform } from '@hellpig/anarchy-engine/TransformDrive/Mixins';
-import type { TAbstractTransformAgent, TDefaultTransformAgent, TTransformAgentParams } from '@hellpig/anarchy-engine/TransformDrive/Models';
-import { updateSubjOnChange } from '@hellpig/anarchy-engine/Utils';
+import type { TWithPosition3dProperty, TWithQuaternionRotationProperty, TWithScaleProperty } from '@Anarchy/Engine/Mixins';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
+import { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
+import { withProxyTransform } from '@Anarchy/Engine/TransformDrive/Mixins';
+import type { TAbstractTransformAgent, TDefaultTransformAgent, TTransformAgentParams } from '@Anarchy/Engine/TransformDrive/Models';
+import { updateSubjOnChange } from '@Anarchy/Engine/Utils';
 import type { Subject, Subscription } from 'rxjs';
 import type { Quaternion, Vector3 } from 'three';
 

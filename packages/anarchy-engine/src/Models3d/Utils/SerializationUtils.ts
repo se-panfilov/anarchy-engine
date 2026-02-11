@@ -1,6 +1,6 @@
-import type { TAnimationStateParams } from '@hellpig/anarchy-engine/Animations';
-import { applyAnimationActionProperties } from '@hellpig/anarchy-engine/Animations/Utils';
-import type { TModel3d, TModel3dParams } from '@hellpig/anarchy-engine/Models3d/Models';
+import type { TAnimationStateParams } from '@Anarchy/Engine/Animations';
+import { applyAnimationActionProperties } from '@Anarchy/Engine/Animations/Utils';
+import type { TModel3d, TModel3dParams } from '@Anarchy/Engine/Models3d/Models';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { AnimationAction } from 'three';
 

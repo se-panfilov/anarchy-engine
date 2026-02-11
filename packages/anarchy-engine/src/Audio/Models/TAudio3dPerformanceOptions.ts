@@ -1,4 +1,4 @@
-import type { TMeters } from '@hellpig/anarchy-engine/Math';
+import type { TMeters } from '@Anarchy/Engine/Math';
 
 import type { TAudioPerformanceOptions } from './TAudioPerformanceOptions';
 

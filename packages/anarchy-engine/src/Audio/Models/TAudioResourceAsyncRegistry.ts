@@ -1,3 +1,3 @@
-import type { TAbstractResourceAsyncRegistry } from '@hellpig/anarchy-engine/Abstract';
+import type { TAbstractResourceAsyncRegistry } from '@Anarchy/Engine/Abstract';
 
 export type TAudioResourceAsyncRegistry = TAbstractResourceAsyncRegistry<AudioBuffer>;

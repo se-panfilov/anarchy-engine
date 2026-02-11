@@ -1,4 +1,4 @@
-import type { TKinematicData } from '@hellpig/anarchy-engine/Kinematic';
+import type { TKinematicData } from '@Anarchy/Engine/Kinematic';
 
 import type { TTransformAgentParams } from './TTransformAgentParams';
 

@@ -1,8 +1,8 @@
-import type { TKinematicState, TKinematicTarget } from '@hellpig/anarchy-engine/Kinematic';
-import { KinematicSpeed } from '@hellpig/anarchy-engine/Kinematic';
-import type { TMeters, TRadians } from '@hellpig/anarchy-engine/Math';
-import type { TReadonlyQuaternion, TReadonlyVector3 } from '@hellpig/anarchy-engine/ThreeLib';
-import type { TKinematicSpeed, TKinematicTransformAgent } from '@hellpig/anarchy-engine/TransformDrive/Models';
+import type { TKinematicState, TKinematicTarget } from '@Anarchy/Engine/Kinematic';
+import { KinematicSpeed } from '@Anarchy/Engine/Kinematic';
+import type { TMeters, TRadians } from '@Anarchy/Engine/Math';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
+import type { TKinematicSpeed, TKinematicTransformAgent } from '@Anarchy/Engine/TransformDrive/Models';
 import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { Quaternion, Vector3 } from 'three';

@@ -1,5 +1,5 @@
-import type { THtmlElementStyleDeclaration } from '@hellpig/anarchy-engine/Abstract';
-import type { TextAlign, TextDirection, TextFontStyle, TextFontWeight, TextOverflowWrap, TextWhiteSpace } from '@hellpig/anarchy-engine/Text/Constants';
+import type { THtmlElementStyleDeclaration } from '@Anarchy/Engine/Abstract';
+import type { TextAlign, TextDirection, TextFontStyle, TextFontWeight, TextOverflowWrap, TextWhiteSpace } from '@Anarchy/Engine/Text/Constants';
 
 type TKeysOfCssProps = keyof Omit<THtmlElementStyleDeclaration, 'getPropertyPriority' | 'getPropertyValue' | 'item' | 'removeProperty' | 'setProperty' | 'parentRule'>;
 type TCssProps = Readonly<{ [key in TKeysOfCssProps]?: string }>;

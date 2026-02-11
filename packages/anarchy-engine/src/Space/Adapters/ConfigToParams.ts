@@ -1,5 +1,5 @@
-import { sceneConfigToParams } from '@hellpig/anarchy-engine/Scene/Adapters';
-import type { TSpaceConfig, TSpaceParams } from '@hellpig/anarchy-engine/Space/Models';
+import { sceneConfigToParams } from '@Anarchy/Engine/Scene/Adapters';
+import type { TSpaceConfig, TSpaceParams } from '@Anarchy/Engine/Space/Models';
 
 export function spaceConfigToParams(config: TSpaceConfig): TSpaceParams | never {
   const { scenes, ...rest } = config;

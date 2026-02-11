@@ -1,4 +1,4 @@
-import type { TWithTags } from '@hellpig/anarchy-engine/Mixins';
+import type { TWithTags } from '@Anarchy/Engine/Mixins';
 import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 import { omitInArray } from '@hellpig/anarchy-shared/Utils';
 

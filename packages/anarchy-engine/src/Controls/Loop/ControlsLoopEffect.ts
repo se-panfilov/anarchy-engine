@@ -1,4 +1,4 @@
-import type { TAnyControlsWrapper, TControlsLoop, TControlsRegistry } from '@hellpig/anarchy-engine/Controls/Models';
+import type { TAnyControlsWrapper, TControlsLoop, TControlsRegistry } from '@Anarchy/Engine/Controls/Models';
 import type { Subscription } from 'rxjs';
 
 export function controlsLoopEffect(loop: TControlsLoop, registry: TControlsRegistry): Subscription {

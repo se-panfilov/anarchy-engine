@@ -1,5 +1,5 @@
-import type { TWrapper } from '@hellpig/anarchy-engine/Abstract';
-import type { TWithActiveMixin } from '@hellpig/anarchy-engine/Mixins';
+import type { TWrapper } from '@Anarchy/Engine/Abstract';
+import type { TWithActiveMixin } from '@Anarchy/Engine/Mixins';
 
 import type { TEnvMapConfig } from './TEnvMapConfig';
 import type { TEnvMapConfigToParamsDependencies } from './TEnvMapConfigToParamsDependencies';

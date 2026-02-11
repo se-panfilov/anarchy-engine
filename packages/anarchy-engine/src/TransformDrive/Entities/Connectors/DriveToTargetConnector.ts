@@ -1,6 +1,6 @@
-import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@hellpig/anarchy-engine/ThreeLib';
-import type { TransformAgent } from '@hellpig/anarchy-engine/TransformDrive/Constants';
-import type { TAbstractTransformAgent, TDriveToTargetConnector, TOffsets, TTransformDrive, TWithTransforms } from '@hellpig/anarchy-engine/TransformDrive/Models';
+import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
+import type { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
+import type { TAbstractTransformAgent, TDriveToTargetConnector, TOffsets, TTransformDrive, TWithTransforms } from '@Anarchy/Engine/TransformDrive/Models';
 import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Subscription } from 'rxjs';
 import { Euler } from 'three';

@@ -1,6 +1,6 @@
-import { RegistryType } from '@hellpig/anarchy-engine/Abstract/Constants';
-import { AbstractWatcherRegistry } from '@hellpig/anarchy-engine/Abstract/Registries';
-import type { TAnyIntersectionsWatcher, TIntersectionsWatcherRegistry } from '@hellpig/anarchy-engine/Intersections/Models';
+import { RegistryType } from '@Anarchy/Engine/Abstract/Constants';
+import { AbstractWatcherRegistry } from '@Anarchy/Engine/Abstract/Registries';
+import type { TAnyIntersectionsWatcher, TIntersectionsWatcherRegistry } from '@Anarchy/Engine/Intersections/Models';
 
 export function IntersectionsWatcherRegistry(): TIntersectionsWatcherRegistry {
   return AbstractWatcherRegistry<TAnyIntersectionsWatcher>(RegistryType.IntersectionsWatcher);

@@ -1,10 +1,10 @@
+import { AbstractEntity, EntityType } from '@Anarchy/Engine/Abstract';
+import { physicsBodyEntityToConfig } from '@Anarchy/Engine/Physics/Adapters';
+import type { CollisionShape, RigidBodyTypesNames } from '@Anarchy/Engine/Physics/Constants';
+import { RigidBodyTypesMap } from '@Anarchy/Engine/Physics/Constants';
+import { withPhysicsBodyEntities } from '@Anarchy/Engine/Physics/Mixins';
+import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsBodyEntities, TPhysicsBodyParams, TPhysicsDependencies, TPhysicsShapeParams } from '@Anarchy/Engine/Physics/Models';
 import type { RigidBodyType, World } from '@dimforge/rapier3d';
-import { AbstractEntity, EntityType } from '@hellpig/anarchy-engine/Abstract';
-import { physicsBodyEntityToConfig } from '@hellpig/anarchy-engine/Physics/Adapters';
-import type { CollisionShape, RigidBodyTypesNames } from '@hellpig/anarchy-engine/Physics/Constants';
-import { RigidBodyTypesMap } from '@hellpig/anarchy-engine/Physics/Constants';
-import { withPhysicsBodyEntities } from '@hellpig/anarchy-engine/Physics/Mixins';
-import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsBodyEntities, TPhysicsBodyParams, TPhysicsDependencies, TPhysicsShapeParams } from '@hellpig/anarchy-engine/Physics/Models';
 import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Subscription } from 'rxjs';

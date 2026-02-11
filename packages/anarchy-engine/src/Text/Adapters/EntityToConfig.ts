@@ -1,6 +1,6 @@
-import { extractSerializableRegistrableFields } from '@hellpig/anarchy-engine/Mixins';
-import type { TText2dWrapper, TText3dTextureWrapper, TTextAnyWrapper, TTextConfig, TTextCssProps } from '@hellpig/anarchy-engine/Text/Models';
-import { vector2ToXy } from '@hellpig/anarchy-engine/Utils';
+import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
+import type { TText2dWrapper, TText3dTextureWrapper, TTextAnyWrapper, TTextConfig, TTextCssProps } from '@Anarchy/Engine/Text/Models';
+import { vector2ToXy } from '@Anarchy/Engine/Utils';
 import { filterOutEmptyFields, isNotDefined, kebabToCamel } from '@hellpig/anarchy-shared/Utils';
 import type { Vector2 } from 'three';
 

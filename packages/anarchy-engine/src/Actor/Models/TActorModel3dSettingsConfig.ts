@@ -1,4 +1,4 @@
-import type { TEulerLike } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TEulerLike } from '@Anarchy/Engine/ThreeLib';
 import type { QuaternionLike, Vector3Like } from 'three';
 
 import type { TActorModel3dSettings } from './TActorModel3dSettings';

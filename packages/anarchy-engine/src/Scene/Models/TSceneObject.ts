@@ -1,3 +1,3 @@
-import type { TObject3D } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TObject3D } from '@Anarchy/Engine/ThreeLib';
 
 export type TSceneObject = Readonly<TObject3D>;

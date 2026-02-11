@@ -1,5 +1,5 @@
-import type { TSerializableEntitiesService } from '@hellpig/anarchy-engine/Abstract';
-import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@hellpig/anarchy-engine/Mixins';
+import type { TSerializableEntitiesService } from '@Anarchy/Engine/Abstract';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@Anarchy/Engine/Mixins';
 
 import type { TSpace } from './TSpace';
 import type { TSpaceConfig } from './TSpaceConfig';

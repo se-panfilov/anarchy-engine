@@ -1,5 +1,5 @@
-import type { TCameraServiceDependencies, TCameraTransformAgents, TCameraTransformDrive, TCommonCameraParams } from '@hellpig/anarchy-engine/Camera/Models';
-import type { TTransformDriveParams } from '@hellpig/anarchy-engine/TransformDrive';
+import type { TCameraServiceDependencies, TCameraTransformAgents, TCameraTransformDrive, TCommonCameraParams } from '@Anarchy/Engine/Camera/Models';
+import type { TTransformDriveParams } from '@Anarchy/Engine/TransformDrive';
 
 export function CameraTransformDrive(
   params: TCommonCameraParams,

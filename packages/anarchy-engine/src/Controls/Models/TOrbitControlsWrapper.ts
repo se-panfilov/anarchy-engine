@@ -1,9 +1,9 @@
-import type { TWrapper } from '@hellpig/anarchy-engine/Abstract';
-import type { TAnyCameraWrapper } from '@hellpig/anarchy-engine/Camera';
-import type { ControlsType } from '@hellpig/anarchy-engine/Controls/Constants';
-import type { TMilliseconds } from '@hellpig/anarchy-engine/Math';
-import type { TWithActiveMixin } from '@hellpig/anarchy-engine/Mixins';
-import type { TReadonlyVector3 } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TWrapper } from '@Anarchy/Engine/Abstract';
+import type { TAnyCameraWrapper } from '@Anarchy/Engine/Camera';
+import type { ControlsType } from '@Anarchy/Engine/Controls/Constants';
+import type { TMilliseconds } from '@Anarchy/Engine/Math';
+import type { TWithActiveMixin } from '@Anarchy/Engine/Mixins';
+import type { TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 import type { Euler, Quaternion, Vector3 } from 'three';
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 

@@ -1,9 +1,9 @@
-import type { TAbstractWatcher } from '@hellpig/anarchy-engine/Abstract';
-import { AbstractWatcher, WatcherType } from '@hellpig/anarchy-engine/Abstract';
-import { MouseEventType } from '@hellpig/anarchy-engine/Mouse/Constants';
-import type { TMouseClickWatcher, TMouseClickWatcherParams, TMouseWatcherEvent } from '@hellpig/anarchy-engine/Mouse/Models';
-import { getMouseWatcherEvent } from '@hellpig/anarchy-engine/Mouse/Utils';
-import { TextCssClass } from '@hellpig/anarchy-engine/Text/Constants';
+import type { TAbstractWatcher } from '@Anarchy/Engine/Abstract';
+import { AbstractWatcher, WatcherType } from '@Anarchy/Engine/Abstract';
+import { MouseEventType } from '@Anarchy/Engine/Mouse/Constants';
+import type { TMouseClickWatcher, TMouseClickWatcherParams, TMouseWatcherEvent } from '@Anarchy/Engine/Mouse/Models';
+import { getMouseWatcherEvent } from '@Anarchy/Engine/Mouse/Utils';
+import { TextCssClass } from '@Anarchy/Engine/Text/Constants';
 import { distinctUntilChanged, takeUntil } from 'rxjs';
 
 const textCssClasses = [TextCssClass.RendererText2d, TextCssClass.RendererText3d, TextCssClass.Text2d, TextCssClass.Text3d];

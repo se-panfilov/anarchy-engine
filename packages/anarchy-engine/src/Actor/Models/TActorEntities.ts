@@ -1,7 +1,7 @@
-import type { TWithCollisions } from '@hellpig/anarchy-engine/Collisions';
-import type { TWithModel3d } from '@hellpig/anarchy-engine/Models3d';
-import type { TWithSpatial, TWithUpdateSpatialCell } from '@hellpig/anarchy-engine/Spatial/Models';
-import type { TWithTransformDrive } from '@hellpig/anarchy-engine/TransformDrive';
+import type { TWithCollisions } from '@Anarchy/Engine/Collisions';
+import type { TWithModel3d } from '@Anarchy/Engine/Models3d';
+import type { TWithSpatial, TWithUpdateSpatialCell } from '@Anarchy/Engine/Spatial/Models';
+import type { TWithTransformDrive } from '@Anarchy/Engine/TransformDrive';
 
 import type { TActorTransformAgents } from './TActorTransformAgents';
 import type { TWithActorStates } from './TWithActorStates';

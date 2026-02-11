@@ -1,5 +1,5 @@
-import { withPositionMixin } from '@hellpig/anarchy-engine/Mixins/GameObjects/Mixins/Position/WithPositionMixin';
-import type { TMovableY, TWithPositionProperty } from '@hellpig/anarchy-engine/Mixins/GameObjects/Models';
+import { withPositionMixin } from '@Anarchy/Engine/Mixins/GameObjects/Mixins/Position/WithPositionMixin';
+import type { TMovableY, TWithPositionProperty } from '@Anarchy/Engine/Mixins/GameObjects/Models';
 
 export function withMoveByYMixin(entity: TWithPositionProperty): TMovableY {
   // eslint-disable-next-line functional/immutable-data
