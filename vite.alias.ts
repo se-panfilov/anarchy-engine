@@ -5,6 +5,7 @@ export const sharedAliases = {
   '@Showcases/GUI': path.resolve(__dirname, 'packages/showcases-gui/src'),
   '@Showcases/I18N': path.resolve(__dirname, 'packages/showcases-i18n/src'),
   '@Showcases/Menu': path.resolve(__dirname, 'packages/showcases-menu/src'),
+  '@Showcases/Shared': path.resolve(__dirname, 'packages/showcases-shared/src'),
   '@hellpig/anarchy-engine': path.resolve(__dirname, 'packages/anarchy-engine/src'),
   '@hellpig/anarchy-i18n': path.resolve(__dirname, 'packages/anarchy-i18n/src'),
   '@hellpig/anarchy-legal': path.resolve(__dirname, 'packages/anarchy-legal/src'),
