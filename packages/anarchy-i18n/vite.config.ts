@@ -15,7 +15,7 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
       alias: {
         //Do not refer inside the package to the alias of the package, otherwise it will cause problems with .d.ts files.
         ...omitInObjectWithoutMutation(sharedAliases, ['@hellpig/anarchy-i18n']),
-        '@Anarchy/I18N': path.resolve(__dirname, 'packages/anarchy-i18n/src')
+        '@Anarchy/I18N': path.resolve(__dirname, '../../packages/anarchy-i18n/src')
       }
     },
     plugins: [
