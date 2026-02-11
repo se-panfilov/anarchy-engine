@@ -3,7 +3,7 @@ import './assets/style.scss';
 
 import { eventsListenerService } from '@Showcases/GUI/services';
 import Bottom from '@Showcases/GUI/views/Bottom.vue';
-import { vueTranslationService } from '@Showcases/i18n';
+import { vueTranslationService } from '@Showcases/I18N';
 import type { Subscription } from 'rxjs';
 import { onMounted, onUnmounted } from 'vue';
 

@@ -1,4 +1,4 @@
-import { InitialLocale, ShowcasesFallbackLocale } from '@Showcases/i18n/Constants';
+import { InitialLocale, ShowcasesFallbackLocale } from '@Showcases/I18N/Constants';
 import type { I18n } from 'vue-i18n';
 import { createI18n } from 'vue-i18n';
 

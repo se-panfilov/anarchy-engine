@@ -4,7 +4,7 @@ import { isDefined, patchObject } from '@hellpig/anarchy-shared/Utils';
 import { AllowedSystemFolders } from '@Showcases/Desktop/Constants';
 import type { TSettingsService, TSettingsServiceDependencies } from '@Showcases/Desktop/Models';
 import { detectResolution } from '@Showcases/Desktop/Utils';
-import { ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/i18n';
+import { ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/I18N';
 import type { TResolution, TShowcasesGameSettings } from '@Showcases/Shared';
 import { DefaultShowcaseGameSettings, isSettings } from '@Showcases/Shared';
 import type { App } from 'electron';

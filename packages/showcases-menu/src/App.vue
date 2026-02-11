@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import './assets/style.scss';
 
-import { vueTranslationService } from '@Showcases/i18n';
+import { vueTranslationService } from '@Showcases/I18N';
 import RouterView from '@Showcases/Menu/components/RouterView.vue';
 import { eventsEmitterService, eventsListenerService } from '@Showcases/Menu/services';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
