@@ -31,7 +31,7 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
       alias: {
         //Do not refer inside the package to the alias of the package, otherwise it will cause problems with .d.ts files.
         ...omitInObjectWithoutMutation(sharedAliases, ['@hellpig/anarchy-tracking']),
-        '@Anarchy/Tracking': path.resolve(__dirname, 'packages/anarchy-tracking/src')
+        '@Anarchy/Tracking': path.resolve(__dirname, '../../packages/anarchy-tracking/src')
       }
     },
     plugins: [
