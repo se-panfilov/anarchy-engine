@@ -4,6 +4,8 @@ import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import path from 'node:path';
 import { builtinModules } from 'node:module';
+import { omitInObjectWithoutMutation } from '@hellpig/anarchy-shared/Utils';
+import { sharedAliases } from '../../vite.alias';
 
 const nodeBuiltins: ReadonlyArray<string> = [...builtinModules, ...builtinModules.map((m) => `node:${m}`)];
 
@@ -12,6 +14,14 @@ const runtimeExternals: ReadonlyArray<string> = ['yargs', 'yargs/helpers', 'glob
 
 export default defineConfig((_config: ConfigEnv): UserConfig => {
   return {
+    base: './',
+    resolve: {
+      alias: {
+        //Do not refer inside the package to the alias of the package, otherwise it will cause problems with .d.ts files.
+        ...omitInObjectWithoutMutation(sharedAliases, ['@hellpig/anarchy-legal']),
+        '@Anarchy/Legal': path.resolve(__dirname, 'packages/anarchy-legal/src')
+      }
+    },
     plugins: [
       dts({
         entryRoot: 'src',
