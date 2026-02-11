@@ -6,6 +6,7 @@ import path from 'node:path';
 import { sharedAliases } from '../../vite.alias';
 // @ts-ignore
 import { terser } from 'rollup-plugin-terser';
+import { omitInObjectWithoutMutation } from '@hellpig/anarchy-shared/Utils';
 
 const externals: ReadonlyArray<string> = [
   // keep these deps external so Vite/Rollup doesn't try to bundle node/browsers builds together
@@ -28,7 +29,9 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
     base: './',
     resolve: {
       alias: {
-        ...sharedAliases
+        //Do not refer inside the package to the alias of the package, otherwise it will cause problems with .d.ts files.
+        ...omitInObjectWithoutMutation(sharedAliases, ['@hellpig/anarchy-tracking']),
+        '@Anarchy/Tracking': path.resolve(__dirname, 'packages/anarchy-tracking/src')
       }
     },
     plugins: [
