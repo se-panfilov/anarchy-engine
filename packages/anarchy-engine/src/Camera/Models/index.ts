@@ -16,6 +16,7 @@ export type * from './TCommonCameraConfig';
 export type * from './TCommonCameraParams';
 export type * from './TOrthographicCamera';
 export type * from './TOrthographicCameraAccessors';
+export type * from './TOrthographicCameraConfig';
 export type * from './TOrthographicCameraParams';
 export type * from './TOrthographicCameraWrapper';
 export type * from './TPerspectiveCamera';
