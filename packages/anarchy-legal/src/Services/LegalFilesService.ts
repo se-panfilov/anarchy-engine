@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import type { TAnarchyLegalConfig, TLegalDocumentType, TLegalFilesService, TLegalFilesUtilsService, TRepoUtilsService, TTemplateGeneratorOptions, TWorkspaceInfo } from '@hellpig/anarchy-legal'; // eslint-disable-next-line spellcheck/spell-checker
+import type { TAnarchyLegalConfig, TLegalDocumentType, TLegalFilesService, TLegalFilesUtilsService, TRepoUtilsService, TTemplateGeneratorOptions, TWorkspaceInfo } from '@Anarchy/Legal'; // eslint-disable-next-line spellcheck/spell-checker
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 

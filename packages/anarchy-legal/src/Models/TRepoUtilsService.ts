@@ -1,4 +1,4 @@
-import type { TCollected, TDependencyNode, TLicenseEntry, TRootInfo, TWorkspaceInfo } from '@hellpig/anarchy-legal/Models';
+import type { TCollected, TDependencyNode, TLicenseEntry, TRootInfo, TWorkspaceInfo } from '@Anarchy/Legal/Models';
 
 export type TRepoUtilsService = Readonly<{
   assertNoCycles: (graph: ReadonlyMap<string, ReadonlySet<string>>, start: string) => void;

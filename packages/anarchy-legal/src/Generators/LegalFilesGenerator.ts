@@ -1,4 +1,4 @@
-import type { TLegalFilesService } from '@hellpig/anarchy-legal';
+import type { TLegalFilesService } from '@Anarchy/Legal';
 
 import { LegalFilesService } from '../Services/LegalFilesService.ts';
 

@@ -1,4 +1,4 @@
-import type { TThirdPartyLicensesService } from '@hellpig/anarchy-legal/Models';
+import type { TThirdPartyLicensesService } from '@Anarchy/Legal/Models';
 
 import { ThirdPartyLicensesService } from '../Services/ThirdPartyLicensesService.ts';
 
