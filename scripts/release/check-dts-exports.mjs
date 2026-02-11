@@ -10,8 +10,9 @@
  * 2. Missing directories - imports that do not resolve to any file at all.
  *
  * Usage:
- *   node scripts/release/check-dts-exports.mjs <package-dir>
+ *   node scripts/release/check-dts-exports.mjs <package-dir> [dist-dir]
  *   e.g.: node scripts/release/check-dts-exports.mjs packages/anarchy-engine
+ *   e.g.: node scripts/release/check-dts-exports.mjs apps/showcases-core dist-web
  */
 
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
@@ -19,17 +20,19 @@ import { join, resolve } from 'node:path';
 
 const pkgDir = process.argv[2];
 if (!pkgDir) {
-  console.error('Usage: node scripts/release/check-dts-exports.mjs <package-dir>');
+  console.error('Usage: node scripts/release/check-dts-exports.mjs <package-dir> [dist-dir]');
   process.exit(1);
 }
+
+const distDirName = process.argv[3] || 'dist';
 
 const pkgRoot = resolve(pkgDir);
 const pkgJson = JSON.parse(readFileSync(join(pkgRoot, 'package.json'), 'utf8'));
 const pkgName = pkgJson.name;
-const distDir = join(pkgRoot, 'dist');
+const distDir = join(pkgRoot, distDirName);
 
 if (!existsSync(distDir)) {
-  console.error(`dist/ directory not found in ${pkgRoot}. Run "npm run build" first.`);
+  console.error(`${distDirName}/ directory not found in ${pkgRoot}. Run "npm run build" first.`);
   process.exit(1);
 }
 
@@ -112,11 +115,11 @@ if (errors.length === 0) {
   for (const err of errors) {
     if (err.type === 'file-level') {
       console.error(`  FILE-LEVEL: ${pkgName}/${err.subpath}`);
-      console.error(`    dist/${err.subpath}.d.ts exists, but dist/${err.subpath}/index.d.ts does not.`);
+      console.error(`    ${distDirName}/${err.subpath}.d.ts exists, but ${distDirName}/${err.subpath}/index.d.ts does not.`);
       console.error(`    Fix: change source import to use barrel "${err.parentBarrel}" instead (means, you should import from index.ts file).`);
     } else {
       console.error(`  MISSING: ${pkgName}/${err.subpath}`);
-      console.error(`    Neither dist/${err.subpath}/index.d.ts nor dist/${err.subpath}.d.ts exists.`);
+      console.error(`    Neither ${distDirName}/${err.subpath}/index.d.ts nor ${distDirName}/${err.subpath}.d.ts exists.`);
     }
     console.error(`    Referenced from:`);
     for (const ref of err.referencedFrom) {
