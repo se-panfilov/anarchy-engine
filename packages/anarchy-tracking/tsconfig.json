@@ -4,6 +4,9 @@
     "paths": {
       "@Anarchy/Tracking": ["packages/anarchy-tracking/src/index.ts"],
       "@Anarchy/Tracking/*": ["packages/anarchy-tracking/src/*"],
+      "@Anarchy/Shared": ["packages/anarchy-shared/src/index.ts"],
+      "@Anarchy/Shared/*": ["packages/anarchy-shared/src/*"],
+
       "@hellpig/anarchy-shared": ["packages/anarchy-shared/src/index.ts"],
       "@hellpig/anarchy-shared/*": ["packages/anarchy-shared/src/*"],
 
