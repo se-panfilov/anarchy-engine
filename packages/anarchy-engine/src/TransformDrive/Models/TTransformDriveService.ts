@@ -1,6 +1,6 @@
-import type { TSerializableEntitiesService } from '@hellpig/anarchy-engine/Abstract';
-import type { TWithFactoryService, TWithRegistryService } from '@hellpig/anarchy-engine/Mixins';
-import type { TransformAgent } from '@hellpig/anarchy-engine/TransformDrive/Constants';
+import type { TSerializableEntitiesService } from '@Anarchy/Engine/Abstract';
+import type { TWithFactoryService, TWithRegistryService } from '@Anarchy/Engine/Mixins';
+import type { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
 import type { TOptional } from '@hellpig/anarchy-shared/Utils';
 
 import type { TAbstractTransformAgent } from './TAbstractTransformAgent';

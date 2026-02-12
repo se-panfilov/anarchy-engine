@@ -1,4 +1,4 @@
-import type { TAbstractResourceAsyncRegistry } from '@hellpig/anarchy-engine/Abstract';
+import type { TAbstractResourceAsyncRegistry } from '@Anarchy/Engine/Abstract';
 
 import type { TAnimations } from './TAnimations';
 

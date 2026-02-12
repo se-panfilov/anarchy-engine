@@ -1,10 +1,10 @@
-import type { WrapperType } from '@hellpig/anarchy-engine/Abstract/Constants';
-import { withNoWrapperIdMixin, withWrapperIdMixin } from '@hellpig/anarchy-engine/Abstract/Mixins';
-import type { TAbstractWrapper, TWithUserData, TWithWrapperId, TWithWrapperIdEntity } from '@hellpig/anarchy-engine/Abstract/Models';
-import type { TDestroyable, TRegistrable, TWithEntity, TWithName } from '@hellpig/anarchy-engine/Mixins';
-import { destroyableMixin, withNameAndNameAccessorsMixin } from '@hellpig/anarchy-engine/Mixins';
-import type { TWithTags } from '@hellpig/anarchy-engine/Mixins/Generics/Models/TWithTags';
-import { genericEntityCleanUp, isWithUserData, isWithWrapperIdAccessors, mergeAll } from '@hellpig/anarchy-engine/Utils';
+import type { WrapperType } from '@Anarchy/Engine/Abstract/Constants';
+import { withNoWrapperIdMixin, withWrapperIdMixin } from '@Anarchy/Engine/Abstract/Mixins';
+import type { TAbstractWrapper, TWithUserData, TWithWrapperId, TWithWrapperIdEntity } from '@Anarchy/Engine/Abstract/Models';
+import type { TDestroyable, TRegistrable, TWithEntity, TWithName } from '@Anarchy/Engine/Mixins';
+import { destroyableMixin, withNameAndNameAccessorsMixin } from '@Anarchy/Engine/Mixins';
+import type { TWithTags } from '@Anarchy/Engine/Mixins/Generics/Models/TWithTags';
+import { genericEntityCleanUp, isWithUserData, isWithWrapperIdAccessors, mergeAll } from '@Anarchy/Engine/Utils';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';

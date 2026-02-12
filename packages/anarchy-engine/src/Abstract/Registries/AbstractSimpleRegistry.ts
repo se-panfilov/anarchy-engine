@@ -1,10 +1,10 @@
-import type { RegistryType } from '@hellpig/anarchy-engine/Abstract/Constants';
-import type { TAbstractSimpleRegistry, TWithBaseAccessorsRegistry, TWithReactiveRegistry } from '@hellpig/anarchy-engine/Abstract/Models';
-import { withBaseAccessorsRegistry } from '@hellpig/anarchy-engine/Abstract/Registries/Mixin';
-import { withReactiveRegistry } from '@hellpig/anarchy-engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
-import type { TDestroyable } from '@hellpig/anarchy-engine/Mixins';
-import { destroyableMixin } from '@hellpig/anarchy-engine/Mixins';
-import { mergeAll } from '@hellpig/anarchy-engine/Utils';
+import type { RegistryType } from '@Anarchy/Engine/Abstract/Constants';
+import type { TAbstractSimpleRegistry, TWithBaseAccessorsRegistry, TWithReactiveRegistry } from '@Anarchy/Engine/Abstract/Models';
+import { withBaseAccessorsRegistry } from '@Anarchy/Engine/Abstract/Registries/Mixin';
+import { withReactiveRegistry } from '@Anarchy/Engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
+import type { TDestroyable } from '@Anarchy/Engine/Mixins';
+import { destroyableMixin } from '@Anarchy/Engine/Mixins';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import { findKeyWithValue, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { nanoid } from 'nanoid';
 

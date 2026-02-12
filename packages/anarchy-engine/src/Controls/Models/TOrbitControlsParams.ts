@@ -1,5 +1,5 @@
-import type { TActive, TWithName, TWithTags } from '@hellpig/anarchy-engine/Mixins';
-import type { TSpaceCanvas } from '@hellpig/anarchy-engine/Space';
+import type { TActive, TWithName, TWithTags } from '@Anarchy/Engine/Mixins';
+import type { TSpaceCanvas } from '@Anarchy/Engine/Space';
 import type { Vector3 } from 'three';
 
 import type { TBaseControlsParams } from './TBaseControlsParams';

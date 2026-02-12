@@ -1,5 +1,5 @@
-import type { TAbstractService, TRegistryPack } from '@hellpig/anarchy-engine/Abstract';
-import { AbstractService } from '@hellpig/anarchy-engine/Abstract';
+import type { TAbstractService, TRegistryPack } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
 import type {
   TAbstractLightWrapper,
   TAnyLight,
@@ -13,11 +13,11 @@ import type {
   TLightServiceWithCreateFromConfig,
   TLightServiceWithFactory,
   TLightServiceWithRegistry
-} from '@hellpig/anarchy-engine/Light/Models';
-import type { TDisposable } from '@hellpig/anarchy-engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@hellpig/anarchy-engine/Mixins';
-import type { TSceneWrapper } from '@hellpig/anarchy-engine/Scene';
-import { mergeAll } from '@hellpig/anarchy-engine/Utils';
+} from '@Anarchy/Engine/Light/Models';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
+import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function LightService(factory: TLightFactory, registry: TLightRegistry, dependencies: TLightServiceDependencies, scene: TSceneWrapper): TLightService {

@@ -8,8 +8,8 @@ import type {
   TShadowOrthographicCameraParams,
   TShadowPerspectiveCameraParams,
   TSpotLight
-} from '@hellpig/anarchy-engine/Light/Models';
-import { isDirectionalLight, isPointLight, isSpotLight } from '@hellpig/anarchy-engine/Light/Utils';
+} from '@Anarchy/Engine/Light/Models';
+import { isDirectionalLight, isPointLight, isSpotLight } from '@Anarchy/Engine/Light/Utils';
 import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { Vector3 } from 'three';

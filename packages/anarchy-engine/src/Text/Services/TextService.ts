@@ -1,12 +1,12 @@
-import type { TAbstractService, TRegistryPack } from '@hellpig/anarchy-engine/Abstract';
-import { AbstractService } from '@hellpig/anarchy-engine/Abstract';
-import { ambientContext } from '@hellpig/anarchy-engine/Context';
-import type { TContainerDecorator } from '@hellpig/anarchy-engine/Global';
-import type { TDisposable } from '@hellpig/anarchy-engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withSceneGetterService } from '@hellpig/anarchy-engine/Mixins';
-import type { TSceneWrapper } from '@hellpig/anarchy-engine/Scene';
-import type { TSpaceLoops } from '@hellpig/anarchy-engine/Space';
-import { textLoopEffect } from '@hellpig/anarchy-engine/Text/Loop';
+import type { TAbstractService, TRegistryPack } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import { ambientContext } from '@Anarchy/Engine/Context';
+import type { TContainerDecorator } from '@Anarchy/Engine/Global';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withSceneGetterService } from '@Anarchy/Engine/Mixins';
+import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
+import type { TSpaceLoops } from '@Anarchy/Engine/Space';
+import { textLoopEffect } from '@Anarchy/Engine/Text/Loop';
 import type {
   TText2dRegistry,
   TText2dRenderer,
@@ -27,11 +27,11 @@ import type {
   TTextServiceWithCreateFromConfig,
   TTextServiceWithFactory,
   TTextTranslationService
-} from '@hellpig/anarchy-engine/Text/Models';
-import { initText2dRenderer, initText3dRenderer } from '@hellpig/anarchy-engine/Text/Renderers';
-import styles from '@hellpig/anarchy-engine/Text/Styles/font-elements.css?inline';
-import { isText2dWrapper, isText3dTextureWrapper, isText3dWrapper } from '@hellpig/anarchy-engine/Text/Utils';
-import { injectStyle, mergeAll } from '@hellpig/anarchy-engine/Utils';
+} from '@Anarchy/Engine/Text/Models';
+import { initText2dRenderer, initText3dRenderer } from '@Anarchy/Engine/Text/Renderers';
+import styles from '@Anarchy/Engine/Text/Styles/font-elements.css?inline';
+import { isText2dWrapper, isText3dTextureWrapper, isText3dWrapper } from '@Anarchy/Engine/Text/Utils';
+import { injectStyle, mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, merge } from 'rxjs';
 

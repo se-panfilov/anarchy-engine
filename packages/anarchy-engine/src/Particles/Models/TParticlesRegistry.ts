@@ -1,4 +1,4 @@
-import type { TAbstractEntityRegistry } from '@hellpig/anarchy-engine/Abstract';
+import type { TAbstractEntityRegistry } from '@Anarchy/Engine/Abstract';
 
 import type { TParticlesWrapper } from './TParticlesWrapper';
 

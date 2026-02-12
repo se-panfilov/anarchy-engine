@@ -1,7 +1,7 @@
-import type { TAudio3dWrapper, TDebugAudioRenderer } from '@hellpig/anarchy-engine/Audio/Models';
-import type { TLoop } from '@hellpig/anarchy-engine/Loop';
-import type { TMilliseconds } from '@hellpig/anarchy-engine/Math';
-import type { TSceneWrapper } from '@hellpig/anarchy-engine/Scene';
+import type { TAudio3dWrapper, TDebugAudioRenderer } from '@Anarchy/Engine/Audio/Models';
+import type { TLoop } from '@Anarchy/Engine/Loop';
+import type { TMilliseconds } from '@Anarchy/Engine/Math';
+import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Observable } from 'rxjs';
 import { BehaviorSubject, EMPTY, switchMap } from 'rxjs';

@@ -1,4 +1,4 @@
-import type { TTextureAsyncRegistry } from '@hellpig/anarchy-engine/Texture';
+import type { TTextureAsyncRegistry } from '@Anarchy/Engine/Texture';
 
 export type TMaterialEntityToConfigDependencies = Readonly<{
   textureResourceRegistry: TTextureAsyncRegistry;

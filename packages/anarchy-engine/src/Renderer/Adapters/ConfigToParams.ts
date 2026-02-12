@@ -1,5 +1,5 @@
-import type { TRendererConfig, TRendererParams, TRendererServiceDependencies } from '@hellpig/anarchy-engine/Renderer/Models';
-import type { TSpaceCanvas } from '@hellpig/anarchy-engine/Space';
+import type { TRendererConfig, TRendererParams, TRendererServiceDependencies } from '@Anarchy/Engine/Renderer/Models';
+import type { TSpaceCanvas } from '@Anarchy/Engine/Space';
 import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 
 export function rendererConfigToParams(config: TRendererConfig, { container }: TRendererServiceDependencies): TRendererParams | never {

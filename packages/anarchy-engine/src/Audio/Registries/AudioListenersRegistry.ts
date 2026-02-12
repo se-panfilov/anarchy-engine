@@ -1,5 +1,5 @@
-import { AbstractSimpleRegistry, RegistryType } from '@hellpig/anarchy-engine/Abstract';
-import type { TAudioListenersRegistry } from '@hellpig/anarchy-engine/Audio/Models';
+import { AbstractSimpleRegistry, RegistryType } from '@Anarchy/Engine/Abstract';
+import type { TAudioListenersRegistry } from '@Anarchy/Engine/Audio/Models';
 import type { AudioListener } from 'three';
 
 export function AudioListenersRegistry(): TAudioListenersRegistry {

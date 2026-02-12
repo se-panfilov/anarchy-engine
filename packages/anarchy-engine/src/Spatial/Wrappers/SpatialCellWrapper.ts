@@ -1,8 +1,8 @@
-import type { TAbstractWrapper } from '@hellpig/anarchy-engine/Abstract';
-import { AbstractWrapper, WrapperType } from '@hellpig/anarchy-engine/Abstract';
-import type { TActor } from '@hellpig/anarchy-engine/Actor';
-import { entityToConfigSpatialCell } from '@hellpig/anarchy-engine/Spatial/Adapters';
-import type { TSpatialCell, TSpatialCellParams, TSpatialCellSerializedData, TSpatialCellWrapper } from '@hellpig/anarchy-engine/Spatial/Models';
+import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
+import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
+import type { TActor } from '@Anarchy/Engine/Actor';
+import { entityToConfigSpatialCell } from '@Anarchy/Engine/Spatial/Adapters';
+import type { TSpatialCell, TSpatialCellParams, TSpatialCellSerializedData, TSpatialCellWrapper } from '@Anarchy/Engine/Spatial/Models';
 import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 

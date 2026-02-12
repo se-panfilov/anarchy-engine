@@ -1,5 +1,5 @@
-import type { TContainerDecorator } from '@hellpig/anarchy-engine/Global';
-import type { TMilliseconds } from '@hellpig/anarchy-engine/Math';
+import type { TContainerDecorator } from '@Anarchy/Engine/Global';
+import type { TMilliseconds } from '@Anarchy/Engine/Math';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 
 export function waitForCanvasGetSize(container: TContainerDecorator, timeoutMs: TMilliseconds = 10_000 as TMilliseconds): Promise<void> {

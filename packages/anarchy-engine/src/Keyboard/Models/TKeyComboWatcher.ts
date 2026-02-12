@@ -1,4 +1,4 @@
-import type { TAbstractWatcherWithState } from '@hellpig/anarchy-engine/Abstract';
+import type { TAbstractWatcherWithState } from '@Anarchy/Engine/Abstract';
 
 import type { TKeyEvent } from './TKeyEvent';
 

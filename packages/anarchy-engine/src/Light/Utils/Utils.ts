@@ -1,4 +1,4 @@
-import { WrapperType } from '@hellpig/anarchy-engine/Abstract';
+import { WrapperType } from '@Anarchy/Engine/Abstract';
 import type {
   TAmbientLight,
   TAmbientLightParams,
@@ -14,7 +14,7 @@ import type {
   TRectAreaLightParams,
   TSpotLight,
   TSpotLightParams
-} from '@hellpig/anarchy-engine/Light/Models';
+} from '@Anarchy/Engine/Light/Models';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 
 export function getWrapperType(light: TAnyLight): WrapperType | never {

@@ -1,5 +1,5 @@
-import type { TSerializableEntitiesService } from '@hellpig/anarchy-engine/Abstract';
-import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@hellpig/anarchy-engine/Mixins';
+import type { TSerializableEntitiesService } from '@Anarchy/Engine/Abstract';
+import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@Anarchy/Engine/Mixins';
 
 import type { TAnyCameraConfig } from './TAnyCameraConfig';
 import type { TAnyCameraParams } from './TAnyCameraParams';

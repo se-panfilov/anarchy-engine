@@ -1,6 +1,6 @@
-import type { TAbstractLoop } from '@hellpig/anarchy-engine/Abstract';
-import type { LoopTrigger, LoopType, LoopUpdatePriority } from '@hellpig/anarchy-engine/Loop/Constants';
-import type { TDestroyable, TRegistrable, TWithName } from '@hellpig/anarchy-engine/Mixins';
+import type { TAbstractLoop } from '@Anarchy/Engine/Abstract';
+import type { LoopTrigger, LoopType, LoopUpdatePriority } from '@Anarchy/Engine/Loop/Constants';
+import type { TDestroyable, TRegistrable, TWithName } from '@Anarchy/Engine/Mixins';
 import type { BehaviorSubject } from 'rxjs';
 
 import type { TDelta } from './TDelta';

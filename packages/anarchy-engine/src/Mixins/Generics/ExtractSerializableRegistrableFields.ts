@@ -1,4 +1,4 @@
-import type { TRegistrable } from '@hellpig/anarchy-engine/Mixins/Generics/Models';
+import type { TRegistrable } from '@Anarchy/Engine/Mixins/Generics/Models';
 import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import { isEmpty } from 'lodash-es';

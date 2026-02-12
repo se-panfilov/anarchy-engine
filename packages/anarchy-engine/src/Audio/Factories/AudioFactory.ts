@@ -1,10 +1,10 @@
-import type { TReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
-import { FactoryType, ReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
-import { audioConfigToParams } from '@hellpig/anarchy-engine/Audio/Adapters';
-import type { TAnyAudioParams, TAnyAudioWrapper, TAudioFactory, TAudioServiceDependencies, TAudioWrapperDependencies } from '@hellpig/anarchy-engine/Audio/Models';
-import { isAudio3dParams } from '@hellpig/anarchy-engine/Audio/Utils';
-import { Audio3dWrapper, AudioWrapper } from '@hellpig/anarchy-engine/Audio/Wrappers';
-import type { TSpaceLoops } from '@hellpig/anarchy-engine/Space';
+import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
+import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
+import { audioConfigToParams } from '@Anarchy/Engine/Audio/Adapters';
+import type { TAnyAudioParams, TAnyAudioWrapper, TAudioFactory, TAudioServiceDependencies, TAudioWrapperDependencies } from '@Anarchy/Engine/Audio/Models';
+import { isAudio3dParams } from '@Anarchy/Engine/Audio/Utils';
+import { Audio3dWrapper, AudioWrapper } from '@Anarchy/Engine/Audio/Wrappers';
+import type { TSpaceLoops } from '@Anarchy/Engine/Space';
 
 function create(params: TAnyAudioParams, loops: Pick<TSpaceLoops, 'audioLoop'> & TAudioServiceDependencies): TAnyAudioWrapper {
   if (isAudio3dParams(params)) return Audio3dWrapper(params, loops);

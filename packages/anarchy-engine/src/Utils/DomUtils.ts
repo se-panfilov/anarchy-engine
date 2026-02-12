@@ -1,6 +1,6 @@
-import type { TAmbientContext } from '@hellpig/anarchy-engine/Context';
-import type { TAppGlobalContainer, TContainerDecorator } from '@hellpig/anarchy-engine/Global';
-import { ContainerEvents } from '@hellpig/anarchy-engine/Global/Constants';
+import type { TAmbientContext } from '@Anarchy/Engine/Context';
+import type { TAppGlobalContainer, TContainerDecorator } from '@Anarchy/Engine/Global';
+import { ContainerEvents } from '@Anarchy/Engine/Global/Constants';
 import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Subscriber } from 'rxjs';
 import { distinctUntilChanged, fromEvent, map, merge, Observable, startWith } from 'rxjs';

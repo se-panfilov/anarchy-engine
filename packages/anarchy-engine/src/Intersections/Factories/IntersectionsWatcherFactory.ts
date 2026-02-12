@@ -1,9 +1,9 @@
-import type { TReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
-import { FactoryType, ReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
-import { intersectionsWatcherConfigToParams } from '@hellpig/anarchy-engine/Intersections/Adapters';
-import type { TAnyIntersectionsWatcher, TAnyIntersectionsWatcherParams, TIntersectionsWatcherFactory } from '@hellpig/anarchy-engine/Intersections/Models';
-import { isIntersectionsCameraWatcherParams, isIntersectionsDirectionWatcherParams } from '@hellpig/anarchy-engine/Intersections/Utils';
-import { IntersectionsCameraWatcher, IntersectionsDirectionWatcher } from '@hellpig/anarchy-engine/Intersections/Watchers';
+import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
+import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
+import { intersectionsWatcherConfigToParams } from '@Anarchy/Engine/Intersections/Adapters';
+import type { TAnyIntersectionsWatcher, TAnyIntersectionsWatcherParams, TIntersectionsWatcherFactory } from '@Anarchy/Engine/Intersections/Models';
+import { isIntersectionsCameraWatcherParams, isIntersectionsDirectionWatcherParams } from '@Anarchy/Engine/Intersections/Utils';
+import { IntersectionsCameraWatcher, IntersectionsDirectionWatcher } from '@Anarchy/Engine/Intersections/Watchers';
 
 function create(params: TAnyIntersectionsWatcherParams): TAnyIntersectionsWatcher | never {
   if (isIntersectionsCameraWatcherParams(params)) return IntersectionsCameraWatcher(params);

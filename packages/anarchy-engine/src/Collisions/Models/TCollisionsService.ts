@@ -1,5 +1,5 @@
-import type { TAbstractService } from '@hellpig/anarchy-engine/Abstract';
-import type { TActor } from '@hellpig/anarchy-engine/Actor/Models';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import type { TActor } from '@Anarchy/Engine/Actor/Models';
 
 import type { TBvhService } from './TBvhService';
 import type { TCollisionCheckResult } from './TCollisionCheckResult';

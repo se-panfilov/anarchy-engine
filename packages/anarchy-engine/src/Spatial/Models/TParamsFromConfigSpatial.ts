@@ -1,4 +1,4 @@
-import type { TParamsFromConfig } from '@hellpig/anarchy-engine/Abstract';
+import type { TParamsFromConfig } from '@Anarchy/Engine/Abstract';
 
 import type { TSpatialGridConfig } from './TSpatialGridConfig';
 import type { TSpatialGridParams } from './TSpatialGridParams';

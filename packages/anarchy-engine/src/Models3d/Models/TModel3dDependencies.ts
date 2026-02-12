@@ -1,4 +1,4 @@
-import type { TAnimationsService } from '@hellpig/anarchy-engine/Animations/Models';
+import type { TAnimationsService } from '@Anarchy/Engine/Animations/Models';
 
 import type { TModel3dRawToModel3dConnectionRegistry } from './TModel3dRawToModel3dConnectionRegistry';
 

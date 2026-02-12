@@ -1,7 +1,7 @@
 import os from 'node:os';
 
+import { HiddenField } from '@Anarchy/Tracking/Constants';
 import { isDefined, isString } from '@hellpig/anarchy-shared/Utils';
-import { HiddenField } from '@hellpig/anarchy-tracking/Constants';
 import type { ErrorEvent } from '@sentry/electron/main';
 
 const escape = (s: string): string => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

@@ -1,4 +1,4 @@
-import type { TCameraService } from '@hellpig/anarchy-engine/Camera';
+import type { TCameraService } from '@Anarchy/Engine/Camera';
 
 export type TControlsServiceDependencies = Readonly<{
   cameraService: TCameraService;

@@ -1,4 +1,4 @@
-import type { TFpsControlsAccessors } from '@hellpig/anarchy-engine/Controls/Models';
+import type { TFpsControlsAccessors } from '@Anarchy/Engine/Controls/Models';
 import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 import type { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 

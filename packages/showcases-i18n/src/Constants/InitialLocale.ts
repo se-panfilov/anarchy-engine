@@ -1,4 +1,4 @@
-import type { TLocaleWithFont } from '@Showcases/i18n/Models';
+import type { TLocaleWithFont } from '@Showcases/I18N/Models';
 
 import { ShowcasesLocales } from './ShowcasesLocales';
 

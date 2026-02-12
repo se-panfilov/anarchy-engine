@@ -1,4 +1,4 @@
-import type { TSpatialConfigToParamsSpatialDataDependencies, TSpatialDataConfig, TSpatialDataParams } from '@hellpig/anarchy-engine/Spatial/Models';
+import type { TSpatialConfigToParamsSpatialDataDependencies, TSpatialDataConfig, TSpatialDataParams } from '@Anarchy/Engine/Spatial/Models';
 
 export function spatialDataConfigToParams(config: TSpatialDataConfig, { spatialGridRegistry }: TSpatialConfigToParamsSpatialDataDependencies): TSpatialDataParams {
   return {

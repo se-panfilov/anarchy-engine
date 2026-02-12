@@ -1,5 +1,5 @@
 import { isAllNotDefined, isDefined, isNotDefined, isObject, isString } from '@hellpig/anarchy-shared/Utils';
-import { ShowcasesLocales } from '@Showcases/i18n/Constants';
+import { ShowcasesLocales } from '@Showcases/I18N/Constants';
 import type { TLegalDoc, TLoadDocPayload, TShowcasesGameSettings } from '@Showcases/Shared/Models';
 
 export function isSettings(settings: TShowcasesGameSettings | unknown): settings is TShowcasesGameSettings {

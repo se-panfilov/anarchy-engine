@@ -1,5 +1,5 @@
-import type { TAbstractService, TRegistryPack } from '@hellpig/anarchy-engine/Abstract';
-import { AbstractService } from '@hellpig/anarchy-engine/Abstract';
+import type { TAbstractService, TRegistryPack } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
 import type {
   TActor,
   TActorConfig,
@@ -12,12 +12,12 @@ import type {
   TActorServiceWithFactory,
   TActorServiceWithRegistry,
   TModel3dToActorConnectionRegistry
-} from '@hellpig/anarchy-engine/Actor/Models';
-import type { TDisposable } from '@hellpig/anarchy-engine/Mixins';
-import { withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@hellpig/anarchy-engine/Mixins';
-import type { TSceneWrapper } from '@hellpig/anarchy-engine/Scene';
-import type { TSpatialGridRegistry } from '@hellpig/anarchy-engine/Spatial';
-import { mergeAll } from '@hellpig/anarchy-engine/Utils';
+} from '@Anarchy/Engine/Actor/Models';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
+import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
+import type { TSpatialGridRegistry } from '@Anarchy/Engine/Spatial';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function ActorService(factory: TActorFactory, registry: TActorRegistry, actorServiceDependencies: TActorServiceDependencies, scene: TSceneWrapper): TActorService {

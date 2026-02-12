@@ -1,7 +1,7 @@
-import { LookUpStrategy } from '@hellpig/anarchy-engine/Abstract/Registries';
-import type { TRegistrable } from '@hellpig/anarchy-engine/Mixins';
-import type { TSceneRegistry, TSceneWrapper } from '@hellpig/anarchy-engine/Scene';
-import { SceneRegistry, SceneWrapper } from '@hellpig/anarchy-engine/Scene';
+import { LookUpStrategy } from '@Anarchy/Engine/Abstract/Registries';
+import type { TRegistrable } from '@Anarchy/Engine/Mixins';
+import type { TSceneRegistry, TSceneWrapper } from '@Anarchy/Engine/Scene';
+import { SceneRegistry, SceneWrapper } from '@Anarchy/Engine/Scene';
 import { describe, expect, it } from 'vitest';
 
 import { getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, setActiveWrappedEntity, shouldHaveTags } from './RegistryUtils';

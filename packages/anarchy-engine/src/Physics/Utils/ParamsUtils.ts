@@ -1,4 +1,4 @@
-import type { TPhysicsBodyParams } from '@hellpig/anarchy-engine/Physics/Models';
+import type { TPhysicsBodyParams } from '@Anarchy/Engine/Physics/Models';
 import type { TOptional } from '@hellpig/anarchy-shared/Utils';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 

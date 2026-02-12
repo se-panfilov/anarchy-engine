@@ -1,8 +1,8 @@
-import type { TAnimations, TAnimationsResourceAsyncRegistry } from '@hellpig/anarchy-engine/Animations';
-import type { PrimitiveModel3dType } from '@hellpig/anarchy-engine/Models3d/Constants';
-import type { TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModels3dResourceAsyncRegistry } from '@hellpig/anarchy-engine/Models3d/Models';
-import { isPrimitiveModel3dData } from '@hellpig/anarchy-engine/Models3d/Utils';
-import { object3dConfigToParams } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TAnimations, TAnimationsResourceAsyncRegistry } from '@Anarchy/Engine/Animations';
+import type { PrimitiveModel3dType } from '@Anarchy/Engine/Models3d/Constants';
+import type { TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModels3dResourceAsyncRegistry } from '@Anarchy/Engine/Models3d/Models';
+import { isPrimitiveModel3dData } from '@Anarchy/Engine/Models3d/Utils';
+import { object3dConfigToParams } from '@Anarchy/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { AnimationClip } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';

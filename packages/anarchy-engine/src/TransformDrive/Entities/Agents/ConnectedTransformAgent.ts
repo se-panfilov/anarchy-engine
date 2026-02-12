@@ -1,6 +1,6 @@
-import { TransformAgent } from '@hellpig/anarchy-engine/TransformDrive/Constants';
-import { withMutablePositionConnector, withMutableRotationConnector, withMutableScaleConnector } from '@hellpig/anarchy-engine/TransformDrive/Mixins';
-import type { TAbstractTransformAgent, TConnectedTransformAgent, TTransformAgentParams } from '@hellpig/anarchy-engine/TransformDrive/Models';
+import { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
+import { withMutablePositionConnector, withMutableRotationConnector, withMutableScaleConnector } from '@Anarchy/Engine/TransformDrive/Mixins';
+import type { TAbstractTransformAgent, TConnectedTransformAgent, TTransformAgentParams } from '@Anarchy/Engine/TransformDrive/Models';
 import type { Subscription } from 'rxjs';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';

@@ -1,4 +1,4 @@
-import type { TParamsFromConfig, TReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
+import type { TParamsFromConfig, TReactiveFactory } from '@Anarchy/Engine/Abstract';
 
 import type { TFogConfig } from './TFogConfig';
 import type { TFogParams } from './TFogParams';

@@ -1,3 +1,3 @@
-import type { TLoop } from '@hellpig/anarchy-engine/Loop';
+import type { TLoop } from '@Anarchy/Engine/Loop';
 
 export type TTextLoop = TLoop & { __brand: 'text_loop' };

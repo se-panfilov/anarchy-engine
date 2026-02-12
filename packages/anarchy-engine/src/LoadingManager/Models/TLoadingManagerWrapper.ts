@@ -1,6 +1,6 @@
-import type { TAbstractWrapper } from '@hellpig/anarchy-engine/Abstract';
-import type { TLoadingEvent } from '@hellpig/anarchy-engine/LoadingManager';
-import type { TDestroyable } from '@hellpig/anarchy-engine/Mixins';
+import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
+import type { TLoadingEvent } from '@Anarchy/Engine/LoadingManager';
+import type { TDestroyable } from '@Anarchy/Engine/Mixins';
 import type { BehaviorSubject } from 'rxjs';
 import type { LoadingManager } from 'three';
 

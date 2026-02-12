@@ -1,8 +1,8 @@
-import type { TAppGlobalContainer, TContainerDecorator } from '@hellpig/anarchy-engine/Global/Models';
-import type { TDestroyable } from '@hellpig/anarchy-engine/Mixins';
-import { destroyableMixin } from '@hellpig/anarchy-engine/Mixins';
-import type { TSpaceCanvas } from '@hellpig/anarchy-engine/Space';
-import { exitFullScreen, getWindowFromDomElement, goFullScreen, isFullScreen, observeContainerRect } from '@hellpig/anarchy-engine/Utils';
+import type { TAppGlobalContainer, TContainerDecorator } from '@Anarchy/Engine/Global/Models';
+import type { TDestroyable } from '@Anarchy/Engine/Mixins';
+import { destroyableMixin } from '@Anarchy/Engine/Mixins';
+import type { TSpaceCanvas } from '@Anarchy/Engine/Space';
+import { exitFullScreen, getWindowFromDomElement, goFullScreen, isFullScreen, observeContainerRect } from '@Anarchy/Engine/Utils';
 import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';

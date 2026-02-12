@@ -1,7 +1,7 @@
-import type { LightType } from '@hellpig/anarchy-engine/Light/Constants';
-import type { TWithName, TWithTags } from '@hellpig/anarchy-engine/Mixins';
-import type { TObject3DParams } from '@hellpig/anarchy-engine/ThreeLib';
-import type { TWithTransformAgentParam } from '@hellpig/anarchy-engine/TransformDrive';
+import type { LightType } from '@Anarchy/Engine/Light/Constants';
+import type { TWithName, TWithTags } from '@Anarchy/Engine/Mixins';
+import type { TObject3DParams } from '@Anarchy/Engine/ThreeLib';
+import type { TWithTransformAgentParam } from '@Anarchy/Engine/TransformDrive';
 import type { Color } from 'three';
 
 import type { TLightShadowParams } from './TLightShadowParams';

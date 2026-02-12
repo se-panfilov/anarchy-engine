@@ -1,8 +1,8 @@
-import type { TReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
-import { FactoryType, ReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
-import { sceneConfigToParams } from '@hellpig/anarchy-engine/Scene/Adapters';
-import type { TSceneFactory, TSceneParams, TSceneWrapper } from '@hellpig/anarchy-engine/Scene/Models';
-import { SceneWrapper } from '@hellpig/anarchy-engine/Scene/Wrappers';
+import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
+import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
+import { sceneConfigToParams } from '@Anarchy/Engine/Scene/Adapters';
+import type { TSceneFactory, TSceneParams, TSceneWrapper } from '@Anarchy/Engine/Scene/Models';
+import { SceneWrapper } from '@Anarchy/Engine/Scene/Wrappers';
 
 export function SceneFactory(): TSceneFactory {
   const factory: TReactiveFactory<TSceneWrapper, TSceneParams> = ReactiveFactory(FactoryType.Scene, SceneWrapper);

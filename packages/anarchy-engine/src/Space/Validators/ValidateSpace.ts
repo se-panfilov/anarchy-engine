@@ -1,4 +1,4 @@
-import type { TSpace, TSpaceRegistry } from '@hellpig/anarchy-engine/Space/Models';
+import type { TSpace, TSpaceRegistry } from '@Anarchy/Engine/Space/Models';
 import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 
 export function validateSpacesDoNotUseSameCanvas(registry: TSpaceRegistry, space: TSpace): boolean {

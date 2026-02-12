@@ -1,4 +1,4 @@
-import type { TSceneWrapper } from '@hellpig/anarchy-engine/Scene';
+import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
 
 export type TWithSceneGetterService = Readonly<{
   getScene: () => TSceneWrapper;

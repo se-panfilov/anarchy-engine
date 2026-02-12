@@ -6,13 +6,15 @@ import path from 'node:path';
 import { sharedAliases } from '../../vite.alias';
 // @ts-ignore
 import { terser } from 'rollup-plugin-terser';
+import { omitInObjectWithoutMutation } from '../anarchy-shared/src/Utils/ObjectUtils';
 
 export default defineConfig((_config: ConfigEnv): UserConfig => {
   return {
     base: './',
     resolve: {
       alias: {
-        ...sharedAliases
+        //Do not refer inside the package to the alias of the package, otherwise it will cause problems with .d.ts files.
+        ...omitInObjectWithoutMutation(sharedAliases, ['@hellpig/anarchy-i18n'])
       }
     },
     plugins: [

@@ -169,7 +169,7 @@ SOFTWARE.
 
 ---
 
-## @csstools/css-calc@3.0.0
+## @csstools/css-calc@3.1.0
 
 **License:** MIT
 
@@ -262,7 +262,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.26
+## @csstools/css-syntax-patches-for-csstree@1.0.27
 
 **License:** MIT-0
 
@@ -322,7 +322,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @exodus/bytes@1.12.0
+## @exodus/bytes@1.14.0
 
 **License:** MIT
 
@@ -1353,7 +1353,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## lru-cache@11.2.5
+## lru-cache@11.2.6
 
 **License:** BlueOak-1.0.0
 

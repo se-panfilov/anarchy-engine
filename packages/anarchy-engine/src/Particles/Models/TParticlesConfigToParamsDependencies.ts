@@ -1,4 +1,4 @@
-import type { TMaterialRegistry } from '@hellpig/anarchy-engine/Material';
+import type { TMaterialRegistry } from '@Anarchy/Engine/Material';
 
 export type TParticlesConfigToParamsDependencies = Readonly<{
   materialRegistry: TMaterialRegistry;

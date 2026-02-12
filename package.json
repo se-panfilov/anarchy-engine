@@ -2,7 +2,7 @@
   "name": "anarchy-monorepo",
   "author": "S. Panfilov",
   "private": true,
-  "version": "2.1.7",
+  "version": "2.1.8",
   "type": "module",
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
   "license": "MIT",
   "scripts": {
     "before:release": "npm run generate:legal:all && npm run prettier:changed",
+    "check:dts-exports:all": "npm run --workspaces --if-present check:dts-exports",
     "clean:all": "rimraf packages/**/package-lock.json -g packages/**/node_modules -g packages/**/dist -g apps/**/package-lock.json -g apps/**/node_modules -g  ./node_modules  ./package-lock.json ",
     "clean:all-metadate": "npm run e2e:clean-metadate --workspace=apps/showcases-e2e && npm run sanitize-assets --workspace=apps/showcases-desktop ** npm run sanitize-assets --workspace=apps/showcases-core && npm run sanitize-assets --workspace=packages/showcases- && npm run sanitize-assets --workspace=packages/showcases-gui",
     "clean:all:restore": "git add ./package-lock.json && find packages -type d -name node_modules -prune -false -o -type f -name package-lock.json -exec git add {} +\n",
@@ -49,7 +50,7 @@
     "gitleaks:scan:files": "gitleaks detect --config=.gitleaks.toml --no-git --verbose --source=.",
     "gitleaks:scan:history": "gitleaks detect --config=.gitleaks.toml --report-format=table --verbose --source=.",
     "lint:fix:all": "npm run --workspaces --if-present lint:fix",
-    "pr:guard:ci": "npm run prettier:check && npm run --workspaces --if-present pr:guard:ci",
+    "pr:guard:ci": "npm run prettier:check && npm run --workspaces --if-present pr:guard:ci && npm run check:dts-exports:all",
     "prettier": "prettier --write .",
     "prettier:changed": "git diff --name-only --diff-filter=ACMRTUXB HEAD | grep -E '\\.(ts|tsx|js|json|css|scss|md)$' | xargs prettier --write",
     "prettier:check": "prettier --check .",

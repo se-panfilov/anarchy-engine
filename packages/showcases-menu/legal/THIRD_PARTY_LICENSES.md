@@ -318,7 +318,7 @@ SOFTWARE.
 
 ---
 
-## @csstools/css-calc@3.0.0
+## @csstools/css-calc@3.1.0
 
 **License:** MIT
 
@@ -411,7 +411,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.26
+## @csstools/css-syntax-patches-for-csstree@1.0.27
 
 **License:** MIT-0
 
@@ -471,7 +471,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @exodus/bytes@1.12.0
+## @exodus/bytes@1.14.0
 
 **License:** MIT
 
@@ -629,7 +629,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## @hellpig/anarchy-engine@22.0.5
+## @hellpig/anarchy-engine@22.0.7
 
 **License:** MIT
 
@@ -663,7 +663,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-i18n@1.4.6
+## @hellpig/anarchy-i18n@1.4.7
 
 **License:** MIT
 
@@ -697,7 +697,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-shared@1.6.6
+## @hellpig/anarchy-shared@1.6.7
 
 **License:** MIT
 
@@ -2726,7 +2726,7 @@ terms above.
 
 ---
 
-## lru-cache@11.2.5
+## lru-cache@11.2.6
 
 **License:** BlueOak-1.0.0
 
@@ -3787,7 +3787,7 @@ _No license text file found; relying on package metadata._
 
 ---
 
-## showcases-i18n@1.4.7
+## showcases-i18n@1.4.8
 
 **License:** MIT
 
@@ -3821,7 +3821,7 @@ SOFTWARE.
 
 ---
 
-## showcases-shared@1.7.6
+## showcases-shared@1.7.7
 
 **License:** MIT
 

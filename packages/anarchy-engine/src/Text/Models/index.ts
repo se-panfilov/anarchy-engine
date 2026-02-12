@@ -1,3 +1,4 @@
+export type * from './TAbstractTextWrapper';
 export type * from './TElementWithCssAccessors';
 export type * from './TText2dRegistry';
 export type * from './TText2dRenderer';

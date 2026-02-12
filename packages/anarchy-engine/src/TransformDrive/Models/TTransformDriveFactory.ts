@@ -1,4 +1,4 @@
-import type { TReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
+import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
 
 import type { TTransformDrive, TTransformDriveCompatibleEntity } from './TTransformDrive';
 import type { TTransformDriveFactoryParams } from './TTransformDriveFactoryParams';

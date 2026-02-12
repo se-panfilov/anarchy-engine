@@ -1,8 +1,8 @@
-import type { TReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
-import { FactoryType, ReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
-import { fsmConfigToParams } from '@hellpig/anarchy-engine/Fsm/Adapters';
-import { FsmSource } from '@hellpig/anarchy-engine/Fsm/Entities';
-import type { TFsmParams, TFsmSource, TFsmSourceFactory } from '@hellpig/anarchy-engine/Fsm/Models';
+import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
+import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
+import { fsmConfigToParams } from '@Anarchy/Engine/Fsm/Adapters';
+import { FsmSource } from '@Anarchy/Engine/Fsm/Entities';
+import type { TFsmParams, TFsmSource, TFsmSourceFactory } from '@Anarchy/Engine/Fsm/Models';
 
 export function FsmSourceFactory(): TFsmSourceFactory {
   const factory: TReactiveFactory<TFsmSource, TFsmParams> = ReactiveFactory(FactoryType.FsmSource, FsmSource);

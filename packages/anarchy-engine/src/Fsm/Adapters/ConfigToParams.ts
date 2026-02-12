@@ -1,4 +1,4 @@
-import type { TFsmConfig, TFsmEvents, TFsmParams, TFsmSource } from '@hellpig/anarchy-engine/Fsm/Models';
+import type { TFsmConfig, TFsmEvents, TFsmParams, TFsmSource } from '@Anarchy/Engine/Fsm/Models';
 
 export function fsmConfigToParams(config: TFsmConfig): TFsmParams | never {
   if (hasFunctions(config)) throw new Error('Config must not contains functions');

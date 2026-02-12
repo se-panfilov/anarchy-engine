@@ -1,5 +1,5 @@
-import type { TActorDependencies, TActorParams, TActorTransformAgents, TActorTransformDrive } from '@hellpig/anarchy-engine/Actor/Models';
-import type { TTransformDriveParams } from '@hellpig/anarchy-engine/TransformDrive';
+import type { TActorDependencies, TActorParams, TActorTransformAgents, TActorTransformDrive } from '@Anarchy/Engine/Actor/Models';
+import type { TTransformDriveParams } from '@Anarchy/Engine/TransformDrive';
 
 export function ActorTransformDrive(params: TActorParams, { transformDriveService }: Pick<TActorDependencies, 'transformDriveService'>, relatedEntityId: string): TActorTransformDrive {
   const transformAgents: TActorTransformAgents = transformDriveService.getTransformAgents(params, {

@@ -1,5 +1,5 @@
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
-import { initVueI18n, vueTranslationService } from '@Showcases/i18n';
+import { initVueI18n, vueTranslationService } from '@Showcases/I18N';
 import { eventsEmitterService, eventsListenerService } from '@Showcases/Menu/services';
 import { menuPinia } from '@Showcases/Menu/stores/CreatePinia';
 import { useMenuOptionsStore } from '@Showcases/Menu/stores/MenuOptionsStore';

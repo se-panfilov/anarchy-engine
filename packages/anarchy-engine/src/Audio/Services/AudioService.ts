@@ -1,7 +1,7 @@
-import type { TAbstractService } from '@hellpig/anarchy-engine/Abstract';
-import { AbstractService } from '@hellpig/anarchy-engine/Abstract';
-import { Listeners } from '@hellpig/anarchy-engine/Audio/Constants';
-import { AudioLoader } from '@hellpig/anarchy-engine/Audio/Loader';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import { Listeners } from '@Anarchy/Engine/Audio/Constants';
+import { AudioLoader } from '@Anarchy/Engine/Audio/Loader';
 import type {
   TAnyAudioConfig,
   TAnyAudioWrapper,
@@ -20,12 +20,12 @@ import type {
   TAudioServiceWithCreateFromConfig,
   TAudioServiceWithFactory,
   TAudioServiceWithRegistry
-} from '@hellpig/anarchy-engine/Audio/Models';
-import type { TLoadingManagerWrapper } from '@hellpig/anarchy-engine/LoadingManager';
-import type { TDisposable } from '@hellpig/anarchy-engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities, withSerializeAllResources } from '@hellpig/anarchy-engine/Mixins';
-import type { TSpaceLoops } from '@hellpig/anarchy-engine/Space';
-import { mergeAll } from '@hellpig/anarchy-engine/Utils';
+} from '@Anarchy/Engine/Audio/Models';
+import type { TLoadingManagerWrapper } from '@Anarchy/Engine/LoadingManager';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities, withSerializeAllResources } from '@Anarchy/Engine/Mixins';
+import type { TSpaceLoops } from '@Anarchy/Engine/Space';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 import { AudioListener } from 'three';
 

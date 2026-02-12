@@ -1,4 +1,4 @@
-import type { TAbstractLightWrapper, THemisphereLight, THemisphereLightParams, TLightServiceDependencies } from '@hellpig/anarchy-engine/Light/Models';
+import type { TAbstractLightWrapper, THemisphereLight, THemisphereLightParams, TLightServiceDependencies } from '@Anarchy/Engine/Light/Models';
 import { HemisphereLight } from 'three';
 
 import { AbstractLightWrapper } from './AbstractLightWrapper';

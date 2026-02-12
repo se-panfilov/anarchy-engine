@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-i18n",
   "author": "S. Panfilov",
   "private": false,
-  "version": "1.4.6",
+  "version": "1.4.7",
   "type": "module",
   "repository": {
     "type": "git",
@@ -49,14 +49,16 @@
     },
     "./package.json": "./package.json",
     "./*": {
-      "types": "./dist/*.d.ts",
-      "import": "./dist/*.js"
+      "types": "./dist/*/index.d.ts",
+      "import": "./dist/*/index.js"
     },
     "./assets/*": "./src/assets/*"
   },
   "scripts": {
-    "build": "rimraf ./dist && vite build",
+    "build": "rimraf ./dist && vite build && npm run build:after",
+    "build:after": "npm run check:dts-exports",
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/index.ts",
+    "check:dts-exports": "node ../../scripts/release/check-dts-exports.mjs .",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
     "generate:legal:3rd-party-licenses": "npm run -w @hellpig/anarchy-legal generate:licenses -- --workspace packages/anarchy-i18n --out ../../packages/anarchy-i18n/legal/THIRD_PARTY_LICENSES.md",
     "generate:legal:files": "npm run -w @hellpig/anarchy-legal generate:files -- --workspace packages/anarchy-i18n --out ../../packages/anarchy-i18n",

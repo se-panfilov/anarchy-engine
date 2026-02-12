@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import type { TNoticeService, TNoticeUtilsService, TRepoUtilsService, TTemplateParsedEntry, TWorkspaceInfo } from '@hellpig/anarchy-legal/Models';
+import type { TNoticeService, TNoticeUtilsService, TRepoUtilsService, TTemplateParsedEntry, TWorkspaceInfo } from '@Anarchy/Legal/Models';
 // eslint-disable-next-line spellcheck/spell-checker
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';

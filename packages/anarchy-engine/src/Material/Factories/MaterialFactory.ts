@@ -1,8 +1,8 @@
-import type { TReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
-import { FactoryType, ReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
-import { materialConfigToParams } from '@hellpig/anarchy-engine/Material/Adapters';
-import type { TAnyMaterialWrapper, TMaterialFactory, TMaterialParams } from '@hellpig/anarchy-engine/Material/Models';
-import { MaterialWrapper } from '@hellpig/anarchy-engine/Material/Wrappers';
+import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
+import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
+import { materialConfigToParams } from '@Anarchy/Engine/Material/Adapters';
+import type { TAnyMaterialWrapper, TMaterialFactory, TMaterialParams } from '@Anarchy/Engine/Material/Models';
+import { MaterialWrapper } from '@Anarchy/Engine/Material/Wrappers';
 
 export function MaterialFactory(): TMaterialFactory {
   const factory: TReactiveFactory<TAnyMaterialWrapper, TMaterialParams> = ReactiveFactory(FactoryType.Material, MaterialWrapper);

@@ -1,6 +1,6 @@
-import type { TContainerDecorator } from '@hellpig/anarchy-engine/Global';
-import { CreateEntitiesStrategy } from '@hellpig/anarchy-engine/Space/Constants';
-import type { TSpaceConfigEntities, TSpaceParamsEntities, TSpaceServices } from '@hellpig/anarchy-engine/Space/Models';
+import type { TContainerDecorator } from '@Anarchy/Engine/Global';
+import { CreateEntitiesStrategy } from '@Anarchy/Engine/Space/Constants';
+import type { TSpaceConfigEntities, TSpaceParamsEntities, TSpaceServices } from '@Anarchy/Engine/Space/Models';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 
 import { nextAnimationFrame, waitForCanvasGetSize } from './CanvasUtils';

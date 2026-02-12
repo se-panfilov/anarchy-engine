@@ -1,4 +1,4 @@
-import type { SpaceEvents } from '@hellpig/anarchy-engine/Space/Constants';
+import type { SpaceEvents } from '@Anarchy/Engine/Space/Constants';
 
 import type { TSpaceCanvas } from './TSpaceCanvas';
 import type { TSpaceConfig } from './TSpaceConfig';

@@ -1,5 +1,5 @@
-import type { TAbstractService } from '@hellpig/anarchy-engine/Abstract';
-import { AbstractService } from '@hellpig/anarchy-engine/Abstract';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
 import type {
   TFsmConfig,
   TFsmInstanceFactory,
@@ -8,11 +8,11 @@ import type {
   TFsmInstanceServiceWithFactory,
   TFsmInstanceServiceWithRegistry,
   TFsmWrapper
-} from '@hellpig/anarchy-engine/Fsm/Models';
-import type { TFsmInstanceService } from '@hellpig/anarchy-engine/Fsm/Models/TFsmInstanceService';
-import type { TDisposable } from '@hellpig/anarchy-engine/Mixins';
-import { withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@hellpig/anarchy-engine/Mixins';
-import { mergeAll } from '@hellpig/anarchy-engine/Utils';
+} from '@Anarchy/Engine/Fsm/Models';
+import type { TFsmInstanceService } from '@Anarchy/Engine/Fsm/Models/TFsmInstanceService';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function FsmInstanceService(factory: TFsmInstanceFactory, registry: TFsmInstanceRegistry): TFsmInstanceService {

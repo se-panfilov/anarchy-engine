@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 
-import type { TCollected, TDependencyNode, TLicenseEntry, TRepoUtilsService, TRootInfo, TWorkspaceInfo } from '@hellpig/anarchy-legal/Models';
+import type { TCollected, TDependencyNode, TLicenseEntry, TRepoUtilsService, TRootInfo, TWorkspaceInfo } from '@Anarchy/Legal/Models';
 // eslint-disable-next-line spellcheck/spell-checker
 import { globby } from 'globby';
 

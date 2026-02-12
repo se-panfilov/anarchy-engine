@@ -1,4 +1,4 @@
-import { CameraType } from '@hellpig/anarchy-engine/Camera/Constants';
+import { CameraType } from '@Anarchy/Engine/Camera/Constants';
 import type {
   TOrthographicCamera,
   TOrthographicCameraParams,
@@ -6,8 +6,8 @@ import type {
   TPerspectiveCamera,
   TPerspectiveCameraParams,
   TPerspectiveCameraWrapper
-} from '@hellpig/anarchy-engine/Camera/Models';
-import type { TShadowCameraParams } from '@hellpig/anarchy-engine/Light';
+} from '@Anarchy/Engine/Camera/Models';
+import type { TShadowCameraParams } from '@Anarchy/Engine/Light';
 import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 

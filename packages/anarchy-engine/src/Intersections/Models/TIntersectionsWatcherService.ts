@@ -1,9 +1,9 @@
-import type { TSerializableEntitiesService } from '@hellpig/anarchy-engine/Abstract';
-import type { TActorService } from '@hellpig/anarchy-engine/Actor';
-import type { TCameraService } from '@hellpig/anarchy-engine/Camera';
-import type { TLoopService } from '@hellpig/anarchy-engine/Loop';
-import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@hellpig/anarchy-engine/Mixins';
-import type { TMouseService } from '@hellpig/anarchy-engine/Mouse';
+import type { TSerializableEntitiesService } from '@Anarchy/Engine/Abstract';
+import type { TActorService } from '@Anarchy/Engine/Actor';
+import type { TCameraService } from '@Anarchy/Engine/Camera';
+import type { TLoopService } from '@Anarchy/Engine/Loop';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@Anarchy/Engine/Mixins';
+import type { TMouseService } from '@Anarchy/Engine/Mouse';
 
 import type { TAnyIntersectionsWatcher } from './TAnyIntersectionsWatcher';
 import type { TAnyIntersectionsWatcherConfig } from './TAnyIntersectionsWatcherConfig';

@@ -1,7 +1,7 @@
-import type { TCommonCameraParams } from '@hellpig/anarchy-engine/Camera';
-import { getCommonCameraConfig, getOrthographicCameraOnlyConfig, getPerspectiveCameraOnlyConfig, isOrthographicCameraParams, isPerspectiveCameraParams } from '@hellpig/anarchy-engine/Camera';
-import { serializeColor } from '@hellpig/anarchy-engine/Color';
-import { LightType } from '@hellpig/anarchy-engine/Light/Constants';
+import type { TCommonCameraParams } from '@Anarchy/Engine/Camera';
+import { getCommonCameraConfig, getOrthographicCameraOnlyConfig, getPerspectiveCameraOnlyConfig, isOrthographicCameraParams, isPerspectiveCameraParams } from '@Anarchy/Engine/Camera';
+import { serializeColor } from '@Anarchy/Engine/Color';
+import { LightType } from '@Anarchy/Engine/Light/Constants';
 import type {
   TAbstractLightConfig,
   TAbstractLightWrapper,
@@ -23,9 +23,9 @@ import type {
   TSpotLightConfig,
   TSpotLightParams,
   TSpotLightWrapper
-} from '@hellpig/anarchy-engine/Light/Models';
-import { extractSerializableRegistrableFields } from '@hellpig/anarchy-engine/Mixins';
-import { vector2ToXy } from '@hellpig/anarchy-engine/Utils';
+} from '@Anarchy/Engine/Light/Models';
+import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
+import { vector2ToXy } from '@Anarchy/Engine/Utils';
 import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 import { filterOutEmptyFields, isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { DirectionalLightShadow, Object3DJSONObject, PointLightShadow, SpotLightShadow, Vector2Like } from 'three';

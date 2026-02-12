@@ -1,8 +1,8 @@
-import type { TAnyCameraWrapper, TCameraService } from '@hellpig/anarchy-engine/Camera';
-import type { TMilliseconds } from '@hellpig/anarchy-engine/Math';
-import type { TRendererWrapper } from '@hellpig/anarchy-engine/Renderer/Models';
-import type { TSceneWrapper } from '@hellpig/anarchy-engine/Scene';
-import type { TRenderLoop } from '@hellpig/anarchy-engine/Space';
+import type { TAnyCameraWrapper, TCameraService } from '@Anarchy/Engine/Camera';
+import type { TMilliseconds } from '@Anarchy/Engine/Math';
+import type { TRendererWrapper } from '@Anarchy/Engine/Renderer/Models';
+import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
+import type { TRenderLoop } from '@Anarchy/Engine/Space';
 import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { BehaviorSubject, Subscription } from 'rxjs';
 import { withLatestFrom } from 'rxjs';

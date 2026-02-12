@@ -1,4 +1,4 @@
-import type { CameraType, TAnyCameraConfig } from '@hellpig/anarchy-engine/Camera';
+import type { CameraType, TAnyCameraConfig } from '@Anarchy/Engine/Camera';
 
 export type TShadowCameraConfig = Omit<TAnyCameraConfig, 'audioListener' | 'position' | 'rotation' | 'name' | 'isActive' | 'type'> &
   Readonly<{

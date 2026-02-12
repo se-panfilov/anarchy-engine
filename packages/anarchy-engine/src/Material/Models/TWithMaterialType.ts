@@ -1,4 +1,4 @@
-import type { MaterialType } from '@hellpig/anarchy-engine/Material/Constants';
+import type { MaterialType } from '@Anarchy/Engine/Material/Constants';
 
 export type TWithMaterialType = Readonly<{
   type: MaterialType;

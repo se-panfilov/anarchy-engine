@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TLocale } from '@hellpig/anarchy-i18n';
-import type { TShowcaseLocaleIds } from '@Showcases/i18n';
-import { ShowcasesLocales } from '@Showcases/i18n';
+import type { TShowcaseLocaleIds } from '@Showcases/I18N';
+import { ShowcasesLocales } from '@Showcases/I18N';
 import Dropdown from '@Showcases/Menu/components/Dropdown.vue';
 import Navigation from '@Showcases/Menu/components/Navigation/Navigation.vue';
 import SettingsGroup from '@Showcases/Menu/components/SettingsGroup.vue';

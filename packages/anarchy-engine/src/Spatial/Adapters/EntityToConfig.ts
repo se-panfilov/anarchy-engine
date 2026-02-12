@@ -1,6 +1,6 @@
-import type { TActor } from '@hellpig/anarchy-engine/Actor';
-import { extractSerializableRegistrableFields } from '@hellpig/anarchy-engine/Mixins';
-import type { TSpatialCellId, TSpatialCellSerializedData, TSpatialCellWrapper, TSpatialGridConfig, TSpatialGridWrapper } from '@hellpig/anarchy-engine/Spatial/Models';
+import type { TActor } from '@Anarchy/Engine/Actor';
+import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
+import type { TSpatialCellId, TSpatialCellSerializedData, TSpatialCellWrapper, TSpatialGridConfig, TSpatialGridWrapper } from '@Anarchy/Engine/Spatial/Models';
 import { filterOutEmptyFields } from '@hellpig/anarchy-shared/Utils';
 
 export function spatialGridEntityToConfig(entity: TSpatialGridWrapper): TSpatialGridConfig {

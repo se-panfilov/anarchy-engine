@@ -1,4 +1,4 @@
-import type { TWithName, TWithTags } from '@hellpig/anarchy-engine/Mixins';
+import type { TWithName, TWithTags } from '@Anarchy/Engine/Mixins';
 
 export type TAbstractResourceConfig = Readonly<{
   url: string;

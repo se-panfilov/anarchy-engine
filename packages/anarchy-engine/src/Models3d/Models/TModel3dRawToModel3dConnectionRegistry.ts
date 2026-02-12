@@ -1,4 +1,4 @@
-import type { TAbstractSimpleRegistry } from '@hellpig/anarchy-engine/Abstract';
+import type { TAbstractSimpleRegistry } from '@Anarchy/Engine/Abstract';
 
 import type { TModel3d } from './TModel3d';
 import type { TRawModel3d } from './TRawModel3d';

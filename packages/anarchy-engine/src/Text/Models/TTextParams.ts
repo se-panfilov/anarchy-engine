@@ -1,9 +1,9 @@
-import type { TKinematicParams } from '@hellpig/anarchy-engine/Kinematic';
-import type { TWithName, TWithTags } from '@hellpig/anarchy-engine/Mixins';
-import type { TPhysicsBody } from '@hellpig/anarchy-engine/Physics';
-import type { TextType } from '@hellpig/anarchy-engine/Text/Constants';
-import type { TObject3DParams } from '@hellpig/anarchy-engine/ThreeLib';
-import type { TWithTransformAgentParam } from '@hellpig/anarchy-engine/TransformDrive';
+import type { TKinematicParams } from '@Anarchy/Engine/Kinematic';
+import type { TWithName, TWithTags } from '@Anarchy/Engine/Mixins';
+import type { TPhysicsBody } from '@Anarchy/Engine/Physics';
+import type { TextType } from '@Anarchy/Engine/Text/Constants';
+import type { TObject3DParams } from '@Anarchy/Engine/ThreeLib';
+import type { TWithTransformAgentParam } from '@Anarchy/Engine/TransformDrive';
 import type { Vector2 } from 'three';
 
 import type { TTextCssProps } from './TTextCssProps';

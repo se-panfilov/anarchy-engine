@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
-import type { TShowcaseLocaleIds } from '@Showcases/i18n';
+import type { TShowcaseLocaleIds } from '@Showcases/I18N';
 import MdRenderer from '@Showcases/Menu/components/MdRenderer.vue';
 import Navigation from '@Showcases/Menu/components/Navigation/Navigation.vue';
 import View from '@Showcases/Menu/components/View.vue';

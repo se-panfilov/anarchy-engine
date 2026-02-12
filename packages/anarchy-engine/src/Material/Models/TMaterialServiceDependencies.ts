@@ -1,4 +1,4 @@
-import type { TTextureService } from '@hellpig/anarchy-engine/Texture';
+import type { TTextureService } from '@Anarchy/Engine/Texture';
 
 export type TMaterialServiceDependencies = Readonly<{
   textureService: TTextureService;

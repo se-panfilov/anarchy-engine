@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-shared",
   "author": "S. Panfilov",
   "private": false,
-  "version": "1.6.6",
+  "version": "1.6.7",
   "type": "module",
   "repository": {
     "type": "git",
@@ -59,7 +59,9 @@
     "./ScriptUtils/*": "./ScriptUtils/*"
   },
   "scripts": {
-    "build": "rimraf ./dist && vite build",
+    "build": "rimraf ./dist && vite build && npm run build:after",
+    "build:after": "npm run check:dts-exports",
+    "check:dts-exports": "node ../../scripts/release/check-dts-exports.mjs .",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
     "generate:legal:3rd-party-licenses": "npm run -w @hellpig/anarchy-legal generate:licenses -- --workspace packages/anarchy-shared --out ../../packages/anarchy-shared/legal/THIRD_PARTY_LICENSES.md",
     "generate:legal:files": "npm run -w @hellpig/anarchy-legal generate:files -- --workspace packages/anarchy-shared --out ../../packages/anarchy-shared",

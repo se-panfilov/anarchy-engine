@@ -1,11 +1,11 @@
-import type { TAbstractService } from '@hellpig/anarchy-engine/Abstract';
-import { AbstractService } from '@hellpig/anarchy-engine/Abstract';
-import type { TAnimationsResourceAsyncRegistry, TAnimationsService } from '@hellpig/anarchy-engine/Animations';
-import type { TLoadingManagerWrapper } from '@hellpig/anarchy-engine/LoadingManager';
-import type { TMaterialRegistry, TMaterialService } from '@hellpig/anarchy-engine/Material';
-import type { TDisposable } from '@hellpig/anarchy-engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities, withSerializeAllResources } from '@hellpig/anarchy-engine/Mixins';
-import { Models3dLoader } from '@hellpig/anarchy-engine/Models3d/Loaders';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { TAnimationsResourceAsyncRegistry, TAnimationsService } from '@Anarchy/Engine/Animations';
+import type { TLoadingManagerWrapper } from '@Anarchy/Engine/LoadingManager';
+import type { TMaterialRegistry, TMaterialService } from '@Anarchy/Engine/Material';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities, withSerializeAllResources } from '@Anarchy/Engine/Mixins';
+import { Models3dLoader } from '@Anarchy/Engine/Models3d/Loaders';
 import type {
   TModel3d,
   TModel3dConfig,
@@ -25,9 +25,9 @@ import type {
   TModels3dResourceAsyncRegistry,
   TModels3dService,
   TModels3dServiceDependencies
-} from '@hellpig/anarchy-engine/Models3d/Models';
-import type { TSpaceSettings } from '@hellpig/anarchy-engine/Space';
-import { mergeAll } from '@hellpig/anarchy-engine/Utils';
+} from '@Anarchy/Engine/Models3d/Models';
+import type { TSpaceSettings } from '@Anarchy/Engine/Space';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { TOptional } from '@hellpig/anarchy-shared/Utils';
 import type { Subscription } from 'rxjs';
 

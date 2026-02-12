@@ -1,9 +1,9 @@
+import { ReactiveTranslationMixin } from '@Anarchy/I18N/Mixins';
+import type { TLocale, TLocaleId, TLocalesMapping, TMessages, TReactiveTranslationMixin, TTranslationService } from '@Anarchy/I18N/Models';
 import type { MessageFormatElement } from '@formatjs/icu-messageformat-parser';
 import type { FormatNumberOptions, IntlCache, IntlShape } from '@formatjs/intl';
 import { createIntl, createIntlCache } from '@formatjs/intl';
 import type { FormatDateOptions } from '@formatjs/intl/src/types';
-import { ReactiveTranslationMixin } from '@hellpig/anarchy-i18n/Mixins';
-import type { TLocale, TLocaleId, TLocalesMapping, TMessages, TReactiveTranslationMixin, TTranslationService } from '@hellpig/anarchy-i18n/Models';
 import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, firstValueFrom, Subject } from 'rxjs';

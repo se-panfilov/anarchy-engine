@@ -1,14 +1,19 @@
 import path from 'node:path';
 
 export const sharedAliases = {
-  // Showcases (local development only, not published to npm)
+  '@Anarchy/Engine': path.resolve(__dirname, 'packages/anarchy-engine/src'),
+  '@Anarchy/I18N': path.resolve(__dirname, 'packages/anarchy-i18n/src'),
+  '@Anarchy/Legal': path.resolve(__dirname, 'packages/anarchy-legal/src'),
+  '@Anarchy/Shared': path.resolve(__dirname, 'packages/anarchy-shared/src'),
+  '@Anarchy/Tracking': path.resolve(__dirname, 'packages/anarchy-tracking/src'),
+
+  '@Showcases/Desktop': path.resolve(__dirname, 'apps/showcases-desktop/src'),
   '@Showcases/E2E': path.resolve(__dirname, 'apps/showcases-e2e/src'),
   '@Showcases/GUI': path.resolve(__dirname, 'packages/showcases-gui/src'),
+  '@Showcases/I18N': path.resolve(__dirname, 'packages/showcases-i18n/src'),
   '@Showcases/Menu': path.resolve(__dirname, 'packages/showcases-menu/src'),
-  '@Showcases/i18n': path.resolve(__dirname, 'packages/showcases-i18n/src'),
+  '@Showcases/Shared': path.resolve(__dirname, 'packages/showcases-shared/src'),
 
-  // NPM package aliases - these resolve to local src during development
-  // but keep the npm package name in generated .d.ts files
   '@hellpig/anarchy-engine': path.resolve(__dirname, 'packages/anarchy-engine/src'),
   '@hellpig/anarchy-i18n': path.resolve(__dirname, 'packages/anarchy-i18n/src'),
   '@hellpig/anarchy-legal': path.resolve(__dirname, 'packages/anarchy-legal/src'),

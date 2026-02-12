@@ -1,8 +1,8 @@
-import type { TAbstractAsyncEntityRegistry, TAbstractEntityRegistry, TWithUserData, TWithWrapperId, TWithWrapperIdEntity } from '@hellpig/anarchy-engine/Abstract/Models';
-import type { TColorWrapper } from '@hellpig/anarchy-engine/Color';
-import type { TDestroyable, TWithPosition2dProperty, TWithPosition3dProperty, TWithPosition4dProperty, TWithPositionProperty } from '@hellpig/anarchy-engine/Mixins';
-import type { TEulerLike } from '@hellpig/anarchy-engine/ThreeLib';
-import type { TTransformDriveCompatibleEntity, TWithTransformDrive } from '@hellpig/anarchy-engine/TransformDrive';
+import type { TAbstractAsyncEntityRegistry, TAbstractEntityRegistry, TWithUserData, TWithWrapperId, TWithWrapperIdEntity } from '@Anarchy/Engine/Abstract/Models';
+import type { TColorWrapper } from '@Anarchy/Engine/Color';
+import type { TDestroyable, TWithPosition2dProperty, TWithPosition3dProperty, TWithPosition4dProperty, TWithPositionProperty } from '@Anarchy/Engine/Mixins';
+import type { TEulerLike } from '@Anarchy/Engine/ThreeLib';
+import type { TTransformDriveCompatibleEntity, TWithTransformDrive } from '@Anarchy/Engine/TransformDrive';
 import { isDefined, isNotDefined, isObject } from '@hellpig/anarchy-shared/Utils';
 import type { BufferGeometry, Euler, Material, Quaternion, QuaternionLike, Vector2, Vector2Like, Vector3, Vector3Like, Vector4, Vector4Like } from 'three';
 import { Color } from 'three';

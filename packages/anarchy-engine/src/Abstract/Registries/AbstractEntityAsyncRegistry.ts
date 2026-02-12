@@ -1,15 +1,8 @@
-import type { RegistryType } from '@hellpig/anarchy-engine/Abstract/Constants';
-import type { TAbstractAsyncEntityRegistry, TAbstractEntityRegistry } from '@hellpig/anarchy-engine/Abstract/Models';
-import type { LookUpStrategy } from '@hellpig/anarchy-engine/Abstract/Registries/Constants';
-import type { TMultitonRegistrable, TRegistrable } from '@hellpig/anarchy-engine/Mixins';
-import {
-  getAsyncUniqEntityByNameAsync,
-  getAsyncUniqEntityWithTag,
-  getUniqEntityByName$,
-  getUniqEntityWithTag$,
-  getUniqEntityWithTags$,
-  getUniqEntityWithTagsAsync
-} from '@hellpig/anarchy-engine/Utils';
+import type { RegistryType } from '@Anarchy/Engine/Abstract/Constants';
+import type { TAbstractAsyncEntityRegistry, TAbstractEntityRegistry } from '@Anarchy/Engine/Abstract/Models';
+import type { LookUpStrategy } from '@Anarchy/Engine/Abstract/Registries/Constants';
+import type { TMultitonRegistrable, TRegistrable } from '@Anarchy/Engine/Mixins';
+import { getAsyncUniqEntityByNameAsync, getAsyncUniqEntityWithTag, getUniqEntityByName$, getUniqEntityWithTag$, getUniqEntityWithTags$, getUniqEntityWithTagsAsync } from '@Anarchy/Engine/Utils';
 import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Observable } from 'rxjs';
 

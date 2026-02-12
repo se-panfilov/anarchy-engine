@@ -1,4 +1,4 @@
-import type { TWithName, TWithNameAndNameAccessorsMixin } from '@hellpig/anarchy-engine/Mixins/Generics/Models';
+import type { TWithName, TWithNameAndNameAccessorsMixin } from '@Anarchy/Engine/Mixins/Generics/Models';
 import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 
 export function withNameAndNameAccessorsMixin<T extends TWriteable<TWithName>>(entity: T): TWithNameAndNameAccessorsMixin {

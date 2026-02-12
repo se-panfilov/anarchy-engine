@@ -1,5 +1,5 @@
-import type { TActor } from '@hellpig/anarchy-engine/Actor';
-import type { TWithName, TWithTags } from '@hellpig/anarchy-engine/Mixins';
+import type { TActor } from '@Anarchy/Engine/Actor';
+import type { TWithName, TWithTags } from '@Anarchy/Engine/Mixins';
 
 import type { TIntersectionsLoop } from './TIntersectionsLoop';
 import type { TIntersectionsWatcherPerformanceOptions } from './TIntersectionsWatcherPerformanceOptions';

@@ -1,9 +1,9 @@
-import type { TReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
-import { FactoryType, ReactiveFactory } from '@hellpig/anarchy-engine/Abstract';
-import { configToParamsCamera } from '@hellpig/anarchy-engine/Camera/Adapters';
-import type { TAnyCameraParams, TAnyCameraWrapper, TCameraFactory, TCameraServiceDependencies } from '@hellpig/anarchy-engine/Camera/Models';
-import { isOrthographicCameraParams, isPerspectiveCameraParams } from '@hellpig/anarchy-engine/Camera/Utils';
-import { OrthographicCameraWrapper, PerspectiveCameraWrapper } from '@hellpig/anarchy-engine/Camera/Wrappers';
+import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
+import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
+import { configToParamsCamera } from '@Anarchy/Engine/Camera/Adapters';
+import type { TAnyCameraParams, TAnyCameraWrapper, TCameraFactory, TCameraServiceDependencies } from '@Anarchy/Engine/Camera/Models';
+import { isOrthographicCameraParams, isPerspectiveCameraParams } from '@Anarchy/Engine/Camera/Utils';
+import { OrthographicCameraWrapper, PerspectiveCameraWrapper } from '@Anarchy/Engine/Camera/Wrappers';
 
 function create(params: TAnyCameraParams, deps: TCameraServiceDependencies): TAnyCameraWrapper | never {
   if (isPerspectiveCameraParams(params)) return PerspectiveCameraWrapper(params, deps);

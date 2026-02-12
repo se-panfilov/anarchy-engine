@@ -1,6 +1,6 @@
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import type { TWithSceneGetterService } from '@Anarchy/Engine/Mixins';
 import type { World } from '@dimforge/rapier3d';
-import type { TAbstractService } from '@hellpig/anarchy-engine/Abstract';
-import type { TWithSceneGetterService } from '@hellpig/anarchy-engine/Mixins';
 import type { Vector3 } from 'three';
 
 import type { TPhysicsDebugRenderer } from './TPhysicsDebugRenderer';

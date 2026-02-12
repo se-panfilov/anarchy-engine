@@ -1,7 +1,7 @@
-import type { TColor } from '@hellpig/anarchy-engine/Color';
-import { serializeColor } from '@hellpig/anarchy-engine/Color';
-import { extractSerializableRegistrableFields } from '@hellpig/anarchy-engine/Mixins';
-import type { TSceneConfig, TSceneWrapper } from '@hellpig/anarchy-engine/Scene/Models';
+import type { TColor } from '@Anarchy/Engine/Color';
+import { serializeColor } from '@Anarchy/Engine/Color';
+import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
+import type { TSceneConfig, TSceneWrapper } from '@Anarchy/Engine/Scene/Models';
 import { filterOutEmptyFields, isDefined } from '@hellpig/anarchy-shared/Utils';
 
 export function sceneEntityToConfig(entity: TSceneWrapper): TSceneConfig {

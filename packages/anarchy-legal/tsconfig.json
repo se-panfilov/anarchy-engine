@@ -3,7 +3,19 @@
   "compilerOptions": {
     "noEmit": false,
     "outDir": "./dist",
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "paths": {
+      "@Anarchy/Legal": ["packages/anarchy-legal/src/index.ts"],
+      "@Anarchy/Legal/*": ["packages/anarchy-legal/src/*"],
+
+      "@hellpig/anarchy-shared": ["packages/anarchy-shared/src/index.ts"],
+      "@hellpig/anarchy-shared/*": ["packages/anarchy-shared/src/*"],
+
+      "three/examples/jsm/*": ["node_modules/@types/three/examples/jsm/*"],
+      "three/src/*": ["node_modules/@types/three/src/*"],
+      "date-fns/locale/types": ["node_modules/date-fns/locale/types.d.ts"],
+      "@formatjs/intl/src/types": ["node_modules/@formatjs/intl/src/types.d.ts"]
+    }
   },
   "include": ["src", "types"]
 }

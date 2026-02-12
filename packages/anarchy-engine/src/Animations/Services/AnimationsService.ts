@@ -1,6 +1,6 @@
-import type { TAbstractService } from '@hellpig/anarchy-engine/Abstract';
-import { AbstractService } from '@hellpig/anarchy-engine/Abstract';
-import { AnimationsLoader } from '@hellpig/anarchy-engine/Animations/Loader';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import { AnimationsLoader } from '@Anarchy/Engine/Animations/Loader';
 import type {
   TAnimationActions,
   TAnimationActionsPack,
@@ -11,14 +11,14 @@ import type {
   TAnimationsSerializeResourcesDependencies,
   TAnimationsService,
   TModel3dAnimations
-} from '@hellpig/anarchy-engine/Animations/Models';
-import type { TLoadingManagerWrapper } from '@hellpig/anarchy-engine/LoadingManager';
-import type { TDelta } from '@hellpig/anarchy-engine/Loop';
-import type { TDisposable } from '@hellpig/anarchy-engine/Mixins';
-import { withSerializeAllResources } from '@hellpig/anarchy-engine/Mixins';
-import type { TModel3d, TRawModel3d } from '@hellpig/anarchy-engine/Models3d';
-import type { TSpaceLoops, TSpaceSettings } from '@hellpig/anarchy-engine/Space';
-import { mergeAll } from '@hellpig/anarchy-engine/Utils';
+} from '@Anarchy/Engine/Animations/Models';
+import type { TLoadingManagerWrapper } from '@Anarchy/Engine/LoadingManager';
+import type { TDelta } from '@Anarchy/Engine/Loop';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withSerializeAllResources } from '@Anarchy/Engine/Mixins';
+import type { TModel3d, TRawModel3d } from '@Anarchy/Engine/Models3d';
+import type { TSpaceLoops, TSpaceSettings } from '@Anarchy/Engine/Space';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Observable, Subscription } from 'rxjs';

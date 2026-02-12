@@ -1,5 +1,5 @@
-import type { TEnvMapConfig, TEnvMapConfigToParamsDependencies, TEnvMapWrapper } from '@hellpig/anarchy-engine/EnvMap/Models';
-import { extractSerializableRegistrableFields } from '@hellpig/anarchy-engine/Mixins';
+import type { TEnvMapConfig, TEnvMapConfigToParamsDependencies, TEnvMapWrapper } from '@Anarchy/Engine/EnvMap/Models';
+import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
 import { filterOutEmptyFields } from '@hellpig/anarchy-shared/Utils';
 
 export function envMapEntityToConfig(entity: TEnvMapWrapper, { resourcesRegistry }: TEnvMapConfigToParamsDependencies): TEnvMapConfig {

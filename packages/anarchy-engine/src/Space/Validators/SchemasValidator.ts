@@ -1,19 +1,17 @@
-import type { Schema } from '@cfworker/json-schema';
-import { Validator } from '@cfworker/json-schema';
-import type { TAbstractResourceConfig } from '@hellpig/anarchy-engine/Abstract';
-import type { TActorConfig } from '@hellpig/anarchy-engine/Actor';
-import type { TAnyAudioConfig, TAudioResourceConfig } from '@hellpig/anarchy-engine/Audio';
-import type { TAnyCameraConfig } from '@hellpig/anarchy-engine/Camera';
-import type { TControlsConfig } from '@hellpig/anarchy-engine/Controls';
-import type { TAnyIntersectionsWatcherConfig } from '@hellpig/anarchy-engine/Intersections';
-import { isIntersectionsCameraWatcherConfig } from '@hellpig/anarchy-engine/Intersections';
-import type { TActive, TWithName, TWithNameOptional, TWithTags } from '@hellpig/anarchy-engine/Mixins';
-import type { TModel3dConfig, TModel3dResourceConfig } from '@hellpig/anarchy-engine/Models3d';
-import type { TPhysicsBodyConfig, TPhysicsConfig } from '@hellpig/anarchy-engine/Physics';
-import type { TSceneConfig } from '@hellpig/anarchy-engine/Scene/Models';
-import { SpaceSchemaVersion } from '@hellpig/anarchy-engine/Space/Constants';
-import type { TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources } from '@hellpig/anarchy-engine/Space/Models';
-import TSpaceConfigSchema from '@hellpig/anarchy-engine/Space/Schemas/TSpaceConfig.json';
+import type { TAbstractResourceConfig } from '@Anarchy/Engine/Abstract';
+import type { TActorConfig } from '@Anarchy/Engine/Actor';
+import type { TAnyAudioConfig, TAudioResourceConfig } from '@Anarchy/Engine/Audio';
+import type { TAnyCameraConfig } from '@Anarchy/Engine/Camera';
+import type { TControlsConfig } from '@Anarchy/Engine/Controls';
+import type { TAnyIntersectionsWatcherConfig } from '@Anarchy/Engine/Intersections';
+import { isIntersectionsCameraWatcherConfig } from '@Anarchy/Engine/Intersections';
+import type { TActive, TWithName, TWithNameOptional, TWithTags } from '@Anarchy/Engine/Mixins';
+import type { TModel3dConfig, TModel3dResourceConfig } from '@Anarchy/Engine/Models3d';
+import type { TPhysicsBodyConfig, TPhysicsConfig } from '@Anarchy/Engine/Physics';
+import type { TSceneConfig } from '@Anarchy/Engine/Scene/Models';
+import { SpaceSchemaVersion } from '@Anarchy/Engine/Space/Constants';
+import type { TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources } from '@Anarchy/Engine/Space/Models';
+import TSpaceConfigSchema from '@Anarchy/Engine/Space/Schemas/TSpaceConfig.json';
 import {
   validate,
   validateActorNamesForEveryEntity,
@@ -28,7 +26,9 @@ import {
   validateNoSameName,
   validateTags,
   validateTagsForEveryEntity
-} from '@hellpig/anarchy-engine/Space/Utils';
+} from '@Anarchy/Engine/Space/Utils';
+import type { Schema } from '@cfworker/json-schema';
+import { Validator } from '@cfworker/json-schema';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import { isArray } from 'lodash-es';
 

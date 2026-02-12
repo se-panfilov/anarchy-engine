@@ -1,4 +1,4 @@
-import type { TLegalDocumentType } from '@hellpig/anarchy-legal/Models';
+import type { TLegalDocumentType } from '@Anarchy/Legal/Models';
 
 export const LegalDocumentType: Readonly<Record<TLegalDocumentType, TLegalDocumentType>> = {
   DISCLAIMER: 'DISCLAIMER',

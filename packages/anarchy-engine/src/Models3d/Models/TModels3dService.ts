@@ -1,6 +1,6 @@
-import type { TSerializableEntitiesService, TSerializableResourceService } from '@hellpig/anarchy-engine/Abstract';
-import type { TAnimationsService } from '@hellpig/anarchy-engine/Animations';
-import type { TMaterialService } from '@hellpig/anarchy-engine/Material';
+import type { TSerializableEntitiesService, TSerializableResourceService } from '@Anarchy/Engine/Abstract';
+import type { TAnimationsService } from '@Anarchy/Engine/Animations';
+import type { TMaterialService } from '@Anarchy/Engine/Material';
 import type {
   TWithCreateFromConfigService,
   TWithCreateService,
@@ -9,7 +9,7 @@ import type {
   TWithRegistryService,
   TWithResourcesMetaInfoRegistryService,
   TWithResourcesRegistryService
-} from '@hellpig/anarchy-engine/Mixins';
+} from '@Anarchy/Engine/Mixins';
 import type {
   TModel3d,
   TModel3dConfig,
@@ -20,7 +20,7 @@ import type {
   TModels3dRegistry,
   TModels3dResourceAsyncRegistry,
   TModels3dServiceDependencies
-} from '@hellpig/anarchy-engine/Models3d/Models';
+} from '@Anarchy/Engine/Models3d/Models';
 import type { TOptional } from '@hellpig/anarchy-shared/Utils';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 

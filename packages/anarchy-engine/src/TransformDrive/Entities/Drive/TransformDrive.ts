@@ -1,9 +1,9 @@
-import { meters, radians } from '@hellpig/anarchy-engine/Measurements';
-import type { TDestroyable } from '@hellpig/anarchy-engine/Mixins';
-import { destroyableMixin } from '@hellpig/anarchy-engine/Mixins';
-import type { TReadonlyQuaternion, TReadonlyVector3 } from '@hellpig/anarchy-engine/ThreeLib';
-import { transformDriveToConfig } from '@hellpig/anarchy-engine/TransformDrive/Adapters';
-import { TransformAgent } from '@hellpig/anarchy-engine/TransformDrive/Constants';
+import { meters, radians } from '@Anarchy/Engine/Measurements';
+import type { TDestroyable } from '@Anarchy/Engine/Mixins';
+import { destroyableMixin } from '@Anarchy/Engine/Mixins';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
+import { transformDriveToConfig } from '@Anarchy/Engine/TransformDrive/Adapters';
+import { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
 import type {
   TAbstractTransformAgent,
   TTransformDrive,
@@ -11,8 +11,8 @@ import type {
   TTransformDriveParams,
   TTransformDrivePerformanceOptions,
   TTransformDriveSerializedData
-} from '@hellpig/anarchy-engine/TransformDrive/Models';
-import { getDynamicAgents, updateFromActiveAgent } from '@hellpig/anarchy-engine/TransformDrive/Utils';
+} from '@Anarchy/Engine/TransformDrive/Models';
+import { getDynamicAgents, updateFromActiveAgent } from '@Anarchy/Engine/TransformDrive/Utils';
 import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Observable, Subscription } from 'rxjs';

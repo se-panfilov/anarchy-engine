@@ -2,7 +2,7 @@ import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels
 import { spaceService } from '@hellpig/anarchy-engine';
 import { asRecord, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { TFromGuiActionEvent } from '@Showcases/GUI/models';
-import { showcasesTranslationService } from '@Showcases/i18n';
+import { showcasesTranslationService } from '@Showcases/I18N';
 import type { TFromGuiEvent } from '@Showcases/Shared';
 import { filter, Subject } from 'rxjs';
 import { initGuiApp } from 'showcases-gui/src/main';

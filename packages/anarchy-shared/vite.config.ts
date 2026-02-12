@@ -5,6 +5,7 @@ import dts from 'vite-plugin-dts';
 import path from 'node:path';
 import { sharedAliases } from '../../vite.alias';
 import { builtinModules } from 'node:module';
+import { omitInObjectWithoutMutation } from './src/Utils/ObjectUtils';
 
 export default defineConfig((_config: ConfigEnv): UserConfig => {
   const builtins = new Set([...builtinModules, ...builtinModules.map((m: string): string => `node:${m}`)]);
@@ -13,7 +14,8 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
     base: './',
     resolve: {
       alias: {
-        ...sharedAliases
+        //Do not refer inside the package to the alias of the package, otherwise it will cause problems with .d.ts files.
+        ...omitInObjectWithoutMutation(sharedAliases, ['@hellpig/anarchy-shared'])
       }
     },
     plugins: [

@@ -1,6 +1,6 @@
 import type { TOptional, TWriteable } from '@hellpig/anarchy-shared/Utils';
 import { isNotDefined } from '@hellpig/anarchy-shared/Utils';
-import type { TShowcaseLocaleIds } from '@Showcases/i18n';
+import type { TShowcaseLocaleIds } from '@Showcases/I18N';
 import { menuPinia } from '@Showcases/Menu/stores/CreatePinia';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
 import type { TLegalDoc } from '@Showcases/Shared';

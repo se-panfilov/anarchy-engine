@@ -1,4 +1,4 @@
-import type { TGameKey, TKeyEvent, TKeysCombo } from '@hellpig/anarchy-engine/Keyboard/Models';
+import type { TGameKey, TKeyEvent, TKeysCombo } from '@Anarchy/Engine/Keyboard/Models';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 
 export const hasKey = (key: TGameKey, keys: TKeysCombo): boolean => keys.has(key);

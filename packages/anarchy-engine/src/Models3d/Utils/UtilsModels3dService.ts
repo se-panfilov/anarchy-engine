@@ -1,5 +1,5 @@
-import type { TRawModel3d } from '@hellpig/anarchy-engine/Models3d/Models';
-import type { TEulerLike, TObject3DParams, TObject3DPropConfig } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TRawModel3d } from '@Anarchy/Engine/Models3d/Models';
+import type { TEulerLike, TObject3DParams, TObject3DPropConfig } from '@Anarchy/Engine/ThreeLib';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Group, Mesh, Object3D, Object3DEventMap, Vector3Like } from 'three';
 import { Euler } from 'three';

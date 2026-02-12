@@ -1,7 +1,7 @@
-import type { WatcherType } from '@hellpig/anarchy-engine/Abstract/Constants';
-import type { TAbstractWatcher } from '@hellpig/anarchy-engine/Abstract/Models';
-import type { TDestroyable } from '@hellpig/anarchy-engine/Mixins';
-import { destroyableMixin, withNameAndNameAccessorsMixin } from '@hellpig/anarchy-engine/Mixins';
+import type { WatcherType } from '@Anarchy/Engine/Abstract/Constants';
+import type { TAbstractWatcher } from '@Anarchy/Engine/Abstract/Models';
+import type { TDestroyable } from '@Anarchy/Engine/Mixins';
+import { destroyableMixin, withNameAndNameAccessorsMixin } from '@Anarchy/Engine/Mixins';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';

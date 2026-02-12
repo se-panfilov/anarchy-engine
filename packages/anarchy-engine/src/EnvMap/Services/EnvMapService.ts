@@ -1,6 +1,6 @@
-import type { TAbstractService, TRegistryPack } from '@hellpig/anarchy-engine/Abstract';
-import { AbstractService } from '@hellpig/anarchy-engine/Abstract';
-import { EnvMapLoader } from '@hellpig/anarchy-engine/EnvMap/Loader';
+import type { TAbstractService, TRegistryPack } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import { EnvMapLoader } from '@Anarchy/Engine/EnvMap/Loader';
 import type {
   TEnvMapConfig,
   TEnvMapConfigToParamsDependencies,
@@ -17,9 +17,9 @@ import type {
   TEnvMapServiceWithRegistry,
   TEnvMapTextureAsyncRegistry,
   TEnvMapWrapper
-} from '@hellpig/anarchy-engine/EnvMap/Models';
-import type { TLoadingManagerWrapper } from '@hellpig/anarchy-engine/LoadingManager';
-import type { TDisposable, TWithActiveMixinResult } from '@hellpig/anarchy-engine/Mixins';
+} from '@Anarchy/Engine/EnvMap/Models';
+import type { TLoadingManagerWrapper } from '@Anarchy/Engine/LoadingManager';
+import type { TDisposable, TWithActiveMixinResult } from '@Anarchy/Engine/Mixins';
 import {
   withActiveEntityServiceMixin,
   withCreateFromConfigServiceMixin,
@@ -29,9 +29,9 @@ import {
   withSceneGetterService,
   withSerializableEntities,
   withSerializeAllResources
-} from '@hellpig/anarchy-engine/Mixins';
-import type { TSceneWrapper } from '@hellpig/anarchy-engine/Scene';
-import { mergeAll } from '@hellpig/anarchy-engine/Utils';
+} from '@Anarchy/Engine/Mixins';
+import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Subscription } from 'rxjs';
 

@@ -1,6 +1,6 @@
 import { eventsEmitterService, eventsListenerService } from '@Showcases/GUI/services';
 import { guiPinia } from '@Showcases/GUI/stores/CreatePinia';
-import { initVueI18n, vueTranslationService } from '@Showcases/i18n';
+import { initVueI18n, vueTranslationService } from '@Showcases/I18N';
 import type { TFromGuiEvent, TToGuiEvent } from '@Showcases/Shared';
 import type { Observable, Subject } from 'rxjs';
 import type { App as VueApp } from 'vue';

@@ -1,6 +1,6 @@
-import { kinematicConfigToParams } from '@hellpig/anarchy-engine/Kinematic';
-import type { TTextConfig, TTextParams, TTextServiceDependencies } from '@hellpig/anarchy-engine/Text/Models';
-import { object3dConfigToParams } from '@hellpig/anarchy-engine/ThreeLib';
+import { kinematicConfigToParams } from '@Anarchy/Engine/Kinematic';
+import type { TTextConfig, TTextParams, TTextServiceDependencies } from '@Anarchy/Engine/Text/Models';
+import { object3dConfigToParams } from '@Anarchy/Engine/ThreeLib';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 import { Vector2 } from 'three';
 

@@ -1,5 +1,5 @@
-import type { TContainerDecorator } from '@hellpig/anarchy-engine/Global';
-import type { TWithTags } from '@hellpig/anarchy-engine/Mixins';
+import type { TContainerDecorator } from '@Anarchy/Engine/Global';
+import type { TWithTags } from '@Anarchy/Engine/Mixins';
 
 import type { TMousePositionPerformanceOptions } from './TMousePositionPerformanceOptions';
 

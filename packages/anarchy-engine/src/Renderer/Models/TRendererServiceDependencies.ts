@@ -1,5 +1,5 @@
-import type { TCameraService } from '@hellpig/anarchy-engine/Camera';
-import type { TContainerDecorator } from '@hellpig/anarchy-engine/Global';
+import type { TCameraService } from '@Anarchy/Engine/Camera';
+import type { TContainerDecorator } from '@Anarchy/Engine/Global';
 
 export type TRendererServiceDependencies = Readonly<{
   cameraService: TCameraService;

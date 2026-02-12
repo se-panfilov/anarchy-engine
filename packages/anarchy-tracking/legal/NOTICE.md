@@ -55,7 +55,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/context-async-hooks@2.5.0
+## @opentelemetry/context-async-hooks@2.5.1
 
 **License(s):** Apache-2.0
 
@@ -79,7 +79,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/core@2.5.0
+## @opentelemetry/core@2.5.1
 
 **License(s):** Apache-2.0
 
@@ -379,7 +379,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/resources@2.5.0
+## @opentelemetry/resources@2.5.1
 
 **License(s):** Apache-2.0
 
@@ -391,7 +391,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/sdk-trace-base@2.5.0
+## @opentelemetry/sdk-trace-base@2.5.1
 
 **License(s):** Apache-2.0
 

@@ -1,4 +1,4 @@
-import type { TTexture } from '@hellpig/anarchy-engine/Texture';
+import type { TTexture } from '@Anarchy/Engine/Texture';
 
 import type {
   TBasicMaterialTextureKeys,

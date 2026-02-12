@@ -1,3 +1,3 @@
-import type { TAbstractResourceConfig } from '@hellpig/anarchy-engine/Abstract';
+import type { TAbstractResourceConfig } from '@Anarchy/Engine/Abstract';
 
 export type TAnimationsResourceConfig = TAbstractResourceConfig;

@@ -1,4 +1,4 @@
-import type { TQuaternionRotatable, TRotatable, TWithQuaternionRotationProperty, TWithRotationProperty } from '@hellpig/anarchy-engine/Mixins/GameObjects/Models';
+import type { TQuaternionRotatable, TRotatable, TWithQuaternionRotationProperty, TWithRotationProperty } from '@Anarchy/Engine/Mixins/GameObjects/Models';
 
 import { withQuaternionRotationByWMixin } from './WithRotationByWMixin';
 import { withQuaternionRotationByXMixin, withRotationByXMixin } from './WithRotationByXMixin';

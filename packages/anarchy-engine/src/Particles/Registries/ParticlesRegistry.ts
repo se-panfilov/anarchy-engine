@@ -1,5 +1,5 @@
-import { AbstractEntityRegistry, RegistryType } from '@hellpig/anarchy-engine/Abstract';
-import type { TParticlesRegistry, TParticlesWrapper } from '@hellpig/anarchy-engine/Particles/Models';
+import { AbstractEntityRegistry, RegistryType } from '@Anarchy/Engine/Abstract';
+import type { TParticlesRegistry, TParticlesWrapper } from '@Anarchy/Engine/Particles/Models';
 
 export function ParticlesRegistry(): TParticlesRegistry {
   return AbstractEntityRegistry<TParticlesWrapper>(RegistryType.Particles);

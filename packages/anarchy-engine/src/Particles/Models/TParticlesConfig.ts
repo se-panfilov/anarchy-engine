@@ -1,4 +1,4 @@
-import type { TObject3DParams, TObject3DPropConfig } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TObject3DParams, TObject3DPropConfig } from '@Anarchy/Engine/ThreeLib';
 
 import type { TParticlesParams } from './TParticlesParams';
 

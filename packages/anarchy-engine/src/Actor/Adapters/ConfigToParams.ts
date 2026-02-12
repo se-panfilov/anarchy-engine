@@ -1,9 +1,9 @@
-import { actorStatesConfigToParams, model3dSettingsConfigToParams } from '@hellpig/anarchy-engine/Actor/Adapters/Helpers';
-import type { TActorConfig, TActorConfigToParamsDependencies, TActorParams } from '@hellpig/anarchy-engine/Actor/Models';
-import { kinematicConfigToParams } from '@hellpig/anarchy-engine/Kinematic';
-import type { TModel3d } from '@hellpig/anarchy-engine/Models3d';
-import { spatialDataConfigToParams } from '@hellpig/anarchy-engine/Spatial';
-import { object3dConfigToParams } from '@hellpig/anarchy-engine/ThreeLib';
+import { actorStatesConfigToParams, model3dSettingsConfigToParams } from '@Anarchy/Engine/Actor/Adapters/Helpers';
+import type { TActorConfig, TActorConfigToParamsDependencies, TActorParams } from '@Anarchy/Engine/Actor/Models';
+import { kinematicConfigToParams } from '@Anarchy/Engine/Kinematic';
+import type { TModel3d } from '@Anarchy/Engine/Models3d';
+import { spatialDataConfigToParams } from '@Anarchy/Engine/Spatial';
+import { object3dConfigToParams } from '@Anarchy/Engine/ThreeLib';
 import { isDefined } from '@hellpig/anarchy-shared/Utils';
 
 export function actorConfigToParams(config: TActorConfig, dependencies: TActorConfigToParamsDependencies): TActorParams {

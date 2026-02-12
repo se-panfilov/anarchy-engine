@@ -1,5 +1,5 @@
-import { TextType } from '@hellpig/anarchy-engine/Text/Constants';
-import type { TTextAnyWrapper, TTextParams, TTextServiceDependencies } from '@hellpig/anarchy-engine/Text/Models';
+import { TextType } from '@Anarchy/Engine/Text/Constants';
+import type { TTextAnyWrapper, TTextParams, TTextServiceDependencies } from '@Anarchy/Engine/Text/Models';
 
 import { Text2dWrapper } from './Text2dWrapper';
 import { Text3dTextureWrapper } from './Text3dTextureWrapper';

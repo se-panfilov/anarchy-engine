@@ -1,5 +1,5 @@
-import type { TAbstractService } from '@hellpig/anarchy-engine/Abstract';
-import type { TKeyEvent } from '@hellpig/anarchy-engine/Keyboard/Models/TKeyEvent';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import type { TKeyEvent } from '@Anarchy/Engine/Keyboard/Models/TKeyEvent';
 import type { Observable } from 'rxjs';
 
 import type { TKeysCombo } from './TKeysCombo';

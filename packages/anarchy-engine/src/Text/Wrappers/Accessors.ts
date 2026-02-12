@@ -1,4 +1,4 @@
-import type { TElementWithCssAccessors } from '@hellpig/anarchy-engine/Text/Models';
+import type { TElementWithCssAccessors } from '@Anarchy/Engine/Text/Models';
 import type { TWriteable } from '@hellpig/anarchy-shared/Utils';
 import { camelToKebab } from '@hellpig/anarchy-shared/Utils';
 

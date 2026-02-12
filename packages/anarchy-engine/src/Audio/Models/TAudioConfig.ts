@@ -1,4 +1,4 @@
-import type { TObject3DParams } from '@hellpig/anarchy-engine/ThreeLib';
+import type { TObject3DParams } from '@Anarchy/Engine/ThreeLib';
 
 import type { TAudioParams } from './TAudioParams';
 

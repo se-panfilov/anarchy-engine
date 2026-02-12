@@ -1,8 +1,8 @@
-import type { TAbstractService } from '@hellpig/anarchy-engine/Abstract';
-import { AbstractService } from '@hellpig/anarchy-engine/Abstract';
-import type { TDisposable } from '@hellpig/anarchy-engine/Mixins';
-import { withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@hellpig/anarchy-engine/Mixins';
-import { SpaceFactory } from '@hellpig/anarchy-engine/Space/Factories';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
+import { SpaceFactory } from '@Anarchy/Engine/Space/Factories';
 import type {
   TSpace,
   TSpaceConfig,
@@ -13,10 +13,10 @@ import type {
   TSpaceServiceWithFactory,
   TSpaceServiceWithRegistry,
   TSpaceSettings
-} from '@hellpig/anarchy-engine/Space/Models';
-import { SpaceRegistry } from '@hellpig/anarchy-engine/Space/Registries';
-import { validateConfig, validateSpacesDoNotUseSameCanvas } from '@hellpig/anarchy-engine/Space/Validators';
-import { mergeAll } from '@hellpig/anarchy-engine/Utils';
+} from '@Anarchy/Engine/Space/Models';
+import { SpaceRegistry } from '@Anarchy/Engine/Space/Registries';
+import { validateConfig, validateSpacesDoNotUseSameCanvas } from '@Anarchy/Engine/Space/Validators';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function SpaceService(factory: TSpaceFactory, registry: TSpaceRegistry): TSpaceService {

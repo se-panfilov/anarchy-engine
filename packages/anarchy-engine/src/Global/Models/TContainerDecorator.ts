@@ -1,5 +1,5 @@
-import type { TDestroyable, TNoSpread, TWithId } from '@hellpig/anarchy-engine/Mixins';
-import type { TSpaceCanvas } from '@hellpig/anarchy-engine/Space';
+import type { TDestroyable, TNoSpread, TWithId } from '@Anarchy/Engine/Mixins';
+import type { TSpaceCanvas } from '@Anarchy/Engine/Space';
 import type { BehaviorSubject, Observable } from 'rxjs';
 
 import type { TAppGlobalContainer } from './TAppGlobalContainer';
