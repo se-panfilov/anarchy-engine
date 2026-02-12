@@ -10,49 +10,43 @@
  * @returns {object} ESLint flat config object
  */
 export function createInternalAliasRules(ownAlias, ownNpmName) {
-    const allInternalAliases = [
-        '@Anarchy/Engine',
-        '@Anarchy/I18N',
-        '@Anarchy/Legal',
-        '@Anarchy/Shared',
-        '@Anarchy/Tracking'
-    ];
+  const allInternalAliases = ['@Anarchy/Engine', '@Anarchy/I18N', '@Anarchy/Legal', '@Anarchy/Shared', '@Anarchy/Tracking'];
 
-    const foreignAliases = allInternalAliases
-        .filter((alias) => alias !== ownAlias)
-        .map((alias) => ({
-            name: alias,
-            message: `"${alias}" is an internal alias of another package. Use the npm name instead.`
-        }));
+  const foreignAliases = allInternalAliases
+    .filter((alias) => alias !== ownAlias)
+    .map((alias) => ({
+      name: alias,
+      message: `"${alias}" is an internal alias of another package. Use the npm name instead.`
+    }));
 
-    const foreignAliasPatterns = allInternalAliases
-        .filter((alias) => alias !== ownAlias)
-        .map((alias) => ({
-            group: [`${alias}/*`],
-            message: `"${alias}/*" is an internal alias of another package. Use the npm name instead.`
-        }));
+  const foreignAliasPatterns = allInternalAliases
+    .filter((alias) => alias !== ownAlias)
+    .map((alias) => ({
+      group: [`${alias}/*`],
+      message: `"${alias}/*" is an internal alias of another package. Use the npm name instead.`
+    }));
 
-    return {
-        rules: {
-            'no-restricted-imports': [
-                'error',
-                {
-                    paths: [
-                        ...foreignAliases,
-                        {
-                            name: ownNpmName,
-                            message: `Use the internal alias "${ownAlias}" instead of the npm name "${ownNpmName}" within this package.`
-                        }
-                    ],
-                    patterns: [
-                        ...foreignAliasPatterns,
-                        {
-                            group: [`${ownNpmName}/*`],
-                            message: `Use the internal alias "${ownAlias}/*" instead of "${ownNpmName}/*" within this package.`
-                        }
-                    ]
-                }
-            ]
+  return {
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            ...foreignAliases,
+            {
+              name: ownNpmName,
+              message: `Use the internal alias "${ownAlias}" instead of the npm name "${ownNpmName}" within this package.`
+            }
+          ],
+          patterns: [
+            ...foreignAliasPatterns,
+            {
+              group: [`${ownNpmName}/*`],
+              message: `Use the internal alias "${ownAlias}/*" instead of "${ownNpmName}/*" within this package.`
+            }
+          ]
         }
-    };
+      ]
+    }
+  };
 }
