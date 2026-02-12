@@ -6,7 +6,7 @@ import path from 'node:path';
 import { sharedAliases } from '../../vite.alias';
 // @ts-ignore
 import { terser } from 'rollup-plugin-terser';
-import { omitInObjectWithoutMutation } from '@hellpig/anarchy-shared/Utils';
+import { omitInObjectWithoutMutation } from '../anarchy-shared/src/Utils/ObjectUtils';
 
 export default defineConfig((_config: ConfigEnv): UserConfig => {
   return {

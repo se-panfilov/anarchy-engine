@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import path from 'node:path';
 import { builtinModules } from 'node:module';
-import { omitInObjectWithoutMutation } from '@hellpig/anarchy-shared/Utils';
+import { omitInObjectWithoutMutation } from '../anarchy-shared/src/Utils/ObjectUtils';
 import { sharedAliases } from '../../vite.alias';
 
 const nodeBuiltins: ReadonlyArray<string> = [...builtinModules, ...builtinModules.map((m) => `node:${m}`)];

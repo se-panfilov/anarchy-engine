@@ -9,7 +9,7 @@ import path from 'node:path';
 import wasm from 'vite-plugin-wasm';
 import { sharedAliases } from '../../vite.alias';
 import { visualizer } from 'rollup-plugin-visualizer';
-import { omitInObjectWithoutMutation } from '@hellpig/anarchy-shared/Utils';
+import { omitInObjectWithoutMutation } from '../anarchy-shared/src/Utils/ObjectUtils';
 
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   const root: string = process.cwd();
