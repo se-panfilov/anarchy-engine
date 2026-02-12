@@ -12,6 +12,7 @@
       "@Anarchy/Shared/*": ["packages/anarchy-shared/src/*"],
       "@Anarchy/Tracking": ["packages/anarchy-tracking/src/index.ts"],
       "@Anarchy/Tracking/*": ["packages/anarchy-tracking/src/*"],
+
       "@hellpig/anarchy-i18n": ["packages/anarchy-i18n/src/index.ts"],
       "@hellpig/anarchy-i18n/*": ["packages/anarchy-i18n/src/*"],
       "@hellpig/anarchy-legal": ["packages/anarchy-legal/src/index.ts"],
