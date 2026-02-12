@@ -147,7 +147,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-calc@3.0.0
+## @csstools/css-calc@3.1.0
 
 **License(s):** MIT
 
@@ -183,7 +183,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.26
+## @csstools/css-syntax-patches-for-csstree@1.0.27
 
 **License(s):** MIT-0
 
@@ -219,7 +219,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @exodus/bytes@1.12.0
+## @exodus/bytes@1.14.0
 
 **License(s):** MIT
 
@@ -299,7 +299,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-engine@22.0.5
+## @hellpig/anarchy-engine@22.0.7
 
 **License(s):** MIT
 
@@ -311,7 +311,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-i18n@1.4.6
+## @hellpig/anarchy-i18n@1.4.7
 
 **License(s):** MIT
 
@@ -323,7 +323,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-shared@1.6.6
+## @hellpig/anarchy-shared@1.6.7
 
 **License(s):** MIT
 
@@ -335,7 +335,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-tracking@1.7.5
+## @hellpig/anarchy-tracking@1.7.6
 
 **License(s):** MIT
 
@@ -419,7 +419,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/context-async-hooks@2.5.0
+## @opentelemetry/context-async-hooks@2.5.1
 
 **License(s):** Apache-2.0
 
@@ -443,7 +443,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/core@2.5.0
+## @opentelemetry/core@2.5.1
 
 **License(s):** Apache-2.0
 
@@ -743,7 +743,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/resources@2.5.0
+## @opentelemetry/resources@2.5.1
 
 **License(s):** Apache-2.0
 
@@ -755,7 +755,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/sdk-trace-base@2.5.0
+## @opentelemetry/sdk-trace-base@2.5.1
 
 **License(s):** Apache-2.0
 
@@ -1639,7 +1639,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## lru-cache@11.2.5
+## lru-cache@11.2.6
 
 **License(s):** BlueOak-1.0.0
 
@@ -2001,7 +2001,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-gui@1.1.10
+## showcases-gui@1.1.11
 
 **License(s):** MIT
 
@@ -2013,7 +2013,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-i18n@1.4.7
+## showcases-i18n@1.4.8
 
 **License(s):** MIT
 
@@ -2025,7 +2025,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-menu@1.8.12
+## showcases-menu@1.8.13
 
 **License(s):** MIT
 
@@ -2037,7 +2037,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-shared@1.7.6
+## showcases-shared@1.7.7
 
 **License(s):** MIT
 

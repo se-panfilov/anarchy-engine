@@ -69,7 +69,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-calc@3.0.0
+## @csstools/css-calc@3.1.0
 
 **License(s):** MIT
 
@@ -105,7 +105,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.26
+## @csstools/css-syntax-patches-for-csstree@1.0.27
 
 **License(s):** MIT-0
 
@@ -129,7 +129,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @exodus/bytes@1.12.0
+## @exodus/bytes@1.14.0
 
 **License(s):** MIT
 
@@ -307,7 +307,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## lru-cache@11.2.5
+## lru-cache@11.2.6
 
 **License(s):** BlueOak-1.0.0
 
