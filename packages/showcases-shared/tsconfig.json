@@ -2,10 +2,20 @@
   "extends": "../../tsconfig.bundler.json",
   "compilerOptions": {
     "paths": {
+      "@Anarchy/Engine": ["packages/anarchy-engine/src/index.ts"],
+      "@Anarchy/Engine/*": ["packages/anarchy-engine/src/*"],
+      "@Anarchy/I18N": ["packages/anarchy-i18n/src/index.ts"],
+      "@Anarchy/I18N/*": ["packages/anarchy-i18n/src/*"],
+      "@Anarchy/Shared": ["packages/anarchy-shared/src/index.ts"],
+      "@Anarchy/Shared/*": ["packages/anarchy-shared/src/*"],
+      "@Anarchy/Tracking": ["packages/anarchy-tracking/src/index.ts"],
+      "@Anarchy/Tracking/*": ["packages/anarchy-tracking/src/*"],
+
       "@Showcases/Shared": ["packages/showcases-shared/src/index.ts"],
       "@Showcases/Shared/*": ["packages/showcases-shared/src/*"],
       "@Showcases/I18N": ["packages/showcases-i18n/src/index.ts"],
       "@Showcases/I18N/*": ["packages/showcases-i18n/src/*"],
+
       "@hellpig/anarchy-i18n": ["packages/anarchy-i18n/src/index.ts"],
       "@hellpig/anarchy-i18n/*": ["packages/anarchy-i18n/src/*"],
       "@hellpig/anarchy-shared": ["packages/anarchy-shared/src/index.ts"],
