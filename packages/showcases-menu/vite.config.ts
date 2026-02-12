@@ -65,6 +65,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       sourcemap,
       minify,
       rollupOptions: {
+        preserveEntrySignatures: 'strict',
         // external: (id: string): boolean => id.endsWith('.spec.ts') || id.endsWith('.test.ts'),
         //  external: ['three', 'rxjs', '@dimforge/rapier3d'], — If you want to exclude some dependencies from the bundle
         output: {
