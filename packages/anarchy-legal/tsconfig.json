@@ -7,6 +7,7 @@
     "paths": {
       "@Anarchy/Legal": ["packages/anarchy-legal/src/index.ts"],
       "@Anarchy/Legal/*": ["packages/anarchy-legal/src/*"],
+
       "@hellpig/anarchy-shared": ["packages/anarchy-shared/src/index.ts"],
       "@hellpig/anarchy-shared/*": ["packages/anarchy-shared/src/*"],
 
