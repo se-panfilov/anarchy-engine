@@ -4,6 +4,14 @@
     "paths": {
       "@Anarchy/Engine": ["packages/anarchy-engine/src/index.ts"],
       "@Anarchy/Engine/*": ["packages/anarchy-engine/src/*"],
+      "@Anarchy/I18N": ["packages/anarchy-i18n/src/index.ts"],
+      "@Anarchy/I18N/*": ["packages/anarchy-i18n/src/*"],
+      "@Anarchy/Legal": ["packages/anarchy-legal/src/index.ts"],
+      "@Anarchy/Legal/*": ["packages/anarchy-legal/src/*"],
+      "@Anarchy/Shared": ["packages/anarchy-shared/src/index.ts"],
+      "@Anarchy/Shared/*": ["packages/anarchy-shared/src/*"],
+      "@Anarchy/Tracking": ["packages/anarchy-tracking/src/index.ts"],
+      "@Anarchy/Tracking/*": ["packages/anarchy-tracking/src/*"],
       "@hellpig/anarchy-i18n": ["packages/anarchy-i18n/src/index.ts"],
       "@hellpig/anarchy-i18n/*": ["packages/anarchy-i18n/src/*"],
       "@hellpig/anarchy-legal": ["packages/anarchy-legal/src/index.ts"],
@@ -13,9 +21,9 @@
       "@hellpig/anarchy-tracking": ["packages/anarchy-tracking/src/index.ts"],
       "@hellpig/anarchy-tracking/*": ["packages/anarchy-tracking/src/*"],
 
+      "date-fns/locale/types": ["node_modules/date-fns/locale/types.d.ts"],
       "three/examples/jsm/*": ["node_modules/@types/three/examples/jsm/*"],
       "three/src/*": ["node_modules/@types/three/src/*"],
-      "date-fns/locale/types": ["node_modules/date-fns/locale/types.d.ts"],
       "@formatjs/intl/src/types": ["node_modules/@formatjs/intl/src/types.d.ts"]
     },
     "typeRoots": ["./node_modules/@types", "./node_modules", "../../node_modules/@types", "../../node_modules", "./src/Engine/Types", "./types"]
