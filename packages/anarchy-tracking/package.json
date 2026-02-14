@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-tracking",
   "author": "S. Panfilov",
   "private": false,
-  "version": "1.7.6",
+  "version": "1.7.7",
   "type": "module",
   "repository": {
     "type": "git",
@@ -34,26 +34,26 @@
     "README.md",
     "dist/"
   ],
-  "main": "./dist/anarchy-tracking.es.js",
-  "module": "./dist/anarchy-tracking.es.js",
+  "main": "./dist/index/index.es.js",
+  "module": "./dist/index/index.es.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/anarchy-tracking.es.js"
+      "import": "./dist/index/index.es.js"
     },
     "./package.json": "./package.json",
     "./browser": {
       "types": "./dist/browser.d.ts",
-      "import": "./dist/browser.es.js"
+      "import": "./dist/browser/index.es.js"
     },
     "./desktop": {
       "types": "./dist/desktop.d.ts",
-      "import": "./dist/desktop.es.js"
+      "import": "./dist/desktop/index.es.js"
     },
     "./desktop-preload": {
       "types": "./dist/desktop-preload.d.ts",
-      "import": "./dist/desktop-preload.es.js"
+      "import": "./dist/desktop-preload/index.es.js"
     }
   },
   "typesVersions": {
