@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-shared",
   "author": "S. Panfilov",
   "private": false,
-  "version": "1.6.7",
+  "version": "1.6.8",
   "type": "module",
   "repository": {
     "type": "git",
@@ -57,6 +57,25 @@
     },
     "./assets/*": "./src/assets/*",
     "./ScriptUtils/*": "./ScriptUtils/*"
+  },
+  "typesVersions": {
+    "*": {
+      "Utils": [
+        "./dist/Utils/index.d.ts"
+      ],
+      "Constants": [
+        "./dist/Constants/index.d.ts"
+      ],
+      "Models": [
+        "./dist/Models/index.d.ts"
+      ],
+      "Plugins": [
+        "./dist/Plugins/index.d.ts"
+      ],
+      "*": [
+        "./dist/*/index.d.ts"
+      ]
+    }
   },
   "scripts": {
     "build": "rimraf ./dist && vite build && npm run build:after",
