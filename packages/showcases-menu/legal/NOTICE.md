@@ -33,7 +33,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/dom-selector@6.7.8
+## @asamuzakjp/dom-selector@6.8.0
 
 **License(s):** MIT
 
@@ -127,7 +127,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-calc@3.1.0
+## @csstools/css-calc@3.1.1
 
 **License(s):** MIT
 
@@ -187,7 +187,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @exodus/bytes@1.14.0
+## @exodus/bytes@1.14.1
 
 **License(s):** MIT
 
