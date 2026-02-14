@@ -54,6 +54,10 @@
     "./desktop-preload": {
       "types": "./dist/desktop-preload.d.ts",
       "import": "./dist/desktop-preload/index.es.js"
+    },
+    "./*": {
+      "types": "./dist/*/index.d.ts",
+      "import": "./dist/*/index.es.js"
     }
   },
   "typesVersions": {
@@ -68,7 +72,7 @@
         "./dist/desktop-preload.d.ts"
       ],
       "*": [
-        "./dist/index.d.ts"
+        "./dist/*/index.d.ts"
       ]
     }
   },
