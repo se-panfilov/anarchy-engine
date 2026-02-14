@@ -5,7 +5,7 @@
   "serialNumber": "urn:uuid:***",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-02-12T23:02:06.955Z",
+    "timestamp": "2026-02-14T14:49:40.458Z",
     "lifecycles": [
       {
         "phase": "pre-build"
@@ -3536,14 +3536,14 @@
       ]
     },
     {
-      "bom-ref": "@hellpig/anarchy-tracking@1.7.6",
+      "bom-ref": "@hellpig/anarchy-tracking@1.7.7",
       "type": "library",
       "name": "anarchy-tracking",
-      "version": "1.7.6",
+      "version": "1.7.7",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy-Tracking – a library error monitoring in Anarchy Engine's based projects.",
-      "purl": "pkg:npm/%40hellpig/anarchy-tracking@1.7.6",
+      "purl": "pkg:npm/%40hellpig/anarchy-tracking@1.7.7",
       "properties": [],
       "externalReferences": [
         {
@@ -3727,7 +3727,7 @@
         "@hellpig/anarchy-i18n@1.4.7",
         "@hellpig/anarchy-legal@1.12.8",
         "@hellpig/anarchy-shared@1.6.7",
-        "@hellpig/anarchy-tracking@1.7.6",
+        "@hellpig/anarchy-tracking@1.7.7",
         "showcases-gui@1.1.11",
         "showcases-i18n@1.4.8",
         "showcases-menu@1.8.13",
@@ -3740,7 +3740,7 @@
         "@hellpig/anarchy-engine@22.0.7",
         "@hellpig/anarchy-i18n@1.4.7",
         "@hellpig/anarchy-shared@1.6.7",
-        "@hellpig/anarchy-tracking@1.7.6",
+        "@hellpig/anarchy-tracking@1.7.7",
         "dexie@4.2.1",
         "lil-gui@0.21.0",
         "sanitize.css@13.0.0",
@@ -4308,7 +4308,7 @@
       "dependsOn": ["bowser@2.13.1"]
     },
     {
-      "ref": "@hellpig/anarchy-tracking@1.7.6",
+      "ref": "@hellpig/anarchy-tracking@1.7.7",
       "dependsOn": ["@sentry/browser@10.32.1", "@sentry/electron@7.5.0"]
     },
     {

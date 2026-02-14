@@ -71,7 +71,7 @@ SOFTWARE.
 
 ---
 
-## @asamuzakjp/dom-selector@6.7.8
+## @asamuzakjp/dom-selector@6.8.0
 
 **License:** MIT
 
@@ -318,7 +318,7 @@ SOFTWARE.
 
 ---
 
-## @csstools/css-calc@3.1.0
+## @csstools/css-calc@3.1.1
 
 **License:** MIT
 
@@ -471,7 +471,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @exodus/bytes@1.14.0
+## @exodus/bytes@1.14.1
 
 **License:** MIT
 
