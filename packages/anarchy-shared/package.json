@@ -58,6 +58,17 @@
     "./assets/*": "./src/assets/*",
     "./ScriptUtils/*": "./ScriptUtils/*"
   },
+  "bin": {
+    "anarchy-shared-sanitize-assets": "./ScriptUtils/bin/anarchy-shared-cli.js",
+    "anarchy-shared-copy-dir": "./ScriptUtils/bin/anarchy-shared-cli.js",
+    "anarchy-shared-copy-files": "./ScriptUtils/bin/anarchy-shared-cli.js",
+    "anarchy-shared-gen-versions": "./ScriptUtils/bin/anarchy-shared-cli.js",
+    "anarchy-shared-inject-metadata": "./ScriptUtils/bin/anarchy-shared-cli.js",
+    "anarchy-shared-mk-ico": "./ScriptUtils/bin/anarchy-shared-cli.js",
+    "anarchy-shared-postprocess-screenshots": "./ScriptUtils/bin/anarchy-shared-cli.js",
+    "anarchy-shared-rename-file": "./ScriptUtils/bin/anarchy-shared-cli.js",
+    "anarchy-shared-check-minify": "./ScriptUtils/CheckMinify.sh"
+  },
   "typesVersions": {
     "*": {
       "Utils": [

@@ -5,6 +5,12 @@ MAP_FILE="$2"
 GZ_FILE="${JS_FILE}.gz"
 BR_FILE="${JS_FILE}.br"
 
+if [[ "$JS_FILE" == "--help" || "$JS_FILE" == "-h" || "$MAP_FILE" == "--help" || "$MAP_FILE" == "-h" ]]; then
+  echo "Usage: anarchy-shared-check-minify path/to/file.js path/to/file.js.map"
+  echo "Checks gzip/brotli payloads and validates sourcemap integrity."
+  exit 0
+fi
+
 if [[ -z "$JS_FILE" || -z "$MAP_FILE" ]]; then
   echo "❌ Usage: ./CheckMinify.sh path/to/file.js path/to/file.js.map"
   exit 1

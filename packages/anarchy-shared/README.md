@@ -2,6 +2,31 @@
 
 Shared utilities and types for the Anarchy engine.
 
+## CLI scripts
+
+ScriptUtils commands are exposed via npm bin for consumers.
+
+Example usage in a consumer `package.json`:
+
+```json
+{
+  "scripts": {
+    "sanitize-assets": "anarchy-shared-sanitize-assets ./public"
+  }
+}
+```
+
+Other available commands (each supports `--help`):
+
+- anarchy-shared-copy-dir
+- anarchy-shared-copy-files
+- anarchy-shared-gen-versions
+- anarchy-shared-inject-metadata
+- anarchy-shared-mk-ico
+- anarchy-shared-postprocess-screenshots
+- anarchy-shared-rename-file
+- anarchy-shared-check-minify
+
 ## License
 
 MIT License
