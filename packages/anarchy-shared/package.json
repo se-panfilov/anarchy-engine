@@ -102,15 +102,17 @@
     "@gltf-transform/core": "4.3.0",
     "bowser": "2.13.1",
     "dotenv": "17.2.3",
-    "dotenv-expand": "11.0.7"
-  },
-  "devDependencies": {
+    "dotenv-expand": "11.0.7",
     "fast-glob": "3.3.3",
     "fs-extra": "11.3.3",
+    "png-chunks-encode": "1.0.0",
+    "png-chunks-extract": "1.0.0",
     "png-to-ico": "3.0.1",
     "sharp": "0.34.5",
     "svgo": "4.0.0",
-    "ts-json-schema-generator": "2.4.0",
+    "ts-json-schema-generator": "2.4.0"
+  },
+  "devDependencies": {
     "vite-plugin-static-copy": "3.1.4"
   }
 }
