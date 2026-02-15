@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-shared",
   "author": "S. Panfilov",
   "private": false,
-  "version": "1.6.8",
+  "version": "1.6.9",
   "type": "module",
   "repository": {
     "type": "git",
@@ -99,7 +99,10 @@
     "unit:watch": "vitest"
   },
   "dependencies": {
-    "bowser": "2.13.1"
+    "@gltf-transform/core": "4.3.0",
+    "bowser": "2.13.1",
+    "dotenv": "17.2.3",
+    "dotenv-expand": "11.0.7"
   },
   "devDependencies": {
     "fast-glob": "3.3.3",
