@@ -1,6 +1,6 @@
 # Runs desktop E2E by "button"
 
-name: E2E Desktop (manual run)
+name: E2E Desktop
 run-name: E2E Desktop (ref=${{ github.event.inputs.ref }}, targets=${{ github.event.inputs.e2eTargets }}, updateSnapshots=${{ github.event.inputs.updateSnapshots }}, failFast=${{ github.event.inputs.failFast }}, deepDebug=${{ github.event.inputs.deepDebug }})
 
 on:

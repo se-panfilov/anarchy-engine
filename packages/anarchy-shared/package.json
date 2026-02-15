@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-shared",
   "author": "S. Panfilov",
   "private": false,
-  "version": "1.6.8",
+  "version": "1.6.9",
   "type": "module",
   "repository": {
     "type": "git",
@@ -58,6 +58,17 @@
     "./assets/*": "./src/assets/*",
     "./ScriptUtils/*": "./ScriptUtils/*"
   },
+  "bin": {
+    "anarchy-shared-sanitize-assets": "./ScriptUtils/bin/anarchy-shared-cli.js",
+    "anarchy-shared-copy-dir": "./ScriptUtils/bin/anarchy-shared-cli.js",
+    "anarchy-shared-copy-files": "./ScriptUtils/bin/anarchy-shared-cli.js",
+    "anarchy-shared-gen-versions": "./ScriptUtils/bin/anarchy-shared-cli.js",
+    "anarchy-shared-inject-metadata": "./ScriptUtils/bin/anarchy-shared-cli.js",
+    "anarchy-shared-mk-ico": "./ScriptUtils/bin/anarchy-shared-cli.js",
+    "anarchy-shared-postprocess-screenshots": "./ScriptUtils/bin/anarchy-shared-cli.js",
+    "anarchy-shared-rename-file": "./ScriptUtils/bin/anarchy-shared-cli.js",
+    "anarchy-shared-check-minify": "./ScriptUtils/CheckMinify.sh"
+  },
   "typesVersions": {
     "*": {
       "Utils": [
@@ -99,15 +110,20 @@
     "unit:watch": "vitest"
   },
   "dependencies": {
-    "bowser": "2.13.1"
-  },
-  "devDependencies": {
+    "@gltf-transform/core": "4.3.0",
+    "bowser": "2.13.1",
+    "dotenv": "17.2.3",
+    "dotenv-expand": "11.0.7",
     "fast-glob": "3.3.3",
     "fs-extra": "11.3.3",
+    "png-chunks-encode": "1.0.0",
+    "png-chunks-extract": "1.0.0",
     "png-to-ico": "3.0.1",
     "sharp": "0.34.5",
     "svgo": "4.0.0",
-    "ts-json-schema-generator": "2.4.0",
+    "ts-json-schema-generator": "2.4.0"
+  },
+  "devDependencies": {
     "vite-plugin-static-copy": "3.1.4"
   }
 }

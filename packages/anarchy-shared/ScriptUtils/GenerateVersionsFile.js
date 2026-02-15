@@ -1,6 +1,5 @@
-import { writeFileSync, existsSync, readFileSync } from 'fs';
-import { resolve, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { resolve } from 'path';
 
 const cwd = process.cwd();
 

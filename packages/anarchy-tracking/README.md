@@ -2,6 +2,24 @@
 
 Error tracking utils for Anarchy apps.
 
+## CLI scripts
+
+ScriptUtils commands are exposed via npm bin for consumers.
+
+Example usage in a consumer `package.json`:
+
+```json
+{
+  "scripts": {
+    "upload-sourcemaps": "anarchy-tracking-upload-sourcemaps --help"
+  }
+}
+```
+
+Available commands (support `--help`):
+
+- anarchy-tracking-upload-sourcemaps
+
 ## License
 
 MIT License
