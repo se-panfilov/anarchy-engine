@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-legal",
   "author": "S. Panfilov",
   "private": false,
-  "version": "1.12.11",
+  "version": "1.12.12",
   "type": "module",
   "repository": {
     "type": "git",
@@ -36,7 +36,8 @@
     "LICENSE",
     "README.md",
     "dist/",
-    "bin/"
+    "bin/",
+    "src/Templates/"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
