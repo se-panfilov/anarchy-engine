@@ -47,7 +47,7 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
           'Generators/NoticeGenerator': path.resolve(__dirname, 'src/Generators/NoticeGenerator.ts')
         },
         formats: ['es'],
-        fileName: (format, entryName): string => `${entryName}.js`
+        fileName: (_format: string, entryName: string): string => `${entryName}.js`
       },
       rollupOptions: {
         external: (id: string): boolean => {
@@ -61,9 +61,8 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
           preserveModulesRoot: 'src',
           entryFileNames: `[name].js`,
           chunkFileNames: `chunks/[name]-[hash].js`,
-          assetFileNames: (assetInfo): string => {
-            const ai = assetInfo as unknown as Readonly<{ name?: string; names?: ReadonlyArray<string> }>;
-            const n: string = ai.names?.[0] ?? ai.name ?? '';
+          assetFileNames: (assetInfo: Readonly<{ name?: string; names?: ReadonlyArray<string> }>): string => {
+            const n: string = assetInfo.names?.[0] ?? assetInfo.name ?? '';
 
             if (n.endsWith('.css')) return 'styles/[name][extname]';
             if (n.endsWith('.css.map')) return 'styles/[name][extname]';

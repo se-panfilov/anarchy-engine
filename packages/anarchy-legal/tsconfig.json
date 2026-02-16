@@ -8,6 +8,9 @@
       "@Anarchy/Legal": ["packages/anarchy-legal/src/index.ts"],
       "@Anarchy/Legal/*": ["packages/anarchy-legal/src/*"],
 
+      "@Anarchy/Shared": ["packages/anarchy-shared/src/index.ts"],
+      "@Anarchy/Shared/*": ["packages/anarchy-shared/src/*"],
+
       "@hellpig/anarchy-shared": ["packages/anarchy-shared/src/index.ts"],
       "@hellpig/anarchy-shared/*": ["packages/anarchy-shared/src/*"],
 
@@ -17,5 +20,5 @@
       "@formatjs/intl/src/types": ["node_modules/@formatjs/intl/src/types.d.ts"]
     }
   },
-  "include": ["src", "types"]
+  "include": ["src", "types", "vite.config.ts"]
 }
