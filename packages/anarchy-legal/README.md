@@ -1,6 +1,6 @@
 # Anarchy engine anarchy-legal package
 
-Error tracking utils for Anarchy apps.
+Legal document generation utilities.
 
 ## CLI scripts
 
