@@ -40,9 +40,14 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
       sourcemap: true,
       minify: false,
       lib: {
-        entry: path.resolve(__dirname, 'src/index.ts'),
+        entry: {
+          index: path.resolve(__dirname, 'src/index.ts'),
+          'Generators/ThirdPartyLicensesGenerator': path.resolve(__dirname, 'src/Generators/ThirdPartyLicensesGenerator.ts'),
+          'Generators/LegalFilesGenerator': path.resolve(__dirname, 'src/Generators/LegalFilesGenerator.ts'),
+          'Generators/NoticeGenerator': path.resolve(__dirname, 'src/Generators/NoticeGenerator.ts')
+        },
         formats: ['es'],
-        fileName: (): string => 'index.js'
+        fileName: (format, entryName): string => `${entryName}.js`
       },
       rollupOptions: {
         external: (id: string): boolean => {
