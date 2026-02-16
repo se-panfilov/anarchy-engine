@@ -36,7 +36,8 @@
     "LICENSE",
     "README.md",
     "dist/",
-    "bin/"
+    "bin/",
+    "src/Templates/"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
