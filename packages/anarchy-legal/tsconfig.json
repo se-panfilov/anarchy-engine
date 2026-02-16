@@ -17,5 +17,5 @@
       "@formatjs/intl/src/types": ["node_modules/@formatjs/intl/src/types.d.ts"]
     }
   },
-  "include": ["src", "types"]
+  "include": ["src", "types", "vite.config.ts"]
 }
