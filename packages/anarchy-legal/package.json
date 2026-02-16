@@ -2,7 +2,7 @@
   "name": "@hellpig/anarchy-legal",
   "author": "S. Panfilov",
   "private": false,
-  "version": "1.12.9",
+  "version": "1.12.10",
   "type": "module",
   "repository": {
     "type": "git",
@@ -35,7 +35,8 @@
     "NOTICE.md",
     "LICENSE",
     "README.md",
-    "dist/"
+    "dist/",
+    "bin/"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -82,11 +83,18 @@
     "unit:coverage:ui": "vitest --ui",
     "unit:watch": "vitest"
   },
-  "devDependencies": {
+  "bin": {
+    "anarchy-legal-generate-licenses": "./bin/anarchy-legal-generate-licenses.js",
+    "anarchy-legal-generate-files": "./bin/anarchy-legal-generate-files.js",
+    "anarchy-legal-generate-notice": "./bin/anarchy-legal-generate-notice.js"
+  },
+  "dependencies": {
     "@date-fns/utc": "2.1.1",
-    "@types/yargs": "17.0.35",
     "date-fns": "4.1.0",
     "globby": "16.1.0",
     "yargs": "18.0.0"
+  },
+  "devDependencies": {
+    "@types/yargs": "17.0.35"
   }
 }
