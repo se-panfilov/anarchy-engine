@@ -2,7 +2,7 @@
   "name": "anarchy-monorepo",
   "author": "S. Panfilov",
   "private": true,
-  "version": "2.1.8",
+  "version": "2.1.9",
   "type": "module",
   "repository": {
     "type": "git",
@@ -27,7 +27,7 @@
     "before:release": "npm run generate:legal:all && npm run prettier:changed",
     "check:dts-exports:all": "npm run --workspaces --if-present check:dts-exports",
     "clean:all": "rimraf packages/**/package-lock.json -g packages/**/node_modules -g packages/**/dist -g apps/**/package-lock.json -g apps/**/node_modules -g  ./node_modules  ./package-lock.json ",
-    "clean:all-metadate": "npm run e2e:clean-metadate --workspace=apps/showcases-e2e && npm run sanitize-assets --workspace=apps/showcases-desktop ** npm run sanitize-assets --workspace=apps/showcases-core && npm run sanitize-assets --workspace=packages/showcases- && npm run sanitize-assets --workspace=packages/showcases-gui",
+    "clean:all-metadata": "npm run e2e:clean-metadata --workspace=apps/showcases-e2e && npm run sanitize-assets --workspace=apps/showcases-desktop ** npm run sanitize-assets --workspace=apps/showcases-core && npm run sanitize-assets --workspace=packages/showcases- && npm run sanitize-assets --workspace=packages/showcases-gui",
     "clean:all:restore": "git add ./package-lock.json && find packages -type d -name node_modules -prune -false -o -type f -name package-lock.json -exec git add {} +\n",
     "clean:reinstall": "npm run clean:all && npm install && npm run clean:all:restore",
     "generate:legal:all": "npm run generate:legal:root && npm run generate:legal:anarchy-engine && npm run generate:legal:anarchy-i18n && npm run generate:legal:anarchy-tracking && npm run generate:legal:anarchy-legal && npm run generate:legal:anarchy-shared && npm run generate:legal:showcases-core && npm run generate:legal:showcases-desktop && npm run generate:legal:showcases-e2e && npm run generate:legal:showcases-i18n && npm run generate:legal:showcases-menu && npm run generate:legal:showcases-gui && npm run generate:legal:showcases-shared",

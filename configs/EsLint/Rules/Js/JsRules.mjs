@@ -317,7 +317,7 @@ export const JsRules = {
         '[W-w]ebgl[0-9]?',
         '[W-w]ebgpu[0-9]?',
         '[W-w]ebkit',
-        '[W-w]idlcard[s]?',
+        '[W-w]ildcard[s]?',
         '[W-w]orkspace[s]?',
         '[X-x]yz[w]?'
       ],
