@@ -148,10 +148,10 @@ jobs:
         with:
           # Cache browsers under a repo-local path so it works consistently across OSes.
           path: .playwright-browsers
-          key: ${{ runner.os }}-node24-pw-${{ steps.pw.outputs.version }}-${{ hashFiles('package-lock.json', 'apps/showcases-e2e/playwright.config.ts') }}
+          key: ${{ runner.os }}-node26-pw-${{ steps.pw.outputs.version }}-${{ hashFiles('package-lock.json', 'apps/showcases-e2e/playwright.config.ts') }}
           restore-keys: |
-            ${{ runner.os }}-node24-pw-${{ steps.pw.outputs.version }}-
-            ${{ runner.os }}-node24-pw-
+            ${{ runner.os }}-node26-pw-${{ steps.pw.outputs.version }}-
+            ${{ runner.os }}-node26-pw-
 
       - name: Install Playwright browsers (chromium only)
         working-directory: apps/showcases-e2e
