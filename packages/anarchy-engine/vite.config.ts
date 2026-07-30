@@ -1,10 +1,9 @@
 /// <reference types="vitest" />
-import type { ConfigEnv, Plugin, UserConfig } from 'vite';
+import type { ConfigEnv, UserConfig } from 'vite';
 import { defineConfig, loadEnv } from 'vite';
 import compression from 'vite-plugin-compression';
 import dts from 'vite-plugin-dts';
-// @ts-ignore
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 import path from 'node:path';
 import wasm from 'vite-plugin-wasm';
 import { sharedAliases } from '../../vite.alias';
@@ -129,7 +128,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
                     comments: false,
                     ascii_only: true // To prevent emoji/unicode problems
                   }
-                }) as Plugin
+                })
               ]
             : []),
           visualizer({ open: false })
