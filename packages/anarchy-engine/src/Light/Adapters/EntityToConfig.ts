@@ -7,6 +7,7 @@ import type {
   TAbstractLightWrapper,
   TAmbientLightConfig,
   TAnyLight,
+  TDirectionalLight,
   TDirectionalLightConfig,
   TDirectionalLightParams,
   THemisphereLightConfig,
@@ -118,8 +119,8 @@ export function onlyLightShadowToConfig<T extends TAnyLight>(
   const result: Readonly<{ shadow: TWriteable<TLightShadowConfig> }> = filterOutEmptyFields({
     shadow: {
       ...shadow,
-      mapSize: getMapSize(shadow) ?? getMapSize(entity.entity.shadow),
-      normalBias: shadow.normalBias ?? entity.entity.shadow?.normalBias,
+      mapSize: getMapSize(shadow) ?? getMapSize((entity.entity as TDirectionalLight).shadow),
+      normalBias: shadow.normalBias ?? (entity.entity as TDirectionalLight).shadow?.normalBias,
       camera: undefined as unknown as TCommonCameraParams
     }
   });
