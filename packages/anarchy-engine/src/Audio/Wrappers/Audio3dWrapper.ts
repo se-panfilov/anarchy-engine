@@ -54,10 +54,11 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop, transformDri
 
   const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
-    // eslint-disable-next-line functional/immutable-data
-    if (listener$.value) listener$.value.context = null as any;
-    // eslint-disable-next-line functional/immutable-data
-    if (listener$.value) listener$.value.gain = null as any;
+    // NOTE: listener$.value.context and listener$.value.gain are intentionally NOT nullified.
+    // AudioListener is a shared singleton (attached to the camera) whose context (AudioContext)
+    // and gain (master GainNode) are global resources for the entire scene.
+    // Nullifying them here would destroy audio for every other object in the application.
+    // The listener reference is released implicitly when listener$.complete() is called.
     listener$.complete();
   });
 
