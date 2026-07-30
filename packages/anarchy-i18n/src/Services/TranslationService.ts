@@ -63,7 +63,7 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
     try {
       return await loadFn();
     } catch (error) {
-      throw new Error(`[TranslateService]: Failed to load locale "${localeId}". Error: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`[TranslateService]: Failed to load locale "${localeId}". Error: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 

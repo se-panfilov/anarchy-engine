@@ -27,7 +27,7 @@ export function FilesService(app: App): TFilesService {
     try {
       return await readFile(dir ? getPathToFile(fileName, dir) : fileName, encoding);
     } catch (e: any) {
-      throw new Error(`[DESKTOP] Failed to read "${fileName}": ${e?.message ?? 'unknown'}`);
+      throw new Error(`[DESKTOP] Failed to read "${fileName}": ${e?.message ?? 'unknown'}`, { cause: e });
     }
   }
 
@@ -45,7 +45,7 @@ export function FilesService(app: App): TFilesService {
       return true;
     } catch (e: any) {
       await removeTempFile(tmpPath);
-      throw new Error(`[DESKTOP] Failed to write "${finalPath}: ${e?.message ?? 'unknown'}`);
+      throw new Error(`[DESKTOP] Failed to write "${finalPath}: ${e?.message ?? 'unknown'}`, { cause: e });
     }
   }
 

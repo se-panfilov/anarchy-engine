@@ -30,6 +30,7 @@ export function disposeGltf(gltf: Object3D | null): void {
   gltf.clear?.();
   // eslint-disable-next-line functional/immutable-data
   gltf.children.length = 0;
+
   gltf = null;
 }
 

@@ -18,7 +18,7 @@ export function validateJson<T = unknown>(json: string, dangerousKeys: ReadonlyA
   try {
     parsedData = JSON.parse(json);
   } catch (error) {
-    throw new Error(`[JSON] Parse failed: ${(error as Error).message}`);
+    throw new Error(`[JSON] Parse failed: ${(error as Error).message}`, { cause: error });
   }
 
   assertTree(parsedData, maxDepth, dangerousKeys);

@@ -33,7 +33,7 @@ export function EventsService({ mainMenuService, appService, settingsService }: 
           try {
             settings = await getSettings();
           } catch (error) {
-            throw new Error(`[APP] Failed to load settings: ${error}`);
+            throw new Error(`[APP] Failed to load settings: ${error}`, { cause: error });
           }
           if (isNotDefined(settings)) throw new Error(`[APP] Failed to load settings: ${settings}`);
 
@@ -49,7 +49,7 @@ export function EventsService({ mainMenuService, appService, settingsService }: 
           try {
             legalDocs = await getLegalDocs(event.payload as TLoadDocPayload);
           } catch (error) {
-            throw new Error(`[APP] Failed to load legal docs: ${error}`);
+            throw new Error(`[APP] Failed to load legal docs: ${error}`, { cause: error });
           }
           if (isNotDefined(legalDocs)) throw new Error(`[APP] Failed to load legal docs: ${legalDocs}`);
 
