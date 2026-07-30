@@ -116,7 +116,7 @@
   "devDependencies": {
     "@dimforge/rapier3d": "0.19.3",
     "@dimforge/rapier3d-compat": "0.19.3",
-    "@gltf-transform/cli": "4.4.2",
+    "@gltf-transform/cli": "4.4.1",
     "@types/lodash-es": "4.17.12",
     "@types/rbush": "4.0.0",
     "@types/three": "0.185.1",
