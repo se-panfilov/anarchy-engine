@@ -82,7 +82,7 @@
     "@hellpig/anarchy-i18n": "*",
     "@hellpig/anarchy-shared": "*",
     "@hellpig/anarchy-tracking": "*",
-    "dexie": "4.2.1",
+    "dexie": "4.4.4",
     "lil-gui": "0.21.0",
     "rxjs": "7.8.2",
     "sanitize.css": "13.0.0",
@@ -91,12 +91,12 @@
     "showcases-menu": "*",
     "showcases-shared": "*",
     "stats.js": "0.17.0",
-    "three": "0.182.0",
+    "three": "0.185.1",
     "three-viewport-gizmo": "2.2.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "6.0.3",
-    "@vitejs/plugin-vue-jsx": "5.1.3",
-    "sass-embedded": "1.97.1"
+    "@vitejs/plugin-vue": "6.0.8",
+    "@vitejs/plugin-vue-jsx": "5.1.6",
+    "sass-embedded": "1.100.0"
   }
 }

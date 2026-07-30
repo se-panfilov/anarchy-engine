@@ -110,20 +110,20 @@
     "unit:watch": "vitest"
   },
   "dependencies": {
-    "@gltf-transform/core": "4.3.0",
-    "bowser": "2.13.1",
-    "dotenv": "17.2.3",
-    "dotenv-expand": "11.0.7",
+    "@gltf-transform/core": "4.4.2",
+    "bowser": "2.14.1",
+    "dotenv": "17.4.2",
+    "dotenv-expand": "1000.0.0",
     "fast-glob": "3.3.3",
-    "fs-extra": "11.3.3",
+    "fs-extra": "11.4.0",
     "png-chunks-encode": "1.0.0",
     "png-chunks-extract": "1.0.0",
-    "png-to-ico": "3.0.1",
-    "sharp": "0.34.5",
-    "svgo": "4.0.0",
-    "ts-json-schema-generator": "2.4.0"
+    "png-to-ico": "3.0.2",
+    "sharp": "0.35.3",
+    "svgo": "4.0.2",
+    "ts-json-schema-generator": "2.9.0"
   },
   "devDependencies": {
-    "vite-plugin-static-copy": "3.1.4"
+    "vite-plugin-static-copy": "4.1.1"
   }
 }
