@@ -67,7 +67,6 @@ function getOrbitControlsFields(entity: TOrbitControlsWrapper): TOrbitControlsCo
 
 function getFpsControlsFields(entity: TFpsControlsWrapper): TFpsControlsConfigOptions {
   return filterOutEmptyFields({
-    activeLook: entity.getActiveLook(),
     autoForward: entity.getAutoForward(),
     constrainVertical: entity.getConstrainVertical(),
     heightCoef: entity.getHeightCoef(),

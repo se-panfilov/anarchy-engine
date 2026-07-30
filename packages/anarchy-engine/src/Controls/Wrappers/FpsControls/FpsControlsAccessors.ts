@@ -20,10 +20,6 @@ export function getFpsControlsAccessors(entity: TWriteable<FirstPersonControls>)
   const getAutoForward = (): boolean => entity.autoForward;
 
   // eslint-disable-next-line functional/immutable-data
-  const setActiveLook = (isEnabled: boolean): void => void (entity.activeLook = isEnabled);
-  const getActiveLook = (): boolean => entity.activeLook;
-
-  // eslint-disable-next-line functional/immutable-data
   const setHeightSpeed = (isEnabled: boolean): void => void (entity.heightSpeed = isEnabled);
   const getHeightSpeed = (): boolean => entity.heightSpeed;
 
@@ -64,8 +60,6 @@ export function getFpsControlsAccessors(entity: TWriteable<FirstPersonControls>)
     getLookVertical,
     setAutoForward,
     getAutoForward,
-    setActiveLook,
-    getActiveLook,
     setHeightSpeed,
     getHeightSpeed,
     setHeightCoef,

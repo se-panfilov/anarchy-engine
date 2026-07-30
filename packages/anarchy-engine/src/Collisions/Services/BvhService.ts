@@ -5,13 +5,13 @@ import type { TBvhOptions, TBvhService } from '@Anarchy/Engine/Collisions/Models
 import type { TRawModel3d } from '@Anarchy/Engine/Models3d';
 import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
 import type { BufferGeometry, Group, Intersection, Mesh, Object3D, Raycaster } from 'three';
-import type { MeshBVH } from 'three-mesh-bvh';
+import type { GeometryBVH } from 'three-mesh-bvh';
 import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree, MeshBVHHelper } from 'three-mesh-bvh';
 
 export function BvhService(): TBvhService {
   const abstractService: TAbstractService = AbstractService();
 
-  const computeBVHBoundsTree = (geometry: BufferGeometry, options?: TBvhOptions): MeshBVH => computeBoundsTree.call(geometry, options);
+  const computeBVHBoundsTree = (geometry: BufferGeometry, options?: TBvhOptions): GeometryBVH => computeBoundsTree.call(geometry, options);
   const disposeBVHBoundsTree = (geometry: BufferGeometry): void => disposeBoundsTree.call(geometry);
 
   function raycastWithBvh(actor: TActor, raycaster: Raycaster, intersects: Array<Intersection>): void {

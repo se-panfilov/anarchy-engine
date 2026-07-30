@@ -3,7 +3,6 @@ export type TFpsControlsParamsOptions = Readonly<{
   lookSpeed?: number;
   lookVertical?: boolean;
   autoForward?: boolean;
-  activeLook?: boolean;
   heightSpeed?: boolean;
   heightCoef?: number;
   heightMin?: number;

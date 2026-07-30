@@ -8,7 +8,6 @@ export function applyFpsControlsParams(wrapper: TFpsControlsWrapper, params: TFp
   if (isDefined(params.lookSpeed)) wrapper.setLookSpeed(params.lookSpeed);
   if (isDefined(params.lookVertical)) wrapper.setLookVertical(params.lookVertical);
   if (isDefined(params.autoForward)) wrapper.setAutoForward(params.autoForward);
-  if (isDefined(params.activeLook)) wrapper.setActiveLook(params.activeLook);
   if (isDefined(params.heightSpeed)) wrapper.setHeightSpeed(params.heightSpeed);
   if (isDefined(params.heightCoef)) wrapper.setHeightCoef(params.heightCoef);
   if (isDefined(params.heightMin)) wrapper.setHeightMin(params.heightMin);

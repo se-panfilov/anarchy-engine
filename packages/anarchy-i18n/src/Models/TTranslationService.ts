@@ -2,7 +2,7 @@ import type { TLocale } from '@Anarchy/I18N/Models/TLocale';
 import type { TMessages } from '@Anarchy/I18N/Models/TMessages';
 import type { MessageFormatElement } from '@formatjs/icu-messageformat-parser';
 import type { FormatNumberOptions, IntlShape } from '@formatjs/intl';
-import type { FormatDateOptions } from '@formatjs/intl/src/types';
+import type { FormatDateOptions } from '@formatjs/intl';
 import type { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 import type { TReactiveTranslationMixin } from './TReactiveTranslationMixin';
