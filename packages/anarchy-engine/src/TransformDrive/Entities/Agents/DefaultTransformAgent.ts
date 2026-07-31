@@ -23,11 +23,8 @@ export function DefaultTransformAgent(params: TTransformAgentParams): TDefaultTr
   const rotationObj: TWithQuaternionRotationProperty = { rotation: abstractTransformAgent.rotation$.value.clone() };
   const scaleObj: TWithScaleProperty = { scale: abstractTransformAgent.scale$.value.clone() };
 
-  const proxyPositionObj: TWithPosition3dProperty = updateSubjOnChange(
-    positionObj,
-    'position',
-    abstractTransformAgent.position$ as unknown as Subject<Vector3>,
-    (value: TReadonlyVector3): Vector3 => value.clone()
+  const proxyPositionObj: TWithPosition3dProperty = updateSubjOnChange(positionObj, 'position', abstractTransformAgent.position$ as unknown as Subject<Vector3>, (value: TReadonlyVector3): Vector3 =>
+    value.clone()
   );
   const proxyRotationObj: TWithQuaternionRotationProperty = updateSubjOnChange(
     rotationObj,
@@ -35,11 +32,8 @@ export function DefaultTransformAgent(params: TTransformAgentParams): TDefaultTr
     abstractTransformAgent.rotation$ as unknown as Subject<Quaternion>,
     (value: TReadonlyQuaternion): Quaternion => value.clone()
   );
-  const proxyScaleObj: TWithScaleProperty = updateSubjOnChange(
-    scaleObj,
-    'scale',
-    abstractTransformAgent.scale$ as unknown as Subject<Vector3>,
-    (value: TReadonlyVector3): Vector3 => value.clone()
+  const proxyScaleObj: TWithScaleProperty = updateSubjOnChange(scaleObj, 'scale', abstractTransformAgent.scale$ as unknown as Subject<Vector3>, (value: TReadonlyVector3): Vector3 =>
+    value.clone()
   ) as TWithScaleProperty;
 
   // eslint-disable-next-line functional/immutable-data
