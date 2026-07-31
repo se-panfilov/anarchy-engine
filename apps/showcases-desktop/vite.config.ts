@@ -27,24 +27,29 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     },
     plugins: [
       viteStaticCopy({
+        environment: 'ssr',
         targets: [
-          // Copy all files from showcases-core build, preserving structure
+          // Copy all files from showcases-core build, preserving structure.
           {
             src: toPosix(path.resolve(CORE_DIST_DIR, '**/*')),
-            dest: 'dist-desktop'
+            dest: 'dist-desktop',
+            rename: { stripBase: 2 }
           },
-          //Electron cannot recognize three/examples/jsm/libs/draco import, so we copy files manually
+          //Electron cannot recognize three/examples/jsm/libs/draco import, so we copy files manually.
           {
             src: toPosix(path.resolve(DRACO_DIR, 'draco_decoder.js')),
-            dest: 'dist-desktop/three/examples/jsm/libs/draco'
+            dest: 'dist-desktop/three/examples/jsm/libs/draco',
+            rename: { stripBase: 6 }
           },
           {
             src: toPosix(path.resolve(DRACO_DIR, 'draco_wasm_wrapper.js')),
-            dest: 'dist-desktop/three/examples/jsm/libs/draco'
+            dest: 'dist-desktop/three/examples/jsm/libs/draco',
+            rename: { stripBase: 6 }
           },
           {
             src: toPosix(path.resolve(DRACO_DIR, 'draco_decoder.wasm')),
-            dest: 'dist-desktop/three/examples/jsm/libs/draco'
+            dest: 'dist-desktop/three/examples/jsm/libs/draco',
+            rename: { stripBase: 6 }
           }
         ]
       })
