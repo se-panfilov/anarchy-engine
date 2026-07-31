@@ -63,7 +63,7 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
           //   if (n.endsWith('.css.map')) return 'styles/[name][extname]';
           //   return 'assets/[name]-[hash][extname]';
           // },
-          inlineDynamicImports: false //extract workers to separate bundle
+          codeSplitting: true //extract workers to separate bundle
         },
         plugins: [
           terser({

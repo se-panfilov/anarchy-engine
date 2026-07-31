@@ -137,7 +137,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
           // manualChunks: {
           // anarchy-engine: ['@hellpig/anarchy-engine']
           // },
-          inlineDynamicImports: false //extract workers to separate bundle
+          codeSplitting: true //extract workers to separate bundle
         },
         plugins: [visualizer({ open: false })]
       },

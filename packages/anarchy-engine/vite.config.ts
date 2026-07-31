@@ -92,7 +92,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
           entryFileNames: `[name].js`,
           chunkFileNames: `chunks/[name]-[hash].js`,
           assetFileNames: `assets/[name]-[hash][extname]`,
-          inlineDynamicImports: false //extract workers to separate bundle
+          codeSplitting: true //extract workers to separate bundle
 
           // Perhaps it's better not to use manualChunks for a lib build (also could be problems with minify)
 
