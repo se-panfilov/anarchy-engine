@@ -19,7 +19,7 @@ paths = [
   '''(?:^|/)node_modules(?:/.*)?$''',
   '''(?:^|/)coverage(?:/.*)?$''',
   '''(?:^|/)git(?:/.*)?$''',
-  '''(?:^|/)dist(?:/.*)?$''',
+  '''(?:^|/)dist(?:-\w+)?(?:/.*)?$''',
   '''(?:^|/)reports(?:/.*)?$''',
   '''(?:^|/)(?:deno\.lock|npm-shrinkwrap\.json|package-lock\.json|pnpm-lock\.yaml|yarn\.lock)$''',
   '''(?:^|/)bower_components(?:/.*)?$''',
