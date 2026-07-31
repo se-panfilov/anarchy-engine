@@ -40,19 +40,23 @@ async function cleanSvg(filePath) {
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-async function cleanMp3(filePath) {
-  const tmp = filePath + '.cleaned.mp3';
-  await execAsync(`ffmpeg -i "${filePath}" -map_metadata -1 -y "${tmp}"`);
+async function cleanAudio(filePath) {
+  const ext = path.extname(filePath).toLowerCase();
+  const tmp = `${filePath}.cleaned${ext}`;
+  await execAsync(`ffmpeg -i "${filePath}" -map_metadata -1 -c copy -y "${tmp}"`);
   await fs.rename(tmp, filePath);
-  console.log(`🧼 Stripped metadata from MP3: ${filePath}`);
+  console.log(`🧼 Stripped metadata from ${ext.toUpperCase()}: ${filePath}`);
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 function sanitizeDocument(doc) {
   const root = doc.getRoot();
+  const asset = root.getAsset();
 
   // eslint-disable-next-line functional/immutable-data
-  root.getAsset().generator = undefined;
+  asset.generator = undefined;
+  // eslint-disable-next-line functional/immutable-data
+  asset.copyright = undefined;
 
   [
     root.listAccessors(),
@@ -71,13 +75,12 @@ function sanitizeDocument(doc) {
   ]
     .flat()
     .forEach((item) => {
-      item.setExtras(undefined);
+      item.setExtras({});
     });
 
   // eslint-disable-next-line functional/no-loop-statements
   for (const extension of root.listExtensions()) {
-    // eslint-disable-next-line spellcheck/spell-checker
-    root.unregisterExtension(extension);
+    extension.dispose();
   }
 }
 
@@ -107,8 +110,8 @@ async function sanitizeAssets() {
     try {
       if (['.png', '.jpg', '.jpeg'].includes(ext)) await cleanImage(file);
       else if (ext === '.svg') await cleanSvg(file);
-      else if (['.mp3', '.ogg'].includes(ext)) await cleanMp3(file);
-      else if (['.glb'].includes(ext)) await cleanGlb(file);
+      else if (['.mp3', '.ogg'].includes(ext)) await cleanAudio(file);
+      else if (['.glb', '.gltf'].includes(ext)) await cleanGlb(file);
     } catch (err) {
       console.warn(`⚠️ Failed to clean ${file}:`, err.message);
     }
