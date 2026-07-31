@@ -5,33 +5,31 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 286
+Components listed: 227
 
 ## 1) Mandatory Attributions (verbatim)
 
 The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
 
-## @acemir/cssom@0.9.31
-
-**License(s):** MIT
-
-**Repository:** acemir/CSSOM
-
-**Attribution:** Copyright (c) Nikita Vasilyev
-
----
-
-## @apm-js-collab/code-transformer@0.8.2
+## @apm-js-collab/code-transformer@0.18.1
 
 **License(s):** Apache-2.0
 
-**Repository:** https://github.com/apm-js-collab/orchestrion-js.git
+**Repository:** https://github.com/nodejs/orchestrion-js.git
 
 **Attribution:** copyright notice that is included in or attached to the work
 
 ---
 
-## @apm-js-collab/tracing-hooks@0.3.1
+## @apm-js-collab/code-transformer-bundler-plugins@0.7.3
+
+**License(s):** MIT
+
+**Repository:** https://github.com/apm-js-collab/code-transformer-bundler-plugins
+
+---
+
+## @apm-js-collab/tracing-hooks@0.13.0
 
 **License(s):** Apache-2.0
 
@@ -41,7 +39,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/css-color@4.1.2
+## @asamuzakjp/css-color@6.0.5
 
 **License(s):** MIT
 
@@ -53,7 +51,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/dom-selector@6.8.0
+## @asamuzakjp/dom-selector@8.3.0
 
 **License(s):** MIT
 
@@ -65,19 +63,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/nwsapi@2.3.9
-
-**License(s):** MIT
-
-**Repository:** git://github.com/dperini/nwsapi.git
-
-**URL:** http://javascript.nwbox.com/nwsapi/
-
-**Attribution:** Copyright (c) 2007-2019 Diego Perini (http://www.iport.it/)
-
----
-
-## @babel/helper-string-parser@7.27.1
+## @babel/helper-string-parser@7.29.7
 
 **License(s):** MIT
 
@@ -89,7 +75,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @babel/helper-validator-identifier@7.28.5
+## @babel/helper-validator-identifier@7.29.7
 
 **License(s):** MIT
 
@@ -99,7 +85,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @babel/parser@7.29.0
+## @babel/parser@7.29.7
 
 **License(s):** MIT
 
@@ -111,7 +97,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @babel/types@7.29.0
+## @babel/types@7.29.7
 
 **License(s):** MIT
 
@@ -120,6 +106,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://babel.dev/docs/en/next/babel-types
 
 **Attribution:** Copyright (c) 2014-present Sebastian McKenzie and other contributors
+
+---
+
+## @bramus/specificity@2.4.2
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/bramus/specificity.git
+
+**URL:** https://github.com/bramus/specificity#readme
+
+**Attribution:** Copyright (c) 2022 Bramus Van Damme - https://www.bram.us/
 
 ---
 
@@ -135,7 +133,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/color-helpers@6.0.1
+## @csstools/color-helpers@6.1.0
 
 **License(s):** MIT-0
 
@@ -147,7 +145,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-calc@3.1.1
+## @csstools/css-calc@3.3.0
 
 **License(s):** MIT
 
@@ -159,7 +157,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-color-parser@4.0.1
+## @csstools/css-color-parser@4.1.10
 
 **License(s):** MIT
 
@@ -183,7 +181,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.27
+## @csstools/css-syntax-patches-for-csstree@1.1.7
 
 **License(s):** MIT-0
 
@@ -219,7 +217,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @exodus/bytes@1.14.1
+## @exodus/bytes@1.15.1
 
 **License(s):** MIT
 
@@ -231,19 +229,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/ecma402-abstract@3.0.6
-
-**License(s):** MIT
-
-**Repository:** git@github.com:formatjs/formatjs.git
-
-**URL:** https://github.com/formatjs/formatjs
-
-**Attribution:** Copyright (c) 2023 FormatJS
-
----
-
-## @formatjs/fast-memoize@3.0.1
+## @formatjs/fast-memoize@3.1.7
 
 **License(s):** MIT
 
@@ -255,7 +241,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/icu-messageformat-parser@3.2.0
+## @formatjs/icu-messageformat-parser@3.5.15
 
 **License(s):** MIT
 
@@ -265,7 +251,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/icu-skeleton-parser@2.0.6
+## @formatjs/icu-skeleton-parser@2.1.11
 
 **License(s):** MIT
 
@@ -275,7 +261,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/intl@4.0.7
+## @formatjs/intl@4.1.17
 
 **License(s):** MIT
 
@@ -287,19 +273,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/intl-localematcher@0.7.3
-
-**License(s):** MIT
-
-**Repository:** formatjs/formatjs.git
-
-**URL:** https://github.com/formatjs/formatjs#readme
-
-**Attribution:** Copyright (c) 2023 FormatJS
-
----
-
-## @gltf-transform/core@4.3.0
+## @gltf-transform/core@4.4.1
 
 **License(s):** MIT
 
@@ -359,7 +333,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @img/colour@1.0.0
+## @img/colour@1.1.0
 
 **License(s):** MIT
 
@@ -369,7 +343,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @img/sharp-darwin-arm64@0.34.5
+## @img/sharp-darwin-arm64@0.35.3
 
 **License(s):** Apache-2.0
 
@@ -381,7 +355,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @img/sharp-libvips-darwin-arm64@1.2.4
+## @img/sharp-libvips-darwin-arm64@1.3.2
 
 **License(s):** LGPL-3.0-or-later
 
@@ -393,7 +367,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @intlify/core-base@11.2.7
+## @intlify/core-base@11.4.8
 
 **License(s):** MIT
 
@@ -405,7 +379,19 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @intlify/message-compiler@11.2.7
+## @intlify/devtools-types@11.4.8
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/intlify/vue-i18n.git
+
+**URL:** https://github.com/intlify/vue-i18n/tree/master/packages/devtools-types#readme
+
+**Attribution:** Copyright (c) 2024 kazuya kawaguchi
+
+---
+
+## @intlify/message-compiler@11.4.8
 
 **License(s):** MIT
 
@@ -417,7 +403,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @intlify/shared@11.2.7
+## @intlify/shared@11.4.8
 
 **License(s):** MIT
 
@@ -426,16 +412,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://github.com/intlify/vue-i18n/tree/master/packages/shared#readme
 
 **Attribution:** Copyright (c) 2020 kazuya kawaguchi
-
----
-
-## @isaacs/cliui@9.0.0
-
-**License(s):** BlueOak-1.0.0
-
-**Repository:** git+ssh://git@github.com:isaacs/cliui
-
-**Attribution:** copyright in it.
 
 ---
 
@@ -448,6 +424,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://github.com/jridgewell/sourcemaps/tree/main/packages/sourcemap-codec
 
 **Attribution:** Copyright 2024 Justin Ridgewell <justin@ridgewell.name>
+
+---
+
+## @noble/hashes@2.2.0
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/paulmillr/noble-hashes.git
+
+**URL:** https://paulmillr.com/noble/
+
+**Attribution:** Copyright (c) 2022 Paul Miller (https://paulmillr.com)
 
 ---
 
@@ -481,7 +469,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/api@1.9.0
+## @opentelemetry/api@1.9.1
 
 **License(s):** Apache-2.0
 
@@ -493,7 +481,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/api-logs@0.208.0
+## @opentelemetry/api-logs@0.220.0
 
 **License(s):** Apache-2.0
 
@@ -505,19 +493,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/context-async-hooks@2.5.1
-
-**License(s):** Apache-2.0
-
-**Repository:** open-telemetry/opentelemetry-js
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js/tree/main/packages/opentelemetry-context-async-hooks
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/core@2.2.0
+## @opentelemetry/core@2.10.0
 
 **License(s):** Apache-2.0
 
@@ -529,19 +505,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/core@2.5.1
-
-**License(s):** Apache-2.0
-
-**Repository:** open-telemetry/opentelemetry-js
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js/tree/main/packages/opentelemetry-core
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation@0.208.0
+## @opentelemetry/instrumentation@0.220.0
 
 **License(s):** Apache-2.0
 
@@ -553,283 +517,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/instrumentation-amqplib@0.55.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-amqplib#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-connect@0.52.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-connect#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-dataloader@0.26.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-dataloader#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-express@0.57.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-express#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-fs@0.28.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-fs#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-generic-pool@0.52.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-generic-pool#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-graphql@0.56.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-graphql#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-hapi@0.55.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-hapi#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-http@0.208.0
-
-**License(s):** Apache-2.0
-
-**Repository:** open-telemetry/opentelemetry-js
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js/tree/main/experimental/packages/opentelemetry-instrumentation-http
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-ioredis@0.56.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-ioredis#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-kafkajs@0.18.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-kafkajs#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-knex@0.53.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-knex#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-koa@0.57.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-koa#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-lru-memoizer@0.53.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-lru-memoizer#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-mongodb@0.61.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-mongodb#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-mongoose@0.55.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-mongoose#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-mysql@0.54.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-mysql#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-mysql2@0.55.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-mysql2#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-pg@0.61.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-pg#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-redis@0.57.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-redis#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-tedious@0.27.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-tedious#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/instrumentation-undici@0.19.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-undici#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/redis-common@0.38.2
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/redis-common#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @opentelemetry/resources@2.5.1
+## @opentelemetry/resources@2.10.0
 
 **License(s):** Apache-2.0
 
@@ -841,7 +529,19 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/sdk-trace-base@2.5.1
+## @opentelemetry/sdk-trace@2.10.0
+
+**License(s):** Apache-2.0
+
+**Repository:** open-telemetry/opentelemetry-js
+
+**URL:** https://github.com/open-telemetry/opentelemetry-js/tree/main/packages/sdk-trace
+
+**Attribution:** copyright notice that is included in or attached to the work
+
+---
+
+## @opentelemetry/sdk-trace-base@2.10.0
 
 **License(s):** Apache-2.0
 
@@ -853,7 +553,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/semantic-conventions@1.39.0
+## @opentelemetry/semantic-conventions@1.43.0
 
 **License(s):** Apache-2.0
 
@@ -865,127 +565,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/sql-common@0.41.2
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/open-telemetry/opentelemetry-js-contrib.git
-
-**URL:** https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/sql-common#readme
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @prisma/instrumentation@6.19.0
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/prisma/prisma.git
-
-**URL:** https://www.prisma.io
-
-**Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @sentry-internal/browser-utils@10.29.0
-
-**License(s):** MIT
-
-**Repository:** git://github.com/getsentry/sentry-javascript.git
-
-**URL:** https://github.com/getsentry/sentry-javascript/tree/master/packages/browser-utils
-
-**Attribution:** Copyright (c) 2020 Functional Software, Inc. dba Sentry
-
----
-
-## @sentry-internal/browser-utils@10.32.1
-
-**License(s):** MIT
-
-**Repository:** git://github.com/getsentry/sentry-javascript.git
-
-**URL:** https://github.com/getsentry/sentry-javascript/tree/master/packages/browser-utils
-
-**Attribution:** Copyright (c) 2020 Functional Software, Inc. dba Sentry
-
----
-
-## @sentry-internal/feedback@10.29.0
-
-**License(s):** MIT
-
-**Repository:** git://github.com/getsentry/sentry-javascript.git
-
-**URL:** https://github.com/getsentry/sentry-javascript/tree/master/packages/feedback
-
-**Attribution:** Copyright (c) 2023 Functional Software, Inc. dba Sentry
-
----
-
-## @sentry-internal/feedback@10.32.1
-
-**License(s):** MIT
-
-**Repository:** git://github.com/getsentry/sentry-javascript.git
-
-**URL:** https://github.com/getsentry/sentry-javascript/tree/master/packages/feedback
-
-**Attribution:** Copyright (c) 2023 Functional Software, Inc. dba Sentry
-
----
-
-## @sentry-internal/replay@10.29.0
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/getsentry/sentry-javascript.git
-
-**URL:** https://docs.sentry.io/platforms/javascript/session-replay/
-
-**Attribution:** Copyright (c) 2022 Functional Software, Inc. dba Sentry
-
----
-
-## @sentry-internal/replay@10.32.1
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/getsentry/sentry-javascript.git
-
-**URL:** https://docs.sentry.io/platforms/javascript/session-replay/
-
-**Attribution:** Copyright (c) 2022 Functional Software, Inc. dba Sentry
-
----
-
-## @sentry-internal/replay-canvas@10.29.0
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/getsentry/sentry-javascript.git
-
-**URL:** https://docs.sentry.io/platforms/javascript/session-replay/
-
-**Attribution:** Copyright (c) 2024 Functional Software, Inc. dba Sentry
-
----
-
-## @sentry-internal/replay-canvas@10.32.1
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/getsentry/sentry-javascript.git
-
-**URL:** https://docs.sentry.io/platforms/javascript/session-replay/
-
-**Attribution:** Copyright (c) 2024 Functional Software, Inc. dba Sentry
-
----
-
-## @sentry/browser@10.29.0
+## @sentry/browser@10.67.0
 
 **License(s):** MIT
 
@@ -997,7 +577,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @sentry/browser@10.32.1
+## @sentry/browser@10.69.0
 
 **License(s):** MIT
 
@@ -1009,7 +589,43 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @sentry/core@10.29.0
+## @sentry/browser-utils@10.67.0
+
+**License(s):** MIT
+
+**Repository:** git://github.com/getsentry/sentry-javascript.git
+
+**URL:** https://github.com/getsentry/sentry-javascript/tree/master/packages/browser-utils
+
+**Attribution:** Copyright (c) 2020 Functional Software, Inc. dba Sentry
+
+---
+
+## @sentry/browser-utils@10.69.0
+
+**License(s):** MIT
+
+**Repository:** git://github.com/getsentry/sentry-javascript.git
+
+**URL:** https://github.com/getsentry/sentry-javascript/tree/master/packages/browser-utils
+
+**Attribution:** Copyright (c) 2020 Functional Software, Inc. dba Sentry
+
+---
+
+## @sentry/conventions@0.16.0
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/getsentry/sentry-conventions.git
+
+**URL:** https://github.com/getsentry/sentry-conventions#readme
+
+**Attribution:** Copyright (c) 2023-2025 Functional Software, Inc. dba Sentry
+
+---
+
+## @sentry/core@10.67.0
 
 **License(s):** MIT
 
@@ -1021,7 +637,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @sentry/core@10.32.1
+## @sentry/core@10.69.0
 
 **License(s):** MIT
 
@@ -1033,7 +649,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @sentry/electron@7.5.0
+## @sentry/electron@7.16.0
 
 **License(s):** MIT
 
@@ -1043,7 +659,31 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @sentry/node@10.29.0
+## @sentry/feedback@10.67.0
+
+**License(s):** MIT
+
+**Repository:** git://github.com/getsentry/sentry-javascript.git
+
+**URL:** https://github.com/getsentry/sentry-javascript/tree/master/packages/feedback
+
+**Attribution:** Copyright (c) 2023 Functional Software, Inc. dba Sentry
+
+---
+
+## @sentry/feedback@10.69.0
+
+**License(s):** MIT
+
+**Repository:** git://github.com/getsentry/sentry-javascript.git
+
+**URL:** https://github.com/getsentry/sentry-javascript/tree/master/packages/feedback
+
+**Attribution:** Copyright (c) 2023 Functional Software, Inc. dba Sentry
+
+---
+
+## @sentry/node@10.67.0
 
 **License(s):** MIT
 
@@ -1055,7 +695,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @sentry/node-core@10.29.0
+## @sentry/node-core@10.67.0
 
 **License(s):** MIT
 
@@ -1067,7 +707,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @sentry/opentelemetry@10.29.0
+## @sentry/opentelemetry@10.67.0
 
 **License(s):** MIT
 
@@ -1079,13 +719,73 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @types/connect@3.4.38
+## @sentry/replay@10.67.0
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/getsentry/sentry-javascript.git
+
+**URL:** https://docs.sentry.io/platforms/javascript/session-replay/
+
+**Attribution:** Copyright (c) 2022 Functional Software, Inc. dba Sentry
+
+---
+
+## @sentry/replay@10.69.0
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/getsentry/sentry-javascript.git
+
+**URL:** https://docs.sentry.io/platforms/javascript/session-replay/
+
+**Attribution:** Copyright (c) 2022 Functional Software, Inc. dba Sentry
+
+---
+
+## @sentry/replay-canvas@10.67.0
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/getsentry/sentry-javascript.git
+
+**URL:** https://docs.sentry.io/platforms/javascript/session-replay/
+
+**Attribution:** Copyright (c) 2024 Functional Software, Inc. dba Sentry
+
+---
+
+## @sentry/replay-canvas@10.69.0
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/getsentry/sentry-javascript.git
+
+**URL:** https://docs.sentry.io/platforms/javascript/session-replay/
+
+**Attribution:** Copyright (c) 2024 Functional Software, Inc. dba Sentry
+
+---
+
+## @sentry/server-utils@10.67.0
+
+**License(s):** MIT
+
+**Repository:** git://github.com/getsentry/sentry-javascript.git
+
+**URL:** https://github.com/getsentry/sentry-javascript/tree/master/packages/server-utils
+
+**Attribution:** Sentry
+
+---
+
+## @types/estree@1.0.9
 
 **License(s):** MIT
 
 **Repository:** https://github.com/DefinitelyTyped/DefinitelyTyped.git
 
-**URL:** https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/connect
+**URL:** https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/estree
 
 **Attribution:** Copyright (c) Microsoft Corporation.
 
@@ -1103,73 +803,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @types/mysql@2.15.27
-
-**License(s):** MIT
-
-**Repository:** https://github.com/DefinitelyTyped/DefinitelyTyped.git
-
-**URL:** https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/mysql
-
-**Attribution:** Copyright (c) Microsoft Corporation.
-
----
-
-## @types/node@22.19.11
+## @types/node@25.9.5
 
 **License(s):** MIT
 
 **Repository:** https://github.com/DefinitelyTyped/DefinitelyTyped.git
 
 **URL:** https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/node
-
-**Attribution:** Copyright (c) Microsoft Corporation.
-
----
-
-## @types/node@24.10.4
-
-**License(s):** MIT
-
-**Repository:** https://github.com/DefinitelyTyped/DefinitelyTyped.git
-
-**URL:** https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/node
-
-**Attribution:** Copyright (c) Microsoft Corporation.
-
----
-
-## @types/pg@8.15.6
-
-**License(s):** MIT
-
-**Repository:** https://github.com/DefinitelyTyped/DefinitelyTyped.git
-
-**URL:** https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/pg
-
-**Attribution:** Copyright (c) Microsoft Corporation.
-
----
-
-## @types/pg-pool@2.0.6
-
-**License(s):** MIT
-
-**Repository:** https://github.com/DefinitelyTyped/DefinitelyTyped.git
-
-**URL:** https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/pg-pool
-
-**Attribution:** Copyright (c) Microsoft Corporation.
-
----
-
-## @types/tedious@4.0.14
-
-**License(s):** MIT
-
-**Repository:** https://github.com/DefinitelyTyped/DefinitelyTyped.git
-
-**URL:** https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/tedious
 
 **Attribution:** Copyright (c) Microsoft Corporation.
 
@@ -1187,7 +827,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/compiler-core@3.5.26
+## @vue/compiler-core@3.5.40
 
 **License(s):** MIT
 
@@ -1199,7 +839,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/compiler-dom@3.5.26
+## @vue/compiler-dom@3.5.40
 
 **License(s):** MIT
 
@@ -1211,7 +851,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/compiler-sfc@3.5.26
+## @vue/compiler-sfc@3.5.40
 
 **License(s):** MIT
 
@@ -1223,7 +863,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/compiler-ssr@3.5.26
+## @vue/compiler-ssr@3.5.40
 
 **License(s):** MIT
 
@@ -1245,7 +885,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/devtools-api@7.7.9
+## @vue/devtools-api@8.2.1
 
 **License(s):** MIT
 
@@ -1255,7 +895,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/devtools-kit@7.7.9
+## @vue/devtools-kit@8.2.1
 
 **License(s):** MIT
 
@@ -1265,7 +905,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/devtools-shared@7.7.9
+## @vue/devtools-shared@8.2.1
 
 **License(s):** MIT
 
@@ -1275,7 +915,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/reactivity@3.5.26
+## @vue/reactivity@3.5.40
 
 **License(s):** MIT
 
@@ -1287,7 +927,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/runtime-core@3.5.26
+## @vue/runtime-core@3.5.40
 
 **License(s):** MIT
 
@@ -1299,7 +939,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/runtime-dom@3.5.26
+## @vue/runtime-dom@3.5.40
 
 **License(s):** MIT
 
@@ -1311,7 +951,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/server-renderer@3.5.26
+## @vue/server-renderer@3.5.40
 
 **License(s):** MIT
 
@@ -1323,7 +963,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/shared@3.5.26
+## @vue/shared@3.5.40
 
 **License(s):** MIT
 
@@ -1335,51 +975,17 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## acorn@8.15.0
+## astring@1.9.0
 
 **License(s):** MIT
 
-**Repository:** git+https://github.com/acornjs/acorn.git
+**Repository:** https://github.com/davidbonnet/astring.git
 
-**URL:** https://github.com/acornjs/acorn
-
-**Attribution:** Copyright (C) 2012-2022 by various contributors (see AUTHORS)
+**Attribution:** Copyright (c) 2015, David Bonnet <david@bonnet.cc>
 
 ---
 
-## acorn-import-attributes@1.9.5
-
-**License(s):** MIT
-
-**Repository:** https://github.com/xtuc/acorn-import-attributes
-
-**Attribution:** Copyright (c) 2023 Sven Sauleau
-
----
-
-## agent-base@7.1.4
-
-**License(s):** MIT
-
-**Repository:** https://github.com/TooTallNate/proxy-agents.git
-
-**Attribution:** Copyright (c) 2013 Nathan Rajlich <nathan@tootallnate.net>
-
----
-
-## balanced-match@1.0.2
-
-**License(s):** MIT
-
-**Repository:** git://github.com/juliangruber/balanced-match.git
-
-**URL:** https://github.com/juliangruber/balanced-match
-
-**Attribution:** Copyright (c) 2013 Julian Gruber &lt;julian@juliangruber.com&gt;
-
----
-
-## balanced-match@4.0.2
+## balanced-match@4.0.4
 
 **License(s):** MIT
 
@@ -1421,35 +1027,23 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## bowser@2.13.1
+## bowser@2.14.1
 
 **License(s):** MIT
 
-**Repository:** git+https://github.com/lancedikson/bowser.git
+**Repository:** git+https://github.com/bowser-js/bowser.git
 
-**URL:** https://github.com/lancedikson/bowser
+**URL:** https://github.com/bowser-js/bowser
 
 **Attribution:** Copyright 2015, Dustin Diaz (the "Original Author")
 
 ---
 
-## brace-expansion@2.0.2
+## brace-expansion@5.0.9
 
 **License(s):** MIT
 
-**Repository:** git://github.com/juliangruber/brace-expansion.git
-
-**URL:** https://github.com/juliangruber/brace-expansion
-
-**Attribution:** Copyright (c) 2013 Julian Gruber <julian@juliangruber.com>
-
----
-
-## brace-expansion@5.0.2
-
-**License(s):** MIT
-
-**Repository:** git+ssh://git@github.com/juliangruber/brace-expansion.git
+**Repository:** git+https://github.com/juliangruber/brace-expansion.git
 
 **Attribution:** Copyright Julian Gruber <julian@juliangruber.com>
 
@@ -1489,25 +1083,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## commander@13.1.0
+## commander@14.0.3
 
 **License(s):** MIT
 
 **Repository:** git+https://github.com/tj/commander.js.git
 
 **Attribution:** Copyright (c) 2011 TJ Holowaychuk <tj@vision-media.ca>
-
----
-
-## copy-anything@4.0.5
-
-**License(s):** MIT
-
-**Repository:** https://github.com/mesqueeb/copy-anything.git
-
-**URL:** https://github.com/mesqueeb/copy-anything#readme
-
-**Attribution:** Copyright (c) 2018 Luca Ban - Mesqueeb
 
 ---
 
@@ -1518,18 +1100,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** git://github.com/SheetJS/js-crc32.git
 
 **Attribution:** Copyright (C) 2014 SheetJS
-
----
-
-## cross-spawn@7.0.6
-
-**License(s):** MIT
-
-**Repository:** git@github.com:moxystudio/node-cross-spawn.git
-
-**URL:** https://github.com/moxystudio/node-cross-spawn
-
-**Attribution:** Copyright (c) 2018 Made With MOXY Lda <hello@moxy.studio>
 
 ---
 
@@ -1553,13 +1123,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## css-tree@3.1.0
+## css-tree@3.2.1
 
 **License(s):** MIT
 
 **Repository:** csstree/csstree
 
-**Attribution:** Copyright (C) 2016-2024 by Roman Dvornov
+**Attribution:** Copyright (C) 2016-2026 by Roman Dvornov
 
 ---
 
@@ -1583,16 +1153,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## cssstyle@5.3.7
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/jsdom/cssstyle.git
-
-**Attribution:** Copyright (c) Chad Walker
-
----
-
 ## csstype@3.2.3
 
 **License(s):** MIT
@@ -1603,7 +1163,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## data-urls@6.0.1
+## data-urls@7.0.0
 
 **License(s):** MIT
 
@@ -1613,7 +1173,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## date-fns@4.1.0
+## date-fns@4.4.0
 
 **License(s):** MIT
 
@@ -1673,7 +1233,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## dexie@4.2.1
+## dexie@4.4.4
 
 **License(s):** Apache-2.0
 
@@ -1715,7 +1275,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## dompurify@3.3.1
+## dompurify@3.4.12
 
 **License(s):** (MPL-2.0 OR Apache-2.0)
 
@@ -1723,7 +1283,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 **URL:** https://github.com/cure53/DOMPurify
 
-**Attribution:** Copyright 2025 Dr.-Ing. Mario Heiderich, Cure53
+**Attribution:** copyright notice that is included in or attached to the work
 
 ---
 
@@ -1737,7 +1297,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## dotenv@16.6.1
+## dotenv@17.4.2
 
 **License(s):** BSD-2-Clause
 
@@ -1749,39 +1309,19 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## dotenv@17.2.3
+## dotenv-expand@1000.0.0
 
-**License(s):** BSD-2-Clause
+**License(s):** BSD-3-Clause
 
-**Repository:** git://github.com/motdotla/dotenv.git
+**Repository:** git+https://github.com/dotenvx/dotenv-expand.git
 
-**URL:** https://github.com/motdotla/dotenv#readme
-
-**Attribution:** Copyright (c) 2015, Scott Motte
-
----
-
-## dotenv-expand@11.0.7
-
-**License(s):** BSD-2-Clause
-
-**Repository:** https://github.com/motdotla/dotenv-expand
+**URL:** https://github.com/dotenvx/dotenv-expand#readme
 
 **Attribution:** Copyright (c) 2016, Scott Motte
 
 ---
 
 ## entities@4.5.0
-
-**License(s):** BSD-2-Clause
-
-**Repository:** git://github.com/fb55/entities.git
-
-**Attribution:** Copyright (c) Felix Böhm
-
----
-
-## entities@6.0.1
 
 **License(s):** BSD-2-Clause
 
@@ -1798,6 +1338,50 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** https://github.com/fb55/entities.git
 
 **Attribution:** Copyright (c) Felix Böhm
+
+---
+
+## entities@8.0.0
+
+**License(s):** BSD-2-Clause
+
+**Repository:** https://github.com/fb55/entities.git
+
+**Attribution:** Copyright (c) Felix Böhm
+
+---
+
+## es-module-lexer@2.3.1
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/guybedford/es-module-lexer.git
+
+**URL:** https://github.com/guybedford/es-module-lexer#readme
+
+**Attribution:** Copyright (C) 2018-2022 Guy Bedford
+
+---
+
+## esquery@1.7.0
+
+**License(s):** BSD-3-Clause
+
+**Repository:** https://github.com/estools/esquery.git
+
+**URL:** https://github.com/estools/esquery/
+
+**Attribution:** Copyright (c) 2013, Joel Feenstra
+
+---
+
+## estraverse@5.3.0
+
+**License(s):** BSD-2-Clause
+
+**Repository:** http://github.com/estools/estraverse.git
+
+**URL:** https://github.com/estools/estraverse
 
 ---
 
@@ -1845,33 +1429,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## foreground-child@3.3.1
-
-**License(s):** ISC
-
-**Repository:** git+https://github.com/tapjs/foreground-child.git
-
-**Attribution:** Copyright (c) 2015-2023 Isaac Z. Schlueter and Contributors
-
----
-
-## forwarded-parse@2.1.2
+## fs-extra@11.4.0
 
 **License(s):** MIT
 
-**Repository:** lpinca/forwarded-parse
-
-**URL:** https://github.com/lpinca/forwarded-parse
-
-**Attribution:** Copyright (c) 2015 Luigi Pinca
-
----
-
-## fs-extra@11.3.3
-
-**License(s):** MIT
-
-**Repository:** https://github.com/jprichardson/node-fs-extra
+**Repository:** git+https://github.com/jprichardson/node-fs-extra.git
 
 **URL:** https://github.com/jprichardson/node-fs-extra
 
@@ -1879,7 +1441,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## glob@11.1.0
+## glob@13.0.6
 
 **License(s):** BlueOak-1.0.0
 
@@ -1929,27 +1491,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## http-proxy-agent@7.0.2
-
-**License(s):** MIT
-
-**Repository:** https://github.com/TooTallNate/proxy-agents.git
-
-**Attribution:** Copyright (c) 2013 Nathan Rajlich <nathan@tootallnate.net>
-
----
-
-## https-proxy-agent@7.0.6
-
-**License(s):** MIT
-
-**Repository:** https://github.com/TooTallNate/proxy-agents.git
-
-**Attribution:** Copyright (c) 2013 Nathan Rajlich <nathan@tootallnate.net>
-
----
-
-## import-in-the-middle@2.0.6
+## import-in-the-middle@3.3.2
 
 **License(s):** Apache-2.0
 
@@ -1961,7 +1503,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## intl-messageformat@11.0.7
+## intl-messageformat@11.2.12
 
 **License(s):** BSD-3-Clause
 
@@ -1970,18 +1512,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://github.com/formatjs/formatjs
 
 **Attribution:** Copyright (c) 2023, Oath Inc.
-
----
-
-## is-extglob@2.1.1
-
-**License(s):** MIT
-
-**Repository:** jonschlinkert/is-extglob
-
-**URL:** https://github.com/jonschlinkert/is-extglob
-
-**Attribution:** Copyright (c) 2014-2016, Jon Schlinkert
 
 ---
 
@@ -2021,51 +1551,19 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## is-what@5.5.0
-
-**License(s):** MIT
-
-**Repository:** https://github.com/mesqueeb/is-what.git
-
-**URL:** https://github.com/mesqueeb/is-what#readme
-
-**Attribution:** Copyright (c) 2018 Luca Ban - Mesqueeb
-
----
-
-## isexe@2.0.0
-
-**License(s):** ISC
-
-**Repository:** git+https://github.com/isaacs/isexe.git
-
-**URL:** https://github.com/isaacs/isexe#readme
-
-**Attribution:** Copyright (c) Isaac Z. Schlueter and Contributors
-
----
-
-## isomorphic-dompurify@2.35.0
+## isomorphic-dompurify@3.20.0
 
 **License(s):** MIT
 
 **Repository:** kkomelin/isomorphic-dompurify
 
+**URL:** https://github.com/kkomelin/isomorphic-dompurify
+
 **Attribution:** Copyright (c) 2020 Konstantin Komelin
 
 ---
 
-## jackspeak@4.2.3
-
-**License(s):** BlueOak-1.0.0
-
-**Repository:** git+https://github.com/isaacs/jackspeak.git
-
-**Attribution:** copyright in it.
-
----
-
-## jsdom@27.4.0
+## jsdom@30.0.1
 
 **License(s):** MIT
 
@@ -2087,7 +1585,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## jsonfile@6.2.0
+## jsonfile@6.2.1
 
 **License(s):** MIT
 
@@ -2109,7 +1607,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## lodash-es@4.17.22
+## lodash-es@4.18.1
 
 **License(s):** MIT
 
@@ -2121,7 +1619,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## lru-cache@11.2.6
+## lru-cache@11.5.2
 
 **License(s):** BlueOak-1.0.0
 
@@ -2131,7 +1629,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## lucide-vue-next@0.562.0
+## lucide-vue-next@1.0.0
 
 **License(s):** ISC
 
@@ -2139,7 +1637,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 **URL:** https://lucide.dev
 
-**Attribution:** Copyright (c) for portions of Lucide are held by Cole Bemis 2013-2023 as part of Feather (MIT). All other copyright (c) for Lucide are held by Lucide Contributors 2025.
+**Attribution:** Copyright (c) for portions of Lucide are held by Cole Bemis 2013-2026 as part of Feather (MIT). All other copyright (c) for Lucide are held by Lucide Contributors 2026.
 
 ---
 
@@ -2153,11 +1651,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## marked@17.0.1
+## marked@18.0.7
 
 **License(s):** MIT
 
-**Repository:** git://github.com/markedjs/marked.git
+**Repository:** git+https://github.com/markedjs/marked.git
 
 **URL:** https://marked.js.org
 
@@ -2177,7 +1675,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## mdn-data@2.12.2
+## mdn-data@2.27.1
 
 **License(s):** CC0-1.0
 
@@ -2201,6 +1699,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## meriyah@6.1.4
+
+**License(s):** ISC
+
+**Repository:** git+https://github.com/meriyah/meriyah.git
+
+**URL:** https://github.com/meriyah/meriyah
+
+**Attribution:** Copyright (c) 2019 and later, KFlash and others.
+
+---
+
 ## micromatch@4.0.8
 
 **License(s):** MIT
@@ -2213,23 +1723,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## minimatch@10.2.0
+## minimatch@10.2.6
 
 **License(s):** BlueOak-1.0.0
 
 **Repository:** git@github.com:isaacs/minimatch
 
 **Attribution:** copyright in it.
-
----
-
-## minimatch@9.0.5
-
-**License(s):** ISC
-
-**Repository:** git://github.com/isaacs/minimatch.git
-
-**Attribution:** Copyright (c) 2011-2023 Isaac Z. Schlueter and Contributors
 
 ---
 
@@ -2245,25 +1745,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## minipass@7.1.2
+## minipass@7.1.3
 
-**License(s):** ISC
+**License(s):** BlueOak-1.0.0
 
 **Repository:** https://github.com/isaacs/minipass
 
-**Attribution:** Copyright (c) 2017-2023 npm, Inc., Isaac Z. Schlueter, and Contributors
-
----
-
-## mitt@3.0.1
-
-**License(s):** MIT
-
-**Repository:** developit/mitt
-
-**URL:** https://github.com/developit/mitt
-
-**Attribution:** Copyright (c) 2021 Jason Miller
+**Attribution:** copyright in it.
 
 ---
 
@@ -2289,7 +1777,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## nanoid@3.3.11
+## nanoid@3.3.16
 
 **License(s):** MIT
 
@@ -2299,13 +1787,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## nanoid@5.1.6
+## nanoid@6.0.0
 
 **License(s):** MIT
 
 **Repository:** ai/nanoid
 
-**Attribution:** Copyright 2017 Andrey Sitnik <andrey@sitnik.ru>
+**Attribution:** Copyright 2017 Andrey Sitnik <andrey@sitnik.es>
 
 ---
 
@@ -2321,6 +1809,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## nostics@1.2.0
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/vercel-labs/nostics.git
+
+**URL:** https://github.com/vercel-labs/nostics#readme
+
+**Attribution:** Copyright (c) 2026-present Vercel Inc.
+
+---
+
 ## nth-check@2.1.1
 
 **License(s):** BSD-2-Clause
@@ -2333,17 +1833,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## package-json-from-dist@1.0.1
-
-**License(s):** BlueOak-1.0.0
-
-**Repository:** git+https://github.com/isaacs/package-json-from-dist.git
-
-**Attribution:** copyright in it.
-
----
-
-## parse5@8.0.0
+## parse5@8.0.1
 
 **License(s):** MIT
 
@@ -2355,17 +1845,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## path-key@3.1.1
-
-**License(s):** MIT
-
-**Repository:** sindresorhus/path-key
-
-**Attribution:** Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
-
----
-
-## path-scurry@2.0.1
+## path-scurry@2.0.2
 
 **License(s):** BlueOak-1.0.0
 
@@ -2375,45 +1855,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## perfect-debounce@1.0.0
+## perfect-debounce@2.1.0
 
 **License(s):** MIT
 
 **Repository:** unjs/perfect-debounce
 
 **Attribution:** Copyright (c) Pooya Parsa <pooya@pi0.io>
-
----
-
-## pg-int8@1.0.1
-
-**License(s):** ISC
-
-**Repository:** https://github.com/charmander/pg-int8
-
-**Attribution:** Copyright © 2017, Charmander <~@charmander.me>
-
----
-
-## pg-protocol@1.11.0
-
-**License(s):** MIT
-
-**Repository:** git://github.com/brianc/node-postgres.git
-
-**Attribution:** Copyright (c) 2010 - 2021 Brian Carlson
-
----
-
-## pg-types@2.2.0
-
-**License(s):** MIT
-
-**Repository:** git://github.com/brianc/node-pg-types.git
-
-**URL:** https://github.com/brianc/node-pg-types
-
-**Attribution:** Brian M. Carlson
 
 ---
 
@@ -2427,7 +1875,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## picomatch@2.3.1
+## picomatch@2.3.2
 
 **License(s):** MIT
 
@@ -2439,7 +1887,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## pinia@3.0.4
+## pinia@4.0.2
 
 **License(s):** MIT
 
@@ -2475,7 +1923,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## png-to-ico@3.0.1
+## png-to-ico@3.0.2
 
 **License(s):** MIT
 
@@ -2497,7 +1945,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## postcss@8.5.6
+## postcss@8.5.25
 
 **License(s):** MIT
 
@@ -2505,51 +1953,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 **URL:** https://postcss.org/
 
-**Attribution:** Copyright 2013 Andrey Sitnik <andrey@sitnik.ru>
+**Attribution:** Copyright 2013 Andrey Sitnik <andrey@sitnik.es>
 
 ---
 
-## postgres-array@2.0.0
-
-**License(s):** MIT
-
-**Repository:** bendrucker/postgres-array
-
-**Attribution:** Copyright (c) Ben Drucker <bvdrucker@gmail.com> (bendrucker.me)
-
----
-
-## postgres-bytea@1.0.1
-
-**License(s):** MIT
-
-**Repository:** bendrucker/postgres-bytea
-
-**Attribution:** Copyright (c) Ben Drucker <bvdrucker@gmail.com> (bendrucker.me)
-
----
-
-## postgres-date@1.0.7
-
-**License(s):** MIT
-
-**Repository:** bendrucker/postgres-date
-
-**Attribution:** Copyright (c) Ben Drucker <bvdrucker@gmail.com> (bendrucker.me)
-
----
-
-## postgres-interval@1.2.0
-
-**License(s):** MIT
-
-**Repository:** bendrucker/postgres-interval
-
-**Attribution:** Copyright (c) Ben Drucker <bvdrucker@gmail.com> (bendrucker.me)
-
----
-
-## property-graph@4.0.0
+## property-graph@4.1.0
 
 **License(s):** MIT
 
@@ -2639,18 +2047,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## rfdc@1.4.1
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/davidmarkclements/rfdc.git
-
-**URL:** https://github.com/davidmarkclements/rfdc#readme
-
-**Attribution:** Copyright 2019 "David Mark Clements <david.mark.clements@gmail.com>"
-
----
-
 ## run-parallel@1.2.0
 
 **License(s):** MIT
@@ -2699,11 +2095,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## sax@1.4.4
+## sax@1.6.1
 
 **License(s):** BlueOak-1.0.0
 
-**Repository:** git://github.com/isaacs/sax-js.git
+**Repository:** git+ssh://git@github.com/isaacs/sax-js.git
 
 **Attribution:** copyright in it.
 
@@ -2719,7 +2115,19 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## semver@7.7.3
+## semifies@1.0.0
+
+**License(s):** Apache-2.0
+
+**Repository:** https://github.com/holepunchto/semifies.git
+
+**URL:** https://github.com/holepunchto/semifies
+
+**Attribution:** copyright notice that is included in or attached to the work
+
+---
+
+## semver@7.8.5
 
 **License(s):** ISC
 
@@ -2729,35 +2137,15 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## sharp@0.34.5
+## sharp@0.35.3
 
 **License(s):** Apache-2.0
 
-**Repository:** git://github.com/lovell/sharp.git
+**Repository:** git+https://github.com/lovell/sharp.git
 
 **URL:** https://sharp.pixelplumbing.com
 
 **Attribution:** Copyright [yyyy] [name of copyright owner]
-
----
-
-## shebang-command@2.0.0
-
-**License(s):** MIT
-
-**Repository:** kevva/shebang-command
-
-**Attribution:** Copyright (c) Kevin Mårtensson <kevinmartensson@gmail.com> (github.com/kevva)
-
----
-
-## shebang-regex@3.0.0
-
-**License(s):** MIT
-
-**Repository:** sindresorhus/shebang-regex
-
-**Attribution:** Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 
 ---
 
@@ -2821,16 +2209,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## signal-exit@4.1.0
-
-**License(s):** ISC
-
-**Repository:** https://github.com/tapjs/signal-exit.git
-
-**Attribution:** Copyright (c) 2015-2023 Benjamin Coe, Isaac Z. Schlueter, and Contributors
-
----
-
 ## sliced@1.0.1
 
 **License(s):** MIT
@@ -2853,6 +2231,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## source-map@0.6.1
+
+**License(s):** BSD-3-Clause
+
+**Repository:** http://github.com/mozilla/source-map.git
+
+**URL:** https://github.com/mozilla/source-map
+
+**Attribution:** Copyright (c) 2009-2011, Mozilla Foundation and contributors
+
+---
+
 ## source-map-js@1.2.1
 
 **License(s):** BSD-3-Clause
@@ -2862,18 +2252,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://github.com/7rulnik/source-map-js
 
 **Attribution:** Copyright (c) 2009-2011, Mozilla Foundation and contributors
-
----
-
-## speakingurl@14.0.1
-
-**License(s):** BSD-3-Clause
-
-**Repository:** git+https://github.com/pid/speakingurl.git
-
-**URL:** http://pid.github.io/speakingurl/
-
-**Attribution:** Copyright (c) 2013-2017 Sascha Droste <pid@posteo.net>
 
 ---
 
@@ -2889,17 +2267,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## superjson@2.2.6
-
-**License(s):** MIT
-
-**Repository:** https://github.com/blitz-js/superjson
-
-**Attribution:** Copyright (c) 2020 Simon Knott and superjson contributors
-
----
-
-## svgo@4.0.0
+## svgo@4.0.2
 
 **License(s):** MIT
 
@@ -2923,7 +2291,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## three@0.182.0
+## three@0.185.1
 
 **License(s):** MIT
 
@@ -2931,11 +2299,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 **URL:** https://threejs.org/
 
-**Attribution:** Copyright © 2010-2025 three.js authors
+**Attribution:** Copyright © 2010-2026 three.js authors
 
 ---
 
-## three-mesh-bvh@0.9.4
+## three-mesh-bvh@0.9.13
 
 **License(s):** MIT
 
@@ -2959,7 +2327,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts@7.0.23
+## tldts@7.4.9
 
 **License(s):** MIT
 
@@ -2971,7 +2339,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts-core@7.0.23
+## tldts-core@7.4.9
 
 **License(s):** MIT
 
@@ -2995,7 +2363,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tough-cookie@6.0.0
+## tough-cookie@6.0.2
 
 **License(s):** BSD-3-Clause
 
@@ -3017,7 +2385,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## ts-json-schema-generator@2.4.0
+## ts-json-schema-generator@2.9.0
 
 **License(s):** MIT
 
@@ -3075,7 +2443,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## undici-types@6.21.0
+## undici@8.9.0
 
 **License(s):** MIT
 
@@ -3087,7 +2455,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## undici-types@7.16.0
+## undici-types@7.24.6
 
 **License(s):** MIT
 
@@ -3111,19 +2479,19 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## vue@3.5.26
+## vue@3.5.40
 
 **License(s):** MIT
 
 **Repository:** git+https://github.com/vuejs/core.git
 
-**URL:** https://github.com/vuejs/core/tree/main/packages/vue#readme
+**URL:** https://vuejs.org/
 
 **Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
 
 ---
 
-## vue-i18n@11.2.7
+## vue-i18n@11.4.8
 
 **License(s):** MIT
 
@@ -3155,16 +2523,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## whatwg-mimetype@4.0.0
-
-**License(s):** MIT
-
-**Repository:** jsdom/whatwg-mimetype
-
-**Attribution:** Copyright © Domenic Denicola <d@domenic.me>
-
----
-
 ## whatwg-mimetype@5.0.0
 
 **License(s):** MIT
@@ -3175,7 +2533,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## whatwg-url@15.1.0
+## whatwg-url@16.0.1
 
 **License(s):** MIT
 
@@ -3185,25 +2543,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## which@2.0.2
-
-**License(s):** ISC
-
-**Repository:** git://github.com/isaacs/node-which.git
-
-**Attribution:** Copyright (c) Isaac Z. Schlueter and Contributors
-
----
-
-## ws@8.19.0
+## whatwg-url@17.1.0
 
 **License(s):** MIT
 
-**Repository:** git+https://github.com/websockets/ws.git
+**Repository:** git+https://github.com/jsdom/whatwg-url.git
 
-**URL:** https://github.com/websockets/ws
-
-**Attribution:** Copyright (c) 2011 Einar Otto Stangvik <einaros@gmail.com>
+**Attribution:** Copyright (c) Sebastian Mayr
 
 ---
 
@@ -3224,18 +2570,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** https://github.com/lddubeau/xmlchars.git
 
 **Attribution:** Copyright Louis-Dominique Dubeau and contributors to xmlchars
-
----
-
-## xtend@4.0.2
-
-**License(s):** MIT
-
-**Repository:** git://github.com/Raynos/xtend.git
-
-**URL:** https://github.com/Raynos/xtend
-
-**Attribution:** Copyright (c) 2012-2014 Raynos.
 
 ---
 

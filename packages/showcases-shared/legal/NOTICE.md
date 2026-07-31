@@ -5,23 +5,13 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 48
+Components listed: 42
 
 ## 1) Mandatory Attributions (verbatim)
 
 The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
 
-## @acemir/cssom@0.9.31
-
-**License(s):** MIT
-
-**Repository:** acemir/CSSOM
-
-**Attribution:** Copyright (c) Nikita Vasilyev
-
----
-
-## @asamuzakjp/css-color@4.1.2
+## @asamuzakjp/css-color@6.0.5
 
 **License(s):** MIT
 
@@ -33,7 +23,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/dom-selector@6.8.0
+## @asamuzakjp/dom-selector@8.3.0
 
 **License(s):** MIT
 
@@ -45,19 +35,19 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/nwsapi@2.3.9
+## @bramus/specificity@2.4.2
 
 **License(s):** MIT
 
-**Repository:** git://github.com/dperini/nwsapi.git
+**Repository:** git+https://github.com/bramus/specificity.git
 
-**URL:** http://javascript.nwbox.com/nwsapi/
+**URL:** https://github.com/bramus/specificity#readme
 
-**Attribution:** Copyright (c) 2007-2019 Diego Perini (http://www.iport.it/)
+**Attribution:** Copyright (c) 2022 Bramus Van Damme - https://www.bram.us/
 
 ---
 
-## @csstools/color-helpers@6.0.1
+## @csstools/color-helpers@6.1.0
 
 **License(s):** MIT-0
 
@@ -69,7 +59,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-calc@3.1.1
+## @csstools/css-calc@3.3.0
 
 **License(s):** MIT
 
@@ -81,7 +71,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-color-parser@4.0.1
+## @csstools/css-color-parser@4.1.10
 
 **License(s):** MIT
 
@@ -105,7 +95,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.27
+## @csstools/css-syntax-patches-for-csstree@1.1.7
 
 **License(s):** MIT-0
 
@@ -129,7 +119,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @exodus/bytes@1.14.1
+## @exodus/bytes@1.15.1
 
 **License(s):** MIT
 
@@ -138,6 +128,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://github.com/ExodusOSS/bytes
 
 **Attribution:** Copyright (c) 2024-2025 Exodus Movement
+
+---
+
+## @noble/hashes@2.2.0
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/paulmillr/noble-hashes.git
+
+**URL:** https://paulmillr.com/noble/
+
+**Attribution:** Copyright (c) 2022 Paul Miller (https://paulmillr.com)
 
 ---
 
@@ -153,16 +155,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## agent-base@7.1.4
-
-**License(s):** MIT
-
-**Repository:** https://github.com/TooTallNate/proxy-agents.git
-
-**Attribution:** Copyright (c) 2013 Nathan Rajlich <nathan@tootallnate.net>
-
----
-
 ## bidi-js@1.0.3
 
 **License(s):** MIT
@@ -173,43 +165,23 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## css-tree@3.1.0
+## css-tree@3.2.1
 
 **License(s):** MIT
 
 **Repository:** csstree/csstree
 
-**Attribution:** Copyright (C) 2016-2024 by Roman Dvornov
+**Attribution:** Copyright (C) 2016-2026 by Roman Dvornov
 
 ---
 
-## cssstyle@5.3.7
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/jsdom/cssstyle.git
-
-**Attribution:** Copyright (c) Chad Walker
-
----
-
-## data-urls@6.0.1
+## data-urls@7.0.0
 
 **License(s):** MIT
 
 **Repository:** git+https://github.com/jsdom/data-urls.git
 
 **Attribution:** Copyright © Domenic Denicola <d@domenic.me>
-
----
-
-## debug@4.4.3
-
-**License(s):** MIT
-
-**Repository:** git://github.com/debug-js/debug.git
-
-**Attribution:** Copyright (c) 2014-2017 TJ Holowaychuk <tj@vision-media.ca>
 
 ---
 
@@ -223,7 +195,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## dompurify@3.3.1
+## dompurify@3.4.12
 
 **License(s):** (MPL-2.0 OR Apache-2.0)
 
@@ -231,15 +203,15 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 **URL:** https://github.com/cure53/DOMPurify
 
-**Attribution:** Copyright 2025 Dr.-Ing. Mario Heiderich, Cure53
+**Attribution:** copyright notice that is included in or attached to the work
 
 ---
 
-## entities@6.0.1
+## entities@8.0.0
 
 **License(s):** BSD-2-Clause
 
-**Repository:** git://github.com/fb55/entities.git
+**Repository:** https://github.com/fb55/entities.git
 
 **Attribution:** Copyright (c) Felix Böhm
 
@@ -255,26 +227,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## http-proxy-agent@7.0.2
-
-**License(s):** MIT
-
-**Repository:** https://github.com/TooTallNate/proxy-agents.git
-
-**Attribution:** Copyright (c) 2013 Nathan Rajlich <nathan@tootallnate.net>
-
----
-
-## https-proxy-agent@7.0.6
-
-**License(s):** MIT
-
-**Repository:** https://github.com/TooTallNate/proxy-agents.git
-
-**Attribution:** Copyright (c) 2013 Nathan Rajlich <nathan@tootallnate.net>
-
----
-
 ## is-potential-custom-element-name@1.0.1
 
 **License(s):** MIT
@@ -287,17 +239,19 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## isomorphic-dompurify@2.35.0
+## isomorphic-dompurify@3.20.0
 
 **License(s):** MIT
 
 **Repository:** kkomelin/isomorphic-dompurify
 
+**URL:** https://github.com/kkomelin/isomorphic-dompurify
+
 **Attribution:** Copyright (c) 2020 Konstantin Komelin
 
 ---
 
-## jsdom@27.4.0
+## jsdom@30.0.1
 
 **License(s):** MIT
 
@@ -307,7 +261,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## lru-cache@11.2.6
+## lru-cache@11.5.2
 
 **License(s):** BlueOak-1.0.0
 
@@ -317,7 +271,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## mdn-data@2.12.2
+## mdn-data@2.27.1
 
 **License(s):** CC0-1.0
 
@@ -329,17 +283,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## ms@2.1.3
-
-**License(s):** MIT
-
-**Repository:** vercel/ms
-
-**Attribution:** Copyright (c) 2020 Vercel, Inc.
-
----
-
-## parse5@8.0.0
+## parse5@8.0.1
 
 **License(s):** MIT
 
@@ -407,7 +351,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts@7.0.23
+## tldts@7.4.9
 
 **License(s):** MIT
 
@@ -419,7 +363,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts-core@7.0.23
+## tldts-core@7.4.9
 
 **License(s):** MIT
 
@@ -431,7 +375,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tough-cookie@6.0.0
+## tough-cookie@6.0.2
 
 **License(s):** BSD-3-Clause
 
@@ -450,6 +394,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** git+https://github.com/jsdom/tr46.git
 
 **Attribution:** Copyright (c) Sebastian Mayr
+
+---
+
+## undici@8.9.0
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/nodejs/undici.git
+
+**URL:** https://undici.nodejs.org
+
+**Attribution:** Copyright (c) Matteo Collina and Undici contributors
 
 ---
 
@@ -473,16 +429,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## whatwg-mimetype@4.0.0
-
-**License(s):** MIT
-
-**Repository:** jsdom/whatwg-mimetype
-
-**Attribution:** Copyright © Domenic Denicola <d@domenic.me>
-
----
-
 ## whatwg-mimetype@5.0.0
 
 **License(s):** MIT
@@ -493,7 +439,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## whatwg-url@15.1.0
+## whatwg-url@16.0.1
 
 **License(s):** MIT
 
@@ -503,15 +449,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## ws@8.19.0
+## whatwg-url@17.1.0
 
 **License(s):** MIT
 
-**Repository:** git+https://github.com/websockets/ws.git
+**Repository:** git+https://github.com/jsdom/whatwg-url.git
 
-**URL:** https://github.com/websockets/ws
-
-**Attribution:** Copyright (c) 2011 Einar Otto Stangvik <einaros@gmail.com>
+**Attribution:** Copyright (c) Sebastian Mayr
 
 ---
 

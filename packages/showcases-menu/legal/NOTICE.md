@@ -5,23 +5,13 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 199
+Components listed: 174
 
 ## 1) Mandatory Attributions (verbatim)
 
 The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
 
-## @acemir/cssom@0.9.31
-
-**License(s):** MIT
-
-**Repository:** acemir/CSSOM
-
-**Attribution:** Copyright (c) Nikita Vasilyev
-
----
-
-## @asamuzakjp/css-color@4.1.2
+## @asamuzakjp/css-color@6.0.5
 
 **License(s):** MIT
 
@@ -33,7 +23,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/dom-selector@6.8.0
+## @asamuzakjp/dom-selector@8.3.0
 
 **License(s):** MIT
 
@@ -45,19 +35,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/nwsapi@2.3.9
-
-**License(s):** MIT
-
-**Repository:** git://github.com/dperini/nwsapi.git
-
-**URL:** http://javascript.nwbox.com/nwsapi/
-
-**Attribution:** Copyright (c) 2007-2019 Diego Perini (http://www.iport.it/)
-
----
-
-## @babel/helper-string-parser@7.27.1
+## @babel/helper-string-parser@7.29.7
 
 **License(s):** MIT
 
@@ -69,7 +47,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @babel/helper-validator-identifier@7.28.5
+## @babel/helper-validator-identifier@7.29.7
 
 **License(s):** MIT
 
@@ -79,7 +57,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @babel/parser@7.29.0
+## @babel/parser@7.29.7
 
 **License(s):** MIT
 
@@ -91,7 +69,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @babel/types@7.29.0
+## @babel/types@7.29.7
 
 **License(s):** MIT
 
@@ -100,6 +78,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://babel.dev/docs/en/next/babel-types
 
 **Attribution:** Copyright (c) 2014-present Sebastian McKenzie and other contributors
+
+---
+
+## @bramus/specificity@2.4.2
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/bramus/specificity.git
+
+**URL:** https://github.com/bramus/specificity#readme
+
+**Attribution:** Copyright (c) 2022 Bramus Van Damme - https://www.bram.us/
 
 ---
 
@@ -115,7 +105,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/color-helpers@6.0.1
+## @csstools/color-helpers@6.1.0
 
 **License(s):** MIT-0
 
@@ -127,7 +117,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-calc@3.1.1
+## @csstools/css-calc@3.3.0
 
 **License(s):** MIT
 
@@ -139,7 +129,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-color-parser@4.0.1
+## @csstools/css-color-parser@4.1.10
 
 **License(s):** MIT
 
@@ -163,7 +153,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.27
+## @csstools/css-syntax-patches-for-csstree@1.1.7
 
 **License(s):** MIT-0
 
@@ -187,7 +177,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @exodus/bytes@1.14.1
+## @exodus/bytes@1.15.1
 
 **License(s):** MIT
 
@@ -199,19 +189,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/ecma402-abstract@3.0.6
-
-**License(s):** MIT
-
-**Repository:** git@github.com:formatjs/formatjs.git
-
-**URL:** https://github.com/formatjs/formatjs
-
-**Attribution:** Copyright (c) 2023 FormatJS
-
----
-
-## @formatjs/fast-memoize@3.0.1
+## @formatjs/fast-memoize@3.1.7
 
 **License(s):** MIT
 
@@ -223,7 +201,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/icu-messageformat-parser@3.2.0
+## @formatjs/icu-messageformat-parser@3.5.15
 
 **License(s):** MIT
 
@@ -233,7 +211,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/icu-skeleton-parser@2.0.6
+## @formatjs/icu-skeleton-parser@2.1.11
 
 **License(s):** MIT
 
@@ -243,7 +221,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/intl@4.0.7
+## @formatjs/intl@4.1.17
 
 **License(s):** MIT
 
@@ -255,19 +233,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/intl-localematcher@0.7.3
-
-**License(s):** MIT
-
-**Repository:** formatjs/formatjs.git
-
-**URL:** https://github.com/formatjs/formatjs#readme
-
-**Attribution:** Copyright (c) 2023 FormatJS
-
----
-
-## @gltf-transform/core@4.3.0
+## @gltf-transform/core@4.4.1
 
 **License(s):** MIT
 
@@ -315,7 +281,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @img/colour@1.0.0
+## @img/colour@1.1.0
 
 **License(s):** MIT
 
@@ -325,7 +291,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @img/sharp-darwin-arm64@0.34.5
+## @img/sharp-darwin-arm64@0.35.3
 
 **License(s):** Apache-2.0
 
@@ -337,7 +303,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @img/sharp-libvips-darwin-arm64@1.2.4
+## @img/sharp-libvips-darwin-arm64@1.3.2
 
 **License(s):** LGPL-3.0-or-later
 
@@ -349,7 +315,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @intlify/core-base@11.2.7
+## @intlify/core-base@11.4.8
 
 **License(s):** MIT
 
@@ -361,7 +327,19 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @intlify/message-compiler@11.2.7
+## @intlify/devtools-types@11.4.8
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/intlify/vue-i18n.git
+
+**URL:** https://github.com/intlify/vue-i18n/tree/master/packages/devtools-types#readme
+
+**Attribution:** Copyright (c) 2024 kazuya kawaguchi
+
+---
+
+## @intlify/message-compiler@11.4.8
 
 **License(s):** MIT
 
@@ -373,7 +351,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @intlify/shared@11.2.7
+## @intlify/shared@11.4.8
 
 **License(s):** MIT
 
@@ -382,16 +360,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://github.com/intlify/vue-i18n/tree/master/packages/shared#readme
 
 **Attribution:** Copyright (c) 2020 kazuya kawaguchi
-
----
-
-## @isaacs/cliui@9.0.0
-
-**License(s):** BlueOak-1.0.0
-
-**Repository:** git+ssh://git@github.com:isaacs/cliui
-
-**Attribution:** copyright in it.
 
 ---
 
@@ -404,6 +372,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://github.com/jridgewell/sourcemaps/tree/main/packages/sourcemap-codec
 
 **Attribution:** Copyright 2024 Justin Ridgewell <justin@ridgewell.name>
+
+---
+
+## @noble/hashes@2.2.0
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/paulmillr/noble-hashes.git
+
+**URL:** https://paulmillr.com/noble/
+
+**Attribution:** Copyright (c) 2022 Paul Miller (https://paulmillr.com)
 
 ---
 
@@ -449,7 +429,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @types/node@22.19.11
+## @types/node@25.9.5
 
 **License(s):** MIT
 
@@ -473,7 +453,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/compiler-core@3.5.26
+## @vue/compiler-core@3.5.40
 
 **License(s):** MIT
 
@@ -485,7 +465,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/compiler-dom@3.5.26
+## @vue/compiler-dom@3.5.40
 
 **License(s):** MIT
 
@@ -497,7 +477,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/compiler-sfc@3.5.26
+## @vue/compiler-sfc@3.5.40
 
 **License(s):** MIT
 
@@ -509,7 +489,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/compiler-ssr@3.5.26
+## @vue/compiler-ssr@3.5.40
 
 **License(s):** MIT
 
@@ -531,7 +511,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/devtools-api@7.7.9
+## @vue/devtools-api@8.2.1
 
 **License(s):** MIT
 
@@ -541,7 +521,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/devtools-kit@7.7.9
+## @vue/devtools-kit@8.2.1
 
 **License(s):** MIT
 
@@ -551,7 +531,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/devtools-shared@7.7.9
+## @vue/devtools-shared@8.2.1
 
 **License(s):** MIT
 
@@ -561,7 +541,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/reactivity@3.5.26
+## @vue/reactivity@3.5.40
 
 **License(s):** MIT
 
@@ -573,7 +553,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/runtime-core@3.5.26
+## @vue/runtime-core@3.5.40
 
 **License(s):** MIT
 
@@ -585,7 +565,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/runtime-dom@3.5.26
+## @vue/runtime-dom@3.5.40
 
 **License(s):** MIT
 
@@ -597,7 +577,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/server-renderer@3.5.26
+## @vue/server-renderer@3.5.40
 
 **License(s):** MIT
 
@@ -609,7 +589,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/shared@3.5.26
+## @vue/shared@3.5.40
 
 **License(s):** MIT
 
@@ -621,17 +601,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## agent-base@7.1.4
-
-**License(s):** MIT
-
-**Repository:** https://github.com/TooTallNate/proxy-agents.git
-
-**Attribution:** Copyright (c) 2013 Nathan Rajlich <nathan@tootallnate.net>
-
----
-
-## balanced-match@4.0.2
+## balanced-match@4.0.4
 
 **License(s):** MIT
 
@@ -673,23 +643,23 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## bowser@2.13.1
+## bowser@2.14.1
 
 **License(s):** MIT
 
-**Repository:** git+https://github.com/lancedikson/bowser.git
+**Repository:** git+https://github.com/bowser-js/bowser.git
 
-**URL:** https://github.com/lancedikson/bowser
+**URL:** https://github.com/bowser-js/bowser
 
 **Attribution:** Copyright 2015, Dustin Diaz (the "Original Author")
 
 ---
 
-## brace-expansion@5.0.2
+## brace-expansion@5.0.9
 
 **License(s):** MIT
 
-**Repository:** git+ssh://git@github.com/juliangruber/brace-expansion.git
+**Repository:** git+https://github.com/juliangruber/brace-expansion.git
 
 **Attribution:** Copyright Julian Gruber <julian@juliangruber.com>
 
@@ -717,25 +687,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## commander@13.1.0
+## commander@14.0.3
 
 **License(s):** MIT
 
 **Repository:** git+https://github.com/tj/commander.js.git
 
 **Attribution:** Copyright (c) 2011 TJ Holowaychuk <tj@vision-media.ca>
-
----
-
-## copy-anything@4.0.5
-
-**License(s):** MIT
-
-**Repository:** https://github.com/mesqueeb/copy-anything.git
-
-**URL:** https://github.com/mesqueeb/copy-anything#readme
-
-**Attribution:** Copyright (c) 2018 Luca Ban - Mesqueeb
 
 ---
 
@@ -746,18 +704,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** git://github.com/SheetJS/js-crc32.git
 
 **Attribution:** Copyright (C) 2014 SheetJS
-
----
-
-## cross-spawn@7.0.6
-
-**License(s):** MIT
-
-**Repository:** git@github.com:moxystudio/node-cross-spawn.git
-
-**URL:** https://github.com/moxystudio/node-cross-spawn
-
-**Attribution:** Copyright (c) 2018 Made With MOXY Lda <hello@moxy.studio>
 
 ---
 
@@ -781,13 +727,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## css-tree@3.1.0
+## css-tree@3.2.1
 
 **License(s):** MIT
 
 **Repository:** csstree/csstree
 
-**Attribution:** Copyright (C) 2016-2024 by Roman Dvornov
+**Attribution:** Copyright (C) 2016-2026 by Roman Dvornov
 
 ---
 
@@ -811,16 +757,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## cssstyle@5.3.7
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/jsdom/cssstyle.git
-
-**Attribution:** Copyright (c) Chad Walker
-
----
-
 ## csstype@3.2.3
 
 **License(s):** MIT
@@ -831,7 +767,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## data-urls@6.0.1
+## data-urls@7.0.0
 
 **License(s):** MIT
 
@@ -841,23 +777,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## date-fns@4.1.0
+## date-fns@4.4.0
 
 **License(s):** MIT
 
 **Repository:** https://github.com/date-fns/date-fns
 
 **Attribution:** Copyright (c) 2021 Sasha Koss and Lesha Koss https://kossnocorp.mit-license.org
-
----
-
-## debug@4.4.3
-
-**License(s):** MIT
-
-**Repository:** git://github.com/debug-js/debug.git
-
-**Attribution:** Copyright (c) 2014-2017 TJ Holowaychuk <tj@vision-media.ca>
 
 ---
 
@@ -931,7 +857,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## dompurify@3.3.1
+## dompurify@3.4.12
 
 **License(s):** (MPL-2.0 OR Apache-2.0)
 
@@ -939,7 +865,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 **URL:** https://github.com/cure53/DOMPurify
 
-**Attribution:** Copyright 2025 Dr.-Ing. Mario Heiderich, Cure53
+**Attribution:** copyright notice that is included in or attached to the work
 
 ---
 
@@ -953,7 +879,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## dotenv@16.6.1
+## dotenv@17.4.2
 
 **License(s):** BSD-2-Clause
 
@@ -965,23 +891,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## dotenv@17.2.3
+## dotenv-expand@1000.0.0
 
-**License(s):** BSD-2-Clause
+**License(s):** BSD-3-Clause
 
-**Repository:** git://github.com/motdotla/dotenv.git
+**Repository:** git+https://github.com/dotenvx/dotenv-expand.git
 
-**URL:** https://github.com/motdotla/dotenv#readme
-
-**Attribution:** Copyright (c) 2015, Scott Motte
-
----
-
-## dotenv-expand@11.0.7
-
-**License(s):** BSD-2-Clause
-
-**Repository:** https://github.com/motdotla/dotenv-expand
+**URL:** https://github.com/dotenvx/dotenv-expand#readme
 
 **Attribution:** Copyright (c) 2016, Scott Motte
 
@@ -997,17 +913,17 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## entities@6.0.1
+## entities@7.0.1
 
 **License(s):** BSD-2-Clause
 
-**Repository:** git://github.com/fb55/entities.git
+**Repository:** https://github.com/fb55/entities.git
 
 **Attribution:** Copyright (c) Felix Böhm
 
 ---
 
-## entities@7.0.1
+## entities@8.0.0
 
 **License(s):** BSD-2-Clause
 
@@ -1061,21 +977,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## foreground-child@3.3.1
-
-**License(s):** ISC
-
-**Repository:** git+https://github.com/tapjs/foreground-child.git
-
-**Attribution:** Copyright (c) 2015-2023 Isaac Z. Schlueter and Contributors
-
----
-
-## fs-extra@11.3.3
+## fs-extra@11.4.0
 
 **License(s):** MIT
 
-**Repository:** https://github.com/jprichardson/node-fs-extra
+**Repository:** git+https://github.com/jprichardson/node-fs-extra.git
 
 **URL:** https://github.com/jprichardson/node-fs-extra
 
@@ -1083,7 +989,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## glob@11.1.0
+## glob@13.0.6
 
 **License(s):** BlueOak-1.0.0
 
@@ -1133,27 +1039,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## http-proxy-agent@7.0.2
-
-**License(s):** MIT
-
-**Repository:** https://github.com/TooTallNate/proxy-agents.git
-
-**Attribution:** Copyright (c) 2013 Nathan Rajlich <nathan@tootallnate.net>
-
----
-
-## https-proxy-agent@7.0.6
-
-**License(s):** MIT
-
-**Repository:** https://github.com/TooTallNate/proxy-agents.git
-
-**Attribution:** Copyright (c) 2013 Nathan Rajlich <nathan@tootallnate.net>
-
----
-
-## intl-messageformat@11.0.7
+## intl-messageformat@11.2.12
 
 **License(s):** BSD-3-Clause
 
@@ -1162,18 +1048,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://github.com/formatjs/formatjs
 
 **Attribution:** Copyright (c) 2023, Oath Inc.
-
----
-
-## is-extglob@2.1.1
-
-**License(s):** MIT
-
-**Repository:** jonschlinkert/is-extglob
-
-**URL:** https://github.com/jonschlinkert/is-extglob
-
-**Attribution:** Copyright (c) 2014-2016, Jon Schlinkert
 
 ---
 
@@ -1213,51 +1087,19 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## is-what@5.5.0
-
-**License(s):** MIT
-
-**Repository:** https://github.com/mesqueeb/is-what.git
-
-**URL:** https://github.com/mesqueeb/is-what#readme
-
-**Attribution:** Copyright (c) 2018 Luca Ban - Mesqueeb
-
----
-
-## isexe@2.0.0
-
-**License(s):** ISC
-
-**Repository:** git+https://github.com/isaacs/isexe.git
-
-**URL:** https://github.com/isaacs/isexe#readme
-
-**Attribution:** Copyright (c) Isaac Z. Schlueter and Contributors
-
----
-
-## isomorphic-dompurify@2.35.0
+## isomorphic-dompurify@3.20.0
 
 **License(s):** MIT
 
 **Repository:** kkomelin/isomorphic-dompurify
 
+**URL:** https://github.com/kkomelin/isomorphic-dompurify
+
 **Attribution:** Copyright (c) 2020 Konstantin Komelin
 
 ---
 
-## jackspeak@4.2.3
-
-**License(s):** BlueOak-1.0.0
-
-**Repository:** git+https://github.com/isaacs/jackspeak.git
-
-**Attribution:** copyright in it.
-
----
-
-## jsdom@27.4.0
+## jsdom@30.0.1
 
 **License(s):** MIT
 
@@ -1279,7 +1121,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## jsonfile@6.2.0
+## jsonfile@6.2.1
 
 **License(s):** MIT
 
@@ -1289,7 +1131,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## lodash-es@4.17.22
+## lodash-es@4.18.1
 
 **License(s):** MIT
 
@@ -1301,7 +1143,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## lru-cache@11.2.6
+## lru-cache@11.5.2
 
 **License(s):** BlueOak-1.0.0
 
@@ -1321,11 +1163,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## marked@17.0.1
+## marked@18.0.7
 
 **License(s):** MIT
 
-**Repository:** git://github.com/markedjs/marked.git
+**Repository:** git+https://github.com/markedjs/marked.git
 
 **URL:** https://marked.js.org
 
@@ -1345,7 +1187,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## mdn-data@2.12.2
+## mdn-data@2.27.1
 
 **License(s):** CC0-1.0
 
@@ -1381,7 +1223,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## minimatch@10.2.0
+## minimatch@10.2.6
 
 **License(s):** BlueOak-1.0.0
 
@@ -1403,39 +1245,17 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## minipass@7.1.2
+## minipass@7.1.3
 
-**License(s):** ISC
+**License(s):** BlueOak-1.0.0
 
 **Repository:** https://github.com/isaacs/minipass
 
-**Attribution:** Copyright (c) 2017-2023 npm, Inc., Isaac Z. Schlueter, and Contributors
+**Attribution:** copyright in it.
 
 ---
 
-## mitt@3.0.1
-
-**License(s):** MIT
-
-**Repository:** developit/mitt
-
-**URL:** https://github.com/developit/mitt
-
-**Attribution:** Copyright (c) 2021 Jason Miller
-
----
-
-## ms@2.1.3
-
-**License(s):** MIT
-
-**Repository:** vercel/ms
-
-**Attribution:** Copyright (c) 2020 Vercel, Inc.
-
----
-
-## nanoid@3.3.11
+## nanoid@3.3.16
 
 **License(s):** MIT
 
@@ -1445,13 +1265,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## nanoid@5.1.6
+## nanoid@6.0.0
 
 **License(s):** MIT
 
 **Repository:** ai/nanoid
 
-**Attribution:** Copyright 2017 Andrey Sitnik <andrey@sitnik.ru>
+**Attribution:** Copyright 2017 Andrey Sitnik <andrey@sitnik.es>
 
 ---
 
@@ -1467,6 +1287,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## nostics@1.2.0
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/vercel-labs/nostics.git
+
+**URL:** https://github.com/vercel-labs/nostics#readme
+
+**Attribution:** Copyright (c) 2026-present Vercel Inc.
+
+---
+
 ## nth-check@2.1.1
 
 **License(s):** BSD-2-Clause
@@ -1479,17 +1311,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## package-json-from-dist@1.0.1
-
-**License(s):** BlueOak-1.0.0
-
-**Repository:** git+https://github.com/isaacs/package-json-from-dist.git
-
-**Attribution:** copyright in it.
-
----
-
-## parse5@8.0.0
+## parse5@8.0.1
 
 **License(s):** MIT
 
@@ -1501,17 +1323,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## path-key@3.1.1
-
-**License(s):** MIT
-
-**Repository:** sindresorhus/path-key
-
-**Attribution:** Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
-
----
-
-## path-scurry@2.0.1
+## path-scurry@2.0.2
 
 **License(s):** BlueOak-1.0.0
 
@@ -1521,7 +1333,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## perfect-debounce@1.0.0
+## perfect-debounce@2.1.0
 
 **License(s):** MIT
 
@@ -1541,7 +1353,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## picomatch@2.3.1
+## picomatch@2.3.2
 
 **License(s):** MIT
 
@@ -1553,7 +1365,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## pinia@3.0.4
+## pinia@4.0.2
 
 **License(s):** MIT
 
@@ -1589,7 +1401,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## png-to-ico@3.0.1
+## png-to-ico@3.0.2
 
 **License(s):** MIT
 
@@ -1611,7 +1423,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## postcss@8.5.6
+## postcss@8.5.25
 
 **License(s):** MIT
 
@@ -1619,11 +1431,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 **URL:** https://postcss.org/
 
-**Attribution:** Copyright 2013 Andrey Sitnik <andrey@sitnik.ru>
+**Attribution:** Copyright 2013 Andrey Sitnik <andrey@sitnik.es>
 
 ---
 
-## property-graph@4.0.0
+## property-graph@4.1.0
 
 **License(s):** MIT
 
@@ -1701,18 +1513,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## rfdc@1.4.1
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/davidmarkclements/rfdc.git
-
-**URL:** https://github.com/davidmarkclements/rfdc#readme
-
-**Attribution:** Copyright 2019 "David Mark Clements <david.mark.clements@gmail.com>"
-
----
-
 ## run-parallel@1.2.0
 
 **License(s):** MIT
@@ -1761,11 +1561,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## sax@1.4.4
+## sax@1.6.1
 
 **License(s):** BlueOak-1.0.0
 
-**Repository:** git://github.com/isaacs/sax-js.git
+**Repository:** git+ssh://git@github.com/isaacs/sax-js.git
 
 **Attribution:** copyright in it.
 
@@ -1781,7 +1581,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## semver@7.7.3
+## semver@7.8.5
 
 **License(s):** ISC
 
@@ -1791,35 +1591,15 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## sharp@0.34.5
+## sharp@0.35.3
 
 **License(s):** Apache-2.0
 
-**Repository:** git://github.com/lovell/sharp.git
+**Repository:** git+https://github.com/lovell/sharp.git
 
 **URL:** https://sharp.pixelplumbing.com
 
 **Attribution:** Copyright [yyyy] [name of copyright owner]
-
----
-
-## shebang-command@2.0.0
-
-**License(s):** MIT
-
-**Repository:** kevva/shebang-command
-
-**Attribution:** Copyright (c) Kevin Mårtensson <kevinmartensson@gmail.com> (github.com/kevva)
-
----
-
-## shebang-regex@3.0.0
-
-**License(s):** MIT
-
-**Repository:** sindresorhus/shebang-regex
-
-**Attribution:** Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 
 ---
 
@@ -1844,16 +1624,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://github.com/se-panfilov/anarchy-engine/tree/main/packages/showcases-shared#readme
 
 **Attribution:** Copyright (c) 2025 Sergei Panfilov
-
----
-
-## signal-exit@4.1.0
-
-**License(s):** ISC
-
-**Repository:** https://github.com/tapjs/signal-exit.git
-
-**Attribution:** Copyright (c) 2015-2023 Benjamin Coe, Isaac Z. Schlueter, and Contributors
 
 ---
 
@@ -1891,29 +1661,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## speakingurl@14.0.1
-
-**License(s):** BSD-3-Clause
-
-**Repository:** git+https://github.com/pid/speakingurl.git
-
-**URL:** http://pid.github.io/speakingurl/
-
-**Attribution:** Copyright (c) 2013-2017 Sascha Droste <pid@posteo.net>
-
----
-
-## superjson@2.2.6
-
-**License(s):** MIT
-
-**Repository:** https://github.com/blitz-js/superjson
-
-**Attribution:** Copyright (c) 2020 Simon Knott and superjson contributors
-
----
-
-## svgo@4.0.0
+## svgo@4.0.2
 
 **License(s):** MIT
 
@@ -1937,7 +1685,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## three@0.182.0
+## three@0.185.1
 
 **License(s):** MIT
 
@@ -1945,11 +1693,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 **URL:** https://threejs.org/
 
-**Attribution:** Copyright © 2010-2025 three.js authors
+**Attribution:** Copyright © 2010-2026 three.js authors
 
 ---
 
-## three-mesh-bvh@0.9.4
+## three-mesh-bvh@0.9.13
 
 **License(s):** MIT
 
@@ -1961,7 +1709,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts@7.0.23
+## tldts@7.4.9
 
 **License(s):** MIT
 
@@ -1973,7 +1721,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts-core@7.0.23
+## tldts-core@7.4.9
 
 **License(s):** MIT
 
@@ -1997,7 +1745,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tough-cookie@6.0.0
+## tough-cookie@6.0.2
 
 **License(s):** BSD-3-Clause
 
@@ -2019,7 +1767,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## ts-json-schema-generator@2.4.0
+## ts-json-schema-generator@2.9.0
 
 **License(s):** MIT
 
@@ -2077,7 +1825,19 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## undici-types@6.21.0
+## undici@8.9.0
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/nodejs/undici.git
+
+**URL:** https://undici.nodejs.org
+
+**Attribution:** Copyright (c) Matteo Collina and Undici contributors
+
+---
+
+## undici-types@7.24.6
 
 **License(s):** MIT
 
@@ -2101,19 +1861,19 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## vue@3.5.26
+## vue@3.5.40
 
 **License(s):** MIT
 
 **Repository:** git+https://github.com/vuejs/core.git
 
-**URL:** https://github.com/vuejs/core/tree/main/packages/vue#readme
+**URL:** https://vuejs.org/
 
 **Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
 
 ---
 
-## vue-i18n@11.2.7
+## vue-i18n@11.4.8
 
 **License(s):** MIT
 
@@ -2145,16 +1905,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## whatwg-mimetype@4.0.0
-
-**License(s):** MIT
-
-**Repository:** jsdom/whatwg-mimetype
-
-**Attribution:** Copyright © Domenic Denicola <d@domenic.me>
-
----
-
 ## whatwg-mimetype@5.0.0
 
 **License(s):** MIT
@@ -2165,7 +1915,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## whatwg-url@15.1.0
+## whatwg-url@16.0.1
 
 **License(s):** MIT
 
@@ -2175,25 +1925,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## which@2.0.2
-
-**License(s):** ISC
-
-**Repository:** git://github.com/isaacs/node-which.git
-
-**Attribution:** Copyright (c) Isaac Z. Schlueter and Contributors
-
----
-
-## ws@8.19.0
+## whatwg-url@17.1.0
 
 **License(s):** MIT
 
-**Repository:** git+https://github.com/websockets/ws.git
+**Repository:** git+https://github.com/jsdom/whatwg-url.git
 
-**URL:** https://github.com/websockets/ws
-
-**Attribution:** Copyright (c) 2011 Einar Otto Stangvik <einaros@gmail.com>
+**Attribution:** Copyright (c) Sebastian Mayr
 
 ---
 

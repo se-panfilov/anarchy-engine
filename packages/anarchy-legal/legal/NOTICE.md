@@ -111,7 +111,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## date-fns@4.1.0
+## date-fns@4.4.0
 
 **License(s):** MIT
 
@@ -189,7 +189,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## get-east-asian-width@1.4.0
+## get-east-asian-width@1.6.0
 
 **License(s):** MIT
 
@@ -209,7 +209,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## globby@16.1.0
+## globby@16.2.2
 
 **License(s):** MIT
 
@@ -219,25 +219,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## ignore@7.0.5
+## ignore@7.0.6
 
 **License(s):** MIT
 
 **Repository:** git@github.com:kaelzhang/node-ignore.git
 
 **Attribution:** kael
-
----
-
-## is-extglob@2.1.1
-
-**License(s):** MIT
-
-**Repository:** jonschlinkert/is-extglob
-
-**URL:** https://github.com/jonschlinkert/is-extglob
-
-**Attribution:** Copyright (c) 2014-2016, Jon Schlinkert
 
 ---
 
@@ -299,7 +287,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## picomatch@2.3.1
+## picomatch@2.3.2
 
 **License(s):** MIT
 
@@ -367,7 +355,17 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## strip-ansi@7.1.2
+## string-width@8.2.2
+
+**License(s):** MIT
+
+**Repository:** sindresorhus/string-width
+
+**Attribution:** Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
+
+---
+
+## strip-ansi@7.2.0
 
 **License(s):** MIT
 
@@ -421,7 +419,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## yargs@18.0.0
+## yargs@18.1.0
 
 **License(s):** MIT
 
