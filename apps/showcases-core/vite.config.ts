@@ -125,6 +125,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
     },
     build: {
       assetsInlineLimit: 0, // Do not inline assets and wasm
+      cssCodeSplit: false, // Bundle all CSS into one file – Rolldown (Vite 8) does not populate __vitePreload dependency arrays for dynamic chunks, so split CSS files are never loaded at runtime.
       target: 'esnext',
       sourcemap,
       minify,
