@@ -71,22 +71,24 @@ jobs:
     steps:
       - name: Debug inputs + runner
         shell: bash
+        env:
+          INPUT_REF: ${{ inputs.ref }}
         run: |
           echo "runner.os=${RUNNER_OS}"
-          echo "ref=${{ inputs.ref }}"
+          echo "ref=${INPUT_REF}"
           echo "app=${{ inputs.app }}"
           echo "mode=${{ inputs.mode }}"
           echo "target=${{ inputs.target }}"
 
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           ref: ${{ inputs.ref }}
           fetch-depth: 0
           persist-credentials: false
 
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
           node-version-file: .nvmrc
           cache: npm
@@ -99,7 +101,7 @@ jobs:
       # ---- Optional caches for big Electron-related downloads (huge win in CI) ----
       - name: Cache Electron / electron-builder downloads (Linux)
         if: ${{ inputs.app == 'showcases-desktop' && runner.os == 'Linux' }}
-        uses: actions/cache@v5
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
         with:
           path: |
             ~/.cache/electron
@@ -111,7 +113,7 @@ jobs:
 
       - name: Cache Electron / electron-builder downloads (macOS)
         if: ${{ inputs.app == 'showcases-desktop' && runner.os == 'macOS' }}
-        uses: actions/cache@v5
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
         with:
           path: |
             ~/Library/Caches/electron
@@ -123,7 +125,7 @@ jobs:
 
       - name: Cache Electron / electron-builder downloads (Windows)
         if: ${{ inputs.app == 'showcases-desktop' && runner.os == 'Windows' }}
-        uses: actions/cache@v5
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
         with:
           path: |
             ${{ env.LOCALAPPDATA }}\electron\Cache
@@ -215,7 +217,7 @@ jobs:
       - name: Restore showcases-core build cache (web)
         id: corecache_web
         if: ${{ inputs.app == 'showcases-core' }}
-        uses: actions/cache@v5
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
         with:
           path: apps/showcases-core/dist-web
           key: ${{ runner.os }}-core-web-${{ inputs.mode }}-${{ hashFiles('package-lock.json', 'apps/showcases-core/**/*', 'packages/**/*', 'tsconfig*.json', 'vite.config.*', 'apps/showcases-core/vite.config.*') }}
@@ -226,7 +228,7 @@ jobs:
       - name: Restore showcases-core build cache (desktop)
         id: corecache_desktop
         if: ${{ inputs.app == 'showcases-desktop' }}
-        uses: actions/cache@v5
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
         with:
           path: apps/showcases-core/dist-desktop
           key: ${{ runner.os }}-core-desktop-${{ inputs.mode }}-${{ hashFiles('package-lock.json', 'apps/showcases-core/**/*', 'packages/**/*', 'tsconfig*.json', 'vite.config.*', 'apps/showcases-core/vite.config.*') }}
@@ -317,7 +319,7 @@ jobs:
       # Keep retention low because artifacts are huge.
       - name: Upload artifact (showcases-core)
         if: ${{ inputs.app == 'showcases-core' }}
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
           name: build-${{ inputs.app }}-${{ inputs.mode }}-${{ steps.safe.outputs.target }}-${{ github.run_id }}
           path: |
@@ -327,7 +329,7 @@ jobs:
 
       - name: Upload artifact (showcases-desktop)
         if: ${{ inputs.app == 'showcases-desktop' }}
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
           name: build-${{ inputs.app }}-${{ inputs.mode }}-${{ steps.safe.outputs.target }}-${{ github.run_id }}
           path: |

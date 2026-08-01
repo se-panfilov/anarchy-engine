@@ -241,7 +241,7 @@ function main() {
       throw new Error(`Missing tarball for publish ${r.npmName}@${r.version}. Tag=${tag}, tarball=${tgzPath}`);
     }
 
-    run('npm', ['publish', tgzPath, '--access', 'public']);
+    run('npm', ['publish', tgzPath, '--access', 'public', '--provenance']);
   }
 
   console.log('\nRelease done.');
