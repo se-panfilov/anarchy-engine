@@ -157,6 +157,7 @@ jobs:
 
       - name: Install Playwright browsers (chromium only)
         working-directory: apps/showcases-e2e
+        shell: bash
         env:
           PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.playwright-browsers
         run: |

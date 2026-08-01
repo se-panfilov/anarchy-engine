@@ -41,6 +41,7 @@ jobs:
 
     steps:
       - name: Debug trigger
+        shell: bash
         run: |
           echo "event=${{ github.event_name }}"
           echo "actor=${{ github.actor }}"
@@ -87,6 +88,7 @@ jobs:
         run: npm ci --no-audit --no-fund
 
       - name: Configure git identity for tagging
+        shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

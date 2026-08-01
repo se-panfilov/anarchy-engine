@@ -70,6 +70,7 @@ jobs:
       matrix: ${{ steps.m.outputs.matrix }}
     steps:
       - name: Debug trigger
+        shell: bash
         run: |
           echo "event=${{ github.event_name }}"
           echo "actor=${{ github.actor }}"
@@ -153,6 +154,7 @@ jobs:
 
     steps:
       - name: Debug target
+        shell: bash
         run: |
           echo "os=${{ matrix.target.os }}"
           echo "platform=${{ matrix.target.platform }}"
