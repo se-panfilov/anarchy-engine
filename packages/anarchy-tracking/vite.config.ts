@@ -4,8 +4,7 @@ import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import path from 'node:path';
 import { sharedAliases } from '../../vite.alias';
-// @ts-ignore
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 import { omitInObjectWithoutMutation } from '../anarchy-shared/src/Utils/ObjectUtils';
 
 const externals: ReadonlyArray<string> = [
@@ -93,7 +92,7 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
               comments: false,
               ascii_only: true // To prevent emoji/unicode problems
             }
-          }) as Plugin
+          })
         ],
         output: {
           preserveModules: true,

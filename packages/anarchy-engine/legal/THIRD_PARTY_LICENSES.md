@@ -56,7 +56,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-shared@1.6.9
+## @hellpig/anarchy-shared@1.6.10
 
 **License:** MIT
 

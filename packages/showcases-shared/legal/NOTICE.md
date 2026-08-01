@@ -351,7 +351,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts@7.4.9
+## tldts@7.4.10
 
 **License(s):** MIT
 
@@ -363,7 +363,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts-core@7.4.9
+## tldts-core@7.4.10
 
 **License(s):** MIT
 

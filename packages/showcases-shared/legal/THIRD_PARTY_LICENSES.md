@@ -1246,7 +1246,7 @@ THE SOFTWARE.
 
 ---
 
-## tldts@7.4.9
+## tldts@7.4.10
 
 **License:** MIT
 
@@ -1274,7 +1274,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTH
 
 ---
 
-## tldts-core@7.4.9
+## tldts-core@7.4.10
 
 **License:** MIT
 

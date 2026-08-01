@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 91
+Components listed: 90
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -35,7 +35,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-engine@22.0.8
+## @hellpig/anarchy-engine@22.1.0
 
 **License(s):** MIT
 
@@ -47,7 +47,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @hellpig/anarchy-shared@1.6.9
+## @hellpig/anarchy-shared@1.6.10
 
 **License(s):** MIT
 
@@ -418,18 +418,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://github.com/jprichardson/node-fs-extra
 
 **Attribution:** Copyright (c) 2011-2024 JP Richardson
-
----
-
-## fsevents@2.3.2
-
-**License(s):** MIT
-
-**Repository:** https://github.com/fsevents/fsevents.git
-
-**URL:** https://github.com/fsevents/fsevents
-
-**Attribution:** Copyright (C) 2010-2020 by Philipp Dunkel, Ben Noordhuis, Elan Shankar, Paul Miller
 
 ---
 

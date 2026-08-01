@@ -623,7 +623,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-engine@22.0.8
+## @hellpig/anarchy-engine@22.1.0
 
 **License:** MIT
 
@@ -659,7 +659,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-i18n@1.4.8
+## @hellpig/anarchy-i18n@1.4.9
 
 **License:** MIT
 
@@ -695,7 +695,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-shared@1.6.9
+## @hellpig/anarchy-shared@1.6.10
 
 **License:** MIT
 
@@ -5779,7 +5779,7 @@ third-party archives.
 
 ---
 
-## showcases-i18n@1.4.8
+## showcases-i18n@1.4.9
 
 **License:** MIT
 
@@ -5815,7 +5815,7 @@ SOFTWARE.
 
 ---
 
-## showcases-shared@1.7.7
+## showcases-shared@1.7.8
 
 **License:** MIT
 
@@ -6108,7 +6108,7 @@ SOFTWARE.
 
 ---
 
-## tldts@7.4.9
+## tldts@7.4.10
 
 **License:** MIT
 
@@ -6136,7 +6136,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTH
 
 ---
 
-## tldts-core@7.4.9
+## tldts-core@7.4.10
 
 **License:** MIT
 

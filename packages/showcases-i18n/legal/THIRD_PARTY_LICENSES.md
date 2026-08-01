@@ -287,7 +287,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-engine@22.0.8
+## @hellpig/anarchy-engine@22.1.0
 
 **License:** MIT
 
@@ -323,7 +323,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-i18n@1.4.8
+## @hellpig/anarchy-i18n@1.4.9
 
 **License:** MIT
 
@@ -359,7 +359,7 @@ SOFTWARE.
 
 ---
 
-## @hellpig/anarchy-shared@1.6.9
+## @hellpig/anarchy-shared@1.6.10
 
 **License:** MIT
 
