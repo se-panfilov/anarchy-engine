@@ -4,8 +4,7 @@ import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import path from 'node:path';
 import { sharedAliases } from '../../vite.alias';
-// @ts-ignore
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 import { omitInObjectWithoutMutation } from '../anarchy-shared/src/Utils/ObjectUtils';
 
 export default defineConfig((_config: ConfigEnv): UserConfig => {
@@ -20,7 +19,7 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
     plugins: [
       dts({
         entryRoot: 'src',
-        outDir: 'dist',
+        outDirs: ['dist'],
         tsconfigPath: path.resolve(__dirname, 'tsconfig.json'),
         exclude: ['**/*.spec.ts', '**/*.test.ts', 'vite.config.ts', 'src/Styles/OptionalStyles.ts'],
         // Prevent npm package aliases from being resolved to relative paths in .d.ts files
@@ -63,7 +62,7 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
           //   if (n.endsWith('.css.map')) return 'styles/[name][extname]';
           //   return 'assets/[name]-[hash][extname]';
           // },
-          inlineDynamicImports: false //extract workers to separate bundle
+          codeSplitting: true //extract workers to separate bundle
         },
         plugins: [
           terser({
@@ -83,7 +82,7 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
               comments: false,
               ascii_only: true // To prevent emoji/unicode problems
             }
-          }) as Plugin
+          })
         ]
       },
       outDir: 'dist',

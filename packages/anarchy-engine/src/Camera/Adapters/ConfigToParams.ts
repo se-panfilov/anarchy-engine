@@ -33,8 +33,7 @@ export function configToParamsCameraOnly(config: TCommonCameraConfig): Omit<TAny
 
 export function configToParamsCameraOptionsOnly(config: TCommonCameraConfig | TShadowCameraConfig): TShadowCameraParams {
   const { scale, layers, lookAt, up, ...rest } = omitInObjectWithoutMutation(config, ['audioListener' as any, 'audioListener', 'position', 'rotation', 'name', 'isActive', 'type']) as
-    | TCommonCameraConfig
-    | TShadowCameraConfig;
+    TCommonCameraConfig | TShadowCameraConfig;
 
   return {
     ...rest,

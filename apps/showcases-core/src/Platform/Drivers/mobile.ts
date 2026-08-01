@@ -1,3 +1,4 @@
+import { isDefined } from '@Anarchy/Shared/Utils';
 import type { TLocaleId } from '@hellpig/anarchy-i18n';
 import type { TBrowserInfo } from '@hellpig/anarchy-shared/Models';
 import type { TDistName, TLegalDoc, TLoadDocPayload, TReleaseName, TShowcasesGameSettings } from '@Showcases/Shared';
@@ -41,10 +42,22 @@ export function Driver(): TPlatformDriver {
     return Promise.resolve('TODO [MOBILE] mocked wrapped app version');
   }
 
-  function getAppSettings(): Promise<TShowcasesGameSettings> {
-    // TODO UPDATE cachedAppSettings
+  async function getAppSettings(): Promise<TShowcasesGameSettings> {
     console.log('TODO [MOBILE]', 'getAppSettings');
-    return Promise.resolve({} as any);
+
+    // TODO UPDATE cachedAppSettings
+    const settings: TShowcasesGameSettings | undefined = undefined as any; //await settingsWebDbService.findSettings();
+    if (isDefined(settings)) {
+      cachedAppSettings = settings;
+      return settings;
+    }
+
+    // TODO GET default settings
+    console.warn(`[MOBILE] Settings not found. Applying default settings.`);
+    const defaultSettings: TShowcasesGameSettings = { error: 'ERROR: This is a mock data' } as any; //await buildDefaultSettings();
+    cachedAppSettings = settings;
+    await setAppSettings(defaultSettings);
+    return defaultSettings;
   }
 
   const getLegalDocs = (options: TLoadDocPayload): Promise<TLegalDoc> => {

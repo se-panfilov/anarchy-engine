@@ -72,7 +72,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
           preserveModules: true,
           preserveModulesRoot: 'src',
           assetFileNames: `assets/[name]-[hash][extname]`,
-          inlineDynamicImports: false, //extract workers to separate bundle
+          codeSplitting: true, //extract workers to separate bundle
 
           // Make filenames deterministic / readable for library consumers.
           entryFileNames: '[name]/index.[format].js',

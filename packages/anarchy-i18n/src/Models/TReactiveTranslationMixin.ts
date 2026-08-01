@@ -1,5 +1,5 @@
 import type { FormatNumberOptions } from '@formatjs/intl';
-import type { FormatDateOptions } from '@formatjs/intl/src/types';
+import type { FormatDateOptions } from '@formatjs/intl';
 import type { Observable } from 'rxjs';
 
 export type TReactiveTranslationMixin = Readonly<{

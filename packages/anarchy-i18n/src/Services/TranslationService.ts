@@ -2,8 +2,8 @@ import { ReactiveTranslationMixin } from '@Anarchy/I18N/Mixins';
 import type { TLocale, TLocaleId, TLocalesMapping, TMessages, TReactiveTranslationMixin, TTranslationService } from '@Anarchy/I18N/Models';
 import type { MessageFormatElement } from '@formatjs/icu-messageformat-parser';
 import type { FormatNumberOptions, IntlCache, IntlShape } from '@formatjs/intl';
+import type { FormatDateOptions } from '@formatjs/intl';
 import { createIntl, createIntlCache } from '@formatjs/intl';
-import type { FormatDateOptions } from '@formatjs/intl/src/types';
 import { isDefined, isNotDefined } from '@hellpig/anarchy-shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, firstValueFrom, Subject } from 'rxjs';
@@ -63,7 +63,7 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
     try {
       return await loadFn();
     } catch (error) {
-      throw new Error(`[TranslateService]: Failed to load locale "${localeId}". Error: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`[TranslateService]: Failed to load locale "${localeId}". Error: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 

@@ -22,7 +22,7 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
       dts({
         // Important: emit types into dist in the same structure as build output
         entryRoot: 'src',
-        outDir: 'dist',
+        outDirs: ['dist'],
         tsconfigPath: path.resolve(__dirname, 'tsconfig.json'),
         exclude: ['**/*.spec.ts', '**/*.test.ts', 'vite.config.ts', 'src/Styles/OptionalStyles.ts'],
         // Prevent npm package aliases from being resolved to relative paths in .d.ts files

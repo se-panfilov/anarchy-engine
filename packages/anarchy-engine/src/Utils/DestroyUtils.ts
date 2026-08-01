@@ -30,6 +30,7 @@ export function disposeGltf(gltf: Object3D | null): void {
   gltf.clear?.();
   // eslint-disable-next-line functional/immutable-data
   gltf.children.length = 0;
+
   gltf = null;
 }
 
@@ -131,13 +132,12 @@ export function destroyAudio(entity: TAnyAudio): void {
   }
 
   // eslint-disable-next-line functional/immutable-data
-  entity.buffer = null as any;
+  (entity as { buffer: AudioBuffer | null }).buffer = null;
+
   // eslint-disable-next-line functional/immutable-data
-  entity.listener = null as any;
+  (entity as { source: AudioNode | null }).source = null;
   // eslint-disable-next-line functional/immutable-data
-  entity.source = null as any;
-  // eslint-disable-next-line functional/immutable-data
-  if (isDefined((entity as PositionalAudio).panner)) (entity as PositionalAudio).panner = null as any;
+  if (isDefined((entity as PositionalAudio).panner)) (entity as { panner: PannerNode | null }).panner = null;
 
   entity.removeFromParent();
   entity.clear?.();

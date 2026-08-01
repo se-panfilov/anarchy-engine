@@ -6,6 +6,6 @@ export function validateConfig(config: TSpaceConfig): void | never {
   if (!isValid) {
     // TODO LOGGER: should be forwarded to the errors hub (which is not implemented yet)
     console.error(errors);
-    throw new Error('Failed to launch a space: invalid data format');
+    throw new Error('Failed to launch a space: invalid data format', { cause: errors });
   }
 }

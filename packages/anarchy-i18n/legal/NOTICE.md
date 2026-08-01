@@ -5,25 +5,13 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 12
+Components listed: 8
 
 ## 1) Mandatory Attributions (verbatim)
 
 The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
 
-## @formatjs/ecma402-abstract@3.0.6
-
-**License(s):** MIT
-
-**Repository:** git@github.com:formatjs/formatjs.git
-
-**URL:** https://github.com/formatjs/formatjs
-
-**Attribution:** Copyright (c) 2023 FormatJS
-
----
-
-## @formatjs/fast-memoize@3.0.1
+## @formatjs/fast-memoize@3.1.7
 
 **License(s):** MIT
 
@@ -35,7 +23,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/icu-messageformat-parser@3.2.0
+## @formatjs/icu-messageformat-parser@3.5.15
 
 **License(s):** MIT
 
@@ -45,7 +33,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/icu-skeleton-parser@2.0.6
+## @formatjs/icu-skeleton-parser@2.1.11
 
 **License(s):** MIT
 
@@ -55,7 +43,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/intl@4.0.7
+## @formatjs/intl@4.1.17
 
 **License(s):** MIT
 
@@ -67,35 +55,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @formatjs/intl-localematcher@0.7.3
-
-**License(s):** MIT
-
-**Repository:** formatjs/formatjs.git
-
-**URL:** https://github.com/formatjs/formatjs#readme
-
-**Attribution:** Copyright (c) 2023 FormatJS
-
----
-
 ## Application:@hellpig/anarchy-i18n
 
 **License(s):** UNKNOWN
 
 ---
 
-## decimal.js@10.6.0
-
-**License(s):** MIT
-
-**Repository:** https://github.com/MikeMcl/decimal.js.git
-
-**Attribution:** Copyright (c) 2025 Michael Mclaughlin
-
----
-
-## intl-messageformat@11.0.7
+## intl-messageformat@11.2.12
 
 **License(s):** BSD-3-Clause
 
@@ -128,18 +94,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://www.typescriptlang.org/
 
 **Attribution:** Copyright (c) Microsoft Corporation.
-
----
-
-## typescript@5.9.3
-
-**License(s):** Apache-2.0
-
-**Repository:** https://github.com/microsoft/TypeScript.git
-
-**URL:** https://www.typescriptlang.org/
-
-**Attribution:** Microsoft Corp.
 
 ---
 

@@ -64,7 +64,7 @@ jobs:
     timeout-minutes: 30
 
     env:
-      NODE_VERSION: "24"
+      NODE_VERSION: "26"
       TARGET: ${{ inputs.target }}
       MODE: ${{ inputs.mode }}
       APP: ${{ inputs.app }}
@@ -104,9 +104,9 @@ jobs:
           path: |
             ~/.cache/electron
             ~/.cache/electron-builder
-          key: ${{ runner.os }}-electron-cache-node24-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-electron-cache-node26-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-electron-cache-node24-
+            ${{ runner.os }}-electron-cache-node26-
             ${{ runner.os }}-electron-cache-
 
       - name: Cache Electron / electron-builder downloads (macOS)
@@ -116,9 +116,9 @@ jobs:
           path: |
             ~/Library/Caches/electron
             ~/Library/Caches/electron-builder
-          key: ${{ runner.os }}-electron-cache-node24-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-electron-cache-node26-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-electron-cache-node24-
+            ${{ runner.os }}-electron-cache-node26-
             ${{ runner.os }}-electron-cache-
 
       - name: Cache Electron / electron-builder downloads (Windows)
@@ -128,9 +128,9 @@ jobs:
           path: |
             ${{ env.LOCALAPPDATA }}\electron\Cache
             ${{ env.LOCALAPPDATA }}\electron-builder\Cache
-          key: ${{ runner.os }}-electron-cache-node24-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-electron-cache-node26-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-electron-cache-node24-
+            ${{ runner.os }}-electron-cache-node26-
             ${{ runner.os }}-electron-cache-
 
       - name: Parse + validate target

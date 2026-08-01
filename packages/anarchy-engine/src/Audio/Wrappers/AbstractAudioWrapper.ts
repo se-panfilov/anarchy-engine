@@ -80,15 +80,18 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
     .subscribe((shouldLoop: boolean): void => void entity.setLoop(shouldLoop));
 
   const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
-    wrapper.entity.stop();
-    destroyAudio(wrapper.entity as TAnyAudio);
-
     destroySub$.unsubscribe();
 
-    // eslint-disable-next-line functional/immutable-data
-    if (listener$.value) listener$.value.context = null as any;
-    // eslint-disable-next-line functional/immutable-data
-    if (listener$.value) listener$.value.gain = null as any;
+    // disposeAudio MUST run before destroyAudio: it needs gain and panner references
+    // that destroyAudio will nullify as part of Three.js-level cleanup.
+    disposeAudio(entity);
+    destroyAudio(wrapper.entity as TAnyAudio);
+
+    // NOTE: listener$.value.context and listener$.value.gain are intentionally NOT nullified.
+    // AudioListener is a shared singleton (attached to the camera) whose context (AudioContext)
+    // and gain (master GainNode) are global resources for the entire scene.
+    // Nullifying them here would destroy audio for every other object in the application.
+    // The listener reference is released implicitly when listener$.complete() is called.
     listener$.complete();
 
     play$.complete();
@@ -97,7 +100,6 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
     seek$.complete();
     loop$.complete();
     volume$.complete();
-    disposeAudio(entity);
   });
 
   // eslint-disable-next-line functional/immutable-data

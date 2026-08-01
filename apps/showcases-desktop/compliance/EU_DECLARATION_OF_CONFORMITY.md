@@ -11,7 +11,9 @@
 ## Product Identification
 
 - **Product name:** Anarchy Engine Showcases (the “Software”)
+
 - **Technical identifiers:** `showcases-desktop`
+
 - **Type / model:** anarchy-showcases (product family of Anarchy Engine Showcases)
 - **Intended use:** Standalone software (product with digital elements) operating **offline** by default; no personal-data processing by default.
 

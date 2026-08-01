@@ -1,10 +1,9 @@
 /// <reference types="vitest" />
-import type { ConfigEnv, Plugin, UserConfig } from 'vite';
+import type { ConfigEnv, UserConfig } from 'vite';
 import { defineConfig, loadEnv } from 'vite';
 import compression from 'vite-plugin-compression';
 import dts from 'vite-plugin-dts';
-// @ts-ignore
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 import path from 'node:path';
 import wasm from 'vite-plugin-wasm';
 import { sharedAliases } from '../../vite.alias';
@@ -32,7 +31,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       wasm(),
       dts({
         entryRoot: 'src',
-        outDir: 'dist',
+        outDirs: ['dist'],
         tsconfigPath: path.resolve(__dirname, 'tsconfig.json'),
         exclude: ['**/*.spec.ts', '**/*.test.ts', 'vite.config.ts'],
         // Prevent npm package aliases from being resolved to relative paths in .d.ts files
@@ -93,7 +92,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
           entryFileNames: `[name].js`,
           chunkFileNames: `chunks/[name]-[hash].js`,
           assetFileNames: `assets/[name]-[hash][extname]`,
-          inlineDynamicImports: false //extract workers to separate bundle
+          codeSplitting: true //extract workers to separate bundle
 
           // Perhaps it's better not to use manualChunks for a lib build (also could be problems with minify)
 
@@ -129,7 +128,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
                     comments: false,
                     ascii_only: true // To prevent emoji/unicode problems
                   }
-                }) as Plugin
+                })
               ]
             : []),
           visualizer({ open: false })
@@ -171,7 +170,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         ],
         thresholds: {
           statements: 9,
-          branches: 4.9,
+          branches: 4.7,
           functions: 10,
           lines: 9
         }

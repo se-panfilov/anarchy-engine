@@ -3,7 +3,7 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import functionalPlugin from 'eslint-plugin-functional';
-import spellcheck from 'eslint-plugin-spellcheck';
+import { spellcheck } from './SpellcheckCompat.mjs';
 import vue from 'eslint-plugin-vue';
 
 export const plugins = {

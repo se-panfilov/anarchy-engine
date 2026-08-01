@@ -41,12 +41,15 @@ You may:
 - install and use the Software on devices you own or control;
 - make personal backup copies for your own use;
 - reverse engineer, decompile, disassemble, analyze and modify the Software to the extent permitted by applicable law **and** for interoperability, modding and educational purposes;
+
 - share **unmodified** copies of the Software **free of charge** with other individuals, provided that you include this EULA, do not hold us responsible for any issues arising from such sharing, and only where this is not prohibited by applicable law or the terms of the relevant Distribution Channel.
+
 - distribute or resell the Software commercially **as an unofficial build**, provided that you (i) clearly and prominently state that your distribution is **unofficial and not endorsed** by us, (ii) do **not** use our trademarks, logos or branding beyond nominative fair use, (iii) include this EULA and all third-party notices, (iv) do not modify or bundle the Software with malware, adware, or telemetry, and (v) only where this is not prohibited by applicable law or the terms of the relevant Distribution Channel.
 
 You must **not:**
 
 - create, market, distribute or use **cheats, hacks, bots, aimbots, trainers, exploits** or other tools intended to gain an unfair advantage, disrupt operation or user experience, bypass anti-cheat, or compromise the integrity or security of the Software or others’ systems;
+
 - develop, embed or distribute **malware** or use the Software as a vehicle for malicious code, phishing, or fraud;
 - **impersonate** us or **mislead** users by presenting your builds as “official”, using confusingly similar names, or implying sponsorship, endorsement, or partnership without our prior written permission;
 - violate applicable law or third-party rights when using, modifying, or sharing the Software.

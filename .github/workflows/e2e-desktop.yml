@@ -197,10 +197,10 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .playwright-browsers
-          key: ${{ runner.os }}-node24-pw-${{ steps.pw.outputs.version }}-${{ hashFiles('package-lock.json', 'apps/showcases-e2e/playwright.config.ts') }}
+          key: ${{ runner.os }}-node26-pw-${{ steps.pw.outputs.version }}-${{ hashFiles('package-lock.json', 'apps/showcases-e2e/playwright.config.ts') }}
           restore-keys: |
-            ${{ runner.os }}-node24-pw-${{ steps.pw.outputs.version }}-
-            ${{ runner.os }}-node24-pw-
+            ${{ runner.os }}-node26-pw-${{ steps.pw.outputs.version }}-
+            ${{ runner.os }}-node26-pw-
 
       # NOTE:
       # Desktop E2E may not require Playwright browser downloads (depends on your setup).

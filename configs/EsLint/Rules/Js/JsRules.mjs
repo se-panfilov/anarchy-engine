@@ -1,6 +1,7 @@
 export const JsRules = {
   'consistent-return': 'error',
   'no-useless-computed-key': 'error',
+  'no-useless-assignment': 'off',
   'no-restricted-syntax': [
     'error',
     { selector: "MethodDefinition[kind='set']", message: 'Property setters are not allowed' },

@@ -24,7 +24,7 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
     plugins: [
       dts({
         entryRoot: 'src',
-        outDir: 'dist',
+        outDirs: ['dist'],
         tsconfigPath: path.resolve(__dirname, 'tsconfig.json'),
         exclude: ['**/*.spec.ts', '**/*.test.ts', 'vite.config.ts'],
         // Prevent npm package aliases from being resolved to relative paths in .d.ts files
@@ -68,7 +68,7 @@ export default defineConfig((_config: ConfigEnv): UserConfig => {
             if (n.endsWith('.css.map')) return 'styles/[name][extname]';
             return 'assets/[name]-[hash][extname]';
           },
-          inlineDynamicImports: false //extract workers to separate bundle
+          codeSplitting: true //extract workers to separate bundle
         }
       },
       outDir: 'dist',

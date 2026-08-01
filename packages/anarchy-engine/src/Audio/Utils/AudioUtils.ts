@@ -59,13 +59,23 @@ export function onAudioPositionUpdate(position$: BehaviorSubject<TReadonlyVector
   );
 }
 
+// Must be called BEFORE destroyAudio()
 export function disposeAudio(audio: TAnyAudio): void {
-  if (audio.isPlaying) audio.stop();
   audio.setBuffer(null as any);
+  if (audio.isPlaying) audio.stop();
   if (audio.parent) audio.removeFromParent();
-  if (audio.gain) audio.gain.disconnect();
-  if ((audio as PositionalAudio).panner) (audio as PositionalAudio).panner.disconnect();
+  try {
+    audio.gain?.disconnect();
+  } catch {
+    // gain may already be disconnected (e.g. if AudioContext was suspended or closed)
+  }
 
-  // eslint-disable-next-line functional/immutable-data
-  audio.source = null;
+  const panner = (audio as PositionalAudio).panner;
+  if (isDefined(panner)) {
+    try {
+      panner.disconnect();
+    } catch {
+      // panner may already be disconnected
+    }
+  }
 }

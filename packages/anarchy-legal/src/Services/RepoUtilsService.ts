@@ -479,7 +479,7 @@ export function RepoUtilsService(): TRepoUtilsService {
         ...(it.url ? [`**URL:** ${it.url}\n`] : []),
         ...(it.publisher ? [`**Publisher:** ${it.publisher}${it.email ? ` <${it.email}>` : ''}\n`] : []),
         ``,
-        ...(it.licenseText ? [it.licenseText.trim(), ``] : [`_No license text file found; relying on package metadata._`, ``])
+        ...(it.licenseText ? ['```', it.licenseText.trim(), '```', ``] : [`_No license text file found; relying on package metadata._`, ``])
       ];
     });
 

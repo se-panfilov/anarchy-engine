@@ -75,7 +75,7 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
       return config;
     } catch (e) {
       const msg: string = e instanceof Error ? e.message : String(e);
-      throw new Error(`Failed to load config ${found}: ${msg}`);
+      throw new Error(`Failed to load config ${found}: ${msg}`, { cause: e });
     }
   }
 

@@ -30,16 +30,15 @@ export function ActorService(factory: TActorFactory, registry: TActorRegistry, a
   const createFromList = (list: ReadonlyArray<TActorParams>): ReadonlyArray<TActor> => list.map(create);
   const createFromConfig = (actors: ReadonlyArray<TActorConfig>): ReadonlyArray<TActor> => {
     const spatialGridRegistry: TSpatialGridRegistry = actorServiceDependencies.spatialGridService.getRegistry();
-    return actors.map(
-      (config: TActorConfig): TActor =>
-        create(
-          factory.configToParams(config, {
-            spatialGridRegistry,
-            models3dService: actorServiceDependencies.models3dService,
-            fsmService: actorServiceDependencies.fsmService,
-            physicsBodyService: actorServiceDependencies.physicsBodyService
-          })
-        )
+    return actors.map((config: TActorConfig): TActor =>
+      create(
+        factory.configToParams(config, {
+          spatialGridRegistry,
+          models3dService: actorServiceDependencies.models3dService,
+          fsmService: actorServiceDependencies.fsmService,
+          physicsBodyService: actorServiceDependencies.physicsBodyService
+        })
+      )
     );
   };
 
