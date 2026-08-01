@@ -16,12 +16,17 @@ const repoRoot = process.cwd();
 
 function run(cmd, args, opts = {}) {
   const r = spawnSync(cmd, args, { stdio: 'inherit', cwd: repoRoot, ...opts });
-  if (r.status !== 0) throw new Error(`Command failed: ${cmd} ${args.join(' ')}`);
+  if (r.error) throw r.error;
+  if (r.status !== 0) throw new Error(`Command failed (exit ${r.status}): ${cmd} ${args.join(' ')}`);
 }
 
 function runCapture(cmd, args, opts = {}) {
   const r = spawnSync(cmd, args, { encoding: 'utf8', cwd: repoRoot, ...opts });
-  if (r.status !== 0) throw new Error(`Command failed: ${cmd} ${args.join(' ')}`);
+  if (r.error) throw r.error;
+  if (r.status !== 0) {
+    const stderr = (r.stderr ?? '').trim();
+    throw new Error(`Command failed (exit ${r.status}): ${cmd} ${args.join(' ')}${stderr ? `\n${stderr}` : ''}`);
+  }
   return (r.stdout ?? '').trim();
 }
 
@@ -37,8 +42,10 @@ function ghReleaseExists(tag) {
   try {
     runCapture('gh', ['release', 'view', tag]);
     return true;
-  } catch {
-    return false;
+  } catch (err) {
+    const msg = String(err?.message ?? '').toLowerCase();
+    if (msg.includes('not found') || msg.includes('could not find') || msg.includes('release not found')) return false;
+    throw new Error(`Unexpected error checking GitHub release "${tag}": ${err?.message ?? err}`);
   }
 }
 
@@ -47,9 +54,13 @@ function isAlreadyPublished(npmName, version) {
   try {
     const v = runCapture('npm', ['view', `${npmName}@${version}`, 'version']);
     return v === version;
-  } catch {
-    // Typically 404 / not found => not published
-    return false;
+  } catch (err) {
+    // Only treat as "not published" for genuine 404 / not-found responses.
+    // Re-throw for network errors, auth failures, etc. to prevent accidentally
+    // double-publishing or skipping a publish step silently.
+    const msg = String(err?.message ?? '').toLowerCase();
+    if (msg.includes('e404') || msg.includes('not found') || msg.includes('no match found')) return false;
+    throw new Error(`Unexpected error checking npm registry for ${npmName}@${version}: ${err?.message ?? err}`);
   }
 }
 
@@ -76,7 +87,12 @@ function tarballHasDist(tgzPath) {
 }
 
 function main() {
-  const plan = JSON.parse(process.env.RELEASE_PLAN_JSON ?? '{}');
+  let plan;
+  try {
+    plan = JSON.parse(process.env.RELEASE_PLAN_JSON ?? '{}');
+  } catch (e) {
+    throw new Error(`Failed to parse RELEASE_PLAN_JSON: ${e.message}`);
+  }
   const dryRun = (process.env.DRY_RUN ?? 'false') === 'true';
 
   const skipAlready = (process.env.RELEASE_SKIP_ALREADY_PUBLISHED ?? 'true') === 'true';
@@ -225,7 +241,7 @@ function main() {
       throw new Error(`Missing tarball for publish ${r.npmName}@${r.version}. Tag=${tag}, tarball=${tgzPath}`);
     }
 
-    run('npm', ['publish', tgzPath, '--access', 'public']);
+    run('npm', ['publish', tgzPath, '--access', 'public', '--provenance']);
   }
 
   console.log('\nRelease done.');

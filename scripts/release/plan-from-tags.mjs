@@ -11,7 +11,11 @@ const repoRoot = process.cwd();
 
 function runCapture(cmd, args) {
   const r = spawnSync(cmd, args, { encoding: 'utf8', cwd: repoRoot });
-  if (r.status !== 0) throw new Error(`Command failed: ${cmd} ${args.join(' ')}`);
+  if (r.error) throw r.error;
+  if (r.status !== 0) {
+    const stderr = (r.stderr ?? '').trim();
+    throw new Error(`Command failed (exit ${r.status}): ${cmd} ${args.join(' ')}${stderr ? `\n${stderr}` : ''}`);
+  }
   return (r.stdout ?? '').trim();
 }
 

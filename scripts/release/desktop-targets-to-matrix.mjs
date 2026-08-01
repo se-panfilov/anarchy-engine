@@ -5,6 +5,7 @@ const env = (process.env.DESKTOP_ENV ?? 'prod').trim(); // prod | dev | e2e
 
 const allowedPlatforms = new Set(['mac', 'win', 'linux']);
 const allowedArch = new Set(['arm64', 'x64', 'universal']);
+const allowedEnvs = new Set(['prod', 'dev', 'e2e']);
 
 const allowedArtifact = {
   mac: new Set(['app', 'dmg']),
@@ -22,6 +23,8 @@ function err(msg) {
   console.error(msg);
   process.exit(1);
 }
+
+if (!allowedEnvs.has(env)) err(`Invalid DESKTOP_ENV: "${env}". Allowed: ${[...allowedEnvs].join('|')}`);
 
 if (!raw) {
   console.log(JSON.stringify([]));

@@ -67,14 +67,15 @@ jobs:
     timeout-minutes: 15
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.m.outputs.matrix }}
-    steps:
       - name: Debug trigger
+        shell: bash
+        env:
+          INPUT_REF: ${{ github.event.inputs.ref }}
         run: |
           echo "event=${{ github.event_name }}"
           echo "actor=${{ github.actor }}"
           echo "ref=${{ github.ref }}"
-          echo "input.ref=${{ github.event.inputs.ref }}"
+          echo "input.ref=${INPUT_REF}"
           echo "input.e2eTargets=${{ github.event.inputs.e2eTargets }}"
           echo "input.updateSnapshots=${{ github.event.inputs.updateSnapshots }}"
           echo "input.failFast=${{ github.event.inputs.failFast }}"
@@ -102,9 +103,10 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
+          INPUT_REF: ${{ github.event.inputs.ref }}
         run: |
           set -euo pipefail
-          ref="${{ github.event.inputs.ref }}"
+          ref="$INPUT_REF"
           if gh api "repos/${{ github.repository }}/git/ref/heads/${ref}" >/dev/null 2>&1; then
             echo "Ref is a branch: $ref"
           else
@@ -112,27 +114,30 @@ jobs:
             exit 1
           fi
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           ref: ${{ github.event.inputs.ref }}
           fetch-depth: 0
           persist-credentials: true
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
           node-version-file: .nvmrc
           cache: npm
           cache-dependency-path: package-lock.json
 
       - name: Install deps
-        run: npm ci
+        run: npm ci --no-audit --no-fund
 
       - name: Build matrix from input
         id: m
         shell: bash
+        env:
+          DESKTOP_TARGETS: ${{ github.event.inputs.e2eTargets }}
+          DESKTOP_ENV: e2e
         run: |
           set -euo pipefail
-          MATRIX="$(DESKTOP_TARGETS='${{ github.event.inputs.e2eTargets }}' DESKTOP_ENV='e2e' node ./scripts/release/desktop-targets-to-matrix.mjs)"
+          MATRIX="$(node ./scripts/release/desktop-targets-to-matrix.mjs)"
           echo "matrix<<EOF" >> "$GITHUB_OUTPUT"
           echo "$MATRIX" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
@@ -149,27 +154,30 @@ jobs:
 
     steps:
       - name: Debug target
+        shell: bash
+        env:
+          INPUT_REF: ${{ github.event.inputs.ref }}
         run: |
           echo "os=${{ matrix.target.os }}"
           echo "platform=${{ matrix.target.platform }}"
           echo "artifact=${{ matrix.target.artifact }}"
           echo "arch=${{ matrix.target.arch }}"
-          echo "ref=${{ github.event.inputs.ref }}"
+          echo "ref=${INPUT_REF}"
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           ref: ${{ github.event.inputs.ref }}
           fetch-depth: 0
           persist-credentials: true
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
           node-version-file: .nvmrc
           cache: npm
           cache-dependency-path: package-lock.json
 
       - name: Install deps
-        run: npm ci
+        run: npm ci --no-audit --no-fund
 
       - name: Detect installed Playwright version
         id: pw
@@ -194,13 +202,13 @@ jobs:
           NODE
 
       - name: Cache Playwright browsers (optional)
-        uses: actions/cache@v4
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
         with:
           path: .playwright-browsers
-          key: ${{ runner.os }}-node26-pw-${{ steps.pw.outputs.version }}-${{ hashFiles('package-lock.json', 'apps/showcases-e2e/playwright.config.ts') }}
+          key: ${{ runner.os }}-pw-${{ steps.pw.outputs.version }}-${{ hashFiles('package-lock.json', 'apps/showcases-e2e/playwright.config.ts') }}
           restore-keys: |
-            ${{ runner.os }}-node26-pw-${{ steps.pw.outputs.version }}-
-            ${{ runner.os }}-node26-pw-
+            ${{ runner.os }}-pw-${{ steps.pw.outputs.version }}-
+            ${{ runner.os }}-pw-
 
       # NOTE:
       # Desktop E2E may not require Playwright browser downloads (depends on your setup).
@@ -263,10 +271,11 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
+          INPUT_REF: ${{ github.event.inputs.ref }}
         run: |
           set -euo pipefail
 
-          REF="${{ github.event.inputs.ref }}"
+          REF="$INPUT_REF"
           SAFE_REF="$(echo "$REF" | tr '/' '-' | tr -cd 'A-Za-z0-9._-')"
 
           TARGET="${{ matrix.target.platform }}-${{ matrix.target.artifact }}-${{ matrix.target.arch }}"
@@ -304,7 +313,7 @@ jobs:
 
       - name: Upload Playwright report (if exists)
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
           name: playwright-report-desktop-${{ matrix.target.platform }}-${{ matrix.target.arch }}-${{ github.run_id }}
           path: |
