@@ -131,9 +131,12 @@ jobs:
       - name: Build matrix from input
         id: m
         shell: bash
+        env:
+          DESKTOP_TARGETS: ${{ github.event.inputs.e2eTargets }}
+          DESKTOP_ENV: e2e
         run: |
           set -euo pipefail
-          MATRIX="$(DESKTOP_TARGETS='${{ github.event.inputs.e2eTargets }}' DESKTOP_ENV='e2e' node ./scripts/release/desktop-targets-to-matrix.mjs)"
+          MATRIX="$(node ./scripts/release/desktop-targets-to-matrix.mjs)"
           echo "matrix<<EOF" >> "$GITHUB_OUTPUT"
           echo "$MATRIX" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
