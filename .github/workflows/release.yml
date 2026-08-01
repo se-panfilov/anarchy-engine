@@ -65,12 +65,12 @@ jobs:
               ;;
           esac
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
           persist-credentials: true
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version-file: .nvmrc
           registry-url: https://registry.npmjs.org
@@ -84,19 +84,22 @@ jobs:
           echo "npm:  $(npm -v)"
 
       - name: Install deps
-        run: npm ci
+        run: npm ci --no-audit --no-fund
 
       - name: Configure git identity for tagging
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Build release plan (anarchy-* only)
         id: plan
         shell: bash
+        env:
+          INPUT_RELEASE_MODE: ${{ inputs.mode }}
+          INPUT_RELEASE_WORKSPACE: ${{ inputs.workspace }}
         run: |
           set -euo pipefail
-          PLAN="$(RELEASE_MODE='${{ inputs.mode }}' RELEASE_WORKSPACE='${{ inputs.workspace }}' node ./scripts/release/plan-from-tags.mjs)"
+          PLAN="$(RELEASE_MODE="$INPUT_RELEASE_MODE" RELEASE_WORKSPACE="$INPUT_RELEASE_WORKSPACE" node ./scripts/release/plan-from-tags.mjs)"
           echo "plan<<EOF" >> "$GITHUB_OUTPUT"
           echo "$PLAN" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
@@ -105,7 +108,7 @@ jobs:
 
       - name: Execute release (build + pack + tags + GitHub releases + npm publish)
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
           RELEASE_PLAN_JSON: ${{ steps.plan.outputs.plan }}
           DRY_RUN: ${{ inputs.dryRun && 'true' || 'false' }}
 
